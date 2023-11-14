@@ -6,6 +6,8 @@ from datetime import datetime
 
 from lxml import etree as ET
 
+from packtools.sps.formats.values import crossmark_pub_types
+
 from packtools.sps.models import (
     journal_meta,
     dates,
@@ -19,6 +21,7 @@ from packtools.sps.models import (
     article_titles,
     article_doi_with_lang,
     article_citations,
+    related_articles,
 )
 
 SUPPLBEG_REGEX = re.compile(r'^0 ')
@@ -1399,6 +1402,283 @@ def xml_crossref_pid_pipe(xml_crossref, xml_tree):
     publisher_item.append(identifier)
 
     xml_crossref.find('./body/journal/journal_article').append(publisher_item)
+
+
+def xml_crossref_crossmark_pipe(xml_crossref):
+    """
+    Adiciona o elemento 'crossmark' ao XML Crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    Returns
+    -------
+    None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark/>
+            </journal_article>
+        </journal>
+    </body>
+    """
+    crossmark = ET.Element("crossmark")
+    article_el = xml_crossref.find('./body/journal/journal_article')
+    article_el.append(crossmark)
+
+
+def xml_crossref_crossmark_policy_pipe(xml_crossref, data):
+    """
+    Adiciona o elemento 'crossmark_policy' ao XML Crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+            data = {
+                "crossmark_policy": "10.5555/crossmark_policy"
+            }
+
+    Returns
+    -------
+    None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <crossmark_policy>10.5555/crossmark_policy</crossmark_policy>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
+    """
+    policy_value = data.get("crossmark_policy")
+
+    if policy_value:
+        crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+        policy_el = ET.Element("crossmark_policy")
+        policy_el.text = policy_value
+        crossmark_el.append(policy_el)
+
+
+def xml_crossref_crossmark_domains_pipe(xml_crossref, data):
+    """
+    Adiciona o elemento 'crossmark_domains' ao XML Crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+            data = {
+                "crossmark_domains": ["psychoceramics.labs.crossref.org"],
+                "crossmark_domain_exclusive": "false"
+            }
+
+    Returns
+    -------
+    None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <crossmark_domains>
+                        <crossmark_domain>
+                            <domain>psychoceramics.labs.crossref.org</domain>
+                        </crossmark_domain>
+                    </crossmark_domains>
+                    <crossmark_domain_exclusive>false</crossmark_domain_exclusive>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
+    """
+    crossmark_domains = data.get("crossmark_domains")
+    crossmark_domain_exclusive = data.get("crossmark_domain_exclusive")
+
+    crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+
+    if crossmark_domains:
+        crossmark_domains_el = ET.Element("crossmark_domains")
+        for crossmark_domain_value in crossmark_domains:
+            crossmark_domain_el = ET.Element("crossmark_domain")
+            domain_el = ET.Element("domain")
+            domain_el.text = crossmark_domain_value
+            crossmark_domain_el.append(domain_el)
+            crossmark_domains_el.append(crossmark_domain_el)
+        crossmark_el.append(crossmark_domains_el)
+
+    if crossmark_domain_exclusive:
+        crossmark_domain_exclusive_el = ET.Element("crossmark_domain_exclusive")
+        crossmark_domain_exclusive_el.text = crossmark_domain_exclusive
+        crossmark_el.append(crossmark_domain_exclusive_el)
+
+
+def create_update_element(rel_article):
+    update_el = ET.Element("update")
+    href = rel_article.get("href")
+    tp = crossmark_pub_types.get(rel_article.get("related-article-type"))
+    date = rel_article.get("date")
+
+    if href:
+        update_el.text = href
+    if tp:
+        update_el.set("type", tp)
+    if date:
+        update_el.set("date", date)
+
+    return update_el
+
+
+def xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data):
+    """
+    Adiciona o elemento 'update' ao XML Crossref se houver um DOI de atualização.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados sobre atualizações
+
+    Returns
+    -------
+    None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="correction" reference_distribution_opts="any">
+                <crossmark>
+                    <updates>
+                        <update type="correction">10.1590/1519-6984.263364</update>
+                    </updates>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
+    """
+
+    # Obter informações necessárias do XML SciELO
+    rel_articles = [item for item in related_articles.RelatedItems(xml_tree).related_articles]
+    rel_articles_from_data = data.get("related-articles")
+
+    if rel_articles_from_data:
+        rel_articles.extend(rel_articles_from_data)
+
+    for rel_article in rel_articles:
+        if rel_article:
+            update_el = create_update_element(rel_article)
+
+            # Verificar se já existe um elemento 'updates' no XML Crossref
+            crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+            updates_el = crossmark_el.find('updates')
+
+            if updates_el is None:
+                updates_el = ET.Element("updates")
+                crossmark_el.append(updates_el)
+
+            updates_el.append(update_el)
+
+
+def xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data):
+    """
+    Adiciona o elemento 'custom_metadata' ao xml_crossref.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados sobre atualizações
+
+    data : dict
+        Dicionário com dados suplementares para a criação do xml_crossref como, por exemplo:
+            data = {
+                "assertions": [
+                    {
+                        "name": "remorse",
+                        "label": "Level of Remorse",
+                        "group_name": "publication_notes",
+                        "group_label": "Publication Notes",
+                        "text": "90%"
+                    }
+                ]
+            }
+
+    Returns
+    -------
+    None
+
+    XML Crossref example
+    --------------------
+    <body>
+        <journal>
+            <journal_article language="en" publication_type="research-article" reference_distribution_opts="any">
+                <crossmark>
+                    <custom_metadata>
+                        <assertion name="received" label="Received" group_name="publication_history" group_label="Publication History" order="0">2022-04-23</assertion>
+                        <assertion name="accepted" label="Accepted" group_name="publication_history" group_label="Publication History" order="1">2022-08-17</assertion>
+                        <assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>
+                    </custom_metadata>
+                </crossmark>
+            </journal_article>
+        </journal>
+    </body>
+    """
+    history = dates.ArticleDates(xml_tree).history_dates_dict
+
+    for order, item in enumerate(history):
+        event = history[item]
+        data.get("assertions").insert(order,
+            {
+                "name": event.get("type"),
+                "label": event.get("type").capitalize(),
+                "group_name": "publication_history",
+                "group_label": "Publication History",
+                "order": str(order),
+                "text": '-'.join([event.get("year"), event.get("month"), event.get("day")])
+            }
+        )
+
+    assertions = data.get("assertions")
+
+    if assertions:
+        crossmark_el = xml_crossref.find('./body/journal/journal_article/crossmark')
+        custom_metadata_el = ET.Element("custom_metadata")
+
+        for assertion in assertions:
+            text = assertion.get("text")
+            if text:
+                assertion_el = ET.Element("assertion")
+                assertion_el.text = text
+                attributes = ["name", "label", "group_name", "group_label", "order"]
+                for attr in attributes:
+                    value = assertion.get(attr)
+                    if value:
+                        assertion_el.set(attr, value)
+                custom_metadata_el.append(assertion_el)
+
+        crossmark_el.append(custom_metadata_el)
 
 
 def xml_crossref_elocation_pipe(xml_crossref, xml_tree):

@@ -4,41 +4,7 @@ from unittest.mock import patch
 from lxml import etree as ET
 
 from packtools.sps.utils import xml_utils
-from packtools.sps.formats.crossref import (
-    pipeline_crossref,
-    setupdoibatch_pipe,
-    xml_crossref_head_pipe,
-    xml_crossref_doibatchid_pipe,
-    xml_crossref_timestamp_pipe,
-    xml_crossref_depositor_pipe,
-    xml_crossref_registrant_pipe,
-    xml_crossref_body_pipe,
-    xml_crossref_journal_pipe,
-    xml_crossref_journalmetadata_pipe,
-    xml_crossref_journaltitle_pipe,
-    xml_crossref_abbreviatedjournaltitle_pipe,
-    xml_crossref_issn_pipe,
-    xml_crossref_journalissue_pipe,
-    xml_crossref_pubdate_pipe,
-    xml_crossref_journalvolume_pipe,
-    xml_crossref_volume_pipe,
-    xml_crossref_issue_pipe,
-    xml_crossref_journalarticle_pipe,
-    xml_crossref_articlecontributors_pipe,
-    xml_crossref_articleabstract_pipe,
-    xml_crossref_articlepubdate_pipe,
-    xml_crossref_pages_pipe,
-    xml_crossref_pid_pipe,
-    xml_crossref_elocation_pipe,
-    xml_crossref_permissions_pipe,
-    xml_crossref_articletitles_pipe,
-    xml_crossref_programrelateditem_pipe,
-    xml_crossref_doidata_pipe,
-    xml_crossref_doi_pipe,
-    xml_crossref_resource_pipe,
-    xml_crossref_collection_pipe,
-    xml_crossref_articlecitations_pipe,
-)
+from packtools.sps.formats import crossref
 
 
 class PipelineCrossref(TestCase):
@@ -53,7 +19,7 @@ class PipelineCrossref(TestCase):
             'http://www.crossref.org/schemas/crossref4.4.0.xsd"/>'
         )
 
-        result = setupdoibatch_pipe()
+        result = crossref.setupdoibatch_pipe()
         obtained = ET.tostring(result, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(expected, obtained)
@@ -71,7 +37,7 @@ class PipelineCrossref(TestCase):
             """
         )
 
-        xml_crossref_head_pipe(xml_crossref)
+        crossref.xml_crossref_head_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('head'))
 
@@ -92,7 +58,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_doibatchid_pipe(xml_crossref)
+        crossref.xml_crossref_doibatchid_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -113,7 +79,7 @@ class PipelineCrossref(TestCase):
             '</head>'
             '</doi_batch>'
         )
-        xml_crossref_timestamp_pipe(xml_crossref)
+        crossref.xml_crossref_timestamp_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -141,7 +107,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_depositor_pipe(xml_crossref, data)
+        crossref.xml_crossref_depositor_pipe(xml_crossref, data)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -164,15 +130,15 @@ class PipelineCrossref(TestCase):
             '</head>'
             '</doi_batch>'
         )
-        xml_crossref_registrant_pipe(xml_crossref, data)
+        crossref.xml_crossref_registrant_pipe(xml_crossref, data)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, self.obtained)
 
     def test_xml_body_pipe(self):
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('body'))
 
@@ -185,7 +151,7 @@ class PipelineCrossref(TestCase):
             '</body>'
             '</doi_batch>'
         )
-        xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal'))
 
@@ -201,7 +167,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalmetadata_pipe(xml_crossref)
+        crossref.xml_crossref_journalmetadata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
 
@@ -242,7 +208,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journaltitle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_journaltitle_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -283,7 +249,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -324,7 +290,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_issn_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_issn_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -340,7 +306,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalissue_pipe(xml_crossref)
+        crossref.xml_crossref_journalissue_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue'))
 
@@ -386,7 +352,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_pubdate_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_pubdate_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -404,7 +370,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalvolume_pipe(xml_crossref)
+        crossref.xml_crossref_journalvolume_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue/journal_volume'))
 
@@ -452,7 +418,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_volume_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_volume_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -503,7 +469,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_issue_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_issue_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -543,7 +509,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -651,7 +617,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -784,7 +750,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -926,7 +892,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1170,7 +1136,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1279,12 +1245,12 @@ class PipelineCrossref(TestCase):
         #     '</body>'
         #     '</doi_batch>'
         # )
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articleabstract_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articleabstract_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1346,12 +1312,12 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1401,7 +1367,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_pages_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_pages_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1449,7 +1415,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_pid_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_pid_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1507,7 +1473,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_elocation_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_elocation_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1582,12 +1548,12 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_permissions_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_permissions_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1656,12 +1622,12 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articletitles_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articletitles_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1720,12 +1686,12 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1762,12 +1728,12 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_doidata_pipe(xml_crossref)
+        crossref.xml_crossref_doidata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('.//doi_data'))
 
@@ -1817,13 +1783,13 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_crossref_doi_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_doi_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1867,13 +1833,13 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_crossref_resource_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_resource_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1925,13 +1891,13 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_doidata_pipe(xml_crossref)
 
-        xml_crossref_collection_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_collection_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2089,12 +2055,507 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
-        xml_crossref_body_pipe(xml_crossref)
-        xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref = crossref.setupdoibatch_pipe()
+        crossref.xml_crossref_body_pipe(xml_crossref)
+        crossref.xml_crossref_journal_pipe(xml_crossref)
+        crossref.xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
+        crossref.xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any" />'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        crossref.xml_crossref_crossmark_pipe(xml_crossref)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_policy_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<crossmark_policy>10.5555/crossmark_policy</crossmark_policy>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "crossmark_policy": "10.5555/crossmark_policy"
+        }
+
+        crossref.xml_crossref_crossmark_policy_pipe(xml_crossref, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_domains_pipe(self):
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<crossmark_domains>'
+            '<crossmark_domain>'
+            '<domain>psychoceramics.labs.crossref.org</domain>'
+            '</crossmark_domain>'
+            '</crossmark_domains>'
+            '<crossmark_domain_exclusive>false</crossmark_domain_exclusive>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "crossmark_domains": ["psychoceramics.labs.crossref.org"],
+            "crossmark_domain_exclusive": "false"
+        }
+
+        crossref.xml_crossref_crossmark_domains_pipe(xml_crossref, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_updates_correction_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">5chbLYfpJfJVdGRbTD6krTQ</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100903</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbER263364</article-id>'
+            '<article-id pub-id-type="other">00903</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.ER263364</article-id>'
+            '<related-article ext-link-type="doi" id="ra1" journal-id="Brazilian Journal of Biology" page="1" '
+            'related-article-type="corrected-article" vol="82" xlink:href="10.1590/1519-6984.263364"/> '
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<updates>'
+            '<update type="correction">10.1590/1519-6984.263364</update>'
+            '</updates>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_updates_correction_without_updates_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">5chbLYfpJfJVdGRbTD6krTQ</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100903</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbER263364</article-id>'
+            '<article-id pub-id-type="other">00903</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.ER263364</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_updates_correction_with_complementary_data_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">5chbLYfpJfJVdGRbTD6krTQ</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100903</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbER263364</article-id>'
+            '<article-id pub-id-type="other">00903</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.ER263364</article-id>'
+            '<related-article ext-link-type="doi" id="ra1" journal-id="Brazilian Journal of Biology" page="1" '
+            'related-article-type="corrected-article" vol="82" xlink:href="10.1590/1519-6984.263364"/> '
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="correction" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<updates>'
+            '<update type="correction">10.1590/1519-6984.263364</update>'
+            '<update type="addendum" date="1900-01-01">10.1590/YYYY-YYYYY.YYYYYY</update>'
+            '<update type="retraction" date="1900-01-01">10.1590/XXXX-XXXX.XXXXXX</update>'
+            '</updates>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+                    "related-articles": [
+                        {"related-article-type": "letter", "href": "10.1590/YYYY-YYYYY.YYYYYY", "date": "1900-01-01"},
+                        {"related-article-type": "retracted-article", "href": "10.1590/XXXX-XXXX.XXXXXX", "date": "1900-01-01"},
+                    ]
+                }
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_updates_research_article_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">8sdNTpgmHMDpVKXZ4b4tn8G</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100401</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbAO263364_EN</article-id>'
+            '<article-id pub-id-type="other">00401</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.263364</article-id>'
+            '<related-article ext-link-type="doi" id="ra1" '
+            'related-article-type="corrected-article" xlink:href="10.1590/1519-6984.ER263364"/> '
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<updates>'
+            '<update type="correction">10.1590/1519-6984.ER263364</update>'
+            '</updates>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_updates_research_article_without_updates_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" '
+            'specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">5chbLYfpJfJVdGRbTD6krTQ</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100903</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbER263364</article-id>'
+            '<article-id pub-id-type="other">00903</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.ER263364</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {}
+
+        crossref.xml_crossref_crossmark_updates_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_custom_metadata_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">8sdNTpgmHMDpVKXZ4b4tn8G</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100401</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbAO263364_EN</article-id>'
+            '<article-id pub-id-type="other">00401</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.263364</article-id>'
+            '<history>'
+            '<date date-type="received">'
+            '<day>23</day>'
+            '<month>04</month>'
+            '<year>2022</year>'
+            '</date>'
+            '<date date-type="accepted">'
+            '<day>17</day>'
+            '<month>08</month>'
+            '<year>2022</year>'
+            '</date>'
+            '</history>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark>'
+            '<custom_metadata>'
+            '<assertion name="received" label="Received" group_name="publication_history" group_label="Publication History" order="0">2022-04-23</assertion>'
+            '<assertion name="accepted" label="Accepted" group_name="publication_history" group_label="Publication History" order="1">2022-08-17</assertion>'
+            '<assertion name="remorse" label="Level of Remorse" group_name="publication_notes" group_label="Publication Notes">90%</assertion>'
+            '</custom_metadata>'
+            '</crossmark>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {
+            "assertions": [
+                {
+                    "name": "remorse",
+                    "label": "Level of Remorse",
+                    "group_name": "publication_notes",
+                    "group_label": "Publication Notes",
+                    "text": "90%"
+                }
+            ]
+        }
+
+        crossref.xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(expected, obtained)
+
+    def test_xml_crossref_crossmark_custom_metadata_without_history_pipe(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" '
+            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">8sdNTpgmHMDpVKXZ4b4tn8G</article-id>'
+            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1519-69842024000100401</article-id>'
+            '<article-id pub-id-type="publisher-id">bjbAO263364_EN</article-id>'
+            '<article-id pub-id-type="other">00401</article-id>'
+            '<article-id pub-id-type="doi">10.1590/1519-6984.263364</article-id>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<head/>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        expected = (
+            '<body>'
+            '<journal>'
+            '<journal_article language="en" publication_type="research-article" reference_distribution_opts="any">'
+            '<crossmark/>'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+        )
+
+        data = {}
+
+        crossref.xml_crossref_crossmark_custom_metadata_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2107,7 +2568,7 @@ class PipelineCrossref(TestCase):
             "depositor_email_address": "name@domain.com",
             "registrant": "registrant"
         }
-        xml_crossref = pipeline_crossref(xmltree, data)
+        xml_crossref = crossref.pipeline_crossref(xmltree, data)
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         xml_crossref_expected = xml_utils.get_xml_tree('tests/samples/crossref_format_example.xml')
