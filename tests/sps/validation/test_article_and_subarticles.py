@@ -442,10 +442,10 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
-    def test_article_and_subarticles_without_dtd_version(self):
+    def test_article_and_subarticles_similarity_article_type_is_not_valid(self):
         self.maxDiff = None
         xml_str = """
-        <article article-type="research-article" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <article article-type="main" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
             <sub-article article-type="translation" id="s1" xml:lang="en">
             </sub-article>
             <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
@@ -454,17 +454,171 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3'])
+        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects()
 
         expected = {
-            'title': 'Article element dtd-version attribute validation',
-            'xpath': './article/dtd-version',
+            'title': 'Article type vs subjects validation',
+            'xpath': './article/article-type',
             'validation_type': 'value in list',
             'response': 'ERROR',
-            'expected_value': ['1.1', '1.2', '1.3'],
-            'got_value': None,
-            'message': 'Got None expected one item of this list: 1.1 | 1.2 | 1.3',
-            'advice': 'XML research-article has None as dtd-version, expected one item of this list: 1.1 | 1.2 | 1.3'
+            'expected_value': ['abstract', 'article-commentary', 'book-review', 'brief-report', 'case-report', 'correction', 'editorial', 'letter', 'other', 'rapid-communication', 'referee-report', 'research-article', 'retraction', 'review-article'],
+            'got_value': 'main',
+            'message': 'Got main expected one item of this list: abstract | article-commentary | book-review | '
+                       'brief-report | case-report | correction | editorial | letter | other | rapid-communication | '
+                       'referee-report | research-article | retraction | review-article',
+            'advice': 'XML has main as article-type, expected one item of this list: abstract | article-commentary | '
+                      'book-review | brief-report | case-report | correction | editorial | letter | other | '
+                      'rapid-communication | referee-report | research-article | retraction | review-article'
         }
 
         self.assertDictEqual(obtained, expected)
+
+    def test_article_and_subarticles_similarity_subjects_exact_match(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Original Article</subject>
+            </subj-group>
+            </article-categories>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artigo Original</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="es">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artículo Original</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            </article>
+                """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects()
+
+        expected = [
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'original article',
+                'got_value': 'original article',
+                'message': 'Got original article expected original article',
+                'advice': None
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'artigo original',
+                'got_value': 'artigo original',
+                'message': 'Got artigo original expected artigo original',
+                'advice': None
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'artículo original',
+                'got_value': 'artículo original',
+                'message': 'Got artículo original expected artículo original',
+                'advice': None
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_article_and_subarticles_similarity_subjects_approximate_match(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Scientific Article</subject>
+            </subj-group>
+            </article-categories>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artigo Científico</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="es">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artículo Científico</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            </article>
+                """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects()
+
+        expected = [
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': '58.82% match with original article',
+                'expected_value': ['original article', 'artigo original', 'artículo original', 'artigo',
+                                   'relatório técnico', 'informe técnico', 'technical report'],
+                'got_value': 'scientific article',
+                'message': 'Got scientific article expected one item of this list: original article | artigo original '
+                           '| artículo original | artigo | relatório técnico | informe técnico | technical report',
+                'advice': None
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': '52.94% match with relatório técnico',
+                'expected_value': ['original article', 'artigo original', 'artículo original', 'artigo',
+                                   'relatório técnico', 'informe técnico', 'technical report'],
+                'got_value': 'artigo científico',
+                'message': 'Got artigo científico expected one item of this list: original article | artigo original '
+                           '| artículo original | artigo | relatório técnico | informe técnico | technical report',
+                'advice': None
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'match',
+                'response': '55.56% match with artículo original',
+                'expected_value': ['original article', 'artigo original', 'artículo original', 'artigo',
+                                   'relatório técnico', 'informe técnico', 'technical report'],
+                'got_value': 'artículo científico',
+                'message': 'Got artículo científico expected one item of this list: original article | artigo original '
+                           '| artículo original | artigo | relatório técnico | informe técnico | technical report',
+                'advice': None
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
