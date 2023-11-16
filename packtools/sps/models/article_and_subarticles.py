@@ -43,11 +43,13 @@ class ArticleAndSubArticles:
         for sub_article in self.xmltree.xpath(".//sub-article"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
 
+            subject = sub_article.find('.//subject')
+
             _data.append({
                 "lang": lang,
                 "article_type": sub_article.get('article-type'),
                 "article_id": sub_article.get('id'),
                 "line_number": sub_article.sourceline,
-                "subject": sub_article.find('.//subject').text
+                "subject": subject.text if subject is not None else None
             })
         return _data
