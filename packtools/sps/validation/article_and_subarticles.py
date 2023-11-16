@@ -3,6 +3,9 @@ from packtools.sps.validation.exceptions import (
     AffiliationValidationValidateLanguageCodeException,
     ArticleValidationValidateSpecificUseException,
     ArticleValidationValidateDtdVersionException,
+    ArticleValidationValidateArticleTypeException,
+    ArticleValidationValidateSubjectsException,
+
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity, SUBJECTS_VS_ARTICLE_TYPE
 
@@ -15,6 +18,7 @@ class ArticleValidation:
             specific_use_list=None,
             dtd_version_list=None,
             subject_list=None,
+            article_type_list=None
     ):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
@@ -22,6 +26,7 @@ class ArticleValidation:
         self.specific_use_list = specific_use_list
         self.dtd_version_list = dtd_version_list
         self.subject_list = subject_list
+        self.article_type_list = article_type_list
 
     def validate_language(self, language_codes_list=None):
         """
@@ -156,7 +161,7 @@ class ArticleValidation:
             .format(self.articles.main_article_type, article_dtd_version, " | ".join(dtd_version_list))
         }
 
-    def validate_article_type_vs_subjects(self, subject_list=None):
+    def validate_article_type_vs_subjects(self, subject_list=None, article_type_list=None):
         """
         Params
         ------
@@ -177,56 +182,78 @@ class ArticleValidation:
         }
         """
         article_type = self.articles.main_article_type
-        valid_article_types = sorted(list(set(SUBJECTS_VS_ARTICLE_TYPE.values())))
-        if article_type not in valid_article_types:
+        article_type_list = article_type_list or self.article_type_list
+        subject_list = subject_list or self.subject_list
+
+        if not article_type_list:
+            raise ArticleValidationValidateArticleTypeException("Function requires list of article types")
+
+        if not article_type_list:
+            raise ArticleValidationValidateSubjectsException("Function requires list of subjects")
+
+        article_type_list = [tp.lower() for tp in article_type_list]
+        subject_list = [sb.lower() for sb in subject_list]
+        if article_type not in article_type_list:
             return {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/article-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
-                'expected_value': valid_article_types,
+                'expected_value': article_type_list,
                 'got_value': article_type,
                 'message': 'Got {} expected one item of this list: {}'.format(article_type, " | "
-                                                                              .join(valid_article_types)),
+                                                                              .join(article_type_list)),
                 'advice': 'XML has {} as article-type, expected one item of this list: {}'
-                .format(article_type, " | ".join(valid_article_types))
+                .format(article_type, " | ".join(article_type_list))
             }
-
-        valid_subjects = [subject for subject in SUBJECTS_VS_ARTICLE_TYPE.keys() if
-                          SUBJECTS_VS_ARTICLE_TYPE[subject] == article_type]
 
         declared_subjects = [subject['subject'].lower() for subject in self.articles.data if subject['subject']]
 
         result = []
         for article_subject in declared_subjects:
-            if article_subject in valid_subjects:
+            if article_subject in subject_list:
+                result.append(
+                    {
+                        'title': 'Article type vs subjects validation',
+                        'xpath': './article/article-type .//subject',
+                        'validation_type': 'value in list',
+                        'response': 'OK',
+                        'expected_value': subject_list,
+                        'got_value': article_subject,
+                        'message': 'Got {} expected one item of this list: {}'.format(article_subject, " | ".
+                                                                                      join(subject_list)),
+                        'advice': None
+                    }
+                )
+                indice, subject = most_similar(similarity([article_subject], article_type))
                 result.append(
                     {
                         'title': 'Article type vs subjects validation',
                         'xpath': './article/article-type .//subject',
                         'validation_type': 'match',
-                        'response': 'OK',
-                        'expected_value': article_subject,
-                        'got_value': article_subject,
-                        'message': 'Got {} expected {}'.format(article_subject, article_subject),
-                        'advice': None
+                        'response': f'{article_type} matches the {subject[0]} by {indice * 100:,.2f}%',
+                        'expected_value': 'The highest possible match rate',
+                        'got_value': f'{indice * 100:,.2f}%',
+                        'message': f'The {article_type} must match the {subject[0]}',
+                        'advice': f'If the match rate is low, consider changing the {article_type}'
                     }
                 )
             else:
-                indice, subject = most_similar(similarity(valid_subjects, article_subject))
                 result.append(
                     {
                         'title': 'Article type vs subjects validation',
                         'xpath': './article/article-type .//subject',
-                        'validation_type': 'match',
-                        'response': f'{indice * 100:,.2f}% match with {subject[0]}',
-                        'expected_value': valid_subjects,
+                        'validation_type': 'value in list',
+                        'response': 'ERROR',
+                        'expected_value': subject_list,
                         'got_value': article_subject,
-                        'message': 'Got {} expected one item of this list: {}'.format(article_subject, " | "
-                                                                                      .join(valid_subjects)),
-                        'advice': None
+                        'message': 'Got {} expected one item of this list: {}'.format(article_subject, " | ".
+                                                                                      join(subject_list)),
+                        'advice': 'Change the {} to one item of this list: {}'.format(article_subject, " | ".
+                                                                                      join(subject_list))
                     }
                 )
+
         return result
 
     def validate(self, data):
