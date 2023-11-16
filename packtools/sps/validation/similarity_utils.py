@@ -22,3 +22,14 @@ def most_similar(similarity):
     return highiest_rate, items
 
 
+def similarity(items, text, min_ratio=0):
+    r = {}
+    for item in items:
+        rate = how_similar(item, text)
+        if rate > min_ratio:
+            if rate not in r.keys():
+                r[rate] = []
+            r[rate].append(item)
+    return r
+
+
