@@ -24,7 +24,9 @@ class ArticleAndSubArticles:
 
     @property
     def main_subject(self):
-        return self.xmltree.find('.//subject').text
+        subject = self.xmltree.find('.//subject')
+        if subject is not None:
+            return subject.text
 
     @property
     def data(self):
