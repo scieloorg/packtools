@@ -161,24 +161,25 @@ class ArticleValidation:
             .format(self.articles.main_article_type, article_dtd_version, " | ".join(dtd_version_list))
         }
 
-    def validate_article_type_vs_subjects(self, subject_list=None, article_type_list=None):
+    def validate_article_type(self, article_type_list=None):
         """
         Params
         ------
             xml: ElementTree
+            list: article_type_list
 
         Returns
         -------
-        list: dicts as:
+        dicts as:
         {
-            'title': 'Article type vs subjects validation',
-            'xpath': './article/article-type .//subject',
+            'title': 'Article type validation',
+            'xpath': './article/article-type',
             'validation_type': 'value in list',
             'response': 'OK',
-            'expected_value': ['Original Article', 'Artigo Original', 'Artículo Original'],
-            'got_value': ['Original Article', 'Artigo Original', 'Artículo Original'],
-            'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
-            'advice': 'XML research-article has 1.1 as dtd-version expected one item of this list: 1.1 | 1.2 | 1.3'
+            'expected_value': ['research-article', 'article-commentary', 'brief-report'],
+            'got_value': 'research-article',
+            'message': 'Got research-article expected one item of this list: research-article | article-commentary | brief-report',
+            'advice': 'XML has research-article as article-type, expected one item of this list: research-article | article-commentary | brief-report'
         }
         """
         article_type = self.articles.main_article_type
