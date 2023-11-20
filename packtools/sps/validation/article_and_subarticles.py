@@ -204,6 +204,41 @@ class ArticleValidation:
             .format(article_type, " | ".join(article_type_list))
         }
 
+    def validate_without_subjects(self):
+        """
+        Params
+        ------
+            xml: ElementTree
+
+        Returns
+        -------
+        list: dicts as:
+        {
+            'title': 'Article type vs subjects validation',
+            'xpath': './article/article-type .//subject',
+            'validation_type': 'value in list',
+            'response': 'ERROR',
+            'expected_value': None,
+            'got_value': ['scientific article', 'artigo científico', 'artículo científico'],
+            'message': 'Got scientific article, artigo científico, artículo científico expected no subject',
+            'advice': 'XML has scientific article, artigo científico, artículo científico as subjects expected no subjects'
+        }
+        """
+        declared_subjects = [subject['subject'].lower() for subject in self.articles.data if subject['subject']]
+
+        validated = len(declared_subjects) == 0
+        got_value = None if validated else ", ".join(declared_subjects)
+        return {
+            'title': 'Article type vs subjects validation',
+            'xpath': './article/article-type .//subject',
+            'validation_type': 'value in list',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': None,
+            'got_value': None if validated else declared_subjects,
+            'message': 'Got {} expected no subject'.format(got_value),
+            'advice': 'XML has {} as subjects, expected no subjects'.format(got_value)
+        }
+
         declared_subjects = [subject['subject'].lower() for subject in self.articles.data if subject['subject']]
 
         result = []
