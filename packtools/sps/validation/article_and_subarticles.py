@@ -184,13 +184,9 @@ class ArticleValidation:
         """
         article_type = self.articles.main_article_type
         article_type_list = article_type_list or self.article_type_list
-        subject_list = subject_list or self.subject_list
 
         if not article_type_list:
             raise ArticleValidationValidateArticleTypeException("Function requires list of article types")
-
-        if not article_type_list:
-            raise ArticleValidationValidateSubjectsException("Function requires list of subjects")
 
         article_type_list = [tp.lower() for tp in article_type_list]
         subject_list = [sb.lower() for sb in subject_list]
