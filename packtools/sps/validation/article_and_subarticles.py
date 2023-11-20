@@ -266,48 +266,6 @@ class ArticleValidation:
         result = []
 
         for article_subject in declared_subjects:
-            if article_subject in subject_list:
-                result.append(
-                    {
-                        'title': 'Article type vs subjects validation',
-                        'xpath': './article/article-type .//subject',
-                        'validation_type': 'value in list',
-                        'response': 'OK',
-                        'expected_value': subject_list,
-                        'got_value': article_subject,
-                        'message': 'Got {} expected one item of this list: {}'.format(article_subject, " | ".
-                                                                                      join(subject_list)),
-                        'advice': None
-                    }
-                )
-                indice, subject = most_similar(similarity([article_subject], article_type))
-                result.append(
-                    {
-                        'title': 'Article type vs subjects validation',
-                        'xpath': './article/article-type .//subject',
-                        'validation_type': 'match',
-                        'response': f'{article_type} matches the {subject[0]} by {indice * 100:,.2f}%',
-                        'expected_value': 'The highest possible match rate',
-                        'got_value': f'{indice * 100:,.2f}%',
-                        'message': f'The {article_type} must match the {subject[0]}',
-                        'advice': f'If the match rate is low, consider changing the {article_type}'
-                    }
-                )
-            else:
-                result.append(
-                    {
-                        'title': 'Article type vs subjects validation',
-                        'xpath': './article/article-type .//subject',
-                        'validation_type': 'value in list',
-                        'response': 'ERROR',
-                        'expected_value': subject_list,
-                        'got_value': article_subject,
-                        'message': 'Got {} expected one item of this list: {}'.format(article_subject, " | ".
-                                                                                      join(subject_list)),
-                        'advice': 'Change the {} to one item of this list: {}'.format(article_subject, " | ".
-                                                                                      join(subject_list))
-                    }
-                )
 
         return result
 
