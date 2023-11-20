@@ -189,20 +189,20 @@ class ArticleValidation:
             raise ArticleValidationValidateArticleTypeException("Function requires list of article types")
 
         article_type_list = [tp.lower() for tp in article_type_list]
-        subject_list = [sb.lower() for sb in subject_list]
-        if article_type not in article_type_list:
-            return {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': article_type_list,
-                'got_value': article_type,
-                'message': 'Got {} expected one item of this list: {}'.format(article_type, " | "
-                                                                              .join(article_type_list)),
-                'advice': 'XML has {} as article-type, expected one item of this list: {}'
-                .format(article_type, " | ".join(article_type_list))
-            }
+
+        validated = article_type in article_type_list
+        return {
+            'title': 'Article type validation',
+            'xpath': './article/article-type',
+            'validation_type': 'value in list',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': article_type_list,
+            'got_value': article_type,
+            'message': 'Got {} expected one item of this list: {}'.format(article_type, " | "
+                                                                          .join(article_type_list)),
+            'advice': None if validated else 'XML has {} as article-type, expected one item of this list: {}'
+            .format(article_type, " | ".join(article_type_list))
+        }
 
         declared_subjects = [subject['subject'].lower() for subject in self.articles.data if subject['subject']]
 
