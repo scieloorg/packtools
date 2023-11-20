@@ -16,7 +16,6 @@ class ArticleValidation:
             language_codes_list=None,
             specific_use_list=None,
             dtd_version_list=None,
-            subject_list=None,
             article_type_list=None
     ):
         self.xmltree = xmltree
@@ -24,7 +23,6 @@ class ArticleValidation:
         self.language_codes_list = language_codes_list
         self.specific_use_list = specific_use_list
         self.dtd_version_list = dtd_version_list
-        self.subject_list = subject_list
         self.article_type_list = article_type_list
 
     def validate_language(self, language_codes_list=None):
