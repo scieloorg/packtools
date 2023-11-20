@@ -266,6 +266,19 @@ class ArticleValidation:
         result = []
 
         for article_subject in declared_subjects:
+            calculated_similarity, subject = most_similar(similarity([article_subject], article_type))
+            result.append(
+                {
+                    'title': 'Article type vs subjects validation',
+                    'xpath': './article/article-type .//subject',
+                    'validation_type': 'similarity',
+                    'response': "OK" if calculated_similarity >= expected_similarity else "ERROR",
+                    'expected_value': expected_similarity,
+                    'got_value': calculated_similarity,
+                    'message': f'The {article_type} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}',
+                    'advice': f'If the similarity rate is lower than the expected rate, consider changing the {article_type}'
+                }
+            )
 
         return result
 
