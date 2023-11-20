@@ -239,9 +239,32 @@ class ArticleValidation:
             'advice': 'XML has {} as subjects, expected no subjects'.format(got_value)
         }
 
+    def validate_article_type_vs_subject_similarity(self, expected_similarity=0):
+        """
+        Params
+        ------
+            xml: ElementTree
+            float: expected_similarity
+
+        Returns
+        -------
+        list: dicts as:
+        {
+            'title': 'Article type vs subjects validation',
+            'xpath': './article/article-type .//subject',
+            'validation_type': 'similarity',
+            'response': 'OK',
+            'expected_value': 0.5,
+            'got_value': 0.654,
+            'message': 'The research-article must match the original article with a rate greater than or equal to 0.5',
+            'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
+        }
+        """
+        article_type = self.articles.main_article_type
         declared_subjects = [subject['subject'].lower() for subject in self.articles.data if subject['subject']]
 
         result = []
+
         for article_subject in declared_subjects:
             if article_subject in subject_list:
                 result.append(
