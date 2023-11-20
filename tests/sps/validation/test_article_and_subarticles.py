@@ -442,7 +442,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
-    def test_article_and_subarticles_similarity_article_type_is_not_valid(self):
+    def test_article_and_subarticles_article_type_is_not_valid(self):
         self.maxDiff = None
         xml_str = """
         <article article-type="main" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -454,13 +454,12 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects(
-            article_type_list=['research-article'],
-            subject_list=['Original Article', 'Artigo Original', 'Artículo Original']
+        obtained = ArticleValidation(xml_tree).validate_article_type(
+            article_type_list=['research-article']
         )
 
         expected = {
-            'title': 'Article type vs subjects validation',
+            'title': 'Article type validation',
             'xpath': './article/article-type',
             'validation_type': 'value in list',
             'response': 'ERROR',
@@ -472,117 +471,10 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
-    def test_article_and_subarticles_similarity_subjects_match(self):
+    def test_article_and_subarticles_there_is_subject_there_should_be_no_subject(self):
         self.maxDiff = None
         xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-            <article-id pub-id-type="other">00303</article-id>
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Original Article</subject>
-            </subj-group>
-            </article-categories>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Artigo Original</subject>
-            </subj-group>
-            </article-categories>
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="es">
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Artículo Original</subject>
-            </subj-group>
-            </article-categories>
-            </sub-article>
-            </article>
-                """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects(
-            article_type_list=['research-article'],
-            subject_list=['Original Article', 'Artigo Original', 'Artículo Original']
-        )
-
-        expected = [
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'original article',
-                'message': 'Got original article expected one item of this list: original article | artigo original | '
-                           'artículo original',
-                'advice': None
-
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'match',
-                'response': 'research-article matches the original article by 56.25%',
-                'expected_value': 'The highest possible match rate',
-                'got_value': '56.25%',
-                'message': 'The research-article must match the original article',
-                'advice': 'If the match rate is low, consider changing the research-article'
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'artigo original',
-                'message': 'Got artigo original expected one item of this list: original article | artigo original | '
-                           'artículo original',
-                'advice': None
-
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'match',
-                'response': 'research-article matches the artigo original by 32.26%',
-                'expected_value': 'The highest possible match rate',
-                'got_value': '32.26%',
-                'message': 'The research-article must match the artigo original',
-                'advice': 'If the match rate is low, consider changing the research-article'
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'artículo original',
-                'message': 'Got artículo original expected one item of this list: original article | artigo original | '
-                           'artículo original',
-                'advice': None
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'match',
-                'response': 'research-article matches the artículo original by 30.30%',
-                'expected_value': 'The highest possible match rate',
-                'got_value': '30.30%',
-                'message': 'The research-article must match the artículo original',
-                'advice': 'If the match rate is low, consider changing the research-article'
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_similarity_subjects_not_match(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
             <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
@@ -610,50 +502,118 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
                 """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subjects(
-            article_type_list=['research-article'],
-            subject_list=['Original Article', 'Artigo Original', 'Artículo Original']
+        obtained = ArticleValidation(xml_tree).validate_without_subjects()
+
+        expected = {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': ['scientific article', 'artigo científico', 'artículo científico'],
+                'message': 'Got scientific article, artigo científico, artículo científico expected no subject',
+                'advice': 'XML has scientific article, artigo científico, artículo científico as subjects, expected '
+                          'no subjects'
+        }
+
+        self.assertDictEqual(obtained, expected)
+
+    def test_article_and_subarticles_there_is_no_subject_there_should_be_no_subject(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="es">
+            </sub-article>
+            </article>
+                """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleValidation(xml_tree).validate_without_subjects()
+
+        expected = {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/article-type .//subject',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': None,
+                'got_value': None,
+                'message': 'Got None expected no subject',
+                'advice': 'XML has None as subjects, expected no subjects'
+        }
+
+        self.assertDictEqual(obtained, expected)
+
+    def test_article_and_subarticles_article_type_vs_subject_similarity(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Original Article</subject>
+            </subj-group>
+            </article-categories>
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artigo Original</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="es">
+            <article-categories>
+            <subj-group subj-group-type="heading">
+            <subject>Artículo Original</subject>
+            </subj-group>
+            </article-categories>
+            </sub-article>
+            </article>
+                """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subject_similarity(
+            expected_similarity=0.5
         )
 
         expected = [
             {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'scientific article',
-                'message': 'Got scientific article expected one item of this list: original article | artigo original '
-                           '| artículo original',
-                'advice': 'Change the scientific article to one item of this list: original article | artigo original '
-                           '| artículo original'
-
+                'validation_type': 'similarity',
+                'response': 'OK',
+                'expected_value': 0.5,
+                'got_value': 0.5625,
+                'message': 'The research-article must match the original article with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
             },
             {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
+                'validation_type': 'similarity',
                 'response': 'ERROR',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'artigo científico',
-                'message': 'Got artigo científico expected one item of this list: original article | artigo original '
-                           '| artículo original',
-                'advice': 'Change the artigo científico to one item of this list: original article | artigo original '
-                           '| artículo original'
-
+                'expected_value': 0.5,
+                'got_value': 0.3225806451612903,
+                'message': 'The research-article must match the artigo original with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
             },
             {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/article-type .//subject',
-                'validation_type': 'value in list',
+                'validation_type': 'similarity',
                 'response': 'ERROR',
-                'expected_value': ['original article', 'artigo original', 'artículo original'],
-                'got_value': 'artículo científico',
-                'message': 'Got artículo científico expected one item of this list: original article | artigo original '
-                           '| artículo original',
-                'advice': 'Change the artículo científico to one item of this list: original article | artigo original '
-                           '| artículo original'
-
+                'expected_value': 0.5,
+                'got_value': 0.30303030303030304,
+                'message': 'The research-article must match the artículo original with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
             }
         ]
         for i, item in enumerate(obtained):
