@@ -30,6 +30,7 @@ class ArticleValidation:
         Params
         ------
             xml: ElementTree
+            list: language_codes_list
 
         Returns
         -------
@@ -81,6 +82,7 @@ class ArticleValidation:
         Params
         ------
             xml: ElementTree
+            list: specific_use_list
 
         Returns
         -------
@@ -122,6 +124,7 @@ class ArticleValidation:
         Params
         ------
             xml: ElementTree
+            list: dtd_version_list
 
         Returns
         -------
