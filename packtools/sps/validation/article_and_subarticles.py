@@ -4,7 +4,6 @@ from packtools.sps.validation.exceptions import (
     ArticleValidationValidateSpecificUseException,
     ArticleValidationValidateDtdVersionException,
     ArticleValidationValidateArticleTypeException,
-    ArticleValidationValidateSubjectsException,
 
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity, SUBJECTS_VS_ARTICLE_TYPE
