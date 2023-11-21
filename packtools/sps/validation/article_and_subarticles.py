@@ -1,4 +1,5 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.validation.exceptions import (
     AffiliationValidationValidateLanguageCodeException,
     ArticleValidationValidateSpecificUseException,
@@ -20,6 +21,7 @@ class ArticleValidation:
     ):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
+        self.doi = DoiWithLang(self.xmltree).main_doi
         self.language_codes_list = language_codes_list
         self.specific_use_list = specific_use_list
         self.dtd_version_list = dtd_version_list
@@ -281,6 +283,40 @@ class ArticleValidation:
             )
 
         return result
+
+    def validate_doi(self):
+        """
+        Params
+        ------
+            xml: ElementTree
+
+        Returns
+        -------
+            dicts as:
+                {
+                    'title': 'Article DOI element',
+                    'xpath': './article-id[@pub-id-type="doi"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'DOI identifier',
+                    'got_value': '10.1590/1518-8345.2927.3231',
+                    'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI identifier',
+                    'advice': 'XML research-article does not present a DOI identifier'
+                }
+        """
+        validated = self.doi
+        print(self.doi)
+        return {
+            'title': 'Article DOI element',
+            'xpath': './article-id[@pub-id-type="doi"]',
+            'validation_type': 'exist',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': 'DOI identifier',
+            'got_value': self.doi,
+            'message': 'Got {} expected a DOI identifier'.format(self.doi),
+            'advice': None if validated else 'XML {} does not present a DOI identifier'.format(
+                self.articles.main_article_type)
+        }
 
     def validate(self, data):
         """
