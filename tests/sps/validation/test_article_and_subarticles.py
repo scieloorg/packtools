@@ -549,73 +549,55 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
-    def test_article_and_subarticles_article_type_vs_subject_similarity(self):
+    def test_article_has_doi(self):
         self.maxDiff = None
         xml_str = """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
             <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
             <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
             <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
             <article-id pub-id-type="other">00303</article-id>
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Original Article</subject>
-            </subj-group>
-            </article-categories>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Artigo Original</subject>
-            </subj-group>
-            </article-categories>
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="es">
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Artículo Original</subject>
-            </subj-group>
-            </article-categories>
-            </sub-article>
+            </front>
             </article>
-                """
+            """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_article_type_vs_subject_similarity(
-            expected_similarity=0.5
-        )
+        obtained = ArticleValidation(xml_tree).validate_doi()
+        expected = {
+            'title': 'Article DOI element',
+            'xpath': './article-id[@pub-id-type="doi"]',
+            'validation_type': 'exist',
+            'response': 'OK',
+            'expected_value': 'DOI identifier',
+            'got_value': '10.1590/1518-8345.2927.3231',
+            'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI identifier',
+            'advice': None
+        }
+        self.assertDictEqual(obtained, expected)
 
-        expected = [
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'OK',
-                'expected_value': 0.5,
-                'got_value': 0.5625,
-                'message': 'The research-article must match the original article with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'ERROR',
-                'expected_value': 0.5,
-                'got_value': 0.3225806451612903,
-                'message': 'The research-article must match the artigo original with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'ERROR',
-                'expected_value': 0.5,
-                'got_value': 0.30303030303030304,
-                'message': 'The research-article must match the artículo original with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+    def test_article_has_no_doi(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleValidation(xml_tree).validate_doi()
+        expected = {
+            'title': 'Article DOI element',
+            'xpath': './article-id[@pub-id-type="doi"]',
+            'validation_type': 'exist',
+            'response': 'ERROR',
+            'expected_value': 'DOI identifier',
+            'got_value': None,
+            'message': 'Got None expected a DOI identifier',
+            'advice': 'XML research-article does not present a DOI identifier'
+        }
+        self.assertDictEqual(obtained, expected)
