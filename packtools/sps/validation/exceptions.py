@@ -33,3 +33,7 @@ class ArticleValidationValidateDtdVersionException(Exception):
 
 class ArticleValidationValidateArticleTypeException(Exception):
     ...
+
+
+class ArticleValidationValidateSubjectsException(Exception):
+    ...
