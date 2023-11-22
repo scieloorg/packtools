@@ -1,7 +1,13 @@
 from unittest import TestCase
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_and_subarticles import ArticleValidation
+from packtools.sps.validation.article_and_subarticles import (
+    ArticleLangValidation,
+    ArticleAttribsValidation,
+    ArticleTypeValidation,
+    ArticleSubjectsValidation,
+    ArticleDoiValidation
+)
 
 
 class ArticleAndSubarticlesTest(TestCase):
@@ -20,7 +26,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -54,7 +60,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -87,7 +93,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -111,7 +117,7 @@ class ArticleAndSubarticlesTest(TestCase):
         with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml') as data:
             xml_tree = get_xml_tree(data.read())
 
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -163,7 +169,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -215,7 +221,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -267,7 +273,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -320,7 +326,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
 
         expected = [
             {
@@ -373,11 +379,11 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
+        obtained = ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
 
         expected = {
             'title': 'Article element specific-use attribute validation',
-            'xpath': './article/specific-use',
+            'xpath': './article/@specific-use',
             'validation_type': 'value in list',
             'response': 'OK',
             'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
@@ -400,11 +406,11 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
+        obtained = ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
 
         expected = {
             'title': 'Article element specific-use attribute validation',
-            'xpath': './article/specific-use',
+            'xpath': './article/@specific-use',
             'validation_type': 'value in list',
             'response': 'ERROR',
             'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
@@ -427,16 +433,45 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3'])
+        obtained = ArticleAttribsValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3'])
 
         expected = {
             'title': 'Article element dtd-version attribute validation',
-            'xpath': './article/dtd-version',
+            'xpath': './article/@dtd-version',
             'validation_type': 'value in list',
             'response': 'OK',
             'expected_value': ['1.1', '1.2', '1.3'],
             'got_value': '1.1',
             'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
+            'advice': None
+        }
+
+        self.assertDictEqual(obtained, expected)
+
+    def test_article_and_subarticles_article_type_is_valid(self):
+        self.maxDiff = None
+        xml_str = """
+        <article article-type="research-article" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleTypeValidation(xml_tree).validate_article_type(
+            article_type_list=['research-article']
+        )
+
+        expected = {
+            'title': 'Article type validation',
+            'xpath': './article/@article-type',
+            'validation_type': 'value in list',
+            'response': 'OK',
+            'expected_value': ['research-article'],
+            'got_value': 'research-article',
+            'message': 'Got research-article expected one item of this list: research-article',
             'advice': None
         }
 
@@ -454,13 +489,13 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleValidation(xml_tree).validate_article_type(
+        obtained = ArticleTypeValidation(xml_tree).validate_article_type(
             article_type_list=['research-article']
         )
 
         expected = {
             'title': 'Article type validation',
-            'xpath': './article/article-type',
+            'xpath': './article/@article-type',
             'validation_type': 'value in list',
             'response': 'ERROR',
             'expected_value': ['research-article'],
@@ -502,11 +537,11 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
                 """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_without_subjects()
+        obtained = ArticleSubjectsValidation(xml_tree).validate_without_subjects()
 
         expected = {
                 'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
+                'xpath': './article/@article-type .//subject',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': None,
@@ -532,13 +567,13 @@ class ArticleAndSubarticlesTest(TestCase):
             <sub-article article-type="translation" id="s2" xml:lang="es">
             </sub-article>
             </article>
-                """
+            """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_without_subjects()
+        obtained = ArticleSubjectsValidation(xml_tree).validate_without_subjects()
 
         expected = {
                 'title': 'Article type vs subjects validation',
-                'xpath': './article/article-type .//subject',
+                'xpath': './article/@article-type .//subject',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': None,
@@ -548,6 +583,91 @@ class ArticleAndSubarticlesTest(TestCase):
         }
 
         self.assertDictEqual(obtained, expected)
+
+    def test_article_and_subarticles_article_type_vs_subject_similarity(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                        <subject>Scientific Article</subject>
+                        </subj-group>
+                    </article-categories>
+                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                        <subject>Artigo Científico</subject>
+                        </subj-group>
+                    </article-categories>
+                </sub-article>
+                <sub-article article-type="translation" id="s2" xml:lang="es">
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                        <subject>Artículo Científico</subject>
+                        </subj-group>
+                    </article-categories>
+                </sub-article>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleSubjectsValidation(xml_tree).validate_article_type_vs_subject_similarity(
+            subjects_list=[
+                {
+                    'subject': 'original article',
+                    'lang': 'en'
+                },
+                {
+                    'subject': 'artigo original',
+                    'lang': 'pt'
+                },
+                {
+                    'subject': 'artículo original',
+                    'lang': 'es'
+                }
+            ],
+            expected_similarity=0.5)
+
+        expected = [
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/@article-type .//subject',
+                'validation_type': 'similarity',
+                'response': 'OK',
+                'expected_value': 0.5,
+                'got_value': 0.65,
+                'message': 'The research-article must match the original article en with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/@article-type .//subject',
+                'validation_type': 'similarity',
+                'response': 'OK',
+                'expected_value': 0.5,
+                'got_value': 0.5789473684210527,
+                'message': 'The research-article must match the artigo original pt with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/@article-type .//subject',
+                'validation_type': 'similarity',
+                'response': 'OK',
+                'expected_value': 0.5,
+                'got_value': 0.6190476190476191,
+                'message': 'The research-article must match the artículo original es with a rate greater than or equal to 0.5',
+                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_article_has_doi(self):
         self.maxDiff = None
@@ -563,15 +683,15 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_doi()
+        obtained = ArticleDoiValidation(xml_tree).validate_doi()
         expected = {
             'title': 'Article DOI element',
             'xpath': './article-id[@pub-id-type="doi"]',
             'validation_type': 'exist',
             'response': 'OK',
-            'expected_value': 'DOI identifier',
+            'expected_value': 'article DOI',
             'got_value': '10.1590/1518-8345.2927.3231',
-            'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI identifier',
+            'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI',
             'advice': None
         }
         self.assertDictEqual(obtained, expected)
@@ -589,15 +709,15 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleValidation(xml_tree).validate_doi()
+        obtained = ArticleDoiValidation(xml_tree).validate_doi()
         expected = {
             'title': 'Article DOI element',
             'xpath': './article-id[@pub-id-type="doi"]',
             'validation_type': 'exist',
             'response': 'ERROR',
-            'expected_value': 'DOI identifier',
+            'expected_value': 'article DOI',
             'got_value': None,
-            'message': 'Got None expected a DOI identifier',
-            'advice': 'XML research-article does not present a DOI identifier'
+            'message': 'Got None expected a DOI',
+            'advice': 'XML research-article does not present a DOI'
         }
         self.assertDictEqual(obtained, expected)
