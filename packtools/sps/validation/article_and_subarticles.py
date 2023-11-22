@@ -1,11 +1,11 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.validation.exceptions import (
-    AffiliationValidationValidateLanguageCodeException,
-    ArticleValidationValidateSpecificUseException,
-    ArticleValidationValidateDtdVersionException,
-    ArticleValidationValidateArticleTypeException,
-    ArticleValidationValidateSubjectsException
+    ValidationArticleAndSubArticlesLanguageCodeException,
+    ValidationArticleAndSubArticlesSpecificUseException,
+    ValidationArticleAndSubArticlesDtdVersionException,
+    ValidationArticleAndSubArticlesArticleTypeException,
+    ValidationArticleAndSubArticlesSubjectsException
 
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
@@ -57,7 +57,7 @@ class ArticleLangValidation:
         """
         language_codes_list = language_codes_list or self.language_codes_list
         if not language_codes_list:
-            raise AffiliationValidationValidateLanguageCodeException("Function requires list of language codes")
+            raise ValidationArticleAndSubArticlesLanguageCodeException("Function requires list of language codes")
         for article in self.articles.data:
             article_lang = article.get('lang')
             article_type = article.get('article_type')
@@ -128,7 +128,7 @@ class ArticleAttribsValidation:
         """
         specific_use_list = specific_use_list or self.specific_use_list
         if not specific_use_list:
-            raise ArticleValidationValidateSpecificUseException("Function requires list of specific uses")
+            raise ValidationArticleAndSubArticlesSpecificUseException("Function requires list of specific uses")
 
         article_specific_use = self.articles.main_specific_use
         validated = article_specific_use in specific_use_list
@@ -182,7 +182,7 @@ class ArticleAttribsValidation:
         """
         dtd_version_list = dtd_version_list or self.dtd_version_list
         if not dtd_version_list:
-            raise ArticleValidationValidateDtdVersionException("Function requires list of dtd versions")
+            raise ValidationArticleAndSubArticlesDtdVersionException("Function requires list of dtd versions")
 
         article_dtd_version = self.articles.main_dtd_version
         validated = article_dtd_version in dtd_version_list
@@ -245,7 +245,7 @@ class ArticleTypeValidation:
         article_type_list = article_type_list or self.article_type_list
 
         if not article_type_list:
-            raise ArticleValidationValidateArticleTypeException("Function requires list of article types")
+            raise ValidationArticleAndSubArticlesArticleTypeException("Function requires list of article types")
 
         article_type_list = [tp.lower() for tp in article_type_list]
 
@@ -405,7 +405,7 @@ class ArticleSubjectsValidation:
         subjects_list = subjects_list or self.subjects_list
 
         if not subjects_list:
-            raise ArticleValidationValidateSubjectsException("Function requires list of subjects")
+            raise ValidationArticleAndSubArticlesSubjectsException("Function requires list of subjects")
 
         subjects_list = [" ".join([item['subject'].lower(), item['lang'].lower()]) for item in subjects_list]
         declared_subjects = [" ".join([item['subject'].lower(), item['lang'].lower()]) for item in self.articles.data]
