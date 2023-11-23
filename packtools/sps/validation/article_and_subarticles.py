@@ -392,38 +392,40 @@ class ArticleSubjectsValidation:
                     'title': 'Article type vs subjects validation',
                     'xpath': './article/@article-type .//subject',
                     'validation_type': 'similarity',
-                    'response': 'OK',
-                    'expected_value': 0.5,
-                    'got_value': 0.654,
-                    'message': 'The research-article must match the original article with a rate greater than or equal to 0.5',
-                    'advice': 'If the similarity rate is lower than the expected rate, consider changing the research-article'
+                    'response': 'ERROR',
+                    'expected_value': 0.7,
+                    'got_value': 0.6818181818181818,
+                    'message': 'The article id: main must match the Original Article (en) with a rate greater than or equal to 0.7',
+                    'advice': 'The subject Scientific Article (en) does not match the items provided in the list: '
+                              'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
                 },...
             ]
         """
 
-        article_type = self.articles.main_article_type
         subjects_list = subjects_list or self.subjects_list
 
         if not subjects_list:
             raise ValidationArticleAndSubArticlesSubjectsException("Function requires list of subjects")
 
-        subjects_list = [" ".join([item['subject'].lower(), item['lang'].lower()]) for item in subjects_list]
-        declared_subjects = [" ".join([item['subject'].lower(), item['lang'].lower()]) for item in self.articles.data]
-
+        subjects_list = [f"{item['subject']} ({item['lang']})" for item in subjects_list]
         result = []
 
-        for article_subject in declared_subjects:
+        for article in self.articles.data:
+            article_subject = f"{article['subject']} ({article['lang']})"
+            article_id = article['article_id']
             calculated_similarity, subject = most_similar(similarity(subjects_list, article_subject))
+            validated = calculated_similarity >= expected_similarity
             result.append(
                 {
                     'title': 'Article type vs subjects validation',
                     'xpath': './article/@article-type .//subject',
                     'validation_type': 'similarity',
-                    'response': "OK" if calculated_similarity >= expected_similarity else "ERROR",
+                    'response': "OK" if validated else "ERROR",
                     'expected_value': expected_similarity,
                     'got_value': calculated_similarity,
-                    'message': f'The {article_type} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}',
-                    'advice': f'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type {article_type}'
+                    'message': f'The article id: {article_id} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}',
+                    'advice': None if validated else 'The subject {} does not match the items provided in the list: {}'
+                    .format(article_subject, " | ".join(subjects_list))
                 }
             )
 
@@ -450,7 +452,7 @@ class ArticleDoiValidation:
             <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
             <article-id pub-id-type="other">00303</article-id>
             </front>
-            </article>
+        </article>
 
         Returns
         -------
@@ -492,3 +494,6 @@ class ArticleDoiValidation:
             'article_lang_validation': self.validate_language(data['language_codes_list']),
             'article_specific_use_validation': self.validate_specific_use(data['specific_use_list'])
         }
+
+
+
