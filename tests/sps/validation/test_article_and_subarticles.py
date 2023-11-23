@@ -616,52 +616,55 @@ class ArticleAndSubarticlesTest(TestCase):
         obtained = ArticleSubjectsValidation(xml_tree).validate_article_type_vs_subject_similarity(
             subjects_list=[
                 {
-                    'subject': 'original article',
+                    'subject': 'Original Article',
                     'lang': 'en'
                 },
                 {
-                    'subject': 'artigo original',
+                    'subject': 'Artigo Original',
                     'lang': 'pt'
                 },
                 {
-                    'subject': 'artículo original',
+                    'subject': 'Artículo Original',
                     'lang': 'es'
                 }
             ],
-            expected_similarity=0.5)
+            expected_similarity=0.7)
 
         expected = [
             {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/@article-type .//subject',
                 'validation_type': 'similarity',
-                'response': 'OK',
-                'expected_value': 0.5,
-                'got_value': 0.65,
-                'message': 'The research-article must match the original article en with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
+                'response': 'ERROR',
+                'expected_value': 0.7,
+                'got_value': 0.6818181818181818,
+                'message': 'The article id: main must match the Original Article (en) with a rate greater than or equal to 0.7',
+                'advice': 'The subject Scientific Article (en) does not match the items provided in the list: '
+                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
 
             },
             {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/@article-type .//subject',
                 'validation_type': 'similarity',
-                'response': 'OK',
-                'expected_value': 0.5,
-                'got_value': 0.5789473684210527,
-                'message': 'The research-article must match the artigo original pt with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
-
-            },
-            {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'OK',
-                'expected_value': 0.5,
+                'response': 'ERROR',
+                'expected_value': 0.7,
                 'got_value': 0.6190476190476191,
-                'message': 'The research-article must match the artículo original es with a rate greater than or equal to 0.5',
-                'advice': 'If the similarity rate is lower than the expected rate, verify the value of ./article/@article-type research-article'
+                'message': 'The article id: s1 must match the Artigo Original (pt) with a rate greater than or equal to 0.7',
+                'advice': 'The subject Artigo Científico (pt) does not match the items provided in the list: '
+                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
+
+            },
+            {
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/@article-type .//subject',
+                'validation_type': 'similarity',
+                'response': 'ERROR',
+                'expected_value': 0.7,
+                'got_value': 0.6521739130434783,
+                'message': 'The article id: s2 must match the Artículo Original (es) with a rate greater than or equal to 0.7',
+                'advice': 'The subject Artículo Científico (es) does not match the items provided in the list: '
+                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
 
             }
         ]
