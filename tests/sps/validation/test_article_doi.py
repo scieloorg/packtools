@@ -59,3 +59,38 @@ class ArticleDoiTest(unittest.TestCase):
         }
         self.assertDictEqual(obtained, expected)
 
+    def test_validate_translation_subarticle_has_one_translation_and_one_doi(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+                <article-id specific-use="previous-pid" pub-id-type="publisher-id">S2176-45732023005002205</article-id>
+                <article-id specific-use="scielo-v3" pub-id-type="publisher-id">PqQCH4JjQTWmwYF97s4YGKv</article-id>
+                <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2176-45732023000200226</article-id>
+                <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
+            </front>
+            <sub-article article-type="reviewer-report" id="s2" xml:lang="pt" />
+            <sub-article article-type="reviewer-report" id="s3" xml:lang="pt" />
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                </front-stub>
+            </sub-article>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
+
+        expected = {
+            'title': 'Sub-article translation DOI element',
+            'xpath': './sub-article[@article-type="translation"]',
+            'validation_type': 'exist',
+            'response': 'OK',
+            'expected_value': 'sub-article translation DOI for languages en',
+            'got_value': 'Languages with identified DOI: en',
+            'message': "Got ['en'] expected ['en']",
+            'advice': None
+        }
+        self.assertDictEqual(obtained, expected)
+
