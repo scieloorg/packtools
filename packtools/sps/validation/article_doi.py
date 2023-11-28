@@ -40,17 +40,15 @@ class ArticleDoiValidation:
                 'advice': 'XML research-article does not present a DOI'
             }
         """
-        validated = self.doi
         return {
             'title': 'Article DOI element',
             'xpath': './article-id[@pub-id-type="doi"]',
             'validation_type': 'exist',
-            'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'article DOI',
+            'response': 'OK' if self.doi else 'ERROR',
+            'expected_value': self.doi if self.doi else 'article DOI',
             'got_value': self.doi,
-            'message': 'Got {} expected a DOI'.format(self.doi),
-            'advice': None if validated else 'XML {} does not present a DOI'.format(
-                self.articles.main_article_type)
+            'message': 'Got {} expected {}'.format(self.doi, self.doi if self.doi else 'a DOI'),
+            'advice': None if self.doi else 'Provide a valid DOI for the {}'.format(self.articles.main_article_type)
         }
 
     def validate_translations_doi_exists(self):
