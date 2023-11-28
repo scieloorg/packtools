@@ -26,9 +26,9 @@ class ArticleDoiTest(unittest.TestCase):
             'xpath': './article-id[@pub-id-type="doi"]',
             'validation_type': 'exist',
             'response': 'OK',
-            'expected_value': 'article DOI',
+            'expected_value': '10.1590/1518-8345.2927.3231',
             'got_value': '10.1590/1518-8345.2927.3231',
-            'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI',
+            'message': 'Got 10.1590/1518-8345.2927.3231 expected 10.1590/1518-8345.2927.3231',
             'advice': None
         }
         self.assertDictEqual(obtained, expected)
@@ -55,7 +55,7 @@ class ArticleDoiTest(unittest.TestCase):
             'expected_value': 'article DOI',
             'got_value': None,
             'message': 'Got None expected a DOI',
-            'advice': 'XML research-article does not present a DOI'
+            'advice': 'Provide a valid DOI for the research-article'
         }
         self.assertDictEqual(obtained, expected)
 
@@ -82,17 +82,21 @@ class ArticleDoiTest(unittest.TestCase):
         xml_tree = get_xml_tree(xml_str)
         obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
 
-        expected = {
-            'title': 'Sub-article translation DOI element',
-            'xpath': './sub-article[@article-type="translation"]',
-            'validation_type': 'exist',
-            'response': 'OK',
-            'expected_value': 'sub-article translation DOI for languages en',
-            'got_value': 'Languages with identified DOI: en',
-            'message': "Got ['en'] expected ['en']",
-            'advice': None
-        }
-        self.assertDictEqual(obtained, expected)
+        expected = [
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_translation_subarticle_has_two_translations_and_one_doi(self):
         self.maxDiff = None
@@ -117,17 +121,31 @@ class ArticleDoiTest(unittest.TestCase):
         xml_tree = get_xml_tree(xml_str)
         obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
 
-        expected = {
-            'title': 'Sub-article translation DOI element',
-            'xpath': './sub-article[@article-type="translation"]',
-            'validation_type': 'exist',
-            'response': 'ERROR',
-            'expected_value': 'sub-article translation DOI for languages es | en',
-            'got_value': 'Languages with identified DOI: en',
-            'message': "Got ['en'] expected ['es', 'en']",
-            'advice': "The translation sub-article for ['es'] languages does not present a DOI"
-        }
-        self.assertDictEqual(obtained, expected)
+        expected = [
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'sub-article DOI',
+                'got_value': None,
+                'message': 'Got None expected sub-article DOI',
+                'advice': 'Provide a valid DOI for the sub-article translation (s3) whose language is es'
+            },
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_translation_subarticle_has_three_translations_and_two_doi(self):
         self.maxDiff = None
@@ -156,17 +174,41 @@ class ArticleDoiTest(unittest.TestCase):
         xml_tree = get_xml_tree(xml_str)
         obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
 
-        expected = {
-            'title': 'Sub-article translation DOI element',
-            'xpath': './sub-article[@article-type="translation"]',
-            'validation_type': 'exist',
-            'response': 'ERROR',
-            'expected_value': 'sub-article translation DOI for languages fr | es | en',
-            'got_value': 'Languages with identified DOI: es | en',
-            'message': "Got ['es', 'en'] expected ['fr', 'es', 'en']",
-            'advice': "The translation sub-article for ['fr'] languages does not present a DOI"
-        }
-        self.assertDictEqual(obtained, expected)
+        expected = [
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'sub-article DOI',
+                'got_value': None,
+                'message': 'Got None expected sub-article DOI',
+                'advice': 'Provide a valid DOI for the sub-article translation (s2) whose language is fr'
+            },
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            },
+            {
+                'title': 'Sub-article translation DOI element',
+                'xpath': './sub-article[@article-type="translation"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_all_dois_are_unique(self):
         self.maxDiff = None
@@ -242,7 +284,7 @@ class ArticleDoiTest(unittest.TestCase):
             'expected_value': 'Unique DOI values',
             'got_value': 'DOIs identified: 10.1590/2176-4573p59270 | 10.1590/2176-4573e59270',
             'message': "Got DOIs and frequencies ('10.1590/2176-4573p59270', 1) | ('10.1590/2176-4573e59270', 3)",
-            'advice': 'The following DOIs are not unique: 10.1590/2176-4573e59270'
+            'advice': 'Consider replacing the following DOIs that are not unique: 10.1590/2176-4573e59270'
         }
         self.assertDictEqual(obtained, expected)
 
