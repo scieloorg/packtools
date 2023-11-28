@@ -172,5 +172,5 @@ class ArticleDoiValidation:
             'expected_value': 'Unique DOI values',
             'got_value': 'DOIs identified: {}'.format(" | ".join(list(dois.keys()))),
             'message': 'Got DOIs and frequencies {}'.format(" | ".join([str((doi, freq)) for doi, freq in dois.items()])),
-            'advice': None if validated else 'The following DOIs are not unique: {}'.format(" | ".join(diff))
+            'advice': None if validated else 'Consider replacing the following DOIs that are not unique: {}'.format(" | ".join(diff))
         }
