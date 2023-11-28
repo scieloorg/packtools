@@ -83,31 +83,36 @@ class ArticleDoiValidation:
                 'xpath': './sub-article[@article-type="translation"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'sub-article translation DOI for languages en',
-                'got_value': 'Languages with identified DOI: en',
-                'message': "Got ['en'] expected ['en']",
+                'expected_value': 'sub-article DOI',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected sub-article DOI',
                 'advice': None
             }
         """
 
-        translations_lang = [item['lang'] for item in self.articles.data if item['article_type'] == 'translation']
-        translations_lang_with_doi = [item['lang'] for item in self.dois if item['lang'] in translations_lang]
+        result = []
 
-        validated = len(translations_lang) == len(translations_lang_with_doi)
+        doi_map = {d['lang']: d['value'] for d in self.dois}
 
-        if not validated:
-            diff = list(set(translations_lang) - set(translations_lang_with_doi))
-
-        return {
-            'title': 'Sub-article translation DOI element',
-            'xpath': './sub-article[@article-type="translation"]',
-            'validation_type': 'exist',
-            'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'sub-article translation DOI for languages {}'.format(" | ".join(translations_lang)),
-            'got_value': 'Languages with identified DOI: {}'.format(" | ".join(translations_lang_with_doi)),
-            'message': 'Got {} expected {}'.format(translations_lang_with_doi, translations_lang),
-            'advice': None if validated else 'The translation sub-article for {} languages does not present a DOI'.format(diff)
-        }
+        for sub_article in self.articles.data:
+            if sub_article['article_type'] == 'translation':
+                lang = sub_article['lang']
+                article_id = sub_article['article_id']
+                doi = doi_map.get(lang)
+                result.append(
+                    {
+                        'title': 'Sub-article translation DOI element',
+                        'xpath': './sub-article[@article-type="translation"]',
+                        'validation_type': 'exist',
+                        'response': 'OK' if doi else 'ERROR',
+                        'expected_value': doi if doi else 'sub-article DOI',
+                        'got_value': doi,
+                        'message': 'Got {} expected {}'.format(doi, doi if doi else 'sub-article DOI'),
+                        'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) whose '
+                                                   'language is {}'.format(article_id, lang)
+                    }
+                )
+        return result
 
     def validate_all_dois_are_unique(self):
         """
