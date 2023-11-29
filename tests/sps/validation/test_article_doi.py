@@ -130,7 +130,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'sub-article DOI',
                 'got_value': None,
                 'message': 'Got None expected sub-article DOI',
-                'advice': 'Provide a valid DOI for the sub-article translation (s3) whose language is es'
+                'advice': 'Provide a valid DOI for the sub-article translation (s3) which language is es'
             },
             {
                 'title': 'Sub-article translation DOI element',
@@ -183,7 +183,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'sub-article DOI',
                 'got_value': None,
                 'message': 'Got None expected sub-article DOI',
-                'advice': 'Provide a valid DOI for the sub-article translation (s2) whose language is fr'
+                'advice': 'Provide a valid DOI for the sub-article translation (s2) which language is fr'
             },
             {
                 'title': 'Sub-article translation DOI element',
