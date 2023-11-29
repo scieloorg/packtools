@@ -78,16 +78,18 @@ class ArticleDoiValidation:
         -------
         dict
             Such as:
-            {
-                'title': 'Sub-article translation DOI element',
-                'xpath': './sub-article[@article-type="translation"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'sub-article DOI',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270 expected sub-article DOI',
-                'advice': None
-            }
+            [
+                {
+                    'title': 'Sub-article translation DOI element',
+                    'xpath': './sub-article[@article-type="translation"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': '10.1590/2176-4573e59270',
+                    'got_value': '10.1590/2176-4573e59270',
+                    'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                    'advice': None
+                }, ...
+            ]
         """
 
         result = []
@@ -108,7 +110,7 @@ class ArticleDoiValidation:
                         'expected_value': doi if doi else 'sub-article DOI',
                         'got_value': doi,
                         'message': 'Got {} expected {}'.format(doi, doi if doi else 'sub-article DOI'),
-                        'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) whose '
+                        'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) which '
                                                    'language is {}'.format(article_id, lang)
                     }
                 )
