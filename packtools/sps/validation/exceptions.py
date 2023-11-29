@@ -15,16 +15,25 @@ class ValidationArticleAndSubArticlesHasInvalidLanguage(ValidationArticleDataErr
     ...
 
 
-class AffiliationValidationValidateCountryCodeException(Exception):
+class ValidationArticleAndSubArticlesCountryCodeException(Exception):
     ...
 
 
-class AffiliationValidationValidateLanguageCodeException(Exception):
+class ValidationArticleAndSubArticlesLanguageCodeException(Exception):
     ...
 
 
-class ArticleValidationValidateSpecificUseException(Exception):
+class ValidationArticleAndSubArticlesSpecificUseException(Exception):
     ...
 
-class ArticleValidationValidateDtdVersionException(Exception):
+
+class ValidationArticleAndSubArticlesDtdVersionException(Exception):
+    ...
+
+
+class ValidationArticleAndSubArticlesArticleTypeException(Exception):
+    ...
+
+
+class ValidationArticleAndSubArticlesSubjectsException(Exception):
     ...

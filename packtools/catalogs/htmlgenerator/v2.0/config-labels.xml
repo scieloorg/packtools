@@ -132,9 +132,9 @@
     </term>
     <term>
         <name>date-type-preprint</name>
-        <name lang="pt">Preprint depositado em</name>
-        <name lang="es">Preprint depositado en</name>
-        <name lang="en">Preprint uploaded on</name>
+        <name lang="pt">Preprint postado em</name>
+        <name lang="es">Preprint disponible en</name>
+        <name lang="en">Preprint posted on</name>
     </term>
     <term>
         <name>reviewer-report-received</name>
@@ -446,8 +446,8 @@
     <term>
         <name>edited-by</name>
         <name lang="en">Edited by</name>
-        <name lang="pt">Editores</name>
-        <name lang="es">Editores</name>
+        <name lang="pt">Editado por</name>
+        <name lang="es">Editado por</name>
     </term>
     
     <term>
