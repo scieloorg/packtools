@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, date
 import logging
 
 from packtools.sps.models.dates import ArticleDates
@@ -11,6 +11,7 @@ def date_dict_to_date(date_dict):
 class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
+        self.article_date = ArticleDates(xmltree).article_date
 
     def history_dates_are_complete(self):
         response = []
@@ -85,7 +86,99 @@ class ArticleDatesValidation:
 
         return result
 
-    
+    def validate_article_date(self):
+        """
+        Check whether the article language matches the options provided in a standard list.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>03</day>
+                        <month>02</month>
+                        <year>2020</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        language_codes_list : list
+
+        Returns
+        -------
+        dict such as:
+            {
+                'title': 'Article element lang attribute validation',
+                'xpath': './article/@xml:lang',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['pt', 'en', 'es'],
+                'got_value': 'en',
+                'message': 'Got en, to research-article whose id is main, expected one item of this list: pt | en | es',
+                'advice': 'XML research-article has en as language, to research-article whose id is main, expected one item
+                of this list: pt | en | es'
+            }
+        """
+        result = []
+        for elem in ['day', 'month', 'year']:
+            value = self.article_date[elem]
+            expected_number_of_digits = 2 if elem != 'year' else 4
+            obtained_number_of_digits = len(value)
+            validated_digits = obtained_number_of_digits == expected_number_of_digits
+            result.append(
+                {
+                    'title': 'Article pub-date validation',
+                    'xpath': './/front//pub-date/@date-type:pub',
+                    'validation_type': 'format (number of digits)',
+                    'response': 'OK' if validated_digits else 'ERROR',
+                    'expected_value': '{} represented with {} digits'.format(elem, expected_number_of_digits),
+                    'got_value': value,
+                    'message': 'Got {} expected {} numeric digits'.format(obtained_number_of_digits, expected_number_of_digits),
+                    'advice': None if validated_digits else 'Provide a {}-digit numeric value for {}'.format(expected_number_of_digits, elem)
+                }
+            )
+
+        day, month, year = [self.article_date[elem] for elem in ['day', 'month', 'year']]
+        try:
+            pub_date = datetime(int(year), int(month), int(day))
+            current_date = datetime.now()
+            future_date = pub_date.year - current_date.year > 0
+            msg = None
+            validated = True
+        except ValueError as e:
+            future_date = False
+            msg = str(e)
+            validated = False
+        if validated:
+            advise = None if not future_date else 'The publication date is in the future, consider replacing it with a date in the past'
+        else:
+            advise = 'Fix the following issue on the given date: {}'.format(msg)
+
+        result.append(
+            {
+                'title': 'Article pub-date validation',
+                'xpath': './/front//pub-date/@date-type:pub',
+                'validation_type': 'format (valid date)',
+                'response': 'OK' if validated else 'ERROR',
+                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'got_value': '{}-{}-{}'.format(year, month, day),
+                'message': '{}-{}-{} is an {}'.format(year, month, day, 'valid date' if validated else 'invalid date'),
+                'advice': advise
+            }
+        )
+
+        return result
+
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
