@@ -889,3 +889,38 @@ class ArticleDatesValidationTest(TestCase):
             }
         self.assertDictEqual(expected, obtained)
 
+    def test_validate_article_date_day_is_not_ok(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>32</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2023, 12, 12)
+        expected = {
+                'title': 'Article pub-date validation',
+                'xpath': './/front//pub-date[@date-type:pub]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'got_value': '2023-01-32',
+                'message': '2023-01-32 is an invalid date',
+                'advice': 'Fix the following issue on the given date: day is out of range for month'
+            }
+        self.assertDictEqual(expected, obtained)
+
