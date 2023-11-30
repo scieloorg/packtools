@@ -548,10 +548,10 @@ class ArticleDatesValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_article_date_is_not_valid(self):
+    def test_validate_number_of_digits_in_article_date_year_is_not_ok(self):
         self.maxDiff = None
         xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
         article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
                 <article-meta>
@@ -560,8 +560,8 @@ class ArticleDatesValidationTest(TestCase):
                     <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
                     <article-id pub-id-type="other">00303</article-id>
                     <pub-date date-type="pub" publication-format="electronic">
-                        <day>32</day>
-                        <month>0</month>
+                        <day>03</day>
+                        <month>02</month>
                         <year>202</year>
                     </pub-date>
                 </article-meta>
@@ -570,37 +570,43 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date()
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date/@date-type:pub',
-                'validation_type': 'format (number of digits)',
+                'xpath': './/front//pub-date[@date-type:pub]',
+                'validation_type': 'format',
                 'response': 'OK',
-                'expected_value': 'day represented with 2 digits',
-                'got_value': '32',
+                'expected_value': '03',
+                'got_value': '03',
                 'message': 'Got 2 expected 2 numeric digits',
                 'advice': None
             },
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date/@date-type:pub',
-                'validation_type': 'format (number of digits)',
-                'response': 'ERROR',
-                'expected_value': 'month represented with 2 digits',
-                'got_value': '0',
-                'message': 'Got 1 expected 2 numeric digits',
-                'advice': 'Provide a 2-digit numeric value for month'
+                'xpath': './/front//pub-date[@date-type:pub]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '02',
+                'got_value': '02',
+                'message': 'Got 2 expected 2 numeric digits',
+                'advice': None
             },
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date/@date-type:pub',
-                'validation_type': 'format (number of digits)',
+                'xpath': './/front//pub-date[@date-type:pub]',
+                'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'year represented with 4 digits',
+                'expected_value': '0202',
                 'got_value': '202',
                 'message': 'Got 3 expected 4 numeric digits',
                 'advice': 'Provide a 4-digit numeric value for year'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
             },
             {
                 'title': 'Article pub-date validation',
