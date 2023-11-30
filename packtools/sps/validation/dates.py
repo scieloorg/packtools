@@ -115,8 +115,8 @@ class ArticleDatesValidation:
         list of dict such as:
             [
                 {
-                    'title': 'Article pub-date validation',
-                    'xpath': './/front//pub-date[@date-type:pub]',
+                    'title': 'Article pub-date day validation',
+                    'xpath': './/front//pub-date[@date-type:"pub"]/day',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '03',
@@ -140,8 +140,8 @@ class ArticleDatesValidation:
                 validated = False
             result.append(
                 {
-                    'title': 'Article pub-date validation',
-                    'xpath': './/front//pub-date[@date-type:pub]',
+                    'title': 'Article pub-date {} validation'.format(elem),
+                    'xpath': './/front//pub-date[@date-type:"pub"]/{}'.format(elem),
                     'validation_type': 'format',
                     'response': 'OK' if validated else 'ERROR',
                     'expected_value': expected_value,
@@ -151,7 +151,6 @@ class ArticleDatesValidation:
                 }
             )
         return result
-
 
     def validate_article_date(self, future_year, future_month, future_day):
         """
@@ -188,9 +187,9 @@ class ArticleDatesValidation:
             {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
                 'got_value': '2023-01-01',
                 'message': '2023-01-01 is an valid date',
                 'advice': None
@@ -213,9 +212,9 @@ class ArticleDatesValidation:
         return {
             'title': 'Article pub-date validation',
             'xpath': './/front//pub-date[@date-type:pub]',
-            'validation_type': 'format',
+            'validation_type': 'value',
             'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'A date in the format: YYYY-MM-DD',
+            'expected_value': 'A date in the format: YYYY-MM-DD less than {}-{}-{}'.format(future_year, future_month, future_day),
             'got_value': '{}-{}-{}'.format(year, month, day),
             'message': '{}-{}-{} is an {}'.format(year, month, day, 'valid date' if validated else 'invalid date'),
             'advice': advice
