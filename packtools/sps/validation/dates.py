@@ -152,37 +152,74 @@ class ArticleDatesValidation:
             )
         return result
 
-        day, month, year = [self.article_date[elem] for elem in ['day', 'month', 'year']]
-        try:
-            pub_date = datetime(int(year), int(month), int(day))
-            current_date = datetime.now()
-            future_date = pub_date.year - current_date.year > 0
-            msg = None
-            validated = True
-        except ValueError as e:
-            future_date = False
-            msg = str(e)
-            validated = False
-        if validated:
-            advise = None if not future_date else 'The publication date is in the future, consider replacing it with a date in the past'
-        else:
-            advise = 'Fix the following issue on the given date: {}'.format(msg)
 
-        result.append(
+    def validate_article_date(self, future_year, future_month, future_day):
+        """
+        Check whether the article language matches the options provided in a standard list.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        future_year : int
+        future_month : int
+        future_day : int
+
+        Returns
+        -------
+        dict such as:
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date/@date-type:pub',
-                'validation_type': 'format (valid date)',
-                'response': 'OK' if validated else 'ERROR',
+                'xpath': './/front//pub-date[@date-type:pub]',
+                'validation_type': 'format',
+                'response': 'OK',
                 'expected_value': 'A date in the format: YYYY-MM-DD',
-                'got_value': '{}-{}-{}'.format(year, month, day),
-                'message': '{}-{}-{} is an {}'.format(year, month, day, 'valid date' if validated else 'invalid date'),
-                'advice': advise
+                'got_value': '2023-01-01',
+                'message': '2023-01-01 is an valid date',
+                'advice': None
             }
-        )
+        """
+        try:
+            future_date = date(future_year, future_month, future_day)
+        except (ValueError, TypeError) as e:
+            raise ValidationDateException(f'Provide a valid future date: {e}')
 
-        return result
+        day, month, year = [self.article_date[elem] for elem in ['day', 'month', 'year']]
+        try:
+            pub_date = date(int(year), int(month), int(day))
+            validated = pub_date < future_date
+            advice = None if validated else 'The publication date is in the future, consider replacing it with a date in the past'
+        except ValueError as e:
+            validated = False
+            advice = f'Fix the following issue on the given date: {e}'
 
+        return {
+            'title': 'Article pub-date validation',
+            'xpath': './/front//pub-date[@date-type:pub]',
+            'validation_type': 'format',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': 'A date in the format: YYYY-MM-DD',
+            'got_value': '{}-{}-{}'.format(year, month, day),
+            'message': '{}-{}-{} is an {}'.format(year, month, day, 'valid date' if validated else 'invalid date'),
+            'advice': advice
+        }
 
     def validate(self, data):
         """
