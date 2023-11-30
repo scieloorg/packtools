@@ -2,6 +2,7 @@ from datetime import datetime, date
 import logging
 
 from packtools.sps.models.dates import ArticleDates
+from packtools.sps.validation.exceptions import ValidationDateException
 
 
 def date_dict_to_date(date_dict):
@@ -86,9 +87,9 @@ class ArticleDatesValidation:
 
         return result
 
-    def validate_article_date(self):
+    def validate_number_of_digits_in_article_date(self):
         """
-        Check whether the article language matches the options provided in a standard list.
+        Checks whether date components have the correct number of digits.
 
         XML input
         ---------
@@ -103,49 +104,53 @@ class ArticleDatesValidation:
                     <pub-date date-type="pub" publication-format="electronic">
                         <day>03</day>
                         <month>02</month>
-                        <year>2020</year>
+                        <year>2024</year>
                     </pub-date>
                 </article-meta>
             </front>
         </article>
 
-        Params
-        ------
-        language_codes_list : list
-
         Returns
         -------
-        dict such as:
-            {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got en, to research-article whose id is main, expected one item of this list: pt | en | es',
-                'advice': 'XML research-article has en as language, to research-article whose id is main, expected one item
-                of this list: pt | en | es'
-            }
+        list of dict such as:
+            [
+                {
+                    'title': 'Article pub-date validation',
+                    'xpath': './/front//pub-date[@date-type:pub]',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '03',
+                    'got_value': '03',
+                    'message': 'Got 2 expected 2 numeric digits',
+                    'advice': None
+                },...
+            ]
         """
         result = []
-        for elem in ['day', 'month', 'year']:
+        for elem, expected in zip(('day', 'month', 'year'), (2, 2, 4)):
             value = self.article_date[elem]
-            expected_number_of_digits = 2 if elem != 'year' else 4
-            obtained_number_of_digits = len(value)
-            validated_digits = obtained_number_of_digits == expected_number_of_digits
+            obtained = len(value)
+            validated = obtained == expected
+            if value.isdigit():
+                expected_value = value.zfill(expected)
+                message = 'Got {} expected {} numeric digits'.format(obtained, expected)
+            else:
+                expected_value = 'A numeric digit for {} represented with {} digits'.format(elem, expected)
+                message = 'Got a non-numeric value for {}'.format(elem)
+                validated = False
             result.append(
                 {
                     'title': 'Article pub-date validation',
-                    'xpath': './/front//pub-date/@date-type:pub',
-                    'validation_type': 'format (number of digits)',
-                    'response': 'OK' if validated_digits else 'ERROR',
-                    'expected_value': '{} represented with {} digits'.format(elem, expected_number_of_digits),
+                    'xpath': './/front//pub-date[@date-type:pub]',
+                    'validation_type': 'format',
+                    'response': 'OK' if validated else 'ERROR',
+                    'expected_value': expected_value,
                     'got_value': value,
-                    'message': 'Got {} expected {} numeric digits'.format(obtained_number_of_digits, expected_number_of_digits),
-                    'advice': None if validated_digits else 'Provide a {}-digit numeric value for {}'.format(expected_number_of_digits, elem)
+                    'message': message,
+                    'advice': None if validated else 'Provide a {}-digit numeric value for {}'.format(expected, elem)
                 }
             )
+        return result
 
         day, month, year = [self.article_date[elem] for elem in ['day', 'month', 'year']]
         try:
