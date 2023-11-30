@@ -514,8 +514,8 @@ class ArticleDatesValidationTest(TestCase):
         obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date day validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/day',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '03',
@@ -524,8 +524,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date month validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/month',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '02',
@@ -534,8 +534,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date year validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/year',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '2024',
@@ -573,8 +573,8 @@ class ArticleDatesValidationTest(TestCase):
         obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date day validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/day',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '03',
@@ -583,8 +583,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date month validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/month',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '02',
@@ -593,8 +593,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date year validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/year',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': '0202',
@@ -632,8 +632,8 @@ class ArticleDatesValidationTest(TestCase):
         obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date day validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/day',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '03',
@@ -642,8 +642,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date month validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/month',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': '02',
@@ -652,8 +652,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': 'Provide a 2-digit numeric value for month'
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date year validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/year',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '2024',
@@ -691,8 +691,8 @@ class ArticleDatesValidationTest(TestCase):
         obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date day validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/day',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': '03',
@@ -701,8 +701,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': 'Provide a 2-digit numeric value for day'
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date month validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/month',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '02',
@@ -711,8 +711,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date year validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/year',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '2024',
@@ -750,8 +750,8 @@ class ArticleDatesValidationTest(TestCase):
         obtained = dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date()
         expected = [
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date day validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/day',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': 'A numeric digit for day represented with 2 digits',
@@ -760,8 +760,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': 'Provide a 2-digit numeric value for day'
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date month validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/month',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': 'A numeric digit for month represented with 2 digits',
@@ -770,8 +770,8 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': 'Provide a 2-digit numeric value for month'
             },
             {
-                'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'title': 'Article pub-date year validation',
+                'xpath': './/front//pub-date[@date-type:"pub"]/year',
                 'validation_type': 'format',
                 'response': 'ERROR',
                 'expected_value': 'A numeric digit for year represented with 4 digits',
@@ -810,9 +810,9 @@ class ArticleDatesValidationTest(TestCase):
         expected = {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
                 'got_value': '2023-01-01',
                 'message': '2023-01-01 is an valid date',
                 'advice': None
@@ -845,9 +845,9 @@ class ArticleDatesValidationTest(TestCase):
         expected = {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
                 'got_value': '0-01-01',
                 'message': '0-01-01 is an invalid date',
                 'advice': 'Fix the following issue on the given date: year 0 is out of range'
@@ -880,9 +880,9 @@ class ArticleDatesValidationTest(TestCase):
         expected = {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
                 'got_value': '2023-13-01',
                 'message': '2023-13-01 is an invalid date',
                 'advice': 'Fix the following issue on the given date: month must be in 1..12'
@@ -915,9 +915,9 @@ class ArticleDatesValidationTest(TestCase):
         expected = {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
                 'got_value': '2023-01-32',
                 'message': '2023-01-32 is an invalid date',
                 'advice': 'Fix the following issue on the given date: day is out of range for month'
@@ -950,9 +950,9 @@ class ArticleDatesValidationTest(TestCase):
         expected = {
                 'title': 'Article pub-date validation',
                 'xpath': './/front//pub-date[@date-type:pub]',
-                'validation_type': 'format',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': 'A date in the format: YYYY-MM-DD',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2020-12-12',
                 'got_value': '2023-01-01',
                 'message': '2023-01-01 is an invalid date',
                 'advice': 'The publication date is in the future, consider replacing it with a date in the past'
