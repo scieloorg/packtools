@@ -115,7 +115,7 @@ class ArticleDatesValidation:
             [
                 {
                     'title': 'Article pub-date day validation',
-                    'xpath': './/front//pub-date[@date-type:"pub"]/day',
+                    'xpath': './/front//pub-date[@date-type="pub"]/day',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '03',
@@ -140,7 +140,7 @@ class ArticleDatesValidation:
             result.append(
                 {
                     'title': 'Article pub-date {} validation'.format(elem),
-                    'xpath': './/front//pub-date[@date-type:"pub"]/{}'.format(elem),
+                    'xpath': './/front//pub-date[@date-type="pub"]/{}'.format(elem),
                     'validation_type': 'format',
                     'response': 'OK' if validated else 'ERROR',
                     'expected_value': expected_value,
@@ -183,7 +183,7 @@ class ArticleDatesValidation:
         dict such as:
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:"pub"]',
+                'xpath': './/front//pub-date[@date-type="pub"]',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -195,19 +195,19 @@ class ArticleDatesValidation:
 
         got_value = '-'.join([self.article_date[elem] for elem in ['year', 'month', 'day']])
         try:
-            _ = date_dict_to_date(self.article_date)
+            pub_date = date_dict_to_date(self.article_date)
             validated = got_value <= future_date
-            advice = None if validated else 'The publication date is in the future, consider replacing it with a date in the past'
+            advice = None if validated else 'The publication date must be a date before or equal to {}'.format(future_date)
         except ValueError as e:
             validated = False
             advice = f'Fix the following issue on the given date: {e}'
 
         return {
             'title': 'Article pub-date validation',
-            'xpath': './/front//pub-date[@date-type:"pub"]',
+            'xpath': './/front//pub-date[@date-type="pub"]',
             'validation_type': 'value',
             'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'A date in the format: YYYY-MM-DD less than {}'.format(future_date),
+            'expected_value': 'A date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
             'got_value': got_value,
             'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
             'advice': advice
