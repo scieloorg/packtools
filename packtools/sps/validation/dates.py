@@ -2,7 +2,6 @@ from datetime import datetime, date
 import logging
 
 from packtools.sps.models.dates import ArticleDates
-from packtools.sps.validation.exceptions import ValidationDateException
 
 
 def date_dict_to_date(date_dict):
@@ -152,9 +151,9 @@ class ArticleDatesValidation:
             )
         return result
 
-    def validate_article_date(self, future_year, future_month, future_day):
+    def validate_article_date(self, future_date):
         """
-        Check whether the article language matches the options provided in a standard list.
+        Checks if the publication date is valid and before a deadline.
 
         XML input
         ---------
@@ -177,16 +176,14 @@ class ArticleDatesValidation:
 
         Params
         ------
-        future_year : int
-        future_month : int
-        future_day : int
+        future_date : str
 
         Returns
         -------
         dict such as:
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -195,15 +192,11 @@ class ArticleDatesValidation:
                 'advice': None
             }
         """
-        try:
-            future_date = date(future_year, future_month, future_day)
-        except (ValueError, TypeError) as e:
-            raise ValidationDateException(f'Provide a valid future date: {e}')
 
-        day, month, year = [self.article_date[elem] for elem in ['day', 'month', 'year']]
+        got_value = '-'.join([self.article_date[elem] for elem in ['year', 'month', 'day']])
         try:
-            pub_date = date(int(year), int(month), int(day))
-            validated = pub_date < future_date
+            _ = date_dict_to_date(self.article_date)
+            validated = got_value <= future_date
             advice = None if validated else 'The publication date is in the future, consider replacing it with a date in the past'
         except ValueError as e:
             validated = False
@@ -211,12 +204,12 @@ class ArticleDatesValidation:
 
         return {
             'title': 'Article pub-date validation',
-            'xpath': './/front//pub-date[@date-type:pub]',
+            'xpath': './/front//pub-date[@date-type:"pub"]',
             'validation_type': 'value',
             'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'A date in the format: YYYY-MM-DD less than {}-{}-{}'.format(future_year, future_month, future_day),
-            'got_value': '{}-{}-{}'.format(year, month, day),
-            'message': '{}-{}-{} is an {}'.format(year, month, day, 'valid date' if validated else 'invalid date'),
+            'expected_value': 'A date in the format: YYYY-MM-DD less than {}'.format(future_date),
+            'got_value': got_value,
+            'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
             'advice': advice
         }
 
