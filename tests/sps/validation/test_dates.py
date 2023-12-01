@@ -806,10 +806,10 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2023, 12, 12)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
         expected = {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -841,10 +841,10 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2023, 12, 12)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
         expected = {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -876,10 +876,10 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2023, 12, 12)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
         expected = {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -911,10 +911,10 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2023, 12, 12)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
         expected = {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
@@ -946,10 +946,10 @@ class ArticleDatesValidationTest(TestCase):
         """
 
         xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date(2020, 12, 12)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2020-12-12')
         expected = {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type:pub]',
+                'xpath': './/front//pub-date[@date-type:"pub"]',
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'A date in the format: YYYY-MM-DD less than 2020-12-12',
