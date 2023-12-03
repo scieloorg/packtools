@@ -87,3 +87,35 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_related_articles_has_doi(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+
+            <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
+
+            </article>
+
+            """
+        )
+        obtained = RelatedArticlesValidation(xmltree).related_articles_doi()
+
+        expected = [
+            {
+                'title': 'Related article doi validation',
+                'xpath': './/related-article[@ext-link-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/1808-057x202090350',
+                'got_value': '10.1590/1808-057x202090350',
+                'message': 'Got 10.1590/1808-057x202090350, expected 10.1590/1808-057x202090350',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
