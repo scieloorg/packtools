@@ -119,3 +119,38 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_related_articles_does_not_have_doi(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+
+            <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />
+
+            </article>
+
+            """
+        )
+        obtained = RelatedArticlesValidation(xmltree).related_articles_doi()
+
+        expected = [
+            {
+                'title': 'Related article doi validation',
+                'xpath': './/related-article[@ext-link-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'A valid DOI for related-article',
+                'got_value': None,
+                'message': 'Got None, expected A valid DOI for related-article',
+                'advice': 'Provide a valid DOI for the related-article corrected-article whith ID ra1'
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+
+if __name__ == '__main__':
+    unittest.main()
