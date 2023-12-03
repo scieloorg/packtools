@@ -79,3 +79,50 @@ class RelatedArticlesValidation:
             )
         return result
 
+    def related_articles_doi(self):
+        """
+        Checks if there is a DOI for related articles.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+        <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Related article doi validation',
+                    'xpath': './/related-article[@ext-link-type="doi"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': '10.1590/1808-057x202090350',
+                    'got_value': '10.1590/1808-057x202090350',
+                    'message': 'Got 10.1590/1808-057x202090350, expected 10.1590/1808-057x202090350',
+                    'advice': None
+                },...
+            ]
+        """
+        result = []
+        for related_article in self.related_articles:
+            if related_article.get('ext-link-type') == 'doi':
+                doi = related_article.get('href')
+                expected_value = doi if doi else 'A valid DOI for related-article'
+                result.append(
+                    {
+                        'title': 'Related article doi validation',
+                        'xpath': './/related-article[@ext-link-type="doi"]',
+                        'validation_type': 'exist',
+                        'response': 'OK' if doi else 'ERROR',
+                        'expected_value': expected_value,
+                        'got_value': doi,
+                        'message': 'Got {}, expected {}'.format(doi, expected_value),
+                        'advice': None if doi else 'Provide a valid DOI for the related-article {} whith ID {}'
+                        .format(related_article.get('related-article-type'), related_article.get('id'))
+                    }
+                )
+        return result
