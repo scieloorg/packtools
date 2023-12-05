@@ -119,6 +119,9 @@
     </xsl:template>
     
     <xsl:template match="contrib" mode="modal-contrib">
+        <!--
+            ((contrib-id)*, (anonymous | collab | collab-alternatives | name | name-alternatives | string-name)*, (degrees)*, (address | aff | aff-alternatives | author-comment | bio | email | ext-link | on-behalf-of | role | uri | xref)*)
+        -->
         <div class="tutors">
             <xsl:apply-templates select="." mode="modal-contrib-type"/>
             <strong><xsl:apply-templates select="anonymous|name|collab|on-behalf-of"/></strong>
@@ -126,7 +129,7 @@
                 <xsl:apply-templates select="xref[@ref-type='corresp']" />
             </xsl:if>
             <br/>
-            <xsl:apply-templates select="role"/>
+            <xsl:apply-templates select="role | bio"/>
             <xsl:apply-templates select="xref" mode="modal-contrib"/>
             <xsl:apply-templates select="author-notes"/>
             <xsl:if test="contrib-id">
