@@ -98,7 +98,7 @@ class RelatedArticlesValidation:
             [
                 {
                     'title': 'Related article doi validation',
-                    'xpath': './/related-article[@ext-link-type="doi"]',
+                    'xpath': './/related-article/@xLink:href',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': '10.1590/1808-057x202090350',
@@ -108,22 +108,19 @@ class RelatedArticlesValidation:
                 },...
             ]
         """
-        result = []
+
         for related_article in self.related_articles:
-            if related_article.get('ext-link-type') == 'doi':
-                doi = related_article.get('href')
-                expected_value = doi if doi else 'A valid DOI for related-article'
-                result.append(
-                    {
-                        'title': 'Related article doi validation',
-                        'xpath': './/related-article[@ext-link-type="doi"]',
-                        'validation_type': 'exist',
-                        'response': 'OK' if doi else 'ERROR',
-                        'expected_value': expected_value,
-                        'got_value': doi,
-                        'message': 'Got {}, expected {}'.format(doi, expected_value),
-                        'advice': None if doi else 'Provide a valid DOI for the related-article {} whith ID {}'
-                        .format(related_article.get('related-article-type'), related_article.get('id'))
-                    }
-                )
-        return result
+            doi = related_article.get('href')
+            expected_value = doi if doi else 'A valid DOI or URI for related-article/@xlink:href'
+            yield {
+                    'title': 'Related article doi validation',
+                    'xpath': './/related-article/@xLink:href',
+                    'validation_type': 'exist',
+                    'response': 'OK' if doi else 'ERROR',
+                    'expected_value': expected_value,
+                    'got_value': doi,
+                    'message': 'Got {}, expected {}'.format(doi, expected_value[0].lower() + expected_value[1:]),
+                    'advice': None if doi else 'Provide a valid DOI for the related-article {} which ID is {}'
+                    .format(related_article.get('related-article-type'), related_article.get('id'))
+                }
+
