@@ -12,7 +12,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         xmltree = etree.fromstring(
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            article-type="correction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
             
@@ -21,10 +21,16 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
         )
         obtained = RelatedArticlesValidation(xmltree).related_articles_matches_article_type_validation(
-            {
-                'correction-forward': 'corrected-article',
-                'retracted-article': 'retraction-forward'
-            }
+            [
+                {
+                    'article-type': 'correction',
+                    'related-article-types': ['corrected-article']
+                },
+                {
+                    'article-type': 'retraction',
+                    'related-article-types': ['retracted-article']
+                }
+            ]
         )
 
         expected = [
@@ -33,11 +39,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'xpath': './article[@article-type] .//related-article[@related-article-type]',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': 'A valid match such as the following: (correction-forward, corrected-article) or ('
-                                  'retracted-article, retraction-forward)',
-                'got_value': 'article-type: correction-forward, related-article-type: corrected-article',
-                'message': 'Got (correction-forward, corrected-article), expected (correction-forward, '
-                           'corrected-article) or (retracted-article, retraction-forward)',
+                'expected_value': ['corrected-article'],
+                'got_value': 'corrected-article',
+                'message': 'Got corrected-article, expected one of the following items: corrected-article',
                 'advice': None
             }
         ]
@@ -51,7 +55,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         xmltree = etree.fromstring(
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            article-type="retraction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
 
             <related-article ext-link-type="doi" id="ra1" related-article-type="retraction-forward" xlink:href="10.1590/1808-057x202090350"/>
 
@@ -60,10 +64,16 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
         )
         obtained = RelatedArticlesValidation(xmltree).related_articles_matches_article_type_validation(
-            {
-                'correction-forward': 'corrected-article',
-                'retracted-article': 'retraction-forward'
-            }
+            [
+                {
+                    'article-type': 'correction',
+                    'related-article-types': ['corrected-article']
+                },
+                {
+                    'article-type': 'retraction',
+                    'related-article-types': ['retracted-article', 'article-retracted']
+                }
+            ]
         )
 
         expected = [
@@ -72,14 +82,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'xpath': './article[@article-type] .//related-article[@related-article-type]',
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'A valid match such as the following: (correction-forward, corrected-article) or ('
-                                  'retracted-article, retraction-forward)',
-                'got_value': 'article-type: correction-forward, related-article-type: retraction-forward',
-                'message': 'Got (correction-forward, retraction-forward), expected (correction-forward, '
-                           'corrected-article) or (retracted-article, retraction-forward)',
-                'advice': 'Consider replacing the article-type and related-article-type with a tuple from the '
-                          'following list: (correction-forward, corrected-article) or (retracted-article, '
-                          'retraction-forward)'
+                'expected_value': ['retracted-article', 'article-retracted'],
+                'got_value': 'retraction-forward',
+                'message': 'Got retraction-forward, expected one of the following items: retracted-article or article-retracted',
+                'advice': 'The article-type: retraction does not match the related-article-type: retraction-forward, '
+                          'provide one of the following items: retracted-article or article-retracted'
             }
         ]
 
@@ -105,7 +112,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'xpath': './/related-article[@ext-link-type="doi"]',
+                'xpath': './/related-article/@xLink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '10.1590/1808-057x202090350',
@@ -137,13 +144,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'xpath': './/related-article[@ext-link-type="doi"]',
+                'xpath': './/related-article/@xLink:href',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'A valid DOI for related-article',
+                'expected_value': 'A valid DOI or URI for related-article/@xlink:href',
                 'got_value': None,
-                'message': 'Got None, expected A valid DOI for related-article',
-                'advice': 'Provide a valid DOI for the related-article corrected-article whith ID ra1'
+                'message': 'Got None, expected a valid DOI or URI for related-article/@xlink:href',
+                'advice': 'Provide a valid DOI for the related-article corrected-article which ID is ra1'
             }
         ]
 
