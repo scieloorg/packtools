@@ -53,9 +53,9 @@ class RelatedArticlesValidation:
                 }, ...
             ]
         """
-        if not correspondence_dictionary:
-            raise ValidationRelatedArticleException("Function requires a dictionary with article types and related article types")
-        result = []
+        if not correspondence_list:
+            raise ValidationRelatedArticleException("Function requires a list of dictionary with article type and related article types")
+
         for related_article in self.related_articles:
             validated = self.article_type in correspondence_dictionary and correspondence_dictionary.get(self.article_type) == related_article.get('related-article-type')
             result.append(
