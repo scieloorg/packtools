@@ -11,7 +11,7 @@ class RelatedArticlesValidation:
         self.related_articles = [related for related in related_articles.RelatedItems(xmltree).related_articles]
         self.article_type = article_and_subarticles.ArticleAndSubArticles(xmltree).main_article_type
 
-    def related_articles_matches_article_type_validation(self, correspondence_dictionary=None):
+    def related_articles_matches_article_type_validation(self, correspondence_list=None):
         """
         Check whether the article type attribute of the article matches the options provided in a standard list.
 
