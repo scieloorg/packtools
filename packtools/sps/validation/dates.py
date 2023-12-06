@@ -132,7 +132,7 @@ class ArticleDatesValidation:
             validated = obtained == expected
             if value.isdigit():
                 expected_value = value.zfill(expected)
-                message = 'Got {} expected {} numeric digits'.format(obtained, expected)
+                message = 'Got {} expected {}'.format(value, expected_value)
             else:
                 expected_value = 'A numeric digit for {} represented with {} digits'.format(elem, expected)
                 message = 'Got a non-numeric value for {}'.format(elem)
@@ -195,12 +195,10 @@ class ArticleDatesValidation:
 
         got_value = '-'.join([self.article_date[elem] for elem in ['year', 'month', 'day']])
         try:
-            pub_date = date_dict_to_date(self.article_date)
+            date_dict_to_date(self.article_date)
             validated = got_value <= future_date
-            advice = None if validated else 'The publication date must be a date before or equal to {}'.format(future_date)
         except ValueError as e:
             validated = False
-            advice = f'Fix the following issue on the given date: {e}'
 
         return {
             'title': 'Article pub-date validation',
@@ -210,7 +208,7 @@ class ArticleDatesValidation:
             'expected_value': 'A date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
             'got_value': got_value,
             'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
-            'advice': advice
+            'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date)
         }
 
     def validate(self, data):
