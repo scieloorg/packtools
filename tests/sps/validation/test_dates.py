@@ -520,7 +520,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '03',
                 'got_value': '03',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 03 expected 03',
                 'advice': None
             },
             {
@@ -530,7 +530,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '02',
                 'got_value': '02',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 02 expected 02',
                 'advice': None
             },
             {
@@ -540,7 +540,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '2024',
                 'got_value': '2024',
-                'message': 'Got 4 expected 4 numeric digits',
+                'message': 'Got 2024 expected 2024',
                 'advice': None
             }
         ]
@@ -579,7 +579,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '03',
                 'got_value': '03',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 03 expected 03',
                 'advice': None
             },
             {
@@ -589,7 +589,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '02',
                 'got_value': '02',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 02 expected 02',
                 'advice': None
             },
             {
@@ -599,7 +599,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': '0202',
                 'got_value': '202',
-                'message': 'Got 3 expected 4 numeric digits',
+                'message': 'Got 202 expected 0202',
                 'advice': 'Provide a 4-digit numeric value for year'
             }
         ]
@@ -638,7 +638,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '03',
                 'got_value': '03',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 03 expected 03',
                 'advice': None
             },
             {
@@ -648,7 +648,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': '02',
                 'got_value': '2',
-                'message': 'Got 1 expected 2 numeric digits',
+                'message': 'Got 2 expected 02',
                 'advice': 'Provide a 2-digit numeric value for month'
             },
             {
@@ -658,7 +658,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '2024',
                 'got_value': '2024',
-                'message': 'Got 4 expected 4 numeric digits',
+                'message': 'Got 2024 expected 2024',
                 'advice': None
             }
         ]
@@ -697,7 +697,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': '03',
                 'got_value': '3',
-                'message': 'Got 1 expected 2 numeric digits',
+                'message': 'Got 3 expected 03',
                 'advice': 'Provide a 2-digit numeric value for day'
             },
             {
@@ -707,7 +707,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '02',
                 'got_value': '02',
-                'message': 'Got 2 expected 2 numeric digits',
+                'message': 'Got 02 expected 02',
                 'advice': None
             },
             {
@@ -717,7 +717,7 @@ class ArticleDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': '2024',
                 'got_value': '2024',
-                'message': 'Got 4 expected 4 numeric digits',
+                'message': 'Got 2024 expected 2024',
                 'advice': None
             }
         ]
@@ -850,7 +850,7 @@ class ArticleDatesValidationTest(TestCase):
                 'expected_value': 'A date in the format: YYYY-MM-DD before or equal to 2023-12-12',
                 'got_value': '0-01-01',
                 'message': '0-01-01 is an invalid date',
-                'advice': 'Fix the following issue on the given date: year 0 is out of range'
+                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12'
             }
         self.assertDictEqual(expected, obtained)
 
@@ -885,7 +885,7 @@ class ArticleDatesValidationTest(TestCase):
                 'expected_value': 'A date in the format: YYYY-MM-DD before or equal to 2023-12-12',
                 'got_value': '2023-13-01',
                 'message': '2023-13-01 is an invalid date',
-                'advice': 'Fix the following issue on the given date: month must be in 1..12'
+                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12'
             }
         self.assertDictEqual(expected, obtained)
 
@@ -920,7 +920,7 @@ class ArticleDatesValidationTest(TestCase):
                 'expected_value': 'A date in the format: YYYY-MM-DD before or equal to 2023-12-12',
                 'got_value': '2023-01-32',
                 'message': '2023-01-32 is an invalid date',
-                'advice': 'Fix the following issue on the given date: day is out of range for month'
+                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12'
             }
         self.assertDictEqual(expected, obtained)
 
@@ -955,6 +955,6 @@ class ArticleDatesValidationTest(TestCase):
                 'expected_value': 'A date in the format: YYYY-MM-DD before or equal to 2020-12-12',
                 'got_value': '2023-01-01',
                 'message': '2023-01-01 is an invalid date',
-                'advice': 'The publication date must be a date before or equal to 2020-12-12'
+                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2020-12-12'
             }
         self.assertDictEqual(expected, obtained)
