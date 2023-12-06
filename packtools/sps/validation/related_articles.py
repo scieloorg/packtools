@@ -24,11 +24,17 @@ class RelatedArticlesValidation:
 
         Params
         ------
-        correspondence_dictionary : dict, such as:
-            {
-                'correction-forward': 'corrected-article',
-                'retracted-article': 'retraction-forward'
-            }
+        correspondence_list : list of dict, such as:
+            [
+                {
+                    'article-type': 'correction',
+                    'related-article-types': ['corrected-article']
+                },
+                {
+                    'article-type': 'retraction',
+                    'related-article-types': ['retracted-article']
+                }, ...
+            ]
 
         Returns
         -------
@@ -40,13 +46,11 @@ class RelatedArticlesValidation:
                     'xpath': './article[@article-type] .//related-article[@related-article-type]',
                     'validation_type': 'match',
                     'response': 'OK',
-                    'expected_value': 'A valid match such as the following: (correction-forward, corrected-article) or ('
-                                      'retracted-article, retraction-forward)',
-                    'got_value': 'article-type: correction-forward, related-article-type: corrected-article',
-                    'message': 'Got (correction-forward, corrected-article), expected (correction-forward, '
-                               'corrected-article) or (retracted-article, retraction-forward)',
+                    'expected_value': ['corrected-article'],
+                    'got_value': 'corrected-article',
+                    'message': 'Got corrected-article, expected one of the following items: corrected-article',
                     'advice': None
-                },...
+                }, ...
             ]
         """
         if not correspondence_dictionary:
