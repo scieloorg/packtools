@@ -41,7 +41,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'response': 'OK',
                 'expected_value': ['corrected-article'],
                 'got_value': 'corrected-article',
-                'message': 'Got corrected-article, expected one of the following items: corrected-article',
+                'message': "Got corrected-article, expected one of the following items: ['corrected-article']",
                 'advice': None
             }
         ]
@@ -84,9 +84,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'response': 'ERROR',
                 'expected_value': ['retracted-article', 'article-retracted'],
                 'got_value': 'retraction-forward',
-                'message': 'Got retraction-forward, expected one of the following items: retracted-article or article-retracted',
-                'advice': 'The article-type: retraction does not match the related-article-type: retraction-forward, '
-                          'provide one of the following items: retracted-article or article-retracted'
+                'message': "Got retraction-forward, expected one of the following items: ['retracted-article', 'article-retracted']",
+                'advice': "The article-type: retraction does not match the related-article-type: retraction-forward, "
+                          "provide one of the following items: ['retracted-article', 'article-retracted']"
             }
         ]
 
@@ -112,7 +112,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'xpath': './/related-article/@xLink:href',
+                'xpath': './/related-article/@xlink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '10.1590/1808-057x202090350',
@@ -144,7 +144,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'xpath': './/related-article/@xLink:href',
+                'xpath': './/related-article/@xlink:href',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'A valid DOI or URI for related-article/@xlink:href',
