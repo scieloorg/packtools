@@ -48,7 +48,7 @@ class RelatedArticlesValidation:
                     'response': 'OK',
                     'expected_value': ['corrected-article'],
                     'got_value': 'corrected-article',
-                    'message': 'Got corrected-article, expected one of the following items: corrected-article',
+                    'message': 'Got corrected-article, expected one of the following items: ['corrected-article'],
                     'advice': None
                 }, ...
             ]
@@ -56,29 +56,34 @@ class RelatedArticlesValidation:
         if not correspondence_list:
             raise ValidationRelatedArticleException("Function requires a list of dictionary with article type and related article types")
 
-        for related_article in self.related_articles:
-            for item in correspondence_list:
-                if isinstance(item, dict) and item.get('article-type') == self.article_type:
-                    validated = related_article.get('related-article-type') in item.get('related-article-types') or []
-                    yield {
-                            'title': 'Related article type validation',
-                            'xpath': './article[@article-type] .//related-article[@related-article-type]',
-                            'validation_type': 'match',
-                            'response': 'OK' if validated else 'ERROR',
-                            'expected_value': item.get('related-article-types'),
-                            'got_value': related_article.get('related-article-type'),
-                            'message': 'Got {}, expected {}'.format(
-                                related_article.get('related-article-type'),
-                                'one of the following items: {}'.format(" or ".join(item.get('related-article-types')))
-                            ),
-                            'advice': None if validated else 'The article-type: {} does not match the '
-                                                             'related-article-type: {}, provide '
-                                                             'one of the following items: {}'.format(
-                                self.article_type,
-                                related_article.get('related-article-type'),
-                                " or ".join(item.get('related-article-types'))
-                            )
-                        }
+        article_type_match = {}
+        for item in correspondence_list:
+            if isinstance(item, dict) and item.get('article-type') == self.article_type:
+                article_type_match = item
+                break
+
+        if article_type_match:
+            for related_article in self.related_articles:
+                validated = related_article.get('related-article-type') in article_type_match.get('related-article-types') or []
+                yield {
+                        'title': 'Related article type validation',
+                        'xpath': './article[@article-type] .//related-article[@related-article-type]',
+                        'validation_type': 'match',
+                        'response': 'OK' if validated else 'ERROR',
+                        'expected_value': article_type_match.get('related-article-types'),
+                        'got_value': related_article.get('related-article-type'),
+                        'message': 'Got {}, expected {}'.format(
+                            related_article.get('related-article-type'),
+                            'one of the following items: {}'.format(article_type_match.get('related-article-types'))
+                        ),
+                        'advice': None if validated else 'The article-type: {} does not match the '
+                                                         'related-article-type: {}, provide '
+                                                         'one of the following items: {}'.format(
+                            self.article_type,
+                            related_article.get('related-article-type'),
+                            article_type_match.get('related-article-types')
+                        )
+                    }
 
     def related_articles_doi(self):
         """
