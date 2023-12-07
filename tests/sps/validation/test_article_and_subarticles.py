@@ -5,7 +5,8 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleLangValidation,
     ArticleAttribsValidation,
     ArticleTypeValidation,
-    ArticleSubjectsValidation
+    ArticleSubjectsValidation,
+    ArticleIdValidation
 )
 
 
@@ -670,3 +671,90 @@ class ArticleAndSubarticlesTest(TestCase):
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
+
+    def test_article_and_subarticles_validate_article_id_other_is_ok(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="other">123</article-id>
+            </article-meta>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+
+        expected = {
+            'title': 'Article id other validation',
+            'xpath': './/article-id/@pub-id-type="other"',
+            'validation_type': 'format',
+            'response': 'OK',
+            'expected_value': '123',
+            'got_value': '123',
+            'message': 'Got 123 expected 123',
+            'advice': None
+            }
+        self.assertDictEqual(expected, obtained)
+
+    def test_article_and_subarticles_validate_article_id_other_non_numeric_digit(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="other">x23</article-id>
+            </article-meta>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+
+        expected = {
+            'title': 'Article id other validation',
+            'xpath': './/article-id/@pub-id-type="other"',
+            'validation_type': 'format',
+            'response': 'ERROR',
+            'expected_value': 'A numeric value with up to five digits',
+            'got_value': 'x23',
+            'message': 'Got x23 expected a numeric value with up to five digits',
+            'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+            }
+        self.assertDictEqual(expected, obtained)
+
+    def test_article_and_subarticles_validate_article_id_other_with_more_than_five_digits(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="other">123456</article-id>
+            </article-meta>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+
+        expected = {
+            'title': 'Article id other validation',
+            'xpath': './/article-id/@pub-id-type="other"',
+            'validation_type': 'format',
+            'response': 'ERROR',
+            'expected_value': 'A numeric value with up to five digits',
+            'got_value': '123456',
+            'message': 'Got 123456 expected a numeric value with up to five digits',
+            'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+            }
+        self.assertDictEqual(expected, obtained)
