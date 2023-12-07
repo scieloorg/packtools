@@ -119,7 +119,7 @@ class RelatedArticlesValidation:
             expected_value = doi if doi else 'A valid DOI or URI for related-article/@xlink:href'
             yield {
                     'title': 'Related article doi validation',
-                    'xpath': './/related-article/@xLink:href',
+                    'xpath': './/related-article/@xlink:href',
                     'validation_type': 'exist',
                     'response': 'OK' if doi else 'ERROR',
                     'expected_value': expected_value,
