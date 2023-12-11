@@ -150,7 +150,8 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'expected_value': 'A valid DOI or URI for related-article/@xlink:href',
                 'got_value': None,
                 'message': 'Got None, expected a valid DOI or URI for related-article/@xlink:href',
-                'advice': 'Provide a valid DOI for the related-article corrected-article which ID is ra1'
+                'advice': 'Provide a valid DOI for <related-article ext-link-type="doi" id="ra1" '
+                          'related-article-type="corrected-article" /> '
             }
         ]
 
