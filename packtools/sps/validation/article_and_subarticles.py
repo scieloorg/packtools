@@ -485,7 +485,7 @@ class ArticleIdValidation:
         expected_value = self.other_id if is_valid else 'A numeric value with up to five digits'
         return {
             'title': 'Article id other validation',
-            'xpath': './/article-id/@pub-id-type="other"',
+            'xpath': './/article-id[@pub-id-type="other"]',
             'validation_type': 'format',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': expected_value,
