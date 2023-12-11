@@ -56,32 +56,32 @@ class RelatedArticlesValidation:
         if not correspondence_list:
             raise ValidationRelatedArticleException("Function requires a list of dictionary with article type and related article types")
 
-        article_type_match = {}
+        expected_values_for_related_article_type = None
         for item in correspondence_list:
             if isinstance(item, dict) and item.get('article-type') == self.article_type:
-                article_type_match = item
+                expected_values_for_related_article_type = item['related-article-types']
                 break
 
-        if article_type_match:
+        if expected_values_for_related_article_type:
             for related_article in self.related_articles:
-                validated = related_article.get('related-article-type') in article_type_match.get('related-article-types') or []
+                validated = related_article.get('related-article-type') in expected_values_for_related_article_type
                 yield {
                         'title': 'Related article type validation',
                         'xpath': './article[@article-type] .//related-article[@related-article-type]',
                         'validation_type': 'match',
                         'response': 'OK' if validated else 'ERROR',
-                        'expected_value': article_type_match.get('related-article-types'),
+                        'expected_value': expected_values_for_related_article_type,
                         'got_value': related_article.get('related-article-type'),
                         'message': 'Got {}, expected {}'.format(
                             related_article.get('related-article-type'),
-                            'one of the following items: {}'.format(article_type_match.get('related-article-types'))
+                            'one of the following items: {}'.format(expected_values_for_related_article_type)
                         ),
                         'advice': None if validated else 'The article-type: {} does not match the '
                                                          'related-article-type: {}, provide '
                                                          'one of the following items: {}'.format(
                             self.article_type,
                             related_article.get('related-article-type'),
-                            article_type_match.get('related-article-types')
+                            expected_values_for_related_article_type
                         )
                     }
 
