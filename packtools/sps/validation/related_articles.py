@@ -125,7 +125,8 @@ class RelatedArticlesValidation:
                     'expected_value': expected_value,
                     'got_value': doi,
                     'message': 'Got {}, expected {}'.format(doi, expected_value[0].lower() + expected_value[1:]),
-                    'advice': None if doi else 'Provide a valid DOI for the related-article {} which ID is {}'
-                    .format(related_article.get('related-article-type'), related_article.get('id'))
+                    'advice': None if doi else 'Provide a valid DOI for <related-article ext-link-type="doi" id="{}" '
+                                               'related-article-type="{}" /> '
+                    .format(related_article.get('id'), related_article.get('related-article-type'))
                 }
 
