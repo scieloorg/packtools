@@ -8,71 +8,89 @@ class ArticleAuthorsValidation:
         self._xmltree = xmltree
         self.article_authors = Authors(self._xmltree)
 
-    def validate_authors_role(self, credit_terms_and_urls):
-        _result_dict = []
+    def validate_authors_role(self, credit_taxonomy_terms_and_urls):
+        """
+        Checks contributor roles according to CRediT taxonomy.
 
+        XML input
+        ---------
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                            <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>
+                            <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                            <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'CRediT taxonomy for contribs',
+                    'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': [
+                        '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
+                        '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>'
+                    ],
+                    'got_value': '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
+                    'message': '''Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role> expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']''',
+                    'advice': None
+                },...
+            ]
+        """
+        expected_value = ['<role content-type="{}">{}</role>'.format(role['uri'], role['term']) for role in credit_taxonomy_terms_and_urls]
         for author in self.article_authors.contribs:
             _author_name = f"{author['given_names']} {author['surname']}"
-            
-            # Verifica se há alguma tag <role> atribuida ao autor.
-            if 'role' not in author:
-                _result_dict.append({
-                    'result': 'error', 
-                    'error_type': f"No role found", 
-                    'message': f"The author {_author_name} does not have a role. Please add a role according to the credit-taxonomy below.",
-                    'credit_terms_and_urls': credit_terms_and_urls, 
-                })
+            obtained_value = ['<role content-type="{}">{}</role>'.format(role.get('content-type'), role.get('text')) for role in author.get('role') or []]
+            if obtained_value:
+                for role in obtained_value:
+                    is_valid = role in expected_value
+                    yield {
+                        'title': 'CRediT taxonomy for contribs',
+                        'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
+                        'validation_type': 'value in list',
+                        'response': 'OK' if is_valid else 'ERROR',
+                        'expected_value': expected_value,
+                        'got_value': role,
+                        'message': f'Got {role} expected {expected_value}',
+                        'advice': None if is_valid else f"The author {_author_name} does not have a valid role. Provide a role from the list: {expected_value}"
+                    }
             else:
-                # Percorre todas as role atribuida ao autor.
-                for role in author['role']:
-
-                    # Verifica se há role sem texto e sem content-type.
-                    if not role['text'] and not role['content-type']:
-                        _result_dict.append({
-                            'result': 'error',
-                            'error_type': f"Text and content-type not found",
-                            'message': f"The author {_author_name} has a role with no text and content-type attributes. Please add valid text and content-type attributes according to the credit taxonomy below.",
-                            'credit_terms_and_urls': credit_terms_and_urls,
-                        })
-            
-                    # Verifica se há texto na tag role e nenhuma uri em content-type.
-                    elif role['text'] and not role['content-type']:
-                        _result_dict.append({
-                            'result': 'error',
-                            'error_type': f"No content-type found",
-                            'message': f"The author {_author_name} has a role {role['text']} with text but no content-type attribute. Please add a valid URI to the content-type attribute according to the credit taxonomy below.",
-                            'credit_terms_and_urls': credit_terms_and_urls,
-                        })
-            
-                    #Verifica se há content-type em <role> sem texto
-                    elif not role['text'] and role['content-type']:
-                        _result_dict.append({
-                            'result': 'error',
-                            'error_type': f"No text found",
-                            'message': f"The author {_author_name} has a role with no text. Please add valid text to the role according to the credit taxonomy below.",
-                            'credit_terms_and_urls': credit_terms_and_urls,
-                        })                           
-                    
-                    # Verifica se há texto na <role> e url em content-type.
-                    elif role['text'] and role['content-type']:
-                        _role = role['text']
-                        _content_type = role['content-type']
-                        
-                        # Verifica se o par 'role' e 'content type' está presente na lista fornecida.
-                        # Torna case-insensitive
-                        if not any(item['term'].lower() == _role.lower() and item['uri'].lower() == _content_type.lower() for item in credit_terms_and_urls):
-                           _result_dict.append({
-                               'result': 'error',
-                               'error_type': f"Role and content-type not found",
-                               'message': f"The author {_author_name} has a role and content-type that are not found in the credit taxonomy. Please check the role and content-type attributes according to the credit taxonomy below.",
-                               'credit_terms_and_urls': credit_terms_and_urls,
-                           })
-                        else:
-                            _result_dict.append({
-                                'result': 'success',
-                                'message': f"The author {_author_name} has a valid role and content-type attribute for the role {role['text']}."
-                            })
-        return _result_dict
+                yield {
+                    'title': 'CRediT taxonomy for contribs',
+                    'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
+                    'validation_type': 'value in list',
+                    'response': 'ERROR',
+                    'expected_value': expected_value,
+                    'got_value': None,
+                    'message': f'Got None expected {expected_value}',
+                    'advice': f"The author {_author_name} does not have a valid role. Provide a role from the list: {expected_value}"
+                }
 
     def validate_authors_orcid(self):
         _result_dict = []
@@ -114,7 +132,7 @@ class ArticleAuthorsValidation:
         
         """
         credit_terms_and_urls_results = {
-            'authors_credit_terms_and_urls_validation': self.validate_authors_role(data['credit_terms_and_urls'])
+            'authors_credit_terms_and_urls_validation': self.validate_authors_role(data['credit_taxonomy_terms_and_urls'])
             }
         orcid_results = {
             'authors_orcid_validation': self.validate_authors_orcid()
