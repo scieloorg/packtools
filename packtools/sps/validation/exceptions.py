@@ -37,3 +37,7 @@ class ValidationArticleAndSubArticlesArticleTypeException(Exception):
 
 class ValidationArticleAndSubArticlesSubjectsException(Exception):
     ...
+
+
+class ValidationRelatedArticleException(Exception):
+    ...
