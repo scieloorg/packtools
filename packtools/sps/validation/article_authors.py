@@ -93,35 +93,24 @@ class ArticleAuthorsValidation:
                 }
 
     def validate_authors_orcid(self):
-        _result_dict = []
         _default_orcid = r'^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$'
 
         for author in self.article_authors.contribs:
-            _author_name = f"{author['given_names']} {author['surname']}"
+            _author_name = f"{author.get('given_names')} {author.get('surname')}"
+            _orcid = author.get('orcid')
+            is_valid = re.match(_default_orcid, _orcid) if _orcid else False
+            expected_value = _orcid if is_valid else 'A Open Researcher and Contributor ID valid'
 
-            if 'orcid' not in author:                 
-                _result_dict.append({
-                    'result': "error",
-                    'error_type': "Orcid not found",
-                    'message': f"The author {_author_name} does not have an orcid. Please add a valid orcid.",
-                    'author': author, 
-                })
-            else:
-                if re.match(_default_orcid, author['orcid']):
-                    _result_dict.append({
-                        'result': 'success',
-                        'message': f"The author {_author_name} has a valid orcid.",
-                        'author': author,
-                    })
-                else:
-                    _result_dict.append({
-                        'result': 'error',
-                        'error_type': "Format invalid",
-                        'message': f"The author {_author_name} has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).",
-                        'author': author,
-                    })
-        return _result_dict
-    
+            yield {
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': _orcid,
+                'message': f'Got {_orcid} expected {expected_value[:1].lower() + expected_value[1:]}',
+                'advice': None if is_valid else f"The author {_author_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID."
+            }
 
     def validate(self, data):
         """
