@@ -482,6 +482,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
 class ArticleAuthorsValidationOrcidTest(TestCase):
     def test_validation_format_orcid(self):
+        self.maxDiff = None
         xml = """
         <article>
         <front>
@@ -515,34 +516,24 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
 
         expected_output = [
             {
-                "result": "error",
-                "error_type": "Format invalid",
-                "message": "The author FRANCISCO VENEGAS-MARTÍNEZ has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).",
-                "author": {
-                    "surname": "VENEGAS-MARTÍNEZ",
-                    "prefix": "Prof",
-                    "suffix": "Nieto",
-                    "given_names": "FRANCISCO",
-                    "orcid": "0990-01-58-4853",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A Open Researcher and Contributor ID valid',
+                'got_value': '0990-01-58-4853',
+                'message': f'Got 0990-01-58-4853 expected a Open Researcher and Contributor ID valid',
+                'advice': 'The author FRANCISCO VENEGAS-MARTÍNEZ has 0990-01-58-4853 as ORCID and its format is not valid. Provide a valid ORCID.'
             },
             {
-                "result": "error",
-                "error_type": "Format invalid",
-                "message": "The author Vanessa M. Higa has an orcid in an invalid format. Please ensure that the ORCID is entered correctly, including the proper format (e.g., 0000-0002-1825-0097).",
-                "author": {
-                    "surname": "Higa",
-                    "given_names": "Vanessa M.",
-                    "orcid": "00-0001-5518-4853",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A Open Researcher and Contributor ID valid',
+                'got_value': '00-0001-5518-4853',
+                'message': f'Got 00-0001-5518-4853 expected a Open Researcher and Contributor ID valid',
+                'advice': 'The author Vanessa M. Higa has 00-0001-5518-4853 as ORCID and its format is not valid. Provide a valid ORCID.'
             },
         ]
         for i, item in enumerate(messages):
@@ -550,6 +541,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 self.assertDictEqual(expected_output[i], item)
 
     def test_without_orcid(self):
+        self.maxDiff = None
         xml = """
         <article>
         <front>
@@ -581,32 +573,24 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
 
         expected_output = [
             {
-                "result": "error",
-                "error_type": "Orcid not found",
-                "message": "The author FRANCISCO VENEGAS-MARTÍNEZ does not have an orcid. Please add a valid orcid.",
-                "author": {
-                    "surname": "VENEGAS-MARTÍNEZ",
-                    "prefix": "Prof",
-                    "suffix": "Nieto",
-                    "given_names": "FRANCISCO",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A Open Researcher and Contributor ID valid',
+                'got_value': None,
+                'message': f'Got None expected a Open Researcher and Contributor ID valid',
+                'advice': 'The author FRANCISCO VENEGAS-MARTÍNEZ has None as ORCID and its format is not valid. Provide a valid ORCID.'
             },
             {
-                "result": "error",
-                "error_type": "Orcid not found",
-                "message": "The author Vanessa M. Higa does not have an orcid. Please add a valid orcid.",
-                "author": {
-                    "surname": "Higa",
-                    "given_names": "Vanessa M.",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A Open Researcher and Contributor ID valid',
+                'got_value': None,
+                'message': f'Got None expected a Open Researcher and Contributor ID valid',
+                'advice': 'The author Vanessa M. Higa has None as ORCID and its format is not valid. Provide a valid ORCID.'
             },
         ]
 
@@ -615,6 +599,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 self.assertDictEqual(expected_output[i], item)
 
     def test_success_orcid(self):
+        self.maxDiff = None
         xml = """
         <article>
         <front>
@@ -649,32 +634,24 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
 
         expected_output = [
             {
-                "result": "success",
-                "message": "The author FRANCISCO VENEGAS-MARTÍNEZ has a valid orcid.",
-                "author": {
-                    "surname": "VENEGAS-MARTÍNEZ",
-                    "prefix": "Prof",
-                    "suffix": "Nieto",
-                    "given_names": "FRANCISCO",
-                    "orcid": "0990-0001-0058-4853",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '0990-0001-0058-4853',
+                'got_value': '0990-0001-0058-4853',
+                'message': f'Got 0990-0001-0058-4853 expected 0990-0001-0058-4853',
+                'advice': None
             },
             {
-                "result": "success",
-                "message": "The author Vanessa M. Higa has a valid orcid.",
-                "author": {
-                    "surname": "Higa",
-                    "given_names": "Vanessa M.",
-                    "orcid": "0000-3333-1238-6873",
-                    "rid": ["aff1"],
-                    "rid-aff": ["aff1"],
-                    "aff_rids": ["aff1"],
-                    "contrib-type": "author",
-                },
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '0000-3333-1238-6873',
+                'got_value': '0000-3333-1238-6873',
+                'message': f'Got 0000-3333-1238-6873 expected 0000-3333-1238-6873',
+                'advice': None
             },
         ]
 
