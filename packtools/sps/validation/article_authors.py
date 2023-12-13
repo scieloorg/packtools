@@ -93,6 +93,55 @@ class ArticleAuthorsValidation:
                 }
 
     def validate_authors_orcid(self):
+        """
+        Checks whether a contributor's ORCID is valid.
+
+        XML input
+        ---------
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Author ORCID',
+                    'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '0990-0001-0058-4853',
+                    'got_value': '0990-0001-0058-4853',
+                    'message': f'Got 0990-0001-0058-4853 expected 0990-0001-0058-4853',
+                    'advice': None
+                },...
+            ]
+        """
         _default_orcid = r'^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$'
 
         for author in self.article_authors.contribs:
