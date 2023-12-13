@@ -472,7 +472,7 @@ class ArticleIdValidation:
         dict, such as:
             {
                 'title': 'Article id other validation',
-                'xpath': './/article-id/@pub-id-type="other"',
+                'xpath': './/article-id[@pub-id-type="other"]',
                 'validation_type': 'format',
                 'response': 'OK',
                 'expected_value': '123',
