@@ -116,23 +116,74 @@ class ArticleLicenseValidation:
                                                 'standard adopted by the journal'.format(lang)
             }
 
-    def validate_license_code(self, expected_code, expected_version):
-        resp = []
-        for license in self.article_license.licenses:
-            if f'/{expected_code}/{expected_version}' in license['link']:
-                resp.append({
-                    "obtained_value": (expected_code, expected_version),
-                    "expected_value": (expected_code, expected_version),
-                    "result": "ok"
-                })
-            else:
-                resp.append({
-                    "obtained_value": (),
-                    "expected_value": (expected_code, expected_version),
-                    "result": "error",
-                    "message": "the license code provided do not match the ones found"
-                })
-        return resp
+    def validate_license_code(self, code_list=None):
+        """
+        Checks whether the license code complies with the values in code_list.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <permissions>
+                        <license license-type="open-access"
+                        xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                        xml:lang="en">
+                            <license-p>This is an article published in open access under a Creative Commons license.</license-p>
+                        </license>
+                        <license license-type="open-access"
+                        xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                        xml:lang="pt">
+                            <license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.</license-p>
+                        </license>
+                        <license license-type="open-access"
+                        xlink:href="http://creativecommons.org/licenses/by/4.0/"
+                        xml:lang="es">
+                            <license-p>Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.</license-p>
+                        </license>
+                    </permissions>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        code_list : list, such as:
+            ['by', '4.0']
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/',
+                'advice': None
+                },
+                ...
+            ]
+        """
+        if not code_list:
+            raise ValidationLicenseCodeException("Provide a list of codes for validation")
+
+        for licenses in self.article_license.licenses:
+            is_valid = f"http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/" == licenses.get('link')
+            yield {
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': f"http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/",
+                'got_value': licenses.get('link'),
+                'message': f"Got: {licenses.get('link')} expected: http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/",
+                'advice': None if is_valid else f"Provide license code that is consistent with http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/"
+            }
     
     
     def validate(self, data):
