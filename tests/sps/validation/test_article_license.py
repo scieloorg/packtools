@@ -6,6 +6,7 @@ from packtools.sps.validation.article_license import ArticleLicenseValidation
 
 class ArticleLicenseValidationTest(TestCase):
     def test_validate_license_3_expected_3_obtained_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -34,48 +35,86 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": {
-                'en': {
+        expected = [
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'This is an article published in open access under a Creative Commons license.'
                     },
-                'pt': {
-                    'lang': 'pt',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
-                    },
-                'es': {
-                    'lang': 'es',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                    }
-            },
-            "expected_value": {
-                'en': {
+                'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'This is an article published in open access under a Creative Commons license.'
                     },
-                'pt': {
+                'message': "Got {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "} expected {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "}",
+                'advice': None
+            },
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
-                    },
-                'es': {
+                },
+                'got_value': {
+                    'lang': 'pt',
+                    'link': 'http://creativecommons.org/licenses/by/4.0/',
+                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                },
+                'message': "Got {"
+                           "'lang': 'pt', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "} expected {"
+                           "'lang': 'pt', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "}",
+                'advice': None
+            },
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                    }
+                },
+                'got_value': {
+                    'lang': 'es',
+                    'link': 'http://creativecommons.org/licenses/by/4.0/',
+                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                },
+                'message': "Got {"
+                           "'lang': 'es', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "} expected {"
+                           "'lang': 'es', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "}",
+                'advice': None
             },
-            "result": "ok",
-            "message": [
-                'ok, the license text for en does match the license text adopted by the journal',
-                'ok, the license text for pt does match the license text adopted by the journal',
-                'ok, the license text for es does match the license text adopted by the journal'
-            ]
-        }
+        ]
         obtained = self.article_license.validate_license(
             {
                 'en': {
@@ -95,9 +134,12 @@ class ArticleLicenseValidationTest(TestCase):
                 }
             }
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_license_3_expected_1_obtained_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -116,36 +158,34 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": {
-                'en': {
-                    'lang': 'en',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
-                }
-            },
-            "expected_value": {
-                'en': {
+        expected = [
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'This is an article published in open access under a Creative Commons license.'
                 },
-                'pt': {
-                    'lang': 'pt',
+                'got_value': {
+                    'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
                 },
-                'es': {
-                    'lang': 'es',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                }
+                'message': "Got {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "} expected {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "}",
+                'advice': None
             },
-            "result": "ok",
-            "message": [
-                'ok, the license text for en does match the license text adopted by the journal'
-            ]
-        }
+        ]
         obtained = self.article_license.validate_license(
             {
                 'en': {
@@ -165,9 +205,12 @@ class ArticleLicenseValidationTest(TestCase):
                 }
             }
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_license_3_expected_3_obtained_not_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -196,43 +239,78 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": {
-                'en': {
+        expected = [
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': 'License data that matches the language en',
+                'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'This is an article published in open access under a Creative Commons license.'
                     },
-                'pt': {
+                'message': "Got {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "} expected License data that matches the language en",
+                'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal'
+            },
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
-                    },
-                'es': {
-                    'lang': 'es',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                    }
-            },
-            "expected_value": {
-                'pt': {
+                },
+                'got_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
-                    },
-                'es': {
+                },
+                'message': "Got {"
+                           "'lang': 'pt', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "} expected {"
+                           "'lang': 'pt', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "}",
+                'advice': None
+            },
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                    }
+                },
+                'got_value': {
+                    'lang': 'es',
+                    'link': 'http://creativecommons.org/licenses/by/4.0/',
+                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                },
+                'message': "Got {"
+                           "'lang': 'es', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "} expected {"
+                           "'lang': 'es', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "}",
+                'advice': None
             },
-            "result": "error",
-            "message": [
-                'error, the language en is not foreseen by the journal',
-                'ok, the license text for pt does match the license text adopted by the journal',
-                'ok, the license text for es does match the license text adopted by the journal'
-            ]
-        }
+        ]
         obtained = self.article_license.validate_license(
             {
                 'pt': {
@@ -247,9 +325,12 @@ class ArticleLicenseValidationTest(TestCase):
                 }
             }
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_license_3_expected_1_obtained_not_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -268,31 +349,26 @@ class ArticleLicenseValidationTest(TestCase):
             """
         )
         self.article_license = ArticleLicenseValidation(xmltree)
-        expected = {
-            "obtained_value": {
-                'en': {
+        expected = [
+            {
+                'title': 'Article license validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': 'License data that matches the language en',
+                'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'licence_p': 'This is an article published in open access under a Creative Commons license.'
-                    }
-            },
-            "expected_value": {
-                'pt': {
-                    'lang': 'pt',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                     },
-                'es': {
-                    'lang': 'es',
-                    'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
-                    }
+                'message': "Got {"
+                           "'lang': 'en', "
+                           "'link': 'http://creativecommons.org/licenses/by/4.0/', "
+                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "} expected License data that matches the language en",
+                'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal'
             },
-            "result": "error",
-            "message": [
-                'error, the language en is not foreseen by the journal'
-            ]
-        }
+        ]
         obtained = self.article_license.validate_license(
             {
                 'pt': {
@@ -307,9 +383,12 @@ class ArticleLicenseValidationTest(TestCase):
                 }
             }
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_license_code_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -340,27 +419,45 @@ class ArticleLicenseValidationTest(TestCase):
         self.article_license = ArticleLicenseValidation(xmltree)
         expected = [
             {
-                "obtained_value": ('by', '4.0'),
-                "expected_value": ('by', '4.0'),
-                "result": "ok"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'advice': None
             },
             {
-                "obtained_value": ('by', '4.0'),
-                "expected_value": ('by', '4.0'),
-                "result": "ok"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'advice': None
             },
             {
-                "obtained_value": ('by', '4.0'),
-                "expected_value": ('by', '4.0'),
-                "result": "ok"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'advice': None
             },
             ]
         obtained = self.article_license.validate_license_code(
-            'by', '4.0'
+            ['by', '4.0']
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_license_code_not_ok(self):
+        self.maxDiff = None
         xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -391,25 +488,39 @@ class ArticleLicenseValidationTest(TestCase):
         self.article_license = ArticleLicenseValidation(xmltree)
         expected = [
             {
-                "obtained_value": (),
-                "expected_value": ('by', '3.0'),
-                "result": "error",
-                "message": "the license code provided do not match the ones found"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
+                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
             },
             {
-                "obtained_value": (),
-                "expected_value": ('by', '3.0'),
-                "result": "error",
-                "message": "the license code provided do not match the ones found"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
+                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
             },
             {
-                "obtained_value": (),
-                "expected_value": ('by', '3.0'),
-                "result": "error",
-                "message": "the license code provided do not match the ones found"
+                'title': 'Article license code validation',
+                'xpath': './permissions//license',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
+                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
+                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
+                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
             },
             ]
         obtained = self.article_license.validate_license_code(
-            'by', '3.0'
+            ['by', '3.0']
         )
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
