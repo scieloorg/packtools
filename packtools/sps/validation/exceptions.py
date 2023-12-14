@@ -41,3 +41,11 @@ class ValidationArticleAndSubArticlesSubjectsException(Exception):
 
 class ValidationRelatedArticleException(Exception):
     ...
+
+
+class ValidationLicenseException(Exception):
+    ...
+
+
+class ValidationLicenseCodeException(Exception):
+    ...
