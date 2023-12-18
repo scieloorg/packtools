@@ -41,3 +41,7 @@ class ValidationArticleAndSubArticlesSubjectsException(Exception):
 
 class ValidationRelatedArticleException(Exception):
     ...
+
+
+class ValidationDataAvailabilityException(Exception):
+    ...
