@@ -161,6 +161,45 @@ class DataAvailabilityTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_data_availability_subarticle_fn_ok(self):
+        self.maxDiff = None
+        xml = """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                    <sub-article article-type="translation" id="TRen" xml:lang="en">
+                        <back>
+                            <fn-group>
+                                <fn fn-type="data-availability" specific-use="data-available" id="fn1">
+                                    <label>Data Availability Statement</label>
+                                    <p>The data and code used to generate plots and perform statistical analyses have been
+                                    uploaded to the Open Science Framework archive: <ext-link ext-link-type="uri"
+                                    xlink:href="https://osf.io/jw6vg/?view_only=0335a15b6db3477f93d0ae636cdf3b4e">https://osf.io/j
+                                    w6vg/?view_only=0335a15b6db3477f93d0ae636cdf3b4e</ext-link>.</p>
+                                </fn>
+                            </fn-group>
+                        </back>
+                    </sub-article>
+                </article>
+            """
+        xmltree = etree.fromstring(xml)
+        expected = [
+            {
+                'title': 'Data availability validation',
+                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'exist, value in list',
+                'response': 'OK',
+                'expected_value': ["data-available", "data-available-upon-request"],
+                'got_value': 'data-available',
+                'message': 'Got data-available expected one item of this list: data-available | data-available-upon-request',
+                'advice': None
+            }
+        ]
+        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"]
+        )
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
 
 if __name__ == '__main__':
     unittest.main()
