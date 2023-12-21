@@ -56,17 +56,11 @@ class DataAvailabilityValidation:
         """
         specific_use_list = specific_use_list or self.specific_use_list
         if not specific_use_list:
-            raise ValidationDataAvailabilityException("Function requires list of specific use")
-        for specific_use in self.data_availability.specific_use:
-            is_valid = specific_use['specific_use'] in specific_use_list
+            raise ValidationDataAvailabilityException("Function requires a list of specific use.")
 
-            yield {
-                'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': specific_use_list,
-                'got_value': specific_use['specific_use'],
-                'message': 'Got {} expected one item of this list: {}'.format(specific_use['specific_use'], " | ".join(specific_use_list)),
-                'advice': None if is_valid else 'Provide a data availability statement from the following list: {}'.format(" | ".join(specific_use_list))
-            }
+        if not self.data_availability.specific_use:
+            yield self._create_response(None, specific_use_list)
+        else:
+            for specific_use in self.data_availability.specific_use:
+                yield self._create_response(specific_use, specific_use_list)
+
