@@ -27,8 +27,8 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ["data-available", "data-available-upon-request"],
                 'got_value': 'data-available',
@@ -36,12 +36,9 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"])]
+        self.assertEqual(expected, obtained)
 
     def test_validate_data_availability_sec_ok(self):
         self.maxDiff = None
@@ -59,8 +56,8 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ["data-available", "data-available-upon-request"],
                 'got_value': 'data-available-upon-request',
@@ -68,12 +65,9 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"])]
+        self.assertEqual(expected, obtained)
 
     def test_validate_data_availability_fn_not_ok(self):
         self.maxDiff = None
@@ -96,8 +90,8 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ["data-not-available", "uninformed"],
                 'got_value': 'data-available',
@@ -105,12 +99,9 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': 'Provide a data availability statement from the following list: data-not-available | uninformed'
             }
         ]
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-not-available", "uninformed"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-not-available", "uninformed"])]
+        self.assertEqual(expected, obtained)
 
     def test_validate_data_availability_sec_not_ok(self):
         self.maxDiff = None
@@ -128,8 +119,8 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ["data-not-available", "uninformed"],
                 'got_value': 'data-available-upon-request',
@@ -137,12 +128,9 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': 'Provide a data availability statement from the following list: data-not-available | uninformed'
             }
         ]
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-not-available", "uninformed"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-not-available", "uninformed"])]
+        self.assertEqual(expected, obtained)
 
     def test_validate_data_availability_without_data_availability(self):
         self.maxDiff = None
@@ -153,13 +141,21 @@ class DataAvailabilityTest(unittest.TestCase):
                 </article>
             """
         xmltree = etree.fromstring(xml)
-        expected = []
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        expected = [
+            {
+                'title': 'Data availability validation',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ["data-available", "data-available-upon-request"],
+                'got_value': None,
+                'message': 'Got None expected one item of this list: data-available | data-available-upon-request',
+                'advice': 'Provide a data availability statement from the following list: data-available | data-available-upon-request'
+            }
+        ]
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"])]
+        self.assertEqual(expected, obtained)
 
     def test_validate_data_availability_subarticle_fn_ok(self):
         self.maxDiff = None
@@ -184,8 +180,8 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                'validation_type': 'exist, value in list',
+                'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ["data-available", "data-available-upon-request"],
                 'got_value': 'data-available',
@@ -193,12 +189,9 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"]
-        )
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"])]
+        self.assertEqual(expected, obtained)
 
 
 if __name__ == '__main__':
