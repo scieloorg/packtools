@@ -44,21 +44,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                     },
                 'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                     },
                 'message': "Got {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "} expected {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}",
                 'advice': None
             },
@@ -70,21 +70,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'got_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'message': "Got {"
                            "'lang': 'pt', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "} expected {"
                            "'lang': 'pt', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "}",
                 'advice': None
             },
@@ -96,21 +96,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 },
                 'got_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 },
                 'message': "Got {"
                            "'lang': 'es', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "} expected {"
                            "'lang': 'es', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "}",
                 'advice': None
             },
@@ -120,17 +120,17 @@ class ArticleLicenseValidationTest(TestCase):
                 'en': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                 },
                 'pt': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'es': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 }
             }
         )
@@ -167,21 +167,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                 },
                 'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                 },
                 'message': "Got {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "} expected {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "}",
                 'advice': None
             },
@@ -191,17 +191,17 @@ class ArticleLicenseValidationTest(TestCase):
                 'en': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                 },
                 'pt': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'es': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 }
             }
         )
@@ -249,12 +249,12 @@ class ArticleLicenseValidationTest(TestCase):
                 'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                     },
                 'message': "Got {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "} expected License data that matches the language en",
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal'
             },
@@ -266,21 +266,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'got_value': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'message': "Got {"
                            "'lang': 'pt', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "} expected {"
                            "'lang': 'pt', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
+                           "'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'"
                            "}",
                 'advice': None
             },
@@ -292,21 +292,21 @@ class ArticleLicenseValidationTest(TestCase):
                 'expected_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 },
                 'got_value': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 },
                 'message': "Got {"
                            "'lang': 'es', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "} expected {"
                            "'lang': 'es', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
+                           "'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'"
                            "}",
                 'advice': None
             },
@@ -316,12 +316,12 @@ class ArticleLicenseValidationTest(TestCase):
                 'pt': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'es': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 }
             }
         )
@@ -359,12 +359,12 @@ class ArticleLicenseValidationTest(TestCase):
                 'got_value': {
                     'lang': 'en',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                    'license_p': 'This is an article published in open access under a Creative Commons license.'
                     },
                 'message': "Got {"
                            "'lang': 'en', "
                            "'link': 'http://creativecommons.org/licenses/by/4.0/', "
-                           "'licence_p': 'This is an article published in open access under a Creative Commons license.'"
+                           "'license_p': 'This is an article published in open access under a Creative Commons license.'"
                            "} expected License data that matches the language en",
                 'advice': 'Provide license data that is consistent with the language: en and standard adopted by the journal'
             },
@@ -374,12 +374,12 @@ class ArticleLicenseValidationTest(TestCase):
                 'pt': {
                     'lang': 'pt',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                    'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
                 'es': {
                     'lang': 'es',
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
-                    'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                    'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 }
             }
         )
