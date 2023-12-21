@@ -25,7 +25,7 @@ class DataAvailability:
 
     @property
     def specific_use(self):
-        xpath_query = './back//*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
+        xpath_query = './/back//*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
         return [
             {
                 'tag': node.tag,
