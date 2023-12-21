@@ -44,8 +44,8 @@ class DataAvailabilityValidation:
             [
                 {
                     'title': 'Data availability validation',
-                    'xpath': './back//fn[@fn-type="data-availability"]/@specific-use ./back//sec[@sec-type="data-availability"]/@specific-use',
-                    'validation_type': 'exist, value in list',
+                    'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+                    'validation_type': 'value in list',
                     'response': 'OK',
                     'expected_value': ["data-available", "data-available-upon-request"],
                     'got_value': 'data-available-upon-request',
