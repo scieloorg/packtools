@@ -64,3 +64,20 @@ class DataAvailabilityValidation:
             for specific_use in self.data_availability.specific_use:
                 yield self._create_response(specific_use, specific_use_list)
 
+    def _create_response(self, specific_use, specific_use_list):
+        got_value = specific_use['specific_use'] if specific_use else None
+        is_valid = got_value in specific_use_list
+        response_status = 'OK' if is_valid else 'ERROR'
+        message = f"Got {got_value} expected one item of this list: {' | '.join(specific_use_list)}"
+        advice = None if is_valid else f"Provide a data availability statement from the following list: {' | '.join(specific_use_list)}"
+
+        return {
+            'title': 'Data availability validation',
+            'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
+            'validation_type': 'value in list',
+            'response': response_status,
+            'expected_value': specific_use_list,
+            'got_value': got_value,
+            'message': message,
+            'advice': advice
+        }
