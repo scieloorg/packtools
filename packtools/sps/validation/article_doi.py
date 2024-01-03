@@ -2,6 +2,10 @@ from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 
 
+def _callable_extern_validate_default(doi):
+    return False
+
+
 class ArticleDoiValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
