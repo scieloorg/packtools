@@ -149,7 +149,7 @@ class ArticleLicenseValidation:
         Params
         ------
         code_list : list, such as:
-            ['by', '4.0']
+            ['by']
 
         Returns
         -------
@@ -161,9 +161,9 @@ class ArticleLicenseValidation:
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/',
+                'expected_value': ['by'],
+                'got_value': 'by',
+                'message': 'Got: by expected one item of this list: by',
                 'advice': None
                 },
                 ...
