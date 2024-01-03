@@ -173,16 +173,18 @@ class ArticleLicenseValidation:
             raise ValidationLicenseCodeException("Provide a list of codes for validation")
 
         for licenses in self.article_license.licenses:
-            is_valid = f"http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/" == licenses.get('link')
+            link = licenses.get('link')
+            code = link.split('/')[4] if link else None
+            is_valid = code in code_list
             yield {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': f"http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/",
-                'got_value': licenses.get('link'),
-                'message': f"Got: {licenses.get('link')} expected: http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/",
-                'advice': None if is_valid else f"Provide license code that is consistent with http://creativecommons.org/licenses/{code_list[0]}/{code_list[1]}/"
+                'expected_value': code_list,
+                'got_value': code,
+                'message': f"Got: {code} expected one item of this list: {' | '.join(code_list)}",
+                'advice': None if is_valid else f"Provide one item of this list: {' | '.join(code_list)}"
             }
     
     
