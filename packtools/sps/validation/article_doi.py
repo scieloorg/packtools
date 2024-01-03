@@ -186,13 +186,56 @@ class ArticleDoiValidation:
             }
         ]
 
+    def validate_doi_registered(self, callable_get_validate=None):
+        """
+        Checks whether a DOI is registered as valid.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+            <article-id pub-id-type="other">00303</article-id>
+            </front>
+        </article>
+
+        Params
+
+        ------
+        callable_get_validation : function
+            A function that will be passed as an argument.
+            This function must have the signature 'def callable_get_validate(doi_name):' and returns True if the doi_name is valid or False otherwise
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Article DOI element is registered',
+                    'xpath': './article-id[@pub-id-type="doi"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 10.1590/1518-8345.2927.3231,
+                    'got_value': 10.1590/1518-8345.2927.3231,
+                    'message': 'Got 10.1590/1518-8345.2927.3231 expected 10.1590/1518-8345.2927.3231',
+                    'advice': None
+                }
+            ]
+        """
+        callable_get_validate = callable_get_validate or _callable_extern_validate_default
+        is_valid = callable_get_validate(self.doi)
         return {
-            'title': 'Article DOI element is unique',
+            'title': 'Article DOI element is registered',
             'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist/verification',
-            'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'Unique DOI values',
-            'got_value': 'DOIs identified: {}'.format(" | ".join(list(dois.keys()))),
-            'message': 'Got DOIs and frequencies {}'.format(" | ".join([str((doi, freq)) for doi, freq in dois.items()])),
-            'advice': None if validated else 'Consider replacing the following DOIs that are not unique: {}'.format(" | ".join(diff))
+            'validation_type': 'exist',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': self.doi if is_valid else 'An article DOI registered',
+            'got_value': self.doi,
+            'message': 'Got {} expected {}'.format(self.doi, self.doi if is_valid else 'An article DOI registered'),
+            'advice': None if is_valid else 'DOI not registered or validator not found, provide a registered DOI or '
+                                            'check validator'
         }
