@@ -62,7 +62,10 @@ class PreprintValidation:
                 'ERROR', 'The preprint publication date', None, 'Provide the publication date of the preprint'
         elif not is_preprint and has_preprint_date:
             response, expected_value, got_value, advice = \
-                'ERROR', None, has_preprint_date, 'The article does not have a preprint remove the publication date from the preprint'
+                'ERROR', None, has_preprint_date, 'The article does not reference the preprint, ' \
+                                                  'provide it as in the example: <related-article id="pp1" ' \
+                                                  'related-article-type="preprint" ext-link-type="doi" ' \
+                                                  'xlink:href="10.1590/SciELOPreprints.1174"/>'
 
         return {
                 'title': 'Preprint validation',
