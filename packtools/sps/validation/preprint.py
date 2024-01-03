@@ -67,13 +67,15 @@ class PreprintValidation:
                                                   'related-article-type="preprint" ext-link-type="doi" ' \
                                                   'xlink:href="10.1590/SciELOPreprints.1174"/>'
 
-        return {
+        return [
+            {
                 'title': 'Preprint validation',
                 'xpath': './/related-article[@related-article-type="preprint"] .//history//date[@date-type="preprint"]',
-                'validation_type': 'exist, match',
+                'validation_type': 'match',
                 'response': response,
                 'expected_value': expected_value,
                 'got_value': got_value,
                 'message': f'Got {got_value} expected {expected_value}',
                 'advice': advice
             }
+        ]
