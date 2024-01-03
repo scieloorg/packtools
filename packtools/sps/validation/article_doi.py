@@ -100,8 +100,6 @@ class ArticleDoiValidation:
             ]
         """
 
-        result = []
-
         doi_map = {d['lang']: d['value'] for d in self.dois}
 
         for sub_article in self.articles.data:
@@ -109,20 +107,17 @@ class ArticleDoiValidation:
                 lang = sub_article['lang']
                 article_id = sub_article['article_id']
                 doi = doi_map.get(lang)
-                result.append(
-                    {
-                        'title': 'Sub-article translation DOI element',
-                        'xpath': './sub-article[@article-type="translation"]',
-                        'validation_type': 'exist',
-                        'response': 'OK' if doi else 'ERROR',
-                        'expected_value': doi if doi else 'sub-article DOI',
-                        'got_value': doi,
-                        'message': 'Got {} expected {}'.format(doi, doi if doi else 'sub-article DOI'),
-                        'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) which '
-                                                   'language is {}'.format(article_id, lang)
-                    }
-                )
-        return result
+                yield {
+                    'title': 'Sub-article translation DOI element',
+                    'xpath': './sub-article[@article-type="translation"]',
+                    'validation_type': 'exist',
+                    'response': 'OK' if doi else 'ERROR',
+                    'expected_value': doi if doi else 'sub-article DOI',
+                    'got_value': doi,
+                    'message': 'Got {} expected {}'.format(doi, doi if doi else 'sub-article DOI'),
+                    'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) which '
+                                               'language is {}'.format(article_id, lang)
+                }
 
     def validate_all_dois_are_unique(self):
         """
