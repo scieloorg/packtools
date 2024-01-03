@@ -31,29 +31,33 @@ class ArticleDoiValidation:
 
         Returns
         -------
-        dict
-            Such as:
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Article DOI element',
+                    'xpath': './article-id[@pub-id-type="doi"]',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'article DOI',
+                    'got_value': '10.1590/1518-8345.2927.3231',
+                    'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI',
+                    'advice': 'XML research-article does not present a DOI'
+                }
+            ]
+        """
+        return [
             {
                 'title': 'Article DOI element',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'article DOI',
-                'got_value': '10.1590/1518-8345.2927.3231',
-                'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI',
-                'advice': 'XML research-article does not present a DOI'
+                'response': 'OK' if self.doi else 'ERROR',
+                'expected_value': self.doi if self.doi else 'article DOI',
+                'got_value': self.doi,
+                'message': 'Got {} expected {}'.format(self.doi, self.doi if self.doi else 'a DOI'),
+                'advice': None if self.doi else 'Provide a valid DOI for the {}'.format(self.articles.main_article_type)
             }
-        """
-        return {
-            'title': 'Article DOI element',
-            'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist',
-            'response': 'OK' if self.doi else 'ERROR',
-            'expected_value': self.doi if self.doi else 'article DOI',
-            'got_value': self.doi,
-            'message': 'Got {} expected {}'.format(self.doi, self.doi if self.doi else 'a DOI'),
-            'advice': None if self.doi else 'Provide a valid DOI for the {}'.format(self.articles.main_article_type)
-        }
+        ]
 
     def validate_translations_doi_exists(self):
         """
