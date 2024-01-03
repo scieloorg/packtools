@@ -84,8 +84,8 @@ class ArticleDoiValidation:
 
         Returns
         -------
-        dict
-            Such as:
+        list of dict
+            A list of dictionaries, such as:
             [
                 {
                     'title': 'Sub-article translation DOI element',
