@@ -27,10 +27,11 @@ class PreprintValidationTest(unittest.TestCase):
 
         obtained = PreprintValidation(get_xml_tree(xml_str)).preprint_validation()
 
-        expected = {
+        expected = [
+            {
                 'title': 'Preprint validation',
                 'xpath': './/related-article[@related-article-type="preprint"] .//history//date[@date-type="preprint"]',
-                'validation_type': 'exist, match',
+                'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': '2002-10-18',
                 'got_value': '2002-10-18',
@@ -38,8 +39,11 @@ class PreprintValidationTest(unittest.TestCase):
                 'advice': None
 
             }
+        ]
 
-        self.assertDictEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_preprint_validation_preprint_ok_and_date_not_ok(self):
         self.maxDiff = None
@@ -55,10 +59,11 @@ class PreprintValidationTest(unittest.TestCase):
 
         obtained = PreprintValidation(get_xml_tree(xml_str)).preprint_validation()
 
-        expected = {
+        expected = [
+            {
                 'title': 'Preprint validation',
                 'xpath': './/related-article[@related-article-type="preprint"] .//history//date[@date-type="preprint"]',
-                'validation_type': 'exist, match',
+                'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'The preprint publication date',
                 'got_value': None,
@@ -66,8 +71,11 @@ class PreprintValidationTest(unittest.TestCase):
                 'advice': 'Provide the publication date of the preprint'
 
             }
+        ]
 
-        self.assertDictEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_preprint_validation_preprint_not_ok_and_date_ok(self):
         self.maxDiff = None
@@ -89,19 +97,25 @@ class PreprintValidationTest(unittest.TestCase):
 
         obtained = PreprintValidation(get_xml_tree(xml_str)).preprint_validation()
 
-        expected = {
+        expected = [
+            {
                 'title': 'Preprint validation',
                 'xpath': './/related-article[@related-article-type="preprint"] .//history//date[@date-type="preprint"]',
-                'validation_type': 'exist, match',
+                'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': None,
                 'got_value': '2002-10-18',
                 'message': 'Got 2002-10-18 expected None',
-                'advice': 'The article does not have a preprint remove the publication date from the preprint'
+                'advice': 'The article does not reference the preprint, provide it as in the example: '
+                          '<related-article id="pp1" related-article-type="preprint" ext-link-type="doi" '
+                          'xlink:href="10.1590/SciELOPreprints.1174"/>'
 
             }
+        ]
 
-        self.assertDictEqual(expected, obtained)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_preprint_validation_preprint_not_ok_and_date_not_ok(self):
         self.maxDiff = None
@@ -116,7 +130,7 @@ class PreprintValidationTest(unittest.TestCase):
 
         obtained = PreprintValidation(get_xml_tree(xml_str)).preprint_validation()
 
-        self.assertIsNone(obtained)
+        self.assertEqual([], obtained)
 
 
 if __name__ == '__main__':
