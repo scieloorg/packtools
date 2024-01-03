@@ -144,18 +144,20 @@ class ArticleDoiValidation:
 
         Returns
         -------
-        dict
-            Such as:
-            {
-                'title': 'Article DOI element is unique',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist/verification',
-                'response': 'OK',
-                'expected_value': 'Unique DOI values',
-                'got_value': 'DOIs identified: 10.1590/2176-4573p59270 | 10.1590/2176-4573e59270',
-                'message': "Got DOIs and frequencies ('10.1590/2176-4573p59270', 1) | ('10.1590/2176-4573e59270', 1)",
-                'advice': None
-            }
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Article DOI element is unique',
+                    'xpath': './article-id[@pub-id-type="doi"]',
+                    'validation_type': 'exist/verification',
+                    'response': 'OK',
+                    'expected_value': 'Unique DOI values',
+                    'got_value': 'DOIs identified: 10.1590/2176-4573p59270 | 10.1590/2176-4573e59270',
+                    'message': "Got DOIs and frequencies ('10.1590/2176-4573p59270', 1) | ('10.1590/2176-4573e59270', 1)",
+                    'advice': None
+                }
+            ]
         """
         validated = True
         dois = {}
@@ -168,6 +170,21 @@ class ArticleDoiValidation:
 
         if not validated:
             diff = [doi for doi, freq in dois.items() if freq > 1]
+
+        return [
+            {
+                'title': 'Article DOI element is unique',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist/verification',
+                'response': 'OK' if validated else 'ERROR',
+                'expected_value': 'Unique DOI values',
+                'got_value': 'DOIs identified: {}'.format(" | ".join(list(dois.keys()))),
+                'message': 'Got DOIs and frequencies {}'.format(
+                    " | ".join([str((doi, freq)) for doi, freq in dois.items()])),
+                'advice': None if validated else 'Consider replacing the following DOIs that are not unique: {}'.format(
+                    " | ".join(diff))
+            }
+        ]
 
         return {
             'title': 'Article DOI element is unique',
