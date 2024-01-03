@@ -53,7 +53,7 @@ class PreprintValidation:
         has_preprint_date = self._extract_preprint_date()
 
         if not (is_preprint or has_preprint_date):
-            return
+            return []
 
         response, expected_value, got_value, advice = 'OK', has_preprint_date, has_preprint_date, None
 
