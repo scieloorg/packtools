@@ -49,18 +49,18 @@ class PreprintValidation:
                 'advice': None
             }
         """
-        is_preprint = self._extract_preprint_status()
+        has_preprint = self._extract_preprint_status()
         has_preprint_date = self._extract_preprint_date()
 
-        if not (is_preprint or has_preprint_date):
+        if not (has_preprint or has_preprint_date):
             return []
 
         response, expected_value, got_value, advice = 'OK', has_preprint_date, has_preprint_date, None
 
-        if is_preprint and not has_preprint_date:
+        if has_preprint and not has_preprint_date:
             response, expected_value, got_value, advice = \
                 'ERROR', 'The preprint publication date', None, 'Provide the publication date of the preprint'
-        elif not is_preprint and has_preprint_date:
+        elif not has_preprint and has_preprint_date:
             response, expected_value, got_value, advice = \
                 'ERROR', None, has_preprint_date, 'The article does not reference the preprint, ' \
                                                   'provide it as in the example: <related-article id="pp1" ' \
