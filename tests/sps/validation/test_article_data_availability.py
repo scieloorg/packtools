@@ -36,8 +36,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -68,8 +68,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -105,8 +105,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': 'Provide a data availability statement from the following list: data-not-available | uninformed'
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-not-available", "uninformed"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-not-available", "uninformed"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -137,8 +137,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': 'Provide a data availability statement from the following list: data-not-available | uninformed'
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-not-available", "uninformed"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-not-available", "uninformed"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -165,8 +165,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': 'Provide a data availability statement from the following list: data-available | data-available-upon-request'
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -204,8 +204,8 @@ class DataAvailabilityTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = [item for item in DataAvailabilityValidation(xmltree).validate_data_availability(
-            ["data-available", "data-available-upon-request"])]
+        obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
+            ["data-available", "data-available-upon-request"]))
 
         for i, item in enumerate(obtained):
             with self.subTest(i):
