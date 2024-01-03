@@ -1,4 +1,5 @@
 from ..models.journal_meta import ISSN, Acronym, Title, Publisher
+from packtools.sps.validation.exceptions import ValidationPublisherException
 
 
 class ISSNValidation:
@@ -65,19 +66,65 @@ class TitleValidation:
         return resp_abbreviated_journal_title
 
 
-class PublisherValidation:
-    def __init__(self, xmltree):
+class ValidationPublisher:
+    def __init__(self, xmltree, publisher_name_list=None):
         self.xmltree = xmltree
-        self.publisher = Publisher(xmltree)
+        self.publisher = Publisher(self.xmltree)
+        self.publisher_name_list = publisher_name_list
 
-    def validate_publishers_names(self, expected_values):
-        resp_publishers_names = dict(
-            object='publishers names',
-            output_expected=expected_values,
-            output_obteined=self.publisher.publishers_names,
-            match=(expected_values == self.publisher.publishers_names)
-        )
-        return resp_publishers_names
+    def validate_publishers_names(self, publisher_name_list=None):
+        """
+        Checks whether the publisher name is as expected.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+                <journal-meta>
+                    <publisher>
+                        <publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+                    </publisher>
+                </journal-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        publisher_name_list : list
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['Faculdade de Saúde Pública da Universidade de São Paulo'],
+                    'got_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'message': 'Got Faculdade de Saúde Pública da Universidade de São Paulo, expected one item of this
+                    list: Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'advice': 'Provide a publisher name as per the list: Faculdade de Saúde Pública da Universidade de São Paulo'
+                },...
+            ]
+        """
+        publisher_name_list = publisher_name_list or self.publisher_name_list
+        if not publisher_name_list:
+            raise ValidationPublisherException("Function requires list of publisher names")
+        for publisher_name in self.publisher.publishers_names or []:
+            is_valid = publisher_name in publisher_name_list
+            yield {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value in list',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': publisher_name_list,
+                'got_value': publisher_name,
+                'message': 'Got {} expected one item of this list: {}'.format(publisher_name, " | ".join(publisher_name_list)),
+                'advice': None if is_valid else 'Provide a publisher name as per the list: {}'.format(" | ".join(publisher_name_list))
+            }
 
 
 class JournalMetaValidation:
@@ -100,7 +147,7 @@ class JournalMetaValidation:
         issn = ISSNValidation(self.xmltree)
         acronym = AcronymValidation(self.xmltree)
         title = TitleValidation(self.xmltree)
-        publisher = PublisherValidation(self.xmltree)
+        publisher = ValidationPublisher(self.xmltree)
 
         resp_journal_meta = [
             issn.validate_epub(expected_values['issn_epub']),
@@ -108,6 +155,6 @@ class JournalMetaValidation:
             acronym.validate_text(expected_values['acronym']),
             title.validate_journal_title(expected_values['journal-title']),
             title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-            publisher.validate_publishers_names(expected_values['publisher-name'])
         ]
+        resp_journal_meta.extend(publisher.validate_publishers_names(expected_values['publisher-name']))
         return resp_journal_meta
