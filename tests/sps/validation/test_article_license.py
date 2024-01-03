@@ -423,9 +423,9 @@ class ArticleLicenseValidationTest(TestCase):
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'expected_value': ['by'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: by",
                 'advice': None
             },
             {
@@ -433,9 +433,9 @@ class ArticleLicenseValidationTest(TestCase):
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'expected_value': ['by'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: by",
                 'advice': None
             },
             {
@@ -443,14 +443,14 @@ class ArticleLicenseValidationTest(TestCase):
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': f"Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/4.0/",
+                'expected_value': ['by'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: by",
                 'advice': None
             },
             ]
         obtained = self.article_license.validate_license_code(
-            ['by', '4.0']
+            ['by']
         )
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -492,34 +492,34 @@ class ArticleLicenseValidationTest(TestCase):
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
-                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
-                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
+                'expected_value': ['bye', 'hy'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: bye | hy",
+                'advice': 'Provide one item of this list: bye | hy'
             },
             {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
-                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
-                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
+                'expected_value': ['bye', 'hy'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: bye | hy",
+                'advice': 'Provide one item of this list: bye | hy'
             },
             {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
-                'expected_value': 'http://creativecommons.org/licenses/by/3.0/',
-                'got_value': 'http://creativecommons.org/licenses/by/4.0/',
-                'message': 'Got: http://creativecommons.org/licenses/by/4.0/ expected: http://creativecommons.org/licenses/by/3.0/',
-                'advice': 'Provide license code that is consistent with http://creativecommons.org/licenses/by/3.0/'
+                'expected_value': ['bye', 'hy'],
+                'got_value': 'by',
+                'message': f"Got: by expected one item of this list: bye | hy",
+                'advice': 'Provide one item of this list: bye | hy'
             },
             ]
         obtained = self.article_license.validate_license_code(
-            ['by', '3.0']
+            ['bye', 'hy']
         )
         for i, item in enumerate(obtained):
             with self.subTest(i):
