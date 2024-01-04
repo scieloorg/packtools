@@ -148,8 +148,7 @@ class ArticleLicenseValidation:
 
         Params
         ------
-        code_list : list, such as:
-            ['by']
+        expected_code : str
 
         Returns
         -------
@@ -159,9 +158,9 @@ class ArticleLicenseValidation:
                 {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': ['by'],
+                'expected_value': 'by',
                 'got_value': 'by',
                 'message': 'Got: by expected one item of this list: by',
                 'advice': None
