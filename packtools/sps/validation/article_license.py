@@ -178,12 +178,12 @@ class ArticleLicenseValidation:
             yield {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': code_list,
-                'got_value': code,
-                'message': f"Got: {code} expected one item of this list: {' | '.join(code_list)}",
-                'advice': None if is_valid else f"Provide one item of this list: {' | '.join(code_list)}"
+                'expected_value': expected_code,
+                'got_value': obtained_code,
+                'message': f"Got: {obtained_code}, expected: {expected_code}",
+                'advice': None if is_valid else f"Provide {expected_code} code license information"
             }
     
     
