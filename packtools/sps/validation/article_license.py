@@ -172,9 +172,9 @@ class ArticleLicenseValidation:
             raise ValidationLicenseCodeException("Provide a code for validation")
 
         for licenses in self.article_license.licenses:
-            link = licenses.get('link')
-            code = link.split('/')[4] if link else None
-            is_valid = code in code_list
+            obtained_link = licenses.get('link')
+            obtained_code = obtained_link.split('/')[4] if obtained_link else None
+            is_valid = expected_code == obtained_code
             yield {
                 'title': 'Article license code validation',
                 'xpath': './permissions//license',
