@@ -116,7 +116,7 @@ class ArticleLicenseValidation:
                                                 'standard adopted by the journal'.format(lang)
             }
 
-    def validate_license_code(self, code_list=None):
+    def validate_license_code(self, expected_code):
         """
         Checks whether the license code complies with the values in code_list.
 
