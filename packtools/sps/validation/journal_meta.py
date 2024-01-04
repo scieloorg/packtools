@@ -1,29 +1,75 @@
 from ..models.journal_meta import ISSN, Acronym, Title, Publisher
+from packtools.sps.validation.exceptions import ValidationIssnsException
 
 
 class ISSNValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, issns_dict=None):
         self.xmltree = xmltree
-        self.journal_issns = ISSN(xmltree)
+        self.journal_issns = ISSN(xmltree).data
+        self.issns_dict = issns_dict
 
-    def validate_epub(self, expected_value):
-        resp_epub = dict(
-            object='issn epub',
-            output_expected=expected_value,
-            output_obteined=self.journal_issns.epub,
-            match=(expected_value == self.journal_issns.epub)
+    def validate_issn(self, issns_dict=None):
+        """
+        Checks whether the ISSN value is as expected.
 
-        )
-        return resp_epub
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+                <journal-meta>
+                    <issn pub-type="ppub">0034-8910</issn>
+			        <issn pub-type="epub">1518-8787</issn>
+                </journal-meta>
+            </front>
+        </article>
 
-    def validate_ppub(self, expected_value):
-        resp_ppub = dict(
-            object='issn ppub',
-            output_expected=expected_value,
-            output_obteined=self.journal_issns.ppub,
-            match=(expected_value == self.journal_issns.ppub)
-        )
-        return resp_ppub
+        Params
+        ------
+        issns_dict : dict, such as:
+            {
+            'ppub': '0034-8910',
+            'epub': '1518-8787'
+            }
+
+        Returns
+        -------
+        list of dictionaries, such as:
+            [
+                {
+                    'title': 'Journal ISSN element validation',
+                    'xpath': './/journal-meta//issn[@pub-type=*]',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['0034-8910', '1518-8787'],
+                    'got_value': '0034-8910',
+                    'message': 'Got <issn pub-type="ppub">0034-8910</issn> expected one item of this list: 0034-8910 | 1518-8787',
+                    'advice': None
+                },...
+            ]
+        """
+        issns_dict = issns_dict or self.issns_dict
+        if not issns_dict or type(issns_dict) is not dict:
+            raise ValidationIssnsException("The function requires a list of ISSNs in dictionary format")
+
+        for issn in self.journal_issns:
+            issn_value = issn.get('value')
+            issn_type = issn.get('type')
+            is_valid = issn_value == issns_dict.get(issn_type)
+            yield {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type=*]',
+                'validation_type': 'value in list',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': issns_dict,
+                'got_value': issn_value,
+                'message': 'Got <issn pub-type="{}">{}</issn> expected one item of this list: {}'.format(
+                    issn_type,
+                    issn_value,
+                    " | ".join([f"{t}: {v}" for t, v in issns_dict.items()])
+                ),
+                'advice': None if is_valid else 'Provide a ISSN value as per the list: {}'.format(
+                    " | ".join([f"{t}: {v}" for t, v in issns_dict.items()]))
+            }
 
 
 class AcronymValidation:
@@ -88,8 +134,10 @@ class JournalMetaValidation:
         '''
         expected_values is a dict like:
         {
-        'issn_epub': '0103-5053',
-        'issn_ppub': '1678-4790',
+        'issns': {
+                    'ppub': '0103-5053',
+                    'epub': '1678-4790'
+                },
         'acronym': 'hcsm',
         'journal-title': 'História, Ciências, Saúde-Manguinhos',
         'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
@@ -102,12 +150,14 @@ class JournalMetaValidation:
         title = TitleValidation(self.xmltree)
         publisher = PublisherValidation(self.xmltree)
 
-        resp_journal_meta = [
-            issn.validate_epub(expected_values['issn_epub']),
-            issn.validate_ppub(expected_values['issn_ppub']),
-            acronym.validate_text(expected_values['acronym']),
-            title.validate_journal_title(expected_values['journal-title']),
-            title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-            publisher.validate_publishers_names(expected_values['publisher-name'])
-        ]
+        resp_journal_meta = list(issn.validate_issn(expected_values['issns']))
+
+        resp_journal_meta.extend(
+            [
+                acronym.validate_text(expected_values['acronym']),
+                title.validate_journal_title(expected_values['journal-title']),
+                title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
+                publisher.validate_publishers_names(expected_values['publisher-name'])
+            ]
+        )
         return resp_journal_meta
