@@ -10,7 +10,7 @@ class ArticleLicenseValidation:
     def __init__(self, xmltree):
         self.article_license = ArticleLicense(xmltree)
 
-    def validate_license(self, expected_value=None):
+    def validate_license(self, expected_value):
         """
         Checks whether the license data complies with the standard specified by the journal.
 
