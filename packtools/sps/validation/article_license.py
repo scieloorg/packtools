@@ -85,7 +85,7 @@ class ArticleLicenseValidation:
                                "'lang': 'en', "
                                "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                                "'license_p': 'This is an article published in open access under a Creative Commons license.'"
-                               "} expected {"
+                               "}, expected: {"
                                "'lang': 'en', "
                                "'link': 'http://creativecommons.org/licenses/by/4.0/', "
                                "'license_p': 'This is an article published in open access under a Creative Commons license.'"
