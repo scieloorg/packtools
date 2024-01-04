@@ -49,3 +49,7 @@ class ValidationLicenseException(Exception):
 
 class ValidationLicenseCodeException(Exception):
     ...
+
+    
+class ValidationDataAvailabilityException(Exception):
+    ...

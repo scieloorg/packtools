@@ -75,7 +75,23 @@ class ArticleDates:
 
     @property
     def pub_dates(self):
-        # TODO criar collection date para ahead of print a partir da data pub
+        """
+        Retorna as datas de publicação pub e collection
+
+        Artigos AOP somente tem data pub ou epub
+        Antigamente há casos de XML com somente pub ou somente collection.
+        Ou melhor:
+        - epub (data completa ou incompleta), representando data do artigo (pub) ou do fascículo (collection)
+        - epub-ppub (data incompleta), representando a data do fascículo (collection)
+
+        As classes de packtools.sps.models tem como função retornar
+        os dados exatamente conforme está no XML para que as validações possam
+        ser confiáveis de indicar ausência / presença de falhas.
+
+        No entanto, este método está fazendo um ajuste, uma compatibilização
+        das versão anteriores a SPS 1.8.
+
+        """
         _dates = []
         for node in self.xmltree.xpath(".//front//pub-date"):
             type = node.get("date-type")
@@ -83,13 +99,22 @@ class ArticleDates:
                 # handle legacy attribute
                 type = node.get("pub-type")
                 if type == "epub":
-                    type = "pub"
+                    type = None
                 elif type == "epub-ppub":
                     type = "collection"
             _date = Date(node)
             data = _date.data
             data["type"] = type
             _dates.append(data)
+
+        if len(_dates) == 1 and not _dates[0]["type"]:
+            try:
+                for key in ("day", "month", "year"):
+                    _dates[0][key]
+                _dates[0]["type"] = "pub"
+            except KeyError:
+                _dates[0]["type"] = "collection"
+
         return _dates
 
     @property
