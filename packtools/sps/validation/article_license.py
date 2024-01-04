@@ -168,8 +168,8 @@ class ArticleLicenseValidation:
                 ...
             ]
         """
-        if not code_list:
-            raise ValidationLicenseCodeException("Provide a list of codes for validation")
+        if not expected_code:
+            raise ValidationLicenseCodeException("Provide a code for validation")
 
         for licenses in self.article_license.licenses:
             link = licenses.get('link')
