@@ -107,11 +107,11 @@ class ArticleLicenseValidation:
             yield {
                 'title': 'Article license validation',
                 'xpath': './permissions//license',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK' if is_valid else 'ERROR',
                 'expected_value': expected_value_msg,
                 'got_value': data,
-                'message': f'Got {data} expected {expected_value_msg}',
+                'message': f'Got {data}, expected: {expected_value_msg}',
                 'advice': None if is_valid else 'Provide license data that is consistent with the language: {} and '
                                                 'standard adopted by the journal'.format(lang)
             }
