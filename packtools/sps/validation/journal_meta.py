@@ -40,9 +40,9 @@ class ISSNValidation:
                     'xpath': './/journal-meta//issn[@pub-type=*]',
                     'validation_type': 'value in list',
                     'response': 'OK',
-                    'expected_value': ['0034-8910', '1518-8787'],
+                    'expected_value': {'epub': '1518-8787', 'ppub': '0034-8910'},
                     'got_value': '0034-8910',
-                    'message': 'Got <issn pub-type="ppub">0034-8910</issn> expected one item of this list: 0034-8910 | 1518-8787',
+                    'message': 'Got <issn pub-type="ppub">0034-8910</issn> expected one item of this list: ppub: 0034-8910 | epub: 1518-8787',
                     'advice': None
                 },...
             ]
