@@ -100,13 +100,13 @@ class PublisherNameValidation:
                 {
                     'title': 'Publisher name element validation',
                     'xpath': './/publisher//publisher-name',
-                    'validation_type': 'value in list',
+                    'validation_type': 'value',
                     'response': 'OK',
-                    'expected_value': ['Faculdade de Saúde Pública da Universidade de São Paulo'],
+                    'expected_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
                     'got_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
-                    'message': 'Got Faculdade de Saúde Pública da Universidade de São Paulo, expected one item of this
-                    list: Faculdade de Saúde Pública da Universidade de São Paulo',
-                    'advice': 'Provide a publisher name as per the list: Faculdade de Saúde Pública da Universidade de São Paulo'
+                    'message': 'Got Faculdade de Saúde Pública da Universidade de São Paulo, expected
+                     Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'advice': None
                 },...
             ]
         """
