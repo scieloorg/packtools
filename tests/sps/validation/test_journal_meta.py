@@ -2,7 +2,7 @@ from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.validation.journal_meta import ISSNValidation, AcronymValidation, TitleValidation, \
-    ValidationPublisher, JournalMetaValidation
+    PublisherNameValidation, JournalMetaValidation
 
 
 class ISSNTest(TestCase):
@@ -197,8 +197,8 @@ class PublisherTest(TestCase):
                 </article>
             """
         )
-        self.one_publisher = ValidationPublisher(self.xmltree_one_publisher)
-        self.more_than_one_publisher = ValidationPublisher(self.xmltree_more_than_one_publisher)
+        self.one_publisher = PublisherNameValidation(self.xmltree_one_publisher)
+        self.more_than_one_publisher = PublisherNameValidation(self.xmltree_more_than_one_publisher)
 
     def test_one_publisher_match(self):
         self.maxDiff = None
@@ -206,11 +206,11 @@ class PublisherTest(TestCase):
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': ['Fundação Oswaldo Cruz'],
+                'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected one item of this list: Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
                 'advice': None
             }
         ]
@@ -225,12 +225,12 @@ class PublisherTest(TestCase):
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': ['Fund. Oswaldo Cruz'],
+                'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected one item of this list: Fund. Oswaldo Cruz',
-                'advice': 'Provide a publisher name as per the list: Fund. Oswaldo Cruz'
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
+                'advice': 'Provide a publisher name as expected Fund. Oswaldo Cruz'
             }
         ]
         obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz'])
@@ -244,25 +244,15 @@ class PublisherTest(TestCase):
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
-                'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected one item of this list: Fundação Oswaldo Cruz | UNESP',
-                'advice': None
-            },
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
-                'got_value': 'UNESP',
-                'message': 'Got UNESP expected one item of this list: Fundação Oswaldo Cruz | UNESP',
+                'expected_value': 'Fundação Oswaldo Cruz | UNESP',
+                'got_value': 'Fundação Oswaldo Cruz | UNESP',
+                'message': 'Got Fundação Oswaldo Cruz | UNESP expected Fundação Oswaldo Cruz | UNESP',
                 'advice': None
             }
         ]
-        obtained = self.one_publisher.validate_publishers_names(['Fundação Oswaldo Cruz', 'UNESP'])
+        obtained = self.more_than_one_publisher.validate_publishers_names(['Fundação Oswaldo Cruz', 'UNESP'])
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
@@ -273,22 +263,12 @@ class PublisherTest(TestCase):
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': ['Fund. Oswaldo Cruz', 'UNIFESP'],
+                'expected_value': 'Fund. Oswaldo Cruz | UNIFESP',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected one item of this list: Fund. Oswaldo Cruz | UNIFESP',
-                'advice': 'Provide a publisher name as per the list: Fund. Oswaldo Cruz | UNIFESP'
-            },
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['Fund. Oswaldo Cruz', 'UNIFESP'],
-                'got_value': 'UNESP',
-                'message': 'Got UNESP expected one item of this list: Fund. Oswaldo Cruz | UNIFESP',
-                'advice': 'Provide a publisher name as per the list: Fund. Oswaldo Cruz | UNIFESP'
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz | UNIFESP',
+                'advice': 'Provide a publisher name as expected Fund. Oswaldo Cruz | UNIFESP'
             }
         ]
         obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
@@ -358,11 +338,11 @@ class JournalMetaValidationTest(TestCase):
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
+                'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz expected one item of this list: Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'advice': None
             }
         ]
