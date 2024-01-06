@@ -185,7 +185,7 @@ class ArticleDoiValidation:
                 'validation_type': 'exist/verification',
                 'response': 'OK' if validated else 'ERROR',
                 'expected_value': 'Unique DOI values',
-                'got_value': 'DOIs identified: {}'.format(" | ".join(list(dois.keys()))),
+                'got_value': list(dois.keys()),
                 'message': 'Got DOIs and frequencies {}'.format(
                     " | ".join([str((doi, freq)) for doi, freq in dois.items()])),
                 'advice': None if validated else 'Consider replacing the following DOIs that are not unique: {}'.format(
