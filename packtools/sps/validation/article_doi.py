@@ -312,15 +312,33 @@ class ArticleDoiValidation:
             ]
         """
         callable_get_validate = callable_get_validate or _callable_extern_validate_default
-        is_valid = callable_get_validate(self.doi)
-        return {
-            'title': 'Article DOI element is registered',
-            'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist',
-            'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': self.doi if is_valid else 'An article DOI registered',
-            'got_value': self.doi,
-            'message': 'Got {} expected {}'.format(self.doi, self.doi if is_valid else 'An article DOI registered'),
-            'advice': None if is_valid else 'DOI not registered or validator not found, provide a registered DOI or '
-                                            'check validator'
-        }
+
+        obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
+
+        for doi in self.dois:
+            lang = doi.get('lang')
+
+            obtained_doi = doi.get('value')
+            obtained_title = self.titles.get(lang)
+
+            expected = callable_get_validate(doi)
+            expected_doi = expected.get(lang).get('doi')
+            expected_title = expected.get(lang).get('title')
+            expected_authors = expected.get('authors')
+
+            is_valid = obtained_doi == expected_doi and obtained_title == expected_title and obtained_authors == expected_authors
+
+            expected_msg = [lang, expected_doi, expected_title, expected_authors]
+            obtained_msg = [lang, obtained_doi, obtained_title, obtained_authors]
+
+            yield {
+                'title': 'Article DOI element is registered',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_msg,
+                'got_value': obtained_msg,
+                'message': 'Got {} expected {}'.format(obtained_msg, expected_msg),
+                'advice': None if is_valid else 'DOI not registered or validator not found, provide a registered DOI or '
+                                                'check validator'
+            }
