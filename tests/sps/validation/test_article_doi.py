@@ -6,11 +6,31 @@ from packtools.sps.validation.article_doi import ArticleDoiValidation
 
 
 def callable_get_validate_ok(doi):
-    return True
+    return {
+        'en': {
+                'title': 'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                'doi': '10.1590/2176-4573p59270'
+            },
+        'pt': {
+                'title': 'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                'doi': '10.1590/2176-4573e59270'
+            },
+        'authors': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+    }
 
 
 def callable_get_validate_not_ok(doi):
-    return False
+    return {
+        "en": {
+                "title": "Analysis of the evolution of competences in the clinical practice of the nursing degree",
+                "doi": "10.1590/2176-4573p59270"
+            },
+        "pt": {
+                "title": "Análise da evolução de competências da prática clínica no curso de enfermagem",
+                "doi": "10.1590/2176-4573e59270"
+            },
+        "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+    }
 
 
 class ArticleDoiTest(unittest.TestCase):
@@ -146,7 +166,8 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'sub-article DOI',
                 'got_value': None,
                 'message': 'Got None expected sub-article DOI',
-                'advice': 'Provide a valid DOI for the sub-article translation (s3) which language is es'
+                'advice': 'Provide a valid DOI for the sub-article represented by the following '
+                          'tag: <sub-article article-type="translation" id="s3" xml:lang="es">'
             },
             {
                 'title': 'Sub-article translation DOI element',
@@ -199,7 +220,8 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'sub-article DOI',
                 'got_value': None,
                 'message': 'Got None expected sub-article DOI',
-                'advice': 'Provide a valid DOI for the sub-article translation (s2) which language is fr'
+                'advice': 'Provide a valid DOI for the sub-article represented by the following '
+                          'tag: <sub-article article-type="translation" id="s2" xml:lang="fr">'
             },
             {
                 'title': 'Sub-article translation DOI element',
@@ -256,7 +278,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'validation_type': 'exist/verification',
                 'response': 'OK',
                 'expected_value': 'Unique DOI values',
-                'got_value': 'DOIs identified: 10.1590/2176-4573p59270 | 10.1590/2176-4573e59270',
+                'got_value': ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'],
                 'message': "Got DOIs and frequencies ('10.1590/2176-4573p59270', 1) | ('10.1590/2176-4573e59270', 1)",
                 'advice': None
             }
@@ -303,7 +325,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'validation_type': 'exist/verification',
                 'response': 'ERROR',
                 'expected_value': 'Unique DOI values',
-                'got_value': 'DOIs identified: 10.1590/2176-4573p59270 | 10.1590/2176-4573e59270',
+                'got_value': ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'],
                 'message': "Got DOIs and frequencies ('10.1590/2176-4573p59270', 1) | ('10.1590/2176-4573e59270', 3)",
                 'advice': 'Consider replacing the following DOIs that are not unique: 10.1590/2176-4573e59270'
             }
@@ -316,20 +338,64 @@ class ArticleDoiTest(unittest.TestCase):
         self.maxDiff = None
         xml_str = """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
+                <article-meta>
                 <article-id specific-use="previous-pid" pub-id-type="publisher-id">S2176-45732023005002205</article-id>
                 <article-id specific-use="scielo-v3" pub-id-type="publisher-id">PqQCH4JjQTWmwYF97s4YGKv</article-id>
                 <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2176-45732023000200226</article-id>
                 <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
+                <title-group>
+                    <article-title>Analysis of the evolution of competences in the clinical practice of the nursing degree</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+                      <name>
+                        <surname>Martínez-Momblán</surname>
+                        <given-names>Maria Antonia</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">1</xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+                      <name>
+                        <surname>Colina-Torralva</surname>
+                        <given-names>Javier</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">1</xref>
+                    </contrib>
+                </contrib-group>
+                </article-meta>
             </front>
             <sub-article article-type="reviewer-report" id="s2" xml:lang="pt" />
             <sub-article article-type="reviewer-report" id="s3" xml:lang="pt" />
-            <sub-article article-type="translation" id="s1" xml:lang="en">
+            <sub-article article-type="translation" id="s1" xml:lang="pt">
                 <front-stub>
                     <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                        <title-group>
+                            <article-title>Análise da evolução de competências da prática clínica no curso de enfermagem</article-title>
+                        </title-group>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+                                <name>
+                                <surname>Martínez-Momblán</surname>
+                                <given-names>Maria Antonia</given-names>
+                                </name>
+                            <xref ref-type="aff" rid="aff2">1</xref>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+                                <name>
+                                <surname>Colina-Torralva</surname>
+                                <given-names>Javier</given-names>
+                                </name>
+                            <xref ref-type="aff" rid="aff2">1</xref>
+                            </contrib>
+                        </contrib-group>
                 </front-stub>
-            </sub-article>
+            </sub-article>      
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
@@ -337,17 +403,63 @@ class ArticleDoiTest(unittest.TestCase):
             callable_get_validate_ok
         )
 
-        expected = {
-            'title': 'Article DOI element is registered',
-            'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist',
-            'response': 'OK',
-            'expected_value': '10.1590/2176-4573p59270',
-            'got_value': '10.1590/2176-4573p59270',
-            'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
-            'advice': None
-        }
-        self.assertDictEqual(obtained, expected)
+        expected = [
+            {
+                'title': 'Article DOI element is registered',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': [
+                    'en',
+                    '10.1590/2176-4573p59270',
+                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'got_value': [
+                    'en',
+                    '10.1590/2176-4573p59270',
+                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'message': "Got "
+                           "['en', '10.1590/2176-4573p59270', "
+                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
+                           "['en', '10.1590/2176-4573p59270', "
+                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'advice': None
+            },
+            {
+                'title': 'Article DOI element is registered',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': [
+                    'pt',
+                    '10.1590/2176-4573e59270',
+                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'got_value': [
+                    'pt',
+                    '10.1590/2176-4573e59270',
+                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'message': "Got "
+                           "['pt', '10.1590/2176-4573e59270', "
+                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
+                           "['pt', '10.1590/2176-4573e59270', "
+                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_doi_registered_not_ok(self):
         self.maxDiff = None
@@ -355,18 +467,62 @@ class ArticleDoiTest(unittest.TestCase):
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
             <front>
+                <article-meta>
                 <article-id specific-use="previous-pid" pub-id-type="publisher-id">S2176-45732023005002205</article-id>
                 <article-id specific-use="scielo-v3" pub-id-type="publisher-id">PqQCH4JjQTWmwYF97s4YGKv</article-id>
                 <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2176-45732023000200226</article-id>
                 <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
+                <title-group>
+                    <article-title>Analysis of the evolution of competences in the clinical practice of the nursing degree</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+                      <name>
+                        <surname>Martínez-Momblán</surname>
+                        <given-names>Maria Antonia</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">1</xref>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+                      <name>
+                        <surname>Colina-Torralva</surname>
+                        <given-names>Javier</given-names>
+                      </name>
+                      <xref ref-type="aff" rid="aff1">1</xref>
+                    </contrib>
+                </contrib-group>
+                </article-meta>
             </front>
             <sub-article article-type="reviewer-report" id="s2" xml:lang="pt" />
             <sub-article article-type="reviewer-report" id="s3" xml:lang="pt" />
             <sub-article article-type="translation" id="s1" xml:lang="en">
                 <front-stub>
                     <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                        <title-group>
+                            <article-title>Análise da evolução de competências da prática clínica no curso de enfermagem</article-title>
+                        </title-group>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
+                                <name>
+                                <surname>Martínez-Momblán</surname>
+                                <given-names>Maria Antonia</given-names>
+                                </name>
+                            <xref ref-type="aff" rid="aff2">1</xref>
+                            </contrib>
+                            <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
+                                <name>
+                                <surname>Colina-Torralva</surname>
+                                <given-names>Javier</given-names>
+                                </name>
+                            <xref ref-type="aff" rid="aff2">1</xref>
+                            </contrib>
+                        </contrib-group>
                 </front-stub>
-            </sub-article>
+            </sub-article>      
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
@@ -374,17 +530,63 @@ class ArticleDoiTest(unittest.TestCase):
             callable_get_validate_not_ok
         )
 
-        expected = {
-            'title': 'Article DOI element is registered',
-            'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist',
-            'response': 'ERROR',
-            'expected_value': 'An article DOI registered',
-            'got_value': '10.1590/2176-4573p59270',
-            'message': 'Got 10.1590/2176-4573p59270 expected An article DOI registered',
-            'advice': 'DOI not registered or validator not found, provide a registered DOI or check validator'
-        }
-        self.assertDictEqual(obtained, expected)
+        expected = [
+            {
+                'title': 'Article DOI element is registered',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': [
+                    'pt',
+                    '10.1590/2176-4573e59270',
+                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'got_value': [
+                    'pt',
+                    '10.1590/2176-4573p59270',
+                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'message': "Got "
+                           "['pt', '10.1590/2176-4573p59270', "
+                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
+                           "['pt', '10.1590/2176-4573e59270', "
+                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'advice': 'DOI not registered or validator not found, provide a registered DOI or check validator'
+            },
+            {
+                'title': 'Article DOI element is registered',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': [
+                    'en',
+                    '10.1590/2176-4573p59270',
+                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'got_value': [
+                    'en',
+                    '10.1590/2176-4573e59270',
+                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+                ],
+                'message': "Got "
+                           "['en', '10.1590/2176-4573e59270', "
+                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
+                           "['en', '10.1590/2176-4573p59270', "
+                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
+                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'advice': 'DOI not registered or validator not found, provide a registered DOI or check validator'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 if __name__ == '__main__':
