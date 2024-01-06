@@ -1,9 +1,11 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
+from packtools.sps.models.article_authors import Authors
+from packtools.sps.models.article_titles import ArticleTitles
 
 
 def _callable_extern_validate_default(doi):
-    return False
+    return 'Validate not found'
 
 
 class ArticleDoiValidation:
@@ -12,6 +14,8 @@ class ArticleDoiValidation:
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.doi = DoiWithLang(self.xmltree).main_doi
         self.dois = DoiWithLang(self.xmltree).data
+        self.authors = Authors(self.xmltree).contribs
+        self.titles = ArticleTitles(self.xmltree).article_title_dict
 
     def validate_main_article_doi_exists(self):
         """
