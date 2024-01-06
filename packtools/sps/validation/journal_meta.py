@@ -72,7 +72,7 @@ class PublisherNameValidation:
         self.publisher = Publisher(self.xmltree)
         self.publisher_name_list = publisher_name_list
 
-    def validate_publishers_names(self, publisher_name_list=None):
+    def validate_publishers_names(self, publisher_name_list):
         """
         Checks whether the publisher name is as expected.
 
