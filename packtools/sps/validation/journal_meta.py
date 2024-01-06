@@ -151,7 +151,7 @@ class JournalMetaValidation:
         issn = ISSNValidation(self.xmltree)
         acronym = AcronymValidation(self.xmltree)
         title = TitleValidation(self.xmltree)
-        publisher = ValidationPublisher(self.xmltree)
+        publisher = PublisherNameValidation(self.xmltree)
 
         resp_journal_meta = [
             issn.validate_epub(expected_values['issn_epub']),
