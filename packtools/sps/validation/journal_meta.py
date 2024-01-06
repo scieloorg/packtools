@@ -66,7 +66,7 @@ class TitleValidation:
         return resp_abbreviated_journal_title
 
 
-class ValidationPublisher:
+class PublisherNameValidation:
     def __init__(self, xmltree, publisher_name_list=None):
         self.xmltree = xmltree
         self.publisher = Publisher(self.xmltree)
