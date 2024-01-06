@@ -119,8 +119,11 @@ class ArticleDoiValidation:
                     'expected_value': doi if doi else 'sub-article DOI',
                     'got_value': doi,
                     'message': 'Got {} expected {}'.format(doi, doi if doi else 'sub-article DOI'),
-                    'advice': None if doi else 'Provide a valid DOI for the sub-article translation ({}) which '
-                                               'language is {}'.format(article_id, lang)
+                    'advice': None if doi else 'Provide a valid DOI for the sub-article represented by the following'
+                                               ' tag: <sub-article article-type="translation" id="{}" xml:lang="{}">'.format(
+                        article_id,
+                        lang
+                    )
                 }
 
     def validate_all_dois_are_unique(self):
