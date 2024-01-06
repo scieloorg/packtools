@@ -112,19 +112,23 @@ class PublisherNameValidation:
         """
         publisher_name_list = publisher_name_list or self.publisher_name_list
         if not publisher_name_list:
-            raise ValidationPublisherException("Function requires list of publisher names")
-        for publisher_name in self.publisher.publishers_names or []:
-            is_valid = publisher_name in publisher_name_list
-            yield {
+            raise ValidationPublisherException("Function requires a list of publisher names")
+        expected = " | ".join(sorted(publisher_name_list))
+        obtained = " | ".join(sorted(self.publisher.publishers_names))
+
+        is_valid = expected == obtained
+        return [
+            {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
-                'validation_type': 'value in list',
+                'validation_type': 'value',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': publisher_name_list,
-                'got_value': publisher_name,
-                'message': 'Got {} expected one item of this list: {}'.format(publisher_name, " | ".join(publisher_name_list)),
-                'advice': None if is_valid else 'Provide a publisher name as per the list: {}'.format(" | ".join(publisher_name_list))
+                'expected_value': expected,
+                'got_value': obtained,
+                'message': 'Got {} expected {}'.format(obtained, expected),
+                'advice': None if is_valid else 'Provide a publisher name as expected {}'.format(expected)
             }
+        ]
 
 
 class JournalMetaValidation:
