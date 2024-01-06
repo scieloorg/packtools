@@ -45,3 +45,7 @@ class ValidationRelatedArticleException(Exception):
 
 class ValidationPublisherException(Exception):
     ...
+
+  
+class ValidationDataAvailabilityException(Exception):
+    ...
