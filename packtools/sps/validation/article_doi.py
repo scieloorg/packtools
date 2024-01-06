@@ -56,7 +56,7 @@ class ArticleDoiValidation:
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK' if self.doi else 'ERROR',
-                'expected_value': self.doi if self.doi else 'article DOI',
+                'expected_value': self.doi or 'article DOI',
                 'got_value': self.doi,
                 'message': 'Got {} expected {}'.format(self.doi, self.doi if self.doi else 'a DOI'),
                 'advice': None if self.doi else 'Provide a valid DOI for the {}'.format(self.articles.main_article_type)
