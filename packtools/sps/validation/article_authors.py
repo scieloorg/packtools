@@ -3,6 +3,10 @@ import re
 from packtools.sps.models.article_authors import Authors
 
 
+def _callable_extern_validate_default(orcid):
+    raise NotImplementedError
+
+
 class ArticleAuthorsValidation:
     def __init__(self, xmltree):
         self._xmltree = xmltree
