@@ -61,24 +61,20 @@ class ISSNValidation:
         if not issns_dict or type(issns_dict) is not dict:
             raise ValidationIssnsException("The function requires a list of ISSNs in dictionary format")
 
-        for issn in self.journal_issns:
-            issn_value = issn.get('value')
-            issn_type = issn.get('type')
-            is_valid = issn_value == issns_dict.get(issn_type)
+        for tp, issn_expected in issns_dict.items():
+            issn_obtained = self.journal_issns.epub if tp == "epub" else self.journal_issns.ppub
+            is_valid = issn_expected == issn_obtained
             yield {
                 'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type=*]',
-                'validation_type': 'value in list',
+                'xpath': './/journal-meta//issn[@pub-type="{}"]'.format(tp),
+                'validation_type': 'value',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': issns_dict,
-                'got_value': issn_value,
-                'message': 'Got <issn pub-type="{}">{}</issn> expected one item of this list: {}'.format(
-                    issn_type,
-                    issn_value,
-                    " | ".join([f"{t}: {v}" for t, v in issns_dict.items()])
+                'expected_value': '<issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
+                'got_value': '<issn pub-type="{}">{}</issn>'.format(tp, issn_obtained),
+                'message': 'Got <issn pub-type="{}">{}</issn> expected <issn pub-type="{}">{}</issn>'.format(
+                    tp, issn_obtained, tp, issn_expected
                 ),
-                'advice': None if is_valid else 'Provide a ISSN value as per the list: {}'.format(
-                    " | ".join([f"{t}: {v}" for t, v in issns_dict.items()]))
+                'advice': None if is_valid else 'Provide an ISSN value as expected: <issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
             }
 
 
