@@ -8,7 +8,7 @@ class ISSNValidation:
         self.journal_issns = ISSN(xmltree)
         self.issns_dict = issns_dict
 
-    def validate_issn(self, issns_dict=None):
+    def validate_issn(self, issns_dict):
         """
         Checks whether the ISSN value is as expected.
 
