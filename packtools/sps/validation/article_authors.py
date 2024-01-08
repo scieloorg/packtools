@@ -243,6 +243,84 @@ class ArticleAuthorsValidation:
             }
         ]
 
+    def validate_authors_orcid_is_registered(self, callable_get_validate=None):
+        """
+        Checks whether a contributor's ORCID is registered.
+
+        XML input
+        ---------
+        <article>
+        <front>
+            <article-meta>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                        <xref ref-type="aff" rid="aff1">a</xref>
+                    </contrib>
+                </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+
+        Params
+        ------
+        callable_get_validation : function
+            A function that will be passed as an argument.
+            This function must have the signature 'def callable_get_validate(orcid):' and
+            returns the name of the author associated with ORCID
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'message': 'Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'] expected '
+                           '['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ']',
+                'advice': None
+                },
+                ...
+            ]
+        """
+        callable_get_validate = callable_get_validate or _callable_extern_validate_default
+        for author in self.article_authors.contribs:
+            expected_author_name = f"{author.get('given_names')} {author.get('surname')}"
+            orcid = author.get('orcid')
+            obtained_author_name = callable_get_validate(orcid)
+            is_valid = obtained_author_name == expected_author_name
+
+            yield {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': [orcid, expected_author_name],
+                'got_value': [orcid, obtained_author_name],
+                'message': 'Got {} expected {}'.format([orcid, obtained_author_name], [orcid, expected_author_name]),
+                'advice': None if is_valid else "The author {} has {} as ORCID and its register is not valid. Provide "
+                                                "a registered ORCID.".format(expected_author_name, orcid)
+            }
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleAuthorsValidation.
