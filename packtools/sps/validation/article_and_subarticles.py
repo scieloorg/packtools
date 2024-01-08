@@ -1,5 +1,5 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.models.article_doi_with_lang import DoiWithLang
+from packtools.sps.models.article_ids import ArticleIds
 from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesLanguageCodeException,
     ValidationArticleAndSubArticlesSpecificUseException,
@@ -431,57 +431,6 @@ class ArticleSubjectsValidation:
 
         return result
 
-
-class ArticleDoiValidation:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self.articles = ArticleAndSubArticles(self.xmltree)
-        self.doi = DoiWithLang(self.xmltree).main_doi
-
-    def validate_doi(self):
-        """
-        Checks for the existence of DOI.
-
-        XML input
-        ---------
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-            <article-id pub-id-type="other">00303</article-id>
-            </front>
-        </article>
-
-        Returns
-        -------
-        dict
-            Such as:
-            {
-                'title': 'Article DOI element',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'article DOI',
-                'got_value': '10.1590/1518-8345.2927.3231',
-                'message': 'Got 10.1590/1518-8345.2927.3231 expected a DOI',
-                'advice': 'XML research-article does not present a DOI'
-            }
-        """
-        validated = self.doi
-        return {
-            'title': 'Article DOI element',
-            'xpath': './article-id[@pub-id-type="doi"]',
-            'validation_type': 'exist',
-            'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'article DOI',
-            'got_value': self.doi,
-            'message': 'Got {} expected a DOI'.format(self.doi),
-            'advice': None if validated else 'XML {} does not present a DOI'.format(
-                self.articles.main_article_type)
-        }
-
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleValidation.
@@ -496,4 +445,51 @@ class ArticleDoiValidation:
         }
 
 
+class ArticleIdValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.other_id = ArticleIds(self.xmltree).other
 
+    def validate_article_id_other(self):
+        """
+        Check whether an article that shouldn't have a subject actually doesn't.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="other">123</article-id>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        dict, such as:
+            {
+                'title': 'Article id other validation',
+                'xpath': './/article-id[@pub-id-type="other"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '123',
+                'got_value': '123',
+                'message': 'Got 123 expected 123',
+                'advice': None
+            }
+        """
+        is_valid = self.other_id.isnumeric() and len(self.other_id) <= 5
+        expected_value = self.other_id if is_valid else 'A numeric value with up to five digits'
+        return {
+            'title': 'Article id other validation',
+            'xpath': './/article-id[@pub-id-type="other"]',
+            'validation_type': 'format',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': expected_value,
+            'got_value': self.other_id,
+            'message': 'Got {} expected {}'.format(self.other_id, expected_value[0].lower() + expected_value[1:]),
+            'advice': None if is_valid else 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+        }

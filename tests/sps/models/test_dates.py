@@ -115,7 +115,6 @@ class ArticleDatesArticleFrom1_8Test(TestCase):
         self.assertEqual("20", self.xml_dates.article_date["day"])
 
 
-
 class ArticleDatesArticleBefore1_8Test(TestCase):
 
     def setUp(self):
@@ -136,3 +135,25 @@ class ArticleDatesArticleBefore1_8Test(TestCase):
 
     def test_article_date_day(self):
         self.assertEqual("20", self.xml_dates.article_date["day"])
+
+
+class ArticleDatesArticleBefore1_8EpubIncompleteTest(TestCase):
+
+    def setUp(self):
+        pub_dates = ("""
+            <pub-date pub-type="epub"><year>2023</year><month>02</month></pub-date>
+        """)
+        self.xmltree = etree.fromstring(_get_xml(pub_dates))
+        self.xml_dates = ArticleDates(self.xmltree)
+
+    def test_article_date_is_none(self):
+        self.assertIsNone(self.xml_dates.article_date)
+
+    def test_collection_date_year(self):
+        self.assertEqual("2023", self.xml_dates.collection_date["year"])
+
+    def test_collection_date_month(self):
+        self.assertEqual("02", self.xml_dates.collection_date["month"])
+
+    def test_collection_date_day(self):
+        self.assertIsNone(self.xml_dates.collection_date.get("day"))

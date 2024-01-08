@@ -15,7 +15,7 @@ class ValidationArticleAndSubArticlesHasInvalidLanguage(ValidationArticleDataErr
     ...
 
 
-class ValidationArticleAndSubArticlesCountryCodeException(Exception):
+class AffiliationValidationValidateCountryCodeException(Exception):
     ...
 
 
@@ -36,4 +36,24 @@ class ValidationArticleAndSubArticlesArticleTypeException(Exception):
 
 
 class ValidationArticleAndSubArticlesSubjectsException(Exception):
+    ...
+
+
+class ValidationRelatedArticleException(Exception):
+    ...
+
+
+class ValidationIssnsException(Exception):
+    ...
+
+
+class ValidationLicenseException(Exception):
+    ...
+
+
+class ValidationLicenseCodeException(Exception):
+    ...
+
+    
+class ValidationDataAvailabilityException(Exception):
     ...

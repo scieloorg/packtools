@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime, date
 import logging
 
 from packtools.sps.models.dates import ArticleDates
@@ -11,6 +11,7 @@ def date_dict_to_date(date_dict):
 class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
+        self.article_date = ArticleDates(xmltree).article_date
 
     def history_dates_are_complete(self):
         response = []
@@ -85,7 +86,131 @@ class ArticleDatesValidation:
 
         return result
 
-    
+    def validate_number_of_digits_in_article_date(self):
+        """
+        Checks whether date components have the correct number of digits.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>03</day>
+                        <month>02</month>
+                        <year>2024</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        list of dict such as:
+            [
+                {
+                    'title': 'Article pub-date day validation',
+                    'xpath': './/front//pub-date[@date-type="pub"]/day',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '03',
+                    'got_value': '03',
+                    'message': 'Got 2 expected 2 numeric digits',
+                    'advice': None
+                },...
+            ]
+        """
+        result = []
+        for elem, expected in zip(('day', 'month', 'year'), (2, 2, 4)):
+            value = self.article_date[elem]
+            obtained = len(value)
+            validated = obtained == expected
+            if value.isdigit():
+                expected_value = value.zfill(expected)
+                message = 'Got {} expected {}'.format(value, expected_value)
+            else:
+                expected_value = 'A numeric digit for {} represented with {} digits'.format(elem, expected)
+                message = 'Got a non-numeric value for {}'.format(elem)
+                validated = False
+            result.append(
+                {
+                    'title': 'Article pub-date {} validation'.format(elem),
+                    'xpath': './/front//pub-date[@date-type="pub"]/{}'.format(elem),
+                    'validation_type': 'format',
+                    'response': 'OK' if validated else 'ERROR',
+                    'expected_value': expected_value,
+                    'got_value': value,
+                    'message': message,
+                    'advice': None if validated else 'Provide a {}-digit numeric value for {}'.format(expected, elem)
+                }
+            )
+        return result
+
+    def validate_article_date(self, future_date):
+        """
+        Checks if the publication date is valid and before a deadline.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        future_date : str
+
+        Returns
+        -------
+        dict such as:
+            {
+                'title': 'Article pub-date validation',
+                'xpath': './/front//pub-date[@date-type="pub"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
+                'got_value': '2023-01-01',
+                'message': '2023-01-01 is an valid date',
+                'advice': None
+            }
+        """
+
+        got_value = '-'.join([self.article_date[elem] for elem in ['year', 'month', 'day']])
+        try:
+            date_dict_to_date(self.article_date)
+            validated = got_value <= future_date
+        except ValueError as e:
+            validated = False
+
+        return {
+            'title': 'Article pub-date validation',
+            'xpath': './/front//pub-date[@date-type="pub"]',
+            'validation_type': 'value',
+            'response': 'OK' if validated else 'ERROR',
+            'expected_value': 'A date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
+            'got_value': got_value,
+            'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
+            'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date)
+        }
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
