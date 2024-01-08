@@ -481,7 +481,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
 
 class ArticleAuthorsValidationOrcidTest(TestCase):
-    def test_validation_format_orcid(self):
+    def test_validate_authors_orcid_format_fail(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -512,7 +512,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
@@ -540,7 +540,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
 
-    def test_without_orcid(self):
+    def test_validate_authors_orcid_format_without_orcid(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -569,7 +569,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
@@ -598,7 +598,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
 
-    def test_success_orcid(self):
+    def test_validate_authors_orcid_format_success(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -630,7 +630,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
