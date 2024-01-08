@@ -45,3 +45,7 @@ class ValidationRelatedArticleException(Exception):
 
 class ValidationIssnsException(Exception):
     ...
+
+    
+class ValidationDataAvailabilityException(Exception):
+    ...
