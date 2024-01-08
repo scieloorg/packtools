@@ -5,7 +5,7 @@ from packtools.sps.validation.exceptions import ValidationIssnsException
 class ISSNValidation:
     def __init__(self, xmltree, issns_dict=None):
         self.xmltree = xmltree
-        self.journal_issns = ISSN(xmltree).data
+        self.journal_issns = ISSN(xmltree)
         self.issns_dict = issns_dict
 
     def validate_issn(self, issns_dict=None):
