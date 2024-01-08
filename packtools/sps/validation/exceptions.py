@@ -43,6 +43,10 @@ class ValidationRelatedArticleException(Exception):
     ...
 
 
+class ValidationIssnsException(Exception):
+    ...
+
+
 class ValidationLicenseException(Exception):
     ...
 

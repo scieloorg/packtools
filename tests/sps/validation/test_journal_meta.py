@@ -21,45 +21,75 @@ class ISSNTest(TestCase):
         )
         self.issns = ISSNValidation(self.xmltree)
 
-    def test_issn_epub_match(self):
-        expected = dict(
-            object='issn epub',
-            output_expected='1678-4790',
-            output_obteined='1678-4790',
-            match=True
+    def test_validate_issn_ok(self):
+        self.maxDiff = None
+        obtained = self.issns.validate_issn(
+            {
+                'ppub': '0103-5053',
+                'epub': '1678-4790'
+            }
         )
-        obtained = self.issns.validate_epub('1678-4790')
-        self.assertDictEqual(expected, obtained)
 
-    def test_issn_epub_no_match(self):
-        expected = dict(
-            object='issn epub',
-            output_expected='1678-4791',
-            output_obteined='1678-4790',
-            match=False
-        )
-        obtained = self.issns.validate_epub('1678-4791')
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
+                'got_value': '<issn pub-type="ppub">0103-5053</issn>',
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
+                'advice': None
+            },
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': '<issn pub-type="epub">1678-4790</issn>',
+                'got_value': '<issn pub-type="epub">1678-4790</issn>',
+                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_issn_ppub_match(self):
-        expected = dict(
-            object='issn ppub',
-            output_expected='0103-5053',
-            output_obteined='0103-5053',
-            match=True
+    def test_validate_issn_not_ok(self):
+        self.maxDiff = None
+        obtained = self.issns.validate_issn(
+            {
+                'ppub': '0103-5054',
+                'epub': '1678-4791'
+            }
         )
-        obtained = self.issns.validate_ppub('0103-5053')
-        self.assertDictEqual(expected, obtained)
 
-    def test_issn_ppub_no_match(self):
-        expected = dict(
-            object='issn ppub',
-            output_expected='0103-5051',
-            output_obteined='0103-5053',
-            match=False
-        )
-        obtained = self.issns.validate_ppub('0103-5051')
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': '<issn pub-type="ppub">0103-5054</issn>',
+                'got_value': '<issn pub-type="ppub">0103-5053</issn>',
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5054</issn>',
+                'advice': 'Provide an ISSN value as expected: <issn pub-type="ppub">0103-5054</issn>'
+            },
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': '<issn pub-type="epub">1678-4791</issn>',
+                'got_value': '<issn pub-type="epub">1678-4790</issn>',
+                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4791</issn>',
+                'advice': 'Provide an ISSN value as expected: <issn pub-type="epub">1678-4791</issn>'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class AcronymTest(TestCase):
@@ -285,19 +315,28 @@ class JournalMetaValidationTest(TestCase):
         self.journal_meta = JournalMetaValidation(self.xmltree)
 
     def test_journal_meta_match(self):
+        self.maxDiff = None
         expected = [
-            dict(
-                object='issn epub',
-                output_expected='1678-4790',
-                output_obteined='1678-4790',
-                match=True
-            ),
-            dict(
-                object='issn ppub',
-                output_expected='0103-5053',
-                output_obteined='0103-5053',
-                match=True
-            ),
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
+                'got_value': '<issn pub-type="ppub">0103-5053</issn>',
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
+                'advice': None
+            },
+            {
+                'title': 'Journal ISSN element validation',
+                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': '<issn pub-type="epub">1678-4790</issn>',
+                'got_value': '<issn pub-type="epub">1678-4790</issn>',
+                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
+                'advice': None
+            },
             dict(
                 object='journal acronym',
                 output_expected='hcsm',
@@ -324,8 +363,10 @@ class JournalMetaValidationTest(TestCase):
             )
         ]
         obtained = self.journal_meta.validate({
-            'issn_epub': '1678-4790',
-            'issn_ppub': '0103-5053',
+            'issns': {
+                'ppub': '0103-5053',
+                'epub': '1678-4790'
+            },
             'acronym': 'hcsm',
             'journal-title': 'História, Ciências, Saúde-Manguinhos',
             'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
