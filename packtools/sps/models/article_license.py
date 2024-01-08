@@ -32,7 +32,7 @@ class ArticleLicense:
             d = {
                 'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'),
                 'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
-                'licence_p': _license.find('license-p').text
+                'license_p': _license.find('license-p').text
             }
             _licenses.append(d)
         return _licenses
