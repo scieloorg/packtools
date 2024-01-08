@@ -96,7 +96,7 @@ class ArticleAuthorsValidation:
                     'advice': f"The author {_author_name} does not have a valid role. Provide a role from the list: {expected_value}"
                 }
 
-    def validate_authors_orcid(self):
+    def validate_authors_orcid_format(self):
         """
         Checks whether a contributor's ORCID is valid.
 
