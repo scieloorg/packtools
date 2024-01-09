@@ -193,7 +193,7 @@ class ArticleDoiValidation:
             }
         ]
 
-    def validate_doi_registered(self, callable_get_validate=None):
+    def validate_doi_registered(self, callable_get_data=None):
         """
         Checks whether a DOI is registered as valid.
 
