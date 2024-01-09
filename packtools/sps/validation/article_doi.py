@@ -284,31 +284,16 @@ class ArticleDoiValidation:
             A list of dictionaries, such as:
             [
                 {
-                    'title': 'Article DOI element is registered',
+                    'title': 'Article DOI is registered (lang: en, element: doi)',
                     'xpath': './article-id[@pub-id-type="doi"]',
                     'validation_type': 'exist',
                     'response': 'OK',
-                    'expected_value': [
-                        'en',
-                        '10.1590/2176-4573p59270',
-                        'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                        ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                    ],
-                    'got_value': [
-                        'en',
-                        '10.1590/2176-4573p59270',
-                        'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                        ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                    ],
-                    'message': "Got "
-                               "['en', '10.1590/2176-4573p59270', "
-                               "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                               "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
-                               "['en', '10.1590/2176-4573p59270', "
-                               "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                               "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                    'expected_value': '10.1590/2176-4573p59270',
+                    'got_value': '10.1590/2176-4573p59270',
+                    'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
                     'advice': None
-                },...
+                },
+                ...
             ]
         """
         callable_get_validate = callable_get_validate or _callable_extern_validate_default
