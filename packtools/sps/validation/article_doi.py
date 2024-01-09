@@ -5,7 +5,7 @@ from packtools.sps.models.article_titles import ArticleTitles
 
 
 def _callable_extern_validate_default(doi):
-    return 'Validate not found'
+    raise NotImplementedError
 
 
 class ArticleDoiValidation:
