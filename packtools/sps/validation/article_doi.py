@@ -306,24 +306,32 @@ class ArticleDoiValidation:
             obtained_doi = doi.get('value')
             obtained_title = self.titles.get(lang)
 
-            expected = callable_get_validate(doi)
+            expected = callable_get_data(doi)
+
             expected_doi = expected.get(lang).get('doi')
             expected_title = expected.get(lang).get('title')
-            expected_authors = expected.get('authors')
 
-            is_valid = obtained_doi == expected_doi and obtained_title == expected_title and obtained_authors == expected_authors
+            doi_is_valid = obtained_doi == expected_doi
+            title_is_valid = obtained_title == expected_title
 
-            expected_msg = [lang, expected_doi, expected_title, expected_authors]
-            obtained_msg = [lang, obtained_doi, obtained_title, obtained_authors]
+            validations = [
+                ('doi', doi_is_valid, expected_doi, obtained_doi),
+                ('title', title_is_valid, expected_title, obtained_title)
+            ]
+            for author in expected.get('authors'):
+                author_is_valid = author in obtained_authors
+                validations.append(('author', author_is_valid, author, author if author_is_valid else None))
 
-            yield {
-                'title': 'Article DOI element is registered',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_msg,
-                'got_value': obtained_msg,
-                'message': 'Got {} expected {}'.format(obtained_msg, expected_msg),
-                'advice': None if is_valid else 'DOI not registered or validator not found, provide a registered DOI or '
-                                                'check validator'
-            }
+            for validation in validations:
+                yield {
+                    'title': 'Article DOI is registered (lang: {}, element: {})'.format(lang, validation[0]),
+                    'xpath': './article-id[@pub-id-type="doi"]',
+                    'validation_type': 'exist',
+                    'response': 'OK' if validation[1] else 'ERROR',
+                    'expected_value': validation[2],
+                    'got_value': validation[3],
+                    'message': 'Got {} expected {}'.format(validation[3], validation[2]),
+                    'advice': None if validation[1] else 'DOI not registered or validator not found, '
+                                                         'provide a value for {} element that matches the record '
+                                                         'for DOI.'.format(validation[0])
+                }
