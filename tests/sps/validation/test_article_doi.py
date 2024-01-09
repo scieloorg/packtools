@@ -22,14 +22,14 @@ def callable_get_validate_ok(doi):
 def callable_get_validate_not_ok(doi):
     return {
         "en": {
-                "title": "Analysis of the evolution of competences in the clinical practice of the nursing degree",
-                "doi": "10.1590/2176-4573p59270"
+                "title": "Analysis of the evolution of competences in the clinical practice",
+                "doi": "10.1590/2176-4573p59271"
             },
         "pt": {
-                "title": "Análise da evolução de competências da prática clínica no curso de enfermagem",
-                "doi": "10.1590/2176-4573e59270"
+                "title": "Análise da evolução de competências da prática clínica",
+                "doi": "10.1590/2176-4573e59271"
             },
-        "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+        "authors": ['Martínez Momblán, Maria Antonia', 'Colina Torralva, Javier']
     }
 
 
@@ -405,57 +405,88 @@ class ArticleDoiTest(unittest.TestCase):
 
         expected = [
             {
-                'title': 'Article DOI element is registered',
+                'title': 'Article DOI is registered (lang: en, element: doi)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': [
-                    'en',
-                    '10.1590/2176-4573p59270',
-                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'got_value': [
-                    'en',
-                    '10.1590/2176-4573p59270',
-                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'message': "Got "
-                           "['en', '10.1590/2176-4573p59270', "
-                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
-                           "['en', '10.1590/2176-4573p59270', "
-                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'expected_value': '10.1590/2176-4573p59270',
+                'got_value': '10.1590/2176-4573p59270',
+                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
                 'advice': None
             },
             {
-                'title': 'Article DOI element is registered',
+                'title': 'Article DOI is registered (lang: en, element: title)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': [
-                    'pt',
-                    '10.1590/2176-4573e59270',
-                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'got_value': [
-                    'pt',
-                    '10.1590/2176-4573e59270',
-                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'message': "Got "
-                           "['pt', '10.1590/2176-4573e59270', "
-                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
-                           "['pt', '10.1590/2176-4573e59270', "
-                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
+                'expected_value': 'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                'got_value': 'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                'message': 'Got Analysis of the evolution of competences in the clinical practice of the nursing degree '
+                           'expected Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez-Momblán, Maria Antonia',
+                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina-Torralva, Javier',
+                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: doi)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: title)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                'got_value': 'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                'message': 'Got Análise da evolução de competências da prática clínica no curso de enfermagem '
+                           'expected Análise da evolução de competências da prática clínica no curso de enfermagem',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez-Momblán, Maria Antonia',
+                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina-Torralva, Javier',
+                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
                 'advice': None
             }
+
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -532,56 +563,94 @@ class ArticleDoiTest(unittest.TestCase):
 
         expected = [
             {
-                'title': 'Article DOI element is registered',
+                'title': 'Article DOI is registered (lang: pt, element: doi)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': [
-                    'pt',
-                    '10.1590/2176-4573e59270',
-                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'got_value': [
-                    'pt',
-                    '10.1590/2176-4573p59270',
-                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'message': "Got "
-                           "['pt', '10.1590/2176-4573p59270', "
-                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
-                           "['pt', '10.1590/2176-4573e59270', "
-                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
-                'advice': 'DOI not registered or validator not found, provide a registered DOI or check validator'
+                'expected_value': '10.1590/2176-4573e59271',
+                'got_value': '10.1590/2176-4573p59270',
+                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573e59271',
+                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
+                          'matches the record for DOI.'
             },
             {
-                'title': 'Article DOI element is registered',
+                'title': 'Article DOI is registered (lang: pt, element: title)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': [
-                    'en',
-                    '10.1590/2176-4573p59270',
-                    'Analysis of the evolution of competences in the clinical practice of the nursing degree',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'got_value': [
-                    'en',
-                    '10.1590/2176-4573e59270',
-                    'Análise da evolução de competências da prática clínica no curso de enfermagem',
-                    ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
-                ],
-                'message': "Got "
-                           "['en', '10.1590/2176-4573e59270', "
-                           "'Análise da evolução de competências da prática clínica no curso de enfermagem', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']] expected "
-                           "['en', '10.1590/2176-4573p59270', "
-                           "'Analysis of the evolution of competences in the clinical practice of the nursing degree', "
-                           "['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']]",
-                'advice': 'DOI not registered or validator not found, provide a registered DOI or check validator'
+                'expected_value': 'Análise da evolução de competências da prática clínica',
+                'got_value': 'Analysis of the evolution of competences in the clinical practice of the nursing degree',
+                'message': 'Got Analysis of the evolution of competences in the clinical practice of the nursing degree '
+                           'expected Análise da evolução de competências da prática clínica',
+                'advice': 'DOI not registered or validator not found, provide a value for title element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Martínez Momblán, Maria Antonia',
+                'got_value': None,
+                'message': 'Got None expected Martínez Momblán, Maria Antonia',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: pt, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Colina Torralva, Javier',
+                'got_value': None,
+                'message': 'Got None expected Colina Torralva, Javier',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: doi)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': '10.1590/2176-4573p59271',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573p59271',
+                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: title)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Analysis of the evolution of competences in the clinical practice',
+                'got_value': 'Análise da evolução de competências da prática clínica no curso de enfermagem',
+                'message': 'Got Análise da evolução de competências da prática clínica no curso de enfermagem expected '
+                           'Analysis of the evolution of competences in the clinical practice',
+                'advice': 'DOI not registered or validator not found, provide a value for title element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Martínez Momblán, Maria Antonia',
+                'got_value': None,
+                'message': 'Got None expected Martínez Momblán, Maria Antonia',
+                'advice': 'DOI not registered or validator not found, provide a value for author element '
+                          'that matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Colina Torralva, Javier',
+                'got_value': None,
+                'message': 'Got None expected Colina Torralva, Javier',
+                'advice': 'DOI not registered or validator not found, provide a value for author element '
+                          'that matches the record for DOI.'
             }
         ]
         for i, item in enumerate(obtained):
