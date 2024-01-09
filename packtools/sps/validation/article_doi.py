@@ -296,7 +296,7 @@ class ArticleDoiValidation:
                 ...
             ]
         """
-        callable_get_validate = callable_get_validate or _callable_extern_validate_default
+        callable_get_data = callable_get_data or _callable_extern_validate_default
 
         obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
 
