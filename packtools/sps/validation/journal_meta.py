@@ -117,11 +117,11 @@ class PublisherNameValidation:
         expected = set(publisher_name_list)
         obtained = set(self.publisher.publishers_names)
 
-        for value in expected.intersection(obtained):
+        for value in sorted(list(expected.intersection(obtained))):
             validations.append((True, value, value, None))
-        for value in expected.difference(obtained):
+        for value in sorted(list(expected.difference(obtained))):
             validations.append((False, value, None, f'Add {value} as publisher name in XML'))
-        for value in obtained.difference(expected):
+        for value in sorted(list(obtained.difference(expected))):
             validations.append((False, None, value, f'Remove {value} as publisher name in XML'))
 
         for validation in validations:
