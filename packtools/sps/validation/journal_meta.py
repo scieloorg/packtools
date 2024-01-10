@@ -113,22 +113,28 @@ class PublisherNameValidation:
         publisher_name_list = publisher_name_list or self.publisher_name_list
         if not publisher_name_list:
             raise ValidationPublisherException("Function requires a list of publisher names")
-        expected = " | ".join(sorted(publisher_name_list))
-        obtained = " | ".join(sorted(self.publisher.publishers_names))
+        validations = []
+        expected = set(publisher_name_list)
+        obtained = set(self.publisher.publishers_names)
 
-        is_valid = expected == obtained
-        return [
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected,
-                'got_value': obtained,
-                'message': 'Got {} expected {}'.format(obtained, expected),
-                'advice': None if is_valid else 'Provide a publisher name as expected {}'.format(expected)
-            }
-        ]
+        for value in expected.intersection(obtained):
+            validations.append((True, value, value, None))
+        for value in expected.difference(obtained):
+            validations.append((False, value, None, f'Add {value} as publisher name in XML'))
+        for value in obtained.difference(expected):
+            validations.append((False, None, value, f'Remove {value} as publisher name in XML'))
+
+        for validation in validations:
+            yield {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value',
+                    'response': 'OK' if validation[0] else 'ERROR',
+                    'expected_value': validation[1],
+                    'got_value': validation[2],
+                    'message': 'Got {} expected {}'.format(validation[2], validation[1]),
+                    'advice': validation[3]
+                }
 
 
 class JournalMetaValidation:
