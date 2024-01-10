@@ -18,10 +18,18 @@ credit_taxonomy_terms_and_urls = [
 ]
 
 
-def callable_get_validate(orcid):
+def callable_get_data(orcid):
     tests = {
         '0990-0001-0058-4853': 'FRANCISCO VENEGAS-MARTÍNEZ',
         '0000-3333-1238-6873': 'Vanessa M. Higa'
+    }
+    return tests.get(orcid)
+
+
+def callable_get_data_empty(orcid):
+    tests = {
+        '0990-0001-0058-4853': None,
+        '0000-3333-1238-6873': None
     }
     return tests.get(orcid)
 
@@ -802,7 +810,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
-            callable_get_validate
+            callable_get_data
         )
 
         expected_output = [
@@ -867,7 +875,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
-            callable_get_validate
+            callable_get_data
         )
 
         expected_output = [
@@ -879,6 +887,72 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
                 'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
                 'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\']',
+                'advice': "The author FRANCISCO VENEGAS MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
+                          "not valid. Provide a registered ORCID."
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
+                'got_value': ['0000-3333-1238-6874', None],
+                'message': 'Got [\'0000-3333-1238-6874\', None] expected [\'0000-3333-1238-6874\', \'Vanessa M. Higa\']',
+                'advice': "The author Vanessa M. Higa has 0000-3333-1238-6874 as ORCID and its register is "
+                          "not valid. Provide a registered ORCID."
+            }
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_registered_fail_empty(self):
+        self.maxDiff = None
+        xml = """
+                <article>
+                <front>
+                    <article-meta>
+                      <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                          <name>
+                            <surname>VENEGAS MARTÍNEZ</surname>
+                            <given-names>FRANCISCO</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                          </name>
+                          <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6874</contrib-id>
+                          <name>
+                            <surname>Higa</surname>
+                            <given-names>Vanessa M.</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                      </contrib-group>
+                    </article-meta>
+                  </front>
+                </article>
+                """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
+            callable_get_data_empty
+        )
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', None],
+                'message': 'Got [\'0990-0001-0058-4853\', None] expected '
                            '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\']',
                 'advice': "The author FRANCISCO VENEGAS MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
                           "not valid. Provide a registered ORCID."
