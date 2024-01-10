@@ -228,9 +228,19 @@ class PublisherTest(TestCase):
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'Fund. Oswaldo Cruz',
+                'got_value': None,
+                'message': 'Got None expected Fund. Oswaldo Cruz',
+                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': None,
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
-                'advice': 'Provide a publisher name as expected Fund. Oswaldo Cruz'
+                'message': 'Got Fundação Oswaldo Cruz expected None',
+                'advice': 'Remove Fundação Oswaldo Cruz as publisher name in XML',
             }
         ]
         obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz'])
@@ -246,9 +256,19 @@ class PublisherTest(TestCase):
                 'xpath': './/publisher//publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': 'Fundação Oswaldo Cruz | UNESP',
-                'got_value': 'Fundação Oswaldo Cruz | UNESP',
-                'message': 'Got Fundação Oswaldo Cruz | UNESP expected Fundação Oswaldo Cruz | UNESP',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'UNESP',
+                'got_value': 'UNESP',
+                'message': 'Got UNESP expected UNESP',
                 'advice': None
             }
         ]
@@ -265,10 +285,40 @@ class PublisherTest(TestCase):
                 'xpath': './/publisher//publisher-name',
                 'validation_type': 'value',
                 'response': 'ERROR',
-                'expected_value': 'Fund. Oswaldo Cruz | UNIFESP',
+                'expected_value': 'Fund. Oswaldo Cruz',
+                'got_value': None,
+                'message': 'Got None expected Fund. Oswaldo Cruz',
+                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'UNIFESP',
+                'got_value': None,
+                'message': 'Got None expected UNIFESP',
+                'advice': 'Add UNIFESP as publisher name in XML',
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': None,
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz | UNIFESP',
-                'advice': 'Provide a publisher name as expected Fund. Oswaldo Cruz | UNIFESP'
+                'message': 'Got Fundação Oswaldo Cruz expected None',
+                'advice': 'Remove Fundação Oswaldo Cruz as publisher name in XML',
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'Fund. Oswaldo Cruz',
+                'got_value': None,
+                'message': 'Got None expected Fund. Oswaldo Cruz',
+                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
             }
         ]
         obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
