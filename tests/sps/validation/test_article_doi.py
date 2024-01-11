@@ -19,17 +19,17 @@ def callable_get_data_ok(doi):
     }
 
 
-def callable_get_data_not_ok(doi):
+def callable_get_data_one_author(doi):
     return {
         'en': {
-                'title': 'Title English',
-                'doi': '10.1590/2176-4573e59271'
-            },
+            'title': 'Title in English',
+            'doi': '10.1590/2176-4573e59270'
+        },
         'pt': {
-                'title': 'Título Português',
-                'doi': '10.1590/2176-4573e59271'
-            },
-        'authors': ['Martínez Momblán, Maria Antonia', 'Colina Torralva, Javier']
+            'title': 'Título em Português',
+            'doi': '10.1590/2176-4573p59270'
+        },
+        'authors': ['Colina-Torralva, Javier']
     }
 
 
@@ -363,7 +363,7 @@ class ArticleDoiTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_doi_registered_sucess(self):
+    def test_validate_doi_registered_success(self):
         self.maxDiff = None
         xml_str = """
             <article xml:lang="en">
@@ -444,9 +444,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'expected_value': 'Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez-Momblán, Maria Antonia',
+                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
                 'advice': None
             },
             {
@@ -454,9 +454,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina-Torralva, Javier',
+                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
                 'advice': None
             },
             {
@@ -484,9 +484,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'expected_value': 'Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez-Momblán, Maria Antonia',
+                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
                 'advice': None
             },
             {
@@ -494,9 +494,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina-Torralva, Javier',
+                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
                 'advice': None
             }
 
@@ -505,7 +505,7 @@ class ArticleDoiTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_doi_registered_fail_items(self):
+    def test_validate_doi_registered_doi_is_not_registered(self):
         self.maxDiff = None
         xml_str = """
             <article xml:lang="en">
@@ -549,213 +549,6 @@ class ArticleDoiTest(unittest.TestCase):
                                 <surname>Colina-Torralva</surname>
                                 <given-names>Javier</given-names>
                                 </name>
-                            </contrib>
-                        </contrib-group>
-                </front-stub>
-            </sub-article>      
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_not_ok
-        )
-
-        expected = [
-            {
-                'title': 'Article DOI is registered (lang: en, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': '10.1590/2176-4573e59271',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59271',
-                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Title English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English expected Title English',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Colina Torralva, Javier',
-                'got_value': None,
-                'message': 'Got None expected Colina Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Martínez Momblán, Maria Antonia',
-                'got_value': None,
-                'message': 'Got None expected Martínez Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': '10.1590/2176-4573e59271',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573e59271',
-                'advice': 'DOI not registered or validator not found, provide a value for doi element '
-                          'that matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Título Português',
-                'got_value': 'Título em Português',
-                'message': 'Got Título em Português expected Título Português',
-                'advice': 'DOI not registered or validator not found, provide a value for title element '
-                          'that matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Colina Torralva, Javier',
-                'got_value': None,
-                'message': 'Got None expected Colina Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element '
-                          'that matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Martínez Momblán, Maria Antonia',
-                'got_value': None,
-                'message': 'Got None expected Martínez Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element '
-                          'that matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element '
-                          'that matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element '
-                          'that matches the record for DOI.'
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_validate_doi_registered_fail_doi(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                <article-id specific-use="previous-pid" pub-id-type="publisher-id">S2176-45732023005002205</article-id>
-                <article-id specific-use="scielo-v3" pub-id-type="publisher-id">PqQCH4JjQTWmwYF97s4YGKv</article-id>
-                <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S2176-45732023000200226</article-id>
-                <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
-                <title-group>
-                    <article-title>Analysis of the evolution of competences in the clinical practice of the nursing degree</article-title>
-                </title-group>
-                <contrib-group>
-                    <contrib contrib-type="author">
-                      <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
-                      <name>
-                        <surname>Martínez-Momblán</surname>
-                        <given-names>Maria Antonia</given-names>
-                      </name>
-                      <xref ref-type="aff" rid="aff1">1</xref>
-                    </contrib>
-                    <contrib contrib-type="author">
-                      <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
-                      <name>
-                        <surname>Colina-Torralva</surname>
-                        <given-names>Javier</given-names>
-                      </name>
-                      <xref ref-type="aff" rid="aff1">1</xref>
-                    </contrib>
-                </contrib-group>
-                </article-meta>
-            </front>
-            <sub-article article-type="reviewer-report" id="s2" xml:lang="pt" />
-            <sub-article article-type="reviewer-report" id="s3" xml:lang="pt" />
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <front-stub>
-                    <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
-                        <title-group>
-                            <article-title>Análise da evolução de competências da prática clínica no curso de enfermagem</article-title>
-                        </title-group>
-                        <contrib-group>
-                            <contrib contrib-type="author">
-                            <contrib-id contrib-id-type="orcid">0000-0002-5364-5270</contrib-id>
-                                <name>
-                                <surname>Martínez-Momblán</surname>
-                                <given-names>Maria Antonia</given-names>
-                                </name>
-                            <xref ref-type="aff" rid="aff2">1</xref>
-                            </contrib>
-                            <contrib contrib-type="author">
-                            <contrib-id contrib-id-type="orcid">0000-0002-6406-0120</contrib-id>
-                                <name>
-                                <surname>Colina-Torralva</surname>
-                                <given-names>Javier</given-names>
-                                </name>
-                            <xref ref-type="aff" rid="aff2">1</xref>
                             </contrib>
                         </contrib-group>
                 </front-stub>
@@ -773,9 +566,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Data registered to the DOI 10.1590/2176-4573p59270',
+                'expected_value': 'Data registered to the DOI 10.1590/2176-4573e59270',
                 'got_value': None,
-                'message': 'Got None expected data registered to the DOI 10.1590/2176-4573p59270',
+                'message': 'Got None expected data registered to the DOI 10.1590/2176-4573e59270',
                 'advice': 'DOI not registered or validator not found, provide a DOI value that has a valid registration'
             },
             {
@@ -783,9 +576,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Data registered to the DOI 10.1590/2176-4573e59270',
+                'expected_value': 'Data registered to the DOI 10.1590/2176-4573p59270',
                 'got_value': None,
-                'message': 'Got None expected data registered to the DOI 10.1590/2176-4573e59270',
+                'message': 'Got None expected data registered to the DOI 10.1590/2176-4573p59270',
                 'advice': 'DOI not registered or validator not found, provide a DOI value that has a valid registration'
             }
         ]
@@ -793,48 +586,32 @@ class ArticleDoiTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_doi_registered_missing_title_XML(self):
+    def test_validate_doi_registered_only_doi_is_correct(self):
         self.maxDiff = None
         xml_str = """
             <article xml:lang="en">
             <front>
                 <article-meta>
                 <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                <title-group>
+                    <article-title>Title English</article-title>
+                </title-group>
                 <contrib-group>
                     <contrib contrib-type="author">
                       <name>
-                        <surname>Martínez-Momblán</surname>
+                        <surname>Martínez</surname>
                         <given-names>Maria Antonia</given-names>
                       </name>
                     </contrib>
                     <contrib contrib-type="author">
                       <name>
-                        <surname>Colina-Torralva</surname>
+                        <surname>Colina</surname>
                         <given-names>Javier</given-names>
                       </name>
                     </contrib>
                 </contrib-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <front-stub>
-                    <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
-                        <contrib-group>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Martínez-Momblán</surname>
-                                <given-names>Maria Antonia</given-names>
-                                </name>
-                            </contrib>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Colina-Torralva</surname>
-                                <given-names>Javier</given-names>
-                                </name>
-                            </contrib>
-                        </contrib-group>
-                </front-stub>
-            </sub-article>      
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
@@ -859,242 +636,64 @@ class ArticleDoiTest(unittest.TestCase):
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'Title in English',
-                'got_value': None,
-                'message': 'Got None expected Title in English',
+                'got_value': 'Title English',
+                'message': 'Got Title English expected Title in English',
                 'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
+                          'matches the record for DOI.'
             },
             {
                 'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573p59270',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: title)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Título em Português',
-                'got_value': None,
-                'message': 'Got None expected Título em Português',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
                 'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
+                'got_value': 'Martínez, Maria Antonia',
+                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina, Javier',
+                'message': 'Got Colina, Javier expected Colina-Torralva, Javier',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.'
             }
-
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_doi_registered_missing_title_function(self):
+    def test_validate_doi_registered_only_title_is_correct(self):
         self.maxDiff = None
         xml_str = """
             <article xml:lang="en">
             <front>
                 <article-meta>
-                <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                <article-id pub-id-type="doi">10.1590/2176-4573e59271</article-id>
                 <title-group>
                     <article-title>Title in English</article-title>
                 </title-group>
                 <contrib-group>
                     <contrib contrib-type="author">
                       <name>
-                        <surname>Martínez-Momblán</surname>
+                        <surname>Martínez</surname>
                         <given-names>Maria Antonia</given-names>
                       </name>
                     </contrib>
                     <contrib contrib-type="author">
                       <name>
-                        <surname>Colina-Torralva</surname>
+                        <surname>Colina</surname>
                         <given-names>Javier</given-names>
                       </name>
                     </contrib>
                 </contrib-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <front-stub>
-                    <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
-                        <title-group>
-                            <article-title>Título em Português</article-title>
-                        </title-group>
-                        <contrib-group>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Martínez-Momblán</surname>
-                                <given-names>Maria Antonia</given-names>
-                                </name>
-                            </contrib>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Colina-Torralva</surname>
-                                <given-names>Javier</given-names>
-                                </name>
-                            </contrib>
-                        </contrib-group>
-                </front-stub>
-            </sub-article>      
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_missing_title
-        )
-
-        expected = [
-            {
-                'title': 'Article DOI is registered (lang: en, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Title in English',
-                'message': 'Got Title in English expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573p59270',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Título em Português',
-                'message': 'Got Título em Português expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
-            }
-
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_validate_doi_registered_missing_author_XML(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xml:lang="en">
-            <front>
-                <article-meta>
-                <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
-                <title-group>
-                    <article-title>Title in English</article-title>
-                </title-group>
-                </article-meta>
-            </front>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <front-stub>
-                    <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
-                        <title-group>
-                            <article-title>Título em Português</article-title>
-                        </title-group>
-                </front-stub>
-            </sub-article>      
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
@@ -1107,11 +706,12 @@ class ArticleDoiTest(unittest.TestCase):
                 'title': 'Article DOI is registered (lang: en, element: doi)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
-                'response': 'OK',
+                'response': 'ERROR',
                 'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
-                'advice': None
+                'got_value': '10.1590/2176-4573e59271',
+                'message': 'Got 10.1590/2176-4573e59271 expected 10.1590/2176-4573e59270',
+                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
+                          'matches the record for DOI.'
             },
             {
                 'title': 'Article DOI is registered (lang: en, element: title)',
@@ -1128,11 +728,83 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': None,
-                'message': 'Got None expected Colina-Torralva, Javier',
+                'expected_value': 'Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez, Maria Antonia',
+                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
                 'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Colina, Javier',
+                'message': 'Got Colina, Javier expected Colina-Torralva, Javier',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_doi_registered_only_one_author_is_correct(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xml:lang="en">
+            <front>
+                <article-meta>
+                <article-id pub-id-type="doi">10.1590/2176-4573e59271</article-id>
+                <title-group>
+                    <article-title>Title English</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                      <name>
+                        <surname>Martínez</surname>
+                        <given-names>Maria Antonia</given-names>
+                      </name>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <name>
+                        <surname>Colina-Torralva</surname>
+                        <given-names>Javier</given-names>
+                      </name>
+                    </contrib>
+                </contrib-group>
+                </article-meta>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
+            callable_get_data_ok
+        )
+
+        expected = [
+            {
+                'title': 'Article DOI is registered (lang: en, element: doi)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59271',
+                'message': 'Got 10.1590/2176-4573e59271 expected 10.1590/2176-4573e59270',
+                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
+                          'matches the record for DOI.'
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: title)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Title in English',
+                'got_value': 'Title English',
+                'message': 'Got Title English expected Title in English',
+                'advice': 'DOI not registered or validator not found, provide a value for title element that '
+                          'matches the record for DOI.'
             },
             {
                 'title': 'Article DOI is registered (lang: en, element: author)',
@@ -1140,60 +812,27 @@ class ArticleDoiTest(unittest.TestCase):
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': None,
-                'message': 'Got None expected Martínez-Momblán, Maria Antonia',
+                'got_value': 'Martínez, Maria Antonia',
+                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
                 'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
+                          'matches the record for DOI.'
             },
             {
-                'title': 'Article DOI is registered (lang: pt, element: doi)',
+                'title': 'Article DOI is registered (lang: en, element: author)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': '10.1590/2176-4573p59270',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Título em Português',
-                'got_value': 'Título em Português',
-                'message': 'Got Título em Português expected Título em Português',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
                 'expected_value': 'Colina-Torralva, Javier',
-                'got_value': None,
-                'message': 'Got None expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': None,
-                'message': 'Got None expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
+                'got_value': 'Colina-Torralva, Javier',
+                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'advice': None
             }
-
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_doi_registered_missing_author_function(self):
+    def test_validate_doi_registered_no_expected_authors(self):
         self.maxDiff = None
         xml_str = """
             <article xml:lang="en">
@@ -1219,28 +858,6 @@ class ArticleDoiTest(unittest.TestCase):
                 </contrib-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <front-stub>
-                    <article-id pub-id-type="doi">10.1590/2176-4573p59270</article-id>
-                        <title-group>
-                            <article-title>Título em Português</article-title>
-                        </title-group>
-                        <contrib-group>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Martínez-Momblán</surname>
-                                <given-names>Maria Antonia</given-names>
-                                </name>
-                            </contrib>
-                            <contrib contrib-type="author">
-                                <name>
-                                <surname>Colina-Torralva</surname>
-                                <given-names>Javier</given-names>
-                                </name>
-                            </contrib>
-                        </contrib-group>
-                </front-stub>
-            </sub-article>      
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
@@ -1270,70 +887,150 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
+                'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: doi)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573p59270',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270 expected 10.1590/2176-4573p59270',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: title)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Título em Português',
-                'got_value': 'Título em Português',
-                'message': 'Got Título em Português expected Título em Português',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected None',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
+                'expected_value': [],
+                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
+                'message': 'The following items are surplus in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
+                'advice': 'Remove the following items from the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
             }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
+    def test_validate_doi_registered_no_obtained_authors(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xml:lang="en">
+            <front>
+                <article-meta>
+                <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                <title-group>
+                    <article-title>Title in English</article-title>
+                </title-group>
+                </article-meta>
+            </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
+            callable_get_data_ok
+        )
+
+        expected = [
+            {
+                'title': 'Article DOI is registered (lang: en, element: doi)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: title)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Title in English',
+                'got_value': 'Title in English',
+                'message': 'Got Title in English expected Title in English',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: authors)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
+                'got_value': [],
+                'message': 'The following items are not found in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
+                'advice': 'Complete the following items in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_doi_registered_expected_one_author_obtained_two_authors(self):
+        self.maxDiff = None
+        xml_str = """
+            <article xml:lang="en">
+            <front>
+                <article-meta>
+                <article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>
+                <title-group>
+                    <article-title>Title in English</article-title>
+                </title-group>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                      <name>
+                        <surname>Martínez-Momblán</surname>
+                        <given-names>Maria Antonia</given-names>
+                      </name>
+                    </contrib>
+                    <contrib contrib-type="author">
+                      <name>
+                        <surname>Colina-Torralva</surname>
+                        <given-names>Javier</given-names>
+                      </name>
+                    </contrib>
+                </contrib-group>
+                </article-meta>
+            </front>  
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
+            callable_get_data_one_author
+        )
+
+        expected = [
+            {
+                'title': 'Article DOI is registered (lang: en, element: doi)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/2176-4573e59270',
+                'got_value': '10.1590/2176-4573e59270',
+                'message': 'Got 10.1590/2176-4573e59270 expected 10.1590/2176-4573e59270',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: title)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Title in English',
+                'got_value': 'Title in English',
+                'message': 'Got Title in English expected Title in English',
+                'advice': None
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: author)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'Colina-Torralva, Javier',
+                'got_value': 'Martínez-Momblán, Maria Antonia',
+                'message': 'Got Martínez-Momblán, Maria Antonia expected Colina-Torralva, Javier',
+                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                          'matches the record for DOI.',
+            },
+            {
+                'title': 'Article DOI is registered (lang: en, element: authors)',
+                'xpath': './article-id[@pub-id-type="doi"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['Colina-Torralva, Javier'],
+                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
+                'message': 'The following items are surplus in the XML: Colina-Torralva, Javier',
+                'advice': 'Remove the following items from the XML: Colina-Torralva, Javier',
+            }
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
