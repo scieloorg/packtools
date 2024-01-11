@@ -166,11 +166,47 @@ class PublisherNameValidation:
         if not publisher_name_list:
             raise ValidationPublisherException("Function requires a list of publisher names")
 
+        expected = publisher_name_list
+        obtained = self.publisher.publishers_names
+
+        for publisher in zip(expected, obtained):
+            is_valid = publisher[0] == publisher[1]
+            yield {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value',
+                    'response': 'OK' if is_valid else 'ERROR',
+                    'expected_value': publisher[0],
+                    'got_value': publisher[1],
+                    'message': 'Got {} expected {}'.format(publisher[1], publisher[0]),
+                    'advice': None if is_valid else 'The publisher name in the XML does not match what was expected, '
+                                                    'add {} in the XML'.format(publisher[0])
+            }
+
+        if len(obtained) != len(expected):
+            if len(expected) > len(obtained):
+                diff = expected[len(obtained):]
+                item_description = 'not found'
+                action = ('Complete', 'in')
+            else:
+                diff = obtained[len(expected):]
+                item_description = 'surplus'
+                action = ('Remove', 'from')
+
+            diff_str = ' | '.join(diff)
+            message = f'The following items are {item_description} in the XML: {diff_str}'
+            advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
             yield {
                     'title': 'Publisher name element validation',
                     'xpath': './/publisher//publisher-name',
                     'validation_type': 'value',
+                    'response': 'ERROR',
+                    'expected_value': expected,
+                    'got_value': obtained,
+                    'message': message,
+                    'advice': advice
+            }
 
 
 class JournalMetaValidation:
@@ -204,7 +240,7 @@ class JournalMetaValidation:
                 acronym.validate_text(expected_values['acronym']),
                 title.validate_journal_title(expected_values['journal-title']),
                 title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-                publisher.validate_publishers_names(expected_values['publisher-name'])
+                publisher.validate_publisher_names(expected_values['publisher-name'])
             ]
         )
         return resp_journal_meta
