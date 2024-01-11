@@ -258,6 +258,20 @@ class ArticleDatesValidation:
                 }
             ]
         """
+        try:
+            obtained = self.collection_date.get('year')
+            advice = None
+
+            if not obtained.isdigit():
+                advice = 'Provide only numeric values for the collection year'
+            elif len(obtained) != 4:
+                advice = 'Provide a four-digit numeric value for the year of collection'
+            elif obtained > future_date:
+                advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
+
+            is_valid = advice is None
+            expected = obtained if is_valid else "The publication date of the collection"
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
