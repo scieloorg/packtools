@@ -230,7 +230,7 @@ class PublisherTest(TestCase):
         self.one_publisher = PublisherNameValidation(self.xmltree_one_publisher)
         self.more_than_one_publisher = PublisherNameValidation(self.xmltree_more_than_one_publisher)
 
-    def test_one_publisher_match(self):
+    def test_validate_publisher_names_one_sucess(self):
         self.maxDiff = None
         expected = [
             {
@@ -244,12 +244,12 @@ class PublisherTest(TestCase):
                 'advice': None
             }
         ]
-        obtained = self.one_publisher.validate_publishers_names(['Fundação Oswaldo Cruz'])
+        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_one_publisher_no_match(self):
+    def test_validate_publisher_names_one_fail(self):
         self.maxDiff = None
         expected = [
             {
@@ -258,27 +258,17 @@ class PublisherTest(TestCase):
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'Fund. Oswaldo Cruz',
-                'got_value': None,
-                'message': 'Got None expected Fund. Oswaldo Cruz',
-                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
-            },
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': None,
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected None',
-                'advice': 'Remove Fundação Oswaldo Cruz as publisher name in XML',
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
+                'advice': 'The publisher name in the XML does not match what was expected, add Fund. Oswaldo Cruz in the XML'
             }
         ]
-        obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz'])
+        obtained = self.one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz'])
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_more_than_one_publisher_match(self):
+    def test_validate_publisher_names_more_than_one_sucess(self):
         self.maxDiff = None
         expected = [
             {
@@ -302,12 +292,12 @@ class PublisherTest(TestCase):
                 'advice': None
             }
         ]
-        obtained = self.more_than_one_publisher.validate_publishers_names(['Fundação Oswaldo Cruz', 'UNESP'])
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_more_than_one_publisher_no_match(self):
+    def test_validate_publisher_names_more_than_one_fail(self):
         self.maxDiff = None
         expected = [
             {
@@ -316,9 +306,9 @@ class PublisherTest(TestCase):
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'Fund. Oswaldo Cruz',
-                'got_value': None,
-                'message': 'Got None expected Fund. Oswaldo Cruz',
-                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
+                'advice': 'The publisher name in the XML does not match what was expected, add Fund. Oswaldo Cruz in the XML'
             },
             {
                 'title': 'Publisher name element validation',
@@ -326,32 +316,70 @@ class PublisherTest(TestCase):
                 'validation_type': 'value',
                 'response': 'ERROR',
                 'expected_value': 'UNIFESP',
-                'got_value': None,
-                'message': 'Got None expected UNIFESP',
-                'advice': 'Add UNIFESP as publisher name in XML',
-            },
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected None',
-                'advice': 'Remove Fundação Oswaldo Cruz as publisher name in XML',
-            },
-            {
-                'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': 'Fund. Oswaldo Cruz',
-                'got_value': None,
-                'message': 'Got None expected Fund. Oswaldo Cruz',
-                'advice': 'Add Fund. Oswaldo Cruz as publisher name in XML',
+                'got_value': 'UNESP',
+                'message': 'Got UNESP expected UNIFESP',
+                'advice': 'The publisher name in the XML does not match what was expected, add UNIFESP in the XML'
             }
         ]
-        obtained = self.one_publisher.validate_publishers_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_publisher_names_XML_has_surplus_items(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': ['Fundação Oswaldo Cruz'],
+                'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
+                'message': 'The following items are surplus in the XML: UNESP',
+                'advice': 'Remove the following items from the XML: UNESP'
+            }
+        ]
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_publisher_names_function_has_surplus_items(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
+                'got_value': ['Fundação Oswaldo Cruz'],
+                'message': 'The following items are not found in the XML: UNESP',
+                'advice': 'Complete the following items in the XML: UNESP',
+            }
+        ]
+        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
