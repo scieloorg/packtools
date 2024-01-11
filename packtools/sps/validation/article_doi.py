@@ -335,17 +335,32 @@ class ArticleDoiValidation:
                                                                  'provide a value for {} element that matches the record '
                                                                  'for DOI.'.format(validation[0])
                         }
+                # Valida o tamanho das listas de autores
+                if not authors_is_valid:
+                    if len(expected_authors) > len(obtained_authors):
+                        diff = expected_authors[len(obtained_authors):]
+                        item_description = 'not found'
+                        action = ('Complete', 'in')
+                    else:
+                        diff = obtained_authors[len(expected_authors):]
+                        item_description = 'surplus'
+                        action = ('Remove', 'from')
+
+                    diff_str = ' | '.join(diff)
+                    message = f'The following items are {item_description} in the XML: {diff_str}'
+                    advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
+                    yield {
+                        'title': 'Article DOI is registered (lang: {}, element: authors)'.format(lang),
                         'xpath': './article-id[@pub-id-type="doi"]',
                         'validation_type': 'exist',
-                        'response': 'OK' if validation[1] else 'ERROR',
-                        'expected_value': validation[2],
-                        'got_value': validation[3],
-                        'message': 'Got {} expected {}'.format(validation[3], validation[2]),
-                        'advice': None if validation[1] else 'DOI not registered or validator not found, '
-                                                             'provide a value for {} element that matches the record '
-                                                             'for DOI.'.format(validation[0])
+                        'response': 'ERROR',
+                        'expected_value': expected_authors,
+                        'got_value': obtained_authors,
+                        'message': message,
+                        'advice': advice
                     }
             else:
+                # Resposta para o caso de não haver identificação do DOI
                 yield {
                         'title': 'Article DOI is registered',
                         'xpath': './article-id[@pub-id-type="doi"]',
