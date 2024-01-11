@@ -958,3 +958,215 @@ class ArticleDatesValidationTest(TestCase):
                 'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2020-12-12'
             }
         self.assertDictEqual(expected, obtained)
+
+    def test_validate_collection_date_success(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
+        expected = [
+            {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2023',
+                'got_value': '2023',
+                'message': 'Got 2023 expected 2023',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_collection_date_fail_type_digit(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>202a</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
+        expected = [
+            {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'The publication date of the collection',
+                'got_value': '202a',
+                'message': 'Got 202a expected the publication date of the collection',
+                'advice': 'Provide only numeric values for the collection year',
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_collection_date_fail_number_of_digit(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>23</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
+        expected = [
+            {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'The publication date of the collection',
+                'got_value': '23',
+                'message': 'Got 23 expected the publication date of the collection',
+                'advice': 'Provide a four-digit numeric value for the year of collection',
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_collection_date_fail_out_of_range(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>2024</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
+        expected = [
+            {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'The publication date of the collection',
+                'got_value': '2024',
+                'message': 'Got 2024 expected the publication date of the collection',
+                'advice': 'Provide a numeric value less than or equal to 2023',
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_collection_date_fail_without_date(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = get_xml_tree(xml_str)
+        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
+        expected = [
+            {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'The publication date of the collection',
+                'got_value': None,
+                'message': 'Got None expected the publication date of the collection',
+                'advice': 'Provide the publication date of the collection',
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
