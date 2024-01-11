@@ -282,6 +282,19 @@ class ArticleDatesValidation:
                 'message': 'Got {} expected {}'.format(obtained, expected[:1].lower() + expected[1:]),
                 'advice': advice
             }
+        except AttributeError:
+            yield {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'The publication date of the collection',
+                'got_value': None,
+                'message': 'Got None expected the publication date of the collection',
+                'advice': 'Provide the publication date of the collection'
+            }
+
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
