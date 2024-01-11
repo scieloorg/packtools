@@ -12,6 +12,7 @@ class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
         self.article_date = ArticleDates(xmltree).article_date
+        self.collection_date = ArticleDates(xmltree).collection_date
 
     def history_dates_are_complete(self):
         response = []
