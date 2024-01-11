@@ -298,18 +298,16 @@ class ArticleDoiValidation:
         """
         callable_get_data = callable_get_data or _callable_extern_validate_default
 
-        obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
-
         for doi in self.dois:
-            validations = []
             expected = callable_get_data(doi)
-
+            # verifica se houve resposta da aplicação
             if expected:
+                validations = []
                 lang = doi.get('lang')
-
+                # valores obtidos
                 obtained_doi = doi.get('value')
                 obtained_title = self.titles.get(lang)
-
+                obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
                 expected_doi = expected.get(lang).get('doi')
                 expected_title = expected.get(lang).get('title')
                 expected_authors = expected.get('authors') or []
