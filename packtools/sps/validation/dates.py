@@ -272,6 +272,16 @@ class ArticleDatesValidation:
             is_valid = advice is None
             expected = obtained if is_valid else "The publication date of the collection"
 
+            yield {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': obtained,
+                'message': 'Got {} expected {}'.format(obtained, expected[:1].lower() + expected[1:]),
+                'advice': advice
+            }
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
