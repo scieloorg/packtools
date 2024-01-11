@@ -884,11 +884,11 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
-                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
-                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\'] expected '
-                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\']',
-                'advice': "The author FRANCISCO VENEGAS MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\']',
+                'advice': "The author FRANCISCO VENEGAS-MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
                           "not valid. Provide a registered ORCID."
             },
             {
@@ -896,10 +896,10 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
-                'got_value': ['0000-3333-1238-6874', None],
-                'message': 'Got [\'0000-3333-1238-6874\', None] expected [\'0000-3333-1238-6874\', \'Vanessa M. Higa\']',
-                'advice': "The author Vanessa M. Higa has 0000-3333-1238-6874 as ORCID and its register is "
+                'expected_value': ['0000-3333-1238-6874', None],
+                'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
+                'advice': "The author None has 0000-3333-1238-6874 as ORCID and its register is "
                           "not valid. Provide a registered ORCID."
             }
         ]
@@ -950,11 +950,11 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
-                'got_value': ['0990-0001-0058-4853', None],
-                'message': 'Got [\'0990-0001-0058-4853\', None] expected '
-                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\']',
-                'advice': "The author FRANCISCO VENEGAS MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
+                'expected_value': ['0990-0001-0058-4853', None],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', None]',
+                'advice': "The author None has 0990-0001-0058-4853 as ORCID and its register is "
                           "not valid. Provide a registered ORCID."
             },
             {
@@ -962,10 +962,10 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
-                'got_value': ['0000-3333-1238-6874', None],
-                'message': 'Got [\'0000-3333-1238-6874\', None] expected [\'0000-3333-1238-6874\', \'Vanessa M. Higa\']',
-                'advice': "The author Vanessa M. Higa has 0000-3333-1238-6874 as ORCID and its register is "
+                'expected_value': ['0000-3333-1238-6874', None],
+                'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
+                'advice': "The author None has 0000-3333-1238-6874 as ORCID and its register is "
                           "not valid. Provide a registered ORCID."
             }
         ]
