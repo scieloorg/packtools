@@ -315,6 +315,13 @@ class ArticleDoiValidation:
                 # validações
                 doi_is_valid = obtained_doi == expected_doi
                 title_is_valid = obtained_title == expected_title
+                authors_is_valid = len(obtained_authors) == len(expected_authors)
+                # agrega as validações
+                validations.append(('doi', doi_is_valid, obtained_doi, expected_doi))
+                validations.append(('title', title_is_valid, obtained_title, expected_title))
+                for author in zip(obtained_authors, expected_authors):
+                    validations.append(('author', author[0] == author[1], author[0], author[1]))
+                # gera os resultados das validações
                 for validation in validations:
                     yield {
                         'title': 'Article DOI is registered (lang: {}, element: {})'.format(lang, validation[0]),
