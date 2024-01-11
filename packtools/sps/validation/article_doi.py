@@ -324,7 +324,17 @@ class ArticleDoiValidation:
                 # gera os resultados das validações
                 for validation in validations:
                     yield {
-                        'title': 'Article DOI is registered (lang: {}, element: {})'.format(lang, validation[0]),
+                            'title': 'Article DOI is registered (lang: {}, element: {})'.format(lang, validation[0]),
+                            'xpath': './article-id[@pub-id-type="doi"]',
+                            'validation_type': 'exist',
+                            'response': 'OK' if validation[1] else 'ERROR',
+                            'expected_value': validation[3],
+                            'got_value': validation[2],
+                            'message': 'Got {} expected {}'.format(validation[2], validation[3]),
+                            'advice': None if validation[1] else 'DOI not registered or validator not found, '
+                                                                 'provide a value for {} element that matches the record '
+                                                                 'for DOI.'.format(validation[0])
+                        }
                         'xpath': './article-id[@pub-id-type="doi"]',
                         'validation_type': 'exist',
                         'response': 'OK' if validation[1] else 'ERROR',
