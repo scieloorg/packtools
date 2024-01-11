@@ -308,25 +308,13 @@ class ArticleDoiValidation:
                 obtained_doi = doi.get('value')
                 obtained_title = self.titles.get(lang)
                 obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
+                # valores esperados
                 expected_doi = expected.get(lang).get('doi')
                 expected_title = expected.get(lang).get('title')
                 expected_authors = expected.get('authors') or []
-
+                # validações
                 doi_is_valid = obtained_doi == expected_doi
                 title_is_valid = obtained_title == expected_title
-
-                validations.append(('doi', doi_is_valid, expected_doi, obtained_doi))
-                validations.append(('title', title_is_valid, expected_title, obtained_title))
-
-                for author in sorted(list(set(expected_authors).intersection(set(obtained_authors)))):
-                    validations.append(('author', True, author, author))
-
-                for author in sorted(list(set(expected_authors).difference(set(obtained_authors)))):
-                    validations.append(('author', False, author, None))
-
-                for author in sorted(list(set(obtained_authors).difference(set(expected_authors)))):
-                    validations.append(('author', False, None, author))
-
                 for validation in validations:
                     yield {
                         'title': 'Article DOI is registered (lang: {}, element: {})'.format(lang, validation[0]),
