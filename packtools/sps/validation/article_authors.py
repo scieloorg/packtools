@@ -304,9 +304,9 @@ class ArticleAuthorsValidation:
         """
         callable_get_validate = callable_get_validate or _callable_extern_validate_default
         for author in self.article_authors.contribs:
-            expected_author_name = f"{author.get('given_names')} {author.get('surname')}"
+            obtained_author_name = f"{author.get('given_names')} {author.get('surname')}"
             orcid = author.get('orcid')
-            obtained_author_name = callable_get_validate(orcid)
+            expected_author_name = callable_get_validate(orcid)
             is_valid = obtained_author_name == expected_author_name
 
             yield {
