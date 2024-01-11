@@ -212,6 +212,52 @@ class ArticleDatesValidation:
             'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date)
         }
 
+    def validate_collection_date(self, future_date):
+        """
+        Checks if the collection date exists, is valid and before a deadline.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        future_date : str
+
+        Returns
+        -------
+        list of dict, such as:
+            [
+                {
+                    'title': 'Collection pub-date validation',
+                    'xpath': './/front//pub-date[@date-type="collection"]',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '2023',
+                    'got_value': '2023',
+                    'message': 'Got 2023 expected 2023',
+                    'advice': None
+                }
+            ]
+        """
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
