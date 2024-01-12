@@ -39,6 +39,14 @@ def _validate_special_number(obtained):
         return _success(obtained)
 
 
+def _validate_supplement(obtained):
+    if not _is_supplement(obtained):
+        return False, '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',\
+            'Provide a valid value to supplement'
+    else:
+        return _success(obtained)
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
