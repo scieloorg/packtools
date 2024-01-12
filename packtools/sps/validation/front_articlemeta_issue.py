@@ -47,6 +47,15 @@ def _validate_supplement(obtained):
         return _success(obtained)
 
 
+def _success(obtained):
+    return True, obtained, None
+
+
+def _fail():
+    return False, 'a valid value to article issue', 'Provide values according to the following examples: ' \
+                                                    '4, spe1, 4 suppl 1 or suppl 1'
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
