@@ -338,6 +338,107 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_issue_volume_supplement_success(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>suppl 1</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': 'suppl 1',
+                'got_value': 'suppl 1',
+                'message': 'Got suppl 1 expected suppl 1',
+                'advice': None
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_issue_volume_supplement_fail_not_number(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>suppl a</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',
+                'got_value': 'suppl a',
+                'message': 'Got suppl a expected [] suppl () where [] is a valid numeric value or None and '
+                           '() is a valid numeric value',
+                'advice': 'Provide a valid value to supplement',
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_issue_volume_supplement_fail_number_starts_with_zero(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>suppl 04</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',
+                'got_value': 'suppl 04',
+                'message': 'Got suppl 04 expected [] suppl () where [] is a valid numeric value or None and '
+                           '() is a valid numeric value',
+                'advice': 'Provide a valid value to supplement',
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
 
     def test_suppl_matches(self):
         xml = (
