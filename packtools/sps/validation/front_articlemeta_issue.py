@@ -32,6 +32,13 @@ def _validate_number(obtained):
         return _success(obtained)
 
 
+def _validate_special_number(obtained):
+    if not _is_special_number(obtained):
+        return False, 'spe() where () is a valid numeric value', 'Provide a valid value to special number'
+    else:
+        return _success(obtained)
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
