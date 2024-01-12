@@ -1,6 +1,12 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
 
 
+def _is_number(value):
+    # a numeric value for issue cannot start with zero
+    # <issue>4</issue>
+    return value.isnumeric() and not value.startswith('0')
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
