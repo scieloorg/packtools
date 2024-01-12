@@ -140,6 +140,105 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_issue_number_success(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '4',
+                'got_value': '4',
+                'message': 'Got 4 expected 4',
+                'advice': None
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_issue_number_fail_start_with_zero(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>04</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'a numeric value that does not start with zero',
+                'got_value': '04',
+                'message': 'Got 04 expected a numeric value that does not start with zero',
+                'advice': 'Provide a valid numeric value',
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_issue_number_fail_value_is_not_numeric(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4a</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'a valid value to article issue',
+                'got_value': '4a',
+                'message': 'Got 4a expected a valid value to article issue',
+                'advice': 'Provide values according to the following examples: 4, spe1, 4 suppl 1 or suppl 1',
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
 
     def test_suppl_matches(self):
         xml = (
