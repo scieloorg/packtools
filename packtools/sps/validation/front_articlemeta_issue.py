@@ -14,6 +14,17 @@ def _is_special_number(value):
     return splitted_value[0] is '' and _is_number(splitted_value[1])
 
 
+def _is_supplement(value):
+    # supplement cannot have a dot
+    # <issue>4 suppl 1</issue>
+    # <issue>suppl 1</issue>
+    splitted_value = value.split('suppl')
+    if splitted_value[0]:
+        return _is_number(splitted_value[0].strip()) and _is_number(splitted_value[1].strip())
+    else:
+        return _is_number(splitted_value[1].strip())
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
