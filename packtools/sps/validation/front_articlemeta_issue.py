@@ -25,6 +25,13 @@ def _is_supplement(value):
         return _is_number(splitted_value[1].strip())
 
 
+def _validate_number(obtained):
+    if not _is_number(obtained):
+        return False, 'a numeric value that does not start with zero', 'Provide a valid numeric value'
+    else:
+        return _success(obtained)
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
