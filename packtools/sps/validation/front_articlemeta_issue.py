@@ -94,38 +94,64 @@ class IssueValidation:
         )
         return resp_vol
 
-    def validate_issue(self, expected_value):
+    def validate_article_issue(self):
         """
-        Checks the correctness of a issue.
+        Checks whether the format of a value for issue is valid.
 
-        Parameters
-        ----------
-        expected_value : str
-            Correct value for issue.
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
 
         Returns
         -------
-        dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_issue('4')
-
-        {
-            'object': 'issue',
-            'output_expected': '4',
-            'output_obteined': '4',
-            'match': True
-        }
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'xpath': './/front/article-meta/issue',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '4',
+                    'got_value': '4',
+                    'message': 'Got 4 expected 4',
+                    'advice': None
+                }
+            ]
         """
-        resp_issue = dict(
-            object='issue',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.issue,
-            match=(expected_value == self.article_issue.issue)
-        )
-        return resp_issue
+        obtained = self.article_issue.issue
+        is_valid, expected, advice = _fail()
+        if obtained:
+            if obtained.isnumeric():
+                is_valid, expected, advice = _validate_number(obtained)
+            else:
+                if 'spe' in obtained:
+                    is_valid, expected, advice = _validate_special_number(obtained)
+                if 'suppl' in obtained:
+                    is_valid, expected, advice = _validate_supplement(obtained)
+
+        yield {
+            'title': 'Article-meta issue element validation',
+            'xpath': './/front/article-meta/issue',
+            'validation_type': 'format',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': expected,
+            'got_value': obtained,
+            'message': 'Got {} expected {}'.format(obtained, expected),
+            'advice': advice
+        }
+
+
+
+
 
     def validate_supplement(self, expected_value):
         """
