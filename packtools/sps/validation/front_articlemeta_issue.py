@@ -7,6 +7,13 @@ def _is_number(value):
     return value.isnumeric() and not value.startswith('0')
 
 
+def _is_special_number(value):
+    # a special number cannot contain a space or dot
+    # <issue>spe1</issue>
+    splitted_value = value.split('spe')
+    return splitted_value[0] is '' and _is_number(splitted_value[1])
+
+
 class IssueValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
