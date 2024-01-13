@@ -317,8 +317,8 @@ class ArticleAuthorsValidation:
                 'expected_value': [orcid, expected_author_name],
                 'got_value': [orcid, obtained_author_name],
                 'message': 'Got {} expected {}'.format([orcid, obtained_author_name], [orcid, expected_author_name]),
-                'advice': None if is_valid else "The author {} has {} as ORCID and its register is not valid. Provide "
-                                                "a registered ORCID.".format(expected_author_name, orcid)
+                'advice': None if is_valid else "ORCID {} is not registered for the obtained author or did not"
+                                                " return any authors".format(orcid)
             }
 
     def validate(self, data):
