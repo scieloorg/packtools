@@ -166,35 +166,34 @@ class PublisherNameValidation:
         if not publisher_name_list:
             raise ValidationPublisherException("Function requires a list of publisher names")
 
-        expected = publisher_name_list
-        obtained = self.publisher.publishers_names
+        expected_list = publisher_name_list
+        obtained_list = self.publisher.publishers_names
 
-        for publisher in zip(expected, obtained):
-            is_valid = publisher[0] == publisher[1]
+        for expected, obtained in zip(expected_list, obtained_list):
+            is_valid = expected == obtained
             yield {
                     'title': 'Publisher name element validation',
                     'xpath': './/publisher//publisher-name',
                     'validation_type': 'value',
                     'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': publisher[0],
-                    'got_value': publisher[1],
-                    'message': 'Got {} expected {}'.format(publisher[1], publisher[0]),
-                    'advice': None if is_valid else 'The publisher name in the XML does not match what was expected, '
-                                                    'add {} in the XML'.format(publisher[0])
+                    'expected_value': expected,
+                    'got_value': obtained,
+                    'message': 'Got {} expected {}'.format(obtained, expected),
+                    'advice': None if is_valid else f'Provide the expected publisher name: {expected}'
             }
 
-        if len(obtained) != len(expected):
-            if len(expected) > len(obtained):
-                diff = expected[len(obtained):]
-                item_description = 'not found'
+        if len(obtained_list) != len(expected_list):
+            if len(expected_list) > len(obtained_list):
+                diff = expected_list[len(obtained_list):]
+                item_description = 'is missing'
                 action = ('Complete', 'in')
             else:
-                diff = obtained[len(expected):]
-                item_description = 'surplus'
+                diff = obtained_list[len(expected_list):]
+                item_description = 'are not expected'
                 action = ('Remove', 'from')
 
             diff_str = ' | '.join(diff)
-            message = f'The following items are {item_description} in the XML: {diff_str}'
+            message = f'The following items {item_description} in the XML: {diff_str}'
             advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
             yield {
@@ -202,8 +201,8 @@ class PublisherNameValidation:
                     'xpath': './/publisher//publisher-name',
                     'validation_type': 'value',
                     'response': 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
+                    'expected_value': expected_list,
+                    'got_value': obtained_list,
                     'message': message,
                     'advice': advice
             }
