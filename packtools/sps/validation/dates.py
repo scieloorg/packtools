@@ -270,7 +270,7 @@ class ArticleDatesValidation:
                 advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
 
             is_valid = advice is None
-            expected = obtained if is_valid else "The publication date of the collection"
+            expected = obtained if is_valid else "the publication date of the collection"
 
             yield {
                 'title': 'Collection pub-date validation',
@@ -279,7 +279,7 @@ class ArticleDatesValidation:
                 'response': 'OK' if is_valid else 'ERROR',
                 'expected_value': expected,
                 'got_value': obtained,
-                'message': 'Got {} expected {}'.format(obtained, expected[:1].lower() + expected[1:]),
+                'message': 'Got {} expected {}'.format(obtained, expected),
                 'advice': advice
             }
         except AttributeError:
@@ -288,7 +288,7 @@ class ArticleDatesValidation:
                 'xpath': './/front//pub-date[@date-type="collection"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'The publication date of the collection',
+                'expected_value': 'the publication date of the collection',
                 'got_value': None,
                 'message': 'Got None expected the publication date of the collection',
                 'advice': 'Provide the publication date of the collection'
