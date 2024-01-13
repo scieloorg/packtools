@@ -260,7 +260,7 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
-                'advice': 'The publisher name in the XML does not match what was expected, add Fund. Oswaldo Cruz in the XML'
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
             }
         ]
         obtained = self.one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz'])
@@ -308,7 +308,7 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
-                'advice': 'The publisher name in the XML does not match what was expected, add Fund. Oswaldo Cruz in the XML'
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
             },
             {
                 'title': 'Publisher name element validation',
@@ -318,7 +318,7 @@ class PublisherTest(TestCase):
                 'expected_value': 'UNIFESP',
                 'got_value': 'UNESP',
                 'message': 'Got UNESP expected UNIFESP',
-                'advice': 'The publisher name in the XML does not match what was expected, add UNIFESP in the XML'
+                'advice': 'Provide the expected publisher name: UNIFESP'
             }
         ]
         obtained = self.more_than_one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
@@ -326,7 +326,7 @@ class PublisherTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_publisher_names_XML_has_surplus_items(self):
+    def test_validate_publisher_names_XML_has_not_expected_items(self):
         self.maxDiff = None
         expected = [
             {
@@ -346,7 +346,7 @@ class PublisherTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Fundação Oswaldo Cruz'],
                 'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
-                'message': 'The following items are surplus in the XML: UNESP',
+                'message': 'The following items are not expected in the XML: UNESP',
                 'advice': 'Remove the following items from the XML: UNESP'
             }
         ]
@@ -355,7 +355,7 @@ class PublisherTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_publisher_names_function_has_surplus_items(self):
+    def test_validate_publisher_names_function_has_not_expected_items(self):
         self.maxDiff = None
         expected = [
             {
@@ -375,7 +375,7 @@ class PublisherTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'got_value': ['Fundação Oswaldo Cruz'],
-                'message': 'The following items are not found in the XML: UNESP',
+                'message': 'The following items is missing in the XML: UNESP',
                 'advice': 'Complete the following items in the XML: UNESP',
             }
         ]
