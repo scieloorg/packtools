@@ -888,8 +888,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
                 'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
                            '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\']',
-                'advice': "The author FRANCISCO VENEGAS-MARTÍNEZ has 0990-0001-0058-4853 as ORCID and its register is "
-                          "not valid. Provide a registered ORCID."
+                'advice': 'ORCID 0990-0001-0058-4853 is not registered for the obtained author or did not return any authors'
             },
             {
                 'title': 'Author ORCID element is registered',
@@ -899,8 +898,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'expected_value': ['0000-3333-1238-6874', None],
                 'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
                 'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
-                'advice': "The author None has 0000-3333-1238-6874 as ORCID and its register is "
-                          "not valid. Provide a registered ORCID."
+                'advice': 'ORCID 0000-3333-1238-6874 is not registered for the obtained author or did not return any authors'
             }
         ]
 
@@ -954,8 +952,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
                 'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
                            '[\'0990-0001-0058-4853\', None]',
-                'advice': "The author None has 0990-0001-0058-4853 as ORCID and its register is "
-                          "not valid. Provide a registered ORCID."
+                'advice': 'ORCID 0990-0001-0058-4853 is not registered for the obtained author or did not return any authors'
             },
             {
                 'title': 'Author ORCID element is registered',
@@ -965,8 +962,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'expected_value': ['0000-3333-1238-6874', None],
                 'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
                 'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
-                'advice': "The author None has 0000-3333-1238-6874 as ORCID and its register is "
-                          "not valid. Provide a registered ORCID."
+                'advice': 'ORCID 0000-3333-1238-6874 is not registered for the obtained author or did not return any authors'
             }
         ]
 
