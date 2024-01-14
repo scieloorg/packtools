@@ -46,14 +46,14 @@ def _validate_value(obtained):
 
 def _validate_special_number(obtained):
     if not _is_special_number(obtained):
-        return False, 'spe() where () is a valid numeric value', 'Provide a valid value to special number'
+        return False, 'speX where X is a valid alphanumeric value or None', 'Provide a valid value to special number'
     else:
         return _success(obtained)
 
 
 def _validate_supplement(obtained):
     if not _is_supplement(obtained):
-        return False, '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',\
+        return False, 'X suppl Y where X is a valid alphanumeric value or None and Y is a valid alphanumeric value',\
             'Provide a valid value to supplement'
     else:
         return _success(obtained)
