@@ -569,7 +569,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'Data registered to the DOI 10.1590/2176-4573e59270',
                 'got_value': None,
                 'message': 'Got None expected data registered to the DOI 10.1590/2176-4573e59270',
-                'advice': 'DOI not registered or validator not found, provide a DOI value that has a valid registration'
+                'advice': 'Consult again after DOI has been registered'
             },
             {
                 'title': 'Article DOI is registered',
@@ -579,7 +579,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'expected_value': 'Data registered to the DOI 10.1590/2176-4573p59270',
                 'got_value': None,
                 'message': 'Got None expected data registered to the DOI 10.1590/2176-4573p59270',
-                'advice': 'DOI not registered or validator not found, provide a DOI value that has a valid registration'
+                'advice': 'Consult again after DOI has been registered'
             }
         ]
         for i, item in enumerate(obtained):
