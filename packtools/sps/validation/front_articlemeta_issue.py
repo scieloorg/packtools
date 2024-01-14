@@ -135,30 +135,27 @@ class IssueValidation:
             ]
         """
         obtained = self.article_issue.issue
-        is_valid, expected, advice = _fail()
+
         if obtained:
-            if obtained.isnumeric():
-                is_valid, expected, advice = _validate_number(obtained)
+            if 'spe' in obtained:
+                is_valid, expected, advice = _validate_special_number(obtained)
+            elif 'suppl' in obtained:
+                is_valid, expected, advice = _validate_supplement(obtained)
             else:
-                if 'spe' in obtained:
-                    is_valid, expected, advice = _validate_special_number(obtained)
-                if 'suppl' in obtained:
-                    is_valid, expected, advice = _validate_supplement(obtained)
+                is_valid, expected, advice = _validate_value(obtained)
 
-        yield {
-            'title': 'Article-meta issue element validation',
-            'xpath': './/front/article-meta/issue',
-            'validation_type': 'format',
-            'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': expected,
-            'got_value': obtained,
-            'message': 'Got {} expected {}'.format(obtained, expected),
-            'advice': advice
-        }
-
-
-
-
+            return [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'xpath': './/front/article-meta/issue',
+                    'validation_type': 'format',
+                    'response': 'OK' if is_valid else 'ERROR',
+                    'expected_value': expected,
+                    'got_value': obtained,
+                    'message': 'Got {} expected {}'.format(obtained, expected),
+                    'advice': advice
+                }
+            ]
 
     def validate_supplement(self, expected_value):
         """
@@ -192,8 +189,7 @@ class IssueValidation:
             match=(expected_value == self.article_issue.suppl)
         )
         return resp_suppl
-    
-    
+
     def validate(self, data):
         """
         Função que executa as validações da classe IssueValidation.
