@@ -149,6 +149,12 @@ class PidProviderXMLAdapter:
             self._partial_body = _str_with_64_char(self.xml_with_pre.partial_body)
         return self._partial_body
 
+    @property
+    def z_journal_title(self):
+        if not hasattr(self, "_journal_title") or not self._journal_title:
+            self._journal_title = _str_with_64_char(self.xml_with_pre.journal_title)
+        return self._journal_title
+
     def query_params(self, filter_by_issue=False, aop_version=False):
         """
         Get query parameters
