@@ -9,10 +9,13 @@ def _is_valid_value(value):
 
 
 def _is_special_number(value):
-    # a special number cannot contain a space or dot
-    # <issue>spe1</issue>
-    splitted_value = value.split('spe')
-    return splitted_value[0] is '' and _is_number(splitted_value[1])
+    """
+    a special number value cannot contain a space or dot
+    <issue>spe1</issue>
+    <issue>spe</issue>
+    """
+    anterior, posterior = value.split('spe')
+    return anterior == '' and (_is_valid_value(posterior) or posterior == '')
 
 
 def _is_supplement(value):
