@@ -369,5 +369,5 @@ class ArticleDoiValidation:
                         'expected_value': 'Data registered to the DOI {}'.format(doi.get('value')),
                         'got_value': None,
                         'message': 'Got None expected data registered to the DOI {}'.format(doi.get('value')),
-                        'advice': 'DOI not registered or validator not found, provide a DOI value that has a valid registration'
+                        'advice': 'Consult again after DOI has been registered'
                     }
