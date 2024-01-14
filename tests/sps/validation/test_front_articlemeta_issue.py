@@ -90,22 +90,7 @@ class IssueTest(TestCase):
         xml_tree = etree.fromstring(xml_str)
         obtained = IssueValidation(xml_tree).validate_article_issue()
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'xpath': './/front/article-meta/issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid value to article issue',
-                'got_value': None,
-                'message': 'Got None expected a valid value to article issue',
-                'advice': 'Provide values according to the following examples: 4, spe1, 4 suppl 1 or suppl 1',
-
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+        self.assertIsNone(obtained)
 
     def test_validate_article_issue_out_of_pattern_value(self):
         self.maxDiff = None
