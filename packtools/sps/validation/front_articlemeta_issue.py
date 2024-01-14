@@ -31,9 +31,15 @@ def _is_supplement(value):
         return _is_valid_value(posterior.strip())
 
 
-def _validate_number(obtained):
-    if not _is_number(obtained):
-        return False, 'a numeric value that does not start with zero', 'Provide a valid numeric value'
+def _validate_value(obtained):
+    if obtained.isnumeric():
+        message = 'a numeric value that does not start with zero'
+        advice = 'Provide a valid numeric value'
+    else:
+        message = 'a alphanumeric value that does not contain space or dot'
+        advice = 'Provide a valid alphanumeric value'
+    if not _is_valid_value(obtained):
+        return False, message, advice
     else:
         return _success(obtained)
 
