@@ -83,7 +83,6 @@ class IssueTest(TestCase):
             <front>
                 <article-meta>
                     <volume>56</volume>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -115,7 +114,6 @@ class IssueTest(TestCase):
             <front>
                 <article-meta>
                     <issue>vol 4</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -148,7 +146,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>4</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -181,7 +178,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>04</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -214,7 +210,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>4a</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -247,7 +242,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>spe1</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -280,7 +274,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>spe.1</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -313,7 +306,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue> spe 1</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -346,7 +338,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>suppl 1</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -413,7 +404,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>suppl 04</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
@@ -447,7 +437,6 @@ class IssueTest(TestCase):
                 <article-meta>
                     <volume>56</volume>
                     <issue>4 suppl 1</issue>
-                    <supplement>2</supplement>
                 </article-meta>
             </front>
         </article>
