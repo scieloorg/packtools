@@ -346,7 +346,7 @@ class PublisherTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Fundação Oswaldo Cruz'],
                 'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
-                'message': 'The following items are not expected in the XML: UNESP',
+                'message': 'The following items is / are not expected in the XML: UNESP',
                 'advice': 'Remove the following items from the XML: UNESP'
             }
         ]
@@ -375,7 +375,7 @@ class PublisherTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'got_value': ['Fundação Oswaldo Cruz'],
-                'message': 'The following items is missing in the XML: UNESP',
+                'message': 'The following items is / are missing in the XML: UNESP',
                 'advice': 'Complete the following items in the XML: UNESP',
             }
         ]
