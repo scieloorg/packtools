@@ -197,6 +197,7 @@ class PidProviderXMLAdapter:
                 _params["fpage_seq"] = self.fpage_seq
                 _params["lpage"] = self.lpage
 
+        _params["z_journal_title"] = self.z_journal_title
         _params["journal__issn_print"] = self.journal_issn_print
         _params["journal__issn_electronic"] = self.journal_issn_electronic
         _params["article_pub_year"] = self.article_pub_year
