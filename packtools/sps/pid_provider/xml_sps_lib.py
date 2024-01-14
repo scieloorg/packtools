@@ -21,7 +21,7 @@ from packtools.sps.models.article_titles import ArticleTitles
 from packtools.sps.models.body import Body
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.models.journal_meta import ISSN, Acronym
+from packtools.sps.models.journal_meta import ISSN, Acronym, Title
 from packtools.sps.models.related_articles import RelatedItems
 
 LOGGER = logging.getLogger(__name__)
@@ -614,6 +614,12 @@ class XMLWithPre:
         if not hasattr(self, "_collab") or not self._collab:
             self._collab = self.authors.get("collab")
         return self._collab
+
+    @property
+    def journal_title(self):
+        if not hasattr(self, "_journal_title") or not self._journal_title:
+            self._journal_title = Title(self.xmltree).journal_title
+        return self._journal_title
 
     @property
     def journal_issn_print(self):
