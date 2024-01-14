@@ -269,7 +269,6 @@ class XMLWithPre:
     def get_zip_content(self, xml_filename):
         zip_content = None
         with TemporaryDirectory() as tmpdirname:
-            logging.info("TemporaryDirectory %s" % tmpdirname)
             temp_zip_file_path = os.path.join(tmpdirname, f"{xml_filename}.zip")
             with ZipFile(temp_zip_file_path, "w") as zf:
                 zf.writestr(xml_filename, self.tostring())

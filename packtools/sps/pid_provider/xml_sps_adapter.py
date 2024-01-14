@@ -203,7 +203,6 @@ class PidProviderXMLAdapter:
         _params["article_pub_year"] = self.article_pub_year
         _params["z_article_titles_texts"] = self.z_article_titles_texts
 
-        LOGGER.info(_params)
         return _params
 
     @classmethod
@@ -220,7 +219,6 @@ class PidProviderXMLAdapter:
         dict
         """
         _params = params.copy()
-        LOGGER.info(f"Adapt params input: {_params}")
         attr_names = (
             "main_doi",
             "pkg_name",
@@ -237,14 +235,13 @@ class PidProviderXMLAdapter:
                 _params[f"{attr_name}__iexact"] = _params.pop(attr_name)
             except KeyError:
                 continue
-        LOGGER.info(f"Adapt params output: {_params}")
         return _params
 
     @property
     def query_list(self):
         items = []
         if self.is_aop:
-            LOGGER.info("self.is_aop")
+            LOGGER.debug("self.is_aop")
             # o xml_adapter não contém dados de issue
             # não indica na consulta o valor para o atributo issue
             # então o registro encontrado pode ou não ter dados de issue
@@ -253,7 +250,7 @@ class PidProviderXMLAdapter:
         else:
             # o xml_adapter contém dados de issue
             # inclui na consulta os dados de issue
-            LOGGER.info("not self.is_aop")
+            LOGGER.debug("not self.is_aop")
             params = self.query_params(filter_by_issue=True)
             items.append(params)
 
