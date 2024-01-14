@@ -112,10 +112,10 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'a valid value to article issue',
+                'expected_value': 'a alphanumeric value that does not contain space or dot',
                 'got_value': 'vol 4',
-                'message': 'Got vol 4 expected a valid value to article issue',
-                'advice': 'Provide values according to the following examples: 4, spe1, 4 suppl 1 or suppl 1',
+                'message': 'Got vol 4 expected a alphanumeric value that does not contain space or dot',
+                'advice': 'Provide a valid alphanumeric value',
 
             }
         ]
@@ -187,7 +187,7 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_issue_number_fail_value_is_not_numeric(self):
+    def test_validate_article_issue_number_success_value_is_not_numeric(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
@@ -207,11 +207,11 @@ class IssueTest(TestCase):
                 'title': 'Article-meta issue element validation',
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid value to article issue',
+                'response': 'OK',
+                'expected_value': '4a',
                 'got_value': '4a',
-                'message': 'Got 4a expected a valid value to article issue',
-                'advice': 'Provide values according to the following examples: 4, spe1, 4 suppl 1 or suppl 1',
+                'message': 'Got 4a expected 4a',
+                'advice': None
 
             }
         ]
@@ -272,9 +272,9 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'spe() where () is a valid numeric value',
+                'expected_value': 'speX where X is a valid alphanumeric value or None',
                 'got_value': 'spe.1',
-                'message': 'Got spe.1 expected spe() where () is a valid numeric value',
+                'message': 'Got spe.1 expected speX where X is a valid alphanumeric value or None',
                 'advice': 'Provide a valid value to special number',
 
             }
@@ -304,9 +304,9 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'spe() where () is a valid numeric value',
+                'expected_value': 'speX where X is a valid alphanumeric value or None',
                 'got_value': ' spe 1',
-                'message': 'Got  spe 1 expected spe() where () is a valid numeric value',
+                'message': 'Got  spe 1 expected speX where X is a valid alphanumeric value or None',
                 'advice': 'Provide a valid value to special number',
 
             }
@@ -347,15 +347,14 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_issue_volume_supplement_fail_not_number(self):
+    def test_validate_article_issue_volume_supplement_fail_with_dot(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
                 <article-meta>
                     <volume>56</volume>
-                    <issue>suppl a</issue>
-                    <supplement>2</supplement>
+                    <issue>suppl a.</issue>
                 </article-meta>
             </front>
         </article>
@@ -369,10 +368,11 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',
-                'got_value': 'suppl a',
-                'message': 'Got suppl a expected [] suppl () where [] is a valid numeric value or None and '
-                           '() is a valid numeric value',
+                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
+                                  'Y is a valid alphanumeric value',
+                'got_value': 'suppl a.',
+                'message': 'Got suppl a. expected X suppl Y where X is a valid alphanumeric value or None and '
+                           'Y is a valid alphanumeric value',
                 'advice': 'Provide a valid value to supplement',
 
             }
@@ -402,10 +402,11 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',
+                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
+                                  'Y is a valid alphanumeric value',
                 'got_value': 'suppl 04',
-                'message': 'Got suppl 04 expected [] suppl () where [] is a valid numeric value or None and '
-                           '() is a valid numeric value',
+                'message': 'Got suppl 04 expected X suppl Y where X is a valid alphanumeric value or None and '
+                           'Y is a valid alphanumeric value',
                 'advice': 'Provide a valid value to supplement',
 
             }
@@ -446,15 +447,14 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_issue_number_supplement_fail_not_number(self):
+    def test_validate_article_issue_number_supplement_fail_with_dot_and_space(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
                 <article-meta>
                     <volume>56</volume>
-                    <issue>a suppl b</issue>
-                    <supplement>2</supplement>
+                    <issue> a suppl b.</issue>
                 </article-meta>
             </front>
         </article>
@@ -468,10 +468,11 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': '[] suppl () where [] is a valid numeric value or None and () is a valid numeric value',
-                'got_value': 'a suppl b',
-                'message': 'Got a suppl b expected [] suppl () where [] is a valid numeric value or None and '
-                           '() is a valid numeric value',
+                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
+                                  'Y is a valid alphanumeric value',
+                'got_value': ' a suppl b.',
+                'message': 'Got  a suppl b. expected X suppl Y where X is a valid alphanumeric value or None and '
+                           'Y is a valid alphanumeric value',
                 'advice': 'Provide a valid value to supplement'
 
             }
