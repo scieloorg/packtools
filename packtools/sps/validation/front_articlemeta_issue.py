@@ -19,14 +19,16 @@ def _is_special_number(value):
 
 
 def _is_supplement(value):
-    # supplement cannot have a dot
-    # <issue>4 suppl 1</issue>
-    # <issue>suppl 1</issue>
-    splitted_value = value.split('suppl')
-    if splitted_value[0]:
-        return _is_number(splitted_value[0].strip()) and _is_number(splitted_value[1].strip())
+    """
+    supplement cannot have a dot
+    <issue>4 suppl 1</issue>
+    <issue>suppl 1</issue>
+    """
+    anterior, posterior = value.split('suppl')
+    if anterior:
+        return _is_valid_value(anterior.strip()) and _is_valid_value(posterior.strip())
     else:
-        return _is_number(splitted_value[1].strip())
+        return _is_valid_value(posterior.strip())
 
 
 def _validate_number(obtained):
