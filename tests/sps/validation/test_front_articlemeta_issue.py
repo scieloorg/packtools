@@ -251,6 +251,38 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_issue_special_number_success_without_value(self):
+        self.maxDiff = None
+        xml_str = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>spe</issue>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = etree.fromstring(xml_str)
+        obtained = IssueValidation(xml_tree).validate_article_issue()
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': 'spe',
+                'got_value': 'spe',
+                'message': 'Got spe expected spe',
+                'advice': None
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
     def test_validate_article_issue_special_number_fail_with_dot(self):
         self.maxDiff = None
         xml_str = """
