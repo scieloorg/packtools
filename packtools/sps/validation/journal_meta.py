@@ -185,15 +185,15 @@ class PublisherNameValidation:
         if len(obtained_list) != len(expected_list):
             if len(expected_list) > len(obtained_list):
                 diff = expected_list[len(obtained_list):]
-                item_description = 'is missing'
+                item_description = 'missing'
                 action = ('Complete', 'in')
             else:
                 diff = obtained_list[len(expected_list):]
-                item_description = 'are not expected'
+                item_description = 'not expected'
                 action = ('Remove', 'from')
 
             diff_str = ' | '.join(diff)
-            message = f'The following items {item_description} in the XML: {diff_str}'
+            message = f'The following items is / are {item_description} in the XML: {diff_str}'
             advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
             yield {
