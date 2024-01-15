@@ -149,6 +149,12 @@ class PidProviderXMLAdapter:
             self._partial_body = _str_with_64_char(self.xml_with_pre.partial_body)
         return self._partial_body
 
+    @property
+    def z_journal_title(self):
+        if not hasattr(self, "_journal_title") or not self._journal_title:
+            self._journal_title = _str_with_64_char(self.xml_with_pre.journal_title)
+        return self._journal_title
+
     def query_params(self, filter_by_issue=False, aop_version=False):
         """
         Get query parameters
@@ -191,12 +197,12 @@ class PidProviderXMLAdapter:
                 _params["fpage_seq"] = self.fpage_seq
                 _params["lpage"] = self.lpage
 
+        _params["z_journal_title"] = self.z_journal_title
         _params["journal__issn_print"] = self.journal_issn_print
         _params["journal__issn_electronic"] = self.journal_issn_electronic
         _params["article_pub_year"] = self.article_pub_year
         _params["z_article_titles_texts"] = self.z_article_titles_texts
 
-        LOGGER.info(_params)
         return _params
 
     @classmethod
@@ -213,7 +219,6 @@ class PidProviderXMLAdapter:
         dict
         """
         _params = params.copy()
-        LOGGER.info(f"Adapt params input: {_params}")
         attr_names = (
             "main_doi",
             "pkg_name",
@@ -230,14 +235,13 @@ class PidProviderXMLAdapter:
                 _params[f"{attr_name}__iexact"] = _params.pop(attr_name)
             except KeyError:
                 continue
-        LOGGER.info(f"Adapt params output: {_params}")
         return _params
 
     @property
     def query_list(self):
         items = []
         if self.is_aop:
-            LOGGER.info("self.is_aop")
+            LOGGER.debug("self.is_aop")
             # o xml_adapter não contém dados de issue
             # não indica na consulta o valor para o atributo issue
             # então o registro encontrado pode ou não ter dados de issue
@@ -246,7 +250,7 @@ class PidProviderXMLAdapter:
         else:
             # o xml_adapter contém dados de issue
             # inclui na consulta os dados de issue
-            LOGGER.info("not self.is_aop")
+            LOGGER.debug("not self.is_aop")
             params = self.query_params(filter_by_issue=True)
             items.append(params)
 
