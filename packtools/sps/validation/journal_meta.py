@@ -1,4 +1,5 @@
 from ..models.journal_meta import ISSN, Acronym, Title, Publisher
+from packtools.sps.validation.exceptions import ValidationPublisherException
 from packtools.sps.validation.exceptions import ValidationIssnsException
 
 
@@ -117,19 +118,94 @@ class TitleValidation:
         return resp_abbreviated_journal_title
 
 
-class PublisherValidation:
-    def __init__(self, xmltree):
+class PublisherNameValidation:
+    def __init__(self, xmltree, publisher_name_list=None):
         self.xmltree = xmltree
-        self.publisher = Publisher(xmltree)
+        self.publisher = Publisher(self.xmltree)
+        self.publisher_name_list = publisher_name_list
 
-    def validate_publishers_names(self, expected_values):
-        resp_publishers_names = dict(
-            object='publishers names',
-            output_expected=expected_values,
-            output_obteined=self.publisher.publishers_names,
-            match=(expected_values == self.publisher.publishers_names)
-        )
-        return resp_publishers_names
+    def validate_publisher_names(self, publisher_name_list):
+        """
+        Checks whether the publisher name is as expected.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+                <journal-meta>
+                    <publisher>
+                        <publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+                    </publisher>
+                </journal-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        publisher_name_list : list
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'got_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'message': 'Got Faculdade de Saúde Pública da Universidade de São Paulo, expected
+                     Faculdade de Saúde Pública da Universidade de São Paulo',
+                    'advice': None
+                },...
+            ]
+        """
+        publisher_name_list = publisher_name_list or self.publisher_name_list
+        if not publisher_name_list:
+            raise ValidationPublisherException("Function requires a list of publisher names")
+
+        expected_list = publisher_name_list
+        obtained_list = self.publisher.publishers_names
+
+        for expected, obtained in zip(expected_list, obtained_list):
+            is_valid = expected == obtained
+            yield {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value',
+                    'response': 'OK' if is_valid else 'ERROR',
+                    'expected_value': expected,
+                    'got_value': obtained,
+                    'message': 'Got {} expected {}'.format(obtained, expected),
+                    'advice': None if is_valid else f'Provide the expected publisher name: {expected}'
+            }
+
+        if len(obtained_list) != len(expected_list):
+            if len(expected_list) > len(obtained_list):
+                diff = expected_list[len(obtained_list):]
+                item_description = 'missing'
+                action = ('Complete', 'in')
+            else:
+                diff = obtained_list[len(expected_list):]
+                item_description = 'not expected'
+                action = ('Remove', 'from')
+
+            diff_str = ' | '.join(diff)
+            message = f'The following items is / are {item_description} in the XML: {diff_str}'
+            advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
+
+            yield {
+                    'title': 'Publisher name element validation',
+                    'xpath': './/publisher//publisher-name',
+                    'validation_type': 'value',
+                    'response': 'ERROR',
+                    'expected_value': expected_list,
+                    'got_value': obtained_list,
+                    'message': message,
+                    'advice': advice
+            }
 
 
 class JournalMetaValidation:
@@ -154,7 +230,7 @@ class JournalMetaValidation:
         issn = ISSNValidation(self.xmltree)
         acronym = AcronymValidation(self.xmltree)
         title = TitleValidation(self.xmltree)
-        publisher = PublisherValidation(self.xmltree)
+        publisher = PublisherNameValidation(self.xmltree)
 
         resp_journal_meta = list(issn.validate_issn(expected_values['issns']))
 
@@ -163,7 +239,7 @@ class JournalMetaValidation:
                 acronym.validate_text(expected_values['acronym']),
                 title.validate_journal_title(expected_values['journal-title']),
                 title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-                publisher.validate_publishers_names(expected_values['publisher-name'])
+                publisher.validate_publisher_names(expected_values['publisher-name'])
             ]
         )
         return resp_journal_meta
