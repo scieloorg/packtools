@@ -18,6 +18,22 @@ credit_taxonomy_terms_and_urls = [
 ]
 
 
+def callable_get_data(orcid):
+    tests = {
+        '0990-0001-0058-4853': 'FRANCISCO VENEGAS-MARTÍNEZ',
+        '0000-3333-1238-6873': 'Vanessa M. Higa'
+    }
+    return tests.get(orcid)
+
+
+def callable_get_data_empty(orcid):
+    tests = {
+        '0990-0001-0058-4853': None,
+        '0000-3333-1238-6873': None
+    }
+    return tests.get(orcid)
+
+
 class ArticleAuthorsValidationTest(TestCase):
     def test_without_role(self):
         self.maxDiff = None
@@ -481,7 +497,7 @@ class ArticleAuthorsValidationTest(TestCase):
 
 
 class ArticleAuthorsValidationOrcidTest(TestCase):
-    def test_validation_format_orcid(self):
+    def test_validate_authors_orcid_format_fail(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -512,7 +528,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
@@ -540,7 +556,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
 
-    def test_without_orcid(self):
+    def test_validate_authors_orcid_format_without_orcid(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -569,7 +585,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
@@ -598,7 +614,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
 
-    def test_success_orcid(self):
+    def test_validate_authors_orcid_format_success(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -630,7 +646,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid()
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_format()
 
         expected_output = [
             {
@@ -653,6 +669,301 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
                 'message': f'Got 0000-3333-1238-6873 expected 0000-3333-1238-6873',
                 'advice': None
             },
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_unique_ok(self):
+        self.maxDiff = None
+        xml = """
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_unique()
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is unique',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist/verification',
+                'response': 'OK',
+                'expected_value': 'Unique ORCID values',
+                'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
+                'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 1) | (\'0000-3333-1238-6873\', 1)',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_unique_not_ok(self):
+        self.maxDiff = None
+        xml = """
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_unique()
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is unique',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist/verification',
+                'response': 'ERROR',
+                'expected_value': 'Unique ORCID values',
+                'got_value': ['0990-0001-0058-4853', '0990-0001-0058-4853'],
+                'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 2)',
+                'advice': 'Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853',
+            }
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_registered_sucess(self):
+        self.maxDiff = None
+        xml = """
+                <article>
+                <front>
+                    <article-meta>
+                      <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                          <name>
+                            <surname>VENEGAS-MARTÍNEZ</surname>
+                            <given-names>FRANCISCO</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                          </name>
+                          <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                          <name>
+                            <surname>Higa</surname>
+                            <given-names>Vanessa M.</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                      </contrib-group>
+                    </article-meta>
+                  </front>
+                </article>
+                """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
+            callable_get_data
+        )
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\']',
+                'advice': None
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0000-3333-1238-6873', 'Vanessa M. Higa'],
+                'got_value': ['0000-3333-1238-6873', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6873\', \'Vanessa M. Higa\'] expected '
+                           '[\'0000-3333-1238-6873\', \'Vanessa M. Higa\']',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_registered_fail(self):
+        self.maxDiff = None
+        xml = """
+                <article>
+                <front>
+                    <article-meta>
+                      <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                          <name>
+                            <surname>VENEGAS MARTÍNEZ</surname>
+                            <given-names>FRANCISCO</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                          </name>
+                          <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6874</contrib-id>
+                          <name>
+                            <surname>Higa</surname>
+                            <given-names>Vanessa M.</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                      </contrib-group>
+                    </article-meta>
+                  </front>
+                </article>
+                """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
+            callable_get_data
+        )
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\']',
+                'advice': 'ORCID 0990-0001-0058-4853 is not registered to any authors'
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0000-3333-1238-6874', None],
+                'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
+                'advice': 'ORCID 0000-3333-1238-6874 is not registered to any authors'
+            }
+        ]
+
+        for i, item in enumerate(messages):
+            with self.subTest(i):
+                self.assertDictEqual(expected_output[i], item)
+
+    def test_validate_authors_orcid_is_registered_fail_empty(self):
+        self.maxDiff = None
+        xml = """
+                <article>
+                <front>
+                    <article-meta>
+                      <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                          <name>
+                            <surname>VENEGAS MARTÍNEZ</surname>
+                            <given-names>FRANCISCO</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                          </name>
+                          <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6874</contrib-id>
+                          <name>
+                            <surname>Higa</surname>
+                            <given-names>Vanessa M.</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff1">a</xref>
+                        </contrib>
+                      </contrib-group>
+                    </article-meta>
+                  </front>
+                </article>
+                """
+
+        xmltree = etree.fromstring(xml)
+        messages = ArticleAuthorsValidation(xmltree=xmltree).validate_authors_orcid_is_registered(
+            callable_get_data_empty
+        )
+
+        expected_output = [
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0990-0001-0058-4853', None],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', None]',
+                'advice': 'ORCID 0990-0001-0058-4853 is not registered to any authors'
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['0000-3333-1238-6874', None],
+                'got_value': ['0000-3333-1238-6874', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6874\', \'Vanessa M. Higa\'] expected [\'0000-3333-1238-6874\', None]',
+                'advice': 'ORCID 0000-3333-1238-6874 is not registered to any authors'
+            }
         ]
 
         for i, item in enumerate(messages):
