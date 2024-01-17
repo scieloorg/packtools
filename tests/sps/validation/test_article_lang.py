@@ -370,3 +370,29 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_lang_with_title_only(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleLangValidation(xml_tree).validate_article_lang()
+
+        expected = []
+        self.assertEqual(list(obtained), expected)
+
+
+if __name__ == '__main__':
+    unittest.main()
