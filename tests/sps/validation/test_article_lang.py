@@ -245,3 +245,44 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_lang_without_title(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleLangValidation(xml_tree).validate_article_lang()
+
+        expected = [
+            {
+                'title': 'title element lang attribute validation',
+                'xpath': './/article-title/@xml:lang',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'title for the article',
+                'got_value': None,
+                'message': 'Got None expected title for the article',
+                'advice': 'Provide a title in the language \'pt\'',
+            }
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
