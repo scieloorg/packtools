@@ -331,3 +331,42 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_article_lang_without_kwd_group(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = ArticleLangValidation(xml_tree).validate_article_lang()
+
+        expected = [
+            {
+                'title': 'kwd-group element lang attribute validation',
+                'xpath': './/kwd-group/@xml:lang',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'keywords for the article',
+                'got_value': None,
+                'message': 'Got None expected keywords for the article',
+                'advice': 'Provide a kwd-group in the language \'pt | en\''
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
