@@ -7,6 +7,27 @@ def date_dict_to_date(date_dict):
     return date(int(date_dict['year']), int(date_dict['month']), int(date_dict['day']))
 
 
+def _date_is_complete(dict_date, date_element):
+    year, month, day = dict_date.get('year') or '', dict_date.get('month') or '', dict_date.get('day') or ''
+    try:
+        object_date = date(int(dict_date['year']), int(dict_date['month']), int(dict_date['day']))
+    except KeyError as e:
+        return False,\
+            f'a valid date for {date_element}', \
+            '-'.join([year, month, day]),\
+            f'{date_element} must be complete',\
+            f'Provide {e} of the date'
+
+    except ValueError as e:
+        return False,\
+            f'a valid date for {date_element}',\
+            '-'.join([year, month, day]),\
+            f'{date_element} must contain valid values, {e},' if 'invalid literal' in str(e) else f'{date_element} must contain valid values',\
+            f'Provide valid values for day, month and year'
+    else:
+        return True, str(object_date), str(object_date), None, None
+
+
 class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
