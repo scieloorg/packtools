@@ -34,7 +34,45 @@ class ArticleDatesValidation:
         self.article_date = ArticleDates(xmltree).article_date
         self.collection_date = ArticleDates(xmltree).collection_date
 
+    def validate_history_dates(self, order, required_events):
         """
+        Checks events in an article's history for completeness, validity, and chronological date order.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <day>05</day>
+                            <month>01</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="rev-request">
+                            <day>14</day>
+                            <month>03</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="rev-recd">
+                            <day>24</day>
+                            <month>05</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="accepted">
+                            <day>06</day>
+                            <month>06</month>
+                            <year>1998</year>
+                        </date>
+                        <date date-type="approved">
+                            <day>01</day>
+                            <month>06</month>
+                            <year>2012</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
 
         Parameters
         ----------
@@ -45,10 +83,63 @@ class ArticleDatesValidation:
 
         Returns
         -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'History date validation',
+                    'xpath': './/front//history//date',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
+                    'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
+                    'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'] "
+                               "expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
+                    'advice': None
+                }, ...
+            ]
         """
         seq = []
         for event_type in order:
+            event_date = self.history.history_dates_dict.get(event_type)
+            if event_date:
+                is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
+                if not is_valid:
+                    yield {
+                        'title': 'History date validation',
+                        'xpath': './/front//history//date',
+                        'validation_type': 'format',
+                        'response': 'ERROR',
+                        'expected_value': expected,
+                        'got_value': obtained,
+                        'message': message,
+                        'advice': advice
+                    }
                 else:
+                    seq.append((event_type, obtained))
+            elif event_type in required_events:
+                yield {
+                    'title': 'History date validation',
+                    'xpath': './/front//history//date',
+                    'validation_type': 'exist',
+                    'response': 'ERROR',
+                    'expected_value': f'a date for {event_type}',
+                    'got_value': None,
+                    'message': f'the event {event_type} is required',
+                    'advice': f'Provide a valid date for {event_type}'
+                }
+        seq_ordered = [tp[0] for tp in sorted(seq, key=lambda x: x[1])]
+        is_valid = seq_ordered == order
+        yield {
+            'title': 'History date validation',
+            'xpath': './/front//history//date',
+            'validation_type': 'value',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': order,
+            'got_value': seq_ordered,
+            'message': f'Got {seq_ordered} expected {order}',
+            'advice': None if is_valid else f'Provide a valid sequence of events'
+        }
 
     def validate_number_of_digits_in_article_date(self):
         """
