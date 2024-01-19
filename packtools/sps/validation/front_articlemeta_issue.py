@@ -155,6 +155,20 @@ class IssueValidation:
                     'advice': advice
                 }
             ]
+        else:
+            expected = 'an identifier for the publication issue'
+            return [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'xpath': './/front/article-meta/issue',
+                    'validation_type': 'exist',
+                    'response': 'ERROR',
+                    'expected_value': expected,
+                    'got_value': None,
+                    'message': 'Got None expected {}'.format(expected),
+                    'advice': 'Provide an identifier for the publication issue'
+                }
+            ]
 
     def validate_supplement(self, expected_value):
         """
