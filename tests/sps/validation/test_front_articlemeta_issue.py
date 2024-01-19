@@ -90,7 +90,22 @@ class IssueTest(TestCase):
         xml_tree = etree.fromstring(xml_str)
         obtained = IssueValidation(xml_tree).validate_article_issue()
 
-        self.assertIsNone(obtained)
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'xpath': './/front/article-meta/issue',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'an identifier for the publication issue',
+                'got_value': None,
+                'message': 'Got None expected an identifier for the publication issue',
+                'advice': 'Provide an identifier for the publication issue'
+
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_validate_article_issue_out_of_pattern_value(self):
         self.maxDiff = None
@@ -400,11 +415,9 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
-                                  'Y is a valid alphanumeric value',
+                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
                 'got_value': 'suppl a.',
-                'message': 'Got suppl a. expected X suppl Y where X is a valid alphanumeric value or None and '
-                           'Y is a valid alphanumeric value',
+                'message': 'Got suppl a. expected X suppl Y where X and Y are alphanumeric value',
                 'advice': 'Provide a valid value to supplement',
 
             }
@@ -434,11 +447,9 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
-                                  'Y is a valid alphanumeric value',
+                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
                 'got_value': 'suppl 04',
-                'message': 'Got suppl 04 expected X suppl Y where X is a valid alphanumeric value or None and '
-                           'Y is a valid alphanumeric value',
+                'message': 'Got suppl 04 expected X suppl Y where X and Y are alphanumeric value',
                 'advice': 'Provide a valid value to supplement',
 
             }
@@ -500,11 +511,9 @@ class IssueTest(TestCase):
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'format',
                 'response': 'ERROR',
-                'expected_value': 'X suppl Y where X is a valid alphanumeric value or None and '
-                                  'Y is a valid alphanumeric value',
+                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
                 'got_value': ' a suppl b.',
-                'message': 'Got  a suppl b. expected X suppl Y where X is a valid alphanumeric value or None and '
-                           'Y is a valid alphanumeric value',
+                'message': 'Got  a suppl b. expected X suppl Y where X and Y are alphanumeric value',
                 'advice': 'Provide a valid value to supplement'
 
             }
