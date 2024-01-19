@@ -1,24 +1,24 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
 
 
-def _is_valid_value(value):
+def _issue_identifier_is_valid(value):
     if value.isnumeric():
         return str(int(value)) == value
     else:
         return not('.' in value or ' ' in value)
 
 
-def _is_special_number(value):
+def _issue_special_number_is_valid(value):
     """
     a special number value cannot contain a space or dot
     <issue>spe1</issue>
     <issue>spe</issue>
     """
     anterior, posterior = value.split('spe')
-    return anterior == '' and (_is_valid_value(posterior) or posterior == '')
+    return anterior == '' and (_issue_identifier_is_valid(posterior) or posterior == '')
 
 
-def _is_supplement(value):
+def _issue_supplement_is_valid(value):
     """
     supplement cannot have a dot
     <issue>4 suppl 1</issue>
@@ -26,40 +26,39 @@ def _is_supplement(value):
     """
     anterior, posterior = value.split('suppl')
     if anterior:
-        return _is_valid_value(anterior.strip()) and _is_valid_value(posterior.strip())
+        return _issue_identifier_is_valid(anterior.strip()) and _issue_identifier_is_valid(posterior.strip())
     else:
-        return _is_valid_value(posterior.strip())
+        return _issue_identifier_is_valid(posterior.strip())
 
 
-def _validate_value(obtained):
+def _validate_issue_identifier(obtained):
     if obtained.isnumeric():
         message = 'a numeric value that does not start with zero'
         advice = 'Provide a valid numeric value'
     else:
         message = 'a alphanumeric value that does not contain space or dot'
         advice = 'Provide a valid alphanumeric value'
-    if not _is_valid_value(obtained):
+    if not _issue_identifier_is_valid(obtained):
         return False, message, advice
     else:
-        return _success(obtained)
+        return _successful_validation(obtained)
 
 
 def _validate_special_number(obtained):
-    if not _is_special_number(obtained):
+    if not _issue_special_number_is_valid(obtained):
         return False, 'speX where X is a valid alphanumeric value or None', 'Provide a valid value to special number'
     else:
-        return _success(obtained)
+        return _successful_validation(obtained)
 
 
 def _validate_supplement(obtained):
-    if not _is_supplement(obtained):
-        return False, 'X suppl Y where X is a valid alphanumeric value or None and Y is a valid alphanumeric value',\
-            'Provide a valid value to supplement'
+    if not _issue_supplement_is_valid(obtained):
+        return False, 'X suppl Y where X and Y are alphanumeric value', 'Provide a valid value to supplement'
     else:
-        return _success(obtained)
+        return _successful_validation(obtained)
 
 
-def _success(obtained):
+def _successful_validation(obtained):
     return True, obtained, None
 
 
@@ -142,7 +141,7 @@ class IssueValidation:
             elif 'suppl' in obtained:
                 is_valid, expected, advice = _validate_supplement(obtained)
             else:
-                is_valid, expected, advice = _validate_value(obtained)
+                is_valid, expected, advice = _validate_issue_identifier(obtained)
 
             return [
                 {
