@@ -122,3 +122,47 @@ class KwdGroupTest(TestCase):
             }
         
         self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
+
+    def test_extract_kwd_data_with_lang_text_kwd_group_without_lang(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree('tests/samples/example_xml_keywords_error.xml')
+        kwd_extract_data_with_lang_text = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=False)
+
+        expected_output = [
+            {'lang': 'pt', 'text': 'Enfermagem'},
+            {'lang': 'pt', 'text': 'Idoso de 80 Anos ou Mais'},
+            {'lang': 'pt', 'text': 'Relações Familiares'},
+            {'lang': 'es', 'text': 'Enfermería'},
+            {'lang': 'es', 'text': 'Anciano de 80 Años o Más'},
+            {'lang': 'es', 'text': 'Relaciones Familiares'},
+            {'lang': 'en', 'text': 'Nursing'},
+            {'lang': 'en', 'text': 'Aged, 80 Years or More'},
+            {'lang': 'en', 'text': 'Family Relationships'}
+        ]
+
+        self.assertEqual(expected_output, kwd_extract_data_with_lang_text)
+
+    def test_extract_kwd_extract_data_by_lang_kwd_group_without_lang(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree('tests/samples/example_xml_keywords_error.xml')
+        kwd_extract_data_with_lang_text = KwdGroup(xmltree).extract_kwd_extract_data_by_lang(subtag=False)
+
+        expected_output = {
+            'pt': [
+                'Enfermagem',
+                'Idoso de 80 Anos ou Mais',
+                'Relações Familiares'
+            ],
+            'es': [
+                'Enfermería',
+                'Anciano de 80 Años o Más',
+                'Relaciones Familiares'
+            ],
+            'en': [
+                'Nursing',
+                'Aged, 80 Years or More',
+                'Family Relationships'
+            ]
+        }
+
+        self.assertEqual(expected_output, kwd_extract_data_with_lang_text)
