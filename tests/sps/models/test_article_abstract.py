@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
+from packtools.sps.utils import xml_utils
 from packtools.sps.models.article_abstract import Abstract
 
 
@@ -60,6 +61,20 @@ class AbstractTest(TestCase):
         obtained = self.abstract.main_abstract_without_tags
         expected = {'en': 'objective method results conclusion'}
         self.assertEqual(obtained, expected)
+
+    def test_get_abstracts_inline_error(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree('tests/samples/example_xml_abstract_error.xml')
+        obtained = Abstract(xmltree=xmltree).get_abstracts(style="inline")
+        expected = [
+            {'lang': 'pt', 'abstract': 'FUNDAMENTO: A relação entre atividade inflamatória e pró-trombótica na cardiomiopatia chagásica e em outras etiologias é obscura. OBJETIVO: Estudar o perfil de marcadores pró-trombóticos e pró-inflamatórios em pacientes com insuficiência cardíaca chagásica e compará-los com os de etiologia não chagásica. MÉTODOS: Coorte transversal. Critérios de inclusão: fração de ejeção do VE (FEVE) < 45% e tempo de início de sintomas > um mês. Os pacientes foram divididos em dois grupos: grupo 1 (G1) - sorologias positivas para Chagas - e grupo 2 (G2) - sorologias negativas para Chagas. Fator pró-inflamatório: PCR ultrassensível. Fatores pró-trombóticos: fator trombina-antitrombina, fibrinogênio, antígeno do fator de von Willebrand, P-selectina plasmática e tromboelastograma. Amostra calculada para poder de 80%, assumindo-se diferença de 1/3 de desvio-padrão; p significativo se < 0,05. Análise estatística: teste exato de Fischer para variáveis categóricas; teste t de Student não pareado para variáveis contínuas paramétricas e teste de Mann-Whitney para variáveis contínuas não paramétricas. RESULTADOS: Entre janeiro e junho de 2008, foram incluídos 150 pacientes, 80 no G1 e 70 no G2. Ambos os grupos mantinham médias de PCR ultrassensível acima dos valores de referência, porém, sem diferença significativa (p=0,328). Os níveis de fibrinogênio foram maiores no G2 do que no G1 (p=0,015). Entre as variáveis do tromboelastograma, os parâmetros MA (p=0,0013), G (p=0,0012) e TG (p=0,0005) foram maiores no G2 em comparação ao G1. CONCLUSÃO: Não há indícios de maior status pró-trombótico entre chagásicos. A dosagem de fibrinogênio e dos parâmetros MA, G e TG do tromboelastograma apontam para status pró-trombótico entre não chagásicos. Ambos os grupos tinham atividade inflamatória exacerbada.'},
+            {'lang': 'en', 'abstract': "BACKGROUND: The relationship between inflammatory and prothrombotic activity in chagas cardiomyopathy and in other etiologies is unclear. OBJECTIVE: To study the profile of pro-thrombotic and pro-inflammatory markers in patients with Chagas\\\\\\' heart failure and compare them with patients of non-chagas etiology. METHODS: Cross-sectional cohort. Inclusion criteria: left ventricle ejection fraction (LVEF) < 45% and onset time to symptoms > one month. The patients were divided into two groups: group 1 (G1) - seropositive for Chagas - and group 2 (G2) - seronegative for Chagas. Pro-inflammatory factor: Ultra-sensitive CRP. Pro-thrombotic factors: thrombin-antithrombin factor, fibrinogen, von Willebrand factor antigen, plasma P-selectin and thromboelastography. Sample calculated for 80% power, assuming a standard deviation difference of 1/3; significant p if it is < 0.05. Statistical analysis: Fisher\\\\\\'s exact test for categorical variables; unpaired Student\\\\\\'s t-test for parametric continuous variables and Mann-Whitney test for nonparametric continuous variables. RESULTS: Between January and June 2008, 150 patients were included, 80 in G1 and 70 in G2. Both groups maintained the averages of high sensitivity CRP above baseline values, however, there was no significant difference (p = 0.328). The fibrinogen levels were higher in G2 than in G1 (p = 0.015). Among the thromboelastography variables, the parameters MA (p=0.0013), G (p=0.0012) and TG (p =0.0005) were greater in G2 than in G1. CONCLUSION: There is no evidence of greater pro-thrombotic status among patients with Chagas disease. The levels of fibrinogen and the MA, G and TG parameters of the thromboelastography point to pro-thrombotic status among non-chagas patients. Both groups had increased inflammatory activity."},
+            {'lang': 'es', 'abstract': None}
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class SubArticleAbstractTest(TestCase):

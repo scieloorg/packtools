@@ -240,10 +240,11 @@ class Abstract:
         for sub_article in self.xmltree.xpath(".//sub-article"):
             item = {}
             item["lang"] = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
+            abstract = sub_article.find(".//front-stub//abstract")
             item["abstract"] = self._format_abstract(
-                abstract_node=sub_article.find(".//front-stub//abstract"),
+                abstract_node=abstract,
                 style=style
-            )
+            ) if abstract else None
             if not style:
                 item["abstract"]["lang"] = item["lang"]
             yield item
