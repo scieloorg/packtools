@@ -139,6 +139,14 @@ class ArticleLangValidation:
                     'message': f'Got None expected title for the {article_type}',
                     'advice': f'Provide title for the {article_type}'
                 }
+            for title_lang in title_langs:
+                exist, is_required, element, xpath, expected = _elements_exist(
+                    article_type,
+                    title_lang,
+                    self.article_title,
+                    abstract_langs_dict.get(article_type),
+                    keyword_langs_dict.get(article_type)
+                )
 
         if exist:
             # validação de correspondência entre os idiomas, usando como base o título
