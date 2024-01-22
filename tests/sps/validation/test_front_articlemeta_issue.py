@@ -88,14 +88,14 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
                 'title': 'Article-meta issue element validation',
                 'xpath': './/front/article-meta/issue',
                 'validation_type': 'exist',
-                'response': 'ERROR',
+                'response': 'WARNING',
                 'expected_value': 'an identifier for the publication issue',
                 'got_value': None,
                 'message': 'Got None expected an identifier for the publication issue',
@@ -119,7 +119,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -151,7 +151,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -183,7 +183,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -215,7 +215,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -247,7 +247,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -279,7 +279,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -311,7 +311,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -343,7 +343,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -375,7 +375,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -407,7 +407,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -439,7 +439,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -471,7 +471,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
@@ -503,7 +503,7 @@ class IssueTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml_str)
-        obtained = IssueValidation(xml_tree).validate_article_issue()
+        obtained = IssueValidation(xml_tree).validate_article_issue('WARNING')
 
         expected = [
             {
