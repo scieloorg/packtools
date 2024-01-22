@@ -126,9 +126,19 @@ class ArticleLangValidation:
         # obtem um dicionário com códigos de idiomas para palavras-chave: {'article': ['pt', 'en'], 'sub-article': ['es']}
         keyword_langs_dict = get_keyword_langs(self.article_kwd)
 
-        # verifica a exsitência dos elementos no XML
-        exist, element, xpath, expected, lang = _elements_exist(self.article_title, abstract_lang_list,
-                                                                keyword_lang_list)
+        # verifica a existência dos elementos no XML
+        for article_type, title_langs in title_langs_dict.items():
+            if not title_langs:
+                yield {
+                    'title': f'{article_type} title element lang attribute validation',
+                    'xpath': f'.//article-title/@xml:lang',
+                    'validation_type': 'exist',
+                    'response': 'ERROR',
+                    'expected_value': f'title for the {article_type}',
+                    'got_value': None,
+                    'message': f'Got None expected title for the {article_type}',
+                    'advice': f'Provide title for the {article_type}'
+                }
 
         if exist:
             # validação de correspondência entre os idiomas, usando como base o título
