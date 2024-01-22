@@ -21,7 +21,7 @@ from packtools.sps.models.article_titles import ArticleTitles
 from packtools.sps.models.body import Body
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.models.journal_meta import ISSN, Acronym
+from packtools.sps.models.journal_meta import ISSN, Acronym, Title
 from packtools.sps.models.related_articles import RelatedItems
 
 LOGGER = logging.getLogger(__name__)
@@ -269,7 +269,6 @@ class XMLWithPre:
     def get_zip_content(self, xml_filename):
         zip_content = None
         with TemporaryDirectory() as tmpdirname:
-            logging.info("TemporaryDirectory %s" % tmpdirname)
             temp_zip_file_path = os.path.join(tmpdirname, f"{xml_filename}.zip")
             with ZipFile(temp_zip_file_path, "w") as zf:
                 zf.writestr(xml_filename, self.tostring())
@@ -616,6 +615,12 @@ class XMLWithPre:
         return self._collab
 
     @property
+    def journal_title(self):
+        if not hasattr(self, "_journal_title") or not self._journal_title:
+            self._journal_title = Title(self.xmltree).journal_title
+        return self._journal_title
+
+    @property
     def journal_issn_print(self):
         if not hasattr(self, "_journal_issn_print") or not self._journal_issn_print:
             # list of dict which keys are
@@ -659,6 +664,53 @@ class XMLWithPre:
                 else:
                     self._article_publication_date = f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
         return self._article_publication_date
+
+    @article_publication_date.setter
+    def article_publication_date(self, value):
+        """
+        value : dict (keys: year, month, day)
+        """
+        try:
+            node = self.xmltree.xpath(".//article-meta//pub-date[@date-type='pub']")[0]
+        except IndexError:
+            try:
+                node = self.xmltree.xpath(".//article-meta//pub-date[@pub-type='epub']")[0]
+            except IndexError:
+                node = None
+        if node is None:
+            node = etree.Element("pub-date")
+            node.set("date-type", "pub")
+            node.set("publication-format", "electronic")
+
+            # https://jats.nlm.nih.gov/publishing/tag-library/1.3/element/article-meta.html
+            pub_date_preceding_siblings = (
+                "pub-date",
+                "author-notes",
+                "aff",
+                "contrib-group",
+                "title-group",
+                "article-categories",
+                "article-version-alternatives",
+                "article-version",
+                "article-id",
+            )
+            for sibling_name in pub_date_preceding_siblings:
+                self.xmltree.find(f".//article-meta/{sibling_name}").append(node)
+                break
+
+        if node is not None:
+            try:
+                numbers = {k: int(v) for k, v in value.items()}
+                d = date(numbers.get("year"), numbers.get("month"), numbers.get("day"))
+            except (ValueError, TypeError):
+                raise ValueError(f"Unable to set {value} to article publcation date")
+
+            for name, max_length in zip(("day", "month", "year"), (2, 2, 4)):
+                elem = node.find(name)
+                if elem is None:
+                    elem = etree.Element(name)
+                    node.append(elem)
+                elem.text = str(numbers[name]).zfill(max_length)
 
     @property
     def article_pub_year(self):

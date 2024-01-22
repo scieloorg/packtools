@@ -3,6 +3,10 @@ import re
 from packtools.sps.models.article_authors import Authors
 
 
+def _callable_extern_validate_default(orcid):
+    raise NotImplementedError
+
+
 class ArticleAuthorsValidation:
     def __init__(self, xmltree):
         self._xmltree = xmltree
@@ -92,7 +96,7 @@ class ArticleAuthorsValidation:
                     'advice': f"The author {_author_name} does not have a valid role. Provide a role from the list: {expected_value}"
                 }
 
-    def validate_authors_orcid(self):
+    def validate_authors_orcid_format(self):
         """
         Checks whether a contributor's ORCID is valid.
 
@@ -159,6 +163,161 @@ class ArticleAuthorsValidation:
                 'got_value': _orcid,
                 'message': f'Got {_orcid} expected {expected_value[:1].lower() + expected_value[1:]}',
                 'advice': None if is_valid else f"The author {_author_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID."
+            }
+
+    def validate_authors_orcid_is_unique(self):
+        """
+        Checks whether a contributor's ORCID is unique.
+
+        XML input
+        ---------
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Author ORCID element is unique',
+                    'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                    'validation_type': 'exist/verification',
+                    'response': 'OK',
+                    'expected_value': 'Unique ORCID values',
+                    'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
+                    'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 1) | (\'0000-3333-1238-6873\', 1)',
+                    'advice': None
+                }
+            ]
+        """
+        is_valid = True
+        orcid_list = [contrib.get('orcid') for contrib in self.article_authors.contribs]
+        orcid_freq = {}
+        for orcid in orcid_list:
+            if orcid in orcid_freq:
+                is_valid = False
+                orcid_freq[orcid] += 1
+            else:
+                orcid_freq[orcid] = 1
+
+        if not is_valid:
+            diff = [item for item, freq in orcid_freq.items() if freq > 1]
+
+        return [
+            {
+                'title': 'Author ORCID element is unique',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist/verification',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': 'Unique ORCID values',
+                'got_value': orcid_list,
+                'message': 'Got ORCIDs and frequencies {}'.format(
+                    " | ".join([str((item, freq)) for item, freq in orcid_freq.items()])),
+                'advice': None if is_valid else 'Consider replacing the following ORCIDs that are not unique: {}'.format(
+                    " | ".join(diff))
+            }
+        ]
+
+    def validate_authors_orcid_is_registered(self, callable_get_validate=None):
+        """
+        Checks whether a contributor's ORCID is registered.
+
+        XML input
+        ---------
+        <article>
+        <front>
+            <article-meta>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib contrib-type="author">
+                        <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                            <name>
+                                <surname>Higa</surname>
+                                <given-names>Vanessa M.</given-names>
+                            </name>
+                        <xref ref-type="aff" rid="aff1">a</xref>
+                    </contrib>
+                </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+
+        Params
+        ------
+        callable_get_validation : function
+            A function that will be passed as an argument.
+            This function must have the signature 'def callable_get_validate(orcid):' and
+            returns the name of the author associated with ORCID
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'message': 'Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'] expected '
+                           '['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ']',
+                'advice': None
+                },
+                ...
+            ]
+        """
+        callable_get_validate = callable_get_validate or _callable_extern_validate_default
+        for author in self.article_authors.contribs:
+            obtained_author_name = f"{author.get('given_names')} {author.get('surname')}"
+            orcid = author.get('orcid')
+            expected_author_name = callable_get_validate(orcid)
+            is_valid = obtained_author_name == expected_author_name
+
+            yield {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': [orcid, expected_author_name],
+                'got_value': [orcid, obtained_author_name],
+                'message': 'Got {} expected {}'.format([orcid, obtained_author_name], [orcid, expected_author_name]),
+                'advice': None if is_valid else "ORCID {} is not registered to any authors".format(orcid)
             }
 
     def validate(self, data):

@@ -2,7 +2,7 @@ from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.validation.journal_meta import ISSNValidation, AcronymValidation, TitleValidation, \
-    PublisherValidation, JournalMetaValidation
+    PublisherNameValidation, JournalMetaValidation
 
 
 class ISSNTest(TestCase):
@@ -203,7 +203,7 @@ class PublisherTest(TestCase):
                     <front>
                         <journal-meta>
                             <publisher>
-                                <publisher-name>Casa de Oswaldo Cruz, Fundação Oswaldo Cruz</publisher-name>
+                                <publisher-name>Fundação Oswaldo Cruz</publisher-name>
                             </publisher>
                         </journal-meta>
                     </front>
@@ -219,74 +219,170 @@ class PublisherTest(TestCase):
                     <front>
                         <journal-meta>
                             <publisher>
-                                <publisher-name>Casa de Oswaldo Cruz, Fundação Oswaldo Cruz</publisher-name>
-                                <publisher-name>Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.</publisher-name>
+                                <publisher-name>Fundação Oswaldo Cruz</publisher-name>
+                                <publisher-name>UNESP</publisher-name>
                             </publisher>
                         </journal-meta>
                     </front>
                 </article>
             """
         )
-        self.one_publisher = PublisherValidation(self.xmltree_one_publisher)
-        self.more_than_one_publisher = PublisherValidation(self.xmltree_more_than_one_publisher)
+        self.one_publisher = PublisherNameValidation(self.xmltree_one_publisher)
+        self.more_than_one_publisher = PublisherNameValidation(self.xmltree_more_than_one_publisher)
 
-    def test_one_publisher_match(self):
-        expected = dict(
-            object='publishers names',
-            output_expected=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
-            output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
-            match=True
-        )
-        obtained = self.one_publisher.validate_publishers_names(['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'])
-        self.assertDictEqual(expected, obtained)
+    def test_validate_publisher_names_one_sucess(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            }
+        ]
+        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_one_publisher_no_match(self):
-        expected = dict(
-            object='publishers names',
-            output_expected=['Casa de Oswaldo Cruz - Fundação Oswaldo Cruz'],
-            output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
-            match=False
-        )
-        obtained = self.one_publisher.validate_publishers_names(['Casa de Oswaldo Cruz - Fundação Oswaldo Cruz'])
-        self.assertDictEqual(expected, obtained)
+    def test_validate_publisher_names_one_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'Fund. Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
+            }
+        ]
+        obtained = self.one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_more_than_one_publisher_match(self):
-        expected = dict(
-            object='publishers names',
-            output_expected=[
-                'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.'
-            ],
-            output_obteined=[
-                'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.'
-            ],
-            match=True
-        )
-        obtained = self.more_than_one_publisher.validate_publishers_names([
-            'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-            'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.'
-        ])
-        self.assertDictEqual(expected, obtained)
+    def test_validate_publisher_names_more_than_one_sucess(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'UNESP',
+                'got_value': 'UNESP',
+                'message': 'Got UNESP expected UNESP',
+                'advice': None
+            }
+        ]
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_more_than_one_publisher_no_match(self):
-        expected = dict(
-            object='publishers names',
-            output_expected=[
-                'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP).'
-            ],
-            output_obteined=[
-                'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP), Faculdade de Ciências, campus de Bauru.'
-            ],
-            match=False
-        )
-        obtained = self.more_than_one_publisher.validate_publishers_names([
-            'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-            'Programa de Pós-Graduação em Educação para a Ciência, Universidade Estadual Paulista (UNESP).'
-        ])
-        self.assertDictEqual(expected, obtained)
+    def test_validate_publisher_names_more_than_one_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'Fund. Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'UNIFESP',
+                'got_value': 'UNESP',
+                'message': 'Got UNESP expected UNIFESP',
+                'advice': 'Provide the expected publisher name: UNIFESP'
+            }
+        ]
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_publisher_names_XML_has_not_expected_items(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': ['Fundação Oswaldo Cruz'],
+                'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
+                'message': 'The following items is / are not expected in the XML: UNESP',
+                'advice': 'Remove the following items from the XML: UNESP'
+            }
+        ]
+        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_publisher_names_function_has_not_expected_items(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Fundação Oswaldo Cruz',
+                'got_value': 'Fundação Oswaldo Cruz',
+                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
+                'got_value': ['Fundação Oswaldo Cruz'],
+                'message': 'The following items is / are missing in the XML: UNESP',
+                'advice': 'Complete the following items in the XML: UNESP',
+            }
+        ]
+        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class JournalMetaValidationTest(TestCase):
@@ -355,12 +451,16 @@ class JournalMetaValidationTest(TestCase):
                 output_obteined='Hist. cienc. saude-Manguinhos',
                 match=True
             ),
-            dict(
-                object='publishers names',
-                output_expected=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
-                output_obteined=['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
-                match=True
-            )
+            {
+                'title': 'Publisher name element validation',
+                'xpath': './/publisher//publisher-name',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'advice': None
+            }
         ]
         obtained = self.journal_meta.validate({
             'issns': {

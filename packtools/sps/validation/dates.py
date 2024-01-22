@@ -12,6 +12,7 @@ class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
         self.article_date = ArticleDates(xmltree).article_date
+        self.collection_date = ArticleDates(xmltree).collection_date
 
     def history_dates_are_complete(self):
         response = []
@@ -210,6 +211,89 @@ class ArticleDatesValidation:
             'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
             'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date)
         }
+
+    def validate_collection_date(self, future_date):
+        """
+        Checks if the collection date exists, is valid and before a deadline.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
+                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
+                    <article-id pub-id-type="other">00303</article-id>
+                    <pub-date date-type="pub" publication-format="electronic">
+                        <day>01</day>
+                        <month>01</month>
+                        <year>2023</year>
+                    </pub-date>
+                    <pub-date date-type="collection" publication-format="electronic">
+                        <year>2023</year>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        future_date : str
+
+        Returns
+        -------
+        list of dict, such as:
+            [
+                {
+                    'title': 'Collection pub-date validation',
+                    'xpath': './/front//pub-date[@date-type="collection"]',
+                    'validation_type': 'format',
+                    'response': 'OK',
+                    'expected_value': '2023',
+                    'got_value': '2023',
+                    'message': 'Got 2023 expected 2023',
+                    'advice': None
+                }
+            ]
+        """
+        try:
+            obtained = self.collection_date.get('year')
+            advice = None
+
+            if not obtained.isdigit():
+                advice = 'Provide only numeric values for the collection year'
+            elif len(obtained) != 4:
+                advice = 'Provide a four-digit numeric value for the year of collection'
+            elif obtained > future_date:
+                advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
+
+            is_valid = advice is None
+            expected = obtained if is_valid else "the publication date of the collection"
+
+            yield {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'format',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': obtained,
+                'message': 'Got {} expected {}'.format(obtained, expected),
+                'advice': advice
+            }
+        except AttributeError:
+            yield {
+                'title': 'Collection pub-date validation',
+                'xpath': './/front//pub-date[@date-type="collection"]',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'the publication date of the collection',
+                'got_value': None,
+                'message': 'Got None expected the publication date of the collection',
+                'advice': 'Provide the publication date of the collection'
+            }
+
 
     def validate(self, data):
         """
