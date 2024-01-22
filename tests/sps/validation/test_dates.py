@@ -536,6 +536,96 @@ class HistoryDatesValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_date_is_complete_a_date_with_missing_year(self):
+        _date = dict(month='02', day='05')
+        expected = (False, 'a valid date for pub-date', '-02-05', 'pub-date must be complete', "Provide 'year' of the date")
+        obtained = dates._date_is_complete(_date, 'pub-date')
+
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_missing_month(self):
+        _date = dict(year='2023', day='5')
+        expected = (False, 'a valid date for pub-date', '2023--5', 'pub-date must be complete', "Provide 'month' of the date")
+        obtained = dates._date_is_complete(_date, 'pub-date')
+
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_missing_day(self):
+        _date = dict(year='2023', month='2')
+        expected = (False, 'a valid date for pub-date', '2023-2-', 'pub-date must be complete', "Provide 'day' of the date")
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_year(self):
+        _date = dict(year='', month='2', day='5')
+        expected = (False, 'a valid date for pub-date', '-2-5',
+                    'pub-date must contain valid values, invalid literal for int() with base 10: \'\',',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_month(self):
+        _date = dict(year='2023', month='o3', day='5')
+        expected = (False, 'a valid date for pub-date', '2023-o3-5',
+                    'pub-date must contain valid values, invalid literal for int() with base 10: \'o3\',',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_day(self):
+        _date = dict(year='2023', month='3', day='1o')
+        expected = (False, 'a valid date for pub-date', '2023-3-1o',
+                    'pub-date must contain valid values, invalid literal for int() with base 10: \'1o\',',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_day_number(self):
+        _date = dict(year='2023', month='3', day='45')
+        expected = (False, 'a valid date for pub-date', '2023-3-45',
+                    'pub-date must contain valid values',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_month_number(self):
+        _date = dict(year='2023', month='13', day='15')
+        expected = (False, 'a valid date for pub-date', '2023-13-15',
+                    'pub-date must contain valid values',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_date_with_invalid_year_number(self):
+        _date = dict(year='-10', month='10', day='15')
+        expected = (False, 'a valid date for pub-date', '-10-10-15',
+                    'pub-date must contain valid values',
+                    'Provide valid values for day, month and year')
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_date_is_complete_a_correct_date(self):
+        _date = dict(year='2023', month='10', day='15')
+        expected = (True, '2023-10-15', '2023-10-15', None, None)
+        obtained = dates._date_is_complete(_date, 'pub-date')
+        self.assertEqual(expected, obtained)
+
+    def test_check_order(self):
+        expected = [True, True, True, False, False]
+        obtained = []
+
+        order = ["received", "rev-request", "rev-recd", "accepted", "approved"]
+        for seq in [
+            ["received", "approved"],
+            ["received", "rev-recd", "accepted"],
+            ["rev-request", "rev-recd", "approved"],
+            ["rev-request", "rev-recd", "received", "accepted", "approved"],
+            ["accepted", "received"]
+        ]:
+            obtained.append(dates.check_order(seq, order))
+
+        self.assertEqual(expected, obtained)
+
 
 class ArticleDatesValidationTest(TestCase):
     def test_validate_number_of_digits_in_article_date_is_ok(self):
