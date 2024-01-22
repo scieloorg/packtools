@@ -65,6 +65,185 @@ class HistoryDatesValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
+    def test_validate_history_dates_success_required_data_only(self):
+        self.maxDiff = None
+        xml_history_date = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <history>
+                            <date date-type="received">
+                                <day>05</day>
+                                <month>01</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="approved">
+                                <day>01</day>
+                                <month>06</month>
+                                <year>2012</year>
+                            </date>
+                        </history>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = [
+            {
+                'title': 'History date validation',
+                'xpath': './/front//history//date',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': ['received', 'approved'],
+                'got_value': ['received', 'approved'],
+                'message': "Got [('received', '1998-01-05'), ('approved', '2012-06-01')] "
+                           "expected ['received', 'approved']",
+                'advice': None
+            }
+        ]
+        obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_history_dates_fail_required_date_missing(self):
+        self.maxDiff = None
+        xml_history_date = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <history>
+                            <date date-type="received">
+                                <day>05</day>
+                                <month>01</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="rev-request">
+                                <day>14</day>
+                                <month>03</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="rev-recd">
+                                <day>24</day>
+                                <month>05</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="accepted">
+                                <day>06</day>
+                                <month>06</month>
+                                <year>1998</year>
+                            </date>
+                        </history>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = [
+            {
+                'title': 'History date validation',
+                'xpath': './/front//history//date',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a date for approved',
+                'got_value': None,
+                'message': 'the event approved is required',
+                'advice': 'Provide a valid date for approved',
+            },
+            {
+                'title': 'History date validation',
+                'xpath': './/front//history//date',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
+                'got_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
+                'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
+                           "'1998-05-24'), ('accepted', '1998-06-06')] expected ['received', 'rev-request', "
+                           "'rev-recd', 'accepted']",
+                'advice': None
+            }
+        ]
+        obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_history_dates_fail_unknown_event(self):
+        self.maxDiff = None
+        xml_history_date = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <history>
+                            <date date-type="received">
+                                <day>05</day>
+                                <month>01</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="rev-request">
+                                <day>14</day>
+                                <month>03</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="rev-recd">
+                                <day>24</day>
+                                <month>05</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="accepted">
+                                <day>06</day>
+                                <month>06</month>
+                                <year>1998</year>
+                            </date>
+                            <date date-type="unknown">
+                                <day>01</day>
+                                <month>06</month>
+                                <year>2012</year>
+                            </date>
+                        </history>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = [
+            {
+                'title': 'History date validation',
+                'xpath': './/front//history//date',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a date for approved',
+                'got_value': None,
+                'message': 'the event approved is required',
+                'advice': 'Provide a valid date for approved',
+            },
+            {
+                'title': 'History date validation',
+                'xpath': './/front//history//date',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
+                'got_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
+                'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
+                           "'1998-05-24'), ('accepted', '1998-06-06')] expected ['received', 'rev-request', "
+                           "'rev-recd', 'accepted']",
+                'advice': None,
+            }
+        ]
+        obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
+            ["received", "rev-request", "rev-recd", "accepted", "approved"], ["received", "approved"]
+        )
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
     def test_validate_history_dates_fail_one_element_of_date_is_missing(self):
         self.maxDiff = None
         xml_history_date = etree.fromstring(
