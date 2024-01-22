@@ -1,7 +1,375 @@
 import unittest
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_lang import ArticleLangValidation
+from packtools.sps.validation.article_lang import (
+    ArticleLangValidation,
+    get_title_langs,
+    get_abstract_langs,
+    get_keyword_langs,
+    _elements_exist
+)
+from packtools.sps.models import article_titles, article_abstract, kwd_group
+
+
+class AuxiliaryFunctionsTest(unittest.TestCase):
+    def test_get_title_langs(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <abstract xml:lang="en">
+                     Abstract in english
+                 </abstract>
+                 <kwd-group xml:lang="en">
+                     <kwd>Keyword 1</kwd>
+                     <kwd>Keyword 2</kwd>
+                 </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        article_title = article_titles.ArticleTitles(xml_tree)
+
+        obtained = get_title_langs(article_title)
+
+        expected = {
+            'article': ['pt', 'en'],
+            'sub-article': ['en']
+        }
+        self.assertDictEqual(expected, obtained)
+
+    def test_get_abstract_langs(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                     <abstract xml:lang="en">
+                         Abstract in english
+                     </abstract>
+                     <kwd-group xml:lang="en">
+                         <kwd>Keyword 1</kwd>
+                         <kwd>Keyword 2</kwd>
+                     </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        abstract = article_abstract.Abstract(xml_tree)
+
+        obtained = get_abstract_langs(abstract)
+
+        expected = {
+            'article': ['pt', 'en'],
+            'sub-article': ['en']
+        }
+        self.assertDictEqual(expected, obtained)
+
+    def test_get_keyword_langs(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <abstract xml:lang="en">
+                     Abstract in english
+                 </abstract>
+                 <kwd-group xml:lang="en">
+                     <kwd>Keyword 1</kwd>
+                     <kwd>Keyword 2</kwd>
+                 </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        kwd = kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None)
+
+        obtained = get_keyword_langs(kwd)
+
+        expected = {
+            'article': ['pt', 'en'],
+            'sub-article': ['en']
+        }
+        self.assertDictEqual(expected, obtained)
+
+    def test__elements_exist(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <abstract xml:lang="en">
+                     Abstract in english
+                 </abstract>
+                 <kwd-group xml:lang="en">
+                     <kwd>Keyword 1</kwd>
+                     <kwd>Keyword 2</kwd>
+                 </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], ['pt', 'en']
+
+        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+
+        expected = (True, True, None, None, None)
+        self.assertEqual(expected, obtained)
+
+    def test__elements_exist_missing_title(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <abstract xml:lang="en">
+                     Abstract in english
+                 </abstract>
+                 <kwd-group xml:lang="en">
+                     <kwd>Keyword 1</kwd>
+                     <kwd>Keyword 2</kwd>
+                 </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        title_lang, title, abstract, keyword = 'es', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], ['pt', 'en']
+
+        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+
+        expected = (False, True, 'title', './/article-title/@xml:lang', 'title for the article')
+        self.assertEqual(expected, obtained)
+
+    def test__elements_exist_missing_abstract(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <kwd-group xml:lang="pt">
+                        <kwd>Palavra chave 1</kwd>
+                        <kwd>Palavra chave 2</kwd>
+                    </kwd-group>
+                    <kwd-group xml:lang="en">
+                        <kwd>Keyword 1</kwd>
+                        <kwd>Keyword 2</kwd>
+                    </kwd-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <kwd-group xml:lang="en">
+                     <kwd>Keyword 1</kwd>
+                     <kwd>Keyword 2</kwd>
+                 </kwd-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        title_lang, title, abstract, keyword = 'en', article_titles.ArticleTitles(xml_tree), [], ['pt', 'en']
+
+        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+
+        expected = (False, True, 'abstract', './/abstract/@xml:lang', 'abstract for the article')
+        self.assertEqual(expected, obtained)
+
+    def test__elements_exist_missing_kwd(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <abstract><p>Resumo em português</p></abstract>
+                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 <abstract xml:lang="en">
+                     Abstract in english
+                 </abstract>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], []
+
+        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+
+        expected = (False, True, 'kwd-group', './/kwd-group/@xml:lang', 'keywords for the article')
+        self.assertEqual(expected, obtained)
+
+    def test__elements_exist_is_required(self):
+        self.maxDiff = None
+        xml_str = """
+        <article  xml:lang="pt">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título em português</article-title>
+                        <trans-title-group xml:lang="en">
+                            <trans-title>Title in english</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+                 <front-stub>
+                     <title-group>
+                         <article-title xml:lang="en">Title in english</article-title>
+                     </title-group>
+                 </front-stub>
+             </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), [], []
+
+        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+
+        expected = (True, False, None, None, None)
+        self.assertEqual(expected, obtained)
 
 
 class ArticleLangTest(unittest.TestCase):
