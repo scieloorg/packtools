@@ -141,10 +141,10 @@ class ArticleDatesValidation:
             'xpath': './/front//history//date',
             'validation_type': 'value',
             'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': order,
+            'expected_value': expected,
             'got_value': seq_ordered,
-            'message': f'Got {seq_ordered} expected {order}',
-            'advice': None if is_valid else f'Provide a valid sequence of events'
+            'message': f'Got {seq} expected {expected}',
+            'advice': None if is_valid else f'Provide a valid sequence of events: {expected}'
         }
 
     def validate_number_of_digits_in_article_date(self):
