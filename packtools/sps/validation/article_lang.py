@@ -148,8 +148,6 @@ class ArticleLangValidation:
                     keyword_langs_dict.get(article_type)
                 )
 
-        if exist:
-            # validação de correspondência entre os idiomas, usando como base o título
                 if exist and is_required:
                     # validação de correspondência entre os idiomas, usando como base o título
                     for element, langs in zip(['abstract', 'kwd-group'], [abstract_langs_dict.get(article_type), keyword_langs_dict.get(article_type)]):
@@ -167,25 +165,15 @@ class ArticleLangValidation:
                             'message': f'Got {obtained} expected {expected}',
                             'advice': advice
                         }
+                elif is_required:
+                    # resposta para a verificação de ausência de elementos
                     yield {
-                        'title': f'{element} element lang attribute validation',
-                        'xpath': f'.//article-title/@xml:lang .//{element}/@xml:lang',
-                        'validation_type': 'match',
-                        'response': 'OK' if is_valid else 'ERROR',
+                        'title': f'{article_type} {element} element lang attribute validation',
+                        'xpath': xpath,
+                        'validation_type': 'exist',
+                        'response': 'ERROR',
                         'expected_value': expected,
-                        'got_value': obtained,
-                        'message': f'Got {obtained} expected {expected}',
-                        'advice': advice
+                        'got_value': None,
+                        'message': f'Got None expected {expected}',
+                        'advice': f'Provide {element} in the language {title_lang}'
                     }
-        else:
-            # resposta para a verificação de ausência de elementos
-            yield {
-                'title': f'{element} element lang attribute validation',
-                'xpath': xpath,
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': expected,
-                'got_value': None,
-                'message': f'Got None expected {expected}',
-                'advice': f'Provide a {element} in the language \'{lang}\''
-            }
