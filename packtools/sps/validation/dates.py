@@ -28,6 +28,11 @@ def _date_is_complete(dict_date, date_element):
         return True, str(object_date), str(object_date), None, None
 
 
+def check_order(seq_ordered, order):
+    iterator_order = iter(order)
+    return all(item in iterator_order for item in seq_ordered)
+
+
 class ArticleDatesValidation:
     def __init__(self, xmltree):
         self.history = ArticleDates(xmltree)
