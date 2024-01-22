@@ -1,4 +1,5 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
+from ..validation.exceptions import ValidationIssueMissingValue
 
 
 def _issue_identifier_is_valid(value):
@@ -100,7 +101,7 @@ class IssueValidation:
         )
         return resp_vol
 
-    def validate_article_issue(self):
+    def validate_article_issue(self, response_type_for_absent_issue):
         """
         Checks whether the format of a value for issue is valid.
 
@@ -133,6 +134,9 @@ class IssueValidation:
                 }
             ]
         """
+        if not response_type_for_absent_issue:
+            raise ValidationIssueMissingValue("Function requires response type for absent value")
+
         obtained = self.article_issue.issue
 
         if obtained:
@@ -162,7 +166,7 @@ class IssueValidation:
                     'title': 'Article-meta issue element validation',
                     'xpath': './/front/article-meta/issue',
                     'validation_type': 'exist',
-                    'response': 'ERROR',
+                    'response': response_type_for_absent_issue,
                     'expected_value': expected,
                     'got_value': None,
                     'message': 'Got None expected {}'.format(expected),
