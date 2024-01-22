@@ -53,8 +53,9 @@ class HistoryDatesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
                 'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'] "
-                           "expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
+                'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
+                           "'1998-05-24'), ('accepted', '1998-06-06'), ('approved', '2012-06-01')] expected ["
+                           "'received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
                 'advice': None
             }
         ]
@@ -315,11 +316,12 @@ class HistoryDatesValidationTest(TestCase):
                 'title': 'History date validation',
                 'xpath': './/front//history//date',
                 'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
+                'response': 'OK',
+                'expected_value': ['accepted', 'approved'],
                 'got_value': ['accepted', 'approved'],
-                'message': "Got ['accepted', 'approved'] expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
-                'advice': 'Provide a valid sequence of events',
+                'message': "Got [('accepted', '1998-06-06'), ('approved', '2012-06-01')] expected ['accepted', "
+                           "'approved']",
+                'advice': None
             },
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -340,7 +342,7 @@ class HistoryDatesValidationTest(TestCase):
                                 <date date-type="received">
                                     <day>05</day>
                                     <month>01</month>
-                                    <year>98</year>
+                                    <year>1998</year>
                                 </date>
                                 <date date-type="rev-request">
                                     <day>40</day>
@@ -393,11 +395,12 @@ class HistoryDatesValidationTest(TestCase):
                 'title': 'History date validation',
                 'xpath': './/front//history//date',
                 'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
+                'response': 'OK',
+                'expected_value': ['received', 'accepted', 'approved'],
                 'got_value': ['received', 'accepted', 'approved'],
-                'message': "Got ['received', 'accepted', 'approved'] expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
-                'advice': 'Provide a valid sequence of events',
+                'message': "Got [('received', '1998-01-05'), ('accepted', '1998-06-06'), ('approved', '2012-06-01')] "
+                           "expected ['received', 'accepted', 'approved']",
+                'advice': None
             },
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -454,9 +457,11 @@ class HistoryDatesValidationTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
                 'got_value': ['rev-request', 'received', 'rev-recd', 'accepted', 'approved'],
-                'message': "Got ['rev-request', 'received', 'rev-recd', 'accepted', 'approved'] "
-                           "expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
-                'advice': 'Provide a valid sequence of events',
+                'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-01-04'), ('rev-recd', "
+                           "'1998-05-24'), ('accepted', '1998-06-06'), ('approved', '2012-06-01')] expected ["
+                           "'received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
+                'advice': "Provide a valid sequence of events: ['received', 'rev-request', 'rev-recd', 'accepted', "
+                          "'approved']",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -515,12 +520,13 @@ class HistoryDatesValidationTest(TestCase):
                 'title': 'History date validation',
                 'xpath': './/front//history//date',
                 'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
+                'response': 'OK',
+                'expected_value': ['received', 'rev-request', 'rev-recd', 'approved'],
                 'got_value': ['received', 'rev-request', 'rev-recd', 'approved'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'approved'] "
-                           "expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
-                'advice': 'Provide a valid sequence of events'
+                'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
+                           "'1998-05-24'), ('approved', '2012-06-01')] expected ['received', 'rev-request', "
+                           "'rev-recd', 'approved']",
+                'advice': None
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
