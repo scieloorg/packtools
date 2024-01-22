@@ -5,17 +5,22 @@ from packtools.sps.models import (
 )
 
 
-def _elements_exist(title, abstract, keyword):
+def _elements_exist(article_type, title_lang, title, abstract, keyword):
     # verifica se existe título no XML
-    if not title.article_title.get('text'):
-        return False, 'title', './/article-title/@xml:lang', 'title for the article', title.article_title.get('lang')
+    if not title.article_title_dict.get(title_lang):
+        return False, True, 'title', './/article-title/@xml:lang', f'title for the {article_type}'
     # verifica se existe palavras-chave sem resumo
     if abstract == [] and keyword != []:
-        return False, 'abstract', './/abstract/@xml:lang', 'abstract for the article', " | ".join(keyword)
+        return False, True, 'abstract', './/abstract/@xml:lang', f'abstract for the {article_type}'
     # verifica se existe resumo sem palavras-chave
     if abstract != [] and keyword == []:
-        return False, 'kwd-group', './/kwd-group/@xml:lang', 'keywords for the article', " | ".join(abstract)
-    return True, None, None, None, None
+        return False, True, 'kwd-group', './/kwd-group/@xml:lang', f'keywords for the {article_type}'
+    # verifica se o teste é necessário
+    if abstract == [] and keyword == []:
+        return True, False, None, None, None
+    return True, True, None, None, None
+
+
 
 
 class ArticleLangValidation:
