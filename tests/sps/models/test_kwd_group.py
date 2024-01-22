@@ -122,3 +122,18 @@ class KwdGroupTest(TestCase):
             }
         
         self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
+
+    def test_extract_kwd_data_with_lang_text_by_article_type(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree('tests/samples/example_xml_keywords_error.xml')
+        obtained = KwdGroup(xmltree).extract_kwd_data_with_lang_text_by_article_type(subtag=False)
+
+        expected = [
+            {'type': 'article', 'lang': 'pt', 'text': ['Enfermagem', 'Idoso de 80 Anos ou Mais', 'Relações Familiares']},
+            {'type': 'article', 'lang': 'es', 'text': ['Enfermería', 'Anciano de 80 Años o Más', 'Relaciones Familiares']},
+            {'type': 'sub-article', 'lang': 'en', 'text': ['Nursing', 'Aged, 80 Years or More', 'Family Relationships']}
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
