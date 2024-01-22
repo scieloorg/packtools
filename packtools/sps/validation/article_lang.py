@@ -117,19 +117,14 @@ class ArticleLangValidation:
                 },...
             ]
         """
-        # obtem uma lista com códigos de idiomas para títulos: ['pt', 'en', 'es']
-        title_lang_list = [self.article_title.article_title.get('lang')] + \
-                          [item.get('lang') for item in self.article_title.trans_titles]
+        # obtem um dicionário com códigos de idiomas para títulos: {'article': ['pt', 'en'], 'sub-article': ['es']}
+        title_langs_dict = get_title_langs(self.article_title)
 
-        # obtem uma lista com códigos de idiomas para resumos: ['pt', 'en', 'es']
-        try:
-            abstract_lang_list = [self.article_abstract.get_main_abstract().get('lang')] + \
-                                 [item.get('lang') for item in self.article_abstract._get_trans_abstracts()]
-        except AttributeError:
-            abstract_lang_list = []
+        # obtem um dicionário com códigos de idiomas para resumos: {'article': ['pt', 'en'], 'sub-article': ['es']}
+        abstract_langs_dict = get_abstract_langs(self.article_abstract)
 
-        # obtem uma lista com códigos de idiomas para palavras-chave: ['pt', 'en', 'es']
-        keyword_lang_list = list(self.article_kwd.keys())
+        # obtem um dicionário com códigos de idiomas para palavras-chave: {'article': ['pt', 'en'], 'sub-article': ['es']}
+        keyword_langs_dict = get_keyword_langs(self.article_kwd)
 
         # verifica a exsitência dos elementos no XML
         exist, element, xpath, expected, lang = _elements_exist(self.article_title, abstract_lang_list,
