@@ -186,17 +186,20 @@ class Abstract:
         Formato padrão: inline
 
         """
-        lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
-        abstract = self._format_abstract(
-            abstract_node=self.xmltree.find(".//abstract"),
-            style=style,
-        )
-        if not style:
-            abstract["lang"] = lang
-        return {
-            "lang": lang,
-            "abstract": abstract,
-        }
+        abstract_node = self.xmltree.find(".//abstract")
+        if abstract_node:
+            abstract = self._format_abstract(
+                abstract_node=abstract_node,
+                style=style,
+            )
+            article_lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+            abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            if not style:
+                abstract["lang"] = abstract_lang or article_lang
+            return {
+                "lang": abstract_lang or article_lang,
+                "abstract": abstract,
+            }
 
     @property
     def main_abstract_without_tags(self):
@@ -238,15 +241,19 @@ class Abstract:
         Retorna gerador de resumos em sub-article
         """
         for sub_article in self.xmltree.xpath(".//sub-article"):
-            item = {}
-            item["lang"] = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-            item["abstract"] = self._format_abstract(
-                abstract_node=sub_article.find(".//front-stub//abstract"),
-                style=style
-            )
-            if not style:
-                item["abstract"]["lang"] = item["lang"]
-            yield item
+            abstract_node = sub_article.find(".//front-stub//abstract")
+            if abstract_node is not None:
+                sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
+                abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+                item = {}
+                item["lang"] = abstract_lang or sub_article_lang
+                item["abstract"] = self._format_abstract(
+                    abstract_node=abstract_node,
+                    style=style
+                )
+                if not style:
+                    item["abstract"]["lang"] = item["lang"]
+                yield item
 
     @property
     def _sub_article_abstract_with_tags(self):
