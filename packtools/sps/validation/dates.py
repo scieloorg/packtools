@@ -134,7 +134,8 @@ class ArticleDatesValidation:
                     'advice': f'Provide a valid date for {event_type}'
                 }
         seq_ordered = [tp[0] for tp in sorted(seq, key=lambda x: x[1])]
-        is_valid = seq_ordered == order
+        is_valid = check_order(seq_ordered, order)
+        expected = seq_ordered if is_valid else order
         yield {
             'title': 'History date validation',
             'xpath': './/front//history//date',
