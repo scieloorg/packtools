@@ -69,7 +69,7 @@ class ArticleLangValidation:
     def __init__(self, xml_tree):
         self.article_title = article_titles.ArticleTitles(xml_tree)
         self.article_abstract = article_abstract.Abstract(xml_tree)
-        self.article_kwd = kwd_group.KwdGroup(xml_tree).extract_kwd_extract_data_by_lang(None)
+        self.article_kwd = kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None)
 
     def validate_article_lang(self):
         """
