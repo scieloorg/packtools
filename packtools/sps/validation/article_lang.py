@@ -54,6 +54,15 @@ def get_abstract_langs(abstracts):
     }
 
 
+def get_keyword_langs(kwd):
+    resp = {
+        'article': [],
+        'sub-article': []
+    }
+    for item in kwd:
+        resp[item['type']].append(item.get('lang'))
+
+    return resp
 
 
 class ArticleLangValidation:
