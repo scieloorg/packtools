@@ -21,6 +21,22 @@ def _elements_exist(article_type, title_lang, title, abstract, keyword):
     return True, True, None, None, None
 
 
+def get_title_langs(titles):
+    article_langs = (
+        ([titles.article_title.get('lang')] if titles.article_title.get('text') else []) +
+        [item.get('lang') for item in titles.trans_titles if item.get('text')]
+    )
+
+    sub_article_langs = [item.get('lang') for item in titles.sub_article_titles if item.get('text')]
+
+    resp = {'article': article_langs}
+
+    if sub_article_langs:
+        resp['sub-article'] = sub_article_langs
+
+    return resp
+
+
 
 
 class ArticleLangValidation:
