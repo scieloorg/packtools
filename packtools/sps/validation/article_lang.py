@@ -37,6 +37,23 @@ def get_title_langs(titles):
     return resp
 
 
+def get_abstract_langs(abstracts):
+    main_abstract = abstracts.get_main_abstract(style='inline')
+    if main_abstract:
+        main_abstract_lang = [main_abstract.get('lang')] if main_abstract.get('abstract') else []
+    else:
+        main_abstract_lang = []
+
+    trans_abstract_langs = [item.get('lang') for item in abstracts._get_trans_abstracts(style='inline') if item.get('abstract')]
+
+    sub_article_abstract_langs = [item.get('lang') for item in abstracts._get_sub_article_abstracts(style='inline') if item.get('abstract')]
+
+    return {
+        'article': main_abstract_lang + trans_abstract_langs,
+        'sub-article': sub_article_abstract_langs
+    }
+
+
 
 
 class ArticleLangValidation:
