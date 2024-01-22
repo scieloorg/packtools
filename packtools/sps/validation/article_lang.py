@@ -150,12 +150,23 @@ class ArticleLangValidation:
 
         if exist:
             # validação de correspondência entre os idiomas, usando como base o título
-            for element, langs in zip(['abstract', 'kwd-group'], [abstract_lang_list, keyword_lang_list]):
-                for title_lang, element_lang in zip(title_lang_list, langs):
-                    is_valid = title_lang == element_lang
-                    expected = title_lang
-                    obtained = element_lang
-                    advice = None if is_valid else f'Provide {element} in the language \'{title_lang}\''
+                if exist and is_required:
+                    # validação de correspondência entre os idiomas, usando como base o título
+                    for element, langs in zip(['abstract', 'kwd-group'], [abstract_langs_dict.get(article_type), keyword_langs_dict.get(article_type)]):
+                        is_valid = title_lang in langs
+                        expected = title_lang
+                        obtained = langs
+                        advice = None if is_valid else f'Provide {element} in the language {title_lang}'
+                        yield {
+                            'title': f'{article_type} {element} element lang attribute validation',
+                            'xpath': f'.//article-title/@xml:lang .//{element}/@xml:lang',
+                            'validation_type': 'match',
+                            'response': 'OK' if is_valid else 'ERROR',
+                            'expected_value': expected,
+                            'got_value': obtained,
+                            'message': f'Got {obtained} expected {expected}',
+                            'advice': advice
+                        }
                     yield {
                         'title': f'{element} element lang attribute validation',
                         'xpath': f'.//article-title/@xml:lang .//{element}/@xml:lang',
