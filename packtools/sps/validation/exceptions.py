@@ -57,3 +57,6 @@ class ValidationLicenseCodeException(Exception):
     
 class ValidationDataAvailabilityException(Exception):
     ...
+
+class ValidationIssueMissingValue(Exception):
+    ...
