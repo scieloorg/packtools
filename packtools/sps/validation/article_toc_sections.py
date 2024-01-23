@@ -224,27 +224,84 @@ class ArticleTocSectionsValidation:
             }
 
     def validade_article_title_is_different_from_section_titles(self):
-        section_titles = self.article_toc_sections.article_section_dict
-        section_titles.update(self.article_toc_sections.sub_article_section_dict)
-        article_title = self.article_titles.article_title_dict
-        resp = []
-        message = "OK, all section titles are different from the title of the article"
-        result = True
-        for lang, text in section_titles.items():
-            if text == article_title.get(lang):
-                message = 'ERROR: Article title ("{}") must not be the same as the section title ("{}")'.format(article_title.get(lang), text)
-                result = False
+        """
+        Checks if the titles provided for article and sections are different from each other.
 
-        resp.append(
-            dict(
-                object='section title',
-                article_title=article_title,
-                section_title=section_titles,
-                result=result,
-                message=message
-            )
-        )
-        return resp
+        XML input
+        ---------
+        <article xml:lang="es">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título do artigo em espanhol</article-title>
+                            <trans-title-group xml:lang="en">
+                                <trans-title>Título do artigo em inglês</trans-title>
+                            </trans-title-group>
+                    </title-group>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                        <subject>Nome da seção do artigo em espanhol</subject>
+                            <subj-group>
+                            <subject>Food Safety</subject>
+                            </subj-group>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>Título do artigo em espanhol</article-title>
+                    </title-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="en">
+                <front-stub>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                        <subject>Nome da seção do sub-artigo em inglês</subject>
+                            <subj-group>
+                            <subject>Food Safety</subject>
+                            </subj-group>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>Título do sub-artigo em inglês</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>
+        </article>
+
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title different from section titles',
+                'message': "Article title: Título do artigo em espanhol, section titles: ['Nome da seção do artigo em espanhol']",
+                'advice': None
+                },...
+            ]
+        """
+        obtained_toc_sections = _get_sections(self.article_toc_sections)
+        article_title = self.article_titles.article_title_dict
+
+        for lang, section in obtained_toc_sections.items():
+            is_valid = article_title.get(lang) not in section.get('sections')
+            yield {
+                'title': section.get('title'),
+                'xpath': section.get('xpath'),
+                'validation_type': 'match',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title {} section titles'.format('different from' if is_valid else 'same as'),
+                'message': 'Article title: {}, section titles: {}'.format(article_title.get(lang), section.get('sections')),
+                'advice': None if is_valid else 'Provide different titles between article and sections'
+            }
+
 
     
     def validate(self, data):
