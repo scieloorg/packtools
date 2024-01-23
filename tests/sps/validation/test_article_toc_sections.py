@@ -7,7 +7,8 @@ from packtools.sps.validation.article_toc_sections import ArticleTocSectionsVali
 
 class ArticleTocSectionsTest(TestCase):
 
-    def test_validate_article_toc_sections_returns_ok(self):
+    def test_validate_article_toc_sections_success(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xml:lang="es">
@@ -15,31 +16,19 @@ class ArticleTocSectionsTest(TestCase):
                 <article-meta>
                     <title-group>
                         <article-title>Título do artigo em espanhol</article-title>
-                            <trans-title-group xml:lang="en">
-                                <trans-title>Título do artigo em inglês</trans-title>
-                            </trans-title-group>
                     </title-group>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                        <subject>Nome da seção do artigo em espanhol</subject>
-                            <subj-group>
-                            <subject>Food Safety</subject>
-                            </subj-group>
+                            <subject>Nome da seção do artigo em espanhol</subject>
                         </subj-group>
                     </article-categories>
-                    <title-group>
-                        <article-title>Título do artigo em espanhol</article-title>
-                    </title-group>
                 </article-meta>
             </front>
             <sub-article article-type="translation" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                        <subject>Nome da seção do sub-artigo em inglês</subject>
-                            <subj-group>
-                            <subject>Food Safety</subject>
-                            </subj-group>
+                            <subject>Nome da seção do sub-artigo em inglês</subject>
                         </subj-group>
                     </article-categories>
                     <title-group>
@@ -58,26 +47,100 @@ class ArticleTocSectionsTest(TestCase):
             }
         expected = [
             {
-                'object': 'article section title',
-                'expected_value': ["Nome da seção do artigo em espanhol"],
-                'obtained_value': "Nome da seção do artigo em espanhol",
-                'result': True,
-                'message': "OK, section titles match the document"
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': ['Nome da seção do artigo em espanhol'],
+                'got_value': ['Nome da seção do artigo em espanhol'],
+                'message': 'Got [\'Nome da seção do artigo em espanhol\'] expected [\'Nome da seção do artigo em espanhol\']',
+                'advice': None
             },
             {
-                'object': 'sub-article section title',
-                'expected_value': ["Nome da seção do sub-artigo em inglês"],
-                'obtained_value': "Nome da seção do sub-artigo em inglês",
-                'result': True,
-                'message': "OK, section titles match the document"
+                'title': 'Sub-article section title validation',
+                'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': ['Nome da seção do sub-artigo em inglês'],
+                'got_value': ['Nome da seção do sub-artigo em inglês'],
+                'message': 'Got [\'Nome da seção do sub-artigo em inglês\'] expected [\'Nome da seção do sub-artigo em inglês\']',
+                'advice': None
             }
         ]
-        result_article_sections = self.article_toc_sections.validate_article_toc_sections(expected_section)
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
 
-        self.assertIn(expected[0], result_article_sections)
-        self.assertIn(expected[1], result_article_sections)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_toc_sections_returns_error(self):
+    def test_validate_article_toc_sections_fail_sections_missing(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xml:lang="es">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título do artigo em espanhol</article-title>
+                    </title-group>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Nome da seção do artigo em espanhol</subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="en">
+                <front-stub>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Nome da seção do sub-artigo em inglês</subject>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND
+                         CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>        
+            </article>
+            """
+        )
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+        expected_section = {
+                "pt": ["Nome da seção do artigo em português"],
+                "fr": ["Nome da seção do sub-artigo em francês"]
+            }
+        expected = [
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['Nome da seção do artigo em português'],
+                'got_value': None,
+                'message': 'Got None expected [\'Nome da seção do artigo em português\']',
+                'advice': "Provide sections as expected: ['Nome da seção do artigo em português']"
+            },
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': ['Nome da seção do sub-artigo em francês'],
+                'got_value': None,
+                'message': 'Got None expected [\'Nome da seção do sub-artigo em francês\']',
+                'advice': "Provide sections as expected: ['Nome da seção do sub-artigo em francês']"
+            }
+        ]
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_toc_sections_fail(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xml:lang="es">
@@ -128,26 +191,34 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'object': 'article section title',
-                'expected_value': ["Nome da seção do sub-artigo em espanhol"],
-                'obtained_value': "Nome da seção do artigo em espanhol",
-                'result': False,
-                'message': "ERROR, section titles no match the document"
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': ['Nome da seção do sub-artigo em espanhol'],
+                'got_value': ['Nome da seção do artigo em espanhol'],
+                'message': 'Got [\'Nome da seção do artigo em espanhol\'] expected [\'Nome da seção do sub-artigo em espanhol\']',
+                'advice': "Provide sections as expected: ['Nome da seção do sub-artigo em espanhol']"
             },
             {
-                'object': 'sub-article section title',
-                'expected_value': ["Nome da seção do artigo em inglês"],
-                'obtained_value': "Nome da seção do sub-artigo em inglês",
-                'result': False,
-                'message': "ERROR, section titles no match the document"
+                'title': 'Sub-article section title validation',
+                'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': ['Nome da seção do artigo em inglês'],
+                'got_value': ['Nome da seção do sub-artigo em inglês'],
+                'message': 'Got [\'Nome da seção do sub-artigo em inglês\'] expected [\'Nome da seção do artigo em inglês\']',
+                'advice': "Provide sections as expected: ['Nome da seção do artigo em inglês']"
             }
         ]
-        result_article_sections = self.article_toc_sections.validate_article_toc_sections(expected_section)
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
 
-        self.assertIn(expected[0], result_article_sections)
-        self.assertIn(expected[1], result_article_sections)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_toc_sections_returns_error_journal_has_no_section(self):
+    def test_validate_article_toc_sections_fail_journal_has_no_section(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xml:lang="es">
@@ -173,34 +244,29 @@ class ArticleTocSectionsTest(TestCase):
             """
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
-        # A revista publica somente seções em inglês.
-        toc_section = {
+        expected_section = {
             "en": ["Nome da seção do sub-artigo em inglês"]
         }
         expected = [
             {
-                'object': 'article section title',
-                'expected_value': None,
-                'obtained_value': "Nome da seção do artigo em espanhol",
-                'result': False,
-                'message': "ERROR, section titles no match the document"
-            },
-            {
-                'object': 'sub-article section title',
-                'expected_value': ["Nome da seção do sub-artigo em inglês"],
-                'obtained_value': "Nome da seção do sub-artigo em inglês",
-                'result': True,
-                'message': "OK, section titles match the document"
+                'title': 'Sub-article section title validation',
+                'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': ['Nome da seção do sub-artigo em inglês'],
+                'got_value': ['Nome da seção do sub-artigo em inglês'],
+                'message': 'Got [\'Nome da seção do sub-artigo em inglês\'] expected [\'Nome da seção do sub-artigo em inglês\']',
+                'advice': None
             }
         ]
-        result_article_sections = self.article_toc_sections.validate_article_toc_sections(toc_section)
-        for index, item in enumerate(expected):
-            with self.subTest(index):
-                self.assertIn(item, result_article_sections)
-        # self.assertIn(expected[0], result_article_sections)
-        # self.assertIn(expected[1], result_article_sections)
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
 
-    def test_validade_article_title_is_different_from_section_titles_returns_ok(self):
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validade_article_title_is_different_from_section_titles_success(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xml:lang="es">
@@ -246,27 +312,34 @@ class ArticleTocSectionsTest(TestCase):
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected = [
             {
-                'object': 'section title',
-                'article_title': {
-                    'es': 'Título do artigo em espanhol',
-                    'en': 'Título do sub-artigo em inglês'
-                },
-                'section_title': {
-                    "es": "Nome da seção do artigo em espanhol",
-                    "en": "Nome da seção do sub-artigo em inglês",
-                },
-                'result': True,
-                'message': 'OK, all section titles are different from the title of the article'
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title different from section titles',
+                'message': "Article title: Título do artigo em espanhol, section titles: ['Nome da seção do artigo em espanhol']",
+                'advice': None
+            },
+            {
+                'title': 'Sub-article section title validation',
+                'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title different from section titles',
+                'message': "Article title: Título do sub-artigo em inglês, section titles: ['Nome da seção do sub-artigo em inglês']",
+                'advice': None
             }
         ]
-        result_article_sections = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
+        obtained = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
 
-        self.assertEqual(expected[0]['message'], result_article_sections[0]['message'])
-        self.assertEqual(expected[0]['result'], result_article_sections[0]['result'])
-        self.assertDictEqual(expected[0]['article_title'], result_article_sections[0]['article_title'])
-        self.assertDictEqual(expected[0]['section_title'], result_article_sections[0]['section_title'])
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_validade_article_title_is_different_from_section_titles_returns_error(self):
+    def test_validade_article_title_is_different_from_section_titles_fail(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xml:lang="es">
@@ -274,9 +347,6 @@ class ArticleTocSectionsTest(TestCase):
                 <article-meta>
                     <title-group>
                         <article-title>Editorial</article-title>
-                            <trans-title-group xml:lang="en">
-                                <trans-title>Editorial</trans-title>
-                            </trans-title-group>
                     </title-group>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -303,20 +373,28 @@ class ArticleTocSectionsTest(TestCase):
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected = [
             {
-                'object': 'section title',
-                'article_title': {
-                    "es": "Editorial",
-                    "en": "Editorial",
-                },
-                'section_title': {
-                    "es": "Editorial",
-                    "en": "Editorial",
-                },
-                'result': False,
-                'message': 'ERROR: Article title ("Editorial") must not be the same'
-                           ' as the section title ("Editorial")'
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title same as section titles',
+                'message': "Article title: Editorial, section titles: ['Editorial']",
+                'advice': 'Provide different titles between article and sections'
+            },
+            {
+                'title': 'Sub-article section title validation',
+                'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'article title different from section titles',
+                'got_value': 'article title same as section titles',
+                'message': "Article title: Editorial, section titles: ['Editorial']",
+                'advice': 'Provide different titles between article and sections'
             }
         ]
-        result_article_sections = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
+        obtained = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
 
-        self.assertListEqual(expected, result_article_sections)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
