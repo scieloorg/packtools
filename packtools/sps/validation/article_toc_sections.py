@@ -139,28 +139,89 @@ class ArticleTocSectionsValidation:
         self.article_titles = ArticleTitles(xmltree)
 
     def validate_article_toc_sections(self, expected_toc_sections):
-        resp = []
-        for lang, text in self.article_toc_sections.all_section_dict.items():
-            if text == self.article_toc_sections.article_section_dict.get(lang):
-                obj = 'article section title'
+        """
+        Check whether the TOC sections matches the options provided in a standard list.
+
+        XML input
+        ---------
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+                <title-group>
+                    <article-title>Título do artigo em espanhol</article-title>
+                </title-group>
+                <article-categories>
+                    <subj-group subj-group-type="heading">
+                        <subject>Nome da seção do artigo em espanhol</subject>
+                    </subj-group>
+                </article-categories>
+            </article-meta>
+        </front>
+        <sub-article article-type="translation" xml:lang="en">
+            <front-stub>
+                <article-categories>
+                    <subj-group subj-group-type="heading">
+                        <subject>Nome da seção do sub-artigo em inglês</subject>
+                    </subj-group>
+                </article-categories>
+                <title-group>
+                    <article-title>HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE FUTURES CONTRACTS: A DURATION AND
+                     CONVEXITY ANALYSIS UNDER THE NELSON SIEGEL MODEL</article-title>
+                </title-group>
+            </front-stub>
+        </sub-article>
+        </article>
+
+        Params
+        ------
+        expected_toc_sections : dict, such as:
+            {
+                "es": ["Nome da seção do artigo em espanhol"],
+                "en": ["Nome da seção do sub-artigo em inglês"]
+            }
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': ['Nome da seção do artigo em espanhol'],
+                'got_value': ['Nome da seção do artigo em espanhol'],
+                'message': 'Got [\'Nome da seção do artigo em espanhol\'] expected [\'Nome da seção do artigo em espanhol\']',
+                'advice': None
+                },...
+            ]
+        """
+        obtained_toc_sections = _get_sections(self.article_toc_sections)
+        for lang, sections in expected_toc_sections.items():
+            obtained_toc_section = obtained_toc_sections.get(lang)
+            if obtained_toc_section is not None:
+                is_valid = obtained_toc_section.get('sections') == sections
+                title = obtained_toc_section.get('title')
+                xpath = obtained_toc_section.get('xpath')
+                validation = 'match'
+                obtained = obtained_toc_section.get('sections')
             else:
-                obj = 'sub-article section title'
-            if text in (expected_toc_sections.get(lang) or []):
-                message = "OK, section titles match the document"
-                result = True
-            else:
-                message = "ERROR, section titles no match the document"
-                result = False
-            resp.append(
-                dict(
-                    object=obj,
-                    expected_value=expected_toc_sections.get(lang),
-                    obtained_value=text,
-                    result=result,
-                    message=message
-                )
-            )
-        return resp
+                is_valid = False
+                title = 'Article or sub-article section title validation'
+                xpath = ".//subj-group[@subj-group-type='heading']/subject"
+                validation = 'exist'
+                obtained = None
+            yield {
+                'title': title,
+                'xpath': xpath,
+                'validation_type': validation,
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': sections,
+                'got_value': obtained,
+                'message': 'Got {} expected {}'.format(obtained, sections),
+                'advice': None if is_valid else 'Provide sections as expected: {}'.format(sections)
+            }
 
     def validade_article_title_is_different_from_section_titles(self):
         section_titles = self.article_toc_sections.article_section_dict
