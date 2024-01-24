@@ -167,7 +167,7 @@ class ArticleDatesValidation:
 
     def validate_history_dates(self, order, required_events):
         """
-        Checks events in an article's history for completeness, validity, and chronological date order.
+        Checks events in an article's history for completeness, validity, and chronological date main_sequence.
 
         XML input
         ---------
@@ -195,7 +195,7 @@ class ArticleDatesValidation:
                             <month>06</month>
                             <year>1998</year>
                         </date>
-                        <date date-type="approved">
+                        <date date-type="corrected">
                             <day>01</day>
                             <month>06</month>
                             <year>2012</year>
@@ -208,7 +208,7 @@ class ArticleDatesValidation:
         Parameters
         ----------
         order : list
-            A list with the order in which events occur.
+            A list with the main_sequence in which events occur.
         required_events : list
             A list with required events.
 
@@ -222,10 +222,10 @@ class ArticleDatesValidation:
                     'xpath': './/front//history//date',
                     'validation_type': 'value',
                     'response': 'OK',
-                    'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
-                    'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'],
-                    'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'approved'] "
-                               "expected ['received', 'rev-request', 'rev-recd', 'accepted', 'approved']",
+                    'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
+                    'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
+                    'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
+                               "'1998-05-24'), ('accepted', '1998-06-06'), ('corrected', '2012-06-01')]",
                     'advice': None
                 }, ...
             ]
@@ -395,7 +395,8 @@ class ArticleDatesValidation:
             'expected_value': 'A date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
             'got_value': got_value,
             'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
-            'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date)
+            'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(
+                future_date)
         }
 
     def validate_collection_date(self, future_date):
@@ -480,22 +481,21 @@ class ArticleDatesValidation:
                 'advice': 'Provide the publication date of the collection'
             }
 
-
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleDatesValidation.
 
         Returns:
             dict: Um dicionário contendo os resultados das validações realizadas.
-        
-        """              
+
+        """
         dates_req_order_events_results = {
-                'article_dates_required_order_events_validation': self.history_dates_are_sorted(
-                data['history_dates_required_order'], 
+            'article_dates_required_order_events_validation': self.history_dates_are_sorted(
+                data['history_dates_required_order'],
                 data['required_events'])
-            }
-        dates_are_complete_results = { 
+        }
+        dates_are_complete_results = {
             'article_dates_are_complete_validation': self.history_dates_are_complete()
-            }
+        }
         dates_req_order_events_results.update(dates_are_complete_results)
         return dates_req_order_events_results
