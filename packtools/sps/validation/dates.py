@@ -230,47 +230,69 @@ class ArticleDatesValidation:
                 }, ...
             ]
         """
-        seq = []
-        for event_type in order:
-            event_date = self.history.history_dates_dict.get(event_type)
-            if event_date:
-                is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
-                if not is_valid:
-                    yield {
-                        'title': 'History date validation',
-                        'xpath': './/front//history//date',
-                        'validation_type': 'format',
-                        'response': 'ERROR',
-                        'expected_value': expected,
-                        'got_value': obtained,
-                        'message': message,
-                        'advice': advice
-                    }
-                else:
-                    seq.append((event_type, obtained))
-            elif event_type in required_events:
+        obtained_events = []
+
+        # obtem os nomes dos eventos e suas respectivas datas
+        for event_type, event_date in self.history.history_dates_dict.items():
+            # verifica se a data é válida
+            is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
+            # resposta para data inválida
+            if not is_valid:
                 yield {
                     'title': 'History date validation',
                     'xpath': './/front//history//date',
-                    'validation_type': 'exist',
+                    'validation_type': 'format',
                     'response': 'ERROR',
-                    'expected_value': f'a date for {event_type}',
-                    'got_value': None,
-                    'message': f'the event {event_type} is required',
-                    'advice': f'Provide a valid date for {event_type}'
+                    'expected_value': expected,
+                    'got_value': obtained,
+                    'message': message,
+                    'advice': advice
                 }
-        seq_ordered = [tp[0] for tp in sorted(seq, key=lambda x: x[1])]
-        is_valid = check_order(seq_ordered, order)
-        expected = seq_ordered if is_valid else order
+            else:
+                # as tuplas (nome do evento, data válida) são introduzidas na lista obtained_events
+                obtained_events.append((event_type, obtained))
+
+        # ordena a lista de eventos de forma cronológica
+        obtained_events_ordered = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
+
+        # obtem uma lista com os nomes dos eventos ordenados
+        obtained_event_names_ordered = [event[0] for event in obtained_events_ordered]
+
+        # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
+        missing_events = sort_by_reference_list(list(set(required_events) - set(obtained_event_names_ordered)), order)
+
+        # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
+        unknown_events = sorted(list(set(obtained_event_names_ordered) - set(order)))
+
+        # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
+        is_ordered = is_subsequence_in_order(obtained_event_names_ordered, order)
+        is_complete = missing_events == []
+        are_all_known = unknown_events == []
+        is_valid = is_ordered and is_complete and are_all_known
+
+        # prepara o conteúdo de advice
+        advice = 'Provide'
+        if not is_ordered:
+            advice += ' ordering of events'
+        if not is_complete:
+            advice += f' valid date for: {missing_events}'
+        if not are_all_known:
+            advice += f' removal of events: {unknown_events}'
+
+        # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
+        # ordenados pelo padrão
+        expected = sort_by_reference_list(
+            list((set(obtained_event_names_ordered) | set(required_events)) - set(unknown_events)), order)
+
         yield {
             'title': 'History date validation',
             'xpath': './/front//history//date',
             'validation_type': 'value',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': expected,
-            'got_value': seq_ordered,
-            'message': f'Got {seq} expected {expected}',
-            'advice': None if is_valid else f'Provide a valid sequence of events: {expected}'
+            'got_value': obtained_event_names_ordered,
+            'message': f'Got {obtained_events_ordered}',
+            'advice': None if is_valid else advice
         }
 
     def validate_number_of_digits_in_article_date(self):
