@@ -338,8 +338,12 @@ class XMLWithPre:
             front.append(parent)
             return parent
 
-    def tostring(self):
-        return self.xmlpre + etree.tostring(self.xmltree, encoding="utf-8").decode(
+    def tostring(self, pretty_print=False):
+        return self.xmlpre + etree.tostring(
+            self.xmltree,
+            encoding="utf-8",
+            pretty_print=pretty_print,
+        ).decode(
             "utf-8"
         )
 
