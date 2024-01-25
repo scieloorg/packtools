@@ -13,8 +13,8 @@ class PidProviderXMLAdapter:
         self.xml_with_pre = xml_with_pre
         self.pkg_name = pkg_name
 
-    def tostring(self):
-        return self.xml_with_pre.tostring()
+    def tostring(self, pretty_print=False):
+        return self.xml_with_pre.tostring(pretty_print=pretty_print)
 
     @property
     def sps_pkg_name(self):
