@@ -244,10 +244,11 @@ class XMLWithPre:
     Preserva o texto anterior ao elemento `root`
     """
 
-    def __init__(self, xmlpre, xmltree):
+    def __init__(self, xmlpre, xmltree, pretty_print=True):
         self.xmlpre = xmlpre or ""
         self.xmltree = xmltree
         self.filename = None
+        self.pretty_print = pretty_print
 
     @classmethod
     def create(cls, path=None, uri=None):
@@ -266,12 +267,12 @@ class XMLWithPre:
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout=30)
 
-    def get_zip_content(self, xml_filename):
+    def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
         with TemporaryDirectory() as tmpdirname:
             temp_zip_file_path = os.path.join(tmpdirname, f"{xml_filename}.zip")
             with ZipFile(temp_zip_file_path, "w") as zf:
-                zf.writestr(xml_filename, self.tostring())
+                zf.writestr(xml_filename, self.tostring(pretty_print=pretty_print))
 
             with open(temp_zip_file_path, "rb") as fp:
                 zip_content = fp.read()
@@ -736,7 +737,7 @@ class XMLWithPre:
 
     @property
     def finger_print(self):
-        return generate_finger_print(self.tostring())
+        return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
 
 
 def generate_finger_print(content):
