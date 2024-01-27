@@ -31,7 +31,7 @@ class KwdGroup:
         return _data
 
     def extract_kwd_extract_data_by_lang(self, subtag):
-        
+
         _data_dict = {}
         _data = self.extract_kwd_data_with_lang_text(subtag)
 
@@ -52,6 +52,7 @@ class KwdGroup:
         for tp, nodes in dict_nodes.items():
             for node in nodes:
                 node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+                node_id = node.get("id") if tp == "sub-article" else "main"
 
                 for kwd_group in node.xpath('.//kwd-group'):
                     kwd_group_lang = kwd_group.get("{http://www.w3.org/XML/1998/namespace}lang", node_lang)
@@ -59,5 +60,4 @@ class KwdGroup:
                     keyword_text = []
                     for kwd in kwd_group.xpath("kwd"):
                         keyword_text.append(kwd_text(kwd))
-                    yield {"type": tp, "lang": kwd_group_lang, "text": keyword_text}
-
+                    yield {"element_name": tp, "id": node_id, "lang": kwd_group_lang, "text": keyword_text}
