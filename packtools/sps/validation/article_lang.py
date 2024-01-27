@@ -5,64 +5,41 @@ from packtools.sps.models import (
 )
 
 
-def _elements_exist(article_type, title_lang, title, abstract, keyword):
+def _elements_exist(title_dict, title_object, abstracts, keywords):
     # verifica se existe título no XML
-    if not title.article_title_dict.get(title_lang):
-        return False, True, 'title', './/article-title/@xml:lang', f'title for the {article_type}'
+    if not title_object.article_title_dict.get(title_dict.get('lang')):
+        return False, True, 'title', './/article-title/@xml:lang', f'title for the {title_dict.get("element_name")}'
     # verifica se existe palavras-chave sem resumo
-    if abstract == [] and keyword != []:
-        return False, True, 'abstract', './/abstract/@xml:lang', f'abstract for the {article_type}'
+    if abstracts == [] and keywords != []:
+        return False, True, 'abstract', './/abstract/@xml:lang', f'abstract for the {title_dict.get("element_name")}'
     # verifica se existe resumo sem palavras-chave
-    if abstract != [] and keyword == []:
-        return False, True, 'kwd-group', './/kwd-group/@xml:lang', f'keywords for the {article_type}'
+    if abstracts != [] and keywords == []:
+        return False, True, 'kwd-group', './/kwd-group/@xml:lang', f'keywords for the {title_dict.get("element_name")}'
     # verifica se o teste é necessário
-    if abstract == [] and keyword == []:
+    if abstracts == [] and keywords == []:
         return True, False, None, None, None
     return True, True, None, None, None
 
 
-def get_title_langs(titles):
-    article_langs = (
-        ([titles.article_title.get('lang')] if titles.article_title.get('text') else []) +
-        [item.get('lang') for item in titles.trans_titles if item.get('text')]
-    )
-
-    sub_article_langs = [item.get('lang') for item in titles.sub_article_titles if item.get('text')]
-
-    resp = {'article': article_langs}
-
-    if sub_article_langs:
-        resp['sub-article'] = sub_article_langs
-
-    return resp
+def get_element_langs(element):
+    return [
+        {
+            'element_name': 'article' if item.get('id') in ['main', 'trans'] else 'sub-article',
+            'lang': item.get('lang'),
+            'id': item.get('id')
+        }
+        for item in element if item
+    ]
 
 
-def get_abstract_langs(abstracts):
-    main_abstract = abstracts.get_main_abstract(style='inline')
-    if main_abstract:
-        main_abstract_lang = [main_abstract.get('lang')] if main_abstract.get('abstract') else []
-    else:
-        main_abstract_lang = []
-
-    trans_abstract_langs = [item.get('lang') for item in abstracts._get_trans_abstracts(style='inline') if item.get('abstract')]
-
-    sub_article_abstract_langs = [item.get('lang') for item in abstracts._get_sub_article_abstracts(style='inline') if item.get('abstract')]
-
-    return {
-        'article': main_abstract_lang + trans_abstract_langs,
-        'sub-article': sub_article_abstract_langs
-    }
-
-
-def get_keyword_langs(kwd):
-    resp = {
-        'article': [],
-        'sub-article': []
-    }
-    for item in kwd:
-        resp[item['type']].append(item.get('lang'))
-
-    return resp
+def process_keywords_list(article_kwd):
+    keywords_list = []
+    for kwd in get_element_langs(article_kwd):
+        keywords_list.append(kwd)
+        kwd_copy = kwd.copy()
+        kwd_copy['id'] = 'trans'
+        keywords_list.append(kwd_copy)
+    return keywords_list
 
 
 class ArticleLangValidation:
@@ -117,63 +94,63 @@ class ArticleLangValidation:
                 },...
             ]
         """
-        # obtem um dicionário com códigos de idiomas para títulos: {'article': ['pt', 'en'], 'sub-article': ['es']}
-        title_langs_dict = get_title_langs(self.article_title)
+        # obtem uma lista de dicionários com dados de títulos: [{'element_name': 'article', 'lang': 'pt', 'id': 'main'},...]
+        titles_list = get_element_langs(self.article_title.data)
 
-        # obtem um dicionário com códigos de idiomas para resumos: {'article': ['pt', 'en'], 'sub-article': ['es']}
-        abstract_langs_dict = get_abstract_langs(self.article_abstract)
+        # obtem uma lista de dicionários com dados de resumos: [{'element_name': 'article', 'lang': 'pt', 'id': 'main'},...]
+        abstracts_list = get_element_langs(self.article_abstract.get_abstracts(style='inline'))
 
-        # obtem um dicionário com códigos de idiomas para palavras-chave: {'article': ['pt', 'en'], 'sub-article': ['es']}
-        keyword_langs_dict = get_keyword_langs(self.article_kwd)
+        # obtem uma lista de dicionários com dados de palavras-chave: [{'element_name': 'article', 'lang': 'pt', 'id': 'main'},...]
+        keywords_list = process_keywords_list(self.article_kwd)
+
+        # verifica a existência de title no XML
+        if not titles_list:
+            yield {
+                'title': f'article/sub-article title element lang attribute validation',
+                'xpath': f'.//article-title/@xml:lang',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': f'title for the article/sub-article',
+                'got_value': None,
+                'message': f'Got None expected title for the article/sub-article',
+                'advice': f'Provide title for the article/sub-article'
+            }
 
         # verifica a existência dos elementos no XML
-        for article_type, title_langs in title_langs_dict.items():
-            if not title_langs:
+        for title_dict in titles_list:
+            exist, is_required, element, xpath, expected = _elements_exist(
+                title_dict,
+                self.article_title,
+                [abstract_dict for abstract_dict in abstracts_list if abstract_dict.get('element_name') == title_dict.get('element_name')],
+                [keyword_dict for keyword_dict in keywords_list if keyword_dict.get('element_name') == title_dict.get('element_name')]
+            )
+
+            if exist and is_required:
+                # validação de correspondência entre os idiomas, usando como base o título
+                for element, langs in zip(['abstract', 'kwd-group'], [abstracts_list, keywords_list]):
+                    is_valid = title_dict in langs
+                    expected = title_dict.get('lang')
+                    obtained = title_dict.get('lang') if is_valid else None
+                    advice = None if is_valid else f'Provide {element} in the \'{title_dict.get("lang")}\' language for {title_dict.get("element_name")} ({title_dict.get("id")})'
+                    yield {
+                        'title': f'{title_dict.get("element_name")} {element} element lang attribute validation',
+                        'xpath': f'.//article-title/@xml:lang .//{element}/@xml:lang',
+                        'validation_type': 'match',
+                        'response': 'OK' if is_valid else 'ERROR',
+                        'expected_value': expected,
+                        'got_value': obtained,
+                        'message': f'Got {obtained} expected {expected}',
+                        'advice': advice
+                    }
+            elif is_required:
+                # resposta para a verificação de ausência de elementos
                 yield {
-                    'title': f'{article_type} title element lang attribute validation',
-                    'xpath': f'.//article-title/@xml:lang',
+                    'title': f'{title_dict.get("element_name")} {element} element lang attribute validation',
+                    'xpath': xpath,
                     'validation_type': 'exist',
                     'response': 'ERROR',
-                    'expected_value': f'title for the {article_type}',
+                    'expected_value': expected,
                     'got_value': None,
-                    'message': f'Got None expected title for the {article_type}',
-                    'advice': f'Provide title for the {article_type}'
+                    'message': f'Got None expected {expected}',
+                    'advice': f'Provide {element} in the \'{title_dict.get("lang")}\' language for {title_dict.get("element_name")} ({title_dict.get("id")})'
                 }
-            for title_lang in title_langs:
-                exist, is_required, element, xpath, expected = _elements_exist(
-                    article_type,
-                    title_lang,
-                    self.article_title,
-                    abstract_langs_dict.get(article_type),
-                    keyword_langs_dict.get(article_type)
-                )
-
-                if exist and is_required:
-                    # validação de correspondência entre os idiomas, usando como base o título
-                    for element, langs in zip(['abstract', 'kwd-group'], [abstract_langs_dict.get(article_type), keyword_langs_dict.get(article_type)]):
-                        is_valid = title_lang in langs
-                        expected = title_lang
-                        obtained = langs
-                        advice = None if is_valid else f'Provide {element} in the language {title_lang}'
-                        yield {
-                            'title': f'{article_type} {element} element lang attribute validation',
-                            'xpath': f'.//article-title/@xml:lang .//{element}/@xml:lang',
-                            'validation_type': 'match',
-                            'response': 'OK' if is_valid else 'ERROR',
-                            'expected_value': expected,
-                            'got_value': obtained,
-                            'message': f'Got {obtained} expected {expected}',
-                            'advice': advice
-                        }
-                elif is_required:
-                    # resposta para a verificação de ausência de elementos
-                    yield {
-                        'title': f'{article_type} {element} element lang attribute validation',
-                        'xpath': xpath,
-                        'validation_type': 'exist',
-                        'response': 'ERROR',
-                        'expected_value': expected,
-                        'got_value': None,
-                        'message': f'Got None expected {expected}',
-                        'advice': f'Provide {element} in the language {title_lang}'
-                    }
