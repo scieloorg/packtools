@@ -18,6 +18,7 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
         else:
             _item["node"] = node
         _item["lang"] = node.get('{http://www.w3.org/XML/1998/namespace}lang')
+        _item["id"] = node.get('id')
         _items.append(_item)
     return _items
 
@@ -141,7 +142,7 @@ def node_text(node):
 
 def get_node_without_subtag(node, remove_extra_spaces=False):
     """
-        Função que retorna nó sem subtags. 
+        Função que retorna nó sem subtags.
     """
     if remove_extra_spaces:
         return " ".join([text.strip()for text in node.xpath(".//text()") if text.strip()])
