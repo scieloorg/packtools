@@ -3,9 +3,7 @@ import unittest
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.article_lang import (
     ArticleLangValidation,
-    get_title_langs,
-    get_abstract_langs,
-    get_keyword_langs,
+    get_element_langs,
     _elements_exist
 )
 from packtools.sps.models import article_titles, article_abstract, kwd_group
@@ -53,15 +51,30 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        article_title = article_titles.ArticleTitles(xml_tree)
+        article_title = article_titles.ArticleTitles(xml_tree).data
 
-        obtained = get_title_langs(article_title)
+        obtained = get_element_langs(article_title)
 
-        expected = {
-            'article': ['pt', 'en'],
-            'sub-article': ['en']
-        }
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'element_name': 'article',
+                'lang': 'pt',
+                'id': 'main'
+            },
+            {
+                'element_name': 'article',
+                'lang': 'en',
+                'id': 'trans'
+            },
+            {
+                'element_name': 'sub-article',
+                'lang': 'en',
+                'id': 'TRen'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_get_abstract_langs(self):
         self.maxDiff = None
@@ -104,15 +117,30 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        abstract = article_abstract.Abstract(xml_tree)
+        abstract = article_abstract.Abstract(xml_tree).get_abstracts()
 
-        obtained = get_abstract_langs(abstract)
+        obtained = get_element_langs(abstract)
 
-        expected = {
-            'article': ['pt', 'en'],
-            'sub-article': ['en']
-        }
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'element_name': 'article',
+                'lang': 'pt',
+                'id': 'main'
+            },
+            {
+                'element_name': 'article',
+                'lang': 'en',
+                'id': 'trans'
+            },
+            {
+                'element_name': 'sub-article',
+                'lang': 'en',
+                'id': 'TRen'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_get_keyword_langs(self):
         self.maxDiff = None
@@ -157,13 +185,28 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         xml_tree = get_xml_tree(xml_str)
         kwd = kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None)
 
-        obtained = get_keyword_langs(kwd)
+        obtained = get_element_langs(kwd)
 
-        expected = {
-            'article': ['pt', 'en'],
-            'sub-article': ['en']
-        }
-        self.assertDictEqual(expected, obtained)
+        expected = [
+            {
+                'element_name': 'article',
+                'lang': 'pt',
+                'id': 'main'
+            },
+            {
+                'element_name': 'article',
+                'lang': 'en',
+                'id': 'main'
+            },
+            {
+                'element_name': 'sub-article',
+                'lang': 'en',
+                'id': 'TRen'
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test__elements_exist(self):
         self.maxDiff = None
@@ -206,11 +249,19 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], ['pt', 'en']
+        title = {
+                'element_name': 'article',
+                'lang': 'en',
+                'id': 'main'
+            }
+        title_object = article_titles.ArticleTitles(xml_tree)
+        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
+        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
 
-        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+        obtained = _elements_exist(title, title_object, abstracts, keywords)
 
         expected = (True, True, None, None, None)
+
         self.assertEqual(expected, obtained)
 
     def test__elements_exist_missing_title(self):
@@ -221,44 +272,25 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
                 <article-meta>
                     <title-group>
                         <article-title>Título em português</article-title>
-                        <trans-title-group xml:lang="en">
-                            <trans-title>Title in english</trans-title>
-                        </trans-title-group>
                     </title-group>
-                    <abstract><p>Resumo em português</p></abstract>
-                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
-                    <kwd-group xml:lang="pt">
-                        <kwd>Palavra chave 1</kwd>
-                        <kwd>Palavra chave 2</kwd>
-                    </kwd-group>
-                    <kwd-group xml:lang="en">
-                        <kwd>Keyword 1</kwd>
-                        <kwd>Keyword 2</kwd>
-                    </kwd-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="TRen" xml:lang="en">
-                 <front-stub>
-                     <title-group>
-                         <article-title xml:lang="en">Title in english</article-title>
-                     </title-group>
-                 <abstract xml:lang="en">
-                     Abstract in english
-                 </abstract>
-                 <kwd-group xml:lang="en">
-                     <kwd>Keyword 1</kwd>
-                     <kwd>Keyword 2</kwd>
-                 </kwd-group>
-                 </front-stub>
-             </sub-article>
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title_lang, title, abstract, keyword = 'es', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], ['pt', 'en']
+        title = {
+            'element_name': 'article',
+            'lang': 'en',
+            'id': 'main'
+        }
+        title_object = article_titles.ArticleTitles(xml_tree)
+        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
+        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
 
-        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+        obtained = _elements_exist(title, title_object, abstracts, keywords)
 
         expected = (False, True, 'title', './/article-title/@xml:lang', 'title for the article')
+
         self.assertEqual(expected, obtained)
 
     def test__elements_exist_missing_abstract(self):
@@ -283,25 +315,22 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
                     </kwd-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="TRen" xml:lang="en">
-                 <front-stub>
-                     <title-group>
-                         <article-title xml:lang="en">Title in english</article-title>
-                     </title-group>
-                 <kwd-group xml:lang="en">
-                     <kwd>Keyword 1</kwd>
-                     <kwd>Keyword 2</kwd>
-                 </kwd-group>
-                 </front-stub>
-             </sub-article>
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title_lang, title, abstract, keyword = 'en', article_titles.ArticleTitles(xml_tree), [], ['pt', 'en']
+        title = {
+            'element_name': 'article',
+            'lang': 'pt',
+            'id': 'main'
+        }
+        title_object = article_titles.ArticleTitles(xml_tree)
+        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
+        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
 
-        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+        obtained = _elements_exist(title, title_object, abstracts, keywords)
 
         expected = (False, True, 'abstract', './/abstract/@xml:lang', 'abstract for the article')
+
         self.assertEqual(expected, obtained)
 
     def test__elements_exist_missing_kwd(self):
@@ -312,32 +341,26 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
                 <article-meta>
                     <title-group>
                         <article-title>Título em português</article-title>
-                        <trans-title-group xml:lang="en">
-                            <trans-title>Title in english</trans-title>
-                        </trans-title-group>
                     </title-group>
                     <abstract><p>Resumo em português</p></abstract>
-                    <trans-abstract xml:lang="en">Abstract in english</trans-abstract>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="TRen" xml:lang="en">
-                 <front-stub>
-                     <title-group>
-                         <article-title xml:lang="en">Title in english</article-title>
-                     </title-group>
-                 <abstract xml:lang="en">
-                     Abstract in english
-                 </abstract>
-                 </front-stub>
-             </sub-article>
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), ['pt', 'en'], []
+        title = {
+            'element_name': 'article',
+            'lang': 'pt',
+            'id': 'main'
+        }
+        title_object = article_titles.ArticleTitles(xml_tree)
+        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
+        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
 
-        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+        obtained = _elements_exist(title, title_object, abstracts, keywords)
 
         expected = (False, True, 'kwd-group', './/kwd-group/@xml:lang', 'keywords for the article')
+
         self.assertEqual(expected, obtained)
 
     def test__elements_exist_is_required(self):
@@ -348,27 +371,25 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
                 <article-meta>
                     <title-group>
                         <article-title>Título em português</article-title>
-                        <trans-title-group xml:lang="en">
-                            <trans-title>Title in english</trans-title>
-                        </trans-title-group>
                     </title-group>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" id="TRen" xml:lang="en">
-                 <front-stub>
-                     <title-group>
-                         <article-title xml:lang="en">Title in english</article-title>
-                     </title-group>
-                 </front-stub>
-             </sub-article>
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title_lang, title, abstract, keyword = 'pt', article_titles.ArticleTitles(xml_tree), [], []
+        title = {
+            'element_name': 'article',
+            'lang': 'pt',
+            'id': 'main'
+        }
+        title_object = article_titles.ArticleTitles(xml_tree)
+        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
+        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
 
-        obtained = _elements_exist('article', title_lang, title, abstract, keyword)
+        obtained = _elements_exist(title, title_object, abstracts, keywords)
 
         expected = (True, False, None, None, None)
+
         self.assertEqual(expected, obtained)
 
 
@@ -406,7 +427,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'title for the article',
                 'got_value': None,
                 'message': 'Got None expected title for the article',
-                'advice': 'Provide title for the article',
+                'advice': 'Provide title in the \'pt\' language for article (main)'
             }
         ]
 
@@ -451,7 +472,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'title for the sub-article',
                 'got_value': None,
                 'message': 'Got None expected title for the sub-article',
-                'advice': 'Provide title for the sub-article',
+                'advice': 'Provide title in the \'en\' language for sub-article (TRen)'
             }
         ]
 
@@ -496,8 +517,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'pt',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected pt',
+                'got_value': 'pt',
+                'message': 'Got pt expected pt',
                 'advice': None
 
             },
@@ -507,8 +528,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'pt',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected pt',
+                'got_value': 'pt',
+                'message': 'Got pt expected pt',
                 'advice': None
 
             },
@@ -518,8 +539,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             },
@@ -529,8 +550,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             }
@@ -577,8 +598,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['en'],
-                'message': 'Got [\'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             },
@@ -588,8 +609,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['en'],
-                'message': 'Got [\'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
             }
         ]
@@ -610,7 +631,7 @@ class ArticleLangTest(unittest.TestCase):
                         </trans-title-group>
                     </title-group>
                     <abstract><p>Resumo em português</p></abstract>
-                    <trans-abstract xml:lang="pt">Abstract in english</trans-abstract>
+                    <trans-abstract xml:lang="es">Abstract in english</trans-abstract>
                     <kwd-group xml:lang="pt">
                         <kwd>Palavra chave 1</kwd>
                         <kwd>Palavra chave 2</kwd>
@@ -634,8 +655,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'pt',
-                'got_value': ['pt', 'pt'],
-                'message': 'Got [\'pt\', \'pt\'] expected pt',
+                'got_value': 'pt',
+                'message': 'Got pt expected pt',
                 'advice': None
 
             },
@@ -645,8 +666,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'pt',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected pt',
+                'got_value': 'pt',
+                'message': 'Got pt expected pt',
                 'advice': None
 
             },
@@ -656,9 +677,9 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'en',
-                'got_value': ['pt', 'pt'],
-                'message': 'Got [\'pt\', \'pt\'] expected en',
-                'advice': 'Provide abstract in the language en'
+                'got_value': None,
+                'message': 'Got None expected en',
+                'advice': "Provide abstract in the 'en' language for article (trans)",
 
             },
             {
@@ -667,8 +688,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             }
@@ -715,9 +736,9 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'en',
-                'got_value': ['pt'],
-                'message': 'Got [\'pt\'] expected en',
-                'advice': 'Provide abstract in the language en'
+                'got_value': None,
+                'message': 'Got None expected en',
+                'advice': "Provide abstract in the 'en' language for sub-article (TRen)",
 
             },
             {
@@ -726,8 +747,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['en'],
-                'message': 'Got [\'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             }
@@ -773,8 +794,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'pt',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected pt',
+                'got_value': 'pt',
+                'message': 'Got pt expected pt',
                 'advice': None
 
             },
@@ -784,9 +805,9 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'pt',
-                'got_value': ['en', 'en'],
-                'message': 'Got [\'en\', \'en\'] expected pt',
-                'advice': 'Provide kwd-group in the language pt'
+                'got_value': None,
+                'message': 'Got None expected pt',
+                'advice': "Provide kwd-group in the 'pt' language for article (main)",
 
             },
             {
@@ -795,8 +816,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['pt', 'en'],
-                'message': 'Got [\'pt\', \'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             },
@@ -806,8 +827,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['en', 'en'],
-                'message': 'Got [\'en\', \'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             }
@@ -854,8 +875,8 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'en',
-                'got_value': ['en'],
-                'message': 'Got [\'en\'] expected en',
+                'got_value': 'en',
+                'message': 'Got en expected en',
                 'advice': None
 
             },
@@ -865,9 +886,9 @@ class ArticleLangTest(unittest.TestCase):
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'en',
-                'got_value': ['pt'],
-                'message': 'Got [\'pt\'] expected en',
-                'advice': 'Provide kwd-group in the language en',
+                'got_value': None,
+                'message': 'Got None expected en',
+                'advice': "Provide kwd-group in the 'en' language for sub-article (TRen)",
 
             }
         ]
@@ -912,7 +933,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract for the article',
                 'got_value': None,
                 'message': 'Got None expected abstract for the article',
-                'advice': 'Provide abstract in the language pt'
+                'advice': "Provide abstract in the 'pt' language for article (main)",
 
             },
             {
@@ -923,7 +944,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract for the article',
                 'got_value': None,
                 'message': 'Got None expected abstract for the article',
-                'advice': 'Provide abstract in the language en'
+                'advice': "Provide abstract in the 'en' language for article (trans)",
             }
         ]
         for i, item in enumerate(obtained):
@@ -967,7 +988,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract for the sub-article',
                 'got_value': None,
                 'message': 'Got None expected abstract for the sub-article',
-                'advice': 'Provide abstract in the language en'
+                'advice': "Provide abstract in the 'en' language for sub-article (TRen)",
             }
         ]
         for i, item in enumerate(obtained):
@@ -1005,7 +1026,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'keywords for the article',
                 'got_value': None,
                 'message': 'Got None expected keywords for the article',
-                'advice': 'Provide kwd-group in the language pt'
+                'advice': "Provide kwd-group in the 'pt' language for article (main)"
 
             },
             {
@@ -1016,7 +1037,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'keywords for the article',
                 'got_value': None,
                 'message': 'Got None expected keywords for the article',
-                'advice': 'Provide kwd-group in the language en'
+                'advice': "Provide kwd-group in the 'en' language for article (trans)"
 
             }
         ]
@@ -1060,7 +1081,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'keywords for the sub-article',
                 'got_value': None,
                 'message': 'Got None expected keywords for the sub-article',
-                'advice': 'Provide kwd-group in the language en'
+                'advice': "Provide kwd-group in the 'en' language for sub-article (TRen)",
             }
         ]
         for i, item in enumerate(obtained):
