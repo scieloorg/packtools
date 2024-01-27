@@ -116,6 +116,7 @@ class ArticleTitlesTest(TestCase):
 
     def test_data(self):
         expected = [{
+            "id": 'main',
             "lang": "es",
             "text": (
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
@@ -129,6 +130,7 @@ class ArticleTitlesTest(TestCase):
             ),
         },
         {
+            "id": 'trans',
             "lang": "en",
             "text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
@@ -158,7 +160,7 @@ class SubArticleTitlesTest(TestCase):
               </title-group>
             </article-meta>
           </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="1" xml:lang="en">
 
             <front-stub>
 
@@ -175,6 +177,7 @@ class SubArticleTitlesTest(TestCase):
 
     def test_data(self):
         expected = [{
+            "id": 'main',
             "lang": "es",
             "text": (
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
@@ -188,6 +191,7 @@ class SubArticleTitlesTest(TestCase):
             ),
         },
         {
+            "id": "1",
             "lang": "en",
             "text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
