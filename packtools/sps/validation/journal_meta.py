@@ -127,14 +127,22 @@ class TitleValidation:
             }
         ]
 
-    def validate_abbreviated_journal_title(self, expected_value):
-        resp_abbreviated_journal_title = dict(
-            object='abbreviated journal title',
-            output_expected=expected_value,
-            output_obteined=self.journal_titles.abbreviated_journal_title,
-            match=(expected_value == self.journal_titles.abbreviated_journal_title)
-        )
-        return resp_abbreviated_journal_title
+    def abbreviated_journal_title_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to abbreviated journal title')
+        is_valid = self.journal_titles.abbreviated_journal_title == expected_value
+        return [
+            {
+                'title': 'Abbreviated journal title element validation',
+                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_titles.abbreviated_journal_title,
+                'message': 'Got {} expected {}'.format(self.journal_titles.abbreviated_journal_title, expected_value),
+                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
+            }
+        ]
 
 
 class PublisherNameValidation:
