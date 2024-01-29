@@ -273,7 +273,8 @@ class JournalMetaValidation:
         'acronym': 'hcsm',
         'journal-title': 'História, Ciências, Saúde-Manguinhos',
         'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
-        'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz']
+        'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
+        'nlm-ta': 'Rev Saude Publica'
         }
         '''
 
@@ -281,15 +282,13 @@ class JournalMetaValidation:
         acronym = AcronymValidation(self.xmltree)
         title = TitleValidation(self.xmltree)
         publisher = PublisherNameValidation(self.xmltree)
+        nlm_ta = JournalIdValidation(self.xmltree)
 
-        resp_journal_meta = list(issn.validate_issn(expected_values['issns']))
+        resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
+                            acronym.acronym_validation(expected_values['acronym']) + \
+                            title.journal_title_validation(expected_values['journal-title']) + \
+                            title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title']) + \
+                            list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
+                            nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta'])
 
-        resp_journal_meta.extend(
-            [
-                acronym.validate_text(expected_values['acronym']),
-                title.validate_journal_title(expected_values['journal-title']),
-                title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-                publisher.validate_publisher_names(expected_values['publisher-name'])
-            ]
-        )
         return resp_journal_meta
