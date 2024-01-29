@@ -235,6 +235,29 @@ class PublisherNameValidation:
             }
 
 
+class JournalIdValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.nlm_ta = JournalID(xmltree).nlm_ta
+
+    def nlm_ta_id_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to nlm-ta ID')
+        is_valid = self.nlm_ta == expected_value
+        return [
+            {
+                'title': 'Journal ID element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.nlm_ta,
+                'message': 'Got {} expected {}'.format(self.nlm_ta, expected_value),
+                'advice': None if is_valid else 'Provide an nlm-ta value as expected: {}'.format(expected_value)
+            }
+        ]
+
+
 class JournalMetaValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
