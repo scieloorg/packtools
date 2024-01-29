@@ -1,6 +1,9 @@
-from ..models.journal_meta import ISSN, Acronym, Title, Publisher
-from packtools.sps.validation.exceptions import ValidationPublisherException
-from packtools.sps.validation.exceptions import ValidationIssnsException
+from ..models.journal_meta import ISSN, Acronym, Title, Publisher, JournalID
+from packtools.sps.validation.exceptions import (
+    ValidationPublisherException,
+    ValidationIssnsException,
+    ValidationJournalMetaException
+)
 
 
 class ISSNValidation:
@@ -84,14 +87,22 @@ class AcronymValidation:
         self.xmltree = xmltree
         self.journal_acronym = Acronym(xmltree)
 
-    def validate_text(self, expected_value):
-        resp_text = dict(
-            object='journal acronym',
-            output_expected=expected_value,
-            output_obteined=self.journal_acronym.text,
-            match=(expected_value == self.journal_acronym.text)
-        )
-        return resp_text
+    def acronym_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to acronym')
+        is_valid = self.journal_acronym.text == expected_value
+        return [
+            {
+                'title': 'Journal acronym element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_acronym.text,
+                'message': 'Got {} expected {}'.format(self.journal_acronym.text, expected_value),
+                'advice': None if is_valid else 'Provide an acronym value as expected: {}'.format(expected_value)
+            }
+        ]
 
 
 class TitleValidation:
