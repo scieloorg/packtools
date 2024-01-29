@@ -64,3 +64,6 @@ class ValidationDataAvailabilityException(Exception):
 
 class ValidationIssueMissingValue(Exception):
     ...
+
+class ValidationJournalMetaException(Exception):
+    ...
