@@ -110,14 +110,22 @@ class TitleValidation:
         self.xmltree = xmltree
         self.journal_titles = Title(xmltree)
 
-    def validate_journal_title(self, expected_value):
-        resp_journal_title = dict(
-            object='journal title',
-            output_expected=expected_value,
-            output_obteined=self.journal_titles.journal_title,
-            match=(expected_value == self.journal_titles.journal_title)
-        )
-        return resp_journal_title
+    def journal_title_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to journal title')
+        is_valid = self.journal_titles.journal_title == expected_value
+        return [
+            {
+                'title': 'Journal title element validation',
+                'xpath': './journal-meta/journal-title-group/journal-title',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_titles.journal_title,
+                'message': 'Got {} expected {}'.format(self.journal_titles.journal_title, expected_value),
+                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
+            }
+        ]
 
     def validate_abbreviated_journal_title(self, expected_value):
         resp_abbreviated_journal_title = dict(
