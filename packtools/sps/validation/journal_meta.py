@@ -240,7 +240,7 @@ class JournalIdValidation:
         self.xmltree = xmltree
         self.nlm_ta = JournalID(xmltree).nlm_ta
 
-    def nlm_ta_id_validation(self, expected_value=None):
+    def nlm_ta_id_validation(self, expected_value):
         is_valid = self.nlm_ta == expected_value
         return [
             {
