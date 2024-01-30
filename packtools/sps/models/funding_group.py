@@ -59,3 +59,13 @@ class FundingGroup:
             items.append(node.text)
         return items
 
+    @property
+    def principal_investigators(self):
+        items = []
+        for node in self._xmltree.xpath(".//funding-group/award-group/principal-investigator/string-name"):
+            d = {
+                "given-names": node.findtext("given-names"),
+                "surname": node.findtext("surname")
+            }
+            items.append(d)
+        return items
