@@ -240,9 +240,7 @@ class JournalIdValidation:
         self.xmltree = xmltree
         self.nlm_ta = JournalID(xmltree).nlm_ta
 
-    def nlm_ta_id_validation(self, expected_value):
-        if not expected_value:
-            raise ValidationJournalMetaException('Function requires a value to nlm-ta ID')
+    def nlm_ta_id_validation(self, expected_value=None):
         is_valid = self.nlm_ta == expected_value
         return [
             {
