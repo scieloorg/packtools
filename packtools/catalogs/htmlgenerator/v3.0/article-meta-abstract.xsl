@@ -13,7 +13,7 @@
     </xsl:template>
 
     <xsl:template match="abstract/sec/title | trans-abstract/sec/title">
-        <h4><xsl:apply-templates select="*|text()"/></h4>
+        <strong><xsl:apply-templates select="*|text()"/></strong>
     </xsl:template>
 
     <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
@@ -35,5 +35,15 @@
             <xsl:attribute name="class">articleSectionTitle h5</xsl:attribute>
             <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
         </h3>
+    </xsl:template>
+
+    <xsl:template match="abstract/sec | trans-abstract/sec">
+        <p>
+            <xsl:apply-templates select="*|text()"/>
+        </p>
+    </xsl:template>
+
+    <xsl:template match="abstract/sec/p | trans-abstract/sec/p">
+        <xsl:text>&#160;</xsl:text><xsl:apply-templates select="*|text()"/>
     </xsl:template>
 </xsl:stylesheet>
