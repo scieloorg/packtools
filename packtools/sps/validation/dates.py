@@ -178,19 +178,19 @@ class ArticleDatesValidation:
                 obtained_events.append((event_type, obtained))
 
         # ordena a lista de eventos de forma cronológica
-        obtained_events_ordered = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
+        ordered_by_date = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
 
         # obtem uma lista com os nomes dos eventos ordenados
-        obtained_event_names_ordered = [event[0] for event in obtained_events_ordered]
+        ordered_by_event = [event[0] for event in ordered_by_date]
 
         # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
-        missing_events = sort_by_reference_list(list(set(required_events) - set(obtained_event_names_ordered)), order)
+        missing_events = sort_by_reference_list(list(set(required_events) - set(ordered_by_event)), order)
 
         # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
-        unknown_events = sorted(list(set(obtained_event_names_ordered) - set(order)))
+        unknown_events = sorted(list(set(ordered_by_event) - set(order)))
 
         # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
-        is_ordered = is_subsequence_in_order(obtained_event_names_ordered, order)
+        is_ordered = is_subsequence_in_order(ordered_by_event, order)
         is_complete = missing_events == []
         are_all_known = unknown_events == []
         is_valid = is_ordered and is_complete and are_all_known
@@ -207,7 +207,7 @@ class ArticleDatesValidation:
         # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
         # ordenados pelo padrão
         expected = sort_by_reference_list(
-            list((set(obtained_event_names_ordered) | set(required_events)) - set(unknown_events)), order)
+            list((set(ordered_by_event) | set(required_events)) - set(unknown_events)), order)
 
         yield {
             'title': 'History date validation',
@@ -215,8 +215,8 @@ class ArticleDatesValidation:
             'validation_type': 'value',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': expected,
-            'got_value': obtained_event_names_ordered,
-            'message': f'Got {obtained_events_ordered}',
+            'got_value': ordered_by_event,
+            'message': f'Got {ordered_by_date}',
             'advice': None if is_valid else advice
         }
 
