@@ -88,8 +88,8 @@ class AbstractWithSectionsTest(TestCase):
         self.maxDiff = None
         expected = {
             "lang": "en",
-            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
         self.assertDictEqual(expected, result)
@@ -108,6 +108,7 @@ class AbstractWithSectionsTest(TestCase):
         """
         expected = {
             "lang": "en",
+            'parent_name': 'article',
             "abstract": {
                 "lang": "en",
                 "title": "Abstract",
@@ -120,8 +121,7 @@ class AbstractWithSectionsTest(TestCase):
                     "p": "Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
 
                 }],
-            },
-            "id": "main"
+            }
         }
         result = self.abstract.get_main_abstract()
         self.assertDictEqual(expected, result)
@@ -140,8 +140,8 @@ class AbstractWithSectionsTest(TestCase):
         """
         expected = {
             "lang": "en",
-            "abstract": "Abstract Objective To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Design Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "Abstract Objective To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Design Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="inline")
         self.assertDictEqual(expected, result)
@@ -160,6 +160,7 @@ class AbstractWithSectionsTest(TestCase):
         """
         expected = {
             "lang": "en",
+            'parent_name': 'article',
             "abstract": """<title>Abstract</title>
         <sec>
             <title>Objective</title>
@@ -192,8 +193,8 @@ class AbstractWithSectionsTest(TestCase):
         """
         expected = {
             "lang": "en",
-            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
         self.assertDictEqual(expected, result)
@@ -235,6 +236,7 @@ class AbstractWithSectionsTest(TestCase):
         expected = (
             {
                 "lang": "es",
+                'parent_name': 'sub-article',
                 "abstract": {
                     "lang": "es",
                     "title": "Resumen",
@@ -253,6 +255,7 @@ class AbstractWithSectionsTest(TestCase):
             },
             {
                 "lang": "de",
+                'parent_name': 'sub-article',
                 "abstract": {
                     "lang": "de",
                     "title": "Zusammenfassung",
@@ -304,7 +307,7 @@ class AbstractWithSectionsTest(TestCase):
         expected = (
             {
                 "lang": "pt",
-                "id": "trans",
+                'parent_name': 'article',
                 "abstract": {
                     "lang": "pt",
                     "title": "Resumo",
@@ -322,7 +325,7 @@ class AbstractWithSectionsTest(TestCase):
             },
             {
                 "lang": "fr",
-                "id": "trans",
+                'parent_name': 'article',
                 "abstract": {
                     "lang": "fr",
                     "title": "Résumé",
@@ -394,8 +397,8 @@ class AbstractWithoutSectionsTest(TestCase):
         self.maxDiff = None
         expected = {
             "lang": "en",
-            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
         self.assertDictEqual(expected, result)
@@ -403,12 +406,12 @@ class AbstractWithoutSectionsTest(TestCase):
     def test_get_main_abstract_default_style(self):
         expected = {
             "lang": "en",
+            'parent_name': 'article',
             "abstract": {
                 "lang": "en",
                 "title": "Abstract",
                 "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            },
-            "id": "main"
+            }
         }
         result = self.abstract.get_main_abstract()
         self.assertDictEqual(expected, result)
@@ -416,8 +419,8 @@ class AbstractWithoutSectionsTest(TestCase):
     def test_get_main_abstract_inline(self):
         expected = {
             "lang": "en",
-            "abstract": "Abstract To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "Abstract To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="inline")
         self.assertDictEqual(expected, result)
@@ -425,6 +428,7 @@ class AbstractWithoutSectionsTest(TestCase):
     def test_get_main_abstract_xml(self):
         expected = {
             "lang": "en",
+            'parent_name': 'article',
             "abstract": """<title>Abstract</title>
                 <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>""",
         }
@@ -438,8 +442,8 @@ class AbstractWithoutSectionsTest(TestCase):
         self.maxDiff = None
         expected = {
             "lang": "en",
-            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
-            "id": "main"
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
         self.assertDictEqual(expected, result)
@@ -471,6 +475,7 @@ class AbstractWithoutSectionsTest(TestCase):
         expected = (
             {
                 "lang": "es",
+                'parent_name': 'sub-article',
                 "abstract": {
                     "lang": "es",
                     "title": "Resumen",
@@ -480,6 +485,7 @@ class AbstractWithoutSectionsTest(TestCase):
             },
             {
                 "lang": "it",
+                'parent_name': 'sub-article',
                 "abstract": {
                     "lang": "it",
                     "title": "Riepilogo",
@@ -508,21 +514,21 @@ class AbstractWithoutSectionsTest(TestCase):
         expected = (
             {
                 "lang": "pt",
+                'parent_name': 'article',
                 "abstract": {
                     "lang": "pt",
                     "title": "Resumo",
                     "p": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 <italic>estudos clínicos</italic> controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).",
-                },
-                "id": "trans"
+                }
             },
             {
                 "lang": "fr",
+                'parent_name': 'article',
                 "abstract": {
                     "lang": "fr",
                     "title": "Résumé",
                     "p": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 <italic>essais cliniques</italic> contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).",
-                },
-                "id": "trans"
+                }
             },
         )
         result = self.abstract._get_trans_abstracts()

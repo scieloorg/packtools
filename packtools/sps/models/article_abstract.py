@@ -154,8 +154,8 @@ class Abstract:
         Formato padrão: inline
 
         """
-        abstract_node = self.xmltree.find(".//abstract")
-        if abstract_node:
+        abstract_node = self.xmltree.find(".//article-meta//abstract")
+        if abstract_node is not None:
             abstract = self._format_abstract(
                 abstract_node=abstract_node,
                 style=style,
@@ -165,9 +165,9 @@ class Abstract:
             if not style:
                 abstract["lang"] = abstract_lang or article_lang
             return {
+                "parent_name": "article",
                 "lang": abstract_lang or article_lang,
-                "abstract": abstract,
-                "id": "main"
+                "abstract": abstract
             }
 
     def _get_sub_article_abstracts(self, style=None):
@@ -180,6 +180,7 @@ class Abstract:
                 sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
                 abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
                 item = {}
+                item["parent_name"] = "sub-article"
                 item["lang"] = abstract_lang or sub_article_lang
                 item["abstract"] = self._format_abstract(
                     abstract_node=abstract_node,
@@ -196,12 +197,12 @@ class Abstract:
         """
         for trans_abstract in self.xmltree.xpath(".//trans-abstract"):
             item = {}
+            item["parent_name"] = "article"
             item["lang"] = trans_abstract.get("{http://www.w3.org/XML/1998/namespace}lang")
             item["abstract"] = self._format_abstract(
                 abstract_node=trans_abstract,
                 style=style
             )
-            item["id"] = "trans"
             yield item
 
     def get_abstracts(self, style=None):
