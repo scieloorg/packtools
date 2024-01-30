@@ -37,10 +37,10 @@ class ArticleTitles:
                 self.xmltree,
                 ".", ".//article-meta//article-title"):
             return {
+                "parent_name": "article",
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
-                "id": 'main'
+                "plain_text": xml_utils.node_plain_text(node_with_lang["node"])
             }
 
     @property
@@ -53,10 +53,10 @@ class ArticleTitles:
                 self.xmltree,
                 ".//article-meta//trans-title-group", "trans-title"):
             _title = {
+                "parent_name": "article",
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
-                "id": 'trans'
+                "plain_text": xml_utils.node_plain_text(node_with_lang["node"])
             }
             _titles.append(_title)
         return _titles
@@ -69,6 +69,7 @@ class ArticleTitles:
                 ".//sub-article[@article-type='translation']",
                 ".//front-stub//article-title"):
             _title = {
+                "parent_name": "sub-article",
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
                 "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
