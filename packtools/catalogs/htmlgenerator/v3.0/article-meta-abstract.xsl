@@ -32,7 +32,7 @@
 
         <!-- título -->
         <h3>
-            <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+            <xsl:attribute name="class">articleSectionTitle h5</xsl:attribute>
             <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
         </h3>
     </xsl:template>
