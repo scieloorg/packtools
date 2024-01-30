@@ -54,3 +54,17 @@ class FundingGroupValidation:
                 'advice': None if is_valid else 'Provide {}'.format(expected)
             }
 
+    def principal_investigator_validation(self):
+        for principal in self.principal_investigator or [None]:
+            is_valid = principal is not None
+            expected = principal if is_valid else 'value to <principal-investigator>'
+            yield {
+                'title': 'Principal investigator element validation',
+                'xpath': './/funding-group/award-group/principal-investigator/string-name',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': principal,
+                'message': 'Got {} expected {}'.format(principal, expected),
+                'advice': None if is_valid else 'Provide {}'.format(expected)
+            }
