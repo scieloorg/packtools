@@ -99,4 +99,21 @@ class PublisherTest(TestCase):
     ]
     publishers_names = journal_meta.Publisher(xmltree).publishers_names
     self.assertListEqual(expected, publishers_names)
-  
+
+
+class JournalIDTest(TestCase):
+    def test_nlm_ta(self):
+        xml = """
+        <article>
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                </journal-meta>
+            </front>	
+		</article>
+        """
+        xmltree = _get_xmltree(xml)
+
+        expected = 'Rev Saude Publica'
+        obtained = journal_meta.JournalID(xmltree).nlm_ta
+        self.assertEqual(expected, obtained)

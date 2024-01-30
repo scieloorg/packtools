@@ -1,6 +1,9 @@
-from ..models.journal_meta import ISSN, Acronym, Title, Publisher
-from packtools.sps.validation.exceptions import ValidationPublisherException
-from packtools.sps.validation.exceptions import ValidationIssnsException
+from ..models.journal_meta import ISSN, Acronym, Title, Publisher, JournalID
+from packtools.sps.validation.exceptions import (
+    ValidationPublisherException,
+    ValidationIssnsException,
+    ValidationJournalMetaException
+)
 
 
 class ISSNValidation:
@@ -84,14 +87,22 @@ class AcronymValidation:
         self.xmltree = xmltree
         self.journal_acronym = Acronym(xmltree)
 
-    def validate_text(self, expected_value):
-        resp_text = dict(
-            object='journal acronym',
-            output_expected=expected_value,
-            output_obteined=self.journal_acronym.text,
-            match=(expected_value == self.journal_acronym.text)
-        )
-        return resp_text
+    def acronym_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to acronym')
+        is_valid = self.journal_acronym.text == expected_value
+        return [
+            {
+                'title': 'Journal acronym element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_acronym.text,
+                'message': 'Got {} expected {}'.format(self.journal_acronym.text, expected_value),
+                'advice': None if is_valid else 'Provide an acronym value as expected: {}'.format(expected_value)
+            }
+        ]
 
 
 class TitleValidation:
@@ -99,23 +110,39 @@ class TitleValidation:
         self.xmltree = xmltree
         self.journal_titles = Title(xmltree)
 
-    def validate_journal_title(self, expected_value):
-        resp_journal_title = dict(
-            object='journal title',
-            output_expected=expected_value,
-            output_obteined=self.journal_titles.journal_title,
-            match=(expected_value == self.journal_titles.journal_title)
-        )
-        return resp_journal_title
+    def journal_title_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to journal title')
+        is_valid = self.journal_titles.journal_title == expected_value
+        return [
+            {
+                'title': 'Journal title element validation',
+                'xpath': './journal-meta/journal-title-group/journal-title',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_titles.journal_title,
+                'message': 'Got {} expected {}'.format(self.journal_titles.journal_title, expected_value),
+                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
+            }
+        ]
 
-    def validate_abbreviated_journal_title(self, expected_value):
-        resp_abbreviated_journal_title = dict(
-            object='abbreviated journal title',
-            output_expected=expected_value,
-            output_obteined=self.journal_titles.abbreviated_journal_title,
-            match=(expected_value == self.journal_titles.abbreviated_journal_title)
-        )
-        return resp_abbreviated_journal_title
+    def abbreviated_journal_title_validation(self, expected_value):
+        if not expected_value:
+            raise ValidationJournalMetaException('Function requires a value to abbreviated journal title')
+        is_valid = self.journal_titles.abbreviated_journal_title == expected_value
+        return [
+            {
+                'title': 'Abbreviated journal title element validation',
+                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.journal_titles.abbreviated_journal_title,
+                'message': 'Got {} expected {}'.format(self.journal_titles.abbreviated_journal_title, expected_value),
+                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
+            }
+        ]
 
 
 class PublisherNameValidation:
@@ -208,6 +235,27 @@ class PublisherNameValidation:
             }
 
 
+class JournalIdValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.nlm_ta = JournalID(xmltree).nlm_ta
+
+    def nlm_ta_id_validation(self, expected_value):
+        is_valid = self.nlm_ta == expected_value
+        return [
+            {
+                'title': 'Journal ID element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'validation_type': 'value',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected_value,
+                'got_value': self.nlm_ta,
+                'message': 'Got {} expected {}'.format(self.nlm_ta, expected_value),
+                'advice': None if is_valid else 'Provide an nlm-ta value as expected: {}'.format(expected_value)
+            }
+        ]
+
+
 class JournalMetaValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
@@ -223,7 +271,8 @@ class JournalMetaValidation:
         'acronym': 'hcsm',
         'journal-title': 'História, Ciências, Saúde-Manguinhos',
         'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
-        'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz']
+        'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
+        'nlm-ta': 'Rev Saude Publica'
         }
         '''
 
@@ -231,15 +280,13 @@ class JournalMetaValidation:
         acronym = AcronymValidation(self.xmltree)
         title = TitleValidation(self.xmltree)
         publisher = PublisherNameValidation(self.xmltree)
+        nlm_ta = JournalIdValidation(self.xmltree)
 
-        resp_journal_meta = list(issn.validate_issn(expected_values['issns']))
+        resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
+                            acronym.acronym_validation(expected_values['acronym']) + \
+                            title.journal_title_validation(expected_values['journal-title']) + \
+                            title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title']) + \
+                            list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
+                            nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta'])
 
-        resp_journal_meta.extend(
-            [
-                acronym.validate_text(expected_values['acronym']),
-                title.validate_journal_title(expected_values['journal-title']),
-                title.validate_abbreviated_journal_title(expected_values['abbrev-journal-title']),
-                publisher.validate_publisher_names(expected_values['publisher-name'])
-            ]
-        )
         return resp_journal_meta

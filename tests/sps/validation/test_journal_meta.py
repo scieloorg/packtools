@@ -2,7 +2,7 @@ from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.validation.journal_meta import ISSNValidation, AcronymValidation, TitleValidation, \
-    PublisherNameValidation, JournalMetaValidation
+    PublisherNameValidation, JournalMetaValidation, JournalIdValidation
 
 
 class ISSNTest(TestCase):
@@ -109,25 +109,43 @@ class AcronymTest(TestCase):
         )
         self.acronym = AcronymValidation(self.xmltree)
 
-    def test_acronym_match(self):
-        expected = dict(
-            object='journal acronym',
-            output_expected='hcsm',
-            output_obteined='hcsm',
-            match=True
-        )
-        obtained = self.acronym.validate_text('hcsm')
-        self.assertDictEqual(expected, obtained)
+    def test_acronym_validation_success(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal acronym element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'hcsm',
+                'got_value': 'hcsm',
+                'message': 'Got hcsm expected hcsm',
+                'advice': None
+            }
+        ]
+        obtained = self.acronym.acronym_validation('hcsm')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_acronym_no_match(self):
-        expected = dict(
-            object='journal acronym',
-            output_expected='hcs',
-            output_obteined='hcsm',
-            match=False
-        )
-        obtained = self.acronym.validate_text('hcs')
-        self.assertDictEqual(expected, obtained)
+    def test_acronym_validation_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal acronym element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'hcs',
+                'got_value': 'hcsm',
+                'message': 'Got hcsm expected hcs',
+                'advice': 'Provide an acronym value as expected: hcs'
+            }
+        ]
+        obtained = self.acronym.acronym_validation('hcs')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class TitleTest(TestCase):
@@ -151,45 +169,81 @@ class TitleTest(TestCase):
         )
         self.title = TitleValidation(self.xmltree)
 
-    def test_journal_title_match(self):
-        expected = dict(
-            object='journal title',
-            output_expected='História, Ciências, Saúde-Manguinhos',
-            output_obteined='História, Ciências, Saúde-Manguinhos',
-            match=True
-        )
-        obtained = self.title.validate_journal_title('História, Ciências, Saúde-Manguinhos')
-        self.assertDictEqual(expected, obtained)
+    def test_journal_title_validation_success(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal title element validation',
+                'xpath': './journal-meta/journal-title-group/journal-title',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'História, Ciências, Saúde-Manguinhos',
+                'got_value': 'História, Ciências, Saúde-Manguinhos',
+                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
+                'advice': None
+            }
+        ]
+        obtained = self.title.journal_title_validation('História, Ciências, Saúde-Manguinhos')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_journal_title_no_match(self):
-        expected = dict(
-            object='journal title',
-            output_expected='História, Ciências, Saúde-Manguinho',
-            output_obteined='História, Ciências, Saúde-Manguinhos',
-            match=False
-        )
-        obtained = self.title.validate_journal_title('História, Ciências, Saúde-Manguinho')
-        self.assertDictEqual(expected, obtained)
+    def test_journal_title_validation_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal title element validation',
+                'xpath': './journal-meta/journal-title-group/journal-title',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'História, Ciências, Saúde Manguinhos',
+                'got_value': 'História, Ciências, Saúde-Manguinhos',
+                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde Manguinhos',
+                'advice': 'Provide a journal title value as expected: História, Ciências, Saúde Manguinhos'
+            }
+        ]
+        obtained = self.title.journal_title_validation('História, Ciências, Saúde Manguinhos')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_abbreviated_journal_title_match(self):
-        expected = dict(
-            object='abbreviated journal title',
-            output_expected='Hist. cienc. saude-Manguinhos',
-            output_obteined='Hist. cienc. saude-Manguinhos',
-            match=True
-        )
-        obtained = self.title.validate_abbreviated_journal_title('Hist. cienc. saude-Manguinhos')
-        self.assertDictEqual(expected, obtained)
+    def test_abbreviated_journal_title_validation_success(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Abbreviated journal title element validation',
+                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Hist. cienc. saude-Manguinhos',
+                'got_value': 'Hist. cienc. saude-Manguinhos',
+                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude-Manguinhos',
+                'advice': None
+            }
+        ]
+        obtained = self.title.abbreviated_journal_title_validation('Hist. cienc. saude-Manguinhos')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
-    def test_abbreviated_journal_title_no_match(self):
-        expected = dict(
-            object='abbreviated journal title',
-            output_expected='Hist. cienc. saude-Manguinho',
-            output_obteined='Hist. cienc. saude-Manguinhos',
-            match=False
-        )
-        obtained = self.title.validate_abbreviated_journal_title('Hist. cienc. saude-Manguinho')
-        self.assertDictEqual(expected, obtained)
+    def test_abbreviated_journal_title_validation_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Abbreviated journal title element validation',
+                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'Hist. cienc. saude Manguinhos',
+                'got_value': 'Hist. cienc. saude-Manguinhos',
+                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude Manguinhos',
+                'advice': 'Provide a journal title value as expected: Hist. cienc. saude Manguinhos'
+            }
+        ]
+        obtained = self.title.abbreviated_journal_title_validation('Hist. cienc. saude Manguinhos')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
 
 class PublisherTest(TestCase):
@@ -385,6 +439,59 @@ class PublisherTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
 
+class JournalIdValidationTest(TestCase):
+    def setUp(self):
+        self.xmltree = etree.fromstring(
+            """
+            <article>
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+
+    def test_nlm_ta_id_validation_success(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal ID element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Rev Saude Publica',
+                'got_value': 'Rev Saude Publica',
+                'message': 'Got Rev Saude Publica expected Rev Saude Publica',
+                'advice': None
+            }
+        ]
+        obtained = JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev Saude Publica')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_nlm_ta_id_validation_fail(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'title': 'Journal ID element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': 'Rev de Saude Publica',
+                'got_value': 'Rev Saude Publica',
+                'message': 'Got Rev Saude Publica expected Rev de Saude Publica',
+                'advice': 'Provide an nlm-ta value as expected: Rev de Saude Publica'
+            }
+        ]
+        obtained = JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev de Saude Publica')
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+
 class JournalMetaValidationTest(TestCase):
     def setUp(self):
         self.xmltree = etree.fromstring(
@@ -394,7 +501,7 @@ class JournalMetaValidationTest(TestCase):
                     <journal-meta>
                         <issn pub-type="ppub">0103-5053</issn>
                         <issn pub-type="epub">1678-4790</issn>
-                        <journal-id journal-id-type="nlm-ta">Hist Cienc Saude Manguinhos</journal-id>
+                        <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
                         <journal-id journal-id-type="publisher-id">hcsm</journal-id>
                         <journal-title-group>
                                 <journal-title>História, Ciências, Saúde-Manguinhos</journal-title>
@@ -433,24 +540,36 @@ class JournalMetaValidationTest(TestCase):
                 'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
                 'advice': None
             },
-            dict(
-                object='journal acronym',
-                output_expected='hcsm',
-                output_obteined='hcsm',
-                match=True
-            ),
-            dict(
-                object='journal title',
-                output_expected='História, Ciências, Saúde-Manguinhos',
-                output_obteined='História, Ciências, Saúde-Manguinhos',
-                match=True
-            ),
-            dict(
-                object='abbreviated journal title',
-                output_expected='Hist. cienc. saude-Manguinhos',
-                output_obteined='Hist. cienc. saude-Manguinhos',
-                match=True
-            ),
+            {
+                'title': 'Journal acronym element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'hcsm',
+                'got_value': 'hcsm',
+                'message': 'Got hcsm expected hcsm',
+                'advice': None
+            },
+            {
+                'title': 'Journal title element validation',
+                'xpath': './journal-meta/journal-title-group/journal-title',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'História, Ciências, Saúde-Manguinhos',
+                'got_value': 'História, Ciências, Saúde-Manguinhos',
+                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
+                'advice': None
+            },
+            {
+                'title': 'Abbreviated journal title element validation',
+                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Hist. cienc. saude-Manguinhos',
+                'got_value': 'Hist. cienc. saude-Manguinhos',
+                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude-Manguinhos',
+                'advice': None
+            },
             {
                 'title': 'Publisher name element validation',
                 'xpath': './/publisher//publisher-name',
@@ -459,6 +578,16 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'advice': None
+            },
+            {
+                'title': 'Journal ID element validation',
+                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'validation_type': 'value',
+                'response': 'OK',
+                'expected_value': 'Rev Saude Publica',
+                'got_value': 'Rev Saude Publica',
+                'message': 'Got Rev Saude Publica expected Rev Saude Publica',
                 'advice': None
             }
         ]
@@ -470,6 +599,10 @@ class JournalMetaValidationTest(TestCase):
             'acronym': 'hcsm',
             'journal-title': 'História, Ciências, Saúde-Manguinhos',
             'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
-            'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz']
+            'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
+            'nlm-ta': 'Rev Saude Publica'
         })
-        self.assertListEqual(expected, obtained)
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
