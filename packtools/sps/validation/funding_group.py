@@ -39,3 +39,18 @@ class FundingGroupValidation:
                 'advice': None if is_valid else 'Provide values to <funding-source> and <award-id>'
             }
 
+    def principal_award_recipient_validation(self):
+        for principal in self.principal_award_recipients or [None]:
+            is_valid = principal is not None
+            expected = principal if is_valid else 'value to <principal-award-recipient>'
+            yield {
+                'title': 'Principal award recipient element validation',
+                'xpath': './/funding-group/award-group/principal-award-recipient',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': principal,
+                'message': 'Got {} expected {}'.format(principal, expected),
+                'advice': None if is_valid else 'Provide {}'.format(expected)
+            }
+
