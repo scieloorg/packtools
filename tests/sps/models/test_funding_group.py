@@ -19,10 +19,24 @@ class FundingTest(TestCase):
         <award-group>
         <funding-source>Natural Science Foundation of Hunan Province</funding-source>
         <award-id>2019JJ40269</award-id>
+        <principal-award-recipient>Stanford</principal-award-recipient>
+        <principal-investigator>
+            <string-name>
+                <given-names>Sharon R.</given-names>
+                <surname>Kaufman</surname>
+            </string-name>
+        </principal-investigator>
         </award-group>
         <award-group>
         <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
         <award-id>2020CFB547</award-id>
+        <principal-award-recipient>Berkeley</principal-award-recipient>
+        <principal-investigator>
+            <string-name>
+                <given-names>João</given-names>
+                <surname>Silva</surname>
+            </string-name>
+        </principal-investigator>
         </award-group>
         <funding-statement>Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial Natural Science Foundation of China Grant No. 2020CFB547</funding-statement>
         </funding-group>
@@ -115,4 +129,24 @@ class FundingTest(TestCase):
         obtained = self.funding.funding_statement
         self.assertEqual(expected, obtained)
 
+    def test_principal_award_recipients(self):
+        expected = [
+            "Stanford",
+            "Berkeley"
+        ]
+        obtained = self.funding.principal_award_recipients
+        self.assertEqual(expected, obtained)
 
+    def test_principal_investigators(self):
+        expected = [
+            {
+                "given-names": 'Sharon R.',
+                "surname": 'Kaufman'
+            },
+            {
+                "given-names": 'João',
+                "surname": 'Silva'
+            }
+        ]
+        obtained = self.funding.principal_investigators
+        self.assertEqual(expected, obtained)
