@@ -21,7 +21,9 @@
 
         <xsl:if test="not($gs_abstract_lang)">
             <!-- âncora -->
-            <xsl:attribute name="class">articleSection</xsl:attribute>
+
+            <xsl:variable name="title"><xsl:apply-templates select="." mode="title"/></xsl:variable>
+            <xsl:attribute name="class">articleSection articleSection--<xsl:value-of select="translate($title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:attribute>
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
             <xsl:if test="@xml:lang='ar'">
                 <xsl:attribute name="dir">rtl</xsl:attribute>
