@@ -51,3 +51,11 @@ class FundingGroup:
     @property
     def funding_statement(self):
         return self._xmltree.xpath(".//funding-group/funding-statement")[0].text
+
+    @property
+    def principal_award_recipients(self):
+        items = []
+        for node in self._xmltree.xpath(".//funding-group/award-group/principal-award-recipient"):
+            items.append(node.text)
+        return items
+
