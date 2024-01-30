@@ -46,13 +46,15 @@ class KwdGroup:
 
         dict_nodes = {
             'article': self._xmltree.xpath('.//article-meta'),
-            'sub-article': self._xmltree.xpath('.//sub-article')
+            'sub-article': self._xmltree.xpath('./sub-article')
         }
 
         for tp, nodes in dict_nodes.items():
             for node in nodes:
                 node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-                node_id = node.get("id") if tp == "sub-article" else "main"
+                resp = {}
+                if node.get("id") is not None:
+                    resp['id'] = node.get("id")
 
                 for kwd_group in node.xpath('.//kwd-group'):
                     kwd_group_lang = kwd_group.get("{http://www.w3.org/XML/1998/namespace}lang", node_lang)
@@ -60,4 +62,8 @@ class KwdGroup:
                     keyword_text = []
                     for kwd in kwd_group.xpath("kwd"):
                         keyword_text.append(kwd_text(kwd))
-                    yield {"element_name": tp, "id": node_id, "lang": kwd_group_lang, "text": keyword_text}
+                    resp["parent_name"] = tp
+                    resp["lang"] = kwd_group_lang
+                    resp["text"] = keyword_text
+
+                    yield resp

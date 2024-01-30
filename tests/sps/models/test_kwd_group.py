@@ -167,11 +167,11 @@ class KwdGroupTest(TestCase):
         obtained = KwdGroup(xmltree).extract_kwd_data_with_lang_text_by_article_type(subtag=False)
 
         expected = [
-            {'element_name': 'article', 'id': 'main', 'lang': 'pt',
+            {'parent_name': 'article', 'lang': 'pt',
              'text': ['Enfermagem', 'Idoso de 80 Anos ou Mais', 'Relações Familiares']},
-            {'element_name': 'article', 'id': 'main', 'lang': 'es',
+            {'parent_name': 'article', 'lang': 'es',
              'text': ['Enfermería', 'Anciano de 80 Años o Más', 'Relaciones Familiares']},
-            {'element_name': 'sub-article', 'id': 'SA1', 'lang': 'en',
+            {'parent_name': 'sub-article', 'id': 'SA1', 'lang': 'en',
              'text': ['Nursing', 'Aged, 80 Years or More', 'Family Relationships']}
         ]
 
