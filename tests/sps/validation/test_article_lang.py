@@ -57,17 +57,15 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
 
         expected = [
             {
-                'element_name': 'article',
-                'lang': 'pt',
-                'id': 'main'
+                'parent_name': 'article',
+                'lang': 'pt'
             },
             {
-                'element_name': 'article',
-                'lang': 'en',
-                'id': 'trans'
+                'parent_name': 'article',
+                'lang': 'en'
             },
             {
-                'element_name': 'sub-article',
+                'parent_name': 'sub-article',
                 'lang': 'en',
                 'id': 'TRen'
             }
@@ -123,17 +121,15 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
 
         expected = [
             {
-                'element_name': 'article',
-                'lang': 'pt',
-                'id': 'main'
+                'parent_name': 'article',
+                'lang': 'pt'
             },
             {
-                'element_name': 'article',
-                'lang': 'en',
-                'id': 'trans'
+                'parent_name': 'article',
+                'lang': 'en'
             },
             {
-                'element_name': 'sub-article',
+                'parent_name': 'sub-article',
                 'lang': 'en',
                 'id': 'TRen'
             }
@@ -189,17 +185,15 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
 
         expected = [
             {
-                'element_name': 'article',
-                'lang': 'pt',
-                'id': 'main'
+                'parent_name': 'article',
+                'lang': 'pt'
             },
             {
-                'element_name': 'article',
-                'lang': 'en',
-                'id': 'main'
+                'parent_name': 'article',
+                'lang': 'en'
             },
             {
-                'element_name': 'sub-article',
+                'parent_name': 'sub-article',
                 'lang': 'en',
                 'id': 'TRen'
             }
@@ -249,14 +243,19 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        title = {
-                'element_name': 'article',
-                'lang': 'en',
-                'id': 'main'
-            }
+        title = {'parent_name': 'article', 'lang': 'en'}
         title_object = article_titles.ArticleTitles(xml_tree)
-        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
-        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
+        abstracts = [
+            {'parent_name': 'article', 'lang': 'pt'},
+            {'parent_name': 'article', 'lang': 'en'},
+            {'parent_name': 'sub-article', 'lang': 'en', 'id': 'TRen'}
+        ]
+
+        keywords = [
+            {'parent_name': 'article', 'lang': 'en'},
+            {'parent_name': 'article', 'lang': 'en'},
+            {'parent_name': 'sub-article', 'lang': 'en', 'id': 'TRen'}
+        ]
 
         obtained = _elements_exist(title, title_object, abstracts, keywords)
 
@@ -279,13 +278,12 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
         title = {
-            'element_name': 'article',
-            'lang': 'en',
-            'id': 'main'
+            'parent_name': 'article',
+            'lang': 'en'
         }
         title_object = article_titles.ArticleTitles(xml_tree)
-        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
-        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
+        abstracts = []
+        keywords = []
 
         obtained = _elements_exist(title, title_object, abstracts, keywords)
 
@@ -319,13 +317,12 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
         title = {
-            'element_name': 'article',
-            'lang': 'pt',
-            'id': 'main'
+            'parent_name': 'article',
+            'lang': 'pt'
         }
         title_object = article_titles.ArticleTitles(xml_tree)
-        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
-        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
+        abstracts = []
+        keywords = [{'element_name': 'article', 'lang': 'pt'}, {'element_name': 'article', 'lang': 'en'}]
 
         obtained = _elements_exist(title, title_object, abstracts, keywords)
 
@@ -349,13 +346,13 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
         title = {
-            'element_name': 'article',
+            'parent_name': 'article',
             'lang': 'pt',
             'id': 'main'
         }
         title_object = article_titles.ArticleTitles(xml_tree)
-        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
-        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
+        abstracts = [{'element_name': 'article', 'lang': 'pt'}]
+        keywords = []
 
         obtained = _elements_exist(title, title_object, abstracts, keywords)
 
@@ -378,13 +375,13 @@ class AuxiliaryFunctionsTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
         title = {
-            'element_name': 'article',
+            'parent_name': 'article',
             'lang': 'pt',
             'id': 'main'
         }
         title_object = article_titles.ArticleTitles(xml_tree)
-        abstracts = get_element_langs(article_abstract.Abstract(xml_tree).get_abstracts(style='inline'))
-        keywords = get_element_langs(kwd_group.KwdGroup(xml_tree).extract_kwd_data_with_lang_text_by_article_type(None))
+        abstracts = []
+        keywords = []
 
         obtained = _elements_exist(title, title_object, abstracts, keywords)
 
@@ -427,7 +424,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'title for the article',
                 'got_value': None,
                 'message': 'Got None expected title for the article',
-                'advice': 'Provide title in the \'pt\' language for article (main)'
+                'advice': 'Provide title in the \'pt\' language for article'
             }
         ]
 
@@ -679,7 +676,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'en',
                 'got_value': None,
                 'message': 'Got None expected en',
-                'advice': "Provide abstract in the 'en' language for article (trans)",
+                'advice': "Provide abstract in the 'en' language for article",
 
             },
             {
@@ -807,7 +804,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'pt',
                 'got_value': None,
                 'message': 'Got None expected pt',
-                'advice': "Provide kwd-group in the 'pt' language for article (main)",
+                'advice': "Provide kwd-group in the 'pt' language for article",
 
             },
             {
@@ -933,7 +930,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract for the article',
                 'got_value': None,
                 'message': 'Got None expected abstract for the article',
-                'advice': "Provide abstract in the 'pt' language for article (main)",
+                'advice': "Provide abstract in the 'pt' language for article",
 
             },
             {
@@ -944,7 +941,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract for the article',
                 'got_value': None,
                 'message': 'Got None expected abstract for the article',
-                'advice': "Provide abstract in the 'en' language for article (trans)",
+                'advice': "Provide abstract in the 'en' language for article",
             }
         ]
         for i, item in enumerate(obtained):
@@ -1026,7 +1023,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'keywords for the article',
                 'got_value': None,
                 'message': 'Got None expected keywords for the article',
-                'advice': "Provide kwd-group in the 'pt' language for article (main)"
+                'advice': "Provide kwd-group in the 'pt' language for article"
 
             },
             {
@@ -1037,7 +1034,7 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'keywords for the article',
                 'got_value': None,
                 'message': 'Got None expected keywords for the article',
-                'advice': "Provide kwd-group in the 'en' language for article (trans)"
+                'advice': "Provide kwd-group in the 'en' language for article"
 
             }
         ]
