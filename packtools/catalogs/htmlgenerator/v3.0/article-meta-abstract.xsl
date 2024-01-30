@@ -12,8 +12,8 @@
         </div>
     </xsl:template>
 
-    <xsl:template match="abstract/sec/title | trans-abstract/sec/title">
-        <strong><xsl:apply-templates select="*|text()"/></strong>
+    <xsl:template match="abstract/sec/title | trans-abstract/sec/title | kwd-group/title">
+        <strong><xsl:apply-templates select="*|text()"/></strong><xsl:text>&#160;</xsl:text>
     </xsl:template>
 
     <xsl:template match="abstract[title] | trans-abstract[title]" mode="anchor-and-title">
@@ -44,6 +44,7 @@
     </xsl:template>
 
     <xsl:template match="abstract/sec/p | trans-abstract/sec/p">
-        <xsl:text>&#160;</xsl:text><xsl:apply-templates select="*|text()"/>
+        <xsl:apply-templates select="*|text()"/>
     </xsl:template>
+
 </xsl:stylesheet>
