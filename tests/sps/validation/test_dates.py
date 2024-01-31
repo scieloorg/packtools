@@ -93,7 +93,7 @@ class HistoryDatesValidationTest(TestCase):
                 'expected_value': ['received', 'rev-request', 'corrected'],
                 'got_value': ['rev-request'],
                 'message': "Got [('rev-request', '1998-03-14')]",
-                'advice': "Provide valid date for: ['received', 'corrected']"
+                'advice': "Provide: valid date for ['received', 'corrected'];",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -190,7 +190,7 @@ class HistoryDatesValidationTest(TestCase):
                 'got_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
                 'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
                            "'1998-05-24'), ('accepted', '1998-06-06')]",
-                'advice': "Provide valid date for: ['corrected']",
+                'advice': "Provide: valid date for ['corrected'];",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -249,7 +249,8 @@ class HistoryDatesValidationTest(TestCase):
                 'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'unknown'],
                 'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', '1998-05-24'),"
                            " ('accepted', '1998-06-06'), ('unknown', '2012-06-01')]",
-                'advice': "Provide ordering of events valid date for: ['corrected'] removal of events: ['unknown']",
+                'advice': "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'] "
+                          "in chronological order; valid date for ['corrected']; removal of events ['unknown'];",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -334,7 +335,7 @@ class HistoryDatesValidationTest(TestCase):
                 'expected_value': ['received', 'accepted', 'corrected'],
                 'got_value': ['accepted', 'corrected'],
                 'message': "Got [('accepted', '1998-06-06'), ('corrected', '2012-06-01')]",
-                'advice': "Provide valid date for: ['received']",
+                'advice': "Provide: valid date for ['received'];",
             },
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -471,7 +472,7 @@ class HistoryDatesValidationTest(TestCase):
                 'got_value': ['rev-request', 'received', 'rev-recd', 'accepted', 'corrected'],
                 'message': "Got [('rev-request', '1998-01-04'), ('received', '1998-01-05'), ('rev-recd', '1998-05-24'),"
                            " ('accepted', '1998-06-06'), ('corrected', '2012-06-01')]",
-                'advice': 'Provide ordering of events',
+                'advice': "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'] in chronological order;",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
@@ -525,7 +526,7 @@ class HistoryDatesValidationTest(TestCase):
                 'got_value': ['received', 'rev-request', 'rev-recd', 'corrected'],
                 'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', '1998-05-24'),"
                            " ('corrected', '2012-06-01')]",
-                'advice': "Provide valid date for: ['accepted']",
+                'advice': "Provide: valid date for ['accepted'];",
             }
         ]
         obtained = dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
