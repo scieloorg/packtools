@@ -195,19 +195,19 @@ class ArticleDatesValidation:
         are_all_known = unknown_events == []
         is_valid = is_ordered and is_complete and are_all_known
 
-        # prepara o conteúdo de advice
-        advice = 'Provide'
-        if not is_ordered:
-            advice += ' ordering of events'
-        if not is_complete:
-            advice += f' valid date for: {missing_events}'
-        if not are_all_known:
-            advice += f' removal of events: {unknown_events}'
-
         # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
         # ordenados pelo padrão
         expected = sort_by_reference_list(
             list((set(ordered_by_event) | set(required_events)) - set(unknown_events)), order)
+
+        # prepara o conteúdo de advice
+        advice = 'Provide:'
+        if not is_ordered:
+            advice += f' the dates of {expected} in chronological order;'
+        if not is_complete:
+            advice += f' valid date for {missing_events};'
+        if not are_all_known:
+            advice += f' removal of events {unknown_events};'
 
         yield {
             'title': 'History date validation',
