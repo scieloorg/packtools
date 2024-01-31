@@ -207,7 +207,7 @@ class ArticleTocSectionsValidation:
                 is_valid = all(item in sections for item in obtained_toc_section.get('sections'))
                 title = obtained_toc_section.get('title')
                 xpath = obtained_toc_section.get('xpath')
-                validation = 'match'
+                validation = 'value in list'
                 obtained = ' | '.join(obtained_toc_section.get('sections'))
             else:
                 is_valid = False
