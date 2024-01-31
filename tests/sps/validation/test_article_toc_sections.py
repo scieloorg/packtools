@@ -291,9 +291,9 @@ class ArticleTocSectionsTest(TestCase):
                 'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': 'article title different from section titles',
-                'got_value': 'article title different from section titles',
-                'message': "Article title: Título del artículo, section titles: ['Artículo']",
+                'expected_value': "'Título del artículo' (article title) different from 'Artículo' (section titles)",
+                'got_value': "article title: 'Título del artículo', section titles: 'Artículo'",
+                'message': 'article and section titles are different',
                 'advice': None
             },
             {
@@ -301,9 +301,9 @@ class ArticleTocSectionsTest(TestCase):
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': 'article title different from section titles',
-                'got_value': 'article title different from section titles',
-                'message': "Article title: Article title, section titles: ['Article']",
+                'expected_value': "'Article title' (article title) different from 'Article' (section titles)",
+                'got_value': "article title: 'Article title', section titles: 'Article'",
+                'message': 'article and section titles are different',
                 'advice': None
             }
         ]
@@ -352,9 +352,9 @@ class ArticleTocSectionsTest(TestCase):
                 'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'article title different from section titles',
-                'got_value': 'article title same as section titles',
-                'message': "Article title: Artículo, section titles: ['Artículo']",
+                'expected_value': "'Artículo' (article title) different from 'Artículo' (section titles)",
+                'got_value': "article title: 'Artículo', section titles: 'Artículo'",
+                'message': 'article and section titles are the same',
                 'advice': 'Provide different titles between article and sections'
             },
             {
@@ -362,9 +362,9 @@ class ArticleTocSectionsTest(TestCase):
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'ERROR',
-                'expected_value': 'article title different from section titles',
-                'got_value': 'article title same as section titles',
-                'message': "Article title: Article, section titles: ['Article']",
+                'expected_value': "'Article' (article title) different from 'Article' (section titles)",
+                'got_value': "article title: 'Article', section titles: 'Article'",
+                'message': 'article and section titles are the same',
                 'advice': 'Provide different titles between article and sections'
             }
         ]
