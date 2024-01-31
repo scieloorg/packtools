@@ -292,16 +292,18 @@ class ArticleTocSectionsValidation:
         obtained_toc_sections = _get_sections(self.article_toc_sections)
         article_title = self.article_titles.article_title_dict
 
-        for lang, section in obtained_toc_sections.items():
-            is_valid = article_title.get(lang) not in section.get('sections')
+        for lang, sections in obtained_toc_sections.items():
+            is_valid = article_title.get(lang) not in sections.get('sections')
+            article = article_title.get(lang)
+            section = ' | '.join(sections.get('sections'))
             yield {
-                'title': section.get('title'),
-                'xpath': section.get('xpath'),
+                'title': sections.get('title'),
+                'xpath': sections.get('xpath'),
                 'validation_type': 'match',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': 'article title different from section titles',
-                'got_value': 'article title {} section titles'.format('different from' if is_valid else 'same as'),
-                'message': 'Article title: {}, section titles: {}'.format(article_title.get(lang), section.get('sections')),
+                'expected_value': '\'{}\' (article title) different from \'{}\' (section titles)'.format(article, section),
+                'got_value': 'article title: \'{}\', section titles: \'{}\''.format(article, section),
+                'message': 'article and section titles are {}'.format('different' if is_valid else 'the same'),
                 'advice': None if is_valid else 'Provide different titles between article and sections'
             }
 
