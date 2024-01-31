@@ -202,12 +202,13 @@ class ArticleTocSectionsValidation:
         obtained_toc_sections = _get_sections(self.article_toc_sections)
         for lang, sections in expected_toc_sections.items():
             obtained_toc_section = obtained_toc_sections.get(lang)
-            if obtained_toc_section is not None:
-                is_valid = obtained_toc_section.get('sections') == sections
+            if obtained_toc_section.get('sections'):
+                # verifica se todos os títulos de seção estão presentes na lista esperada
+                is_valid = all(item in sections for item in obtained_toc_section.get('sections'))
                 title = obtained_toc_section.get('title')
                 xpath = obtained_toc_section.get('xpath')
                 validation = 'match'
-                obtained = obtained_toc_section.get('sections')
+                obtained = ' | '.join(obtained_toc_section.get('sections'))
             else:
                 is_valid = False
                 title = 'Article or sub-article section title validation'
