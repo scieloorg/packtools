@@ -48,7 +48,7 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'title': 'Article section title validation',
                 'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'match',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': 'Artículo',
@@ -58,7 +58,7 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'title': 'Sub-article section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'match',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
@@ -174,7 +174,7 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'title': 'Article section title validation',
                 'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'match',
+                'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': 'artículo',
@@ -184,7 +184,7 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'title': 'Sub-article section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'match',
+                'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'article',
@@ -238,7 +238,7 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'title': 'Sub-article section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'match',
+                'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
