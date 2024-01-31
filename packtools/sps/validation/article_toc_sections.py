@@ -42,7 +42,8 @@ def _get_article_sections(sections):
             resp[lang]['sections'] = []
             resp[lang]['title'] = 'Article section title validation'
             resp[lang]['xpath'] = ".//article-meta//subj-group[@subj-group-type='heading']/subject"
-        resp[lang]['sections'].append(section.get('text'))
+        if section.get('text') is not None:
+            resp[lang]['sections'].append(section.get('text'))
     return resp
 
 
@@ -86,7 +87,8 @@ def _get_sub_article_sections(sections):
             resp[lang]['sections'] = []
             resp[lang]['title'] = 'Sub-article section title validation'
             resp[lang]['xpath'] = ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject"
-        resp[lang]['sections'].append(section.get('text'))
+        if section.get('text') is not None:
+            resp[lang]['sections'].append(section.get('text'))
     return resp
 
 
