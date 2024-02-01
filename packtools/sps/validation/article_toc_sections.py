@@ -213,31 +213,38 @@ class ArticleTocSectionsValidation:
             ]
         """
         obtained_toc_sections = _get_sections(self.article_toc_sections)
-        for lang, sections in expected_toc_sections.items():
-            obtained_toc_section = obtained_toc_sections.get(lang)
-            if obtained_toc_section.get('sections'):
-                # verifica se todos os títulos de seção estão presentes na lista esperada
-                is_valid = all(item in sections for item in obtained_toc_section.get('sections'))
-                title = obtained_toc_section.get('title')
-                xpath = obtained_toc_section.get('xpath')
-                validation = 'value in list'
-                obtained = ' | '.join(obtained_toc_section.get('sections'))
-            else:
-                is_valid = False
-                title = 'Article or sub-article section title validation'
-                xpath = ".//subj-group[@subj-group-type='heading']/subject"
-                validation = 'exist'
-                obtained = None
-            yield {
-                'title': title,
-                'xpath': xpath,
-                'validation_type': validation,
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': sections,
-                'got_value': obtained,
-                'message': 'Got {} expected {}'.format(obtained, sections),
-                'advice': None if is_valid else 'Provide sections as expected: {}'.format(sections)
-            }
+
+        obtained_langs = set(obtained_toc_sections)
+        expected_langs = set(expected_toc_sections)
+        all_langs = sorted(list(obtained_langs | expected_langs))
+        common_langs = sorted(list(obtained_langs & expected_langs))
+
+        if not all_langs:
+            title = 'Article or sub-article section title validation'
+            xpath = ".//subj-group[@subj-group-type='heading']/subject"
+            validation = 'exist'
+            yield _create_response(title, xpath, validation, True, None, None, None)
+
+        for lang in all_langs:
+            is_valid = False
+            title = 'Article or sub-article section title validation'
+            xpath = ".//subj-group[@subj-group-type='heading']/subject"
+            validation = 'exist'
+            expected = expected_toc_sections.get(lang)
+            obtained = obtained_toc_sections.get(lang)
+            obtained_msg = ' | '.join(obtained.get('sections')) if obtained else None
+            advice = 'Provide missing sections for language: {}'.format(lang)
+            if lang in common_langs:
+                if obtained.get('sections'):
+                    # verifica se todos os títulos de seção estão presentes na lista esperada
+                    is_valid = all(item in expected for item in obtained.get('sections'))
+                    title = obtained.get('title')
+                    xpath = obtained.get('xpath')
+                    validation = 'value in list'
+            elif lang in obtained_langs:
+                advice = 'Unexpected sections for language: {}'.format(lang)
+
+            yield _create_response(title, xpath, validation, is_valid, expected, obtained_msg, advice)
 
     def validade_article_title_is_different_from_section_titles(self):
         """
