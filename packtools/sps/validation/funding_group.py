@@ -36,7 +36,7 @@ class FundingGroupValidation:
                 'advice': None if is_valid else 'Provide values to {}'.format(' and '.join(advice))
             }
 
-    def principal_award_recipient_validation(self):
+    def principal_award_recipient_exist_validation(self):
         for principal in self.principal_award_recipients or [None]:
             is_valid = principal is not None
             expected = principal if is_valid else 'value to <principal-award-recipient>'
@@ -51,7 +51,7 @@ class FundingGroupValidation:
                 'advice': None if is_valid else 'Provide {}'.format(expected)
             }
 
-    def principal_investigator_validation(self):
+    def principal_investigator_exist_validation(self):
         for principal in self.principal_investigator or [None]:
             is_valid = principal is not None
             expected = principal if is_valid else 'value to <principal-investigator>'
