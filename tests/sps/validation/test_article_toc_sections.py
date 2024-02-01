@@ -46,16 +46,6 @@ class ArticleTocSectionsTest(TestCase):
             }
         expected = [
             {
-                'title': 'Article section title validation',
-                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['Artículo', 'Editorial', 'Carta'],
-                'got_value': 'Artículo',
-                'message': "Got Artículo expected ['Artículo', 'Editorial', 'Carta']",
-                'advice': None
-            },
-            {
                 'title': 'Sub-article section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'value in list',
@@ -63,6 +53,16 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
                 'message': "Got Article expected ['Article', 'Editorial', 'Letter']",
+                'advice': None
+            },
+            {
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['Artículo', 'Editorial', 'Carta'],
+                'got_value': 'Artículo',
+                'message': "Got Artículo expected ['Artículo', 'Editorial', 'Carta']",
                 'advice': None
             }
         ]
@@ -72,7 +72,7 @@ class ArticleTocSectionsTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_toc_sections_fail_sections_missing(self):
+    def test_validate_article_toc_sections_fail_sections_not_obtained(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
@@ -83,20 +83,20 @@ class ArticleTocSectionsTest(TestCase):
                         <article-title>Título del artículo</article-title>
                     </title-group>
                     <article-categories>
-                        
+
                     </article-categories>
                 </article-meta>
             </front>
             <sub-article article-type="translation" xml:lang="en">
                 <front-stub>
                     <article-categories>
-            
+
                     </article-categories>
                     <title-group>
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>        
+            </sub-article>
             </article>
             """
         )
@@ -111,20 +111,20 @@ class ArticleTocSectionsTest(TestCase):
                 'xpath': ".//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['Artículo', 'Editorial', 'Carta'],
+                'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': None,
-                'message': "Got None expected ['Artículo', 'Editorial', 'Carta']",
-                'advice': "Provide sections as expected: ['Artículo', 'Editorial', 'Carta']",
+                'message': "Got None expected ['Article', 'Editorial', 'Letter']",
+                'advice': 'Provide missing sections for language: en'
             },
             {
                 'title': 'Article or sub-article section title validation',
                 'xpath': ".//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['Article', 'Editorial', 'Letter'],
+                'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': None,
-                'message': "Got None expected ['Article', 'Editorial', 'Letter']",
-                'advice': "Provide sections as expected: ['Article', 'Editorial', 'Letter']",
+                'message': "Got None expected ['Artículo', 'Editorial', 'Carta']",
+                'advice': 'Provide missing sections for language: es'
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -133,7 +133,7 @@ class ArticleTocSectionsTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_toc_sections_fail(self):
+    def test_validate_article_toc_sections_fail_section_obtained_not_in_expected(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
@@ -161,7 +161,7 @@ class ArticleTocSectionsTest(TestCase):
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>        
+            </sub-article>
             </article>
             """
         )
@@ -172,16 +172,6 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
-                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['Artículo', 'Editorial', 'Carta'],
-                'got_value': 'artículo',
-                'message': "Got artículo expected ['Artículo', 'Editorial', 'Carta']",
-                'advice': "Provide sections as expected: ['Artículo', 'Editorial', 'Carta']",
-            },
-            {
                 'title': 'Sub-article section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'value in list',
@@ -189,7 +179,17 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'article',
                 'message': "Got article expected ['Article', 'Editorial', 'Letter']",
-                'advice': "Provide sections as expected: ['Article', 'Editorial', 'Letter']",
+                'advice': 'Provide missing sections for language: en'
+            },
+            {
+                'title': 'Article section title validation',
+                'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['Artículo', 'Editorial', 'Carta'],
+                'got_value': 'artículo',
+                'message': "Got artículo expected ['Artículo', 'Editorial', 'Carta']",
+                'advice': 'Provide missing sections for language: es',
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -198,7 +198,7 @@ class ArticleTocSectionsTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_toc_sections_fail_journal_has_no_section(self):
+    def test_validate_article_toc_sections_fail_one_section_not_expected(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
@@ -227,7 +227,7 @@ class ArticleTocSectionsTest(TestCase):
                     </title-group>
                 </front-stub>
             </sub-article>
-            </article>     
+            </article>
             """
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
@@ -243,6 +243,126 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
                 'message': "Got Article expected ['Article', 'Editorial', 'Letter']",
+                'advice': None
+            },
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': 'Artículo',
+                'message': 'Got Artículo expected None',
+                'advice': 'Unexpected sections for language: es',
+            }
+        ]
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_toc_sections_fail_all_sections_not_expected(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xml:lang="es">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título del artículo</article-title>
+                    </title-group>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Artículo</subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="en">
+                <front-stub>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Article</subject>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>Article title</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>        
+            </article>
+            """
+        )
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+        expected_section = {}
+        expected = [
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': 'Article',
+                'message': 'Got Article expected None',
+                'advice': 'Unexpected sections for language: en'
+            },
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': 'Artículo',
+                'message': 'Got Artículo expected None',
+                'advice': 'Unexpected sections for language: es'
+            }
+        ]
+        obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_toc_sections_fail_sections_not_obtained_and_not_expected(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xml:lang="es">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título del artículo</article-title>
+                    </title-group>
+                    <article-categories>
+                        
+                    </article-categories>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" xml:lang="en">
+                <front-stub>
+                    <article-categories>
+                        
+                    </article-categories>
+                    <title-group>
+                        <article-title>Article title</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>        
+            </article>
+            """
+        )
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+        expected_section = {}
+        expected = [
+            {
+                'title': 'Article or sub-article section title validation',
+                'xpath': ".//subj-group[@subj-group-type='heading']/subject",
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': None,
+                'got_value': None,
+                'message': 'Got None expected None',
                 'advice': None
             }
         ]
