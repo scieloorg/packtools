@@ -4,8 +4,16 @@ from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.funding_group import FundingGroupValidation
 
 
+def callable_validation_success(award_id):
+    return True
+
+
+def callable_validation_fail(award_id):
+    return False
+
+
 class FundingGroupValidationTest(unittest.TestCase):
-    def test_funding_sources_validation_success(self):
+    def test_funding_sources_validation_success_1_funding_1_award(self):
         self.maxDiff = None
         xml_str = """
             <article>
@@ -26,17 +34,17 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).funding_sources_validation()
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
         expected = [
             {
                 'title': 'Funding source element validation',
                 'xpath': './/funding-group/award-group/funding-source',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Natural Science Foundation of Hunan Province (2019JJ40269)',
-                'got_value': 'Natural Science Foundation of Hunan Province (2019JJ40269)',
-                'message': 'Got Natural Science Foundation of Hunan Province (2019JJ40269) '
-                           'expected Natural Science Foundation of Hunan Province (2019JJ40269)',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '1 values to <funding-source> and 1 values to <award-id>',
+                'message': "Got ['Natural Science Foundation of Hunan Province'] as <funding-source> "
+                           "['2019JJ40269'] as <award-id>",
                 'advice': None
             },
             {
@@ -44,10 +52,9 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'xpath': './/funding-group/award-group/funding-source',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Hubei Provincial Natural Science Foundation of China (2020CFB547)',
-                'got_value': 'Hubei Provincial Natural Science Foundation of China (2020CFB547)',
-                'message': 'Got Hubei Provincial Natural Science Foundation of China (2020CFB547) '
-                           'expected Hubei Provincial Natural Science Foundation of China (2020CFB547)',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '1 values to <funding-source> and 1 values to <award-id>',
+                'message': "Got ['Hubei Provincial Natural Science Foundation of China'] as <funding-source> ['2020CFB547'] as <award-id>",
                 'advice': None
             }
         ]
@@ -55,28 +62,101 @@ class FundingGroupValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_funding_sources_validation_fail(self):
+    def test_funding_sources_validation_success_2_funding_1_award(self):
         self.maxDiff = None
         xml_str = """
             <article>
                 <front>
                     <article-meta>
-                        
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
+                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
+                                <award-id>2019JJ40269</award-id>
+                            </award-group>
+                        </funding-group>
                     </article-meta>
                 </front>
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).funding_sources_validation()
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
+        expected = [
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/funding-source',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '2 values to <funding-source> and 1 values to <award-id>',
+                'message': "Got ['Natural Science Foundation of Hunan Province', "
+                           "'Hubei Provincial Natural Science Foundation of China'] "
+                           "as <funding-source> ['2019JJ40269'] as <award-id>",
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_funding_sources_validation_success_1_funding_2_award(self):
+        self.maxDiff = None
+        xml_str = """
+            <article>
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
+                                <award-id>2019JJ40269</award-id>
+                                <award-id>2020CFB547</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
+        expected = [
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/funding-source',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '1 values to <funding-source> and 2 values to <award-id>',
+                'message': "Got ['Natural Science Foundation of Hunan Province'] as <funding-source> "
+                           "['2019JJ40269', '2020CFB547'] as <award-id>",
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_funding_sources_validation_fail_0_funding_0_award(self):
+        self.maxDiff = None
+        xml_str = """
+            <article>
+                <front>
+                    <article-meta>
+
+                    </article-meta>
+                </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
         expected = [
             {
                 'title': 'Funding source element validation',
                 'xpath': './/funding-group/award-group/funding-source',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'values to <funding-source> and <award-id>',
-                'got_value': None,
-                'message': 'Got None expected values to <funding-source> and <award-id>',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '0 values to <funding-source> and 0 values to <award-id>',
+                'message': 'Got [] as <funding-source> [] as <award-id>',
                 'advice': 'Provide values to <funding-source> and <award-id>',
             }
         ]
@@ -84,7 +164,7 @@ class FundingGroupValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_funding_sources_validation_fail_without_award_id(self):
+    def test_funding_sources_validation_fail_1_funding_0_award(self):
         self.maxDiff = None
         xml_str = """
             <article>
@@ -94,8 +174,38 @@ class FundingGroupValidationTest(unittest.TestCase):
                             <award-group>
                                 <funding-source>Natural Science Foundation of Hunan Province</funding-source>
                             </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
+        expected = [
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/funding-source',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '1 values to <funding-source> and 0 values to <award-id>',
+                'message': "Got ['Natural Science Foundation of Hunan Province'] as <funding-source> [] as <award-id>",
+                'advice': 'Provide values to <award-id>',
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_funding_sources_validation_fail_0_funding_1_award(self):
+        self.maxDiff = None
+        xml_str = """
+            <article>
+                <front>
+                    <article-meta>
+                        <funding-group>
                             <award-group>
-                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
+                                <award-id>2019JJ40269</award-id>
                             </award-group>
                         </funding-group>
                     </article-meta>
@@ -103,29 +213,17 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).funding_sources_validation()
+        obtained = FundingGroupValidation(xml_tree).funding_sources_exist_validation()
         expected = [
             {
                 'title': 'Funding source element validation',
                 'xpath': './/funding-group/award-group/funding-source',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'values to <funding-source> and <award-id>',
-                'got_value': 'Natural Science Foundation of Hunan Province (None)',
-                'message': 'Got Natural Science Foundation of Hunan Province (None) '
-                           'expected values to <funding-source> and <award-id>',
-                'advice': 'Provide values to <funding-source> and <award-id>',
-            },
-            {
-                'title': 'Funding source element validation',
-                'xpath': './/funding-group/award-group/funding-source',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'values to <funding-source> and <award-id>',
-                'got_value': 'Hubei Provincial Natural Science Foundation of China (None)',
-                'message': 'Got Hubei Provincial Natural Science Foundation of China (None) '
-                           'expected values to <funding-source> and <award-id>',
-                'advice': 'Provide values to <funding-source> and <award-id>',
+                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
+                'got_value': '0 values to <funding-source> and 1 values to <award-id>',
+                'message': "Got [] as <funding-source> ['2019JJ40269'] as <award-id>",
+                'advice': 'Provide values to <funding-source>',
             }
         ]
         for i, item in enumerate(obtained):
@@ -155,7 +253,7 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).principal_award_recipient_validation()
+        obtained = FundingGroupValidation(xml_tree).principal_award_recipient_exist_validation()
         expected = [
             {
                 'title': 'Principal award recipient element validation',
@@ -203,7 +301,7 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).principal_award_recipient_validation()
+        obtained = FundingGroupValidation(xml_tree).principal_award_recipient_exist_validation()
         expected = [
             {
                 'title': 'Principal award recipient element validation',
@@ -255,7 +353,7 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).principal_investigator_validation()
+        obtained = FundingGroupValidation(xml_tree).principal_investigator_exist_validation()
         expected = [
             {
                 'title': 'Principal investigator element validation',
@@ -317,7 +415,7 @@ class FundingGroupValidationTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = FundingGroupValidation(xml_tree).principal_investigator_validation()
+        obtained = FundingGroupValidation(xml_tree).principal_investigator_exist_validation()
         expected = [
             {
                 'title': 'Principal investigator element validation',
@@ -328,6 +426,102 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'got_value': None,
                 'message': 'Got None expected value to <principal-investigator>',
                 'advice': 'Provide value to <principal-investigator>',
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_award_id_format_validation_success(self):
+        self.maxDiff = None
+        xml_str = """
+            <article>
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
+                                <award-id>2019JJ40269</award-id>
+                            </award-group>
+                            <award-group>
+                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
+                                <award-id>2020CFB547</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_success)
+        expected = [
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/award-id',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2019JJ40269',
+                'got_value': '2019JJ40269',
+                'message': 'Got 2019JJ40269 expected 2019JJ40269',
+                'advice': None
+            },
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/award-id',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2020CFB547',
+                'got_value': '2020CFB547',
+                'message': 'Got 2020CFB547 expected 2020CFB547',
+                'advice': None
+            }
+        ]
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_award_id_format_validation_fail(self):
+        self.maxDiff = None
+        xml_str = """
+            <article>
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
+                                <award-id>2019JJ40269</award-id>
+                            </award-group>
+                            <award-group>
+                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
+                                <award-id>2020CFB547</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        xml_tree = get_xml_tree(xml_str)
+        obtained = FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_fail)
+        expected = [
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/award-id',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'a valid value for <award-id>',
+                'got_value': '2019JJ40269',
+                'message': 'Got 2019JJ40269 expected a valid value for <award-id>',
+                'advice': 'Provide a valid value for <award-id>'
+            },
+            {
+                'title': 'Funding source element validation',
+                'xpath': './/funding-group/award-group/award-id',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'a valid value for <award-id>',
+                'got_value': '2020CFB547',
+                'message': 'Got 2020CFB547 expected a valid value for <award-id>',
+                'advice': 'Provide a valid value for <award-id>'
             }
         ]
         for i, item in enumerate(obtained):
