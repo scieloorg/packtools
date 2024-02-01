@@ -134,6 +134,19 @@ def _get_sections(sections):
     return article
 
 
+def _create_response(title, xpath, validation, is_valid, expected, obtained_msg, advice):
+    return {
+                'title': title,
+                'xpath': xpath,
+                'validation_type': validation,
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': obtained_msg,
+                'message': 'Got {} expected {}'.format(obtained_msg, expected),
+                'advice': None if is_valid else advice
+            }
+
+
 class ArticleTocSectionsValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
