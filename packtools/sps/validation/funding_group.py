@@ -1,6 +1,8 @@
 from packtools.sps.models.funding_group import FundingGroup
 
 
+def _callable_extern_validate_default(award_id):
+    raise NotImplementedError
 
 
 class FundingGroupValidation:
@@ -65,3 +67,21 @@ class FundingGroupValidation:
                 'message': 'Got {} expected {}'.format(principal, expected),
                 'advice': None if is_valid else 'Provide {}'.format(expected)
             }
+
+    def award_id_format_validation(self, callable_validation=None):
+        callable_validation = callable_validation or _callable_extern_validate_default
+
+        for funding in self.funding_sources or [None]:
+            for award_id in funding.get("award-id") if funding else []:
+                is_valid = callable_validation(award_id)
+                yield {
+                    'title': 'Funding source element validation',
+                    'xpath': './/funding-group/award-group/award-id',
+                    'validation_type': 'format',
+                    'response': 'OK' if is_valid else 'ERROR',
+                    'expected_value': award_id if is_valid else 'a valid value for <award-id>',
+                    'got_value': award_id,
+                    'message': 'Got {} expected {}'.format(
+                        award_id, award_id if is_valid else 'a valid value for <award-id>'),
+                    'advice': None if is_valid else 'Provide a valid value for <award-id>'
+                }
