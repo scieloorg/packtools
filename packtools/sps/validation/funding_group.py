@@ -8,9 +8,12 @@ def _callable_extern_validate_default(award_id):
 class FundingGroupValidation:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
-        self.funding_sources = FundingGroup(xml_tree).award_groups
-        self.principal_award_recipients = FundingGroup(xml_tree).principal_award_recipients
-        self.principal_investigator = FundingGroup(xml_tree).principal_investigators
+        self.funding_group_object = FundingGroup(xml_tree)
+        self.funding_sources = self.funding_group_object.award_groups
+        self.principal_award_recipients = self.funding_group_object.principal_award_recipients
+        self.principal_investigator = self.funding_group_object.principal_investigators
+        self.ack = self.funding_group_object.ack
+        self.funding_statement = self.funding_group_object.funding_statement
 
     def funding_sources_exist_validation(self):
         for funding in self.funding_sources or [None]:
