@@ -43,6 +43,12 @@ class FundingTest(TestCase):
         </article-meta>
         </front>
         <back>
+        <ack>
+            <title>Acknowledgments</title>
+            <p>Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and Anesthesiology, RJ, Brazil, provided important support for this research.</p>
+            <p>This study was funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment (CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil.</p>
+            <p>This study was presented as a poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 November 2018, Belém do Pará, Brazil.</p>
+        </ack>
         <fn-group>
         <fn fn-type="financial-disclosure">
         <label>Funding</label>
@@ -149,4 +155,20 @@ class FundingTest(TestCase):
             }
         ]
         obtained = self.funding.principal_investigators
+        self.assertEqual(expected, obtained)
+
+    def test_ack(self):
+        self.maxDiff = None
+        expected = [
+            {
+                "title": 'Acknowledgments',
+                "text": 'Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and '
+                        'Anesthesiology, RJ, Brazil, provided important support for this research. This study was '
+                        'funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment ('
+                        'CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil. This study was presented as a '
+                        'poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 '
+                        'November 2018, Belém do Pará, Brazil.'
+            }
+        ]
+        obtained = self.funding.ack
         self.assertEqual(expected, obtained)
