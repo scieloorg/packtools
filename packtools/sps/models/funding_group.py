@@ -71,3 +71,15 @@ class FundingGroup:
             }
             items.append(d)
         return items
+
+    @property
+    def ack(self):
+        items = []
+        for node in self._xmltree.xpath(".//back//ack"):
+            items.append(
+                {
+                "title": node.findtext("title"),
+                "text": " ".join([paragraph.text for paragraph in node.xpath("p")])
+                }
+            )
+        return items
