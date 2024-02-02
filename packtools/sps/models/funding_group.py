@@ -50,7 +50,9 @@ class FundingGroup:
 
     @property
     def funding_statement(self):
-        return self._xmltree.xpath(".//funding-group/funding-statement")[0].text
+        funding_statements = self._xmltree.xpath(".//funding-group/funding-statement")
+        if funding_statements:
+            return funding_statements[0].text
 
     @property
     def principal_award_recipients(self):
