@@ -88,3 +88,19 @@ class FundingGroupValidation:
                         award_id, award_id if is_valid else 'a valid value for <award-id>'),
                     'advice': None if is_valid else 'Provide a valid value for <award-id>'
                 }
+
+    def ack_exist_validation(self):
+        for ack in self.ack or [None]:
+            is_valid = ack is not None
+            expected = ack if is_valid else 'value to <ack>'
+            yield {
+                'title': 'Acknowledgment element validation',
+                'xpath': './/back//ack',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': ack,
+                'message': 'Got {} expected {}'.format(ack, expected),
+                'advice': None if is_valid else 'Provide {}'.format(expected)
+            }
+
