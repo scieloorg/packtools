@@ -1,6 +1,4 @@
 import argparse
-from lxml import etree as ET
-import xml.dom.minidom as minidom
 
 from packtools.sps.formats import crossref
 from packtools.sps.utils import xml_utils
@@ -59,9 +57,7 @@ def main():
     }
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
-    xml_crossref = ET.ElementTree(crossref.pipeline_crossref(xml_tree, data))
-    xml_string = ET.tostring(xml_crossref, encoding="utf-8")
-    xml_crossref_formated = minidom.parseString(xml_string).toprettyxml(indent="  ")
+    xml_crossref_formated = crossref.pipeline_crossref(xml_tree, data)
 
     with open(arguments.path_to_write, "w", encoding="utf-8") as file:
         file.write(xml_crossref_formated)

@@ -7,18 +7,18 @@ from datetime import datetime
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    journal_meta,
-    dates,
-    front_articlemeta_issue,
-    article_and_subarticles,
-    article_authors,
     aff,
     article_abstract,
+    article_and_subarticles,
+    article_authors,
+    article_citations,
+    article_doi_with_lang,
     article_ids,
     article_license,
     article_titles,
-    article_doi_with_lang,
-    article_citations,
+    dates,
+    front_articlemeta_issue,
+    journal_meta,
 )
 
 SUPPLBEG_REGEX = re.compile(r"^0 ")
@@ -493,7 +493,7 @@ def get_one_contributor(seq, author):
     return person_name
 
 
-def pipeline_crossref(xml_tree, data):
+def pipeline_crossref(xml_tree, data, pretty_print=True):
     xml_crossref = setupdoibatch_pipe()
     xml_crossref_head_pipe(xml_crossref)
     xml_crossref_doibatchid_pipe(xml_crossref)
@@ -529,7 +529,8 @@ def pipeline_crossref(xml_tree, data):
     xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
     xml_crossref_close_pipe(xml_crossref)
 
-    return xml_crossref
+    tree = ET.ElementTree(xml_crossref)
+    return ET.tostring(tree, encode="utf-8", pretty_print=pretty_print)
 
 
 def setupdoibatch_pipe():
