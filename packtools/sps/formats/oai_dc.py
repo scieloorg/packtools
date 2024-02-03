@@ -26,8 +26,8 @@ class GetDescriptionError(Exception):
 def add_identifier(header, xml_tree):
     try:
         identifier = article_ids.ArticleIds(xml_tree).v2
-        el = ET.Element('identifier')
-        el.text = 'oai:scielo:' + identifier
+        el = ET.Element("identifier")
+        el.text = "oai:scielo:" + identifier
         header.append(el)
     except Exception as exc:
         raise AddIdentifierError(f"Unable to add identifier {exc}")
@@ -38,15 +38,15 @@ def get_datestamp():
 
 
 def add_datestamp(header):
-    el = ET.Element('datestamp')
+    el = ET.Element("datestamp")
     el.text = get_datestamp()
     header.append(el)
 
 
 def add_set_spec(header, xml_tree):
     issn = get_issn(xml_tree)
-    if issn != '':
-        el = ET.Element('setSpec')
+    if issn != "":
+        el = ET.Element("setSpec")
         el.text = issn
         header.append(el)
 
@@ -58,16 +58,16 @@ def get_issn(xml_tree):
 
 
 def add_creator(xml_oai_dc, author_name):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}creator")
     el.text = author_name.strip()
 
     xml_oai_dc.append(el)
 
 
 def add_subject(xml_oai_dc, kw, article):
-    if kw.get('lang') == article.main_lang:
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}subject')
-        el.text = kw.get('text').strip()
+    if kw.get("lang") == article.main_lang:
+        el = ET.Element("{http://purl.org/dc/elements/1.1/}subject")
+        el.text = kw.get("text").strip()
 
         xml_oai_dc.append(el)
 
@@ -99,7 +99,7 @@ def xml_oai_dc_record_pipe():
         </record>
     """
 
-    return ET.Element('record')
+    return ET.Element("record")
 
 
 def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
@@ -111,7 +111,7 @@ def xml_oai_dc_header_pipe(xml_oai_dc, xml_tree):
             <setSpec>0718-7181</setSpec>
         </header>
     """
-    header = ET.Element('header')
+    header = ET.Element("header")
 
     add_identifier(header, xml_tree)
 
@@ -129,7 +129,7 @@ def xml_oai_dc_metadata(xml_oai_dc):
             </metadata>
         </record>
     """
-    metadata = ET.Element('metadata')
+    metadata = ET.Element("metadata")
     xml_oai_dc.append(metadata)
 
 
@@ -144,14 +144,16 @@ def setup_oai_dc_header_pipe(xml_oai_dc):
         http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
     """
     nsmap = {
-        'oai-dc': 'http://www.openarchives.org/OAI/2.0/oai_dc/',
-        'dc': 'http://purl.org/dc/elements/1.1/',
-        'xsi': 'http://www.w3.org/2001/XMLSchema-instance'
+        "oai-dc": "http://www.openarchives.org/OAI/2.0/oai_dc/",
+        "dc": "http://purl.org/dc/elements/1.1/",
+        "xsi": "http://www.w3.org/2001/XMLSchema-instance",
     }
 
-    el = ET.Element('{http://www.openarchives.org/OAI/2.0/oai_dc/}dc', nsmap=nsmap)
-    el.set('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation',
-           'http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd')
+    el = ET.Element("{http://www.openarchives.org/OAI/2.0/oai_dc/}dc", nsmap=nsmap)
+    el.set(
+        "{http://www.w3.org/2001/XMLSchema-instance}schemaLocation",
+        "http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd",
+    )
 
     xml_oai_dc.append(el)
 
@@ -177,9 +179,9 @@ def xml_oai_dc_title(xml_oai_dc, xml_tree):
         La canción reflexiva: en torno al estatuto crítico de la música popular en Brasil
     </dc:title>
     """
-    title = article_titles.ArticleTitles(xml_tree).article_title.get('text')
+    title = article_titles.ArticleTitles(xml_tree).article_title.get("text")
     if title is not None:
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+        el = ET.Element("{http://purl.org/dc/elements/1.1/}title")
         el.text = title.strip()
 
         xml_oai_dc.append(el)
@@ -209,9 +211,9 @@ def xml_oai_dc_creator(xml_oai_dc, xml_tree):
     """
     for author in article_authors.Authors(xml_tree).contribs:
         try:
-            surname = author.get('surname')
-            given_name = author.get('given_names')
-            author_name = f' {surname.strip()}, {given_name.strip()} '
+            surname = author.get("surname")
+            given_name = author.get("given_names")
+            author_name = f" {surname.strip()}, {given_name.strip()} "
             add_creator(xml_oai_dc, author_name)
         except IndexError:
             pass
@@ -293,7 +295,7 @@ def xml_oai_dc_description(xml_oai_dc, xml_tree):
         abstracts = article_abstract.Abstract(xml_tree).get_abstracts(style="inline")
 
         for abstract in abstracts:
-            el = ET.Element('{http://purl.org/dc/elements/1.1/}description')
+            el = ET.Element("{http://purl.org/dc/elements/1.1/}description")
             el.text = abstract.get("abstract")
             xml_oai_dc.append(el)
 
@@ -327,7 +329,7 @@ def xml_oai_dc_publisher(xml_oai_dc, xml_tree):
     publisher = journal_meta.Publisher(xml_tree)
 
     try:
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+        el = ET.Element("{http://purl.org/dc/elements/1.1/}publisher")
         el.text = publisher.publishers_names[0].strip()
 
         xml_oai_dc.append(el)
@@ -360,7 +362,7 @@ def xml_oai_dc_source(xml_oai_dc, xml_tree):
     """
     journal = journal_meta.Title(xml_tree)
 
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}source')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}source")
     el.text = journal.journal_title.strip()
 
     xml_oai_dc.append(el)
@@ -391,20 +393,20 @@ def xml_oai_dc_date(xml_oai_dc, xml_tree):
     dt_obj = dates.ArticleDates(xml_tree)
     dt = dt_obj.article_date if dt_obj.article_date else dt_obj.collection_date
 
-    year = dt.get('year')
+    year = dt.get("year")
     if year:
-        month = dt.get('month')
-        day = dt.get('day')
-        exceptions = [None, '', '0', '00']
+        month = dt.get("month")
+        day = dt.get("day")
+        exceptions = [None, "", "0", "00"]
 
         if month is None and day is None:
             dt_out = year
         else:
-            month = '01' if month in exceptions else month
-            day = '01' if day in exceptions else day
-            dt_out = '-'.join([year, month, day])
+            month = "01" if month in exceptions else month
+            day = "01" if day in exceptions else day
+            dt_out = "-".join([year, month, day])
 
-        el = ET.Element('{http://purl.org/dc/elements/1.1/}date')
+        el = ET.Element("{http://purl.org/dc/elements/1.1/}date")
         el.text = dt_out
         xml_oai_dc.append(el)
 
@@ -435,8 +437,8 @@ def xml_oai_dc_format(xml_oai_dc):
         <dc:format>text/javascript(.js)</dc:format>
         <dc:format>text/xml</dc:format>
     """
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}format')
-    el.text = 'text/html'
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}format")
+    el.text = "text/html"
     xml_oai_dc.append(el)
 
 
@@ -462,8 +464,8 @@ def xml_oai_dc_identifier(xml_oai_dc, xml_tree):
     """
     identifier = article_uri.ArticleUri(xml_tree)
 
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
-    el.text = identifier.all_uris.get('sci_arttext')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}identifier")
+    el.text = identifier.all_uris.get("sci_arttext")
     xml_oai_dc.append(el)
 
 
@@ -488,7 +490,7 @@ def xml_oai_dc_language(xml_oai_dc, xml_tree):
         <dc:language>es</dc:language>
     """
     lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}language")
     el.text = lang.main_lang
     xml_oai_dc.append(el)
 
@@ -516,7 +518,7 @@ def xml_oai_dc_relation(xml_oai_dc, xml_tree):
     related_article = related_articles.RelatedItems(xml_tree)
     for relation in related_article.related_articles:
         if relation:
-            el = ET.Element('{http://purl.org/dc/elements/1.1/}relation')
-            el.text = relation.get('href')
+            el = ET.Element("{http://purl.org/dc/elements/1.1/}relation")
+            el.text = relation.get("href")
             xml_oai_dc.append(el)
             break
