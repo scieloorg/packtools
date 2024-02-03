@@ -44,28 +44,28 @@ def get_identifier(xml_tree):
     try:
         identifier = article_ids.ArticleIds(xml_tree).v2
         if len(identifier) == 23:
-            return ''.join([identifier[10:18], identifier[21:]])
+            return "".join([identifier[10:18], identifier[21:]])
     except TypeError:
         pass
 
 
 def add_identifier(header, xml_tree):
     """
-        Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
-            <!-- ELEMENT identifier -->
-            <!ELEMENT dc:identifier (#PCDATA)>
-            <!ATTLIST dc:identifier
-                xml:lang CDATA #IMPLIED
-                scheme (ags:IPC | ags:RN | ags:PN | ags:ISBN | ags:JN | dcterms:URI | ags:DOI | ags:PC) #IMPLIED
-            >
+    Schema (https://agris.fao.org/agris_ods/dlio.dtd.txt):
+        <!-- ELEMENT identifier -->
+        <!ELEMENT dc:identifier (#PCDATA)>
+        <!ATTLIST dc:identifier
+            xml:lang CDATA #IMPLIED
+            scheme (ags:IPC | ags:RN | ags:PN | ags:ISBN | ags:JN | dcterms:URI | ags:DOI | ags:PC) #IMPLIED
+        >
 
-        Example:
-            <identifier>oai:agris.scielo:XS2021000111</identifier>
-        """
+    Example:
+        <identifier>oai:agris.scielo:XS2021000111</identifier>
+    """
     identifier = get_identifier(xml_tree)
     if identifier is not None:
-        value = f'oai:agris.scielo:XS{identifier}'
-        el = ET.Element('identifier')
+        value = f"oai:agris.scielo:XS{identifier}"
+        el = ET.Element("identifier")
         el.text = value
         header.append(el)
 
@@ -73,7 +73,7 @@ def add_identifier(header, xml_tree):
 def add_set_spec(header, xml_tree):
     issn = get_issn(xml_tree)
     if issn:
-        el = ET.Element('setSpec')
+        el = ET.Element("setSpec")
         el.text = issn
         header.append(el)
 
@@ -85,13 +85,15 @@ def get_issn(xml_tree):
 
 
 def add_creator(xml_oai_dc_agris, author_name):
-    ags = ET.Element('{http://purl.org/agmes/1.1/}creatorPersonal')
+    ags = ET.Element("{http://purl.org/agmes/1.1/}creatorPersonal")
     ags.text = author_name
 
-    dc = ET.Element('{http://purl.org/dc/elements/1.1/}creator')
+    dc = ET.Element("{http://purl.org/dc/elements/1.1/}creator")
     dc.append(ags)
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(dc)
 
 
 def xml_oai_dc_agris_record_pipe():
@@ -101,7 +103,7 @@ def xml_oai_dc_agris_record_pipe():
         </record>
     """
 
-    return ET.Element('record')
+    return ET.Element("record")
 
 
 def xml_oai_dc_agris_header_pipe(xml_oai_dc_agris, xml_tree):
@@ -120,7 +122,7 @@ def xml_oai_dc_agris_header_pipe(xml_oai_dc_agris, xml_tree):
             <setSpec>0718-7181</setSpec>
         </header>
     """
-    header = ET.Element('header')
+    header = ET.Element("header")
 
     add_identifier(header, xml_tree)
 
@@ -144,16 +146,16 @@ def xml_oai_dc_agris_metadata_pipe(xml_oai_dc_agris):
     """
 
     nsmap = {
-        'xsl': 'http://www.w3.org/1999/XSL/Transform',
-        'ags': 'http://purl.org/agmes/1.1/',
-        'dc': 'http://purl.org/dc/elements/1.1/',
-        'agls': 'http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2',
-        'dcterms': 'http://purl.org/dc/terms/'
+        "xsl": "http://www.w3.org/1999/XSL/Transform",
+        "ags": "http://purl.org/agmes/1.1/",
+        "dc": "http://purl.org/dc/elements/1.1/",
+        "agls": "http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2",
+        "dcterms": "http://purl.org/dc/terms/",
     }
 
-    el = ET.Element('{http://purl.org/agmes/1.1/}resources', nsmap=nsmap)
+    el = ET.Element("{http://purl.org/agmes/1.1/}resources", nsmap=nsmap)
 
-    metadata = ET.Element('metadata')
+    metadata = ET.Element("metadata")
     metadata.append(el)
     xml_oai_dc_agris.append(metadata)
 
@@ -196,10 +198,10 @@ def xml_oai_dc_agris_resouce_pipe(xml_oai_dc_agris, xml_tree):
             </metadata>
         </record>
     """
-    el = ET.Element('{http://purl.org/agmes/1.1/}resource')
-    el.set('{http://purl.org/agmes/1.1/}ARN', 'XS' + get_identifier(xml_tree))
+    el = ET.Element("{http://purl.org/agmes/1.1/}resource")
+    el.set("{http://purl.org/agmes/1.1/}ARN", "XS" + get_identifier(xml_tree))
 
-    xml_oai_dc_agris.find('./metadata/{http://purl.org/agmes/1.1/}resources').append(el)
+    xml_oai_dc_agris.find("./metadata/{http://purl.org/agmes/1.1/}resources").append(el)
 
 
 def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
@@ -227,19 +229,21 @@ def xml_oai_dc_agris_title_pipe(xml_oai_dc_agris, xml_tree):
     title = article_titles.ArticleTitles(xml_tree)
     lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
 
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}title')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}title")
 
     try:
-        el.set('{http://www.w3.org/XML/1998/namespace}lang', lang.main_lang)
+        el.set("{http://www.w3.org/XML/1998/namespace}lang", lang.main_lang)
     except Exception as exc:
         raise AddLanguageError(f"Unable to add language {exc}")
 
     try:
-        el.text = title.article_title['text'].strip()
+        el.text = title.article_title["text"].strip()
     except Exception as exc:
         raise AddTitleError(f"Unable to add title {exc}")
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(el)
 
 
 def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
@@ -266,9 +270,9 @@ def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
     """
     author = article_authors.Authors(xml_tree)
     try:
-        surname = author.contribs[0].get('surname')
-        given_name = author.contribs[0].get('given_names')
-        author_name = f' {surname.strip()}, {given_name.strip()} '
+        surname = author.contribs[0].get("surname")
+        given_name = author.contribs[0].get("given_names")
+        author_name = f" {surname.strip()}, {given_name.strip()} "
         add_creator(xml_oai_dc_agris, author_name.strip())
     except IndexError:
         pass
@@ -290,35 +294,37 @@ def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):
     publishers = journal_meta.Publisher(xml_tree).publishers_names
 
     if publishers:
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}publisher')
+        dc = ET.Element("{http://purl.org/dc/elements/1.1/}publisher")
 
         for publisher in publishers:
-            ags = ET.Element('{http://purl.org/agmes/1.1/}publisherName')
+            ags = ET.Element("{http://purl.org/agmes/1.1/}publisherName")
             ags.text = publisher.strip()
             dc.append(ags)
 
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(dc)
 
 
 def get_date(dt, m=False, d=False):
     try:
-        year = dt.get('year')
+        year = dt.get("year")
         if year is None:
             return
 
-        month = dt.get('month')
-        day = dt.get('day')
-        exceptions = [None, '', '0', '00']
+        month = dt.get("month")
+        day = dt.get("day")
+        exceptions = [None, "", "0", "00"]
         if month is None and day is None:
             return year
 
-        month = '01' if month in exceptions else month
-        day = '01' if day in exceptions else day
+        month = "01" if month in exceptions else month
+        day = "01" if day in exceptions else day
 
         if d:
-            return '-'.join([year, month, day])
+            return "-".join([year, month, day])
         elif m:
-            return '-'.join([year, month])
+            return "-".join([year, month])
         else:
             return year
     except Exception as exc:
@@ -347,21 +353,25 @@ def xml_oai_dc_agris_date_pipe(xml_oai_dc_agris, xml_tree):
     dt_out = get_date(dates.ArticleDates(xml_tree).article_date)
 
     if dt_out is not None:
-        term = ET.Element('{http://purl.org/dc/terms/}dateIssued')
+        term = ET.Element("{http://purl.org/dc/terms/}dateIssued")
         term.text = dt_out
 
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}date')
+        dc = ET.Element("{http://purl.org/dc/elements/1.1/}date")
         dc.append(term)
 
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(dc)
 
 
 def add_subject(xml_oai_dc_agris, kw):
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}subject')
-    el.set('{http://www.w3.org/XML/1998/namespace}lang', kw.get('lang'))
-    el.text = kw.get('text')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}subject")
+    el.set("{http://www.w3.org/XML/1998/namespace}lang", kw.get("lang"))
+    el.text = kw.get("text")
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(el)
 
 
 def xml_oai_dc_agris_subject_pipe(xml_oai_dc_agris, xml_tree):
@@ -427,33 +437,39 @@ def xml_oai_dc_agris_description_pipe(xml_oai_dc_agris, xml_tree):
         abstracts = article_abstract.Abstract(xml_tree).get_abstracts(style="inline")
 
         for abstract in abstracts:
-            term = ET.Element('{http://purl.org/dc/terms/}abstract')
-            term.set('{http://www.w3.org/XML/1998/namespace}lang', abstract.get("lang"))
+            term = ET.Element("{http://purl.org/dc/terms/}abstract")
+            term.set("{http://www.w3.org/XML/1998/namespace}lang", abstract.get("lang"))
             term.text = abstract.get("abstract")
 
-            dc = ET.Element('{http://purl.org/dc/elements/1.1/}description')
+            dc = ET.Element("{http://purl.org/dc/elements/1.1/}description")
             dc.append(term)
 
-            xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+            xml_oai_dc_agris.find(
+                ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+            ).append(dc)
     except Exception as exc:
         raise GetDescriptionError(f"Unable to get description {exc}")
 
 
 def add_uri_identifier(xml_oai_dc_agris, identifier):
-    dc = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
-    dc.set('scheme', 'dcterms:URI')
+    dc = ET.Element("{http://purl.org/dc/elements/1.1/}identifier")
+    dc.set("scheme", "dcterms:URI")
     dc.text = identifier
     # dc.text = identifier.get('sci_arttext')
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(dc)
 
 
 def add_uri_doi(xml_oai_dc_agris, doi):
-    dc = ET.Element('{http://purl.org/dc/elements/1.1/}identifier')
-    dc.set('scheme', 'ags:DOI')
+    dc = ET.Element("{http://purl.org/dc/elements/1.1/}identifier")
+    dc.set("scheme", "ags:DOI")
     dc.text = doi
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(dc)
 
 
 def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree, data):
@@ -479,7 +495,7 @@ def xml_oai_dc_agris_identifier_pipe(xml_oai_dc_agris, xml_tree, data):
     # add_uri_identifier(xml_oai_dc_agris, identifier.all_uris)
 
     doi = article_ids.ArticleIds(xml_tree).doi
-    add_uri_identifier(xml_oai_dc_agris, data.get('identifier'))
+    add_uri_identifier(xml_oai_dc_agris, data.get("identifier"))
     add_uri_doi(xml_oai_dc_agris, doi)
 
 
@@ -495,12 +511,14 @@ def xml_oai_dc_agris_type_pipe(xml_oai_dc_agris, data=None):
     Example:
         <dc:type>journal article</dc:type>
     """
-    tp = data and data.get('type') or 'journal article'
+    tp = data and data.get("type") or "journal article"
     if tp is not None:
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}type')
+        dc = ET.Element("{http://purl.org/dc/elements/1.1/}type")
         dc.text = tp
 
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(dc)
 
 
 def xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data):
@@ -519,15 +537,17 @@ def xml_oai_dc_agris_format_pipe(xml_oai_dc_agris, data):
             <dcterms:medium>text/xml</dcterms:medium>
         </dc:format>
     """
-    ft = data.get('format')
+    ft = data.get("format")
     if ft is not None:
-        term = ET.Element('{http://purl.org/dc/terms/}medium')
+        term = ET.Element("{http://purl.org/dc/terms/}medium")
         term.text = ft
 
-        dc = ET.Element('{http://purl.org/dc/elements/1.1/}format')
+        dc = ET.Element("{http://purl.org/dc/elements/1.1/}format")
         dc.append(term)
 
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(dc)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(dc)
 
 
 def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
@@ -544,11 +564,13 @@ def xml_oai_dc_agris_language_pipe(xml_oai_dc_agris, xml_tree):
     """
     lang = article_and_subarticles.ArticleAndSubArticles(xml_tree)
 
-    el = ET.Element('{http://purl.org/dc/elements/1.1/}language')
-    el.set('scheme', 'ags:ISO639-1')
+    el = ET.Element("{http://purl.org/dc/elements/1.1/}language")
+    el.set("scheme", "ags:ISO639-1")
     el.text = lang.main_lang
 
-    xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(el)
+    xml_oai_dc_agris.find(
+        ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+    ).append(el)
 
 
 def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
@@ -565,48 +587,52 @@ def xml_oai_dc_agris_availability_pipe(xml_oai_dc_agris, xml_tree, data=None):
             <ags:availabilityNumber>10.7764/69.1</ags:availabilityNumber>
         </agls:availability>
     """
-    agls = ET.Element('{http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2}availability')
+    agls = ET.Element(
+        "{http://www.naa.gov.au/recordkeeping/gov_online/agls/1.2}availability"
+    )
 
     try:
-        loc = ET.Element('{http://purl.org/agmes/1.1/}availabilityLocation')
-        loc.text = data.get('location')
+        loc = ET.Element("{http://purl.org/agmes/1.1/}availabilityLocation")
+        loc.text = data.get("location")
         agls.append(loc)
     except AttributeError:
         pass
 
     doi = article_ids.ArticleIds(xml_tree).doi
     if doi:
-        number = ET.Element('{http://purl.org/agmes/1.1/}availabilityNumber')
+        number = ET.Element("{http://purl.org/agmes/1.1/}availabilityNumber")
         number.text = doi
         agls.append(number)
 
     if len(agls) > 0:
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(agls)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(agls)
 
 
 def get_citation_title(xml_tree):
     title = journal_meta.Title(xml_tree).journal_title
     if title is not None:
-        return title, 'citationTitle'
+        return title, "citationTitle"
 
 
 def get_citation_identifier(xml_tree):
     issn = journal_meta.ISSN(xml_tree).epub
-    if issn != '':
-        return issn, 'citationIdentifier'
+    if issn != "":
+        return issn, "citationIdentifier"
 
 
 def get_citation_number(xml_tree):
     volume = front_articlemeta_issue.ArticleMetaIssue(xml_tree).volume
     if volume is not None:
-        return volume, 'citationNumber'
+        return volume, "citationNumber"
 
 
 def get_citation_chronology(xml_tree):
     epub_date = dates.ArticleDates(xml_tree).article_date
     date = get_date(epub_date, d=True)
     if date is not None:
-        return date, 'citationChronology'
+        return date, "citationChronology"
 
 
 def add_citation_elements(citation, elements):
@@ -629,9 +655,9 @@ def add_citation_elements(citation, elements):
     """
     for element in elements:
         try:
-            el = ET.Element('{http://purl.org/agmes/1.1/}' + element[1])
-            if element[1] == 'citationIdentifier':
-                el.set('scheme', 'ags:ISSN')
+            el = ET.Element("{http://purl.org/agmes/1.1/}" + element[1])
+            if element[1] == "citationIdentifier":
+                el.set("scheme", "ags:ISSN")
             el.text = element[0]
             citation.append(el)
         except TypeError:
@@ -662,7 +688,7 @@ def xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree):
             <ags:citationChronology>2021/07</ags:citationChronology>
         </ags:citation>
     """
-    citation = ET.Element('{http://purl.org/agmes/1.1/}citation')
+    citation = ET.Element("{http://purl.org/agmes/1.1/}citation")
 
     elements = [
         get_citation_title(xml_tree),
@@ -673,7 +699,9 @@ def xml_oai_dc_agris_citation_pipe(xml_oai_dc_agris, xml_tree):
 
     if elements:
         add_citation_elements(citation, elements)
-        xml_oai_dc_agris.find(".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}).append(citation)
+        xml_oai_dc_agris.find(
+            ".//ags:resource", {"ags": "http://purl.org/agmes/1.1/"}
+        ).append(citation)
 
 
 def pipeline_oai_dc_agris(xml_tree, data):

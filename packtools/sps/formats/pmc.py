@@ -46,7 +46,7 @@ def xml_pmc_aff(xml_tree):
         for institution in aff.findall(".//institution"):
             aff.remove(institution)
 
-        aff.remove(aff.find('./addr-line'))
+        aff.remove(aff.find("./addr-line"))
 
         aff.remove(aff.find("./country"))
 
@@ -60,96 +60,95 @@ def xml_pmc_aff(xml_tree):
 
 def xml_pmc_ref(xml_tree):
     """
-        Remove o elemento 'mixed-citation' do XML SciELO.
+    Remove o elemento 'mixed-citation' do XML SciELO.
 
-        Parameters
-        ----------
-        xml_tree : lxml.etree._Element
-            Elemento XML no padrão SciELO com os dados de origem, por exemplo:
-            <ref id="B1">
-                <label>1.</label>
-                <mixed-citation>
-                   1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
-                   <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
-                </mixed-citation>
-                <element-citation publication-type="journal">
-                   <person-group person-group-type="author">
-                      <name>
-                         <surname>Tran</surname>
-                         <given-names>B</given-names>
-                      </name>
-                      <name>
-                         <surname>Falster</surname>
-                         <given-names>MO</given-names>
-                      </name>
-                      <name>
-                         <surname>Douglas</surname>
-                         <given-names>K</given-names>
-                      </name>
-                      <name>
-                         <surname>Blyth</surname>
-                         <given-names>F</given-names>
-                      </name>
-                      <name>
-                         <surname>Jorm</surname>
-                         <given-names>LR</given-names>
-                      </name>
-                   </person-group>
-                   <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
-                   <source>Drug Alcohol Depend.</source>
-                   <year>2015</year>
-                   <volume>150</volume>
-                   <fpage>85</fpage>
-                   <lpage>91</lpage>
-                   <comment>
-                      DOI:
-                      <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
-                   </comment>
-                </element-citation>
-             </ref>
+    Parameters
+    ----------
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem, por exemplo:
+        <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+               1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
+               <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+               <person-group person-group-type="author">
+                  <name>
+                     <surname>Tran</surname>
+                     <given-names>B</given-names>
+                  </name>
+                  <name>
+                     <surname>Falster</surname>
+                     <given-names>MO</given-names>
+                  </name>
+                  <name>
+                     <surname>Douglas</surname>
+                     <given-names>K</given-names>
+                  </name>
+                  <name>
+                     <surname>Blyth</surname>
+                     <given-names>F</given-names>
+                  </name>
+                  <name>
+                     <surname>Jorm</surname>
+                     <given-names>LR</given-names>
+                  </name>
+               </person-group>
+               <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+               <source>Drug Alcohol Depend.</source>
+               <year>2015</year>
+               <volume>150</volume>
+               <fpage>85</fpage>
+               <lpage>91</lpage>
+               <comment>
+                  DOI:
+                  <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+               </comment>
+            </element-citation>
+         </ref>
 
-        Returns
-        -------
-        lxml.etree._Element :
-            <ref id="B1">
-                <label>1.</label>
-                <element-citation publication-type="journal">
-                   <person-group person-group-type="author">
-                      <name>
-                         <surname>Tran</surname>
-                         <given-names>B</given-names>
-                      </name>
-                      <name>
-                         <surname>Falster</surname>
-                         <given-names>MO</given-names>
-                      </name>
-                      <name>
-                         <surname>Douglas</surname>
-                         <given-names>K</given-names>
-                      </name>
-                      <name>
-                         <surname>Blyth</surname>
-                         <given-names>F</given-names>
-                      </name>
-                      <name>
-                         <surname>Jorm</surname>
-                         <given-names>LR</given-names>
-                      </name>
-                   </person-group>
-                   <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
-                   <source>Drug Alcohol Depend.</source>
-                   <year>2015</year>
-                   <volume>150</volume>
-                   <fpage>85</fpage>
-                   <lpage>91</lpage>
-                   <comment>
-                      DOI:
-                      <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
-                   </comment>
-                </element-citation>
-             </ref>
-        """
+    Returns
+    -------
+    lxml.etree._Element :
+        <ref id="B1">
+            <label>1.</label>
+            <element-citation publication-type="journal">
+               <person-group person-group-type="author">
+                  <name>
+                     <surname>Tran</surname>
+                     <given-names>B</given-names>
+                  </name>
+                  <name>
+                     <surname>Falster</surname>
+                     <given-names>MO</given-names>
+                  </name>
+                  <name>
+                     <surname>Douglas</surname>
+                     <given-names>K</given-names>
+                  </name>
+                  <name>
+                     <surname>Blyth</surname>
+                     <given-names>F</given-names>
+                  </name>
+                  <name>
+                     <surname>Jorm</surname>
+                     <given-names>LR</given-names>
+                  </name>
+               </person-group>
+               <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+               <source>Drug Alcohol Depend.</source>
+               <year>2015</year>
+               <volume>150</volume>
+               <fpage>85</fpage>
+               <lpage>91</lpage>
+               <comment>
+                  DOI:
+                  <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+               </comment>
+            </element-citation>
+         </ref>
+    """
     refs = xml_tree.findall(".//ref")
     for ref in refs:
         ref.remove(ref.find("./mixed-citation"))
-
