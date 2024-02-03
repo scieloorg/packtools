@@ -1,7 +1,4 @@
 import argparse
-import xml.dom.minidom as minidom
-
-from lxml import etree as ET
 
 from packtools.sps.formats import pubmed
 from packtools.sps.utils import xml_utils
@@ -30,12 +27,9 @@ def main():
     arguments = parser.parse_args()
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
-    xml_pubmed = ET.ElementTree(pubmed.pipeline_pubmed(xml_tree))
-    xml_string = ET.tostring(xml_pubmed, encoding="utf-8")
-    xml_pubmed_formated = minidom.parseString(xml_string).toprettyxml(indent="  ")
-
+    xml_pubmed = pubmed.pipeline_pubmed(xml_tree)
     with open(arguments.path_to_write, "w", encoding="utf-8") as file:
-        file.write(xml_pubmed_formated)
+        file.write(xml_pubmed)
         print(f"Arquivo criado em: {arguments.path_to_write}")
 
 

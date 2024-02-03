@@ -2,25 +2,22 @@
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    journal_meta,
-    front_articlemeta_issue,
-    dates,
-    article_titles,
-    article_ids,
+    aff,
+    article_abstract,
     article_and_subarticles,
     article_authors,
-    aff,
-    kwd_group,
     article_citations,
-    article_abstract,
+    article_ids,
+    article_titles,
+    dates,
+    front_articlemeta_issue,
+    journal_meta,
+    kwd_group,
 )
 
 
 def xml_pubmed_article_pipe():
-    root = ET.Element("Article")
-    tree = ET.ElementTree(root)
-
-    return root
+    return ET.Element("Article")
 
 
 def xml_pubmed_journal_pipe(xml_pubmed):
@@ -257,7 +254,7 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree):
+def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed = xml_pubmed_article_pipe()
     xml_pubmed_journal_pipe(xml_pubmed)
     xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
@@ -274,7 +271,8 @@ def pipeline_pubmed(xml_tree):
     # TODO
     # As demais chamadas serão incluídas a partir da incorporação do PR #429
 
-    return xml_pubmed
+    xml_pubmed = ET.ElementTree(xml_pubmed)
+    return ET.tostring(xml_pubmed, encoding="utf-8", pretty_print=pretty_print)
 
 
 def get_authors(xml_tree):
