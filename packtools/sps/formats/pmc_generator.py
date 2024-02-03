@@ -1,7 +1,5 @@
 import argparse
 
-from lxml import etree as ET
-
 from packtools.sps.formats import pmc
 from packtools.sps.utils import xml_utils
 
@@ -29,8 +27,7 @@ def main():
     arguments = parser.parse_args()
 
     xml_tree = xml_utils.get_xml_tree(arguments.xml_scielo)
-    xml_pmc = ET.ElementTree(pmc.pipeline_pmc(xml_tree))
-    xml_string = xml_utils.tostring(xml_pmc, pretty_print=True)
+    xml_string = pmc.pipeline_pmc(xml_tree)
 
     with open(arguments.path_to_write, "w", encoding="utf-8") as file:
         file.write(xml_string)
