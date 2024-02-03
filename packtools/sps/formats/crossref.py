@@ -529,8 +529,10 @@ def pipeline_crossref(xml_tree, data, pretty_print=True):
     xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
     xml_crossref_close_pipe(xml_crossref)
 
-    tree = ET.ElementTree(xml_crossref)
-    return ET.tostring(tree, encode="utf-8", pretty_print=pretty_print)
+    xml_tree = ET.ElementTree(xml_crossref)
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode(
+        "utf-8"
+    )
 
 
 def setupdoibatch_pipe():

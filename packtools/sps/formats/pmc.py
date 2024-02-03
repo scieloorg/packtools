@@ -6,7 +6,9 @@ def pipeline_pmc(xml_tree, pretty_print=True):
     xml_pmc_aff(xml_tree)
     xml_pmc_ref(xml_tree)
 
-    return ET.tostring(xml_tree, pretty_print=pretty_print)
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encode="utf-8").decode(
+        "utf-8"
+    )
 
 
 def xml_pmc_aff(xml_tree):

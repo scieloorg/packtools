@@ -271,8 +271,10 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     # TODO
     # As demais chamadas serão incluídas a partir da incorporação do PR #429
 
-    xml_pubmed = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_pubmed, encoding="utf-8", pretty_print=pretty_print)
+    xml_tree = ET.ElementTree(xml_pubmed)
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode(
+        "utf-8"
+    )
 
 
 def get_authors(xml_tree):
