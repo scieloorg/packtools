@@ -80,38 +80,6 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def _get_section_titles_and_paragraphs(self, attrib):
-        # TODO identificar quem usa este método e eliminar o uso e o método
-        # pois não parecer fazer sentido ter como chaves de dicionário o título de seção do resumo 
-        # além disso, dict não tem como característica
-        # manter os itens ordenados, sendo assim o mais adequado é usar list
-        """
-        Retorna os títulos pareados com os textos das seções do resumo
-
-        Returns
-        -------
-        dict : {
-            "Título da seção 1": "Parágrafo associado com a seção 1",
-            "Título da seção 2": "Parágrafo associado com a seção 2",
-            "Título da seção 3": "Parágrafo associado com a seção 3",
-        }
-        """
-        out = dict()
-        for node in self.xmltree.xpath(f"{attrib}//sec"):
-
-            node_title = node.find("title")
-            if node_title is None:
-                continue
-
-            node_p = node.find("p")
-            if node_p is None:
-                continue
-
-            title = node_text(node_title)
-            out[title] = node_text(node_p)
-
-        return out
-
     def _get_structured_abstract(self, abstract_node):
         """
         Retorna o resumo estruturado
@@ -186,87 +154,42 @@ class Abstract:
         Formato padrão: inline
 
         """
-        lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
-        abstract = self._format_abstract(
-            abstract_node=self.xmltree.find(".//abstract"),
-            style=style,
-        )
-        if not style:
-            abstract["lang"] = lang
-        return {
-            "lang": lang,
-            "abstract": abstract,
-        }
-
-    @property
-    def main_abstract_without_tags(self):
-        # TODO adaptar o código usuário deste método para no lugar deste
-        # usar get_main_abstract(style="only_p")
-        # pois com este nome parece que retorna o resumo principal
-        # sem "tags", ou seja, todos os textos conteúdo de todos os elementos (title, p, sec, etc),
-        # mas o que faz é retornar um dicionário cuja chave é o idioma
-        # do resumo principal e o valor é o conteúdo concatenados somente dos elementos p
-        lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
-
-        p_text = self._format_abstract(
-            abstract_node=self.xmltree.find(".//abstract"),
-            style="only_p"
-        )
-        return {lang: p_text}
-
-    @property
-    def main_abstract_with_tags(self):
-        # TODO adaptar o código usuário deste método para no lugar deste
-        # usar get_main_abstract(style=None)
-        # pois com este nome parece que retorna o resumo principal com "tags",
-        # ou seja, parece que retorna o próprio xml do abstract,
-        # mas o que faz é retornar um dicionário cuja chave é o idioma
-        # do resumo principal e o valor é o resumo estruturado em dicionário
-        try:
-            out = {
-                'lang': self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang"),
-                'title': self.xmltree.xpath(".//front//article-meta//abstract//title")[0].text,
-                'sections': self._get_section_titles_and_paragraphs('.//front//article-meta//abstract')
+        abstract_node = self.xmltree.find(".//article-meta//abstract")
+        if abstract_node is not None:
+            abstract = self._format_abstract(
+                abstract_node=abstract_node,
+                style=style,
+            )
+            article_lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+            abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            if not style:
+                abstract["lang"] = abstract_lang or article_lang
+            return {
+                "parent_name": "article",
+                "lang": abstract_lang or article_lang,
+                "abstract": abstract
             }
-            return out
-
-        except (AttributeError, IndexError):
-            pass
 
     def _get_sub_article_abstracts(self, style=None):
         """
         Retorna gerador de resumos em sub-article
         """
         for sub_article in self.xmltree.xpath(".//sub-article"):
-            item = {}
-            item["lang"] = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-            abstract = sub_article.find(".//front-stub//abstract")
-            item["abstract"] = self._format_abstract(
-                abstract_node=abstract,
-                style=style
-            ) if abstract else None
-            if not style:
-                item["abstract"]["lang"] = item["lang"]
-            yield item
-
-    @property
-    def _sub_article_abstract_with_tags(self):
-        # TODO adaptar o código usuário deste método para no lugar deste
-        # usar _get_sub_article_abstracts(style=None)
-        # pois com este nome parece que retorna os resumos com "tags",
-        # ou seja, parece que retorna o próprio xml do abstract,
-        # mas o que faz é retornar um dicionário representando o resumo em
-        # formato estruturado
-        # além disso, este código não considera que sub-article ocorra mais de 1 vez
-        try:
-            out = {
-                'lang': self.xmltree.find(".//sub-article").get("{http://www.w3.org/XML/1998/namespace}lang"),
-                'title': self.xmltree.xpath(".//sub-article//front-stub//abstract//title")[0].text,
-                'sections': self._get_section_titles_and_paragraphs('.//sub-article//front-stub//abstract')
-            }
-            return out
-        except (AttributeError, IndexError):
-            pass
+            abstract_node = sub_article.find(".//front-stub//abstract")
+            if abstract_node is not None:
+                sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
+                abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+                item = {}
+                item["parent_name"] = "sub-article"
+                item["lang"] = abstract_lang or sub_article_lang
+                item["abstract"] = self._format_abstract(
+                    abstract_node=abstract_node,
+                    style=style
+                )
+                if not style:
+                    item["abstract"]["lang"] = item["lang"]
+                item['id'] = sub_article.get("id")
+                yield item
 
     def _get_trans_abstracts(self, style=None):
         """
@@ -274,31 +197,13 @@ class Abstract:
         """
         for trans_abstract in self.xmltree.xpath(".//trans-abstract"):
             item = {}
+            item["parent_name"] = "article"
             item["lang"] = trans_abstract.get("{http://www.w3.org/XML/1998/namespace}lang")
             item["abstract"] = self._format_abstract(
                 abstract_node=trans_abstract,
                 style=style
             )
             yield item
-
-    @property
-    def _trans_abstract_with_tags(self):
-        # TODO adaptar o código usuário deste método para no lugar deste
-        # usar _get_trans_abstracts(style=None)
-        # pois com este nome parece que retorna os resumos com "tags",
-        # ou seja, parece que retorna o próprio xml do abstract,
-        # mas o que faz é retornar um dicionário representando o resumo em
-        # formato estruturado
-        # além disso, este código não considera que trans-abstract ocorra mais de 1 vez
-        try:
-            out = {
-                'lang': self.xmltree.find(".//trans-abstract").get("{http://www.w3.org/XML/1998/namespace}lang"),
-                'title': self.xmltree.xpath(".//front//article-meta//trans-abstract//title")[0].text,
-                'sections': self._get_section_titles_and_paragraphs('.//front//article-meta//trans-abstract')
-            }
-            return out
-        except AttributeError:
-            pass
 
     def get_abstracts(self, style=None):
         """
@@ -316,17 +221,3 @@ class Abstract:
         for item in self.get_abstracts(style=style):
             d[item["lang"]] = item["abstract"]
         return d
-
-    @property
-    def abstracts_with_tags(self):
-        # TODO adaptar o código usuário deste método para no lugar deste
-        # usar get_abstracts(style=None)
-        # pois com este nome parece que retorna os resumos com "tags",
-        # ou seja, parece que retorna o próprio xml do abstract,
-        # mas o que faz é retornar um dicionário representando o resumo em
-        # formato estruturado
-        return [self.main_abstract_with_tags, self._trans_abstract_with_tags, self._sub_article_abstract_with_tags]
-
-    @property
-    def abstracts_without_tags(self):
-        return self.get_abstracts_by_lang(style="only_p")

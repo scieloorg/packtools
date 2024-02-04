@@ -117,6 +117,7 @@ class ArticleTitlesTest(TestCase):
     def test_data(self):
         expected = [{
             "lang": "es",
+            "parent_name": "article",
             "text": (
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
@@ -130,6 +131,7 @@ class ArticleTitlesTest(TestCase):
         },
         {
             "lang": "en",
+            "parent_name": "article",
             "text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
@@ -158,7 +160,7 @@ class SubArticleTitlesTest(TestCase):
               </title-group>
             </article-meta>
           </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="1" xml:lang="en">
 
             <front-stub>
 
@@ -176,6 +178,7 @@ class SubArticleTitlesTest(TestCase):
     def test_data(self):
         expected = [{
             "lang": "es",
+            "parent_name": "article",
             "text": (
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
@@ -188,7 +191,9 @@ class SubArticleTitlesTest(TestCase):
             ),
         },
         {
+            "id": "1",
             "lang": "en",
+            "parent_name": "sub-article",
             "text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
