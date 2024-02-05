@@ -24,7 +24,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -46,13 +46,13 @@ class ArticleTocSectionsTest(TestCase):
             }
         expected = [
             {
-                'title': 'Sub-article section title validation',
+                'title': 'Sub-article (id=01) section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
-                'message': "Got Article expected ['Article', 'Editorial', 'Letter']",
+                'message': "Got Article expected one of ['Article', 'Editorial', 'Letter']",
                 'advice': None
             },
             {
@@ -62,7 +62,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': 'Artículo',
-                'message': "Got Artículo expected ['Artículo', 'Editorial', 'Carta']",
+                'message': "Got Artículo expected one of ['Artículo', 'Editorial', 'Carta']",
                 'advice': None
             }
         ]
@@ -113,8 +113,8 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': None,
-                'message': "Got None expected ['Article', 'Editorial', 'Letter']",
-                'advice': 'Provide missing sections for language: en'
+                'message': "Got None expected one of ['Article', 'Editorial', 'Letter']",
+                'advice': 'Provide missing section for language: en'
             },
             {
                 'title': 'Article or sub-article section title validation',
@@ -123,8 +123,8 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': None,
-                'message': "Got None expected ['Artículo', 'Editorial', 'Carta']",
-                'advice': 'Provide missing sections for language: es'
+                'message': "Got None expected one of ['Artículo', 'Editorial', 'Carta']",
+                'advice': 'Provide missing section for language: es'
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -150,7 +150,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -172,14 +172,14 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Sub-article section title validation',
+                'title': 'Sub-article (id=01) section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'article',
-                'message': "Got article expected ['Article', 'Editorial', 'Letter']",
-                'advice': 'Provide missing sections for language: en'
+                'message': "Got article expected one of ['Article', 'Editorial', 'Letter']",
+                'advice': 'Provide missing section for language: en'
             },
             {
                 'title': 'Article section title validation',
@@ -188,8 +188,8 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'ERROR',
                 'expected_value': ['Artículo', 'Editorial', 'Carta'],
                 'got_value': 'artículo',
-                'message': "Got artículo expected ['Artículo', 'Editorial', 'Carta']",
-                'advice': 'Provide missing sections for language: es',
+                'message': "Got artículo expected one of ['Artículo', 'Editorial', 'Carta']",
+                'advice': 'Provide missing section for language: es',
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -215,7 +215,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -236,13 +236,13 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Sub-article section title validation',
+                'title': 'Sub-article (id=01) section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['Article', 'Editorial', 'Letter'],
                 'got_value': 'Article',
-                'message': "Got Article expected ['Article', 'Editorial', 'Letter']",
+                'message': "Got Article expected one of ['Article', 'Editorial', 'Letter']",
                 'advice': None
             },
             {
@@ -253,7 +253,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': None,
                 'got_value': 'Artículo',
                 'message': 'Got Artículo expected None',
-                'advice': 'Unexpected sections for language: es',
+                'advice': "Remove .//subj-group[@subj-group-type='heading']/subject for language: es",
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -279,7 +279,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -290,7 +290,7 @@ class ArticleTocSectionsTest(TestCase):
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>        
+            </sub-article>
             </article>
             """
         )
@@ -305,7 +305,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': None,
                 'got_value': 'Article',
                 'message': 'Got Article expected None',
-                'advice': 'Unexpected sections for language: en'
+                'advice': "Remove .//subj-group[@subj-group-type='heading']/subject for language: en",
             },
             {
                 'title': 'Article or sub-article section title validation',
@@ -315,7 +315,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': None,
                 'got_value': 'Artículo',
                 'message': 'Got Artículo expected None',
-                'advice': 'Unexpected sections for language: es'
+                'advice': "Remove .//subj-group[@subj-group-type='heading']/subject for language: es",
             }
         ]
         obtained = self.article_toc_sections.validate_article_toc_sections(expected_section)
@@ -335,20 +335,20 @@ class ArticleTocSectionsTest(TestCase):
                         <article-title>Título del artículo</article-title>
                     </title-group>
                     <article-categories>
-                        
+
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
-                        
+
                     </article-categories>
                     <title-group>
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>        
+            </sub-article>
             </article>
             """
         )
@@ -389,7 +389,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -400,7 +400,7 @@ class ArticleTocSectionsTest(TestCase):
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>        
+            </sub-article>
             </article>
             """
         )
@@ -417,7 +417,7 @@ class ArticleTocSectionsTest(TestCase):
                 'advice': None
             },
             {
-                'title': 'Sub-article section title validation',
+                'title': 'Sub-article (id=01) section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'OK',
@@ -450,7 +450,7 @@ class ArticleTocSectionsTest(TestCase):
                     </article-categories>
                 </article-meta>
             </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="01" xml:lang="en">
                 <front-stub>
                     <article-categories>
                         <subj-group subj-group-type="heading">
@@ -475,17 +475,17 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': "'Artículo' (article title) different from 'Artículo' (section titles)",
                 'got_value': "article title: 'Artículo', section titles: 'Artículo'",
                 'message': 'article and section titles are the same',
-                'advice': 'Provide different titles between article and sections'
+                'advice': "Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)",
             },
             {
-                'title': 'Sub-article section title validation',
+                'title': 'Sub-article (id=01) section title validation',
                 'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject",
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': "'Article' (article title) different from 'Article' (section titles)",
                 'got_value': "article title: 'Article', section titles: 'Article'",
                 'message': 'article and section titles are the same',
-                'advice': 'Provide different titles between article and sections'
+                'advice': "Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)",
             }
         ]
         obtained = self.article_toc_sections.validade_article_title_is_different_from_section_titles()
