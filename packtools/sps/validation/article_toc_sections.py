@@ -20,12 +20,12 @@ def _get_article_sections(sections):
     and an xpath ('xpath'). Example:
     {
         'en': {
-            'sections': ['English section 1 text', 'English section 2 text'],
+            'sections': ['English section 1 text'],
             'title': 'Article section title validation',
             'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject"
         },
         'fr': {
-            'sections': ['French section 1 text', 'French section 2 text'],
+            'sections': ['French section 1 text'],
             'title': 'Article section title validation',
             'xpath': ".//article-meta//subj-group[@subj-group-type='heading']/subject"
         }
@@ -40,10 +40,9 @@ def _get_article_sections(sections):
             lang = section.get('lang')
             if lang not in resp:
                 resp[lang] = {}
-                resp[lang]['sections'] = []
+                resp[lang]['section'] = section.get('text')
                 resp[lang]['title'] = 'Article section title validation'
                 resp[lang]['xpath'] = ".//article-meta//subj-group[@subj-group-type='heading']/subject"
-                resp[lang]['sections'].append(section.get('text'))
     return resp
 
 
@@ -65,12 +64,12 @@ def _get_sub_article_sections(sections):
     and an xpath ('xpath'). Example:
     {
         'en': {
-            'sections': ['English section 1 text', 'English section 2 text'],
+            'sections': ['English section 1 text'],
             'title': 'Sub-article section title validation',
             'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject"
         },
         'es': {
-            'sections': ['Spanish section 1 text', 'Spanish section 2 text'],
+            'sections': ['Spanish section 1 text'],
             'title': 'Sub-article section title validation',
             'xpath': ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject"
         }
@@ -85,10 +84,9 @@ def _get_sub_article_sections(sections):
             lang = section.get('lang')
             if lang not in resp:
                 resp[lang] = {}
-                resp[lang]['sections'] = []
-                resp[lang]['title'] = 'Sub-article section title validation'
+                resp[lang]['section'] = section.get('text')
+                resp[lang]['title'] = f'Sub-article (id={section.get("id")}) section title validation'
                 resp[lang]['xpath'] = ".//sub-article[@article-type='translation']//front-stub//subj-group[@subj-group-type='heading']/subject"
-                resp[lang]['sections'].append(section.get('text'))
     return resp
 
 
@@ -142,7 +140,7 @@ def _create_response(title, xpath, validation, is_valid, expected, obtained_msg,
                 'response': 'OK' if is_valid else 'ERROR',
                 'expected_value': expected,
                 'got_value': obtained_msg,
-                'message': 'Got {} expected {}'.format(obtained_msg, expected),
+                'message': 'Got {} expected {}{}'.format(obtained_msg, 'one of ' if expected else '', expected),
                 'advice': None if is_valid else advice
             }
 
@@ -232,17 +230,17 @@ class ArticleTocSectionsValidation:
             validation = 'exist'
             expected = expected_toc_sections.get(lang)
             obtained = obtained_toc_sections.get(lang)
-            obtained_msg = ' | '.join(obtained.get('sections')) if obtained else None
-            advice = 'Provide missing sections for language: {}'.format(lang)
+            obtained_msg = obtained.get('section') if obtained else None
+            advice = 'Provide missing section for language: {}'.format(lang)
             if lang in common_langs:
-                if obtained.get('sections'):
+                if obtained.get('section'):
                     # verifica se todos os títulos de seção estão presentes na lista esperada
-                    is_valid = all(item in expected for item in obtained.get('sections'))
+                    is_valid = obtained.get('section') in expected
                     title = obtained.get('title')
                     xpath = obtained.get('xpath')
                     validation = 'value in list'
             elif lang in obtained_langs:
-                advice = 'Unexpected sections for language: {}'.format(lang)
+                advice = 'Remove {} for language: {}'.format(xpath, lang)
 
             yield _create_response(title, xpath, validation, is_valid, expected, obtained_msg, advice)
 
@@ -313,9 +311,9 @@ class ArticleTocSectionsValidation:
         article_title = self.article_titles.article_title_dict
 
         for lang, sections in obtained_toc_sections.items():
-            is_valid = article_title.get(lang) not in sections.get('sections')
+            is_valid = article_title.get(lang) != sections.get('section')
             article = article_title.get(lang)
-            section = ' | '.join(sections.get('sections'))
+            section = sections.get('section')
             yield {
                 'title': sections.get('title'),
                 'xpath': sections.get('xpath'),
@@ -324,7 +322,7 @@ class ArticleTocSectionsValidation:
                 'expected_value': '\'{}\' (article title) different from \'{}\' (section titles)'.format(article, section),
                 'got_value': 'article title: \'{}\', section titles: \'{}\''.format(article, section),
                 'message': 'article and section titles are {}'.format('different' if is_valid else 'the same'),
-                'advice': None if is_valid else 'Provide different titles between article and sections'
+                'advice': None if is_valid else "Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)"
             }
 
 
