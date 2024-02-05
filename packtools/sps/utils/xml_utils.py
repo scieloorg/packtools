@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     _items = []
     for node in xmltree.xpath(lang_xpath):
-        _item = {}
+        _item = {'id': node.get('id')}
         if node_xpath:
             _item["node"] = node.find(node_xpath)
         else:
