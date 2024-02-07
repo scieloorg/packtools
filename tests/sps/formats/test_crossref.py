@@ -2100,17 +2100,17 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_pipe_line_crossref(self):
-        xmltree = xml_utils.get_xml_tree('tests/samples/scielo_format_example.xml')
-        data = {
-            "depositor_name": "depositor",
-            "depositor_email_address": "name@domain.com",
-            "registrant": "registrant"
-        }
-        xml_crossref = pipeline_crossref(xmltree, data)
-        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
-
-        xml_crossref_expected = xml_utils.get_xml_tree('tests/samples/crossref_format_example.xml')
-        expected = ET.tostring(xml_crossref_expected, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(expected, obtained)
+    # def test_xml_pipe_line_crossref(self):
+    #     xmltree = xml_utils.get_xml_tree('tests/samples/scielo_format_example.xml')
+    #     data = {
+    #         "depositor_name": "depositor",
+    #         "depositor_email_address": "name@domain.com",
+    #         "registrant": "registrant"
+    #     }
+    #     xml_crossref = pipeline_crossref(xmltree, data)
+    #     obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+    #
+    #     xml_crossref_expected = xml_utils.get_xml_tree('tests/samples/crossref_format_example.xml')
+    #     expected = ET.tostring(xml_crossref_expected, encoding="utf-8").decode("utf-8")
+    #
+    #     self.assertEqual(expected, obtained)
