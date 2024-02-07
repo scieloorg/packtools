@@ -1,0 +1,3344 @@
+<article
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" dtd-version="1.0" specific-use="sps-1.1" article-type="research-article" xml:lang="pt"> 
+	<front> 
+		<journal-meta> 
+			<journal-id journal-id-type="publisher-id">reben</journal-id> 
+			<journal-title-group> 
+				<journal-title>Revista Brasileira de Enfermagem</journal-title> 
+				<abbrev-journal-title abbrev-type="publisher">Rev Bras Enferm</abbrev-journal-title> 
+			</journal-title-group> 
+			<issn pub-type="ppub">0034-7167</issn> 
+			<issn pub-type="epub">1984-0446</issn> 
+			<publisher> 
+				<publisher-name>Associa&#231;&#227;o Brasileira de Enfermagem</publisher-name> 
+			</publisher> 
+		</journal-meta> 
+		<article-meta> 
+			<article-id pub-id-type="publisher-id" specific-use="scielo-v3">8fNzspZMMgNXjwb5rjVrGyb</article-id> 
+			<article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0034-71672015000100068</article-id> 
+			<article-id pub-id-type="doi">10.1590/0034-7167.2015680110p</article-id> 
+			<article-categories> 
+				<subj-group subj-group-type="heading"> 
+					<subject>PESQUISA</subject> 
+				</subj-group> 
+			</article-categories> 
+			<title-group> 
+				<article-title>Funcionalidade familiar em longevos residentes em domic&#237;lio</article-title> 
+				<trans-title-group xml:lang="es"> 
+					<trans-title>Funcionalidad familiar en los residentes longevos en el hogar</trans-title> 
+				</trans-title-group> 
+			</title-group> 
+			<contrib-group> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Vera</surname> 
+						<given-names>Ivania</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff01">I</xref> 
+					<xref ref-type="corresp" rid="c01"/> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Lucchese</surname> 
+						<given-names>Roselma</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff01">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Nakatani</surname> 
+						<given-names>Ad&#233;lia Yaeko Kyosen</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff01">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Pagotto</surname> 
+						<given-names>Valeria</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff01">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Montefusco</surname> 
+						<given-names>Selma Rodrigues Alves</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff01">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Sadoyama</surname> 
+						<given-names>Geraldo</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff02">II</xref> 
+				</contrib> 
+			</contrib-group> 
+			<aff id="aff01"> 
+				<label>I</label> 
+				<institution content-type="orgname">Universidade Federal de Goi&#225;s</institution> 
+				<institution content-type="orgdiv1">Faculdade de Enfermagem</institution> 
+				<institution content-type="orgdiv2">Programa de P&#243;s-Gradua&#231;&#227;o em Enfermagem</institution> 
+				<addr-line> 
+					<named-content content-type="city">Goi&#226;nia</named-content> 
+					<named-content content-type="state">GO</named-content> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal de Goi&#225;s, Faculdade de Enfermagem, Programa de P&#243;s-Gradua&#231;&#227;o em Enfermagem. Goi&#226;nia-GO, Brasil</institution> 
+				<institution content-type="normalized">Universidade Federal de Goi&#225;s</institution> 
+			</aff> 
+			<aff id="aff02"> 
+				<label>II</label> 
+				<institution content-type="orgname">Universidade Federal de Goi&#225;s</institution> 
+				<institution content-type="orgdiv1">Faculdade de Biologia</institution> 
+				<institution content-type="orgdiv2">Departamento de Ci&#234;ncias Biol&#243;gicas</institution> 
+				<addr-line> 
+					<named-content content-type="city">Catal&#227;o</named-content> 
+					<named-content content-type="state">GO</named-content> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal de Goi&#225;s, Faculdade de Biologia, Departamento de Ci&#234;ncias Biol&#243;gicas. Catal&#227;o-GO, Brasil</institution> 
+				<institution content-type="normalized">Universidade Federal de Goi&#225;s</institution> 
+			</aff> 
+			<author-notes> 
+				<corresp id="c01">
+					<bold>AUTOR CORRESPONDENTE Ivania Vera</bold>. E-mail: 
+					<email>ivaniavera@gmail.com</email>
+				</corresp> 
+			</author-notes> 
+			<pub-date pub-type="epub-ppub"> 
+				<season>Jan-Feb</season> 
+				<year>2015</year> 
+			</pub-date> 
+			<volume>68</volume> 
+			<issue>1</issue> 
+			<fpage>68</fpage> 
+			<lpage>75</lpage> 
+			<history> 
+				<date date-type="received"> 
+					<day>04</day> 
+					<month>11</month> 
+					<year>2014</year> 
+				</date> 
+				<date date-type="accepted"> 
+					<day>30</day> 
+					<month>11</month> 
+					<year>2014</year> 
+				</date> 
+			</history> 
+			<permissions> 
+				<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc/3.0/"> 
+					<license-p>Este &#233; um artigo publicado em acesso aberto (Open Access) sob a licen&#231;a Creative Commons Attribution NonCommercial, que permite uso, distribui&#231;&#227;o e reprodu&#231;&#227;o em qualquer meio, sem restri&#231;&#245;es desde que sem fins comerciais e que o trabalho original seja corretamente citado.</license-p> 
+				</license> 
+			</permissions> 
+			<abstract> 
+				<sec> 
+					<title>Objetivo:</title> 
+					<p>identificar os fatores associados &#224; funcionalidade familiar de longevos n&#227;o institucionalizados residentes em Goi&#226;nia (GO), Brasil.</p> 
+				</sec> 
+				<sec> 
+					<title>M&#233;todo:</title> 
+					<p>tratou-se de um estudo epidemiol&#243;gico, de base populacional, com delineamento transversal. Foram aplicadas escalas de avalia&#231;&#227;o da capacidade funcional e cognitiva. A din&#226;mica familiar foi mensurada utilizando o 
+						<italic>Adaptation, Partnership, Growth, Affection and Resolve</italic> (APGAR) por meio de entrevista domiciliar com 131 longevos.
+					</p> 
+				</sec> 
+				<sec> 
+					<title>Resultados:</title> 
+					<p>houve preval&#234;ncia do sexo feminino, m&#233;dia de idade de 83,87 anos, condi&#231;&#227;o de viuvez, residindo em fam&#237;lia extensa, escolaridade prim&#225;ria e autopercep&#231;&#227;o de sa&#250;de regular. Grande parcela despontou independ&#234;ncia para autocuidado e depend&#234;ncia parcial para Atividades Instrumentais de Vida Di&#225;ria. A funcionalidade familiar prevaleceu com m&#233;dia do escore de 9,06 pontos.</p> 
+				</sec> 
+				<sec> 
+					<title>Conclus&#227;o:</title> 
+					<p>concluiu-se que a funcionalidade familiar nos longevos est&#225; associada &#224; autopercep&#231;&#227;o de sa&#250;de ruim/p&#233;ssima, osteoporose e queda. Os resultados permitiram caracterizar a funcionalidade familiar de longevos, com vistas &#224; valoriza&#231;&#227;o e &#224; prioriza&#231;&#227;o da fam&#237;lia como cuidadora.</p> 
+				</sec> 
+			</abstract> 
+			<trans-abstract xml:lang="es"> 
+				<sec> 
+					<title>Objetivo:</title> 
+					<p>se objetiv&#243; identificar los factores asociados a la funcionalidad familiar de longevos no institucionalizados que viven en Goi&#226;nia (GO), Brasil.</p> 
+				</sec> 
+				<sec> 
+					<title>M&#233;todo:</title> 
+					<p>eso fue un estudio epidemiol&#243;gico, de base de populaci&#243;n con dise&#241;o transversal. Fueron aplicadas escalas de evaluaci&#243;n de las capacidades funcional y cognitiva. La din&#225;mica familiar fue medida con la utilizaci&#243;n del instrumento 
+						<italic>Adaptation, Partnership, Growth, Affection y Resolve</italic> (APGAR), por medio de entrevista a domicilio con 131 longevos.
+					</p> 
+				</sec> 
+				<sec> 
+					<title>Resultados:</title> 
+					<p>se observ&#243; que hubo prevalencia del g&#233;nero femenino, media de edad de 83,87 a&#241;os, condici&#243;n de viudez, residencia en familia grande, escolaridad primaria, y autopercepci&#243;n de salud regular. Una grande cuantidad demostr&#243; independencia para autocuidado y dependencia parcial para actividades instrumentales de la vida diaria. La funcionalidad familiar prevaleci&#243; con media del escore de 9,06 puntos.</p> 
+				</sec> 
+				<sec> 
+					<title>Conclusi&#243;n:</title> 
+					<p>se concluy&#243; que en los longevos la funcionalidad familiar es asociada a la autopercepci&#243;n de salud mala/p&#233;sima, a la osteoporosis, y a la ca&#237;da. Los resultados permitir&#225;n caracterizar la funcionalidad familiar de longevos con el objetivo de valorar y priorizar la familia como cuidadora.</p> 
+				</sec> 
+			</trans-abstract> 
+			<kwd-group xml:lang="pt"> 
+				<kwd>Enfermagem</kwd> 
+				<kwd>Idoso de 80 Anos ou Mais</kwd> 
+				<kwd>Rela&#231;&#245;es Familiares</kwd> 
+			</kwd-group> 
+			<kwd-group xml:lang="es"> 
+				<kwd>Enfermer&#237;a</kwd> 
+				<kwd>Anciano de 80 A&#241;os o M&#225;s</kwd> 
+				<kwd>Relaciones Familiares</kwd> 
+			</kwd-group> 
+			<counts> 
+				<fig-count count="2"/> 
+				<table-count count="8"/> 
+				<equation-count count="0"/> 
+				<ref-count count="23"/> 
+				<page-count count="8"/> 
+			</counts> 
+		</article-meta> 
+	</front> 
+	<body> 
+		<sec sec-type="intro"> 
+			<title>INTRODU&#199;&#195;O</title> 
+			<p>O fen&#244;meno mundial do envelhecimento revela que os longevos, identificados como as pessoas com idade maior ou igual a 80 anos, est&#227;o avan&#231;ando rapidamente em n&#250;meros, sobretudo nos pa&#237;ses em desenvolvimento
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B01">1</xref>
+				<sup>)</sup>. Os 14 milh&#245;es de longevos identificados no s&#233;culo XX em 2050 passar&#227;o a mais de 400 milh&#245;es em todo o mundo. A maior preval&#234;ncia est&#225; relacionada ao sexo, sendo que, para cada grupo de 100 mulheres longevas, h&#225; 61 homens de mesma faixa et&#225;ria
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B01">1</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Em Goi&#226;nia (GO), os longevos j&#225; atingiram 7,9% da popula&#231;&#227;o idosa
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B02">2</xref>
+				<sup>)</sup>. A heterogeneidade da popula&#231;&#227;o idosa &#233; diretamente influenciada pelo decl&#237;nio da mortalidade nas idades avan&#231;adas, sexo, estado civil, regi&#227;o geogr&#225;fica e acessibilidade das pessoas &#224;s condi&#231;&#245;es sociais e econ&#244;micas. A longevidade da humanidade deve ser vista como um triunfo do desenvolvimento e uma das maiores conquistas da humanidade
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B03">3</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B04">4</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>As oportunidades infind&#225;veis quanto a esse triunfo do desenvolvimento est&#227;o relacionadas &#224; ado&#231;&#227;o de novas pol&#237;ticas, estrat&#233;gias e leis sobre o desenvolvimento devido &#224;s caracter&#237;sticas diversas, como idade, sexo, etnia, educa&#231;&#227;o, renda e sa&#250;de
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B01">1</xref>
+				<sup>)</sup>. Dentre as estrat&#233;gias, a promo&#231;&#227;o da sa&#250;de e os comportamentos saud&#225;veis em todas as idades s&#227;o necess&#225;rios para reduzir, prevenir e delongar o aparecimento de doen&#231;as cr&#244;nicas, pela menor exposi&#231;&#227;o aos comportamentos de risco ao longo da vida
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B04">4</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Os desafios relacionam-se em reconhecer que o envelhecimento populacional &#233; uma realidade mundial, sendo necess&#225;rias transforma&#231;&#245;es na sociedade em que essa pessoa est&#225; inserida, garantia de renda, acesso a atendimento de sa&#250;de com qualidade e ambientes que estimulem e facilitem o conv&#237;vio de pessoas com incapacidades funcionais, ou seja, sua habita&#231;&#227;o
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B01">1</xref>
+				<sup>)</sup>, sobretudo, em conhecer esse estrato populacional em rela&#231;&#227;o &#224;s condi&#231;&#245;es sociodemogr&#225;ficas e de sa&#250;de, &#224; capacidade funcional e &#224; Funcionalidade Familiar (FF).
+			</p> 
+			<p>Essa evolu&#231;&#227;o silenciosa na demografia intergeracional da fam&#237;lia tem proporcionado o conv&#237;vio do idoso com maior n&#250;mero de gera&#231;&#245;es e em menor quantidade de entes por gera&#231;&#227;o. Tal conv&#237;vio se faz oportunidade para transforma&#231;&#245;es estruturais no contexto familiar, com contribui&#231;&#245;es e atribui&#231;&#245;es vinculadas aos diferentes atores.</p> 
+			<p>As formas de agrupamento familiar v&#234;m se modificando desde 1960, sendo esculpidas por caracter&#237;sticas sociais (individualismo e consumo imediato de objetos materiais, entre outros), alterando as rela&#231;&#245;es intrafamiliais
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B05">5</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B06">6</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>A investiga&#231;&#227;o da din&#226;mica familiar explora e visualiza se h&#225; harmonia ou desarmonia nas rela&#231;&#245;es familiares, sob a &#243;tica do idoso em idade avan&#231;ada, em rela&#231;&#227;o ao cuidado recebido de sua fam&#237;lia, como um fator estressor ou protetor
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B07">7</xref>
+				<sup>)</sup>. Aspectos subjetivos, como se adaptar &#224;s novas realidades frente &#224;s situa&#231;&#245;es de estresse, compartilhar decis&#245;es e responsabilidades de maneira a manter seus membros protegidos e alimentados, apoiar novas ideias e dire&#231;&#245;es, interagir emocionalmente no contexto familiar e ter tempo compartilhado, podem ser avaliados antes da interven&#231;&#227;o familiar.
+			</p> 
+			<p>Um teste de screening &#233; o Adaptation, Partnership, Growth, Affection and Resolve (APGAR) de Fam&#237;lia que, por meio de cinco quest&#245;es, analisa os seguintes dom&#237;nios: adapta&#231;&#227;o, companheirismo, desenvolvimento, afetividade e capacidade resolutiva
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B07">7</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B08">8</xref>
+				<sup>)</sup>. Altos escores, resultantes da soma dos dom&#237;nios, revelam a capacidade da fam&#237;lia de se adaptar &#224;s novas situa&#231;&#245;es e gerenciar conflitos, com vistas &#224; FF, enquanto que baixos escores revelam um ambiente com baixa capacidade de adapta&#231;&#227;o &#224; nova situa&#231;&#227;o, requerendo interven&#231;&#227;o precoce
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B09">9</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Desse modo, no &#226;mbito da aten&#231;&#227;o &#224; sa&#250;de de pessoas com 80 anos ou mais, o instrumento APGAR pode ser um forte aliado na avalia&#231;&#227;o das rela&#231;&#245;es familiares e detec&#231;&#227;o de fatores de risco que merecem interven&#231;&#227;o. Diante do exposto, o objetivo deste estudo foi identificar os fatores associados &#224; FF dos longevos n&#227;o institucionalizados residentes em Goi&#226;nia (GO), Brasil.</p> 
+		</sec> 
+		<sec sec-type="methods"> 
+			<title>M&#201;TODOS</title> 
+			<p>Estudo epidemiol&#243;gico, de base populacional, com delineamento transversal por meio de entrevistas domiciliares com pessoas idosas, realizado em uma capital do Centro-Oeste brasileiro, que contava com mais de um milh&#227;o de habitantes. Destes, 7,9% eram longevos.</p> 
+			<p>A popula&#231;&#227;o de estudo constitui-se de idosos residentes em &#225;rea urbana oriundas da amostra probabil&#237;stica da pesquisa matriz, do banco de dados da Rede de Vigil&#226;ncia &#224; Sa&#250;de do Idoso (REVISI). O c&#225;lculo amostral considerou os seguintes par&#226;metros: frequ&#234;ncia esperada de 30% para todos os objetivos do inqu&#233;rito, n&#237;vel de signific&#226;ncia de 5%, precis&#227;o absoluta de 5,0%, efeito de delineamento de 1,8. A amostra representativa foi de 934 idosos.</p> 
+			<p>O processo de amostragem foi probabil&#237;stico por conglomerados, em m&#250;ltiplos est&#225;gios. No primeiro est&#225;gio, foram sorteados 56 setores censit&#225;rios, entre os 912 setores do munic&#237;pio estritamente urbanos. O segundo est&#225;gio foi constitu&#237;do por sorteio do quarteir&#227;o, esquina e domic&#237;lio a ser visitado.</p> 
+			<p>A amostra atendeu os crit&#233;rios de elegibilidade: (1) idade igual ou superior a 80 anos; (2) resid&#234;ncia na &#225;rea urbana de Goi&#226;nia; (3) morador do domic&#237;lio visitado; e (4) ter respondido todas as cinco quest&#245;es acerca do APGAR de Fam&#237;lia. Foram exclu&#237;dos idosos que estivessem no domic&#237;lio sorteado, mas que n&#227;o residissem nele, al&#233;m dos question&#225;rios respondidos por cuidadores e/ou familiares, resultando em 131 indiv&#237;duos.</p> 
+			<p>Ap&#243;s o teste piloto, iniciou-se a coleta de dados por entrevistadores treinados, no per&#237;odo de dezembro de 2009 e abril de 2010. Foi solicitada autoriza&#231;&#227;o do idoso por meio de Termo de Consentimento Livre e Esclarecido (TCLE) e, em espa&#231;o reservado, aplicou-se o question&#225;rio semiestruturado, contendo caracteriza&#231;&#227;o socioecon&#244;mica e demogr&#225;fica, informa&#231;&#245;es sobre o cuidador, condi&#231;&#245;es de sa&#250;de e dor autorreferidas, quedas, hospitaliza&#231;&#227;o no &#250;ltimo ano e acesso a servi&#231;os de sa&#250;de. A avalia&#231;&#227;o da capacidade funcional foi mensurada pelas escalas de Atividades B&#225;sicas de Vida Di&#225;ria (ABVD), Atividades Instrumentais de Vida Di&#225;ria (AIVD) e a avalia&#231;&#227;o cognitiva por meio do Miniexame do Estado Mental (MEEM). A din&#226;mica familiar, sob a &#243;tica do idoso, foi mensurada pelo &#237;ndice APGAR de Fam&#237;lia.</p> 
+			<p>A escala de ABVD afere a independ&#234;ncia no desempenho de atividades relacionadas ao autocuidado
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B10">10</xref>
+				<sup>)</sup>. Essa vari&#225;vel de exposi&#231;&#227;o foi escalonada em independ&#234;ncia total, depend&#234;ncia parcial e totalmente dependente. As atividades que avaliam o idoso no ambiente e entorno, por meio da AIVD, foram escalonadas em 9 a 27 pontos, em que 9 se refere &#224; depend&#234;ncia total e 27, a independ&#234;ncia no desempenho dessas atividades
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B11">11</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>O MEEM foi aplicado para verificar a fun&#231;&#227;o cognitiva, tendo sido escolhido por ser usado em estudos populacionais nos diversos cen&#225;rios de pr&#225;tica
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B12">12</xref>
+				<sup>)</sup>. Para as notas de corte, consideraram-se os anos de escolaridade, a saber: 20 pontos para analfabetos; 25 pontos para 1 a 4 anos de estudo; 26 pontos para 5 a 8 anos; 28 pontos para 9 a 11 anos; e 29 pontos para mais de 11 anos. Esse teste n&#227;o substitui a avalia&#231;&#227;o neuropsicol&#243;gica nos sujeitos com baixos escores, necessitando que a investiga&#231;&#227;o de perdas funcionais seja verticalizada
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B12">12</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B13">13</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Para avaliar a din&#226;mica familiar, aplicou-se o APGAR de Fam&#237;lia(8). O acr&#244;nimo APGAR deriva das palavras Adaptation (Adapta&#231;&#227;o), Partnership (Companherismo), Growth (Desenvolvimento), Affection (Afetividade) e Resolve (Capacidade resolutiva). Aos cinco dom&#237;nios s&#227;o atribu&#237;dos valores de zero, 1 e 2 pontos. Zero para a op&#231;&#227;o &#8220;nunca&#8221;, 1 para &#8220;algumas vezes&#8221; e 2 &#8220;para sempre&#8221;. A soma total dos escores oscila em uma escala de zero a dez pontos, em que: de zero a 4, a indica&#231;&#227;o &#233; de elevada disfun&#231;&#227;o familiar (EDF); de 5 a 6, de moderada disfun&#231;&#227;o familiar (MDF); e de 7 a 10, de boa FF (BFF)(8,13). Em outros termos, a FF &#233; expressa por escores &#8805;7 e a Disfuncionalidade Familiar (DF) por escores &lt;7 pontos(8,13).</p> 
+			<p>Nesse sentido, as vari&#225;veis de exposi&#231;&#227;o foram caracter&#237;sticas socioecon&#244;micas, demogr&#225;ficas, condi&#231;&#245;es de sa&#250;de autorreferidas, capacidade funcional e cognitiva. A BFF foi a vari&#225;vel desfecho.</p> 
+			<p>Os dados foram digitados no programa Excel for Windows
+				<sup>&#174;</sup>2003-2007 ap&#243;s dupla confer&#234;ncia. A an&#225;lise dos dados foi obtida por medidas de frequ&#234;ncia absoluta e relativa, m&#233;dia e desvio padr&#227;o no software IBM Statistical Package for the Social Sciences (SPSS) for Windows
+				<sup>&#174;</sup> vers&#227;o 20.0. Para an&#225;lise de associa&#231;&#227;o univariada entre a BFF dos longevos e vari&#225;veis de exposi&#231;&#227;o, utilizaram-se o teste Qui quadrado ou Fischer, e n&#237;vel de signific&#226;ncia de 5%. A medida de efeito utilizada foi a raz&#227;o de preval&#234;ncia (RP). A regress&#227;o log&#237;stica m&#250;ltipla foi aplicada para identificar os fatores associados &#224; BFF por meio da constru&#231;&#227;o do modelo com as vari&#225;veis preditoras, que obtiveram valor de p &#8804;0,20 na an&#225;lise univariada.
+			</p> 
+			<p>As vari&#225;veis que entraram na an&#225;lise multivariada foram escalonadas em dois blocos, sendo Bloco 1 &#8722; socioecon&#244;mico demogr&#225;fico (estado civil, ter filhos, n&#237;vel de escolaridade, residentes no domic&#237;lio e tipo de moradia); e Bloco 2 &#8722; condi&#231;&#245;es de sa&#250;de autorreferida (autopercep&#231;&#227;o de sa&#250;de, quedas e procura por servi&#231;os de sa&#250;de).</p> 
+			<p>Os cuidados &#233;ticos que conduzem pesquisas envolvendo seres humanos foram resguardados, segundo a Resolu&#231;&#227;o 196/96 do Conselho Nacional de Sa&#250;de, e a pesquisa foi aprovada pelo Comit&#234; de &#201;tica em Pesquisa da Universidade Federal de Goi&#225;s (UFG), sob o protocolo 050/2009.</p> 
+		</sec> 
+		<sec sec-type="results"> 
+			<title>RESULTADOS</title> 
+			<p>Dentre os 934 entrevistados, 173 (18,5%) eram longevos. Destes, 131 (75,72%) responderam as cinco quest&#245;es do AP-GAR de Fam&#237;lia. A 
+				<xref ref-type="table" rid="t01">Tabela 1</xref> exp&#245;e a caracteriza&#231;&#227;o sociodemogr&#225;fica e revela uma m&#233;dia de idade de 83,87 anos, m&#225;ximo de 94 anos (&#177;3,389), predom&#237;nio do sexo feminino (61,8%), condi&#231;&#227;o de viuvez (50,4%), escolaridade prim&#225;ria (59,5%), residindo em fam&#237;lia extensa (40,5%), com filhos (92,4%), em casa pr&#243;pria (82,4%), recebendo proventos (96,2%), procedentes de aposentadoria (55,7%), por idade (37,4%).
+			</p> 
+			<table-wrap id="t01"> 
+				<label>Tabela 1</label> 
+				<caption> 
+					<title>Distribui&#231;&#227;o dos idosos de acordo com as condi&#231;&#245;es socioecon&#244;micas e demogr&#225;ficas, e fatores associados &#224; Funcionalidade Familiar, nos longevos residentes em Goi&#226;nia (GO), 2010 (n = 131)</title> 
+				</caption> 
+				<table frame="hsides" rules="groups"> 
+					<thead> 
+						<tr> 
+							<th align="center"> 
+								<bold>Vari&#225;veis</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia funcional </bold> 
+								<bold>n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia disfuncional</bold> 
+								<bold> n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>RP (IC95%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Valor de p
+									<xref ref-type="table-fn" rid="TFN01">*</xref>
+								</bold> 
+							</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr> 
+							<td>Sexo</td> 
+							<td/> 
+							<td/> 
+							<td/> 
+							<td/> 
+							<td/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Masculino</td> 
+							<td align="right">50 (38,2)</td> 
+							<td align="right">45 (90,0)</td> 
+							<td align="right">5 (10,0)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Feminino</td> 
+							<td align="right">81 (61,8)</td> 
+							<td align="right">73 (90,1)</td> 
+							<td align="right">8 (9,9)</td> 
+							<td align="right">1,00 (0,89-1,12)</td> 
+							<td align="right">0,601</td> 
+						</tr> 
+						<tr> 
+							<td>Estado civil</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Casado</td> 
+							<td align="right">51 (38,9)</td> 
+							<td align="right">47 (92,2)</td> 
+							<td align="right">4 (7,8)</td> 
+							<td align="right">1,04 (0,93-1,16)</td> 
+							<td align="right">0,519</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Solteiro</td> 
+							<td align="right">8 (6,1)</td> 
+							<td align="right">4 (50,0)</td> 
+							<td align="right">4 (50,0)</td> 
+							<td align="right">0,54 (0,27-1,08)</td> 
+							<td align="right">0,003
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Vi&#250;vo</td> 
+							<td align="right">66 (50,4)</td> 
+							<td align="right">63 (95,5)</td> 
+							<td align="right">3 (4,5)</td> 
+							<td align="right">1,13 (1,01-1,27)</td> 
+							<td align="right">0,061</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Divorciado</td> 
+							<td align="right">5 (3,8)</td> 
+							<td align="right">3 (60,0)</td> 
+							<td align="right">2 (40,0)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Escolaridade</td> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Analfabeto</td> 
+							<td align="right">23 (17,6)</td> 
+							<td align="right">18 (78,3)</td> 
+							<td align="right">5 (21,7)</td> 
+							<td align="right">0,85 (0,68-1,06)</td> 
+							<td align="right">0,053</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sabe ler e escrever</td> 
+							<td align="right">10 (7,6)</td> 
+							<td align="right">9 (90,0)</td> 
+							<td align="right">1 (10,0)</td> 
+							<td align="right">1,00 (0,81-1,24)</td> 
+							<td align="right">0,737</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Prim&#225;rio</td> 
+							<td align="right">78 (59,5)</td> 
+							<td align="right">75 (96,2)</td> 
+							<td align="right">3 (3,8)</td> 
+							<td align="right">1,19 (1,04-1,37)</td> 
+							<td align="right">0,004
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Ensino m&#233;dio</td> 
+							<td align="right">15 (11,5)</td> 
+							<td align="right">11 (73,3)</td> 
+							<td align="right">4 (26,7)</td> 
+							<td align="right">0,80 (0,58-1,08)</td> 
+							<td align="right">0,049
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Superior</td> 
+							<td align="right">4 (3,1)</td> 
+							<td align="right">4 (100,0)</td> 
+							<td align="right">0 (0,0)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Residente domic&#237;lio</td> 
+							<td colspan="4" align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Unirresidente</td> 
+							<td align="right">13 (9,9)</td> 
+							<td align="right">9 (69,2)</td> 
+							<td align="right">4 (30,8)</td> 
+							<td align="right">0,72 (0,50-1,04)</td> 
+							<td align="right">0,026
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;C&#244;njuge</td> 
+							<td align="right">21 (16,0)</td> 
+							<td align="right">20 (95,2)</td> 
+							<td align="right">1 (4,8)</td> 
+							<td align="right">1,07 (0,95-1,20)</td> 
+							<td align="right">0,340</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Somente com filhos</td> 
+							<td align="right">21 (16,0)</td> 
+							<td align="right">20 (95,2)</td> 
+							<td align="right">1 (4,8)</td> 
+							<td align="right">1,07 (0,95-1,20)</td> 
+							<td align="right">0,340</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;C&#244;njuge e filhos</td> 
+							<td align="right">22 (16,8)</td> 
+							<td align="right">20 (90,9)</td> 
+							<td align="right">2 (9,1)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;C&#244;njuge/filhos/outros</td> 
+							<td align="right">53 (40,5)</td> 
+							<td align="right">48 (90,6)</td> 
+							<td align="right">5 (9,4)</td> 
+							<td align="right">1,01 (0,90-1,13)</td> 
+							<td align="right">0,905</td> 
+						</tr> 
+						<tr> 
+							<td>Tem filhos</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">121 (92,4)</td> 
+							<td align="right">112 (92,6)</td> 
+							<td align="right">9 (7,4)</td> 
+							<td align="right">1,67 (0,93-3,00)</td> 
+							<td align="right">0,005
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">9 (6,9)</td> 
+							<td align="right">5 (55,6)</td> 
+							<td align="right">4 (44,4)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Renda</td> 
+							<td colspan="4" align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;At&#233; 1 SM</td> 
+							<td align="right">39 (29,8)</td> 
+							<td align="right">33 (84,6)</td> 
+							<td align="right">6 (15,4)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;1-3 SM</td> 
+							<td align="right">40 (30,5)</td> 
+							<td align="right">36 (90,0)</td> 
+							<td align="right">4 (10,0)</td> 
+							<td align="right">1,01 (0,89-1,15)</td> 
+							<td align="right">0,561</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;&gt;3 SM</td> 
+							<td align="right">42 (32,1)</td> 
+							<td align="right">39 (92,9)</td> 
+							<td align="right">3 (7,1)</td> 
+							<td align="right">1,06 (0,94-1,20)</td> 
+							<td align="right">0,272</td> 
+						</tr> 
+						<tr> 
+							<td>Origem da renda</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Aposentadoria</td> 
+							<td align="right">73 (55,7)</td> 
+							<td align="right">63 (86,3)</td> 
+							<td align="right">10 (13,7)</td> 
+							<td align="right">0,91 (0,82-1,02)</td> 
+							<td align="right">0,242</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Pens&#227;o</td> 
+							<td align="right">23 (17,6)</td> 
+							<td align="right">21 (91,3)</td> 
+							<td align="right">2 (8,7)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Outros</td> 
+							<td align="right">30 (23,0)</td> 
+							<td align="right">29 (96,67)</td> 
+							<td align="right">1 (3,33)</td> 
+							<td align="right">1,10 (1,00-1,22)</td> 
+							<td align="right">0,133</td> 
+						</tr> 
+						<tr> 
+							<td>Moradia</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Pr&#243;pria</td> 
+							<td align="right">108 (82,4)</td> 
+							<td align="right">100,0 (92,6)</td> 
+							<td align="right">8 (7,4)</td> 
+							<td align="right">1,20 (0,95-1,51)</td> 
+							<td align="right">0,044
+								<xref ref-type="table-fn" rid="TFN01">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Alugada</td> 
+							<td align="right">12 (9,2)</td> 
+							<td align="right">9 (75,0)</td> 
+							<td align="right">3 (25,0)</td> 
+							<td align="right">0,82 (0,59-1,14)</td> 
+							<td align="right">0,101</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Emprestada</td> 
+							<td align="right">10 (7,6)</td> 
+							<td align="right">8 (80,0)</td> 
+							<td align="right">2 (20,0)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+					</tbody> 
+				</table> 
+				<table-wrap-foot> 
+					<fn id="TFN01"> 
+						<label>*</label> 
+						<p>Valor de p&lt;0,05. RP: raz&#227;o de preval&#234;ncia; IC95%: intervalo de confian&#231;a de 95%; SM: sal&#225;rio m&#237;nimo.</p> 
+					</fn> 
+				</table-wrap-foot> 
+			</table-wrap> 
+			<p>Entre os entrevistados, prevaleceram autopercep&#231;&#227;o de sa&#250;de regular (45,0%), queixa de dor (58,8%), hipertens&#227;o arterial (60,8%), d&#233;fice visual (90,8%), quedas (41,2%) e procura do servi&#231;o de sa&#250;de (70,2%) (
+				<xref ref-type="table" rid="t02">Tabela 2</xref>).
+			</p> 
+			<table-wrap id="t02"> 
+				<label>Tabela 2</label> 
+				<caption> 
+					<title>Funcionalidade Familiar e doen&#231;a autorreferida, hospitaliza&#231;&#227;o e queda de longevos do Munic&#237;pio de Goi&#226;nia(GO), 2010 (n=131)</title> 
+				</caption> 
+				<table frame="hsides" rules="groups"> 
+					<thead> 
+						<tr> 
+							<th rowspan="2" align="center"> 
+								<bold>Vari&#225;veis</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia funcional</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia disfuncional</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>RP (IC95%)</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>Valor de p
+									<xref ref-type="table-fn" rid="TFN02">*</xref>
+								</bold> 
+							</th> 
+						</tr> 
+						<tr> 
+							<th align="center"> 
+								<bold>n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>n (%)</bold> 
+							</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr> 
+							<td>Autopercep&#231;&#227;o de sa&#250;de</td> 
+							<td colspan="5"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;&#211;tima/boa</td> 
+							<td align="right">53 (40,4)</td> 
+							<td align="right">49 (92,45)</td> 
+							<td align="right">4 (7,55)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Regular</td> 
+							<td align="right">59 (45,0)</td> 
+							<td align="right">54 (91,5)</td> 
+							<td align="right">5 (8,5)</td> 
+							<td align="right">1,06 (0,94-1,20)</td> 
+							<td align="right">0,529</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Ruim/p&#233;ssima</td> 
+							<td align="right">12 (9,2)</td> 
+							<td align="right">8 (66,7)</td> 
+							<td align="right">4 (33,3)</td> 
+							<td align="right">0,72 (0,48-1,09)</td> 
+							<td align="right">0,022
+								<xref ref-type="table-fn" rid="TFN02">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>Dor</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">77 (58,8)</td> 
+							<td align="right">69 (89,6)</td> 
+							<td align="right">8 (10,4)</td> 
+							<td align="right">0,99 (0,88-1,11)</td> 
+							<td align="right">0,831</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">54 (41,2)</td> 
+							<td align="right">49 (90,7)</td> 
+							<td align="right">5 (9,3)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Doen&#231;a autorreferida</td> 
+							<td colspan="4" align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Hipertens&#227;o</td> 
+							<td colspan="4" align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">79 (60,8)</td> 
+							<td align="right">69 (87,3)</td> 
+							<td align="right">10 (12,7)</td> 
+							<td align="right">0,93 (0,83-1,04)</td> 
+							<td align="right">0,220</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">50 (38,5)</td> 
+							<td align="right">47 (94,0)</td> 
+							<td align="right">3 (6,0)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Diabetes</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">20 (15,3)</td> 
+							<td align="right">17 (85,0)</td> 
+							<td align="right">3 (15,0)</td> 
+							<td align="right">0,93 (0,77-1,13)</td> 
+							<td align="right">0,315</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">111 (84,7)</td> 
+							<td align="right">101 (91,0)</td> 
+							<td align="right">10 (9,0)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>DPOC</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">19 (14,5)</td> 
+							<td align="right">18 (94,7)</td> 
+							<td align="right">1 (5,3)</td> 
+							<td align="right">1,06 (0,94-1,20)</td> 
+							<td align="right">0,405</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">112 (85,5)</td> 
+							<td align="right">100 (89,3)</td> 
+							<td align="right">12 (10,7)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>AVE</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">10 (7,6)</td> 
+							<td align="right">9 (90,0)</td> 
+							<td align="right">1 (10,0)</td> 
+							<td align="right">1,00 (0,81-1,24)</td> 
+							<td align="right">0,662</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">121 (92,4)</td> 
+							<td align="right">109 (90,1)</td> 
+							<td align="right">12 (9,9)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Doen&#231;a oesteomuscular</td> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">29 (22,1)</td> 
+							<td align="right">26 (89,7)</td> 
+							<td align="right">3 (10,3)</td> 
+							<td align="right">1,00 (0,87-1,15)</td> 
+							<td align="right">0,602</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">99 (75,6)</td> 
+							<td align="right">89(89,9)</td> 
+							<td align="right">10 (10,1)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Osteoporose</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">48 (36,6)</td> 
+							<td align="right">46 (95,8)</td> 
+							<td align="right">2 (4,2)</td> 
+							<td align="right">1,10 (1,00-1,22)</td> 
+							<td align="right">0,080</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">83 (63,4)</td> 
+							<td align="right">72 (86,7)</td> 
+							<td align="right">11 (13,3)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>C&#226;ncer</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">9 (6,9)</td> 
+							<td align="right">9 (100,0)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,12 (1,05-1,19)</td> 
+							<td align="right">0,378</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">122 (93,1)</td> 
+							<td align="right">109 (89,3)</td> 
+							<td align="right">13 (10,7)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>IAM</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">7(5,3)</td> 
+							<td align="right">7 (100,0)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,12 (1,05-1,19)</td> 
+							<td align="right">0,469</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">123 (93,9)</td> 
+							<td align="right">110 (89,4)</td> 
+							<td align="right">13 (10,6)</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>D&#233;fice visual</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">119 (90,8)</td> 
+							<td align="right">106 (89,1)</td> 
+							<td align="right">13 (10,9)</td> 
+							<td align="right">0,89 (0,84-0,95)</td> 
+							<td align="right">0,268</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">12 (9,2)</td> 
+							<td align="right">12 (10,2)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,00</td> 
+							<td rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>D&#233;fice auditivo</td> 
+							<td colspan="4" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">62 (47,4)</td> 
+							<td align="right">57 (92,0)</td> 
+							<td align="right">5 (8,0)</td> 
+							<td align="right">1,04 (0,93-1,17)</td> 
+							<td align="right">0,482</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">68 (51,9)</td> 
+							<td align="right">60 (88,2)</td> 
+							<td align="right">8 (11,8)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Quedas</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">54 (41,2)</td> 
+							<td align="right">52 (96,3)</td> 
+							<td align="right">2 (3,7)</td> 
+							<td align="right">1,13 (1,01-1,25)</td> 
+							<td align="right">0,085</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">76 (58,0)</td> 
+							<td align="right">65 (85,5)</td> 
+							<td align="right">11 (14,5)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Procura do servi&#231;o sa&#250;de</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">92 (70,2)</td> 
+							<td align="right">87 (94,6)</td> 
+							<td align="right">5 (5,4)</td> 
+							<td align="right">1,21 (1,01-1,44)</td> 
+							<td align="right">0,009
+								<xref ref-type="table-fn" rid="TFN02">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">37 (28,2)</td> 
+							<td align="right">29 (78,4)</td> 
+							<td align="right">8 (21,6)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Hospitaliza&#231;&#227;o nos &#250;ltimos 12 meses</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">34 (26,0)</td> 
+							<td align="right">32 (94,1)</td> 
+							<td align="right">2 (5,9)</td> 
+							<td align="right">1,07 (0,96-1,20)</td> 
+							<td align="right">0,255</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">91 (69,5)</td> 
+							<td align="right">80 (87,9)</td> 
+							<td align="right">11 (12,1)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+					</tbody> 
+				</table> 
+				<table-wrap-foot> 
+					<fn id="TFN02"> 
+						<label>*</label> 
+						<p>Valor de p&lt;0,05. RP: raz&#227;o de preval&#234;ncia; IC95%: intervalo de confian&#231;a de 95%; DPOC: doen&#231;a pulmonar obstrutiva cr&#244;nica; AVE: acidente vascular encef&#225;lico; IAM: infarto agudo do mioc&#225;rdio.</p> 
+					</fn> 
+				</table-wrap-foot> 
+			</table-wrap> 
+			<p>Com rela&#231;&#227;o &#224; capacidade funcional, mais da metade dos idosos longevos relatou necessitar de aux&#237;lio de algu&#233;m para alguma atividade (52,7%), contudo, grande parcela revelou ainda independ&#234;ncia para ABVD (93,1%) e depend&#234;ncia parcial para AIVD (81,7%). Ao se avaliar a fun&#231;&#227;o cognitiva, a pontua&#231;&#227;o m&#233;dia do MEEM foi de 23,5 pontos (&#177;3,242). (
+				<xref ref-type="table" rid="t03">Tabela 3</xref>).
+			</p> 
+			<table-wrap id="t03"> 
+				<label>Tabela 3</label> 
+				<caption> 
+					<title>Funcionalidade Familiar segundo presen&#231;a de cuidador, capacidade funcional e Mini exame do Estado Mental (MEEM) em longevos do Munic&#237;pio de Goi&#226;nia (GO), 2010 (n = 131)</title> 
+				</caption> 
+				<table frame="hsides" rules="groups"> 
+					<thead> 
+						<tr> 
+							<th rowspan="2" align="center"> 
+								<bold>Vari&#225;veis</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>n (%)</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia funcional</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>Fam&#237;lia disfuncional</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>RP (IC95%)</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>Valor de p
+									<xref ref-type="table-fn" rid="TFN03">*</xref>
+								</bold> 
+							</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr> 
+							<td align="center"> 
+								<bold>n (%)</bold> 
+							</td> 
+							<td align="center"> 
+								<bold>n (%)</bold> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td>Precisa de ajuda</td> 
+							<td colspan="5"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">69 (52,7)</td> 
+							<td align="right">62 (89,9)</td> 
+							<td align="right">7 (10,1)</td> 
+							<td align="right">1,00 (0,89-1,12)</td> 
+							<td align="right">0,814</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">61 (46,6)</td> 
+							<td align="right">55 (90,2)</td> 
+							<td align="right">6 (9,8)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Tem algu&#233;m para ajudar</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">72 (55,0)</td> 
+							<td align="right">67 (93,1)</td> 
+							<td align="right">5 (6,9)</td> 
+							<td align="right">1,09 (0,96-1,24)</td> 
+							<td align="right">0,253</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">54 (41,2)</td> 
+							<td align="right">46 (85,2)</td> 
+							<td align="right">8 (14,8)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>ABVD</td> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Independ&#234;ncia total</td> 
+							<td align="right">122 (93,1)</td> 
+							<td align="right">110 (90,2)</td> 
+							<td align="right">12 (9,8)</td> 
+							<td align="right">1,01 (0,80-1,29)</td> 
+							<td align="right">0,621</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Depend&#234;ncia parcial</td> 
+							<td align="right">8 (6,1)</td> 
+							<td align="right">8 (100,0)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,12 (1,05-1,19)</td> 
+							<td align="right">0,422</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Depend&#234;ncia total</td> 
+							<td align="right">1 (0,8)</td> 
+							<td align="right">-</td> 
+							<td align="right">1 (100,0)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>AIVD</td> 
+							<td colspan="5" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Independ&#234;ncia total</td> 
+							<td align="right">24 (18,3)</td> 
+							<td align="right">21 (87,5)</td> 
+							<td align="right">3 (12,5)</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Depend&#234;ncia parcial</td> 
+							<td align="right">107 (81,7)</td> 
+							<td align="right">97 (90,65)</td> 
+							<td align="right">10 (9,35)</td> 
+							<td align="right">1,04 (0,88-1,22)</td> 
+							<td align="right">0,438</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Depend&#234;ncia total</td> 
+							<td align="right">-</td> 
+							<td colspan="4" rowspan="2" align="right"/> 
+						</tr> 
+						<tr> 
+							<td>MEEM</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Analfabetos</td> 
+							<td align="right">17 (16,8)</td> 
+							<td align="right">14 (82,4)</td> 
+							<td align="right">3 (17,6)</td> 
+							<td align="right">0,90 (0,71-1,13)</td> 
+							<td align="right">0,221</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;1-4anos</td> 
+							<td align="right">55 (54,5)</td> 
+							<td align="right">49 (89,1)</td> 
+							<td align="right">6 (10,9)</td> 
+							<td align="right">0,98 (0,86-1,11)</td> 
+							<td align="right">0,488</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;5-8anos</td> 
+							<td align="right">18 (17,8)</td> 
+							<td align="right">17 (94,4)</td> 
+							<td align="right">1 (5,6)</td> 
+							<td align="right">1,06 (0,93-1,21)</td> 
+							<td align="right">0,434</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;9-11 anos</td> 
+							<td align="right">4 (4,0)</td> 
+							<td align="right">4 (100,0)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;&gt;11 anos</td> 
+							<td align="right">7 (6,9)</td> 
+							<td align="right">7 (100,0)</td> 
+							<td align="right">-</td> 
+							<td align="right">1,12 (1,04-1,20)</td> 
+							<td align="right">0,470</td> 
+						</tr> 
+					</tbody> 
+				</table> 
+				<table-wrap-foot> 
+					<fn id="TFN03"> 
+						<label>*</label> 
+						<p>Valor de p&lt;0,05. RP: raz&#227;o de preval&#234;ncia; IC95%: intervalo de confian&#231;a de 95%; ABVD: Atividades B&#225;sicas de Vida Di&#225;ria; AIVD: Atividades Instrumentais de Vida Di&#225;ria.</p> 
+					</fn> 
+				</table-wrap-foot> 
+			</table-wrap> 
+			<p>A din&#226;mica familiar expressa pela BFF foi estimada em 90,1% (n=118). A DF foi estimada em 9,9% (n=13), distribu&#237;dos em 5,3% com MDF (n=7) e 4,6% (n=6) com EDF. A m&#233;dia do escore foi de 9,06 pontos (&#177;2,067).</p> 
+			<p>Com respeito aos dom&#237;nios do APGAR de Fam&#237;lia, o primeiro dom&#237;nio, &#8220;Estou satisfeito(a), pois posso recorrer &#224; minha fam&#237;lia em busca de ajuda quando alguma coisa est&#225; me incomodando ou preocupando&#8221; referiu-se ao componente Adapta&#231;&#227;o. Nessa quest&#227;o, 5 (3,8%) idosos afirmaram nunca estarem satisfeitos com o membro familiar quanto &#224; assist&#234;ncia recebida, 12 (9,2%) responderam que &#224;s vezes e 114 (87,2%) sempre estavam satisfeitos por poderem recorrer &#224; fam&#237;lia em busca de ajuda quando precisavam.</p> 
+			<p>O segundo dom&#237;nio referiu-se ao componente Companheirismo, &#8220;Estou satisfeito(a) com a maneira com a qual minha fam&#237;lia e eu conversamos e compartilhamos os problemas&#8221;. Nesse dom&#237;nio, 6 (4,6%) idosos afirmaram nunca estarem satisfeitos com a capacidade da fam&#237;lia de compartilhar decis&#245;es e responsabilidades, 9 (6,9%) responderam que &#224;s vezes e 116 (88,5%) que sempre estavam satisfeitos com a comunica&#231;&#227;o entre seus membros, bem como a prote&#231;&#227;o e alimenta&#231;&#227;o destinada aos mesmos. Esse foi o dom&#237;nio com maior percentual de aceitabilidade do idoso.</p> 
+			<p>O terceiro dom&#237;nio, &#8220;Estou satisfeito(a) com a maneira como minha fam&#237;lia aceita e apoia meus desejos de iniciar ou buscar novas atividades e procurar novos caminhos ou dire&#231;&#245;es&#8221;, referiu-se ao componente Desenvolvimento. Neste item, 6 (4,6%) idosos afirmaram nunca estarem satisfeitos com a maneira como a unidade familiar era gerida, tanto na &#225;rea estrutural, como emocional, 16 (12,2%) responderam que &#224;s vezes e 109 (83,2%) sempre estavam satisfeitos com a maneira como qual sua fam&#237;lia o auxiliava.</p> 
+			<p>O quarto dom&#237;nio, &#8220;Estou satisfeito(a) com a maneira como minha fam&#237;lia demonstra afei&#231;&#227;o e reage &#224;s minhas emo&#231;&#245;es, tais como raiva, m&#225;goa ou amor&#8221;, referiu-se ao componente Afetividade. Nesse item, 3 (2,3%) idosos afirmaram nunca estarem satisfeitos com a maneira como a unidade familiar era gerida, tanto na &#225;rea estrutural, quanto emocional, 15 (11,5%) responderam que &#224;s vezes e 113 (86,3%) sempre estavam satisfeitos com o carinho destinado &#224;s intera&#231;&#245;es emocionais no contexto familial.</p> 
+			<p>O quinto dom&#237;nio, &#8220;Estou satisfeito(a) com a maneira com a qual minha fam&#237;lia e eu compartilhamos o tempo&#8221;, referiu-se ao dom&#237;nio Capacidade Resolutiva existente na unidade familiar. Neste &#250;ltimo dom&#237;nio, 5 (3,8%) idosos afirmaram nunca estarem satisfeitos com a capacidade resolutiva da fam&#237;lia, 21 (16,0%) responderam que &#224;s vezes e 105 (80,2%) sempre estavam satisfeitos com o tempo compartilhado.</p> 
+			<p>Na an&#225;lise univariada, foram associados &#224; BFF nos longevos do Bloco 1: estado civil solteiro (p=0,003), n&#237;vel de escolaridade prim&#225;ria (p=0,004), Ensino M&#233;dio (p=0,004), residir em ambiente unipessoal (p=0,026), ter filhos (p=0,005), em casa pr&#243;pria (p=0,044). Foram associados aos do Bloco 2: sa&#250;de autorreferida ruim/p&#233;ssima (p=0,022) e procura do servi&#231;o de sa&#250;de (p=0,009). Ap&#243;s a an&#225;lise multivariada de Poisson, permaneceram associadas &#224; BFF as vari&#225;veis de exposi&#231;&#227;o: sa&#250;de ruim/p&#233;ssima (RP: 1,33; IC95%: 1,13-1,57), osteoporose (RP: 1,11; IC95%: 1,02-1,21) e quedas (RP: 1,14; IC95%:1,06-1,23) (
+				<xref ref-type="table" rid="t04">Tabela 4</xref>).
+			</p> 
+			<table-wrap id="t04"> 
+				<label>Tabelas 4</label> 
+				<caption> 
+					<title>Vari&#225;veis preditoras que mantiveram associadas &#224; Funcionalidade Familiar em longevos do Munic&#237;pio de Goi&#226;nia (GO), 2010 (n=131)</title> 
+				</caption> 
+				<table frame="hsides" rules="groups"> 
+					<thead> 
+						<tr> 
+							<th rowspan="2" align="center"> 
+								<bold>Vari&#225;veis</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>RP (IC95%)</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>Valor de p
+									<xref ref-type="table-fn" rid="TFN04">*</xref>
+								</bold> 
+							</th> 
+							<th align="center"> 
+								<bold>RP (IC95%)</bold> 
+							</th> 
+							<th rowspan="2" align="center"> 
+								<bold>Valor de p
+									<xref ref-type="table-fn" rid="TFN04">*</xref>
+								</bold> 
+							</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr> 
+							<td align="center"> 
+								<bold>bruta</bold> 
+							</td> 
+							<td align="center"> 
+								<bold>ajustada</bold> 
+							</td> 
+						</tr> 
+						<tr> 
+							<td>Autopercep&#231;&#227;o de sa&#250;de</td> 
+							<td colspan="3"/> 
+							<td/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;&#211;tima/boa</td> 
+							<td align="right">1,00</td> 
+							<td colspan="2" align="right"/> 
+							<td/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Regular</td> 
+							<td align="right">1,06 (0,94-1,20)</td> 
+							<td align="right">0,529</td> 
+							<td align="right">1,00</td> 
+							<td/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Ruim/p&#233;ssima</td> 
+							<td align="right">0,72 (0,48-1,09)</td> 
+							<td align="right">0,022
+								<xref ref-type="table-fn" rid="TFN04">*</xref>
+							</td> 
+							<td align="right">1,33 (1,13-1,57)</td> 
+							<td align="right">0,000
+								<xref ref-type="table-fn" rid="TFN04">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>Osteoporose</td> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">1,10 (1,00-1,22)</td> 
+							<td align="right">0,080</td> 
+							<td align="right">1,11 (1,02-1,21)</td> 
+							<td align="right">0,014
+								<xref ref-type="table-fn" rid="TFN04">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>Quedas</td> 
+							<td colspan="3" align="right"/> 
+							<td align="right"/> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;Sim</td> 
+							<td align="right">1,13 (1,01-1,25)</td> 
+							<td align="right">0,085</td> 
+							<td align="right">1,14 (1,06-1,23)</td> 
+							<td align="right">0,000
+								<xref ref-type="table-fn" rid="TFN04">*</xref>
+							</td> 
+						</tr> 
+						<tr> 
+							<td>&#160;&#160;&#160;&#160;N&#227;o</td> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+							<td align="right">1,00</td> 
+							<td align="right"/> 
+						</tr> 
+					</tbody> 
+				</table> 
+				<table-wrap-foot> 
+					<fn id="TFN04"> 
+						<label>*</label> 
+						<p>Valor de p&lt;0,05. RP: raz&#227;o de preval&#234;ncia; IC95%: intervalo de confian&#231;a de 95%</p> 
+					</fn> 
+				</table-wrap-foot> 
+			</table-wrap> 
+			<fig id="f01"> 
+				<label>Figura 1</label> 
+				<caption> 
+					<title>Din&#226;mica familiar de longevos segundo dom&#237;nios do 
+						<italic>Adaptation, Partnership, Growth, Affection and Resolve</italic> (APGAR) de Fam&#237;lia do Munic&#237;pio de Goi&#226;nia (GO), 2010 (n=131)
+					</title> 
+				</caption> 
+				<alternatives> 
+					<graphic xlink:href=""/> 
+					<graphic xlink:href="https://minio.scielo.br/documentstore/1984-0446/8fNzspZMMgNXjwb5rjVrGyb/9006d3d1de66b2677f1574f3224426c773a7b816.jpg"/> 
+				</alternatives> 
+			</fig> 
+		</sec> 
+		<sec sec-type="discussion"> 
+			<title>DISCUSS&#195;O</title> 
+			<p>A maioria dos idosos revelou uma din&#226;mica familiar com BFF, demonstrando que a fam&#237;lia estava apta a cuidar de seus idosos, como encontrado em outros estudos
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B09">9</xref>
+				<sup>,</sup>
+				<xref ref-type="bibr" rid="B14">14</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B15">15</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Dentre os dom&#237;nios do APGAR de Fam&#237;lia, a BFF foi estimada no dom&#237;nio companheirismo, seguido da adapta&#231;&#227;o, indicando que h&#225; uma maior aten&#231;&#227;o da fam&#237;lia ao idoso em rela&#231;&#227;o ao compartilhamento de decis&#245;es, responsabilidades, prote&#231;&#227;o e afetividade frente &#224;s situa&#231;&#245;es de estresse familiar, com vista ao equil&#237;brio familiar. Quanto ao tempo compartilhado e a resolu&#231;&#227;o de problemas, esse dom&#237;nio foi desvelado pelos idosos como de menor aten&#231;&#227;o pelos familiares, corroborando outros achados
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B16">16</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Por outro lado, esse resultado sugere uma an&#225;lise verticalizada das rela&#231;&#245;es e do conv&#237;vio intergeracional, uma vez que esse maior contato e a maior demanda de aten&#231;&#227;o da fam&#237;lia para com o idoso podem induzir &#224; DF pelo impacto das doen&#231;as cr&#244;nicas n&#227;o transmiss&#237;veis, al&#233;m de desencadear conflitos e insatisfa&#231;&#227;o por parte do idoso, o que pode impulsionar mudan&#231;as de pap&#233;is intrafamiliares e elei&#231;&#227;o do cuidador principal
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B17">17</xref>
+				<sup>)</sup>. Nesse contexto, destacam-se a doen&#231;a isqu&#234;mica do cora&#231;&#227;o, o acidente vascular encef&#225;lico (AVE), os dist&#250;rbios visuais e as doen&#231;as pulmonares cr&#244;nicas obstrutivas (DPOC)
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B04">4</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Quanto &#224;s condi&#231;&#245;es de sa&#250;de autorreferidas, o idoso que relatou piores condi&#231;&#245;es de sa&#250;de revelou uma melhor din&#226;mica familiar. &#201; sabido que a fam&#237;lia constitui fator decisivo para uma velhice bem-sucedida e a respectiva qualidade de vida (QV) do idoso
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B18">18</xref>
+				<sup>-</sup>
+				<xref ref-type="bibr" rid="B19">19</xref>
+				<sup>)</sup>. Nesse contexto do envelhecimento e de condi&#231;&#245;es de sa&#250;de autorreferidas, observa-se um maior consumo dos servi&#231;os de sa&#250;de por parte dos idosos, o qual est&#225; relacionado ao percurso de vida do indiv&#237;duo, resultante de h&#225;bitos de vida
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B04">4</xref>
+				<sup>)</sup>, evidenciando que a associa&#231;&#227;o entre sa&#250;de e comportamento, no decorrer da vida, influencia a QV de idosos e a FF
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B20">20</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Em outros termos, idade e FF influenciam na QV das pessoas, ou seja, quanto maior a FF melhor a QV, e quanto maior a idade, pior a QV
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B21">21</xref>
+				<sup>)</sup>. O papel do apoio intrafamiliar na QV do idoso se revelou um fator promotor da QV e do melhor estado de sa&#250;de
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B22">22</xref>
+				<sup>)</sup>. Nesse sentido, a gera&#231;&#227;o mais velha, por n&#227;o ser homog&#234;nea, necessita de pol&#237;ticas verticalizadas para as reais necessidades, considerando sexo, etnia, educa&#231;&#227;o, renda e sa&#250;de
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B01">1</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>N&#227;o foram encontrados estudos que associassem FF pelo APGAR de Fam&#237;lia e osteoporose. No entanto, a associa&#231;&#227;o entre FF e osteoporose pode refletir na din&#226;mica familiar, uma vez que os ambientes adequados para atividade f&#237;sica, apoio social e infraestrutura contribuem para um comportamento mais ativo e, consequentemente, maior independ&#234;ncia funcional e melhor QV
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B23">23</xref>
+				<sup>)</sup>.
+			</p> 
+			<p>Quanto &#224; FF e &#224; vari&#225;vel de exposi&#231;&#227;o queda, sabe-se que a mesma pode piorar o estado de sa&#250;de, em espiral descendente, resultando em cuidados de longa dura&#231;&#227;o, devido &#224; maior possibilidade de depend&#234;ncia, perda da autonomia, confus&#227;o, imobiliza&#231;&#227;o, depress&#227;o e morte
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B04">4</xref>
+				<sup>)</sup>. Esses fatores podem influenciar a FF e alterar a din&#226;mica familiar, em raz&#227;o da maior demanda de aten&#231;&#227;o, das mudan&#231;as de pap&#233;is e dos novos estilos de rela&#231;&#245;es familiares
+				<sup>(</sup>
+				<xref ref-type="bibr" rid="B09">9</xref>
+				<sup>)</sup>.
+			</p> 
+		</sec> 
+		<sec sec-type="conclusion"> 
+			<title>CONCLUS&#195;O</title> 
+			<p>Ap&#243;s a an&#225;lise multivariada, a Funcionalidade Familiar, nos longevos, permaneceu associada &#224; autopercep&#231;&#227;o de sa&#250;de ruim/p&#233;ssima, osteoporose e queda. Esses resultados preenchem uma lacuna na literatura cient&#237;fica, por ser esta uma pesquisa inovadora no Centro Oeste brasileiro e tamb&#233;m por permitir uma melhor caracteriza&#231;&#227;o dos longevos quanto &#224; Funcionalidade Familiar.</p> 
+			<p>Diante da transi&#231;&#227;o demogr&#225;fica e epidemiol&#243;gica vivenciada na contemporaneidade, s&#227;o necess&#225;rias a elabora&#231;&#227;o e a aplicabilidade das pol&#237;ticas p&#250;blicas existentes &#224;s reais necessidades desse estrato populacional. Para tanto, os resultados contribuem, no &#226;mbito da pr&#225;tica cl&#237;nica para o melhor planejamento e fortalecimento da fam&#237;lia na assist&#234;ncia domicili&#225;ria, com suporte e aten&#231;&#227;o da Enfermagem que atua na Aten&#231;&#227;o B&#225;sica, ou seja, no cuidado domiciliar, a fam&#237;lia deve ser priorizada como cuidadora e parceira na aten&#231;&#227;o a essas pessoas.</p> 
+			<p>Contudo, as limita&#231;&#245;es metodol&#243;gicas deste estudo devem ser consideradas, sobretudo o delineamento transversal, que n&#227;o permitiu inferir rela&#231;&#245;es de causalidade entre a Funcionalidade Familiar e os fatores associados.</p> 
+		</sec> 
+	</body> 
+	<back> 
+		<ref-list> 
+			<title>REFER&#202;NCIAS</title> 
+			<ref id="B01"> 
+				<label>1</label> 
+				<mixed-citation>United Nations Population Fund (UNFPA). Ageing in the Twenty-First Century. A Celebration and a Challenge [Internet]. UNFPA; 2012 [acesso em 29 de setembro de 2014]. Dispon&#237;vel em: http://unfpa.org/ageingreport/.</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<collab>United Nations Population Fund (UNFPA)</collab> 
+					</person-group> 
+					<source>Ageing in the Twenty-First Century. A Celebration and a Challenge</source> 
+					<comment>Internet</comment> 
+					<publisher-name>UNFPA</publisher-name> 
+					<year>2012</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://unfpa.org/ageingreport/">http://unfpa.org/ageingreport/</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B02"> 
+				<label>2</label> 
+				<mixed-citation>Instituto Brasileiro de Geografia e Estat&#237;stica (IBGE). Popula&#231;&#227;o total - Goi&#225;s. Contagem da Popula&#231;&#227;o 2010. Censos, 2010. [Internet]. Bras&#237;lia, DF: Minist&#233;rio do Planejamento, Or&#231;amento e Gest&#227;o (BR); 2011 [acesso em 29 de setembro de 2014]. Dispon&#237;vel em: http://www.ibge.gov.br/home/estatistica/populacao/censo2010/tabelas_pdf/total_populacao_goias.pdf</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<collab>Instituto Brasileiro de Geografia e Estat&#237;stica (IBGE)</collab> 
+					</person-group> 
+					<chapter-title>Popula&#231;&#227;o total - Goi&#225;s. Contagem da Popula&#231;&#227;o 2010</chapter-title> 
+					<source>Censos, 2010</source> 
+					<comment>Internet</comment> 
+					<publisher-loc>Bras&#237;lia, DF</publisher-loc> 
+					<publisher-name>Minist&#233;rio do Planejamento, Or&#231;amento e Gest&#227;o (BR)</publisher-name> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.ibge.gov.br/home/estatistica/populacao/censo2010/tabelas_pdf/total_populacao_goias.pdf">http://www.ibge.gov.br/home/estatistica/populacao/censo2010/tabelas_pdf/total_populacao_goias.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B03"> 
+				<label>3</label> 
+				<mixed-citation>Gomes MMF, Turra CM, F&#237;goli MGB, Duarte YAO, Lebr&#227;o ML. Associa&#231;&#227;o entre mortalidade e estado marital: uma an&#225;lise para idosos residentes no Munic&#237;pio de S&#227;o Paulo, Brasil, Estudo SABE, 2000 e 2006. Cad Sa&#250;de P&#250;blica [Internet]. 2013 [acesso em 29 de setembro de 2014];29(3):566-78. Dispon&#237;vel em: http://www.scielosp.org/scielo.php?script=sci_arttext&amp;pid=S0102-311X2013000700014&amp;lng=en</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Gomes</surname> 
+							<given-names>MMF</given-names> 
+						</name> 
+						<name> 
+							<surname>Turra</surname> 
+							<given-names>CM</given-names> 
+						</name> 
+						<name> 
+							<surname>F&#237;goli</surname> 
+							<given-names>MGB</given-names> 
+						</name> 
+						<name> 
+							<surname>Duarte</surname> 
+							<given-names>YAO</given-names> 
+						</name> 
+						<name> 
+							<surname>Lebr&#227;o</surname> 
+							<given-names>ML</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Associa&#231;&#227;o entre mortalidade e estado marital: uma an&#225;lise para idosos residentes no Munic&#237;pio de S&#227;o Paulo, Brasil, Estudo SABE, 2000 e 2006</article-title> 
+					<source>Cad Sa&#250;de P&#250;blica</source> 
+					<comment>Internet</comment> 
+					<year>2013</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>29</volume> 
+					<issue>3</issue> 
+					<fpage>566</fpage> 
+					<lpage>578</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.scielosp.org/scielo.php?script=sci_arttext&amp;pid=S0102-311X2013000700014&amp;lng=en">http://www.scielosp.org/scielo.php?script=sci_arttext&amp;pid=S0102-311X2013000700014&amp;lng=en</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B04"> 
+				<label>4</label> 
+				<mixed-citation>World Health Organization (WHO). Good health adds life to years. Global brief for World Health Day 2012 [Internet]. WHO; 2012 [acesso em 29 de setembro de 2014]. Dispon&#237;vel em: http://www.who.int/ageing/publications/upcoming_publications/en/index.html</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<collab>World Health Organization (WHO)</collab> 
+					</person-group> 
+					<source>Good health adds life to years. Global brief for World Health Day 2012</source> 
+					<comment>Internet</comment> 
+					<publisher-name>WHO</publisher-name> 
+					<year>2012</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.who.int/ageing/publications/upcoming_publications/en/index.html">http://www.who.int/ageing/publications/upcoming_publications/en/index.html</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B05"> 
+				<label>5</label> 
+				<mixed-citation>Moragas RM. Gerontologia social. Envelhecimento de qualidade de vida. S&#227;o Paulo: Paul&#237;nea; 2010.</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Moragas</surname> 
+							<given-names>RM</given-names> 
+						</name> 
+					</person-group> 
+					<source>Gerontologia social. Envelhecimento de qualidade de vida</source> 
+					<publisher-loc>S&#227;o Paulo</publisher-loc> 
+					<publisher-name>Paul&#237;nea</publisher-name> 
+					<year>2010</year> 
+				</element-citation> 
+			</ref> 
+			<ref id="B06"> 
+				<label>6</label> 
+				<mixed-citation>Say&#227;o R. Filhos... melhor n&#227;o t&#234;-los? In: Aquino JG, Say&#227;o R, Rizzo S, Taille Y de L, editores. Fam&#237;lia e educa&#231;&#227;o: quatro olhares. Campinas (SP): Papirus; 2011. p. 17-48.</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Say&#227;o</surname> 
+							<given-names>R</given-names> 
+						</name> 
+					</person-group> 
+					<chapter-title>Filhos... melhor n&#227;o t&#234;-los?</chapter-title> 
+					<person-group person-group-type="editor"> 
+						<name> 
+							<surname>Aquino</surname> 
+							<given-names>JG</given-names> 
+						</name> 
+						<name> 
+							<surname>Say&#227;o</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Rizzo</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Taille</surname> 
+							<given-names>Y de L</given-names> 
+						</name> 
+					</person-group> 
+					<source>Fam&#237;lia e educa&#231;&#227;o: quatro olhares</source> 
+					<publisher-loc>Campinas (SP)</publisher-loc> 
+					<publisher-name>Papirus</publisher-name> 
+					<year>2011</year> 
+					<fpage>17</fpage> 
+					<lpage>48</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B07"> 
+				<label>7</label> 
+				<mixed-citation>Duarte YAO. Fam&#237;lia: rede de suporte ou fator estressor. A &#243;tica de idosos e cuidadores familiares. [Tese]. S&#227;o Paulo: Escola de Enfermagem da USP; 2001.</mixed-citation> 
+				<element-citation publication-type="thesis"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Duarte</surname> 
+							<given-names>YAO</given-names> 
+						</name> 
+					</person-group> 
+					<source>Fam&#237;lia: rede de suporte ou fator estressor. A &#243;tica de idosos e cuidadores familiares</source> 
+					<comment>Tese</comment> 
+					<publisher-loc>S&#227;o Paulo</publisher-loc> 
+					<publisher-name>Escola de Enfermagem da USP</publisher-name> 
+					<year>2001</year> 
+				</element-citation> 
+			</ref> 
+			<ref id="B08"> 
+				<label>8</label> 
+				<mixed-citation>Smilkstein G. The family APGAR: a proposal for a family function test and its use by physicians. J Fam Practice. 1978;6(6):1231-9.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Smilkstein</surname> 
+							<given-names>G</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>The family APGAR: a proposal for a family function test and its use by physicians</article-title> 
+					<source>J Fam Practice</source> 
+					<year>1978</year> 
+					<volume>6</volume> 
+					<issue>6</issue> 
+					<fpage>1231</fpage> 
+					<lpage>1239</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B09"> 
+				<label>9</label> 
+				<mixed-citation>Gon&#231;alves LHT, Costa MAM, Martins MM, Nassar SM, Zunino R. A din&#226;mica da fam&#237;lia de idosos mais idosos no contexto do Porto, Portugal. Rev. Latino-Am Enfermagem [Internet]. 2011 [acesso em 29 de setembro de 2014];19(3):9 telas. Dispon&#237;vel em: http://www.scielo.br/pdf/rlae/v19n3/pt_03.pdf</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Gon&#231;alves</surname> 
+							<given-names>LHT</given-names> 
+						</name> 
+						<name> 
+							<surname>Costa</surname> 
+							<given-names>MAM</given-names> 
+						</name> 
+						<name> 
+							<surname>Martins</surname> 
+							<given-names>MM</given-names> 
+						</name> 
+						<name> 
+							<surname>Nassar</surname> 
+							<given-names>SM</given-names> 
+						</name> 
+						<name> 
+							<surname>Zunino</surname> 
+							<given-names>R</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>A din&#226;mica da fam&#237;lia de idosos mais idosos no contexto do Porto, Portugal</article-title> 
+					<source>Rev. Latino-Am Enfermagem</source> 
+					<comment>Internet</comment> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>19</volume> 
+					<issue>3</issue> 
+					<fpage>9</fpage> 
+					<comment>telas</comment> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/pdf/rlae/v19n3/pt_03.pdf">http://www.scielo.br/pdf/rlae/v19n3/pt_03.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B10"> 
+				<label>10</label> 
+				<mixed-citation>Katz S, Ford AB, Moskowitz RW, Jackson BA, Jaffe MW. Studies of illness in the aged: the index of ADL: a standardized measure of biological and psychosocial function. JAMA. 1963;185(12):914-9.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Katz</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Ford</surname> 
+							<given-names>AB</given-names> 
+						</name> 
+						<name> 
+							<surname>Moskowitz</surname> 
+							<given-names>RW</given-names> 
+						</name> 
+						<name> 
+							<surname>Jackson</surname> 
+							<given-names>BA</given-names> 
+						</name> 
+						<name> 
+							<surname>Jaffe</surname> 
+							<given-names>MW</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Studies of illness in the aged: the index of ADL: a standardized measure of biological and psychosocial function</article-title> 
+					<source>JAMA</source> 
+					<year>1963</year> 
+					<volume>185</volume> 
+					<issue>12</issue> 
+					<fpage>914</fpage> 
+					<lpage>919</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B11"> 
+				<label>11</label> 
+				<mixed-citation>Lawton MP, Brody EM. Assessment of older people: selfmaintaining and instrumental activities of daily living. Gerontologist. 1969;9(3):179-86.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Lawton</surname> 
+							<given-names>MP</given-names> 
+						</name> 
+						<name> 
+							<surname>Brody</surname> 
+							<given-names>EM</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Assessment of older people: selfmaintaining and instrumental activities of daily living</article-title> 
+					<source>Gerontologist</source> 
+					<year>1969</year> 
+					<volume>9</volume> 
+					<issue>3</issue> 
+					<fpage>179</fpage> 
+					<lpage>186</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B12"> 
+				<label>12</label> 
+				<mixed-citation>Brucki SMD, Nitrini R, Caramelli P, Bertolucci PHF, Okamoto IH. Sugest&#245;es para o uso do mini-exame do estado mental no Brasil. Arq Neuropsiquiatr. 2003;61(3B):777-81.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Brucki</surname> 
+							<given-names>SMD</given-names> 
+						</name> 
+						<name> 
+							<surname>Nitrini</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Caramelli</surname> 
+							<given-names>P</given-names> 
+						</name> 
+						<name> 
+							<surname>Bertolucci</surname> 
+							<given-names>PHF</given-names> 
+						</name> 
+						<name> 
+							<surname>Okamoto</surname> 
+							<given-names>IH</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Sugest&#245;es para o uso do mini-exame do estado mental no Brasil</article-title> 
+					<source>Arq Neuropsiquiatr</source> 
+					<year>2003</year> 
+					<volume>61</volume> 
+					<issue>3B</issue> 
+					<fpage>777</fpage> 
+					<lpage>781</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B13"> 
+				<label>13</label> 
+				<mixed-citation>Minist&#233;rio da Sa&#250;de (BR). Secretaria de Aten&#231;&#227;o &#224; Sa&#250;de. Departamento de Aten&#231;&#227;o B&#225;sica. Envelhecimento e sa&#250;de da pessoa idosa. Bras&#237;lia, DF: Minist&#233;rio da Sa&#250;de; 2007.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<collab>Minist&#233;rio da Sa&#250;de (BR)</collab> 
+						<collab>Secretaria de Aten&#231;&#227;o &#224; Sa&#250;de</collab> 
+						<collab>Departamento de Aten&#231;&#227;o B&#225;sica</collab> 
+					</person-group> 
+					<source>Envelhecimento e sa&#250;de da pessoa idosa</source> 
+					<publisher-loc>Bras&#237;lia, DF</publisher-loc> 
+					<publisher-name>Minist&#233;rio da Sa&#250;de</publisher-name> 
+					<year>2007</year> 
+				</element-citation> 
+			</ref> 
+			<ref id="B14"> 
+				<label>14</label> 
+				<mixed-citation>Santos AA, Pavarini SCI. Funcionalidade familiar de idosos com altera&#231;&#245;es cognitivas em diferentes contextos de vulnerabilidade social. Rev Eletr Enf [Internet]. 2011 [acesso em 29 de setembro de 2014];13(2):361-7. Dispon&#237;vel em: http://www.fen.ufg.br/revista/v13/n2/v13n2a24.htm</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Santos</surname> 
+							<given-names>AA</given-names> 
+						</name> 
+						<name> 
+							<surname>Pavarini</surname> 
+							<given-names>SCI</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Funcionalidade familiar de idosos com altera&#231;&#245;es cognitivas em diferentes contextos de vulnerabilidade social</article-title> 
+					<source>Rev Eletr Enf</source> 
+					<comment>Internet</comment> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>13</volume> 
+					<issue>2</issue> 
+					<fpage>361</fpage> 
+					<lpage>367</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.fen.ufg.br/revista/v13/n2/v13n2a24.htm">http://www.fen.ufg.br/revista/v13/n2/v13n2a24.htm</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B15"> 
+				<label>15</label> 
+				<mixed-citation>Polaro SHI, Gon&#231;alves LHT, Nassar SM, Lopes MMB, Ferreira VF, Monteiro HK. Din&#226;mica da fam&#237;lia no contexto dos cuidados a adultos na quarta idade. Rev Bras Enferm [Internet]. 2013 [acesso em 29 de setembro de 2014];66(2):228-33. Dispon&#237;vel em: http://www.scielo.br/pdf/reben/v66n2/12.pdf</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Polaro</surname> 
+							<given-names>SHI</given-names> 
+						</name> 
+						<name> 
+							<surname>Gon&#231;alves</surname> 
+							<given-names>LHT</given-names> 
+						</name> 
+						<name> 
+							<surname>Nassar</surname> 
+							<given-names>SM</given-names> 
+						</name> 
+						<name> 
+							<surname>Lopes</surname> 
+							<given-names>MMB</given-names> 
+						</name> 
+						<name> 
+							<surname>Ferreira</surname> 
+							<given-names>VF</given-names> 
+						</name> 
+						<name> 
+							<surname>Monteiro</surname> 
+							<given-names>HK</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Din&#226;mica da fam&#237;lia no contexto dos cuidados a adultos na quarta idade</article-title> 
+					<source>Rev Bras Enferm</source> 
+					<comment>Internet</comment> 
+					<year>2013</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>66</volume> 
+					<issue>2</issue> 
+					<fpage>228</fpage> 
+					<lpage>233</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/pdf/reben/v66n2/12.pdf">http://www.scielo.br/pdf/reben/v66n2/12.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B16"> 
+				<label>16</label> 
+				<mixed-citation>Navarro R, Duarte YAO, Lebr&#227;o ML, Nunes DP. Envelhecimento e funcionalidade familiar: panorama do munic&#237;pio de S&#227;o Paulo/SP- Estudo SABE. Programa de Inicia&#231;&#227;o Cient&#237;fica-Universidade de S&#227;o Paulo 2009-2010. S&#227;o Paulo; USP: 2010.</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Navarro</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Duarte</surname> 
+							<given-names>YAO</given-names> 
+						</name> 
+						<name> 
+							<surname>Lebr&#227;o</surname> 
+							<given-names>ML</given-names> 
+						</name> 
+						<name> 
+							<surname>Nunes</surname> 
+							<given-names>DP</given-names> 
+						</name> 
+					</person-group> 
+					<source>Envelhecimento e funcionalidade familiar: panorama do munic&#237;pio de S&#227;o Paulo/SP- Estudo SABE. Programa de Inicia&#231;&#227;o Cient&#237;fica-Universidade de S&#227;o Paulo 2009-2010</source> 
+					<publisher-loc>S&#227;o Paulo</publisher-loc> 
+					<publisher-name>USP</publisher-name> 
+					<year>2010</year> 
+				</element-citation> 
+			</ref> 
+			<ref id="B17"> 
+				<label>17</label> 
+				<mixed-citation>Santos AL, Cec&#237;lio HPM, Teston EF, Marcon SS. Conhecendo a funcionalidade familiar sob a &#243;tica do doente cr&#244;nico. Texto Contexto Enferm [Internet]. 2012 [acesso em 29 de setembro de 2014];21(4):879-86. Dispon&#237;vel em: http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0104-07072012000400019&amp;lng=en</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Santos</surname> 
+							<given-names>AL</given-names> 
+						</name> 
+						<name> 
+							<surname>Cec&#237;lio</surname> 
+							<given-names>HPM</given-names> 
+						</name> 
+						<name> 
+							<surname>Teston</surname> 
+							<given-names>EF</given-names> 
+						</name> 
+						<name> 
+							<surname>Marcon</surname> 
+							<given-names>SS</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Conhecendo a funcionalidade familiar sob a &#243;tica do doente cr&#244;nico</article-title> 
+					<source>Texto Contexto Enferm</source> 
+					<comment>Internet</comment> 
+					<year>2012</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>21</volume> 
+					<issue>4</issue> 
+					<fpage>879</fpage> 
+					<lpage>886</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0104-07072012000400019&amp;lng=en">http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0104-07072012000400019&amp;lng=en</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B18"> 
+				<label>18</label> 
+				<mixed-citation>Gon&#231;alves LH, Nassar SM, Daussy MFS, Santos SMA, Alvarez AM. O conv&#237;vio familiar do idoso na quarta idade e seu cuidador. Cienc Cuid Saude [Internet]. 2011[acesso em 29 de setembro de 2014];10(4):746-54. Dispon&#237;vel em: http://www.periodicos.uem.br/ojs/index.php/CiencCuidSaude/article/view/18319</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Gon&#231;alves</surname> 
+							<given-names>LH</given-names> 
+						</name> 
+						<name> 
+							<surname>Nassar</surname> 
+							<given-names>SM</given-names> 
+						</name> 
+						<name> 
+							<surname>Daussy</surname> 
+							<given-names>MFS</given-names> 
+						</name> 
+						<name> 
+							<surname>Santos</surname> 
+							<given-names>SMA</given-names> 
+						</name> 
+						<name> 
+							<surname>Alvarez</surname> 
+							<given-names>AM</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>O conv&#237;vio familiar do idoso na quarta idade e seu cuidador</article-title> 
+					<source>Cienc Cuid Saude</source> 
+					<comment>Internet</comment> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>10</volume> 
+					<issue>4</issue> 
+					<fpage>746</fpage> 
+					<lpage>754</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.periodicos.uem.br/ojs/index.php/CiencCuidSaude/article/view/18319">http://www.periodicos.uem.br/ojs/index.php/CiencCuidSaude/article/view/18319</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B19"> 
+				<label>19</label> 
+				<mixed-citation>Paiva ATG, Bessa MEP, Moraes GLA, Silva MJ, Oliveira RDP, Soares AMG. Avalia&#231;&#227;o da funcionalidade de fam&#237;lias com idosos. Cogitare Enferm [Internet]. 2011 [acesso em 29 de setembro de 2014];16(1):22-8. Dispon&#237;vel em: http://ojs.c3sl.ufpr.br/ojs/index.php/cogitare/article/viewFile/21107/13933</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Paiva</surname> 
+							<given-names>ATG</given-names> 
+						</name> 
+						<name> 
+							<surname>Bessa</surname> 
+							<given-names>MEP</given-names> 
+						</name> 
+						<name> 
+							<surname>Moraes</surname> 
+							<given-names>GLA</given-names> 
+						</name> 
+						<name> 
+							<surname>Silva</surname> 
+							<given-names>MJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Oliveira</surname> 
+							<given-names>RDP</given-names> 
+						</name> 
+						<name> 
+							<surname>Soares</surname> 
+							<given-names>AMG</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Avalia&#231;&#227;o da funcionalidade de fam&#237;lias com idosos</article-title> 
+					<source>Cogitare Enferm</source> 
+					<comment>Internet</comment> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>16</volume> 
+					<issue>1</issue> 
+					<fpage>22</fpage> 
+					<lpage>28</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://ojs.c3sl.ufpr.br/ojs/index.php/cogitare/article/viewFile/21107/13933">http://ojs.c3sl.ufpr.br/ojs/index.php/cogitare/article/viewFile/21107/13933</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B20"> 
+				<label>20</label> 
+				<mixed-citation>Lim AT, Manching I, Penserga EG. Correlation between Family APGAR scores and health-related quality of life of Filipino elderly patients with knee osteoarthritis. Int J Rheum Dis. 2012;15(4):407-13.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Lim</surname> 
+							<given-names>AT</given-names> 
+						</name> 
+						<name> 
+							<surname>Manching</surname> 
+							<given-names>I</given-names> 
+						</name> 
+						<name> 
+							<surname>Penserga</surname> 
+							<given-names>EG</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Correlation between Family APGAR scores and health-related quality of life of Filipino elderly patients with knee osteoarthritis</article-title> 
+					<source>Int J Rheum Dis</source> 
+					<year>2012</year> 
+					<volume>15</volume> 
+					<issue>4</issue> 
+					<fpage>407</fpage> 
+					<lpage>413</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B21"> 
+				<label>21</label> 
+				<mixed-citation>Andrade A, Martins R. Funcionalidade familiar e qualidade de vida dos idosos. Millenium. [Internet]. 2011 [acesso em 29 de setembro de 2014];40:185-99. Dispon&#237;vel em: http://www.ipv.pt/millenium/Millenium40/13.pdf</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Andrade</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Martins</surname> 
+							<given-names>R</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Funcionalidade familiar e qualidade de vida dos idosos</article-title> 
+					<source>Millenium</source> 
+					<comment>Internet</comment> 
+					<year>2011</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>40</volume> 
+					<fpage>185</fpage> 
+					<lpage>199</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.ipv.pt/millenium/Millenium40/13.pdf">http://www.ipv.pt/millenium/Millenium40/13.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B22"> 
+				<label>22</label> 
+				<mixed-citation>Marques EMBG, S&#225;nchez CS, Vic&#225;rio BP. El apoyo como factor promotor de la calidad de vida de la persona mayor. Pedagog&#237;a social. Revista interuniversitaria [Internet]. 2013 [acesso em 29 de setembro de 2014];23:253-71. Dispon&#237;vel em: http://www.upo.es/revistas/index.php/pedagogia_social/article/view/683/647</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Marques</surname> 
+							<given-names>EMBG</given-names> 
+						</name> 
+						<name> 
+							<surname>S&#225;nchez</surname> 
+							<given-names>CS</given-names> 
+						</name> 
+						<name> 
+							<surname>Vic&#225;rio</surname> 
+							<given-names>BP</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>El apoyo como factor promotor de la calidad de vida de la persona mayor. Pedagog&#237;a social</article-title> 
+					<source>Revista interuniversitaria</source> 
+					<comment>Internet</comment> 
+					<year>2013</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>23</volume> 
+					<fpage>253</fpage> 
+					<lpage>271</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.upo.es/revistas/index.php/pedagogia_social/article/view/683/647">http://www.upo.es/revistas/index.php/pedagogia_social/article/view/683/647</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B23"> 
+				<label>23</label> 
+				<mixed-citation>Giehl MWC, Scheider IJC, Corseul HX, Benedetti TRB, d\\\'Orsi E. Physical activity and environment perception among older adults: a population study in Florian&#243;polis, Brazil. Rev Sa&#250;de P&#250;blica [Internet]. 2012 [acesso em 29 de setembro de 2014];46(3):516-25. Dispon&#237;vel em: http://www.scielo.br/pdf/rsp/v46n3/en_2699.pdf</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Giehl</surname> 
+							<given-names>MWC</given-names> 
+						</name> 
+						<name> 
+							<surname>Scheider</surname> 
+							<given-names>IJC</given-names> 
+						</name> 
+						<name> 
+							<surname>Corseul</surname> 
+							<given-names>HX</given-names> 
+						</name> 
+						<name> 
+							<surname>Benedetti</surname> 
+							<given-names>TRB</given-names> 
+						</name> 
+						<name> 
+							<surname>d\\\'Orsi</surname> 
+							<given-names>E</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Physical activity and environment perception among older adults: a population study in Florian&#243;polis, Brazil</article-title> 
+					<source>Rev Sa&#250;de P&#250;blica</source> 
+					<comment>Internet</comment> 
+					<year>2012</year> 
+					<date-in-citation content-type="access-date">acesso em 29 de setembro de 2014</date-in-citation> 
+					<volume>46</volume> 
+					<issue>3</issue> 
+					<fpage>516</fpage> 
+					<lpage>525</lpage> 
+					<comment>Dispon&#237;vel em: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/pdf/rsp/v46n3/en_2699.pdf">http://www.scielo.br/pdf/rsp/v46n3/en_2699.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+		</ref-list> 
+	</back> 
+	<sub-article article-type="translation" id="SA1" xml:lang="en"> 
+		<front-stub> 
+			<article-categories> 
+				<subj-group subj-group-type="heading"> 
+					<subject>RESEARCH</subject> 
+				</subj-group> 
+			</article-categories> 
+			<title-group> 
+				<article-title>Family functionality in oldest old household residents</article-title> 
+			</title-group> 
+			<contrib-group> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Vera</surname> 
+						<given-names>Ivania</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff03">I</xref> 
+					<xref ref-type="corresp" rid="c02"/> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Lucchese</surname> 
+						<given-names>Roselma</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff03">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Nakatani</surname> 
+						<given-names>Ad&#233;lia Yaeko Kyosen</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff03">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Pagotto</surname> 
+						<given-names>Valeria</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff03">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Montefusco</surname> 
+						<given-names>Selma Rodrigues Alves</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff03">I</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<name> 
+						<surname>Sadoyama</surname> 
+						<given-names>Geraldo</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff04">II</xref> 
+				</contrib> 
+			</contrib-group> 
+			<aff id="aff03"> 
+				<label>I</label> 
+				<institution content-type="orgname">Universidade Federal de Goi&#225;s</institution> 
+				<institution content-type="orgdiv1">School of Nursing</institution> 
+				<institution content-type="orgdiv2">Nursing Graduate Program</institution> 
+				<addr-line> 
+					<named-content content-type="city">Goi&#226;nia</named-content> 
+					<named-content content-type="state">GO</named-content> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal de Goi&#225;s, School of Nursing, Nursing Graduate Program. Goi&#226;nia-GO, Brazil</institution> 
+				<institution content-type="normalized">Universidade Federal de Goi&#225;s</institution> 
+			</aff> 
+			<aff id="aff04"> 
+				<label>II</label> 
+				<institution content-type="orgname">Universidade Federal de Goi&#225;s</institution> 
+				<institution content-type="orgdiv1">School of Biology</institution> 
+				<institution content-type="orgdiv2">Departament of Biological Sciences</institution> 
+				<addr-line> 
+					<named-content content-type="city">Catal&#227;o</named-content> 
+					<named-content content-type="state">GO</named-content> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal de Goi&#225;s, School of Biology, Departament of Biological Sciences. Catal&#227;o-GO, Brazil</institution> 
+				<institution content-type="normalized">Universidade Federal de Goi&#225;s</institution> 
+			</aff> 
+			<author-notes> 
+				<corresp id="c02">
+					<bold>CORRESPONDING AUTHOR Ivania Vera</bold>. E-mail: 
+					<email>ivaniavera@gmail.com</email>
+				</corresp> 
+			</author-notes> 
+			<abstract> 
+				<sec> 
+					<title>Objective:</title> 
+					<p>the aim of this study was to identify factors associated with family functionality of non-institutionalized long-lived subjects, who were residents in Goi&#226;nia (GO), Brazil.</p> 
+				</sec> 
+				<sec> 
+					<title>Method:</title> 
+					<p>this was a population-based epidemiological study with cross-sectional outline. Evaluation scales of the functional and cognitive capacities were used. Family dynamics was measured using the Adaptation, Partnership, Growth, Affection, and Resolve (APGAR) instrument by making home interviews with 131 long-lived individuals.</p> 
+				</sec> 
+				<sec> 
+					<title>Results:</title> 
+					<p>there was prevalence of the female gender, average of age of 83.87 years old, widowhood condition, and residence in a big family, primary schooling, and self-perception of regular health. A great amount showed independence for self-care and partial dependence for daily life instrumental activities. Family functionality prevailed with score average of 9.06 points.</p> 
+				</sec> 
+				<sec> 
+					<title>Conclusion:</title> 
+					<p>in conclusion, family functionality in long-lived subjects is associated with self-perception of poor/bad health, osteoporosis, and fall. Results allowed characterizing long-lived subjects&#8217; family functionality with the aim of valuing and prioritizing family as a caregiver.</p> 
+				</sec> 
+			</abstract> 
+			<kwd-group> 
+				<kwd>Nursing</kwd> 
+				<kwd>Aged, 80 Years or More</kwd> 
+				<kwd>Family Relationships</kwd> 
+			</kwd-group> 
+		</front-stub> 
+		<body> 
+			<sec sec-type="intro"> 
+				<title>INTRODUCTION</title> 
+				<p>The worldwide phenomenon of aging reveals that oldest old, identified as people aged greater than or equal to 80 years old are advancing rapidly in numbers, especially in developing countries
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B01">1</xref>
+					<sup>)</sup>. The 14 million oldest old identified in the 20
+					<sup>th </sup>century will correspond to, in 2050, more than 400 million worldwide. The highest prevalence is related to gender, for each group of 100 oldest old women, there are 61 men of the same age group
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B01">1</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>In Goi&#226;nia (GO), the oldest old have already reached 7.9% of the elderly population
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B02">2</xref>
+					<sup>)</sup>. The heterogeneity of the elderly population is directly influenced by the decline in mortality in advanced ages, gender, marital status, geographic region and people&#8217;s accessibility to social and economic conditions. The longevity of humanity should be seen as a triumph of development and one of the greatest achievements of humanity
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B03">3</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B04">4</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>Endless opportunities about this triumph of development are related to the adoption of new policies, strategies and laws on the development due to the different characteristics, such as age, gender, ethnicity, education, income and health
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B01">1</xref>
+					<sup>)</sup>. Among the strategies, health promotion and healthy behaviours at all ages are needed to reduce, prevent and delay the onset of chronic diseases, through less exposure to risk behaviours throughout life
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B04">4</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>The challenges are related to the recognition that the aging of populations is a worldwide reality, and therefore, transformations are necessary in a society where these people are inserted, such as income guarantees, access to quality healthcare services and environments that stimulate and facilitate the coexistence of people with functional disabilities, that is, their home
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B01">1</xref>
+					<sup>)</sup>, above all, meeting this stratum of the population is essential in relation to demographic conditions and health, functional capacity and Family Functionality (FF).
+				</p> 
+				<p>This silent evolution in intergenerational family demographics has provided the conviviality of the elderly with a greater number of generations and a lesser amount of relatives by generation. Such conviviality is an opportunity for structural transformations inside the family context, with contributions and assignments linked to different actors.</p> 
+				<p>The forms of family grouping have been modifying since 1960, being sculpted by social features (individualism and immediate consumption of material objects, among others), changing intra-family relations
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B05">5</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B06">6</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>The investigation of family dynamics explores and visualizes if there is harmony or disharmony in family relationships, from the perspective of the elderly in old age, in relation to care received from his/her family, as a stressor or protective factor
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B07">7</xref>
+					<sup>)</sup>. Subjective aspects, such as adaptation to the new realities facing stressful situations, or sharing decisions and responsibilities in order to maintain its members protected and fed, supporting new ideas and directions, interacting emotionally in the family context and having shared time, can be evaluated before the family intervention.
+				</p> 
+				<p>A screening test is the Adaptation, Partnership, Growth, Affection and Resolve (APGAR) of family, through five questions, the test analyses the following domains: adaptation, partnership, growth, affection and resolve
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B07">7</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B08">8</xref>
+					<sup>)</sup>. High scores, resulting from the sum of the domains, reveal the family&#8217;s ability to adapt to new situations and manage conflicts, with a view to FF, while low scores indicate an environment with low capacity to adapt to the new situation, requiring early intervention
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B09">9</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>Thereby, in the context of health care of people with 80 years or more, the APGAR instrument can be a strong ally in family relations evaluation and detection of risk factors that deserve intervention. Given the above, the objective of this study was to identify the factors associated with FF of the noninstitutionalized oldest old residents in Goi&#226;nia (GO), Brazil.</p> 
+			</sec> 
+			<sec sec-type="methods"> 
+				<title>METHODS</title> 
+				<p>Population-based epidemiological study with cross-sectional design through household interviews with elders, held in a Midwestern Brazilian capital, which had more than one million inhabitants. Of these, 7.9% were oldest old.</p> 
+				<p>The study population consists of elderly living in urban areas from probabilistic sample array, from the database of the Network for Health Surveillance of the Elderly (REVISI). The sample calculation considered the following parameters: expected frequency of 30% for all the objectives of the research, a significance level of 5%, absolute precision of 5.0%, and design effect of 1.8. The representative sample was composed by 934 elderly.</p> 
+				<p>The process of sampling was probabilistic by conglomerates, in multiple stages. In the first stage 56 census sectors were drafted, among 912 sectors of the urban municipality. For the second stage blocks, corners and domiciles to be visited were also drafted.</p> 
+				<p>The sample met the following eligibility criteria: (1) age of 80 years or more; (2) residence in the Goiania urban area; (3) resident of the visited domicile; and (4) have answered all five questions about Family APGAR. Elderly who were drafted but did not reside in the family home were excluded, in addition to the questionnaires answered by caregivers and/or family members, the total number of excluded individuals was 131.</p> 
+				<p>After the pilot test, we began data collection by trained interviewers, in the period of December 2009 to April 2010. Authorization was requested of the elderly by means of consent form (CF) and, in a private space, the semi-structured questionnaire was applied, it contained socioeconomic and demographic features, information about the caregiver, health condition and self-perceived pain, falls, hospitalization in the past year and access to health services. The assessment of functional capacity was measured by scales of basic activities of daily living (BADL), Instrumental Activities of daily living (IADL) and cognitive assessment via the Mini Mental State Examination (MMSE). The family dynamics, from the perspective of the elderly, was measured by Family APGAR index.</p> 
+				<p>The BADL scale measures the independence in the performance of activities related to self-care
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B10">10</xref>
+					<sup>)</sup>. This exposure variable was ordered in total independence, partial dependence and total dependence. The activities that assess the elderly in the environment and surroundings, through the IADL were scaled from 9 to 27 points, in which 9 refers to the total dependence and 27 refers to independence in the performance of these activities
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B11">11</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>The MMSE was applied to verify the cognitive function, having been chosen to be used in populational studies in the various practical scenarios
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B12">12</xref>
+					<sup>)</sup>. As cut-off points, we used the years of education: 20 points for illiterate; 25 points to 1-4 years of study; 26 points for 5-8 years; 28 points to 9-11 years; and 29 points for more than 11 years. This test does not replace the neuropsychological assessment in subjects with low scores, requiring a verticalized investigation of functional loss(
+					<xref ref-type="bibr" rid="B12">12</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B13">13</xref>).
+				</p> 
+				<p>In order to evaluate the family dynamics, we applied the APGAR Family
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B08">8</xref>
+					<sup>)</sup>. The acronym APGAR derives from words Adaptation, Partnership, Growth, Affection and Resolve. The five domains are assigned values of zero, 1 and 2 points. Zero for the option &#8220;hardly ever&#8221;, 1 for &#8220;some of the time&#8221; and 2 &#8220;almost always&#8221;. The total sum of the scores oscillates on a scale from zero to ten points, in which: from zero to 4, indicates severely dysfunctional family (SDF); from 5 to 6, moderately dysfunctional family (MDF); and from 7 to 10, Functional Family (FF)
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B08">8</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B13">13</xref>
+					<sup>)</sup>. In other words, the FF is expressed by &#8805; 7 scores and Family Dysfunction (DF) by &lt;7 points scores
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B08">8</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B13">13</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>In this sense, the exposure variables were socioeconomic and demographic characteristics, self-reported health conditions, functional and cognitive capacity. The FF was the outcome variable.</p> 
+				<p>Data were entered in the Excel software for Windows
+					<sup>&#174;</sup> 2003-2007 after double check. Data analysis was conducted by measures of absolute and relative frequency, mean and standard deviation in the IBM software Statistical Package for the Social Sciences (SPSS) for Windows
+					<sup>&#174;</sup> version 20.0. For univariate association analysis between the FF of oldest old and exposure variables, Chi-square or Fischer tests were used, with significance level of 5%. The measurement of effect used was the prevalence ratio (PR). Multiple logistic regression was applied to identify the factors associated with the FF through the construction of the model with the predictor variables, which obtained p-value &#8804; 0.20 in univariate analysis.
+				</p> 
+				<p>The variables entered into the multivariate analysis were scaled in two blocks, Block 1 socioeconomic demographic &#8722; (marital status, children, educational level, residents at household and type of residence); and Block 2 &#8211; self-perceived health conditions (self-perception of health, falls and demand for health services).</p> 
+				<p>The ethical care that conduct research involving humans have been secured, according to Resolution 196/96 of the National Health Council, and the research was approved by the Research Ethics Committee of Universidade Federal de Goi&#225;s (UFG) under the protocol 050/2009.</p> 
+			</sec> 
+			<sec sec-type="results"> 
+				<title>RESULTS</title> 
+				<p>Among the 934 participants, 173 (18.5%) were oldest old. Of these, 131 (75.72%) responded the five questions of the Family APGAR. 
+					<xref ref-type="table" rid="t05">Table 1</xref> shows demographic characterization and present an average age of 83.87 years, maximum of 94 years old (&#177;3.389), prevalence of females (61.8%), widows (50.4%), with primary education (59.5%), living with a big family (40.5%), with children (92.4%), in their own home (82.4%) with income (96.2%) from retirement (55.7%) and by age (37.4%).
+				</p> 
+				<table-wrap id="t05"> 
+					<label>Table 1</label> 
+					<caption> 
+						<title>Stratification of elderly according to socioeconomic and demographic conditions and factors associated with functional family residing in in the city of Goi&#226;nia (GO), 2010 (n = 131)</title> 
+					</caption> 
+					<table frame="hsides" rules="groups"> 
+						<thead> 
+							<tr> 
+								<th align="center"> 
+									<bold>Variables</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>Functional Family n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>Dysfunctional Family n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>RP (IC95%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>p-value</bold> 
+								</th> 
+							</tr> 
+						</thead> 
+						<tbody> 
+							<tr> 
+								<td>Gender</td> 
+								<td colspan="4"/> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Male</td> 
+								<td align="right">50 (38.2)</td> 
+								<td align="right">45 (90.0)</td> 
+								<td align="right">5 (10.0)</td> 
+								<td align="right">1.00</td> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Female</td> 
+								<td align="right">81 (61.8)</td> 
+								<td align="right">73 (90.1)</td> 
+								<td align="right">8 (9.9)</td> 
+								<td align="right">1.00 (0.89-1.12)</td> 
+								<td align="right">0.601</td> 
+							</tr> 
+							<tr> 
+								<td>Marital status</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Married</td> 
+								<td align="right">51 (38.9)</td> 
+								<td align="right">47 (92.2)</td> 
+								<td align="right">4 (7.8)</td> 
+								<td align="right">1.04 (0.93-1.16)</td> 
+								<td align="right">0.519</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Single</td> 
+								<td align="right">8 (6.1)</td> 
+								<td align="right">4 (50.0)</td> 
+								<td align="right">4 (50.0)</td> 
+								<td align="right">0.54 (0.27-1.08)</td> 
+								<td align="right">0.003
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Widow</td> 
+								<td align="right">66 (50.4)</td> 
+								<td align="right">63 (95.5)</td> 
+								<td align="right">3 (4.5)</td> 
+								<td align="right">1.13 (1.01-1.27)</td> 
+								<td align="right">0.061</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Separated</td> 
+								<td align="right">5 (3.8)</td> 
+								<td align="right">3 (60.0)</td> 
+								<td align="right">2 (40.0)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Education</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Illiterate</td> 
+								<td align="right">23 (17.6)</td> 
+								<td align="right">18 (78.3)</td> 
+								<td align="right">5 (21.7)</td> 
+								<td align="right">0.85 (0.68-1.06)</td> 
+								<td align="right">0.053</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Literate</td> 
+								<td align="right">10 (7.6)</td> 
+								<td align="right">9 (90.0)</td> 
+								<td align="right">1 (10.0)</td> 
+								<td align="right">1.00 (0.81-1.24)</td> 
+								<td align="right">0.737</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Primary school</td> 
+								<td align="right">78 (59.5)</td> 
+								<td align="right">75 (96.2)</td> 
+								<td align="right">3 (3.8)</td> 
+								<td align="right">1.19 (1.04-1.37)</td> 
+								<td align="right">0.004
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Secondary school</td> 
+								<td align="right">15 (11.5)</td> 
+								<td align="right">11 (73.3)</td> 
+								<td align="right">4 (26.7)</td> 
+								<td align="right">0.80 (0.58-1.08)</td> 
+								<td align="right">0.049
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Higher education</td> 
+								<td align="right">4 (3.1)</td> 
+								<td align="right">4 (100.0)</td> 
+								<td align="right">0 (0.0)</td> 
+								<td align="right">1.00</td> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>Household resident</td> 
+								<td/> 
+								<td/> 
+								<td/> 
+								<td/> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Living alone</td> 
+								<td align="right">13 (9.9)</td> 
+								<td align="right">9 (69.2)</td> 
+								<td align="right">4 (30.8)</td> 
+								<td align="right">0.72 (0.5 0-1.04)</td> 
+								<td align="right">0.026
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;With partner</td> 
+								<td align="right">21 (16.0)</td> 
+								<td align="right">20 (95.2)</td> 
+								<td align="right">1 (4.8)</td> 
+								<td align="right">1.07 (0.95-1.20)</td> 
+								<td align="right">0.340</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;With kids</td> 
+								<td align="right">21 (16.0)</td> 
+								<td align="right">20 (95.2)</td> 
+								<td align="right">1 (4.8)</td> 
+								<td align="right">1.07 (0.95-1.20)</td> 
+								<td align="right">0.340</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;With partner and kids</td> 
+								<td align="right">22 (16.8)</td> 
+								<td align="right">20 (90.9)</td> 
+								<td align="right">2 (9.1)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;With partner/kids/other</td> 
+								<td align="right">53 (40.5)</td> 
+								<td align="right">48 (90.6)</td> 
+								<td align="right">5 (9.4)</td> 
+								<td align="right">1.01 (0.90-1.13)</td> 
+								<td align="right">0.905</td> 
+							</tr> 
+							<tr> 
+								<td>Has kids</td> 
+								<td/> 
+								<td/> 
+								<td/> 
+								<td/> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">121 (92.4)</td> 
+								<td align="right">112 (92.6)</td> 
+								<td align="right">9 (7.4)</td> 
+								<td align="right">1.67 (0.93-3.00)</td> 
+								<td align="right">0.005
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">9 (6.9)</td> 
+								<td align="right">5 (55.6)</td> 
+								<td align="right">4 (44.4)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Income</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Up to 1 MW</td> 
+								<td align="right">39 (29.8)</td> 
+								<td align="right">33 (84.6)</td> 
+								<td align="right">6 (15.4)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;1-3 MW</td> 
+								<td align="right">40 (30.5)</td> 
+								<td align="right">36 (90.0)</td> 
+								<td align="right">4 (10.0)</td> 
+								<td align="right">1.01 (0.89-1.15)</td> 
+								<td align="right">0.561</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;&gt;3 MW</td> 
+								<td align="right">42 (32.1)</td> 
+								<td align="right">39 (92.9)</td> 
+								<td align="right">3 (7.1)</td> 
+								<td align="right">1.06 (0.94-1.20)</td> 
+								<td align="right">0.272</td> 
+							</tr> 
+							<tr> 
+								<td>Source of income</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Retirement</td> 
+								<td align="right">73 (55.7)</td> 
+								<td align="right">63 (86.3)</td> 
+								<td align="right">10 (13.7)</td> 
+								<td align="right">0.91 (0.82-1.02)</td> 
+								<td align="right">0.242</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Pension</td> 
+								<td align="right">23 (17.6)</td> 
+								<td align="right">21 (91.3)</td> 
+								<td align="right">2 (8.7)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Other</td> 
+								<td align="right">30 (23.0)</td> 
+								<td align="right">29 (96.67)</td> 
+								<td align="right">1 (3.33)</td> 
+								<td align="right">1.10 (1.00-1.22)</td> 
+								<td align="right">0.133</td> 
+							</tr> 
+							<tr> 
+								<td>Housing</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Own</td> 
+								<td align="right">108 (82.4)</td> 
+								<td align="right">100.0 (92.6)</td> 
+								<td align="right">8 (7.4)</td> 
+								<td align="right">1.20 (0.95-1.51)</td> 
+								<td align="right">0.044
+									<xref ref-type="table-fn" rid="TFN05">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Rented</td> 
+								<td align="right">12 (9.2)</td> 
+								<td align="right">9(75.0)</td> 
+								<td align="right">3 (25.0)</td> 
+								<td align="right">0.82 (0.59-1.14)</td> 
+								<td align="right">0.101</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Borrowed</td> 
+								<td align="right">10 (7.6)</td> 
+								<td align="right">8 (80.0)</td> 
+								<td align="right">2 (20.0)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+						</tbody> 
+					</table> 
+					<table-wrap-foot> 
+						<fn id="TFN05"> 
+							<label>*</label> 
+							<p>p-value&lt;0,05. PR: prevalence ratio; 95%CI: 95% confidence interval; MW: minimum wage
+								<xref ref-type="bibr" rid="B01">1</xref>
+							</p> 
+						</fn> 
+					</table-wrap-foot> 
+				</table-wrap> 
+				<p>Among those interviewed, these are the items that prevailed: regular health self-perception (45.0%), complaint of pain (58.8%), hypertension (60.8%), visual impairment (90.8%), falls (41.2%) and seek for health service (70.2%) (
+					<xref ref-type="table" rid="t06">Table 2</xref>).
+				</p> 
+				<table-wrap id="t06"> 
+					<label>Table 2</label> 
+					<caption> 
+						<title>Family Functionality and self-perception of disease. hospitalization and oldest old falls in the city of Goi&#226;nia (GO). 2010 (n = 131)</title> 
+					</caption> 
+					<table frame="hsides" rules="groups"> 
+						<thead> 
+							<tr> 
+								<th align="center"> 
+									<bold>Variables</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>Functional Family n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>Dysfunctional Family n (%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>RP (IC95%)</bold> 
+								</th> 
+								<th align="center"> 
+									<bold>p-value</bold> 
+								</th> 
+							</tr> 
+						</thead> 
+						<tbody> 
+							<tr> 
+								<td>Self-perception of health</td> 
+								<td colspan="5"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Great/good</td> 
+								<td align="right">53 (40.4)</td> 
+								<td align="right">49 (92.45)</td> 
+								<td align="right">4 (7.55)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Regular</td> 
+								<td align="right">59 (45.0)</td> 
+								<td align="right">54 (91.5)</td> 
+								<td align="right">5 (8.5)</td> 
+								<td align="right">1.06 (0.94-1.20)</td> 
+								<td align="right">0.529</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Poor/very poor</td> 
+								<td align="right">12 (9.2)</td> 
+								<td align="right">8 (66.7)</td> 
+								<td align="right">4 (33.3)</td> 
+								<td align="right">0.72 (0.48-1.09)</td> 
+								<td align="right">0.022
+									<xref ref-type="table-fn" rid="TFN06">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>Pain</td> 
+								<td colspan="5" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">77 (58.8)</td> 
+								<td align="right">69 (89.6)</td> 
+								<td align="right">8 (10.4)</td> 
+								<td align="right">0.99 (0.88-1.11)</td> 
+								<td align="right">0.831</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">54 (41.2)</td> 
+								<td align="right">49 (90.7)</td> 
+								<td align="right">5 (9.3)</td> 
+								<td align="right">1.00</td> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>Self-reported disease</td> 
+								<td colspan="4"/> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>Hypertension</td> 
+								<td colspan="4"/> 
+								<td/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">79 (60.8)</td> 
+								<td align="right">69 (87.3)</td> 
+								<td align="right">10 (12.7)</td> 
+								<td align="right">0.93 (0.83-1.04)</td> 
+								<td align="right">0.220</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">50 (38.5)</td> 
+								<td align="right">47 (94.0)</td> 
+								<td align="right">3 (6.0)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Diabetes</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">20 (15.3)</td> 
+								<td align="right">17 (85.0)</td> 
+								<td align="right">3 (15.0)</td> 
+								<td align="right">0.93 (0.77-1.13)</td> 
+								<td align="right">0.315</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">111 (84.7)</td> 
+								<td align="right">101 (91.0)</td> 
+								<td align="right">10 (9.0)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>COPD</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">19 (14.5)</td> 
+								<td align="right">18 (94.7)</td> 
+								<td align="right">1 (5.3)</td> 
+								<td align="right">1.06 (0.94-1.20)</td> 
+								<td align="right">0.405</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">112 (85.5)</td> 
+								<td align="right">100 (89.3)</td> 
+								<td align="right">12 (10.7)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Stroke</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">10 (7.6)</td> 
+								<td align="right">9 (90.0)</td> 
+								<td align="right">1 (10.0)</td> 
+								<td align="right">1.00 (0.81-1.24)</td> 
+								<td align="right">0.662</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">121 (92.4)</td> 
+								<td align="right">109 (90.1)</td> 
+								<td align="right">12 (9.9)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Musculoskeletal disease</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">29 (22.1)</td> 
+								<td align="right">26 (89.7)</td> 
+								<td align="right">3 (10.3)</td> 
+								<td align="right">1.00 (0.87-1.15)</td> 
+								<td align="right">0.602</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">99 (75.6)</td> 
+								<td align="right">89(89.9)</td> 
+								<td align="right">10 (10.1)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Osteoporosis</td> 
+								<td colspan="4"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">48 (36.6)</td> 
+								<td align="right">46 (95.8)</td> 
+								<td align="right">2 (4.2)</td> 
+								<td align="right">1.10 (1.00-1.22)</td> 
+								<td align="right">0.080</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">83 (63.4)</td> 
+								<td align="right">72 (86.7)</td> 
+								<td align="right">11 (13.3)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2"/> 
+							</tr> 
+							<tr> 
+								<td>Cancer</td> 
+								<td colspan="4"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">9 (6.9)</td> 
+								<td align="right">9 (100.0)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.12 (1.05-1.19)</td> 
+								<td align="right">0.378</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">122 (93.1)</td> 
+								<td align="right">109 (89.3)</td> 
+								<td align="right">13 (10.7)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2"/> 
+							</tr> 
+							<tr> 
+								<td>AMI</td> 
+								<td colspan="4"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">7 (5.3)</td> 
+								<td align="right">7 (100.0)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.12 (1.05-1.19)</td> 
+								<td align="right">0.469</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">123 (93.9)</td> 
+								<td align="right">110 (89.4)</td> 
+								<td align="right">13 (10.6)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2"/> 
+							</tr> 
+							<tr> 
+								<td>Visual impairment</td> 
+								<td colspan="4"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">119 (90.8)</td> 
+								<td align="right">106 (89.1)</td> 
+								<td align="right">13 (10.9)</td> 
+								<td align="right">0.89 (0.84-0.95)</td> 
+								<td align="right">0.268</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">12 (9.2)</td> 
+								<td align="right">12 (10.2)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Hearing impairment</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">62 (47.4)</td> 
+								<td align="right">57 (92.0)</td> 
+								<td align="right">5 (8.0)</td> 
+								<td align="right">1.04 (0.93-1.17)</td> 
+								<td align="right">0.482</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">68 (51.9)</td> 
+								<td align="right">60 (88.2)</td> 
+								<td align="right">8 (11.8)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Falls</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">54 (41.2)</td> 
+								<td align="right">52 (96.3)</td> 
+								<td align="right">2 (3.7)</td> 
+								<td align="right">1.13 (1.01-1.25)</td> 
+								<td align="right">0.085</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">76 (58.0)</td> 
+								<td align="right">65 (85.5)</td> 
+								<td align="right">11 (14.5)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Seeking health service</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">92 (70.2)</td> 
+								<td align="right">87 (94.6)</td> 
+								<td align="right">5 (5.4)</td> 
+								<td align="right">1.21 (1.01-1.44)</td> 
+								<td align="right">0.009
+									<xref ref-type="table-fn" rid="TFN06">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">37 (28.2)</td> 
+								<td align="right">29 (78.4)</td> 
+								<td align="right">8 (21.6)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Hospitalization in the last 12 months</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">34 (26.0)</td> 
+								<td align="right">32 (94.1)</td> 
+								<td align="right">2 (5.9)</td> 
+								<td align="right">1.07 (0.96-1.20)</td> 
+								<td align="right">0.255</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">91 (69.5)</td> 
+								<td align="right">80 (87.9)</td> 
+								<td align="right">11 (12.1)</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+						</tbody> 
+					</table> 
+					<table-wrap-foot> 
+						<fn id="TFN06"> 
+							<label>*</label> 
+							<p>p-value &lt;0.05. PR: prevalence ratio; 95%CI: 95% confidence interval; COPD: chronic obstructive pulmonary disease; AMI: acute myocardial infarction.</p> 
+						</fn> 
+					</table-wrap-foot> 
+				</table-wrap> 
+				<p>Regarding functional capacity, more than half of the oldest old reported they needed assistance from someone for any activity (52.7%), however, a large part also revealed independence for BADL (93.1%) and partial dependence IADL (81.7%). When assessing cognitive function, the mean MMSE score was 23.5 points (&#177; 3.242). (
+					<xref ref-type="table" rid="t07">Table 3</xref>).
+				</p> 
+				<table-wrap id="t07"> 
+					<label>Table 3</label> 
+					<caption> 
+						<title>Family functionality according to the presence of caregiver, functional capacity and Mini Mental State Examination (MMSE) in the oldest old in the city of Goi&#226;nia (GO), 2010 (n = 131)</title> 
+					</caption> 
+					<table frame="hsides" rules="groups"> 
+						<thead> 
+							<tr> 
+								<th> 
+									<bold>Variables</bold> 
+								</th> 
+								<th> 
+									<bold>n (%)</bold> 
+								</th> 
+								<th> 
+									<bold>Functional Family n (%)</bold> 
+								</th> 
+								<th> 
+									<bold>Dysfunctional Family n (%)</bold> 
+								</th> 
+								<th> 
+									<bold>RP (IC95%)</bold> 
+								</th> 
+								<th> 
+									<bold>p-value</bold> 
+								</th> 
+							</tr> 
+						</thead> 
+						<tbody> 
+							<tr> 
+								<td>Needs help</td> 
+								<td colspan="5"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">69 (52.7)</td> 
+								<td align="right">62 (89.9)</td> 
+								<td align="right">7 (10.1)</td> 
+								<td align="right">1.00 (0.89-1.12)</td> 
+								<td align="right">0.814</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">61 (46.6)</td> 
+								<td align="right">55 (90.2)</td> 
+								<td align="right">6 (9.8)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Has someone to help</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">72 (55.0)</td> 
+								<td align="right">67 (93.1)</td> 
+								<td align="right">5 (6.9)</td> 
+								<td align="right">1.09 (0.96-1.24)</td> 
+								<td align="right">0.253</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">54 (41.2)</td> 
+								<td align="right">46 (85.2)</td> 
+								<td align="right">8 (14.8)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>BADL</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Totally independent</td> 
+								<td align="right">122 (93.1)</td> 
+								<td align="right">110 (90.2)</td> 
+								<td align="right">12 (9.8)</td> 
+								<td align="right">1.01 (0.80-1.29)</td> 
+								<td align="right">0.621</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Partially dependent</td> 
+								<td align="right">8 (6.1)</td> 
+								<td align="right">8 (100.0)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.12 (1.05-1.19)</td> 
+								<td align="right">0.422</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Totally dependent</td> 
+								<td align="right">1 (0.8)</td> 
+								<td align="right">-</td> 
+								<td align="right">1 (100.0)</td> 
+								<td align="right">1.00</td> 
+								<td rowspan="3" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>IADL</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Totally independent</td> 
+								<td align="right">24 (18.3)</td> 
+								<td align="right">21 (87.5)</td> 
+								<td align="right">3 (12.5)</td> 
+								<td align="right">1.00</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Partially dependent</td> 
+								<td align="right">107 (81.7)</td> 
+								<td align="right">97 (90.65)</td> 
+								<td align="right">10 (9.35)</td> 
+								<td align="right">1.04 (0.88-1.22)</td> 
+								<td align="right">0.438</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Totally dependent</td> 
+								<td align="right">-</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Education</td> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Illiterate</td> 
+								<td align="right">17 (16.8)</td> 
+								<td align="right">14 (82.4)</td> 
+								<td align="right">3 (17.6)</td> 
+								<td align="right">0.90 (0.71-1.13)</td> 
+								<td align="right">0.221</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;1-4 years</td> 
+								<td align="right">55 (54.5)</td> 
+								<td align="right">49 (89.1)</td> 
+								<td align="right">6 (10.9)</td> 
+								<td align="right">0.98 (0.86-1.11)</td> 
+								<td align="right">0.488</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;5-8 years</td> 
+								<td align="right">18 (17.8)</td> 
+								<td align="right">17 (94.4)</td> 
+								<td align="right">1 (5.6)</td> 
+								<td align="right">1.06 (0.93-1.21)</td> 
+								<td align="right">0.434</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;9-11 years</td> 
+								<td align="right">4 (4.0)</td> 
+								<td align="right">4 (100.0)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;&gt;11 years</td> 
+								<td align="right">7 (6.9)</td> 
+								<td align="right">7 (100.0)</td> 
+								<td align="right">-</td> 
+								<td align="right">1.12 (1.04-1.20)</td> 
+								<td align="right">0.470</td> 
+							</tr> 
+						</tbody> 
+					</table> 
+					<table-wrap-foot> 
+						<fn> 
+							<p>* p-value&lt;0,05. PR: prevalence ratio; 95%IC: 95% confidence interval; DLBA: Daily Life Basic Activities; IADL: Instrumental Activities of Daily Living.</p> 
+						</fn> 
+					</table-wrap-foot> 
+				</table-wrap> 
+				<p>Family dynamics expressed by FF was estimated at 90.1% (n=118). DF was estimated at 9.9% (n=13), divided in 5.3% with MDF (n=7) and 4.6% (n = 6) with SDF. The average score was 9.06 points (&#177; 2.067).</p> 
+				<p>Regarding Family APGAR domains, the first domain, &#8220;I am satisfied, because I can count on my family in case I need help when there is a disturbance or preoccupation&#8221; referred to the adaptation component. In this matter, 5 (3.8%) oldest old reported never being satisfied with the family member about the care received, 12 (9.2%) responded sometimes and 114 (87.2%) were always pleased to able to rely on family for help when needed.</p> 
+				<p>The second domain referred to the Partnership component, &#8220;I am satisfied with the way my family and I talk and share problem&#8221;. In this domain, 6 (4.6%) oldest old reported never being satisfied with the ability of the family to share decisions and responsibilities, 9 (6.9%) responded sometimes and 116 (88.5%) responded they were always satisfied with communication between his/her family members, as well as protection and food intended for them. This was the domain with the highest percentage of acceptability of the oldest old.</p> 
+				<p>The third area, &#8220;I am satisfied with the way my family accepts and supports my desires to begin or to search for new activities and to search for new paths and directions&#8221;, referred to the Growth doassociated FF in the oldest old block 1: single (p=0.003), primary school level (p=0.004), secondary school level (p = 0.004), lives alone (p=0.026), has children (p=0.005) in own house (p=0.044). We associated to Block 2: poor/very poor self-reported health (p=0.022) and seeking health services (p=0.009). After Poisson multivariate analysis remained associated FF to the exposure variables: poor/very poor health (PR: 1.33; 95% CI: 1.13-1.57), osteoporosis (PR: 1.11; 95% CI: 1,02-1,21) and falls (PR: 1.14; 95% CI: 1.06-1.23) (
+					<xref ref-type="table" rid="t08">Table 4</xref>).
+				</p> 
+				<table-wrap id="t08"> 
+					<label>Tabelas 4</label> 
+					<caption> 
+						<title>Predictor variables that remained associated with the Family Functionality in the oldest old in the city of Goi&#226;nia (GO), 2010 (n = 131)</title> 
+					</caption> 
+					<table frame="hsides" rules="groups"> 
+						<thead> 
+							<tr> 
+								<th> 
+									<bold>Variables</bold> 
+								</th> 
+								<th> 
+									<bold>RP (IC95%) crude</bold> 
+								</th> 
+								<th> 
+									<bold>p-value
+										<xref ref-type="table-fn" rid="TFN08">*</xref>
+									</bold> 
+								</th> 
+								<th> 
+									<bold>RP (IC95%) adjusted</bold> 
+								</th> 
+								<th> 
+									<bold>p-value
+										<xref ref-type="table-fn" rid="TFN08">*</xref>
+									</bold> 
+								</th> 
+							</tr> 
+						</thead> 
+						<tbody> 
+							<tr> 
+								<td>Self-perceived health</td> 
+								<td colspan="3"/> 
+								<td rowspan="3"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Great/good</td> 
+								<td align="right">1.00</td> 
+								<td colspan="2"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Regular</td> 
+								<td align="right">1.06 (0.94-1.20)</td> 
+								<td align="right">0.529</td> 
+								<td align="right">1.00</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Poor/very poor</td> 
+								<td align="right">0.72 (0.48-1.09)</td> 
+								<td align="right">0.022*</td> 
+								<td align="right">1.33 (1.13-1.57)</td> 
+								<td align="right">0.000
+									<xref ref-type="table-fn" rid="TFN08">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>Osteoporosis</td> 
+								<td colspan="4" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">1.10 (1.00-1.22)</td> 
+								<td align="right">0.080</td> 
+								<td align="right">1.11 (1.02-1.21)</td> 
+								<td align="right">0.014
+									<xref ref-type="table-fn" rid="TFN08">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+								<td align="right">1.00</td> 
+								<td rowspan="2" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>Falls</td> 
+								<td colspan="3" align="right"/> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;Yes</td> 
+								<td align="right">1.13 (1.01-1.25)</td> 
+								<td align="right">0.085</td> 
+								<td align="right">1.14 (1.06-1.23)</td> 
+								<td align="right">0.000
+									<xref ref-type="table-fn" rid="TFN08">*</xref>
+								</td> 
+							</tr> 
+							<tr> 
+								<td>&#160;&#160;&#160;&#160;No</td> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+								<td align="right">1.00</td> 
+								<td align="right"/> 
+							</tr> 
+						</tbody> 
+					</table> 
+					<table-wrap-foot> 
+						<fn id="TFN08"> 
+							<label>*</label> 
+							<p>p-value&lt; 0,05. PR: prevalence ratio; 95%IC: 95% confidence interval</p> 
+						</fn> 
+					</table-wrap-foot> 
+				</table-wrap> 
+			</sec> 
+			<sec sec-type="discussion"> 
+				<title>DISCUSSION</title> 
+				<p>Most oldest old reported family dynamic with FF, demonstrating that the family was able to care for their elderly, as found in other studies
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B09">9</xref>
+					<sup>,</sup>
+					<xref ref-type="bibr" rid="B14">14</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B15">15</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>Among the domains of Family APGAR, FF was estimated in the Partnership domain, followed by adaptation, indicating that there is a greater family care for the elderly in relation to sharing decisions, responsibilities, protection and affection facing family stress situations, regarding family balance. Regarding time shared and problem solving, this domain was reported by the elderly as less attention by family members, confirming other findings
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B16">16</xref>
+					<sup>)</sup>.
+				</p> 
+				<fig id="f02"> 
+					<label>Figure 1</label> 
+					<caption> 
+						<title>Family dynamics of the oldest old for the domains Adaptation, Partnership, Growth, Affection and Resolve (APGAR) of Families in the city of Goi&#226;nia (GO), 2010 (n=131)</title> 
+					</caption> 
+					<alternatives> 
+						<graphic xlink:href=""/> 
+						<graphic xlink:href="https://minio.scielo.br/documentstore/1984-0446/8fNzspZMMgNXjwb5rjVrGyb/1b554513c9776683f5b2177c555e5743e3aa7fe0.jpg"/> 
+					</alternatives> 
+				</fig> 
+				<p>On the other hand, this result suggests a vertical analysis of relationships and intergenerational living, as this greater contact with the elderly and greater family care demands can lead to DF by the impact of chronic diseases, in addition to triggering conflicts and dissatisfaction on the part of the elderly, who can promote changes of intra-family roles and main caregiver selection
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B17">17</xref>
+					<sup>)</sup>. In this context, we highlight the ischemic heart disease, stroke (CVA), visual impairment and chronic obstructive pulmonary diseases (COPD)
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B04">4</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>Regarding self-reported health conditions, the elderly who reported worse health conditions showed a better family dynamics. It is known that the family is decisive for a successful aging process and the elderly quality of life (QOL)
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B18">18</xref>
+					<sup>-</sup>
+					<xref ref-type="bibr" rid="B19">19</xref>
+					<sup>)</sup>. In this context of aging and self-reported health conditions, there is a higher consumption of health services to the elderly, which is related to the individual&#8217;s life path, resulting in lifestyle
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B04">4</xref>
+					<sup>)</sup>, showing that the association between health and behaviour throughout life influences the QOL of elderly and the FF
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B20">20</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>In other words, aging and FF influence the QOL of people, that is, the higher the FF, the better QOL, and the older they get, the worse is their QOL
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B21">21</xref>
+					<sup>)</sup>. The role of intra-family support in the elderly QOL proved to be a motivation factor for QOL and better health
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B22">22</xref>
+					<sup>)</sup>. In this sense, the oldest old generation, because they are not homogeneous, requires vertically integrated policies to the real needs, considering gender, ethnicity, education, income and health
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B01">1</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>No studies that associate FF by Family APGAR and osteoporosis were found. However, the association between FF and osteoporosis may reflect family dynamics, as appropriate environments for physical activity, social support and infrastructure contribute to a more active behaviour and therefore greater functional independence and improved QOL
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B23">23</xref>
+					<sup>)</sup>.
+				</p> 
+				<p>Regarding FF and the exposure variable falls, it is known that it can worsen the health status, on a downward spiral, resulting in long-term care due to the increased possibility of dependence, loss of autonomy, confusion, immobilization, depression and death
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B04">4</xref>
+					<sup>)</sup>. These factors can influence the FF and changing family dynamics, due to increased demand for attention, the changing roles and new styles of family relationships
+					<sup>(</sup>
+					<xref ref-type="bibr" rid="B09">9</xref>
+					<sup>)</sup>.
+				</p> 
+			</sec> 
+			<sec sec-type="conclusion"> 
+				<title>CONCLUSION</title> 
+				<p>After multivariate analysis, the Family Functionality, in the oldest old, remained associated with self-perceived poor/very poor health, osteoporosis and falls. These results fill a gap in the literature, since this ground breaking research in the Brazilian Midwest also allows better characterization of the oldest old on Family Functionality.</p> 
+				<p>Given the demographic and epidemiological transition experienced in contemporary times, the elaboration and the applicability of existing public policies to the real needs of low income women are necessary. Therefore, the results contribute to clinical practices for better planning and family strengthening in home care with support and care of Nursing professionals engaged in primary care, that is, in home care, family should be prioritized as a caregiver and partner in the care of these people.</p> 
+				<p>However, methodological limitations of this study should be considered, especially the cross-sectional design, which did not allow causal relationship inferences between Family Functionality and associated factors.</p> 
+			</sec> 
+		</body> 
+	</sub-article>
+</article>
