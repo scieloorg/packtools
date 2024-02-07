@@ -36,42 +36,44 @@ class ArticleLicenseTest(TestCase):
         self.article_license = ArticleLicense(xmltree)
 
     def test_get_licenses(self):
+        self.maxDiff = None
         expected = [
             {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                'license_p': 'This is an article published in open access under a Creative Commons license.'
             },
             {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
             },
             {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
             }
         ]
 
         self.assertEqual(expected, self.article_license.licenses)
 
     def test_get_license_p(self):
+        self.maxDiff = None
         expected = {
             'en': {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'This is an article published in open access under a Creative Commons license.'
+                'license_p': 'This is an article published in open access under a Creative Commons license.'
                 },
             'pt': {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
                 },
             'es': {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'licence_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
                 }
         }
 
