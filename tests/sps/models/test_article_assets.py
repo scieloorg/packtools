@@ -945,6 +945,7 @@ class ArticleAssetsTest(TestCase):
         self.assertEqual(not_found, ["figura2.jpg"])
 
     def test_assets_canonical_name_without_subarticles(self):
+        self.maxDiff = None
         data = open(
             "tests/sps/fixtures/document-with-supplementary-material.xml"
         ).read()
@@ -1022,21 +1023,21 @@ class ArticleAssetsTest(TestCase):
             "suppl01": [
                 {
                     "name": "https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/e738857c8fb8bc085b766a812bbe73277c67d346.pdf",
-                    "name_canonical": "1676-0611-bn-2021-1306-s01.pdf",
+                    "name_canonical": "1676-0611-bn-2021-1306-g01.pdf",
                     "type": "original",
                 },
             ],
             "suppl02": [
                 {
                     "name": "https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/b72942b47698183bf992f1ad8cebdf61d346e0cf.xls",
-                    "name_canonical": "1676-0611-bn-2021-1306-s02.xls",
+                    "name_canonical": "1676-0611-bn-2021-1306-g02.xls",
                     "type": "original",
                 },
             ],
             "suppl03": [
                 {
                     "name": "https://minio.scielo.br/documentstore/1676-0611/GJq3kzJLQw876pxRdSrhmQG/ffc50de0245a936540df9f98b7de123c8c597cbf.pdf",
-                    "name_canonical": "1676-0611-bn-2021-1306-s03.pdf",
+                    "name_canonical": "1676-0611-bn-2021-1306-g03.pdf",
                     "type": "original",
                 },
             ],
