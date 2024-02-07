@@ -638,18 +638,21 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
 def get_abstracts(xml_tree):
     abstracts = {}
     article_abstracts = article_abstract.Abstract(xml_tree)
-    abstract_without_tag = article_abstracts.abstracts_without_tags
-    for abstract in article_abstracts.abstracts_with_tags:
+    abstract_without_tag = article_abstracts.get_abstracts(None)
+    for abstract in abstract_without_tag:
         try:
             lang = abstract.get("lang")
-            structured = abstract.get("sections")
-            if structured == {}:
+            structured = abstract.get("abstract").get("sections")
+            if not structured:
                 abstracts[lang] = {
-                    "text": abstract_without_tag.get(abstract.get("lang")),
+                    "text": abstract.get("abstract").get("p"),
                     "structured": False,
                 }
             else:
-                abstracts[lang] = {"text": structured, "structured": True}
+                abstracts[lang] = {
+                    "text": structured,
+                    "structured": True}
+
         except AttributeError:
             pass
     return abstracts
@@ -685,8 +688,8 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
         if not abstract["structured"]:
             abstract_el.text = abstract.get("text")
         else:
-            for label, text in abstract.get("text").items():
-                abstract_el.append(add_abstract_text(label, text))
+            for item in abstract.get("text"):
+                abstract_el.append(add_abstract_text(item.get("title"), item.get("p")))
         xml_pubmed.append(abstract_el)
     except TypeError:
         pass
@@ -709,6 +712,6 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
             if not abstract["structured"]:
                 abstract_el.text = abstract.get("text")
             else:
-                for label, text in abstract.get("text").items():
-                    abstract_el.append(add_abstract_text(label, text))
+                for item in abstract.get("text"):
+                    abstract_el.append(add_abstract_text(item.get("title"), item.get("p")))
             xml_pubmed.append(abstract_el)
