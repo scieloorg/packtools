@@ -1270,7 +1270,7 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    abstracts = article_abstract.Abstract(xml_tree).abstracts_with_tags
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts(None)
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
 
     for article in articles:
@@ -1281,10 +1281,10 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
                     "{http://www.w3.org/XML/1998/namespace}lang", abstract.get("lang")
                 )
                 jats_p = ET.Element("{http://www.ncbi.nlm.nih.gov/JATS1}p")
-                text = [abstract.get("title")]
-                for key, value in abstract.get("sections").items():
-                    text.append(key)
-                    text.append(value)
+                text = [abstract.get("abstract").get("title")]
+                for item in abstract.get("abstract").get("sections"):
+                    text.append(item.get("title"))
+                    text.append(item.get("p"))
                 jats_p.text = " ".join(text)
                 jats.append(jats_p)
                 xml_crossref.find(
