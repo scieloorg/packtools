@@ -71,11 +71,11 @@ class FundingGroupValidation:
                     'xpath': './/funding-group/award-group/award-id',
                     'validation_type': 'format',
                     'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': award_id if is_valid else 'a valid value for <award-id>',
+                    'expected_value': award_id if is_valid else 'a valid value for award id',
                     'got_value': award_id,
                     'message': 'Got {} expected {}'.format(
-                        award_id, award_id if is_valid else 'a valid value for <award-id>'),
-                    'advice': None if is_valid else 'Provide a valid value for <award-id>'
+                        award_id, award_id if is_valid else 'a valid value for award id'),
+                    'advice': None if is_valid else 'Provide a valid value for award id'
                 }
 
     def ack_exist_validation(self):
