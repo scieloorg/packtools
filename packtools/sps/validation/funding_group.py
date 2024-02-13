@@ -26,30 +26,36 @@ class FundingGroupValidation:
         self.funding_fn = self.funding_group_object.fn_financial_information
 
     def funding_sources_exist_validation(self):
-        for funding in self.funding_sources or [None]:
-            funding_list = funding.get("funding-source") if funding else []
-            award_list = funding.get("award-id") if funding else []
-            funding_length = len(funding_list)
-            award_length = len(award_list)
-            is_valid = funding_length > 0 and award_length > 0
-            obtained = '{} values to <funding-source> and {} values to <award-id>'.format(funding_length, award_length)
-            advice = []
-            if funding_length == 0:
-                advice.append('<funding-source>')
-            if award_length == 0:
-                advice.append('<award-id>')
+        title = 'Funding source element validation'
+        validation_type = 'exist'
+        for funding in self.funding_group + self.funding_fn:
+            is_valid = False
+            advice = None
+            funding_list = funding.get("funding-source")
+            award_list = funding.get("award-id")
+            has_funding = len(funding_list) > 0
+            has_award = len(award_list) > 0
+            obtained = '{} values to funding source and {} values to award id'.format(len(funding_list), len(award_list))
+            message = 'Got {} as funding source and {} as award id'.format(funding_list, award_list)
 
-            yield {
-                'title': 'Funding source element validation',
-                'xpath': './/funding-group/award-group/funding-source',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': 'at leats 1 value to <funding-source> and at least 1 value to <award-id>',
-                'got_value': obtained,
-                'message': 'Got {} as <funding-source> {} as <award-id>'.format(
-                    funding_list, award_list),
-                'advice': None if is_valid else 'Provide values to {}'.format(' and '.join(advice))
-            }
+            fn_type = funding.get('fn-type')
+            xpath = f".//fn-group/fn[@fn-type='{fn_type}']//p" if fn_type else './/funding-group/award-group/funding-source'
+            if fn_type == 'supported-by':
+                expected = 'at least 1 value to funding source'
+                if not has_funding:
+                    advice = 'Provide value to funding source'
+                else:
+                    is_valid = True
+            else:
+                expected = 'at least 1 value to funding source and at least 1 value to award id'
+                if not has_award and not has_funding:
+                    advice = 'Provide values to award id and funding source'
+                elif not has_award and has_funding:
+                    advice = 'Provide value to award id or move funding source to <fn fn-type="supported-by">'
+                elif has_award and not has_funding:
+                    advice = 'Provide value to funding source'
+                else:
+                    is_valid = True
 
     def principal_award_recipient_exist_validation(self):
         for principal in self.principal_award_recipients or [None]:
@@ -65,6 +71,7 @@ class FundingGroupValidation:
                 'message': 'Got {} expected {}'.format(principal, expected),
                 'advice': None if is_valid else 'Provide {}'.format(expected)
             }
+            yield _create_response(title, xpath, validation_type, is_valid, expected, obtained, message, advice)
 
     def principal_investigator_exist_validation(self):
         for principal in self.principal_investigator or [None]:
