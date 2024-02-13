@@ -77,18 +77,3 @@ class FundingGroupValidation:
                         award_id, award_id if is_valid else 'a valid value for award id'),
                     'advice': None if is_valid else 'Provide a valid value for award id'
                 }
-    def funding_statement_exist_validation(self):
-        is_valid = self.funding_statement is not None
-        expected = self.funding_statement if is_valid else 'value to <funding-statement>'
-        return [
-            {
-                'title': 'Funding statement element validation',
-                'xpath': './/funding-group/funding-statement',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected,
-                'got_value': self.funding_statement,
-                'message': 'Got {} expected {}'.format(self.funding_statement, expected),
-                'advice': None if is_valid else 'Provide {}'.format(expected)
-            }
-        ]
