@@ -5,6 +5,19 @@ def _callable_extern_validate_default(award_id):
     raise NotImplementedError
 
 
+def _create_response(title, xpath, validation_type, is_valid, expected, obtained, message, advice):
+    return {
+                'title': title,
+                'xpath': xpath,
+                'validation_type': validation_type,
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': expected,
+                'got_value': obtained,
+                'message': message,
+                'advice': advice
+            }
+
+
 class FundingGroupValidation:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
