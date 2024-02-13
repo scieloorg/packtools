@@ -16,6 +16,12 @@ def _strip_and_remove_final_dot(text):
     return text
 
 
+def _is_award_id(text):
+    # TODO outros casos podem ser considerados, além do DOI
+    invalid_patterns = ['doi.org', ]
+    return not any(pattern in text for pattern in invalid_patterns)
+
+
 class FundingGroup:
     """
     Class that performs the extraction of values for funding-source and award-id.
