@@ -83,8 +83,9 @@ class FundingGroup:
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group"):
             d = {
-                "funding-source": [source.text for source in node.xpath("funding-source")],
-                "award-id": [id.text for id in node.xpath("award-id")]
+                "funding-source": [xml_utils.get_node_without_subtag(source) for source in
+                                   node.xpath("funding-source")],
+                "award-id": [xml_utils.get_node_without_subtag(id) for id in node.xpath("award-id")]
             }
             items.append(d)
         return items
@@ -93,20 +94,22 @@ class FundingGroup:
     def funding_sources(self):
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group/funding-source"):
-            items.append(node.text)
+            items.append(xml_utils.get_node_without_subtag(node))
         return items
 
     @property
     def funding_statement(self):
-        funding_statements = self._xmltree.xpath(".//funding-group/funding-statement")
-        if funding_statements:
-            return funding_statements[0].text
+        """
+        De acordo com https://scielo.readthedocs.io/projects/scielo-publishing-schema/pt-br/latest/tagset/elemento-funding-statement.html?highlight=funding-statement
+        <funding-statement> ocorre zero ou uma vez.
+        """
+        return self._xmltree.findtext(".//funding-group/funding-statement")
 
     @property
     def principal_award_recipients(self):
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group/principal-award-recipient"):
-            items.append(node.text)
+            items.append(xml_utils.get_node_without_subtag(node))
         return items
 
     @property
@@ -126,8 +129,8 @@ class FundingGroup:
         for node in self._xmltree.xpath(".//back//ack"):
             items.append(
                 {
-                "title": node.findtext("title"),
-                "text": " ".join([paragraph.text for paragraph in node.xpath("p")])
+                    "title": node.findtext("title"),
+                    "text": " ".join([xml_utils.get_node_without_subtag(paragraph) for paragraph in node.xpath("p")])
                 }
             )
         return items
