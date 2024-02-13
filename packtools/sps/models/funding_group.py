@@ -22,6 +22,18 @@ def _is_award_id(text):
     return not any(pattern in text for pattern in invalid_patterns)
 
 
+def _get_first_number_sequence(text):
+    number = ""
+    special_chars = ('.', '-', '/')
+    i = 0
+    while i < len(text) and not text[i].isdigit():
+        i += 1
+    while i < len(text) and (text[i].isdigit() or text[i] in special_chars):
+        number += text[i]
+        i += 1
+    return number or None
+
+
 class FundingGroup:
     """
     Class that performs the extraction of values for funding-source and award-id.
