@@ -22,11 +22,8 @@ class FundingGroupValidation:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
         self.funding_group_object = FundingGroup(xml_tree)
-        self.funding_sources = self.funding_group_object.award_groups
-        self.principal_award_recipients = self.funding_group_object.principal_award_recipients
-        self.principal_investigator = self.funding_group_object.principal_investigators
-        self.ack = self.funding_group_object.ack
-        self.funding_statement = self.funding_group_object.funding_statement
+        self.funding_group = self.funding_group_object.award_groups
+        self.funding_fn = self.funding_group_object.fn_financial_information
 
     def funding_sources_exist_validation(self):
         for funding in self.funding_sources or [None]:
