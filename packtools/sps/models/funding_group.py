@@ -1,7 +1,12 @@
 import logging
-from lxml import etree
+
+from packtools.sps.utils import xml_utils
 
 logger = logging.getLogger(__name__)
+
+
+def _is_funding_source(text):
+    return all(char.isalpha() or char.isspace() for char in text)
 
 
 class FundingGroup:
