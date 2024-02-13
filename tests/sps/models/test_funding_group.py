@@ -45,7 +45,7 @@ class FundingTest(TestCase):
         <back>
         <ack>
             <title>Acknowledgments</title>
-            <p>Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and Anesthesiology, RJ, Brazil, provided important support for this research.</p>
+            <p>Federal University of Rio de Janeiro (UFRJ), School of Medicine, <b>Department of Surgery and Anesthesiology</b>, RJ, Brazil, provided important support for this research.</p>
             <p>This study was funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment (CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil.</p>
             <p>This study was presented as a poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 November 2018, Belém do Pará, Brazil.</p>
         </ack>
@@ -82,6 +82,12 @@ class FundingTest(TestCase):
         <fn fn-type="other">
         <p>Research performed at the Immunopharmacology Laboratory, Universidade São Francisco (USF), Bragança Paulista (SP), Brazil. Part of a master degree thesis of the Postgraduate Program in Health Science. Tutor: Alessandra Gambero.</p>
         </fn>
+        <fn fn-type="supported-by">
+        <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
+        <p>
+        Número 123.456-7
+        </p>
+        </fn>
         </fn-group>
         </back>
         </article>
@@ -89,23 +95,31 @@ class FundingTest(TestCase):
         xml_tree = etree.fromstring(xml)
         self.funding = funding_group.FundingGroup(xml_tree)
 
-    def test_financial_disclosure(self):
+    def test_fn_financial_information(self):
+        self.maxDiff = None
         expected = [
-            'Funding '
-            'Conselho Nacional de Desenvolvimento Científico e Tecnológico '
-            '[ https://doi.org/10.13039/501100003593 ] '
-            'Grant No: 303625/2019-8 '
-            'Fundação de Amparo à Pesquisa do Estado de São Paulo '
-            '[ https://doi.org/10.13039/501100001807 ] '
-            'Grant No: 2016/17640-0 '
-            'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior. '
-            '[ https://doi.org/10.13039/501100002322 ] '
-            'Finance code 0001.'
+            {
+                'fn-type': 'financial-disclosure',
+                'funding-source': [
+                    'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
+                    'Fundação de Amparo à Pesquisa do Estado de São Paulo',
+                    'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior'
+                ],
+                'award-id': [
+                    '303625/2019-8',
+                    '2016/17640-0',
+                    '0001'
+                ]
+            },
+            {
+                'fn-type': 'supported-by',
+                'funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
+                'award-id': ['123.456-7'],
+            }
         ]
-        obtained = [item for item in self.funding.financial_disclosure]
-        for i, expect_output in enumerate(expected):
-            with self.subTest(i):
-                self.assertEqual(expect_output, obtained[i])
+
+        obtained = self.funding.fn_financial_information
+        self.assertEqual(expected, obtained)
 
     def test_award_groups(self):
         expected = [
