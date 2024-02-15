@@ -127,3 +127,107 @@ class AuthorsTest(TestCase):
         for i, item in enumerate(self.citations.article_citations):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
+
+    def test_citations_collab_element(self):
+        xml = ('''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+           <back>
+              <ref-list>
+                 <ref id="B1">
+                    <mixed-citation>1. Albuquerque EM, Cassiolato JE. As especificidades do sistema de inovação do setor saúde: uma resenha da literatura como introdução a uma discussão sobre o caso brasileiro. Belo Horizonte: Federação de Sociedades de Biologia Experimental; 2000. (Estudos FeSBE, 1).</mixed-citation>
+                    <element-citation publication-type="other">
+                       <person-group person-group-type="authors">
+                          <name>
+                             <surname>Albuquerque</surname>
+                             <given-names>EM</given-names>
+                          </name>
+                          <name>
+                             <surname>Cassiolato</surname>
+                             <given-names>JE</given-names>
+                          </name>
+                       </person-group>
+                       <source>As especificidades do sistema de inovação do setor saúde: uma resenha da literatura como introdução a uma discussão sobre o caso brasileiro</source>
+                       <date>
+                          <year>2000</year>
+                       </date>
+                       <year>2000</year>
+                    </element-citation>
+                 </ref>
+                 <ref id="B2">
+                    <mixed-citation>
+                       2. Brasil. Lei n.
+                       <u>
+                          <sup>o</sup>
+                       </u>
+                       10.332, de 19/12/2001. Instituiu mecanismo de financiamento para o programa de ciência e tecnologia para o agronegócio, para o programa de fomento à pesquisa em saúde, para o programa de bioteconologia e recursos genéticos – Genoma, para o programa de ciência e tecnologia para o setor aeronáutico e para o programa de inovação para competitividade, e dá outras providências.
+                       <italic>Diário Oficial da União</italic>
+                       2001 dez 19.
+                    </mixed-citation>
+                    <element-citation publication-type="other">
+                       <person-group person-group-type="authors">
+                          <collab>Brasil</collab>
+                       </person-group>
+                       <article-title>Lei n.º 10.332, de 19/12/2001: Instituiu mecanismo de financiamento para o programa de ciência e tecnologia para o agronegócio, para o programa de fomento à pesquisa em saúde, para o programa de bioteconologia e recursos genéticos - Genoma, para o programa de ciência e tecnologia para o setor aeronáutico e para o programa de inovação para competitividade, e dá outras providências</article-title>
+                       <source>Diário Oficial da União</source>
+                       <date>
+                          <year>2001</year>
+                          <month>21</month>
+                       </date>
+                       <year>2001</year>
+                    </element-citation>
+                 </ref>
+                </ref-list>
+           </back>
+        </article>
+        ''')
+        xmltree = etree.fromstring(xml)
+        citations = ArticleCitations(xmltree)
+        expected = [
+            {
+                'ref_id': 'B1',
+                'mixed_citation': '1. Albuquerque EM, Cassiolato JE. As especificidades do sistema de inovação '
+                                  'do setor saúde: uma resenha da literatura como introdução a uma discussão '
+                                  'sobre o caso brasileiro. Belo Horizonte: Federação de Sociedades de Biologia '
+                                  'Experimental; 2000. (Estudos FeSBE, 1).',
+                'source': 'As especificidades do sistema de inovação do setor saúde: uma resenha da literatura '
+                          'como introdução a uma discussão sobre o caso brasileiro',
+                'main_author': {'given_name': 'EM', 'surname': 'Albuquerque'},
+                'all_authors': [
+                    {'given_name': 'EM', 'surname': 'Albuquerque'},
+                    {'given_name': 'JE', 'surname': 'Cassiolato'}
+                ],
+                'year': '2000',
+                'citation_ids': {},
+            },
+            {
+                'ref_id': 'B2',
+                'mixed_citation': '2. Brasil. Lei n.\n'
+                    '                       \n'
+                    '                          o\n'
+                    '                       \n'
+                    '                       10.332, de 19/12/2001. Instituiu '
+                    'mecanismo de financiamento para o programa de ciência e '
+                    'tecnologia para o agronegócio, para o programa de fomento '
+                    'à pesquisa em saúde, para o programa de bioteconologia e '
+                    'recursos genéticos – Genoma, para o programa de ciência e '
+                    'tecnologia para o setor aeronáutico e para o programa de '
+                    'inovação para competitividade, e dá outras providências.\n'
+                    '                       Diário Oficial da União\n'
+                    '                       2001 dez 19.',
+                'source': 'Diário Oficial da União',
+                'article_title': 'Lei n.º 10.332, de 19/12/2001: Instituiu mecanismo de '
+                                 'financiamento para o programa de ciência e tecnologia para '
+                                 'o agronegócio, para o programa de fomento à pesquisa em '
+                                 'saúde, para o programa de bioteconologia e recursos '
+                                 'genéticos - Genoma, para o programa de ciência e tecnologia '
+                                 'para o setor aeronáutico e para o programa de inovação para '
+                                 'competitividade, e dá outras providências',
+                'all_authors': [],
+                'year': '2001',
+                'citation_ids': {},
+            },
+
+        ]
+        for i, item in enumerate(citations.article_citations):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
