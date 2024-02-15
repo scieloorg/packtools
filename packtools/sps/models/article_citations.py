@@ -13,7 +13,10 @@ def get_source(node):
 
 
 def get_main_author(node):
-    return get_all_authors(node)[0]
+    try:
+        return get_all_authors(node)[0]
+    except IndexError:
+        return
 
 
 def get_all_authors(node):
@@ -37,6 +40,11 @@ def get_all_authors(node):
             d['suffix'] = author.find('suffix').text
         except AttributeError:
             pass
+        try:
+            d['collab'] = author.find('collab').text
+        except AttributeError:
+            pass
+
         result.append(d)
 
     return result
@@ -105,9 +113,11 @@ class ArticleCitations:
                 ('elocation_id', get_elocation_id(node)),
                 ('year', get_year(node)),
                 ('article_title', get_article_title(node)),
-                ('mixed_citation', ET.tostring(get_mixed_citation(node), encoding=str, method='text').strip()),
                 ('citation_ids', get_citation_ids(node))
             ]
+            mixed_citation = get_mixed_citation(node)
+            if mixed_citation is not None:
+                tags.append(('mixed_citation', ET.tostring(mixed_citation, encoding=str, method='text').strip()))
 
             d = dict()
             for name, value in tags:
