@@ -267,14 +267,20 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
-
-    # TODO
-    # As demais chamadas serão incluídas a partir da incorporação do PR #429
+    xml_pubmed_author_list(xml_pubmed, xml_tree)
+    xml_pubmed_publication_type(xml_pubmed, xml_tree)
+    xml_pubmed_article_id(xml_pubmed, xml_tree)
+    xml_pubmed_history(xml_pubmed, xml_tree)
+    xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+    xml_pubmed_coi_statement(xml_pubmed, xml_tree)
+    xml_pubmed_object_list(xml_pubmed, xml_tree)
+    xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
+    xml_pubmed_citations(xml_pubmed, xml_tree)
+    xml_pubmed_abstract(xml_pubmed, xml_tree)
+    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
 
     xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode(
-        "utf-8"
-    )
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
 
 
 def get_authors(xml_tree):
