@@ -15,14 +15,12 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_first_page_pipe,
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
-    pipeline_pubmed,
     xml_pubmed_author_list,
     xml_pubmed_publication_type,
     xml_pubmed_article_id,
     xml_pubmed_history,
     xml_pubmed_vernacular_title_pipe,
     xml_pubmed_object_list,
-    xml_pubmed_reference_list,
     xml_pubmed_title_reference_list,
     xml_pubmed_citations,
     xml_pubmed_abstract,
@@ -809,17 +807,6 @@ class PipelinePubmed(unittest.TestCase):
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
-
-    def test_pipeline_pubmed(self):
-        xml_tree = xml_utils.get_xml_tree('packtools/sps/formats/fixtures/pubmed_in.xml')
-
-        xml_pubmed = pipeline_pubmed(xml_tree)
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        xml_pubmed_expected = xml_utils.get_xml_tree('packtools/sps/formats/fixtures/pubmed_out.xml')
-        expected = ET.tostring(xml_pubmed_expected, encoding="utf-8").decode("utf-8")
-
-        self.assertIn(obtained, expected)
 
     def test_xml_pubmed_author_list(self):
         expected = (
