@@ -571,13 +571,6 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
-def xml_pubmed_reference_list(xml_pubmed):
-    """
-    <ReferenceList/>
-    """
-    xml_pubmed.append(ET.Element("ReferenceList"))
-
-
 def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
     """
     <ReferenceList>
