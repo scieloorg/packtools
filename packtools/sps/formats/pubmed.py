@@ -577,13 +577,12 @@ def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
         <Title>REFERENCES</Title>
     </ReferenceList>
     """
-    try:
-        title = xml_tree.find("./back/ref-list/title").text
+    title = xml_tree.find("./back/ref-list/title")
+    if title is not None:
+        xml_pubmed.append(ET.Element("ReferenceList"))
         title_el = ET.Element("Title")
-        title_el.text = title
+        title_el.text = title.text
         xml_pubmed.find("./ReferenceList").append(title_el)
-    except AttributeError:
-        pass
 
 
 def add_element_citation_id(ids):
