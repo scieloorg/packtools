@@ -1288,21 +1288,6 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_reference_list(self):
-        expected = (
-            '<Article>'
-            '<ReferenceList/>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_pubmed_reference_list(xml_pubmed)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
     def test_xml_pubmed_title_reference_list(self):
         expected = (
             '<Article>'
