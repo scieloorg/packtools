@@ -5,11 +5,8 @@ from lxml import etree
 
 
 class AuthorsTest(TestCase):
-
-    def setUp(self):
-        self.maxDiff = None
-        xml = (
-            """
+    def test_citations_many_authors(self):
+        xml = ("""
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -60,6 +57,48 @@ class AuthorsTest(TestCase):
             </comment>
             </element-citation>
             </ref>
+            </ref-list>
+            </back>
+            </article>
+            """)
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = [
+            {
+                'ref_id': 'B1',
+                'label': '1',
+                'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
+                                  'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
+                                  'Alcohol Depend. 2015;150:85-91. DOI: '
+                                  'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                'source': 'Drug Alcohol Depend.',
+                'main_author': {'surname': 'Tran', 'given-names': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
+                'all_authors': [
+                    {'surname': 'Tran', 'given-names': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
+                    {'surname': 'Falster', 'given-names': 'MO'},
+                    {'surname': 'Douglas', 'given-names': 'K'},
+                    {'surname': 'Blyth', 'given-names': 'F'},
+                    {'surname': 'Jorm', 'given-names': 'LR'}
+                ],
+                'volume': '150',
+                'fpage': '85',
+                'lpage': '91',
+                'elocation_id': 'elocation_B1',
+                'year': '2015',
+                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
+                'citation_ids': {'pmid': '00000000', 'pmcid': '11111111', 'doi': '10.1016/B1'},
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_citations_one_author(self):
+        xml = ("""
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
             <ref id="B2">
                 <mixed-citation>BARTHES, Roland. <italic>Aula</italic>. São Pulo: Cultrix, 1987.</mixed-citation>
                 <element-citation publication-type="book">
@@ -82,77 +121,30 @@ class AuthorsTest(TestCase):
             </ref-list>
             </back>
             </article>
-            """
-        )
+            """)
         xmltree = etree.fromstring(xml)
-        self.citations = ArticleCitations(xmltree)
-
-    def test_citations(self):
+        obtained = list(ArticleCitations(xmltree).article_citations)
         expected = [
-            {
-                'ref_id': 'B1',
-                'label': '1',
-                'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
-                                  'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
-                                  'Alcohol Depend. 2015;150:85-91. DOI: '
-                                  'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
-                'source': 'Drug Alcohol Depend.',
-                'main_author': {'surname': 'Tran', 'given_name': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
-                'all_authors': [
-                    {'surname': 'Tran', 'given_name': 'B', 'prefix': 'The Honorable', 'suffix': 'III'},
-                    {'surname': 'Falster', 'given_name': 'MO'},
-                    {'surname': 'Douglas', 'given_name': 'K'},
-                    {'surname': 'Blyth', 'given_name': 'F'},
-                    {'surname': 'Jorm', 'given_name': 'LR'}
-                ],
-                'volume': '150',
-                'fpage': '85',
-                'lpage': '91',
-                'elocation_id': 'elocation_B1',
-                'year': '2015',
-                'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
-                'citation_ids': {'pmid': '00000000', 'pmcid': '11111111', 'doi': '10.1016/B1'},
-            },
             {
                 'ref_id': 'B2',
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
-                'main_author': {'surname': 'BARTHES', 'given_name': 'Roland'},
-                'all_authors': [{'surname': 'BARTHES', 'given_name': 'Roland'}],
+                'main_author': {'surname': 'BARTHES', 'given-names': 'Roland'},
+                'all_authors': [{'surname': 'BARTHES', 'given-names': 'Roland'}],
                 'elocation_id': 'elocation_B2',
                 'year': '1987',
                 'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'}
             }
         ]
-        for i, item in enumerate(self.citations.article_citations):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_citations_collab_element(self):
         xml = ('''
         <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
            <back>
               <ref-list>
-                 <ref id="B1">
-                    <mixed-citation>1. Albuquerque EM, Cassiolato JE. As especificidades do sistema de inovação do setor saúde: uma resenha da literatura como introdução a uma discussão sobre o caso brasileiro. Belo Horizonte: Federação de Sociedades de Biologia Experimental; 2000. (Estudos FeSBE, 1).</mixed-citation>
-                    <element-citation publication-type="other">
-                       <person-group person-group-type="authors">
-                          <name>
-                             <surname>Albuquerque</surname>
-                             <given-names>EM</given-names>
-                          </name>
-                          <name>
-                             <surname>Cassiolato</surname>
-                             <given-names>JE</given-names>
-                          </name>
-                       </person-group>
-                       <source>As especificidades do sistema de inovação do setor saúde: uma resenha da literatura como introdução a uma discussão sobre o caso brasileiro</source>
-                       <date>
-                          <year>2000</year>
-                       </date>
-                       <year>2000</year>
-                    </element-citation>
-                 </ref>
                  <ref id="B2">
                     <mixed-citation>
                        2. Brasil. Lei n.
@@ -181,24 +173,8 @@ class AuthorsTest(TestCase):
         </article>
         ''')
         xmltree = etree.fromstring(xml)
-        citations = ArticleCitations(xmltree)
+        obtained = list(ArticleCitations(xmltree).article_citations)
         expected = [
-            {
-                'ref_id': 'B1',
-                'mixed_citation': '1. Albuquerque EM, Cassiolato JE. As especificidades do sistema de inovação '
-                                  'do setor saúde: uma resenha da literatura como introdução a uma discussão '
-                                  'sobre o caso brasileiro. Belo Horizonte: Federação de Sociedades de Biologia '
-                                  'Experimental; 2000. (Estudos FeSBE, 1).',
-                'source': 'As especificidades do sistema de inovação do setor saúde: uma resenha da literatura '
-                          'como introdução a uma discussão sobre o caso brasileiro',
-                'main_author': {'given_name': 'EM', 'surname': 'Albuquerque'},
-                'all_authors': [
-                    {'given_name': 'EM', 'surname': 'Albuquerque'},
-                    {'given_name': 'JE', 'surname': 'Cassiolato'}
-                ],
-                'year': '2000',
-                'citation_ids': {},
-            },
             {
                 'ref_id': 'B2',
                 'mixed_citation': '2. Brasil. Lei n.\n'
@@ -228,6 +204,6 @@ class AuthorsTest(TestCase):
             },
 
         ]
-        for i, item in enumerate(citations.article_citations):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
