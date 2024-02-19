@@ -20,31 +20,16 @@ def get_main_author(node):
 
 
 def get_all_authors(node):
+    tags = ['surname', 'given-names', 'prefix', 'suffix', 'collab']
     result = []
     authors = node.xpath('./element-citation/person-group//name')
     for author in authors:
         d = {}
-        try:
-            d['surname'] = author.find('surname').text
-        except AttributeError:
-            pass
-        try:
-            d['given_name'] = author.find('given-names').text
-        except AttributeError:
-            pass
-        try:
-            d['prefix'] = author.find('prefix').text
-        except AttributeError:
-            pass
-        try:
-            d['suffix'] = author.find('suffix').text
-        except AttributeError:
-            pass
-        try:
-            d['collab'] = author.find('collab').text
-        except AttributeError:
-            pass
-
+        for tag in tags:
+            try:
+                d[tag] = author.find(tag).text
+            except AttributeError:
+                pass
         result.append(d)
 
     return result
