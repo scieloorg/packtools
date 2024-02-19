@@ -1278,21 +1278,19 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
 
     for article in articles:
-        for abstract in abstracts:
+        for abstract, lang in [(item.get("abstract"), item.get("lang")) for item in abstracts]:
             if abstract:
                 jats = ET.Element("{http://www.ncbi.nlm.nih.gov/JATS1}abstract")
-                jats.set(
-                    "{http://www.w3.org/XML/1998/namespace}lang", abstract.get("lang")
-                )
+                jats.set("{http://www.w3.org/XML/1998/namespace}lang", lang)
                 jats_p = ET.Element("{http://www.ncbi.nlm.nih.gov/JATS1}p")
-                text = [abstract.get("abstract").get("title")]
+                text = [abstract.get("title")] if abstract.get("title") else []
                 try:
-                    for item in abstract.get("abstract").get("sections"):
+                    for item in abstract.get("sections"):
                         text.append(item.get("title"))
                         text.append(item.get("p"))
                 except TypeError:
-                    text.append(abstract.get("abstract").get("title"))
-                    text.append(abstract.get("abstract").get("p"))
+                    text.append(abstract.get("title"))
+                    text.append(abstract.get("p"))
                 jats_p.text = " ".join([item for item in text if item])
                 jats.append(jats_p)
                 xml_crossref.find(
