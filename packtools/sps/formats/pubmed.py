@@ -633,26 +633,6 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
         xml.append(ref_el)
 
 
-def get_abstracts(xml_tree):
-    abstracts = {}
-    article_abstracts = article_abstract.Abstract(xml_tree)
-    abstract_without_tag = article_abstracts.abstracts_without_tags
-    for abstract in article_abstracts.abstracts_with_tags:
-        try:
-            lang = abstract.get("lang")
-            structured = abstract.get("sections")
-            if structured == {}:
-                abstracts[lang] = {
-                    "text": abstract_without_tag.get(abstract.get("lang")),
-                    "structured": False,
-                }
-            else:
-                abstracts[lang] = {"text": structured, "structured": True}
-        except AttributeError:
-            pass
-    return abstracts
-
-
 def add_abstract_text(label, text):
     abstract_text = ET.Element("AbstractText")
     abstract_text.set("Label", label.upper()[:-1])
