@@ -15,9 +15,8 @@ def _is_award_id(text):
     return not any(pattern in text for pattern in invalid_patterns)
 
 
-def _get_first_number_sequence(text):
+def _get_first_number_sequence(text, special_chars):
     number = ""
-    special_chars = ('.', '-', '/')
     i = 0
     while i < len(text) and not text[i].isdigit():
         i += 1
