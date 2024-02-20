@@ -100,25 +100,28 @@ class FundingTest(TestCase):
         expected = [
             {
                 'fn-type': 'financial-disclosure',
-                'funding-source': [
+                'look-like-funding-source': [
                     'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
                     'Fundação de Amparo à Pesquisa do Estado de São Paulo',
-                    'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior'
+                    'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.'
                 ],
-                'award-id': [
+                'look-like-award-id': [
                     '303625/2019-8',
                     '2016/17640-0',
-                    '0001'
+                    '0001.'
                 ]
             },
             {
                 'fn-type': 'supported-by',
-                'funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
-                'award-id': ['123.456-7'],
+                'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
+                'look-like-award-id': ['123.456-7'],
             }
         ]
 
-        obtained = self.funding.fn_financial_information
+        obtained = self.funding.fn_financial_information(
+            special_chars_funding=['.', ','],
+            special_chars_award_id=['/', '.', '-']
+        )
         self.assertEqual(expected, obtained)
 
     def test_award_groups(self):
