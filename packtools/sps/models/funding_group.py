@@ -46,26 +46,25 @@ class FundingGroup:
     def __init__(self, xmltree):
         self._xmltree = xmltree
 
-    @property
-    def fn_financial_information(self):
+    def fn_financial_information(self, special_chars_funding=[], special_chars_award_id=[]):
         items = []
         for fn_type in ('financial-disclosure', 'supported-by'):
             funding_sources = []
             award_ids = []
             for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
                 for node in nodes.xpath('p'):
-                    text = _strip_and_remove_final_dot(xml_utils.node_plain_text(node))
-                    if _is_funding_source(text):
+                    text = xml_utils.node_plain_text(node)
+                    if _is_funding_source(text, special_chars_funding):
                         funding_sources.append(text)
                     if _is_award_id(text):
-                        if number := _get_first_number_sequence(text):
+                        if number := _get_first_number_sequence(text, special_chars_award_id):
                             award_ids.append(number)
 
                 items.append(
                     {
                         "fn-type": fn_type,
-                        "funding-source": funding_sources,
-                        "award-id": award_ids
+                        "look-like-funding-source": funding_sources,
+                        "look-like-award-id": award_ids
                     }
                 )
         return items
