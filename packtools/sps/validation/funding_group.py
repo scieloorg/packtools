@@ -19,11 +19,11 @@ def _create_response(title, xpath, validation_type, is_valid, expected, obtained
 
 
 class FundingGroupValidation:
-    def __init__(self, xml_tree):
+    def __init__(self, xml_tree, special_chars_funding=[], special_chars_award_id=[]):
         self.xml_tree = xml_tree
         self.funding_group_object = FundingGroup(xml_tree)
         self.funding_group = self.funding_group_object.award_groups
-        self.funding_fn = self.funding_group_object.fn_financial_information
+        self.funding_fn = self.funding_group_object.fn_financial_information(special_chars_funding, special_chars_award_id)
 
     def funding_sources_exist_validation(self):
         title = 'Funding source element validation'
