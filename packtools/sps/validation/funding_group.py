@@ -71,9 +71,8 @@ class FundingGroupValidation:
 
     def award_id_format_validation(self, callable_validation=None):
         callable_validation = callable_validation or _callable_extern_validate_default
-
-        for funding in self.funding_group or [None]:
-            for award_id in funding.get("award-id") if funding else []:
+        for funding in self.funding_group:
+            for award_id in funding.get("award-id"):
                 is_valid = callable_validation(award_id)
                 yield {
                     'title': 'Funding source element validation',
