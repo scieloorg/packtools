@@ -5,10 +5,8 @@ from packtools.sps.utils import xml_utils
 logger = logging.getLogger(__name__)
 
 
-def _is_funding_source(text):
-    return all(char.isalpha() or char.isspace() for char in text)
-
-
+def _is_funding_source(text, special_chars):
+    return all(char.isalpha() or char.isspace() or char in special_chars for char in text)
 
 
 def _is_award_id(text):
