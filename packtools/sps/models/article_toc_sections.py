@@ -38,6 +38,7 @@ class ArticleTocSections:
         ):
 
             _section = {
+                "id": node_with_lang["id"],
                 "lang": node_with_lang["lang"],
                 "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
             }
