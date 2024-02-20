@@ -9,11 +9,6 @@ def _is_funding_source(text):
     return all(char.isalpha() or char.isspace() for char in text)
 
 
-def _strip_and_remove_final_dot(text):
-    text = text.strip()
-    if text.endswith('.'):
-        text = text[:-1]
-    return text
 
 
 def _is_award_id(text):
