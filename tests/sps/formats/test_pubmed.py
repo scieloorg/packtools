@@ -15,14 +15,12 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_first_page_pipe,
     xml_pubmed_elocation_pipe,
     xml_pubmed_language_pipe,
-    pipeline_pubmed,
     xml_pubmed_author_list,
     xml_pubmed_publication_type,
     xml_pubmed_article_id,
     xml_pubmed_history,
     xml_pubmed_vernacular_title_pipe,
     xml_pubmed_object_list,
-    xml_pubmed_reference_list,
     xml_pubmed_title_reference_list,
     xml_pubmed_citations,
     xml_pubmed_abstract,
@@ -810,17 +808,6 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_pipeline_pubmed(self):
-        xml_tree = xml_utils.get_xml_tree('packtools/sps/formats/fixtures/pubmed_in.xml')
-
-        xml_pubmed = pipeline_pubmed(xml_tree)
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        xml_pubmed_expected = xml_utils.get_xml_tree('packtools/sps/formats/fixtures/pubmed_out.xml')
-        expected = ET.tostring(xml_pubmed_expected, encoding="utf-8").decode("utf-8")
-
-        self.assertIn(obtained, expected)
-
     def test_xml_pubmed_author_list(self):
         expected = (
             '<Article>'
@@ -1301,21 +1288,6 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_reference_list(self):
-        expected = (
-            '<Article>'
-            '<ReferenceList/>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_pubmed_reference_list(xml_pubmed)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
     def test_xml_pubmed_title_reference_list(self):
         expected = (
             '<Article>'
@@ -1325,9 +1297,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
         )
         xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<ReferenceList/>'
-            '</Article>'
+            '<Article />'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -1349,14 +1319,10 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_without_title_reference_list(self):
         expected = (
-            '<Article>'
-            '<ReferenceList/>'
-            '</Article>'
+            '<Article/>'
         )
         xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<ReferenceList/>'
-            '</Article>'
+            '<Article/>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -1627,24 +1593,24 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_abstract_without_sections(self):
         expected = (
-            '<Article>'
-            '<Abstract>'
-            'Patterns of beta diversity of plankton communities in rivers have been mainly determined by hydrological '
-            'factors that alter the dispersion and composition of species and traits. Rotifers in the Guamá River ('
-            'eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to analyze the '
-            'temporal variation of taxonomic and functional beta diversity and its partitions (turnover and '
-            'nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. Taxonomic '
-            'turnover and functional nestedness over time were observed as well as functional homogenization, '
-            'which was arguably due to the hypereutrophic condition of the river. There were no seasonal differences '
-            'in taxonomic and functional beta diversity probably due the low environmental dissimilarity. This study '
-            'demonstrated that this Guamá River stretch presented low environmental dissimilarity and hypereutrophic '
-            'waters, which benefited the establishment of a community of species with high taxonomic turnover over '
-            'time, but with low functional dissimilarity and loss of some functions related to the functional traits '
-            'evaluated in the ecosystem. It is important to point out that temporal studies should evaluate both '
-            'taxonomic and functional aspects of communities, mainly because the effect of environmental changes may '
-            'be more noticeable at the functional level of communities. '
-            '</Abstract>'
-            '</Article>'
+        '<Article>'
+        '<Abstract>'
+        'Patterns of beta diversity of plankton communities in rivers have been mainly determined by '
+        'hydrological factors that alter the dispersion and composition of species and traits. Rotifers in the '
+        'Guamá River (eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to '
+        'analyze the temporal variation of taxonomic and functional beta diversity and its partitions (turnover '
+        'and nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. '
+        'Taxonomic turnover and functional nestedness over time were observed as well as functional '
+        'homogenization, which was arguably due to the hypereutrophic condition of the river. There were no '
+        'seasonal differences in taxonomic and functional beta diversity probably due the low environmental '
+        'dissimilarity. This study demonstrated that this Guamá River stretch presented low environmental '
+        'dissimilarity and hypereutrophic waters, which benefited the establishment of a community of species '
+        'with high taxonomic turnover over time, but with low functional dissimilarity and loss of some functions '
+        'related to the functional traits evaluated in the ecosystem. It is important to point out that temporal '
+        'studies should evaluate both taxonomic and functional aspects of communities, mainly because the effect '
+        'of environmental changes may be more noticeable at the functional level of communities.'
+        '</Abstract>'
+        '</Article>'
         )
         xml_pubmed = ET.fromstring(
             '<Article/>'
