@@ -8,14 +8,14 @@ def _text(node):
 
 
 def get_label(node):
-    try:
-        return node.find('./label').text[:-1]
-    except AttributeError:
-        return
+    text = _text(node.find('./label'))
+    if text is not None and text.endswith('.'):
+        text = text[:-1]
+    return text
 
 
 def get_source(node):
-    return node.find('./element-citation/source')
+    return _text(node.find('./element-citation/source'))
 
 
 def get_main_author(node):
@@ -32,56 +32,55 @@ def get_all_authors(node):
     for author in authors:
         d = {}
         for tag in tags:
-            try:
-                d[tag] = author.find(tag).text
-            except AttributeError:
-                pass
+            if text := _text(author.find(tag)):
+                d[tag] = text
         result.append(d)
 
     return result
 
 
 def get_volume(node):
-    return node.find('./element-citation/volume')
+    return _text(node.find('./element-citation/volume'))
 
 
 def get_issue(node):
-    return node.find('./element-citation/issue')
+    return _text(node.find('./element-citation/issue'))
 
 
 def get_fpage(node):
-    return node.find('./element-citation/fpage')
+    return _text(node.find('./element-citation/fpage'))
 
 
 def get_lpage(node):
-    return node.find('./element-citation/lpage')
+    return _text(node.find('./element-citation/lpage'))
 
 
 def get_year(node):
-    return node.find('./element-citation/year')
+    return _text(node.find('./element-citation/year'))
 
 
 def get_article_title(node):
-    return node.find('./element-citation/article-title')
+    return _text(node.find('./element-citation/article-title'))
 
 
 def get_mixed_citation(node):
-    return node.find('./mixed-citation')
+    return _text(node.find('./mixed-citation'))
 
 
 def get_citation_ids(node):
     ids = {}
     for pub_id in node.xpath('.//pub-id'):
-        ids[pub_id.attrib['pub-id-type']] = pub_id.text
+        ids[pub_id.attrib['pub-id-type']] = _text(pub_id)
     return ids
 
 
 def get_elocation_id(node):
-    return node.find('./element-citation/elocation-id')
+    return _text(node.find('./element-citation/elocation-id'))
 
 
 def get_ref_id(node):
     return node.get('id')
+
 
 class ArticleCitations:
 
