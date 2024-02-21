@@ -39,6 +39,11 @@ def get_all_authors(node):
     return result
 
 
+def get_collab(node):
+    collabs = node.xpath('./element-citation/person-group//collab')
+    return [_text(collab) for collab in collabs]
+
+
 def get_volume(node):
     return _text(node.find('./element-citation/volume'))
 
