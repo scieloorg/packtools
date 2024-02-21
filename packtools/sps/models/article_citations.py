@@ -101,6 +101,7 @@ class ArticleCitations:
                 ('source', get_source(node)),
                 ('main_author', get_main_author(node)),
                 ('all_authors', get_all_authors(node)),
+                ('collab', collab := get_collab(node)),
                 ('volume', get_volume(node)),
                 ('issue', get_issue(node)),
                 ('fpage', get_fpage(node)),
@@ -108,17 +109,15 @@ class ArticleCitations:
                 ('elocation_id', get_elocation_id(node)),
                 ('year', get_year(node)),
                 ('article_title', get_article_title(node)),
-                ('citation_ids', get_citation_ids(node))
+                ('citation_ids', get_citation_ids(node)),
+                ('mixed_citation', get_mixed_citation(node))
             ]
-            mixed_citation = get_mixed_citation(node)
-            if mixed_citation is not None:
-                tags.append(('mixed_citation', ET.tostring(mixed_citation, encoding=str, method='text').strip()))
-
             d = dict()
             for name, value in tags:
-                if value is not None:
+                if value is not None and len(value) > 0:
                     try:
                         d[name] = value.text
                     except AttributeError:
                         d[name] = value
+            d['author_type'] = 'institutional' if collab else 'person'
             yield d
