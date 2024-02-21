@@ -6,6 +6,7 @@ from lxml import etree
 
 class AuthorsTest(TestCase):
     def test_citations_many_authors(self):
+        self.maxDiff = None
         xml = ("""
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
@@ -67,6 +68,7 @@ class AuthorsTest(TestCase):
             {
                 'ref_id': 'B1',
                 'label': '1',
+                'author_type': 'person',
                 'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
                                   'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
                                   'Alcohol Depend. 2015;150:85-91. DOI: '
@@ -91,9 +93,10 @@ class AuthorsTest(TestCase):
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+                self.assertDictEqual(item, obtained[i])
 
     def test_citations_one_author(self):
+        self.maxDiff = None
         xml = ("""
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
@@ -127,6 +130,7 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'ref_id': 'B2',
+                'author_type': 'person',
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
                 'main_author': {'surname': 'BARTHES', 'given-names': 'Roland'},
@@ -138,9 +142,10 @@ class AuthorsTest(TestCase):
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+                self.assertDictEqual(item, obtained[i])
 
     def test_citations_collab_element(self):
+        self.maxDiff = None
         xml = ('''
         <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
            <back>
@@ -177,19 +182,15 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'ref_id': 'B2',
-                'mixed_citation': '2. Brasil. Lei n.\n'
-                    '                       \n'
-                    '                          o\n'
-                    '                       \n'
-                    '                       10.332, de 19/12/2001. Instituiu '
-                    'mecanismo de financiamento para o programa de ciência e '
-                    'tecnologia para o agronegócio, para o programa de fomento '
-                    'à pesquisa em saúde, para o programa de bioteconologia e '
-                    'recursos genéticos – Genoma, para o programa de ciência e '
-                    'tecnologia para o setor aeronáutico e para o programa de '
-                    'inovação para competitividade, e dá outras providências.\n'
-                    '                       Diário Oficial da União\n'
-                    '                       2001 dez 19.',
+                'author_type': 'institutional',
+                'mixed_citation': '2. Brasil. Lei n. o 10.332, de 19/12/2001. Instituiu '
+                                  'mecanismo de financiamento para o programa de ciência e '
+                                  'tecnologia para o agronegócio, para o programa de fomento '
+                                  'à pesquisa em saúde, para o programa de bioteconologia e '
+                                  'recursos genéticos – Genoma, para o programa de ciência e '
+                                  'tecnologia para o setor aeronáutico e para o programa de '
+                                  'inovação para competitividade, e dá outras providências. '
+                                  'Diário Oficial da União 2001 dez 19.',
                 'source': 'Diário Oficial da União',
                 'article_title': 'Lei n.º 10.332, de 19/12/2001: Instituiu mecanismo de '
                                  'financiamento para o programa de ciência e tecnologia para '
@@ -198,12 +199,11 @@ class AuthorsTest(TestCase):
                                  'genéticos - Genoma, para o programa de ciência e tecnologia '
                                  'para o setor aeronáutico e para o programa de inovação para '
                                  'competitividade, e dá outras providências',
-                'all_authors': [],
                 'year': '2001',
-                'citation_ids': {},
+                'collab': ['Brasil']
             },
 
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+                self.assertDictEqual(item, obtained[i])
