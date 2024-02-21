@@ -26,7 +26,7 @@ def get_main_author(node):
 
 
 def get_all_authors(node):
-    tags = ['surname', 'given-names', 'prefix', 'suffix', 'collab']
+    tags = ['surname', 'given-names', 'prefix', 'suffix']
     result = []
     authors = node.xpath('./element-citation/person-group//name')
     for author in authors:
