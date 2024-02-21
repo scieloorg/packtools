@@ -267,14 +267,20 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
-
-    # TODO
-    # As demais chamadas serão incluídas a partir da incorporação do PR #429
+    xml_pubmed_author_list(xml_pubmed, xml_tree)
+    xml_pubmed_publication_type(xml_pubmed, xml_tree)
+    xml_pubmed_article_id(xml_pubmed, xml_tree)
+    xml_pubmed_history(xml_pubmed, xml_tree)
+    xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+    xml_pubmed_coi_statement(xml_pubmed, xml_tree)
+    xml_pubmed_object_list(xml_pubmed, xml_tree)
+    xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
+    xml_pubmed_citations(xml_pubmed, xml_tree)
+    xml_pubmed_abstract(xml_pubmed, xml_tree)
+    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
 
     xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode(
-        "utf-8"
-    )
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
 
 
 def get_authors(xml_tree):
@@ -565,26 +571,18 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
-def xml_pubmed_reference_list(xml_pubmed):
-    """
-    <ReferenceList/>
-    """
-    xml_pubmed.append(ET.Element("ReferenceList"))
-
-
 def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
     """
     <ReferenceList>
         <Title>REFERENCES</Title>
     </ReferenceList>
     """
-    try:
-        title = xml_tree.find("./back/ref-list/title").text
+    title = xml_tree.find("./back/ref-list/title")
+    if title is not None:
+        xml_pubmed.append(ET.Element("ReferenceList"))
         title_el = ET.Element("Title")
-        title_el.text = title
+        title_el.text = title.text
         xml_pubmed.find("./ReferenceList").append(title_el)
-    except AttributeError:
-        pass
 
 
 def add_element_citation_id(ids):
@@ -635,29 +633,6 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
         xml.append(ref_el)
 
 
-def get_abstracts(xml_tree):
-    abstracts = {}
-    article_abstracts = article_abstract.Abstract(xml_tree)
-    abstract_without_tag = article_abstracts.get_abstracts(None)
-    for abstract in abstract_without_tag:
-        try:
-            lang = abstract.get("lang")
-            structured = abstract.get("abstract").get("sections")
-            if not structured:
-                abstracts[lang] = {
-                    "text": abstract.get("abstract").get("p"),
-                    "structured": False,
-                }
-            else:
-                abstracts[lang] = {
-                    "text": structured,
-                    "structured": True}
-
-        except AttributeError:
-            pass
-    return abstracts
-
-
 def add_abstract_text(label, text):
     abstract_text = ET.Element("AbstractText")
     abstract_text.set("Label", label.upper()[:-1])
@@ -681,17 +656,16 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
         <AbstractText Label="CONCLUSIONS">The findings suggest...</AbstractText>
     </Abstract>
     """
-
-    abstract_el = ET.Element("Abstract")
-    abstract = get_abstracts(xml_tree).get("en")
     try:
-        if not abstract["structured"]:
-            abstract_el.text = abstract.get("text")
+        abstract_el = ET.Element("Abstract")
+        abstract = article_abstract.Abstract(xml_tree).get_main_abstract().get('abstract')
+        if abstract.get('sections'):
+            for item in abstract.get('sections'):
+                abstract_el.append(add_abstract_text(item.get('title'), item.get('p')))
         else:
-            for item in abstract.get("text"):
-                abstract_el.append(add_abstract_text(item.get("title"), item.get("p")))
+            abstract_el.text = abstract.get('p')
         xml_pubmed.append(abstract_el)
-    except TypeError:
+    except AttributeError:
         pass
 
 
@@ -705,13 +679,21 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
       <AbstractText Label="CONCLUSION">Une meilleure estimation du fardeau économique global des facteurs de risque multiples au sein d’une population peut faciliter l’établissement des priorités et améliorer le soutien aux initiatives de prevention primaire. </AbstractText>
     </OtherAbstract>
     """
-    abstract_el = ET.Element("OtherAbstract")
-    for lang, abstract in get_abstracts(xml_tree).items():
-        if lang != "en":
-            abstract_el.set("Language", lang)
-            if not abstract["structured"]:
-                abstract_el.text = abstract.get("text")
-            else:
-                for item in abstract.get("text"):
-                    abstract_el.append(add_abstract_text(item.get("title"), item.get("p")))
-            xml_pubmed.append(abstract_el)
+    try:
+        main_lang = article_abstract.Abstract(xml_tree).get_main_abstract().get('lang')
+        abstracts = article_abstract.Abstract(xml_tree).get_abstracts()
+        for abstract, lang in [(item.get('abstract'), item.get('lang')) for item in abstracts]:
+            if main_lang != lang:
+                abstract_el = ET.Element("OtherAbstract")
+                abstract_el.set("Language", lang)
+                if abstract.get('sections'):
+                    for item in abstract.get('sections'):
+                        abstract_el.append(add_abstract_text(item.get('title'), item.get('p')))
+                else:
+                    abstract_el.text = abstract.get('p')
+
+                xml_pubmed.append(abstract_el)
+    except AttributeError:
+        pass
+     
+    
