@@ -1,5 +1,11 @@
 from lxml import etree as ET
 
+from ..utils import xml_utils
+
+
+def _text(node):
+    return xml_utils.node_plain_text(node)
+
 
 def get_label(node):
     try:
