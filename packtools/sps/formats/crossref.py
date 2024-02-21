@@ -124,7 +124,7 @@ def create_author(item, citation):
     try:
         main_author = item.get("main_author")
         el = ET.Element("author")
-        el.text = " ".join([main_author.get("surname"), main_author.get("given_name")])
+        el.text = " ".join([main_author.get("surname"), main_author.get("given-names")])
         citation.append(el)
     except (TypeError, AttributeError):
         pass
