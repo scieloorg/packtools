@@ -1938,6 +1938,7 @@ class PipelineCrossref(TestCase):
         self.assertIn(expected, obtained)
 
     def test_xml_articlecitations_pipe(self):
+        self.maxDiff = None
         xml_tree = ET.fromstring(
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">

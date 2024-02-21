@@ -1375,6 +1375,7 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_citations(self):
+        self.maxDiff = None
         expected = (
             '<Article>'
             '<ReferenceList>'
