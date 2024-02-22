@@ -323,6 +323,26 @@ class AuthorsWithAffTest(TestCase):
                 <article-meta>
                     <contrib-group>
                         <contrib contrib-type="author">
+                            <collab collab-type="committee">Technical Committee ISO/TC 108, Subcommittee SC 2</collab>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <collab>
+                                <named-content content-type="program">Joint United
+                                Nations Program on HIV/AIDS (UNAIDS)</named-content>,
+                                <institution>World Health Organization</institution>,
+                                Geneva, <country>Switzerland</country>
+                            </collab>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <collab>
+                                <named-content content-type="program">Nonoccupational HIV
+                                PEP Task Force, Brown University AIDS Program</named-content>
+                                and the <institution>Rhode Island Department of
+                                Health</institution>, Providence, Rhode Island
+                            </collab>
+                        </contrib>
+                        <contrib contrib-type="author">
                           <name>
                             <surname>VENEGAS-MARTÍNEZ</surname>
                             <given-names>FRANCISCO</given-names>
@@ -362,7 +382,42 @@ class AuthorsWithAffTest(TestCase):
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
+        self.maxDiff = None
         expected = [
+            {
+                'collab': 'Technical Committee ISO/TC 108, Subcommittee SC 2',
+                "rid": ["aff1"],
+                "rid-aff": ["aff1"],
+                "aff_rids": ["aff1"],
+                "contrib-type": "author",
+                "affs": [
+                    {
+                        "id": "aff1",
+                        "label": "I",
+                        "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                        "orgdiv1": None,
+                        "orgdiv2": None,
+                        "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                        "city": "Belo Horizonte",
+                        "state": "MG",
+                        "country_code": None,
+                        "country_name": "Brasil",
+                        "email": None,
+                    },
+                ],
+            },
+            {
+                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, '
+                          'Switzerland',
+                'aff_rids': None,
+                'contrib-type': 'author',
+            },
+            {
+                'collab': 'Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island '
+                          'Department of Health, Providence, Rhode Island',
+                'aff_rids': None,
+                'contrib-type': 'author',
+            },
             {
                 "surname": "VENEGAS-MARTÍNEZ",
                 "prefix": "Prof",

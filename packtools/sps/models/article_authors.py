@@ -1,4 +1,12 @@
 from packtools.sps.models.aff import Affiliation
+from packtools.sps.utils.xml_utils import node_plain_text
+
+
+def _get_collab(node):
+    try:
+        return {"collab": node_plain_text(node.xpath(".//collab")[0])}
+    except IndexError:
+        return {}
 
 
 class Authors:
@@ -16,12 +24,13 @@ class Authors:
     def contribs(self):
         _data = []
         for node in self.xmltree.xpath(".//front//contrib"):
-            _author = {}
+            _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
                 if data:
                     _author[tag] = data
-            _author["given_names"] = node.findtext(".//given-names")
+            if data := node.findtext(".//given-names"):
+                _author["given_names"] = data
 
             try:
                 _author["orcid"] = node.xpath("contrib-id[@contrib-id-type='orcid']")[
