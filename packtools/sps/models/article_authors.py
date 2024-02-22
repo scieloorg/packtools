@@ -29,7 +29,8 @@ class Authors:
                 data = node.findtext(f".//{tag}")
                 if data:
                     _author[tag] = data
-            _author["given_names"] = node.findtext(".//given-names")
+            if data := node.findtext(".//given-names"):
+                _author["given_names"] = data
 
             try:
                 _author["orcid"] = node.xpath("contrib-id[@contrib-id-type='orcid']")[
