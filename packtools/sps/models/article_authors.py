@@ -1,4 +1,12 @@
 from packtools.sps.models.aff import Affiliation
+from packtools.sps.utils.xml_utils import node_plain_text
+
+
+def _get_collab(node):
+    try:
+        return {"collab": node_plain_text(node.xpath(".//collab")[0])}
+    except IndexError:
+        return {}
 
 
 class Authors:
