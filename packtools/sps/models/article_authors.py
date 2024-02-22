@@ -24,7 +24,7 @@ class Authors:
     def contribs(self):
         _data = []
         for node in self.xmltree.xpath(".//front//contrib"):
-            _author = {}
+            _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
                 if data:
