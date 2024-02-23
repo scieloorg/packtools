@@ -680,15 +680,18 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
     </OtherAbstract>
     """
     try:
-        main_lang = article_abstract.Abstract(xml_tree).get_main_abstract().get('lang')
-        abstracts = article_abstract.Abstract(xml_tree).get_abstracts()
-        for abstract, lang in [(item.get('abstract'), item.get('lang')) for item in abstracts]:
+        article_abstracts = article_abstract.Abstract(xml_tree)
+        main_lang = article_abstracts.get_main_abstract().get('lang')
+        abstracts = article_abstracts.get_abstracts()
+        for item in abstracts:
+            abstract = item.get('abstract')
+            lang = item.get('lang')
             if main_lang != lang:
                 abstract_el = ET.Element("OtherAbstract")
                 abstract_el.set("Language", lang)
                 if abstract.get('sections'):
-                    for item in abstract.get('sections'):
-                        abstract_el.append(add_abstract_text(item.get('title'), item.get('p')))
+                    for section in abstract.get('sections'):
+                        abstract_el.append(add_abstract_text(section.get('title'), section.get('p')))
                 else:
                     abstract_el.text = abstract.get('p')
 
