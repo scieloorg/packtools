@@ -5,7 +5,15 @@ from packtools.sps.utils import xml_utils
 logger = logging.getLogger(__name__)
 
 
-def _is_funding_source(text, special_chars):
+def _looks_like_institution_name(text, special_chars):
+    """
+    Checks whether all characters in text are alphanumeric, spaces or belong to the list of characters considered valid
+     in composing the name of the funding source.
+
+    Example: special_chars = ['.', ',', '-']
+
+    In other words, it checks whether a text is, potentially, the name of a funding source.
+    """
     return all(char.isalpha() or char.isspace() or char in special_chars for char in text)
 
 
