@@ -200,7 +200,8 @@ class AuthorsTest(TestCase):
                                  'para o setor aeronáutico e para o programa de inovação para '
                                  'competitividade, e dá outras providências',
                 'year': '2001',
-                'collab': ['Brasil']
+                'main_author': {'collab': ['Brasil']},
+                'all_authors': [{'collab': ['Brasil']}],
             },
 
         ]
