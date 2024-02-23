@@ -69,11 +69,13 @@ class FundingGroup:
             for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
                 for node in nodes.xpath('p'):
                     text = xml_utils.node_plain_text(node)
-                    if _is_funding_source(text, special_chars_funding):
-                        funding_sources.append(text)
-                    if _is_award_id(text):
-                        if number := _get_first_number_sequence(text, special_chars_award_id):
+                    if any([char.isdigit() for char in text]):
+                        number = _get_first_number_sequence(text, special_chars_award_id)
+                        if _looks_like_award_id(text) and number is not None:
                             award_ids.append(number)
+                    else:
+                        if _looks_like_institution_name(text, special_chars_funding):
+                            funding_sources.append(text)
 
                 items.append(
                     {
