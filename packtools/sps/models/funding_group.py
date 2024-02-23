@@ -17,7 +17,7 @@ def _looks_like_institution_name(text, special_chars):
     return all(char.isalpha() or char.isspace() or char in special_chars for char in text)
 
 
-def _is_award_id(text):
+def _looks_like_award_id(text):
     # TODO outros casos podem ser considerados, além do DOI
     invalid_patterns = ['doi.org', ]
     return not any(pattern in text for pattern in invalid_patterns)
