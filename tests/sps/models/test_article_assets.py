@@ -945,6 +945,7 @@ class ArticleAssetsTest(TestCase):
         self.assertEqual(not_found, ["figura2.jpg"])
 
     def test_assets_canonical_name_without_subarticles(self):
+        self.maxDiff = None
         data = open(
             "tests/sps/fixtures/document-with-supplementary-material.xml"
         ).read()

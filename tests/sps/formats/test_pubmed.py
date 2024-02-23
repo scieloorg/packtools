@@ -1341,6 +1341,7 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_citations(self):
+        self.maxDiff = None
         expected = (
             '<Article>'
             '<ReferenceList>'
@@ -1592,25 +1593,26 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_abstract_without_sections(self):
+        self.maxDiff = None
         expected = (
-        '<Article>'
-        '<Abstract>'
-        'Patterns of beta diversity of plankton communities in rivers have been mainly determined by '
-        'hydrological factors that alter the dispersion and composition of species and traits. Rotifers in the '
-        'Guamá River (eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to '
-        'analyze the temporal variation of taxonomic and functional beta diversity and its partitions (turnover '
-        'and nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. '
-        'Taxonomic turnover and functional nestedness over time were observed as well as functional '
-        'homogenization, which was arguably due to the hypereutrophic condition of the river. There were no '
-        'seasonal differences in taxonomic and functional beta diversity probably due the low environmental '
-        'dissimilarity. This study demonstrated that this Guamá River stretch presented low environmental '
-        'dissimilarity and hypereutrophic waters, which benefited the establishment of a community of species '
-        'with high taxonomic turnover over time, but with low functional dissimilarity and loss of some functions '
-        'related to the functional traits evaluated in the ecosystem. It is important to point out that temporal '
-        'studies should evaluate both taxonomic and functional aspects of communities, mainly because the effect '
-        'of environmental changes may be more noticeable at the functional level of communities.'
-        '</Abstract>'
-        '</Article>'
+            '<Article>'
+            '<Abstract>'
+            'Patterns of beta diversity of plankton communities in rivers have been mainly determined by '
+            'hydrological factors that alter the dispersion and composition of species and traits. Rotifers in the '
+            'Guamá River (eastern Amazonian River) were sampled (monthly between October 2017 and June 2019) to '
+            'analyze the temporal variation of taxonomic and functional beta diversity and its partitions (turnover '
+            'and nestedness) as well as the effects of temporal, environmental, and seasonal dissimilarities. '
+            'Taxonomic turnover and functional nestedness over time were observed as well as functional '
+            'homogenization, which was arguably due to the hypereutrophic condition of the river. There were no '
+            'seasonal differences in taxonomic and functional beta diversity probably due the low environmental '
+            'dissimilarity. This study demonstrated that this Guamá River stretch presented low environmental '
+            'dissimilarity and hypereutrophic waters, which benefited the establishment of a community of species '
+            'with high taxonomic turnover over time, but with low functional dissimilarity and loss of some functions '
+            'related to the functional traits evaluated in the ecosystem. It is important to point out that temporal '
+            'studies should evaluate both taxonomic and functional aspects of communities, mainly because the effect '
+            'of environmental changes may be more noticeable at the functional level of communities.'
+            '</Abstract>'
+            '</Article>'
         )
         xml_pubmed = ET.fromstring(
             '<Article/>'

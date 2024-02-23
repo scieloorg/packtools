@@ -124,9 +124,9 @@ def create_author(item, citation):
     try:
         main_author = item.get("main_author")
         el = ET.Element("author")
-        el.text = " ".join([main_author.get("surname"), main_author.get("given_name")])
+        el.text = " ".join([main_author.get("surname"), main_author.get("given-names")])
         citation.append(el)
-    except TypeError:
+    except (TypeError, AttributeError):
         pass
 
 
@@ -414,7 +414,8 @@ def get_citation(item):
         </citation>
     """
     citation = ET.Element("citation")
-    citation.set("key", "ref" + item.get("label"))
+    if item.get("label"):
+        citation.set("key", "ref" + item.get("label"))
 
     create_journal_title(item, citation)
     create_author(item, citation)
@@ -467,22 +468,25 @@ def get_one_contributor(seq, author):
     _given_name = author.get("given_names")
     if _given_name:
         given_name = ET.Element("given_name")
-        given_name.text = author.get("given_names")
+        given_name.text = _given_name
         person_name.append(given_name)
 
     _surname = author.get("surname")
     if _surname:
         surname = ET.Element("surname")
-        surname.text = author.get("surname")
+        surname.text = _surname
         person_name.append(surname)
 
-    _author_aff = author.get("affs")[0]
-    if _author_aff:
-        affiliation = ET.Element("affiliation")
-        affiliation.text = ", ".join(
-            [_author_aff.get("orgname"), _author_aff.get("country_name")]
-        )
-        person_name.append(affiliation)
+    try:
+        _author_aff = author.get("affs")[0]
+        if _author_aff:
+            affiliation = ET.Element("affiliation")
+            affiliation.text = ", ".join(
+                [_author_aff.get("orgname"), _author_aff.get("country_name")]
+            )
+            person_name.append(affiliation)
+    except TypeError:
+        pass
 
     _orcid = author.get("orcid")
     if _orcid:
@@ -1270,22 +1274,24 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    abstracts = article_abstract.Abstract(xml_tree).abstracts_with_tags
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts(None)
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
 
     for article in articles:
-        for abstract in abstracts:
+        for abstract, lang in [(item.get("abstract"), item.get("lang")) for item in abstracts]:
             if abstract:
                 jats = ET.Element("{http://www.ncbi.nlm.nih.gov/JATS1}abstract")
-                jats.set(
-                    "{http://www.w3.org/XML/1998/namespace}lang", abstract.get("lang")
-                )
+                jats.set("{http://www.w3.org/XML/1998/namespace}lang", lang)
                 jats_p = ET.Element("{http://www.ncbi.nlm.nih.gov/JATS1}p")
-                text = [abstract.get("title")]
-                for key, value in abstract.get("sections").items():
-                    text.append(key)
-                    text.append(value)
-                jats_p.text = " ".join(text)
+                text = [abstract.get("title")] if abstract.get("title") else []
+                try:
+                    for item in abstract.get("sections"):
+                        text.append(item.get("title"))
+                        text.append(item.get("p"))
+                except TypeError:
+                    text.append(abstract.get("title"))
+                    text.append(abstract.get("p"))
+                jats_p.text = " ".join([item for item in text if item])
                 jats.append(jats_p)
                 xml_crossref.find(
                     f"./body/journal/journal_article[@language='{article['lang']}']"

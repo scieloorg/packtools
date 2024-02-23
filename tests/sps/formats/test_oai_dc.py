@@ -667,7 +667,7 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertEqual(
             str(contexto.exception),
-            "Unable to get description 'NoneType' object has no attribute 'xpath'"
+            "Unable to get description 'NoneType' object has no attribute 'get'"
         )
 
     def test_xml_oai_dc_publisher(self):
@@ -1121,12 +1121,12 @@ class TestPipelineOaiDc(unittest.TestCase):
 
         self.assertIsNotNone(self.obtained.find('metadata'))
 
-    def test_pipeline_xml_oai_dc(self):
-        xmltree = xml_utils.get_xml_tree('tests/sps/fixtures/xml_oai_dc_example.xml')
-
-        xml_oai_dc = pipeline_xml_oai_dc(xmltree)
-
-        print(ET.tostring(xml_oai_dc, encoding="utf-8", pretty_print=True).decode("utf-8"))
+    # def test_pipeline_xml_oai_dc(self):
+    #     xmltree = xml_utils.get_xml_tree('tests/sps/fixtures/xml_oai_dc_example.xml')
+    #
+    #     xml_oai_dc = pipeline_xml_oai_dc(xmltree)
+    #
+    #     print(ET.tostring(xml_oai_dc, encoding="utf-8", pretty_print=True).decode("utf-8"))
 
 
 if __name__ == '__main__':

@@ -265,7 +265,7 @@ def is_allowed_to_update(xml_sps, attr_name, attr_new_value):
     verificar se é permitido atualizar o atributo, dados seus valores
     atual e/ou novo
     """
-    validate_function = validations.VALIDATE_FUNCTIONS.get(attr_name)
+    validate_function = VALIDATE_FUNCTIONS.get(attr_name)
     if validate_function is None:
         # não há nenhuma validação, então é permitido fazer a atualização
         return True
