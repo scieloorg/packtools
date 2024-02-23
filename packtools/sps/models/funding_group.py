@@ -25,12 +25,19 @@ def _looks_like_award_id(text):
 
 def _get_first_number_sequence(text, special_chars):
     number = ""
-    i = 0
-    while i < len(text) and not text[i].isdigit():
-        i += 1
-    while i < len(text) and (text[i].isdigit() or text[i] in special_chars):
-        number += text[i]
-        i += 1
+
+    # encontra o primeiro caracter numérico em text
+    for i, item in enumerate(text):
+        if text[i].isdigit():
+            text = text[i:]
+            break
+    # pega primeira sequência de caracteres numéricos ou permitidos na lista
+    for i, item in enumerate(text):
+        if text[i].isdigit() or text[i] in special_chars:
+            number += text[i]
+        else:
+            break
+
     return number or None
 
 
