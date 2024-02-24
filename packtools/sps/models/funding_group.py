@@ -28,17 +28,24 @@ def _get_first_number_sequence(text, special_chars):
 
     # encontra o primeiro caracter numérico em text
     for i, item in enumerate(text):
-        if text[i].isdigit():
+        if item.isdigit():
             text = text[i:]
             break
     # pega primeira sequência de caracteres numéricos ou permitidos na lista
     for i, item in enumerate(text):
-        if text[i].isdigit() or text[i] in special_chars:
-            number += text[i]
+        if item.isdigit() or item in special_chars:
+            number += item
         else:
             break
 
     return number or None
+
+
+def has_digit(text):
+    for n in range(10):
+        if str(n) in text:
+            return True
+    return False
 
 
 class FundingGroup:
@@ -69,7 +76,7 @@ class FundingGroup:
             for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
                 for node in nodes.xpath('p'):
                     text = xml_utils.node_plain_text(node)
-                    if any([char.isdigit() for char in text]):
+                    if has_digit(text):
                         number = _get_first_number_sequence(text, special_chars_award_id)
                         if _looks_like_award_id(text) and number is not None:
                             award_ids.append(number)
