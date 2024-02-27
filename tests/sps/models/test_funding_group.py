@@ -189,3 +189,26 @@ class FundingTest(TestCase):
         ]
         obtained = self.funding.ack
         self.assertEqual(expected, obtained)
+
+    def test__looks_like_institution_name_success(self):
+        self.assertTrue(funding_group._looks_like_institution_name(
+            "Natural Science, Foundation of-Hunan Province.",
+            ['.', ',', '-']
+        ))
+
+    def test__looks_like_institution_name_fail(self):
+        self.assertFalse(funding_group._looks_like_institution_name(
+            "Natural Science Foundation 1 of Hunan Province",
+            ['.', ',', '-']
+        ))
+
+    def test__looks_like_award_id_success(self):
+        self.assertTrue(funding_group._looks_like_award_id(
+            "123.456.789-0"
+        ))
+
+    def test__looks_like_award_id_fail(self):
+        self.assertFalse(funding_group._looks_like_award_id(
+            "doi.org.//123.456.789-0"
+        ))
+
