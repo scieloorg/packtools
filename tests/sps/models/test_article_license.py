@@ -15,17 +15,17 @@ class ArticleLicenseTest(TestCase):
                         <license license-type="open-access" 
                         xlink:href="http://creativecommons.org/licenses/by/4.0/" 
                         xml:lang="en">
-                            <license-p>This is an article published in open access under a Creative Commons license.</license-p>
+                            <license-p><bold>This is an article</bold> published in open access under a Creative Commons license.</license-p>
                         </license>
                         <license license-type="open-access" 
                         xlink:href="http://creativecommons.org/licenses/by/4.0/" 
                         xml:lang="pt">
-                            <license-p>Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.</license-p>
+                            <license-p>Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.</license-p>
                         </license>
                         <license license-type="open-access" 
                         xlink:href="http://creativecommons.org/licenses/by/4.0/" 
                         xml:lang="es">
-                            <license-p>Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.</license-p>
+                            <license-p>Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.</license-p>
                         </license>
                     </permissions>
                 </article-meta>
