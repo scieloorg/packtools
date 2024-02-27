@@ -114,18 +114,18 @@ class Abstract:
             p = title = None
             node_title = node.find("title")
             if node_title is not None:
-                title = node_text(node_title)
+                title = get_node_without_subtag(node_title)
 
             node_p = node.find("p")
             if node_p is not None:
-                p = node_text(node_p)
+                p = get_node_without_subtag(node_p)
 
             out["sections"].append({"title": title, "p": p})
         else:
             # abstract/p
             node_p = abstract_node.find("p")
             if node_p is not None:
-                out["p"] = node_text(node_p).strip()
+                out["p"] = get_node_without_subtag(node_p).strip()
         return out
 
     def _format_abstract(self, abstract_node, style=None):
