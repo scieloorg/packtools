@@ -14,13 +14,19 @@ def _looks_like_institution_name(text, special_chars):
 
     In other words, it checks whether a text is, potentially, the name of a funding source.
     """
-    return all(char.isalpha() or char.isspace() or char in special_chars for char in text)
+    for char in text:
+        if not (char.isalpha() or char.isspace() or char in special_chars):
+            return False
+    return True
 
 
 def _looks_like_award_id(text):
     # TODO outros casos podem ser considerados, além do DOI
     invalid_patterns = ['doi.org', ]
-    return not any(pattern in text for pattern in invalid_patterns)
+    for pattern in invalid_patterns:
+        if pattern in text:
+            return False
+    return True
 
 
 def _get_first_number_sequence(text, special_chars):
