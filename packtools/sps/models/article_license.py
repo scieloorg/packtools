@@ -1,3 +1,5 @@
+from ..utils import xml_utils
+
 """
 <article-meta>
     <permissions>
@@ -32,7 +34,7 @@ class ArticleLicense:
             d = {
                 'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'),
                 'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
-                'license_p': _license.find('license-p').text
+                'license_p': xml_utils.node_plain_text(_license.find('license-p'))
             }
             _licenses.append(d)
         return _licenses
