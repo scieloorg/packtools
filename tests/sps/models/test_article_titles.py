@@ -209,3 +209,93 @@ class SubArticleTitlesTest(TestCase):
         for i, item in enumerate(self.article_titles.data):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
+
+
+class ArticleTitlesWithStyleTest(TestCase):
+    def setUp(self):
+        xml = ("""
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+              <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+                <trans-title-group xml:lang="en">
+                  <trans-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></trans-title>
+                </trans-title-group>
+              </title-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        self.article_titles = ArticleTitles(xmltree)
+
+    def test_data(self):
+        self.maxDiff = None
+        expected = [{
+            "lang": "es",
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        },
+        {
+            "lang": "en",
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        },
+        ]
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+
+class SubArticleTitlesWithStyleTest(TestCase):
+    def setUp(self):
+        xml = ("""
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+              <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+              </title-group>
+            </article-meta>
+          </front>
+            <sub-article article-type="translation" id="1" xml:lang="en">
+
+            <front-stub>
+
+                <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+                </title-group>
+
+            </front-stub>
+            </sub-article>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        self.article_titles = ArticleTitles(xmltree)
+
+    def test_data(self):
+        self.maxDiff = None
+        expected = [{
+            "lang": "es",
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        },
+        {
+            "id": "1",
+            "lang": "en",
+            "parent_name": "sub-article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        },
+        ]
+        for i, item in enumerate(self.article_titles.data):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
