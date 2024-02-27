@@ -114,11 +114,14 @@ class AbstractWithSectionsTest(TestCase):
                 "title": "Abstract",
                 "sections": [{
                     "title": "Objective",
-                    "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.",
+                    "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
+                         "elderly people.",
                 },
                 {
                     "title": "Design",
-                    "p": "Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
+                    "p": "Systematic review of 12 controlled clinical trials (available by January 1997) comparing day "
+                         "hospital care with comprehensive care (five trials), domiciliary care (four trials), "
+                         "or no comprehensive care (three trials).",
 
                 }],
             }
@@ -243,11 +246,15 @@ class AbstractWithSectionsTest(TestCase):
                     "sections": [
                         {
                             "title": "Objetivo: ",
-                            "p": "evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. "
+                            "p": "evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la "
+                                 "calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de "
+                                 "accidentes cerebrovasculares. "
                         },
                         {
                             "title": "Método: ",
-                            "p": "Ensayo Clínico Aleatorizado ... <italic>World Health Organization Quality of Life Assessment</italic> (WHOQOL-BREF) y el módulo <italic>Old</italic>(WHOQOL-OLD) 1semana, 2meses y 1año después del alta. "
+                            "p": "Ensayo Clínico Aleatorizado ... World Health Organization Quality of Life "
+                                 "Assessment (WHOQOL-BREF) y el módulo Old(WHOQOL-OLD) "
+                                 "1semana, 2meses y 1año después del alta. "
                         },
                     ]
                 },
@@ -262,11 +269,14 @@ class AbstractWithSectionsTest(TestCase):
                     "sections": [
                         {
                             "title": "Ziel: ",
-                            "p": "Randomisierte klinische Studie... Modul <italic>Alt</italic> (WHOQOL-OLD) 1 Woche, 2 Monate und 1 Jahr nach der Entlassung."
+                            "p": "Randomisierte klinische Studie... Modul Alt (WHOQOL-OLD) 1 Woche, 2 Monate und 1 "
+                                 "Jahr nach der Entlassung."
                         },
                         {
                             "title": "Methode: ",
-                            "p": "Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre Unfälle überlebt haben."
+                            "p": "Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die "
+                                 "Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre "
+                                 "Unfälle überlebt haben."
                         },
                     ]
                 },
@@ -304,6 +314,7 @@ class AbstractWithSectionsTest(TestCase):
             </sec>
         </trans-abstract>
         """
+        self.maxDiff = None
         expected = (
             {
                 "lang": "pt",
@@ -314,11 +325,14 @@ class AbstractWithSectionsTest(TestCase):
                     "sections": [
                         {
                             "title": "Objetivo: ",
-                            "p": "avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral (AVC). "
+                            "p": "avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de "
+                                 "vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral "
+                                 "(AVC). "
                         },
                         {
                             "title": "Método: ",
-                            "p": "Ensaio Clínico Randomizado... Módulo <italic>Old</italic> (WHOQOL-OLD) em 1 semana, 2 meses e 1 ano após a alta. "
+                            "p": "Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, "
+                                 "2 meses e 1 ano após a alta. "
                         },
                     ]
                 }
@@ -332,11 +346,13 @@ class AbstractWithSectionsTest(TestCase):
                     "sections": [
                         {
                             "title": "Objectif: ",
-                            "p": "évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de vie des aidants familiaux de personnes âgées ayant survécu à un AVC."
+                            "p": "évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de "
+                                 "vie des aidants familiaux de personnes âgées ayant survécu à un AVC."
                         },
                         {
                             "title": "Méthode: ",
-                            "p": "Essai clinique randomisé... Module <italic>Old</italic> (WHOQOL-OLD) à 1 semaine, 2 mois et 1 an après la sortie."
+                            "p": "Essai clinique randomisé... Module Old (WHOQOL-OLD) à 1 semaine, 2 "
+                                 "mois et 1 an après la sortie."
                         },
                     ]
                 }
@@ -404,13 +420,17 @@ class AbstractWithoutSectionsTest(TestCase):
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_default_style(self):
+        self.maxDiff = None
         expected = {
             "lang": "en",
             'parent_name': 'article',
             "abstract": {
                 "lang": "en",
                 "title": "Abstract",
-                "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).",
+                "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
+                     "elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) "
+                     "comparing day hospital care with comprehensive care (five trials), domiciliary care "
+                     "(four trials), or no comprehensive care (three trials).",
             }
         }
         result = self.abstract.get_main_abstract()
@@ -479,7 +499,11 @@ class AbstractWithoutSectionsTest(TestCase):
                 "abstract": {
                     "lang": "es",
                     "title": "Resumen",
-                    "p": "Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 <italic>ensayos clínicos</italic> controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).",
+                    "p": "Examinar la efectividad de la asistencia al hospital de día para prolongar la vida "
+                         "independiente de las personas mayores. Revisión sistemática de 12 ensayos clínicos "
+                         "controlados (disponibles en enero de 1997) que compararon la atención hospitalaria "
+                         "de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) "
+                         "o ninguna atención integral (tres ensayos).",
                 },
                 "id": "01"
             },
@@ -489,7 +513,11 @@ class AbstractWithoutSectionsTest(TestCase):
                 "abstract": {
                     "lang": "it",
                     "title": "Riepilogo",
-                    "p": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 <italic>studi clinici</italic> controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).",
+                    "p": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita "
+                         "autonoma delle persone anziane. Revisione sistematica di 12 studi clinici controllati "
+                         "(disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con "
+                         "l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna "
+                         "assistenza completa (tre studi).",
                 },
                 "id": "02"
             },
@@ -518,7 +546,11 @@ class AbstractWithoutSectionsTest(TestCase):
                 "abstract": {
                     "lang": "pt",
                     "title": "Resumo",
-                    "p": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de idosos. Revisão sistemática de 12 <italic>estudos clínicos</italic> controlados (disponível em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente (cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente (três ensaios).",
+                    "p": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de "
+                         "idosos. Revisão sistemática de 12 estudos clínicos controlados (disponível "
+                         "em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente "
+                         "(cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente "
+                         "(três ensaios).",
                 }
             },
             {
@@ -527,7 +559,20 @@ class AbstractWithoutSectionsTest(TestCase):
                 "abstract": {
                     "lang": "fr",
                     "title": "Résumé",
-                    "p": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie autonome des personnes âgées. Revue systématique de 12 <italic>essais cliniques</italic> contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins complets (trois essais).",
+                    "p": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie "
+                         "autonome des personnes âgées. Revue systématique de 12 essais cliniques "
+                         "contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins "
+                         "complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins "
+                         "complets (trois essais).",
+                }
+            },
+        )
+        result = self.abstract._get_trans_abstracts()
+        for res, exp in zip(result, expected):
+            with self.subTest(exp["lang"]):
+                self.assertDictEqual(exp, res)
+
+
                 }
             },
         )
