@@ -573,6 +573,341 @@ class AbstractWithoutSectionsTest(TestCase):
                 self.assertDictEqual(exp, res)
 
 
+class AbstractWithStylesTest(TestCase):
+
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Abstract</title>
+                        <sec>
+                            <title>inicio</title>
+                            <p><bold>conteúdo de bold</bold> text </p>
+                        </sec>
+                        <sec>
+                            <title>meio</title>
+                            <p>text <bold>conteúdo de bold</bold> text </p>
+                        </sec>
+                        <sec>
+                            <title>fim</title>
+                            <p>text <bold>conteúdo de bold</bold></p>
+                        </sec>
+                        <sec>
+                            <title>aninhado</title>
+                            <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                        </sec>
+                    </abstract>
+                </front-stub>
+            </sub-article>
+            </article>
+            """)
+        self.abstract = Abstract(xmltree)
+
+    def test__main_abstract_without_tags(self):
+        self.maxDiff = None
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        }
+        result = self.abstract.get_main_abstract(style="only_p")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_default_style(self):
+        self.maxDiff = None
+        """
+        <sec>
+            <title>inicio</title>
+            <p><bold>conteúdo de bold</bold> text </p>
+        </sec>
+        <sec>
+            <title>meio</title>
+            <p>text <bold>conteúdo de bold</bold> text </p>
+        </sec>
+        <sec>
+            <title>fim</title>
+            <p>text <bold>conteúdo de bold</bold></p>
+        </sec>
+        <sec>
+            <title>aninhado</title>
+            <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+        </sec>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": {
+                "lang": "en",
+                "title": "Abstract",
+                "sections": [{
+                    "title": "inicio",
+                    "p": "conteúdo de bold text ",
+                },
+                {
+                    "title": "meio",
+                    "p": "text conteúdo de bold text ",
+                },
+                {
+                    "title": "fim",
+                    "p": "text conteúdo de bold",
+                },
+                {
+                    "title": "aninhado",
+                    "p": "text conteúdo de bold",
+
+                }],
+            }
+        }
+        result = self.abstract.get_main_abstract()
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_inline(self):
+        self.maxDiff = None
+        """
+        <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": 'Abstract inicio conteúdo de bold text meio text conteúdo de bold '
+                        'text fim text conteúdo de bold aninhado text conteúdo de bold',
+        }
+        result = self.abstract.get_main_abstract(style="inline")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_xml(self):
+        """
+        <title>Abstract</title>
+        <sec>
+            <title>Objective</title>
+            <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+        </sec>
+        <sec>
+            <title>Design</title>
+            <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+        </sec>
+        """
+        self.maxDiff = None
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": "<title>Abstract</title><sec><title>inicio</title><p><bold>conteúdo de bold</bold> text </p>"
+                        "</sec><sec><title>meio</title><p>text <bold>conteúdo de bold</bold> text </p></sec><sec>"
+                        "<title>fim</title><p>text <bold>conteúdo de bold</bold></p></sec><sec><title>aninhado</title>"
+                        "<p>text <bold>conteúdo <italic>de</italic> bold</bold></p></sec>",
+        }
+        result = self.abstract.get_main_abstract(style="xml")
+        self.assertEqual(expected["lang"], result["lang"])
+        self.assertIn("<title>Abstract</title>", result["abstract"])
+        self.assertIn("<p><bold>conteúdo de bold</bold> text </p>", result["abstract"])
+        self.assertIn("<p>text <bold>conteúdo de bold</bold> text </p>", result["abstract"])
+        self.assertIn("<p>text <bold>conteúdo de bold</bold></p>", result["abstract"])
+        self.assertIn("<p>text <bold>conteúdo <italic>de</italic> bold</bold></p>", result["abstract"])
+
+    def test_get_main_abstract_only_p(self):
+        """
+        <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+        }
+        result = self.abstract.get_main_abstract(style="only_p")
+        self.assertDictEqual(expected, result)
+
+    def test__get_sub_article_abstracts(self):
+        self.maxDiff = None
+        """
+        <sub-article article-type="translation" id="01" xml:lang="es">
+            <front-stub>
+                <abstract>
+                    <title>Abstract</title>
+                    <sec>
+                        <title>inicio</title>
+                        <p><bold>conteúdo de bold</bold> text </p>
+                    </sec>
+                    <sec>
+                        <title>meio</title>
+                        <p>text <bold>conteúdo de bold</bold> text </p>
+                    </sec>
+                    <sec>
+                        <title>fim</title>
+                        <p>text <bold>conteúdo de bold</bold></p>
+                    </sec>
+                    <sec>
+                        <title>aninhado</title>
+                        <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                    </sec>
+                </abstract>
+            </front-stub>
+        </sub-article>
+        """
+        self.maxDiff = None
+        expected = (
+            {
+                "lang": "es",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "es",
+                    "title": "Abstract",
+                    "sections": [
+                        {
+                            "title": "inicio",
+                            "p": "conteúdo de bold text "
+                        },
+                        {
+                            "title": "meio",
+                            "p": "text conteúdo de bold text "
+                        },
+                        {
+                            "title": "fim",
+                            "p": "text conteúdo de bold"
+                        },
+                        {
+                            "title": "aninhado",
+                            "p": "text conteúdo de bold"
+                        },
+                    ]
+                },
+                "id": "01"
+            },
+        )
+        result = self.abstract._get_sub_article_abstracts()
+        for res, exp in zip(result, expected):
+            with self.subTest(res["lang"]):
+                self.assertDictEqual(exp, res)
+
+    def test__get_trans_abstracts(self):
+        """
+        <trans-abstract xml:lang="pt">
+            <title>Abstract</title>
+            <sec>
+                <title>inicio</title>
+                <p><bold>conteúdo de bold</bold> text </p>
+            </sec>
+            <sec>
+                <title>meio</title>
+                <p>text <bold>conteúdo de bold</bold> text </p>
+            </sec>
+            <sec>
+                <title>fim</title>
+                <p>text <bold>conteúdo de bold</bold></p>
+            </sec>
+            <sec>
+                <title>aninhado</title>
+                <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+            </sec>
+        </trans-abstract>
+        """
+        self.maxDiff = None
+        expected = (
+            {
+                "lang": "pt",
+                'parent_name': 'article',
+                "abstract": {
+                    "lang": "pt",
+                    "title": "Abstract",
+                    "sections": [
+                        {
+                            "title": "inicio",
+                            "p": "conteúdo de bold text "
+                        },
+                        {
+                            "title": "meio",
+                            "p": "text conteúdo de bold text "
+                        },
+                        {
+                            "title": "fim",
+                            "p": "text conteúdo de bold"
+                        },
+                        {
+                            "title": "aninhado",
+                            "p": "text conteúdo de bold"
+                        },
+                    ]
                 }
             },
         )
