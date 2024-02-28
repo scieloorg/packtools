@@ -47,6 +47,143 @@ class NodeTextTest(TestCase):
         result = xml_utils.node_text(xmltree.find(".//city"))
         self.assertEqual(expected, result)
 
+    def test_remove_subtags_keeps_i(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "São Paulo <i>Paulo</i>"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['i'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_bold(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<bold>São Paulo</bold> Paulo"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['bold'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_italic(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<italic>São</italic> Paulo Paulo"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['italic'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_bold_and_italic(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<bold><italic>São</italic> Paulo</bold> Paulo"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['bold', 'italic'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_bold_and_i(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<bold>São Paulo</bold> <i>Paulo</i>"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['bold', 'i'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_italic_and_i(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<italic>São</italic> Paulo <i>Paulo</i>"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['italic', 'i'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_keeps_all(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<bold><italic>São</italic> Paulo</bold> <i>Paulo</i>"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"), ['bold', 'italic', 'i'])
+        self.assertEqual(expected, obtained)
+
+    def test_remove_subtags_remove_all(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "São Paulo Paulo"
+        obtained = xml_utils.remove_subtags(xmltree.find(".//city"))
+        self.assertEqual(expected, obtained)
+
+    def test_convert_xml_to_html(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<b><i>São</i> Paulo</b> Paulo"
+        obtained = xml_utils.convert_xml_to_html(
+            xmltree.find(".//city"),
+            ['italic', 'bold'],
+            {'italic': 'i', 'bold': 'b'}
+        )
+        self.assertEqual(expected, obtained)
+
+    def test_convert_xml_to_html_without_dict(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <root>
+            <city><bold><italic>São</italic> Paulo</bold> <i>Paulo</i></city>
+            </root>
+            """
+        )
+        expected = "<bold><italic>São</italic> Paulo</bold> Paulo"
+        obtained = xml_utils.convert_xml_to_html(
+            xmltree.find(".//city"),
+            ['italic', 'bold']
+        )
+        self.assertEqual(expected, obtained)
+
 
 class NodeTextWithoutXrefTest(TestCase):
 
