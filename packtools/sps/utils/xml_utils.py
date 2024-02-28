@@ -145,7 +145,7 @@ def get_node_without_subtag(node, remove_extra_spaces=False):
         Função que retorna nó sem subtags.
     """
     if remove_extra_spaces:
-        return " ".join([text.strip()for text in node.xpath(".//text()") if text.strip()])
+        return " ".join([text.strip() for text in node.xpath(".//text()") if text.strip()])
     return "".join(node.xpath(".//text()"))
 
 
@@ -317,3 +317,35 @@ def match_pubdate(node, pubdate_xpaths):
         pubdate = node.find(xpath)
         if pubdate is not None:
             return pubdate
+
+
+def remove_subtags(node, allowed_tags=None):
+    """
+    Remove as subtags de node que não estiverem especificadas em allowed_tags.
+
+    Exemplo:
+        Entrada: <bold><italic>São</italic> Paulo</bold> <i>Paulo</i>, ['italic']
+        Saída: <italic>São</italic> Paulo Paulo
+
+    Outros exemplos nos testes.
+    """
+    if allowed_tags is None:
+        allowed_tags = []
+    text = node.text if node.text is not None else ''
+    for child in node:
+        text += remove_subtags(child, allowed_tags)
+        if child.tail is not None:
+            text += child.tail
+    if node.tag in allowed_tags:
+        return f'<{node.tag}>{text}</{node.tag}>'
+    else:
+        return text
+
+
+def convert_xml_to_html(node, allowed_tags=None, xml_to_html=None):
+    text = remove_subtags(node, allowed_tags)
+    if xml_to_html is not None and isinstance(xml_to_html, dict):
+        for xml_tag, html_tag in xml_to_html.items():
+            text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
+            text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
+    return text
