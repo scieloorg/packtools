@@ -339,13 +339,14 @@ def remove_subtags(node, allowed_tags=None):
     if node.tag in allowed_tags:
         return f'<{node.tag}>{text}</{node.tag}>'
     else:
-        return text
+        return ' '.join(text.split())
 
 
 def convert_xml_to_html(node, allowed_tags=None, xml_to_html=None):
     text = remove_subtags(node, allowed_tags)
     if xml_to_html is not None and isinstance(xml_to_html, dict):
         for xml_tag, html_tag in xml_to_html.items():
+            text = text.replace(f'<{xml_tag}', f'<{html_tag}')
             text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
             text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
     return text
