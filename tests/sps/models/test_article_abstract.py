@@ -112,21 +112,63 @@ class AbstractWithSectionsTest(TestCase):
             "abstract": {
                 "lang": "en",
                 "title": "Abstract",
-                "sections": [{
-                    "title": "Objective",
-                    "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
-                         "elderly people.",
-                },
-                {
-                    "title": "Design",
-                    "p": "Systematic review of 12 controlled clinical trials (available by January 1997) comparing day "
-                         "hospital care with comprehensive care (five trials), domiciliary care (four trials), "
-                         "or no comprehensive care (three trials).",
+                "sections": [
+                    {
+                        "title": "Objective",
+                        "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
+                             "elderly people.",
+                    },
+                    {
+                        "title": "Design",
+                        "p": "Systematic review of 12 controlled clinical trials (available by January 1997) comparing day "
+                             "hospital care with comprehensive care (five trials), domiciliary care (four trials), "
+                             "or no comprehensive care (three trials).",
 
-                }],
+                    }],
             }
         }
         result = self.abstract.get_main_abstract()
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_default_style_html(self):
+        self.maxDiff = None
+        """
+        <title>Abstract</title>
+        <sec>
+            <title>Objective</title>
+            <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+        </sec>
+        <sec>
+            <title>Design</title>
+            <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+        </sec>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": {
+                "lang": "en",
+                "title": "<t>Abstract</t>",
+                "sections": [
+                    {
+                        "title": "<t>Objective</t>",
+                        "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
+                             "elderly people.",
+                    },
+                    {
+                        "title": "<t>Design</t>",
+                        "p": "Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) comparing day "
+                             "hospital care with comprehensive care (five trials), domiciliary care (four trials), "
+                             "or no comprehensive care (three trials).",
+
+                    }],
+            }
+        }
+        result = self.abstract.get_main_abstract(
+            html=True,
+            allowed_tags=['title', 'italic'],
+            xml_to_html={'title': 't', 'italic': 'i'}
+        )
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_inline(self):
@@ -147,6 +189,36 @@ class AbstractWithSectionsTest(TestCase):
             "abstract": "Abstract Objective To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Design Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="inline")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_inline_html(self):
+        self.maxDiff = None
+        """
+        <title>Abstract</title>
+        <sec>
+            <title>Objective</title>
+            <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+        </sec>
+        <sec>
+            <title>Design</title>
+            <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+        </sec>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": "Abstract Objective To examine the effectiveness of day hospital attendance in prolonging "
+                        "independent living for elderly people. Design Systematic review of 12 controlled "
+                        "<i>clinical trials</i> (available by January 1997) comparing day hospital care with "
+                        "comprehensive care (five trials), domiciliary care (four trials), or no comprehensive "
+                        "care (three trials)."
+        }
+        result = self.abstract.get_main_abstract(
+            style="inline",
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_xml(self):
@@ -180,7 +252,9 @@ class AbstractWithSectionsTest(TestCase):
         self.assertIn("<italic>clinical trials</italic>", result["abstract"])
         self.assertIn("<title>Objective</title>", result["abstract"])
         self.assertIn("<title>Design</title>", result["abstract"])
-        self.assertIn("<p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>", result["abstract"])
+        self.assertIn(
+            "<p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>",
+            result["abstract"])
 
     def test_get_main_abstract_only_p(self):
         """
@@ -200,6 +274,32 @@ class AbstractWithSectionsTest(TestCase):
             "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_only_p_html(self):
+        self.maxDiff = None
+        """
+        <title>Abstract</title>
+        <sec>
+            <title>Objective</title>
+            <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people.</p>
+        </sec>
+        <sec>
+            <title>Design</title>
+            <p>Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+        </sec>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
+        }
+        result = self.abstract.get_main_abstract(
+            style="only_p",
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         self.assertDictEqual(expected, result)
 
     def test__get_sub_article_abstracts(self):
@@ -288,6 +388,96 @@ class AbstractWithSectionsTest(TestCase):
             with self.subTest(res["lang"]):
                 self.assertDictEqual(exp, res)
 
+    def test__get_sub_article_abstracts_html(self):
+        """
+        <sub-article article-type="translation" xml:lang="es">
+            <front-stub>
+                <abstract>
+                    <title>Resumen</title>
+                    <sec>
+                      <title>Objetivo: </title>
+                      <p>evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de accidentes cerebrovasculares. </p>
+                    </sec>
+                    <sec>
+                      <title>Método: </title>
+                      <p>Ensayo Clínico Aleatorizado ... <italic>World Health Organization Quality of Life Assessment</italic> (WHOQOL-BREF) y el módulo <italic>Old</italic>(WHOQOL-OLD) 1semana, 2meses y 1año después del alta. </p>
+                    </sec>
+                  </abstract>
+            </front-stub>
+        </sub-article>
+        <sub-article article-type="translation" xml:lang="de">
+            <front-stub>
+                <abstract>
+                    <title>Zusammenfassung</title>
+                    <sec>
+                      <title>Ziel: </title>
+                      <p>Randomisierte klinische Studie... Modul <italic>Alt</italic> (WHOQOL-OLD) 1 Woche, 2 Monate und 1 Jahr nach der Entlassung.</p>
+                    </sec>
+                    <sec>
+                      <title>Methode: </title>
+                      <p>Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre Unfälle überlebt haben.</p>
+                    </sec>
+                  </abstract>
+            </front-stub>
+        </sub-article>
+        """
+        self.maxDiff = None
+        expected = (
+            {
+                "lang": "es",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "es",
+                    "title": "Resumen",
+                    "sections": [
+                        {
+                            "title": "Objetivo:",
+                            "p": "evaluar el efecto de intervenciones de atención domiciliaria de enfermería sobre la "
+                                 "calidad de vida en cuidadores familiares de adultos mayores sobrevivientes de "
+                                 "accidentes cerebrovasculares."
+                        },
+                        {
+                            "title": "Método:",
+                            "p": "Ensayo Clínico Aleatorizado ... <i>World Health Organization Quality of Life "
+                                 "Assessment</i> (WHOQOL-BREF) y el módulo <i>Old</i>(WHOQOL-OLD) "
+                                 "1semana, 2meses y 1año después del alta."
+                        },
+                    ]
+                },
+                "id": "01"
+            },
+            {
+                "lang": "de",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "de",
+                    "title": "Zusammenfassung",
+                    "sections": [
+                        {
+                            "title": "Ziel:",
+                            "p": "Randomisierte klinische Studie... Modul <i>Alt</i> (WHOQOL-OLD) 1 Woche, 2 Monate und 1 "
+                                 "Jahr nach der Entlassung."
+                        },
+                        {
+                            "title": "Methode:",
+                            "p": "Bewertung der Auswirkungen von Pflegeeinsätzen in Pflegeheimen auf die "
+                                 "Lebensqualität von Familienbetreuern älterer Erwachsener, die zerebrovaskuläre "
+                                 "Unfälle überlebt haben."
+                        },
+                    ]
+                },
+                "id": "02"
+            },
+        )
+        result = self.abstract._get_sub_article_abstracts(
+            html=True,
+            allowed_tags=['italic', 'bold'],
+            xml_to_html={'italic': 'i', 'bold': 'b'}
+        )
+        for res, exp in zip(result, expected):
+            with self.subTest(res["lang"]):
+                self.assertDictEqual(exp, res)
+
     def test__get_trans_abstracts(self):
         """
         <trans-abstract xml:lang="pt">
@@ -324,15 +514,15 @@ class AbstractWithSectionsTest(TestCase):
                     "title": "Resumo",
                     "sections": [
                         {
-                            "title": "Objetivo: ",
+                            "title": "Objetivo:",
                             "p": "avaliar o efeito de intervenção educativa domiciliar de enfermagem na qualidade de "
                                  "vida de cuidadores familiares de idosos sobreviventes de acidente vascular cerebral "
-                                 "(AVC). "
+                                 "(AVC)."
                         },
                         {
-                            "title": "Método: ",
-                            "p": "Ensaio Clínico Randomizado... Módulo Old (WHOQOL-OLD) em 1 semana, "
-                                 "2 meses e 1 ano após a alta. "
+                            "title": "Método:",
+                            "p": "Ensaio Clínico Randomizado... Módulo <i>Old</i> (WHOQOL-OLD) em 1 semana, "
+                                 "2 meses e 1 ano após a alta."
                         },
                     ]
                 }
@@ -345,20 +535,24 @@ class AbstractWithSectionsTest(TestCase):
                     "title": "Résumé",
                     "sections": [
                         {
-                            "title": "Objectif: ",
+                            "title": "Objectif:",
                             "p": "évaluer l'effet d'une intervention éducative en maison de retraite sur la qualité de "
                                  "vie des aidants familiaux de personnes âgées ayant survécu à un AVC."
                         },
                         {
-                            "title": "Méthode: ",
-                            "p": "Essai clinique randomisé... Module Old (WHOQOL-OLD) à 1 semaine, 2 "
+                            "title": "Méthode:",
+                            "p": "Essai clinique randomisé... Module <i>Old</i> (WHOQOL-OLD) à 1 semaine, 2 "
                                  "mois et 1 an après la sortie."
                         },
                     ]
                 }
             },
         )
-        result = self.abstract._get_trans_abstracts()
+        result = self.abstract._get_trans_abstracts(
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
                 self.assertDictEqual(exp, res)
@@ -436,13 +630,56 @@ class AbstractWithoutSectionsTest(TestCase):
         result = self.abstract.get_main_abstract()
         self.assertDictEqual(expected, result)
 
+    def test_get_main_abstract_default_style_html(self):
+        '''
+        <abstract>
+            <title>Abstract</title>
+            <p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>
+        </abstract>
+        '''
+        self.maxDiff = None
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": {
+                "lang": "en",
+                "title": "<t>Abstract</t>",
+                "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
+                     "elderly people. Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) "
+                     "comparing day hospital care with comprehensive care (five trials), domiciliary care "
+                     "(four trials), or no comprehensive care (three trials).",
+            }
+        }
+        result = self.abstract.get_main_abstract(
+            html=True,
+            allowed_tags=['title', 'italic'],
+            xml_to_html={'title': 't', 'italic': 'i'}
+        )
+        self.assertDictEqual(expected, result)
+
     def test_get_main_abstract_inline(self):
+        self.maxDiff = None
         expected = {
             "lang": "en",
             'parent_name': 'article',
             "abstract": "Abstract To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="inline")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_inline_html(self):
+        self.maxDiff = None
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": "Abstract To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
+        }
+        result = self.abstract.get_main_abstract(
+            style="inline",
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_xml(self):
@@ -456,7 +693,9 @@ class AbstractWithoutSectionsTest(TestCase):
         self.assertEqual(expected["lang"], result["lang"])
         self.assertIn("<title>Abstract</title>", result["abstract"])
         self.assertIn("<italic>clinical trials</italic>", result["abstract"])
-        self.assertIn("<p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>", result["abstract"])
+        self.assertIn(
+            "<p>To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <italic>clinical trials</italic> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials).</p>",
+            result["abstract"])
 
     def test_get_main_abstract_only_p(self):
         self.maxDiff = None
@@ -466,6 +705,21 @@ class AbstractWithoutSectionsTest(TestCase):
             "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled clinical trials (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
         }
         result = self.abstract.get_main_abstract(style="only_p")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_only_p_html(self):
+        self.maxDiff = None
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": "To examine the effectiveness of day hospital attendance in prolonging independent living for elderly people. Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) comparing day hospital care with comprehensive care (five trials), domiciliary care (four trials), or no comprehensive care (three trials)."
+        }
+        result = self.abstract.get_main_abstract(
+            style="only_p",
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         self.assertDictEqual(expected, result)
 
     def test__get_sub_article_abstracts(self):
@@ -527,6 +781,69 @@ class AbstractWithoutSectionsTest(TestCase):
             with self.subTest(res["lang"]):
                 self.assertDictEqual(exp, res)
 
+    def test__get_sub_article_abstracts_html(self):
+        """
+        <article>
+        <sub-article article-type="translation" id="01" xml:lang="es">
+        <front-stub>
+        <abstract>
+        <title>Resumen</title>
+        <p>
+        Examinar la efectividad de la asistencia al hospital de día para prolongar la vida independiente de las personas mayores. Revisión sistemática de 12 <italic>ensayos clínicos</italic> controlados (disponibles en enero de 1997) que compararon la atención hospitalaria de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) o ninguna atención integral (tres ensayos).</p>
+        </abstract>
+        </front-stub>
+        </sub-article>
+        <sub-article article-type="translation" id="02" xml:lang="it">
+        <front-stub>
+        <abstract>
+        <title>Riepilogo</title>
+        <p>
+        Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita autonoma delle persone anziane. Revisione sistematica di 12 <italic>studi clinici</italic> controllati (disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna assistenza completa (tre studi).</p>
+        </abstract>
+        </front-stub>
+        </sub-article>
+        </article>
+        """
+        self.maxDiff = None
+        expected = (
+            {
+                "lang": "es",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "es",
+                    "title": "Resumen",
+                    "p": "Examinar la efectividad de la asistencia al hospital de día para prolongar la vida "
+                         "independiente de las personas mayores. Revisión sistemática de 12 <i>ensayos clínicos</i> "
+                         "controlados (disponibles en enero de 1997) que compararon la atención hospitalaria "
+                         "de día con atención integral (cinco ensayos), atención domiciliaria (cuatro ensayos) "
+                         "o ninguna atención integral (tres ensayos).",
+                },
+                "id": "01"
+            },
+            {
+                "lang": "it",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "it",
+                    "title": "Riepilogo",
+                    "p": "Esaminare l'efficacia della frequenza del day hospital nel prolungamento della vita "
+                         "autonoma delle persone anziane. Revisione sistematica di 12 <i>studi clinici</i> controllati "
+                         "(disponibili entro gennaio 1997) che confrontano l'assistenza in day hospital con "
+                         "l'assistenza completa (cinque studi), l'assistenza domiciliare (quattro studi) o nessuna "
+                         "assistenza completa (tre studi).",
+                },
+                "id": "02"
+            },
+        )
+        result = self.abstract._get_sub_article_abstracts(
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
+        for res, exp in zip(result, expected):
+            with self.subTest(res["lang"]):
+                self.assertDictEqual(exp, res)
+
     def test__get_trans_abstracts(self):
         self.maxDiff = None
         """
@@ -547,7 +864,7 @@ class AbstractWithoutSectionsTest(TestCase):
                     "lang": "pt",
                     "title": "Resumo",
                     "p": "Examinar a eficácia do atendimento em hospital-dia no prolongamento da vida independente de "
-                         "idosos. Revisão sistemática de 12 estudos clínicos controlados (disponível "
+                         "idosos. Revisão sistemática de 12 <i>estudos clínicos</i> controlados (disponível "
                          "em janeiro de 1997) comparando o atendimento em hospital-dia com atendimento abrangente "
                          "(cinco ensaios), atendimento domiciliar (quatro ensaios) ou nenhum atendimento abrangente "
                          "(três ensaios).",
@@ -560,14 +877,18 @@ class AbstractWithoutSectionsTest(TestCase):
                     "lang": "fr",
                     "title": "Résumé",
                     "p": "Examiner l'efficacité de la fréquentation d'un hôpital de jour pour prolonger la vie "
-                         "autonome des personnes âgées. Revue systématique de 12 essais cliniques "
+                         "autonome des personnes âgées. Revue systématique de 12 <i>essais cliniques</i> "
                          "contrôlés (disponibles en janvier 1997) comparant les soins hospitaliers de jour aux soins "
                          "complets (cinq essais), aux soins à domicile (quatre essais) ou à l'absence de soins "
                          "complets (trois essais).",
                 }
             },
         )
-        result = self.abstract._get_trans_abstracts()
+        result = self.abstract._get_trans_abstracts(
+            html=True,
+            allowed_tags=['italic'],
+            xml_to_html={'italic': 'i'}
+        )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
                 self.assertDictEqual(exp, res)
@@ -689,22 +1010,74 @@ class AbstractWithStylesTest(TestCase):
                     "title": "inicio",
                     "p": "conteúdo de bold text ",
                 },
-                {
-                    "title": "meio",
-                    "p": "text conteúdo de bold text ",
-                },
-                {
-                    "title": "fim",
-                    "p": "text conteúdo de bold",
-                },
-                {
-                    "title": "aninhado",
-                    "p": "text conteúdo de bold",
+                    {
+                        "title": "meio",
+                        "p": "text conteúdo de bold text ",
+                    },
+                    {
+                        "title": "fim",
+                        "p": "text conteúdo de bold",
+                    },
+                    {
+                        "title": "aninhado",
+                        "p": "text conteúdo de bold",
 
-                }],
+                    }],
             }
         }
         result = self.abstract.get_main_abstract()
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_default_style_html(self):
+        self.maxDiff = None
+        """
+        <sec>
+            <title>inicio</title>
+            <p><bold>conteúdo de bold</bold> text </p>
+        </sec>
+        <sec>
+            <title>meio</title>
+            <p>text <bold>conteúdo de bold</bold> text </p>
+        </sec>
+        <sec>
+            <title>fim</title>
+            <p>text <bold>conteúdo de bold</bold></p>
+        </sec>
+        <sec>
+            <title>aninhado</title>
+            <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+        </sec>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": {
+                "lang": "en",
+                "title": "<t>Abstract</t>",
+                "sections": [{
+                    "title": "<t>inicio</t>",
+                    "p": "<b>conteúdo de bold</b> text",
+                },
+                    {
+                        "title": "<t>meio</t>",
+                        "p": "text <b>conteúdo de bold</b> text",
+                    },
+                    {
+                        "title": "<t>fim</t>",
+                        "p": "text <b>conteúdo de bold</b>",
+                    },
+                    {
+                        "title": "<t>aninhado</t>",
+                        "p": "text <b>conteúdo de bold</b>",
+
+                    }],
+            }
+        }
+        result = self.abstract.get_main_abstract(
+            html=True,
+            allowed_tags=['title', 'bold'],
+            xml_to_html={'title': 't', 'bold': 'b'}
+        )
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_inline(self):
@@ -737,6 +1110,43 @@ class AbstractWithStylesTest(TestCase):
                         'text fim text conteúdo de bold aninhado text conteúdo de bold',
         }
         result = self.abstract.get_main_abstract(style="inline")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_inline_html(self):
+        self.maxDiff = None
+        """
+        <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> '
+                        'text fim text <b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+        }
+        result = self.abstract.get_main_abstract(
+            style="inline",
+            html=True,
+            allowed_tags=['italic', 'bold'],
+            xml_to_html={'italic': 'i', 'bold': 'b'}
+        )
         self.assertDictEqual(expected, result)
 
     def test_get_main_abstract_xml(self):
@@ -796,6 +1206,42 @@ class AbstractWithStylesTest(TestCase):
             "abstract": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
         }
         result = self.abstract.get_main_abstract(style="only_p")
+        self.assertDictEqual(expected, result)
+
+    def test_get_main_abstract_only_p_html(self):
+        """
+        <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+        """
+        expected = {
+            "lang": "en",
+            'parent_name': 'article',
+            "abstract": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de bold</b> '
+                        'text <b>conteúdo <i>de</i> bold</b>',
+        }
+        result = self.abstract.get_main_abstract(
+            style="only_p",
+            html=True,
+            allowed_tags=['italic', 'bold'],
+            xml_to_html={'italic': 'i', 'bold': 'b'}
+        )
         self.assertDictEqual(expected, result)
 
     def test__get_sub_article_abstracts(self):
@@ -860,6 +1306,72 @@ class AbstractWithStylesTest(TestCase):
             with self.subTest(res["lang"]):
                 self.assertDictEqual(exp, res)
 
+    def test__get_sub_article_abstracts_html(self):
+        self.maxDiff = None
+        """
+        <sub-article article-type="translation" id="01" xml:lang="es">
+            <front-stub>
+                <abstract>
+                    <title>Abstract</title>
+                    <sec>
+                        <title>inicio</title>
+                        <p><bold>conteúdo de bold</bold> text </p>
+                    </sec>
+                    <sec>
+                        <title>meio</title>
+                        <p>text <bold>conteúdo de bold</bold> text </p>
+                    </sec>
+                    <sec>
+                        <title>fim</title>
+                        <p>text <bold>conteúdo de bold</bold></p>
+                    </sec>
+                    <sec>
+                        <title>aninhado</title>
+                        <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                    </sec>
+                </abstract>
+            </front-stub>
+        </sub-article>
+        """
+        self.maxDiff = None
+        expected = (
+            {
+                "lang": "es",
+                'parent_name': 'sub-article',
+                "abstract": {
+                    "lang": "es",
+                    "title": "Abstract",
+                    "sections": [
+                        {
+                            "title": "inicio",
+                            "p": "<b>conteúdo de bold</b> text"
+                        },
+                        {
+                            "title": "meio",
+                            "p": "text <b>conteúdo de bold</b> text"
+                        },
+                        {
+                            "title": "fim",
+                            "p": "text <b>conteúdo de bold</b>"
+                        },
+                        {
+                            "title": "aninhado",
+                            "p": "text <b>conteúdo <i>de</i> bold</b>"
+                        },
+                    ]
+                },
+                "id": "01"
+            },
+        )
+        result = self.abstract._get_sub_article_abstracts(
+            html=True,
+            allowed_tags=['italic', 'bold'],
+            xml_to_html={'italic': 'i', 'bold': 'b'}
+        )
+        for res, exp in zip(result, expected):
+            with self.subTest(res["lang"]):
+                self.assertDictEqual(exp, res)
+
     def test__get_trans_abstracts(self):
         """
         <trans-abstract xml:lang="pt">
@@ -893,25 +1405,29 @@ class AbstractWithStylesTest(TestCase):
                     "sections": [
                         {
                             "title": "inicio",
-                            "p": "conteúdo de bold text "
+                            "p": "<b>conteúdo de bold</b> text"
                         },
                         {
                             "title": "meio",
-                            "p": "text conteúdo de bold text "
+                            "p": "text <b>conteúdo de bold</b> text"
                         },
                         {
                             "title": "fim",
-                            "p": "text conteúdo de bold"
+                            "p": "text <b>conteúdo de bold</b>"
                         },
                         {
                             "title": "aninhado",
-                            "p": "text conteúdo de bold"
+                            "p": "text <b>conteúdo <i>de</i> bold</b>"
                         },
                     ]
                 }
             },
         )
-        result = self.abstract._get_trans_abstracts()
+        result = self.abstract._get_trans_abstracts(
+            html=True,
+            allowed_tags=['italic', 'bold'],
+            xml_to_html={'italic': 'i', 'bold': 'b'}
+        )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
                 self.assertDictEqual(exp, res)
