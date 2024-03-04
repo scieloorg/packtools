@@ -320,6 +320,10 @@ def match_pubdate(node, pubdate_xpaths):
 
 
 def remove_subtags(node, allowed_tags=None):
+def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
+    return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
+
+
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
 
