@@ -105,9 +105,9 @@ class Abstract:
         """
         out = dict()
 
-        out["title"] = abstract_node.findtext("title") if not html else \
-            process_subtags(abstract_node.find("title"), tags_to_keep, tags_to_remove_with_content,
-                            tags_to_convert_to_html)
+        out["title"] = process_subtags(abstract_node.find("title"), tags_to_keep, tags_to_remove_with_content,
+                                       tags_to_convert_to_html) if html else abstract_node.findtext("title")
+
         out["lang"] = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
         for node in abstract_node.xpath("sec"):
@@ -117,21 +117,22 @@ class Abstract:
             p = title = None
             node_title = node.find("title")
             if node_title is not None:
-                title = get_node_without_subtag(node_title) if not html else \
-                    process_subtags(node_title, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+                title = process_subtags(node_title, tags_to_keep, tags_to_remove_with_content,
+                                        tags_to_convert_to_html) if html else get_node_without_subtag(node_title)
 
             node_p = node.find("p")
             if node_p is not None:
-                p = get_node_without_subtag(node_p) if not html else \
-                    process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+                p = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html) \
+                    if html else get_node_without_subtag(node_p)
 
             out["sections"].append({"title": title, "p": p})
         else:
             # abstract/p
             node_p = abstract_node.find("p")
             if node_p is not None:
-                out["p"] = get_node_without_subtag(node_p).strip() if not html else \
-                    process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+                out["p"] = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html) \
+                    if html else get_node_without_subtag(node_p).strip()
+
         return out
 
     def _format_abstract(self, abstract_node, style=None, html=False, tags_to_keep=None,
