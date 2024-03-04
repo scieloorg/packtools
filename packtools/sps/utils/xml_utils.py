@@ -333,15 +333,28 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
 
     Outros exemplos nos testes.
     """
-    if allowed_tags is None:
-        allowed_tags = []
+    # verifica se é o caso de remoção do conteúdo da tag
+    if node.tag in (tags_to_remove_with_content or []):
+        return ''
+
+    # obtem o conteúdo da tag
     text = node.text if node.text is not None else ''
+
+    # processa as tags internas
     for child in node:
-        text += remove_subtags(child, allowed_tags)
+        text += remove_subtags(child, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
         if child.tail is not None:
             text += child.tail
-    if node.tag in allowed_tags:
+
+    # gera uma lista com as tags que serão mantidas
+    all_tags_to_keep = _generate_tag_list(tags_to_keep, tags_to_convert_to_html)
+
+    text = ' '.join(text.split())
+    if node.tag in all_tags_to_keep:
         return f'<{node.tag}>{text}</{node.tag}>'
+    return text
+
+
     else:
         return ' '.join(text.split())
 
