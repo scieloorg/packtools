@@ -355,15 +355,34 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
     return text
 
 
+def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
+    std_to_keep = ['sup', 'sub', 'mml']
+    std_to_remove_content = ['xref']
+    std_to_convert = {'italic': 'i'}
+
+    # garante que as tags em std_to_keep serão mantidas
+    if tags_to_keep is None:
+        tags_to_keep = std_to_keep
     else:
-        return ' '.join(text.split())
+        tags_to_keep = list(set(tags_to_keep + std_to_keep))
 
+    # garante que as tags em std_to_remove_content serão removidas
+    if tags_to_remove_with_content is None:
+        tags_to_remove_with_content = std_to_remove_content
+    else:
+        tags_to_remove_with_content = list(set(tags_to_remove_with_content + std_to_remove_content))
 
-def convert_xml_to_html(node, allowed_tags=None, xml_to_html=None):
-    text = remove_subtags(node, allowed_tags)
-    if xml_to_html is not None and isinstance(xml_to_html, dict):
-        for xml_tag, html_tag in xml_to_html.items():
-            text = text.replace(f'<{xml_tag}', f'<{html_tag}')
-            text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
-            text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
+    # garante que as tags em std_to_convert serão convertidas em html
+    if tags_to_convert_to_html is None or not isinstance(tags_to_convert_to_html, dict):
+        tags_to_convert_to_html = std_to_convert
+    else:
+        tags_to_convert_to_html.update(std_to_convert)
+
+    text = remove_subtags(node, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+
+    for xml_tag, html_tag in tags_to_convert_to_html.items():
+        text = text.replace(f'<{xml_tag}', f'<{html_tag}')
+        text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
+        text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
+
     return text
