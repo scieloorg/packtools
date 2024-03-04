@@ -166,8 +166,7 @@ class AbstractWithSectionsTest(TestCase):
         }
         result = self.abstract.get_main_abstract(
             html=True,
-            allowed_tags=['title', 'italic'],
-            xml_to_html={'title': 't', 'italic': 'i'}
+            tags_to_convert_to_html={'title': 't', 'italic': 'i'}
         )
         self.assertDictEqual(expected, result)
 
@@ -215,9 +214,7 @@ class AbstractWithSectionsTest(TestCase):
         }
         result = self.abstract.get_main_abstract(
             style="inline",
-            html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
+            html=True
         )
         self.assertDictEqual(expected, result)
 
@@ -297,8 +294,6 @@ class AbstractWithSectionsTest(TestCase):
         result = self.abstract.get_main_abstract(
             style="only_p",
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         self.assertDictEqual(expected, result)
 
@@ -471,8 +466,7 @@ class AbstractWithSectionsTest(TestCase):
         )
         result = self.abstract._get_sub_article_abstracts(
             html=True,
-            allowed_tags=['italic', 'bold'],
-            xml_to_html={'italic': 'i', 'bold': 'b'}
+            tags_to_convert_to_html={'bold': 'b'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(res["lang"]):
@@ -550,8 +544,6 @@ class AbstractWithSectionsTest(TestCase):
         )
         result = self.abstract._get_trans_abstracts(
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
@@ -643,7 +635,7 @@ class AbstractWithoutSectionsTest(TestCase):
             'parent_name': 'article',
             "abstract": {
                 "lang": "en",
-                "title": "<t>Abstract</t>",
+                "title": "<title>Abstract</title>",
                 "p": "To examine the effectiveness of day hospital attendance in prolonging independent living for "
                      "elderly people. Systematic review of 12 controlled <i>clinical trials</i> (available by January 1997) "
                      "comparing day hospital care with comprehensive care (five trials), domiciliary care "
@@ -652,8 +644,7 @@ class AbstractWithoutSectionsTest(TestCase):
         }
         result = self.abstract.get_main_abstract(
             html=True,
-            allowed_tags=['title', 'italic'],
-            xml_to_html={'title': 't', 'italic': 'i'}
+            tags_to_keep=['title'],
         )
         self.assertDictEqual(expected, result)
 
@@ -677,8 +668,6 @@ class AbstractWithoutSectionsTest(TestCase):
         result = self.abstract.get_main_abstract(
             style="inline",
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         self.assertDictEqual(expected, result)
 
@@ -717,8 +706,6 @@ class AbstractWithoutSectionsTest(TestCase):
         result = self.abstract.get_main_abstract(
             style="only_p",
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         self.assertDictEqual(expected, result)
 
@@ -837,8 +824,6 @@ class AbstractWithoutSectionsTest(TestCase):
         )
         result = self.abstract._get_sub_article_abstracts(
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(res["lang"]):
@@ -886,8 +871,6 @@ class AbstractWithoutSectionsTest(TestCase):
         )
         result = self.abstract._get_trans_abstracts(
             html=True,
-            allowed_tags=['italic'],
-            xml_to_html={'italic': 'i'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
@@ -1053,30 +1036,30 @@ class AbstractWithStylesTest(TestCase):
             'parent_name': 'article',
             "abstract": {
                 "lang": "en",
-                "title": "<t>Abstract</t>",
+                "title": "<title>Abstract</title>",
                 "sections": [{
-                    "title": "<t>inicio</t>",
+                    "title": "<title>inicio</title>",
                     "p": "<b>conteúdo de bold</b> text",
                 },
                     {
-                        "title": "<t>meio</t>",
+                        "title": "<title>meio</title>",
                         "p": "text <b>conteúdo de bold</b> text",
                     },
                     {
-                        "title": "<t>fim</t>",
+                        "title": "<title>fim</title>",
                         "p": "text <b>conteúdo de bold</b>",
                     },
                     {
-                        "title": "<t>aninhado</t>",
-                        "p": "text <b>conteúdo de bold</b>",
+                        "title": "<title>aninhado</title>",
+                        "p": "text <b>conteúdo <i>de</i> bold</b>",
 
                     }],
             }
         }
         result = self.abstract.get_main_abstract(
             html=True,
-            allowed_tags=['title', 'bold'],
-            xml_to_html={'title': 't', 'bold': 'b'}
+            tags_to_keep=['title'],
+            tags_to_convert_to_html={'bold': 'b'}
         )
         self.assertDictEqual(expected, result)
 
@@ -1144,8 +1127,7 @@ class AbstractWithStylesTest(TestCase):
         result = self.abstract.get_main_abstract(
             style="inline",
             html=True,
-            allowed_tags=['italic', 'bold'],
-            xml_to_html={'italic': 'i', 'bold': 'b'}
+            tags_to_convert_to_html={'bold': 'b'}
         )
         self.assertDictEqual(expected, result)
 
@@ -1239,8 +1221,7 @@ class AbstractWithStylesTest(TestCase):
         result = self.abstract.get_main_abstract(
             style="only_p",
             html=True,
-            allowed_tags=['italic', 'bold'],
-            xml_to_html={'italic': 'i', 'bold': 'b'}
+            tags_to_convert_to_html={'italic': 'i', 'bold': 'b'}
         )
         self.assertDictEqual(expected, result)
 
@@ -1365,8 +1346,7 @@ class AbstractWithStylesTest(TestCase):
         )
         result = self.abstract._get_sub_article_abstracts(
             html=True,
-            allowed_tags=['italic', 'bold'],
-            xml_to_html={'italic': 'i', 'bold': 'b'}
+            tags_to_convert_to_html={'italic': 'i', 'bold': 'b'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(res["lang"]):
@@ -1425,8 +1405,7 @@ class AbstractWithStylesTest(TestCase):
         )
         result = self.abstract._get_trans_abstracts(
             html=True,
-            allowed_tags=['italic', 'bold'],
-            xml_to_html={'italic': 'i', 'bold': 'b'}
+            tags_to_convert_to_html={'italic': 'i', 'bold': 'b'}
         )
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
