@@ -72,7 +72,7 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 </sub-article>
 </article>
 """
-from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag, convert_xml_to_html
+from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag, process_subtags
 
 
 class Abstract:
@@ -80,7 +80,8 @@ class Abstract:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def _get_structured_abstract(self, abstract_node, html=False, allowed_tags=None, xml_to_html=None):
+    def _get_structured_abstract(self, abstract_node, html=False, tags_to_keep=None, tags_to_remove_with_content=None,
+                                 tags_to_convert_to_html=None):
         """
         Retorna o resumo estruturado
 
@@ -105,7 +106,8 @@ class Abstract:
         out = dict()
 
         out["title"] = abstract_node.findtext("title") if not html else \
-            convert_xml_to_html(abstract_node.find("title"), allowed_tags, xml_to_html)
+            process_subtags(abstract_node.find("title"), tags_to_keep, tags_to_remove_with_content,
+                            tags_to_convert_to_html)
         out["lang"] = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
         for node in abstract_node.xpath("sec"):
@@ -116,12 +118,12 @@ class Abstract:
             node_title = node.find("title")
             if node_title is not None:
                 title = get_node_without_subtag(node_title) if not html else \
-                    convert_xml_to_html(node_title, allowed_tags, xml_to_html)
+                    process_subtags(node_title, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
 
             node_p = node.find("p")
             if node_p is not None:
                 p = get_node_without_subtag(node_p) if not html else \
-                    convert_xml_to_html(node_p, allowed_tags, xml_to_html)
+                    process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
 
             out["sections"].append({"title": title, "p": p})
         else:
@@ -129,10 +131,11 @@ class Abstract:
             node_p = abstract_node.find("p")
             if node_p is not None:
                 out["p"] = get_node_without_subtag(node_p).strip() if not html else \
-                    convert_xml_to_html(node_p, allowed_tags, xml_to_html)
+                    process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
         return out
 
-    def _format_abstract(self, abstract_node, style=None, html=False, allowed_tags=None, xml_to_html=None):
+    def _format_abstract(self, abstract_node, style=None, html=False, tags_to_keep=None,
+                         tags_to_remove_with_content=None, tags_to_convert_to_html=None):
         if style == "xml":
             # formato xml
             return node_text(abstract_node)
@@ -140,7 +143,8 @@ class Abstract:
         if style == "inline":
             # retorna o conteúdo do nó abstract como str
             if html:
-                return convert_xml_to_html(abstract_node, allowed_tags, xml_to_html)
+                return process_subtags(abstract_node, tags_to_keep, tags_to_remove_with_content,
+                                       tags_to_convert_to_html)
             return get_node_without_subtag(abstract_node, remove_extra_spaces=True)
 
         if style == "only_p":
@@ -148,20 +152,63 @@ class Abstract:
             texts = []
             for node_p in abstract_node.xpath(".//p"):
                 if html:
-                    p_text = convert_xml_to_html(node_p, allowed_tags, xml_to_html)
+                    p_text = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
                 else:
                     p_text = get_node_without_subtag(node_p)
                 texts.append(p_text.strip())
             return " ".join(texts)
 
         # retorna abstract em formato de dicionário
-        return self._get_structured_abstract(abstract_node, html, allowed_tags, xml_to_html)
+        return self._get_structured_abstract(abstract_node, html, tags_to_keep, tags_to_remove_with_content,
+                                             tags_to_convert_to_html)
 
-    def get_main_abstract(self, style=None, html=False, allowed_tags=None, xml_to_html=None):
+    def get_main_abstract(self, style=None, html=False, tags_to_keep=None, tags_to_remove_with_content=None,
+                          tags_to_convert_to_html=None):
         """
-        Retorna o resumo principal no formato indicado.
-        Formato padrão: inline
+        Obtem o resumo principal
 
+        Params
+        ------
+        style : str
+            xml -> conteúdo de 'abstract' no formato XML
+            inline -> conteúdo de 'abstract' no formato str
+            only_p -> conteúdo de 'abstract//p' no formato str
+            O formato padrão (style=None) retorna o conteúdo de 'abstract' no formato estruturado (dict):
+                {
+                    "title": "Abstract",
+                    "lang": lang,
+                    "sections": [
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                    ],
+                    "p": "",
+                }
+        html : bool
+            True -> conteúdo de 'abstract' no formato HTML
+            False -> conteúdo de 'abstract' no formato indicado por 'style' (padrão)
+        tags_to_keep : list
+            Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+        tags_to_remove_with_content : list
+            Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
+            os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
+        tags_to_convert_to_html : dict
+            Dicionário no formato 'tag_xml': 'tag_html' para a conversão de formatos,
+            os valores em 'tags_to_convert_to_html' serão complementados com o seguite: {'italic': 'i'} (padrão)
+
+        Returns
+        -------
+        {
+            "parent_name": "article",
+            "lang": idioma do 'abstract',
+            "abstract": resumo no formato indicado
+        }
         """
         abstract_node = self.xmltree.find(".//article-meta//abstract")
         if abstract_node is not None:
@@ -169,8 +216,9 @@ class Abstract:
                 abstract_node=abstract_node,
                 style=style,
                 html=html,
-                allowed_tags=allowed_tags,
-                xml_to_html=xml_to_html
+                tags_to_keep=tags_to_keep,
+                tags_to_remove_with_content=tags_to_remove_with_content,
+                tags_to_convert_to_html=tags_to_convert_to_html
             )
             article_lang = self.xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
             abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -182,9 +230,55 @@ class Abstract:
                 "abstract": abstract
             }
 
-    def _get_sub_article_abstracts(self, style=None, html=False, allowed_tags=None, xml_to_html=None):
+    def _get_sub_article_abstracts(self, style=None, html=False, tags_to_keep=None, tags_to_remove_with_content=None,
+                                   tags_to_convert_to_html=None):
         """
-        Retorna gerador de resumos em sub-article
+        Obtem os resumos em 'sub-article'
+
+        Params
+        ------
+        style : str
+            xml -> conteúdo de 'abstract' no formato XML
+            inline -> conteúdo de 'abstract' no formato str
+            only_p -> conteúdo de 'abstract//p' no formato str
+            O formato padrão (style=None) retorna o conteúdo de 'abstract' no formato estruturado (dict):
+                {
+                    "title": "Abstract",
+                    "lang": lang,
+                    "sections": [
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                    ],
+                    "p": "",
+                }
+        html : bool
+            True -> conteúdo de 'abstract' no formato HTML
+            False -> conteúdo de 'abstract' no formato indicado por 'style' (padrão)
+        tags_to_keep : list
+            Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+        tags_to_remove_with_content : list
+            Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
+            os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
+        tags_to_convert_to_html : dict
+            Dicionário no formato 'tag_xml': 'tag_html' para a conversão de formatos,
+            os valores em 'tags_to_convert_to_html' serão complementados com o seguite: {'italic': 'i'} (padrão)
+
+        Returns
+        -------
+        Gerador de:
+            {
+                "parent_name": "sub-article",
+                "lang": idioma do 'abstract',
+                "abstract": resumo no formato indicado,
+                "id": identificador do 'sub-article'
+            }
         """
         for sub_article in self.xmltree.xpath(".//sub-article"):
             abstract_node = sub_article.find(".//front-stub//abstract")
@@ -198,17 +292,63 @@ class Abstract:
                     abstract_node=abstract_node,
                     style=style,
                     html=html,
-                    allowed_tags=allowed_tags,
-                    xml_to_html=xml_to_html
+                    tags_to_keep=tags_to_keep,
+                    tags_to_remove_with_content=tags_to_remove_with_content,
+                    tags_to_convert_to_html=tags_to_convert_to_html
                 )
                 if not style:
                     item["abstract"]["lang"] = item["lang"]
                 item['id'] = sub_article.get("id")
                 yield item
 
-    def _get_trans_abstracts(self, style=None, html=False, allowed_tags=None, xml_to_html=None):
+    def _get_trans_abstracts(self, style=None, html=False, tags_to_keep=None, tags_to_remove_with_content=None,
+                             tags_to_convert_to_html=None):
         """
-        Retorna gerador de resumos trans-abstract
+        Obtem os resumos em 'trans-abstract'
+
+        Params
+        ------
+        style : str
+            xml -> conteúdo de 'trans-abstract' no formato XML
+            inline -> conteúdo de 'trans-abstract' no formato str
+            only_p -> conteúdo de 'trans-abstract//p' no formato str
+            O formato padrão (style=None) retorna o conteúdo de 'abstract' no formato estruturado (dict):
+                {
+                    "title": "Abstract",
+                    "lang": lang,
+                    "sections": [
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                        {
+                            "title": "",
+                            "p": "",
+                        },
+                    ],
+                    "p": "",
+                }
+        html : bool
+            True -> conteúdo de 'trans-abstract' no formato HTML
+            False -> conteúdo de 'trans-abstract' no formato indicado por 'style' (padrão)
+        tags_to_keep : list
+            Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+        tags_to_remove_with_content : list
+            Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
+            os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
+        tags_to_convert_to_html : dict
+            Dicionário no formato 'tag_xml': 'tag_html' para a conversão de formatos,
+            os valores em 'tags_to_convert_to_html' serão complementados com o seguite: {'italic': 'i'} (padrão)
+
+        Returns
+        -------
+        Gerador de:
+            {
+                "parent_name": "article",
+                "lang": idioma do 'trans-abstract',
+                "abstract": resumo no formato indicado
+            }
         """
         for trans_abstract in self.xmltree.xpath(".//trans-abstract"):
             item = {}
@@ -218,8 +358,9 @@ class Abstract:
                 abstract_node=trans_abstract,
                 style=style,
                 html=html,
-                allowed_tags=allowed_tags,
-                xml_to_html=xml_to_html
+                tags_to_keep=tags_to_keep,
+                tags_to_remove_with_content=tags_to_remove_with_content,
+                tags_to_convert_to_html=tags_to_convert_to_html
             )
             yield item
 
