@@ -1,6 +1,7 @@
 class ValidationArticleDataError(Exception):
     """ The root of Article data exceptions.
     """
+
     def __init__(self, *args: object, message, line):
         super().__init__(*args)
         self.message = message
@@ -58,12 +59,18 @@ class ValidationLicenseException(Exception):
 class ValidationLicenseCodeException(Exception):
     ...
 
-  
+
 class ValidationDataAvailabilityException(Exception):
     ...
+
 
 class ValidationIssueMissingValue(Exception):
     ...
 
+
 class ValidationJournalMetaException(Exception):
+    ...
+
+
+class ValidationArticleCitationsException(Exception):
     ...
