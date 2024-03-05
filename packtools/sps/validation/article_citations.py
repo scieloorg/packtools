@@ -132,3 +132,41 @@ class ArticleCitationsValidation:
                                                     f"provide a valid value to article-title"
                 }
 
+    def validate_article_citation_authors(self):
+        """
+        Checks if there are authors for the article citation.
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'element citation validation',
+                    'element': 'element-citation',
+                    'sub-element': 'person-group//name or person-group//colab',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'at least 1 author in each element-citation',
+                    'got_value': '5 authors',
+                    'message': f'Got 5 authors expected at least 1 author in each element-citation',
+                    'advice': None
+                },...
+            ]
+        """
+        for citation in self.article_citations:
+            number_authors = len(citation.get('all_authors')) if citation.get('all_authors') else 0
+            is_valid = number_authors > 0
+            yield {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'person-group//name or person-group//colab',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': 'at least 1 author in each element-citation',
+                'got_value': f'{number_authors} authors',
+                'message': f'Got {number_authors} authors expected at least 1 author in each element-citation',
+                'advice': None if is_valid else f"There are no authors for the reference (ref-id: {citation.get('ref_id')}) "
+                                                f"provide at least 1 author"
+            }
+
