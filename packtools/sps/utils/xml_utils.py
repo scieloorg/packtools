@@ -145,7 +145,7 @@ def get_node_without_subtag(node, remove_extra_spaces=False):
         Função que retorna nó sem subtags.
     """
     if remove_extra_spaces:
-        return " ".join([text.strip()for text in node.xpath(".//text()") if text.strip()])
+        return " ".join([text.strip() for text in node.xpath(".//text()") if text.strip()])
     return "".join(node.xpath(".//text()"))
 
 
@@ -317,3 +317,67 @@ def match_pubdate(node, pubdate_xpaths):
         pubdate = node.find(xpath)
         if pubdate is not None:
             return pubdate
+
+
+def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
+    return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
+
+
+def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
+    """
+    Remove as subtags de node que não estiverem especificadas em allowed_tags.
+
+    Exemplo:
+        Entrada: <bold><italic>São</italic> Paulo</bold> <i>Paulo</i>, ['italic']
+        Saída: <italic>São</italic> Paulo Paulo
+
+    Outros exemplos nos testes.
+    """
+    # verifica se é o caso de remoção do conteúdo da tag
+    if node.tag in (tags_to_remove_with_content or []):
+        return ''
+
+    # obtem o conteúdo da tag
+    text = node.text if node.text is not None else ''
+
+    # processa as tags internas
+    for child in node:
+        text += remove_subtags(child, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+        if child.tail is not None:
+            text += child.tail
+
+    # gera uma lista com as tags que serão mantidas
+    all_tags_to_keep = _generate_tag_list(tags_to_keep, tags_to_convert_to_html)
+
+    text = ' '.join(text.split())
+    if node.tag in all_tags_to_keep:
+        return f'<{node.tag}>{text}</{node.tag}>'
+    return text
+
+
+def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
+    std_to_keep = ['sup', 'sub', 'mml:math', 'math']
+    std_to_remove_content = ['xref']
+    std_to_convert = {'italic': 'i'}
+
+    # garante que as tags em std_to_keep serão mantidas
+    if tags_to_keep is None:
+        tags_to_keep = std_to_keep
+    else:
+        tags_to_keep = list(set(tags_to_keep + std_to_keep))
+
+    # garante que as tags em std_to_remove_content serão removidas
+    tags_to_remove_with_content = std_to_remove_content + (tags_to_remove_with_content or [])
+    tags_to_remove_with_content = list(set(tags_to_remove_with_content))
+
+    # garante que as tags em std_to_convert serão convertidas em html
+    std_to_convert.update(tags_to_convert_to_html or {})
+
+    text = remove_subtags(node, tags_to_keep, tags_to_remove_with_content, std_to_convert)
+
+    for xml_tag, html_tag in std_to_convert.items():
+        text = text.replace(f'<{xml_tag} ', f'<{html_tag} ')
+        text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
+        text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
+
+    return text
