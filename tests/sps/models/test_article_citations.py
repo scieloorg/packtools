@@ -68,6 +68,7 @@ class AuthorsTest(TestCase):
             {
                 'ref_id': 'B1',
                 'label': '1',
+                'publication_type': 'journal',
                 'author_type': 'person',
                 'mixed_citation': '1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially '
                                   'preventable hospitalisation: the benefit of smoking cessation in older ages. Drug '
@@ -130,6 +131,7 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'ref_id': 'B2',
+                'publication_type': 'book',
                 'author_type': 'person',
                 'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
@@ -182,6 +184,7 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 'ref_id': 'B2',
+                'publication_type': 'other',
                 'author_type': 'institutional',
                 'mixed_citation': '2. Brasil. Lei n. o 10.332, de 19/12/2001. Instituiu '
                                   'mecanismo de financiamento para o programa de ciência e '
