@@ -1,0 +1,983 @@
+from unittest import TestCase
+
+from lxml import etree
+
+from packtools.sps.validation.article_citations import ArticleCitationsValidation
+
+
+class ArticleCitationsValidationTest(TestCase):
+    def test_validate_article_citation_year_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'year',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '2015',
+                'got_value': '2015',
+                'message': f'Got 2015 expected 2015',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_year_fail_invalid(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>201a</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'year',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a valid value to year',
+                'got_value': '201a',
+                'message': f'Got 201a expected a valid value to year',
+                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value to year'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_year_fail_missing(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'year',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a valid value to year',
+                'got_value': None,
+                'message': f'Got None expected a valid value to year',
+                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value to year'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_source_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_source())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'source',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Drug Alcohol Depend.',
+                'got_value': 'Drug Alcohol Depend.',
+                'message': 'Got Drug Alcohol Depend. expected Drug Alcohol Depend.',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_source_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_source())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'source',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a valid value to source',
+                'got_value': None,
+                'message': 'Got None expected a valid value to source',
+                'advice': 'The source in reference (ref-id: B1) is missing provide a valid value to source'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_article_title_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_article_title())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'article-title',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
+                                  'cessation in older ages',
+                'got_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                             'in older ages',
+                'message': 'Got Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                           'in older ages expected Smoking and potentially preventable hospitalisation: the benefit '
+                           'of smoking cessation in older ages',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_citation_article_title_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_article_title())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'article-title',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a valid value to article-title',
+                'got_value': None,
+                'message': 'Got None expected a valid value to article-title',
+                'advice': 'The article-title in reference (ref-id: B1) is missing provide a valid value to article-title'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_authors_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_authors())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'person-group//name or person-group//colab',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'at least 1 author in each element-citation',
+                'got_value': '5 authors',
+                'message': f'Got 5 authors expected at least 1 author in each element-citation',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_authors_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation_authors())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'person-group//name or person-group//colab',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'at least 1 author in each element-citation',
+                'got_value': '0 authors',
+                'message': f'Got 0 authors expected at least 1 author in each element-citation',
+                'advice': 'There are no authors for the reference (ref-id: B1) provide at least 1 author'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_publication_type_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = ArticleCitationsValidation(data).validate_article_citation_publication_type(
+            publication_type_list=['journal', 'book'])
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'publication-type',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['journal', 'book'],
+                'got_value': 'journal',
+                'message': 'Got journal expected one item of this list: journal | book',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_citation_publication_type_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = ArticleCitationsValidation(data).validate_article_citation_publication_type(
+            publication_type_list=['other', 'book'])
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'publication-type',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['other', 'book'],
+                'got_value': 'journal',
+                'message': 'Got journal expected one item of this list: other | book',
+                'advice': 'publication-type for the reference (ref-id: B1) is missing or is invalid, '
+                          'provide one value from the list: other | book',
+            },
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_validate_article_citation_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        data = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(data).validate_article_citation(publication_type_list=['journal', 'book']))
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'year',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '2015',
+                'got_value': '2015',
+                'message': f'Got 2015 expected 2015',
+                'advice': None
+            },
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'source',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Drug Alcohol Depend.',
+                'got_value': 'Drug Alcohol Depend.',
+                'message': 'Got Drug Alcohol Depend. expected Drug Alcohol Depend.',
+                'advice': None
+            },
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'article-title',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
+                                  'cessation in older ages',
+                'got_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                             'in older ages',
+                'message': 'Got Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                           'in older ages expected Smoking and potentially preventable hospitalisation: the benefit '
+                           'of smoking cessation in older ages',
+                'advice': None
+            },
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'person-group//name or person-group//colab',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'at least 1 author in each element-citation',
+                'got_value': '5 authors',
+                'message': f'Got 5 authors expected at least 1 author in each element-citation',
+                'advice': None
+            },
+            {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'publication-type',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['journal', 'book'],
+                'got_value': 'journal',
+                'message': 'Got journal expected one item of this list: journal | book',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
