@@ -170,3 +170,44 @@ class ArticleCitationsValidation:
                                                 f"provide at least 1 author"
             }
 
+    def validate_article_citation_publication_type(self, publication_type_list=None):
+        """
+        Checks if the publication type is present in the list of default values.
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'element citation validation',
+                    'element': 'element-citation',
+                    'sub-element': 'publication-type',
+                    'validation_type': 'value in list',
+                    'response': 'OK',
+                    'expected_value': ['journal', 'book'],
+                    'got_value': 'journal',
+                    'message': 'Got journal expected one item of this list: journal | book',
+                    'advice': None
+                },...
+            ]
+        """
+        publication_type_list = publication_type_list or self.publication_type_list
+        if publication_type_list is None:
+            raise ValidationArticleCitationsException('Function requires list of publications type')
+        for citation in self.article_citations:
+            publication_type = citation.get('publication_type')
+            is_valid = publication_type in publication_type_list
+            yield {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'publication-type',
+                'validation_type': 'value in list',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': publication_type_list,
+                'got_value': publication_type,
+                'message': f'Got {publication_type} expected one item of this list: {" | ".join(publication_type_list)}',
+                'advice': None if is_valid else f"publication-type for the reference (ref-id: {citation.get('ref_id')}) "
+                                                f"is missing or is invalid, provide one value from the list: {' | '.join(publication_type_list)}"
+            }
+
