@@ -50,3 +50,41 @@ class ArticleCitationsValidation:
                                                 f"or is invalid, provide a valid value to year"
             }
 
+    def validate_article_citation_source(self):
+        """
+        Checks whether the source in an article citation exists.
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'element citation validation',
+                    'element': 'element-citation',
+                    'sub-element': 'source',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'Drug Alcohol Depend.',
+                    'got_value': 'Drug Alcohol Depend.',
+                    'message': 'Got Drug Alcohol Depend. expected Drug Alcohol Depend.',
+                    'advice': None
+                },...
+            ]
+        """
+        for citation in self.article_citations:
+            source = citation.get('source')
+            is_valid = source is not None
+            yield {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'source',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': source if is_valid else 'a valid value to source',
+                'got_value': source,
+                'message': f'Got {source} expected {source if is_valid else "a valid value to source"}',
+                'advice': None if is_valid else f"The source in reference (ref-id: {citation.get('ref_id')}) is missing "
+                                                f"provide a valid value to source"
+            }
+
