@@ -88,3 +88,47 @@ class ArticleCitationsValidation:
                                                 f"provide a valid value to source"
             }
 
+    def validate_article_citation_article_title(self):
+        """
+        Checks whether the article title in an article citation exists.
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'element citation validation',
+                    'element': 'element-citation',
+                    'sub-element': 'article-title',
+                    'validation_type': 'exist',
+                    'response': 'OK',
+                    'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
+                                      'cessation in older ages',
+                    'got_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                                 'in older ages',
+                    'message': 'Got Smoking and potentially preventable hospitalisation: the benefit of smoking cessation '
+                               'in older ages expected Smoking and potentially preventable hospitalisation: the benefit '
+                               'of smoking cessation in older ages',
+                    'advice': None
+                },...
+            ]
+        """
+        for citation in self.article_citations:
+            publication_type = citation.get('publication_type')
+            if publication_type == 'journal':
+                article_title = citation.get('article_title')
+                is_valid = article_title is not None
+                yield {
+                    'title': 'element citation validation',
+                    'element': 'element-citation',
+                    'sub-element': 'article-title',
+                    'validation_type': 'exist',
+                    'response': 'OK' if is_valid else 'ERROR',
+                    'expected_value': article_title if is_valid else 'a valid value to article-title',
+                    'got_value': article_title,
+                    'message': f'Got {article_title} expected {article_title if is_valid else "a valid value to article-title"}',
+                    'advice': None if is_valid else f"The article-title in reference (ref-id: {citation.get('ref_id')}) is missing "
+                                                    f"provide a valid value to article-title"
+                }
+
