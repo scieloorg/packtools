@@ -211,3 +211,13 @@ class ArticleCitationsValidation:
                                                 f"is missing or is invalid, provide one value from the list: {' | '.join(publication_type_list)}"
             }
 
+    def validate_article_citation(self, publication_type_list=None):
+        yield from self.validate_article_citation_year()
+        yield from self.validate_article_citation_source()
+        yield from self.validate_article_citation_article_title()
+        yield from self.validate_article_citation_authors()
+        yield from self.validate_article_citation_publication_type(publication_type_list)
+
+
+
+
