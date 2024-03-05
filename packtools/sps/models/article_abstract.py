@@ -105,8 +105,10 @@ class Abstract:
         """
         out = dict()
 
-        out["title"] = process_subtags(abstract_node.find("title"), tags_to_keep, tags_to_remove_with_content,
-                                       tags_to_convert_to_html) if html else abstract_node.findtext("title")
+        node_title = abstract_node.find("title")
+
+        out["title"] = process_subtags(node_title, tags_to_keep, tags_to_remove_with_content,
+                                       tags_to_convert_to_html) if html else get_node_without_subtag(node_title)
 
         out["lang"] = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
@@ -195,7 +197,7 @@ class Abstract:
             False -> conteúdo de 'abstract' no formato indicado por 'style' (padrão)
         tags_to_keep : list
             Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
-            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml:math', 'math'] (padrão)
         tags_to_remove_with_content : list
             Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
             os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
@@ -263,7 +265,7 @@ class Abstract:
             False -> conteúdo de 'abstract' no formato indicado por 'style' (padrão)
         tags_to_keep : list
             Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
-            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml:math', 'math'] (padrão)
         tags_to_remove_with_content : list
             Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
             os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
@@ -334,7 +336,7 @@ class Abstract:
             False -> conteúdo de 'trans-abstract' no formato indicado por 'style' (padrão)
         tags_to_keep : list
             Lista de 'tags' que serão mantidas no formato HTML, os valores em 'tags_to_keep' serão
-            complementados com as seguites 'tags': ['sup', 'sub', 'mml'] (padrão)
+            complementados com as seguites 'tags': ['sup', 'sub', 'mml:math', 'math'] (padrão)
         tags_to_remove_with_content : list
             Lista de 'tags' que serão removidas com o respectivo conteúdo no formato HTML,
             os valores em 'tags_to_remove_with_content' serão complementados com as seguites 'tags': ['xref'] (padrão)
