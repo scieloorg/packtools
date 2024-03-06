@@ -262,6 +262,40 @@ class NodeTextTest(TestCase):
         )
         self.assertEqual(expected, obtained)
 
+    def test_convert_xml_to_html_with_attribs(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <article>
+                <front>
+                <journal-meta>
+                    <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                    <journal-title-group>
+                        <journal-title>Revista de Saúde Pública</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+                    </journal-title-group>
+                    <issn pub-type="ppub">0034-8910</issn>
+                    <issn pub-type="epub">1518-8787</issn>
+                    <publisher>
+                        <publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+                    </publisher>
+                </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        expected = '<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id> ' \
+                   'Revista de Saúde Pública ' \
+                   '<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title> ' \
+                   '<issn pub-type="ppub">0034-8910</issn> ' \
+                   '<issn pub-type="epub">1518-8787</issn> ' \
+                   'Faculdade de Saúde Pública da Universidade de São Paulo'
+        obtained = xml_utils.process_subtags(
+            xmltree.find(".//front"),
+            tags_to_keep=['journal-id', 'abbrev-journal-title', 'issn']
+        )
+        self.assertEqual(expected, obtained)
+
 
 class NodeTextWithoutXrefTest(TestCase):
 
