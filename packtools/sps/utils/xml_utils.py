@@ -346,12 +346,15 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
 
     Outros exemplos nos testes.
     """
-    # verifica se é o caso de remoção do conteúdo da tag
-    if node.tag in (tags_to_remove_with_content or []):
-        return ''
 
-    # obtem o conteúdo da tag
+    # obtem a tag, seu conteúdo e seus atributos
+    tag = _handles_namespace(node) # trata possíves namespaces
     text = node.text if node.text is not None else ''
+    attribs = ' '.join(f'{key}="{value}"' for key, value in node.attrib.items())
+
+    # verifica se é o caso de remoção do conteúdo da tag
+    if tag in (tags_to_remove_with_content or []):
+        return ''
 
     # processa as tags internas
     for child in node:
@@ -363,13 +366,15 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
     all_tags_to_keep = _generate_tag_list(tags_to_keep, tags_to_convert_to_html)
 
     text = ' '.join(text.split())
-    if node.tag in all_tags_to_keep:
-        return f'<{node.tag}>{text}</{node.tag}>'
+    if tag in all_tags_to_keep:
+        if attribs:
+            return f'<{tag} {attribs}>{text}</{tag}>'
+        return f'<{tag}>{text}</{tag}>'
     return text
 
 
 def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
-    std_to_keep = ['sup', 'sub', 'mml:math', 'math']
+    std_to_keep = ['sup', 'sub', 'mml:math', 'mml:mrow', 'mml:msqrt', 'mml:mn', 'math']
     std_to_remove_content = ['xref']
     std_to_convert = {'italic': 'i'}
 
