@@ -144,6 +144,8 @@ def get_node_without_subtag(node, remove_extra_spaces=False):
     """
         Função que retorna nó sem subtags.
     """
+    if node is None:
+        return
     if remove_extra_spaces:
         return " ".join([text.strip() for text in node.xpath(".//text()") if text.strip()])
     return "".join(node.xpath(".//text()"))
