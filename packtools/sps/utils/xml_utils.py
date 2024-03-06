@@ -321,6 +321,17 @@ def match_pubdate(node, pubdate_xpaths):
             return pubdate
 
 
+def _handles_namespace(node):
+    # converte de <{http://www.w3.org/1998/Math/MathML}mrow> para <mml:mrow>
+    ns = {'{http://www.w3.org/1998/Math/MathML}': 'mml:'}
+
+    tag = str(node.tag)
+    for key, value in ns.items():
+        tag = tag.replace(key, value)
+
+    return tag
+
+
 def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
     return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
 
