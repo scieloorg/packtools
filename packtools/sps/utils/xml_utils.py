@@ -115,11 +115,11 @@ def get_xml_tree(content):
         return xml_tree
 
 
-def tostring(node, doctype=None, pretty_print=False):
+def tostring(node, doctype=None, pretty_print=False, xml_declaration=True):
     return etree.tostring(
         node,
         doctype=doctype,
-        xml_declaration=True,
+        xml_declaration=xml_declaration,
         method="xml",
         encoding="utf-8",
         pretty_print=pretty_print,
@@ -336,7 +336,7 @@ def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
     return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
 
 
-def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
+def remove_subtags(node, tags_to_keep=None, tags_to_keep_with_content=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
 
@@ -352,13 +352,17 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
     text = node.text if node.text is not None else ''
     attribs = ' '.join(f'{key}="{value}"' for key, value in node.attrib.items())
 
+    # verifica se é o caso de manutenção da tag e seu conteúdo
+    if tag in (tags_to_keep_with_content or []):
+        return tostring(node, xml_declaration=False)
+
     # verifica se é o caso de remoção do conteúdo da tag
     if tag in (tags_to_remove_with_content or []):
         return ''
 
     # processa as tags internas
     for child in node:
-        text += remove_subtags(child, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+        text += remove_subtags(child, tags_to_keep, tags_to_keep_with_content, tags_to_remove_with_content, tags_to_convert_to_html)
         if child.tail is not None:
             text += child.tail
 
@@ -373,8 +377,14 @@ def remove_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, ta
     return text
 
 
-def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, tags_to_convert_to_html=None):
-    std_to_keep = ['sup', 'sub', 'mml:math', 'mml:mrow', 'mml:msqrt', 'mml:mn', 'math']
+def process_subtags(
+        node, tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None
+):
+    std_to_keep = ['sup', 'sub']
+    std_to_keep_with_content = ['mml:math', 'math']
     std_to_remove_content = ['xref']
     std_to_convert = {'italic': 'i'}
 
@@ -384,6 +394,16 @@ def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, t
     else:
         tags_to_keep = list(set(tags_to_keep + std_to_keep))
 
+    # garante que as tags em std_to_keep_with_content serão mantidas
+    if tags_to_keep_with_content is None:
+        tags_to_keep_with_content = std_to_keep_with_content
+    else:
+        tags_to_keep_with_content = list(set(tags_to_keep_with_content + std_to_keep_with_content))
+
+    # verifica se é o caso de manutenção da tag e seu conteúdo
+    if node.tag in tags_to_keep_with_content:
+        return tostring(node)
+
     # garante que as tags em std_to_remove_content serão removidas
     tags_to_remove_with_content = std_to_remove_content + (tags_to_remove_with_content or [])
     tags_to_remove_with_content = list(set(tags_to_remove_with_content))
@@ -391,7 +411,7 @@ def process_subtags(node, tags_to_keep=None, tags_to_remove_with_content=None, t
     # garante que as tags em std_to_convert serão convertidas em html
     std_to_convert.update(tags_to_convert_to_html or {})
 
-    text = remove_subtags(node, tags_to_keep, tags_to_remove_with_content, std_to_convert)
+    text = remove_subtags(node, tags_to_keep, tags_to_keep_with_content, tags_to_remove_with_content, std_to_convert)
 
     for xml_tag, html_tag in std_to_convert.items():
         text = text.replace(f'<{xml_tag} ', f'<{html_tag} ')
