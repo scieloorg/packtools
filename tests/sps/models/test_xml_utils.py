@@ -152,15 +152,17 @@ class NodeTextTest(TestCase):
     def test_process_subtags_keeps_math(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML">
-            <article-title>Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de 
-            <inline-formula><mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt>
-            </mml:mrow></mml:math></inline-formula> </article-title>
-            </article>
-            """
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<article-title xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            'Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de ' 
+            '<inline-formula><mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt>'
+            '</mml:mrow></mml:math></inline-formula> </article-title>'
+            '</article>'
         )
-        expected = 'Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de <mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt></mml:mrow></mml:math>'
+        expected = ('Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de '
+                    '<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML" display="inline" '
+                    'id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt></mml:mrow></mml:math>')
+
         obtained = xml_utils.process_subtags(xmltree.find(".//article-title"))
         self.assertEqual(expected, obtained)
 
@@ -284,12 +286,16 @@ class NodeTextTest(TestCase):
             </article>
             """
         )
-        expected = '<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id> ' \
-                   'Revista de Saúde Pública ' \
-                   '<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title> ' \
-                   '<issn pub-type="ppub">0034-8910</issn> ' \
-                   '<issn pub-type="epub">1518-8787</issn> ' \
-                   'Faculdade de Saúde Pública da Universidade de São Paulo'
+
+        expected = (
+            '<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id> '
+            'Revista de Saúde Pública '
+            '<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title> '
+            '<issn pub-type="ppub">0034-8910</issn> '
+            '<issn pub-type="epub">1518-8787</issn> '
+            'Faculdade de Saúde Pública da Universidade de São Paulo'
+        )
+
         obtained = xml_utils.process_subtags(
             xmltree.find(".//front"),
             tags_to_keep=['journal-id', 'abbrev-journal-title', 'issn']
