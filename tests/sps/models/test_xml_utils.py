@@ -152,16 +152,31 @@ class NodeTextTest(TestCase):
     def test_process_subtags_keeps_math(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML">
-            <article-title>Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de 
-            <inline-formula><mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt>
-            </mml:mrow></mml:math></inline-formula> </article-title>
-            </article>
-            """
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            '<article-title xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+            'Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de ' 
+            '<inline-formula><mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt>'
+            '</mml:mrow></mml:math></inline-formula> </article-title>'
+            '</article>'
         )
-        expected = 'Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de <mml:math display="inline" id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt></mml:mrow></mml:math>'
+        expected = ('Uma Reflexão de Professores sobre Demonstrações Relativas à Irracionalidade de '
+                    '<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML" display="inline" '
+                    'id="m1"><mml:mrow><mml:msqrt><mml:mn>2</mml:mn></mml:msqrt></mml:mrow></mml:math>')
+
         obtained = xml_utils.process_subtags(xmltree.find(".//article-title"))
+        self.assertEqual(expected, obtained)
+
+    def test_process_subtags_keeps_math_tex_math(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            '<p>... Selected as described for Acc-29'
+            '<disp-formula>'
+            '<tex-math id="M1"><![CDATA[xxxxxxxxxx]]></tex-math>'
+            '</disp-formula> TER1/ter1-Acc: Acc-29 crossed with ...</p>'
+        )
+        expected = ('... Selected as described for Acc-29xxxxxxxxxx TER1/ter1-Acc: Acc-29 crossed with ...')
+
+        obtained = xml_utils.process_subtags(xmltree.find("."))
         self.assertEqual(expected, obtained)
 
     def test_process_subtags_remove_italic_content(self):
@@ -259,6 +274,44 @@ class NodeTextTest(TestCase):
         obtained = xml_utils.process_subtags(
             xmltree.find(".//city"),
             ['italic', 'bold']
+        )
+        self.assertEqual(expected, obtained)
+
+    def test_convert_xml_to_html_with_attribs(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <article>
+                <front>
+                <journal-meta>
+                    <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                    <journal-title-group>
+                        <journal-title>Revista de Saúde Pública</journal-title>
+                        <abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+                    </journal-title-group>
+                    <issn pub-type="ppub">0034-8910</issn>
+                    <issn pub-type="epub">1518-8787</issn>
+                    <publisher>
+                        <publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+                    </publisher>
+                </journal-meta>
+                </front>
+            </article>
+            """
+        )
+
+        expected = (
+            '<journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id> '
+            'Revista de Saúde Pública '
+            '<abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title> '
+            '<issn pub-type="ppub">0034-8910</issn> '
+            '<issn pub-type="epub">1518-8787</issn> '
+            'Faculdade de Saúde Pública da Universidade de São Paulo'
+        )
+
+        obtained = xml_utils.process_subtags(
+            xmltree.find(".//front"),
+            tags_to_keep=['journal-id', 'abbrev-journal-title', 'issn']
         )
         self.assertEqual(expected, obtained)
 
