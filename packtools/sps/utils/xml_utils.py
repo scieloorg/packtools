@@ -8,6 +8,13 @@ from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
+# namespaces = {}
+# namespaces['mml'] = 'http://www.w3.org/1998/Math/MathML'
+# namespaces['xlink'] = 'http://www.w3.org/1999/xlink'
+# namespaces['xml'] = 'http://www.w3.org/XML/1998/namespace'
+#
+# for namespace_id, namespace_link in namespaces.items():
+#     etree.register_namespace(namespace_id, namespace_link)
 
 def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     _items = []
@@ -321,18 +328,6 @@ def match_pubdate(node, pubdate_xpaths):
             return pubdate
 
 
-def _handles_namespace(node, namespace_map):
-    # converte de {http://www.w3.org/1998/Math/MathML}math para mml:math
-    uri = etree.QName(node).namespace           # http://www.w3.org/1998/Math/MathML
-    tag = etree.QName(node).localname           # math
-    prefix = namespace_map.get(uri)             # mml
-
-    if prefix:
-        return f"{prefix}:{tag}"                # mml:math
-    else:
-        return tag                              # math
-
-
 def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
     return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
 
@@ -343,7 +338,6 @@ def remove_subtags(
         tags_to_keep_with_content=None,
         tags_to_remove_with_content=None,
         tags_to_convert_to_html=None,
-        namespace_map=None,
 ):
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
@@ -356,7 +350,7 @@ def remove_subtags(
     """
 
     # obtem a tag, seu conteúdo e seus atributos
-    tag = _handles_namespace(node, namespace_map)  # trata possíves namespaces
+    tag = node.tag
     text = node.text if node.text is not None else ''
 
     # verifica se é o caso de manutenção da tag e seu conteúdo
@@ -370,7 +364,7 @@ def remove_subtags(
     # processa as tags internas
     for child in node:
         text += remove_subtags(child, tags_to_keep, tags_to_keep_with_content, tags_to_remove_with_content,
-                               tags_to_convert_to_html, namespace_map)
+                               tags_to_convert_to_html)
         if child.tail is not None:
             text += child.tail
 
@@ -391,17 +385,11 @@ def process_subtags(
         tags_to_keep_with_content=None,
         tags_to_remove_with_content=None,
         tags_to_convert_to_html=None,
-        namespace_map=None
 ):
     std_to_keep = ['sup', 'sub']
-    std_to_keep_with_content = ['mml:math', 'math']
+    std_to_keep_with_content = ['mml:math', '{http://www.w3.org/1998/Math/MathML}math', 'math']
     std_to_remove_content = ['xref']
     std_to_convert = {'italic': 'i'}
-    std_namespace_map = {
-        'http://www.w3.org/1998/Math/MathML': 'mml',
-        'http://www.w3.org/1999/xlink': 'xlink',
-        'http://www.w3.org/XML/1998/namespace': 'xml',
-    }
 
     # garante que as tags em std_to_keep serão mantidas
     if tags_to_keep is None:
@@ -415,11 +403,8 @@ def process_subtags(
     else:
         tags_to_keep_with_content = list(set(tags_to_keep_with_content + std_to_keep_with_content))
 
-    # garante que os namespaces em std_namespace_map serão tratados
-    std_namespace_map.update(namespace_map or {})
-
     # verifica se é o caso de manutenção da tag e seu conteúdo
-    tag = _handles_namespace(node, std_namespace_map)  # trata possíves namespaces
+    tag = node.tag
     if tag in tags_to_keep_with_content:
         return tostring(node)
 
@@ -436,7 +421,7 @@ def process_subtags(
         tags_to_keep_with_content=tags_to_keep_with_content,
         tags_to_remove_with_content=tags_to_remove_with_content,
         tags_to_convert_to_html=std_to_convert,
-        namespace_map=std_namespace_map
+        # namespace_map=std_namespace_map
     )
 
     for xml_tag, html_tag in std_to_convert.items():
