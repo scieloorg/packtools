@@ -166,6 +166,19 @@ class NodeTextTest(TestCase):
         obtained = xml_utils.process_subtags(xmltree.find(".//article-title"))
         self.assertEqual(expected, obtained)
 
+    def test_process_subtags_keeps_math_tex_math(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            '<p>... Selected as described for Acc-29'
+            '<disp-formula>'
+            '<tex-math id="M1"><![CDATA[xxxxxxxxxx]]></tex-math>'
+            '</disp-formula> TER1/ter1-Acc: Acc-29 crossed with ...</p>'
+        )
+        expected = ('... Selected as described for Acc-29xxxxxxxxxx TER1/ter1-Acc: Acc-29 crossed with ...')
+
+        obtained = xml_utils.process_subtags(xmltree.find("."))
+        self.assertEqual(expected, obtained)
+
     def test_process_subtags_remove_italic_content(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
