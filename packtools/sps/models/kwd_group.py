@@ -1,13 +1,6 @@
 from packtools.sps.utils import xml_utils
 
 
-def get_node_without_subtag(node):
-    """
-        Função que retorna nó sem subtags. 
-    """
-    return "".join(node.xpath(".//text()"))
-
-
 class KwdGroup:
     def __init__(self, xmltree):
         self._xmltree = xmltree
