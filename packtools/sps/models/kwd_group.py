@@ -5,7 +5,13 @@ class KwdGroup:
     def __init__(self, xmltree):
         self._xmltree = xmltree
 
-    def extract_kwd_data_with_lang_text(self, subtag):
+    def extract_kwd_data_with_lang_text(self,
+                                        subtag,
+                                        tags_to_keep=None,
+                                        tags_to_keep_with_content=None,
+                                        tags_to_remove_with_content=None,
+                                        tags_to_convert_to_html=None
+                                        ):
         _data = []
         kwd_text = xml_utils.node_text_without_xref if subtag else get_node_without_subtag
 
