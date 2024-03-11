@@ -73,7 +73,13 @@ class KwdGroup:
 
                     keyword_text = []
                     for kwd in kwd_group.xpath("kwd"):
-                        keyword_text.append(kwd_text(kwd))
+                        if subtag:
+                            keywords = xml_utils.process_subtags(kwd, tags_to_keep, tags_to_keep_with_content,
+                                                                 tags_to_remove_with_content,
+                                                                 tags_to_convert_to_html)
+                        else:
+                            keywords = xml_utils.node_plain_text(kwd)
+                        keyword_text.append(keywords)
                     resp["parent_name"] = tp
                     resp["lang"] = kwd_group_lang
                     resp["text"] = keyword_text
