@@ -41,21 +41,33 @@ class ArticleLicenseTest(TestCase):
             {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'This is an article published in open access under a Creative Commons license.'
+                'license_p': {
+                    'plain_text': 'This is an article published in open access under a Creative Commons license.',
+                    'xml_format': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
+                    'html_format': '<b>This is an article</b> published in open access under a Creative Commons license.'
+                }
             },
             {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
+                'license_p': {
+                    'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
+                    'xml_format': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
+                    'html_format': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
+                }
             },
             {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                'license_p': {
+                    'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
+                    'xml_format': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
+                    'html_format': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
+                }
             }
         ]
 
-        self.assertEqual(expected, self.article_license.licenses)
+        self.assertEqual(expected, self.article_license.licenses(tags_to_convert_to_html={'bold': 'b'}))
 
     def test_get_license_p(self):
         self.maxDiff = None
@@ -63,18 +75,30 @@ class ArticleLicenseTest(TestCase):
             'en': {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'This is an article published in open access under a Creative Commons license.'
-                },
+                'license_p': {
+                    'plain_text': 'This is an article published in open access under a Creative Commons license.',
+                    'xml_format': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
+                    'html_format': '<b>This is an article</b> published in open access under a Creative Commons license.'
+                }
+            },
             'pt': {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.'
-                },
+                'license_p': {
+                    'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
+                    'xml_format': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
+                    'html_format': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
+                }
+            },
             'es': {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
-                'license_p': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.'
+                'license_p': {
+                    'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
+                    'xml_format': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
+                    'html_format': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
                 }
+            }
         }
 
-        self.assertEqual(expected, self.article_license.licenses_by_lang)
+        self.assertEqual(expected, self.article_license.licenses_by_lang(tags_to_convert_to_html={'bold': 'b'}))
