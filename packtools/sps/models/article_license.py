@@ -27,21 +27,41 @@ class ArticleLicense:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    @property
-    def licenses(self):
+    def licenses(self,
+                 tags_to_keep=None,
+                 tags_to_keep_with_content=None,
+                 tags_to_remove_with_content=None,
+                 tags_to_convert_to_html=None,
+                 ):
         _licenses = []
         for _license in self.xmltree.xpath('//article-meta//permissions//license'):
-            d = {
-                'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'),
-                'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
-                'license_p': xml_utils.node_plain_text(_license.find('license-p'))
-            }
-            _licenses.append(d)
+            _license_p = _license.find('license-p')
+            if _license_p is not None:
+                _licenses.append(
+                    {
+                        'lang': _license.attrib.get('{http://www.w3.org/XML/1998/namespace}lang'),
+                        'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
+                        'license_p': {
+                            'plain_text': xml_utils.node_plain_text(_license_p),
+                            'xml_format': xml_utils.node_text_without_xref(_license_p),
+                            'html_format': xml_utils.process_subtags(_license_p, tags_to_keep,
+                                                                     tags_to_keep_with_content,
+                                                                     tags_to_remove_with_content,
+                                                                     tags_to_convert_to_html)
+                        }
+                    }
+                )
         return _licenses
 
-    @property
-    def licenses_by_lang(self):
+    def licenses_by_lang(self,
+                         tags_to_keep=None,
+                         tags_to_keep_with_content=None,
+                         tags_to_remove_with_content=None,
+                         tags_to_convert_to_html=None,
+                         ):
         return {
             item['lang']: item
-            for item in self.licenses
+            for item in self.licenses(tags_to_keep=tags_to_keep, tags_to_keep_with_content=tags_to_keep_with_content,
+                                      tags_to_remove_with_content=tags_to_remove_with_content,
+                                      tags_to_convert_to_html=tags_to_convert_to_html)
         }
