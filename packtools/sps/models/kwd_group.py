@@ -32,7 +32,13 @@ class KwdGroup:
 
         return _data
 
-    def extract_kwd_extract_data_by_lang(self, subtag):
+    def extract_kwd_extract_data_by_lang(self,
+                                         subtag,
+                                         tags_to_keep=None,
+                                         tags_to_keep_with_content=None,
+                                         tags_to_remove_with_content=None,
+                                         tags_to_convert_to_html=None
+                                         ):
 
         _data_dict = {}
         _data = self.extract_kwd_data_with_lang_text(subtag)
