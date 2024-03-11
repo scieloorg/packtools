@@ -41,7 +41,8 @@ class KwdGroup:
                                          ):
 
         _data_dict = {}
-        _data = self.extract_kwd_data_with_lang_text(subtag)
+        _data = self.extract_kwd_data_with_lang_text(subtag, tags_to_keep, tags_to_keep_with_content,
+                                                     tags_to_remove_with_content, tags_to_convert_to_html)
 
         for d in _data:
             if d['lang'] not in _data_dict:
