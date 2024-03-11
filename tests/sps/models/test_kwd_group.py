@@ -51,15 +51,16 @@ class KwdGroupTest(TestCase):
         self.assertEqual(kwd_extract_by_lang, expected_output)
 
     def test_extract_kwd_data_with_lang_subtag(self):
+        self.maxDiff = None
         xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
         kwd_extract_kwd_with_lang_subtag = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=True)
 
         expected_output = [
             {'lang': 'en', 'text': 'Chagas Disease, transmission'},
-            {'lang': 'en', 'text': 'Triatominae, <italic>Trypanosoma cruzi</italic>, isolation'},
+            {'lang': 'en', 'text': 'Triatominae, <i>Trypanosoma cruzi</i>, isolation'},
             {'lang': 'en', 'text': 'Communicable Diseases, epidemiology'},
             {'lang': 'pt', 'text': 'Doença de Chagas, transmissão'},
-            {'lang': 'pt', 'text': 'Triatominae, <italic>Trypanosoma cruzi</italic>, isolamento'},
+            {'lang': 'pt', 'text': 'Triatominae, <i>Trypanosoma cruzi</i>, isolamento'},
             {'lang': 'pt', 'text': 'Doenças Transmissíveis, epidemiologia'}
         ]
 
@@ -87,12 +88,12 @@ class KwdGroupTest(TestCase):
         expected_output = {
             'en': [
                 'Chagas Disease, transmission',
-                'Triatominae, <italic>Trypanosoma cruzi</italic>, isolation',
+                'Triatominae, <i>Trypanosoma cruzi</i>, isolation',
                 'Communicable Diseases, epidemiology'
             ],
             'pt': [
                 'Doença de Chagas, transmissão',
-                'Triatominae, <italic>Trypanosoma cruzi</italic>, isolamento',
+                'Triatominae, <i>Trypanosoma cruzi</i>, isolamento',
                 'Doenças Transmissíveis, epidemiologia'
             ]
         }
@@ -206,8 +207,8 @@ class KwdGroupWithStyleTest(TestCase):
         kwd_extract_data_with_lang_text = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
 
         expected_output = [
-            {'lang': 'pt', 'text': 'conteúdo de bold text '},
-            {'lang': 'pt', 'text': 'text conteúdo de bold text '},
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'}
         ]
@@ -220,8 +221,8 @@ class KwdGroupWithStyleTest(TestCase):
 
         expected_output = {
             'pt': [
-                'conteúdo de bold text ',
-                'text conteúdo de bold text ',
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
                 'text conteúdo de bold',
                 'text conteúdo de bold'
             ]
@@ -231,13 +232,13 @@ class KwdGroupWithStyleTest(TestCase):
 
     def test_extract_kwd_data_with_lang_subtag(self):
         self.maxDiff = None
-        kwd_extract_kwd_with_lang_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=True)
+        kwd_extract_kwd_with_lang_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=True, tags_to_keep=['bold'])
 
         expected_output = [
-            {'lang': 'pt', 'text': '<bold>conteúdo de bold</bold> text '},
-            {'lang': 'pt', 'text': 'text <bold>conteúdo de bold</bold> text '},
+            {'lang': 'pt', 'text': '<bold>conteúdo de bold</bold> text'},
+            {'lang': 'pt', 'text': 'text <bold>conteúdo de bold</bold> text'},
             {'lang': 'pt', 'text': 'text <bold>conteúdo de bold</bold>'},
-            {'lang': 'pt', 'text': 'text <bold>conteúdo <italic>de</italic> bold</bold>'}
+            {'lang': 'pt', 'text': 'text <bold>conteúdo <i>de</i> bold</bold>'}
         ]
 
         self.assertEqual(kwd_extract_kwd_with_lang_subtag, expected_output)
@@ -247,8 +248,8 @@ class KwdGroupWithStyleTest(TestCase):
         kwd_extract_kwd_without_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
 
         expected_output = [
-            {'lang': 'pt', 'text': 'conteúdo de bold text '},
-            {'lang': 'pt', 'text': 'text conteúdo de bold text '},
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'}
         ]
@@ -257,14 +258,14 @@ class KwdGroupWithStyleTest(TestCase):
 
     def test_extract_kwd_data_by_lang_with_subtag(self):
         self.maxDiff = None
-        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=True)
+        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=True, tags_to_keep=['bold'])
 
         expected_output = {
             'pt': [
-                    '<bold>conteúdo de bold</bold> text ',
-                    'text <bold>conteúdo de bold</bold> text ',
+                    '<bold>conteúdo de bold</bold> text',
+                    'text <bold>conteúdo de bold</bold> text',
                     'text <bold>conteúdo de bold</bold>',
-                    'text <bold>conteúdo <italic>de</italic> bold</bold>'
+                    'text <bold>conteúdo <i>de</i> bold</bold>'
             ],
         }
 
@@ -276,8 +277,8 @@ class KwdGroupWithStyleTest(TestCase):
 
         expected_output = {
             'pt': [
-                'conteúdo de bold text ',
-                'text conteúdo de bold text ',
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
                 'text conteúdo de bold',
                 'text conteúdo de bold'
             ],
@@ -290,8 +291,8 @@ class KwdGroupWithStyleTest(TestCase):
         kwd_extract_data_with_lang_text = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
 
         expected_output = [
-            {'lang': 'pt', 'text': 'conteúdo de bold text '},
-            {'lang': 'pt', 'text': 'text conteúdo de bold text '},
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'},
             {'lang': 'pt', 'text': 'text conteúdo de bold'}
         ]
@@ -304,8 +305,8 @@ class KwdGroupWithStyleTest(TestCase):
 
         expected_output = {
             'pt': [
-                'conteúdo de bold text ',
-                'text conteúdo de bold text ',
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
                 'text conteúdo de bold',
                 'text conteúdo de bold'
             ],
@@ -321,8 +322,8 @@ class KwdGroupWithStyleTest(TestCase):
             {
                 'parent_name': 'article', 'lang': 'pt',
                 'text': [
-                    'conteúdo de bold text ',
-                    'text conteúdo de bold text ',
+                    'conteúdo de bold text',
+                    'text conteúdo de bold text',
                     'text conteúdo de bold',
                     'text conteúdo de bold'
                 ]
