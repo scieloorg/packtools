@@ -13,7 +13,6 @@ class KwdGroup:
                                         tags_to_convert_to_html=None
                                         ):
         _data = []
-        kwd_text = xml_utils.node_text_without_xref if subtag else get_node_without_subtag
 
         nodes = self._xmltree.xpath('.//article-meta | .//sub-article')
 
@@ -24,7 +23,11 @@ class KwdGroup:
                 kwd_group_lang = kwd_group.get("{http://www.w3.org/XML/1998/namespace}lang", node_lang)
 
                 for kwd in kwd_group.xpath("kwd"):
-                    keyword_text = kwd_text(kwd)
+                    if subtag:
+                        keyword_text = xml_utils.process_subtags(kwd, tags_to_keep, tags_to_keep_with_content,
+                                                                 tags_to_remove_with_content, tags_to_convert_to_html)
+                    else:
+                        keyword_text = xml_utils.node_plain_text(kwd)
                     _data.append({"lang": kwd_group_lang, "text": keyword_text})
 
         return _data
