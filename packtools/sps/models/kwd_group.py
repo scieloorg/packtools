@@ -50,9 +50,12 @@ class KwdGroup:
             _data_dict[d['lang']].append(d['text'])
         return _data_dict
 
-    def extract_kwd_data_with_lang_text_by_article_type(self, subtag):
-        kwd_text = xml_utils.node_text_without_xref if subtag else get_node_without_subtag
-
+    def extract_kwd_data_with_lang_text_by_article_type(self, subtag,
+                                                        tags_to_keep=None,
+                                                        tags_to_keep_with_content=None,
+                                                        tags_to_remove_with_content=None,
+                                                        tags_to_convert_to_html=None
+                                                        ):
         dict_nodes = {
             'article': self._xmltree.xpath('.//article-meta'),
             'sub-article': self._xmltree.xpath('./sub-article')
