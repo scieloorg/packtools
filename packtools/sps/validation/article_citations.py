@@ -2,10 +2,9 @@ from packtools.sps.models.article_citations import ArticleCitations
 from packtools.sps.validation.exceptions import ValidationArticleCitationsException
 
 
-class ArticleCitationsValidation:
-    def __init__(self, xmltree, publication_type_list=None):
-        self._xmltree = xmltree
-        self.article_citations = list(ArticleCitations(self._xmltree).article_citations)
+class ArticleCitationValidation:
+    def __init__(self, citation, publication_type_list=None):
+        self.citation = citation
         self.publication_type_list = publication_type_list
 
     def validate_article_citation_year(self):
@@ -30,25 +29,24 @@ class ArticleCitationsValidation:
                 },...
             ]
         """
-        for citation in self.article_citations:
-            if citation.get('year'):
-                year = str(citation['year'])
-                is_valid = year.isdigit() and len(year) == 4
-            else:
-                year = None
-                is_valid = False
-            yield {
-                'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'year',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': year if is_valid else 'a valid value to year',
-                'got_value': year,
-                'message': f'Got {year} expected {year if is_valid else "a valid value to year"}',
-                'advice': None if is_valid else f"The year in reference (ref-id: {citation.get('ref_id')}) is missing "
-                                                f"or is invalid, provide a valid value to year"
-            }
+        if self.citation.get('year'):
+            year = str(self.citation['year'])
+            is_valid = year.isdigit() and len(year) == 4
+        else:
+            year = None
+            is_valid = False
+        yield {
+            'title': 'element citation validation',
+            'element': 'element-citation',
+            'sub-element': 'year',
+            'validation_type': 'exist',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': year if is_valid else 'a valid value to year',
+            'got_value': year,
+            'message': f'Got {year} expected {year if is_valid else "a valid value to year"}',
+            'advice': None if is_valid else f"The year in reference (ref-id: {self.citation.get('ref_id')}) is missing "
+                                            f"or is invalid, provide a valid value to year"
+        }
 
     def validate_article_citation_source(self):
         """
@@ -72,21 +70,20 @@ class ArticleCitationsValidation:
                 },...
             ]
         """
-        for citation in self.article_citations:
-            source = citation.get('source')
-            is_valid = source is not None
-            yield {
-                'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'source',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': source if is_valid else 'a valid value to source',
-                'got_value': source,
-                'message': f'Got {source} expected {source if is_valid else "a valid value to source"}',
-                'advice': None if is_valid else f"The source in reference (ref-id: {citation.get('ref_id')}) is missing "
-                                                f"provide a valid value to source"
-            }
+        source = self.citation.get('source')
+        is_valid = source is not None
+        yield {
+            'title': 'element citation validation',
+            'element': 'element-citation',
+            'sub-element': 'source',
+            'validation_type': 'exist',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': source if is_valid else 'a valid value to source',
+            'got_value': source,
+            'message': f'Got {source} expected {source if is_valid else "a valid value to source"}',
+            'advice': None if is_valid else f"The source in reference (ref-id: {self.citation.get('ref_id')}) is missing "
+                                            f"provide a valid value to source"
+        }
 
     def validate_article_citation_article_title(self):
         """
@@ -114,23 +111,22 @@ class ArticleCitationsValidation:
                 },...
             ]
         """
-        for citation in self.article_citations:
-            publication_type = citation.get('publication_type')
-            if publication_type == 'journal':
-                article_title = citation.get('article_title')
-                is_valid = article_title is not None
-                yield {
-                    'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'article-title',
-                    'validation_type': 'exist',
-                    'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': article_title if is_valid else 'a valid value to article-title',
-                    'got_value': article_title,
-                    'message': f'Got {article_title} expected {article_title if is_valid else "a valid value to article-title"}',
-                    'advice': None if is_valid else f"The article-title in reference (ref-id: {citation.get('ref_id')}) is missing "
-                                                    f"provide a valid value to article-title"
-                }
+        publication_type = self.citation.get('publication_type')
+        if publication_type == 'journal':
+            article_title = self.citation.get('article_title')
+            is_valid = article_title is not None
+            yield {
+                'title': 'element citation validation',
+                'element': 'element-citation',
+                'sub-element': 'article-title',
+                'validation_type': 'exist',
+                'response': 'OK' if is_valid else 'ERROR',
+                'expected_value': article_title if is_valid else 'a valid value to article-title',
+                'got_value': article_title,
+                'message': f'Got {article_title} expected {article_title if is_valid else "a valid value to article-title"}',
+                'advice': None if is_valid else f"The article-title in reference (ref-id: {self.citation.get('ref_id')}) is missing "
+                                                f"provide a valid value to article-title"
+            }
 
     def validate_article_citation_authors(self):
         """
@@ -154,21 +150,20 @@ class ArticleCitationsValidation:
                 },...
             ]
         """
-        for citation in self.article_citations:
-            number_authors = len(citation.get('all_authors')) if citation.get('all_authors') else 0
-            is_valid = number_authors > 0
-            yield {
-                'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'person-group//name or person-group//colab',
-                'validation_type': 'exist',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': 'at least 1 author in each element-citation',
-                'got_value': f'{number_authors} authors',
-                'message': f'Got {number_authors} authors expected at least 1 author in each element-citation',
-                'advice': None if is_valid else f"There are no authors for the reference (ref-id: {citation.get('ref_id')}) "
-                                                f"provide at least 1 author"
-            }
+        number_authors = len(self.citation.get('all_authors')) if self.citation.get('all_authors') else 0
+        is_valid = number_authors > 0
+        yield {
+            'title': 'element citation validation',
+            'element': 'element-citation',
+            'sub-element': 'person-group//name or person-group//colab',
+            'validation_type': 'exist',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': 'at least 1 author in each element-citation',
+            'got_value': f'{number_authors} authors',
+            'message': f'Got {number_authors} authors expected at least 1 author in each element-citation',
+            'advice': None if is_valid else f"There are no authors for the reference (ref-id: {self.citation.get('ref_id')}) "
+                                            f"provide at least 1 author"
+        }
 
     def validate_article_citation_publication_type(self, publication_type_list=None):
         """
@@ -195,28 +190,36 @@ class ArticleCitationsValidation:
         publication_type_list = publication_type_list or self.publication_type_list
         if publication_type_list is None:
             raise ValidationArticleCitationsException('Function requires list of publications type')
-        for citation in self.article_citations:
-            publication_type = citation.get('publication_type')
-            is_valid = publication_type in publication_type_list
-            yield {
-                'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'publication-type',
-                'validation_type': 'value in list',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': publication_type_list,
-                'got_value': publication_type,
-                'message': f'Got {publication_type} expected one item of this list: {" | ".join(publication_type_list)}',
-                'advice': None if is_valid else f"publication-type for the reference (ref-id: {citation.get('ref_id')}) "
-                                                f"is missing or is invalid, provide one value from the list: {' | '.join(publication_type_list)}"
-            }
+        publication_type = self.citation.get('publication_type')
+        is_valid = publication_type in publication_type_list
+        yield {
+            'title': 'element citation validation',
+            'element': 'element-citation',
+            'sub-element': 'publication-type',
+            'validation_type': 'value in list',
+            'response': 'OK' if is_valid else 'ERROR',
+            'expected_value': publication_type_list,
+            'got_value': publication_type,
+            'message': f'Got {publication_type} expected one item of this list: {" | ".join(publication_type_list)}',
+            'advice': None if is_valid else f"publication-type for the reference (ref-id: {self.citation.get('ref_id')}) "
+                                            f"is missing or is invalid, provide one value from the list: {' | '.join(publication_type_list)}"
+        }
 
-    def validate_article_citation(self, publication_type_list=None):
-        yield from self.validate_article_citation_year()
-        yield from self.validate_article_citation_source()
-        yield from self.validate_article_citation_article_title()
-        yield from self.validate_article_citation_authors()
-        yield from self.validate_article_citation_publication_type(publication_type_list)
+
+class ArticleCitationsValidation:
+    def __init__(self, xmltree, publication_type_list=None):
+        self._xmltree = xmltree
+        self.article_citations = ArticleCitations(self._xmltree).article_citations
+        self.publication_type_list = publication_type_list
+
+    def validate_article_citations(self, publication_type_list=None):
+        for article_citation in self.article_citations:
+            citation = ArticleCitationValidation(article_citation, publication_type_list)
+            yield from citation.validate_article_citation_year()
+            yield from citation.validate_article_citation_source()
+            yield from citation.validate_article_citation_article_title()
+            yield from citation.validate_article_citation_authors()
+            yield from citation.validate_article_citation_publication_type(publication_type_list)
 
 
 
