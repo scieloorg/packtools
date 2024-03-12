@@ -640,6 +640,61 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_validate_article_citation_collab_success(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+                 <ref id="B2">
+                    <mixed-citation>
+                       2. Brasil. Lei n.
+                       <u>
+                          <sup>o</sup>
+                       </u>
+                       10.332, de 19/12/2001. Instituiu mecanismo de financiamento para o programa de ciência e tecnologia para o agronegócio, para o programa de fomento à pesquisa em saúde, para o programa de bioteconologia e recursos genéticos – Genoma, para o programa de ciência e tecnologia para o setor aeronáutico e para o programa de inovação para competitividade, e dá outras providências.
+                       <italic>Diário Oficial da União</italic>
+                       2001 dez 19.
+                    </mixed-citation>
+                    <element-citation publication-type="other">
+                       <person-group person-group-type="authors">
+                          <collab>Brasil</collab>
+                       </person-group>
+                       <article-title>Lei n.º 10.332, de 19/12/2001: Instituiu mecanismo de financiamento para o programa de ciência e tecnologia para o agronegócio, para o programa de fomento à pesquisa em saúde, para o programa de bioteconologia e recursos genéticos - Genoma, para o programa de ciência e tecnologia para o setor aeronáutico e para o programa de inovação para competitividade, e dá outras providências</article-title>
+                       <source>Diário Oficial da União</source>
+                       <date>
+                          <year>2001</year>
+                          <month>21</month>
+                       </date>
+                       <year>2001</year>
+                    </element-citation>
+                 </ref>
+                </ref-list>
+            </back>
+            </article>
+        """
+
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'item': 'element-citation',
+                'sub-item': 'person-group//name or person-group//colab',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'at least 1 author in each element-citation',
+                'got_value': '1 authors',
+                'message': f'Got 1 authors expected at least 1 author in each element-citation',
+                'advice': None
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
     def test_validate_article_citation_authors_fail(self):
         self.maxDiff = None
         xml = """
