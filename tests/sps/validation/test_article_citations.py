@@ -71,8 +71,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'year',
+                'item': 'element-citation',
+                'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '2015',
@@ -150,8 +150,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'year',
+                'item': 'element-citation',
+                'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a valid value to year',
@@ -228,8 +228,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'year',
+                'item': 'element-citation',
+                'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a valid value to year',
@@ -307,8 +307,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'source',
+                'item': 'element-citation',
+                'sub-item': 'source',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Drug Alcohol Depend.',
@@ -385,8 +385,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'source',
+                'item': 'element-citation',
+                'sub-item': 'source',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a valid value to source',
@@ -464,8 +464,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'article-title',
+                'item': 'element-citation',
+                'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
@@ -546,8 +546,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'article-title',
+                'item': 'element-citation',
+                'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a valid value to article-title',
@@ -625,8 +625,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'person-group//name or person-group//colab',
+                'item': 'element-citation',
+                'sub-item': 'person-group//name or person-group//colab',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'at least 1 author in each element-citation',
@@ -680,8 +680,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'person-group//name or person-group//colab',
+                'item': 'element-citation',
+                'sub-item': 'person-group//name or person-group//colab',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'at least 1 author in each element-citation',
@@ -760,8 +760,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'publication-type',
+                'item': 'element-citation',
+                'sub-item': 'publication-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['journal', 'book'],
@@ -840,8 +840,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'publication-type',
+                'item': 'element-citation',
+                'sub-item': 'publication-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['other', 'book'],
@@ -920,8 +920,8 @@ class ArticleCitationValidationTest(TestCase):
         expected = [
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'year',
+                'item': 'element-citation',
+                'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '2015',
@@ -931,8 +931,8 @@ class ArticleCitationValidationTest(TestCase):
             },
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'source',
+                'item': 'element-citation',
+                'sub-item': 'source',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Drug Alcohol Depend.',
@@ -942,8 +942,8 @@ class ArticleCitationValidationTest(TestCase):
             },
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'article-title',
+                'item': 'element-citation',
+                'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
@@ -957,8 +957,8 @@ class ArticleCitationValidationTest(TestCase):
             },
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'person-group//name or person-group//colab',
+                'item': 'element-citation',
+                'sub-item': 'person-group//name or person-group//colab',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'at least 1 author in each element-citation',
@@ -968,8 +968,8 @@ class ArticleCitationValidationTest(TestCase):
             },
             {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'publication-type',
+                'item': 'element-citation',
+                'sub-item': 'publication-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['journal', 'book'],
