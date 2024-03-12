@@ -2,10 +2,11 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.validation.article_citations import ArticleCitationsValidation
+from packtools.sps.models.article_citations import ArticleCitations
+from packtools.sps.validation.article_citations import ArticleCitationValidation, ArticleCitationsValidation
 
 
-class ArticleCitationsValidationTest(TestCase):
+class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_success(self):
         self.maxDiff = None
         xml = """
@@ -64,8 +65,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
 
         expected = [
             {
@@ -143,8 +144,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
 
         expected = [
             {
@@ -221,8 +222,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_year())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
 
         expected = [
             {
@@ -300,8 +301,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_source())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_source())
 
         expected = [
             {
@@ -378,8 +379,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_source())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_source())
 
         expected = [
             {
@@ -457,8 +458,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_article_title())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_article_title())
 
         expected = [
             {
@@ -539,8 +540,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_article_title())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_article_title())
 
         expected = [
             {
@@ -618,8 +619,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_authors())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
 
         expected = [
             {
@@ -673,8 +674,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation_authors())
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
 
         expected = [
             {
@@ -752,8 +753,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = ArticleCitationsValidation(data).validate_article_citation_publication_type(
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = ArticleCitationValidation(data).validate_article_citation_publication_type(
             publication_type_list=['journal', 'book'])
 
         expected = [
@@ -832,8 +833,8 @@ class ArticleCitationsValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = ArticleCitationsValidation(data).validate_article_citation_publication_type(
+        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
+        obtained = ArticleCitationValidation(data).validate_article_citation_publication_type(
             publication_type_list=['other', 'book'])
 
         expected = [
@@ -914,7 +915,7 @@ class ArticleCitationsValidationTest(TestCase):
         """
 
         data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citation(publication_type_list=['journal', 'book']))
+        obtained = list(ArticleCitationsValidation(data).validate_article_citations(publication_type_list=['journal', 'book']))
 
         expected = [
             {
