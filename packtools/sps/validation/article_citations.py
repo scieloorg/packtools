@@ -18,8 +18,8 @@ class ArticleCitationValidation:
             [
                 {
                     'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'year',
+                    'item': 'element-citation',
+                    'sub-item': 'year',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': '2015',
@@ -29,16 +29,16 @@ class ArticleCitationValidation:
                 },...
             ]
         """
-        if self.citation.get('year'):
+        try:
             year = str(self.citation['year'])
             is_valid = year.isdigit() and len(year) == 4
-        else:
+        except KeyError:
             year = None
             is_valid = False
         yield {
             'title': 'element citation validation',
-            'element': 'element-citation',
-            'sub-element': 'year',
+            'item': 'element-citation',
+            'sub-item': 'year',
             'validation_type': 'exist',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': year if is_valid else 'a valid value to year',
@@ -59,8 +59,8 @@ class ArticleCitationValidation:
             [
                 {
                     'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'source',
+                    'item': 'element-citation',
+                    'sub-item': 'source',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'Drug Alcohol Depend.',
@@ -74,8 +74,8 @@ class ArticleCitationValidation:
         is_valid = source is not None
         yield {
             'title': 'element citation validation',
-            'element': 'element-citation',
-            'sub-element': 'source',
+            'item': 'element-citation',
+            'sub-item': 'source',
             'validation_type': 'exist',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': source if is_valid else 'a valid value to source',
@@ -96,8 +96,8 @@ class ArticleCitationValidation:
             [
                 {
                     'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'article-title',
+                    'item': 'element-citation',
+                    'sub-item': 'article-title',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'Smoking and potentially preventable hospitalisation: the benefit of smoking '
@@ -117,8 +117,8 @@ class ArticleCitationValidation:
             is_valid = article_title is not None
             yield {
                 'title': 'element citation validation',
-                'element': 'element-citation',
-                'sub-element': 'article-title',
+                'item': 'element-citation',
+                'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'OK' if is_valid else 'ERROR',
                 'expected_value': article_title if is_valid else 'a valid value to article-title',
@@ -139,8 +139,8 @@ class ArticleCitationValidation:
             [
                 {
                     'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'person-group//name or person-group//colab',
+                    'item': 'element-citation',
+                    'sub-item': 'person-group//name or person-group//colab',
                     'validation_type': 'exist',
                     'response': 'OK',
                     'expected_value': 'at least 1 author in each element-citation',
@@ -154,8 +154,8 @@ class ArticleCitationValidation:
         is_valid = number_authors > 0
         yield {
             'title': 'element citation validation',
-            'element': 'element-citation',
-            'sub-element': 'person-group//name or person-group//colab',
+            'item': 'element-citation',
+            'sub-item': 'person-group//name or person-group//colab',
             'validation_type': 'exist',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': 'at least 1 author in each element-citation',
@@ -176,8 +176,8 @@ class ArticleCitationValidation:
             [
                 {
                     'title': 'element citation validation',
-                    'element': 'element-citation',
-                    'sub-element': 'publication-type',
+                    'item': 'element-citation',
+                    'sub-item': 'publication-type',
                     'validation_type': 'value in list',
                     'response': 'OK',
                     'expected_value': ['journal', 'book'],
@@ -194,8 +194,8 @@ class ArticleCitationValidation:
         is_valid = publication_type in publication_type_list
         yield {
             'title': 'element citation validation',
-            'element': 'element-citation',
-            'sub-element': 'publication-type',
+            'item': 'element-citation',
+            'sub-item': 'publication-type',
             'validation_type': 'value in list',
             'response': 'OK' if is_valid else 'ERROR',
             'expected_value': publication_type_list,
