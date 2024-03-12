@@ -8,6 +8,13 @@ from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
+# namespaces = {}
+# namespaces['mml'] = 'http://www.w3.org/1998/Math/MathML'
+# namespaces['xlink'] = 'http://www.w3.org/1999/xlink'
+# namespaces['xml'] = 'http://www.w3.org/XML/1998/namespace'
+#
+# for namespace_id, namespace_link in namespaces.items():
+#     etree.register_namespace(namespace_id, namespace_link)
 
 def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     _items = []
@@ -115,11 +122,11 @@ def get_xml_tree(content):
         return xml_tree
 
 
-def tostring(node, doctype=None, pretty_print=False):
+def tostring(node, doctype=None, pretty_print=False, xml_declaration=True):
     return etree.tostring(
         node,
         doctype=doctype,
-        xml_declaration=True,
+        xml_declaration=xml_declaration,
         method="xml",
         encoding="utf-8",
         pretty_print=pretty_print,
@@ -144,8 +151,10 @@ def get_node_without_subtag(node, remove_extra_spaces=False):
     """
         Função que retorna nó sem subtags.
     """
+    if node is None:
+        return
     if remove_extra_spaces:
-        return " ".join([text.strip()for text in node.xpath(".//text()") if text.strip()])
+        return " ".join([text.strip() for text in node.xpath(".//text()") if text.strip()])
     return "".join(node.xpath(".//text()"))
 
 
@@ -317,3 +326,107 @@ def match_pubdate(node, pubdate_xpaths):
         pubdate = node.find(xpath)
         if pubdate is not None:
             return pubdate
+
+
+def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
+    return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
+
+
+def remove_subtags(
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+):
+    """
+    Remove as subtags de node que não estiverem especificadas em allowed_tags.
+
+    Exemplo:
+        Entrada: <bold><italic>São</italic> Paulo</bold> <i>Paulo</i>, ['italic']
+        Saída: <italic>São</italic> Paulo Paulo
+
+    Outros exemplos nos testes.
+    """
+
+    # obtem a tag, seu conteúdo e seus atributos
+    tag = node.tag
+    text = node.text if node.text is not None else ''
+
+    # verifica se é o caso de manutenção da tag e seu conteúdo
+    if tag in (tags_to_keep_with_content or []):
+        return tostring(node, xml_declaration=False)
+
+    # verifica se é o caso de remoção do conteúdo da tag
+    if tag in (tags_to_remove_with_content or []):
+        return ''
+
+    # processa as tags internas
+    for child in node:
+        text += remove_subtags(child, tags_to_keep, tags_to_keep_with_content, tags_to_remove_with_content,
+                               tags_to_convert_to_html)
+        if child.tail is not None:
+            text += child.tail
+
+    # gera uma lista com as tags que serão mantidas
+    all_tags_to_keep = _generate_tag_list(tags_to_keep, tags_to_convert_to_html)
+
+    text = ' '.join(text.split())
+    if tag in all_tags_to_keep:
+        if attribs := ' '.join(f'{key}="{value}"' for key, value in node.attrib.items()):
+            return f"<{tag} {attribs}>{text}</{tag}>"
+        return f'<{tag}>{text}</{tag}>'
+    return text
+
+
+def process_subtags(
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+):
+    std_to_keep = ['sup', 'sub']
+    std_to_keep_with_content = ['mml:math', '{http://www.w3.org/1998/Math/MathML}math', 'math']
+    std_to_remove_content = ['xref']
+    std_to_convert = {'italic': 'i'}
+
+    # garante que as tags em std_to_keep serão mantidas
+    if tags_to_keep is None:
+        tags_to_keep = std_to_keep
+    else:
+        tags_to_keep = list(set(tags_to_keep + std_to_keep))
+
+    # garante que as tags em std_to_keep_with_content serão mantidas
+    if tags_to_keep_with_content is None:
+        tags_to_keep_with_content = std_to_keep_with_content
+    else:
+        tags_to_keep_with_content = list(set(tags_to_keep_with_content + std_to_keep_with_content))
+
+    # verifica se é o caso de manutenção da tag e seu conteúdo
+    tag = node.tag
+    if tag in tags_to_keep_with_content:
+        return tostring(node)
+
+    # garante que as tags em std_to_remove_content serão removidas
+    tags_to_remove_with_content = std_to_remove_content + (tags_to_remove_with_content or [])
+    tags_to_remove_with_content = list(set(tags_to_remove_with_content))
+
+    # garante que as tags em std_to_convert serão convertidas em html
+    std_to_convert.update(tags_to_convert_to_html or {})
+
+    text = remove_subtags(
+        node,
+        tags_to_keep=tags_to_keep,
+        tags_to_keep_with_content=tags_to_keep_with_content,
+        tags_to_remove_with_content=tags_to_remove_with_content,
+        tags_to_convert_to_html=std_to_convert,
+        # namespace_map=std_namespace_map
+    )
+
+    for xml_tag, html_tag in std_to_convert.items():
+        text = text.replace(f'<{xml_tag} ', f'<{html_tag} ')
+        text = text.replace(f'<{xml_tag}>', f'<{html_tag}>')
+        text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
+
+    return text
