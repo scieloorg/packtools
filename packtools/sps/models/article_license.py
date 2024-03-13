@@ -24,15 +24,21 @@ from ..utils import xml_utils
 
 
 class ArticleLicense:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-
-    def licenses(self,
+    def __init__(self,
+                 xmltree,
                  tags_to_keep=None,
                  tags_to_keep_with_content=None,
                  tags_to_remove_with_content=None,
-                 tags_to_convert_to_html=None,
+                 tags_to_convert_to_html=None
                  ):
+        self.xmltree = xmltree
+        self.tags_to_keep = tags_to_keep,
+        self.tags_to_keep_with_content = tags_to_keep_with_content,
+        self.tags_to_remove_with_content = tags_to_remove_with_content,
+        self.tags_to_convert_to_html = tags_to_convert_to_html
+
+    @property
+    def licenses(self):
         _licenses = []
         for _license in self.xmltree.xpath('//article-meta//permissions//license'):
             _license_p = _license.find('license-p')
@@ -43,25 +49,22 @@ class ArticleLicense:
                         'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
                         'license_p': {
                             'plain_text': xml_utils.node_plain_text(_license_p),
-                            'xml_format': xml_utils.node_text_without_xref(_license_p),
-                            'html_format': xml_utils.process_subtags(_license_p, tags_to_keep,
-                                                                     tags_to_keep_with_content,
-                                                                     tags_to_remove_with_content,
-                                                                     tags_to_convert_to_html)
+                            'text': xml_utils.node_text_without_xref(_license_p),
+                            'html_text': xml_utils.process_subtags(
+                                _license_p,
+                                tags_to_keep=self.tags_to_keep,
+                                tags_to_keep_with_content=self.tags_to_keep_with_content,
+                                tags_to_remove_with_content=self.tags_to_remove_with_content,
+                                tags_to_convert_to_html=self.tags_to_convert_to_html
+                            )
                         }
                     }
                 )
         return _licenses
 
-    def licenses_by_lang(self,
-                         tags_to_keep=None,
-                         tags_to_keep_with_content=None,
-                         tags_to_remove_with_content=None,
-                         tags_to_convert_to_html=None,
-                         ):
+    @property
+    def licenses_by_lang(self):
         return {
             item['lang']: item
-            for item in self.licenses(tags_to_keep=tags_to_keep, tags_to_keep_with_content=tags_to_keep_with_content,
-                                      tags_to_remove_with_content=tags_to_remove_with_content,
-                                      tags_to_convert_to_html=tags_to_convert_to_html)
+            for item in self.licenses
         }
