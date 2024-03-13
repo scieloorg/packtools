@@ -112,7 +112,7 @@ class ArticleTitlesTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
         expected = [{
@@ -128,6 +128,11 @@ class ArticleTitlesTest(TestCase):
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
+            "html_text": (
+                "Inmunización de <b>Flujos Financieros</b> con Futuros "
+                "de Tasas de Interés: un Análisis de Duración y"
+                " Convexidad con el Modelo de Nelson y Siegel"
+            )
         },
         {
             "lang": "en",
@@ -138,6 +143,11 @@ class ArticleTitlesTest(TestCase):
                 "THE NELSON & SIEGEL MODEL"
             ),
             "plain_text": (
+                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                "THE NELSON & SIEGEL MODEL"
+            ),
+            "html_text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                 "THE NELSON & SIEGEL MODEL"
@@ -173,7 +183,7 @@ class SubArticleTitlesTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
         expected = [{
@@ -189,6 +199,11 @@ class SubArticleTitlesTest(TestCase):
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
+            "html_text": (
+                "Inmunización de <b>Flujos Financieros</b> con Futuros "
+                "de Tasas de Interés: un Análisis de Duración y"
+                " Convexidad con el Modelo de Nelson y Siegel"
+            ),
         },
         {
             "id": "1",
@@ -200,6 +215,11 @@ class SubArticleTitlesTest(TestCase):
                 "THE NELSON & SIEGEL MODEL"
             ),
             "plain_text": (
+                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                "THE NELSON & SIEGEL MODEL"
+            ),
+            "html_text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                 "THE NELSON & SIEGEL MODEL"
@@ -228,7 +248,7 @@ class ArticleTitlesWithStyleTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
         self.maxDiff = None
@@ -238,6 +258,8 @@ class ArticleTitlesWithStyleTest(TestCase):
             "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
                     'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
             "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         {
             "lang": "en",
@@ -245,6 +267,8 @@ class ArticleTitlesWithStyleTest(TestCase):
             "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
                     'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
             "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
         for i, item in enumerate(self.article_titles.data):
@@ -276,7 +300,7 @@ class SubArticleTitlesWithStyleTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
         self.maxDiff = None
@@ -286,6 +310,8 @@ class SubArticleTitlesWithStyleTest(TestCase):
             "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
                     'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
             "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         {
             "id": "1",
@@ -294,6 +320,8 @@ class SubArticleTitlesWithStyleTest(TestCase):
             "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
                     'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
             "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
         for i, item in enumerate(self.article_titles.data):
