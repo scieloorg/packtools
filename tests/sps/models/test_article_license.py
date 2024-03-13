@@ -33,7 +33,7 @@ class ArticleLicenseTest(TestCase):
                 </article>
                 """)
         xmltree = etree.fromstring(xml)
-        self.article_license = ArticleLicense(xmltree)
+        self.article_license = ArticleLicense(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_get_licenses(self):
         self.maxDiff = None
@@ -43,8 +43,8 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
-                    'xml_format': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
-                    'html_format': '<b>This is an article</b> published in open access under a Creative Commons license.'
+                    'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
+                    'html_text': '<b>This is an article</b> published in open access under a Creative Commons license.'
                 }
             },
             {
@@ -52,8 +52,8 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
-                    'xml_format': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
-                    'html_format': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
+                    'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
+                    'html_text': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
                 }
             },
             {
@@ -61,13 +61,13 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
-                    'xml_format': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
-                    'html_format': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
+                    'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
+                    'html_text': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
                 }
             }
         ]
 
-        self.assertEqual(expected, self.article_license.licenses(tags_to_convert_to_html={'bold': 'b'}))
+        self.assertEqual(expected, self.article_license.licenses)
 
     def test_get_license_p(self):
         self.maxDiff = None
@@ -77,8 +77,8 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
-                    'xml_format': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
-                    'html_format': '<b>This is an article</b> published in open access under a Creative Commons license.'
+                    'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
+                    'html_text': '<b>This is an article</b> published in open access under a Creative Commons license.'
                 }
             },
             'pt': {
@@ -86,8 +86,8 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
-                    'xml_format': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
-                    'html_format': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
+                    'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
+                    'html_text': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
                 }
             },
             'es': {
@@ -95,10 +95,10 @@ class ArticleLicenseTest(TestCase):
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
                 'license_p': {
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
-                    'xml_format': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
-                    'html_format': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
+                    'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
+                    'html_text': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
                 }
             }
         }
 
-        self.assertEqual(expected, self.article_license.licenses_by_lang(tags_to_convert_to_html={'bold': 'b'}))
+        self.assertEqual(expected, self.article_license.licenses_by_lang)
