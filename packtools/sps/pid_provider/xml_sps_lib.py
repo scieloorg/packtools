@@ -383,6 +383,34 @@ class XMLWithPre:
     def aop_pid(self):
         return self.article_ids.aop_pid
 
+    @property
+    def order(self):
+        return self.article_ids.other
+
+    @order.setter
+    def order(self, value):
+        try:
+            new_value = str(int(value)).zfill(5)
+        except (TypeError, ValueError, AttributeError):
+            new_value = None
+
+        if not new_value or len(new_value) > 5:
+            raise ValueError(
+                "can't set attribute XMLWithPre.order. "
+                "Expected value must a 5 characters digit. Got: %s" % value
+            )
+        try:
+            node = self.xmltree.xpath('.//article-id[@pub-id-type="other"]')[0]
+        except IndexError:
+            node = None
+
+        if node is None:
+            node = etree.Element("article-id")
+            node.set("pub-id-type", "other")
+            parent = self.article_id_parent
+            parent.insert(1, node)
+        node.text = new_value
+
     @v2.setter
     def v2(self, value):
         value = value and value.strip()
