@@ -386,6 +386,7 @@ def process_subtags(
         tags_to_remove_with_content=None,
         tags_to_convert_to_html=None,
 ):
+
     if node is None:
         return
 
