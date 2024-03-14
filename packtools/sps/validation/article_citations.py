@@ -1,13 +1,15 @@
 from packtools.sps.models.article_citations import ArticleCitations
+from packtools.sps.models.dates import ArticleDates
 from packtools.sps.validation.exceptions import ValidationArticleCitationsException
 
 
 class ArticleCitationValidation:
-    def __init__(self, citation, publication_type_list=None):
+    def __init__(self, xmltree, citation, publication_type_list=None):
+        self.xmltree = xmltree
         self.citation = citation
         self.publication_type_list = publication_type_list
 
-    def validate_article_citation_year(self):
+    def validate_article_citation_year(self, start_year=None, end_year=None):
         """
         Checks whether the year in an article citation exists and is valid.
 
@@ -29,11 +31,17 @@ class ArticleCitationValidation:
                 },...
             ]
         """
+        if start_year is None:
+            start_year = 0
+        if end_year is None:
+            try:
+                end_year = int(ArticleDates(self.xmltree).collection_date['year'])
+            except TypeError:
+                raise ValidationArticleCitationsException('Article publication date not found and is required')
+        year = self.citation.get('year')
         try:
-            year = str(self.citation['year'])
-            is_valid = year.isdigit() and len(year) == 4
-        except KeyError:
-            year = None
+            is_valid = start_year < int(year) <= end_year
+        except (TypeError, ValueError):
             is_valid = False
         yield {
             'title': 'element citation validation',
@@ -41,11 +49,11 @@ class ArticleCitationValidation:
             'sub-item': 'year',
             'validation_type': 'exist',
             'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': year if is_valid else 'a valid value to year',
+            'expected_value': f'a value for year between {start_year} and {end_year}',
             'got_value': year,
-            'message': f'Got {year} expected {year if is_valid else "a valid value to year"}',
+            'message': f'Got {year} expected a value for year between {start_year} and {end_year}',
             'advice': None if is_valid else f"The year in reference (ref-id: {self.citation.get('ref_id')}) is missing "
-                                            f"or is invalid, provide a valid value to year"
+                                            f"or is invalid, provide a valid value for year"
         }
 
     def validate_article_citation_source(self):
@@ -121,11 +129,11 @@ class ArticleCitationValidation:
                 'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': article_title if is_valid else 'a valid value to article-title',
+                'expected_value': article_title if is_valid else 'a valid value for article-title',
                 'got_value': article_title,
-                'message': f'Got {article_title} expected {article_title if is_valid else "a valid value to article-title"}',
+                'message': f'Got {article_title} expected {article_title if is_valid else "a valid value for article-title"}',
                 'advice': None if is_valid else f"The article-title in reference (ref-id: {self.citation.get('ref_id')}) is missing "
-                                                f"provide a valid value to article-title"
+                                                f"provide a valid value for article-title"
             }
 
     def validate_article_citation_authors(self):
@@ -212,10 +220,10 @@ class ArticleCitationsValidation:
         self.article_citations = ArticleCitations(self._xmltree).article_citations
         self.publication_type_list = publication_type_list
 
-    def validate_article_citations(self, publication_type_list=None):
+    def validate_article_citations(self, xmltree, publication_type_list=None, start_year=None, end_year=None):
         for article_citation in self.article_citations:
-            citation = ArticleCitationValidation(article_citation, publication_type_list)
-            yield from citation.validate_article_citation_year()
+            citation = ArticleCitationValidation(xmltree, article_citation, publication_type_list)
+            yield from citation.validate_article_citation_year(start_year=start_year, end_year=end_year)
             yield from citation.validate_article_citation_source()
             yield from citation.validate_article_citation_article_title()
             yield from citation.validate_article_citation_authors()
