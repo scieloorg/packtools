@@ -7,8 +7,20 @@ from packtools.sps.validation.exceptions import (
 
 
 class ArticleLicenseValidation:
-    def __init__(self, xmltree):
-        self.article_license = ArticleLicense(xmltree)
+    def __init__(self,
+                 xmltree,
+                 tags_to_keep=None,
+                 tags_to_keep_with_content=None,
+                 tags_to_remove_with_content=None,
+                 tags_to_convert_to_html=None
+                 ):
+        self.article_license = ArticleLicense(
+            xmltree,
+            tags_to_keep=tags_to_keep,
+            tags_to_keep_with_content=tags_to_keep_with_content,
+            tags_to_remove_with_content=tags_to_remove_with_content,
+            tags_to_convert_to_html=tags_to_convert_to_html
+        )
 
     def validate_license(self, expected_value):
         """
@@ -101,7 +113,12 @@ class ArticleLicenseValidation:
         obtained_value = self.article_license.licenses_by_lang
 
         for lang, data in obtained_value.items():
-            is_valid = expected_value.get(lang) == data
+            obtained_license_p = {
+                'lang': data.get('lang'),
+                'link': data.get('link'),
+                'license_p': data.get('license_p').get('plain_text')
+            }
+            is_valid = expected_value.get(lang) == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
             yield {
@@ -110,8 +127,8 @@ class ArticleLicenseValidation:
                 'validation_type': 'value',
                 'response': 'OK' if is_valid else 'ERROR',
                 'expected_value': expected_value_msg,
-                'got_value': data,
-                'message': f'Got {data}, expected: {expected_value_msg}',
+                'got_value': obtained_license_p,
+                'message': f'Got {obtained_license_p}, expected: {expected_value_msg}',
                 'advice': None if is_valid else 'Provide license data that is consistent with the language: {} and '
                                                 'standard adopted by the journal'.format(lang)
             }
