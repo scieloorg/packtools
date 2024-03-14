@@ -12,6 +12,31 @@ class KwdGroup:
                                         tags_to_remove_with_content=None,
                                         tags_to_convert_to_html=None
                                         ):
+        """
+        Extract keyword data with language information from XML tree nodes.
+
+        Params
+        ------
+        subtag (bool): True -> process subtags, False -> plain text
+        tags_to_keep (list, optional): Tags to be preserved. Eg.:
+            ['bold', 'p']
+        tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+            ['bold', 'p']
+        tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+            ['bold', 'p']
+        tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+            {'bold': 'b'}
+
+        Returns
+        -------
+        list: A list of dictionaries. Eg.:
+            [
+                {
+                    'lang': 'en',
+                    'text': 'Chagas Disease, transmission'
+                },...
+            ]
+        """
         _data = []
 
         nodes = self._xmltree.xpath('.//article-meta | .//sub-article')
@@ -39,6 +64,41 @@ class KwdGroup:
                                          tags_to_remove_with_content=None,
                                          tags_to_convert_to_html=None
                                          ):
+        """
+        Extract keyword data with language information from XML tree nodes.
+
+        Params
+        ------
+        subtag (bool): True -> process subtags, False -> plain text
+        tags_to_keep (list, optional): Tags to be preserved. Eg.:
+            ['bold', 'p']
+        tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+            ['bold', 'p']
+        tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+            ['bold', 'p']
+        tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+            {'bold': 'b'}
+
+        Returns
+        -------
+        dict: A dict. Eg.:
+            {
+            'en': [
+                'Primary health care',
+                'Ambulatory care facilities',
+                'Chronic pain',
+                'Analgesia',
+                'Pain management'
+            ],
+            'pt': [
+                'Atenção primária à saúde',
+                'Instituições de assistência ambulatorial',
+                'Dor crônica',
+                'Analgesia',
+                'Tratamento da dor'
+            ]
+        }
+        """
 
         _data_dict = {}
         _data = self.extract_kwd_data_with_lang_text(subtag, tags_to_keep, tags_to_keep_with_content,
@@ -56,6 +116,33 @@ class KwdGroup:
                                                         tags_to_remove_with_content=None,
                                                         tags_to_convert_to_html=None
                                                         ):
+        """
+        Extract keyword data with language information by article type from XML tree nodes.
+
+        Params
+        ------
+        subtag (bool): True -> process subtags, False -> plain text
+        tags_to_keep (list, optional): Tags to be preserved. Eg.:
+            ['bold', 'p']
+        tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+            ['bold', 'p']
+        tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+            ['bold', 'p']
+        tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+            {'bold': 'b'}
+
+        Returns
+        -------
+        list: A list of dictionaries. Eg.:
+            [
+                {
+                    'parent_name': 'article',
+                    'lang': 'pt',
+                    'text': ['Enfermagem', 'Idoso de 80 Anos ou Mais', 'Relações Familiares']
+                },...
+            ]
+        }
+        """
         dict_nodes = {
             'article': self._xmltree.xpath('.//article-meta'),
             'sub-article': self._xmltree.xpath('./sub-article')
