@@ -133,15 +133,12 @@ class KwdGroup:
 
         Returns
         -------
-        list: A list of dictionaries. Eg.:
-            [
-                {
-                    'parent_name': 'article',
-                    'lang': 'pt',
-                    'text': ['Enfermagem', 'Idoso de 80 Anos ou Mais', 'Relações Familiares']
-                },...
-            ]
-        }
+        Iterator[dict]: A generator that yields dictionaries. Eg.:
+            {
+                'parent_name': 'article',
+                'lang': 'pt',
+                'text': ['Enfermagem', 'Idoso de 80 Anos ou Mais', 'Relações Familiares']
+            },...
         """
         dict_nodes = {
             'article': self._xmltree.xpath('.//article-meta'),
