@@ -7,10 +7,26 @@ from packtools.sps.validation.article_citations import ArticleCitationValidation
 
 
 class ArticleCitationValidationTest(TestCase):
-    def test_validate_article_citation_year_success(self):
+    def test_validate_article_citation_year_fail(self):
         self.maxDiff = None
         xml = """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <pub-date publication-format="electronic" date-type="pub">
+            <day>20</day>
+            <month>04</month>
+            <year>2022</year>
+            </pub-date>
+            <pub-date publication-format="electronic" date-type="collection">
+            <year>2003</year>
+            </pub-date>
+            <volume>4</volume>
+            <issue>1</issue>
+            <fpage>108</fpage>
+            <lpage>123</lpage>
+            </article-meta>
+            </front>
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -65,8 +81,89 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_year())
+
+        expected = [
+            {
+                'title': 'element citation validation',
+                'item': 'element-citation',
+                'sub-item': 'year',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a value for year between 0 and 2003',
+                'got_value': '2015',
+                'message': f'Got 2015 expected a value for year between 0 and 2003',
+                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value for year'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_year_success(self):
+        self.maxDiff = None
+        xml = """
+                   <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                   <back>
+                   <ref-list>
+                   <title>REFERENCES</title>
+                   <ref id="B1">
+                   <label>1.</label>
+                   <mixed-citation>
+                   1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+                   </mixed-citation>
+                   <element-citation publication-type="journal">
+                   <person-group person-group-type="author">
+                   <name>
+                   <surname>Tran</surname>
+                   <given-names>B</given-names>
+                   <prefix>The Honorable</prefix>
+                   <suffix>III</suffix>
+                   </name>
+                   <name>
+                   <surname>Falster</surname>
+                   <given-names>MO</given-names>
+                   </name>
+                   <name>
+                   <surname>Douglas</surname>
+                   <given-names>K</given-names>
+                   </name>
+                   <name>
+                   <surname>Blyth</surname>
+                   <given-names>F</given-names>
+                   </name>
+                   <name>
+                   <surname>Jorm</surname>
+                   <given-names>LR</given-names>
+                   </name>
+                   </person-group>
+                   <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+                   <source>Drug Alcohol Depend.</source>
+                   <year>2015</year>
+                   <volume>150</volume>
+                   <fpage>85</fpage>
+                   <lpage>91</lpage>
+                   <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+                   <elocation-id>elocation_B1</elocation-id>
+                   <pub-id pub-id-type="pmid">00000000</pub-id>
+                   <pub-id pub-id-type="pmcid">11111111</pub-id>
+                   <comment>
+                   DOI:
+                   <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+                   </comment>
+                   </element-citation>
+                   </ref>
+                   </ref-list>
+                   </back>
+                   </article>
+               """
+
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_year(start_year=2000, end_year=2020))
 
         expected = [
             {
@@ -75,9 +172,9 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': '2015',
+                'expected_value': 'a value for year between 2000 and 2020',
                 'got_value': '2015',
-                'message': f'Got 2015 expected 2015',
+                'message': 'Got 2015 expected a value for year between 2000 and 2020',
                 'advice': None
             },
         ]
@@ -144,8 +241,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_year(start_year=2000, end_year=2020))
 
         expected = [
             {
@@ -154,10 +252,10 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'a valid value to year',
+                'expected_value': 'a value for year between 2000 and 2020',
                 'got_value': '201a',
-                'message': f'Got 201a expected a valid value to year',
-                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value to year'
+                'message': f'Got 201a expected a value for year between 2000 and 2020',
+                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value for year'
             },
         ]
 
@@ -222,8 +320,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_year())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_year(start_year=2000, end_year=2020))
 
         expected = [
             {
@@ -232,10 +331,10 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'a valid value to year',
+                'expected_value': 'a value for year between 2000 and 2020',
                 'got_value': None,
-                'message': f'Got None expected a valid value to year',
-                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value to year'
+                'message': f'Got None expected a value for year between 2000 and 2020',
+                'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value for year'
             },
         ]
 
@@ -301,8 +400,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_source())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_source())
 
         expected = [
             {
@@ -379,8 +479,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_source())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_source())
 
         expected = [
             {
@@ -458,8 +559,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_article_title())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_article_title())
 
         expected = [
             {
@@ -540,8 +642,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_article_title())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_article_title())
 
         expected = [
             {
@@ -550,10 +653,10 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'article-title',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'a valid value to article-title',
+                'expected_value': 'a valid value for article-title',
                 'got_value': None,
-                'message': 'Got None expected a valid value to article-title',
-                'advice': 'The article-title in reference (ref-id: B1) is missing provide a valid value to article-title'
+                'message': 'Got None expected a valid value for article-title',
+                'advice': 'The article-title in reference (ref-id: B1) is missing provide a valid value for article-title'
             },
         ]
 
@@ -619,8 +722,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_authors())
 
         expected = [
             {
@@ -674,8 +778,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_authors())
 
         expected = [
             {
@@ -729,8 +834,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = list(ArticleCitationValidation(data).validate_article_citation_authors())
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xmltree, citation).validate_article_citation_authors())
 
         expected = [
             {
@@ -808,8 +914,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = ArticleCitationValidation(data).validate_article_citation_publication_type(
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = ArticleCitationValidation(xmltree, citation).validate_article_citation_publication_type(
             publication_type_list=['journal', 'book'])
 
         expected = [
@@ -888,8 +995,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = list(ArticleCitations(etree.fromstring(xml)).article_citations)[0]
-        obtained = ArticleCitationValidation(data).validate_article_citation_publication_type(
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = ArticleCitationValidation(xmltree, citation).validate_article_citation_publication_type(
             publication_type_list=['other', 'book'])
 
         expected = [
@@ -969,8 +1077,13 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        data = etree.fromstring(xml)
-        obtained = list(ArticleCitationsValidation(data).validate_article_citations(publication_type_list=['journal', 'book']))
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitationsValidation(xmltree).validate_article_citations(
+            xmltree,
+            publication_type_list=['journal', 'book'],
+            start_year=2000,
+            end_year=2020
+        ))
 
         expected = [
             {
@@ -979,9 +1092,9 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': '2015',
+                'expected_value': 'a value for year between 2000 and 2020',
                 'got_value': '2015',
-                'message': f'Got 2015 expected 2015',
+                'message': 'Got 2015 expected a value for year between 2000 and 2020',
                 'advice': None
             },
             {
