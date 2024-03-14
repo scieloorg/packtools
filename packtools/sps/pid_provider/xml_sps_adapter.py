@@ -38,7 +38,13 @@ class PidProviderXMLAdapter:
 
     @property
     def v2_prefix(self):
+        # S + ISSN + YEAR ou 14 primeiros dígitos do pid clássico
         return self.xml_with_pre.v2_prefix
+
+    @property
+    def order(self):
+        # até 5 dígitos, em geral 5 últimos dígitos do pid v2
+        return self.xml_with_pre.order
 
     @property
     def volume(self):
@@ -111,6 +117,10 @@ class PidProviderXMLAdapter:
     @aop_pid.setter
     def aop_pid(self, value):
         self.xml_with_pre.aop_pid = value
+
+    @order.setter
+    def order(self, value):
+        self.xml_with_pre.order = value
 
     @property
     def z_links(self):
