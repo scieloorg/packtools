@@ -35,9 +35,9 @@ class ArticleCitationValidation:
             start_year = 0
         if end_year is None:
             try:
+                end_year = int(ArticleDates(self.xmltree).collection_date['year'])
+            except (KeyError, TypeError, ValueError):
                 end_year = int(ArticleDates(self.xmltree).article_date['year'])
-            except TypeError:
-                raise ValidationArticleCitationsException('Article publication date not found and is required')
         year = self.citation.get('year')
         try:
             is_valid = start_year < int(year) <= end_year
