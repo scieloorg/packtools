@@ -16,7 +16,7 @@ class ArticleCitationValidationTest(TestCase):
             <pub-date publication-format="electronic" date-type="pub">
             <day>20</day>
             <month>04</month>
-            <year>2022</year>
+            <year>2014</year>
             </pub-date>
             <pub-date publication-format="electronic" date-type="collection">
             <year>2003</year>
@@ -92,9 +92,9 @@ class ArticleCitationValidationTest(TestCase):
                 'sub-item': 'year',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'a value for year between 0 and 2003',
+                'expected_value': 'a value for year between 0 and 2014',
                 'got_value': '2015',
-                'message': f'Got 2015 expected a value for year between 0 and 2003',
+                'message': f'Got 2015 expected a value for year between 0 and 2014',
                 'advice': 'The year in reference (ref-id: B1) is missing or is invalid, provide a valid value for year'
             },
         ]
