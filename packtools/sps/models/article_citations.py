@@ -10,6 +10,10 @@ def get_label(node):
     return text
 
 
+def get_publication_type(node):
+    return node.find('./element-citation').get('publication-type')
+
+
 def get_source(node):
     return xml_utils.node_plain_text(node.find('./element-citation/source'))
 
@@ -96,6 +100,7 @@ class ArticleCitations:
             tags = [
                 ('ref_id', get_ref_id(node)),
                 ('label', get_label(node)),
+                ('publication_type', get_publication_type(node)),
                 ('source', get_source(node)),
                 ('main_author', get_main_author(node)),
                 ('all_authors', get_all_authors(node)),
