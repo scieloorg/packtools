@@ -386,6 +386,10 @@ def process_subtags(
         tags_to_remove_with_content=None,
         tags_to_convert_to_html=None,
 ):
+
+    if node is None:
+        return
+
     std_to_keep = ('sup', 'sub')
     std_to_keep_with_content = ('mml:math', '{http://www.w3.org/1998/Math/MathML}math', 'math')
     std_to_remove_content = ('xref',)
