@@ -220,14 +220,18 @@ class KwdGroup:
                 for kwd_group in node.xpath('.//kwd-group'):
                     kwd_group_lang = kwd_group.get("{http://www.w3.org/XML/1998/namespace}lang", node_lang)
 
-                    keyword_text = []
+                    keyword_plain_text = []
+                    keyword_html_text = []
                     for kwd in kwd_group.xpath("kwd"):
-                        keywords = xml_utils.process_subtags(kwd, tags_to_keep, tags_to_keep_with_content,
-                                                             tags_to_remove_with_content, tags_to_convert_to_html)
-                        keyword_text.append(keywords)
+                        keyword_html_text.append(xml_utils.process_subtags(kwd,
+                                                                           tags_to_keep,
+                                                                           tags_to_keep_with_content,
+                                                                           tags_to_remove_with_content,
+                                                                           tags_to_convert_to_html))
+                        keyword_plain_text.append(xml_utils.node_plain_text(kwd))
                     resp["parent_name"] = tp
                     resp["lang"] = kwd_group_lang
-                    resp["plain_text"] = None
-                    resp["html_text"] = keyword_text
+                    resp["plain_text"] = keyword_plain_text
+                    resp["html_text"] = keyword_html_text
 
                     yield resp
