@@ -336,18 +336,25 @@ class KwdGroupWithStyleTest(TestCase):
 
     def test_extract_kwd_data_with_lang_html_format(self):
         self.maxDiff = None
-        kwd_extract_kwd_with_subtag = list(KwdGroup(self.xmltree).extract_kwd_data_with_lang_html_format(tags_to_keep=['bold']))
+        kwd_extract_kwd_with_subtag = list(KwdGroup(self.xmltree).extract_kwd_data_with_lang_html_format(
+            tags_to_convert_to_html={'bold': 'b'}
+        ))
 
         expected_output = [
             {
                 'parent_name': 'article',
                 'lang': 'pt',
-                'plain_text': None,
+                'plain_text': [
+                    'conteúdo de bold text',
+                    'text conteúdo de bold text',
+                    'text conteúdo de bold',
+                    'text conteúdo de bold'
+                ],
                 'html_text': [
-                    '<bold>conteúdo de bold</bold> text',
-                    'text <bold>conteúdo de bold</bold> text',
-                    'text <bold>conteúdo de bold</bold>',
-                    'text <bold>conteúdo <i>de</i> bold</bold>'
+                    '<b>conteúdo de bold</b> text',
+                    'text <b>conteúdo de bold</b> text',
+                    'text <b>conteúdo de bold</b>',
+                    'text <b>conteúdo <i>de</i> bold</b>'
                 ]
             }
         ]
