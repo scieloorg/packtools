@@ -1,4 +1,5 @@
 from unittest import TestCase
+from lxml import etree as ET
 
 from packtools.sps.utils import xml_utils
 
@@ -50,15 +51,16 @@ class KwdGroupTest(TestCase):
         self.assertEqual(kwd_extract_by_lang, expected_output)
 
     def test_extract_kwd_data_with_lang_subtag(self):
+        self.maxDiff = None
         xmltree = xml_utils.get_xml_tree('tests/samples/0034-8910-rsp-48-2-0296.xml')
         kwd_extract_kwd_with_lang_subtag = KwdGroup(xmltree).extract_kwd_data_with_lang_text(subtag=True)
 
         expected_output = [
             {'lang': 'en', 'text': 'Chagas Disease, transmission'},
-            {'lang': 'en', 'text': 'Triatominae, <italic>Trypanosoma cruzi</italic>, isolation'},
+            {'lang': 'en', 'text': 'Triatominae, <i>Trypanosoma cruzi</i>, isolation'},
             {'lang': 'en', 'text': 'Communicable Diseases, epidemiology'},
             {'lang': 'pt', 'text': 'Doença de Chagas, transmissão'},
-            {'lang': 'pt', 'text': 'Triatominae, <italic>Trypanosoma cruzi</italic>, isolamento'},
+            {'lang': 'pt', 'text': 'Triatominae, <i>Trypanosoma cruzi</i>, isolamento'},
             {'lang': 'pt', 'text': 'Doenças Transmissíveis, epidemiologia'}
         ]
 
@@ -86,12 +88,12 @@ class KwdGroupTest(TestCase):
         expected_output = {
             'en': [
                 'Chagas Disease, transmission',
-                'Triatominae, <italic>Trypanosoma cruzi</italic>, isolation',
+                'Triatominae, <i>Trypanosoma cruzi</i>, isolation',
                 'Communicable Diseases, epidemiology'
             ],
             'pt': [
                 'Doença de Chagas, transmissão',
-                'Triatominae, <italic>Trypanosoma cruzi</italic>, isolamento',
+                'Triatominae, <i>Trypanosoma cruzi</i>, isolamento',
                 'Doenças Transmissíveis, epidemiologia'
             ]
         }
@@ -178,3 +180,183 @@ class KwdGroupTest(TestCase):
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
+
+
+class KwdGroupWithStyleTest(TestCase):
+    def setUp(self):
+        self.xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <kwd-group xml:lang="pt">
+                <title>PALAVRAS-CHAVE</title>
+                <kwd><bold>conteúdo de bold</bold> text </kwd>
+                <kwd>text <bold>conteúdo de bold</bold> text </kwd>
+                <kwd>text <bold>conteúdo de bold</bold></kwd>
+                <kwd>text <bold>conteúdo <italic>de</italic> bold</bold></kwd>
+            </kwd-group>
+            </article-meta>
+            </front>
+            </article>
+            """)
+
+    def test_extract_kwd_data_with_lang(self):
+        self.maxDiff = None
+        kwd_extract_data_with_lang_text = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
+
+        expected_output = [
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'}
+        ]
+
+        self.assertEqual(kwd_extract_data_with_lang_text, expected_output)
+
+    def test_extract_kwd_data_by_lang_without_key_text(self):
+        self.maxDiff = None
+        kwd_extract_by_lang = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=False)
+
+        expected_output = {
+            'pt': [
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
+                'text conteúdo de bold',
+                'text conteúdo de bold'
+            ]
+        }
+
+        self.assertEqual(kwd_extract_by_lang, expected_output)
+
+    def test_extract_kwd_data_with_lang_subtag(self):
+        self.maxDiff = None
+        kwd_extract_kwd_with_lang_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=True, tags_to_keep=['bold'])
+
+        expected_output = [
+            {'lang': 'pt', 'text': '<bold>conteúdo de bold</bold> text'},
+            {'lang': 'pt', 'text': 'text <bold>conteúdo de bold</bold> text'},
+            {'lang': 'pt', 'text': 'text <bold>conteúdo de bold</bold>'},
+            {'lang': 'pt', 'text': 'text <bold>conteúdo <i>de</i> bold</bold>'}
+        ]
+
+        self.assertEqual(kwd_extract_kwd_with_lang_subtag, expected_output)
+
+    def test_extract_kwd_data_without_lang_subtag(self):
+        self.maxDiff = None
+        kwd_extract_kwd_without_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
+
+        expected_output = [
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'}
+        ]
+
+        self.assertEqual(kwd_extract_kwd_without_subtag, expected_output)
+
+    def test_extract_kwd_data_by_lang_with_subtag(self):
+        self.maxDiff = None
+        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=True, tags_to_keep=['bold'])
+
+        expected_output = {
+            'pt': [
+                    '<bold>conteúdo de bold</bold> text',
+                    'text <bold>conteúdo de bold</bold> text',
+                    'text <bold>conteúdo de bold</bold>',
+                    'text <bold>conteúdo <i>de</i> bold</bold>'
+            ],
+        }
+
+        self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
+
+    def test_extract_kwd_data_by_lang_without_subtag(self):
+        self.maxDiff = None
+        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=False)
+
+        expected_output = {
+            'pt': [
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
+                'text conteúdo de bold',
+                'text conteúdo de bold'
+            ],
+        }
+
+        self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
+
+    def test_extract_kwd_data_with_lang_text_kwd_group_without_lang(self):
+        self.maxDiff = None
+        kwd_extract_data_with_lang_text = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=False)
+
+        expected_output = [
+            {'lang': 'pt', 'text': 'conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold text'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'},
+            {'lang': 'pt', 'text': 'text conteúdo de bold'}
+        ]
+
+        self.assertEqual(expected_output, kwd_extract_data_with_lang_text)
+
+    def test_extract_kwd_extract_data_by_lang_kwd_group_without_lang(self):
+        self.maxDiff = None
+        kwd_extract_data_with_lang_text = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=False)
+
+        expected_output = {
+            'pt': [
+                'conteúdo de bold text',
+                'text conteúdo de bold text',
+                'text conteúdo de bold',
+                'text conteúdo de bold'
+            ],
+        }
+
+        self.assertEqual(expected_output, kwd_extract_data_with_lang_text)
+
+    def test_extract_kwd_data_with_lang_text_by_article_type(self):
+        self.maxDiff = None
+        obtained = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text_by_article_type(subtag=False)
+
+        expected = [
+            {
+                'parent_name': 'article', 'lang': 'pt',
+                'text': [
+                    'conteúdo de bold text',
+                    'text conteúdo de bold text',
+                    'text conteúdo de bold',
+                    'text conteúdo de bold'
+                ]
+             },
+        ]
+
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
+
+    def test_extract_kwd_data_with_lang_html_format(self):
+        self.maxDiff = None
+        kwd_extract_kwd_with_subtag = list(KwdGroup(self.xmltree).extract_kwd_data_with_lang_html_format(
+            tags_to_convert_to_html={'bold': 'b'}
+        ))
+
+        expected_output = [
+            {
+                'parent_name': 'article',
+                'lang': 'pt',
+                'plain_text': [
+                    'conteúdo de bold text',
+                    'text conteúdo de bold text',
+                    'text conteúdo de bold',
+                    'text conteúdo de bold'
+                ],
+                'html_text': [
+                    '<b>conteúdo de bold</b> text',
+                    'text <b>conteúdo de bold</b> text',
+                    'text <b>conteúdo de bold</b>',
+                    'text <b>conteúdo <i>de</i> bold</b>'
+                ]
+            }
+        ]
+
+        self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)

@@ -8,13 +8,6 @@ from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
-# namespaces = {}
-# namespaces['mml'] = 'http://www.w3.org/1998/Math/MathML'
-# namespaces['xlink'] = 'http://www.w3.org/1999/xlink'
-# namespaces['xml'] = 'http://www.w3.org/XML/1998/namespace'
-#
-# for namespace_id, namespace_link in namespaces.items():
-#     etree.register_namespace(namespace_id, namespace_link)
 
 def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     _items = []
