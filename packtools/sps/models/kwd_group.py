@@ -235,3 +235,140 @@ class KwdGroup:
                     resp["html_text"] = keyword_html_text
 
                     yield resp
+
+
+class Keyword:
+    def __init__(self, node, tags_to_keep=None, tags_to_keep_with_content=None, tags_to_remove_with_content=None,
+                 tags_to_convert_to_html=None, lang=None, parent=None, _id=None):
+        """
+        Constructs all the necessary attributes for the keyword object.
+
+        Parameters:
+        -----------
+            node (lxml.etree._Element): XML node with keyword. Eg.:
+                <kwd>text <bold>conteúdo <italic>de</italic> bold</bold></kwd>
+            tags_to_keep (list, optional): Tags to be preserved. Eg.:
+                ['bold', 'p']
+            tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+                ['bold', 'p']
+            tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+                ['bold', 'p']
+            tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+                {'bold': 'b'}
+            lang (str, optional): Language of keyword. Eg.:
+                'en'
+            parent (str, optional): Parent node. Eg,:
+                'sub-article'
+            id (str, optional): Identification of sub-article (if article the value is None). Eg.:
+                '01'
+        """
+        self.node = node
+        self.tags_to_keep = tags_to_keep
+        self.tags_to_keep_with_content = tags_to_keep_with_content
+        self.tags_to_remove_with_content = tags_to_remove_with_content
+        self.tags_to_convert_to_html = tags_to_convert_to_html
+        self.lang = lang
+        self.parent = parent
+        self.id = _id
+
+    @property
+    def keyword(self):
+        """
+        Extract keyword data from XML tree node.
+
+        Returns
+        -------
+        list: A list of dictionaries. Eg.:
+            [
+                {
+                    'id': '01',
+                    'parent_name': 'article',
+                    'lang': 'pt',
+                    'plain_text': 'text conteúdo de bold',
+                    'html_text': 'text <b>conteúdo <i>de</i> bold</b>'
+                }
+            ]
+        """
+        yield {
+            "id": self.id,
+            "parent_name": self.parent,
+            "lang": self.lang,
+            "plain_text": xml_utils.node_plain_text(self.node),
+            "html_text": xml_utils.process_subtags(self.node, self.tags_to_keep, self.tags_to_keep_with_content,
+                                                   self.tags_to_remove_with_content, self.tags_to_convert_to_html)
+        }
+
+
+class KeywordGroup:
+    def __init__(self, node, tags_to_keep=None, tags_to_keep_with_content=None, tags_to_remove_with_content=None,
+                 tags_to_convert_to_html=None):
+        """
+        Constructs all the necessary attributes for the keyword group object.
+
+        Parameters:
+        -----------
+            node (lxml.etree._Element): XML node with keyword. Eg.:
+                <kwd>text <bold>conteúdo <italic>de</italic> bold</bold></kwd>
+            tags_to_keep (list, optional): Tags to be preserved. Eg.:
+                ['bold', 'p']
+            tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+                ['bold', 'p']
+            tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+                ['bold', 'p']
+            tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+                {'bold': 'b'}
+            lang (str, optional): Language of keyword. Eg.:
+                'en'
+            parent (str, optional): Parent node. Eg,:
+                'sub-article'
+            id (str, optional): Identification of sub-article (if article the value is None). Eg.:
+                '01'
+        """
+        self.node = node
+        self.tags_to_keep = tags_to_keep
+        self.tags_to_keep_with_content = tags_to_keep_with_content
+        self.tags_to_remove_with_content = tags_to_remove_with_content
+        self.tags_to_convert_to_html = tags_to_convert_to_html
+
+    @property
+    def keywords(self):
+        """
+        Extract keyword group data from XML tree node.
+
+        Returns
+        -------
+        list: A list of dictionaries. Eg.:
+            [
+                {
+                    'id': '01',
+                    'parent_name': 'article',
+                    'lang': 'pt',
+                    'plain_text': 'text conteúdo de bold',
+                    'html_text': 'text <b>conteúdo <i>de</i> bold</b>'
+                },
+                ...
+            ]
+        """
+        dict_nodes = {
+            'article': self.node.xpath('.//article-meta'),
+            'sub-article': self.node.xpath('.//sub-article')
+        }
+
+        for parent, nodes in dict_nodes.items():
+            for node in nodes:
+                node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+
+                for kwd_group in node.xpath('.//kwd-group'):
+                    kwd_group_lang = kwd_group.get("{http://www.w3.org/XML/1998/namespace}lang", node_lang)
+
+                    for kwd in kwd_group.xpath("kwd"):
+                        yield from Keyword(
+                            kwd,
+                            tags_to_keep=self.tags_to_keep,
+                            tags_to_keep_with_content=self.tags_to_remove_with_content,
+                            tags_to_remove_with_content=self.tags_to_remove_with_content,
+                            tags_to_convert_to_html=self.tags_to_convert_to_html,
+                            lang=kwd_group_lang,
+                            parent=parent,
+                            _id=node.get("id")
+                        ).keyword
