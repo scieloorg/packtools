@@ -48,7 +48,7 @@ class NodeTextTest(TestCase):
         self.assertEqual(expected, result)
 
     def test_generate_tag_list(self):
-        expected = ['sup', 'sub', 'italic', 'bold']
+        expected = ('sup', 'sub', 'italic', 'bold')
         obtained = xml_utils._generate_tag_list(
             ['sup', 'sub'],
             {
