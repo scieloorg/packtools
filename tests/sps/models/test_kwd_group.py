@@ -3,7 +3,7 @@ from lxml import etree as ET
 
 from packtools.sps.utils import xml_utils
 
-from packtools.sps.models.kwd_group import KwdGroup
+from packtools.sps.models.kwd_group import KwdGroup, Keyword, KeywordGroup
 
 
 class KwdGroupTest(TestCase):
@@ -232,7 +232,8 @@ class KwdGroupWithStyleTest(TestCase):
 
     def test_extract_kwd_data_with_lang_subtag(self):
         self.maxDiff = None
-        kwd_extract_kwd_with_lang_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=True, tags_to_keep=['bold'])
+        kwd_extract_kwd_with_lang_subtag = KwdGroup(self.xmltree).extract_kwd_data_with_lang_text(subtag=True,
+                                                                                                  tags_to_keep=['bold'])
 
         expected_output = [
             {'lang': 'pt', 'text': '<bold>conteúdo de bold</bold> text'},
@@ -258,14 +259,15 @@ class KwdGroupWithStyleTest(TestCase):
 
     def test_extract_kwd_data_by_lang_with_subtag(self):
         self.maxDiff = None
-        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=True, tags_to_keep=['bold'])
+        kwd_extract_kwd_with_subtag = KwdGroup(self.xmltree).extract_kwd_extract_data_by_lang(subtag=True,
+                                                                                              tags_to_keep=['bold'])
 
         expected_output = {
             'pt': [
-                    '<bold>conteúdo de bold</bold> text',
-                    'text <bold>conteúdo de bold</bold> text',
-                    'text <bold>conteúdo de bold</bold>',
-                    'text <bold>conteúdo <i>de</i> bold</bold>'
+                '<bold>conteúdo de bold</bold> text',
+                'text <bold>conteúdo de bold</bold> text',
+                'text <bold>conteúdo de bold</bold>',
+                'text <bold>conteúdo <i>de</i> bold</bold>'
             ],
         }
 
@@ -327,7 +329,7 @@ class KwdGroupWithStyleTest(TestCase):
                     'text conteúdo de bold',
                     'text conteúdo de bold'
                 ]
-             },
+            },
         ]
 
         for i, item in enumerate(obtained):
@@ -360,3 +362,93 @@ class KwdGroupWithStyleTest(TestCase):
         ]
 
         self.assertEqual(kwd_extract_kwd_with_subtag, expected_output)
+
+
+class KeywordTest(TestCase):
+    def test_keyword(self):
+        self.maxDiff = None
+        self.xmltree = ET.fromstring(
+            """
+            <kwd-group xml:lang="pt">
+                <kwd>text <bold>conteúdo <italic>de</italic> bold</bold></kwd>
+            </kwd-group>
+            """
+        )
+        node = self.xmltree.find('kwd')
+        obtained = list(Keyword(node, tags_to_convert_to_html={'bold': 'b'}, lang='pt', parent='article', _id='01').keyword)
+        expected = [
+            {
+                'id': '01',
+                'parent_name': 'article',
+                'lang': 'pt',
+                'plain_text': 'text conteúdo de bold',
+                'html_text': 'text <b>conteúdo <i>de</i> bold</b>'
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+
+class KeywordGroupTest(TestCase):
+    def test_keyword_list(self):
+        self.maxDiff = None
+        self.xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <kwd-group xml:lang="pt">
+                <kwd><bold>conteúdo de bold</bold> text </kwd>
+                <kwd>text <bold>conteúdo de bold</bold> text </kwd>
+            </kwd-group>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+            <front-stub>
+            <kwd-group xml:lang="en">
+                <kwd>text <bold>conteúdo de bold</bold></kwd>
+                <kwd>text <bold>conteúdo <italic>de</italic> bold</bold></kwd>
+            </kwd-group>
+            </front-stub>
+            </sub-article>
+            </article>
+            """
+        )
+
+        obtained = list(KeywordGroup(self.xmltree, tags_to_convert_to_html={'bold': 'b'}).keywords)
+        expected = [
+            {
+                'id': None,
+                'html_text': '<b>conteúdo de bold</b> text',
+                'lang': 'pt',
+                'parent_name': 'article',
+                'plain_text': 'conteúdo de bold text'
+            },
+            {
+                'id': None,
+                'html_text': 'text <b>conteúdo de bold</b> text',
+                'lang': 'pt',
+                'parent_name': 'article',
+                'plain_text': 'text conteúdo de bold text'
+            },
+            {
+                'id': 'TRen',
+                'html_text': 'text <b>conteúdo de bold</b>',
+                'lang': 'en',
+                'parent_name': 'sub-article',
+                'plain_text': 'text conteúdo de bold'
+            },
+            {
+                'id': 'TRen',
+                'html_text': 'text <b>conteúdo <i>de</i> bold</b>',
+                'lang': 'en',
+                'parent_name': 'sub-article',
+                'plain_text': 'text conteúdo de bold'
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
