@@ -322,7 +322,13 @@ def match_pubdate(node, pubdate_xpaths):
 
 
 def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
-    return list(tags_to_keep or []) + list(tags_to_convert_to_html and tags_to_convert_to_html.keys() or [])
+    return tuple(tags_to_keep or ()) + tuple(tags_to_convert_to_html and tags_to_convert_to_html.keys() or ())
+
+
+def _concatenate_iterables_as_tuple(iterable_1, iterable_2):
+    iterable_1 = () if iterable_1 is None else tuple(iterable_1)
+    iterable_2 = () if iterable_2 is None else tuple(iterable_2)
+    return iterable_1 + iterable_2
 
 
 def remove_subtags(
@@ -347,11 +353,11 @@ def remove_subtags(
     text = node.text if node.text is not None else ''
 
     # verifica se é o caso de manutenção da tag e seu conteúdo
-    if tag in (tags_to_keep_with_content or []):
+    if tag in (tags_to_keep_with_content or ()):
         return tostring(node, xml_declaration=False)
 
     # verifica se é o caso de remoção do conteúdo da tag
-    if tag in (tags_to_remove_with_content or []):
+    if tag in (tags_to_remove_with_content or ()):
         return ''
 
     # processa as tags internas
@@ -392,13 +398,13 @@ def process_subtags(
     if tags_to_keep is None:
         tags_to_keep = std_to_keep
     else:
-        tags_to_keep = list(set(tags_to_keep + std_to_keep))
+        tags_to_keep = _concatenate_iterables_as_tuple(tags_to_keep, std_to_keep)
 
     # garante que as tags em std_to_keep_with_content serão mantidas
     if tags_to_keep_with_content is None:
         tags_to_keep_with_content = std_to_keep_with_content
     else:
-        tags_to_keep_with_content = list(set(tags_to_keep_with_content + std_to_keep_with_content))
+        tags_to_keep_with_content = _concatenate_iterables_as_tuple(tags_to_keep_with_content, std_to_keep_with_content)
 
     # verifica se é o caso de manutenção da tag e seu conteúdo
     tag = node.tag
@@ -406,8 +412,8 @@ def process_subtags(
         return tostring(node)
 
     # garante que as tags em std_to_remove_content serão removidas
-    tags_to_remove_with_content = std_to_remove_content + (tags_to_remove_with_content or [])
-    tags_to_remove_with_content = list(set(tags_to_remove_with_content))
+    tags_to_remove_with_content = _concatenate_iterables_as_tuple(std_to_remove_content, tags_to_remove_with_content)
+    tags_to_remove_with_content = tuple(set(tags_to_remove_with_content))
 
     # garante que as tags em std_to_convert serão convertidas em html
     std_to_convert.update(tags_to_convert_to_html or {})
