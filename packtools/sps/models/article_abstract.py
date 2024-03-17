@@ -107,8 +107,11 @@ class Abstract:
 
         node_title = abstract_node.find("title")
 
-        out["title"] = process_subtags(node_title, tags_to_keep, tags_to_remove_with_content,
-                                       tags_to_convert_to_html) if html else get_node_without_subtag(node_title)
+        out["title"] = process_subtags(node_title,
+                                       tags_to_keep=tags_to_keep,
+                                       tags_to_remove_with_content=tags_to_remove_with_content,
+                                       tags_to_convert_to_html=tags_to_convert_to_html) \
+            if html else get_node_without_subtag(node_title)
 
         out["lang"] = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
@@ -119,12 +122,18 @@ class Abstract:
             p = title = None
             node_title = node.find("title")
             if node_title is not None:
-                title = process_subtags(node_title, tags_to_keep, tags_to_remove_with_content,
-                                        tags_to_convert_to_html) if html else get_node_without_subtag(node_title)
+                title = process_subtags(node_title,
+                                        tags_to_keep=tags_to_keep,
+                                        tags_to_remove_with_content=tags_to_remove_with_content,
+                                        tags_to_convert_to_html=tags_to_convert_to_html) \
+                    if html else get_node_without_subtag(node_title)
 
             node_p = node.find("p")
             if node_p is not None:
-                p = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html) \
+                p = process_subtags(node_p,
+                                    tags_to_keep=tags_to_keep,
+                                    tags_to_remove_with_content=tags_to_remove_with_content,
+                                    tags_to_convert_to_html=tags_to_convert_to_html) \
                     if html else get_node_without_subtag(node_p)
 
             out["sections"].append({"title": title, "p": p})
@@ -132,7 +141,10 @@ class Abstract:
             # abstract/p
             node_p = abstract_node.find("p")
             if node_p is not None:
-                out["p"] = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html) \
+                out["p"] = process_subtags(node_p,
+                                           tags_to_keep=tags_to_keep,
+                                           tags_to_remove_with_content=tags_to_remove_with_content,
+                                           tags_to_convert_to_html=tags_to_convert_to_html) \
                     if html else get_node_without_subtag(node_p).strip()
 
         return out
@@ -146,8 +158,10 @@ class Abstract:
         if style == "inline":
             # retorna o conteúdo do nó abstract como str
             if html:
-                return process_subtags(abstract_node, tags_to_keep, tags_to_remove_with_content,
-                                       tags_to_convert_to_html)
+                return process_subtags(abstract_node,
+                                       tags_to_keep=tags_to_keep,
+                                       tags_to_remove_with_content=tags_to_remove_with_content,
+                                       tags_to_convert_to_html=tags_to_convert_to_html)
             return get_node_without_subtag(abstract_node, remove_extra_spaces=True)
 
         if style == "only_p":
@@ -155,15 +169,20 @@ class Abstract:
             texts = []
             for node_p in abstract_node.xpath(".//p"):
                 if html:
-                    p_text = process_subtags(node_p, tags_to_keep, tags_to_remove_with_content, tags_to_convert_to_html)
+                    p_text = process_subtags(node_p,
+                                             tags_to_keep=tags_to_keep,
+                                             tags_to_remove_with_content=tags_to_remove_with_content,
+                                             tags_to_convert_to_html=tags_to_convert_to_html)
                 else:
                     p_text = get_node_without_subtag(node_p)
                 texts.append(p_text.strip())
             return " ".join(texts)
 
         # retorna abstract em formato de dicionário
-        return self._get_structured_abstract(abstract_node, html, tags_to_keep, tags_to_remove_with_content,
-                                             tags_to_convert_to_html)
+        return self._get_structured_abstract(abstract_node, html,
+                                             tags_to_keep=tags_to_keep,
+                                             tags_to_remove_with_content=tags_to_remove_with_content,
+                                             tags_to_convert_to_html=tags_to_convert_to_html)
 
     def get_main_abstract(self, style=None, html=False, tags_to_keep=None, tags_to_remove_with_content=None,
                           tags_to_convert_to_html=None):
