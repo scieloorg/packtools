@@ -19,7 +19,7 @@ class ArticleCitationValidationTest(TestCase):
             <year>2014</year>
             </pub-date>
             <pub-date publication-format="electronic" date-type="collection">
-            <year>2003</year>
+            <year>2014</year>
             </pub-date>
             <volume>4</volume>
             <issue>1</issue>
