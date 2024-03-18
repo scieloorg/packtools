@@ -22,10 +22,10 @@ class BaseTextNode:
 
     def configure(
         self,
-        tags_to_keep,
-        tags_to_keep_with_content,
-        tags_to_remove_with_content,
-        tags_to_convert_to_html,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
     ):
         self.tags_to_keep = tags_to_keep
         self.tags_to_keep_with_content = tags_to_keep_with_content
