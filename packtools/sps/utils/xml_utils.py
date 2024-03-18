@@ -383,9 +383,9 @@ def process_subtags(
     if node is None:
         return
 
-    std_to_keep = ('sup', 'sub')
-    std_to_keep_with_content = ('mml:math', '{http://www.w3.org/1998/Math/MathML}math', 'math')
-    std_to_remove_content = ('xref',)
+    std_to_keep = ['sup', 'sub']
+    std_to_keep_with_content = ['mml:math', '{http://www.w3.org/1998/Math/MathML}math', 'math']
+    std_to_remove_content = ['xref']
     std_to_convert = {'italic': 'i'}
 
     # garante que as tags em std_to_keep serão mantidas
