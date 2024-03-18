@@ -278,10 +278,10 @@ class ArticleKeywords:
 
     def configure(
         self,
-        tags_to_keep,
-        tags_to_keep_with_content,
-        tags_to_remove_with_content,
-        tags_to_convert_to_html,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
     ):
         self.tags_to_keep = tags_to_keep
         self.tags_to_keep_with_content = tags_to_keep_with_content
@@ -309,8 +309,11 @@ class ArticleKeywords:
         list: A list of dictionaries. Eg.:
             [
                 {
+                    'id': 'TRen',
+                    'parent_name': 'sub-article',
                     'lang': 'en',
-                    'text': 'Chagas Disease, transmission'
+                    'plain_text': 'text conteúdo de bold',
+                    'html_text': 'text <b>conteúdo de bold</b>'
                 },...
             ]
         """
@@ -341,57 +344,22 @@ class ArticleKeywords:
         """
         Extract keyword data with language information from XML tree nodes.
 
-        Params
-        ------
-        tags_to_keep (list, optional): Tags to be preserved. Eg.:
-            ['bold', 'p']
-        tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
-            ['bold', 'p']
-        tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
-            ['bold', 'p']
-        tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
-            {'bold': 'b'}
-
         Returns
         -------
         dict: A dict. Eg.:
-            {
             'en': [
-                'Primary health care',
-                'Ambulatory care facilities',
-                'Chronic pain',
-                'Analgesia',
-                'Pain management'
-            ],
-            'pt': [
-                'Atenção primária à saúde',
-                'Instituições de assistência ambulatorial',
-                'Dor crônica',
-                'Analgesia',
-                'Tratamento da dor'
-            ]
-        }
+                    {
+                        'id': 'TRen',
+                        'parent_name': 'sub-article',
+                        'lang': 'en',
+                        'plain_text': 'text conteúdo de bold',
+                        'html_text': 'text <b>conteúdo de bold</b>'
+                    },...
+                ]
         """
-        article_lang = self._xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
-        nodes = self._xmltree.xpath('.//article-meta | .//sub-article')
-
-        data = {}
-        for node in nodes:
-            sub_article_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-
-            for kwd_group in node.xpath('.//kwd-group'):
-                kwd_group_text_node = KwdGroupTextNode(
-                    node=kwd_group,
-                    lang=sub_article_lang or article_lang,
-                )
-                kwd_group_text_node.configure(
-                    tags_to_keep=self.tags_to_keep,
-                    tags_to_keep_with_content=self.tags_to_keep_with_content,
-                    tags_to_remove_with_content=self.tags_to_remove_with_content,
-                    tags_to_convert_to_html=self.tags_to_convert_to_html,
-                )
-                for item in kwd_group_text_node.items_by_lang:
-                    data.update(item)
-
-        return data
-
+        d = {}
+        for item in self.items:
+            if item['lang'] not in d:
+                d[item['lang']] = []
+            d[item['lang']].append(item)
+        return d
