@@ -379,20 +379,22 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
+        obtained = list(ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue']))
 
-        expected = {
-            'title': 'Article element specific-use attribute validation',
-            'xpath': './article/@specific-use',
-            'validation_type': 'value in list',
-            'response': 'OK',
-            'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
-            'got_value': 'sps-1.9',
-            'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
-            'advice': None
-        }
+        expected = [
+            {
+                'title': 'Article element specific-use attribute validation',
+                'xpath': './article/@specific-use',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
+                'got_value': 'sps-1.9',
+                'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
+                'advice': None
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_without_specific_use(self):
         self.maxDiff = None
@@ -406,20 +408,22 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue'])
+        obtained = list(ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue']))
 
-        expected = {
-            'title': 'Article element specific-use attribute validation',
-            'xpath': './article/@specific-use',
-            'validation_type': 'value in list',
-            'response': 'ERROR',
-            'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
-            'got_value': None,
-            'message': 'Got None expected one item of this list: sps-1.9 | preprint | special-issue',
-            'advice': 'XML research-article has None as specific-use, expected one item of this list: sps-1.9 | preprint | special-issue'
-        }
+        expected = [
+            {
+                'title': 'Article element specific-use attribute validation',
+                'xpath': './article/@specific-use',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
+                'got_value': None,
+                'message': 'Got None expected one item of this list: sps-1.9 | preprint | special-issue',
+                'advice': 'XML research-article has None as specific-use, expected one item of this list: sps-1.9 | preprint | special-issue'
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_dtd_version(self):
         self.maxDiff = None
@@ -433,20 +437,22 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleAttribsValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3'])
+        obtained = list(ArticleAttribsValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3']))
 
-        expected = {
-            'title': 'Article element dtd-version attribute validation',
-            'xpath': './article/@dtd-version',
-            'validation_type': 'value in list',
-            'response': 'OK',
-            'expected_value': ['1.1', '1.2', '1.3'],
-            'got_value': '1.1',
-            'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
-            'advice': None
-        }
+        expected = [
+            {
+                'title': 'Article element dtd-version attribute validation',
+                'xpath': './article/@dtd-version',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['1.1', '1.2', '1.3'],
+                'got_value': '1.1',
+                'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
+                'advice': None
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_article_type_is_valid(self):
         self.maxDiff = None
@@ -460,22 +466,24 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleTypeValidation(xml_tree).validate_article_type(
+        obtained = list(ArticleTypeValidation(xml_tree).validate_article_type(
             article_type_list=['research-article']
-        )
+        ))
 
-        expected = {
-            'title': 'Article type validation',
-            'xpath': './article/@article-type',
-            'validation_type': 'value in list',
-            'response': 'OK',
-            'expected_value': ['research-article'],
-            'got_value': 'research-article',
-            'message': 'Got research-article expected one item of this list: research-article',
-            'advice': None
-        }
+        expected = [
+            {
+                'title': 'Article type validation',
+                'xpath': './article/@article-type',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['research-article'],
+                'got_value': 'research-article',
+                'message': 'Got research-article expected one item of this list: research-article',
+                'advice': None
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_article_type_is_not_valid(self):
         self.maxDiff = None
@@ -489,22 +497,24 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleTypeValidation(xml_tree).validate_article_type(
+        obtained = list(ArticleTypeValidation(xml_tree).validate_article_type(
             article_type_list=['research-article']
-        )
+        ))
 
-        expected = {
-            'title': 'Article type validation',
-            'xpath': './article/@article-type',
-            'validation_type': 'value in list',
-            'response': 'ERROR',
-            'expected_value': ['research-article'],
-            'got_value': 'main',
-            'message': 'Got main expected one item of this list: research-article',
-            'advice': 'XML has main as article-type, expected one item of this list: research-article'
-        }
+        expected = [
+            {
+                'title': 'Article type validation',
+                'xpath': './article/@article-type',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': ['research-article'],
+                'got_value': 'main',
+                'message': 'Got main expected one item of this list: research-article',
+                'advice': 'XML has main as article-type, expected one item of this list: research-article'
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_there_is_subject_there_should_be_no_subject(self):
         self.maxDiff = None
@@ -537,9 +547,10 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
                 """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleSubjectsValidation(xml_tree).validate_without_subjects()
+        obtained = list(ArticleSubjectsValidation(xml_tree).validate_without_subjects())
 
-        expected = {
+        expected = [
+            {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/@article-type .//subject',
                 'validation_type': 'value in list',
@@ -549,9 +560,10 @@ class ArticleAndSubarticlesTest(TestCase):
                 'message': 'Got scientific article, artigo científico, artículo científico expected no subject',
                 'advice': 'XML has scientific article, artigo científico, artículo científico as subjects, expected '
                           'no subjects'
-        }
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_there_is_no_subject_there_should_be_no_subject(self):
         self.maxDiff = None
@@ -569,9 +581,10 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleSubjectsValidation(xml_tree).validate_without_subjects()
+        obtained = list(ArticleSubjectsValidation(xml_tree).validate_without_subjects())
 
-        expected = {
+        expected = [
+            {
                 'title': 'Article type vs subjects validation',
                 'xpath': './article/@article-type .//subject',
                 'validation_type': 'value in list',
@@ -580,9 +593,10 @@ class ArticleAndSubarticlesTest(TestCase):
                 'got_value': None,
                 'message': 'Got None expected no subject',
                 'advice': 'XML has None as subjects, expected no subjects'
-        }
+            }
+        ]
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained, expected)
 
     def test_article_and_subarticles_article_type_vs_subject_similarity(self):
         self.maxDiff = None
@@ -687,19 +701,21 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
 
-        expected = {
-            'title': 'Article id other validation',
-            'xpath': './/article-id[@pub-id-type="other"]',
-            'validation_type': 'format',
-            'response': 'OK',
-            'expected_value': '123',
-            'got_value': '123',
-            'message': 'Got 123 expected 123',
-            'advice': None
+        expected = [
+            {
+                'title': 'Article id other validation',
+                'xpath': './/article-id[@pub-id-type="other"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '123',
+                'got_value': '123',
+                'message': 'Got 123 expected 123',
+                'advice': None
             }
-        self.assertDictEqual(expected, obtained)
+        ]
+        self.assertEqual(expected, obtained)
 
     def test_article_and_subarticles_validate_article_id_other_non_numeric_digit(self):
         self.maxDiff = None
@@ -716,19 +732,21 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
 
-        expected = {
-            'title': 'Article id other validation',
-            'xpath': './/article-id[@pub-id-type="other"]',
-            'validation_type': 'format',
-            'response': 'ERROR',
-            'expected_value': 'A numeric value with up to five digits',
-            'got_value': 'x23',
-            'message': 'Got x23 expected a numeric value with up to five digits',
-            'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+        expected = [
+            {
+                'title': 'Article id other validation',
+                'xpath': './/article-id[@pub-id-type="other"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A numeric value with up to five digits',
+                'got_value': 'x23',
+                'message': 'Got x23 expected a numeric value with up to five digits',
+                'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
             }
-        self.assertDictEqual(expected, obtained)
+        ]
+        self.assertEqual(expected, obtained)
 
     def test_article_and_subarticles_validate_article_id_other_with_more_than_five_digits(self):
         self.maxDiff = None
@@ -745,16 +763,18 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleIdValidation(xml_tree).validate_article_id_other()
+        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
 
-        expected = {
-            'title': 'Article id other validation',
-            'xpath': './/article-id[@pub-id-type="other"]',
-            'validation_type': 'format',
-            'response': 'ERROR',
-            'expected_value': 'A numeric value with up to five digits',
-            'got_value': '123456',
-            'message': 'Got 123456 expected a numeric value with up to five digits',
-            'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+        expected = [
+            {
+                'title': 'Article id other validation',
+                'xpath': './/article-id[@pub-id-type="other"]',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'A numeric value with up to five digits',
+                'got_value': '123456',
+                'message': 'Got 123456 expected a numeric value with up to five digits',
+                'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
             }
-        self.assertDictEqual(expected, obtained)
+        ]
+        self.assertEqual(expected, obtained)
