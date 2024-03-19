@@ -13,18 +13,14 @@ class AffiliationsListValidation:
         country_codes_list = country_codes_list or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException("Function requires list of country codes")
-        validations = []
         for affiliation in self.affiliations_list:
-            validations.extend(AffiliationValidation(affiliation, country_codes_list).validate_affiliation())
-        return validations
+            yield from AffiliationValidation(affiliation, country_codes_list).validate_affiliation()
 
     def validate(self, data):
         country_codes_list = data['country_codes_list'] or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException("Function requires list of country codes")
-        return {
-            'affiliations_validation': self.validade_affiliations_list(country_codes_list)
-        }
+        yield from self.validade_affiliations_list(country_codes_list)
 
 
 class AffiliationValidation:
@@ -34,7 +30,7 @@ class AffiliationValidation:
 
     def validate_original(self):
         original = self.affiliation.get('original')
-        return {
+        yield {
             'title': 'aff/institution element original attribute validation',
             'xpath': './/aff/institution[@content-type="original"]',
             'validation_type': 'exist',
@@ -47,7 +43,7 @@ class AffiliationValidation:
 
     def validate_orgname(self):
         orgname = self.affiliation.get('orgname')
-        return {
+        yield {
             'title': 'aff/institution element orgname attribute validation',
             'xpath': './/aff/institution[@content-type="orgname"]',
             'validation_type': 'exist',
@@ -60,7 +56,7 @@ class AffiliationValidation:
 
     def validate_country(self):
         country = self.affiliation.get('country_name')
-        return {
+        yield {
             'title': 'aff element country attribute validation',
             'xpath': './/aff/country',
             'validation_type': 'exist',
@@ -78,7 +74,7 @@ class AffiliationValidation:
                 "Function requires list of country codes"
             )
         country_code = self.affiliation.get('country_code')
-        return {
+        yield {
             'title': 'aff element @country attribute validation',
             'xpath': './/aff/@country',
             'validation_type': 'value in list',
@@ -91,7 +87,7 @@ class AffiliationValidation:
 
     def validate_state(self):
         state = self.affiliation.get('state')
-        return {
+        yield {
             'title': 'aff/addr-line element state attribute validation',
             'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
             'validation_type': 'exist',
@@ -104,7 +100,7 @@ class AffiliationValidation:
 
     def validate_city(self):
         city = self.affiliation.get('city')
-        return {
+        yield {
             'title': 'aff/addr-line element city attribute validation',
             'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
             'validation_type': 'exist',
@@ -116,11 +112,9 @@ class AffiliationValidation:
         }
 
     def validate_affiliation(self):
-        return [
-            self.validate_original(),
-            self.validate_orgname(),
-            self.validate_country(),
-            self.validate_country_code(),
-            self.validate_state(),
-            self.validate_city()
-        ]
+        yield from self.validate_original()
+        yield from self.validate_orgname()
+        yield from self.validate_country()
+        yield from self.validate_country_code()
+        yield from self.validate_state()
+        yield from self.validate_city()
