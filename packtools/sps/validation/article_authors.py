@@ -228,8 +228,7 @@ class ArticleAuthorsValidation:
         if not is_valid:
             diff = [item for item, freq in orcid_freq.items() if freq > 1]
 
-        return [
-            {
+        yield {
                 'title': 'Author ORCID element is unique',
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist/verification',
@@ -241,7 +240,6 @@ class ArticleAuthorsValidation:
                 'advice': None if is_valid else 'Consider replacing the following ORCIDs that are not unique: {}'.format(
                     " | ".join(diff))
             }
-        ]
 
     def validate_authors_orcid_is_registered(self, callable_get_validate=None):
         """
@@ -324,15 +322,8 @@ class ArticleAuthorsValidation:
         """
         Função que executa as validações da classe ArticleAuthorsValidation.
 
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-        
         """
-        credit_terms_and_urls_results = {
-            'authors_credit_terms_and_urls_validation': self.validate_authors_role(data['credit_taxonomy_terms_and_urls'])
-            }
-        orcid_results = {
-            'authors_orcid_validation': self.validate_authors_orcid()
-            }
-        credit_terms_and_urls_results.update(orcid_results)
-        return credit_terms_and_urls_results
+        yield from self.validate_authors_role(data['credit_taxonomy_terms_and_urls'])
+        yield from self.validate_authors_orcid_format()
+        yield from self.validate_authors_orcid_is_unique()
+        yield from self.validate_authors_orcid_is_registered(callable_get_validate=data['callable_get_data'])
