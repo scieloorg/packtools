@@ -69,7 +69,7 @@ class ArticleLangValidation:
             else:
                 msg = '<sub-article article-type={} id={} xml:lang={}>'.format(article_type, article_id, article_lang)
 
-            item = {
+            yield {
                 'title': 'Article element lang attribute validation',
                 'xpath': './article/@xml:lang' if article_id == 'main' else './/sub-article/@xml:lang',
                 'validation_type': 'value in list',
@@ -82,7 +82,6 @@ class ArticleLangValidation:
                                                                                                                     " | ".join(
                                                                                                                         language_codes_list))
             }
-            yield item
 
 
 class ArticleAttribsValidation:
@@ -133,7 +132,7 @@ class ArticleAttribsValidation:
         article_specific_use = self.articles.main_specific_use
         validated = article_specific_use in specific_use_list
 
-        return {
+        yield {
             'title': 'Article element specific-use attribute validation',
             'xpath': './article/@specific-use',
             'validation_type': 'value in list',
@@ -187,7 +186,7 @@ class ArticleAttribsValidation:
         article_dtd_version = self.articles.main_dtd_version
         validated = article_dtd_version in dtd_version_list
 
-        return {
+        yield {
             'title': 'Article element dtd-version attribute validation',
             'xpath': './article/@dtd-version',
             'validation_type': 'value in list',
@@ -250,7 +249,7 @@ class ArticleTypeValidation:
         article_type_list = [tp.lower() for tp in article_type_list]
 
         validated = article_type in article_type_list
-        return {
+        yield {
             'title': 'Article type validation',
             'xpath': './article/@article-type',
             'validation_type': 'value in list',
@@ -322,7 +321,7 @@ class ArticleSubjectsValidation:
 
         validated = len(declared_subjects) == 0
         got_value = None if validated else ", ".join(declared_subjects)
-        return {
+        yield {
             'title': 'Article type vs subjects validation',
             'xpath': './article/@article-type .//subject',
             'validation_type': 'value in list',
@@ -408,15 +407,13 @@ class ArticleSubjectsValidation:
             raise ValidationArticleAndSubArticlesSubjectsException("Function requires list of subjects")
 
         subjects_list = [f"{item['subject']} ({item['lang']})" for item in subjects_list]
-        result = []
 
         for article in self.articles.data:
             article_subject = f"{article['subject']} ({article['lang']})"
             article_id = article['article_id']
             calculated_similarity, subject = most_similar(similarity(subjects_list, article_subject))
             validated = calculated_similarity >= expected_similarity
-            result.append(
-                {
+            yield {
                     'title': 'Article type vs subjects validation',
                     'xpath': './article/@article-type .//subject',
                     'validation_type': 'similarity',
@@ -427,9 +424,6 @@ class ArticleSubjectsValidation:
                     'advice': None if validated else 'The subject {} does not match the items provided in the list: {}'
                     .format(article_subject, " | ".join(subjects_list))
                 }
-            )
-
-        return result
 
     def validate(self, data):
         """
@@ -439,7 +433,7 @@ class ArticleSubjectsValidation:
             dict: Um dicionário contendo os resultados das validações realizadas.
 
         """
-        return {
+        yield {
             'article_lang_validation': self.validate_language(data['language_codes_list']),
             'article_specific_use_validation': self.validate_specific_use(data['specific_use_list'])
         }
@@ -483,7 +477,7 @@ class ArticleIdValidation:
         """
         is_valid = self.other_id.isnumeric() and len(self.other_id) <= 5
         expected_value = self.other_id if is_valid else 'A numeric value with up to five digits'
-        return {
+        yield {
             'title': 'Article id other validation',
             'xpath': './/article-id[@pub-id-type="other"]',
             'validation_type': 'format',
