@@ -50,8 +50,7 @@ class ArticleDoiValidation:
                 }
             ]
         """
-        return [
-            {
+        yield {
                 'title': 'Article DOI element',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
@@ -61,7 +60,6 @@ class ArticleDoiValidation:
                 'message': 'Got {} expected {}'.format(self.doi, self.doi if self.doi else 'a DOI'),
                 'advice': None if self.doi else 'Provide a valid DOI for the {}'.format(self.articles.main_article_type)
             }
-        ]
 
     def validate_translations_doi_exists(self):
         """
@@ -178,8 +176,7 @@ class ArticleDoiValidation:
         if not validated:
             diff = [doi for doi, freq in dois.items() if freq > 1]
 
-        return [
-            {
+        yield {
                 'title': 'Article DOI element is unique',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist/verification',
@@ -191,7 +188,6 @@ class ArticleDoiValidation:
                 'advice': None if validated else 'Consider replacing the following DOIs that are not unique: {}'.format(
                     " | ".join(diff))
             }
-        ]
 
     def validate_doi_registered(self, callable_get_data=None):
         """
