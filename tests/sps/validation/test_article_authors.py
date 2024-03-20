@@ -969,3 +969,127 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         for i, item in enumerate(messages):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
+
+    def test_validate(self):
+        self.maxDiff = None
+        xml = """
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        messages = list(ArticleAuthorsValidation(xmltree=xmltree).validate(
+            {
+                'credit_taxonomy_terms_and_urls': credit_taxonomy_terms_and_urls,
+                'callable_get_data': callable_get_data
+            }
+        ))
+
+        expected_output = [
+            {
+                'title': 'CRediT taxonomy for contribs',
+                'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': [
+                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
+                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>'
+                ],
+                'got_value': None,
+                'message': '''Got None expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']''',
+                'advice': '''The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']'''
+            },
+            {
+                'title': 'CRediT taxonomy for contribs',
+                'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
+                'validation_type': 'value in list',
+                'response': 'ERROR',
+                'expected_value': [
+                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
+                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>'
+                ],
+                'got_value': None,
+                'message': '''Got None expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']''',
+                'advice': '''The author Vanessa M. Higa does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']'''
+            },
+            {
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '0990-0001-0058-4853',
+                'got_value': '0990-0001-0058-4853',
+                'message': f'Got 0990-0001-0058-4853 expected 0990-0001-0058-4853',
+                'advice': None
+            },
+            {
+                'title': 'Author ORCID',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '0000-3333-1238-6873',
+                'got_value': '0000-3333-1238-6873',
+                'message': f'Got 0000-3333-1238-6873 expected 0000-3333-1238-6873',
+                'advice': None
+            },
+            {
+                'title': 'Author ORCID element is unique',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist/verification',
+                'response': 'OK',
+                'expected_value': 'Unique ORCID values',
+                'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
+                'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 1) | (\'0000-3333-1238-6873\', 1)',
+                'advice': None
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
+                'message': 'Got [\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\'] expected '
+                           '[\'0990-0001-0058-4853\', \'FRANCISCO VENEGAS-MARTÍNEZ\']',
+                'advice': None
+            },
+            {
+                'title': 'Author ORCID element is registered',
+                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': ['0000-3333-1238-6873', 'Vanessa M. Higa'],
+                'got_value': ['0000-3333-1238-6873', 'Vanessa M. Higa'],
+                'message': 'Got [\'0000-3333-1238-6873\', \'Vanessa M. Higa\'] expected '
+                           '[\'0000-3333-1238-6873\', \'Vanessa M. Higa\']',
+                'advice': None
+            }
+        ]
+
+        for i, item in enumerate(expected_output):
+            with self.subTest(i):
+                self.assertDictEqual(messages[i], item)
