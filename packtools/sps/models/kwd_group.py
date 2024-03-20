@@ -360,6 +360,6 @@ class ArticleKeywords:
         d = {}
         for item in self.items:
             if item['lang'] not in d:
-                d[item['lang']] = []
+                d.setdefault(item['lang'], [])
             d[item['lang']].append(item)
         return d
