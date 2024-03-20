@@ -436,9 +436,9 @@ class KwdGroupTextNodeTest(TestCase):
                 'html_text': 'text <b>conteúdo <i>de</i> bold</b>'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_kwd_text_node_items_by_lang(self):
         self.maxDiff = None
@@ -527,9 +527,9 @@ class KwdGroupTextNodeTest(TestCase):
                 'html_text': 'text <b>conteúdo <i>de</i> bold</b>'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_article_keywords_items_by_lang(self):
         self.maxDiff = None
