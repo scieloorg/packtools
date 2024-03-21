@@ -1,4 +1,5 @@
 from packtools.sps.utils import xml_utils
+from packtools.sps.models.base_text_node import BaseTextNode
 
 
 class KwdGroup:
@@ -235,3 +236,130 @@ class KwdGroup:
                     resp["html_text"] = keyword_html_text
 
                     yield resp
+
+
+class KwdTextNode(BaseTextNode):
+    pass
+
+
+class KwdGroupTextNode(BaseTextNode):
+
+    @property
+    def language(self):
+        return (
+            self._node.get("{http://www.w3.org/XML/1998/namespace}lang") or
+            self._lang
+        )
+
+    @property
+    def items(self):
+        for node_kwd in self._node.xpath("kwd"):
+            kn = KwdTextNode(
+                node_kwd,
+                self.language,
+                self.tags_to_keep,
+                self.tags_to_keep_with_content,
+                self.tags_to_remove_with_content,
+                self.tags_to_convert_to_html,
+            )
+            yield kn.item
+
+    @property
+    def items_by_lang(self):
+        return {
+            self.language: list(self.items)
+        }
+
+
+class ArticleKeywords:
+
+    def __init__(self, xmltree):
+        self._xmltree = xmltree
+
+    def configure(
+        self,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+    ):
+        self.tags_to_keep = tags_to_keep
+        self.tags_to_keep_with_content = tags_to_keep_with_content
+        self.tags_to_remove_with_content = tags_to_remove_with_content
+        self.tags_to_convert_to_html = tags_to_convert_to_html
+
+    @property
+    def items(self):
+        """
+        Extract keyword data with language information from XML tree nodes.
+
+        Params
+        ------
+        tags_to_keep (list, optional): Tags to be preserved. Eg.:
+            ['bold', 'p']
+        tags_to_keep_with_content (list, optional): Tags to be preserved with the respective content. Eg.:
+            ['bold', 'p']
+        tags_to_remove_with_content (list, optional): Tags to be removed with its content. Eg.:
+            ['bold', 'p']
+        tags_to_convert_to_html (dict, optional): Tags to be converted into HTML format. Eg.:
+            {'bold': 'b'}
+
+        Returns
+        -------
+        list: A list of dictionaries. Eg.:
+            [
+                {
+                    'id': 'TRen',
+                    'parent_name': 'sub-article',
+                    'lang': 'en',
+                    'plain_text': 'text conteúdo de bold',
+                    'html_text': 'text <b>conteúdo de bold</b>'
+                },...
+            ]
+        """
+        article_lang = self._xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+        nodes = self._xmltree.xpath('.//article-meta | .//sub-article')
+
+        for node in nodes:
+            sub_article_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+
+            for kwd_group in node.xpath('.//kwd-group'):
+                kwd_group_text_node = KwdGroupTextNode(
+                    node=kwd_group,
+                    lang=sub_article_lang or article_lang,
+                )
+                kwd_group_text_node.configure(
+                    tags_to_keep=self.tags_to_keep,
+                    tags_to_keep_with_content=self.tags_to_keep_with_content,
+                    tags_to_remove_with_content=self.tags_to_remove_with_content,
+                    tags_to_convert_to_html=self.tags_to_convert_to_html,
+                )
+                for item in kwd_group_text_node.items:
+                    item["parent_name"] = node.tag if node.tag == "sub-article" else 'article'
+                    item["id"] = node.get("id")
+                    yield item
+
+    @property
+    def items_by_lang(self):
+        """
+        Extract keyword data with language information from XML tree nodes.
+
+        Returns
+        -------
+        dict: A dict. Eg.:
+            'en': [
+                    {
+                        'id': 'TRen',
+                        'parent_name': 'sub-article',
+                        'lang': 'en',
+                        'plain_text': 'text conteúdo de bold',
+                        'html_text': 'text <b>conteúdo de bold</b>'
+                    },...
+                ]
+        """
+        d = {}
+        for item in self.items:
+            if item['lang'] not in d:
+                d.setdefault(item['lang'], [])
+            d[item['lang']].append(item)
+        return d
