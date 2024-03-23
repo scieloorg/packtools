@@ -110,6 +110,7 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
                     yield {
                         "filename": item,
                         "xml_with_pre": get_xml_with_pre(zf.read(item).decode("utf-8")),
+                        "files": zf.namelist(),
                     }
             if not found:
                 raise TypeError(
@@ -249,6 +250,18 @@ class XMLWithPre:
         self.xmltree = xmltree
         self.filename = None
         self.pretty_print = pretty_print
+        self.files = None
+
+    @property
+    def data(self):
+        return dict(
+            sps_pkg_name=self.sps_pkg_name,
+            pid_v3=self.v3,
+            pid_v2=self.v2,
+            aop_pid=self.aop_pid,
+            filename=self.filename,
+            files=self.files,
+        )
 
     @classmethod
     def create(cls, path=None, uri=None):
@@ -263,6 +276,7 @@ class XMLWithPre:
         if path:
             for item in get_xml_items(path):
                 item["xml_with_pre"].filename = item["filename"]
+                item["xml_with_pre"].files = item["files"]
                 yield item["xml_with_pre"]
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout=30)
