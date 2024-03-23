@@ -252,6 +252,17 @@ class XMLWithPre:
         self.pretty_print = pretty_print
         self.files = None
 
+    @property
+    def data(self):
+        return dict(
+            sps_pkg_name=self.sps_pkg_name,
+            pid_v3=self.v3,
+            pid_v2=self.v2,
+            aop_pid=self.aop_pid,
+            filename=self.filename,
+            files=self.files,
+        )
+
     @classmethod
     def create(cls, path=None, uri=None):
         """
