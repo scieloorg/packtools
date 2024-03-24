@@ -72,7 +72,7 @@ def get_xml_items(xml_sps_file_path, filenames=None):
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
                 item = os.path.basename(xml_sps_file_path)
-            return [{"filename": item, "xml_with_pre": xml}]
+            return [{"filename": item, "xml_with_pre": xml, "files": [item]}]
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
                 xml_sps_file_path
@@ -276,7 +276,7 @@ class XMLWithPre:
         if path:
             for item in get_xml_items(path):
                 item["xml_with_pre"].filename = item["filename"]
-                item["xml_with_pre"].files = item["files"]
+                item["xml_with_pre"].files = item.get("files")
                 yield item["xml_with_pre"]
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout=30)
