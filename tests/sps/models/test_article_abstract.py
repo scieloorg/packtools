@@ -1541,6 +1541,7 @@ class ArticleAbstractTest(TestCase):
         expected = [
             {
                 'lang': 'es',
+                'id': '01',
                 'parent_name': 'sub-article',
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
@@ -1559,6 +1560,7 @@ class ArticleAbstractTest(TestCase):
         expected = [
             {
                 'lang': 'es',
+                'id': '01',
                 'parent_name': 'sub-article',
                 'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
                 'sections': [
@@ -1670,6 +1672,7 @@ class ArticleAbstractTest(TestCase):
             },
             {
                 'lang': 'es',
+                'id': '01',
                 'parent_name': 'sub-article',
                 'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
                 'sections': [
@@ -1728,3 +1731,36 @@ class ArticleAbstractTest(TestCase):
         for i, abstract in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_abstracts_by_lang(self):
+        self.maxDiff = None
+        expected = {
+            'en': {
+                'lang': 'en',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'es': {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'pt': {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        }
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = self.abstract.get_abstracts_by_lang()
+        self.assertDictEqual(expected, obtained)
