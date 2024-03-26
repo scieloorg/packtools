@@ -413,6 +413,10 @@ class AbstractTextNode(BaseTextNode):
 class ArticleAbstract:
     def __init__(self, xmltree):
         self._xmltree = xmltree
+        self.tags_to_keep = None
+        self.tags_to_keep_with_content = None
+        self.tags_to_remove_with_content = None
+        self.tags_to_convert_to_html = None
 
     def configure(
         self,
@@ -429,8 +433,6 @@ class ArticleAbstract:
     def _get_structured_abstract(self, node, lang):
         """
         Retorna o resumo estruturado
-        Obs.: é preciso rodar o método configure(), mesmo que não haja parâmetros. Eg.:
-        >>> self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
 
         Returns
         -------
@@ -535,8 +537,6 @@ class ArticleAbstract:
     def get_main_abstract(self, structured=False):
         """
         Obtem o resumo principal
-        Obs.: é preciso rodar o método configure(), mesmo que não haja parâmetros. Eg.:
-        >>> self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
 
         Params
         ------
@@ -614,8 +614,6 @@ class ArticleAbstract:
     def get_sub_article_abstract(self, structured=False):
         """
         Obtem os resumos nos sub-artigos
-        Obs.: é preciso rodar o método configure(), mesmo que não haja parâmetros. Eg.:
-        >>> self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
 
         Params
         ------
@@ -664,6 +662,7 @@ class ArticleAbstract:
         """
 
         for sub_article in self._xmltree.xpath(".//sub-article"):
+            sub_article_id = sub_article.get('id')
             abstract_node = sub_article.find(".//front-stub//abstract")
             if abstract_node is not None:
                 sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -674,6 +673,7 @@ class ArticleAbstract:
                         lang=sub_article_lang or abstract_lang
                     )
                     abstract["parent_name"] = "sub-article"
+                    abstract["id"] = sub_article_id
                     yield abstract
                 else:
                     abstract = AbstractTextNode(
@@ -689,6 +689,7 @@ class ArticleAbstract:
 
                     resp = abstract.item
                     resp["parent_name"] = "sub-article"
+                    resp["id"] = sub_article_id
                     yield resp
 
     def get_trans_abstract(self, structured=False):
@@ -773,4 +774,42 @@ class ArticleAbstract:
         yield from self.get_main_abstract(structured)
         yield from self.get_sub_article_abstract(structured)
         yield from self.get_trans_abstract(structured)
+
+    def get_abstracts_by_lang(self, structured=False):
+        """
+        Retorna dicionário indexando os resumos pelo idioma
+
+        Returns
+        -------
+        dict : {
+            'en': {
+                'lang': 'en',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'es': {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'pt': {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        """
+        d = {}
+        for item in self.get_abstracts(structured):
+            d[item["lang"]] = item
+        return d
 
