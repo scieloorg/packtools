@@ -113,6 +113,7 @@ class AuthorsTest(TestCase):
         self.assertIsNone(self.authors.collab)
 
     def test_role_with_role_content_type(self):
+        self.maxDiff = None
         xml = """
         <article>
         <front>
@@ -131,6 +132,7 @@ class AuthorsTest(TestCase):
                     <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Role 2</role>
                     <role content-type="https://credit.niso.org/contributor-roles/formal-analysis/">Role 3</role>
                     <role content-type="https://credit.niso.org/contributor-roles/writing-original-draft/">Role 4</role>
+                    <role specific-use="reviewer">Reviewer</role>
                 </contrib>
                 <contrib contrib-type="author">
                   <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
@@ -143,6 +145,7 @@ class AuthorsTest(TestCase):
                     <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>
                     <role content-type="https://credit.niso.org/contributor-roles/formal-analysis/">Formal Analysis</role>
                     <role content-type="https://credit.niso.org/contributor-roles/writing-original-draft/">Writing &#x2013; original draft</role>
+                    <role specific-use="reviewer">Reviewer</role>
                 </contrib>
               </contrib-group>
             </article-meta>
@@ -163,18 +166,27 @@ class AuthorsTest(TestCase):
                     {
                         "text": "Role 1",
                         "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Role 2",
                         "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Role 3",
                         "content-type": "https://credit.niso.org/contributor-roles/formal-analysis/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Role 4",
                         "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
+                        "specific-use": None,
+                    },
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reviewer",
                     },
                 ],
                 "rid": ["aff1", "aff2"],
@@ -190,18 +202,27 @@ class AuthorsTest(TestCase):
                     {
                         "text": "Conceptualization",
                         "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Data curation",
                         "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Formal Analysis",
                         "content-type": "https://credit.niso.org/contributor-roles/formal-analysis/",
+                        "specific-use": None,
                     },
                     {
                         "text": "Writing – original draft",
                         "content-type": "https://credit.niso.org/contributor-roles/writing-original-draft/",
+                        "specific-use": None,
+                    },
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reviewer",
                     },
                 ],
                 "rid": ["aff1"],
@@ -215,6 +236,7 @@ class AuthorsTest(TestCase):
                 self.assertDictEqual(expect_output[i], item)
 
     def test_role_wihtout_content_type(self):
+        self.maxDiff = None
         xml = """
         <article>
         <front>
@@ -232,6 +254,7 @@ class AuthorsTest(TestCase):
                   <role>Role 2</role>
                   <role>Role 3</role>
                   <role>Role 4</role>
+                  <role specific-use="reviewer">Reviewer</role>
                 </contrib>
                 <contrib contrib-type="author">
                   <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
@@ -244,6 +267,7 @@ class AuthorsTest(TestCase):
                   <role>Data curation</role>
                   <role>Formal Analysis</role>
                   <role>Writing &#x2013; original draft</role>
+                  <role specific-use="reviewer">Reviewer</role>
                 </contrib>
               </contrib-group>
             </article-meta>
@@ -260,10 +284,11 @@ class AuthorsTest(TestCase):
                 "suffix": "Nieto",
                 "given_names": "FRANCISCO",
                 "role": [
-                    {"text": "Role 1", "content-type": None},
-                    {"text": "Role 2", "content-type": None},
-                    {"text": "Role 3", "content-type": None},
-                    {"text": "Role 4", "content-type": None},
+                    {"text": "Role 1", "content-type": None, "specific-use": None},
+                    {"text": "Role 2", "content-type": None, "specific-use": None},
+                    {"text": "Role 3", "content-type": None, "specific-use": None},
+                    {"text": "Role 4", "content-type": None, "specific-use": None},
+                    {"text": "Reviewer", "content-type": None, "specific-use": "reviewer"},
                 ],
                 "rid": ["aff1"],
                 "rid-aff": ["aff1"],
@@ -275,10 +300,11 @@ class AuthorsTest(TestCase):
                 "given_names": "Vanessa M.",
                 "orcid": "0000-0001-5518-4853",
                 "role": [
-                    {"text": "Conceptualization", "content-type": None},
-                    {"text": "Data curation", "content-type": None},
-                    {"text": "Formal Analysis", "content-type": None},
-                    {"text": "Writing – original draft", "content-type": None},
+                    {"text": "Conceptualization", "content-type": None, "specific-use": None},
+                    {"text": "Data curation", "content-type": None, "specific-use": None},
+                    {"text": "Formal Analysis", "content-type": None, "specific-use": None},
+                    {"text": "Writing – original draft", "content-type": None, "specific-use": None},
+                    {"text": "Reviewer", "content-type": None, "specific-use": "reviewer"},
                 ],
                 "rid": ["aff1"],
                 "rid-aff": ["aff1"],
