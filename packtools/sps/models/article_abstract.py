@@ -590,9 +590,10 @@ class ArticleAbstract:
         """
 
         abstract_node = self._xmltree.find(".//article-meta//abstract")
-        article_lang = self._xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
-        abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        article = self._xmltree.find(".")
+        article_lang = self._get_lang_attribute(article)
         if abstract_node is not None:
+            abstract_lang = self._get_lang_attribute(abstract_node)
             if structured:
                 abstract = self._get_structured_abstract(
                     node=abstract_node,
@@ -670,8 +671,8 @@ class ArticleAbstract:
             sub_article_id = sub_article.get('id')
             abstract_node = sub_article.find(".//front-stub//abstract")
             if abstract_node is not None:
-                sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-                abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+                sub_article_lang = self._get_lang_attribute(sub_article)
+                abstract_lang = self._get_lang_attribute(abstract_node)
                 if structured:
                     abstract = self._get_structured_abstract(
                         node=abstract_node,
@@ -700,8 +701,6 @@ class ArticleAbstract:
     def get_trans_abstract(self, structured=False):
         """
         Obtem os resumos traduzidos
-        Obs.: é preciso rodar o método configure(), mesmo que não haja parâmetros. Eg.:
-        >>> self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
 
         Params
         ------
@@ -749,9 +748,10 @@ class ArticleAbstract:
         ]
         """
 
-        article_lang = self._xmltree.find(".").get("{http://www.w3.org/XML/1998/namespace}lang")
+        article = self._xmltree.find(".")
+        article_lang = self._get_lang_attribute(article)
         for abstract_node in self._xmltree.xpath(".//trans-abstract"):
-            abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            abstract_lang = self._get_lang_attribute(abstract_node)
             if structured:
                 abstract = self._get_structured_abstract(
                     node=abstract_node,
