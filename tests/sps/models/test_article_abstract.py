@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
-from packtools.sps.models.article_abstract import Abstract
+from packtools.sps.models.article_abstract import Abstract, ArticleAbstract
 
 
 class AbstractWithSectionsTest(TestCase):
@@ -10,7 +10,7 @@ class AbstractWithSectionsTest(TestCase):
     def setUp(self):
         xmltree = ET.fromstring(
             """
-            <article 
+            <article
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
@@ -555,7 +555,7 @@ class AbstractWithoutSectionsTest(TestCase):
     def setUp(self):
         xmltree = ET.fromstring(
             """
-            <article 
+            <article
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
@@ -882,7 +882,7 @@ class AbstractWithStylesTest(TestCase):
     def setUp(self):
         xmltree = ET.fromstring(
             """
-            <article 
+            <article
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
@@ -1410,3 +1410,357 @@ class AbstractWithStylesTest(TestCase):
         for res, exp in zip(result, expected):
             with self.subTest(exp["lang"]):
                 self.assertDictEqual(exp, res)
+
+
+class ArticleAbstractTest(TestCase):
+
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <abstract>
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text </p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </abstract>
+            <trans-abstract xml:lang="pt">
+                <title>Abstract</title>
+                <sec>
+                    <title>inicio</title>
+                    <p><bold>conteúdo de bold</bold> text</p>
+                </sec>
+                <sec>
+                    <title>meio</title>
+                    <p>text <bold>conteúdo de bold</bold> text</p>
+                </sec>
+                <sec>
+                    <title>fim</title>
+                    <p>text <bold>conteúdo de bold</bold></p>
+                </sec>
+                <sec>
+                    <title>aninhado</title>
+                    <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                </sec>
+            </trans-abstract>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="es">
+                <front-stub>
+                    <abstract>
+                        <title>Abstract</title>
+                        <sec>
+                            <title>inicio</title>
+                            <p><bold>conteúdo de bold</bold> text</p>
+                        </sec>
+                        <sec>
+                            <title>meio</title>
+                            <p>text <bold>conteúdo de bold</bold> text</p>
+                        </sec>
+                        <sec>
+                            <title>fim</title>
+                            <p>text <bold>conteúdo de bold</bold></p>
+                        </sec>
+                        <sec>
+                            <title>aninhado</title>
+                            <p>text <bold>conteúdo <italic>de</italic> bold</bold></p>
+                        </sec>
+                    </abstract>
+                </front-stub>
+            </sub-article>
+            </article>
+            """)
+        self.abstract = ArticleAbstract(xmltree)
+
+    def test_get_main_abstract(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'en',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        self.assertEqual(expected, list(self.abstract.get_main_abstract()))
+
+    def test_get_main_abstract_structured(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'en',
+                'parent_name': 'article',
+                'title': {'html_text': 'Abstract', 'lang': 'en', 'plain_text': 'Abstract'},
+                'sections': [
+                    {
+                        'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'en', 'plain_text': 'conteúdo de bold text'},
+                        'title': {'html_text': 'inicio', 'lang': 'en', 'plain_text': 'inicio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold text'},
+                        'title': {'html_text': 'meio', 'lang': 'en', 'plain_text': 'meio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'fim', 'lang': 'en', 'plain_text': 'fim'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'aninhado', 'lang': 'en', 'plain_text': 'aninhado'}
+                    }
+                ]
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        self.assertEqual(expected, list(self.abstract.get_main_abstract(structured=True)))
+
+    def test_get_sub_article_abstract(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = list(self.abstract.get_sub_article_abstract())
+        for i, abstract in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_sub_article_abstract_structured(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
+                'sections': [
+                    {
+                        'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'es', 'plain_text': 'conteúdo de bold text'},
+                        'title': {'html_text': 'inicio', 'lang': 'es', 'plain_text': 'inicio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'es', 'plain_text': 'text conteúdo de bold text'},
+                        'title': {'html_text': 'meio', 'lang': 'es', 'plain_text': 'meio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'es', 'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'fim', 'lang': 'es', 'plain_text': 'fim'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'es', 'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'aninhado', 'lang': 'es', 'plain_text': 'aninhado'}
+                    }
+                ]
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = list(self.abstract.get_sub_article_abstract(structured=True))
+        for i, abstract in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_trans_abstract(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = list(self.abstract.get_trans_abstract())
+        for i, abstract in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_trans_abstract_structured(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'title': {'html_text': 'Abstract', 'lang': 'pt', 'plain_text': 'Abstract'},
+                'sections': [
+                        {
+                            'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'pt', 'plain_text': 'conteúdo de bold text'},
+                            'title': {'html_text': 'inicio', 'lang': 'pt', 'plain_text': 'inicio'}
+                        },
+                        {
+                            'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'pt', 'plain_text': 'text conteúdo de bold text'},
+                            'title': {'html_text': 'meio', 'lang': 'pt', 'plain_text': 'meio'}
+                        },
+                        {
+                            'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'pt', 'plain_text': 'text conteúdo de bold'},
+                            'title': {'html_text': 'fim', 'lang': 'pt', 'plain_text': 'fim'}
+                        },
+                        {
+                            'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'pt', 'plain_text': 'text conteúdo de bold'},
+                            'title': {'html_text': 'aninhado', 'lang': 'pt', 'plain_text': 'aninhado'}
+                        }
+                    ]
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = list(self.abstract.get_trans_abstract(structured=True))
+        for i, abstract in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_abstracts(self):
+        self.maxDiff = None
+        expected = [
+            {
+                'lang': 'en',
+                'parent_name': 'article',
+                'title': {'html_text': 'Abstract', 'lang': 'en', 'plain_text': 'Abstract'},
+                'sections': [
+                    {
+                        'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'en',
+                              'plain_text': 'conteúdo de bold text'},
+                        'title': {'html_text': 'inicio', 'lang': 'en', 'plain_text': 'inicio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold text'},
+                        'title': {'html_text': 'meio', 'lang': 'en', 'plain_text': 'meio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'fim', 'lang': 'en', 'plain_text': 'fim'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'en',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'aninhado', 'lang': 'en', 'plain_text': 'aninhado'}
+                    }
+                ]
+            },
+            {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
+                'sections': [
+                    {
+                        'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'es',
+                              'plain_text': 'conteúdo de bold text'},
+                        'title': {'html_text': 'inicio', 'lang': 'es', 'plain_text': 'inicio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'es',
+                              'plain_text': 'text conteúdo de bold text'},
+                        'title': {'html_text': 'meio', 'lang': 'es', 'plain_text': 'meio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'es',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'fim', 'lang': 'es', 'plain_text': 'fim'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'es',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'aninhado', 'lang': 'es', 'plain_text': 'aninhado'}
+                    }
+                ]
+            },
+            {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'title': {'html_text': 'Abstract', 'lang': 'pt', 'plain_text': 'Abstract'},
+                'sections': [
+                    {
+                        'p': {'html_text': '<b>conteúdo de bold</b> text', 'lang': 'pt',
+                              'plain_text': 'conteúdo de bold text'},
+                        'title': {'html_text': 'inicio', 'lang': 'pt', 'plain_text': 'inicio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b> text', 'lang': 'pt',
+                              'plain_text': 'text conteúdo de bold text'},
+                        'title': {'html_text': 'meio', 'lang': 'pt', 'plain_text': 'meio'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo de bold</b>', 'lang': 'pt',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'fim', 'lang': 'pt', 'plain_text': 'fim'}
+                    },
+                    {
+                        'p': {'html_text': 'text <b>conteúdo <i>de</i> bold</b>', 'lang': 'pt',
+                              'plain_text': 'text conteúdo de bold'},
+                        'title': {'html_text': 'aninhado', 'lang': 'pt', 'plain_text': 'aninhado'}
+                    }
+                ]
+            }
+        ]
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = list(self.abstract.get_abstracts(structured=True))
+        for i, abstract in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(abstract, obtained[i])
+
+    def test_get_abstracts_by_lang(self):
+        self.maxDiff = None
+        expected = {
+            'en': {
+                'lang': 'en',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'es': {
+                'lang': 'es',
+                'id': '01',
+                'parent_name': 'sub-article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            },
+            'pt': {
+                'lang': 'pt',
+                'parent_name': 'article',
+                'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
+                             '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
+                'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
+                              'bold aninhado text conteúdo de bold'
+            }
+        }
+        self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
+        obtained = self.abstract.get_abstracts_by_lang()
+        self.assertDictEqual(expected, obtained)
