@@ -534,6 +534,11 @@ class ArticleAbstract:
                 out["p"] = p
         return out
 
+    def _get_lang_attribute(self, node):
+        if node is not None:
+            return node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        return None
+
     def get_main_abstract(self, structured=False):
         """
         Obtem o resumo principal
