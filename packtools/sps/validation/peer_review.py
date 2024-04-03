@@ -88,6 +88,51 @@ class RelatedArticleLinkTypePeerValidation:
         )
 
 
+class CustomMetaPeerReviewValidation:
+    def __init__(self, node_id, meta_names, meta_value_list=None):
+        self.node_id = node_id
+        self.meta_names = meta_names
+        self.meta_value_list = meta_value_list
+
+    @property
+    def custom_meta_name_validation(self):
+        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
+        # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
+        obtained = " | ".join(self.meta_names) if self.meta_names != [] else None
+        is_valid = obtained is not None
+        yield format_response(
+            title='Peer review validation' + self.node_id,
+            item='custom-meta',
+            sub_item='meta-name',
+            is_valid=is_valid,
+            validation_type='exist',
+            expected=obtained if is_valid else 'a value for <custom-meta>',
+            obtained=obtained,
+            advice='provide a value for <custom-meta>'
+        )
+
+    def custom_meta_value_validation(self, meta_value):
+        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
+        # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
+        # Os termos possíveis para <meta-value> são:
+        # revision, major-revision, minor-revision, reject, reject-with-resubmit, accept, formal-accept,
+        # accept-in-principle
+        if not self.meta_value_list:
+            raise ValidationPeerReviewException("Function requires list of meta values")
+        expected = ' | '.join(self.meta_value_list)
+        is_valid = meta_value in self.meta_value_list
+        yield format_response(
+            title='Peer review validation' + self.node_id,
+            item='custom-meta',
+            sub_item='meta-value',
+            is_valid=is_valid,
+            validation_type='value in list',
+            expected=expected,
+            obtained=meta_value,
+            advice=f'provide one item of this list: {expected}'
+        )
+
+
         is_valid = False
         for link_type in link_types:
             if link_type in link_type_list:
