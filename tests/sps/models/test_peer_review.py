@@ -116,20 +116,20 @@ class PeerReviewArticleTest(unittest.TestCase):
 
     def test_meta_name_success(self):
         expected = ['peer-review-recommendation']
-        obtained = list(self.peer_review_success.meta_names)
+        obtained = [item.meta_name for item in self.peer_review_success.custom_meta]
         self.assertEqual(expected, obtained)
 
     def test_meta_name_fail(self):
-        obtained = list(self.peer_review_fail.meta_names)
+        obtained = [item.meta_name for item in self.peer_review_fail.custom_meta]
         self.assertEqual(obtained, [])
 
     def test_meta_value_success(self):
         expected = ['accept']
-        obtained = list(self.peer_review_success.meta_values)
+        obtained = [item.meta_value for item in self.peer_review_success.custom_meta]
         self.assertEqual(expected, obtained)
 
     def test_meta_value_fail(self):
-        obtained = list(self.peer_review_fail.meta_values)
+        obtained = [item.meta_value for item in self.peer_review_fail.custom_meta]
         self.assertEqual(obtained, [])
 
 
