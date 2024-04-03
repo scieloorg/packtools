@@ -36,19 +36,23 @@ class RelatedArticleTypePeerValidation:
         )
 
 
+class RelatedArticleXlinkPeerValidation:
+    def __init__(self, hrefs):
+        self.hrefs = hrefs
+
+    @property
+    def related_article_xlink_href_validation(self):
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @xlink:href com número DOI do artigo revisado;
-        related_item = RelatedItems(node)
-        related_articles = list(item.get("href") for item in related_item.related_articles if item.get("href"))
-        if related_articles:
-            obtained = " | ".join(related_articles)
+        if self.hrefs:
+            obtained = " | ".join(self.hrefs)
         else:
             obtained = None
         is_valid = obtained is not None
         yield format_response(
-            title=self.title,
-            item='.//related-article',
+            title="Peer review validation (article: main)",
+            item='related-article',
             sub_item='@xlink:href',
             is_valid=is_valid,
             validation_type='exist',
@@ -57,7 +61,7 @@ class RelatedArticleTypePeerValidation:
             advice='provide a value for <related-article @xlink:href>'
         )
 
-    def related_article_ext_link_type_validation(self, link_types, link_type_list=None):
+
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @ext-link-type com valor "doi".
