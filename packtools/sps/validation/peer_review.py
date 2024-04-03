@@ -62,14 +62,32 @@ class RelatedArticleXlinkPeerValidation:
         )
 
 
+class RelatedArticleLinkTypePeerValidation:
+    def __init__(self, link_type, link_type_list=None):
+        self.link_type = link_type
+        self.link_type_list = link_type_list
+
+    @property
+    def related_article_ext_link_type_validation(self):
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @ext-link-type com valor "doi".
-        link_type_list = self.link_type_list or link_type_list
-        if not link_type_list:
+        if not self.link_type_list:
             raise ValidationPeerReviewException("Function requires list of link types")
-        expected = ' | '.join(link_type_list)
-        obtained = ' | '.join(link_types)
+        expected = ' | '.join(self.link_type_list)
+        is_valid = self.link_type in self.link_type_list
+        yield format_response(
+            title="Peer review validation (article: main)",
+            item='related-article',
+            sub_item='@ext-link-type',
+            is_valid=is_valid,
+            validation_type='value in list',
+            expected=expected,
+            obtained=self.link_type,
+            advice=f'provide one item of this list: {expected}'
+        )
+
+
         is_valid = False
         for link_type in link_types:
             if link_type in link_type_list:
