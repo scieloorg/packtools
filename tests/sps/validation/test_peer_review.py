@@ -1,7 +1,15 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.validation.peer_review import PeerReviewValidation
+from packtools.sps.validation.peer_review import (
+    AuthorPeerReviewValidation,
+    DatePeerReviewValidation,
+    CustomMetaPeerReviewValidation,
+    RelatedArticleTypePeerValidation,
+    RelatedArticleXlinkPeerValidation,
+    RelatedArticleLinkTypePeerValidation,
+    PeerReviewsValidation,
+)
 
 
 class ArticleAuthorsValidationTest(unittest.TestCase):
@@ -128,8 +136,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './contrib',
+                'title': 'Peer review validation (article: main)',
+                'item': 'contrib',
                 'sub-item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -139,10 +147,21 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).contrib_type_validation(
-            contrib_type='author',
+        obtained = list(AuthorPeerReviewValidation(
+            node_id=' (article: main)',
+            contrib={
+                'contrib-type': 'author',
+                'role': [
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reviewer"
+                    }
+                ]
+            },
             contrib_type_list=['author']
-        ))
+        ).contrib_type_validation)
+
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -151,8 +170,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './contrib',
+                'title': 'Peer review validation (article: main)',
+                'item': 'contrib',
                 'sub-item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
@@ -162,10 +181,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide one item of this list: author',
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).contrib_type_validation(
-            contrib_type='reader',
+        obtained = list(AuthorPeerReviewValidation(
+            node_id=' (article: main)',
+            contrib={
+                'contrib-type': 'reader',
+                'role': [
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reviewer"
+                    }
+                ]
+            },
             contrib_type_list=['author']
-        ))
+        ).contrib_type_validation)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -174,8 +203,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './role',
+                'title': 'Peer review validation (article: main)',
+                'item': 'role',
                 'sub-item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -185,39 +214,61 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).role_specific_use_validation(
-            specific_use=["reviewer"],
-            specific_use_list=["reviewer", "editor"]
-        ))
+        obtained = list(AuthorPeerReviewValidation(
+            node_id=' (article: main)',
+            contrib={
+                'contrib-type': 'author',
+                'role': [
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reviewer"
+                    }
+                ]
+            },
+            contrib_type_list=['author'],
+            specific_use_list=['reviewer', 'editor']
+        ).role_specific_use_validation)
         self.assertEqual(expected, obtained)
 
     def test_specific_use_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './role',
+                'title': 'Peer review validation (article: main)',
+                'item': 'role',
                 'sub-item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': 'reviewer | editor',
-                'got_value': 'reader',
-                'message': 'Got reader, expected reviewer | editor',
+                'got_value': None,
+                'message': 'Got None, expected reviewer | editor',
                 'advice': 'provide one item of this list: reviewer | editor'
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).role_specific_use_validation(
-            specific_use=["reader"],
-            specific_use_list=["reviewer", "editor"]
-        ))
+        obtained = list(AuthorPeerReviewValidation(
+            node_id=' (article: main)',
+            contrib={
+                'contrib-type': 'author',
+                'role': [
+                    {
+                        "text": "Reviewer",
+                        "content-type": None,
+                        "specific-use": "reader"
+                    }
+                ]
+            },
+            contrib_type_list=['author'],
+            specific_use_list=['reviewer', 'editor']
+        ).role_specific_use_validation)
         self.assertEqual(expected, obtained)
 
     def test_date_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './date',
+                'title': 'Peer review validation (article: main)',
+                'item': 'date',
                 'sub-item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -227,18 +278,19 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).date_type_validation(
-            date_types=["reviewer-report-received"],
+        obtained = list(DatePeerReviewValidation(
+            date_type="reviewer-report-received",
+            node_id=" (article: main)",
             date_type_list=["reviewer-report-received"]
-        ))
+        ).date_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_date_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './date',
+                'title': 'Peer review validation (article: main)',
+                'item': 'date',
                 'sub-item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
@@ -248,32 +300,19 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide one item of this list: reviewer-report-received'
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).date_type_validation(
-            date_types=["accepted"],
+        obtained = list(DatePeerReviewValidation(
+            date_type="accepted",
+            node_id=" (article: main)",
             date_type_list=["reviewer-report-received"]
-        ))
+        ).date_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_name_validation_success(self):
         self.maxDiff = None
-        xml = etree.fromstring(
-            ''' 
-            <article>
-            <article-meta>
-            <custom-meta-group>
-            <custom-meta>
-            <meta-name>peer-review-recommendation</meta-name>
-            <meta-value>accept</meta-value>
-            </custom-meta>
-            </custom-meta-group>
-            </article-meta>
-            </article>
-            '''
-        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -283,29 +322,18 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).custom_meta_name_validation(xml))
+        obtained = list(CustomMetaPeerReviewValidation(
+            node_id=' (article: main)',
+            meta_names=['peer-review-recommendation'],
+        ).custom_meta_name_validation)
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_name_validation_fail(self):
         self.maxDiff = None
-        xml = etree.fromstring(
-            ''' 
-            <article>
-            <article-meta>
-            <custom-meta-group>
-            <custom-meta>
-            
-            <meta-value>accept</meta-value>
-            </custom-meta>
-            </custom-meta-group>
-            </article-meta>
-            </article>
-            '''
-        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'ERROR',
@@ -315,15 +343,18 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide a value for <custom-meta>',
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).custom_meta_name_validation(xml))
+        obtained = list(CustomMetaPeerReviewValidation(
+            node_id=' (article: main)',
+            meta_names=[],
+        ).custom_meta_name_validation)
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_value_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -335,19 +366,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).custom_meta_value_validation(
-            meta_values=['revision'],
+        obtained = list(CustomMetaPeerReviewValidation(
+            node_id=' (article: main)',
+            meta_names=[],
             meta_value_list=['revision', 'major-revision', 'minor-revision', 'reject', 'reject-with-resubmit', 'accept',
                              'formal-accept', 'accept-in-principle']
-        ))
+        ).custom_meta_value_validation('revision'))
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_value_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
@@ -360,19 +392,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                           'reject-with-resubmit | accept | formal-accept | accept-in-principle',
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).custom_meta_value_validation(
-            meta_values=['accepted'],
+        obtained = list(CustomMetaPeerReviewValidation(
+            node_id=' (article: main)',
+            meta_names=[],
             meta_value_list=['revision', 'major-revision', 'minor-revision', 'reject', 'reject-with-resubmit', 'accept',
                              'formal-accept', 'accept-in-principle']
-        ))
+        ).custom_meta_value_validation('accepted'))
         self.assertEqual(expected, obtained)
 
     def test_related_article_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -382,18 +415,18 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_type_validation(
-            related_article_types=["peer-reviewed-material"],
+        obtained = list(RelatedArticleTypePeerValidation(
+            related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"]
-        ))
+        ).related_article_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_related_article_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
@@ -403,28 +436,18 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide one item of this list: peer-reviewed-material'
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_type_validation(
-            related_article_types=["peer-reviewed"],
+        obtained = list(RelatedArticleTypePeerValidation(
+            related_article_type="peer-reviewed",
             related_article_type_list=["peer-reviewed-material"]
-        ))
+        ).related_article_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_related_article_xlink_href_validation_success(self):
         self.maxDiff = None
-        xml = etree.fromstring(
-            ''' 
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
-            <article-meta>
-            <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
-            </article-meta>
-            </article>
-            '''
-        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -434,25 +457,17 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_xlink_href_validation(xml))
+        obtained = list(RelatedArticleXlinkPeerValidation(
+            hrefs=['10.1590/abd1806-4841.20142998']
+        ).related_article_xlink_href_validation)
         self.assertEqual(expected, obtained)
 
     def test_related_article_xlink_href_validation_fail(self):
         self.maxDiff = None
-        xml = etree.fromstring(
-            ''' 
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
-            <article-meta>
-            <related-article related-article-type="peer-reviewed-material" id="r01" ext-link-type="doi" />
-            </article-meta>
-            </article>
-            '''
-        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'ERROR',
@@ -462,15 +477,17 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide a value for <related-article @xlink:href>',
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_xlink_href_validation(xml))
+        obtained = list(RelatedArticleXlinkPeerValidation(
+            hrefs=[]
+        ).related_article_xlink_href_validation)
         self.assertEqual(expected, obtained)
 
     def test_related_article_ext_link_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -480,18 +497,18 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_ext_link_type_validation(
-            link_types=['doi'],
+        obtained = list(RelatedArticleLinkTypePeerValidation(
+            link_type='doi',
             link_type_list=['doi']
-        ))
+        ).related_article_ext_link_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_related_article_ext_link_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
@@ -501,15 +518,15 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide one item of this list: doi'
             }
         ]
-        obtained = list(PeerReviewValidation(self.xmltree_success).related_article_ext_link_type_validation(
-            link_types=['uri'],
+        obtained = list(RelatedArticleLinkTypePeerValidation(
+            link_type='uri',
             link_type_list=['doi']
-        ))
+        ).related_article_ext_link_type_validation)
         self.assertEqual(expected, obtained)
 
     def test_peer_review_validation(self):
         self.maxDiff = None
-        obtained = list(PeerReviewValidation(
+        obtained = list(PeerReviewsValidation(
             self.xmltree_success,
             contrib_type_list=['author'],
             specific_use_list=["reviewer", "editor"],
@@ -518,11 +535,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                              'formal-accept', 'accept-in-principle'],
             related_article_type_list=["peer-reviewed-material"],
             link_type_list=['doi']
-        ).peer_review_validation())
+        ).nodes_validation)
         expected = [
             {
-                'title': 'Peer review validation',
-                'item': './contrib',
+                'title': 'Peer review validation (article: main)',
+                'item': 'contrib',
                 'sub-item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -532,8 +549,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './role',
+                'title': 'Peer review validation (article: main)',
+                'item': 'role',
                 'sub-item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -543,8 +560,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './date',
+                'title': 'Peer review validation (article: main)',
+                'item': 'date',
                 'sub-item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -554,8 +571,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -565,8 +582,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (article: main)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -578,8 +595,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './contrib',
+                'title': 'Peer review validation (sub-article: s1)',
+                'item': 'contrib',
                 'sub-item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -589,8 +606,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './role',
+                'title': 'Peer review validation (sub-article: s1)',
+                'item': 'role',
                 'sub-item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -600,8 +617,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './date',
+                'title': 'Peer review validation (sub-article: s1)',
+                'item': 'date',
                 'sub-item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -611,8 +628,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (sub-article: s1)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -622,8 +639,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/custom-meta-group//custom-meta',
+                'title': 'Peer review validation (sub-article: s1)',
+                'item': 'custom-meta',
                 'sub-item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -635,8 +652,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
@@ -646,8 +663,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -657,8 +674,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation',
-                'item': './/related-article',
+                'title': 'Peer review validation (article: main)',
+                'item': 'related-article',
                 'sub-item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
