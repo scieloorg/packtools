@@ -8,6 +8,8 @@ from packtools.sps.validation.utils import format_response
 
 from packtools.sps.validation.article_authors import ArticleAuthorsValidation
 
+def get_node_id(node):
+    return f" (sub-article: {node.get('id')})" if node.get('id') else " (article: main)"
 
 class PeerReviewValidation:
     def __init__(self, xml_tree, contrib_type_list=None, specific_use_list=None, date_type_list=None,
