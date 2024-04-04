@@ -11,6 +11,7 @@ def _get_collab(node):
 
 class Authors:
     def __init__(self, node):
+        # node é um nó que pode representar 'article' ou 'sub-article'
         self.node = node
 
     @property
