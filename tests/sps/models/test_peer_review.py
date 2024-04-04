@@ -132,6 +132,11 @@ class PeerReviewArticleTest(unittest.TestCase):
         obtained = [item.meta_value for item in self.peer_review_fail.custom_meta]
         self.assertEqual(obtained, [])
 
+    def test_custom_meta_data(self):
+        obtained = self.peer_review_success.data
+        expected = [{'meta-name': 'peer-review-recommendation', 'meta-value': 'accept'}]
+        self.assertEqual(expected, obtained)
+
 
 if __name__ == '__main__':
     unittest.main()
