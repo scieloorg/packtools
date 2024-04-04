@@ -79,19 +79,19 @@ class RelatedArticle:
 
 
 class CustomMetaPeerReviewValidation:
-    def __init__(self, node_id, meta_names, meta_value_list=None):
-        self.node_id = node_id
-        self.meta_names = meta_names
+    def __init__(self, meta_name, meta_value, meta_value_list=None):
+        self.meta_name = meta_name
+        self.meta_value = meta_value
         self.meta_value_list = meta_value_list
 
     @property
     def custom_meta_name_validation(self):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
         # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
-        obtained = " | ".join(self.meta_names) if self.meta_names != [] else None
+        obtained = self.meta_name
         is_valid = obtained is not None
         yield format_response(
-            title='Peer review validation' + self.node_id,
+            title='Peer review validation',
             item='custom-meta',
             sub_item='meta-name',
             is_valid=is_valid,
@@ -101,7 +101,8 @@ class CustomMetaPeerReviewValidation:
             advice='provide a value for <custom-meta>'
         )
 
-    def custom_meta_value_validation(self, meta_value):
+    @property
+    def custom_meta_value_validation(self):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
         # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
         # Os termos possíveis para <meta-value> são:
@@ -109,17 +110,16 @@ class CustomMetaPeerReviewValidation:
         # accept-in-principle
         if not self.meta_value_list:
             raise ValidationPeerReviewException("Function requires list of meta values")
-        expected = ' | '.join(self.meta_value_list)
-        is_valid = meta_value in self.meta_value_list
+        is_valid = self.meta_value in self.meta_value_list
         yield format_response(
-            title='Peer review validation' + self.node_id,
+            title='Peer review validation',
             item='custom-meta',
             sub_item='meta-value',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
-            obtained=meta_value,
-            advice=f'provide one item of this list: {expected}'
+            expected=self.meta_value_list,
+            obtained=self.meta_value,
+            advice=f'provide one item of this list: {self.meta_value_list}'
         )
 
 
