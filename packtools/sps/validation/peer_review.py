@@ -181,9 +181,8 @@ class AuthorPeerReviewValidation:
 
 
 class DatePeerReviewValidation:
-    def __init__(self, date_type, node_id, date_type_list=None):
+    def __init__(self, date_type, date_type_list=None):
         self.date_type = date_type
-        self.node_id = node_id
         self.date_type_list = date_type_list
 
     @property
@@ -192,17 +191,16 @@ class DatePeerReviewValidation:
         # @date-type em <history> com valor "reviewer-report-received"
         if not self.date_type_list:
             raise ValidationPeerReviewException("Function requires list of date type")
-        expected = ' | '.join(self.date_type_list)
         is_valid = self.date_type in self.date_type_list
         yield format_response(
-            title='Peer review validation' + self.node_id,
+            title='Peer review validation',
             item='date',
             sub_item='@date-type',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
+            expected=self.date_type_list,
             obtained=self.date_type,
-            advice=f'provide one item of this list: {expected}'
+            advice=f'provide one item of this list: {self.date_type_list}'
         )
 
 
