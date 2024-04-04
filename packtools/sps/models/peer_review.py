@@ -18,6 +18,10 @@ class CustomMetaGroup:
         for item in self.main_node.xpath('.//custom-meta-group//custom-meta'):
             yield CustomMeta(item)
 
+    @property
+    def data(self):
+        return [item.data for item in self.custom_meta]
+
 
 class CustomMeta:
     def __init__(self, custom_meta_node):
@@ -30,6 +34,13 @@ class CustomMeta:
     @property
     def meta_value(self):
         return self.custom_meta_node.findtext('meta-value')
+
+    @property
+    def data(self):
+        return {
+            "meta-name": self.meta_name,
+            "meta-value": self.meta_value
+        }
 
 
 class PeerReview(CustomMetaGroup):
