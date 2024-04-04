@@ -124,9 +124,8 @@ class CustomMetaPeerReviewValidation:
 
 
 class AuthorPeerReviewValidation:
-    def __init__(self, contrib, node_id, contrib_type_list=None, specific_use_list=None):
+    def __init__(self, contrib, contrib_type_list=None, specific_use_list=None):
         self.contrib = contrib
-        self.node_id = node_id
         self.contrib_type_list = contrib_type_list
         self.specific_use_list = specific_use_list
 
@@ -144,17 +143,16 @@ class AuthorPeerReviewValidation:
         # @contrib-type com valor "author"
         if not self.contrib_type_list:
             raise ValidationPeerReviewException("Function requires list of contrib types")
-        expected = ' | '.join(self.contrib_type_list)
         is_valid = self.contrib_type in self.contrib_type_list
         yield format_response(
-            title='Peer review validation' + self.node_id,
+            title='Peer review validation',
             item='contrib',
             sub_item='@contrib-type',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
+            expected=self.contrib_type_list,
             obtained=self.contrib_type,
-            advice=f'provide one item of this list: {expected}'
+            advice=f'provide one item of this list: {self.contrib_type_list}'
         )
 
     @property
@@ -163,7 +161,6 @@ class AuthorPeerReviewValidation:
         # <role> com @specific-use com valores "reviewer" ou "editor"
         if not self.specific_use_list:
             raise ValidationPeerReviewException("Function requires list of specific use")
-        expected = ' | '.join(self.specific_use_list)
         is_valid = False
         obtained = None
         for item in self.specific_use:
@@ -172,14 +169,14 @@ class AuthorPeerReviewValidation:
                 obtained = item
                 break
         yield format_response(
-            title='Peer review validation' + self.node_id,
+            title='Peer review validation',
             item='role',
             sub_item='@specific-use',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
+            expected=self.specific_use_list,
             obtained=obtained,
-            advice=f'provide one item of this list: {expected}'
+            advice=f'provide one item of this list: {self.specific_use_list}'
         )
 
 
