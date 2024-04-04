@@ -7,7 +7,11 @@ from packtools.sps.validation.utils import format_response
 
 
 def get_node_id(node):
-    return f" (sub-article: {node.get('id')})" if node.get('id') else " (article: main)"
+    article_id = node.get('id')
+    if article_id:
+        return f" (parent: sub-article, @id: {article_id})"
+    else:
+        return f" (parent: article, @id: {article_id})"
 
 
 class RelatedArticleTypePeerValidation:
