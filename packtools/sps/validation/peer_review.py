@@ -14,10 +14,13 @@ def get_node_id(node):
         return f" (parent: article, @id: {article_id})"
 
 
-class RelatedArticleTypePeerValidation:
-    def __init__(self, related_article_type, related_article_type_list=None):
+class RelatedArticle:
+    def __init__(self, related_article_type, href, link_type, related_article_type_list=None, link_type_list=None):
         self.related_article_type = related_article_type
         self.related_article_type_list = related_article_type_list
+        self.href = href
+        self.link_type = link_type
+        self.link_type_list = link_type_list
 
     @property
     def related_article_type_validation(self):
@@ -26,50 +29,34 @@ class RelatedArticleTypePeerValidation:
         # @related-article-type com valor "peer-reviewed-material";
         if not self.related_article_type_list:
             raise ValidationPeerReviewException("Function requires list of related articles")
-        expected = ' | '.join(self.related_article_type_list)
         is_valid = self.related_article_type in self.related_article_type_list
         yield format_response(
-            title="Peer review validation (article: main)",
+            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@related-article-type',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
+            expected=self.related_article_type_list,
             obtained=self.related_article_type,
-            advice=f'provide one item of this list: {expected}'
+            advice=f'provide one item of this list: {self.related_article_type_list}'
         )
 
-
-class RelatedArticleXlinkPeerValidation:
-    def __init__(self, hrefs):
-        self.hrefs = hrefs
-
     @property
-    def related_article_xlink_href_validation(self):
+    def related_article_href_validation(self):
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @xlink:href com número DOI do artigo revisado;
-        if self.hrefs:
-            obtained = " | ".join(self.hrefs)
-        else:
-            obtained = None
-        is_valid = obtained is not None
+        is_valid = self.href is not None
         yield format_response(
-            title="Peer review validation (article: main)",
+            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@xlink:href',
             is_valid=is_valid,
             validation_type='exist',
-            expected=obtained if is_valid else 'a value for <related-article @xlink:href>',
-            obtained=obtained,
+            expected=self.href if is_valid else 'a value for <related-article @xlink:href>',
+            obtained=self.href,
             advice='provide a value for <related-article @xlink:href>'
         )
-
-
-class RelatedArticleLinkTypePeerValidation:
-    def __init__(self, link_type, link_type_list=None):
-        self.link_type = link_type
-        self.link_type_list = link_type_list
 
     @property
     def related_article_ext_link_type_validation(self):
@@ -78,17 +65,16 @@ class RelatedArticleLinkTypePeerValidation:
         # @ext-link-type com valor "doi".
         if not self.link_type_list:
             raise ValidationPeerReviewException("Function requires list of link types")
-        expected = ' | '.join(self.link_type_list)
         is_valid = self.link_type in self.link_type_list
         yield format_response(
-            title="Peer review validation (article: main)",
+            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@ext-link-type',
             is_valid=is_valid,
             validation_type='value in list',
-            expected=expected,
+            expected=self.link_type_list,
             obtained=self.link_type,
-            advice=f'provide one item of this list: {expected}'
+            advice=f'provide one item of this list: {self.link_type_list}'
         )
 
 
