@@ -14,8 +14,33 @@ class ArticleDoiValidation:
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.doi = DoiWithLang(self.xmltree).main_doi
         self.dois = DoiWithLang(self.xmltree).data
-        self.authors = Authors(self.xmltree).contribs
         self.titles = ArticleTitles(self.xmltree).article_title_dict
+
+    @property
+    def article(self):
+        node = self.xmltree.find(".//article-meta")
+        if node is not None:
+            yield node
+
+    @property
+    def sub_articles(self):
+        nodes = self.xmltree.xpath(".//sub-article")
+        for node in nodes:
+            yield node
+
+    @property
+    def nodes(self):
+        yield from self.article
+        yield from self.sub_articles
+
+    @property
+    def authors(self):
+        # A classe 'authors' considerava somente os autores em 'article'
+        # essa classe foi alterada para receber um nó ('article' ou 'sub-article') ao invés do XML completo
+        # nesse sentido esta classe (ArticleDoiValidation) teve de ser alterada para manutenção do funcionamento
+        for node in self.article:
+            for item in Authors(node).contribs:
+                yield item
 
     def validate_main_article_doi_exists(self):
         """
