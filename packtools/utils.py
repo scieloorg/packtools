@@ -705,7 +705,7 @@ class SPPackage(object):
     def _optimise_to_zipfile(
         self, new_package_file_path, xml_filename, zipped_filenames
     ):
-        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+        with zipfile.ZipFile(new_package_file_path, "a", compression=zipfile.ZIP_DEFLATED) as new_zip_file:
             zipped_files = []
             xml_web_optimiser = self._get_optimise_web_xml(
                 xml_filename, zipped_filenames
@@ -738,7 +738,7 @@ class SPPackage(object):
 
     def _write_files_left(self, new_package_file_path, files_to_write):
         # Write files left to new Zipfile
-        with zipfile.ZipFile(new_package_file_path, "a") as new_zip_file:
+        with zipfile.ZipFile(new_package_file_path, "a", compression=zipfile.ZIP_DEFLATED) as new_zip_file:
             for file_to_write in files_to_write:
                 zip_info = self._package_file.getinfo(file_to_write)
                 LOGGER.debug('Writing file "%s"', file_to_write)
