@@ -251,6 +251,9 @@ class XMLWithPre:
         self.filename = None
         self.pretty_print = pretty_print
         self.files = None
+        self.uri = None
+        self.zip_file_path = None
+        self.xml_file_path = None
 
     @property
     def data(self):
@@ -274,11 +277,16 @@ class XMLWithPre:
             XML file URI
         """
         if path:
+            if path.endswith(".xml"):
+                self.xml_file_path = path
+            else:
+                self.zip_file_path = path
             for item in get_xml_items(path):
                 item["xml_with_pre"].filename = item["filename"]
                 item["xml_with_pre"].files = item.get("files")
                 yield item["xml_with_pre"]
         if uri:
+            self.uri = uri
             yield get_xml_with_pre_from_uri(uri, timeout=30)
 
     def get_zip_content(self, xml_filename, pretty_print=False):
