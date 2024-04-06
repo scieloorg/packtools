@@ -6,7 +6,8 @@ from datetime import date, datetime
 from gettext import gettext as _
 from shutil import copyfile
 from tempfile import TemporaryDirectory
-from zipfile import BadZipFile, ZipFile
+from zipfile import BadZipFile, ZipFile, ZIP_DEFLATED
+
 
 from lxml import etree
 
@@ -71,6 +72,7 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         if ext == ".xml":
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
+                xml.xml_file_path = xml_sps_file_path
                 item = os.path.basename(xml_sps_file_path)
             return [{"filename": item, "xml_with_pre": xml, "files": [item]}]
         raise TypeError(
@@ -106,10 +108,12 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
             filenames = filenames or zf.namelist() or []
             for item in filenames:
                 if item.endswith(".xml"):
+                    xml_with_pre = get_xml_with_pre(zf.read(item).decode("utf-8"))
+                    xml_with_pre.zip_file_path = xml_sps_file_path
                     found = True
                     yield {
                         "filename": item,
-                        "xml_with_pre": get_xml_with_pre(zf.read(item).decode("utf-8")),
+                        "xml_with_pre": xml_with_pre,
                         "files": zf.namelist(),
                     }
             if not found:
@@ -139,7 +143,7 @@ def update_zip_file_xml(xml_sps_file_path, xml_file_path, content):
     ------
     str
     """
-    with ZipFile(xml_sps_file_path, "w") as zf:
+    with ZipFile(xml_sps_file_path, "w", compression=ZIP_DEFLATED) as zf:
         LOGGER.debug(
             "Try to write xml %s %s %s"
             % (xml_sps_file_path, xml_file_path, content[:100])
@@ -174,7 +178,7 @@ def create_xml_zip_file(xml_sps_file_path, content):
     basename = os.path.basename(xml_sps_file_path)
     name, ext = os.path.splitext(basename)
 
-    with ZipFile(xml_sps_file_path, "w") as zf:
+    with ZipFile(xml_sps_file_path, "w", compression=ZIP_DEFLATED) as zf:
         zf.writestr(name + ".xml", content)
     return os.path.isfile(xml_sps_file_path)
 
@@ -185,7 +189,9 @@ def get_xml_with_pre_from_uri(uri, timeout=30):
         xml_content = response.decode("utf-8")
     except Exception as e:
         raise GetXmlWithPreFromURIError(_("Unable to get xml from {}").format(uri))
-    return get_xml_with_pre(xml_content)
+    xml_with_pre = get_xml_with_pre(xml_content)
+    xml_with_pre.uri = uri
+    return xml_with_pre
 
 
 def get_xml_with_pre(xml_content):
@@ -277,25 +283,27 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-            if path.endswith(".xml"):
-                self.xml_file_path = path
-            else:
-                self.zip_file_path = path
             for item in get_xml_items(path):
                 item["xml_with_pre"].filename = item["filename"]
                 item["xml_with_pre"].files = item.get("files")
                 yield item["xml_with_pre"]
         if uri:
-            self.uri = uri
             yield get_xml_with_pre_from_uri(uri, timeout=30)
+
+    def update_xml_in_zip_file(self):
+        if self.zip_file_path and self.filename:
+            with ZipFile(self.zip_file_path, "a", compression=ZIP_DEFLATED) as zf:
+                zf.writestr(
+                    self.filename,
+                    self.tostring(pretty_print=True),
+                )
 
     def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
         with TemporaryDirectory() as tmpdirname:
             temp_zip_file_path = os.path.join(tmpdirname, f"{xml_filename}.zip")
-            with ZipFile(temp_zip_file_path, "w") as zf:
+            with ZipFile(temp_zip_file_path, "w", compression=ZIP_DEFLATED) as zf:
                 zf.writestr(xml_filename, self.tostring(pretty_print=pretty_print))
-
             with open(temp_zip_file_path, "rb") as fp:
                 zip_content = fp.read()
         return zip_content
