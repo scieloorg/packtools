@@ -6,15 +6,15 @@ from packtools.sps.validation.exceptions import ValidationPeerReviewException
 from packtools.sps.validation.utils import format_response
 
 
-def get_node_id(node):
-    article_id = node.get('id')
-    if article_id:
-        return f" (parent: sub-article, @id: {article_id})"
-    else:
-        return f" (parent: article, @id: {article_id})"
+def _get_parent(node):
+    return node.tag if node.tag == 'sub-article' else 'article'
 
 
 class RelatedArticle:
+def _get_parent_id(node):
+    return node.get('id')
+
+
     def __init__(self, related_article_type, href, link_type, related_article_type_list=None, link_type_list=None):
         self.related_article_type = related_article_type
         self.related_article_type_list = related_article_type_list
