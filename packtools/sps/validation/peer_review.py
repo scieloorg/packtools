@@ -239,8 +239,7 @@ class PeerReviewsValidation:
         yield from self.custom_meta_validation(node)
 
     def specific_validation(self, node):
-        related_items = RelatedItems(node)
-        yield from self.related_article_validation(related_items)
+        yield from self.related_article_validation(node)
 
     def author_validation(self, node):
         authors = Authors(node)
@@ -285,9 +284,10 @@ class PeerReviewsValidation:
                 resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
-    def related_article_validation(self, related_items):
+    def related_article_validation(self, node):
+        related_items = RelatedItems(node)
         for item in related_items.related_articles:
-            validation = RelatedArticle(
+            validation = RelatedArticleValidation(
                 related_article_type=item.get("related-article-type"),
                 related_article_type_list=self.related_article_type_list,
                 href=item.get("href"),
