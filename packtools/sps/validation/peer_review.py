@@ -10,11 +10,11 @@ def _get_parent(node):
     return node.tag if node.tag == 'sub-article' else 'article'
 
 
-class RelatedArticle:
 def _get_parent_id(node):
     return node.get('id')
 
 
+class RelatedArticleValidation:
     def __init__(self, related_article_type, href, link_type, related_article_type_list=None, link_type_list=None):
         self.related_article_type = related_article_type
         self.related_article_type_list = related_article_type_list
