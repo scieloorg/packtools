@@ -252,7 +252,9 @@ class PeerReviewsValidation:
             )
             resps = list(validation.contrib_type_validation) + list(validation.role_specific_use_validation)
             for resp in resps:
-                resp['title'] += get_node_id(node)
+                resp['title'] = 'Peer review validation'
+                resp['parent'] = _get_parent(node)
+                resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
     def date_validation(self, node):
@@ -263,7 +265,9 @@ class PeerReviewsValidation:
                 date_type_list=self.date_type_list
             )
             for resp in validation.date_type_validation:
-                resp['title'] += get_node_id(node)
+                resp['title'] = 'Peer review validation'
+                resp['parent'] = _get_parent(node)
+                resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
     def custom_meta_validation(self, node):
@@ -276,7 +280,9 @@ class PeerReviewsValidation:
             )
             resps = list(validation.custom_meta_name_validation) + list(validation.custom_meta_value_validation)
             for resp in resps:
-                resp['title'] += get_node_id(node)
+                resp['title'] = 'Peer review validation'
+                resp['parent'] = _get_parent(node)
+                resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
     def related_article_validation(self, related_items):
@@ -288,6 +294,12 @@ class PeerReviewsValidation:
                 link_type=item.get("ext-link-type"),
                 link_type_list=self.link_type_list
             )
-            yield from validation.related_article_type_validation
-            yield from validation.related_article_href_validation
-            yield from validation.related_article_ext_link_type_validation
+            resps = list(validation.related_article_type_validation) + \
+                    list(validation.related_article_href_validation) + \
+                    list(validation.related_article_ext_link_type_validation)
+
+            for resp in resps:
+                resp['title'] = 'Peer review validation'
+                resp['parent'] = _get_parent(node)
+                resp['parent_id'] = _get_parent_id(node)
+                yield resp
