@@ -31,7 +31,6 @@ class RelatedArticleValidation:
             raise ValidationPeerReviewException("Function requires list of related articles")
         is_valid = self.related_article_type in self.related_article_type_list
         yield format_response(
-            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@related-article-type',
             is_valid=is_valid,
@@ -48,7 +47,6 @@ class RelatedArticleValidation:
         # @xlink:href com número DOI do artigo revisado;
         is_valid = self.href is not None
         yield format_response(
-            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@xlink:href',
             is_valid=is_valid,
@@ -67,7 +65,6 @@ class RelatedArticleValidation:
             raise ValidationPeerReviewException("Function requires list of link types")
         is_valid = self.link_type in self.link_type_list
         yield format_response(
-            title="Peer review validation (parent: article, @id: None)",
             item='related-article',
             sub_item='@ext-link-type',
             is_valid=is_valid,
@@ -91,7 +88,6 @@ class CustomMetaPeerReviewValidation:
         obtained = self.meta_name
         is_valid = obtained is not None
         yield format_response(
-            title='Peer review validation',
             item='custom-meta',
             sub_item='meta-name',
             is_valid=is_valid,
@@ -112,7 +108,6 @@ class CustomMetaPeerReviewValidation:
             raise ValidationPeerReviewException("Function requires list of meta values")
         is_valid = self.meta_value in self.meta_value_list
         yield format_response(
-            title='Peer review validation',
             item='custom-meta',
             sub_item='meta-value',
             is_valid=is_valid,
@@ -145,7 +140,6 @@ class AuthorPeerReviewValidation:
             raise ValidationPeerReviewException("Function requires list of contrib types")
         is_valid = self.contrib_type in self.contrib_type_list
         yield format_response(
-            title='Peer review validation',
             item='contrib',
             sub_item='@contrib-type',
             is_valid=is_valid,
@@ -169,7 +163,6 @@ class AuthorPeerReviewValidation:
                 obtained = item
                 break
         yield format_response(
-            title='Peer review validation',
             item='role',
             sub_item='@specific-use',
             is_valid=is_valid,
@@ -193,7 +186,6 @@ class DatePeerReviewValidation:
             raise ValidationPeerReviewException("Function requires list of date type")
         is_valid = self.date_type in self.date_type_list
         yield format_response(
-            title='Peer review validation',
             item='date',
             sub_item='@date-type',
             is_valid=is_valid,
