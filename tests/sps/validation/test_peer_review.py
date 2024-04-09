@@ -5,7 +5,7 @@ from packtools.sps.validation.peer_review import (
     AuthorPeerReviewValidation,
     DatePeerReviewValidation,
     CustomMetaPeerReviewValidation,
-    RelatedArticle,
+    RelatedArticleValidation,
     PeerReviewsValidation,
 )
 
@@ -134,9 +134,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'contrib',
-                'sub-item': '@contrib-type',
+                'sub_item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['author'],
@@ -159,7 +161,9 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             contrib_type_list=['author']
         ).contrib_type_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -169,9 +173,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'contrib',
-                'sub-item': '@contrib-type',
+                'sub_item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['author'],
@@ -194,7 +200,9 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             contrib_type_list=['author']
         ).contrib_type_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -203,9 +211,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'role',
-                'sub-item': '@specific-use',
+                'sub_item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer', 'editor'],
@@ -229,16 +239,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             specific_use_list=['reviewer', 'editor']
         ).role_specific_use_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_specific_use_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'role',
-                'sub-item': '@specific-use',
+                'sub_item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['reviewer', 'editor'],
@@ -262,16 +276,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             specific_use_list=['reviewer', 'editor']
         ).role_specific_use_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_date_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'date',
-                'sub-item': '@date-type',
+                'sub_item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer-report-received'],
@@ -285,16 +303,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             date_type_list=["reviewer-report-received"]
         ).date_type_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_date_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'date',
-                'sub-item': '@date-type',
+                'sub_item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['reviewer-report-received'],
@@ -308,16 +330,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             date_type_list=["reviewer-report-received"]
         ).date_type_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_name_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-name',
+                'sub_item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'peer-review-recommendation',
@@ -331,16 +357,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             meta_value='accept'
         ).custom_meta_name_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_name_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-name',
+                'sub_item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a value for <custom-meta>',
@@ -354,16 +384,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             meta_value='accept'
         ).custom_meta_name_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_value_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-value',
+                'sub_item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['revision', 'major-revision'],
@@ -378,16 +412,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             meta_value_list=['revision', 'major-revision']
         ).custom_meta_value_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_custom_meta_value_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-value',
+                'sub_item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['revision', 'major-revision'],
@@ -402,16 +440,20 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             meta_value_list=['revision', 'major-revision']
         ).custom_meta_value_validation)
         for item in obtained:
-            item['title'] += ' (parent: article, @id: None)'
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@related-article-type',
+                'sub_item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['peer-reviewed-material'],
@@ -420,22 +462,28 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"],
             href="10.1590/abd1806-4841.20142998",
             link_type='doi',
             link_type_list=['doi']
         ).related_article_type_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@related-article-type',
+                'sub_item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['peer-reviewed-material'],
@@ -444,22 +492,28 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': "provide one item of this list: ['peer-reviewed-material']"
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed",
             related_article_type_list=["peer-reviewed-material"],
             href="10.1590/abd1806-4841.20142998",
             link_type='doi',
             link_type_list=['doi']
         ).related_article_type_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_xlink_href_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@xlink:href',
+                'sub_item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '10.1590/abd1806-4841.20142998',
@@ -468,22 +522,28 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"],
             href="10.1590/abd1806-4841.20142998",
             link_type='doi',
             link_type_list=['doi']
         ).related_article_href_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_xlink_href_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@xlink:href',
+                'sub_item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a value for <related-article @xlink:href>',
@@ -492,22 +552,28 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': 'provide a value for <related-article @xlink:href>',
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"],
             href=None,
             link_type='doi',
             link_type_list=['doi']
         ).related_article_href_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_ext_link_type_validation_success(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@ext-link-type',
+                'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['doi'],
@@ -516,22 +582,28 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"],
             href="10.1590/abd1806-4841.20142998",
             link_type='doi',
             link_type_list=['doi']
         ).related_article_ext_link_type_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_related_article_ext_link_type_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@ext-link-type',
+                'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['doi'],
@@ -540,13 +612,17 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': "provide one item of this list: ['doi']"
             }
         ]
-        obtained = list(RelatedArticle(
+        obtained = list(RelatedArticleValidation(
             related_article_type="peer-reviewed-material",
             related_article_type_list=["peer-reviewed-material"],
             href="10.1590/abd1806-4841.20142998",
             link_type='uri',
             link_type_list=['doi']
         ).related_article_ext_link_type_validation)
+        for item in obtained:
+            item['title'] = 'Peer review validation'
+            item['parent'] = 'article'
+            item['parent_id'] = None
         self.assertEqual(expected, obtained)
 
     def test_peer_review_validation(self):
@@ -562,9 +638,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
         ).nodes_validation)
         expected = [
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'contrib',
-                'sub-item': '@contrib-type',
+                'sub_item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['author'],
@@ -573,9 +651,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'role',
-                'sub-item': '@specific-use',
+                'sub_item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer', 'editor'],
@@ -584,9 +664,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'date',
-                'sub-item': '@date-type',
+                'sub_item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer-report-received'],
@@ -595,9 +677,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-name',
+                'sub_item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'peer-review-recommendation',
@@ -606,9 +690,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'custom-meta',
-                'sub-item': 'meta-value',
+                'sub_item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['accept', 'formal-accept'],
@@ -617,9 +703,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: sub-article, @id: s1)',
+                'title': 'Peer review validation',
+                'parent': 'sub-article',
+                'parent_id': 's1',
                 'item': 'contrib',
-                'sub-item': '@contrib-type',
+                'sub_item': '@contrib-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['author'],
@@ -628,9 +716,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: sub-article, @id: s1)',
+                'title': 'Peer review validation',
+                'parent': 'sub-article',
+                'parent_id': 's1',
                 'item': 'role',
-                'sub-item': '@specific-use',
+                'sub_item': '@specific-use',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer', 'editor'],
@@ -639,9 +729,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: sub-article, @id: s1)',
+                'title': 'Peer review validation',
+                'parent': 'sub-article',
+                'parent_id': 's1',
                 'item': 'date',
-                'sub-item': '@date-type',
+                'sub_item': '@date-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['reviewer-report-received'],
@@ -650,9 +742,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: sub-article, @id: s1)',
+                'title': 'Peer review validation',
+                'parent': 'sub-article',
+                'parent_id': 's1',
                 'item': 'custom-meta',
-                'sub-item': 'meta-name',
+                'sub_item': 'meta-name',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'peer-review-recommendation',
@@ -661,9 +755,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: sub-article, @id: s1)',
+                'title': 'Peer review validation',
+                'parent': 'sub-article',
+                'parent_id': 's1',
                 'item': 'custom-meta',
-                'sub-item': 'meta-value',
+                'sub_item': 'meta-value',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['accept', 'formal-accept'],
@@ -672,9 +768,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@related-article-type',
+                'sub_item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['peer-reviewed-material'],
@@ -683,9 +781,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@xlink:href',
+                'sub_item': '@xlink:href',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '10.1590/abd1806-4841.20142998',
@@ -694,9 +794,11 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Peer review validation (parent: article, @id: None)',
+                'title': 'Peer review validation',
+                'parent': 'article',
+                'parent_id': None,
                 'item': 'related-article',
-                'sub-item': '@ext-link-type',
+                'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
                 'expected_value': ['doi'],
