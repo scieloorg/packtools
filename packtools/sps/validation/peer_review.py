@@ -6,14 +6,6 @@ from packtools.sps.validation.exceptions import ValidationPeerReviewException
 from packtools.sps.validation.utils import format_response
 
 
-def _get_parent(node):
-    return node.tag if node.tag == 'sub-article' else 'article'
-
-
-def _get_parent_id(node):
-    return node.get('id')
-
-
 class RelatedArticleValidation:
     def __init__(self, related_article_type, href, link_type, related_article_type_list=None, link_type_list=None):
         self.related_article_type = related_article_type
@@ -264,8 +256,8 @@ class PeerReviewsValidation:
             resps = list(validation.contrib_type_validation) + list(validation.role_specific_use_validation)
             for resp in resps:
                 resp['title'] = 'Peer review validation'
-                resp['parent'] = _get_parent(node)
-                resp['parent_id'] = _get_parent_id(node)
+                resp['parent'] = node.tag if node.tag == 'sub-article' else 'article'
+                resp['parent_id'] = node.get('id')
                 yield resp
 
     def date_validation(self, node, date_type_list=None):
@@ -280,8 +272,8 @@ class PeerReviewsValidation:
             )
             for resp in validation.date_type_validation:
                 resp['title'] = 'Peer review validation'
-                resp['parent'] = _get_parent(node)
-                resp['parent_id'] = _get_parent_id(node)
+                resp['parent'] = node.tag if node.tag == 'sub-article' else 'article'
+                resp['parent_id'] = node.get('id')
                 yield resp
 
     def custom_meta_validation(self, node, meta_value_list=None):
@@ -298,8 +290,8 @@ class PeerReviewsValidation:
             resps = list(validation.custom_meta_name_validation) + list(validation.custom_meta_value_validation)
             for resp in resps:
                 resp['title'] = 'Peer review validation'
-                resp['parent'] = _get_parent(node)
-                resp['parent_id'] = _get_parent_id(node)
+                resp['parent'] = node.tag if node.tag == 'sub-article' else 'article'
+                resp['parent_id'] = node.get('id')
                 yield resp
 
     def related_article_validation(self, node, related_article_type_list=None, link_type_list=None):
@@ -324,6 +316,6 @@ class PeerReviewsValidation:
 
             for resp in resps:
                 resp['title'] = 'Peer review validation'
-                resp['parent'] = _get_parent(node)
-                resp['parent_id'] = _get_parent_id(node)
+                resp['parent'] = node.tag if node.tag == 'sub-article' else 'article'
+                resp['parent_id'] = node.get('id')
                 yield resp
