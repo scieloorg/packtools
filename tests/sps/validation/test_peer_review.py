@@ -812,6 +812,27 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_peer_review_keys_validation(self):
+        self.maxDiff = None
+        validations = PeerReviewsValidation(
+            self.xmltree_success,
+            contrib_type_list=['author'],
+            specific_use_list=["reviewer", "editor"],
+            date_type_list=["reviewer-report-received"],
+            meta_value_list=['accept', 'formal-accept'],
+            related_article_type_list=["peer-reviewed-material"],
+            link_type_list=['doi']
+        )
+
+        response_dicts = list(validations.nodes_validation)
+
+        expected_keys = {'title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
+                         'expected_value', 'got_value', 'message', 'advice'}
+
+        for i, response_dict in enumerate(response_dicts):
+            with self.subTest(i):
+                self.assertSetEqual(set(response_dict.keys()), expected_keys)
+
 
 if __name__ == '__main__':
     unittest.main()
