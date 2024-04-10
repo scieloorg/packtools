@@ -23,11 +23,12 @@ class RelatedArticleValidation:
         self.link_type_list = link_type_list
 
     @property
-    def related_article_type_validation(self):
+    def related_article_type_validation(self, related_article_type_list=None):
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @related-article-type com valor "peer-reviewed-material";
-        if not self.related_article_type_list:
+        related_article_type_list = related_article_type_list or self.related_article_type_list
+        if related_article_type_list is None:
             raise ValidationPeerReviewException("Function requires list of related articles")
         is_valid = self.related_article_type in self.related_article_type_list
         yield format_response(
@@ -57,11 +58,12 @@ class RelatedArticleValidation:
         )
 
     @property
-    def related_article_ext_link_type_validation(self):
+    def related_article_ext_link_type_validation(self, link_type_list=None):
         # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @ext-link-type com valor "doi".
-        if not self.link_type_list:
+        link_type_list = link_type_list or self.link_type_list
+        if link_type_list is None:
             raise ValidationPeerReviewException("Function requires list of link types")
         is_valid = self.link_type in self.link_type_list
         yield format_response(
@@ -98,13 +100,14 @@ class CustomMetaPeerReviewValidation:
         )
 
     @property
-    def custom_meta_value_validation(self):
+    def custom_meta_value_validation(self, meta_value_list=None):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
         # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
         # Os termos possíveis para <meta-value> são:
         # revision, major-revision, minor-revision, reject, reject-with-resubmit, accept, formal-accept,
         # accept-in-principle
-        if not self.meta_value_list:
+        meta_value_list = meta_value_list or self.meta_value_list
+        if not meta_value_list:
             raise ValidationPeerReviewException("Function requires list of meta values")
         is_valid = self.meta_value in self.meta_value_list
         yield format_response(
@@ -133,10 +136,11 @@ class AuthorPeerReviewValidation:
         return [item.get("specific-use") for item in self.contrib.get("role")]
 
     @property
-    def contrib_type_validation(self):
+    def contrib_type_validation(self, contrib_type_list=None):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
         # @contrib-type com valor "author"
-        if not self.contrib_type_list:
+        contrib_type_list = contrib_type_list or self.contrib_type_list
+        if contrib_type_list is None:
             raise ValidationPeerReviewException("Function requires list of contrib types")
         is_valid = self.contrib_type in self.contrib_type_list
         yield format_response(
@@ -150,11 +154,12 @@ class AuthorPeerReviewValidation:
         )
 
     @property
-    def role_specific_use_validation(self):
+    def role_specific_use_validation(self, specific_use_list=None):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
         # <role> com @specific-use com valores "reviewer" ou "editor"
-        if not self.specific_use_list:
-            raise ValidationPeerReviewException("Function requires list of specific use")
+        specific_use_list = specific_use_list or self.specific_use_list
+        if specific_use_list is None:
+            raise ValidationPeerReviewException("Function requires list of specific uses")
         is_valid = False
         obtained = None
         for item in self.specific_use:
@@ -179,11 +184,12 @@ class DatePeerReviewValidation:
         self.date_type_list = date_type_list
 
     @property
-    def date_type_validation(self):
+    def date_type_validation(self, date_type_list=None):
         # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
         # @date-type em <history> com valor "reviewer-report-received"
-        if not self.date_type_list:
-            raise ValidationPeerReviewException("Function requires list of date type")
+        date_type_list = date_type_list or self.date_type_list
+        if date_type_list is None:
+            raise ValidationPeerReviewException("Function requires list of date types")
         is_valid = self.date_type in self.date_type_list
         yield format_response(
             item='date',
@@ -241,13 +247,19 @@ class PeerReviewsValidation:
     def specific_validation(self, node):
         yield from self.related_article_validation(node)
 
-    def author_validation(self, node):
+    def author_validation(self, node, contrib_type_list=None, specific_use_list=None):
+        contrib_type_list = contrib_type_list or self.contrib_type_list
+        specific_use_list = specific_use_list or self.specific_use_list
+        if contrib_type_list is None:
+            raise ValidationPeerReviewException("Function requires list of contrib type")
+        if specific_use_list is None:
+            raise ValidationPeerReviewException("Function requires list of specific use")
         authors = Authors(node)
         for contrib in authors.contribs:
             validation = AuthorPeerReviewValidation(
                 contrib=contrib,
-                contrib_type_list=self.contrib_type_list,
-                specific_use_list=self.specific_use_list
+                contrib_type_list=contrib_type_list,
+                specific_use_list=specific_use_list
             )
             resps = list(validation.contrib_type_validation) + list(validation.role_specific_use_validation)
             for resp in resps:
@@ -256,7 +268,10 @@ class PeerReviewsValidation:
                 resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
-    def date_validation(self, node):
+    def date_validation(self, node, date_type_list=None):
+        date_type_list = date_type_list or self.date_type_list
+        if date_type_list is None:
+            raise ValidationPeerReviewException("Function requires list of date types")
         dates = ArticleDates(node)
         for date_type in dates.history_dates_dict:
             validation = DatePeerReviewValidation(
@@ -269,7 +284,10 @@ class PeerReviewsValidation:
                 resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
-    def custom_meta_validation(self, node):
+    def custom_meta_validation(self, node, meta_value_list=None):
+        meta_value_list = meta_value_list or self.meta_value_list
+        if meta_value_list is None:
+            raise ValidationPeerReviewException("Function requires list of meta values")
         peer_review = PeerReview(node)
         for item in peer_review.custom_meta:
             validation = CustomMetaPeerReviewValidation(
@@ -284,7 +302,13 @@ class PeerReviewsValidation:
                 resp['parent_id'] = _get_parent_id(node)
                 yield resp
 
-    def related_article_validation(self, node):
+    def related_article_validation(self, node, related_article_type_list=None, link_type_list=None):
+        related_article_type_list = related_article_type_list or self.related_article_type_list
+        link_type_list = link_type_list or self.link_type_list
+        if related_article_type_list is None:
+            raise ValidationPeerReviewException("Function requires list of related article types")
+        if link_type_list is None:
+            raise ValidationPeerReviewException("Function requires list of link types")
         related_items = RelatedItems(node)
         for item in related_items.related_articles:
             validation = RelatedArticleValidation(
