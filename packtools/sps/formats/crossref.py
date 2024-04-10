@@ -1222,14 +1222,16 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
-    authors = article_authors.Authors(xml_tree).contribs_with_affs
+    articles_data = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+    article_nodes = article_and_subarticles.ArticleAndSubArticles(xml_tree).article
+    for article_node in article_nodes:
+        authors = list(article_authors.Authors(article_node).contribs_with_affs)
     contributors = ET.Element("contributors")
     for seq, author in enumerate(authors):
         person_name = get_one_contributor(seq, author)
         contributors.append(person_name)
 
-    for article in articles:
+    for article in articles_data:
         if article.get("article_type") != "reviewer-report":
             xml_crossref.find(
                 f"./body/journal/journal_article[@language='{article['lang']}']"
