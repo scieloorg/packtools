@@ -27,6 +27,23 @@ class ArticleAndSubArticles:
         return self.xmltree.findtext('.//subject')
 
     @property
+    def article(self):
+        node = self.xmltree.find(".//article-meta")
+        if node is not None:
+            yield node
+
+    @property
+    def sub_articles(self):
+        nodes = self.xmltree.xpath(".//sub-article")
+        for node in nodes:
+            yield node
+
+    @property
+    def article_and_sub_articles(self):
+        yield from self.article
+        yield from self.sub_articles
+
+    @property
     def data(self):
         _data = []
         if self.main_article_type:
