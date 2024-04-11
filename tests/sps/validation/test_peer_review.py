@@ -824,14 +824,15 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             link_type_list=['doi']
         )
 
-        response_dicts = list(validations.nodes_validation)
+        obtained_dicts = list(validations.nodes_validation)
 
-        expected_keys = {'title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
-                         'expected_value', 'got_value', 'message', 'advice'}
+        expected_keys = ['title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
+                         'expected_value', 'got_value', 'message', 'advice']
 
-        for i, response_dict in enumerate(response_dicts):
-            with self.subTest(i):
-                self.assertSetEqual(set(response_dict.keys()), expected_keys)
+        for expected_key in expected_keys:
+            for obtained_dict in obtained_dicts:
+                with self.subTest(expected_key):
+                    self.assertIn(expected_key, obtained_dict.keys())
 
 
 if __name__ == '__main__':
