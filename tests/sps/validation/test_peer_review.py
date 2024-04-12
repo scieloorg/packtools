@@ -826,7 +826,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
 
         obtained_dicts = list(validations.nodes_validation)
 
-        expected_keys = ['banana', 'title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
+        expected_keys = ['title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
                          'expected_value', 'got_value', 'message', 'advice']
 
         for expected_key in expected_keys:
