@@ -10,20 +10,21 @@ def _get_collab(node):
 
 
 class Authors:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
+    def __init__(self, node):
+        # node é um nó que pode representar 'article' ou 'sub-article'
+        self.node = node
 
     @property
     def collab(self):
         try:
-            return self.xmltree.xpath(".//front//collab")[0].text
+            return self.node.xpath(".//collab")[0].text
         except IndexError:
             return None
 
     @property
     def contribs(self):
         _data = []
-        for node in self.xmltree.xpath(".//front//contrib"):
+        for node in self.node.xpath(".//contrib"):
             _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
@@ -43,7 +44,9 @@ class Authors:
             for role in node.xpath(".//role"):
                 _author["role"].append({
                     "text": role.text,
-                    "content-type": role.get("content-type")})
+                    "content-type": role.get("content-type"),
+                    "specific-use": role.get("specific-use")
+                })
             if not _author["role"]:
                 _author.pop("role")
 
@@ -68,7 +71,7 @@ class Authors:
 
     @property
     def contribs_with_affs(self):
-        affs = Affiliation(self.xmltree)
+        affs = Affiliation(self.node)
         affs_by_id = affs.affiliation_by_id
 
         for item in self.contribs:

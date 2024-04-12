@@ -14,8 +14,14 @@ class ArticleDoiValidation:
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.doi = DoiWithLang(self.xmltree).main_doi
         self.dois = DoiWithLang(self.xmltree).data
-        self.authors = Authors(self.xmltree).contribs
         self.titles = ArticleTitles(self.xmltree).article_title_dict
+
+    @property
+    def authors(self):
+        for node in self.articles.article:
+            contribs = Authors(node)
+            for item in contribs.contribs:
+                yield item
 
     def validate_main_article_doi_exists(self):
         """
