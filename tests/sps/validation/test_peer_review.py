@@ -826,12 +826,12 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
 
         obtained_dicts = list(validations.nodes_validation)
 
-        expected_keys = ['title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
+        expected_keys = ['banana', 'title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
                          'expected_value', 'got_value', 'message', 'advice']
 
         for expected_key in expected_keys:
-            for obtained_dict in obtained_dicts:
-                with self.subTest(expected_key):
+            for item, obtained_dict in enumerate(obtained_dicts):
+                with self.subTest(f"{expected_key} ({item})"):
                     self.assertIn(expected_key, obtained_dict.keys())
 
 
