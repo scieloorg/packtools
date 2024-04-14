@@ -1,5 +1,6 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
 from ..validation.exceptions import ValidationIssueMissingValue
+from packtools.sps.validation.utils import format_response
 
 
 def _issue_identifier_is_valid(value):
@@ -68,38 +69,59 @@ class IssueValidation:
         self.xmltree = xmltree
         self.article_issue = ArticleMetaIssue(xmltree)
 
-    def validate_volume(self, expected_value):
+    def validate_volume(self, expected_value=None):
         """
         Checks the correctness of a volume.
 
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+
         Parameters
         ----------
-        expected_value : str
-            Correct value for volume.
+        expected_value : str or None
+            Correct value for volume, when a value for volume is not expected, this parameter should not be passed.
 
         Returns
         -------
         dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_volume('23')
-
-        {
-            'object': 'volume',
-            'output_expected': '23',
-            'output_obteined': '23',
-            'match': True
-        }
+            A dictionary as described in the example:
+            [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'volume',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': '56',
+                    'got_value': '56',
+                    'message': 'Got 56, expected 56',
+                    'advice': None,
+                    'data': {'number': '4', 'volume': '56'}
+                }
+            ]
         """
-        resp_vol = dict(
-            object='volume',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.volume,
-            match=(expected_value == self.article_issue.volume)
+        yield format_response(
+            title='Article-meta issue element validation',
+            is_valid=expected_value == self.article_issue.volume,
+            validation_type='value',
+            obtained=self.article_issue.volume,
+            expected=expected_value,
+            item='article-meta',
+            sub_item='volume',
+            parent='article-meta',
+            advice=f'provide {expected_value} as value for volume',
+            data=self.article_issue.data
         )
-        return resp_vol
 
     def validate_article_issue(self, response_type_for_absent_issue):
         """
