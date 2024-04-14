@@ -265,23 +265,51 @@ class IssueValidation:
 
     def validate(self, data):
         """
-        Função que executa as validações da classe IssueValidation.
+        Performs the validation functions of class IssueValidation.
 
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-        
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+
+        Parameters
+        ----------
+        date : dict
+            data={
+                'expected_value_volume': '56',
+                'response_type_for_absent_issue': 'WARNING',
+                'expected_value_supplement': '1'
+            }
+
+        Returns
+        -------
+        list
+            A list of dictionary as described in the example:
+            [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'volume',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': '56',
+                    'got_value': '56',
+                    'message': 'Got 56, expected 56',
+                    'advice': None,
+                    'data': {'number': '4', 'suppl': '1', 'volume': '56'},
+                },...
+            ]
         """
                       
-        vol_results = {
-            'article_volume_validation': self.validate_volume(data['expected_value_volume'])
-        }
-        issue_results = { 
-            'article_issue_validation': self.validate_issue(data['expected_value_issue'])
-        }
-        suppl_results = {
-            'article_supplement_validation': self.validate_supplement(data['expected_value_supplment'])
-        }
-        vol_results.update(issue_results)
-        vol_results.update(suppl_results)
-        
-        return vol_results
+        yield from self.validate_volume(data['expected_value_volume'])
+        yield from self.validate_article_issue(data['response_type_for_absent_issue'])
+        yield from self.validate_supplement(data['expected_value_supplement'])
