@@ -139,6 +139,11 @@ class IssueValidation:
             </front>
         </article>
 
+        Parameters
+        ----------
+        response_type_for_absent_issue : str
+            Response type for absent value.
+
         Returns
         -------
         list of dict
@@ -146,13 +151,17 @@ class IssueValidation:
             [
                 {
                     'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'issue',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '4',
                     'got_value': '4',
-                    'message': 'Got 4 expected 4',
-                    'advice': None
+                    'message': 'Got 4, expected 4',
+                    'advice': None,
+                    'data': {'number': '4', 'volume': '56'},
                 }
             ]
         """
@@ -169,34 +178,36 @@ class IssueValidation:
             else:
                 is_valid, expected, advice = _validate_issue_identifier(obtained)
 
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'format',
-                    'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
-                    'message': 'Got {} expected {}'.format(obtained, expected),
-                    'advice': advice
-                }
-            ]
+            yield format_response(
+                title='Article-meta issue element validation',
+                is_valid=is_valid,
+                validation_type='format',
+                obtained=obtained,
+                expected=expected,
+                item='article-meta',
+                sub_item='issue',
+                parent='article-meta',
+                advice=advice,
+                data=self.article_issue.data
+            )
         else:
             expected = 'an identifier for the publication issue'
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'exist',
-                    'response': response_type_for_absent_issue,
-                    'expected_value': expected,
-                    'got_value': None,
-                    'message': 'Got None expected {}'.format(expected),
-                    'advice': 'Provide an identifier for the publication issue'
-                }
-            ]
 
-    def validate_supplement(self, expected_value):
+            response = format_response(
+                title='Article-meta issue element validation',
+                validation_type='exist',
+                obtained=obtained,
+                expected=expected,
+                item='article-meta',
+                sub_item='issue',
+                parent='article-meta',
+                advice='Provide an identifier for the publication issue',
+                data=self.article_issue.data
+            )
+
+            response['response'] = response_type_for_absent_issue
+            yield response
+
         """
         Checks the correctness of a supplement.
 
