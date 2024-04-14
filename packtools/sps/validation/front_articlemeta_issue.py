@@ -208,37 +208,60 @@ class IssueValidation:
             response['response'] = response_type_for_absent_issue
             yield response
 
+    def validate_supplement(self, expected_value=None):
         """
         Checks the correctness of a supplement.
 
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+
         Parameters
         ----------
-        expected_value : str
-            Correct value for supplement.
+        expected_value : str or None
+            Correct value for supplement, when a value for supplement is not expected, this parameter should not be passed.
 
         Returns
         -------
         dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_supplement('5')
-
-        {
-            'object': 'supplement',
-            'output_expected': '5',
-            'output_obteined': '5b',
-            'match': False
-        }
+            A dictionary as described in the example:
+            [
+            {
+                'title': 'Article-meta issue element validation',
+                'parent': 'article-meta',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'supplement',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2',
+                'got_value': '2',
+                'message': 'Got 2, expected 2',
+                'advice': None,
+                'data': {'number': '4', 'suppl': '2', 'volume': '56'},
+            }
+        ]
         """
-        resp_suppl = dict(
-            object='supplement',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.suppl,
-            match=(expected_value == self.article_issue.suppl)
+        yield format_response(
+            title='Article-meta issue element validation',
+            is_valid=expected_value == self.article_issue.suppl,
+            validation_type='format',
+            obtained=self.article_issue.suppl,
+            expected=expected_value,
+            item='article-meta',
+            sub_item='supplement',
+            parent='article-meta',
+            advice=f'provide {expected_value} as value for supplement',
+            data=self.article_issue.data
         )
-        return resp_suppl
 
     def validate(self, data):
         """
