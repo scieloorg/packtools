@@ -135,6 +135,11 @@ class IssueValidation:
             </front>
         </article>
 
+        Parameters
+        ----------
+        response_type_for_absent_issue : str
+            Response type for absent value.
+
         Returns
         -------
         list of dict
@@ -142,7 +147,7 @@ class IssueValidation:
             [
                 {
                     'title': 'Article-meta issue element validation',
-                    'parent': None,
+                    'parent': 'article-meta',
                     'parent_id': None,
                     'item': 'article-meta',
                     'sub_item': 'issue',
@@ -152,7 +157,7 @@ class IssueValidation:
                     'got_value': '4',
                     'message': 'Got 4, expected 4',
                     'advice': None,
-                    'data': {'number': '4', 'volume': '56'}
+                    'data': {'number': '4', 'volume': '56'},
                 }
             ]
         """
@@ -171,36 +176,34 @@ class IssueValidation:
 
             yield format_response(
                 title='Article-meta issue element validation',
-                parent=None,
-                parent_id=None,
+                is_valid=is_valid,
+                validation_type='format',
+                obtained=obtained,
+                expected=expected,
                 item='article-meta',
                 sub_item='issue',
-                validation_type='format',
-                is_valid=is_valid,
-                expected=expected,
-                obtained=obtained,
+                parent='article-meta',
                 advice=advice,
                 data=self.article_issue.data
             )
         else:
             expected = 'an identifier for the publication issue'
-            resp = format_response(
+
+            response = format_response(
                 title='Article-meta issue element validation',
-                parent=None,
-                parent_id=None,
+                validation_type='exist',
+                obtained=obtained,
+                expected=expected,
                 item='article-meta',
                 sub_item='issue',
-                validation_type='exist',
-                is_valid=False,
-                expected=expected,
-                obtained=None,
+                parent='article-meta',
                 advice='Provide an identifier for the publication issue',
                 data=self.article_issue.data
             )
-            resp['response'] = response_type_for_absent_issue
-            yield resp
 
-    def validate_supplement(self, expected_value):
+            response['response'] = response_type_for_absent_issue
+            yield response
+
         """
         Checks the correctness of a supplement.
 
