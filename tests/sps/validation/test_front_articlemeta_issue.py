@@ -110,6 +110,7 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_volume_there_is_no_tag_there_is_no_value(self):
         xmltree = etree.fromstring(
             '''
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
