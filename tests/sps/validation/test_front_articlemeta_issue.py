@@ -290,6 +290,42 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_validate_article_issue_number_there_is_no_tag_there_is_no_value(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <volume>56</volume>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'parent': 'article-meta',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'issue',
+                'validation_type': 'exist',
+                'response': 'WARNING',
+                'expected_value': 'an identifier for the publication issue',
+                'got_value': None,
+                'message': 'Got None, expected an identifier for the publication issue',
+                'advice': 'Provide an identifier for the publication issue',
+                'data': {'volume': '56'},
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
     def test_validate_article_issue_number_fail_start_with_zero(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
