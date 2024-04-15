@@ -75,7 +75,41 @@ class IssueTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_volume_no_volume(self):
+    def test_volume_there_is_tag_there_is_no_value(self):
+        xmltree = etree.fromstring(
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <volume></volume>
+                        <issue>4</issue>
+                    </article-meta>
+                </front>
+            </article>
+            '''
+        )
+
+        expected = [
+            {
+                'title': 'Article-meta issue element validation',
+                'parent': 'article-meta',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'volume',
+                'validation_type': 'value',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': '',
+                'message': 'Got , expected None',
+                'advice': 'provide None as value for volume',
+                'data': {'number': '4'}
+            }
+        ]
+        obtained = list(IssueValidation(xmltree).validate_volume())
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
         xmltree = etree.fromstring(
             '''
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
