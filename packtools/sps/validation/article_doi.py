@@ -15,13 +15,7 @@ class ArticleDoiValidation:
         self.doi = DoiWithLang(self.xmltree).main_doi
         self.dois = DoiWithLang(self.xmltree).data
         self.titles = ArticleTitles(self.xmltree).article_title_dict
-
-    @property
-    def authors(self):
-        for node in self.articles.article:
-            contribs = Authors(node)
-            for item in contribs.contribs:
-                yield item
+        self.authors = Authors(self.xmltree)
 
     def validate_main_article_doi_exists(self):
         """
@@ -309,20 +303,25 @@ class ArticleDoiValidation:
                 # valores obtidos
                 obtained_doi = doi.get('value')
                 obtained_title = self.titles.get(lang)
-                obtained_authors = list(f"{author.get('surname')}, {author.get('given_names')}" for author in self.authors)
+                if doi.get("value") == self.doi:
+                    authors = self.authors.article_contribs
+                else:
+                    authors = self.authors.sub_articles_contribs
+                obtained_authors = list(f"{author.contrib_with_aff.get('surname')}, {author.contrib_with_aff.get('given_names')}" for author in authors)
+                obtained_authors.sort()
                 # valores esperados
                 expected_doi = expected.get(lang).get('doi')
                 expected_title = expected.get(lang).get('title')
                 expected_authors = expected.get('authors') or []
+                expected_authors.sort()
                 # validações
                 doi_is_valid = obtained_doi == expected_doi
                 title_is_valid = obtained_title == expected_title
-                authors_is_valid = len(obtained_authors) == len(expected_authors)
+                authors_is_valid = obtained_authors == expected_authors
                 # agrega as validações
                 validations.append(('doi', doi_is_valid, obtained_doi, expected_doi))
                 validations.append(('title', title_is_valid, obtained_title, expected_title))
-                for author in zip(obtained_authors, expected_authors):
-                    validations.append(('author', author[0] == author[1], author[0], author[1]))
+                validations.append(('authors', authors_is_valid, obtained_authors, expected_authors))
                 # gera os resultados das validações
                 for validation in validations:
                     yield {
@@ -337,30 +336,6 @@ class ArticleDoiValidation:
                                                                  'provide a value for {} element that matches the record '
                                                                  'for DOI.'.format(validation[0])
                         }
-                # Valida o tamanho das listas de autores
-                if not authors_is_valid:
-                    if len(expected_authors) > len(obtained_authors):
-                        diff = expected_authors[len(obtained_authors):]
-                        item_description = 'not found'
-                        action = ('Complete', 'in')
-                    else:
-                        diff = obtained_authors[len(expected_authors):]
-                        item_description = 'surplus'
-                        action = ('Remove', 'from')
-
-                    diff_str = ' | '.join(diff)
-                    message = f'The following items are {item_description} in the XML: {diff_str}'
-                    advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
-                    yield {
-                        'title': 'Article DOI is registered (lang: {}, element: authors)'.format(lang),
-                        'xpath': './article-id[@pub-id-type="doi"]',
-                        'validation_type': 'exist',
-                        'response': 'ERROR',
-                        'expected_value': expected_authors,
-                        'got_value': obtained_authors,
-                        'message': message,
-                        'advice': advice
-                    }
             else:
                 # Resposta para o caso de não haver identificação do DOI
                 yield {
