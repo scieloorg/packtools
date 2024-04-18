@@ -1,4 +1,4 @@
-from packtools.sps.models.article_authors import Authors
+from packtools.sps.models.article_authors import Contrib
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.peer_review import PeerReview
 from packtools.sps.models.related_articles import RelatedItems
@@ -246,10 +246,10 @@ class PeerReviewsValidation:
             raise ValidationPeerReviewException("Function requires list of contrib type")
         if specific_use_list is None:
             raise ValidationPeerReviewException("Function requires list of specific use")
-        authors = Authors(node)
-        for contrib in authors.contribs:
+        for item in node.xpath(".//contrib"):
+            contrib = Contrib(self.xml_tree, item)
             validation = AuthorPeerReviewValidation(
-                contrib=contrib,
+                contrib=contrib.contrib_with_aff,
                 contrib_type_list=contrib_type_list,
                 specific_use_list=specific_use_list
             )
