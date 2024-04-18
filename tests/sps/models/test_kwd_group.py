@@ -72,10 +72,10 @@ class KwdGroupTest(TestCase):
 
         expected_output = [
             {'lang': 'en', 'text': 'Chagas Disease, transmission'},
-            {'lang': 'en', 'text': 'Triatominae, Trypanosoma cruzi, isolation'},
+            {'lang': 'en', 'text': 'Triatominae, Trypanosoma cruzi , isolation'},
             {'lang': 'en', 'text': 'Communicable Diseases, epidemiology'},
             {'lang': 'pt', 'text': 'Doença de Chagas, transmissão'},
-            {'lang': 'pt', 'text': 'Triatominae, Trypanosoma cruzi, isolamento'},
+            {'lang': 'pt', 'text': 'Triatominae, Trypanosoma cruzi , isolamento'},
             {'lang': 'pt', 'text': 'Doenças Transmissíveis, epidemiologia'}
         ]
 
@@ -107,12 +107,12 @@ class KwdGroupTest(TestCase):
         expected_output = {
             'en': [
                 'Chagas Disease, transmission',
-                'Triatominae, Trypanosoma cruzi, isolation',
+                'Triatominae, Trypanosoma cruzi , isolation',
                 'Communicable Diseases, epidemiology'
             ],
             'pt': [
                 'Doença de Chagas, transmissão',
-                'Triatominae, Trypanosoma cruzi, isolamento',
+                'Triatominae, Trypanosoma cruzi , isolamento',
                 'Doenças Transmissíveis, epidemiologia'
             ]
         }

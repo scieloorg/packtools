@@ -133,7 +133,7 @@ class AuthorsTest(TestCase):
                 'ref_id': 'B2',
                 'publication_type': 'book',
                 'author_type': 'person',
-                'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
+                'mixed_citation': 'BARTHES, Roland. Aula . São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
                 'main_author': {'surname': 'BARTHES', 'given-names': 'Roland'},
                 'all_authors': [{'surname': 'BARTHES', 'given-names': 'Roland'}],

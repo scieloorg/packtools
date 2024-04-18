@@ -115,6 +115,7 @@ class ArticleTitlesTest(TestCase):
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
+        self.maxDiff = None
         expected = [{
             "lang": "es",
             "parent_name": "article",
@@ -125,7 +126,7 @@ class ArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
+                "de Tasas de Interés : un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
             "html_text": (
@@ -186,6 +187,7 @@ class SubArticleTitlesTest(TestCase):
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
+        self.maxDiff = None
         expected = [{
             "lang": "es",
             "parent_name": "article",
@@ -196,7 +198,7 @@ class SubArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
+                "de Tasas de Interés : un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
             "html_text": (

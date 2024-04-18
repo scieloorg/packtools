@@ -77,7 +77,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_main_article_doi_exists()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_main_article_doi_exists())
         expected = [
             {
                 'title': 'Article DOI element',
@@ -90,9 +90,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_article_has_no_doi(self):
         self.maxDiff = None
@@ -107,7 +107,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_main_article_doi_exists()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_main_article_doi_exists())
         expected = [
             {
                 'title': 'Article DOI element',
@@ -120,9 +120,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': 'Provide a valid DOI for the research-article'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_translation_subarticle_has_one_translation_and_one_doi(self):
         self.maxDiff = None
@@ -145,7 +145,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_translations_doi_exists())
 
         expected = [
             {
@@ -159,9 +159,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_translation_subarticle_has_two_translations_and_one_doi(self):
         self.maxDiff = None
@@ -184,7 +184,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_translations_doi_exists())
 
         expected = [
             {
@@ -209,9 +209,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_translation_subarticle_has_three_translations_and_two_doi(self):
         self.maxDiff = None
@@ -238,7 +238,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_translations_doi_exists()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_translations_doi_exists())
 
         expected = [
             {
@@ -273,9 +273,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_all_dois_are_unique(self):
         self.maxDiff = None
@@ -298,7 +298,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_all_dois_are_unique()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_all_dois_are_unique())
 
         expected = [
             {
@@ -312,9 +312,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_all_dois_are_not_unique(self):
         self.maxDiff = None
@@ -345,7 +345,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_all_dois_are_unique()
+        obtained = list(ArticleDoiValidation(xml_tree).validate_all_dois_are_unique())
 
         expected = [
             {
@@ -359,9 +359,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': 'Consider replacing the following DOIs that are not unique: 10.1590/2176-4573e59270'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_success(self):
         self.maxDiff = None
@@ -414,9 +414,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_ok
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_ok))
 
         expected = [
             {
@@ -440,23 +438,14 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
+                'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'got_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'message': "Got ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'] expected "
+                           "['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
                 'advice': None
             },
             {
@@ -480,30 +469,20 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
+                'title': 'Article DOI is registered (lang: pt, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': None
-            },
-            {
-                'title': 'Article DOI is registered (lang: pt, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'got_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'message': "Got ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'] expected "
+                           "['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
                 'advice': None
             }
-
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_doi_is_not_registered(self):
         self.maxDiff = None
@@ -556,9 +535,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_not_registered
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_not_registered))
 
         expected = [
             {
@@ -582,9 +559,9 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': 'Consult again after DOI has been registered'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_only_doi_is_correct(self):
         self.maxDiff = None
@@ -615,9 +592,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_ok
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_ok))
 
         expected = [
             {
@@ -642,31 +617,21 @@ class ArticleDoiTest(unittest.TestCase):
                           'matches the record for DOI.'
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
+                'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina, Javier',
-                'message': 'Got Colina, Javier expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'got_value': ['Colina, Javier', 'Martínez, Maria Antonia'],
+                'message': "Got ['Colina, Javier', 'Martínez, Maria Antonia'] expected "
+                           "['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that '
                           'matches the record for DOI.'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_only_title_is_correct(self):
         self.maxDiff = None
@@ -697,9 +662,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_ok
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_ok))
 
         expected = [
             {
@@ -724,31 +687,21 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
+                'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina, Javier',
-                'message': 'Got Colina, Javier expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'got_value': ['Colina, Javier', 'Martínez, Maria Antonia'],
+                'message': "Got ['Colina, Javier', 'Martínez, Maria Antonia'] expected "
+                           "['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that '
                           'matches the record for DOI.'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_only_one_author_is_correct(self):
         self.maxDiff = None
@@ -779,9 +732,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_ok
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_ok))
 
         expected = [
             {
@@ -807,30 +758,21 @@ class ArticleDoiTest(unittest.TestCase):
                           'matches the record for DOI.'
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
+                'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'got_value': ['Colina-Torralva, Javier', 'Martínez, Maria Antonia'],
+                'message': "Got ['Colina-Torralva, Javier', 'Martínez, Maria Antonia'] expected "
+                           "['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that '
                           'matches the record for DOI.'
-            },
-            {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier expected Colina-Torralva, Javier',
-                'advice': None
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_no_expected_authors(self):
         self.maxDiff = None
@@ -861,9 +803,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_missing_authors
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_missing_authors))
 
         expected = [
             {
@@ -892,14 +832,14 @@ class ArticleDoiTest(unittest.TestCase):
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': [],
-                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
-                'message': 'The following items are surplus in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'advice': 'Remove the following items from the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
+                'got_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'message': "Got ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'] expected []",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that matches the record for DOI.'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_no_obtained_authors(self):
         self.maxDiff = None
@@ -916,9 +856,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_ok
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_ok))
 
         expected = [
             {
@@ -946,15 +884,15 @@ class ArticleDoiTest(unittest.TestCase):
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
+                'expected_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
                 'got_value': [],
-                'message': 'The following items are not found in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'advice': 'Complete the following items in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
+                'message': "Got [] expected ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia']",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that matches the record for DOI.'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_doi_registered_expected_one_author_obtained_two_authors(self):
         self.maxDiff = None
@@ -985,9 +923,7 @@ class ArticleDoiTest(unittest.TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleDoiValidation(xml_tree).validate_doi_registered(
-            callable_get_data_one_author
-        )
+        obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(callable_get_data_one_author))
 
         expected = [
             {
@@ -1011,30 +947,19 @@ class ArticleDoiTest(unittest.TestCase):
                 'advice': None
             },
             {
-                'title': 'Article DOI is registered (lang: en, element: author)',
-                'xpath': './article-id[@pub-id-type="doi"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-            },
-            {
                 'title': 'Article DOI is registered (lang: en, element: authors)',
                 'xpath': './article-id[@pub-id-type="doi"]',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': ['Colina-Torralva, Javier'],
-                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
-                'message': 'The following items are surplus in the XML: Colina-Torralva, Javier',
-                'advice': 'Remove the following items from the XML: Colina-Torralva, Javier',
+                'got_value': ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'],
+                'message': "Got ['Colina-Torralva, Javier', 'Martínez-Momblán, Maria Antonia'] expected ['Colina-Torralva, Javier']",
+                'advice': 'DOI not registered or validator not found, provide a value for authors element that matches the record for DOI.'
             }
         ]
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 if __name__ == '__main__':
