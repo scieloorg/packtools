@@ -46,8 +46,8 @@ class AuthorsWithoutXrefTest(TestCase):
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
-        result = self.authors.contribs
-        self.assertIsNone(result[0].get("rid"))
+        result = list(self.authors.all_contribs)
+        self.assertIsNone(result[0].contrib_with_aff.get("rid"))
 
 
 class AuthorsTest(TestCase):
@@ -105,12 +105,12 @@ class AuthorsTest(TestCase):
                 "contrib-type": "author",
             },
         ]
-        result = self.authors.contribs
-        self.assertDictEqual(expected[0], result[0])
-        self.assertDictEqual(expected[1], result[1])
+        result = list(self.authors.all_contribs)
+        self.assertDictEqual(expected[0], result[0].contrib)
+        self.assertDictEqual(expected[1], result[1].contrib)
 
     def test_collab(self):
-        self.assertIsNone(self.authors.collab)
+        self.assertIsNone(list(self.authors.all_contribs)[0].contrib.get("collab"))
 
     def test_role_with_role_content_type(self):
         self.maxDiff = None
@@ -154,9 +154,9 @@ class AuthorsTest(TestCase):
         """
 
         data = etree.fromstring(xml)
-        xmldata = Authors(data).contribs
+        obtained = list(Authors(data).all_contribs)
 
-        expect_output = [
+        expected = [
             {
                 "surname": "VENEGAS-MARTÍNEZ",
                 "given_names": "FRANCISCO",
@@ -231,11 +231,11 @@ class AuthorsTest(TestCase):
                 "contrib-type": "author",
             },
         ]
-        for i, item in enumerate(xmldata):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expect_output[i], item)
+                self.assertDictEqual(obtained[i].contrib_with_aff, item)
 
-    def test_role_wihtout_content_type(self):
+    def test_role_without_content_type(self):
         self.maxDiff = None
         xml = """
         <article>
@@ -275,9 +275,9 @@ class AuthorsTest(TestCase):
         </article>
         """
         data = etree.fromstring(xml)
-        xmldata = Authors(data).contribs
+        obtained = list(Authors(data).all_contribs)
 
-        expected_output = [
+        expected = [
             {
                 "surname": "VENEGAS-MARTÍNEZ",
                 "prefix": "Prof",
@@ -313,9 +313,9 @@ class AuthorsTest(TestCase):
             },
         ]
 
-        for i, item in enumerate(xmldata):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected_output[i], item)
+                self.assertDictEqual(obtained[i].contrib_with_aff, item)
 
 
 class AuthorsCollabTest(TestCase):
@@ -324,8 +324,10 @@ class AuthorsCollabTest(TestCase):
         <article>
         <front>
             <article-meta>
-              <contrib-group>
-                <collab>XXXX</collab>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <collab>XXXX</collab>
+                    </contrib>
                 </contrib-group>
             </article-meta>
           </front>
@@ -335,10 +337,13 @@ class AuthorsCollabTest(TestCase):
         self.authors = Authors(xmltree)
 
     def test_contribs(self):
-        self.assertEqual([], self.authors.contribs)
+        self.assertDictEqual(
+            {'collab': 'XXXX', 'aff_rids': None, 'contrib-type': 'author'},
+            list(self.authors.all_contribs)[0].contrib_with_aff
+        )
 
     def test_collab(self):
-        self.assertEqual("XXXX", self.authors.collab)
+        self.assertEqual("XXXX", list(self.authors.all_contribs)[0].contrib.get("collab"))
 
 
 class AuthorsWithAffTest(TestCase):
@@ -483,9 +488,10 @@ class AuthorsWithAffTest(TestCase):
                 ],
             }
         ]
-        for i, item in enumerate(self.authors.contribs_with_affs):
+        obtained = list(self.authors.all_contribs)
+        for i, item in enumerate(expected):
             with self.subTest(item):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i].contrib_with_aff, item)
 
 
 class AuthorsWithAffInContribGroupTest(TestCase):
@@ -575,6 +581,7 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                 ],
             }
         ]
-        for item in self.authors.contribs_with_affs:
+        obtained = list(self.authors.all_contribs)
+        for item in expected:
             with self.subTest(item):
-                self.assertDictEqual(expected[0], item)
+                self.assertDictEqual(obtained[0].contrib_with_aff, item)
