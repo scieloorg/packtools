@@ -68,9 +68,9 @@ class ArticleAuthorsValidation:
             ]
         """
         expected_value = ['<role content-type="{}">{}</role>'.format(role['uri'], role['term']) for role in credit_taxonomy_terms_and_urls]
-        for author in self.article_authors.contribs:
-            _author_name = f"{author['given_names']} {author['surname']}"
-            obtained_value = ['<role content-type="{}">{}</role>'.format(role.get('content-type'), role.get('text')) for role in author.get('role') or []]
+        for author in self.article_authors.all_contribs:
+            _author_name = f"{author.contrib_with_aff['given_names']} {author.contrib_with_aff['surname']}"
+            obtained_value = ['<role content-type="{}">{}</role>'.format(role.get('content-type'), role.get('text')) for role in author.contrib_with_aff.get('role') or []]
             if obtained_value:
                 for role in obtained_value:
                     is_valid = role in expected_value
@@ -148,9 +148,9 @@ class ArticleAuthorsValidation:
         """
         _default_orcid = r'^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$'
 
-        for author in self.article_authors.contribs:
-            _author_name = f"{author.get('given_names')} {author.get('surname')}"
-            _orcid = author.get('orcid')
+        for author in self.article_authors.all_contribs:
+            _author_name = f"{author.contrib_with_aff.get('given_names')} {author.contrib_with_aff.get('surname')}"
+            _orcid = author.contrib_with_aff.get('orcid')
             is_valid = re.match(_default_orcid, _orcid) if _orcid else False
             expected_value = _orcid if is_valid else 'A Open Researcher and Contributor ID valid'
 
@@ -216,7 +216,7 @@ class ArticleAuthorsValidation:
             ]
         """
         is_valid = True
-        orcid_list = [contrib.get('orcid') for contrib in self.article_authors.contribs]
+        orcid_list = [contrib.contrib_with_aff.get('orcid') for contrib in self.article_authors.all_contribs]
         orcid_freq = {}
         for orcid in orcid_list:
             if orcid in orcid_freq:
@@ -301,9 +301,9 @@ class ArticleAuthorsValidation:
             ]
         """
         callable_get_validate = callable_get_validate or _callable_extern_validate_default
-        for author in self.article_authors.contribs:
-            obtained_author_name = f"{author.get('given_names')} {author.get('surname')}"
-            orcid = author.get('orcid')
+        for author in self.article_authors.all_contribs:
+            obtained_author_name = f"{author.contrib_with_aff.get('given_names')} {author.contrib_with_aff.get('surname')}"
+            orcid = author.contrib_with_aff.get('orcid')
             expected_author_name = callable_get_validate(orcid)
             is_valid = obtained_author_name == expected_author_name
 
