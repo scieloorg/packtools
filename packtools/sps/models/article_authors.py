@@ -72,3 +72,40 @@ class Contrib:
         return contrib
 
 
+class Authors:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def article(self):
+        node = self.xmltree.find(".//article-meta")
+        if node is not None:
+            yield node
+
+    @property
+    def sub_articles(self):
+        nodes = self.xmltree.xpath(".//sub-article")
+        for node in nodes:
+            yield node
+
+    @property
+    def article_and_sub_articles(self):
+        yield from self.article
+        yield from self.sub_articles
+
+    @property
+    def article_contribs(self):
+        for node in self.article:
+            for contrib in node.xpath(".//contrib"):
+                yield Contrib(self.xmltree, contrib)
+
+    @property
+    def sub_articles_contribs(self):
+        for node in self.sub_articles:
+            for contrib in node.xpath(".//contrib"):
+                yield Contrib(self.xmltree, contrib)
+
+    @property
+    def all_contribs(self):
+        yield from self.article_contribs
+        yield from self.sub_articles_contribs
