@@ -1224,9 +1224,8 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
     """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
     article_data = articles.data
-    article_nodes = articles.article
-    for article_node in article_nodes:
-        authors = list(article_authors.Authors(article_node).contribs_with_affs)
+
+    authors = [author.contrib_with_aff for author in article_authors.Authors(xml_tree).article_contribs]
     contributors = ET.Element("contributors")
     for seq, author in enumerate(authors):
         person_name = get_one_contributor(seq, author)

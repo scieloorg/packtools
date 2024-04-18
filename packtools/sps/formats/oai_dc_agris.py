@@ -268,14 +268,14 @@ def xml_oai_dc_agris_creator_pipe(xml_oai_dc_agris, xml_tree):
             </metadata>
         </record>
     """
-    author = article_authors.Authors(xml_tree)
-    try:
-        surname = author.contribs[0].get("surname")
-        given_name = author.contribs[0].get("given_names")
-        author_name = f" {surname.strip()}, {given_name.strip()} "
-        add_creator(xml_oai_dc_agris, author_name.strip())
-    except IndexError:
-        pass
+    for author in article_authors.Authors(xml_tree).article_contribs:
+        try:
+            surname = author.contrib_with_aff.get("surname")
+            given_name = author.contrib_with_aff.get("given_names")
+            author_name = f" {surname.strip()}, {given_name.strip()} "
+            add_creator(xml_oai_dc_agris, author_name.strip())
+        except IndexError:
+            pass
 
 
 def xml_oai_dc_agris_publisher_pipe(xml_oai_dc_agris, xml_tree):

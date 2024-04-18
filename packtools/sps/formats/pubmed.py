@@ -284,7 +284,7 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
 
 
 def get_authors(xml_tree):
-    return article_authors.Authors(xml_tree).contribs
+    return article_authors.Authors(xml_tree).article_contribs
 
 
 def add_first_name(author_reg, author_tag):
@@ -332,12 +332,12 @@ def add_orcid(author_reg, author_tag):
 
 
 def xml_pubmed_author_list(xml_pubmed, xml_tree):
-    authors = get_authors(xml_tree)
+    authors = list(get_authors(xml_tree))
     if authors:
         author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
             author_tag = ET.Element("Author")
-            add_first_name(author_reg, author_tag)
+            add_first_name(author_reg.contrib_with_aff, author_tag)
 
             # TODO
             # add_middle_name(author_reg, author_tag)
@@ -345,7 +345,7 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
             # in this tag.
             # There is no example of using this value in the files.
 
-            add_last_name(author_reg, author_tag)
+            add_last_name(author_reg.contrib_with_aff, author_tag)
 
             # TODO
             # add_suffix(author_reg, author_tag)
@@ -365,9 +365,9 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
             #   </AuthorList>
             # There is no example of using this value in the files
 
-            affiliations = get_affiliations(author_reg, xml_tree)
+            affiliations = get_affiliations(author_reg.contrib_with_aff, xml_tree)
             add_affiliations(affiliations, author_tag)
-            add_orcid(author_reg, author_tag)
+            add_orcid(author_reg.contrib_with_aff, author_tag)
             author_list_tag.append(author_tag)
 
             # TODO

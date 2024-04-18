@@ -209,10 +209,10 @@ def xml_oai_dc_creator(xml_oai_dc, xml_tree):
         de-Oliveira-Gerolamo,Ismael
     </dc:creator>
     """
-    for author in article_authors.Authors(xml_tree).contribs:
+    for author in article_authors.Authors(xml_tree).article_contribs:
         try:
-            surname = author.get("surname")
-            given_name = author.get("given_names")
+            surname = author.contrib_with_aff.get("surname")
+            given_name = author.contrib_with_aff.get("given_names")
             author_name = f" {surname.strip()}, {given_name.strip()} "
             add_creator(xml_oai_dc, author_name)
         except IndexError:
