@@ -10,9 +10,10 @@ def _get_collab(node):
 
 
 class Contrib:
-    def __init__(self, xmltree, node):
+    def __init__(self, xmltree, node, parent_id=None):
         self.xmltree = xmltree
         self.node = node
+        self.parent_id = parent_id
 
     @property
     def contrib(self):
@@ -57,6 +58,8 @@ class Contrib:
 
         _author["aff_rids"] = _author.get("rid-aff")
         _author["contrib-type"] = self.node.attrib.get("contrib-type")
+        _author["parent"] = "sub-article" if self.parent_id else "article"
+        _author["parent_id"] = self.parent_id
         return _author
 
     @property
@@ -103,7 +106,7 @@ class Authors:
     def sub_articles_contribs(self):
         for node in self.sub_articles:
             for contrib in node.xpath(".//contrib"):
-                yield Contrib(self.xmltree, contrib)
+                yield Contrib(self.xmltree, contrib, node.get("id"))
 
     @property
     def all_contribs(self):
