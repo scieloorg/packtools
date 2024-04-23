@@ -777,7 +777,7 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected_output[i], item)
 
-    def test_validate_authors_orcid_is_registered_sucess(self):
+    def test_validate_authors_orcid_is_registered_success(self):
         self.maxDiff = None
         xml = """
                 <article>
@@ -1093,3 +1093,138 @@ class ArticleAuthorsValidationOrcidTest(TestCase):
         for i, item in enumerate(expected_output):
             with self.subTest(i):
                 self.assertDictEqual(messages[i], item)
+
+
+class ArticleAuthorsValidationAff(TestCase):
+    def test_validate_authors_affiliations_success(self):
+        self.maxDiff = None
+        xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>SILVA</surname>
+                                <given-names>JOSÉ</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff2"/>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country>Brasil</country>
+                            <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                        <aff id="aff2">
+                            <label>II</label>
+                            <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                            <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country>Brasil</country>
+                            <institution content-type="original">Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+            </article>
+            """
+
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleAuthorsValidation(xmltree).validate_authors_affiliations())
+        self.assertListEqual(obtained, [])
+
+    def test_validate_authors_affiliations_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>SILVA</surname>
+                                <given-names>JOSÉ</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff2"/>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleAuthorsValidation(xmltree).validate_authors_affiliations())
+        expected = [
+            {
+                'title': 'Author without affiliation',
+                'item': 'contrib',
+                'sub_item': 'aff',
+                'parent': 'article',
+                'parent_id': None,
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'author affiliation data',
+                'got_value': None,
+                'message': 'Got None, expected author affiliation data',
+                'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                'data': {
+                    'aff_rids': ['aff1'],
+                    'contrib-type': 'author',
+                    'given_names': 'FRANCISCO',
+                    'parent': 'article',
+                    'parent_id': None,
+                    'rid': ['aff1'],
+                    'rid-aff': ['aff1'],
+                    'surname': 'VENEGAS-MARTÍNEZ'
+                }
+            },
+            {
+                'title': 'Author without affiliation',
+                'item': 'contrib',
+                'sub_item': 'aff',
+                'parent': 'article',
+                'parent_id': None,
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'author affiliation data',
+                'got_value': None,
+                'message': 'Got None, expected author affiliation data',
+                'advice': 'provide author affiliation data for JOSÉ SILVA',
+                'data': {
+                    'aff_rids': ['aff2'],
+                    'contrib-type': 'author',
+                    'given_names': 'JOSÉ',
+                    'parent': 'article',
+                    'parent_id': None,
+                    'rid': ['aff2'],
+                    'rid-aff': ['aff2'],
+                    'surname': 'SILVA'
+                }
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
