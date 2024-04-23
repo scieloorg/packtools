@@ -77,7 +77,25 @@ class AuthorsTest(TestCase):
                 </contrib>
               </contrib-group>
             </article-meta>
-          </front>
+            </front>
+            <sub-article id="01">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>SILVA</surname>
+                                <given-names>JOSÉ</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>SOUZA</surname>
+                                <given-names>MARIA</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+            </sub-article>
         </article>
         """
         xmltree = etree.fromstring(xml)
@@ -94,6 +112,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
             {
                 "surname": "Higa",
@@ -103,6 +123,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1"],
                 "aff_rids": ["aff1"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
         ]
         result = list(self.authors.all_contribs)
@@ -193,6 +215,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
             {
                 "surname": "Higa",
@@ -229,6 +253,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1"],
                 "aff_rids": ["aff1"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
         ]
         for i, item in enumerate(expected):
@@ -294,6 +320,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1"],
                 "aff_rids": ["aff1"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
             {
                 "surname": "Higa",
@@ -310,6 +338,8 @@ class AuthorsTest(TestCase):
                 "rid-aff": ["aff1"],
                 "aff_rids": ["aff1"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
             },
         ]
 
@@ -338,7 +368,7 @@ class AuthorsCollabTest(TestCase):
 
     def test_contribs(self):
         self.assertDictEqual(
-            {'collab': 'XXXX', 'aff_rids': None, 'contrib-type': 'author'},
+            {'collab': 'XXXX', 'aff_rids': None, 'contrib-type': 'author', "parent_id": None, "parent": "article",},
             list(self.authors.all_contribs)[0].contrib_with_aff
         )
 
@@ -421,6 +451,8 @@ class AuthorsWithAffTest(TestCase):
                 "rid-aff": ["aff1"],
                 "aff_rids": ["aff1"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
                 "affs": [
                     {
                         "id": "aff1",
@@ -442,12 +474,16 @@ class AuthorsWithAffTest(TestCase):
                           'Switzerland',
                 'aff_rids': None,
                 'contrib-type': 'author',
+                "parent_id": None,
+                "parent": "article",
             },
             {
                 'collab': 'Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island '
                           'Department of Health, Providence, Rhode Island',
                 'aff_rids': None,
                 'contrib-type': 'author',
+                "parent_id": None,
+                "parent": "article",
             },
             {
                 "surname": "VENEGAS-MARTÍNEZ",
@@ -458,6 +494,8 @@ class AuthorsWithAffTest(TestCase):
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
                 "affs": [
                     {
                         "id": "aff1",
@@ -551,6 +589,8 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                 "rid-aff": ["aff1", "aff2"],
                 "aff_rids": ["aff1", "aff2"],
                 "contrib-type": "author",
+                "parent_id": None,
+                "parent": "article",
                 "affs": [
                     {
                         "id": "aff1",
