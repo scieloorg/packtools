@@ -257,3 +257,89 @@ class IssueValidation:
         return vol_results
 
 
+def _response(sub_item, expected, advice, obtained=None):
+    return format_response(
+        title='Pagination validation',
+        parent=None,
+        parent_id=None,
+        item='article-meta',
+        sub_item=sub_item,
+        validation_type='exist',
+        is_valid=False,
+        expected=expected,
+        obtained=obtained,
+        advice=advice
+    )
+
+
+class Pagination:
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
+        self.issue = ArticleMetaIssue(xml_tree)
+
+    def validation_pagination_attributes_exist(self):
+        """
+        Checks for the existence of starting and ending page numbers that cannot coexist with the elocation-id.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <lpage>240</lpage>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Pagination validation',
+                    'parent': None,
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'elocation-id',
+                    'response': 'ERROR',
+                    'expected_value': 'no values for fpage and lpage OR no value for elocation-id',
+                    'got_value': 'elocation-id: e51467, fpage: 220, lpage: 240',
+                    'message': 'Got elocation-id: e51467, fpage: 220, lpage: 240, expected no values for fpage and lpage '
+                               'OR no value for elocation-id',
+                    'validation_type': 'exist',
+                    'advice': 'remove values for fpage and lpage OR remove value for elocation-id',
+                    'data': {'elocation_id': 'e51467', 'fpage': '220', 'lpage': '240'}
+                },...
+            ]
+        """
+        if self.issue.elocation_id is None:
+            if self.issue.fpage is None:
+                response = _response(
+                    sub_item='fpage',
+                    expected='a value for fpage',
+                    advice='provide a value for fpage'
+                )
+                response['data'] = self.issue.data
+                yield response
+            if self.issue.lpage is None:
+                response = _response(
+                    sub_item='lpage',
+                    expected='a value for lpage',
+                    advice='provide a value for lpage'
+                )
+                response['data'] = self.issue.data
+                yield response
+        elif self.issue.fpage is not None or self.issue.lpage is not None:
+            response = _response(
+                sub_item='elocation-id',
+                expected='no values for fpage and lpage OR no value for elocation-id',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice='remove values for fpage and lpage OR remove value for elocation-id'
+            )
+            response['data'] = self.issue.data
+            yield response
+
+
+
+
