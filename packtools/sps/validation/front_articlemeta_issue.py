@@ -1,5 +1,6 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
 from ..validation.exceptions import ValidationIssueMissingValue
+from ..validation.utils import format_response
 
 
 def _issue_identifier_is_valid(value):
@@ -42,25 +43,21 @@ def _validate_issue_identifier(obtained):
     if not _issue_identifier_is_valid(obtained):
         return False, message, advice
     else:
-        return _successful_validation(obtained)
+        return True, obtained, None
 
 
 def _validate_special_number(obtained):
     if not _issue_special_number_is_valid(obtained):
         return False, 'speX where X is a valid alphanumeric value or None', 'Provide a valid value to special number'
     else:
-        return _successful_validation(obtained)
+        return True, obtained, None
 
 
 def _validate_supplement(obtained):
     if not _issue_supplement_is_valid(obtained):
         return False, 'X suppl Y where X and Y are alphanumeric value', 'Provide a valid value to supplement'
     else:
-        return _successful_validation(obtained)
-
-
-def _successful_validation(obtained):
-    return True, obtained, None
+        return True, obtained, None
 
 
 class IssueValidation:
@@ -79,27 +76,37 @@ class IssueValidation:
 
         Returns
         -------
-        dict
-            A dictionary as described in the example.
+        list of dict
+            A list of dictionaries, such as:
 
-        Examples
-        --------
-        >>> validate_volume('23')
-
-        {
-            'object': 'volume',
-            'output_expected': '23',
-            'output_obteined': '23',
-            'match': True
-        }
+            {
+                'title': 'Article-meta volume element validation',
+                'parent': None,
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'volume',
+                'validation_type': 'match',
+                'response': 'OK',
+                'expected_value': '56',
+                'got_value': '56',
+                'message': 'Got 56, expected 56',
+                'advice': None,
+                'data': {'number': '4', 'volume': '56'}
+            }
         """
-        resp_vol = dict(
-            object='volume',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.volume,
-            match=(expected_value == self.article_issue.volume)
+        yield format_response(
+            title='Article-meta volume element validation',
+            parent=None,
+            parent_id=None,
+            item='article-meta',
+            sub_item='volume',
+            validation_type='match',
+            is_valid=expected_value == self.article_issue.volume,
+            expected=expected_value,
+            obtained=self.article_issue.volume,
+            advice='Provide a value for volume that matches with expected value',
+            data=self.article_issue.data
         )
-        return resp_vol
 
     def validate_article_issue(self, response_type_for_absent_issue):
         """
@@ -124,13 +131,17 @@ class IssueValidation:
             [
                 {
                     'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
+                    'parent': None,
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'issue',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '4',
                     'got_value': '4',
-                    'message': 'Got 4 expected 4',
-                    'advice': None
+                    'message': 'Got 4, expected 4',
+                    'advice': None,
+                    'data': {'number': '4', 'volume': '56'}
                 }
             ]
         """
@@ -147,32 +158,36 @@ class IssueValidation:
             else:
                 is_valid, expected, advice = _validate_issue_identifier(obtained)
 
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'format',
-                    'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
-                    'message': 'Got {} expected {}'.format(obtained, expected),
-                    'advice': advice
-                }
-            ]
+            yield format_response(
+                title='Article-meta issue element validation',
+                parent=None,
+                parent_id=None,
+                item='article-meta',
+                sub_item='issue',
+                validation_type='format',
+                is_valid=is_valid,
+                expected=expected,
+                obtained=obtained,
+                advice=advice,
+                data=self.article_issue.data
+            )
         else:
             expected = 'an identifier for the publication issue'
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'exist',
-                    'response': response_type_for_absent_issue,
-                    'expected_value': expected,
-                    'got_value': None,
-                    'message': 'Got None expected {}'.format(expected),
-                    'advice': 'Provide an identifier for the publication issue'
-                }
-            ]
+            resp = format_response(
+                title='Article-meta issue element validation',
+                parent=None,
+                parent_id=None,
+                item='article-meta',
+                sub_item='issue',
+                validation_type='exist',
+                is_valid=False,
+                expected=expected,
+                obtained=None,
+                advice='Provide an identifier for the publication issue',
+                data=self.article_issue.data
+            )
+            resp['response'] = response_type_for_absent_issue
+            yield resp
 
     def validate_supplement(self, expected_value):
         """
@@ -185,27 +200,38 @@ class IssueValidation:
 
         Returns
         -------
-        dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_supplement('5')
-
-        {
-            'object': 'supplement',
-            'output_expected': '5',
-            'output_obteined': '5b',
-            'match': False
-        }
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Article-meta supplement element validation',
+                    'parent': None,
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'supplement',
+                    'validation_type': 'match',
+                    'response': 'ERROR',
+                    'expected_value': '2',
+                    'got_value': '2b',
+                    'message': 'Got 2b, expected 2',
+                    'advice': 'Provide a value for supplement that matches with expected value',
+                    'data': {'number': '4', 'suppl': '2b', 'volume': '56'}
+                }
+            ]
         """
-        resp_suppl = dict(
-            object='supplement',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.suppl,
-            match=(expected_value == self.article_issue.suppl)
+        yield format_response(
+            title='Article-meta supplement element validation',
+            parent=None,
+            parent_id=None,
+            item='article-meta',
+            sub_item='supplement',
+            validation_type='match',
+            is_valid=expected_value == self.article_issue.suppl,
+            expected=expected_value,
+            obtained=self.article_issue.suppl,
+            advice='Provide a value for supplement that matches with expected value',
+            data=self.article_issue.data
         )
-        return resp_suppl
 
     def validate(self, data):
         """
@@ -229,3 +255,5 @@ class IssueValidation:
         vol_results.update(suppl_results)
         
         return vol_results
+
+
