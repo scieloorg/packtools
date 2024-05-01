@@ -840,3 +840,15 @@ class Highlight:
         }
 
 
+class Highlights:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def highlights(self):
+        for node in self.xmltree.xpath(".//abstract"):
+            if node.get("abstract-type") == "key-points":
+                highlight = Highlight(node)
+                yield highlight.data
+
+
