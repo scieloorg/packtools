@@ -888,3 +888,13 @@ class VisualAbstract:
         }
 
 
+class VisualAbstracts:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def visual_abstracts(self):
+        for abstract in self.xmltree.xpath(".//abstract"):
+            if abstract.get("abstract-type") == "graphical":
+                visual_abstract = VisualAbstract(abstract)
+                yield visual_abstract.data
