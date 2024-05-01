@@ -2,7 +2,8 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
-from packtools.sps.models.article_abstract import Abstract, ArticleAbstract
+from packtools.sps.models.article_abstract import Abstract, ArticleAbstract, Highlight, Highlights, VisualAbstract, \
+    VisualAbstracts
 
 
 class AbstractWithSectionsTest(TestCase):
@@ -1764,3 +1765,187 @@ class ArticleAbstractTest(TestCase):
         self.abstract.configure(tags_to_convert_to_html={'bold': 'b'})
         obtained = self.abstract.get_abstracts_by_lang()
         self.assertDictEqual(expected, obtained)
+
+
+class HighlightTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>Nam vitae leo aliquet, pretium ante at, faucibus felis</p>
+                            <p>Aliquam ac mauris et libero pulvinar facilisis</p>
+                            <p>Fusce aliquam ipsum ut diam luctus porta</p>
+                            <p>Ut a erat ac odio placerat convallis</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.highlight = Highlight(xmltree.xpath('.//abstract')[0])
+
+    def test_highlight_title(self):
+        self.assertEqual(self.highlight.title, "HIGHLIGHTS")
+
+    def test_highlights(self):
+        expected = [
+            'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+            'Aliquam ac mauris et libero pulvinar facilisis',
+            'Fusce aliquam ipsum ut diam luctus porta',
+            'Ut a erat ac odio placerat convallis'
+        ]
+
+        obtained = list(self.highlight.highlights)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i])
+
+    def test_data(self):
+        expected = {
+            "title": "HIGHLIGHTS",
+            "highlights": [
+                'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+                'Aliquam ac mauris et libero pulvinar facilisis',
+                'Fusce aliquam ipsum ut diam luctus porta',
+                'Ut a erat ac odio placerat convallis'
+            ]
+        }
+
+        obtained = self.highlight.data
+        self.assertEqual(expected, obtained)
+
+
+class HighlightsTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>Nam vitae leo aliquet, pretium ante at, faucibus felis</p>
+                            <p>Aliquam ac mauris et libero pulvinar facilisis</p>
+                            <p>Fusce aliquam ipsum ut diam luctus porta</p>
+                            <p>Ut a erat ac odio placerat convallis</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.highlights = Highlights(xmltree)
+
+    def test_highlights(self):
+        expected = [
+            {
+                "title": "HIGHLIGHTS",
+                "highlights": [
+                    'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+                    'Aliquam ac mauris et libero pulvinar facilisis',
+                    'Fusce aliquam ipsum ut diam luctus porta',
+                    'Ut a erat ac odio placerat convallis'
+                ]
+            }
+        ]
+
+        obtained = list(self.highlights.highlights)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+
+class VisualAbstractTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+            specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <title>Visual Abstract</title>
+                                <p>
+                                    <fig id="vf01">
+                                        <caption>
+                                            <title>Título</title>
+                                        </caption>
+                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
+                                    </fig>
+                                </p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.visual_abstract = VisualAbstract(xmltree.xpath('.//abstract')[0])
+
+    def test_title(self):
+        self.assertEqual(self.visual_abstract.title, "Visual Abstract")
+
+    def test_fig_id(self):
+        self.assertEqual(self.visual_abstract.fig_id, "vf01")
+
+    def test_caption(self):
+        self.assertEqual(self.visual_abstract.caption, "Título")
+
+    def test_graphic(self):
+        self.assertEqual(self.visual_abstract.graphic, "1234-5678-zwy-12-04-0123-vs01.tif")
+
+    def test_data(self):
+        expected = {
+            "title": "Visual Abstract",
+            "fig_id": "vf01",
+            "caption": "Título",
+            "graphic": "1234-5678-zwy-12-04-0123-vs01.tif"
+        }
+
+        obtained = self.visual_abstract.data
+
+        self.assertDictEqual(expected, obtained)
+
+
+class VisualAbstractsTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+            specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <title>Visual Abstract</title>
+                                <p>
+                                    <fig id="vf01">
+                                        <caption>
+                                            <title>Título</title>
+                                        </caption>
+                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
+                                    </fig>
+                                </p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.visual_abstracts = VisualAbstracts(xmltree)
+
+    def test_visual_abstracts(self):
+        expected = [
+            {
+                "title": "Visual Abstract",
+                "fig_id": "vf01",
+                "caption": "Título",
+                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif"
+            }
+        ]
+
+        obtained = list(self.visual_abstracts.visual_abstracts)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
