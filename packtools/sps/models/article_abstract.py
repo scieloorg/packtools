@@ -818,3 +818,25 @@ class ArticleAbstract:
             d[item["lang"]] = item
         return d
 
+
+class Highlight:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def title(self):
+        return self.node.findtext('title')
+
+    @property
+    def highlights(self):
+        for highlight in self.node.xpath('.//p'):
+                yield highlight.text
+
+    @property
+    def data(self):
+        return {
+            "title": self.title,
+            "highlights": list(self.highlights)
+        }
+
+
