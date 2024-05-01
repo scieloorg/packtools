@@ -78,3 +78,7 @@ class ValidationArticleCitationsException(Exception):
 
 class ValidationPeerReviewException(Exception):
     ...
+
+
+class ValidationFootnotes(Exception):
+    ...
