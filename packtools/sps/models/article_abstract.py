@@ -852,3 +852,39 @@ class Highlights:
                 yield highlight.data
 
 
+class VisualAbstract:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def title(self):
+        return self.node.findtext(".//title")
+
+    @property
+    def fig_id(self):
+        fig_node = self.node.find(".//fig")
+        if fig_node is not None:
+            return fig_node.get("id")
+
+    @property
+    def caption(self):
+        caption_node = self.node.find(".//caption")
+        if caption_node is not None:
+            return process_subtags(caption_node)
+
+    @property
+    def graphic(self):
+        graphic_node = self.node.find('.//graphic', namespaces={'xlink': 'http://www.w3.org/1999/xlink'})
+        if graphic_node is not None:
+            return graphic_node.get('{http://www.w3.org/1999/xlink}href')
+
+    @property
+    def data(self):
+        return {
+            "title": self.title,
+            "fig_id": self.fig_id,
+            "caption": self.caption,
+            "graphic": self.graphic
+        }
+
+
