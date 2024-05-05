@@ -9,6 +9,8 @@ from packtools.sps.validation.exceptions import (
 
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
+from packtools.sps.validation.utils import format_response, INDEXABLE
+from packtools.sps.models.article_authors import Contrib
 
 
 class ArticleLangValidation:
@@ -414,16 +416,16 @@ class ArticleSubjectsValidation:
             calculated_similarity, subject = most_similar(similarity(subjects_list, article_subject))
             validated = calculated_similarity >= expected_similarity
             yield {
-                    'title': 'Article type vs subjects validation',
-                    'xpath': './article/@article-type .//subject',
-                    'validation_type': 'similarity',
-                    'response': "OK" if validated else "ERROR",
-                    'expected_value': expected_similarity,
-                    'got_value': calculated_similarity,
-                    'message': f'The article id: {article_id} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}',
-                    'advice': None if validated else 'The subject {} does not match the items provided in the list: {}'
-                    .format(article_subject, " | ".join(subjects_list))
-                }
+                'title': 'Article type vs subjects validation',
+                'xpath': './article/@article-type .//subject',
+                'validation_type': 'similarity',
+                'response': "OK" if validated else "ERROR",
+                'expected_value': expected_similarity,
+                'got_value': calculated_similarity,
+                'message': f'The article id: {article_id} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}',
+                'advice': None if validated else 'The subject {} does not match the items provided in the list: {}'
+                .format(article_subject, " | ".join(subjects_list))
+            }
 
     def validate(self, data):
         """
@@ -487,3 +489,83 @@ class ArticleIdValidation:
             'message': 'Got {} expected {}'.format(self.other_id, expected_value[0].lower() + expected_value[1:]),
             'advice': None if is_valid else 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
         }
+
+
+def exist_contrib_validation(node, contribs):
+    yield format_response(
+        title="Indexable validation",
+        parent="sub-article" if node.get("id") else "article",
+        parent_id=node.get("id"),
+        item="contrib-group",
+        sub_item="contrib",
+        validation_type="exist",
+        is_valid=False,
+        expected="at least 1 contrib",
+        obtained=contribs,
+        advice="provide at least 1 contrib",
+        data=None
+    )
+
+
+def exist_xref_for_all_contribs_validation(node, contrib):
+    yield format_response(
+        title="Indexable validation",
+        parent="sub-article" if node.get("id") else "article",
+        parent_id=node.get("id"),
+        item="xref",
+        sub_item="@rid",
+        validation_type="exist",
+        is_valid=False,
+        expected="xref for affiliation data",
+        obtained=contrib.get("rid"),
+        advice="provide xref for affiliation data",
+        data=contrib
+    )
+
+
+def exist_affs_for_each_xref_validation(node, contrib, aff):
+    yield format_response(
+        title="Indexable validation",
+        parent="sub-article" if node.get("id") else "article",
+        parent_id=node.get("id"),
+        item="aff",
+        sub_item="@id",
+        validation_type="exist",
+        is_valid=False,
+        expected=f"affiliation data for each xref in list: {contrib.get('rid-aff')}",
+        obtained=[item.get("id") for item in aff],
+        advice=f"provide affiliation data for each xref in list: {contrib.get('rid-aff')}",
+        data=aff
+    )
+
+
+class IndexableDocumentsValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def article(self):
+        yield self.xmltree.xpath('.//article-meta')[0]
+
+    def sub_articles(self):
+        for sub_article in self.xmltree.xpath('.//sub-article'):
+            yield sub_article
+
+    def article_and_sub_article(self):
+        yield from self.article()
+        yield from self.sub_articles()
+
+    def validation(self):
+        for node in self.article_and_sub_article():
+            contribs = node.xpath('.//contrib')
+            if len(contribs) == 0:
+                yield from exist_contrib_validation(node, contribs)
+            else:
+                for contrib in contribs:
+                    contrib_data = Contrib(self.xmltree, contrib)
+                    xref = contrib_data.contrib.get("rid-aff")
+                    if xref is None or len(xref) == 0:
+                        yield from exist_xref_for_all_contribs_validation(node, contrib_data.contrib)
+                    else:
+                        aff = contrib_data.contrib_with_aff.get("affs")
+                        if aff is None or len(xref) != len(aff):
+                            yield from exist_affs_for_each_xref_validation(node, contrib_data.contrib, aff)
