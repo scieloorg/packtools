@@ -6,7 +6,8 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleAttribsValidation,
     ArticleTypeValidation,
     ArticleSubjectsValidation,
-    ArticleIdValidation
+    ArticleIdValidation,
+    IndexableDocumentsValidation
 )
 
 
@@ -778,3 +779,181 @@ class ArticleAndSubarticlesTest(TestCase):
             }
         ]
         self.assertEqual(expected, obtained)
+
+
+class IndexableDocumentsValidationTest(TestCase):
+    def test_exist_contrib_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+                '<front>'
+                    '<article-meta>'
+                        '<contrib-group>'
+                            
+                        '</contrib-group>'
+                        '<aff id="aff1">'
+                        '<label>I</label>'
+                        '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+                        '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+                        '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+                        '<country>Brasil</country>'
+                        '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+                        'Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>'
+                        '</aff>'
+                    '</article-meta>'   
+                '</front>'
+            '</article>'
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                'title': 'Indexable validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'contrib-group',
+                'sub_item': 'contrib',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'at least 1 contrib',
+                'got_value': [],
+                'message': 'Got [], expected at least 1 contrib',
+                'advice': 'provide at least 1 contrib',
+                'data': None
+
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_exist_xref_for_all_contribs_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<surname>Colpani</surname>'
+            '<given-names>Verônica</given-names>'
+            '</name>'
+            
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<label>I</label>'
+            '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+            '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+            '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+            '<country>Brasil</country>'
+            '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+            'Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                'title': 'Indexable validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'xref',
+                'sub_item': '@rid',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'xref for affiliation data',
+                'got_value': None,
+                'message': 'Got None, expected xref for affiliation data',
+                'advice': 'provide xref for affiliation data',
+                'data': {
+                    'aff_rids': None,
+                    'contrib-type': 'author',
+                    'given_names': 'Verônica',
+                    'surname': 'Colpani'
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_exist_affs_for_each_xref_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<contrib-group>'
+            '<contrib contrib-type="author">'
+            '<name>'
+            '<surname>Colpani</surname>'
+            '<given-names>Verônica</given-names>'
+            '</name>'
+            '<xref ref-type="aff" rid="aff1"/>'
+            '<xref ref-type="aff" rid="aff2"/>'
+            '</contrib>'
+            '</contrib-group>'
+            '<aff id="aff1">'
+            '<label>I</label>'
+            '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+            '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+            '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+            '<country>Brasil</country>'
+            '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+            'Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>'
+            '</aff>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                'title': 'Indexable validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'aff',
+                'sub_item': '@id',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': "affiliation data for each xref in list: ['aff1', 'aff2']",
+                'got_value': ['aff1'],
+                'message': "Got ['aff1'], expected affiliation data for each xref in list: ['aff1', 'aff2']",
+                'advice': "provide affiliation data for each xref in list: ['aff1', 'aff2']",
+                'data': [
+                    {
+                        'city': None,
+                        'country_code': None,
+                        'country_name': 'Brasil',
+                        'email': None,
+                        'id': 'aff1',
+                        'label': 'I',
+                        'orgdiv1': 'Serviço de Endocrinologia',
+                        'orgdiv2': 'Unidade de Endocrinologia Ginecológica',
+                        'orgname': 'Hospital de Clinicas de Porto Alegre',
+                        'original': 'Unidade de Endocrinologia Ginecológica. Serviço de '
+                                    'Endocrinologia. Hospital de Clinicas de Porto Alegre. '
+                                    'Porto Alegre, RS, Brasil',
+                        'state': None
+                    }
+                ]
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
