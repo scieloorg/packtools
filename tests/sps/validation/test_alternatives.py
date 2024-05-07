@@ -1,173 +1,89 @@
 from lxml import etree
-import unittest
+from unittest import TestCase
 
 from packtools.sps.validation.alternatives import AlternativesValidation
 
 
-class AlternativesValidationTest(unittest.TestCase):
+class AlternativesValidationTest(TestCase):
     def test_validation_success(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <graphic xlink:href="nomedaimagemdatabela.svg"/>
-            <table>
-            <thead>
-            <tr>
-            <th rowspan="3">Proposta de Novas Tabelas - 2016</th>
-            </tr>
-            <tr>
-            <th>Receita Bruta em 12 Meses - em R$</th>
-            <th>Anexo I - Comércio</th>
-            <th>Anexo II Indústria</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr><td>De R$ 225.000,01 a RS 450.000,00</td>
-            <td>4,00%</td>
-            <td>4,50%</td>
-            </tr>
-            <tr>
-            <td>De R$ 450.000,01 a R$ 900.000,00</td>
-            <td>8,25%</td>
-            <td>8,00%</td>
-            </tr>
-            <tr>
-            <td>De R$ 900.000,01 a R$ 1.800.000,00</td>
-            <td>11,25%</td>
-            <td>12,25%</td>
-            </tr>
-            </tbody>
-            </table>
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            <sub-article article-type="translation" xml:lang="en" id="TRen">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <graphic xlink:href="nomedaimagemdatabela.svg"/>
-            <table>
-            <thead>
-            <tr>
-            <th rowspan="3">Proposta de Novas Tabelas - 2016</th>
-            </tr>
-            <tr>
-            <th>Receita Bruta em 12 Meses - em R$</th>
-            <th>Anexo I - Comércio</th>
-            <th>Anexo II Indústria</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr><td>De R$ 225.000,01 a RS 450.000,00</td>
-            <td>4,00%</td>
-            <td>4,50%</td>
-            </tr>
-            <tr>
-            <td>De R$ 450.000,01 a R$ 900.000,00</td>
-            <td>8,25%</td>
-            <td>8,00%</td>
-            </tr>
-            <tr>
-            <td>De R$ 900.000,01 a R$ 1.800.000,00</td>
-            <td>11,25%</td>
-            <td>12,25%</td>
-            </tr>
-            </tbody>
-            </table>
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            </sub-article>
+                <body>
+                    <table-wrap>
+                        <alternatives>
+                            <graphic xlink:href="nomedaimagemdatabela.svg"/>
+                            <table />
+                        </alternatives>
+                    </table-wrap>
+                </body>
+                <sub-article article-type="translation" xml:lang="en" id="TRen">
+                    <body>
+                        <fig>
+                            <alternatives>
+                                <graphic xlink:href="nomedaimagemdatabela.svg"/>
+                                <media />
+                            </alternatives>
+                        </fig>
+                    </body>
+                </sub-article>
             </article>
             """
         )
-        obtained = list(AlternativesValidation(self.xmltree).validation())
+        params = {
+            "table-wrap": ["graphic", "table"],
+            "fig": ["graphic", "media"]
+        }
+        obtained = list(AlternativesValidation(self.xmltree, params).validation())
         expected = []
         self.assertListEqual(obtained, expected)
 
-    def test_validation_fail(self):
+    def test_validation_children_fail(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <p>
-            altenativa
-            </p>
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            <sub-article article-type="translation" xml:lang="en" id="TRen">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <title />
-            <abstract />
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            </sub-article>
+                <body>
+                    <table-wrap>
+                        <alternatives>
+                            <p />
+                        </alternatives>
+                    </table-wrap>
+                </body>
+                <sub-article article-type="translation" xml:lang="en" id="TRen">
+                    <body>
+                        <fig>
+                            <alternatives>
+                                <title />
+                                <abstract />
+                            </alternatives>
+                        </fig>
+                    </body>
+                </sub-article>
             </article>
             """
         )
-        obtained = list(AlternativesValidation(self.xmltree).validation())
+        params = {
+            "table-wrap": ["graphic", "table"],
+            "fig": ["graphic", "media"]
+        }
+        obtained = list(AlternativesValidation(self.xmltree, params).validation())
         expected = [
             {
                 'title': 'Alternatives validation',
                 'parent': 'article',
                 'parent_id': None,
                 'item': 'table-wrap',
-                'sub_item': 'alternative',
-                'validation_type': 'match',
-                'expected_value': ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material'],
+                'sub_item': 'alternatives',
+                'validation_type': 'value in list',
+                'expected_value': ['graphic', 'table'],
                 'got_value': ['p'],
                 'response': 'ERROR',
-                'message': "Got ['p'], expected ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material']",
-                'advice': "Provide child tags according to the list: ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material']",
+                'message': "Got ['p'], expected ['graphic', 'table']",
+                'advice': "Provide child tags according to the list: ['graphic', 'table']",
                 'data': {
                     'alternative_children': ['p'],
                     'alternative_parent': 'table-wrap',
@@ -179,17 +95,17 @@ class AlternativesValidationTest(unittest.TestCase):
                 'title': 'Alternatives validation',
                 'parent': 'sub-article',
                 'parent_id': 'TRen',
-                'item': 'table-wrap',
-                'sub_item': 'alternative',
-                'validation_type': 'match',
-                'expected_value': ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material'],
+                'item': 'fig',
+                'sub_item': 'alternatives',
+                'validation_type': 'value in list',
+                'expected_value': ['graphic', 'media'],
                 'got_value': ['title', 'abstract'],
                 'response': 'ERROR',
-                'message': "Got ['title', 'abstract'], expected ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material']",
-                'advice': "Provide child tags according to the list: ['graphic', 'table', 'inline-graphic', 'media', 'supplementary-material']",
+                'message': "Got ['title', 'abstract'], expected ['graphic', 'media']",
+                'advice': "Provide child tags according to the list: ['graphic', 'media']",
                 'data': {
                     'alternative_children': ['title', 'abstract'],
-                    'alternative_parent': 'table-wrap',
+                    'alternative_parent': 'fig',
                     'parent': 'sub-article',
                     'parent_id': 'TRen'
                 }
@@ -199,6 +115,78 @@ class AlternativesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_validation_parent_fail(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                    <body>
+                        <inline-formula>
+                            <alternatives>
+                                <mml:math />
+                                <tex-math />
+                            </alternatives>
+                        </inline-formula>
+                    </body>
+                    <sub-article article-type="translation" xml:lang="en" id="TRen">
+                        <body>
+                            <disp-formula>
+                                <alternatives>
+                                    <mml:math />
+                                    <tex-math />
+                                </alternatives>
+                            </disp-formula>
+                        </body>
+                    </sub-article>
+                </article>
+                """
+        )
+        params = {
+            "table-wrap": ["graphic", "table"],
+            "fig": ["graphic", "media"]
+        }
+        obtained = list(AlternativesValidation(self.xmltree, params).validation())
+        expected = [
+            {
+                'title': 'Alternatives validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'inline-formula',
+                'sub_item': 'alternatives',
+                'validation_type': 'value in list',
+                'expected_value': ['table-wrap', 'fig'],
+                'got_value': 'inline-formula',
+                'response': 'ERROR',
+                'message': "Got inline-formula, expected ['table-wrap', 'fig']",
+                'advice': "Provide parent tag according to the list: ['table-wrap', 'fig']",
+                'data': {
+                    'alternative_children': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
+                    'alternative_parent': 'inline-formula',
+                    'parent': 'article',
+                    'parent_id': None
+                }
+            },
+            {
+                'title': 'Alternatives validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'inline-formula',
+                'sub_item': 'alternatives',
+                'validation_type': 'value in list',
+                'expected_value': None,
+                'got_value': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
+                'response': 'ERROR',
+                'message': "Got ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'], expected None",
+                'advice': 'Provide child tags according to the list: None',
+                'data': {
+                    'alternative_children': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
+                    'alternative_parent': 'inline-formula',
+                    'parent': 'article',
+                    'parent_id': None
+                }
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
