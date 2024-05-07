@@ -22,11 +22,3 @@ def format_response(
                 'message': f'Got {obtained}, expected {expected}',
                 'advice': None if is_valid else advice
             }
-
-
-ALTERNATIVES = {
-    "table-wrap": ["graphic", "table", "inline-graphic", "media", "supplementary-material"],
-    "fig": ["graphic", "inline-graphic", "media", "supplementary-material"],
-    "inline-formula": ["inline-graphic", "mml:math", "tex-math"],
-    "disp-formula": ["mml:math", "tex-math"],
-}
