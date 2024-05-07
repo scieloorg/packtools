@@ -13,31 +13,48 @@ class Alternative:
 
     @property
     def data(self):
-        yield {
+        return {
             "alternative_parent": self.parent,
-            "alternative_childrens": list(self.children)
+            "alternative_children": list(self.children)
         }
 
 
 class Alternatives:
+    def __init__(self, node):
+        self.node = node
+
+    def alternatives(self):
+        for alternative in self.node.xpath(".//alternatives"):
+            yield Alternative(alternative)
+
+
+class ArticleAlternatives:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
+    def article_body(self):
+        return self.xmltree.xpath(".//body")[0]
+
+    def sub_article_bodies(self):
+        for sub_article in self.xmltree.xpath(".//sub-article"):
+            yield sub_article.xpath(".//body")[0], sub_article.get("id")
+
+    def article_alternatives(self):
+        for alternative in Alternatives(self.article_body).alternatives():
+            alternative_data = alternative.data
+            alternative_data["parent"] = "article"
+            alternative_data["parent_id"] = None
+            yield alternative_data
+
+    def sub_article_alternatives(self):
+        for sub_article, parent_id in self.sub_article_bodies():
+            for alternative in Alternatives(sub_article).alternatives():
+                alternative_data = alternative.data
+                alternative_data["parent"] = "sub-article"
+                alternative_data["parent_id"] = parent_id
+                yield alternative_data
+
     def alternatives(self):
-        for alternative in self.xmltree.xpath(".//alternatives"):
-            for ancestor in alternative.iterancestors():
-                if ancestor.tag == "sub-article":
-                    parent = ancestor.tag
-                    parent_id = ancestor.get("id")
-                    break
-            else:
-                parent = "article"
-                parent_id = None
-            alternative_data = Alternative(alternative)
-            yield {
-                "parent": parent,
-                "parent_id": parent_id,
-                "alternative_parent": alternative_data.parent,
-                "alternative_children": list(alternative_data.children)
-            }
+        yield from self.article_alternatives()
+        yield from self.sub_article_alternatives()
