@@ -1,7 +1,7 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.models.alternatives import Alternatives, Alternative
+from packtools.sps.models.alternatives import ArticleAlternatives, Alternative
 
 
 class AlternativesTest(unittest.TestCase):
@@ -10,96 +10,24 @@ class AlternativesTest(unittest.TestCase):
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <graphic xlink:href="nomedaimagemdatabela.svg"/>
-            <table>
-            <thead>
-            <tr>
-            <th rowspan="3">Proposta de Novas Tabelas - 2016</th>
-            </tr>
-            <tr>
-            <th>Receita Bruta em 12 Meses - em R$</th>
-            <th>Anexo I - Comércio</th>
-            <th>Anexo II Indústria</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr><td>De R$ 225.000,01 a RS 450.000,00</td>
-            <td>4,00%</td>
-            <td>4,50%</td>
-            </tr>
-            <tr>
-            <td>De R$ 450.000,01 a R$ 900.000,00</td>
-            <td>8,25%</td>
-            <td>8,00%</td>
-            </tr>
-            <tr>
-            <td>De R$ 900.000,01 a R$ 1.800.000,00</td>
-            <td>11,25%</td>
-            <td>12,25%</td>
-            </tr>
-            </tbody>
-            </table>
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            <sub-article article-type="translation" xml:lang="en" id="TRen">
-            <body>
-            <table-wrap id="t5">
-            <label>Tabela 5</label>
-            <caption>
-            <title>Alíquota menor para prestadores</title>
-            </caption>
-            <alternatives>
-            <graphic xlink:href="nomedaimagemdatabela.svg"/>
-            <table>
-            <thead>
-            <tr>
-            <th rowspan="3">Proposta de Novas Tabelas - 2016</th>
-            </tr>
-            <tr>
-            <th>Receita Bruta em 12 Meses - em R$</th>
-            <th>Anexo I - Comércio</th>
-            <th>Anexo II Indústria</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr><td>De R$ 225.000,01 a RS 450.000,00</td>
-            <td>4,00%</td>
-            <td>4,50%</td>
-            </tr>
-            <tr>
-            <td>De R$ 450.000,01 a R$ 900.000,00</td>
-            <td>8,25%</td>
-            <td>8,00%</td>
-            </tr>
-            <tr>
-            <td>De R$ 900.000,01 a R$ 1.800.000,00</td>
-            <td>11,25%</td>
-            <td>12,25%</td>
-            </tr>
-            </tbody>
-            </table>
-            </alternatives>
-            <table-wrap-foot>
-            <fn id="TFN1">
-            <p>A informação de alíquota do anexo II é significativa</p>
-            </fn>
-            </table-wrap-foot>
-            </table-wrap>
-            </body>
-            </sub-article>
+                <body>
+                    <table-wrap id="t5">
+                        <alternatives>
+                            <graphic xlink:href="nomedaimagemdatabela.svg"/>
+                            <table />
+                        </alternatives>
+                    </table-wrap>
+                </body>
+                <sub-article article-type="translation" xml:lang="en" id="TRen">
+                    <body>
+                        <fig>
+                            <alternatives>
+                                <graphic xlink:href="nomedaimagemdatabela.svg"/>
+                                <media />
+                            </alternatives>
+                        </fig>
+                    </body>
+                </sub-article>
             </article>
             """
         )
@@ -119,7 +47,7 @@ class AlternativesTest(unittest.TestCase):
         self.assertListEqual(obtained, expected)
 
     def test_alternatives(self):
-        obtained = list(Alternatives(self.xmltree).alternatives)
+        obtained = list(ArticleAlternatives(self.xmltree).alternatives())
         expected = [
             {
                 'alternative_children': ['graphic', 'table'],
@@ -128,8 +56,8 @@ class AlternativesTest(unittest.TestCase):
                 'parent_id': None
             },
             {
-                'alternative_children': ['graphic', 'table'],
-                'alternative_parent': 'table-wrap',
+                'alternative_children': ['graphic', 'media'],
+                'alternative_parent': 'fig',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             }
