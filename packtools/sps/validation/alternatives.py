@@ -81,20 +81,6 @@ class AlternativeValidation:
                     advice=f"Provide child tags according to the list: {self.parent_children_dict.get(self.obtained_parent)}"
                 )
 
-    def create_validation_response(self, expected, obtained, advice):
-        return format_response(
-            title="Alternatives validation",
-            parent=self.alternative.get("parent"),
-            parent_id=self.alternative.get("parent_id"),
-            item=self.obtained_parent,
-            sub_item="alternatives",
-            validation_type="value in list",
-            is_valid=False,
-            expected=expected,
-            obtained=obtained,
-            advice=advice,
-            data=self.alternative
-        )
 
 class AlternativesValidation:
     def __init__(self, xmltree, parent_children_dict=None):
