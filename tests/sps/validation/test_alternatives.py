@@ -2,6 +2,7 @@ from lxml import etree
 from unittest import TestCase
 
 from packtools.sps.validation.alternatives import AlternativesValidation
+from packtools.sps.validation.exceptions import ValidationAlternativesException
 
 
 class AlternativesValidationTest(TestCase):
@@ -129,16 +130,6 @@ class AlternativesValidationTest(TestCase):
                             </alternatives>
                         </inline-formula>
                     </body>
-                    <sub-article article-type="translation" xml:lang="en" id="TRen">
-                        <body>
-                            <disp-formula>
-                                <alternatives>
-                                    <mml:math />
-                                    <tex-math />
-                                </alternatives>
-                            </disp-formula>
-                        </body>
-                    </sub-article>
                 </article>
                 """
         )
@@ -146,47 +137,7 @@ class AlternativesValidationTest(TestCase):
             "table-wrap": ["graphic", "table"],
             "fig": ["graphic", "media"]
         }
-        obtained = list(AlternativesValidation(self.xmltree, params).validation())
-        expected = [
-            {
-                'title': 'Alternatives validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'inline-formula',
-                'sub_item': 'alternatives',
-                'validation_type': 'value in list',
-                'expected_value': ['table-wrap', 'fig'],
-                'got_value': 'inline-formula',
-                'response': 'ERROR',
-                'message': "Got inline-formula, expected ['table-wrap', 'fig']",
-                'advice': "Provide parent tag according to the list: ['table-wrap', 'fig']",
-                'data': {
-                    'alternative_children': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
-                    'alternative_parent': 'inline-formula',
-                    'parent': 'article',
-                    'parent_id': None
-                }
-            },
-            {
-                'title': 'Alternatives validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'inline-formula',
-                'sub_item': 'alternatives',
-                'validation_type': 'value in list',
-                'expected_value': None,
-                'got_value': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
-                'response': 'ERROR',
-                'message': "Got ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'], expected None",
-                'advice': 'Provide child tags according to the list: None',
-                'data': {
-                    'alternative_children': ['{http://www.w3.org/1998/Math/MathML}math', 'tex-math'],
-                    'alternative_parent': 'inline-formula',
-                    'parent': 'article',
-                    'parent_id': None
-                }
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        obtained = AlternativesValidation(self.xmltree, params)
+        with self.assertRaises(ValidationAlternativesException) as context:
+            next(obtained.validation())
+        self.assertEqual("Tag inline-formula is not provided in the function parameters", str(context.exception))
