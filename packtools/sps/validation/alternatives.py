@@ -10,13 +10,6 @@ class AlternativeValidation:
         self.obtained_children = alternative.get("alternative_children")
         self.parent_children_dict = parent_children_dict
 
-    def validate_parent(self):
-        if self.obtained_parent not in self.parent_children_dict:
-            yield self.create_validation_response(
-                expected=list(self.parent_children_dict.keys()),
-                obtained=self.obtained_parent,
-                advice=f"Provide parent tag according to the list: {list(self.parent_children_dict.keys())}"
-            )
 
     def validate_children(self):
         for tag in self.obtained_children:
@@ -58,6 +51,10 @@ class AlternativesValidation:
         if not parent_children_dict:
             raise ValidationAlternativesException("Function requires dict of parent tag (key) and child tags list (value)")
         for alternative in self.alternatives:
-            yield from AlternativeValidation(alternative, parent_children_dict).validation()
+            parent = alternative.get("alternative_parent")
+            children_list = parent_children_dict.get(parent)
+            if children_list is None:
+                raise ValidationAlternativesException(f"Tag {parent} is not provided in the function parameters")
+            yield from AlternativeValidation(alternative, children_list).validation()
 
 
