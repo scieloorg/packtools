@@ -32,14 +32,6 @@ class ArticleAlternatives:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    @property
-    def article_body(self):
-        return self.xmltree.xpath(".//body")[0]
-
-    def sub_article_bodies(self):
-        for sub_article in self.xmltree.xpath(".//sub-article"):
-            yield sub_article.xpath(".//body")[0], sub_article.get("id")
-
     def article_alternatives(self):
         for alternative in Alternatives(self.article_body).alternatives():
             alternative_data = alternative.data
