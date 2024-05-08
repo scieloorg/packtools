@@ -4,11 +4,10 @@ from packtools.sps.validation.exceptions import ValidationAlternativesException
 
 
 class AlternativeValidation:
-    def __init__(self, alternative, parent_children_dict):
+    def __init__(self, alternative, children_list):
         self.alternative = alternative
-        self.obtained_parent = alternative.get("alternative_parent")
         self.obtained_children = alternative.get("alternative_children")
-        self.parent_children_dict = parent_children_dict
+        self.children_list = children_list
 
 
     def validate_children(self):
