@@ -41,11 +41,11 @@ class ArticleAlternatives:
                 yield alternative_data
 
     def sub_article_alternatives(self):
-        for sub_article, parent_id in self.sub_article_bodies():
-            for alternative in Alternatives(sub_article).alternatives():
+        for sub_article_node in self.xmltree.xpath(".//sub-article"):
+            for alternative in Alternatives(sub_article_node).alternatives():
                 alternative_data = alternative.data
                 alternative_data["parent"] = "sub-article"
-                alternative_data["parent_id"] = parent_id
+                alternative_data["parent_id"] = sub_article_node.get("id")
                 yield alternative_data
 
     def alternatives(self):
