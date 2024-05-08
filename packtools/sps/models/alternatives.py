@@ -33,11 +33,13 @@ class ArticleAlternatives:
         self.xmltree = xmltree
 
     def article_alternatives(self):
+        article_type = self.xmltree.find(".").get("article-type")
         for article_node in self.xmltree.xpath("./front | ./body | ./back"):
             for alternative in Alternatives(article_node).alternatives():
                 alternative_data = alternative.data
                 alternative_data["parent"] = "article"
                 alternative_data["parent_id"] = None
+                alternative_data["parent_article_type"] = article_type
                 yield alternative_data
 
     def sub_article_alternatives(self):
@@ -46,6 +48,7 @@ class ArticleAlternatives:
                 alternative_data = alternative.data
                 alternative_data["parent"] = "sub-article"
                 alternative_data["parent_id"] = sub_article_node.get("id")
+                alternative_data["parent_article_type"] = sub_article_node.get("article-type")
                 yield alternative_data
 
     def alternatives(self):
