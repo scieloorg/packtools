@@ -10,22 +10,38 @@ class AlternativesTest(unittest.TestCase):
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <front>
+                    <table-wrap id="t5">
+                        <alternatives>
+                            <alt_1_front />
+                            <alt_2_front />
+                        </alternatives>
+                    </table-wrap>
+                </front>
                 <body>
                     <table-wrap id="t5">
                         <alternatives>
-                            <graphic xlink:href="nomedaimagemdatabela.svg"/>
-                            <table />
+                            <alt_1_body />
+                            <alt_2_body />
                         </alternatives>
                     </table-wrap>
                 </body>
+                <back>
+                    <table-wrap id="t5">
+                        <alternatives>
+                            <alt_1_back />
+                            <alt_2_back />
+                        </alternatives>
+                    </table-wrap>
+                </back>
                 <sub-article article-type="translation" xml:lang="en" id="TRen">
                     <body>
-                        <fig>
+                        <table-wrap id="t5">
                             <alternatives>
-                                <graphic xlink:href="nomedaimagemdatabela.svg"/>
-                                <media />
+                                <alt_1_sub-article />
+                                <alt_2_sub-article />
                             </alternatives>
-                        </fig>
+                        </table-wrap>
                     </body>
                 </sub-article>
             </article>
@@ -43,23 +59,39 @@ class AlternativesTest(unittest.TestCase):
         node = self.xmltree.xpath(".//alternatives")[0]
         alternative = Alternative(node)
         obtained = list(alternative.children)
-        expected = ["graphic", "table"]
+        expected = ['alt_1_front', 'alt_2_front']
         self.assertListEqual(obtained, expected)
 
     def test_alternatives(self):
         obtained = list(ArticleAlternatives(self.xmltree).alternatives())
         expected = [
             {
-                'alternative_children': ['graphic', 'table'],
+                'alternative_children': ['alt_1_front', 'alt_2_front'],
                 'alternative_parent': 'table-wrap',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article'
             },
             {
-                'alternative_children': ['graphic', 'media'],
-                'alternative_parent': 'fig',
+                'alternative_children': ['alt_1_body', 'alt_2_body'],
+                'alternative_parent': 'table-wrap',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article'
+            },
+            {
+                'alternative_children': ['alt_1_back', 'alt_2_back'],
+                'alternative_parent': 'table-wrap',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article'
+            },
+            {
+                'alternative_children': ['alt_1_sub-article', 'alt_2_sub-article'],
+                'alternative_parent': 'table-wrap',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation'
             }
         ]
         for i, item in enumerate(expected):

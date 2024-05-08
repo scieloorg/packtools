@@ -89,7 +89,8 @@ class AlternativesValidationTest(TestCase):
                     'alternative_children': ['p'],
                     'alternative_parent': 'table-wrap',
                     'parent': 'article',
-                    'parent_id': None
+                    'parent_id': None,
+                    'parent_article_type': 'research-article'
                 }
             },
             {
@@ -108,7 +109,8 @@ class AlternativesValidationTest(TestCase):
                     'alternative_children': ['title', 'abstract'],
                     'alternative_parent': 'fig',
                     'parent': 'sub-article',
-                    'parent_id': 'TRen'
+                    'parent_id': 'TRen',
+                    'parent_article_type': 'translation'
                 }
             }
         ]
