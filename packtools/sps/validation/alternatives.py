@@ -10,7 +10,6 @@ class AlternativeValidation:
         self.children_list = children_list
 
 
-    def validate_children(self):
         for tag in self.obtained_children:
             if tag not in (self.parent_children_dict.get(self.obtained_parent) or []):
                 yield self.create_validation_response(
@@ -33,11 +32,6 @@ class AlternativeValidation:
             advice=advice,
             data=self.alternative
         )
-
-    def validation(self):
-        yield from self.validate_parent()
-        yield from self.validate_children()
-
 
 class AlternativesValidation:
     def __init__(self, xmltree, parent_children_dict=None):
