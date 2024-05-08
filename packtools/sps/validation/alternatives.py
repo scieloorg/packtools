@@ -9,6 +9,7 @@ class AlternativeValidation:
         self.obtained_children = alternative.get("alternative_children")
         self.children_list = children_list
 
+    def validation(self):
         """
             Check whether the alternatives match the tag that contains them.
 
@@ -74,11 +75,19 @@ class AlternativeValidation:
                 ]
         """
         for tag in self.obtained_children:
-            if tag not in (self.parent_children_dict.get(self.obtained_parent) or []):
-                yield self.create_validation_response(
-                    expected=self.parent_children_dict.get(self.obtained_parent),
+            if tag not in (self.children_list or []):
+                yield format_response(
+                    title="Alternatives validation",
+                    parent=self.alternative.get("parent"),
+                    parent_id=self.alternative.get("parent_id"),
+                    item=self.alternative.get("alternative_parent"),
+                    sub_item="alternatives",
+                    validation_type="value in list",
+                    is_valid=False,
+                    expected=self.children_list,
                     obtained=self.obtained_children,
-                    advice=f"Provide child tags according to the list: {self.parent_children_dict.get(self.obtained_parent)}"
+                    advice=f"Provide child tags according to the list: {self.children_list}",
+                    data=self.alternative
                 )
 
 
