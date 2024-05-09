@@ -4,6 +4,7 @@ from packtools.sps.models import (
 )
 
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
+from packtools.sps.validation.utils import format_response
 
 
 class RelatedArticlesValidation:
@@ -64,26 +65,23 @@ class RelatedArticlesValidation:
 
         if expected_values_for_related_article_type:
             for related_article in self.related_articles:
-                validated = related_article.get('related-article-type') in expected_values_for_related_article_type
-                yield {
-                        'title': 'Related article type validation',
-                        'xpath': './article[@article-type] .//related-article[@related-article-type]',
-                        'validation_type': 'match',
-                        'response': 'OK' if validated else 'ERROR',
-                        'expected_value': expected_values_for_related_article_type,
-                        'got_value': related_article.get('related-article-type'),
-                        'message': 'Got {}, expected {}'.format(
-                            related_article.get('related-article-type'),
-                            'one of the following items: {}'.format(expected_values_for_related_article_type)
-                        ),
-                        'advice': None if validated else 'The article-type: {} does not match the '
-                                                         'related-article-type: {}, provide '
-                                                         'one of the following items: {}'.format(
-                            self.article_type,
-                            related_article.get('related-article-type'),
-                            expected_values_for_related_article_type
-                        )
-                    }
+                obtained_related_article = related_article.get('related-article-type')
+                is_valid = obtained_related_article in expected_values_for_related_article_type
+                yield format_response(
+                    title='Related article type validation',
+                    parent=None,
+                    parent_id=None,
+                    item='related-article',
+                    sub_item='related-article-type',
+                    validation_type='match',
+                    is_valid=is_valid,
+                    expected=expected_values_for_related_article_type,
+                    obtained=obtained_related_article,
+                    advice=f"The article-type: {self.article_type} does not match the related-article-type: "
+                           f"{obtained_related_article}, provide one of the following items: "
+                           f"{expected_values_for_related_article_type}",
+                    data=related_article
+                )
 
     def related_articles_doi(self):
         """
@@ -116,17 +114,19 @@ class RelatedArticlesValidation:
 
         for related_article in self.related_articles:
             doi = related_article.get('href')
+            is_valid = doi is not None
             expected_value = doi if doi else 'A valid DOI or URI for related-article/@xlink:href'
-            yield {
-                    'title': 'Related article doi validation',
-                    'xpath': './/related-article/@xlink:href',
-                    'validation_type': 'exist',
-                    'response': 'OK' if doi else 'ERROR',
-                    'expected_value': expected_value,
-                    'got_value': doi,
-                    'message': 'Got {}, expected {}'.format(doi, expected_value[0].lower() + expected_value[1:]),
-                    'advice': None if doi else 'Provide a valid DOI for <related-article ext-link-type="doi" id="{}" '
-                                               'related-article-type="{}" /> '
-                    .format(related_article.get('id'), related_article.get('related-article-type'))
-                }
-
+            yield format_response(
+                title='Related article doi validation',
+                parent=None,
+                parent_id=None,
+                item='related-article',
+                sub_item='xlink:href',
+                validation_type='exist',
+                is_valid=is_valid,
+                expected=expected_value,
+                obtained=doi,
+                advice=f'Provide a valid DOI for <related-article ext-link-type="doi" id="{related_article.get("id")}" '
+                       f'related-article-type="{related_article.get("related-article-type")}" /> ',
+                data=related_article
+            )
