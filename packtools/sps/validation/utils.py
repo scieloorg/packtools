@@ -9,7 +9,8 @@ def format_response(
         expected=None,
         obtained=None,
         advice=None,
-        data=None):
+        data=None
+):
     return {
                 'title': title,
                 'parent': parent,
