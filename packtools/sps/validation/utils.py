@@ -8,7 +8,9 @@ def format_response(
         is_valid=None,
         expected=None,
         obtained=None,
-        advice=None):
+        advice=None,
+        data=None
+):
     return {
                 'title': title,
                 'parent': parent,
@@ -20,5 +22,6 @@ def format_response(
                 'expected_value': expected,
                 'got_value': obtained,
                 'message': f'Got {obtained}, expected {expected}',
-                'advice': None if is_valid else advice
+                'advice': None if is_valid else advice,
+                'data': data
             }
