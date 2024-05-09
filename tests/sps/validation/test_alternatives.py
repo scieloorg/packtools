@@ -84,7 +84,7 @@ class AlternativesValidationTest(TestCase):
                 'got_value': ['p'],
                 'response': 'ERROR',
                 'message': "Got ['p'], expected ['graphic', 'table']",
-                'advice': "Provide child tags according to the list: ['graphic', 'table']",
+                'advice': "Add ['graphic', 'table'] as sub-elements of table-wrap/alternatives",
                 'data': {
                     'alternative_children': ['p'],
                     'alternative_parent': 'table-wrap',
@@ -104,7 +104,7 @@ class AlternativesValidationTest(TestCase):
                 'got_value': ['title', 'abstract'],
                 'response': 'ERROR',
                 'message': "Got ['title', 'abstract'], expected ['graphic', 'media']",
-                'advice': "Provide child tags according to the list: ['graphic', 'media']",
+                'advice': "Add ['graphic', 'media'] as sub-elements of fig/alternatives",
                 'data': {
                     'alternative_children': ['title', 'abstract'],
                     'alternative_parent': 'fig',
@@ -142,4 +142,5 @@ class AlternativesValidationTest(TestCase):
         obtained = AlternativesValidation(self.xmltree, params)
         with self.assertRaises(ValidationAlternativesException) as context:
             next(obtained.validation())
-        self.assertEqual("Tag inline-formula is not provided in the function parameters", str(context.exception))
+        self.assertEqual("The element 'inline-formula' is not configured to use 'alternatives'. Provide alternatives "
+                         "parent and children", str(context.exception))
