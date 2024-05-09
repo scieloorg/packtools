@@ -76,17 +76,18 @@ class AlternativeValidation:
         """
         for tag in self.obtained_children:
             if tag not in (self.children_list or []):
+                parent = self.alternative.get("alternative_parent")
                 yield format_response(
                     title="Alternatives validation",
                     parent=self.alternative.get("parent"),
                     parent_id=self.alternative.get("parent_id"),
-                    item=self.alternative.get("alternative_parent"),
+                    item=parent,
                     sub_item="alternatives",
                     validation_type="value in list",
                     is_valid=False,
                     expected=self.children_list,
                     obtained=self.obtained_children,
-                    advice=f"Provide child tags according to the list: {self.children_list}",
+                    advice=f'Add {self.children_list} as sub-elements of {parent}/alternatives',
                     data=self.alternative
                 )
 
@@ -99,13 +100,15 @@ class AlternativesValidation:
 
     def validation(self, parent_children_dict=None):
         parent_children_dict = parent_children_dict or self.parent_children_dict
-        if not parent_children_dict:
-            raise ValidationAlternativesException("Function requires dict of parent tag (key) and child tags list (value)")
         for alternative in self.alternatives:
             parent = alternative.get("alternative_parent")
+            if not parent_children_dict:
+                raise ValidationAlternativesException(f"The element '{parent}' is not configured to use 'alternatives'."
+                                                      " Provide alternatives parent and children")
             children_list = parent_children_dict.get(parent)
             if children_list is None:
-                raise ValidationAlternativesException(f"Tag {parent} is not provided in the function parameters")
+                raise ValidationAlternativesException(f"The element '{parent}' is not configured to use 'alternatives'."
+                                                      " Provide alternatives parent and children")
             yield from AlternativeValidation(alternative, children_list).validation()
 
 
