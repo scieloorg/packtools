@@ -23,5 +23,5 @@ def format_response(
                 'got_value': obtained,
                 'message': f'Got {obtained}, expected {expected}',
                 'advice': None if is_valid else advice,
-                'data': data
+                'data': data,
             }
