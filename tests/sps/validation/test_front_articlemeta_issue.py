@@ -1,7 +1,7 @@
 from unittest import TestCase
 from lxml import etree
 
-from packtools.sps.validation.front_articlemeta_issue import IssueValidation
+from packtools.sps.validation.front_articlemeta_issue import IssueValidation, Pagination
 
 
 class IssueTest(TestCase):
