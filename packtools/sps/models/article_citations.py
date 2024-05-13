@@ -97,6 +97,10 @@ class ArticleCitations:
     @property
     def article_citations(self):
         for parent in self.xmltree.xpath(". | .//sub-article"):
+            parent_data = {
+                'parent': 'sub-article' if parent.get("id") else 'article',
+                'parent_id': parent.get("id")
+            }
             for node in parent.xpath("./back/ref-list//ref"):
                 tags = [
                     ('ref_id', get_ref_id(node)),
@@ -123,6 +127,5 @@ class ArticleCitations:
                         except AttributeError:
                             d[name] = value
                 d['author_type'] = 'institutional' if get_collab(node) else 'person'
-                d['parent'] = 'sub-article' if parent.get("id") else 'article'
-                d['parent_id'] = parent.get("id")
+                d.update(parent_data)
                 yield d
