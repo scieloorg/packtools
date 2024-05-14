@@ -60,7 +60,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                      ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
                     'parent_id': None
@@ -86,7 +86,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                 ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
                     'parent_id': 'TRen'
@@ -141,7 +141,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'advice': 'provide identification data of the corresponding author',
                 'data': {
                     'corresp': [],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
                     'parent_id': None
@@ -161,7 +161,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'advice': 'provide identification data of the corresponding author',
                 'data': {
                     'corresp': [],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
                     'parent_id': 'TRen'
@@ -221,7 +221,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                      ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
                     'parent_id': None
@@ -242,7 +242,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                 ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
                     'parent_id': 'TRen'
@@ -302,7 +302,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                      ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': [],
                     'parent': 'article',
                     'parent_id': None
@@ -323,7 +323,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                 ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                    'fn_numbers': 1,
+                    'fn_count': 1,
                     'fn_types': [],
                     'parent': 'sub-article',
                     'parent_id': 'TRen'
