@@ -1,14 +1,14 @@
-from packtools.sps.models.article_author_notes import AuthorNotes
+from packtools.sps.models.article_author_notes import ArticleAuthorNotes
 from packtools.sps.validation.utils import format_response
 
 
 class AuthorNotesValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.author_notes = AuthorNotes(self.xmltree)
+        self.author_notes = ArticleAuthorNotes(self.xmltree).author_notes
 
     def corresp_validation(self):
-        for author_note in self.author_notes.data:
+        for author_note in self.author_notes:
             corresp = author_note.get("corresp")
             is_valid = corresp != []
             yield format_response(
@@ -26,9 +26,9 @@ class AuthorNotesValidation:
             )
 
     def fn_type_validation(self):
-        for author_note in self.author_notes.data:
+        for author_note in self.author_notes:
             fn_types = author_note.get("fn_types")
-            fn_numbers = author_note.get("fn_numbers")
+            fn_numbers = author_note.get("fn_count")
             is_valid = len(fn_types) == fn_numbers
             yield format_response(
                 title="Author notes validation",
