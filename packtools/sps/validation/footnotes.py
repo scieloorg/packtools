@@ -1,4 +1,4 @@
-from ..models.footnotes import Footnotes
+from ..models.footnotes import ArticleFootnotes
 from ..models.article_and_subarticles import ArticleAndSubArticles
 from ..validation.utils import format_response
 from ..validation.exceptions import ValidationFootnotes
@@ -73,8 +73,8 @@ class FootnoteValidation:
         except (TypeError, ValueError) as e:
             raise ValidationFootnotes(f"dtd-version is not valid: {str(e)}")
         if dtd:
-            fns = Footnotes(self.xmltree)
-            for fn in fns.footnotes:
+            fns = ArticleFootnotes(self.xmltree)
+            for fn in fns.article_footnotes:
                 if dtd >= 1.3 and fn.get("fn_type") == "conflict":
                     yield format_response(
                         title="Footnotes validation",
