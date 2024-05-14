@@ -1,5 +1,6 @@
 from ..models.front_articlemeta_issue import ArticleMetaIssue
 from ..validation.exceptions import ValidationIssueMissingValue
+from packtools.sps.validation.utils import format_response
 
 
 def _issue_identifier_is_valid(value):
@@ -42,25 +43,21 @@ def _validate_issue_identifier(obtained):
     if not _issue_identifier_is_valid(obtained):
         return False, message, advice
     else:
-        return _successful_validation(obtained)
+        return True, obtained, None
 
 
 def _validate_special_number(obtained):
     if not _issue_special_number_is_valid(obtained):
         return False, 'speX where X is a valid alphanumeric value or None', 'Provide a valid value to special number'
     else:
-        return _successful_validation(obtained)
+        return True, obtained, None
 
 
 def _validate_supplement(obtained):
     if not _issue_supplement_is_valid(obtained):
         return False, 'X suppl Y where X and Y are alphanumeric value', 'Provide a valid value to supplement'
     else:
-        return _successful_validation(obtained)
-
-
-def _successful_validation(obtained):
-    return True, obtained, None
+        return True, obtained, None
 
 
 class IssueValidation:
@@ -68,38 +65,59 @@ class IssueValidation:
         self.xmltree = xmltree
         self.article_issue = ArticleMetaIssue(xmltree)
 
-    def validate_volume(self, expected_value):
+    def validate_volume(self, expected_value=None):
         """
         Checks the correctness of a volume.
 
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                </article-meta>
+            </front>
+        </article>
+
         Parameters
         ----------
-        expected_value : str
-            Correct value for volume.
+        expected_value : str or None
+            Correct value for volume, when a value for volume is not expected, this parameter should not be passed.
 
         Returns
         -------
         dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_volume('23')
-
-        {
-            'object': 'volume',
-            'output_expected': '23',
-            'output_obteined': '23',
-            'match': True
-        }
+            A dictionary as described in the example:
+            [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'volume',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': '56',
+                    'got_value': '56',
+                    'message': 'Got 56, expected 56',
+                    'advice': None,
+                    'data': {'number': '4', 'volume': '56'}
+                }
+            ]
         """
-        resp_vol = dict(
-            object='volume',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.volume,
-            match=(expected_value == self.article_issue.volume)
+        yield format_response(
+            title='Article-meta issue element validation',
+            is_valid=expected_value == self.article_issue.volume,
+            validation_type='value',
+            obtained=self.article_issue.volume,
+            expected=expected_value,
+            item='article-meta',
+            sub_item='volume',
+            parent='article-meta',
+            advice=f'provide {expected_value} as value for volume',
+            data=self.article_issue.data
         )
-        return resp_vol
 
     def validate_article_issue(self, response_type_for_absent_issue):
         """
@@ -117,6 +135,11 @@ class IssueValidation:
             </front>
         </article>
 
+        Parameters
+        ----------
+        response_type_for_absent_issue : str
+            Response type for absent value.
+
         Returns
         -------
         list of dict
@@ -124,13 +147,17 @@ class IssueValidation:
             [
                 {
                     'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'issue',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '4',
                     'got_value': '4',
-                    'message': 'Got 4 expected 4',
-                    'advice': None
+                    'message': 'Got 4, expected 4',
+                    'advice': None,
+                    'data': {'number': '4', 'volume': '56'},
                 }
             ]
         """
@@ -147,85 +174,230 @@ class IssueValidation:
             else:
                 is_valid, expected, advice = _validate_issue_identifier(obtained)
 
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'format',
-                    'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
-                    'message': 'Got {} expected {}'.format(obtained, expected),
-                    'advice': advice
-                }
-            ]
+            yield format_response(
+                title='Article-meta issue element validation',
+                is_valid=is_valid,
+                validation_type='format',
+                obtained=obtained,
+                expected=expected,
+                item='article-meta',
+                sub_item='issue',
+                parent='article-meta',
+                advice=advice,
+                data=self.article_issue.data
+            )
         else:
             expected = 'an identifier for the publication issue'
-            return [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'xpath': './/front/article-meta/issue',
-                    'validation_type': 'exist',
-                    'response': response_type_for_absent_issue,
-                    'expected_value': expected,
-                    'got_value': None,
-                    'message': 'Got None expected {}'.format(expected),
-                    'advice': 'Provide an identifier for the publication issue'
-                }
-            ]
 
-    def validate_supplement(self, expected_value):
+            response = format_response(
+                title='Article-meta issue element validation',
+                validation_type='exist',
+                obtained=obtained,
+                expected=expected,
+                item='article-meta',
+                sub_item='issue',
+                parent='article-meta',
+                advice='Provide an identifier for the publication issue',
+                data=self.article_issue.data
+            )
+
+            response['response'] = response_type_for_absent_issue
+            yield response
+
+    def validate_supplement(self, expected_value=None):
         """
         Checks the correctness of a supplement.
 
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+
         Parameters
         ----------
-        expected_value : str
-            Correct value for supplement.
+        expected_value : str or None
+            Correct value for supplement, when a value for supplement is not expected, this parameter should not be passed.
 
         Returns
         -------
         dict
-            A dictionary as described in the example.
-
-        Examples
-        --------
-        >>> validate_supplement('5')
-
-        {
-            'object': 'supplement',
-            'output_expected': '5',
-            'output_obteined': '5b',
-            'match': False
-        }
+            A dictionary as described in the example:
+            [
+            {
+                'title': 'Article-meta issue element validation',
+                'parent': 'article-meta',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'supplement',
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2',
+                'got_value': '2',
+                'message': 'Got 2, expected 2',
+                'advice': None,
+                'data': {'number': '4', 'suppl': '2', 'volume': '56'},
+            }
+        ]
         """
-        resp_suppl = dict(
-            object='supplement',
-            output_expected=expected_value,
-            output_obteined=self.article_issue.suppl,
-            match=(expected_value == self.article_issue.suppl)
+        yield format_response(
+            title='Article-meta issue element validation',
+            is_valid=expected_value == self.article_issue.suppl,
+            validation_type='format',
+            obtained=self.article_issue.suppl,
+            expected=expected_value,
+            item='article-meta',
+            sub_item='supplement',
+            parent='article-meta',
+            advice=f'provide {expected_value} as value for supplement',
+            data=self.article_issue.data
         )
-        return resp_suppl
 
     def validate(self, data):
         """
-        Função que executa as validações da classe IssueValidation.
+        Performs the validation functions of class IssueValidation.
 
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-        
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <volume>56</volume>
+                    <issue>4</issue>
+                    <supplement>2</supplement>
+                </article-meta>
+            </front>
+        </article>
+
+        Parameters
+        ----------
+        data : dict
+            data={
+                'expected_value_volume': '56',
+                'response_type_for_absent_issue': 'WARNING',
+                'expected_value_supplement': '1'
+            }
+
+        Returns
+        -------
+        list
+            A list of dictionary as described in the example:
+            [
+                {
+                    'title': 'Article-meta issue element validation',
+                    'parent': 'article-meta',
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'volume',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': '56',
+                    'got_value': '56',
+                    'message': 'Got 56, expected 56',
+                    'advice': None,
+                    'data': {'number': '4', 'suppl': '1', 'volume': '56'},
+                },...
+            ]
         """
-                      
-        vol_results = {
-            'article_volume_validation': self.validate_volume(data['expected_value_volume'])
-        }
-        issue_results = { 
-            'article_issue_validation': self.validate_issue(data['expected_value_issue'])
-        }
-        suppl_results = {
-            'article_supplement_validation': self.validate_supplement(data['expected_value_supplment'])
-        }
-        vol_results.update(issue_results)
-        vol_results.update(suppl_results)
-        
-        return vol_results
+        yield from self.validate_volume(data['expected_value_volume'])
+        yield from self.validate_article_issue(data['response_type_for_absent_issue'])
+        yield from self.validate_supplement(data['expected_value_supplement'])
+
+
+class Pagination:
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
+        self.issue = ArticleMetaIssue(xml_tree)
+
+    def validation_pagination_attributes_exist(self):
+        """
+        Checks for the existence of starting and ending page numbers that cannot coexist with the elocation-id.
+
+        XML input
+        ---------
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <lpage>240</lpage>
+                </article-meta>
+            </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Pagination validation',
+                    'parent': None,
+                    'parent_id': None,
+                    'item': 'article-meta',
+                    'sub_item': 'elocation-id',
+                    'response': 'ERROR',
+                    'expected_value': 'no values for fpage and lpage OR no value for elocation-id',
+                    'got_value': 'elocation-id: e51467, fpage: 220, lpage: 240',
+                    'message': 'Got elocation-id: e51467, fpage: 220, lpage: 240, expected no values for fpage and lpage '
+                               'OR no value for elocation-id',
+                    'validation_type': 'exist',
+                    'advice': 'remove values for fpage and lpage OR remove value for elocation-id',
+                    'data': {'elocation_id': 'e51467', 'fpage': '220', 'lpage': '240'}
+                },...
+            ]
+        """
+        e_location = self.issue.elocation_id is not None
+        fpage = self.issue.fpage is not None
+        lpage = self.issue.lpage is not None
+        volume = self.issue.volume is not None
+        number = self.issue.number is not None
+
+        if e_location and fpage and lpage:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=False,
+                expected='e-location OR fpage + lpage',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice='it is necessary to provide e-location OR fpage + lpage',
+                data=self.issue.data
+            )
+
+        elif not e_location and not fpage and not lpage and volume and number:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=False,
+                expected='e-location OR fpage + lpage',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice='it is necessary to provide e-location OR fpage + lpage',
+                data=self.issue.data
+            )
+
+        else:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=True,
+                expected='e-location OR fpage + lpage',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice=None,
+                data=self.issue.data
+            )
