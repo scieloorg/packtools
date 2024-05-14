@@ -24,21 +24,26 @@ class Footnote:
 
 
 class Footnotes:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def footnotes(self):
+        for fn_node in self.node.xpath(".//fn"):
+            fn = Footnote(fn_node)
+            fn_data = fn.data
+
+            parent_id = self.node.get("id")
+            fn_data["parent"] = "sub-article" if parent_id is not None else "article"
+            fn_data["parent_id"] = parent_id
+            yield fn_data
+
+
+class ArticleFootnotes:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
-    def footnotes(self):
-        for fn_node in self.xmltree.xpath(".//fn"):
-            # identifica se o fn_node pertence a article ou sub-article
-            parent = fn_node.getparent()
-            while parent is not None and parent.tag not in ['article', 'sub-article']:
-                parent = parent.getparent()
-
-            # obtem os dados de fn_node
-            fn = Footnote(fn_node)
-            fn_data = fn.data
-
-            fn_data["parent"] = parent.tag if parent is not None else parent
-            fn_data["parent_id"] = parent.get("id") if parent is not None else parent
-            yield fn_data
+    def article_footnotes(self):
+        for node in self.xmltree.xpath("./front | ./body | ./back | .//sub-article"):
+            yield from Footnotes(node).footnotes
