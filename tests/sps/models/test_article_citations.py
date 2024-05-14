@@ -90,6 +90,8 @@ class AuthorsTest(TestCase):
                 'year': '2015',
                 'article_title': 'Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages',
                 'citation_ids': {'pmid': '00000000', 'pmcid': '11111111', 'doi': '10.1016/B1'},
+                'parent': 'article',
+                'parent_id': None,
             }
         ]
         for i, item in enumerate(expected):
@@ -133,13 +135,15 @@ class AuthorsTest(TestCase):
                 'ref_id': 'B2',
                 'publication_type': 'book',
                 'author_type': 'person',
-                'mixed_citation': 'BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.',
+                'mixed_citation': 'BARTHES, Roland. Aula . São Pulo: Cultrix, 1987.',
                 'source': 'Aula',
                 'main_author': {'surname': 'BARTHES', 'given-names': 'Roland'},
                 'all_authors': [{'surname': 'BARTHES', 'given-names': 'Roland'}],
                 'elocation_id': 'elocation_B2',
                 'year': '1987',
-                'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'}
+                'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'},
+                'parent': 'article',
+                'parent_id': None,
             }
         ]
         for i, item in enumerate(expected):
@@ -205,6 +209,8 @@ class AuthorsTest(TestCase):
                 'year': '2001',
                 'main_author': {'collab': ['Brasil']},
                 'all_authors': [{'collab': ['Brasil']}],
+                'parent': 'article',
+                'parent_id': None,
             },
 
         ]

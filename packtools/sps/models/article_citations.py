@@ -96,30 +96,36 @@ class ArticleCitations:
 
     @property
     def article_citations(self):
-        for node in self.xmltree.xpath("./back/ref-list//ref"):
-            tags = [
-                ('ref_id', get_ref_id(node)),
-                ('label', get_label(node)),
-                ('publication_type', get_publication_type(node)),
-                ('source', get_source(node)),
-                ('main_author', get_main_author(node)),
-                ('all_authors', get_all_authors(node)),
-                ('volume', get_volume(node)),
-                ('issue', get_issue(node)),
-                ('fpage', get_fpage(node)),
-                ('lpage', get_lpage(node)),
-                ('elocation_id', get_elocation_id(node)),
-                ('year', get_year(node)),
-                ('article_title', get_article_title(node)),
-                ('citation_ids', get_citation_ids(node)),
-                ('mixed_citation', get_mixed_citation(node))
-            ]
-            d = dict()
-            for name, value in tags:
-                if value is not None and len(value) > 0:
-                    try:
-                        d[name] = value.text
-                    except AttributeError:
-                        d[name] = value
-            d['author_type'] = 'institutional' if get_collab(node) else 'person'
-            yield d
+        for parent in self.xmltree.xpath(". | .//sub-article"):
+            parent_data = {
+                'parent': 'sub-article' if parent.get("id") else 'article',
+                'parent_id': parent.get("id")
+            }
+            for node in parent.xpath("./back/ref-list//ref"):
+                tags = [
+                    ('ref_id', get_ref_id(node)),
+                    ('label', get_label(node)),
+                    ('publication_type', get_publication_type(node)),
+                    ('source', get_source(node)),
+                    ('main_author', get_main_author(node)),
+                    ('all_authors', get_all_authors(node)),
+                    ('volume', get_volume(node)),
+                    ('issue', get_issue(node)),
+                    ('fpage', get_fpage(node)),
+                    ('lpage', get_lpage(node)),
+                    ('elocation_id', get_elocation_id(node)),
+                    ('year', get_year(node)),
+                    ('article_title', get_article_title(node)),
+                    ('citation_ids', get_citation_ids(node)),
+                    ('mixed_citation', get_mixed_citation(node))
+                ]
+                d = dict()
+                for name, value in tags:
+                    if value is not None and len(value) > 0:
+                        try:
+                            d[name] = value.text
+                        except AttributeError:
+                            d[name] = value
+                d['author_type'] = 'institutional' if get_collab(node) else 'person'
+                d.update(parent_data)
+                yield d
