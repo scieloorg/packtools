@@ -953,3 +953,152 @@ class IssueTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
+
+
+class PaginationTest(TestCase):
+    def test_validation_pages_success(self):
+        self.maxDiff = None
+        xml = (
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <fpage>220</fpage>
+                        <lpage>240</lpage>
+                    </article-meta>
+                </front>
+            </article>
+            '''
+        )
+        xmltree = etree.fromstring(xml)
+
+        expected = [
+            {
+                'title': 'Pagination validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'e-location, fpage, lpage',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'e-location OR fpage + lpage',
+                'got_value': 'elocation-id: None, fpage: 220, lpage: 240',
+                'message': 'Got elocation-id: None, fpage: 220, lpage: 240, expected e-location OR fpage + lpage',
+                'advice': None,
+                'data': {'fpage': '220', 'lpage': '240'},
+            }
+        ]
+        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validation_e_location_success(self):
+        self.maxDiff = None
+        xml = (
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <elocation-id>e51467</elocation-id>
+                    </article-meta>
+                </front>
+            </article>
+            '''
+        )
+        xmltree = etree.fromstring(xml)
+        expected = [
+            {
+                'title': 'Pagination validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'e-location, fpage, lpage',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': 'e-location OR fpage + lpage',
+                'got_value': 'elocation-id: e51467, fpage: None, lpage: None',
+                'message': 'Got elocation-id: e51467, fpage: None, lpage: None, expected e-location OR fpage + lpage',
+                'advice': None,
+                'data': {'elocation_id': 'e51467'},
+            }
+        ]
+        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validation_pages_and_e_location_exists_fail(self):
+        self.maxDiff = None
+        xml = (
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <elocation-id>e51467</elocation-id>
+                        <fpage>220</fpage>
+                        <lpage>240</lpage>
+                    </article-meta>
+                </front>
+            </article>
+            '''
+        )
+
+        xmltree = etree.fromstring(xml)
+        expected = [
+            {
+                'title': 'Pagination validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'e-location, fpage, lpage',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'e-location OR fpage + lpage',
+                'got_value': 'elocation-id: e51467, fpage: 220, lpage: 240',
+                'message': 'Got elocation-id: e51467, fpage: 220, lpage: 240, expected e-location OR fpage + lpage',
+                'advice': 'it is necessary to provide e-location OR fpage + lpage',
+                'data': {'elocation_id': 'e51467', 'fpage': '220', 'lpage': '240'},
+            }
+        ]
+        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validation_pages_and_e_location_not_exists_fail(self):
+        self.maxDiff = None
+        xml = (
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <volume>4</volume>
+                        <issue>1</issue>
+                    </article-meta>
+                </front>
+            </article>
+            '''
+        )
+
+        xmltree = etree.fromstring(xml)
+        expected = [
+            {
+                'title': 'Pagination validation',
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-meta',
+                'sub_item': 'e-location, fpage, lpage',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'e-location OR fpage + lpage',
+                'got_value': 'elocation-id: None, fpage: None, lpage: None',
+                'message': 'Got elocation-id: None, fpage: None, lpage: None, expected e-location OR fpage + lpage',
+                'advice': 'it is necessary to provide e-location OR fpage + lpage',
+                'data': {'number': '1', 'volume': '4'},
+            }
+        ]
+        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])

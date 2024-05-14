@@ -277,7 +277,7 @@ class IssueValidation:
 
         Parameters
         ----------
-        date : dict
+        data : dict
             data={
                 'expected_value_volume': '56',
                 'response_type_for_absent_issue': 'WARNING',
@@ -308,21 +308,6 @@ class IssueValidation:
         yield from self.validate_volume(data['expected_value_volume'])
         yield from self.validate_article_issue(data['response_type_for_absent_issue'])
         yield from self.validate_supplement(data['expected_value_supplement'])
-
-
-def _response(sub_item, expected, advice, obtained=None):
-    return format_response(
-        title='Pagination validation',
-        parent=None,
-        parent_id=None,
-        item='article-meta',
-        sub_item=sub_item,
-        validation_type='exist',
-        is_valid=False,
-        expected=expected,
-        obtained=obtained,
-        advice=advice
-    )
 
 
 class Pagination:
@@ -366,29 +351,53 @@ class Pagination:
                 },...
             ]
         """
-        if self.issue.elocation_id is None:
-            if self.issue.fpage is None:
-                response = _response(
-                    sub_item='fpage',
-                    expected='a value for fpage',
-                    advice='provide a value for fpage'
-                )
-                response['data'] = self.issue.data
-                yield response
-            if self.issue.lpage is None:
-                response = _response(
-                    sub_item='lpage',
-                    expected='a value for lpage',
-                    advice='provide a value for lpage'
-                )
-                response['data'] = self.issue.data
-                yield response
-        elif self.issue.fpage is not None or self.issue.lpage is not None:
-            response = _response(
-                sub_item='elocation-id',
-                expected='no values for fpage and lpage OR no value for elocation-id',
+        e_location = self.issue.elocation_id is not None
+        fpage = self.issue.fpage is not None
+        lpage = self.issue.lpage is not None
+        volume = self.issue.volume is not None
+        number = self.issue.number is not None
+
+        if e_location and fpage and lpage:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=False,
+                expected='e-location OR fpage + lpage',
                 obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
-                advice='remove values for fpage and lpage OR remove value for elocation-id'
+                advice='it is necessary to provide e-location OR fpage + lpage',
+                data=self.issue.data
             )
-            response['data'] = self.issue.data
-            yield response
+
+        elif not e_location and not fpage and not lpage and volume and number:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=False,
+                expected='e-location OR fpage + lpage',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice='it is necessary to provide e-location OR fpage + lpage',
+                data=self.issue.data
+            )
+
+        else:
+            yield format_response(
+                title='Pagination validation',
+                parent='article',
+                parent_id=None,
+                item='article-meta',
+                sub_item='e-location, fpage, lpage',
+                validation_type='exist',
+                is_valid=True,
+                expected='e-location OR fpage + lpage',
+                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
+                advice=None,
+                data=self.issue.data
+            )
