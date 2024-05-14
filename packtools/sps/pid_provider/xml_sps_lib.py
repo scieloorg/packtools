@@ -260,6 +260,11 @@ class XMLWithPre:
         self.uri = None
         self.zip_file_path = None
         self.xml_file_path = None
+        self._DOCTYPE = None
+        self._public_id = None
+        self._system_id = None
+        self.relative_system_id = None
+        self._sps_version = None
 
     @property
     def data(self):
@@ -289,6 +294,42 @@ class XMLWithPre:
                 yield item["xml_with_pre"]
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout=30)
+
+    @property
+    def DOCTYPE(self):
+        if self._DOCTYPE is None:
+            if '<!DOCTYPE' in self.xmlpre:
+                self._DOCTYPE = self.xmlpre[self.xmlpre.find('<!DOCTYPE'):]
+                self._DOCTYPE = self._DOCTYPE[:self._DOCTYPE.find('>')+1]
+        return self._DOCTYPE
+
+    @property
+    def public_id(self):
+        if self._public_id is None:
+            if self.DOCTYPE is not None:
+                self._public_id = self.DOCTYPE[self.DOCTYPE.find('"')+1:]
+                self._public_id = self._public_id[:self._public_id.find('"')]
+        return self._public_id
+
+    @property
+    def system_id(self):
+        if self._system_id is None:
+            if 'http' in self.DOCTYPE:
+                self._system_id = self.DOCTYPE[self.DOCTYPE.find('"http')+1:]
+                self._system_id = self._system_id[:self._system_id.find('"')]
+            if self.public_id:
+                _text = self.DOCTYPE[self.DOCTYPE.find(self.public_id)+len(self.public_id):]
+                _text = _text[_text.find('"')+1:]
+                _text = _text[_text.find('"')+1:]
+                self.relative_system_id = _text[:_text.find('"')]
+        return self._system_id
+
+    @property
+    def sps_version(self):
+        try:
+            return self.xmltree.find(".").get("specific-use")
+        except (AttributeError, TypeError, ValueError):
+            return None
 
     def update_xml_in_zip_file(self):
         if self.zip_file_path and self.filename:
