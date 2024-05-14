@@ -1,6 +1,6 @@
 import unittest
 from lxml import etree
-from packtools.sps.models.article_author_notes import AuthorNotes
+from packtools.sps.models.article_author_notes import ArticleAuthorNotes
 
 
 class AuthorNotesTest(unittest.TestCase):
@@ -36,12 +36,12 @@ class AuthorNotesTest(unittest.TestCase):
             '''
         )
 
-        obtained = list(AuthorNotes(self.xml_tree).data)
+        obtained = list(ArticleAuthorNotes(self.xml_tree).author_notes)
         expected = [
             {
                 'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana '
                             '22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                'fn_numbers': 1,
+                'fn_count': 1,
                 'fn_types': ['conflict'],
                 'parent': 'article',
                 'parent_id': None
@@ -49,7 +49,7 @@ class AuthorNotesTest(unittest.TestCase):
             {
                 'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana '
                             '22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                'fn_numbers': 1,
+                'fn_count': 1,
                 'fn_types': ['conflict'],
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
