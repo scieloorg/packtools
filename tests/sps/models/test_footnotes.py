@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.models.footnotes import Footnote, Footnotes
+from packtools.sps.models.footnotes import Footnote, ArticleFootnotes
 from packtools.sps.utils import xml_utils
 
 
@@ -55,78 +55,78 @@ class FootnotesTest(TestCase):
 
         expected = [
             {
-                'fn-id': None,
-                'fn-type': 'conflict',
-                'fn-parent': 'author-notes',
+                'fn_id': None,
+                'fn_type': 'conflict',
+                'fn_parent': 'author-notes',
                 'parent': 'article',
                 'parent_id': None
             },
             {
-                'fn-id': 'fn1',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn1',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'article',
                 'parent_id': None
             },
             {
-                'fn-id': 'fn2',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn2',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'article',
                 'parent_id': None
             },
             {
-                'fn-id': 'fn3',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn3',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'article',
                 'parent_id': None
             },
             {
-                'fn-id': 'fn4',
-                'fn-type': 'financial-disclosure',
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn4',
+                'fn_type': 'financial-disclosure',
+                'fn_parent': 'fn-group',
                 'parent': 'article',
                 'parent_id': None
             },
             {
-                'fn-id': None,
-                'fn-type': 'conflict',
-                'fn-parent': 'author-notes',
+                'fn_id': None,
+                'fn_type': 'conflict',
+                'fn_parent': 'author-notes',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             },
             {
-                'fn-id': 'fn1_en',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn1_en',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             },
             {
-                'fn-id': 'fn2_en',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn2_en',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             },
             {
-                'fn-id': 'fn3_en',
-                'fn-type': None,
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn3_en',
+                'fn_type': None,
+                'fn_parent': 'fn-group',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             },
             {
-                'fn-id': 'fn4_en',
-                'fn-type': 'financial-disclosure',
-                'fn-parent': 'fn-group',
+                'fn_id': 'fn4_en',
+                'fn_type': 'financial-disclosure',
+                'fn_parent': 'fn-group',
                 'parent': 'sub-article',
                 'parent_id': 'TRen'
             }
         ]
 
-        obtained = list(Footnotes(xmltree).footnotes)
+        obtained = list(ArticleFootnotes(xmltree).article_footnotes)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
