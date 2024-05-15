@@ -40,8 +40,6 @@ class AuthorNotes:
     def data(self):
         author_note = AuthorNote(self.node)
         return {
-            'parent': 'sub-article' if self.node.get('id') else 'article',
-            'parent_id': self.node.get('id'),
             'corresp': list(author_note.corresp),
             'fn_count': author_note.fn_count,
             'fn_types': list(author_note.fn_types)
@@ -54,6 +52,15 @@ class ArticleAuthorNotes:
 
     @property
     def author_notes(self):
+        main = self.xmltree.xpath(".")[0]
+        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+        main_article_type = main.get("article-type")
         for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
-            author_note = AuthorNotes(node)
-            yield author_note.data
+            node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            node_article_type = node.get("article-type")
+            author_note = AuthorNotes(node).data
+            author_note["parent"] = 'sub-article' if node.tag == 'sub-article' else 'article'
+            author_note["parent_id"] = node.get('id')
+            author_note["parent_lang"] = node_lang or main_lang
+            author_note["parent_article_type"] = node_article_type or main_article_type
+            yield author_note
