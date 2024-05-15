@@ -40,7 +40,7 @@ class AuthorNotesValidation:
                 is_valid=is_valid,
                 expected=f"{fn_numbers} fn-types",
                 obtained=f"{len(fn_types)} fn-types",
-                advice="provide one <@fn-type> for each <fn> tag",
+                advice="provide one @fn-type for each <fn> tag",
                 data=author_note
             )
 
