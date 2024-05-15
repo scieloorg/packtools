@@ -298,7 +298,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'expected_value': '1 fn-types',
                 'got_value': '0 fn-types',
                 'message': "Got 0 fn-types, expected 1 fn-types",
-                'advice': 'provide one <@fn-type> for each <fn> tag',
+                'advice': 'provide one @fn-type for each <fn> tag',
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                      ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
@@ -319,7 +319,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'expected_value': '1 fn-types',
                 'got_value': '0 fn-types',
                 'message': "Got 0 fn-types, expected 1 fn-types",
-                'advice': 'provide one <@fn-type> for each <fn> tag',
+                'advice': 'provide one @fn-type for each <fn> tag',
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                 ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
