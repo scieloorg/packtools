@@ -59,70 +59,90 @@ class FootnotesTest(TestCase):
                 'fn_type': 'conflict',
                 'fn_parent': 'author-notes',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
             {
                 'fn_id': 'fn1',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
             {
                 'fn_id': 'fn2',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
             {
                 'fn_id': 'fn3',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
             {
                 'fn_id': 'fn4',
                 'fn_type': 'financial-disclosure',
                 'fn_parent': 'fn-group',
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
             {
                 'fn_id': None,
                 'fn_type': 'conflict',
                 'fn_parent': 'author-notes',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation',
+                'parent_lang': 'en'
             },
             {
                 'fn_id': 'fn1_en',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation',
+                'parent_lang': 'en'
             },
             {
                 'fn_id': 'fn2_en',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation',
+                'parent_lang': 'en'
             },
             {
                 'fn_id': 'fn3_en',
                 'fn_type': None,
                 'fn_parent': 'fn-group',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation',
+                'parent_lang': 'en'
             },
             {
                 'fn_id': 'fn4_en',
                 'fn_type': 'financial-disclosure',
                 'fn_parent': 'fn-group',
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_article_type': 'translation',
+                'parent_lang': 'en'
             }
         ]
 
