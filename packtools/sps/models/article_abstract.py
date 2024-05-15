@@ -846,10 +846,9 @@ class Highlights:
 
     @property
     def highlights(self):
-        for node in self.xmltree.xpath(".//abstract"):
-            if node.get("abstract-type") == "key-points":
-                highlight = Highlight(node)
-                yield highlight.data
+        for node in self.xmltree.xpath(".//abstract[@abstract-type='key-points']"):
+            highlight = Highlight(node)
+            yield highlight.data
 
 
 class VisualAbstract:
@@ -894,7 +893,6 @@ class VisualAbstracts:
 
     @property
     def visual_abstracts(self):
-        for abstract in self.xmltree.xpath(".//abstract"):
-            if abstract.get("abstract-type") == "graphical":
-                visual_abstract = VisualAbstract(abstract)
-                yield visual_abstract.data
+        for abstract in self.xmltree.xpath(".//abstract[@abstract-type='graphical']"):
+            visual_abstract = VisualAbstract(abstract)
+            yield visual_abstract.data
