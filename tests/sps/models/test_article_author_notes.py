@@ -7,7 +7,8 @@ class AuthorNotesTest(unittest.TestCase):
     def test_author_notes(self):
         self.xml_tree = etree.fromstring(
             '''
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
             <author-notes>
@@ -44,7 +45,9 @@ class AuthorNotesTest(unittest.TestCase):
                 'fn_count': 1,
                 'fn_types': ['conflict'],
                 'parent': 'article',
-                'parent_id': None
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'parent_article_type': 'research-article',
             },
             {
                 'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana '
@@ -52,7 +55,9 @@ class AuthorNotesTest(unittest.TestCase):
                 'fn_count': 1,
                 'fn_types': ['conflict'],
                 'parent': 'sub-article',
-                'parent_id': 'TRen'
+                'parent_id': 'TRen',
+                'parent_lang': 'en',
+                'parent_article_type': 'translation',
             }
         ]
 
