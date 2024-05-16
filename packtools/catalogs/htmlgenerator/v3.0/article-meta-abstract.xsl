@@ -7,6 +7,7 @@
 
     <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
         <xsl:param name="title"/>
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection" data-anchor="{$title}">
             <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
         </div>
@@ -21,7 +22,7 @@
 
         <xsl:if test="not($gs_abstract_lang)">
             <!-- âncora -->
-
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
             <xsl:variable name="title"><xsl:apply-templates select="." mode="title"/></xsl:variable>
             <xsl:attribute name="class">articleSection articleSection--<xsl:value-of select="translate($title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:attribute>
             <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
