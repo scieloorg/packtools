@@ -85,6 +85,7 @@
 
     <xsl:template match="*" mode="back-section-menu">
         <xsl:if test="title or label">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
             <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="label"/>
@@ -98,6 +99,7 @@
         <xsl:variable name="name" select="name()"/>
         <!-- cria menu somente para o primeiro ref-list (há casos de série de ref-list) -->
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][name()!=$name]">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
             <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="." mode="text-labels">
