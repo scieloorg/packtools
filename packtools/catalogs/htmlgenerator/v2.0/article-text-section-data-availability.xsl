@@ -41,6 +41,7 @@
                 <xsl:with-param name="text">Data availability</xsl:with-param>
             </xsl:apply-templates>
         </xsl:variable>
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
             <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>

@@ -121,6 +121,8 @@
         Evita que no menu apareça o mesmo título mais de uma vez 
         -->
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+            <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>

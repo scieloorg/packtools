@@ -77,6 +77,7 @@
 
     <xsl:template match="title-group" mode="sub-article-not-translation-component">
         <!-- Apresentação padrão de um compontente do Bloco do sub-article (not translation) ou response -->
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection">
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select=".//article-title"/>
