@@ -419,11 +419,11 @@ class ArticleAbstract:
         self.tags_to_convert_to_html = None
 
     def configure(
-        self,
-        tags_to_keep=None,
-        tags_to_keep_with_content=None,
-        tags_to_remove_with_content=None,
-        tags_to_convert_to_html=None,
+            self,
+            tags_to_keep=None,
+            tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None,
+            tags_to_convert_to_html=None,
     ):
         self.tags_to_keep = tags_to_keep
         self.tags_to_keep_with_content = tags_to_keep_with_content
@@ -469,9 +469,9 @@ class ArticleAbstract:
         node_title = node.find("title")
 
         title = AbstractTextNode(
-                node=node_title,
-                lang=lang
-            )
+            node=node_title,
+            lang=lang
+        )
         title.configure(
             tags_to_keep=self.tags_to_keep,
             tags_to_keep_with_content=self.tags_to_keep_with_content,
@@ -830,7 +830,7 @@ class Highlight:
     @property
     def highlights(self):
         for highlight in self.node.xpath('.//p'):
-                yield highlight.text
+            yield highlight.text
 
     @property
     def data(self):
@@ -846,9 +846,10 @@ class Highlights:
 
     @property
     def highlights(self):
-        for node in self.xmltree.xpath(".//abstract[@abstract-type='key-points']"):
-            highlight = Highlight(node)
-            yield highlight.data
+        for node, lang, article_type, parent, parent_id in _get_parent_context(self.xmltree):
+            for abstract in node.xpath(".//abstract[@abstract-type='key-points']"):
+                highlight = Highlight(abstract)
+                yield _put_parent_context(highlight.data, lang, article_type, parent, parent_id)
 
 
 class VisualAbstract:
@@ -893,6 +894,31 @@ class VisualAbstracts:
 
     @property
     def visual_abstracts(self):
-        for abstract in self.xmltree.xpath(".//abstract[@abstract-type='graphical']"):
-            visual_abstract = VisualAbstract(abstract)
-            yield visual_abstract.data
+        for node, lang, article_type, parent, parent_id in _get_parent_context(self.xmltree):
+            for abstract in node.xpath(".//abstract[@abstract-type='graphical']"):
+                visual_abstract = VisualAbstract(abstract)
+                yield _put_parent_context(visual_abstract.data, lang, article_type, parent, parent_id)
+
+
+def _get_parent_context(xmltree):
+    main = xmltree.xpath(".")[0]
+    main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+    main_article_type = main.get("article-type")
+    for node in xmltree.xpath(".//article-meta | .//sub-article"):
+        parent = "sub-article" if node.tag == "sub-article" else "article"
+        parent_id = node.get("id")
+        lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+        article_type = node.get("article-type") or main_article_type
+        yield node, lang, article_type, parent, parent_id
+
+
+def _put_parent_context(data, lang, article_type, parent, parent_id):
+    data.update(
+        {
+            "parent": parent,
+            "parent_id": parent_id,
+            "parent_lang": lang,
+            "parent_article_type": article_type,
+        }
+    )
+    return data
