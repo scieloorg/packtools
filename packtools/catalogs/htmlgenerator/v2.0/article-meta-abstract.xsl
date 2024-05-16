@@ -129,6 +129,7 @@
 
     <xsl:template match="article" mode="create-anchor-and-title-for-abstracts-without-title-div-h-number">
         <xsl:param name="title"/>
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection" data-anchor="{$title}">
             <h1 class="articleSectionTitle"><xsl:value-of select="$title"/></h1>
         </div>
@@ -191,6 +192,7 @@
         <!-- Apresenta a âncora e o título, ou seja, Abstract, Resumo, ou Resumen -->
 
         <!-- âncora -->
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <xsl:attribute name="class">articleSection</xsl:attribute>
         <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
         <xsl:if test="@xml:lang='ar'">
