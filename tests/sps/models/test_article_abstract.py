@@ -1835,6 +1835,17 @@ class HighlightsTest(TestCase):
                         </abstract>
                     </article-meta>
                 </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>Nam vitae leo aliquet, pretium ante at, faucibus felis</p>
+                            <p>Aliquam ac mauris et libero pulvinar facilisis</p>
+                            <p>Fusce aliquam ipsum ut diam luctus porta</p>
+                            <p>Ut a erat ac odio placerat convallis</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
             </article>
             """)
         self.highlights = Highlights(xmltree)
@@ -1848,7 +1859,24 @@ class HighlightsTest(TestCase):
                     'Aliquam ac mauris et libero pulvinar facilisis',
                     'Fusce aliquam ipsum ut diam luctus porta',
                     'Ut a erat ac odio placerat convallis'
-                ]
+                ],
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+            },
+            {
+                "title": "HIGHLIGHTS",
+                "highlights": [
+                    'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+                    'Aliquam ac mauris et libero pulvinar facilisis',
+                    'Fusce aliquam ipsum ut diam luctus porta',
+                    'Ut a erat ac odio placerat convallis'
+                ],
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'es',
             }
         ]
 
@@ -1930,6 +1958,21 @@ class VisualAbstractsTest(TestCase):
                         </abstract>
                     </article-meta>
                 </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="graphical">
+                            <title>Visual Abstract</title>
+                                <p>
+                                    <fig id="vf01">
+                                        <caption>
+                                            <title>Título</title>
+                                        </caption>
+                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
+                                    </fig>
+                                </p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
             </article>
             """)
         self.visual_abstracts = VisualAbstracts(xmltree)
@@ -1940,8 +1983,22 @@ class VisualAbstractsTest(TestCase):
                 "title": "Visual Abstract",
                 "fig_id": "vf01",
                 "caption": "Título",
-                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif"
-            }
+                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+            },
+            {
+                "title": "Visual Abstract",
+                "fig_id": "vf01",
+                "caption": "Título",
+                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+                'parent': 'sub-article',
+                'parent_id': '01',
+                'parent_article_type': 'translation',
+                'parent_lang': 'es',
+            },
         ]
 
         obtained = list(self.visual_abstracts.visual_abstracts)
