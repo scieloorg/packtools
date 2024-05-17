@@ -36,14 +36,10 @@ class FootnoteTest(TestCase):
     def test_fn_type(self):
         self.assertEqual(self.fn.fn_type, "conflict")
 
-    def test_fn_parent(self):
-        self.assertEqual(self.fn.fn_parent, "author-notes")
-
     def test_data(self):
         expected = {
             "fn_id": "fn_01",
             "fn_type": "conflict",
-            "fn_parent": "author-notes"
         }
         self.assertDictEqual(self.fn.data, expected)
 
