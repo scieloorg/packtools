@@ -5,7 +5,7 @@ from packtools.sps.validation.article_author_notes import AuthorNotesValidation
 
 
 class ArticleAuthorNotesValidationTest(unittest.TestCase):
-    def test_corresp_validation_success(self):
+    def test_validate_corresp_tag_presence_success(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             '''
@@ -38,7 +38,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
             '''
         )
 
-        obtained = list(AuthorNotesValidation(self.xmltree).corresp_validation())
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_corresp_tag_presence())
         expected = [
             {
                 'title': 'Author notes validation',
@@ -63,7 +63,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
-                    'parent_id': None
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
                 }
             },
             {
@@ -89,14 +91,16 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
-                    'parent_id': 'TRen'
+                    'parent_id': 'TRen',
+                    'parent_article_type': 'translation',
+                    'parent_lang': 'en'
                 }
             }]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_corresp_validation_fail(self):
+    def test_validate_corresp_tag_presence_fail(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             '''
@@ -125,7 +129,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
             '''
         )
 
-        obtained = list(AuthorNotesValidation(self.xmltree).corresp_validation())
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_corresp_tag_presence())
         expected = [
             {
                 'title': 'Author notes validation',
@@ -144,7 +148,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
-                    'parent_id': None
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
                 }
             },
             {
@@ -164,14 +170,16 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
-                    'parent_id': 'TRen'
+                    'parent_id': 'TRen',
+                    'parent_article_type': 'translation',
+                    'parent_lang': 'en'
                 }
             }]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_fn_type_validation_success(self):
+    def test_validate_fn_type_attribute_presence_success(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             '''
@@ -204,7 +212,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
             '''
         )
 
-        obtained = list(AuthorNotesValidation(self.xmltree).fn_type_validation())
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_fn_type_attribute_presence())
         expected = [
             {
                 'title': 'Author notes validation',
@@ -212,7 +220,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'parent_id': None,
                 'item': 'fn',
                 'sub_item': '@fn-type',
-                'validation_type': 'match',
+                'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '1 fn-types',
                 'got_value': '1 fn-types',
@@ -224,7 +232,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'article',
-                    'parent_id': None
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
                 }
             },
             {
@@ -233,7 +243,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'parent_id': 'TRen',
                 'item': 'fn',
                 'sub_item': '@fn-type',
-                'validation_type': 'match',
+                'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': '1 fn-types',
                 'got_value': '1 fn-types',
@@ -245,14 +255,16 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                     'fn_count': 1,
                     'fn_types': ['conflict'],
                     'parent': 'sub-article',
-                    'parent_id': 'TRen'
+                    'parent_id': 'TRen',
+                    'parent_article_type': 'translation',
+                    'parent_lang': 'en'
                 }
             }]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_fn_type_validation_fail(self):
+    def test_validate_fn_type_attribute_presence_fail(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             '''
@@ -285,7 +297,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
             '''
         )
 
-        obtained = list(AuthorNotesValidation(self.xmltree).fn_type_validation())
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_fn_type_attribute_presence())
         expected = [
             {
                 'title': 'Author notes validation',
@@ -293,19 +305,21 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'parent_id': None,
                 'item': 'fn',
                 'sub_item': '@fn-type',
-                'validation_type': 'match',
+                'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': '1 fn-types',
                 'got_value': '0 fn-types',
                 'message': "Got 0 fn-types, expected 1 fn-types",
-                'advice': 'provide one <@fn-type> for each <fn> tag',
+                'advice': 'provide one @fn-type for each <fn> tag',
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                      ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
                     'fn_count': 1,
                     'fn_types': [],
                     'parent': 'article',
-                    'parent_id': None
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
                 }
             },
             {
@@ -314,19 +328,21 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'parent_id': 'TRen',
                 'item': 'fn',
                 'sub_item': '@fn-type',
-                'validation_type': 'match',
+                'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': '1 fn-types',
                 'got_value': '0 fn-types',
                 'message': "Got 0 fn-types, expected 1 fn-types",
-                'advice': 'provide one <@fn-type> for each <fn> tag',
+                'advice': 'provide one @fn-type for each <fn> tag',
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
                                 ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
                     'fn_count': 1,
                     'fn_types': [],
                     'parent': 'sub-article',
-                    'parent_id': 'TRen'
+                    'parent_id': 'TRen',
+                    'parent_article_type': 'translation',
+                    'parent_lang': 'en'
                 }
             }]
         for i, item in enumerate(expected):
