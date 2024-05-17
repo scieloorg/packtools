@@ -82,3 +82,7 @@ class ValidationPeerReviewException(Exception):
 
 class ValidationAlternativesException(Exception):
     ...
+
+
+class ValidationFnTypeException(Exception):
+    ...
