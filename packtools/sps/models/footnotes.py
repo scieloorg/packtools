@@ -11,15 +11,10 @@ class Footnote:
         return self.node.get("fn-type")
 
     @property
-    def fn_parent(self):
-        return self.node.getparent().tag
-
-    @property
     def data(self):
         return {
             "fn_id": self.fn_id,
             "fn_type": self.fn_type,
-            "fn_parent": self.fn_parent
         }
 
 
@@ -32,10 +27,7 @@ class Footnotes:
         for fn_node in self.node.xpath(".//fn"):
             fn = Footnote(fn_node)
             fn_data = fn.data
-
-            parent_id = self.node.get("id")
-            fn_data["parent"] = "sub-article" if self.node.tag == "sub-article" else "article"
-            fn_data["parent_id"] = parent_id
+            fn_data["fn_parent"] = fn_node.getparent().tag
             yield fn_data
 
 
@@ -54,4 +46,6 @@ class ArticleFootnotes:
             for fn in Footnotes(node).footnotes:
                 fn["parent_lang"] = node_lang
                 fn["parent_article_type"] = node_article_type
+                fn["parent"] = "sub-article" if node.tag == "sub-article" else "article"
+                fn["parent_id"] = node.get("id")
                 yield fn
