@@ -86,3 +86,7 @@ class ValidationFootnotes(Exception):
 
 class ValidationAlternativesException(Exception):
     ...
+
+
+class ValidationFnTypeException(Exception):
+    ...

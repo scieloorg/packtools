@@ -22,7 +22,7 @@ class AuthorNote:
             yield process_subtags(corresp)
 
     @property
-    def fn_numbers(self):
+    def fn_count(self):
         return len(self.node.xpath('.//fn'))
 
     @property
@@ -33,33 +33,35 @@ class AuthorNote:
 
 
 class AuthorNotes:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
-
-    @property
-    def article(self):
-        for article in self.xml_tree.xpath('.//article-meta'):
-            yield article
-
-    @property
-    def sub_articles(self):
-        for sub_article in self.xml_tree.xpath('.//sub-article'):
-            yield sub_article
-
-    @property
-    def article_and_sub_articles(self):
-        yield from self.article
-        yield from self.sub_articles
+    def __init__(self, node):
+        self.node = node
 
     @property
     def data(self):
-        for node in self.article_and_sub_articles:
-            author_note = AuthorNote(node)
-            yield {
-                'parent': 'sub-article' if node.get('id') else 'article',
-                'parent_id': node.get('id'),
-                'corresp': list(author_note.corresp),
-                'fn_numbers': author_note.fn_numbers,
-                'fn_types': list(author_note.fn_types)
-            }
+        author_note = AuthorNote(self.node)
+        return {
+            'corresp': list(author_note.corresp),
+            'fn_count': author_note.fn_count,
+            'fn_types': list(author_note.fn_types)
+        }
 
+
+class ArticleAuthorNotes:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def author_notes(self):
+        main = self.xmltree.xpath(".")[0]
+        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+        main_article_type = main.get("article-type")
+        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
+            node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            node_article_type = node.get("article-type")
+            author_note = AuthorNotes(node).data
+            author_note["parent"] = 'sub-article' if node.tag == 'sub-article' else 'article'
+            author_note["parent_id"] = node.get('id')
+            author_note["parent_lang"] = node_lang or main_lang
+            author_note["parent_article_type"] = node_article_type or main_article_type
+            yield author_note
+         

@@ -40,6 +40,7 @@
         <xsl:param name="alt_title"></xsl:param>
         <div>
             <xsl:if test="$alt_title!=''">
+                <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
                 <xsl:attribute name="class">articleSection</xsl:attribute>
                 <xsl:attribute name="data-anchor"><xsl:value-of select="$alt_title"/></xsl:attribute>
             </xsl:if>
