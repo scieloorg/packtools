@@ -183,6 +183,38 @@ def create_xml_zip_file(xml_sps_file_path, content):
     return os.path.isfile(xml_sps_file_path)
 
 
+def get_zips(xml_sps_file_path):
+    found = False
+    with ZipFile(xml_sps_file_path) as zf:
+        # obtém os components do zip
+        filenames = zf.namelist() or []
+        xmls = [
+            os.path.splitext(os.path.basename(filename))[0]
+            for filename in filenames if filename.endswith(".xml")]
+        xmls = {key: [] for key in xmls}
+
+        for key in list(xmls.keys()):
+            for filename in filenames:
+                name = os.path.basename(filename)
+                if name in (key+".pdf", key+".xml"):
+                    xmls[key].append(filename)
+                elif name.startswith(key+"-") and not name.endswith(".xml"):
+                    xmls[key].append(filename)
+            filenames = list(set(filenames) - set(xmls[key]))
+
+        with TemporaryDirectory() as tmpdirname:
+
+            for key, files in xmls.items():
+
+                zfile = os.path.join(tmpdirname, f"{key}.zip")
+                with ZipFile(zfile, "w", compression=ZIP_DEFLATED) as zfw:
+                    for item in files:
+                        zfw.writestr(item, zf.read(item))
+
+                with open(zfile, "rb") as zfw:
+                    yield {"zipfilename": key+".zip", "content": zfw.read()}
+
+
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
         response = fetch_data(uri, timeout=timeout)
