@@ -69,22 +69,22 @@ class Contrib:
     def data(self):
         data = {}
         for key, value in zip(
-                (
-                        "contrib_type",
-                        "contrib_ids",
-                        "contrib_name",
-                        "collab",
-                        "contrib_xref",
-                        "contrib_role"
-                ),
-                (
-                        self.contrib_type,
-                        self.contrib_ids,
-                        self.contrib_name,
-                        self.collab,
-                        list(self.contrib_xref),
-                        list(self.contrib_role)
-                )
+            (
+                "contrib_type",
+                "contrib_ids",
+                "contrib_name",
+                "collab",
+                "contrib_xref",
+                "contrib_role"
+            ),
+            (
+                self.contrib_type,
+                self.contrib_ids,
+                self.contrib_name,
+                self.collab,
+                list(self.contrib_xref),
+                list(self.contrib_role)
+            )
         ):
             if value:
                 data[key] = value
