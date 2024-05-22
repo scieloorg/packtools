@@ -925,16 +925,6 @@ class ArticleVisualAbstracts:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-def _put_parent_context(data, lang, article_type, parent, parent_id):
-    data.update(
-        {
-            "parent": parent,
-            "parent_id": parent_id,
-            "parent_lang": lang,
-            "parent_article_type": article_type,
-        }
-    )
-    return data
     def article_visual_abstracts(self):
         main = self.xmltree.xpath(".")[0]
         main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
