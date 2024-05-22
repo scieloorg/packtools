@@ -30,6 +30,7 @@ class Contrib:
 
     @property
     def contrib_ids(self):
+        # os valores de @contrib-id-type podem ser: lattes, orcid, researchid e scopus
         return {
             item.get("contrib-id-type"): item.text for item in self.node.xpath(".//contrib-id")
         }
