@@ -2,8 +2,8 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
-from packtools.sps.models.article_abstract import Abstract, ArticleAbstract, Highlight, Highlights, VisualAbstract, \
-    VisualAbstracts
+from packtools.sps.models.article_abstract import Abstract, ArticleAbstract, Highlight, ArticleHighlights, VisualAbstract, \
+    ArticleVisualAbstracts
 
 
 class AbstractWithSectionsTest(TestCase):
@@ -1848,7 +1848,7 @@ class HighlightsTest(TestCase):
                 </sub-article>
             </article>
             """)
-        self.highlights = Highlights(xmltree)
+        self.highlights = ArticleHighlights(xmltree)
 
     def test_highlights(self):
         expected = [
@@ -1880,7 +1880,7 @@ class HighlightsTest(TestCase):
             }
         ]
 
-        obtained = list(self.highlights.highlights)
+        obtained = list(self.highlights.article_highlights())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1975,7 +1975,7 @@ class VisualAbstractsTest(TestCase):
                 </sub-article>
             </article>
             """)
-        self.visual_abstracts = VisualAbstracts(xmltree)
+        self.visual_abstracts = ArticleVisualAbstracts(xmltree)
 
     def test_visual_abstracts(self):
         expected = [
@@ -2001,7 +2001,7 @@ class VisualAbstractsTest(TestCase):
             },
         ]
 
-        obtained = list(self.visual_abstracts.visual_abstracts)
+        obtained = list(self.visual_abstracts.article_visual_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
