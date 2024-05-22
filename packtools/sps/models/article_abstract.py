@@ -921,17 +921,9 @@ class VisualAbstracts:
             yield visual_abstract.data
 
 
-def _get_parent_context(xmltree):
-    main = xmltree.xpath(".")[0]
-    main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
-    main_article_type = main.get("article-type")
-    for node in xmltree.xpath(".//article-meta | .//sub-article"):
-        parent = "sub-article" if node.tag == "sub-article" else "article"
-        parent_id = node.get("id")
-        lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
-        article_type = node.get("article-type") or main_article_type
-        yield node, lang, article_type, parent, parent_id
-
+class ArticleVisualAbstracts:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
 
 def _put_parent_context(data, lang, article_type, parent, parent_id):
     data.update(
