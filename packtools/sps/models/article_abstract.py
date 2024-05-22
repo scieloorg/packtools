@@ -911,15 +911,14 @@ class VisualAbstract:
 
 
 class VisualAbstracts:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
+    def __init__(self, node):
+        self.node = node
 
     @property
     def visual_abstracts(self):
-        for node, lang, article_type, parent, parent_id in _get_parent_context(self.xmltree):
-            for abstract in node.xpath(".//abstract[@abstract-type='graphical']"):
-                visual_abstract = VisualAbstract(abstract)
-                yield _put_parent_context(visual_abstract.data, lang, article_type, parent, parent_id)
+        for abstract in self.node.xpath(".//abstract[@abstract-type='graphical']"):
+            visual_abstract = VisualAbstract(abstract)
+            yield visual_abstract.data
 
 
 def _get_parent_context(xmltree):
@@ -944,3 +943,22 @@ def _put_parent_context(data, lang, article_type, parent, parent_id):
         }
     )
     return data
+    def article_visual_abstracts(self):
+        main = self.xmltree.xpath(".")[0]
+        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+        main_article_type = main.get("article-type")
+        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
+            parent = "sub-article" if node.tag == "sub-article" else "article"
+            parent_id = node.get("id")
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+            article_type = node.get("article-type") or main_article_type
+            for data in VisualAbstracts(node).visual_abstracts:
+                data.update(
+                    {
+                        "parent": parent,
+                        "parent_id": parent_id,
+                        "parent_lang": lang,
+                        "parent_article_type": article_type,
+                    }
+                )
+                yield data
