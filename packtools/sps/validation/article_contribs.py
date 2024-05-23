@@ -29,6 +29,13 @@ class ArticleContribsValidation:
         self._xmltree = xmltree
         self.article_contribs = ArticleContribs(self._xmltree)
 
+    @property
+    def content_types(self):
+        return (
+            contrib_group.get('content-type')
+            for contrib_group in self._xmltree.xpath('.//contrib-group')
+        )
+
     def validate_contribs_role(self, contrib, credit_taxonomy_terms_and_urls):
         """
         Checks contributor roles according to CRediT taxonomy.
@@ -360,6 +367,75 @@ class ArticleContribsValidation:
             advice="ORCID {} is not registered to any authors".format(orcid),
         )
 
+    def validate_authors_collab_list(self, contrib):
+        """
+        Checks if there is identification of authors for a group of collaborators.
+
+        XML input
+        ---------
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <collab>The MARS Group</collab>
+                        </contrib>
+                    </contrib-group>
+                    <contrib-group content-type="collab-list">
+                        <contrib contrib-type="author" rid="collab">
+                        <contrib-id contrib-id-type="orcid">0000-0001-0002-0003</contrib-id>
+                        <name>
+                        <surname>Wright</surname>
+                        <given-names>Rick W.</given-names>
+                        </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+
+
+        Returns
+        -------
+        list of dict
+           A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Collab list authors identification',
+                    'parent': None,
+                    'parent_id': None,
+                    'item': 'contrib-group',
+                    'sub_item': '@content-type',
+                    'validation_type': 'exist',
+                    'response': 'ERROR',
+                    'expected_value': 'contrib group with identification of members of The MARS Group',
+                    'got_value': None,
+                    'message': 'Got None, expected contrib group with identification of members of The MARS Group',
+                    'advice': 'provide the identification of members of The MARS Group',
+                    'data': {
+                        'aff_rids': None,
+                        'collab': 'The MARS Group',
+                        'contrib-type': 'author'
+                    }
+                }...
+            ]
+        """
+        collab = contrib.get('collab')
+        if collab and 'collab-list' not in self.content_types:
+            yield format_response(
+                title='Collab list authors identification',
+                parent=None,
+                parent_id=None,
+                item='contrib-group',
+                sub_item='@content-type',
+                validation_type='exist',
+                is_valid=False,
+                expected=f'contrib group with identification of members of {collab}',
+                obtained=None,
+                advice=f'provide the identification of members of {collab}',
+                data=contrib
+            )
+
     def validate(self, data):
         """
         Função que executa as validações da classe ArticleAuthorsValidation.
@@ -373,4 +449,6 @@ class ArticleContribsValidation:
             yield from self.validate_contribs_orcid_is_registered(
                 contrib, callable_get_validate=data["callable_get_data"]
             )
+            yield from self.validate_authors_collab_list(contrib)
         yield from self.validate_contribs_orcid_is_unique()
+
