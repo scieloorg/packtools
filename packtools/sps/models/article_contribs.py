@@ -143,7 +143,8 @@ def _put_parent_context(data, lang, article_type, parent, parent_id):
 
 
 def _get_affs(affs, contrib):
-    for xref in contrib.get('contrib_xref'):
-        aff = affs.get(xref.get('rid'))
-        if aff:
-            yield aff
+    if affs and contrib:
+        for xref in contrib.get("contrib_xref"):
+            aff = affs.get(xref.get("rid"))
+            if aff:
+                yield aff
