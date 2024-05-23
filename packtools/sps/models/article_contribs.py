@@ -32,16 +32,15 @@ class Contrib:
     def contrib_ids(self):
         # os valores de @contrib-id-type podem ser: lattes, orcid, researchid e scopus
         return {
-            item.get("contrib-id-type"): item.text for item in self.node.xpath(".//contrib-id")
+            item.get("contrib-id-type"): item.text
+            for item in self.node.xpath(".//contrib-id")
         }
 
     @property
     def contrib_name(self):
         name = self.node.find("name")
         if name is not None:
-            return {
-                item.tag: item.text for item in name
-            }
+            return {item.tag: item.text for item in name}
 
     @property
     def collab(self):
@@ -53,7 +52,7 @@ class Contrib:
             yield {
                 "rid": item.get("rid"),
                 "ref_type": item.get("ref-type"),
-                "text": item.text
+                "text": item.text,
             }
 
     @property
@@ -62,7 +61,7 @@ class Contrib:
             yield {
                 "text": item.text,
                 "content-type": item.get("content-type"),
-                "specific-use": item.get("specific-use")
+                "specific-use": item.get("specific-use"),
             }
 
     @property
@@ -75,7 +74,7 @@ class Contrib:
                 "contrib_name",
                 "collab",
                 "contrib_xref",
-                "contrib_role"
+                "contrib_role",
             ),
             (
                 self.contrib_type,
@@ -83,8 +82,8 @@ class Contrib:
                 self.contrib_name,
                 self.collab,
                 list(self.contrib_xref),
-                list(self.contrib_role)
-            )
+                list(self.contrib_role),
+            ),
         ):
             if value:
                 data[key] = value
@@ -109,13 +108,17 @@ class ArticleContribs:
 
     @property
     def contribs(self):
-        for node, lang, article_type, parent, parent_id in _get_parent_context(self.xmltree):
+        for node, lang, article_type, parent, parent_id in _get_parent_context(
+            self.xmltree
+        ):
             for contrib_group in node.xpath(".//contrib-group"):
                 for contrib in ContribGroup(contrib_group).contribs:
                     affs = list(_get_affs(self.aff, contrib))
                     if affs:
-                        contrib['affs'] = affs
-                    yield _put_parent_context(contrib, lang, article_type, parent, parent_id)
+                        contrib["affs"] = affs
+                    yield _put_parent_context(
+                        contrib, lang, article_type, parent, parent_id
+                    )
 
 
 def _get_parent_context(xmltree):
