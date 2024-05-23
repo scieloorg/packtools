@@ -1078,6 +1078,86 @@ class ArticleContribsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_validate_authors_with_collab_list(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                                <collab>The MARS Group</collab>
+                            </contrib>
+                        </contrib-group>
+                        <contrib-group content-type="collab-list">
+                            <contrib contrib-type="author" rid="collab">
+                            <contrib-id contrib-id-type="orcid">0000-0001-0002-0003</contrib-id>
+                            <name>
+                            <surname>Wright</surname>
+                            <given-names>Rick W.</given-names>
+                            </name>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        contrib = list(ArticleContribs(xml_tree).contribs)[0]
+        obtained = list(ArticleContribsValidation(xml_tree).validate_authors_collab_list(contrib))
+
+        self.assertEqual([], obtained)
+
+    def test_validate_authors_without_collab_list(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                                <collab>The MARS Group</collab>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        contrib = list(ArticleContribs(xml_tree).contribs)[0]
+        obtained = list(ArticleContribsValidation(xml_tree).validate_authors_collab_list(contrib))
+
+        expected = [
+            {
+                'title': 'Collab list authors identification',
+                'parent': None,
+                'parent_id': None,
+                'item': 'contrib-group',
+                'sub_item': '@content-type',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'contrib group with identification of members of The MARS Group',
+                'got_value': None,
+                'message': 'Got None, expected contrib group with identification of members of The MARS Group',
+                'advice': 'provide the identification of members of The MARS Group',
+                'data': {
+                    'collab': 'The MARS Group',
+                    'contrib_type': 'author',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'parent_id': None,
+                    'parent_lang': None
+                }
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
     def test_validate(self):
         self.maxDiff = None
         xml = """
