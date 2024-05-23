@@ -108,17 +108,23 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
             filenames = filenames or zf.namelist() or []
             for item in filenames:
                 if item.endswith(".xml"):
-                    xml_with_pre = get_xml_with_pre(zf.read(item).decode("utf-8"))
-                    xml_with_pre.zip_file_path = xml_sps_file_path
-                    found = True
-                    yield {
-                        "filename": item,
-                        "xml_with_pre": xml_with_pre,
-                        "files": zf.namelist(),
-                    }
+                    try:
+                        content = zf.read(item)
+                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
+                        xml_with_pre.zip_file_path = xml_sps_file_path
+                        found = True
+                        yield {
+                            "filename": item,
+                            "xml_with_pre": xml_with_pre,
+                            "files": filenames,
+                        }
+                    except Exception as e:
+                        LOGGER.exception(f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}")
+                        continue
+
             if not found:
                 raise TypeError(
-                    f"{xml_sps_file_path} has no XML. Files found: {str(zf.namelist())}"
+                    f"{xml_sps_file_path} has no XML. Files found: {filenames}"
                 )
     except Exception as e:
         LOGGER.exception(e)
@@ -249,7 +255,6 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
 
     if not xml_content.startswith("<?") and not xml_content.startswith("<!"):
         return "", xml_content
-
     if xml_content.endswith("/>"):
         # <article/>
         p = xml_content.rfind("<")
