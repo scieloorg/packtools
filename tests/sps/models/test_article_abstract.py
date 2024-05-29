@@ -1887,6 +1887,70 @@ class HighlightsTest(TestCase):
                 self.assertDictEqual(item, obtained[i])
 
 
+class HighlightsTransAbstractTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>Nam vitae leo aliquet, pretium ante at, faucibus felis</p>
+                            <p>Aliquam ac mauris et libero pulvinar facilisis</p>
+                            <p>Fusce aliquam ipsum ut diam luctus porta</p>
+                            <p>Ut a erat ac odio placerat convallis</p>
+                        </abstract>
+                        <trans-abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>Nam vitae leo aliquet, pretium ante at, faucibus felis</p>
+                            <p>Aliquam ac mauris et libero pulvinar facilisis</p>
+                            <p>Fusce aliquam ipsum ut diam luctus porta</p>
+                            <p>Ut a erat ac odio placerat convallis</p>
+                        </trans-abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.highlights = ArticleHighlights(xmltree)
+
+    def test_highlights(self):
+        expected = [
+            {
+                "title": "HIGHLIGHTS",
+                "highlights": [
+                    'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+                    'Aliquam ac mauris et libero pulvinar facilisis',
+                    'Fusce aliquam ipsum ut diam luctus porta',
+                    'Ut a erat ac odio placerat convallis'
+                ],
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+            },
+            {
+                "title": "HIGHLIGHTS",
+                "highlights": [
+                    'Nam vitae leo aliquet, pretium ante at, faucibus felis',
+                    'Aliquam ac mauris et libero pulvinar facilisis',
+                    'Fusce aliquam ipsum ut diam luctus porta',
+                    'Ut a erat ac odio placerat convallis'
+                ],
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+            }
+        ]
+
+        obtained = list(self.highlights.article_highlights())
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+
 class VisualAbstractTest(TestCase):
     def setUp(self):
         xmltree = ET.fromstring(
@@ -1998,6 +2062,73 @@ class VisualAbstractsTest(TestCase):
                 'parent_id': '01',
                 'parent_article_type': 'translation',
                 'parent_lang': 'es',
+            },
+        ]
+
+        obtained = list(self.visual_abstracts.article_visual_abstracts())
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+
+class VisualTransAbstractsTest(TestCase):
+    def setUp(self):
+        xmltree = ET.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+            specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <title>Visual Abstract</title>
+                                <p>
+                                    <fig id="vf01">
+                                        <caption>
+                                            <title>Título</title>
+                                        </caption>
+                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
+                                    </fig>
+                                </p>
+                        </abstract>
+                        <trans-abstract abstract-type="graphical" xml:lang="pt">
+                            <title>Visual Abstract</title>
+                                <p>
+                                    <fig id="vf01">
+                                        <caption>
+                                            <title>Título</title>
+                                        </caption>
+                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
+                                    </fig>
+                                </p>
+                        </trans-abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """)
+        self.visual_abstracts = ArticleVisualAbstracts(xmltree)
+
+    def test_visual_abstracts(self):
+        expected = [
+            {
+                "title": "Visual Abstract",
+                "fig_id": "vf01",
+                "caption": "Título",
+                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+            },
+            {
+                "title": "Visual Abstract",
+                "fig_id": "vf01",
+                "caption": "Título",
+                "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
             },
         ]
 
