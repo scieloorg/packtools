@@ -191,85 +191,6 @@ class ContribValidation:
             data=self.contrib,
         )
 
-    def validate_contribs_orcid_is_unique(self, orcid_list):
-        """
-        Checks whether a contributor's ORCID is unique.
-
-        XML input
-        ---------
-        <article>
-        <front>
-            <article-meta>
-              <contrib-group>
-                <contrib contrib-type="author">
-                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
-                  <name>
-                    <surname>VENEGAS-MARTÍNEZ</surname>
-                    <given-names>FRANCISCO</given-names>
-                    <prefix>Prof</prefix>
-                    <suffix>Nieto</suffix>
-                  </name>
-                  <xref ref-type="aff" rid="aff1"/>
-                </contrib>
-                <contrib contrib-type="author">
-                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
-                  <name>
-                    <surname>Higa</surname>
-                    <given-names>Vanessa M.</given-names>
-                  </name>
-                  <xref ref-type="aff" rid="aff1">a</xref>
-                </contrib>
-              </contrib-group>
-            </article-meta>
-          </front>
-        </article>
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Author ORCID element is unique',
-                    'xpath': './/contrib-id[@contrib-id-type="orcid"]',
-                    'validation_type': 'exist/verification',
-                    'response': 'OK',
-                    'expected_value': 'Unique ORCID values',
-                    'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
-                    'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 1) | (\'0000-3333-1238-6873\', 1)',
-                    'advice': None
-                }
-            ]
-        """
-        is_valid = True
-        orcid_freq = {}
-        for orcid in filter(None, orcid_list):
-            if orcid in orcid_freq:
-                is_valid = False
-                orcid_freq[orcid] += 1
-            else:
-                orcid_freq[orcid] = 1
-
-        diff = []
-        if not is_valid:
-            diff = [item for item, freq in orcid_freq.items() if freq > 1]
-
-        yield format_response(
-            title="Author ORCID element is unique",
-            parent=None,
-            parent_id=None,
-            item="contrib-id",
-            sub_item='@contrib-id-type="orcid"',
-            validation_type="exist/verification",
-            is_valid=is_valid,
-            expected="Unique ORCID values",
-            obtained=orcid_list,
-            advice="Consider replacing the following ORCIDs that are not unique: {}".format(
-                " | ".join(diff)
-            ),
-            data=None,
-        )
-
     def validate_contribs_orcid_is_registered(self, callable_get_validate=None):
         """
         Checks whether a contributor's ORCID is registered.
@@ -428,7 +349,6 @@ class ContribsValidation:
         self.contrib = contrib
         self.data = data
         self.content_types = content_types
-        self.orcid_list = orcid_list
 
     def validate(self):
         contrib = ContribValidation(self.contrib)
@@ -436,8 +356,7 @@ class ContribsValidation:
         yield from contrib.validate_contribs_role(self.data["credit_taxonomy_terms_and_urls"])
         yield from contrib.validate_contribs_orcid_format()
         yield from contrib.validate_contribs_orcid_is_registered(self.data["callable_get_data"])
-        yield from contrib.validate_authors_collab_list(self.content_types)
-        yield from contrib.validate_contribs_orcid_is_unique(self.orcid_list)
+        yield from contrib.validate_contribs_collab_list(self.content_types)
 
 
 class ArticleContribsValidation:
@@ -460,9 +379,90 @@ class ArticleContribsValidation:
             for contrib in self.contribs.contribs
         ]
 
+    def validate_contribs_orcid_is_unique(self):
+        """
+        Checks whether a contributor's ORCID is unique.
+
+        XML input
+        ---------
+        <article>
+        <front>
+            <article-meta>
+              <contrib-group>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                  <name>
+                    <surname>VENEGAS-MARTÍNEZ</surname>
+                    <given-names>FRANCISCO</given-names>
+                    <prefix>Prof</prefix>
+                    <suffix>Nieto</suffix>
+                  </name>
+                  <xref ref-type="aff" rid="aff1"/>
+                </contrib>
+                <contrib contrib-type="author">
+                    <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
+                  <name>
+                    <surname>Higa</surname>
+                    <given-names>Vanessa M.</given-names>
+                  </name>
+                  <xref ref-type="aff" rid="aff1">a</xref>
+                </contrib>
+              </contrib-group>
+            </article-meta>
+          </front>
+        </article>
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Author ORCID element is unique',
+                    'xpath': './/contrib-id[@contrib-id-type="orcid"]',
+                    'validation_type': 'exist/verification',
+                    'response': 'OK',
+                    'expected_value': 'Unique ORCID values',
+                    'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
+                    'message': 'Got ORCIDs and frequencies (\'0990-0001-0058-4853\', 1) | (\'0000-3333-1238-6873\', 1)',
+                    'advice': None
+                }
+            ]
+        """
+        is_valid = True
+        orcid_freq = {}
+        for orcid in filter(None, self.orcid_list):
+            if orcid in orcid_freq:
+                is_valid = False
+                orcid_freq[orcid] += 1
+            else:
+                orcid_freq[orcid] = 1
+
+        diff = []
+        if not is_valid:
+            diff = [item for item, freq in orcid_freq.items() if freq > 1]
+
+        yield format_response(
+            title="Author ORCID element is unique",
+            parent=None,
+            parent_id=None,
+            item="contrib-id",
+            sub_item='@contrib-id-type="orcid"',
+            validation_type="exist/verification",
+            is_valid=is_valid,
+            expected="Unique ORCID values",
+            obtained=self.orcid_list,
+            advice="Consider replacing the following ORCIDs that are not unique: {}".format(
+                " | ".join(diff)
+            ),
+            data=None,
+        )
+
     def validate(self):
+        # A validação da unicidade do ORCID é feita uma única vez por artigo
+        yield from self.validate_contribs_orcid_is_unique()
         for contrib in self.contribs.contribs:
-            yield from ContribsValidation(contrib, self.data, self.content_types, self.orcid_list).validate()
+            yield from ContribsValidation(contrib, self.data, self.content_types).validate()
 
 
 
