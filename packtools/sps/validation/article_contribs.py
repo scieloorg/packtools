@@ -274,7 +274,7 @@ class ContribValidation:
             advice="ORCID {} is not registered to any authors".format(orcid),
         )
 
-    def validate_authors_collab_list(self, content_types):
+    def validate_contribs_collab_list(self, content_types):
         """
         Checks if there is identification of authors for a group of collaborators.
 
