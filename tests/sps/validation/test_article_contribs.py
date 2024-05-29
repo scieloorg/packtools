@@ -793,10 +793,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        orcid_list = list(ArticleContribsValidation(xmltree, data={}).orcid_list)
-        contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib).validate_contribs_orcid_is_unique(orcid_list)
+            ArticleContribsValidation(xmltree, data={}).validate_contribs_orcid_is_unique()
         )
 
         expected = [
@@ -852,10 +850,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        orcid_list = list(ArticleContribsValidation(xmltree, data={}).orcid_list)
-        contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib).validate_contribs_orcid_is_unique(orcid_list)
+            ArticleContribsValidation(xmltree, data={}).validate_contribs_orcid_is_unique()
         )
 
         expected = [
@@ -1085,7 +1081,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         contrib = list(ArticleContribs(xml_tree).contribs)[0]
         content_types = ArticleContribsValidation(xmltree=xml_tree, data={}).content_types
-        obtained = list(ContribValidation(contrib).validate_authors_collab_list(content_types))
+        obtained = list(ContribValidation(contrib).validate_contribs_collab_list(content_types))
 
         self.assertEqual([], obtained)
 
@@ -1109,7 +1105,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         contrib = list(ArticleContribs(xml_tree).contribs)[0]
         content_types = ArticleContribsValidation(xmltree=xml_tree, data={}).content_types
-        obtained = list(ContribValidation(contrib).validate_authors_collab_list(content_types))
+        obtained = list(ContribValidation(contrib).validate_contribs_collab_list(content_types))
 
         expected = [
             {
@@ -1177,6 +1173,20 @@ class ArticleContribsValidationOrcidTest(TestCase):
         obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data).validate())
 
         expected = [
+            {
+                "title": "Author ORCID element is unique",
+                "parent": None,
+                "parent_id": None,
+                "item": "contrib-id",
+                "sub_item": '@contrib-id-type="orcid"',
+                "validation_type": "exist/verification",
+                "response": "OK",
+                "expected_value": "Unique ORCID values",
+                "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
+                "message": "Got ['0990-0001-0058-4853', '0000-3333-1238-6873'], expected Unique ORCID values",
+                "advice": None,
+                "data": None,
+            },
             {
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
@@ -1252,18 +1262,32 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "data": None,
             },
             {
-                "title": "Author ORCID element is unique",
-                "parent": None,
-                "parent_id": None,
-                "item": "contrib-id",
-                "sub_item": '@contrib-id-type="orcid"',
-                "validation_type": "exist/verification",
-                "response": "OK",
-                "expected_value": "Unique ORCID values",
-                "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
-                "message": "Got ['0990-0001-0058-4853', '0000-3333-1238-6873'], expected Unique ORCID values",
-                "advice": None,
-                "data": None,
+                'title': 'Author without affiliation',
+                'item': 'contrib',
+                'sub_item': 'aff',
+                'parent': 'article',
+                'parent_id': None,
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'author affiliation data',
+                'got_value': None,
+                'message': 'Got None, expected author affiliation data',
+                'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                'data': {
+                    'contrib_name': {
+                        'given-names': 'FRANCISCO',
+                        'surname': 'VENEGAS-MARTÍNEZ',
+                        'prefix': 'Prof',
+                        'suffix': 'Nieto',
+                    },
+                    'contrib_ids': {'orcid': '0990-0001-0058-4853'},
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_article_type': None,
+                    'parent_lang': None,
+                }
             },
             {
                 "title": "CRediT taxonomy for contribs",
@@ -1314,9 +1338,124 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "parent_lang": None,
                 },
             },
-
         ]
 
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+
+class ArticleAuthorsValidationAff(TestCase):
+    def test_validate_authors_affiliations_success(self):
+        self.maxDiff = None
+        xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>SILVA</surname>
+                                <given-names>JOSÉ</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff2"/>
+                            </contrib>
+                        </contrib-group>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country>Brasil</country>
+                            <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                        <aff id="aff2">
+                            <label>II</label>
+                            <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                            <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country>Brasil</country>
+                            <institution content-type="original">Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+            </article>
+            """
+
+        xmltree = etree.fromstring(xml)
+        contrib = list(ArticleContribs(xmltree).contribs)[0]
+        obtained = list(ContribValidation(contrib).validate_contribs_affiliations())
+        self.assertListEqual(obtained, [])
+
+    def test_validate_authors_affiliations_fail(self):
+        self.maxDiff = None
+        xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff1"/>
+                            </contrib>
+                            <contrib contrib-type="author">
+                              <name>
+                                <surname>SILVA</surname>
+                                <given-names>JOSÉ</given-names>
+                              </name>
+                              <xref ref-type="aff" rid="aff2"/>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+
+        xmltree = etree.fromstring(xml)
+        contrib = list(ArticleContribs(xmltree).contribs)[0]
+        obtained = list(ContribValidation(contrib).validate_contribs_affiliations())
+        expected = [
+            {
+                'title': 'Author without affiliation',
+                'item': 'contrib',
+                'sub_item': 'aff',
+                'parent': 'article',
+                'parent_id': None,
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'author affiliation data',
+                'got_value': None,
+                'message': 'Got None, expected author affiliation data',
+                'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                'data': {
+                    'contrib_name': {
+                        'given-names': 'FRANCISCO',
+                        'surname': 'VENEGAS-MARTÍNEZ'
+                    },
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_article_type': None,
+                    'parent_lang': None,
+                }
+            }
+        ]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
