@@ -436,21 +436,24 @@ class ArticleContribsValidation:
                 data=contrib
             )
 
-    def validate(self, data):
-        """
-        Função que executa as validações da classe ArticleAuthorsValidation.
 
-        """
-        for contrib in self.article_contribs.contribs:
-            yield from self.validate_contribs_role(
-                contrib, data["credit_taxonomy_terms_and_urls"]
-            )
-            yield from self.validate_contribs_orcid_format(contrib)
-            yield from self.validate_contribs_orcid_is_registered(
-                contrib, callable_get_validate=data["callable_get_data"]
-            )
-            yield from self.validate_authors_collab_list(contrib)
-        yield from self.validate_contribs_orcid_is_unique()
+class ContribsValidation:
+    def __init__(self, contrib, data, content_types, orcid_list):
+        self.contrib = contrib
+        self.data = data
+        self.content_types = content_types
+        self.orcid_list = orcid_list
+
+    def validate(self):
+        contrib = ContribValidation(self.contrib)
+
+        yield from contrib.validate_contribs_role(self.data["credit_taxonomy_terms_and_urls"])
+        yield from contrib.validate_contribs_orcid_format()
+        yield from contrib.validate_contribs_orcid_is_registered(self.data["callable_get_data"])
+        yield from contrib.validate_authors_collab_list(self.content_types)
+        yield from contrib.validate_contribs_orcid_is_unique(self.orcid_list)
+
+
 class ArticleContribsValidation:
     def __init__(self, xmltree, data):
         self.xmltree = xmltree
