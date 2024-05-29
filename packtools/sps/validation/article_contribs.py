@@ -24,19 +24,11 @@ def _response(contrib, is_valid, expected, obtained, author):
     )
 
 
-class ArticleContribsValidation:
-    def __init__(self, xmltree):
-        self._xmltree = xmltree
-        self.article_contribs = ArticleContribs(self._xmltree)
+class ContribValidation:
+    def __init__(self, contrib):
+        self.contrib = contrib
 
-    @property
-    def content_types(self):
-        return (
-            contrib_group.get('content-type')
-            for contrib_group in self._xmltree.xpath('.//contrib-group')
-        )
-
-    def validate_contribs_role(self, contrib, credit_taxonomy_terms_and_urls):
+    def validate_contribs_role(self, credit_taxonomy_terms_and_urls):
         """
         Checks contributor roles according to CRediT taxonomy.
 
@@ -96,19 +88,19 @@ class ArticleContribsValidation:
             for role in credit_taxonomy_terms_and_urls
         ]
 
-        names = contrib.get("contrib_name", {})
+        names = self.contrib.get("contrib_name", {})
         _author_name = f"{names.get('given-names', '')} {names.get('surname', '')}"
 
         obtained_value = [
             f'<role content-type="{role.get("content-type")}">{role.get("text")}</role>'
-            for role in (contrib.get("contrib_role") or [])
+            for role in (self.contrib.get("contrib_role") or [])
         ]
 
         if obtained_value:
             for role in obtained_value:
                 is_valid = role in expected_value
                 yield _response(
-                    contrib=contrib,
+                    contrib=self.contrib,
                     is_valid=is_valid,
                     expected=expected_value,
                     obtained=role,
@@ -116,14 +108,14 @@ class ArticleContribsValidation:
                 )
         else:
             yield _response(
-                contrib=contrib,
+                contrib=self.contrib,
                 is_valid=False,
                 expected=expected_value,
                 obtained=None,
                 author=_author_name,
             )
 
-    def validate_contribs_orcid_format(self, contrib):
+    def validate_contribs_orcid_format(self):
         """
         Checks whether a contributor's ORCID is valid.
 
@@ -177,9 +169,9 @@ class ArticleContribsValidation:
             r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$"
         )
 
-        names = contrib.get("contrib_name", {})
+        names = self.contrib.get("contrib_name", {})
         _author_name = f"{names.get('given-names', '')} {names.get('surname', '')}"
-        _orcid = contrib.get("contrib_ids", {}).get("orcid")
+        _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
         expected_value = (
             _orcid if is_valid else "A Open Researcher and Contributor ID valid"
@@ -187,8 +179,8 @@ class ArticleContribsValidation:
 
         yield format_response(
             title="Author ORCID",
-            parent=contrib.get("parent"),
-            parent_id=contrib.get("parent_id"),
+            parent=self.contrib.get("parent"),
+            parent_id=self.contrib.get("parent_id"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="format",
@@ -196,10 +188,10 @@ class ArticleContribsValidation:
             expected=expected_value[:1].lower() + expected_value[1:],
             obtained=_orcid,
             advice=f"The author {_author_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
-            data=contrib,
+            data=self.contrib,
         )
 
-    def validate_contribs_orcid_is_unique(self):
+    def validate_contribs_orcid_is_unique(self, orcid_list):
         """
         Checks whether a contributor's ORCID is unique.
 
@@ -250,10 +242,6 @@ class ArticleContribsValidation:
             ]
         """
         is_valid = True
-        orcid_list = [
-            contrib.get("contrib_ids", {}).get("orcid")
-            for contrib in self.article_contribs.contribs
-        ]
         orcid_freq = {}
         for orcid in filter(None, orcid_list):
             if orcid in orcid_freq:
@@ -282,9 +270,7 @@ class ArticleContribsValidation:
             data=None,
         )
 
-    def validate_contribs_orcid_is_registered(
-        self, contrib, callable_get_validate=None
-    ):
+    def validate_contribs_orcid_is_registered(self, callable_get_validate=None):
         """
         Checks whether a contributor's ORCID is registered.
 
@@ -346,18 +332,18 @@ class ArticleContribsValidation:
         callable_get_validate = (
             callable_get_validate or _callable_extern_validate_default
         )
-        names = contrib.get("contrib_name", {})
+        names = self.contrib.get("contrib_name", {})
         obtained_author_name = (
             f"{names.get('given-names', '')} {names.get('surname', '')}"
         )
-        orcid = contrib.get("contrib_ids", {}).get("orcid")
+        orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         expected_author_name = callable_get_validate(orcid)
         is_valid = obtained_author_name == expected_author_name
 
         yield format_response(
             title="Author ORCID element is registered",
-            parent=contrib.get("parent"),
-            parent_id=contrib.get("parent_id"),
+            parent=self.contrib.get("parent"),
+            parent_id=self.contrib.get("parent_id"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="exist",
@@ -367,7 +353,7 @@ class ArticleContribsValidation:
             advice="ORCID {} is not registered to any authors".format(orcid),
         )
 
-    def validate_authors_collab_list(self, contrib):
+    def validate_authors_collab_list(self, content_types):
         """
         Checks if there is identification of authors for a group of collaborators.
 
@@ -420,8 +406,8 @@ class ArticleContribsValidation:
                 }...
             ]
         """
-        collab = contrib.get('collab')
-        if collab and 'collab-list' not in self.content_types:
+        collab = self.contrib.get('collab')
+        if collab and 'collab-list' not in content_types:
             yield format_response(
                 title='Collab list authors identification',
                 parent=None,
@@ -433,7 +419,7 @@ class ArticleContribsValidation:
                 expected=f'contrib group with identification of members of {collab}',
                 obtained=None,
                 advice=f'provide the identification of members of {collab}',
-                data=contrib
+                data=self.contrib
             )
 
 
