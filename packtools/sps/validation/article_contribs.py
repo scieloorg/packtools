@@ -451,4 +451,29 @@ class ArticleContribsValidation:
             )
             yield from self.validate_authors_collab_list(contrib)
         yield from self.validate_contribs_orcid_is_unique()
+class ArticleContribsValidation:
+    def __init__(self, xmltree, data):
+        self.xmltree = xmltree
+        self.data = data
+        self.contribs = ArticleContribs(self.xmltree)
+
+    @property
+    def content_types(self):
+        return (
+            contrib_group.get('content-type')
+            for contrib_group in self.xmltree.xpath('.//contrib-group')
+        )
+
+    @property
+    def orcid_list(self):
+        return [
+            contrib.get("contrib_ids", {}).get("orcid")
+            for contrib in self.contribs.contribs
+        ]
+
+    def validate(self):
+        for contrib in self.contribs.contribs:
+            yield from ContribsValidation(contrib, self.data, self.content_types, self.orcid_list).validate()
+
+
 
