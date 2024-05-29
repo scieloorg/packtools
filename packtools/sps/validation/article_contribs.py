@@ -343,6 +343,83 @@ class ContribValidation:
                 data=self.contrib
             )
 
+    def validate_contribs_affiliations(self):
+        """
+        Checks if an author has the corresponding affiliation data.
+
+        XML input
+        ---------
+        <article>
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                          <name>
+                            <surname>VENEGAS-MARTÍNEZ</surname>
+                            <given-names>FRANCISCO</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                        <contrib contrib-type="author">
+                          <name>
+                            <surname>SILVA</surname>
+                            <given-names>JOSÉ</given-names>
+                          </name>
+                          <xref ref-type="aff" rid="aff2"/>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>
+
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Author without affiliation',
+                    'item': 'contrib',
+                    'sub_item': 'aff',
+                    'parent': 'article',
+                    'parent_id': None,
+                    'validation_type': 'exist',
+                    'response': 'ERROR',
+                    'expected_value': 'author affiliation data',
+                    'got_value': None,
+                    'message': 'Got None, expected author affiliation data',
+                    'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                    'data': {
+                        'aff_rids': ['aff1'],
+                        'contrib-type': 'author',
+                        'given_names': 'FRANCISCO',
+                        'parent': 'article',
+                        'parent_id': None,
+                        'rid': ['aff1'],
+                        'rid-aff': ['aff1'],
+                        'surname': 'VENEGAS-MARTÍNEZ'
+                    }
+                },...
+            ]
+        """
+        affs = self.contrib.get("affs")
+        if not affs:
+            contrib_name = self.contrib.get("contrib_name", {})
+            yield format_response(
+                title='Author without affiliation',
+                parent=self.contrib.get("parent"),
+                parent_id=self.contrib.get("parent_id"),
+                item='contrib',
+                sub_item='aff',
+                validation_type='exist',
+                is_valid=False,
+                expected='author affiliation data',
+                obtained=None,
+                advice=f'provide author affiliation data for {contrib_name.get("given-names")} {contrib_name.get("surname")}',
+                data=self.contrib
+            )
+
 
 class ContribsValidation:
     def __init__(self, contrib, data, content_types, orcid_list):
@@ -357,6 +434,7 @@ class ContribsValidation:
         yield from contrib.validate_contribs_orcid_format()
         yield from contrib.validate_contribs_orcid_is_registered(self.data["callable_get_data"])
         yield from contrib.validate_contribs_collab_list(self.content_types)
+        yield from contrib.validate_contribs_affiliations()
 
 
 class ArticleContribsValidation:
