@@ -844,7 +844,8 @@ class Highlights:
 
     @property
     def highlights(self):
-        for abstract in self.node.xpath(".//abstract[@abstract-type='key-points']"):
+        for abstract in self.node.xpath(".//abstract[@abstract-type='key-points'] | .//trans-abstract["
+                                        "@abstract-type='key-points']"):
             highlight = Highlight(abstract)
             yield highlight.data
 
@@ -916,7 +917,8 @@ class VisualAbstracts:
 
     @property
     def visual_abstracts(self):
-        for abstract in self.node.xpath(".//abstract[@abstract-type='graphical']"):
+        for abstract in self.node.xpath(".//abstract[@abstract-type='graphical'] | .//trans-abstract["
+                                        "@abstract-type='graphical']"):
             visual_abstract = VisualAbstract(abstract)
             yield visual_abstract.data
 
