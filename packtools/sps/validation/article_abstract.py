@@ -1,10 +1,10 @@
-from packtools.sps.models.article_abstract import VisualAbstracts, Highlights
+from packtools.sps.models.article_abstract import ArticleVisualAbstracts, ArticleHighlights
 from packtools.sps.validation.utils import format_response
 
 
 class HighlightsValidation:
     def __init__(self, xmltree):
-        self.highlights = list(Highlights(xmltree).highlights)
+        self.highlights = list(ArticleHighlights(xmltree).article_highlights())
 
     def highlight_validation(self, response_type_for_absent=None):
         if not self.highlights:
@@ -43,7 +43,7 @@ class HighlightsValidation:
 
 class VisualAbstractsValidation:
     def __init__(self, xmltree):
-        self.visual_abstracts = list(VisualAbstracts(xmltree).visual_abstracts)
+        self.visual_abstracts = list(ArticleVisualAbstracts(xmltree).article_visual_abstracts())
 
     def visual_abstracts_validation(self, response_type_for_absent=None):
         if not self.visual_abstracts:
