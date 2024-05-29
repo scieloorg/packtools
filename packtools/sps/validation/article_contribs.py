@@ -422,7 +422,7 @@ class ContribValidation:
 
 
 class ContribsValidation:
-    def __init__(self, contrib, data, content_types, orcid_list):
+    def __init__(self, contrib, data, content_types):
         self.contrib = contrib
         self.data = data
         self.content_types = content_types
@@ -445,10 +445,10 @@ class ArticleContribsValidation:
 
     @property
     def content_types(self):
-        return (
+        return [
             contrib_group.get('content-type')
             for contrib_group in self.xmltree.xpath('.//contrib-group')
-        )
+        ]
 
     @property
     def orcid_list(self):
