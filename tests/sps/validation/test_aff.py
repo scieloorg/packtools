@@ -12,7 +12,7 @@ from packtools.sps.validation.aff import (
 class AffiliationValidationTest(TestCase):
     def test_validate_affiliations_list(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -40,145 +40,398 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        obtained = list(AffiliationsListValidation(xml_tree, ['BR']).validade_affiliations_list())
+        obtained = list(
+            AffiliationsListValidation(xml_tree, ["BR"]).validade_affiliations_list()
+        )
 
         expected = [
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation',
-                    'advice': None
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "MG",
+                "message": "Got MG, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Belo Horizonte",
+                "message": "Got Belo Horizonte, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
+                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
+                "message": "Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
+                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original "
+                "affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade Federal de Minas Gerais",
+                "message": "Got Universidade Federal de Minas Gerais, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "MG",
+                "message": "Got MG, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Belo Horizonte",
+                "message": "Got Belo Horizonte, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
+        ]
 
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                    'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got Brasil, expected country affiliation',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected one item of this list: ['BR']",
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got MG, expected state affiliation',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got Belo Horizonte, expected city affiliation',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/institution element original attribute validation',
-                    'xpath': './/aff/institution[@content-type="original"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'original affiliation',
-                    'got_value': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
-                                 'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil',
-                    'message': 'Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
-                                 'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original affiliation',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff/institution element orgname attribute validation',
-                    'xpath': './/aff/institution[@content-type="orgname"]',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'orgname affiliation',
-                    'got_value': 'Universidade Federal de Minas Gerais',
-                    'message': 'Got Universidade Federal de Minas Gerais, expected orgname affiliation',
-                    'advice': None
-
-                },
-                {
-                    'title': 'aff element country attribute validation',
-                    'xpath': './/aff/country',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'country affiliation',
-                    'got_value': 'Brasil',
-                    'message': 'Got Brasil, expected country affiliation',
-                    'advice': None
-                },
-                {
-                    'title': 'aff element @country attribute validation',
-                    'xpath': './/aff/@country',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['BR'],
-                    'got_value': 'BR',
-                    'message': "Got BR, expected one item of this list: ['BR']",
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element state attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'state affiliation',
-                    'got_value': 'MG',
-                    'message': 'Got MG, expected state affiliation',
-                    'advice': None
-                },
-                {
-                    'title': 'aff/addr-line element city attribute validation',
-                    'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': 'city affiliation',
-                    'got_value': 'Belo Horizonte',
-                    'message': 'Got Belo Horizonte, expected city affiliation',
-                    'advice': None
-                }
-            ]
-
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliation_without_original(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -194,30 +447,52 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_original())
 
         expected = [
             {
-                'title': 'aff/institution element original attribute validation',
-                'xpath': './/aff/institution[@content-type="original"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'original affiliation',
-                'got_value': None,
-                'message': 'Got None, expected original affiliation',
-                'advice': 'provide the original affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "original affiliation",
+                "got_value": None,
+                "message": "Got None, expected original affiliation",
+                "advice": "provide the original affiliation",
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": None,
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_orgname(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -232,30 +507,53 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_orgname())
 
         expected = [
             {
-                'title': 'aff/institution element orgname attribute validation',
-                'xpath': './/aff/institution[@content-type="orgname"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'orgname affiliation',
-                'got_value': None,
-                'message': 'Got None, expected orgname affiliation',
-                'advice': 'provide the orgname affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "orgname affiliation",
+                "got_value": None,
+                "message": "Got None, expected orgname affiliation",
+                "advice": "provide the orgname affiliation",
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": None,
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -271,30 +569,52 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_country())
 
         expected = [
             {
-                'title': 'aff element country attribute validation',
-                'xpath': './/aff/country',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'country affiliation',
-                'got_value': None,
-                'message': 'Got None, expected country affiliation',
-                'advice': 'provide the country affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "country affiliation",
+                "got_value": None,
+                "message": "Got None, expected country affiliation",
+                "advice": "provide the country affiliation",
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_name": None,
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country_code(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -311,30 +631,55 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
-        obtained = list(AffiliationValidation(affiliations_list[0], ['BR']).validate_country_code())
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code()
+        )
 
         expected = [
             {
-                'title': 'aff element @country attribute validation',
-                'xpath': './/aff/@country',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['BR'],
-                'got_value': None,
-                'message': "Got None, expected one item of this list: ['BR']",
-                'advice': 'provide a valid @country affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["BR"],
+                "got_value": None,
+                "message": "Got None, expected ['BR']",
+                "advice": "provide a valid @country affiliation",
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": None,
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_state(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -350,30 +695,53 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_state())
 
         expected = [
             {
-                'title': 'aff/addr-line element state attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'state affiliation',
-                'got_value': None,
-                'message': 'Got None, expected state affiliation',
-                'advice': 'provide the state affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "state affiliation",
+                "got_value": None,
+                "message": "Got None, expected state affiliation",
+                "advice": "provide the state affiliation",
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": None,
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_city(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -389,30 +757,53 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = Affiliation(xml_tree).affiliation_list
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_city())
 
         expected = [
             {
-                'title': 'aff/addr-line element city attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'city affiliation',
-                'got_value': None,
-                'message': 'Got None, expected city affiliation',
-                'advice': 'provide the city affiliation'
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "city affiliation",
+                "got_value": None,
+                "message": "Got None, expected city affiliation",
+                "advice": "provide the city affiliation",
+                "data": {
+                    "city": None,
+                    "country_name": "Brasil",
+                    "country_code": "BR",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             }
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_validate(self):
         self.maxDiff = None
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -440,141 +831,390 @@ class AffiliationValidationTest(TestCase):
                 </article-meta>
             </front>
         </article>
-        """)
+        """
 
         xml_tree = etree.fromstring(xml)
-        data = {
-            'country_codes_list':  ['BR']
-        }
+        data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
 
         expected = [
             {
-                'title': 'aff/institution element original attribute validation',
-                'xpath': './/aff/institution[@content-type="original"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'original affiliation',
-                'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
-                'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation',
-                'advice': None
-
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/institution element orgname attribute validation',
-                'xpath': './/aff/institution[@content-type="orgname"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'orgname affiliation',
-                'got_value': 'Secretaria Municipal de Saúde de Belo Horizonte',
-                'message': 'Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation',
-                'advice': None
-
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff element country attribute validation',
-                'xpath': './/aff/country',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'country affiliation',
-                'got_value': 'Brasil',
-                'message': 'Got Brasil, expected country affiliation',
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff element @country attribute validation',
-                'xpath': './/aff/@country',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['BR'],
-                'got_value': 'BR',
-                'message': "Got BR, expected one item of this list: ['BR']",
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/addr-line element state attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'state affiliation',
-                'got_value': 'MG',
-                'message': 'Got MG, expected state affiliation',
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "MG",
+                "message": "Got MG, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/addr-line element city attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'city affiliation',
-                'got_value': 'Belo Horizonte',
-                'message': 'Got Belo Horizonte, expected city affiliation',
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Belo Horizonte",
+                "message": "Got Belo Horizonte, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/institution element original attribute validation',
-                'xpath': './/aff/institution[@content-type="original"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'original affiliation',
-                'got_value': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
-                             'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil',
-                'message': 'Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. '
-                           'Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original affiliation',
-                'advice': None
-
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
+                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
+                "message": "Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
+                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original "
+                "affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/institution element orgname attribute validation',
-                'xpath': './/aff/institution[@content-type="orgname"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'orgname affiliation',
-                'got_value': 'Universidade Federal de Minas Gerais',
-                'message': 'Got Universidade Federal de Minas Gerais, expected orgname affiliation',
-                'advice': None
-
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade Federal de Minas Gerais",
+                "message": "Got Universidade Federal de Minas Gerais, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff element country attribute validation',
-                'xpath': './/aff/country',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'country affiliation',
-                'got_value': 'Brasil',
-                'message': 'Got Brasil, expected country affiliation',
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff element @country attribute validation',
-                'xpath': './/aff/@country',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['BR'],
-                'got_value': 'BR',
-                'message': "Got BR, expected one item of this list: ['BR']",
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/addr-line element state attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="state"] or .//aff/addr-line/state',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'state affiliation',
-                'got_value': 'MG',
-                'message': 'Got MG, expected state affiliation',
-                'advice': None
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "MG",
+                "message": "Got MG, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
             },
             {
-                'title': 'aff/addr-line element city attribute validation',
-                'xpath': './/aff/addr-line/named-content[@content-type="city"] or .//aff/addr-line/city',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'city affiliation',
-                'got_value': 'Belo Horizonte',
-                'message': 'Got Belo Horizonte, expected city affiliation',
-                'advice': None
-            }
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Belo Horizonte",
+                "message": "Got Belo Horizonte, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Belo Horizonte",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal de Minas Gerais",
+                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
+                    "Saúde. Faculdade de Medicina. Universidade Federal de "
+                    "Minas Gerais. Belo Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            },
         ]
 
-        self.assertEqual(obtained, expected)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
