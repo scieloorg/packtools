@@ -490,7 +490,7 @@ class AffTest(TestCase):
         self.assertEqual(data, expected_output)
 
     def test_get_affiliation_dict(self):
-        xml = ("""
+        xml = """
         <article>
             <front>
                 <article-meta>
@@ -558,122 +558,92 @@ class AffTest(TestCase):
             </contrib-group>
             </front>
         </article>
-        """)
+        """
 
         xml = etree.fromstring(xml)
         data = AffiliationExtractor(xml).get_affiliation_dict(subtag=True)
 
         expected_output = {
-            'aff1':
-            {
-                'id': 'aff1',
-                'label': 'I',
-                'institution': [
+            "aff1": {
+                "id": "aff1",
+                "label": "I",
+                "institution": [
                     {
-                        'orgname': 'Secretaria <italic>Municipal</italic> de Saúde de Belo Horizonte',
-                        'orgdiv1': '',
-                        'orgdiv2': '',
-                        'original': 'Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil'
+                        "orgname": "Secretaria <italic>Municipal</italic> de Saúde de Belo Horizonte",
+                        "orgdiv1": "",
+                        "orgdiv2": "",
+                        "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     }
                 ],
-                'city': '<bold>Belo Horizonte</bold>',
-                'state': 'MG',
-                'country': [
-                    {
-                        'code': '',
-                        'name': 'Brasil'
-                    }
-                ],
-                'email': ''
+                "city": "<bold>Belo Horizonte</bold>",
+                "state": "MG",
+                "country": [{"code": "", "name": "Brasil"}],
+                "email": "",
             },
-            'aff2':
-            {
-                'id': 'aff2',
-                'label': 'II',
-                'institution': [
+            "aff2": {
+                "id": "aff2",
+                "label": "II",
+                "institution": [
                     {
-                        'orgname': 'Universidade Federal de Minas Gerais',
-                        'orgdiv1': 'Faculdade de Medicina',
-                        'orgdiv2': '',
-                        'original': 'Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil'
+                        "orgname": "Universidade Federal de Minas Gerais",
+                        "orgdiv1": "Faculdade de Medicina",
+                        "orgdiv2": "",
+                        "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                     }
                 ],
-                'city': '<italic>Belo Horizonte</italic>',
-                'state': 'MG',
-                'country': [
-                    {
-                        'code': '',
-                        'name': 'Brasil'
-                    }
-                ],
-                'email': ''
+                "city": "<italic>Belo Horizonte</italic>",
+                "state": "MG",
+                "country": [{"code": "", "name": "Brasil"}],
+                "email": "",
             },
-            'aff3':
-            {
-                'id': 'aff3',
-                'label': 'III',
-                'institution': [
+            "aff3": {
+                "id": "aff3",
+                "label": "III",
+                "institution": [
                     {
-                        'orgname': 'Fundação Oswaldo Cruz',
-                        'orgdiv1': 'Escola Nacional de Saúde Pública Sergio Arouca',
-                        'orgdiv2': '<italic>Departamento de Ciências Sociais</italic>',
-                        'original': 'Departamento de Ciências Sociais. Escola Nacional de Saúde Pública Sergio Arouca. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil'
+                        "orgname": "Fundação Oswaldo Cruz",
+                        "orgdiv1": "Escola Nacional de Saúde Pública Sergio Arouca",
+                        "orgdiv2": "<italic>Departamento de Ciências Sociais</italic>",
+                        "original": "Departamento de Ciências Sociais. Escola Nacional de Saúde Pública Sergio Arouca. Fundação Oswaldo Cruz. Rio de Janeiro, RJ, Brasil",
                     }
                 ],
-                'city': 'Rio de Janeiro',
-                'state': 'RJ',
-                'country': [
-                    {
-                        'code': '',
-                        'name': 'Brasil'
-                    }
-                ],
-                'email': ''
+                "city": "Rio de Janeiro",
+                "state": "RJ",
+                "country": [{"code": "", "name": "Brasil"}],
+                "email": "",
             },
-            'aff4':
-            {
-                'id': 'aff4',
-                'label': 'IV',
-                'institution': [
+            "aff4": {
+                "id": "aff4",
+                "label": "IV",
+                "institution": [
                     {
-                        'orgname': '<bold>Universidade Federal de Minas Gerais</bold>',
-                        'orgdiv1': 'Faculdade de Farmácia',
-                        'orgdiv2': 'Departamento de Farmácia Social',
-                        'original': 'Departamento de Farmácia Social. Faculdade de Farmácia. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil'
+                        "orgname": "<bold>Universidade Federal de Minas Gerais</bold>",
+                        "orgdiv1": "Faculdade de Farmácia",
+                        "orgdiv2": "Departamento de Farmácia Social",
+                        "original": "Departamento de Farmácia Social. Faculdade de Farmácia. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                     }
                 ],
-                'city': 'Belo Horizonte',
-                'state': 'MG',
-                'country': [
-                    {
-                        'code': '',
-                        'name': 'Brasil'
-                    }
-                ],
-                'email': ''
+                "city": "Belo Horizonte",
+                "state": "MG",
+                "country": [{"code": "", "name": "Brasil"}],
+                "email": "",
             },
-            'aff5':
-            {
-                'id': 'aff5',
-                'label': 'V',
-                'institution': [
+            "aff5": {
+                "id": "aff5",
+                "label": "V",
+                "institution": [
                     {
-                        'orgname': 'Universidade Federal do Ceará',
-                        'orgdiv1': 'Faculdade de Medicina',
-                        'orgdiv2': 'Departamento de Saúde Comunitária',
-                        'original': 'Departamento de Saúde Comunitária. Faculdade de Medicina. Universidade Federal do Ceará. Fortaleza, CE, Brasil'
+                        "orgname": "Universidade Federal do Ceará",
+                        "orgdiv1": "Faculdade de Medicina",
+                        "orgdiv2": "Departamento de Saúde Comunitária",
+                        "original": "Departamento de Saúde Comunitária. Faculdade de Medicina. Universidade Federal do Ceará. Fortaleza, CE, Brasil",
                     }
                 ],
-                'city': '<italic>Fortaleza</italic>',
-                'state': 'CE',
-                'country': [
-                    {
-                        'code': '',
-                        'name': 'Brasil'
-                    }
-                ],
-                'email': ''
-            }
+                "city": "<italic>Fortaleza</italic>",
+                "state": "CE",
+                "country": [{"code": "", "name": "Brasil"}],
+                "email": "",
+            },
         }
         self.assertEqual(data, expected_output)
 
@@ -901,8 +871,7 @@ class AffiliationTest(TestCase):
         data = Affiliation(xml).affiliation_by_id
 
         expected_output = {
-        "aff1":
-            {
+            "aff1": {
                 "id": "aff1",
                 "label": "I",
                 "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
@@ -915,7 +884,7 @@ class AffiliationTest(TestCase):
                 "country_name": "Brasil",
                 "email": None,
             },
-        "aff2": {
+            "aff2": {
                 "id": "aff2",
                 "label": "II",
                 "city": "Belo Horizonte",
@@ -928,7 +897,7 @@ class AffiliationTest(TestCase):
                 "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                 "email": None,
             },
-        "aff3": {
+            "aff3": {
                 "id": "aff3",
                 "label": "III",
                 "orgname": "Fundação Oswaldo Cruz",
@@ -941,7 +910,7 @@ class AffiliationTest(TestCase):
                 "country_name": "Brasil",
                 "email": None,
             },
-        "aff4": {
+            "aff4": {
                 "id": "aff4",
                 "label": "IV",
                 "orgname": "Universidade Federal de Minas Gerais",
@@ -954,7 +923,7 @@ class AffiliationTest(TestCase):
                 "country_name": "Brasil",
                 "email": None,
             },
-        "aff5": {
+            "aff5": {
                 "id": "aff5",
                 "label": "V",
                 "orgname": "Universidade Federal do Ceará",
@@ -966,7 +935,6 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
-            }
         }
 
         self.assertEqual(5, len(data))
