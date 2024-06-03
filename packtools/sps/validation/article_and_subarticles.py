@@ -8,6 +8,8 @@ from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesSubjectsException,
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
+from packtools.sps.validation.utils import format_response
+from packtools.sps.models.article_contribs import ArticleContribs
 
 
 class ArticleLangValidation:
@@ -65,37 +67,32 @@ class ArticleLangValidation:
             article_id = article.get("article_id")
             validated = article_lang in language_codes_list
 
-            if article_id == "main":
+            if article_id is None:
+                parent = "article"
                 msg = "<article article-type={} xml:lang={}>".format(
                     article_type, article_lang
                 )
             else:
+                parent = "sub-article"
                 msg = "<sub-article article-type={} id={} xml:lang={}>".format(
                     article_type, article_id, article_lang
                 )
 
-            yield {
-                "title": "Article element lang attribute validation",
-                "xpath": (
-                    "./article/@xml:lang"
-                    if article_id == "main"
-                    else ".//sub-article/@xml:lang"
-                ),
-                "validation_type": "value in list",
-                "response": "OK" if validated else "ERROR",
-                "expected_value": language_codes_list,
-                "got_value": article_lang,
-                "message": "Got {} expected one item of this list: {}".format(
-                    msg, " | ".join(language_codes_list)
-                ),
-                "advice": (
-                    None
-                    if validated
-                    else "{} has {} as language, expected one item of this list: {}".format(
+            yield format_response(
+                    title="Article element lang attribute validation",
+                    parent=parent,
+                    parent_id=article_id,
+                    item=parent,
+                    sub_item="@xml:lang",
+                    validation_type="value in list",
+                    is_valid=validated,
+                    expected=language_codes_list,
+                    obtained=article_lang,
+                    advice="{} has {} as language, expected one item of this list: {}".format(
                         msg, article_lang, " | ".join(language_codes_list)
-                    )
-                ),
-            }
+                    ),
+                    data=article
+            )
 
 
 class ArticleAttribsValidation:
@@ -148,26 +145,29 @@ class ArticleAttribsValidation:
         article_specific_use = self.articles.main_specific_use
         validated = article_specific_use in specific_use_list
 
-        yield {
-            "title": "Article element specific-use attribute validation",
-            "xpath": "./article/@specific-use",
-            "validation_type": "value in list",
-            "response": "OK" if validated else "ERROR",
-            "expected_value": specific_use_list,
-            "got_value": article_specific_use,
-            "message": "Got {} expected one item of this list: {}".format(
-                article_specific_use, " | ".join(specific_use_list)
-            ),
-            "advice": (
-                None
-                if validated
-                else "XML {} has {} as specific-use, expected one item of this list: {}".format(
+        data = self.articles.data[0]
+        data.update({
+            "specific_use": self.articles.main_specific_use,
+            "dtd_version": self.articles.main_dtd_version
+        })
+
+        yield format_response(
+            title="Article element specific-use attribute validation",
+            parent="article",
+            parent_id=None,
+            item="article",
+            sub_item="@specific-use",
+            validation_type="value in list",
+            is_valid=validated,
+            expected=specific_use_list,
+            obtained=article_specific_use,
+            advice="XML {} has {} as specific-use, expected one item of this list: {}".format(
                     self.articles.main_article_type,
                     article_specific_use,
                     " | ".join(specific_use_list),
-                )
-            ),
-        }
+                ),
+            data=data
+        )
 
     def validate_dtd_version(self, dtd_version_list=None):
         """
@@ -212,26 +212,29 @@ class ArticleAttribsValidation:
         article_dtd_version = self.articles.main_dtd_version
         validated = article_dtd_version in dtd_version_list
 
-        yield {
-            "title": "Article element dtd-version attribute validation",
-            "xpath": "./article/@dtd-version",
-            "validation_type": "value in list",
-            "response": "OK" if validated else "ERROR",
-            "expected_value": dtd_version_list,
-            "got_value": article_dtd_version,
-            "message": "Got {} expected one item of this list: {}".format(
-                article_dtd_version, " | ".join(dtd_version_list)
-            ),
-            "advice": (
-                None
-                if validated
-                else "XML {} has {} as dtd-version, expected one item of this list: {}".format(
+        data = self.articles.data[0]
+        data.update({
+            "specific_use": self.articles.main_specific_use,
+            "dtd_version": self.articles.main_dtd_version
+        })
+
+        yield format_response(
+            title="Article element dtd-version attribute validation",
+            parent="article",
+            parent_id=None,
+            item="article",
+            sub_item="@dtd-version",
+            validation_type="value in list",
+            is_valid=validated,
+            expected=dtd_version_list,
+            obtained=article_dtd_version,
+            advice="XML {} has {} as dtd-version, expected one item of this list: {}".format(
                     self.articles.main_article_type,
                     article_dtd_version,
                     " | ".join(dtd_version_list),
-                )
             ),
-        }
+            data=data
+        )
 
 
 class ArticleTypeValidation:
@@ -285,24 +288,28 @@ class ArticleTypeValidation:
         article_type_list = [tp.lower() for tp in article_type_list]
 
         validated = article_type in article_type_list
-        yield {
-            "title": "Article type validation",
-            "xpath": "./article/@article-type",
-            "validation_type": "value in list",
-            "response": "OK" if validated else "ERROR",
-            "expected_value": article_type_list,
-            "got_value": article_type,
-            "message": "Got {} expected one item of this list: {}".format(
-                article_type, " | ".join(article_type_list)
-            ),
-            "advice": (
-                None
-                if validated
-                else "XML has {} as article-type, expected one item of this list: {}".format(
+
+        data = self.articles.data[0]
+        data.update({
+            "specific_use": self.articles.main_specific_use,
+            "dtd_version": self.articles.main_dtd_version
+        })
+
+        yield format_response(
+            title="Article type validation",
+            parent="article",
+            parent_id=None,
+            item="article",
+            sub_item="@article-type",
+            validation_type="value in list",
+            is_valid=validated,
+            expected=article_type_list,
+            obtained=article_type,
+            advice="XML has {} as article-type, expected one item of this list: {}".format(
                     article_type, " | ".join(article_type_list)
-                )
             ),
-        }
+            data=data
+        )
 
 
 class ArticleSubjectsValidation:
@@ -367,16 +374,26 @@ class ArticleSubjectsValidation:
 
         validated = len(declared_subjects) == 0
         got_value = None if validated else ", ".join(declared_subjects)
-        yield {
-            "title": "Article type vs subjects validation",
-            "xpath": "./article/@article-type .//subject",
-            "validation_type": "value in list",
-            "response": "OK" if validated else "ERROR",
-            "expected_value": None,
-            "got_value": None if validated else declared_subjects,
-            "message": "Got {} expected no subject".format(got_value),
-            "advice": "XML has {} as subjects, expected no subjects".format(got_value),
-        }
+
+        data = self.articles.data[0]
+        data.update({
+            "specific_use": self.articles.main_specific_use,
+            "dtd_version": self.articles.main_dtd_version
+        })
+
+        yield format_response(
+            title="Article type vs subjects validation",
+            parent="article",
+            parent_id=None,
+            item="article",
+            sub_item="@article-type",
+            validation_type="value in list",
+            is_valid=validated,
+            expected=None,
+            obtained=declared_subjects,
+            advice="XML has {} as subjects, expected no subjects".format(got_value),
+            data=data
+        )
 
     def validate_article_type_vs_subject_similarity(
         self, subjects_list=None, expected_similarity=0
@@ -467,45 +484,51 @@ class ArticleSubjectsValidation:
                 similarity(subjects_list, article_subject)
             )
             validated = calculated_similarity >= expected_similarity
-            yield {
-                "title": "Article type vs subjects validation",
-                "xpath": "./article/@article-type .//subject",
-                "validation_type": "similarity",
-                "response": "OK" if validated else "ERROR",
-                "expected_value": expected_similarity,
-                "got_value": calculated_similarity,
-                "message": f"The article id: {article_id} must match the {subject[0]} with a rate greater than or equal to {expected_similarity}",
-                "advice": (
-                    None
-                    if validated
-                    else "The subject {} does not match the items provided in the list: {}".format(
+
+            data = self.articles.data[0]
+            data.update({
+                "specific_use": self.articles.main_specific_use,
+                "dtd_version": self.articles.main_dtd_version
+            })
+
+            yield format_response(
+                title="Article type vs subjects validation",
+                parent="article",
+                parent_id=None,
+                item="article",
+                sub_item="@article-type",
+                validation_type="similarity",
+                is_valid=validated,
+                expected=expected_similarity,
+                obtained=calculated_similarity,
+                advice="The subject {} does not match the items provided in the list: {}".format(
                         article_subject, " | ".join(subjects_list)
-                    )
-                ),
-            }
+                    ),
+                data=data
+            )
 
-    def validate(self, data):
-        """
-        Função que executa as validações da classe ArticleValidation.
-
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-
-        """
-        yield {
-            "article_lang_validation": self.validate_language(
-                data["language_codes_list"]
-            ),
-            "article_specific_use_validation": self.validate_specific_use(
-                data["specific_use_list"]
-            ),
-        }
+    # def validate(self, data):
+    #     """
+    #     Função que executa as validações da classe ArticleValidation.
+    #
+    #     Returns:
+    #         dict: Um dicionário contendo os resultados das validações realizadas.
+    #
+    #     """
+    #     yield {
+    #         "article_lang_validation": self.validate_language(
+    #             data["language_codes_list"]
+    #         ),
+    #         "article_specific_use_validation": self.validate_specific_use(
+    #             data["specific_use_list"]
+    #         ),
+    #     }
 
 
 class ArticleIdValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.other_id = ArticleIds(self.xmltree).other
+        self.article_ids = ArticleIds(self.xmltree)
 
     def validate_article_id_other(self):
         """
@@ -538,23 +561,94 @@ class ArticleIdValidation:
                 'advice': None
             }
         """
-        is_valid = self.other_id.isnumeric() and len(self.other_id) <= 5
+        is_valid = self.article_ids.other.isnumeric() and len(self.article_ids.other) <= 5
         expected_value = (
-            self.other_id if is_valid else "A numeric value with up to five digits"
+            self.article_ids.other if is_valid else "a numeric value with up to five digits"
         )
-        yield {
-            "title": "Article id other validation",
-            "xpath": './/article-id[@pub-id-type="other"]',
-            "validation_type": "format",
-            "response": "OK" if is_valid else "ERROR",
-            "expected_value": expected_value,
-            "got_value": self.other_id,
-            "message": "Got {} expected {}".format(
-                self.other_id, expected_value[0].lower() + expected_value[1:]
-            ),
-            "advice": (
-                None
-                if is_valid
-                else 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
-            ),
-        }
+        yield format_response(
+            title="Article id other validation",
+            parent="article",
+            parent_id=None,
+            item="article-id",
+            sub_item='@pub-id-type="other"',
+            validation_type="format",
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.article_ids.other,
+            advice='Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+            data=self.article_ids.data
+        )
+
+
+def exist_contrib_validation():
+    yield format_response(
+        title="Indexable validation",
+        parent="article",
+        parent_id=None,
+        item="contrib-group",
+        sub_item="contrib",
+        validation_type="exist",
+        is_valid=False,
+        expected="at least 1 contrib",
+        obtained=None,
+        advice="provide at least 1 contrib",
+        data=None,
+    )
+
+
+def exist_xref_for_all_contribs_validation(contrib):
+    yield format_response(
+        title="Indexable validation",
+        parent=contrib.get("parent"),
+        parent_id=contrib.get("id"),
+        item="xref",
+        sub_item="@rid",
+        validation_type="exist",
+        is_valid=False,
+        expected="xref for affiliation data",
+        obtained=contrib.get("rid"),
+        advice="provide xref for affiliation data",
+        data=contrib,
+    )
+
+
+def exist_affs_for_each_xref_validation(contrib, xrefs, affs):
+    yield format_response(
+        title="Indexable validation",
+        parent=contrib.get("parent"),
+        parent_id=contrib.get("id"),
+        item="aff",
+        sub_item="@id",
+        validation_type="exist",
+        is_valid=False,
+        expected=f"affiliation data for each xref in list: {xrefs}",
+        obtained=affs,
+        advice=f"provide affiliation data for each xref in list: {xrefs}",
+        data=contrib,
+    )
+
+
+class IndexableDocumentsValidation:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def validation(self):
+        contribs = list(ArticleContribs(self.xmltree).contribs)
+        if not contribs:
+            yield from exist_contrib_validation()
+        else:
+            for contrib in contribs:
+                xrefs = [xref.get("rid") for xref in contrib.get("contrib_xref", []) if xref.get("ref_type") == "aff"]
+
+                if len(xrefs) == 0:
+                    yield from exist_xref_for_all_contribs_validation(
+                        contrib
+                    )
+                else:
+                    affs = [aff.get("id") for aff in contrib.get("affs", [])]
+                    if affs is None or len(xrefs) != len(affs):
+                        yield from exist_affs_for_each_xref_validation(
+                            contrib,
+                            xrefs,
+                            affs
+                        )
