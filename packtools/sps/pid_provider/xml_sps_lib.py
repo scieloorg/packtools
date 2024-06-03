@@ -108,17 +108,23 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
             filenames = filenames or zf.namelist() or []
             for item in filenames:
                 if item.endswith(".xml"):
-                    xml_with_pre = get_xml_with_pre(zf.read(item).decode("utf-8"))
-                    xml_with_pre.zip_file_path = xml_sps_file_path
-                    found = True
-                    yield {
-                        "filename": item,
-                        "xml_with_pre": xml_with_pre,
-                        "files": zf.namelist(),
-                    }
+                    try:
+                        content = zf.read(item)
+                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
+                        xml_with_pre.zip_file_path = xml_sps_file_path
+                        found = True
+                        yield {
+                            "filename": item,
+                            "xml_with_pre": xml_with_pre,
+                            "files": filenames,
+                        }
+                    except Exception as e:
+                        LOGGER.exception(f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}")
+                        continue
+
             if not found:
                 raise TypeError(
-                    f"{xml_sps_file_path} has no XML. Files found: {str(zf.namelist())}"
+                    f"{xml_sps_file_path} has no XML. Files found: {filenames}"
                 )
     except Exception as e:
         LOGGER.exception(e)
@@ -183,6 +189,38 @@ def create_xml_zip_file(xml_sps_file_path, content):
     return os.path.isfile(xml_sps_file_path)
 
 
+def get_zips(xml_sps_file_path):
+    found = False
+    with ZipFile(xml_sps_file_path) as zf:
+        # obtém os components do zip
+        filenames = zf.namelist() or []
+        xmls = [
+            os.path.splitext(os.path.basename(filename))[0]
+            for filename in filenames if filename.endswith(".xml")]
+        xmls = {key: [] for key in xmls}
+
+        for key in list(xmls.keys()):
+            for filename in filenames:
+                name = os.path.basename(filename)
+                if name in (key+".pdf", key+".xml"):
+                    xmls[key].append(filename)
+                elif name.startswith(key+"-") and not name.endswith(".xml"):
+                    xmls[key].append(filename)
+            filenames = list(set(filenames) - set(xmls[key]))
+
+        with TemporaryDirectory() as tmpdirname:
+
+            for key, files in xmls.items():
+
+                zfile = os.path.join(tmpdirname, f"{key}.zip")
+                with ZipFile(zfile, "w", compression=ZIP_DEFLATED) as zfw:
+                    for item in files:
+                        zfw.writestr(item, zf.read(item))
+
+                with open(zfile, "rb") as zfw:
+                    yield {"zipfilename": key+".zip", "content": zfw.read()}
+
+
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
         response = fetch_data(uri, timeout=timeout)
@@ -217,7 +255,6 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
 
     if not xml_content.startswith("<?") and not xml_content.startswith("<!"):
         return "", xml_content
-
     if xml_content.endswith("/>"):
         # <article/>
         p = xml_content.rfind("<")
