@@ -12,8 +12,7 @@ from zipfile import BadZipFile, ZipFile, ZIP_DEFLATED
 from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
-from packtools.sps.models.article_assets import (ArticleAssets,
-                                                 SupplementaryMaterials)
+from packtools.sps.models.v2.article_assets import ArticleAssets
 from packtools.sps.models.article_authors import Authors
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_ids import ArticleIds
@@ -74,7 +73,7 @@ def get_xml_items(xml_sps_file_path, filenames=None):
                 xml = get_xml_with_pre(fp.read())
                 xml.xml_file_path = xml_sps_file_path
                 item = os.path.basename(xml_sps_file_path)
-            return [{"filename": item, "xml_with_pre": xml, "files": [item]}]
+            return [{"filename": item, "xml_with_pre": xml, "files": [item], "filenames": [item]}]
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
                 xml_sps_file_path
@@ -106,6 +105,10 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
         found = False
         with ZipFile(xml_sps_file_path) as zf:
             filenames = filenames or zf.namelist() or []
+            _filenames = [
+                os.path.basename(name)
+                for name in zf.namelist() if name
+            ]
             for item in filenames:
                 if item.endswith(".xml"):
                     try:
@@ -117,11 +120,11 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
                             "filename": item,
                             "xml_with_pre": xml_with_pre,
                             "files": filenames,
+                            "filenames": _filenames,
                         }
                     except Exception as e:
                         LOGGER.exception(f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}")
                         continue
-
             if not found:
                 raise TypeError(
                     f"{xml_sps_file_path} has no XML. Files found: {filenames}"
@@ -294,6 +297,7 @@ class XMLWithPre:
         self.filename = None
         self.pretty_print = pretty_print
         self.files = None
+        self.filenames = None
         self.uri = None
         self.zip_file_path = None
         self.xml_file_path = None
@@ -312,6 +316,7 @@ class XMLWithPre:
             aop_pid=self.aop_pid,
             filename=self.filename,
             files=self.files,
+            filenames=self.filenames,
         )
 
     @classmethod
@@ -328,6 +333,7 @@ class XMLWithPre:
             for item in get_xml_items(path):
                 item["xml_with_pre"].filename = item["filename"]
                 item["xml_with_pre"].files = item.get("files")
+                item["xml_with_pre"].filenames = item.get("filenames")
                 yield item["xml_with_pre"]
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout=30)
@@ -874,6 +880,54 @@ class XMLWithPre:
     @property
     def finger_print(self):
         return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
+
+    @property
+    def main_lang(self):
+        return ArticleAndSubArticles(self.xmltree).main_lang
+
+    @property
+    def langs(self):
+        for item in ArticleAndSubArticles(self.xmltree).data:
+            yield item["lang"]
+
+    @property
+    def components(self):
+        _components = {}
+        xml_assets = ArticleAssets(self.xmltree)
+        for xml_graphic in xml_assets.items:
+            if _components.get(xml_graphic.xlink_href):
+                continue
+
+            component_type = (
+                "supplementary-material"
+                if xml_graphic.is_supplementary_material
+                else "asset"
+            )
+            _components[xml_graphic.xlink_href] = {
+                "xml_elem_id": xml_graphic.id,
+                "component_type": component_type,
+            }
+
+        xml_renditions = ArticleRenditions(self.xmltree)
+        for item in xml_renditions.article_renditions:
+            name = self.sps_pkg_name + ".pdf" if item.is_main_language else f"{self.sps_pkg_name}-{item.language}.pdf"
+            _components[name] = {
+                "lang": item.language,
+                "component_type": "rendition",
+            }
+        return _components
+
+    @property
+    def renditions(self):
+        xml_renditions = ArticleRenditions(self.xmltree)
+        for item in xml_renditions.article_renditions:
+            name = self.sps_pkg_name + ".pdf" if item.is_main_language else f"{self.sps_pkg_name}-{item.language}.pdf"
+            yield {
+                "name": name,
+                "lang": item.language,
+                "component_type": "rendition",
+                "main": item.is_main_language,
+            }
 
 
 def generate_finger_print(content):
