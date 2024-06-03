@@ -159,45 +159,48 @@ class Affiliation:
                 "email": email or None,
             }
         """
-        data = []
+
         loc_types = ["state", "city"]
         inst_types = ["orgname", "orgdiv1", "orgdiv2", "original"]
 
-        for aff_node in self._xmltree.xpath(".//aff"):
+        for node, lang, article_type, parent, parent_id in _get_parent_context(
+            self._xmltree
+        ):
 
-            affiliation_id = aff_node.get("id")
+            for aff_node in node.xpath(".//aff"):
 
-            label = aff_node.findtext("label")
+                affiliation_id = aff_node.get("id")
 
-            institution = {}
-            for inst_type in inst_types:
-                institution[inst_type] = aff_node.findtext(
-                    f'institution[@content-type="{inst_type}"]'
-                )
+                label = aff_node.findtext("label")
 
-            address = {}
-            for loc_type in loc_types:
-                address[loc_type] = aff_node.findtext(f"addr-line/{loc_type}")
-                if not address[loc_type]:
-                    address[loc_type] = aff_node.findtext(
-                        f'addr-line/named-content[@content-type="{loc_type}"]'
+                institution = {}
+                for inst_type in inst_types:
+                    institution[inst_type] = aff_node.findtext(
+                        f'institution[@content-type="{inst_type}"]'
                     )
-            address["country_name"] = aff_node.findtext("country")
 
-            try:
-                address["country_code"] = aff_node.find("country").get("country")
-            except AttributeError:
-                pass
-            address["email"] = aff_node.findtext("email")
+                address = {}
+                for loc_type in loc_types:
+                    address[loc_type] = aff_node.findtext(f"addr-line/{loc_type}")
+                    if not address[loc_type]:
+                        address[loc_type] = aff_node.findtext(
+                            f'addr-line/named-content[@content-type="{loc_type}"]'
+                        )
+                address["country_name"] = aff_node.findtext("country")
 
-            item = {
-                "id": affiliation_id,
-                "label": label,
-            }
-            item.update(institution)
-            item.update(address)
-            data.append(item)
-        return data
+                try:
+                    address["country_code"] = aff_node.find("country").get("country")
+                except AttributeError:
+                    pass
+                address["email"] = aff_node.findtext("email")
+
+                item = {
+                    "id": affiliation_id,
+                    "label": label,
+                }
+                item.update(institution)
+                item.update(address)
+                yield _put_parent_context(item, lang, article_type, parent, parent_id)
 
     @property
     def affiliation_by_id(self):
@@ -227,3 +230,27 @@ class Affiliation:
         for item in self.affiliation_list:
             data[item["id"]] = item
         return data
+
+
+def _get_parent_context(xmltree):
+    main = xmltree.xpath(".")[0]
+    main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+    main_article_type = main.get("article-type")
+    for node in xmltree.xpath(".//front | .//sub-article"):
+        parent = "sub-article" if node.tag == "sub-article" else "article"
+        parent_id = node.get("id")
+        lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+        article_type = node.get("article-type") or main_article_type
+        yield node, lang, article_type, parent, parent_id
+
+
+def _put_parent_context(data, lang, article_type, parent, parent_id):
+    data.update(
+        {
+            "parent": parent,
+            "parent_id": parent_id,
+            "parent_lang": lang,
+            "parent_article_type": article_type,
+        }
+    )
+    return data
