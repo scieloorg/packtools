@@ -721,7 +721,7 @@ class AffiliationTest(TestCase):
         """
 
         xml = etree.fromstring(xml)
-        data = Affiliation(xml).affiliation_list
+        data = list(Affiliation(xml).affiliation_list)
 
         expected_output = [
             {
@@ -736,6 +736,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             {
                 "id": "aff2",
@@ -749,6 +753,10 @@ class AffiliationTest(TestCase):
                 "orgdiv2": None,
                 "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             {
                 "id": "aff3",
@@ -762,6 +770,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             {
                 "id": "aff4",
@@ -775,6 +787,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             {
                 "id": "aff5",
@@ -788,6 +804,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
         ]
 
@@ -883,6 +903,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             "aff2": {
                 "id": "aff2",
@@ -896,6 +920,10 @@ class AffiliationTest(TestCase):
                 "orgdiv2": None,
                 "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             "aff3": {
                 "id": "aff3",
@@ -909,6 +937,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             "aff4": {
                 "id": "aff4",
@@ -922,6 +954,10 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
             },
             "aff5": {
                 "id": "aff5",
@@ -935,6 +971,11 @@ class AffiliationTest(TestCase):
                 "country_code": None,
                 "country_name": "Brasil",
                 "email": None,
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+            },
         }
 
         self.assertEqual(5, len(data))
