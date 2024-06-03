@@ -6,7 +6,8 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleAttribsValidation,
     ArticleTypeValidation,
     ArticleSubjectsValidation,
-    ArticleIdValidation
+    ArticleIdValidation,
+    IndexableDocumentsValidation,
 )
 
 
@@ -26,19 +27,30 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': None,
-                'message': 'Got <article article-type=research-article xml:lang=None> expected one item of this list: pt | en | es',
-                'advice': "<article article-type=research-article xml:lang=None> has None as language, expected one item of this list: pt | en | es"
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": None,
+                'message': "Got None, expected ['pt', 'en', 'es']",
+                "advice": "<article article-type=research-article xml:lang=None> has None as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': None,
+                    'line_number': 2,
+                    'subject': None
+                }
             }
         ]
         for i, item in enumerate(obtained):
@@ -60,19 +72,30 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                "message": "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                "data": {
+                    "article_id": None,
+                    'article_type': 'research-article',
+                    'lang': 'en',
+                    'line_number': 2,
+                    'subject': None
+                }
             }
         ]
         for i, item in enumerate(obtained):
@@ -80,6 +103,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 self.assertDictEqual(expected[i], item)
 
     def test_article_has_invalid_language(self):
+        self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="e">
             <front>
@@ -93,19 +117,30 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'e',
-                'message': 'Got <article article-type=research-article xml:lang=e> expected one item of this list: pt | en | es',
-                'advice': "<article article-type=research-article xml:lang=e> has e as language, expected one item of this list: pt | en | es"
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "e",
+                'message': "Got e, expected ['pt', 'en', 'es']",
+                "advice": "<article article-type=research-article xml:lang=e> has e as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'e',
+                    'line_number': 2,
+                    'subject': None
+                }
             }
         ]
         for i, item in enumerate(obtained):
@@ -114,45 +149,75 @@ class ArticleAndSubarticlesTest(TestCase):
 
     def test_article_and_subarticles_have_valid_languages(self):
         self.maxDiff = None
-        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml') as data:
+        with open("tests/samples/article-abstract-en-sub-articles-pt-es.xml") as data:
             xml_tree = get_xml_tree(data.read())
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                'message': "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'en',
+                    'line_number': 2,
+                    'subject': 'Original Article'
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'pt',
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's1',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "pt",
+                'message': "Got pt, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's1',
+                    'article_type': 'translation',
+                    'lang': 'pt',
+                    'line_number': 1307,
+                    'subject': 'Artigo Original'
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'es',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
-                'advice': None
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's2',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "es",
+                'message': "Got es, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's2',
+                    'article_type': 'translation',
+                    'lang': 'es',
+                    'line_number': 1527,
+                    'subject': 'Artículo Original'
+                },
 
-            }
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -169,42 +234,71 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                'message': "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'en',
+                    'line_number': 2,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'pt',
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's1',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "pt",
+                'message': "Got pt, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's1',
+                    'article_type': 'translation',
+                    'lang': 'pt',
+                    'line_number': 3,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'es',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=es> expected one item of this list: pt | en | es',
-                'advice': None
-
-            }
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's2',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "es",
+                'message': "Got es, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's2',
+                    'article_type': 'translation',
+                    'lang': 'es',
+                    'line_number': 5,
+                    'subject': None
+                },
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -221,42 +315,71 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                'message': "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'en',
+                    'line_number': 2,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'pt',
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=pt> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's1',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "pt",
+                'message': "Got pt, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's1',
+                    'article_type': 'translation',
+                    'lang': 'pt',
+                    'line_number': 3,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': '',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
-
-            }
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's2',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "",
+                'message': "Got , expected ['pt', 'en', 'es']",
+                "advice": "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': 's2',
+                    'article_type': 'translation',
+                    'lang': '',
+                    'line_number': 5,
+                    'subject': None
+                }
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -273,42 +396,71 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <article article-type=research-article xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                'message': "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'en',
+                    'line_number': 2,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': None,
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=None> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s1 xml:lang=None> has None as language, expected one item of this list: pt | en | es"
-
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's1',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": None,
+                'message': "Got None, expected ['pt', 'en', 'es']",
+                "advice": "<sub-article article-type=translation id=s1 xml:lang=None> has None as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': 's1',
+                    'article_type': 'translation',
+                    'lang': None,
+                    'line_number': 3,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': '',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es"
-
-            }
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's2',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "",
+                'message': "Got , expected ['pt', 'en', 'es']",
+                "advice": "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': 's2',
+                    'article_type': 'translation',
+                    'lang': '',
+                    'line_number': 5,
+                    'subject': None
+                },
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -326,42 +478,71 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(language_codes_list=['pt', 'en', 'es'])
+        obtained = ArticleLangValidation(xml_tree).validate_language(
+            language_codes_list=["pt", "en", "es"]
+        )
 
         expected = [
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'portugol',
-                'message': 'Got <article article-type=research-article xml:lang=portugol> expected one item of this list: pt | en | es',
-                'advice': "<article article-type=research-article xml:lang=portugol> has portugol as language, expected one item of this list: pt | en | es"
-
+                "title": "Article element lang attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "portugol",
+                'message': "Got portugol, expected ['pt', 'en', 'es']",
+                "advice": "<article article-type=research-article xml:lang=portugol> has portugol as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'en',
-                'message': 'Got <sub-article article-type=translation id=s1 xml:lang=en> expected one item of this list: pt | en | es',
-                'advice': None
-
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's1',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "en",
+                'message': "Got en, expected ['pt', 'en', 'es']",
+                "advice": None,
+                'data': {
+                    'article_id': 's1',
+                    'article_type': 'translation',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'subject': None
+                },
             },
             {
-                'title': 'Article element lang attribute validation',
-                'xpath': './/sub-article/@xml:lang',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['pt', 'en', 'es'],
-                'got_value': 'thisisaninvalidlanguagecode',
-                'message': 'Got <sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> expected one item of this list: pt | en | es',
-                'advice': "<sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es"
-
-            }
+                "title": "Article element lang attribute validation",
+                'parent': 'sub-article',
+                'parent_id': 's2',
+                'item': 'sub-article',
+                'sub_item': '@xml:lang',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["pt", "en", "es"],
+                "got_value": "thisisaninvalidlanguagecode",
+                'message': "Got thisisaninvalidlanguagecode, expected ['pt', 'en', 'es']",
+                "advice": "<sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es",
+                'data': {
+                    'article_id': 's2',
+                    'article_type': 'translation',
+                    'lang': 'thisisaninvalidlanguagecode',
+                    'line_number': 5,
+                    'subject': None
+                }
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -379,18 +560,34 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue']))
+        obtained = list(
+            ArticleAttribsValidation(xml_tree).validate_specific_use(
+                specific_use_list=["sps-1.9", "preprint", "special-issue"]
+            )
+        )
 
         expected = [
             {
-                'title': 'Article element specific-use attribute validation',
-                'xpath': './article/@specific-use',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
-                'got_value': 'sps-1.9',
-                'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
-                'advice': None
+                "title": "Article element specific-use attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@specific-use',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["sps-1.9", "preprint", "special-issue"],
+                "got_value": "sps-1.9",
+                'message': "Got sps-1.9, expected ['sps-1.9', 'preprint', 'special-issue']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                },
             }
         ]
 
@@ -408,18 +605,34 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleAttribsValidation(xml_tree).validate_specific_use(specific_use_list=['sps-1.9', 'preprint', 'special-issue']))
+        obtained = list(
+            ArticleAttribsValidation(xml_tree).validate_specific_use(
+                specific_use_list=["sps-1.9", "preprint", "special-issue"]
+            )
+        )
 
         expected = [
             {
-                'title': 'Article element specific-use attribute validation',
-                'xpath': './article/@specific-use',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
-                'got_value': None,
-                'message': 'Got None expected one item of this list: sps-1.9 | preprint | special-issue',
-                'advice': 'XML research-article has None as specific-use, expected one item of this list: sps-1.9 | preprint | special-issue'
+                "title": "Article element specific-use attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@specific-use',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["sps-1.9", "preprint", "special-issue"],
+                "got_value": None,
+                'message': "Got None, expected ['sps-1.9', 'preprint', 'special-issue']",
+                "advice": "XML research-article has None as specific-use, expected one item of this list: sps-1.9 | preprint | special-issue",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': None,
+                    'subject': None
+                },
             }
         ]
 
@@ -437,18 +650,34 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleAttribsValidation(xml_tree).validate_dtd_version(dtd_version_list=['1.1', '1.2', '1.3']))
+        obtained = list(
+            ArticleAttribsValidation(xml_tree).validate_dtd_version(
+                dtd_version_list=["1.1", "1.2", "1.3"]
+            )
+        )
 
         expected = [
             {
-                'title': 'Article element dtd-version attribute validation',
-                'xpath': './article/@dtd-version',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['1.1', '1.2', '1.3'],
-                'got_value': '1.1',
-                'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
-                'advice': None
+                "title": "Article element dtd-version attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@dtd-version',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["1.1", "1.2", "1.3"],
+                "got_value": "1.1",
+                'message': "Got 1.1, expected ['1.1', '1.2', '1.3']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                },
             }
         ]
 
@@ -466,20 +695,34 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleTypeValidation(xml_tree).validate_article_type(
-            article_type_list=['research-article']
-        ))
+        obtained = list(
+            ArticleTypeValidation(xml_tree).validate_article_type(
+                article_type_list=["research-article"]
+            )
+        )
 
         expected = [
             {
-                'title': 'Article type validation',
-                'xpath': './article/@article-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['research-article'],
-                'got_value': 'research-article',
-                'message': 'Got research-article expected one item of this list: research-article',
-                'advice': None
+                "title": "Article type validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["research-article"],
+                "got_value": "research-article",
+                'message': "Got research-article, expected ['research-article']",
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': None,
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                }
             }
         ]
 
@@ -497,20 +740,34 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleTypeValidation(xml_tree).validate_article_type(
-            article_type_list=['research-article']
-        ))
+        obtained = list(
+            ArticleTypeValidation(xml_tree).validate_article_type(
+                article_type_list=["research-article"]
+            )
+        )
 
         expected = [
             {
-                'title': 'Article type validation',
-                'xpath': './article/@article-type',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['research-article'],
-                'got_value': 'main',
-                'message': 'Got main expected one item of this list: research-article',
-                'advice': 'XML has main as article-type, expected one item of this list: research-article'
+                "title": "Article type validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["research-article"],
+                "got_value": "main",
+                'message': "Got main, expected ['research-article']",
+                "advice": "XML has main as article-type, expected one item of this list: research-article",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'main',
+                    'dtd_version': None,
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                },
             }
         ]
 
@@ -551,15 +808,31 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': ['scientific article', 'artigo científico', 'artículo científico'],
-                'message': 'Got scientific article, artigo científico, artículo científico expected no subject',
-                'advice': 'XML has scientific article, artigo científico, artículo científico as subjects, expected '
-                          'no subjects'
+                "title": "Article type vs subjects validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": None,
+                "got_value": [
+                    "scientific article",
+                    "artigo científico",
+                    "artículo científico",
+                ],
+                'message': "Got ['scientific article', 'artigo científico', 'artículo científico'], expected None",
+                "advice": "XML has scientific article, artigo científico, artículo científico as subjects, expected "
+                "no subjects",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'specific_use': 'sps-1.9',
+                    'subject': 'Scientific Article'
+                },
             }
         ]
 
@@ -585,14 +858,26 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': None,
-                'got_value': None,
-                'message': 'Got None expected no subject',
-                'advice': 'XML has None as subjects, expected no subjects'
+                "title": "Article type vs subjects validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": None,
+                'got_value': [],
+                'message': 'Got [], expected None',
+                "advice": None,
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                },
             }
         ]
 
@@ -627,60 +912,87 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleSubjectsValidation(xml_tree).validate_article_type_vs_subject_similarity(
+        obtained = ArticleSubjectsValidation(
+            xml_tree
+        ).validate_article_type_vs_subject_similarity(
             subjects_list=[
-                {
-                    'subject': 'Original Article',
-                    'lang': 'en'
-                },
-                {
-                    'subject': 'Artigo Original',
-                    'lang': 'pt'
-                },
-                {
-                    'subject': 'Artículo Original',
-                    'lang': 'es'
-                }
+                {"subject": "Original Article", "lang": "en"},
+                {"subject": "Artigo Original", "lang": "pt"},
+                {"subject": "Artículo Original", "lang": "es"},
             ],
-            expected_similarity=0.7)
+            expected_similarity=0.7,
+        )
 
         expected = [
             {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'ERROR',
-                'expected_value': 0.7,
-                'got_value': 0.6818181818181818,
-                'message': 'The article id: main must match the Original Article (en) with a rate greater than or equal to 0.7',
-                'advice': 'The subject Scientific Article (en) does not match the items provided in the list: '
-                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
-
+                "title": "Article type vs subjects validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "similarity",
+                "response": "ERROR",
+                "expected_value": 0.7,
+                "got_value": 0.6818181818181818,
+                'message': 'Got 0.6818181818181818, expected 0.7',
+                "advice": "The subject Scientific Article (en) does not match the items provided in the list: "
+                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'specific_use': 'sps-1.9',
+                    'subject': 'Scientific Article'
+                },
             },
             {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'ERROR',
-                'expected_value': 0.7,
-                'got_value': 0.6190476190476191,
-                'message': 'The article id: s1 must match the Artigo Original (pt) with a rate greater than or equal to 0.7',
-                'advice': 'The subject Artigo Científico (pt) does not match the items provided in the list: '
-                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
-
+                "title": "Article type vs subjects validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "similarity",
+                "response": "ERROR",
+                "expected_value": 0.7,
+                "got_value": 0.6190476190476191,
+                'message': 'Got 0.6190476190476191, expected 0.7',
+                "advice": "The subject Artigo Científico (pt) does not match the items provided in the list: "
+                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'specific_use': 'sps-1.9',
+                    'subject': 'Scientific Article'
+                },
             },
             {
-                'title': 'Article type vs subjects validation',
-                'xpath': './article/@article-type .//subject',
-                'validation_type': 'similarity',
-                'response': 'ERROR',
-                'expected_value': 0.7,
-                'got_value': 0.6521739130434783,
-                'message': 'The article id: s2 must match the Artículo Original (es) with a rate greater than or equal to 0.7',
-                'advice': 'The subject Artículo Científico (es) does not match the items provided in the list: '
-                          'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
-
-            }
+                "title": "Article type vs subjects validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@article-type',
+                "validation_type": "similarity",
+                "response": "ERROR",
+                "expected_value": 0.7,
+                "got_value": 0.6521739130434783,
+                'message': 'Got 0.6521739130434783, expected 0.7',
+                "advice": "The subject Artículo Científico (es) does not match the items provided in the list: "
+                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': '1.1',
+                    'lang': 'en',
+                    'line_number': 3,
+                    'specific_use': 'sps-1.9',
+                    'subject': 'Scientific Article'
+                },
+            },
         ]
         for i, item in enumerate(obtained):
             with self.subTest(i):
@@ -705,14 +1017,22 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'title': 'Article id other validation',
-                'xpath': './/article-id[@pub-id-type="other"]',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '123',
-                'got_value': '123',
-                'message': 'Got 123 expected 123',
-                'advice': None
+                "title": "Article id other validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-id',
+                'sub_item': '@pub-id-type="other"',
+                "validation_type": "format",
+                "response": "OK",
+                "expected_value": "123",
+                "got_value": "123",
+                'message': 'Got 123, expected 123',
+                "advice": None,
+                'data': {
+                    'other': '123',
+                    'v2': 'S0104-11692020000100303',
+                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
+                },
             }
         ]
         self.assertEqual(expected, obtained)
@@ -736,14 +1056,22 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'title': 'Article id other validation',
-                'xpath': './/article-id[@pub-id-type="other"]',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'A numeric value with up to five digits',
-                'got_value': 'x23',
-                'message': 'Got x23 expected a numeric value with up to five digits',
-                'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+                "title": "Article id other validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-id',
+                'sub_item': '@pub-id-type="other"',
+                "validation_type": "format",
+                "response": "ERROR",
+                'expected_value': 'a numeric value with up to five digits',
+                "got_value": "x23",
+                'message': 'Got x23, expected a numeric value with up to five digits',
+                "advice": 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+                'data': {
+                    'other': 'x23',
+                    'v2': 'S0104-11692020000100303',
+                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
+                },
             }
         ]
         self.assertEqual(expected, obtained)
@@ -767,14 +1095,212 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'title': 'Article id other validation',
-                'xpath': './/article-id[@pub-id-type="other"]',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'A numeric value with up to five digits',
-                'got_value': '123456',
-                'message': 'Got 123456 expected a numeric value with up to five digits',
-                'advice': 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits'
+                "title": "Article id other validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article-id',
+                'sub_item': '@pub-id-type="other"',
+                "validation_type": "format",
+                "response": "ERROR",
+                "expected_value": "a numeric value with up to five digits",
+                "got_value": "123456",
+                'message': 'Got 123456, expected a numeric value with up to five digits',
+                "advice": 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+                'data': {
+                    'other': '123456',
+                    'v2': 'S0104-11692020000100303',
+                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
+                },
             }
         ]
         self.assertEqual(expected, obtained)
+
+
+class IndexableDocumentsValidationTest(TestCase):
+    def test_exist_contrib_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<front>"
+            "<article-meta>"
+            "<contrib-group>"
+            "</contrib-group>"
+            '<aff id="aff1">'
+            "<label>I</label>"
+            '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+            '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+            '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+            "<country>Brasil</country>"
+            '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+            "Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>"
+            "</aff>"
+            "</article-meta>"
+            "</front>"
+            "</article>"
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                "title": "Indexable validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "contrib-group",
+                "sub_item": "contrib",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "at least 1 contrib",
+                "got_value": None,
+                'message': 'Got None, expected at least 1 contrib',
+                "advice": "provide at least 1 contrib",
+                "data": None,
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_exist_xref_for_all_contribs_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<front>"
+            "<article-meta>"
+            "<contrib-group>"
+            '<contrib contrib-type="author">'
+            "<name>"
+            "<surname>Colpani</surname>"
+            "<given-names>Verônica</given-names>"
+            "</name>"
+            "</contrib>"
+            "</contrib-group>"
+            '<aff id="aff1">'
+            "<label>I</label>"
+            '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+            '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+            '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+            "<country>Brasil</country>"
+            '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+            "Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>"
+            "</aff>"
+            "</article-meta>"
+            "</front>"
+            "</article>"
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                "title": "Indexable validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "xref",
+                "sub_item": "@rid",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "xref for affiliation data",
+                "got_value": None,
+                "message": "Got None, expected xref for affiliation data",
+                "advice": "provide xref for affiliation data",
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'contrib_name': {'given-names': 'Verônica', 'surname': 'Colpani'},
+                    'contrib_type': 'author'
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_exist_affs_for_each_xref_validation(self):
+        self.maxDiff = None
+        xmltree = get_xml_tree(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<front>"
+            "<article-meta>"
+            "<contrib-group>"
+            '<contrib contrib-type="author">'
+            "<name>"
+            "<surname>Colpani</surname>"
+            "<given-names>Verônica</given-names>"
+            "</name>"
+            '<xref ref-type="aff" rid="aff1"/>'
+            '<xref ref-type="aff" rid="aff2"/>'
+            "</contrib>"
+            "</contrib-group>"
+            '<aff id="aff1">'
+            "<label>I</label>"
+            '<institution content-type="orgdiv2">Unidade de Endocrinologia Ginecológica</institution>'
+            '<institution content-type="orgdiv1">Serviço de Endocrinologia</institution>'
+            '<institution content-type="orgname">Hospital de Clinicas de Porto Alegre</institution>'
+            "<country>Brasil</country>"
+            '<institution content-type="original">Unidade de Endocrinologia Ginecológica. Serviço de '
+            "Endocrinologia. Hospital de Clinicas de Porto Alegre. Porto Alegre, RS, Brasil</institution>"
+            "</aff>"
+            "</article-meta>"
+            "</front>"
+            "</article>"
+        )
+
+        obtained = list(IndexableDocumentsValidation(xmltree).validation())
+
+        expected = [
+            {
+                "title": "Indexable validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                'sub_item': '@id',
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "affiliation data for each xref in list: ['aff1', 'aff2']",
+                "got_value": ["aff1"],
+                "message": "Got ['aff1'], expected affiliation data for each xref in list: ['aff1', 'aff2']",
+                'advice': "provide affiliation data for each xref in list: ['aff1', 'aff2']",
+                "data": {
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    "affs": [
+                        {
+                            "city": None,
+                            "country_code": None,
+                            "country_name": "Brasil",
+                            "email": None,
+                            "id": "aff1",
+                            "label": "I",
+                            "orgdiv1": "Serviço de Endocrinologia",
+                            "orgdiv2": "Unidade de Endocrinologia Ginecológica",
+                            "orgname": "Hospital de Clinicas de Porto Alegre",
+                            "original": "Unidade de Endocrinologia Ginecológica. "
+                            "Serviço de Endocrinologia. Hospital de "
+                            "Clinicas de Porto Alegre. Porto Alegre, RS, "
+                            "Brasil",
+                            "state": None,
+                        }
+                    ],
+                    "contrib_name": {"given-names": "Verônica", "surname": "Colpani"},
+                    "contrib_type": "author",
+                    "contrib_xref": [
+                        {"ref_type": "aff", "rid": "aff1", "text": None},
+                        {"ref_type": "aff", "rid": "aff2", "text": None},
+                    ],
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
