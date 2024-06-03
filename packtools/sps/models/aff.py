@@ -31,12 +31,14 @@ class AffiliationExtractor:
         institution_aff = ["orgname", "orgdiv1", "orgdiv2", "original"]
 
         # Define se a extração vai ocorrer com subtags ou sem.
-        aff_text = xml_utils.node_text_without_xref if subtag else get_node_without_subtag
+        aff_text = (
+            xml_utils.node_text_without_xref if subtag else get_node_without_subtag
+        )
 
         for node in nodes:
-            for aff_node in node.xpath('aff'):
+            for aff_node in node.xpath("aff"):
 
-                affiliation_id = aff_node.get('id')
+                affiliation_id = aff_node.get("id")
 
                 try:
                     label = aff_node.xpath("label")[0].text
@@ -100,7 +102,7 @@ class AffiliationExtractor:
     def get_affiliation_dict(self, subtag):
         data = {}
         for item in self.get_affiliation_data_from_multiple_tags(subtag):
-            data[item['id']] = item
+            data[item["id"]] = item
         return data
 
     def get_affiliation_data_from_multiple_tags(self, subtag):
