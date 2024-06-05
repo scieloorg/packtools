@@ -493,7 +493,7 @@ class ArticleContribsValidation:
                 {
                     'title': 'Author ORCID element is unique',
                     'xpath': './/contrib-id[@contrib-id-type="orcid"]',
-                    'validation_type': 'exist/verification',
+                    'validation_type': 'uniqueness',
                     'response': 'OK',
                     'expected_value': 'Unique ORCID values',
                     'got_value': ['0990-0001-0058-4853', '0000-3333-1238-6873'],
@@ -521,7 +521,7 @@ class ArticleContribsValidation:
             parent_id=None,
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
-            validation_type="exist/verification",
+            validation_type="uniqueness",
             is_valid=is_valid,
             expected="Unique ORCID values",
             obtained=self.orcid_list,
