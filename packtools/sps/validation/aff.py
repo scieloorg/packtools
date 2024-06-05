@@ -55,7 +55,7 @@ class AffiliationValidation:
 
     def validate_orgname(self):
         orgname = self.affiliation.get("orgname")
-        yield format_response(
+        resp = format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -68,10 +68,13 @@ class AffiliationValidation:
             advice=_("provide the orgname affiliation"),
             data=self.affiliation,
         )
+        if not bool(orgname):
+            resp["response"] = "CRITICAL"
+        yield resp
 
     def validate_country(self):
         country = self.affiliation.get("country_name")
-        yield format_response(
+        resp = format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -84,6 +87,9 @@ class AffiliationValidation:
             advice=_("provide the country affiliation"),
             data=self.affiliation,
         )
+        if not bool(country):
+            resp["response"] = "CRITICAL"
+        yield resp
 
     def validate_country_code(self, country_codes_list=None):
         country_codes_list = country_codes_list or self.country_codes_list
@@ -92,7 +98,7 @@ class AffiliationValidation:
                 "Function requires list of country codes"
             )
         country_code = self.affiliation.get("country_code")
-        yield format_response(
+        resp = format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -105,6 +111,9 @@ class AffiliationValidation:
             advice=_("provide a valid @country affiliation"),
             data=self.affiliation,
         )
+        if not bool(country_code):
+            resp["response"] = "CRITICAL"
+        yield resp
 
     def validate_state(self):
         state = self.affiliation.get("state")
