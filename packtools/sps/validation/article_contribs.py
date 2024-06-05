@@ -88,8 +88,7 @@ class ContribValidation:
             for role in credit_taxonomy_terms_and_urls
         ]
 
-        names = self.contrib.get("contrib_name", {})
-        _author_name = f"{names.get('given-names', '')} {names.get('surname', '')}"
+        _contrib_name = self.contrib.get("contrib_full_name")
 
         obtained_value = [
             f'<role content-type="{role.get("content-type")}">{role.get("text")}</role>'
@@ -104,7 +103,7 @@ class ContribValidation:
                     is_valid=is_valid,
                     expected=expected_value,
                     obtained=role,
-                    author=_author_name,
+                    author=_contrib_name,
                 )
         else:
             yield _response(
@@ -112,7 +111,7 @@ class ContribValidation:
                 is_valid=False,
                 expected=expected_value,
                 obtained=None,
-                author=_author_name,
+                author=_contrib_name,
             )
 
     def validate_contribs_orcid_format(self):
@@ -169,8 +168,7 @@ class ContribValidation:
             r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$"
         )
 
-        names = self.contrib.get("contrib_name", {})
-        _author_name = f"{names.get('given-names', '')} {names.get('surname', '')}"
+        _contrib_name = self.contrib.get("contrib_full_name")
         _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
         expected_value = (
@@ -187,7 +185,7 @@ class ContribValidation:
             is_valid=is_valid,
             expected=expected_value[:1].lower() + expected_value[1:],
             obtained=_orcid,
-            advice=f"The author {_author_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
+            advice=f"The author {_contrib_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
             data=self.contrib,
         )
 
@@ -253,13 +251,10 @@ class ContribValidation:
         callable_get_validate = (
             callable_get_validate or _callable_extern_validate_default
         )
-        names = self.contrib.get("contrib_name", {})
-        obtained_author_name = (
-            f"{names.get('given-names', '')} {names.get('surname', '')}"
-        )
+        obtained_contrib_name = self.contrib.get("contrib_full_name")
         orcid = self.contrib.get("contrib_ids", {}).get("orcid")
-        expected_author_name = callable_get_validate(orcid)
-        is_valid = obtained_author_name == expected_author_name
+        expected_contrib_name = callable_get_validate(orcid)
+        is_valid = obtained_contrib_name == expected_contrib_name
 
         yield format_response(
             title="Author ORCID element is registered",
@@ -269,8 +264,8 @@ class ContribValidation:
             sub_item='@contrib-id-type="orcid"',
             validation_type="exist",
             is_valid=is_valid,
-            expected=[orcid, expected_author_name],
-            obtained=[orcid, obtained_author_name],
+            expected=[orcid, expected_contrib_name],
+            obtained=[orcid, obtained_contrib_name],
             advice="ORCID {} is not registered to any authors".format(orcid),
         )
 
@@ -405,7 +400,7 @@ class ContribValidation:
         """
         affs = self.contrib.get("affs")
         if not affs:
-            contrib_name = self.contrib.get("contrib_name", {})
+            _contrib_name = self.contrib.get("contrib_full_name")
             yield format_response(
                 title='Author without affiliation',
                 parent=self.contrib.get("parent"),
@@ -416,7 +411,7 @@ class ContribValidation:
                 is_valid=False,
                 expected='author affiliation data',
                 obtained=None,
-                advice=f'provide author affiliation data for {contrib_name.get("given-names")} {contrib_name.get("surname")}',
+                advice=f'provide author affiliation data for {_contrib_name}',
                 data=self.contrib
             )
 
