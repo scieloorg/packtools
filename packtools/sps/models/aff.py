@@ -1,5 +1,5 @@
 import re
-from packtools.sps.utils import xml_utils
+from packtools.sps.utils.xml_utils import node_text_without_xref, get_parent_context, put_parent_context
 
 
 def get_node_without_subtag(node):
@@ -32,7 +32,7 @@ class AffiliationExtractor:
 
         # Define se a extração vai ocorrer com subtags ou sem.
         aff_text = (
-            xml_utils.node_text_without_xref if subtag else get_node_without_subtag
+            node_text_without_xref if subtag else get_node_without_subtag
         )
 
         for node in nodes:
@@ -165,7 +165,7 @@ class Affiliation:
         loc_types = ("state", "city")
         inst_types = ("orgname", "orgdiv1", "orgdiv2", "original")
 
-        for node, lang, article_type, parent, parent_id in _get_parent_context(
+        for node, lang, article_type, parent, parent_id in get_parent_context(
             self._xmltree
         ):
 
@@ -202,7 +202,7 @@ class Affiliation:
                 }
                 item.update(institution)
                 item.update(address)
-                yield _put_parent_context(item, lang, article_type, parent, parent_id)
+                yield put_parent_context(item, lang, article_type, parent, parent_id)
 
     @property
     def affiliation_by_id(self):
@@ -232,27 +232,3 @@ class Affiliation:
         for item in self.affiliation_list:
             data[item["id"]] = item
         return data
-
-
-def _get_parent_context(xmltree):
-    main = xmltree.xpath(".")[0]
-    main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
-    main_article_type = main.get("article-type")
-    for node in xmltree.xpath(".//front | .//sub-article"):
-        parent = "sub-article" if node.tag == "sub-article" else "article"
-        parent_id = node.get("id")
-        lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
-        article_type = node.get("article-type") or main_article_type
-        yield node, lang, article_type, parent, parent_id
-
-
-def _put_parent_context(data, lang, article_type, parent, parent_id):
-    data.update(
-        {
-            "parent": parent,
-            "parent_id": parent_id,
-            "parent_lang": lang,
-            "parent_article_type": article_type,
-        }
-    )
-    return data
