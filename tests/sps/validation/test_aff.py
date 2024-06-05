@@ -801,6 +801,68 @@ class AffiliationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
+    def test_affiliations_without_id(self):
+        self.maxDiff = None
+        xml = """
+        <article>
+            <front>
+                <article-meta>
+                    <aff>
+                        <label>I</label>
+                        <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                        <country country="BR">Brasil</country>
+                        <addr-line>
+                            <named-content content-type="state">MG</named-content>
+                        </addr-line>
+                        <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                    </aff>
+                </article-meta>
+            </front>
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_id())
+
+        expected = [
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "item": "aff",
+                "sub_item": "@id",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "city affiliation",
+                "got_value": None,
+                "message": "Got None, expected city affiliation",
+                "advice": "provide the city affiliation",
+                "data": {
+                    "city": None,
+                    "country_name": "Brasil",
+                    "country_code": "BR",
+                    "email": None,
+                    "id": None,
+                    "label": "I",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                    "Horizonte, MG, Brasil",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": None,
+                    "parent_lang": None,
+                    "state": "MG",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
     def test_validate(self):
         self.maxDiff = None
         xml = """

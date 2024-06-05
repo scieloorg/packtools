@@ -147,6 +147,25 @@ class AffiliationValidation:
             data=self.affiliation,
         )
 
+    def validate_id(self):
+        aff_id = self.affiliation.get("id")
+        resp = format_response(
+            title="Affiliation validation",
+            parent=self.affiliation.get("parent"),
+            parent_id=self.affiliation.get("parent_id"),
+            item="aff",
+            sub_item="@id",
+            validation_type="exist",
+            is_valid=bool(aff_id),
+            expected=_("city affiliation"),
+            obtained=aff_id,
+            advice=_("provide the city affiliation"),
+            data=self.affiliation,
+        )
+        if not bool(aff_id):
+            resp["response"] = "CRITICAL"
+        yield resp
+
     def validate_affiliation(self):
         yield from self.validate_original()
         yield from self.validate_orgname()
