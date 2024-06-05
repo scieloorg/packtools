@@ -502,14 +502,11 @@ class ArticleContribsValidation:
                 }
             ]
         """
-        is_valid = True
+        orcid_exclusive = set(self.orcid_list)
         orcid_freq = {}
-        for orcid in filter(None, self.orcid_list):
-            if orcid in orcid_freq:
-                is_valid = False
-                orcid_freq[orcid] += 1
-            else:
-                orcid_freq[orcid] = 1
+        for orcid in orcid_exclusive:
+            orcid_freq[orcid] = self.orcid_list.count(orcid)
+        is_valid = len(self.orcid_list) == len(orcid_exclusive)
 
         diff = []
         if not is_valid:
