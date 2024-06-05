@@ -172,7 +172,7 @@ class ContribValidation:
         _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
         expected_value = (
-            _orcid if is_valid else "A Open Researcher and Contributor ID valid"
+            _orcid if is_valid else "a Open Researcher and Contributor ID valid"
         )
 
         yield format_response(
@@ -183,7 +183,7 @@ class ContribValidation:
             sub_item='@contrib-id-type="orcid"',
             validation_type="format",
             is_valid=is_valid,
-            expected=expected_value[:1].lower() + expected_value[1:],
+            expected=expected_value,
             obtained=_orcid,
             advice=f"The author {_contrib_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
             data=self.contrib,
