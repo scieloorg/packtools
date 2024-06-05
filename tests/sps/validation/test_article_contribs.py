@@ -19,7 +19,7 @@ credit_taxonomy_terms_and_urls = [
 
 def callable_get_data(orcid):
     tests = {
-        "0990-0001-0058-4853": "FRANCISCO VENEGAS MARTÍNEZ",
+        "0990-0001-0058-4853": "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
         "0000-3333-1238-6873": "Vanessa M. Higa",
     }
     return tests.get(orcid)
@@ -84,8 +84,9 @@ class ArticleContribsValidationTest(TestCase):
                 ],
                 "got_value": None,
                 "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -164,8 +165,9 @@ class ArticleContribsValidationTest(TestCase):
                 ],
                 "got_value": '<role content-type="None">None</role>',
                 "message": """Got <role content-type="None">None</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -239,8 +241,9 @@ class ArticleContribsValidationTest(TestCase):
                     "curation</role>",
                 ],
                 "message": """Got <role content-type="None">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -327,8 +330,9 @@ class ArticleContribsValidationTest(TestCase):
                     "curation</role>",
                 ],
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -420,8 +424,9 @@ class ArticleContribsValidationTest(TestCase):
                     "curation</role>",
                 ],
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -512,6 +517,7 @@ class ArticleContribsValidationTest(TestCase):
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": None,
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -601,9 +607,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "a Open Researcher and Contributor ID valid",
                 "got_value": "0990-01-58-4853",
                 "message": "Got 0990-01-58-4853, expected a Open Researcher and Contributor ID valid",
-                "advice": "The author FRANCISCO VENEGAS-MARTÍNEZ has 0990-01-58-4853 as ORCID "
+                "advice": "The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto has 0990-01-58-4853 as ORCID "
                 "and its format is not valid. Provide a valid ORCID.",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-01-58-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -668,8 +675,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "a Open Researcher and Contributor ID valid",
                 "got_value": None,
                 "message": "Got None, expected a Open Researcher and Contributor ID valid",
-                "advice": "The author FRANCISCO VENEGAS-MARTÍNEZ has None as ORCID and its format is not valid. Provide a valid ORCID.",
+                "advice": "The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto has None as ORCID and its format is not valid. Provide a valid ORCID.",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -740,6 +748,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0990-0001-0058-4853, expected 0990-0001-0058-4853",
                 "advice": None,
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -804,7 +813,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "parent_id": None,
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
-                "validation_type": "exist/verification",
+                "validation_type": "uniqueness",
                 "response": "OK",
                 "expected_value": "Unique ORCID values",
                 "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
@@ -861,7 +870,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "parent_id": None,
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
-                "validation_type": "exist/verification",
+                "validation_type": "uniqueness",
                 "response": "ERROR",
                 "expected_value": "Unique ORCID values",
                 "got_value": ["0990-0001-0058-4853", "0990-0001-0058-4853"],
@@ -921,10 +930,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
                 "response": "OK",
-                "expected_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS MARTÍNEZ"],
-                "got_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS MARTÍNEZ"],
-                "message": "Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'], expected "
-                "['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ']",
+                "expected_value": ["0990-0001-0058-4853", 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'],
+                "got_value": ["0990-0001-0058-4853", 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'],
+                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
+                "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": None,
                 "data": None,
             }
@@ -980,10 +989,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
                 "response": "ERROR",
-                "expected_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS MARTÍNEZ"],
-                "got_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS-MARTÍNEZ"],
-                "message": "Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'], expected "
-                "['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ']",
+                "expected_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
+                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
+                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
+                "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": "ORCID 0990-0001-0058-4853 is not registered to any authors",
                 "data": None,
             }
@@ -1040,8 +1049,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "exist",
                 "response": "ERROR",
                 "expected_value": ["0990-0001-0058-4853", None],
-                "got_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS MARTÍNEZ"],
-                "message": "Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ'], expected "
+                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
+                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
                 "['0990-0001-0058-4853', None]",
                 "advice": "ORCID 0990-0001-0058-4853 is not registered to any authors",
                 "data": None,
@@ -1179,7 +1188,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "parent_id": None,
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
-                "validation_type": "exist/verification",
+                "validation_type": "uniqueness",
                 "response": "OK",
                 "expected_value": "Unique ORCID values",
                 "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
@@ -1201,8 +1210,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 ],
                 "got_value": None,
                 "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
-                "advice": """The author FRANCISCO VENEGAS-MARTÍNEZ does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "advice": """The author Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1231,6 +1241,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0990-0001-0058-4853, expected 0990-0001-0058-4853",
                 "advice": None,
                 "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1254,10 +1265,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
                 "response": "ERROR",
-                "expected_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS MARTÍNEZ"],
-                "got_value": ["0990-0001-0058-4853", "FRANCISCO VENEGAS-MARTÍNEZ"],
-                "message": "Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'], expected "
-                           "['0990-0001-0058-4853', 'FRANCISCO VENEGAS MARTÍNEZ']",
+                "expected_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
+                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
+                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
+                           "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": 'ORCID 0990-0001-0058-4853 is not registered to any authors',
                 "data": None,
             },
@@ -1272,7 +1283,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 'expected_value': 'author affiliation data',
                 'got_value': None,
                 'message': 'Got None, expected author affiliation data',
-                'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                'advice': 'provide author affiliation data for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                 'data': {
                     'contrib_name': {
                         'given-names': 'FRANCISCO',
@@ -1280,6 +1291,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                         'prefix': 'Prof',
                         'suffix': 'Nieto',
                     },
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     'contrib_ids': {'orcid': '0990-0001-0058-4853'},
                     'contrib_type': 'author',
                     'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
@@ -1305,6 +1317,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """The author Vanessa M. Higa does not have a valid role. Provide a role from the list: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
+                    'contrib_full_name': 'Vanessa M. Higa',
                     "contrib_ids": {"orcid": "0000-3333-1238-6873"},
                     "contrib_name": {"given-names": "Vanessa M.", "surname": "Higa"},
                     "contrib_type": "author",
@@ -1328,6 +1341,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0000-3333-1238-6873, expected 0000-3333-1238-6873",
                 "advice": None,
                 "data": {
+                    'contrib_full_name': 'Vanessa M. Higa',
                     "contrib_ids": {"orcid": "0000-3333-1238-6873"},
                     "contrib_name": {"given-names": "Vanessa M.", "surname": "Higa"},
                     "contrib_type": "author",
@@ -1443,6 +1457,7 @@ class ArticleAuthorsValidationAff(TestCase):
                 'message': 'Got None, expected author affiliation data',
                 'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
                 'data': {
+                    'contrib_full_name': 'FRANCISCO VENEGAS-MARTÍNEZ',
                     'contrib_name': {
                         'given-names': 'FRANCISCO',
                         'surname': 'VENEGAS-MARTÍNEZ'
