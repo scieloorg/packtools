@@ -162,8 +162,8 @@ class Affiliation:
             }
         """
 
-        loc_types = ["state", "city"]
-        inst_types = ["orgname", "orgdiv1", "orgdiv2", "original"]
+        loc_types = ("state", "city")
+        inst_types = ("orgname", "orgdiv1", "orgdiv2", "original")
 
         for node, lang, article_type, parent, parent_id in _get_parent_context(
             self._xmltree
