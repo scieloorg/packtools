@@ -143,8 +143,7 @@ class ArticleAttribsValidation:
                 "Function requires list of specific uses"
             )
 
-        article_specific_use = self.articles.main_specific_use
-        validated = article_specific_use in specific_use_list
+        validated = self.articles.main_specific_use in specific_use_list
 
         data = self.articles.data[0]
         data.update({
@@ -214,8 +213,7 @@ class ArticleAttribsValidation:
                 "Function requires list of dtd versions"
             )
 
-        article_dtd_version = self.articles.main_dtd_version
-        validated = article_dtd_version in dtd_version_list
+        validated = self.articles.main_dtd_version in dtd_version_list
 
         data = self.articles.data[0]
         data.update({
