@@ -244,10 +244,11 @@ class ArticleAttribsValidation:
 
 
 class ArticleTypeValidation:
-    def __init__(self, xmltree, article_type_list=None):
+    def __init__(self, xmltree, article_type_list=None, subjects_list=None):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.article_type_list = article_type_list
+        self.subjects_list = subjects_list
 
     def validate_article_type(self, article_type_list=None):
         """
@@ -291,8 +292,6 @@ class ArticleTypeValidation:
                 "Function requires list of article types"
             )
 
-        article_type_list = [tp.lower() for tp in article_type_list]
-
         validated = article_type in article_type_list
 
         data = self.articles.data[0]
@@ -318,7 +317,7 @@ class ArticleTypeValidation:
         )
 
     def validate_article_type_vs_subject_similarity(
-        self, subjects_list=None, expected_similarity=0
+        self, subjects_list=None, expected_similarity=1
     ):
         """
         Check how similar the type of article and its respective subjects are.
@@ -401,7 +400,7 @@ class ArticleTypeValidation:
 
         for article in self.articles.data:
             article_subject = f"{article['subject']} ({article['lang']})"
-            article_id = article["article_id"]
+
             calculated_similarity, subject = most_similar(
                 similarity(subjects_list, article_subject)
             )
