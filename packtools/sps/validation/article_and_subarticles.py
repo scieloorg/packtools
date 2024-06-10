@@ -102,7 +102,7 @@ class ArticleAttribsValidation:
         self.specific_use_list = specific_use_list
         self.dtd_version_list = dtd_version_list
 
-    def validate_specific_use(self, specific_use_list=None):
+    def validate_specific_use(self, specific_use_list=None, error_level=None):
         """
         Check whether the specific use attribute of the article matches the options provided in a standard list.
 
@@ -136,6 +136,7 @@ class ArticleAttribsValidation:
                 },...
             ]
         """
+        error_level = error_level or "CRITICAL"
         specific_use_list = specific_use_list or self.specific_use_list
         if not specific_use_list:
             raise ValidationArticleAndSubArticlesSpecificUseException(
@@ -151,7 +152,7 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
-        yield format_response(
+        resp = format_response(
             title="Article element specific-use attribute validation",
             parent="article",
             parent_id=None,
@@ -160,16 +161,19 @@ class ArticleAttribsValidation:
             validation_type="value in list",
             is_valid=validated,
             expected=specific_use_list,
-            obtained=article_specific_use,
+            obtained=self.articles.main_specific_use,
             advice="XML {} has {} as specific-use, expected one item of this list: {}".format(
                     self.articles.main_article_type,
-                    article_specific_use,
+                    self.articles.main_specific_use,
                     " | ".join(specific_use_list),
                 ),
             data=data
         )
+        if self.articles.main_specific_use is None:
+            resp["response"] = error_level
+        yield resp
 
-    def validate_dtd_version(self, dtd_version_list=None):
+    def validate_dtd_version(self, dtd_version_list=None, error_level=None):
         """
         Check whether the dtd version attribute of the article matches the options provided in a standard list.
 
@@ -203,6 +207,7 @@ class ArticleAttribsValidation:
                 },...
             ]
         """
+        error_level = error_level or "CRITICAL"
         dtd_version_list = dtd_version_list or self.dtd_version_list
         if not dtd_version_list:
             raise ValidationArticleAndSubArticlesDtdVersionException(
@@ -218,7 +223,7 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
-        yield format_response(
+        resp = format_response(
             title="Article element dtd-version attribute validation",
             parent="article",
             parent_id=None,
@@ -227,14 +232,17 @@ class ArticleAttribsValidation:
             validation_type="value in list",
             is_valid=validated,
             expected=dtd_version_list,
-            obtained=article_dtd_version,
+            obtained=self.articles.main_dtd_version,
             advice="XML {} has {} as dtd-version, expected one item of this list: {}".format(
                     self.articles.main_article_type,
-                    article_dtd_version,
+                    self.articles.main_dtd_version,
                     " | ".join(dtd_version_list),
             ),
             data=data
         )
+        if self.articles.main_dtd_version is None:
+            resp["response"] = error_level
+        yield resp
 
 
 class ArticleTypeValidation:
