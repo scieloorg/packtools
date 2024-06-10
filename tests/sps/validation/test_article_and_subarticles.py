@@ -617,7 +617,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'item': 'article',
                 'sub_item': '@specific-use',
                 "validation_type": "value in list",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": ["sps-1.9", "preprint", "special-issue"],
                 "got_value": None,
                 'message': "Got None, expected ['sps-1.9', 'preprint', 'special-issue']",
@@ -800,7 +800,7 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleSubjectsValidation(
+        obtained = ArticleTypeValidation(
             xml_tree
         ).validate_article_type_vs_subject_similarity(
             subjects_list=[
@@ -1002,3 +1002,48 @@ class ArticleAndSubarticlesTest(TestCase):
             }
         ]
         self.assertEqual(expected, obtained)
+
+    def test_article_and_subarticles_without_dtd_version(self):
+        self.maxDiff = None
+        xml_str = """
+        <article article-type="research-article" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <sub-article article-type="translation" id="s1" xml:lang="en">
+            </sub-article>
+            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            </sub-article>
+        </article>
+        """
+        xml_tree = get_xml_tree(xml_str)
+
+        obtained = list(
+            ArticleAttribsValidation(xml_tree).validate_dtd_version(
+                dtd_version_list=["1.1", "1.2", "1.3"]
+            )
+        )
+
+        expected = [
+            {
+                "title": "Article element dtd-version attribute validation",
+                'parent': 'article',
+                'parent_id': None,
+                'item': 'article',
+                'sub_item': '@dtd-version',
+                "validation_type": "value in list",
+                "response": "CRITICAL",
+                "expected_value": ["1.1", "1.2", "1.3"],
+                "got_value": None,
+                'message': "Got None, expected ['1.1', '1.2', '1.3']",
+                'advice': 'XML research-article has None as dtd-version, expected one item of this list: 1.1 | 1.2 | 1.3',
+                'data': {
+                    'article_id': None,
+                    'article_type': 'research-article',
+                    'dtd_version': None,
+                    'lang': 'portugol',
+                    'line_number': 2,
+                    'specific_use': 'sps-1.9',
+                    'subject': None
+                },
+            }
+        ]
+
+        self.assertEqual(obtained, expected)
