@@ -37,8 +37,9 @@ class AffiliationValidation:
         self.affiliation = affiliation
         self.country_codes_list = country_codes_list
 
-    def validate_original(self):
+    def validate_original(self, error_level=None):
         original = self.affiliation.get("original")
+        error_level = error_level or 'ERROR'
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
@@ -51,11 +52,13 @@ class AffiliationValidation:
             obtained=original,
             advice=_("provide the original affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
 
-    def validate_orgname(self):
+    def validate_orgname(self, error_level=None):
         orgname = self.affiliation.get("orgname")
-        resp = format_response(
+        error_level = error_level or 'CRITICAL'
+        yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -67,14 +70,13 @@ class AffiliationValidation:
             obtained=orgname,
             advice=_("provide the orgname affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
-        if not bool(orgname):
-            resp["response"] = "CRITICAL"
-        yield resp
 
-    def validate_country(self):
+    def validate_country(self, error_level=None):
         country = self.affiliation.get("country_name")
-        resp = format_response(
+        error_level = error_level or 'CRITICAL'
+        yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -86,19 +88,18 @@ class AffiliationValidation:
             obtained=country,
             advice=_("provide the country affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
-        if not bool(country):
-            resp["response"] = "CRITICAL"
-        yield resp
 
-    def validate_country_code(self, country_codes_list=None):
+    def validate_country_code(self, country_codes_list=None, error_level=None):
         country_codes_list = country_codes_list or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException(
                 "Function requires list of country codes"
             )
         country_code = self.affiliation.get("country_code")
-        resp = format_response(
+        error_level = error_level or 'CRITICAL'
+        yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -110,13 +111,12 @@ class AffiliationValidation:
             obtained=country_code,
             advice=_("provide a valid @country affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
-        if not bool(country_code):
-            resp["response"] = "CRITICAL"
-        yield resp
 
-    def validate_state(self):
+    def validate_state(self, error_level=None):
         state = self.affiliation.get("state")
+        error_level = error_level or 'ERROR'
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
@@ -129,10 +129,12 @@ class AffiliationValidation:
             obtained=state,
             advice=_("provide the state affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
 
-    def validate_city(self):
+    def validate_city(self, error_level=None):
         city = self.affiliation.get("city")
+        error_level = error_level or 'ERROR'
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
@@ -145,11 +147,13 @@ class AffiliationValidation:
             obtained=city,
             advice=_("provide the city affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
 
-    def validate_id(self):
+    def validate_id(self, error_level=None):
         aff_id = self.affiliation.get("id")
-        resp = format_response(
+        error_level = error_level or 'CRITICAL'
+        yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
@@ -161,10 +165,8 @@ class AffiliationValidation:
             obtained=aff_id,
             advice=_("provide the city affiliation"),
             data=self.affiliation,
+            error_level=error_level,
         )
-        if not bool(aff_id):
-            resp["response"] = "CRITICAL"
-        yield resp
 
     def validate_affiliation(self):
         yield from self.validate_original()
