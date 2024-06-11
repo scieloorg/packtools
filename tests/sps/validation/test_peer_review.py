@@ -144,7 +144,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['author'],
                 'got_value': 'author',
                 'message': "Got author, expected ['author']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(AuthorPeerReviewValidation(
@@ -183,7 +184,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['author'],
                 'got_value': 'reader',
                 'message': "Got reader, expected ['author']",
-                'advice': "provide one item of this list: ['author']"
+                'advice': "provide one item of this list: ['author']",
+                'data': None
             }
         ]
         obtained = list(AuthorPeerReviewValidation(
@@ -221,7 +223,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer', 'editor'],
                 'got_value': 'reviewer',
                 'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(AuthorPeerReviewValidation(
@@ -258,7 +261,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer', 'editor'],
                 'got_value': None,
                 'message': "Got None, expected ['reviewer', 'editor']",
-                'advice': "provide one item of this list: ['reviewer', 'editor']"
+                'advice': "provide one item of this list: ['reviewer', 'editor']",
+                'data': None
             }
         ]
         obtained = list(AuthorPeerReviewValidation(
@@ -295,7 +299,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'reviewer-report-received',
                 'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(DatePeerReviewValidation(
@@ -322,7 +327,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'accepted',
                 'message': "Got accepted, expected ['reviewer-report-received']",
-                'advice': "provide one item of this list: ['reviewer-report-received']"
+                'advice': "provide one item of this list: ['reviewer-report-received']",
+                'data': None
             }
         ]
         obtained = list(DatePeerReviewValidation(
@@ -349,7 +355,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': 'peer-review-recommendation',
                 'got_value': 'peer-review-recommendation',
                 'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(CustomMetaPeerReviewValidation(
@@ -377,6 +384,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': None,
                 'message': 'Got None, expected a value for <custom-meta>',
                 'advice': 'provide a value for <custom-meta>',
+                'data': None
             }
         ]
         obtained = list(CustomMetaPeerReviewValidation(
@@ -403,7 +411,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['revision', 'major-revision'],
                 'got_value': 'revision',
                 'message': "Got revision, expected ['revision', 'major-revision']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(CustomMetaPeerReviewValidation(
@@ -432,6 +441,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': 'accepted',
                 'message': "Got accepted, expected ['revision', 'major-revision']",
                 'advice': "provide one item of this list: ['revision', 'major-revision']",
+                'data': None
             }
         ]
         obtained = list(CustomMetaPeerReviewValidation(
@@ -459,7 +469,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['peer-reviewed-material'],
                 'got_value': 'peer-reviewed-material',
                 'message': "Got peer-reviewed-material, expected ['peer-reviewed-material']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -489,7 +500,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['peer-reviewed-material'],
                 'got_value': 'peer-reviewed',
                 'message': "Got peer-reviewed, expected ['peer-reviewed-material']",
-                'advice': "provide one item of this list: ['peer-reviewed-material']"
+                'advice': "provide one item of this list: ['peer-reviewed-material']",
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -519,7 +531,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': '10.1590/abd1806-4841.20142998',
                 'got_value': '10.1590/abd1806-4841.20142998',
                 'message': 'Got 10.1590/abd1806-4841.20142998, expected 10.1590/abd1806-4841.20142998',
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -550,6 +563,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': None,
                 'message': 'Got None, expected a value for <related-article @xlink:href>',
                 'advice': 'provide a value for <related-article @xlink:href>',
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -579,7 +593,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['doi'],
                 'got_value': 'doi',
                 'message': "Got doi, expected ['doi']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -609,7 +624,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['doi'],
                 'got_value': 'uri',
                 'message': "Got uri, expected ['doi']",
-                'advice': "provide one item of this list: ['doi']"
+                'advice': "provide one item of this list: ['doi']",
+                'data': None
             }
         ]
         obtained = list(RelatedArticleValidation(
@@ -648,7 +664,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['author'],
                 'got_value': 'author',
                 'message': "Got author, expected ['author']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -661,7 +678,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer', 'editor'],
                 'got_value': 'reviewer',
                 'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -674,7 +692,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'reviewer-report-received',
                 'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -687,7 +706,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': 'peer-review-recommendation',
                 'got_value': 'peer-review-recommendation',
                 'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -700,7 +720,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['accept', 'formal-accept'],
                 'got_value': 'accept',
                 'message': "Got accept, expected ['accept', 'formal-accept']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -713,7 +734,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['author'],
                 'got_value': 'author',
                 'message': "Got author, expected ['author']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -726,7 +748,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer', 'editor'],
                 'got_value': 'reviewer',
                 'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -739,7 +762,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'reviewer-report-received',
                 'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -752,7 +776,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': 'peer-review-recommendation',
                 'got_value': 'peer-review-recommendation',
                 'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -765,7 +790,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['accept', 'formal-accept'],
                 'got_value': 'accept',
                 'message': "Got accept, expected ['accept', 'formal-accept']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -778,7 +804,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['peer-reviewed-material'],
                 'got_value': 'peer-reviewed-material',
                 'message': "Got peer-reviewed-material, expected ['peer-reviewed-material']",
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -791,7 +818,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': '10.1590/abd1806-4841.20142998',
                 'got_value': '10.1590/abd1806-4841.20142998',
                 'message': 'Got 10.1590/abd1806-4841.20142998, expected 10.1590/abd1806-4841.20142998',
-                'advice': None
+                'advice': None,
+                'data': None
             },
             {
                 'title': 'Peer review validation',
@@ -804,7 +832,8 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'expected_value': ['doi'],
                 'got_value': 'doi',
                 'message': "Got doi, expected ['doi']",
-                'advice': None
+                'advice': None,
+                'data': None
             }
         ]
 
