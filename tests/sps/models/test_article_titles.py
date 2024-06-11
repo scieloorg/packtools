@@ -125,7 +125,7 @@ class ArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
+                "de Tasas de Interés : un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
             "html_text": (
@@ -186,45 +186,47 @@ class SubArticleTitlesTest(TestCase):
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
-        expected = [{
-            "lang": "es",
-            "parent_name": "article",
-            "text": (
-                "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
-                " Convexidad con el Modelo de Nelson y Siegel"
-            ),
-            "plain_text": (
-                "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
-                " Convexidad con el Modelo de Nelson y Siegel"
-            ),
-            "html_text": (
-                "Inmunización de <b>Flujos Financieros</b> con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
-                " Convexidad con el Modelo de Nelson y Siegel"
-            ),
-        },
-        {
-            "id": "1",
-            "lang": "en",
-            "parent_name": "sub-article",
-            "text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "plain_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "html_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-        },
+        self.maxDiff = None
+        expected = [
+            {
+                "lang": "es",
+                "parent_name": "article",
+                "text": (
+                    "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
+                    "de Tasas de Interés: un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+                "plain_text": (
+                    "Inmunización de Flujos Financieros con Futuros "
+                    "de Tasas de Interés : un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+                "html_text": (
+                    "Inmunización de <b>Flujos Financieros</b> con Futuros "
+                    "de Tasas de Interés: un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+            },
+            {
+                "id": "1",
+                "lang": "en",
+                "parent_name": "sub-article",
+                "text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "plain_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "html_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+            },
         ]
         for i, item in enumerate(self.article_titles.data):
             with self.subTest(i):
