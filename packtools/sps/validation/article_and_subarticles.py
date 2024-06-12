@@ -18,7 +18,7 @@ class ArticleLangValidation:
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.language_codes_list = language_codes_list
 
-    def validate_language(self, language_codes_list=None):
+    def validate_language(self, language_codes_list=None, error_level=None):
         """
         Check whether the article language matches the options provided in a standard list.
 
@@ -61,6 +61,7 @@ class ArticleLangValidation:
             raise ValidationArticleAndSubArticlesLanguageCodeException(
                 "Function requires list of language codes"
             )
+        error_level = error_level or 'CRITICAL'
         for article in self.articles.data:
             article_lang = article.get("lang")
             article_type = article.get("article_type")
@@ -91,7 +92,8 @@ class ArticleLangValidation:
                     advice="{} has {} as language, expected one item of this list: {}".format(
                         msg, article_lang, " | ".join(language_codes_list)
                     ),
-                    data=article
+                    data=article,
+                    error_level=error_level
             )
 
 
@@ -151,7 +153,7 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
-        resp = format_response(
+        yield format_response(
             title="Article element specific-use attribute validation",
             parent="article",
             parent_id=None,
@@ -166,11 +168,9 @@ class ArticleAttribsValidation:
                     self.articles.main_specific_use,
                     " | ".join(specific_use_list),
                 ),
-            data=data
+            data=data,
+            error_level=error_level,
         )
-        if self.articles.main_specific_use is None:
-            resp["response"] = error_level
-        yield resp
 
     def validate_dtd_version(self, dtd_version_list=None, error_level=None):
         """
@@ -221,7 +221,7 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
-        resp = format_response(
+        yield format_response(
             title="Article element dtd-version attribute validation",
             parent="article",
             parent_id=None,
@@ -236,21 +236,20 @@ class ArticleAttribsValidation:
                     self.articles.main_dtd_version,
                     " | ".join(dtd_version_list),
             ),
-            data=data
+            data=data,
+            error_level=error_level
         )
-        if self.articles.main_dtd_version is None:
-            resp["response"] = error_level
-        yield resp
 
 
 class ArticleTypeValidation:
-    def __init__(self, xmltree, article_type_list=None, subjects_list=None):
+    def __init__(self, xmltree, article_type_list=None, subjects_list=None, apply_to_article_types=None):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.article_type_list = article_type_list
         self.subjects_list = subjects_list
+        self.apply_to_article_types = apply_to_article_types
 
-    def validate_article_type(self, article_type_list=None):
+    def validate_article_type(self, article_type_list=None, error_level=None):
         """
         Check whether the article type attribute of the article matches the options provided in a standard list.
 
@@ -286,6 +285,7 @@ class ArticleTypeValidation:
         """
         article_type = self.articles.main_article_type
         article_type_list = article_type_list or self.article_type_list
+        error_level = error_level or "CRITICAL"
 
         if not article_type_list:
             raise ValidationArticleAndSubArticlesArticleTypeException(
@@ -313,11 +313,12 @@ class ArticleTypeValidation:
             advice="XML has {} as article-type, expected one item of this list: {}".format(
                     article_type, " | ".join(article_type_list)
             ),
-            data=data
+            data=data,
+            error_level=error_level,
         )
 
     def validate_article_type_vs_subject_similarity(
-        self, subjects_list=None, expected_similarity=1
+        self, subjects_list=None, expected_similarity=1, error_level=None, apply_to_article_types=None
     ):
         """
         Check how similar the type of article and its respective subjects are.
@@ -398,7 +399,18 @@ class ArticleTypeValidation:
             f"{item['subject']} ({item['lang']})" for item in subjects_list
         ]
 
-        for article in self.articles.data:
+        apply_to_article_types = apply_to_article_types or self.apply_to_article_types
+
+        if not apply_to_article_types:
+            raise ValidationArticleAndSubArticlesSubjectsException(
+                "Function requires list of article types to check the similarity with subjects"
+            )
+
+        error_level = error_level or "ERROR"
+
+        articles = [article for article in self.articles.data if article.get("article_type") in apply_to_article_types]
+
+        for article in articles:
             article_subject = f"{article['subject']} ({article['lang']})"
 
             calculated_similarity, subject = most_similar(
@@ -425,7 +437,8 @@ class ArticleTypeValidation:
                 advice="The subject {} does not match the items provided in the list: {}".format(
                         article_subject, " | ".join(subjects_list)
                     ),
-                data=data
+                data=data,
+                error_level=error_level
             )
 
     # def validate(self, data):
@@ -451,7 +464,7 @@ class ArticleIdValidation:
         self.xmltree = xmltree
         self.article_ids = ArticleIds(self.xmltree)
 
-    def validate_article_id_other(self):
+    def validate_article_id_other(self, error_level=None):
         """
         Check whether an article that shouldn't have a subject actually doesn't.
 
@@ -483,6 +496,7 @@ class ArticleIdValidation:
             }
         """
         is_valid = self.article_ids.other.isnumeric() and len(self.article_ids.other) <= 5
+        error_level = error_level or "ERROR"
         expected_value = (
             self.article_ids.other if is_valid else "a numeric value with up to five digits"
         )
@@ -497,5 +511,6 @@ class ArticleIdValidation:
             expected=expected_value,
             obtained=self.article_ids.other,
             advice='Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
-            data=self.article_ids.data
+            data=self.article_ids.data,
+            error_level=error_level,
         )
