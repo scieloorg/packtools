@@ -427,3 +427,27 @@ def process_subtags(
         text = text.replace(f'</{xml_tag}>', f'</{html_tag}>')
 
     return text
+
+
+def get_parent_context(xmltree):
+    main = xmltree.xpath(".")[0]
+    main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+    main_article_type = main.get("article-type")
+    for node in xmltree.xpath(".//front | .//sub-article"):
+        parent = "sub-article" if node.tag == "sub-article" else "article"
+        parent_id = node.get("id")
+        lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+        article_type = node.get("article-type") or main_article_type
+        yield node, lang, article_type, parent, parent_id
+
+
+def put_parent_context(data, lang, article_type, parent, parent_id):
+    data.update(
+        {
+            "parent": parent,
+            "parent_id": parent_id,
+            "parent_lang": lang,
+            "parent_article_type": article_type,
+        }
+    )
+    return data

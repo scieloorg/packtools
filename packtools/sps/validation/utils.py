@@ -9,7 +9,8 @@ def format_response(
         expected=None,
         obtained=None,
         advice=None,
-        data=None
+        data=None,
+        error_level=None,
 ):
     return {
                 'title': title,
@@ -18,7 +19,7 @@ def format_response(
                 'item': item,
                 'sub_item': sub_item,
                 'validation_type': validation_type,
-                'response': 'OK' if is_valid else 'ERROR',
+                'response': 'OK' if is_valid else error_level,
                 'expected_value': expected,
                 'got_value': obtained,
                 'message': f'Got {obtained}, expected {expected}',
