@@ -1,0 +1,23 @@
+{
+    "article_type_list": [
+        "addendum",
+        "article-commentary",
+        "book-review",
+        "brief-report",
+        "case-report",
+        "correction",
+        "editorial",
+        "data-article",
+        "letter",
+        "obituary",
+        "partial-retraction",
+        "product-review",
+        "rapid-communication",
+        "reply",
+        "research-article",
+        "retraction",
+        "review-article",
+        "reviewer-report",
+        "other"
+    ]
+}
