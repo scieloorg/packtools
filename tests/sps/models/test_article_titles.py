@@ -115,6 +115,7 @@ class ArticleTitlesTest(TestCase):
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
+        self.maxDiff = None
         expected = [{
             "lang": "es",
             "parent_name": "article",
@@ -154,9 +155,9 @@ class ArticleTitlesTest(TestCase):
             ),
         },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
 
 
 class SubArticleTitlesTest(TestCase):
@@ -228,9 +229,9 @@ class SubArticleTitlesTest(TestCase):
                 ),
             },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
 
 
 class ArticleTitlesWithStyleTest(TestCase):
@@ -273,9 +274,9 @@ class ArticleTitlesWithStyleTest(TestCase):
                     'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
 
 
 class SubArticleTitlesWithStyleTest(TestCase):
@@ -326,6 +327,6 @@ class SubArticleTitlesWithStyleTest(TestCase):
                     'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
