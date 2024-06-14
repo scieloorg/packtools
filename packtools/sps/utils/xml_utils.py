@@ -43,8 +43,8 @@ def node_plain_text(node):
         for child in xref.findall(".//*"):
             child.text = ""
         xref.text = ""
-    text = " ".join([text for text in node.xpath(".//text()") if text.strip()])
-    return " ".join(text.split())
+    return " ".join([text.strip() for text in node.xpath(".//text()") if text])
+
 
 
 def node_text_without_xref(node):
