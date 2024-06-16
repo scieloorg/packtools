@@ -18,6 +18,8 @@ def format_response(
                 'title': title,
                 'parent': parent,
                 'parent_id': parent_id,
+                'parent_type': parent_type,
+                'parent_lang': parent_lang,
                 'item': item,
                 'sub_item': sub_item,
                 'validation_type': validation_type,
