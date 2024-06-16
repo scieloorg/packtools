@@ -1,4 +1,5 @@
 {
+    "_comment": "A list of article types that should be checked for similarity against the subjects",
     "apply_to_article_types": [
         "addendum",
         "article-commentary",

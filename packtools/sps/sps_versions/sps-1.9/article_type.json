@@ -1,23 +1,21 @@
 {
+    "_comment": "SPS-1.9, font: https://scielo.readthedocs.io/projects/scielo-publishing-schema/pt-br/1.9-branch/tagset/elemento-article.html?highlight=article-type#article",
     "article_type_list": [
-        "addendum",
         "article-commentary",
         "book-review",
         "brief-report",
         "case-report",
         "correction",
         "editorial",
-        "data-article",
+        "in-brief",
         "letter",
-        "obituary",
+        "other",
         "partial-retraction",
-        "product-review",
         "rapid-communication",
         "reply",
         "research-article",
         "retraction",
         "review-article",
-        "reviewer-report",
-        "other"
+        "data-article"
     ]
 }
