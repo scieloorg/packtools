@@ -9,7 +9,6 @@ from packtools.sps.validation.exceptions import (
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
 from packtools.sps.validation.utils import format_response
-from packtools.sps.models.article_contribs import ArticleContribs
 
 
 class ArticleLangValidation:
