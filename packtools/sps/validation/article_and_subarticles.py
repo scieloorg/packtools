@@ -37,22 +37,34 @@ class ArticleLangValidation:
         Params
         ------
         language_codes_list : list
+            A list of language codes to validate against.
+
+        error_level : str, optional
+            The level of error to report if the validation fails. Default is "CRITICAL".
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
+        generator of dict
+            A generator that yields dictionaries with validation results, such as:
             [
                 {
                     'title': 'Article element lang attribute validation',
-                    'xpath': './article/@xml:lang',
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_type': 'research-article',
+                    'parent_lang': 'en',
+                    'item': 'article',
+                    'sub_item': '@xml:lang',
                     'validation_type': 'value in list',
-                    'response': 'OK',
+                    'response': 'CRITICAL',
                     'expected_value': ['pt', 'en', 'es'],
                     'got_value': 'en',
-                    'message': 'Got en, to research-article whose id is main, expected one item of this list: pt | en | es',
-                    'advice': 'XML research-article has en as language, to research-article whose id is main, expected one item
-                    of this list: pt | en | es'
+                    'message': 'Got en, expected one item of this list: pt | en | es',
+                    'advice': 'XML article has en as language, expected one item of this list: pt | en | es',
+                    'data': {
+                        'specific_use': 'sps-1.9',
+                        'dtd_version': '1.1'
+                    },
                 },...
             ]
         """
@@ -120,6 +132,10 @@ class ArticleAttribsValidation:
         Params
         ------
         specific_use_list : list
+            A list of specific uses to validate against.
+
+        error_level : str, optional
+            The level of error to report if the validation fails. Default is "CRITICAL".
 
         Returns
         -------
@@ -128,13 +144,22 @@ class ArticleAttribsValidation:
             [
                 {
                     'title': 'Article element specific-use attribute validation',
-                    'xpath': './article/@specific-use',
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_type': 'research-article',
+                    'parent_lang': 'portugol',
+                    'item': 'article',
+                    'sub_item': '@specific-use',
                     'validation_type': 'value in list',
                     'response': 'OK',
                     'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
                     'got_value': 'sps-1.9',
-                    'message': 'Got sps-1.9 expected one item of this list: sps-1.9 | preprint | special-issue',
-                    'advice': 'XML research-article has None as specific-use expected one item of this list: sps-1.9 | preprint | special-issue'
+                    'message': 'Got sps-1.9, expected one item of this list: sps-1.9 | preprint | special-issue',
+                    'advice': None,
+                    'data': {
+                        'specific_use': 'sps-1.9',
+                        'dtd_version': '1.1'
+                    }
                 },...
             ]
         """
@@ -195,15 +220,29 @@ class ArticleAttribsValidation:
             A list of dictionaries, such as:
             [
                 {
-                    'title': 'Article element dtd-version attribute validation',
-                    'xpath': './article/@dtd-version',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['1.1', '1.2', '1.3'],
-                    'got_value': '1.1',
-                    'message': 'Got 1.1 expected one item of this list: 1.1 | 1.2 | 1.3',
-                    'advice': 'XML research-article has 1.1 as dtd-version expected one item of this list: 1.1 | 1.2 | 1.3'
-                },...
+                    "title": "Article element dtd-version attribute validation",
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_type': 'research-article',
+                    'parent_lang': 'portugol',
+                    'item': 'article',
+                    'sub_item': '@dtd-version',
+                    "validation_type": "value in list",
+                    "response": "CRITICAL",
+                    "expected_value": ["1.1", "1.2", "1.3"],
+                    "got_value": None,
+                    'message': "Got None, expected ['1.1', '1.2', '1.3']",
+                    'advice': 'XML research-article has None as dtd-version, expected one item of this list: 1.1 | 1.2 | 1.3',
+                    'data': {
+                        'article_id': None,
+                        'article_type': 'research-article',
+                        'dtd_version': None,
+                        'lang': 'portugol',
+                        'line_number': 2,
+                        'specific_use': 'sps-1.9',
+                        'subject': None
+                    },
+                }
             ]
         """
         error_level = error_level or "CRITICAL"
@@ -264,22 +303,40 @@ class ArticleTypeValidation:
 
         Params
         ------
-        article_type_list : list
+        article_type_list : list, optional
+            A list of valid article types that the article's type should match. If not provided, defaults to `self.article_type_list`.
+
+        error_level : str, optional
+            The level of error to report if the validation fails. Default is "CRITICAL".
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
+        generator of dict
+            A generator that yields dictionaries with validation results, such as:
             [
                 {
-                    'title': 'Article type validation',
-                    'xpath': './article/@article-type',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['research-article', 'article-commentary', 'brief-report'],
-                    'got_value': 'research-article',
-                    'message': 'Got research-article expected one item of this list: research-article | article-commentary | brief-report',
-                    'advice': 'XML has research-article as article-type, expected one item of this list: research-article | article-commentary | brief-report'
+                    "title": "Article type validation",
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_type': 'research-article',
+                    'parent_lang': 'portugol',
+                    'item': 'article',
+                    'sub_item': '@article-type',
+                    "validation_type": "value in list",
+                    "response": "OK",
+                    "expected_value": ["research-article"],
+                    "got_value": "research-article",
+                    'message': "Got research-article, expected ['research-article']",
+                    "advice": None,
+                    'data': {
+                        'article_id': None,
+                        'article_type': 'research-article',
+                        'dtd_version': None,
+                        'lang': 'portugol',
+                        'line_number': 2,
+                        'specific_use': 'sps-1.9',
+                        'subject': None
+                    }
                 },...
             ]
         """
@@ -329,22 +386,22 @@ class ArticleTypeValidation:
         article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
             <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                <article-categories>
-                    <subj-group subj-group-type="heading">
+            <article-categories>
+                <subj-group subj-group-type="heading">
                     <subject>Scientific Article</subject>
-                    </subj-group>
-                </article-categories>
+                </subj-group>
+            </article-categories>
             <sub-article article-type="translation" id="s1" xml:lang="pt">
                 <article-categories>
                     <subj-group subj-group-type="heading">
-                    <subject>Artigo Científico</subject>
+                        <subject>Artigo Científico</subject>
                     </subj-group>
                 </article-categories>
             </sub-article>
             <sub-article article-type="translation" id="s2" xml:lang="es">
                 <article-categories>
                     <subj-group subj-group-type="heading">
-                    <subject>Artículo Científico</subject>
+                        <subject>Artículo Científico</subject>
                     </subj-group>
                 </article-categories>
             </sub-article>
@@ -353,7 +410,10 @@ class ArticleTypeValidation:
         Params
         ------
         expected_similarity : float
-        subjects_list : list of dict, such as:
+            The minimum similarity score required for the validation to pass.
+
+        subjects_list : list of dict, optional
+            A list of dictionaries where each dictionary contains a subject and its language, such as:
             [
                 {
                     'subject': 'original article',
@@ -368,22 +428,45 @@ class ArticleTypeValidation:
                     'lang': 'es'
                 }
             ]
+            If not provided, defaults to `self.subjects_list`.
+
+        error_level : str, optional
+            The level of error to report if the validation fails. Default is "ERROR".
+
+        target_article_types : list of str, optional
+            A list of article types that should be checked for similarity against the subjects.
+            Only articles of these types will be validated. For example: ['research-article', 'review-article'].
+            If not provided, defaults to `self.apply_to_article_types`.
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
+        generator of dict
+            A generator that yields dictionaries with validation results, such as:
             [
                 {
-                    'title': 'Article type vs subjects validation',
-                    'xpath': './article/@article-type .//subject',
-                    'validation_type': 'similarity',
-                    'response': 'ERROR',
-                    'expected_value': 0.7,
-                    'got_value': 0.6818181818181818,
-                    'message': 'The article id: main must match the Original Article (en) with a rate greater than or equal to 0.7',
-                    'advice': 'The subject Scientific Article (en) does not match the items provided in the list: '
-                              'Original Article (en) | Artigo Original (pt) | Artículo Original (es)'
+                    "title": "Article type vs subjects validation",
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_type': 'research-article',
+                    'parent_lang': 'en',
+                    'item': 'article',
+                    'sub_item': '@article-type',
+                    "validation_type": "similarity",
+                    "response": "ERROR",
+                    "expected_value": 0.7,
+                    "got_value": 0.6818181818181818,
+                    'message': 'Got 0.6818181818181818, expected 0.7',
+                    "advice": "The subject Scientific Article (en) does not match the items provided in the list: "
+                    "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
+                    'data': {
+                        'article_id': None,
+                        'article_type': 'research-article',
+                        'dtd_version': '1.1',
+                        'lang': 'en',
+                        'line_number': 3,
+                        'specific_use': 'sps-1.9',
+                        'subject': 'Scientific Article'
+                    },
                 },...
             ]
         """
@@ -485,14 +568,24 @@ class ArticleIdValidation:
         -------
         dict, such as:
             {
-                'title': 'Article id other validation',
-                'xpath': './/article-id[@pub-id-type="other"]',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '123',
-                'got_value': '123',
-                'message': 'Got 123 expected 123',
-                'advice': None
+                "title": "Article id other validation",
+                'parent': 'article',
+                'parent_id': None,
+                'parent_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'article-id',
+                'sub_item': '@pub-id-type="other"',
+                "validation_type": "format",
+                "response": "OK",
+                "expected_value": "123",
+                "got_value": "123",
+                'message': 'Got 123, expected 123',
+                "advice": None,
+                'data': {
+                    'other': '123',
+                    'v2': 'S0104-11692020000100303',
+                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
+                },
             }
         """
         is_valid = self.article_ids.other.isnumeric() and len(self.article_ids.other) <= 5
