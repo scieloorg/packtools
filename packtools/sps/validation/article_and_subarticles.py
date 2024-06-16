@@ -95,6 +95,8 @@ class ArticleLangValidation:
                     title="Article element lang attribute validation",
                     parent=parent,
                     parent_id=article_id,
+                    parent_type=article_type,
+                    parent_lang=article_lang,
                     item=parent,
                     sub_item="@xml:lang",
                     validation_type="value in list",
@@ -182,6 +184,8 @@ class ArticleAttribsValidation:
             title="Article element specific-use attribute validation",
             parent="article",
             parent_id=None,
+            parent_type=self.articles.main_article_type,
+            parent_lang=self.articles.main_lang,
             item="article",
             sub_item="@specific-use",
             validation_type="value in list",
@@ -264,6 +268,8 @@ class ArticleAttribsValidation:
             title="Article element dtd-version attribute validation",
             parent="article",
             parent_id=None,
+            parent_type=self.articles.main_article_type,
+            parent_lang=self.articles.main_lang,
             item="article",
             sub_item="@dtd-version",
             validation_type="value in list",
@@ -361,6 +367,8 @@ class ArticleTypeValidation:
             title="Article type validation",
             parent="article",
             parent_id=None,
+            parent_type=self.articles.main_article_type,
+            parent_lang=self.articles.main_lang,
             item="article",
             sub_item="@article-type",
             validation_type="value in list",
@@ -511,6 +519,8 @@ class ArticleTypeValidation:
                 title="Article type vs subjects validation",
                 parent="article",
                 parent_id=None,
+                parent_type=article.get("article_type"),
+                parent_lang=article.get("lang"),
                 item="article",
                 sub_item="@article-type",
                 validation_type="similarity",
@@ -545,6 +555,7 @@ class ArticleTypeValidation:
 class ArticleIdValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
+        self.articles = ArticleAndSubArticles(self.xmltree)
         self.article_ids = ArticleIds(self.xmltree)
 
     def validate_article_id_other(self, error_level=None):
@@ -597,6 +608,8 @@ class ArticleIdValidation:
             title="Article id other validation",
             parent="article",
             parent_id=None,
+            parent_type=self.articles.main_article_type,
+            parent_lang=self.articles.main_lang,
             item="article-id",
             sub_item='@pub-id-type="other"',
             validation_type="format",
