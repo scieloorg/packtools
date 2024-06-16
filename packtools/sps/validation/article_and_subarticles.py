@@ -383,7 +383,7 @@ class ArticleTypeValidation:
         )
 
     def validate_article_type_vs_subject_similarity(
-        self, subjects_list=None, expected_similarity=1, error_level=None, apply_to_article_types=None
+        self, subjects_list=None, expected_similarity=1, error_level=None, target_article_types=None
     ):
         """
         Check how similar the type of article and its respective subjects are.
@@ -490,16 +490,16 @@ class ArticleTypeValidation:
             f"{item['subject']} ({item['lang']})" for item in subjects_list
         ]
 
-        apply_to_article_types = apply_to_article_types or self.apply_to_article_types
+        target_article_types = target_article_types or self.apply_to_article_types
 
-        if not apply_to_article_types:
+        if not target_article_types:
             raise ValidationArticleAndSubArticlesSubjectsException(
                 "Function requires list of article types to check the similarity with subjects"
             )
 
         error_level = error_level or "ERROR"
 
-        articles = [article for article in self.articles.data if article.get("article_type") in apply_to_article_types]
+        articles = [article for article in self.articles.data if article.get("article_type") in target_article_types]
 
         for article in articles:
             article_subject = f"{article['subject']} ({article['lang']})"
