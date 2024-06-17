@@ -76,22 +76,20 @@ class FootnoteValidation:
             dtd = float(self.dtd_version)
         except (TypeError, ValueError) as e:
             raise ValidationFootnotes(f"dtd-version is not valid: {str(e)}")
-        if dtd:
-            fns = ArticleFootnotes(self.xmltree)
-            for fn in fns.article_footnotes:
-                if dtd >= 1.3 and fn.get("fn_type") == "conflict":
-                    yield format_response(
-                        title="Footnotes validation",
-                        parent=fn.get("parent"),
-                        parent_id=fn.get("parent_id"),
-                        item=fn.get("fn_parent"),
-                        sub_item="fn",
-                        validation_type="match",
-                        is_valid=False,
-                        expected='<fn fn-type="coi-statement">',
-                        obtained='<fn fn-type="conflict">',
-                        advice="replace conflict with coi-statement",
-                        data=fn
-                    )
 
+        if not dtd:
+            return
 
+        fns = ArticleFootnotes(self.xmltree)
+        for fn in fns.article_footnotes:
+            fn_type = fn.get("fn_type")
+            parent = fn.get("parent")
+            parent_id = fn.get("parent_id")
+            parent_article_type = fn.get("parent_article_type")
+            parent_lang = fn.get("parent_lang")
+            fn_parent = fn.get("fn_parent")
+
+            if dtd >= 1.3 and fn_type == "conflict":
+                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "coi-statement", "conflict")
+            elif dtd < 1.3 and fn_type == "coi-statement":
+                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "conflict", "coi-statement")
