@@ -49,7 +49,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                'article_id': 'main',
+                'article_id': None,
                 'article_type': 'research-article',
                 'lang': 'pt',
                 'line_number': 2,

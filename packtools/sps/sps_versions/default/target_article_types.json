@@ -1,0 +1,24 @@
+{
+    "_comment": "A list of article types that should be checked for similarity against the subjects",
+    "apply_to_article_types": [
+        "addendum",
+        "article-commentary",
+        "book-review",
+        "brief-report",
+        "case-report",
+        "correction",
+        "editorial",
+        "data-article",
+        "letter",
+        "obituary",
+        "partial-retraction",
+        "product-review",
+        "rapid-communication",
+        "reply",
+        "research-article",
+        "retraction",
+        "review-article",
+        "reviewer-report",
+        "other"
+    ]
+}
