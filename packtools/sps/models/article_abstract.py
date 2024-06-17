@@ -826,15 +826,15 @@ class Highlight:
         return self.node.findtext('title')
 
     @property
-    def highlights(self):
+    def p(self):
         for highlight in self.node.xpath('.//p'):
-            yield highlight.text
+            yield process_subtags(highlight)
 
     @property
     def data(self):
         return {
             "title": self.title,
-            "highlights": list(self.highlights)
+            "highlights": list(self.p)
         }
 
 
