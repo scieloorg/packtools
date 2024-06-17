@@ -80,6 +80,10 @@ class ValidationPeerReviewException(Exception):
     ...
 
 
+class ValidationFootnotes(Exception):
+    ...
+
+
 class ValidationAlternativesException(Exception):
     ...
 

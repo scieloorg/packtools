@@ -64,3 +64,4 @@ class ArticleAuthorNotes:
             author_note["parent_lang"] = node_lang or main_lang
             author_note["parent_article_type"] = node_article_type or main_article_type
             yield author_note
+         
