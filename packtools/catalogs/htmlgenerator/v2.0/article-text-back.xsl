@@ -2,6 +2,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
+    <xsl:include href="verse-group.xsl"/>
+
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
 
     <xsl:template match="ref-list" mode="standard-title">
