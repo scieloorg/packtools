@@ -50,6 +50,8 @@ class FootnoteValidation:
                         'title': 'Footnotes validation',
                         'parent': 'article',
                         'parent_id': None,
+                        'parent_article_type': 'research-article',
+                        'parent_lang': 'pt',
                         'item': 'author-notes',
                         'sub_item': 'fn',
                         'validation_type': 'match',
@@ -63,7 +65,9 @@ class FootnoteValidation:
                             'fn_parent': 'author-notes',
                             'fn_type': 'conflict',
                             'parent': 'article',
-                            'parent_id': None
+                            'parent_id': None,
+                            'parent_article_type': 'research-article',
+                            'parent_lang': 'pt'
                         },
                     },...
                 ]
