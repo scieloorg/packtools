@@ -1,5 +1,5 @@
 {
-    "_comment": "SPS-1.10",
+    "sps_version": "sps-1.10",
     "article_type_list": [
         "addendum",
         "article-commentary",
