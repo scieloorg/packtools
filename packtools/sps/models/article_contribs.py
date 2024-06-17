@@ -43,6 +43,13 @@ class Contrib:
             return {item.tag: item.text for item in name}
 
     @property
+    def contrib_full_name(self):
+        name_parts = ['prefix', 'given-names', 'surname', 'suffix']
+        name = self.contrib_name
+        if name is not None:
+            return ' '.join(name.get(part, '') for part in name_parts).strip()
+
+    @property
     def collab(self):
         return node_plain_text(self.node.find("collab"))
 
@@ -72,6 +79,7 @@ class Contrib:
                 "contrib_type",
                 "contrib_ids",
                 "contrib_name",
+                "contrib_full_name",
                 "collab",
                 "contrib_xref",
                 "contrib_role",
@@ -80,6 +88,7 @@ class Contrib:
                 self.contrib_type,
                 self.contrib_ids,
                 self.contrib_name,
+                self.contrib_full_name,
                 self.collab,
                 list(self.contrib_xref),
                 list(self.contrib_role),
