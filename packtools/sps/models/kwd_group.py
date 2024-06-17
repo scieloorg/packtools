@@ -54,7 +54,6 @@ class KwdGroup:
                                                                  tags_to_remove_with_content, tags_to_convert_to_html)
                     else:
                         keyword_text = xml_utils.node_plain_text(kwd)
-                        keyword_text = keyword_text.replace(" ,", ",")
                     _data.append({"lang": kwd_group_lang, "text": keyword_text})
 
         return _data
