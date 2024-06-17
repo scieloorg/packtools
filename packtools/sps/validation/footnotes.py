@@ -93,3 +93,54 @@ class FootnoteValidation:
                 yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "coi-statement", "conflict")
             elif dtd < 1.3 and fn_type == "coi-statement":
                 yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "conflict", "coi-statement")
+
+    def _generate_response(self, fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, expected, obtained):
+        """
+        Helper method to generate the response dictionary for validation.
+
+        Params
+        ------
+        fn : dict
+            The footnote dictionary.
+
+        parent : str
+            The parent element.
+
+        parent_id : str or None
+            The parent ID if available.
+
+        parent_article_type : str
+            The type of the parent article.
+
+        parent_lang : str
+            The language of the parent article.
+
+        fn_parent : str
+            The footnote parent element.
+
+        expected : str
+            The expected value.
+
+        obtained : str
+            The obtained value.
+
+        Returns
+        -------
+        dict
+            The formatted response dictionary.
+        """
+        return format_response(
+            title="Footnotes validation",
+            parent=parent,
+            parent_id=parent_id,
+            parent_article_type=parent_article_type,
+            parent_lang=parent_lang,
+            item=fn_parent,
+            sub_item="fn",
+            validation_type="match",
+            is_valid=False,
+            expected=f'<fn fn-type="{expected}">',
+            obtained=f'<fn fn-type="{obtained}">',
+            advice=f"replace {obtained} with {expected}",
+            data=fn
+        )
