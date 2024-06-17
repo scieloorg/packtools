@@ -1,5 +1,3 @@
-from packtools.sps.utils import xml_utils
-from lxml import etree as ET
 from packtools.sps.models.base_text_node import BaseTextNode
 
 """
@@ -419,11 +417,11 @@ class ArticleAbstract:
         self.tags_to_convert_to_html = None
 
     def configure(
-        self,
-        tags_to_keep=None,
-        tags_to_keep_with_content=None,
-        tags_to_remove_with_content=None,
-        tags_to_convert_to_html=None,
+            self,
+            tags_to_keep=None,
+            tags_to_keep_with_content=None,
+            tags_to_remove_with_content=None,
+            tags_to_convert_to_html=None,
     ):
         self.tags_to_keep = tags_to_keep
         self.tags_to_keep_with_content = tags_to_keep_with_content
@@ -469,9 +467,9 @@ class ArticleAbstract:
         node_title = node.find("title")
 
         title = AbstractTextNode(
-                node=node_title,
-                lang=lang
-            )
+            node=node_title,
+            lang=lang
+        )
         title.configure(
             tags_to_keep=self.tags_to_keep,
             tags_to_keep_with_content=self.tags_to_keep_with_content,
@@ -818,3 +816,133 @@ class ArticleAbstract:
             d[item["lang"]] = item
         return d
 
+
+class Highlight:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def title(self):
+        return self.node.findtext('title')
+
+    @property
+    def p(self):
+        for highlight in self.node.xpath('.//p'):
+            yield process_subtags(highlight)
+
+    @property
+    def data(self):
+        return {
+            "title": self.title,
+            "highlights": list(self.p)
+        }
+
+
+class Highlights:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def highlights(self):
+        for abstract in self.node.xpath(".//abstract[@abstract-type='key-points'] | .//trans-abstract["
+                                        "@abstract-type='key-points']"):
+            highlight = Highlight(abstract)
+            yield highlight.data
+
+
+class ArticleHighlights:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def article_highlights(self):
+        main = self.xmltree.xpath(".")[0]
+        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+        main_article_type = main.get("article-type")
+        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
+            parent = "sub-article" if node.tag == "sub-article" else "article"
+            parent_id = node.get("id")
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+            article_type = node.get("article-type") or main_article_type
+            for data in Highlights(node).highlights:
+                data.update(
+                    {
+                        "parent": parent,
+                        "parent_id": parent_id,
+                        "parent_lang": lang,
+                        "parent_article_type": article_type,
+                    }
+                )
+                yield data
+
+
+class VisualAbstract:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def title(self):
+        return self.node.findtext(".//title")
+
+    @property
+    def fig_id(self):
+        fig_node = self.node.find(".//fig")
+        if fig_node is not None:
+            return fig_node.get("id")
+
+    @property
+    def caption(self):
+        caption_node = self.node.find(".//caption")
+        if caption_node is not None:
+            return process_subtags(caption_node)
+
+    @property
+    def graphic(self):
+        graphic_node = self.node.find('.//graphic', namespaces={'xlink': 'http://www.w3.org/1999/xlink'})
+        if graphic_node is not None:
+            return graphic_node.get('{http://www.w3.org/1999/xlink}href')
+
+    @property
+    def data(self):
+        return {
+            "title": self.title,
+            "fig_id": self.fig_id,
+            "caption": self.caption,
+            "graphic": self.graphic
+        }
+
+
+class VisualAbstracts:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def visual_abstracts(self):
+        for abstract in self.node.xpath(".//abstract[@abstract-type='graphical'] | .//trans-abstract["
+                                        "@abstract-type='graphical']"):
+            visual_abstract = VisualAbstract(abstract)
+            yield visual_abstract.data
+
+
+class ArticleVisualAbstracts:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def article_visual_abstracts(self):
+        main = self.xmltree.xpath(".")[0]
+        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
+        main_article_type = main.get("article-type")
+        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
+            parent = "sub-article" if node.tag == "sub-article" else "article"
+            parent_id = node.get("id")
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
+            article_type = node.get("article-type") or main_article_type
+            for data in VisualAbstracts(node).visual_abstracts:
+                data.update(
+                    {
+                        "parent": parent,
+                        "parent_id": parent_id,
+                        "parent_lang": lang,
+                        "parent_article_type": article_type,
+                    }
+                )
+                yield data
