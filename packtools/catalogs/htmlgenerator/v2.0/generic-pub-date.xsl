@@ -4,6 +4,7 @@
 
     <xsl:template match="article-meta | sub-article | response" mode="generic-pub-date">
        <xsl:if test=".//pub-date">
+        <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection">
              <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">Publication Dates</xsl:with-param>
