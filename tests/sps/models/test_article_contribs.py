@@ -120,6 +120,7 @@ class ContribTest(TestCase):
                 'scopus': '24771926600'
             },
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -194,6 +195,7 @@ class ContribWithoutContribTypeTest(TestCase):
                 'scopus': '24771926600'
             },
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -263,6 +265,7 @@ class ContribWithoutContribIdTest(TestCase):
         expected = {
             'contrib_type': 'author',
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -336,6 +339,7 @@ class ContribWithoutCollabTest(TestCase):
                 'orcid': '0000-0001-8528-2091',
                 'scopus': '24771926600'
             },
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -473,6 +477,7 @@ class ContribWithoutXrefTest(TestCase):
                 'scopus': '24771926600'
             },
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -538,6 +543,7 @@ class ContribWithoutRoleTest(TestCase):
                 'scopus': '24771926600'
             },
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -621,6 +627,7 @@ class ContribGroupTest(TestCase):
                 'contrib_type': 'author'
             },
             {
+                'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                 'contrib_name': {
                     'given-names': 'FRANCISCO',
                     'prefix': 'Prof',
@@ -703,6 +710,7 @@ class ArticleContribTest(TestCase):
                 'parent_id': None,
                 'parent_lang': 'en',
                 'contrib_ids': {'orcid': '0000-0003-2243-0821'},
+                'contrib_full_name': 'Silvana de Castro',
                 'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
                 'contrib_type': 'author',
                 'contrib_xref': [
@@ -731,6 +739,7 @@ class ArticleContribTest(TestCase):
                 'parent_id': 'SA1',
                 'parent_lang': 'pt',
                 'contrib_ids': {'orcid': '0000-0003-2243-0821'},
+                'contrib_full_name': 'Silvana de Castro',
                 'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
                 'contrib_type': 'author',
                 'contrib_xref': [
