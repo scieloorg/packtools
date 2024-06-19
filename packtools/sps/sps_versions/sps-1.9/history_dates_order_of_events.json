@@ -1,0 +1,14 @@
+{
+    "_comment": "order of history date events",
+    "sps_version": "sps-1.9",
+    "order": [
+        "received",
+        "rev-request",
+        "rev-recd",
+        "accepted",
+        "corrected",
+        "preprint",
+        "pub",
+        "retracted"
+    ]
+}
