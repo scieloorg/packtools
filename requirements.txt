@@ -12,3 +12,5 @@ tox==4.11.4
 langcodes==3.3.0
 -e git+https://github.com/scieloorg/scielo_scholarly_data#egg=scielo_scholarly_data
 ipdb==0.13.13
+ipython>=8.10.0 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
