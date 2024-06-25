@@ -30,10 +30,18 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'sec',
                 'specific_use': 'data-available-upon-request'
             },
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'fn',
                 'specific_use': 'data-available'
             }
@@ -58,6 +66,10 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'sec',
                 'specific_use': 'data-available-upon-request'
             }
@@ -87,6 +99,10 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'fn',
                 'specific_use': 'data-available'
             }
