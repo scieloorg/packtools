@@ -39,9 +39,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-available", "data-available-upon-request"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_data_availability_sec_ok(self):
         self.maxDiff = None
@@ -71,9 +71,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-available", "data-available-upon-request"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_data_availability_fn_not_ok(self):
         self.maxDiff = None
@@ -108,9 +108,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-not-available", "uninformed"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_data_availability_sec_not_ok(self):
         self.maxDiff = None
@@ -140,9 +140,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-not-available", "uninformed"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_data_availability_without_data_availability(self):
         self.maxDiff = None
@@ -168,9 +168,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-available", "data-available-upon-request"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_data_availability_subarticle_fn_ok(self):
         self.maxDiff = None
@@ -207,9 +207,9 @@ class DataAvailabilityTest(unittest.TestCase):
         obtained = list(DataAvailabilityValidation(xmltree).validate_data_availability(
             ["data-available", "data-available-upon-request"]))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 if __name__ == '__main__':
