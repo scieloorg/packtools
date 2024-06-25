@@ -18,6 +18,8 @@
 </article>
 """
 
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+
 
 class DataAvailability:
     def __init__(self, xmltree):
@@ -25,11 +27,14 @@ class DataAvailability:
 
     @property
     def specific_use(self):
-        xpath_query = './/back//*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
-        return [
-            {
-                'tag': node.tag,
-                'specific_use': node.get('specific-use')
-            }
-            for node in self.xmltree.xpath(xpath_query)
-        ]
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree, tag_for_article="back"):
+            if parent == "article":
+                xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
+            else:
+                xpath_query = './/back//*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
+            for item in self.xmltree.xpath(xpath_query):
+                response = {
+                    'tag': item.tag,
+                    'specific_use': item.get('specific-use')
+                }
+                yield put_parent_context(response, lang, article_type, parent, parent_id)

@@ -30,18 +30,26 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'sec',
                 'specific_use': 'data-available-upon-request'
             },
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'fn',
                 'specific_use': 'data-available'
             }
         ]
-        obtained = DataAvailability(xmltree).specific_use
-        for i, item in enumerate(obtained):
+        obtained = list(DataAvailability(xmltree).specific_use)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_specific_use_sec(self):
         self.maxDiff = None
@@ -58,14 +66,18 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'sec',
                 'specific_use': 'data-available-upon-request'
             }
         ]
-        obtained = DataAvailability(xmltree).specific_use
-        for i, item in enumerate(obtained):
+        obtained = list(DataAvailability(xmltree).specific_use)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_specific_use_fn(self):
         self.maxDiff = None
@@ -87,14 +99,18 @@ class DataAvailabilityTest(unittest.TestCase):
         xmltree = etree.fromstring(xml)
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': None,
                 'tag': 'fn',
                 'specific_use': 'data-available'
             }
         ]
-        obtained = DataAvailability(xmltree).specific_use
-        for i, item in enumerate(obtained):
+        obtained = list(DataAvailability(xmltree).specific_use)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_specific_use_not_found(self):
         self.maxDiff = None
@@ -106,10 +122,10 @@ class DataAvailabilityTest(unittest.TestCase):
             """
         xmltree = etree.fromstring(xml)
         expected = []
-        obtained = DataAvailability(xmltree).specific_use
-        for i, item in enumerate(obtained):
+        obtained = list(DataAvailability(xmltree).specific_use)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 if __name__ == '__main__':
