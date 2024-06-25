@@ -1,5 +1,6 @@
 from packtools.sps.models.article_data_availability import DataAvailability
 from packtools.sps.validation.exceptions import ValidationDataAvailabilityException
+from packtools.sps.validation.utils import format_response
 
 
 class DataAvailabilityValidation:
@@ -8,7 +9,7 @@ class DataAvailabilityValidation:
         self.data_availability = DataAvailability(self.xmltree)
         self.specific_use_list = specific_use_list
 
-    def validate_data_availability(self, specific_use_list=None):
+    def validate_data_availability(self, specific_use_list=None, error_level="ERROR"):
         """
         Check whether the data availability statement matches the options provided in a standard list.
 
@@ -58,26 +59,42 @@ class DataAvailabilityValidation:
         if not specific_use_list:
             raise ValidationDataAvailabilityException("Function requires a list of specific use.")
 
-        if not self.data_availability.specific_use:
-            yield self._create_response(None, specific_use_list)
+        specific_uses = list(self.data_availability.specific_use)
+
+        if not specific_uses:
+            yield format_response(
+                title="Data availability validation",
+                parent=None,
+                parent_id=None,
+                parent_article_type=None,
+                parent_lang=None,
+                item="fn | sec",
+                sub_item="@specific-use",
+                validation_type="value in list",
+                is_valid=False,
+                expected=specific_use_list,
+                obtained=None,
+                advice=f"Provide a data availability statement from the following list: {' | '.join(specific_use_list)}",
+                data=None,
+                error_level=error_level,
+            )
         else:
-            for specific_use in self.data_availability.specific_use:
-                yield self._create_response(specific_use, specific_use_list)
-
-    def _create_response(self, specific_use, specific_use_list):
-        got_value = specific_use['specific_use'] if specific_use else None
-        is_valid = got_value in specific_use_list
-        response_status = 'OK' if is_valid else 'ERROR'
-        message = f"Got {got_value} expected one item of this list: {' | '.join(specific_use_list)}"
-        advice = None if is_valid else f"Provide a data availability statement from the following list: {' | '.join(specific_use_list)}"
-
-        return {
-            'title': 'Data availability validation',
-            'xpath': './/back//fn[@fn-type="data-availability"]/@specific-use .//back//sec[@sec-type="data-availability"]/@specific-use',
-            'validation_type': 'value in list',
-            'response': response_status,
-            'expected_value': specific_use_list,
-            'got_value': got_value,
-            'message': message,
-            'advice': advice
-        }
+            for specific_use in specific_uses:
+                got_value = specific_use['specific_use']
+                is_valid = got_value in specific_use_list
+                yield format_response(
+                    title="Data availability validation",
+                    parent=specific_use.get("parent"),
+                    parent_id=specific_use.get("parent_id"),
+                    parent_article_type=specific_use.get("parent_article_type"),
+                    parent_lang=specific_use.get("parent_lang"),
+                    item="fn | sec",
+                    sub_item="@specific-use",
+                    validation_type="value in list",
+                    is_valid=is_valid,
+                    expected=specific_use_list,
+                    obtained=got_value,
+                    advice=f"Provide a data availability statement from the following list: {' | '.join(specific_use_list)}",
+                    data=specific_use,
+                    error_level=error_level,
+                )
