@@ -74,7 +74,11 @@ class FundingGroup:
     def __init__(self, xmltree):
         self._xmltree = xmltree
 
-    def fn_financial_information(self, special_chars_funding=[], special_chars_award_id=[]):
+    def fn_financial_information(self, special_chars_funding=None, special_chars_award_id=None):
+        if special_chars_award_id is None:
+            special_chars_award_id = []
+        if special_chars_funding is None:
+            special_chars_funding = []
         items = []
         for fn_type in ('financial-disclosure', 'supported-by'):
             funding_sources = []
