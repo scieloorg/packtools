@@ -74,7 +74,11 @@ class FundingGroup:
     def __init__(self, xmltree):
         self._xmltree = xmltree
 
-    def fn_financial_information(self, special_chars_funding=[], special_chars_award_id=[]):
+    def fn_financial_information(self, special_chars_funding=None, special_chars_award_id=None):
+        if special_chars_award_id is None:
+            special_chars_award_id = []
+        if special_chars_funding is None:
+            special_chars_funding = []
         items = []
         for fn_type in ('financial-disclosure', 'supported-by'):
             funding_sources = []
@@ -155,3 +159,23 @@ class FundingGroup:
                 }
             )
         return items
+
+    @property
+    def article_type(self):
+        return self._xmltree.xpath(".")[0].get("article-type")
+
+    @property
+    def article_lang(self):
+        return self._xmltree.xpath(".")[0].get("{http://www.w3.org/XML/1998/namespace}lang")
+
+    def data(self, special_chars_funding=None, special_chars_award_id=None):
+        return {
+            "article_type": self.article_type,
+            "article_lang": self.article_lang,
+            "fn_financial_information": self.fn_financial_information(special_chars_funding, special_chars_award_id),
+            "award_groups": self.award_groups,
+            "funding_sources": self.funding_sources,
+            "funding_statement": self.funding_statement,
+            "principal_award_recipients": self.principal_award_recipients,
+            "ack": self.ack
+        }
