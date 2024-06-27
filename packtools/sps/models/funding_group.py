@@ -159,3 +159,23 @@ class FundingGroup:
                 }
             )
         return items
+
+    @property
+    def article_type(self):
+        return self._xmltree.xpath(".")[0].get("article-type")
+
+    @property
+    def article_lang(self):
+        return self._xmltree.xpath(".")[0].get("{http://www.w3.org/XML/1998/namespace}lang")
+
+    def data(self, special_chars_funding=None, special_chars_award_id=None):
+        return {
+            "article_type": self.article_type,
+            "article_lang": self.article_lang,
+            "fn_financial_information": self.fn_financial_information(special_chars_funding, special_chars_award_id),
+            "award_groups": self.award_groups,
+            "funding_sources": self.funding_sources,
+            "funding_statement": self.funding_statement,
+            "principal_award_recipients": self.principal_award_recipients,
+            "ack": self.ack
+        }
