@@ -1,0 +1,14 @@
+{
+    "sps_version": "sps-1.10",
+    "date_type_list": [
+        "accepted",
+        "corrected",
+        "pub",
+        "preprint",
+        "received",
+        "resubmitted",
+        "retracted",
+        "rev-recd",
+        "rev-request",
+    ],
+}
