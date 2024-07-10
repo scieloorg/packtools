@@ -1,0 +1,13 @@
+{
+    "sps_version": "sps-1.10",
+    "meta_value_list": [
+        "revision",
+        "major-revision",
+        "minor-revision",
+        "reject",
+        "reject-with-resubmit",
+        "accept",
+        "formal-accept",
+        "accept-in-principle",
+    ],
+}
