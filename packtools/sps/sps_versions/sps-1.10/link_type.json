@@ -1,0 +1,7 @@
+{
+    "sps_version": "sps-1.10",
+    "link_type_list": [
+        "doi",
+        "uri",
+    ],
+}
