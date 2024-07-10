@@ -1,12 +1,4 @@
-from ..utils import xml_utils
-"""
-<custom-meta-group>
-<custom-meta>
-<meta-name>peer-review-recommendation</meta-name>
-<meta-value>accept</meta-value>
-</custom-meta>
-</custom-meta-group>
-"""
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
 
 class CustomMetaGroup:
@@ -14,13 +6,11 @@ class CustomMetaGroup:
         self.main_node = main_node
 
     @property
-    def custom_meta(self):
-        for item in self.main_node.xpath('.//custom-meta-group//custom-meta'):
-            yield CustomMeta(item)
-
-    @property
     def data(self):
-        return [item.data for item in self.custom_meta]
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.main_node):
+            for item in node.xpath('.//custom-meta-group//custom-meta'):
+                custom_meta = CustomMeta(item).data
+                yield put_parent_context(custom_meta, lang, article_type, parent, parent_id)
 
 
 class CustomMeta:
@@ -29,17 +19,19 @@ class CustomMeta:
 
     @property
     def meta_name(self):
-        return self.custom_meta_node.findtext('meta-name')
+        if name := self.custom_meta_node.findtext('.//meta-name'):
+            return name
 
     @property
     def meta_value(self):
-        return self.custom_meta_node.findtext('meta-value')
+        if value := self.custom_meta_node.findtext('.//meta-value'):
+            return value
 
     @property
     def data(self):
         return {
-            "meta-name": self.meta_name,
-            "meta-value": self.meta_value
+            "meta_name": self.meta_name,
+            "meta_value": self.meta_value
         }
 
 
