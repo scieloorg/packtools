@@ -1,140 +1,76 @@
 import unittest
-
 from lxml import etree as ET
-
-from packtools.sps.models.peer_review import PeerReview
-
+from packtools.sps.models.peer_review import PeerReview, CustomMeta
 
 class PeerReviewArticleTest(unittest.TestCase):
     def setUp(self):
-        xmltree = ET.fromstring(
-            """
+        xml_success = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xmlns:mml="http://www.w3.org/1998/Math/MathML"
-            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
-            <front>
-            <article-meta>
-            <article-id pub-id-type="doi">10.1590/123456720182998OPR</article-id>
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Peer-Review</subject>
-            </subj-group>
-            </article-categories>
-            <title-group>
-            <article-title>Open Peer Review: article X</article-title>
-            </title-group><contrib-group>
-            <contrib contrib-type="author">
-            <name>
-            <surname>Doe</surname>
-            <given-names>Jane X</given-names>
-            </name>
-            <role specific-use="reviewer">Reviewer</role>
-            <xref ref-type="aff" rid="aff1"/>
-            </contrib>
-            </contrib-group>
-            <aff id="aff1"> ... </aff>
-            <history>
-            <date date-type="reviewer-report-received">
-            <day>10</day>
-            <month>01</month>
-            <year>2022</year>
-            </date>
-            </history>
-            <permissions> ... </permissions>
-            <related-article related-article-type="peer-reviewed-material" id="r01"
-            xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi"/>
-            <custom-meta-group>
-            <custom-meta>
-            <meta-name>peer-review-recommendation</meta-name>
-            <meta-value>accept</meta-value>
-            </custom-meta>
-            </custom-meta-group>
-            </article-meta>
-            </front>
-            <body>
-            <sec>
-            <title>Reviewer</title>
-            <p>Vivamus elementum sapien tellus, a suscipit elit auctor in. Cras est nisl,
-            egestas
-            non ultrices ut, fringilla eu magna. Morbi ullamcorper et diam a elementum.
-            Phasellus vitae diam eget arcu dignissim ultrices.</p>
-            <p>Sed in laoreet sem. Morbi vel imperdiet magna. Curabitur a velit maximus,
-            volutpat
-            metus in, posuere sem. Etiam eget lacus lorem. Nulla facilisi..</p>
-            </sec></body>
+                     xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                     dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <custom-meta-group>
+                            <custom-meta>
+                                <meta-name>peer-review-recommendation</meta-name>
+                                <meta-value>accept</meta-value>
+                            </custom-meta>
+                        </custom-meta-group>
+                    </article-meta>
+                </front>
             </article>
-            """)
-        self.peer_review_success = PeerReview(xmltree)
+        """
+        xml_fail = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" 
+                     xmlns:mml="http://www.w3.org/1998/Math/MathML"
+                     dtdversion="1.3" specific-use="sps-1.10" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <custom-meta-group>
+                            <custom-meta>
+                                <meta-name></meta-name>
+                                <meta-value></meta-value>
+                            </custom-meta>
+                        </custom-meta-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
 
-        xmltree = ET.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" 
-            xmlns:mml="http://www.w3.org/1998/Math/MathML"
-            dtdversion="1.3" specific-use="sps-1.10" xml:lang="en">
-            <front>
-            <article-meta>
-            
-            <article-categories>
-            <subj-group subj-group-type="heading">
-            <subject>Peer-Review</subject>
-            </subj-group>
-            </article-categories>
-            <contrib-group>
-            <contrib>
-            <name>
-            <surname>Doe</surname>
-            <given-names>Jane X</given-names>
-            </name>
-            <role>Reviewer</role>
-            <xref ref-type="aff" rid="aff1"/>
-            </contrib>
-            </contrib-group>
-            <aff id="aff1"> ... </aff>
-            <history>
-            
-            </history>
-            <permissions> ... </permissions>
-            <related-article related-article-type="peer-reviewed-material" id="r01"
-            xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi"/>
-            
-            </article-meta>
-            </front>
-            <body>
-            <sec>
-            <title>Reviewer</title>
-            <p>Vivamus elementum sapien tellus, a suscipit elit auctor in. Cras est nisl,
-            egestas
-            non ultrices ut, fringilla eu magna. Morbi ullamcorper et diam a elementum.
-            Phasellus vitae diam eget arcu dignissim ultrices.</p>
-            <p>Sed in laoreet sem. Morbi vel imperdiet magna. Curabitur a velit maximus,
-            volutpat
-            metus in, posuere sem. Etiam eget lacus lorem. Nulla facilisi..</p>
-            </sec></body>
-            </article>
-            """)
-        self.peer_review_fail = PeerReview(xmltree)
+        self.custom_meta_success = CustomMeta(ET.fromstring(xml_success))
+        self.peer_review_success = PeerReview(ET.fromstring(xml_success))
+        self.custom_meta_fail = CustomMeta(ET.fromstring(xml_fail))
 
     def test_meta_name_success(self):
-        expected = ['peer-review-recommendation']
-        obtained = [item.meta_name for item in self.peer_review_success.custom_meta]
+        expected = 'peer-review-recommendation'
+        obtained = self.custom_meta_success.meta_name
         self.assertEqual(expected, obtained)
 
     def test_meta_name_fail(self):
-        obtained = [item.meta_name for item in self.peer_review_fail.custom_meta]
-        self.assertEqual(obtained, [])
+        obtained = self.custom_meta_fail.meta_name
+        self.assertIsNone(obtained)
 
     def test_meta_value_success(self):
-        expected = ['accept']
-        obtained = [item.meta_value for item in self.peer_review_success.custom_meta]
+        expected = 'accept'
+        obtained = self.custom_meta_success.meta_value
         self.assertEqual(expected, obtained)
 
     def test_meta_value_fail(self):
-        obtained = [item.meta_value for item in self.peer_review_fail.custom_meta]
-        self.assertEqual(obtained, [])
+        obtained = self.custom_meta_fail.meta_value
+        self.assertIsNone(obtained)
 
     def test_custom_meta_data(self):
-        obtained = self.peer_review_success.data
-        expected = [{'meta-name': 'peer-review-recommendation', 'meta-value': 'accept'}]
+        obtained = list(self.peer_review_success.data)
+        expected = [
+            {
+                'parent': 'article',
+                'parent_article_type': 'reviewer-report',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'meta_name': 'peer-review-recommendation',
+                'meta_value': 'accept'
+            }
+        ]
         self.assertEqual(expected, obtained)
 
 
