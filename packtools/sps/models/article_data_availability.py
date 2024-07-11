@@ -27,11 +27,8 @@ class DataAvailability:
 
     @property
     def specific_use(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree, tag_for_article="back"):
-            if parent == "article":
-                xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
-            else:
-                xpath_query = './/back//*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+            xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
             for item in self.xmltree.xpath(xpath_query):
                 response = {
                     'tag': item.tag,
