@@ -9,7 +9,8 @@ class DataAvailabilityTest(unittest.TestCase):
     def test_validate_data_availability_fn_ok(self):
         self.maxDiff = None
         xml = """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <back>
                         <fn-group>
                             <fn fn-type="data-availability" specific-use="data-available" id="fn1">
@@ -30,7 +31,7 @@ class DataAvailabilityTest(unittest.TestCase):
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn | sec',
                 'sub_item': '@specific-use',
                 'validation_type': 'value in list',
@@ -43,7 +44,7 @@ class DataAvailabilityTest(unittest.TestCase):
                     'parent': 'article',
                     'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'specific_use': 'data-available',
                     'tag': 'fn'
                 },
@@ -59,7 +60,8 @@ class DataAvailabilityTest(unittest.TestCase):
     def test_validate_data_availability_sec_ok(self):
         self.maxDiff = None
         xml = """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <back>
                         <sec sec-type="data-availability" specific-use="data-available-upon-request">
                             <label>Data availability statement</label>
@@ -75,7 +77,7 @@ class DataAvailabilityTest(unittest.TestCase):
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn | sec',
                 'sub_item': '@specific-use',
                 'validation_type': 'value in list',
@@ -88,7 +90,7 @@ class DataAvailabilityTest(unittest.TestCase):
                     'parent': 'article',
                     'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'specific_use': 'data-available-upon-request',
                     'tag': 'sec'
                 },
@@ -104,7 +106,8 @@ class DataAvailabilityTest(unittest.TestCase):
     def test_validate_data_availability_fn_not_ok(self):
         self.maxDiff = None
         xml = """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <back>
                         <fn-group>
                             <fn fn-type="data-availability" specific-use="data-available" id="fn1">
@@ -125,7 +128,7 @@ class DataAvailabilityTest(unittest.TestCase):
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn | sec',
                 'sub_item': '@specific-use',
                 'validation_type': 'value in list',
@@ -138,7 +141,7 @@ class DataAvailabilityTest(unittest.TestCase):
                     'parent': 'article',
                     'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'specific_use': 'data-available',
                     'tag': 'fn'
                 },
@@ -154,7 +157,8 @@ class DataAvailabilityTest(unittest.TestCase):
     def test_validate_data_availability_sec_not_ok(self):
         self.maxDiff = None
         xml = """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <back>
                         <sec sec-type="data-availability" specific-use="data-available-upon-request">
                             <label>Data availability statement</label>
@@ -170,7 +174,7 @@ class DataAvailabilityTest(unittest.TestCase):
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn | sec',
                 'sub_item': '@specific-use',
                 'validation_type': 'value in list',
@@ -183,7 +187,7 @@ class DataAvailabilityTest(unittest.TestCase):
                     'parent': 'article',
                     'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'specific_use': 'data-available-upon-request',
                     'tag': 'sec'
                 },
@@ -199,7 +203,8 @@ class DataAvailabilityTest(unittest.TestCase):
     def test_validate_data_availability_without_data_availability(self):
         self.maxDiff = None
         xml = """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <back>
                     </back>
                 </article>
@@ -208,10 +213,10 @@ class DataAvailabilityTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Data availability validation',
-                'parent': None,
-                'parent_article_type': None,
+                'parent': 'article',
+                'parent_article_type': 'research-article',
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn | sec',
                 'sub_item': '@specific-use',
                 'validation_type': 'value in list',
