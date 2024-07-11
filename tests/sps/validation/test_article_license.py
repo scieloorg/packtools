@@ -9,7 +9,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -39,9 +40,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -75,9 +76,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -111,9 +112,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -172,7 +173,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -192,9 +194,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -253,7 +255,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -283,9 +286,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -311,9 +314,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -347,9 +350,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -403,7 +406,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -423,9 +427,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -471,7 +475,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -501,9 +506,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -521,17 +526,17 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -549,17 +554,17 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -577,9 +582,9 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             ]
@@ -592,7 +597,8 @@ class ArticleLicenseValidationTest(TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
             <article-meta>
                 <permissions>
@@ -622,9 +628,9 @@ class ArticleLicenseValidationTest(TestCase):
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -642,17 +648,17 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -670,17 +676,17 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             {
                 'title': 'Article license code validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'permissions',
                 'sub_item': 'license',
                 'validation_type': 'value',
@@ -698,9 +704,9 @@ class ArticleLicenseValidationTest(TestCase):
                     },
                     'link': 'http://creativecommons.org/licenses/by/4.0/',
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None
+                    'parent_lang': "pt",
                 }
             },
             ]
