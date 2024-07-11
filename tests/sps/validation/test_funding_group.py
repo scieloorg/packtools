@@ -16,7 +16,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_without_funding_information(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         
@@ -34,7 +35,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_2_funding_1_award_in_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -58,9 +60,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'funding-source',
                 'validation_type': 'exist',
@@ -72,8 +74,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -100,7 +102,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_2_funding_1_award_in_fn_group_financial_disclosure(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
@@ -123,9 +126,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='financial-disclosure'",
                 'validation_type': 'exist',
@@ -137,8 +140,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -166,7 +169,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_2_funding_1_award_in_fn_group_supported_by(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
@@ -189,9 +193,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='supported-by'",
                 'validation_type': 'exist',
@@ -203,8 +207,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -232,7 +236,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_1_funding_2_award_in_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -256,9 +261,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'funding-source',
                 'validation_type': 'exist',
@@ -270,8 +275,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269', '2020CFB547'],
@@ -292,7 +297,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_1_funding_2_award_in_fn_group_financial_disclosure(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
@@ -314,9 +320,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='financial-disclosure'",
                 'validation_type': 'exist',
@@ -328,8 +334,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -350,7 +356,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_success_1_funding_2_award_in_fn_group_supported_by(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
@@ -372,9 +379,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='supported-by'",
                 'validation_type': 'exist',
@@ -386,8 +393,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -411,7 +418,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_0_award_in_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -433,9 +441,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'funding-source',
                 'validation_type': 'exist',
@@ -447,8 +455,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide values for award id and funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': [],
@@ -468,7 +476,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_0_award_in_fn_group_financial_disclosure(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
@@ -488,9 +497,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='financial-disclosure'",
                 'validation_type': 'exist',
@@ -502,8 +511,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide values for award id and funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -525,7 +534,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_0_award_in_fn_group_supported_by(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
@@ -545,9 +555,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='supported-by'",
                 'validation_type': 'exist',
@@ -559,8 +569,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -582,7 +592,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_1_funding_0_award_in_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -604,9 +615,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'funding-source',
                 'validation_type': 'exist',
@@ -618,8 +629,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for award id or move funding source to <fn fn-type="supported-by">',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': [],
@@ -640,7 +651,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_1_funding_0_award_in_fn_group_financial_disclosure(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
@@ -660,9 +672,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='financial-disclosure'",
                 'validation_type': 'exist',
@@ -674,8 +686,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for award id or move funding source to <fn fn-type="supported-by">',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -697,7 +709,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_1_funding_0_award_in_fn_group_supported_by(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
@@ -717,9 +730,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='supported-by'",
                 'validation_type': 'exist',
@@ -731,8 +744,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -754,7 +767,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_1_award_in_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -776,9 +790,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'funding-source',
                 'validation_type': 'exist',
@@ -790,8 +804,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -811,7 +825,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_1_award_in_fn_group_financial_disclosure(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
@@ -831,9 +846,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='financial-disclosure'",
                 'validation_type': 'exist',
@@ -845,8 +860,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -867,7 +882,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_funding_sources_validation_fail_0_funding_1_award_in_fn_group_supported_by(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
@@ -887,9 +903,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fn',
                 'sub_item': "@fn-type='supported-by'",
                 'validation_type': 'exist',
@@ -901,8 +917,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide value for funding source',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [],
                     'fn_financial_information': [
                         {
@@ -923,7 +939,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_award_id_format_validation_success(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -946,9 +963,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'award-id',
                 'validation_type': 'format',
@@ -959,8 +976,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -983,9 +1000,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'award-id',
                 'validation_type': 'format',
@@ -996,8 +1013,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': None,
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -1025,7 +1042,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_award_id_format_validation_fail(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
@@ -1048,9 +1066,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'award-id',
                 'validation_type': 'format',
@@ -1061,8 +1079,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide a valid value for award id',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -1085,9 +1103,9 @@ class FundingGroupValidationTest(unittest.TestCase):
             {
                 'title': 'Funding source element validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'award-group',
                 'sub_item': 'award-id',
                 'validation_type': 'format',
@@ -1098,8 +1116,8 @@ class FundingGroupValidationTest(unittest.TestCase):
                 'advice': 'Provide a valid value for award id',
                 'data': {
                     'ack': [],
-                    'article_lang': None,
-                    'article_type': None,
+                    'article_lang': "pt",
+                    'article_type': "research-article",
                     'award_groups': [
                         {
                             'award-id': ['2019JJ40269'],
@@ -1127,7 +1145,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_award_id_format_validation_fail_without_funding_group(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
 
@@ -1142,7 +1161,8 @@ class FundingGroupValidationTest(unittest.TestCase):
     def test_award_id_format_validation_fail_without_award_id(self):
         self.maxDiff = None
         xml_str = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
