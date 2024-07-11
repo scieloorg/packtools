@@ -64,10 +64,10 @@ class DataAvailabilityValidation:
         if not specific_uses:
             yield format_response(
                 title="Data availability validation",
-                parent=None,
+                parent="article",
                 parent_id=None,
-                parent_article_type=None,
-                parent_lang=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
                 item="fn | sec",
                 sub_item="@specific-use",
                 validation_type="value in list",
