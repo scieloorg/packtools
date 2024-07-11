@@ -11,7 +11,8 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <p><xref ref-type="aff" rid="aff1">1</xref></p>     
@@ -39,9 +40,9 @@ class ArticleXrefValidationTest(TestCase):
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -53,17 +54,17 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -75,17 +76,17 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -97,9 +98,9 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             }
         ]
@@ -111,7 +112,8 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <p><xref ref-type="aff" rid="aff1">1</xref></p>     
@@ -136,9 +138,9 @@ class ArticleXrefValidationTest(TestCase):
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -150,17 +152,17 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -172,17 +174,17 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'xref',
                 'sub_item': '@rid',
                 'validation_type': 'match',
@@ -194,9 +196,9 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']},
             }
         ]
@@ -209,7 +211,8 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <p><xref ref-type="aff" rid="aff1">1</xref></p>     
@@ -237,9 +240,9 @@ class ArticleXrefValidationTest(TestCase):
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'aff',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -251,18 +254,18 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']
                 }
             },
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fig',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -274,18 +277,18 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']
                 }
             },
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'table',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -297,9 +300,9 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1', 'table1']
                 }
             }
@@ -315,7 +318,8 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <p><xref ref-type="aff" rid="aff1">1</xref></p>     
@@ -342,9 +346,9 @@ class ArticleXrefValidationTest(TestCase):
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'aff',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -356,18 +360,18 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1']
                 },
             },
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'fig',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -379,18 +383,18 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1']
                 },
             },
             {
                 'title': 'element id attribute validation',
                 'parent': 'article',
-                'parent_article_type': None,
+                'parent_article_type': "research-article",
                 'parent_id': None,
-                'parent_lang': None,
+                'parent_lang': "pt",
                 'item': 'table',
                 'sub_item': '@id',
                 'validation_type': 'match',
@@ -402,9 +406,9 @@ class ArticleXrefValidationTest(TestCase):
                 'data': {
                     'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
                     'parent': 'article',
-                    'parent_article_type': None,
+                    'parent_article_type': "research-article",
                     'parent_id': None,
-                    'parent_lang': None,
+                    'parent_lang': "pt",
                     'rids': ['aff1', 'fig1']
                 },
             }
