@@ -92,6 +92,8 @@ class AuthorsTest(TestCase):
                 'citation_ids': {'pmid': '00000000', 'pmcid': '11111111', 'doi': '10.1016/B1'},
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en'
             }
         ]
         for i, item in enumerate(expected):
@@ -144,6 +146,8 @@ class AuthorsTest(TestCase):
                 'citation_ids': {'pmid': '22222222', 'pmcid': '33333333', 'doi': '10.1016/B2'},
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en'
             }
         ]
         for i, item in enumerate(expected):
@@ -211,6 +215,8 @@ class AuthorsTest(TestCase):
                 'all_authors': [{'collab': ['Brasil']}],
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt'
             },
 
         ]
