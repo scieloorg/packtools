@@ -1,0 +1,20 @@
+{
+    "sps_version": "sps-1.10",
+    "publication_type_list": [
+        "book",
+        "confproc",
+        "data",
+        "database",
+        "journal",
+        "legal-doc",
+        "letter",
+        "newspaper",
+        "patent",
+        "preprint",
+        "report",
+        "software",
+        "thesis",
+        "webpage",
+        "other",
+    ],
+}
