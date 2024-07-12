@@ -10,7 +10,7 @@ class ArticleCitationValidation:
         self.citation = citation
         self.publication_type_list = publication_type_list
 
-    def validate_article_citation_year(self, start_year=None, end_year=None):
+    def validate_article_citation_year(self, start_year=None, end_year=None, error_level="ERROR"):
         """
         Checks whether the year in an article citation exists and is valid.
 
@@ -82,6 +82,8 @@ class ArticleCitationValidation:
             title='element citation validation',
             parent=self.citation.get("parent"),
             parent_id=self.citation.get("parent_id"),
+            parent_article_type=self.citation.get("parent_article_type"),
+            parent_lang=self.citation.get("parent_lang"),
             item='element-citation',
             sub_item='year',
             is_valid=is_valid,
@@ -90,10 +92,11 @@ class ArticleCitationValidation:
             obtained=year,
             advice=f"The year in reference (ref-id: {self.citation.get('ref_id')}) is missing or is invalid, "
                    f"provide a valid value for year",
-            data=self.citation
+            data=self.citation,
+            error_level=error_level
         )
 
-    def validate_article_citation_source(self):
+    def validate_article_citation_source(self, error_level="ERROR"):
         """
         Checks whether the source in an article citation exists.
 
@@ -151,23 +154,25 @@ class ArticleCitationValidation:
         """
         source = self.citation.get('source')
         is_valid = source is not None
-        yield {
-            'title': 'element citation validation',
-            'parent': self.citation.get("parent"),
-            'parent_id': self.citation.get("parent_id"),
-            'item': 'element-citation',
-            'sub_item': 'source',
-            'validation_type': 'exist',
-            'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': source if is_valid else 'a valid value to source',
-            'got_value': source,
-            'message': f'Got {source} expected {source if is_valid else "a valid value to source"}',
-            'advice': None if is_valid else f"The source in reference (ref-id: {self.citation.get('ref_id')}) is missing "
-                                            f"provide a valid value to source",
-            'data': self.citation
-        }
+        yield format_response(
+            title='element citation validation',
+            parent=self.citation.get("parent"),
+            parent_id=self.citation.get("parent_id"),
+            parent_article_type=self.citation.get("parent_article_type"),
+            parent_lang=self.citation.get("parent_lang"),
+            item='element-citation',
+            sub_item='source',
+            is_valid=is_valid,
+            validation_type='exist',
+            expected=source if is_valid else 'a valid value to source',
+            obtained=source,
+            advice=f"The source in reference (ref-id: {self.citation.get('ref_id')}) is missing "
+                   f"provide a valid value to source",
+            data=self.citation,
+            error_level=error_level
+        )
 
-    def validate_article_citation_article_title(self):
+    def validate_article_citation_article_title(self, error_level="ERROR"):
         """
         Checks whether the article title in an article citation exists.
 
@@ -235,6 +240,8 @@ class ArticleCitationValidation:
                 title='element citation validation',
                 parent=self.citation.get("parent"),
                 parent_id=self.citation.get("parent_id"),
+                parent_article_type=self.citation.get("parent_article_type"),
+                parent_lang=self.citation.get("parent_lang"),
                 item='element-citation',
                 sub_item='article-title',
                 is_valid=is_valid,
@@ -243,10 +250,11 @@ class ArticleCitationValidation:
                 obtained=article_title,
                 advice=f"The article-title in reference (ref-id: {self.citation.get('ref_id')}) is missing "
                        f"provide a valid value for article-title",
-                data=self.citation
+                data=self.citation,
+                error_level=error_level
             )
 
-    def validate_article_citation_authors(self):
+    def validate_article_citation_authors(self, error_level="ERROR"):
         """
         Checks if there are authors for the article citation.
 
@@ -308,6 +316,8 @@ class ArticleCitationValidation:
             title='element citation validation',
             parent=self.citation.get("parent"),
             parent_id=self.citation.get("parent_id"),
+            parent_article_type=self.citation.get("parent_article_type"),
+            parent_lang=self.citation.get("parent_lang"),
             item='element-citation',
             sub_item='person-group//name or person-group//collab',
             is_valid=is_valid,
@@ -316,10 +326,11 @@ class ArticleCitationValidation:
             obtained=f'{number_authors} authors',
             advice=f"There are no authors for the reference (ref-id: {self.citation.get('ref_id')}) "
                    f"provide at least 1 author",
-            data=self.citation
+            data=self.citation,
+            error_level=error_level
         )
 
-    def validate_article_citation_publication_type(self, publication_type_list=None):
+    def validate_article_citation_publication_type(self, publication_type_list=None, error_level="ERROR"):
         """
         Checks if the publication type is present in the list of default values.
 
@@ -384,6 +395,8 @@ class ArticleCitationValidation:
             title='element citation validation',
             parent=self.citation.get("parent"),
             parent_id=self.citation.get("parent_id"),
+            parent_article_type=self.citation.get("parent_article_type"),
+            parent_lang=self.citation.get("parent_lang"),
             item='element-citation',
             sub_item='publication-type',
             is_valid=is_valid,
@@ -392,7 +405,8 @@ class ArticleCitationValidation:
             obtained=publication_type,
             advice=f"publication-type for the reference (ref-id: {self.citation.get('ref_id')}) is missing or is "
                    f"invalid, provide one value from the list: {' | '.join(publication_type_list)}",
-            data=self.citation
+            data=self.citation,
+            error_level=error_level
         )
 
 
@@ -410,7 +424,3 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_article_title()
             yield from citation.validate_article_citation_authors()
             yield from citation.validate_article_citation_publication_type(publication_type_list)
-
-
-
-
