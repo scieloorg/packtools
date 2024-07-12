@@ -10,7 +10,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <article-meta>
             <pub-date publication-format="electronic" date-type="pub">
@@ -90,6 +91,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'year',
                 'validation_type': 'exist',
@@ -131,6 +134,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -142,7 +147,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_success(self):
         self.maxDiff = None
         xml = """
-                   <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                   <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                   article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
                    <back>
                    <ref-list>
                    <title>REFERENCES</title>
@@ -207,6 +213,8 @@ class ArticleCitationValidationTest(TestCase):
                 'item': 'element-citation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'sub_item': 'year',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -247,6 +255,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             }
         ]
@@ -258,7 +268,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_fail_invalid(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -322,6 +333,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'year',
                 'validation_type': 'exist',
@@ -363,6 +376,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '201a',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -374,7 +389,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_fail_missing(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -439,6 +455,8 @@ class ArticleCitationValidationTest(TestCase):
                 'sub_item': 'year',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a value for year between 2000 and 2020',
@@ -477,6 +495,8 @@ class ArticleCitationValidationTest(TestCase):
                     'volume': '150',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -488,7 +508,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_source_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -552,13 +573,15 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'source',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Drug Alcohol Depend.',
                 'got_value': 'Drug Alcohol Depend.',
-                'message': 'Got Drug Alcohol Depend. expected Drug Alcohol Depend.',
+                'message': 'Got Drug Alcohol Depend., expected Drug Alcohol Depend.',
                 'advice': None,
                 'data': {
                     'all_authors': [
@@ -593,6 +616,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -604,7 +629,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_source_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -667,13 +693,15 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'source',
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'a valid value to source',
                 'got_value': None,
-                'message': 'Got None expected a valid value to source',
+                'message': 'Got None, expected a valid value to source',
                 'advice': 'The source in reference (ref-id: B1) is missing provide a valid value to source',
                 'data': {
                     'all_authors': [
@@ -707,6 +735,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -718,7 +748,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_article_title_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -782,6 +813,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'article-title',
                 'validation_type': 'exist',
@@ -827,6 +860,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -838,7 +873,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_article_title_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -901,6 +937,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'article-title',
                 'validation_type': 'exist',
@@ -941,6 +979,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -952,7 +992,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_authors_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -1016,6 +1057,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'person-group//name or person-group//collab',
                 'validation_type': 'exist',
@@ -1057,6 +1100,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -1068,7 +1113,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_collab_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
                  <ref id="B2">
@@ -1108,6 +1154,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'person-group//name or person-group//collab',
                 'validation_type': 'exist',
@@ -1144,6 +1192,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2001',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -1155,7 +1205,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_authors_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -1195,6 +1246,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'person-group//name or person-group//collab',
                 'validation_type': 'exist',
@@ -1228,6 +1281,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -1239,7 +1294,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_publication_type_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -1304,6 +1360,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'publication-type',
                 'validation_type': 'value in list',
@@ -1345,6 +1403,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -1356,7 +1416,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_publication_type_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -1421,6 +1482,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'publication-type',
                 'validation_type': 'value in list',
@@ -1463,6 +1526,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
@@ -1474,7 +1539,8 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
@@ -1542,6 +1608,8 @@ class ArticleCitationValidationTest(TestCase):
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'year',
                 'validation_type': 'exist',
@@ -1583,19 +1651,23 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
             {
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'source',
                 'validation_type': 'exist',
                 'response': 'OK',
                 'expected_value': 'Drug Alcohol Depend.',
                 'got_value': 'Drug Alcohol Depend.',
-                'message': 'Got Drug Alcohol Depend. expected Drug Alcohol Depend.',
+                'message': 'Got Drug Alcohol Depend., expected Drug Alcohol Depend.',
                 'advice': None,
                 'data': {
                     'all_authors': [
@@ -1630,12 +1702,16 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
             {
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'article-title',
                 'validation_type': 'exist',
@@ -1681,12 +1757,16 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
             {
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'person-group//name or person-group//collab',
                 'validation_type': 'exist',
@@ -1728,12 +1808,16 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
             {
                 'title': 'element citation validation',
                 'parent': 'article',
                 'parent_id': None,
+                'parent_article_type': "research-article",
+                'parent_lang': "en",
                 'item': 'element-citation',
                 'sub_item': 'publication-type',
                 'validation_type': 'value in list',
@@ -1775,6 +1859,8 @@ class ArticleCitationValidationTest(TestCase):
                     'year': '2015',
                     'parent': 'article',
                     'parent_id': None,
+                    'parent_article_type': "research-article",
+                    'parent_lang': "en",
                 }
             },
         ]
