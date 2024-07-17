@@ -132,7 +132,7 @@ class ArticleContribs:
 
 def _get_affs(affs, contrib):
     if affs and contrib:
-        for xref in contrib.get("contrib_xref"):
+        for xref in contrib.get("contrib_xref") or []:
             aff = affs.get(xref.get("rid"))
             if aff:
                 yield aff
