@@ -8,11 +8,13 @@ def _callable_extern_validate_default(orcid):
     raise NotImplementedError
 
 
-def _response(contrib, is_valid, expected, obtained, author):
+def _response(contrib, is_valid, expected, obtained, author, error_level="ERROR"):
     return format_response(
         title="CRediT taxonomy for contribs",
         parent=contrib.get("parent"),
         parent_id=contrib.get("parent_id"),
+        parent_article_type=contrib.get("parent_article_type"),
+        parent_lang=contrib.get("parent_lang"),
         item="role",
         sub_item='@content-type="https://credit.niso.org/contributor-roles/*',
         validation_type="value in list",
@@ -21,6 +23,7 @@ def _response(contrib, is_valid, expected, obtained, author):
         obtained=obtained,
         advice=f"The author {author} does not have a valid role. Provide a role from the list: {expected}",
         data=contrib,
+        error_level=error_level
     )
 
 
@@ -114,7 +117,7 @@ class ContribValidation:
                 author=_contrib_name,
             )
 
-    def validate_contribs_orcid_format(self):
+    def validate_contribs_orcid_format(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is valid.
 
@@ -179,6 +182,8 @@ class ContribValidation:
             title="Author ORCID",
             parent=self.contrib.get("parent"),
             parent_id=self.contrib.get("parent_id"),
+            parent_article_type=self.contrib.get("parent_article_type"),
+            parent_lang=self.contrib.get("parent_lang"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="format",
@@ -187,9 +192,10 @@ class ContribValidation:
             obtained=_orcid,
             advice=f"The author {_contrib_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
             data=self.contrib,
+            error_level=error_level
         )
 
-    def validate_contribs_orcid_is_registered(self, callable_get_validate=None):
+    def validate_contribs_orcid_is_registered(self, callable_get_validate=None, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is registered.
 
@@ -260,6 +266,8 @@ class ContribValidation:
             title="Author ORCID element is registered",
             parent=self.contrib.get("parent"),
             parent_id=self.contrib.get("parent_id"),
+            parent_article_type=self.contrib.get("parent_article_type"),
+            parent_lang=self.contrib.get("parent_lang"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="exist",
@@ -267,9 +275,11 @@ class ContribValidation:
             expected=[orcid, expected_contrib_name],
             obtained=[orcid, obtained_contrib_name],
             advice="ORCID {} is not registered to any authors".format(orcid),
+            data=self.contrib,
+            error_level=error_level
         )
 
-    def validate_contribs_collab_list(self, content_types):
+    def validate_contribs_collab_list(self, content_types, error_level="ERROR"):
         """
         Checks if there is identification of authors for a group of collaborators.
 
@@ -326,8 +336,10 @@ class ContribValidation:
         if collab and 'collab-list' not in content_types:
             yield format_response(
                 title='Collab list authors identification',
-                parent=None,
-                parent_id=None,
+                parent=self.contrib.get("parent"),
+                parent_id=self.contrib.get("parent_id"),
+                parent_article_type=self.contrib.get("parent_article_type"),
+                parent_lang=self.contrib.get("parent_lang"),
                 item='contrib-group',
                 sub_item='@content-type',
                 validation_type='exist',
@@ -335,10 +347,11 @@ class ContribValidation:
                 expected=f'contrib group with identification of members of {collab}',
                 obtained=None,
                 advice=f'provide the identification of members of {collab}',
-                data=self.contrib
+                data=self.contrib,
+                error_level=error_level
             )
 
-    def validate_contribs_affiliations(self):
+    def validate_contribs_affiliations(self, error_level="ERROR"):
         """
         Checks if an author has the corresponding affiliation data.
 
@@ -405,6 +418,8 @@ class ContribValidation:
                 title='Author without affiliation',
                 parent=self.contrib.get("parent"),
                 parent_id=self.contrib.get("parent_id"),
+                parent_article_type=self.contrib.get("parent_article_type"),
+                parent_lang=self.contrib.get("parent_lang"),
                 item='contrib',
                 sub_item='aff',
                 validation_type='exist',
@@ -412,7 +427,8 @@ class ContribValidation:
                 expected='author affiliation data',
                 obtained=None,
                 advice=f'provide author affiliation data for {_contrib_name}',
-                data=self.contrib
+                data=self.contrib,
+                error_level=error_level
             )
 
 
@@ -452,7 +468,7 @@ class ArticleContribsValidation:
             for contrib in self.contribs.contribs
         ]
 
-    def validate_contribs_orcid_is_unique(self):
+    def validate_contribs_orcid_is_unique(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is unique.
 
@@ -514,8 +530,10 @@ class ArticleContribsValidation:
 
         yield format_response(
             title="Author ORCID element is unique",
-            parent=None,
+            parent="article",
             parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="uniqueness",
@@ -526,6 +544,7 @@ class ArticleContribsValidation:
                 " | ".join(diff)
             ),
             data=None,
+            error_level=error_level
         )
 
     def validate(self):

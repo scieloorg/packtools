@@ -1,0 +1,21 @@
+{
+    "_comment": "license data",
+    "sps_version": "sps-1.10",
+    "expected_data": {
+        "en": {
+            "lang": "en",
+            "link": "http://creativecommons.org/licenses/by/4.0/deed.en",
+            "license_p": "This is an article published in open access under a Creative Commons license.",
+        },
+        "pt": {
+            "lang": "pt",
+            "link": "http://creativecommons.org/licenses/by/4.0/deed.pt",
+            "license_p": "Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.",
+        },
+        "es": {
+            "lang": "es",
+            "link": "http://creativecommons.org/licenses/by/4.0/deed.es",
+            "license_p": "Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.",
+        }
+    }
+}

@@ -50,7 +50,7 @@ class ArticleAndSubArticles:
             _data.append({
                 "lang": self.main_lang,
                 "article_type": self.main_article_type,
-                "article_id": "main",
+                "article_id": None,
                 "line_number": self.main_line_number,
                 "subject": self.main_subject,
             })
