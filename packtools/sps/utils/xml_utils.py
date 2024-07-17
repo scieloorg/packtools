@@ -433,7 +433,7 @@ def get_parent_context(xmltree):
     main = xmltree.xpath(".")[0]
     main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
     main_article_type = main.get("article-type")
-    for node in xmltree.xpath(".//front | .//sub-article"):
+    for node in xmltree.xpath(f".//front | .//back | .//body | .//sub-article"):
         parent = "sub-article" if node.tag == "sub-article" else "article"
         parent_id = node.get("id")
         lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
