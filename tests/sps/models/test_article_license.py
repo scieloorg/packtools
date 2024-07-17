@@ -37,6 +37,7 @@ class ArticleLicenseTest(TestCase):
 
     def test_get_licenses(self):
         self.maxDiff = None
+        obtained = list(self.article_license.licenses)
         expected = [
             {
                 'lang': 'en',
@@ -45,7 +46,11 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
                     'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
                     'html_text': '<b>This is an article</b> published in open access under a Creative Commons license.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             },
             {
                 'lang': 'pt',
@@ -54,7 +59,11 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
                     'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
                     'html_text': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             },
             {
                 'lang': 'es',
@@ -63,14 +72,21 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
                     'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
                     'html_text': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             }
         ]
 
-        self.assertEqual(expected, self.article_license.licenses)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_license_p(self):
         self.maxDiff = None
+        obtained = self.article_license.licenses_by_lang
         expected = {
             'en': {
                 'lang': 'en',
@@ -79,7 +95,11 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
                     'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
                     'html_text': '<b>This is an article</b> published in open access under a Creative Commons license.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             },
             'pt': {
                 'lang': 'pt',
@@ -88,7 +108,11 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
                     'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
                     'html_text': 'Este é um artigo publicado <b>em acesso aberto sob uma licença</b> Creative Commons.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             },
             'es': {
                 'lang': 'es',
@@ -97,8 +121,14 @@ class ArticleLicenseTest(TestCase):
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
                     'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
                     'html_text': 'Este es un artículo publicado en acceso abierto bajo <b>una <i>licencia</i> Creative</b> Commons.'
-                }
+                },
+                'parent': 'article',
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None
             }
         }
 
-        self.assertEqual(expected, self.article_license.licenses_by_lang)
+        for key, value in expected.items():
+            with self.subTest(key):
+                self.assertDictEqual(value, obtained[key])
