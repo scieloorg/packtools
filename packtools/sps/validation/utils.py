@@ -11,7 +11,8 @@ def format_response(
         expected,
         obtained,
         advice,
-        data
+        data,
+        error_level,
 ):
     return {
                 'title': title,
