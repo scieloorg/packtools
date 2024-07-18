@@ -212,7 +212,7 @@ class FundingTest(TestCase):
             "doi.org.//123.456.789-0"
         ))
 
-    def test_data(self):
+    def test_extract_funding_data(self):
         self.maxDiff = None
         expected = {
             "article_type": "research-article",
@@ -269,8 +269,9 @@ class FundingTest(TestCase):
                 }
             ]
         }
-        obtained = self.funding.data(
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
+        obtained = self.funding.extract_funding_data(
+            funding_special_chars=['.', ','],
+            award_id_special_chars=['/', '.', '-']
         )
         self.assertEqual(expected, obtained)
+
