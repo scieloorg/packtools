@@ -1,6 +1,6 @@
 {
     "sps_version": "sps-1.10",
-    "link_type_list": [
+    "related_article__ext_link_type_list": [
         "doi",
         "uri",
     ],
