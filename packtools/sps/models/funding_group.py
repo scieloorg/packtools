@@ -203,3 +203,15 @@ class FundingGroup:
             # Informações sobre financiamento obtidas em "ack".
             "ack": self.ack
         }
+
+    @property
+    def data(self):
+        if self.award_groups:
+            result = {}
+            for item in self.award_groups:
+                award_id = item.get("award-id")
+                funding_source = item.get("funding-source")
+                if award_id and funding_source:
+                    for aid in award_id:
+                        result[aid] = funding_source
+            return result
