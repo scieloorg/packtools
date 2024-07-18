@@ -29,7 +29,7 @@ def node_plain_text(node):
     Função que retorna texto de nó, sem subtags e com espaços padronizados
 
     Entrada:
-    ```xml
+    ```
     <node>
         <italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref>
     </node>
@@ -38,26 +38,21 @@ def node_plain_text(node):
     Saída:
     Duguetia leucotricha (Annonaceae)
     """
-    # Caso problemático:
-    # <kwd>Triatominae, <italic>Trypanosoma cruzi</italic>, isolation</kwd>
     if node is None:
-        return
+        return ""
+
+    # Remove o conteúdo de todos os nós <xref>
     for xref in node.findall(".//xref"):
-        for child in xref.findall(".//*"):
-            child.text = ""
-        xref.text = ""
-    texts = [text.strip() for text in node.xpath(".//text()") if text.strip()]
-    # Conteúdo de texts (quando há uma pontuação após a tag <ref>, por exemplo, essa pontuação fica na string posterior):
-    # ["Triatominae,", "Trypanosoma cruzi", ", isolation"]
-    for idx in range(len(texts) - 1):
-        # Verifica a ocorrência desse caso, ou seja, se a string atual não termina com uma pontuação
-        # e a string posterior inicia com pontuação
-        if texts[idx][-1] not in string.punctuation and texts[idx + 1][0] in string.punctuation:
-            # Adiciona a pontuação da string posterior para a atual
-            texts[idx] = texts[idx] + texts[idx + 1][0]
-            # Remove a pontuação da string posterior
-            texts[idx + 1] = texts[idx + 1][1:].strip()
-    return " ".join(texts)
+        # Limpa todo o conteúdo do nó <xref>
+        xref.clear()
+
+    # Extrai todo o texto dos nós, removendo subtags
+    text_content = "".join(node.xpath(".//text()"))
+
+    # Remove espaços extras
+    text_content = ' '.join(text_content.split())
+
+    return text_content
 
 
 def node_text_without_xref(node):
