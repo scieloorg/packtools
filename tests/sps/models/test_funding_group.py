@@ -275,3 +275,11 @@ class FundingTest(TestCase):
         )
         self.assertEqual(expected, obtained)
 
+    def test_data(self):
+        self.maxDiff = None
+        expected = {
+            "2019JJ40269": ["Natural Science Foundation of Hunan Province"],
+            "2020CFB547": ["Hubei Provincial Natural Science Foundation of China"]
+        }
+        obtained = self.funding.data
+        self.assertEqual(expected, obtained)
