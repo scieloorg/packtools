@@ -168,14 +168,38 @@ class FundingGroup:
     def article_lang(self):
         return self._xmltree.xpath(".")[0].get("{http://www.w3.org/XML/1998/namespace}lang")
 
-    def data(self, special_chars_funding=None, special_chars_award_id=None):
+    def extract_funding_data(self, funding_special_chars=None, award_id_special_chars=None):
+        """
+        Extracts various financial and funding-related information from the XML.
+
+        Parameters
+        ----------
+        funding_special_chars : list, optional
+            List of special characters considered valid in the names of funding sources.
+        award_id_special_chars : list, optional
+            List of special characters considered valid in award IDs.
+
+        Returns
+        -------
+        dict
+            A dictionary containing various pieces of extracted information such as article type, language, financial
+            information, award groups, funding sources, funding statement, principal award recipients, and acknowledgments.
+        """
         return {
+            # Tipo do artigo, obtido do atributo "article-type" no elemento raiz do XML.
             "article_type": self.article_type,
+            # Idioma do artigo, obtida do atributo "lang" no namespace XML.
             "article_lang": self.article_lang,
-            "fn_financial_information": self.fn_financial_information(special_chars_funding, special_chars_award_id),
+            # Possíveis informações sobre financiamento extraídas do grupo de notas de rodapé financeiro.
+            "fn_financial_information": self.fn_financial_information(funding_special_chars, award_id_special_chars),
+            # Grupos de concessões, contendo fontes de financiamento e IDs de concessões.
             "award_groups": self.award_groups,
+            # Fontes de financiamento listadas em "award-groups".
             "funding_sources": self.funding_sources,
+            # Informações sobre financiamento obtidas em "funding-statement".
             "funding_statement": self.funding_statement,
+            # Principais destinatários de concessões obtidas em "principal-award-recipient".
             "principal_award_recipients": self.principal_award_recipients,
+            # Informações sobre financiamento obtidas em "ack".
             "ack": self.ack
         }
