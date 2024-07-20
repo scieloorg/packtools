@@ -1,3 +1,7 @@
+import requests
+from langdetect import detect
+
+
 def format_response(
     title,
     parent,
@@ -30,3 +34,38 @@ def format_response(
         "advice": None if is_valid else advice,
         "data": data,
     }
+
+
+def get_doi_information(doi):
+    url = f"https://api.crossref.org/works/{doi}"
+    response = requests.get(url)
+    if response.status_code != 200:
+        raise Exception(f"Error fetching DOI information: {response.status_code}")
+
+    data = response.json()
+    item = data['message']
+
+    result = {}
+
+    # Extrair títulos e detectar idioma
+    titles = item.get('title', [])
+    original_titles = item.get('original-title', [])
+    all_titles = titles + original_titles
+
+    for title in all_titles:
+        try:
+            lang = detect(title)  # Detecta o idioma do título
+        except:
+            lang = 'unknown'
+        result[lang] = {
+            'title': title,
+            'doi': doi
+        }
+
+    # Adicionar autores ao resultado
+    result['authors'] = [
+        f"{author['family']}, {author['given']}"
+        for author in item.get('author', [])
+    ]
+
+    return result
