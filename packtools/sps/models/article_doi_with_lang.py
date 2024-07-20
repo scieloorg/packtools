@@ -43,13 +43,25 @@ class DoiWithLang:
 
     @property
     def data(self):
-        _data = []
-        if self.main_doi:
-            _data.append({"lang": self.main_lang, "value": self.main_doi})
+        _data = [{
+            "lang": self.main_lang,
+            "value": self.main_doi,
+            "parent": "article",
+            "parent_article_type": self._xmltree.get("article-type")
+        }]
 
         for sub_article in self._xmltree.xpath(".//sub-article[@article-type='translation']"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
             value = self._get_node_text('.//article-id[@pub-id-type="doi"]', sub_article)
-            if value:
-                _data.append({"lang": lang, "value": value})
+            # Obs.: este módulo foi mantido por não haver modificação na resposta
+            # houve apenas adição de valores no dicionário que não compromete outras utilizações
+            _data.append(
+                {
+                    "lang": lang,
+                    "value": value,
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": sub_article.get("id")
+                }
+            )
         return _data
