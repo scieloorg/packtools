@@ -902,10 +902,12 @@ class XMLWithPre:
 
     @property
     def assets(self):
+        items = []
         xml_assets = ArticleAssets(self.xmltree)
         for xml_graphic in xml_assets.items:
-            if items.get(xml_graphic.xlink_href):
+            if xml_graphic.xlink_href in items:
                 continue
+            items.append(xml_graphic.xlink_href)
             component_type = (
                 "supplementary-material"
                 if xml_graphic.is_supplementary_material
@@ -916,7 +918,6 @@ class XMLWithPre:
                 "xml_elem_id": xml_graphic.id,
                 "component_type": component_type,
             }
-        return items
 
     @property
     def renditions(self):
