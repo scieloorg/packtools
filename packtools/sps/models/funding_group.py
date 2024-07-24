@@ -170,7 +170,11 @@ class FundingGroup:
 
     def extract_funding_data(self, funding_special_chars=None, award_id_special_chars=None):
         """
-        Extracts various financial and funding-related information from the XML.
+        Extracts various financial and funding-related information from the XML for validation purposes.
+
+        This function processes the XML to retrieve information about the article type, language,
+        and financial details, which are essential for validating the completeness and correctness
+        of funding information in scientific articles.
 
         Parameters
         ----------
@@ -182,8 +186,11 @@ class FundingGroup:
         Returns
         -------
         dict
-            A dictionary containing various pieces of extracted information such as article type, language, financial
-            information, award groups, funding sources, funding statement, principal award recipients, and acknowledgments.
+            A dictionary containing various pieces of extracted information for validation purposes,
+            such as article type, language, financial information, award groups, funding sources,
+            funding statement, principal award recipients, and acknowledgments. This data is used
+            to ensure that the article's funding information meets required standards and includes
+            all necessary details.
         """
         return {
             # Tipo do artigo, obtido do atributo "article-type" no elemento raiz do XML.
