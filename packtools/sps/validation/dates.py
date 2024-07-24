@@ -1,6 +1,6 @@
 from datetime import datetime, date
 
-from packtools.sps.models.history_dates import HistoryDates
+from packtools.sps.models.article_dates import HistoryDates
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.validation.utils import format_response
 

@@ -22,7 +22,7 @@ from unittest import TestCase, skip
 
 from lxml import etree
 
-from packtools.sps.models.history_dates import (
+from packtools.sps.models.article_dates import (
     ArticleDates,
     HistoryDates,
 )
