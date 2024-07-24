@@ -118,6 +118,7 @@
     </xsl:template>
     
     <xsl:template match="related-article[@ext-link-type='doi']" mode="article-meta-related-article-href">https://doi.org/<xsl:value-of select="@xlink:href"/></xsl:template>
+    <xsl:template match="related-article[@ext-link-type='uri']" mode="article-meta-related-article-href"><xsl:value-of select="@xlink:href"/></xsl:template>
     <xsl:template match="related-article[@ext-link-type='scielo-pid']" mode="article-meta-related-article-link">/article/<xsl:value-of select="@xlink:href"/></xsl:template>
     <xsl:template match="related-article[@ext-link-type='scielo-aid']" mode="article-meta-related-article-link">/article/<xsl:value-of select="@xlink:href"/></xsl:template>
 

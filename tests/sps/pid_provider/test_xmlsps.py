@@ -270,6 +270,23 @@ class XMLWithPrePublicationDateTest(TestCase):
         xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
         self.assertEqual("2023-01-09", xml_with_pre.article_publication_date)
 
+    def test_article_publication_date_setter(self):
+        xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
+        xml_with_pre.article_publication_date = {"year": "2024", "month": "1", "day": "2"}
+        self.assertEqual("2024-01-02", xml_with_pre.article_publication_date)
+
+    def test_article_publication_date_setter_with_missing_date_part(self):
+        xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
+
+        with self.assertRaises(ValueError):
+            xml_with_pre.article_publication_date = {"year": "2024", "day": "10"}
+
+    def test_article_publication_date_setter_with_invalid_value(self):
+        xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
+
+        with self.assertRaises(ValueError):
+            xml_with_pre.article_publication_date = {"year": "2020", "month": "13", "day": "10"}
+
 
 class XMLWithPreISSNTest(TestCase):
     def _get_xml_with_pre(self, eissn=None, pissn=None):

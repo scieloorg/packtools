@@ -1,27 +1,37 @@
 from packtools.sps.models.aff import Affiliation
+from packtools.sps.utils.xml_utils import node_plain_text
+
+
+def _get_collab(node):
+    try:
+        return {"collab": node_plain_text(node.xpath(".//collab")[0])}
+    except IndexError:
+        return {}
 
 
 class Authors:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
+    def __init__(self, node):
+        # node é um nó que pode representar 'article' ou 'sub-article'
+        self.node = node
 
     @property
     def collab(self):
         try:
-            return self.xmltree.xpath(".//front//collab")[0].text
+            return self.node.xpath(".//collab")[0].text
         except IndexError:
             return None
 
     @property
     def contribs(self):
         _data = []
-        for node in self.xmltree.xpath(".//front//contrib"):
-            _author = {}
+        for node in self.node.xpath(".//contrib"):
+            _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
                 if data:
                     _author[tag] = data
-            _author["given_names"] = node.findtext(".//given-names")
+            if data := node.findtext(".//given-names"):
+                _author["given_names"] = data
 
             try:
                 _author["orcid"] = node.xpath("contrib-id[@contrib-id-type='orcid']")[
@@ -34,7 +44,9 @@ class Authors:
             for role in node.xpath(".//role"):
                 _author["role"].append({
                     "text": role.text,
-                    "content-type": role.get("content-type")})
+                    "content-type": role.get("content-type"),
+                    "specific-use": role.get("specific-use")
+                })
             if not _author["role"]:
                 _author.pop("role")
 
@@ -59,7 +71,7 @@ class Authors:
 
     @property
     def contribs_with_affs(self):
-        affs = Affiliation(self.xmltree)
+        affs = Affiliation(self.node)
         affs_by_id = affs.affiliation_by_id
 
         for item in self.contribs:

@@ -8,83 +8,127 @@ from packtools.sps.validation.article_xref import ArticleXrefValidation
 class ArticleXrefValidationTest(TestCase):
 
     def test_validate_rids_matches(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
-                <article-meta>
-                    <p><xref ref-type="aff" rid="aff1">1</xref></p>     
-                    <aff id="aff1">
-                        <p>affiliation</p>
-                    </aff>
-
-                    <p><xref ref-type="fig" rid="fig1">1</xref></p>     
-                    <fig id="fig1">
-                        <p>figure</p>
-                    </fig>
-
-                    <p><xref ref-type="table" rid="table1">1</xref></p>     
-                    <table id="table1">
-                        <p>table</p>
-                    </table>
-                </article-meta>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <aff id="aff1">
+                            <p>affiliation</p>
+                        </aff>
+    
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+                        <fig id="fig1">
+                            <p>figure</p>
+                        </fig>
+    
+                        <p><xref ref-type="table" rid="table1">1</xref></p>     
+                        <table id="table1">
+                            <p>table</p>
+                        </table>
+                    </article-meta>
+                </front>
             </article>
             """
         )
-        self.article_xref = ArticleXrefValidation(self.xmltree)
+        obtained = list(ArticleXrefValidation(self.xmltree).validate_rid())
 
         expected = [
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'aff1',
                 'got_value': 'aff1',
                 'message': 'Got aff1, expected aff1',
-                'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'fig1',
                 'got_value': 'fig1',
                 'message': 'Got fig1, expected fig1',
-                'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'table1',
                 'got_value': 'table1',
                 'message': 'Got table1, expected table1',
-                'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             }
         ]
-        for i, item in enumerate(self.article_xref.validate_rid()):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_rids_no_matches(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
-                <article-meta>
-                    <p><xref ref-type="aff" rid="aff1">1</xref></p>     
-                    <aff id="aff1">
-                        <p>affiliation</p>
-                    </aff>
-
-                    <p><xref ref-type="fig" rid="fig1">1</xref></p>     
-                    <fig id="fig1">
-                        <p>figure</p>
-                    </fig>
-
-                    <p><xref ref-type="table" rid="table1">1</xref></p>     
-                </article-meta>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <aff id="aff1">
+                            <p>affiliation</p>
+                        </aff>
+    
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+                        <fig id="fig1">
+                            <p>figure</p>
+                        </fig>
+    
+                        <p><xref ref-type="table" rid="table1">1</xref></p>     
+                    </article-meta>
+                </front>
             </article>
             """
         )
@@ -93,59 +137,100 @@ class ArticleXrefValidationTest(TestCase):
         expected = [
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'aff1',
                 'got_value': 'aff1',
                 'message': 'Got aff1, expected aff1',
-                'advice': 'For each xref[@rid="aff1"] must have one corresponding element which @id="aff1"'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'fig1',
                 'got_value': 'fig1',
                 'message': 'Got fig1, expected fig1',
-                'advice': 'For each xref[@rid="fig1"] must have one corresponding element which @id="fig1"'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             },
             {
                 'title': 'xref element rid attribute validation',
-                'xpath': './/xref[@rid]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'xref',
+                'sub_item': '@rid',
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'table1',
                 'got_value': None,
                 'message': 'Got None, expected table1',
-                'advice': 'For each xref[@rid="table1"] must have one corresponding element which @id="table1"'
+                'advice': 'For each xref[@rid="table1"] must have at least one corresponding element which @id="table1"',
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']},
             }
         ]
-        for i, item in enumerate(self.article_xref.validate_rid()):
+        obtained = list(self.article_xref.validate_rid())
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_ids_matches(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
-                <article-meta>
-                    <p><xref ref-type="aff" rid="aff1">1</xref></p>     
-                    <aff id="aff1">
-                        <p>affiliation</p>
-                    </aff>
-
-                    <p><xref ref-type="fig" rid="fig1">1</xref></p>     
-                    <fig id="fig1">
-                        <p>figure</p>
-                    </fig>
-
-                    <p><xref ref-type="table" rid="table1">1</xref></p>     
-                    <table id="table1">
-                        <p>table</p>
-                    </table>
-                </article-meta>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <aff id="aff1">
+                            <p>affiliation</p>
+                        </aff>
+    
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+                        <fig id="fig1">
+                            <p>figure</p>
+                        </fig>
+    
+                        <p><xref ref-type="table" rid="table1">1</xref></p>     
+                        <table id="table1">
+                            <p>table</p>
+                        </table>
+                    </article-meta>
+                </front>
             </article>
             """
         )
@@ -154,59 +239,104 @@ class ArticleXrefValidationTest(TestCase):
         expected = [
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'aff',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'aff1',
                 'got_value': 'aff1',
                 'message': 'Got aff1, expected aff1',
-                'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']
+                }
             },
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'fig',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'fig1',
                 'got_value': 'fig1',
                 'message': 'Got fig1, expected fig1',
-                'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']
+                }
             },
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'table',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'table1',
                 'got_value': 'table1',
                 'message': 'Got table1, expected table1',
-                'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1', 'table1']
+                }
             }
         ]
 
-        for i, item in enumerate(self.article_xref.validate_id()):
+        obtained = list(self.article_xref.validate_id())
+
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_ids_no_matches(self):
+        self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article>
-                <article-meta>
-                    <p><xref ref-type="aff" rid="aff1">1</xref></p>     
-                    <aff id="aff1">
-                        <p>affiliation</p>
-                    </aff>
-
-                    <p><xref ref-type="fig" rid="fig1">1</xref></p>     
-                    <fig id="fig1">
-                        <p>figure</p>
-                    </fig>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <aff id="aff1">
+                            <p>affiliation</p>
+                        </aff>
     
-                    <table id="table1">
-                        <p>table</p>
-                    </table>
-                </article-meta>
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+                        <fig id="fig1">
+                            <p>figure</p>
+                        </fig>
+        
+                        <table id="table1">
+                            <p>table</p>
+                        </table>
+                    </article-meta>
+                </front>
             </article>
             """
         )
@@ -215,36 +345,77 @@ class ArticleXrefValidationTest(TestCase):
         expected = [
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'aff',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'aff1',
                 'got_value': 'aff1',
                 'message': 'Got aff1, expected aff1',
-                'advice': 'For each @id="aff1" must have one corresponding element which xref[@rid="aff1"]'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1']
+                },
             },
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'fig',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'OK',
                 'expected_value': 'fig1',
                 'got_value': 'fig1',
                 'message': 'Got fig1, expected fig1',
-                'advice': 'For each @id="fig1" must have one corresponding element which xref[@rid="fig1"]'
+                'advice': None,
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1']
+                },
             },
             {
                 'title': 'element id attribute validation',
-                'xpath': './/*[@id]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'table',
+                'sub_item': '@id',
                 'validation_type': 'match',
                 'response': 'ERROR',
                 'expected_value': 'table1',
                 'got_value': None,
                 'message': 'Got None, expected table1',
-                'advice': 'For each @id="table1" must have one corresponding element which xref[@rid="table1"]'
+                'advice': 'For each @id="table1" must have at least one corresponding element which xref[@rid="table1"]',
+                'data': {
+                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': "pt",
+                    'rids': ['aff1', 'fig1']
+                },
             }
         ]
 
-        for i, item in enumerate(self.article_xref.validate_id()):
+        obtained = list(self.article_xref.validate_id())
+
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)

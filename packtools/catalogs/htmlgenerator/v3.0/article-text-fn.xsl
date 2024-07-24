@@ -19,10 +19,6 @@
         <span class="xref big"><xsl:apply-templates select="*|text()"/></span>
     </xsl:template>
 
-    <xsl:template match="fn[@fn-type='edited-by']/label | fn[@fn-type='data-availability']/label | fn[@fn-type='edited-by']/title | fn[@fn-type='data-availability']/title" mode="div-fn-list-item">
-        <!-- do nothing for fn edited-by or data-availability -->
-    </xsl:template>
-
     <xsl:template match="body//fn | back/fn | author-notes/fn | back/fn-group" mode="back-section-content">
         <div class="row">
             <div class="col">
@@ -43,17 +39,11 @@
         <xsl:variable name="name" select="@fn-type"/>
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
             <h3 class="articleSectionTitle">
-                <xsl:apply-templates select="label"/>
-                <xsl:if test="label and title">&#160;</xsl:if>
-                <xsl:apply-templates select="title"/>
-                <xsl:if test="not(label) and not(title)">
-                    <xsl:apply-templates select="." mode="text-labels">
-                        <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
-                    </xsl:apply-templates>
-                </xsl:if>
+                <xsl:apply-templates select="." mode="text-labels">
+                    <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
+                </xsl:apply-templates>
             </h3>
         </xsl:if>
-    
     </xsl:template>
 
 </xsl:stylesheet>

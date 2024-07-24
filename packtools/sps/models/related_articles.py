@@ -8,6 +8,8 @@ de Foucault.
 </related-article>
 """
 
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+
 
 class RelatedItems:
 
@@ -16,14 +18,15 @@ class RelatedItems:
 
     @property
     def related_articles(self):
-        for item in self.xmltree.xpath(".//related-article"):
-            d = {}
-            for k in item.attrib:
-                if k == '{http://www.w3.org/1999/xlink}href':
-                    d['href'] = item.attrib.get(k)
-                else:
-                    d[k] = item.attrib.get(k)
-            yield d
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+            for item in node.xpath(".//related-article"):
+                d = {}
+                for k in item.attrib:
+                    if k == '{http://www.w3.org/1999/xlink}href':
+                        d['href'] = item.attrib.get(k)
+                    else:
+                        d[k] = item.attrib.get(k)
+                yield put_parent_context(d, lang, article_type, parent, parent_id)
 
     @property
     def related_objects(self):

@@ -2,6 +2,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0">
     
+    <xsl:include href="verse-group.xsl"/>
+
     <xsl:template match="*" mode="node-name"><xsl:value-of select="name()"/></xsl:template>
 
     <xsl:template match="ref-list" mode="standard-title">
@@ -85,6 +87,8 @@
 
     <xsl:template match="*" mode="back-section-menu">
         <xsl:if test="title or label">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+            <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="label"/>
                 <xsl:if test="label and title">&#160;</xsl:if>
@@ -97,6 +101,8 @@
         <xsl:variable name="name" select="name()"/>
         <!-- cria menu somente para o primeiro ref-list (há casos de série de ref-list) -->
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][name()!=$name]">
+            <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
+            <xsl:attribute name="class">articleSection</xsl:attribute>
             <xsl:attribute name="data-anchor">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">ref-list</xsl:with-param>
@@ -116,7 +122,7 @@
     </xsl:template>
         
     <xsl:template match="*" mode="back-section">
-        <div class="articleSection">
+        <div>
             <xsl:apply-templates select="." mode="back-section-menu"/>
             <xsl:apply-templates select="." mode="back-section-h"/>
             <xsl:apply-templates select="." mode="back-section-content"/>

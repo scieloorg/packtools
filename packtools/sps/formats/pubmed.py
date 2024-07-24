@@ -2,29 +2,26 @@
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    journal_meta,
-    front_articlemeta_issue,
-    dates,
-    article_titles,
-    article_ids,
+    aff,
+    article_abstract,
     article_and_subarticles,
     article_authors,
-    aff,
-    kwd_group,
     article_citations,
-    article_abstract,
+    article_ids,
+    article_titles,
+    dates,
+    front_articlemeta_issue,
+    journal_meta,
+    kwd_group,
 )
 
 
 def xml_pubmed_article_pipe():
-    root = ET.Element("Article")
-    tree = ET.ElementTree(root)
-
-    return root
+    return ET.Element("Article")
 
 
 def xml_pubmed_journal_pipe(xml_pubmed):
-    el = ET.Element('Journal')
+    el = ET.Element("Journal")
     xml_pubmed.append(el)
 
 
@@ -42,9 +39,9 @@ def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
     """
     publisher = get_publisher(xml_tree)
     if publisher is not None:
-        el = ET.Element('PublisherName')
+        el = ET.Element("PublisherName")
         el.text = publisher
-        xml_pubmed.find('Journal').append(el)
+        xml_pubmed.find("Journal").append(el)
 
 
 def get_journal_title(xml_tree):
@@ -59,9 +56,9 @@ def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree):
     """
     journal_title = get_journal_title(xml_tree)
     if journal_title is not None:
-        el = ET.Element('JournalTitle')
+        el = ET.Element("JournalTitle")
         el.text = journal_title
-        xml_pubmed.find('Journal').append(el)
+        xml_pubmed.find("Journal").append(el)
 
 
 def get_issn(xml_tree):
@@ -75,10 +72,10 @@ def xml_pubmed_issn_pipe(xml_pubmed, xml_tree):
     <Issn>1678-2674</Issn>
     """
     issn = get_issn(xml_tree)
-    if issn != '':
-        el = ET.Element('Issn')
+    if issn != "":
+        el = ET.Element("Issn")
         el.text = issn
-        xml_pubmed.find('Journal').append(el)
+        xml_pubmed.find("Journal").append(el)
 
 
 def get_volume(xml_tree):
@@ -93,9 +90,9 @@ def xml_pubmed_volume_pipe(xml_pubmed, xml_tree):
     """
     volume = get_volume(xml_tree)
     if volume is not None:
-        el = ET.Element('Volume')
+        el = ET.Element("Volume")
         el.text = volume
-        xml_pubmed.find('Journal').append(el)
+        xml_pubmed.find("Journal").append(el)
 
 
 def get_issue(xml_tree):
@@ -110,9 +107,9 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
     """
     issue = get_issue(xml_tree)
     if issue is not None:
-        el = ET.Element('Issue')
+        el = ET.Element("Issue")
         el.text = issue
-        xml_pubmed.find('Journal').append(el)
+        xml_pubmed.find("Journal").append(el)
 
 
 def get_date(xml_tree):
@@ -131,9 +128,9 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
     """
     date = get_date(xml_tree)
     if date is not None:
-        dt = ET.Element('PubDate')
-        dt.set('PubStatus', 'epublish')
-        for element in ['year', 'month', 'day']:
+        dt = ET.Element("PubDate")
+        dt.set("PubStatus", "epublish")
+        for element in ["year", "month", "day"]:
             # TODO
             # Season
             # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
@@ -143,7 +140,7 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
                 el = ET.Element(element.capitalize())
                 el.text = date.get(element)
                 dt.append(el)
-        xml_pubmed.find('Journal').append(dt)
+        xml_pubmed.find("Journal").append(dt)
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -172,9 +169,9 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
     </ArticleTitle>
     """
     title = get_article_titles(xml_tree)
-    if title.get('en') is not None:
-        el = ET.Element('ArticleTitle')
-        el.text = title.get('en')
+    if title.get("en") is not None:
+        el = ET.Element("ArticleTitle")
+        el.text = title.get("en")
         xml_pubmed.append(el)
 
 
@@ -187,7 +184,7 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
     main_lang = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_lang
     title = get_article_titles(xml_tree)
     if title.get(main_lang) is not None:
-        el = ET.Element('VernacularTitle')
+        el = ET.Element("VernacularTitle")
         el.text = title.get(main_lang)
         xml_pubmed.append(el)
 
@@ -204,8 +201,8 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
     """
     first_page = get_first_page(xml_tree)
     if first_page is not None:
-        el = ET.Element('FirstPage')
-        el.set('LZero', 'save')
+        el = ET.Element("FirstPage")
+        el.set("LZero", "save")
         el.text = first_page
         xml_pubmed.append(el)
 
@@ -218,8 +215,8 @@ def get_elocation(xml_tree):
 
 def add_elocation(xml_pubmed, value, key):
     if value is not None:
-        el = ET.Element('ELocationID')
-        el.set('EIdType', key)
+        el = ET.Element("ELocationID")
+        el.set("EIdType", key)
         el.text = value
         xml_pubmed.append(el)
 
@@ -230,8 +227,8 @@ def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
     <ELocationID EIdType="doi">10.1590/0001-3765202220201894</ELocationID>
     """
     ids = get_elocation(xml_tree)
-    add_elocation(xml_pubmed, ids.get('v2'), 'pii')
-    add_elocation(xml_pubmed, ids.get('doi'), 'doi')
+    add_elocation(xml_pubmed, ids.get("v2"), "pii")
+    add_elocation(xml_pubmed, ids.get("doi"), "doi")
 
 
 def get_langs(xml_tree):
@@ -243,9 +240,9 @@ def get_langs(xml_tree):
 def add_langs(xml_pubmed, xml_tree):
     langs = get_langs(xml_tree)
     for lang in langs:
-        if lang.get('lang') is not None:
-            el = ET.Element('Language')
-            el.text = lang.get('lang').upper()
+        if lang.get("lang") is not None:
+            el = ET.Element("Language")
+            el.text = lang.get("lang").upper()
             xml_pubmed.append(el)
 
 
@@ -257,7 +254,7 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree):
+def pipeline_pubmed(xml_tree, pretty_print=True):
     xml_pubmed = xml_pubmed_article_pipe()
     xml_pubmed_journal_pipe(xml_pubmed)
     xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
@@ -270,45 +267,56 @@ def pipeline_pubmed(xml_tree):
     xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
     xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_author_list(xml_pubmed, xml_tree)
+    xml_pubmed_publication_type(xml_pubmed, xml_tree)
+    xml_pubmed_article_id(xml_pubmed, xml_tree)
+    xml_pubmed_history(xml_pubmed, xml_tree)
+    xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+    xml_pubmed_coi_statement(xml_pubmed, xml_tree)
+    xml_pubmed_object_list(xml_pubmed, xml_tree)
+    xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
+    xml_pubmed_citations(xml_pubmed, xml_tree)
+    xml_pubmed_abstract(xml_pubmed, xml_tree)
+    xml_pubmed_other_abstract(xml_pubmed, xml_tree)
 
-    # TODO
-    # As demais chamadas serão incluídas a partir da incorporação do PR #429
+    xml_tree = ET.ElementTree(xml_pubmed)
+    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
 
-    return xml_pubmed
 
-  
 def get_authors(xml_tree):
     return article_authors.Authors(xml_tree).contribs
 
 
 def add_first_name(author_reg, author_tag):
-    if author_reg.get('given_names'):
-        first = ET.Element('FirstName')
-        first.text = author_reg.get('given_names')
+    if author_reg.get("given_names"):
+        first = ET.Element("FirstName")
+        first.text = author_reg.get("given_names")
         author_tag.append(first)
 
 
 def add_last_name(author_reg, author_tag):
-    if author_reg.get('surname'):
-        last = ET.Element('LastName')
-        last.text = author_reg.get('surname')
+    if author_reg.get("surname"):
+        last = ET.Element("LastName")
+        last.text = author_reg.get("surname")
         author_tag.append(last)
 
 
 def get_affiliations(author_reg, xml_tree):
     affiliations = aff.AffiliationExtractor(xml_tree).get_affiliation_dict(subtag=False)
     affiliation_list = []
-    for rid in author_reg.get('rid-aff'):
-        affiliation_list.append(affiliations.get(rid).get('institution')[0].get('original'))
+    for rid in author_reg.get("rid-aff"):
+        affiliation_list.append(
+            affiliations.get(rid).get("institution")[0].get("original")
+        )
     return affiliation_list
 
 
 def add_affiliations(affiliations, author_tag):
     for item in affiliations:
-        el_aff = ET.Element('Affiliation')
+        el_aff = ET.Element("Affiliation")
         el_aff.text = item
         if len(affiliations) > 1:
-            info = ET.Element('AffiliationInfo')
+            info = ET.Element("AffiliationInfo")
             info.append(el_aff)
             author_tag.append(info)
         else:
@@ -316,19 +324,19 @@ def add_affiliations(affiliations, author_tag):
 
 
 def add_orcid(author_reg, author_tag):
-    if author_reg.get('orcid'):
-        orcid = ET.Element('Identifier')
-        orcid.set('Source', 'orcid')
-        orcid.text = 'http://orcid.org/' + author_reg.get('orcid')
+    if author_reg.get("orcid"):
+        orcid = ET.Element("Identifier")
+        orcid.set("Source", "orcid")
+        orcid.text = "http://orcid.org/" + author_reg.get("orcid")
         author_tag.append(orcid)
 
 
 def xml_pubmed_author_list(xml_pubmed, xml_tree):
     authors = get_authors(xml_tree)
     if authors:
-        author_list_tag = ET.Element('AuthorList')
+        author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
-            author_tag = ET.Element('Author')
+            author_tag = ET.Element("Author")
             add_first_name(author_reg, author_tag)
 
             # TODO
@@ -389,9 +397,11 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
 
 
 def get_publication_type(xml_tree):
-    publication_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
+    publication_type = article_and_subarticles.ArticleAndSubArticles(
+        xml_tree
+    ).main_article_type
     if publication_type is not None:
-        return publication_type.replace('-', ' ').title()
+        return publication_type.replace("-", " ").title()
 
 
 def xml_pubmed_publication_type(xml_pubmed, xml_tree):
@@ -400,7 +410,7 @@ def xml_pubmed_publication_type(xml_pubmed, xml_tree):
     """
     publication_type = get_publication_type(xml_tree)
     if publication_type is not None:
-        el = ET.Element('PublicationType')
+        el = ET.Element("PublicationType")
         el.text = publication_type
         xml_pubmed.append(el)
 
@@ -423,15 +433,15 @@ def xml_pubmed_article_id(xml_pubmed, xml_tree):
     pii = get_article_id_pii(xml_tree)
     doi = get_article_id_doi(xml_tree)
     if pii is not None or doi is not None:
-        article_id_list = ET.Element('ArticleIdList')
+        article_id_list = ET.Element("ArticleIdList")
         if pii is not None:
-            article_id = ET.Element('ArticleId')
-            article_id.set('IdType', 'pii')
+            article_id = ET.Element("ArticleId")
+            article_id.set("IdType", "pii")
             article_id.text = pii
             article_id_list.append(article_id)
         if doi is not None:
-            article_id = ET.Element('ArticleId')
-            article_id.set('IdType', 'doi')
+            article_id = ET.Element("ArticleId")
+            article_id.set("IdType", "doi")
             article_id.text = doi
             article_id_list.append(article_id)
         xml_pubmed.append(article_id_list)
@@ -443,7 +453,7 @@ def get_event_date(xml_tree, event):
 
 
 def add_date(date_tag, date_dict):
-    for event in ['year', 'month', 'day']:
+    for event in ["year", "month", "day"]:
         if date_dict.get(event):
             el = ET.Element(event.capitalize())
             el.text = date_dict.get(event)
@@ -477,16 +487,16 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
     ecollection – used for electronic-only journals that publish individual articles and later collect them into an “issue” date, typically called an eCollection.
     """
     history_dates = {
-        'received': get_event_date(xml_tree, 'received'),
-        'accepted': get_event_date(xml_tree, 'accepted'),
-        'ecollection': dates.ArticleDates(xml_tree).collection_date
+        "received": get_event_date(xml_tree, "received"),
+        "accepted": get_event_date(xml_tree, "accepted"),
+        "ecollection": dates.ArticleDates(xml_tree).collection_date,
     }
 
-    history = ET.Element('History')
+    history = ET.Element("History")
     for event, date in history_dates.items():
         if history_dates[event] is not None:
-            el = ET.Element('PubDate')
-            el.set('PubStatus', event)
+            el = ET.Element("PubDate")
+            el.set("PubStatus", event)
             add_date(el, date)
             history.append(el)
 
@@ -541,14 +551,14 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
     kwd_list = get_keywords(xml_tree)
     if not kwd_list:
         return
-    obj_list = ET.Element('ObjectList')
+    obj_list = ET.Element("ObjectList")
     for kwd in kwd_list:
-        if kwd.get('lang') == 'en':
-            obj = ET.Element('Object')
-            obj.set('Type', 'keyword')
-            param = ET.Element('Param')
-            param.set('Name', 'value')
-            param.text = kwd.get('text')
+        if kwd.get("lang") == "en":
+            obj = ET.Element("Object")
+            obj.set("Type", "keyword")
+            param = ET.Element("Param")
+            param.set("Name", "value")
+            param.text = kwd.get("text")
             obj.append(param)
             obj_list.append(obj)
     xml_pubmed.append(obj_list)
@@ -561,34 +571,26 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
     # There is no example of using this value in the files.
 
 
-def xml_pubmed_reference_list(xml_pubmed):
-    """
-    <ReferenceList/>
-    """
-    xml_pubmed.append(ET.Element('ReferenceList'))
-
-
 def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
     """
     <ReferenceList>
         <Title>REFERENCES</Title>
     </ReferenceList>
     """
-    try:
-        title = xml_tree.find('./back/ref-list/title').text
-        title_el = ET.Element('Title')
-        title_el.text = title
-        xml_pubmed.find('./ReferenceList').append(title_el)
-    except AttributeError:
-        pass
+    title = xml_tree.find("./back/ref-list/title")
+    if title is not None:
+        xml_pubmed.append(ET.Element("ReferenceList"))
+        title_el = ET.Element("Title")
+        title_el.text = title.text
+        xml_pubmed.find("./ReferenceList").append(title_el)
 
 
 def add_element_citation_id(ids):
-    article_id_list = ET.Element('ArticleIdList')
+    article_id_list = ET.Element("ArticleIdList")
     for key, value in ids.items():
-        article_id = ET.Element('ArticleId')
-        key = 'pubmed' if key == 'pmid' else key
-        article_id.set('IdType', key)
+        article_id = ET.Element("ArticleId")
+        key = "pubmed" if key == "pmid" else key
+        article_id.set("IdType", key)
         article_id.text = value
         article_id_list.append(article_id)
     return article_id_list
@@ -619,44 +621,21 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
      </ReferenceList>
     """
     refs = article_citations.ArticleCitations(xml_tree).article_citations
-    xml = xml_pubmed.find('./ReferenceList')
+    xml = xml_pubmed.find("./ReferenceList")
     for ref in refs:
-        ref_el = ET.Element('Reference')
-        citation = ET.Element('Citation')
-        citation.text = ref.get('mixed_citation')
+        ref_el = ET.Element("Reference")
+        citation = ET.Element("Citation")
+        citation.text = ref.get("mixed_citation")
         ref_el.append(citation)
-        ids = ref.get('citation_ids')
-        if ids != {}:
+        ids = ref.get("citation_ids")
+        if ids is not None:
             ref_el.append(add_element_citation_id(ids))
         xml.append(ref_el)
 
 
-def get_abstracts(xml_tree):
-    abstracts = {}
-    article_abstracts = article_abstract.Abstract(xml_tree)
-    abstract_without_tag = article_abstracts.abstracts_without_tags
-    for abstract in article_abstracts.abstracts_with_tags:
-        try:
-            lang = abstract.get('lang')
-            structured = abstract.get('sections')
-            if structured == {}:
-                abstracts[lang] = {
-                    'text': abstract_without_tag.get(abstract.get('lang')),
-                    'structured': False
-                }
-            else:
-                abstracts[lang] = {
-                    'text': structured,
-                    'structured': True
-                }
-        except AttributeError:
-            pass
-    return abstracts
-
-
 def add_abstract_text(label, text):
-    abstract_text = ET.Element('AbstractText')
-    abstract_text.set('Label', label.upper()[:-1])
+    abstract_text = ET.Element("AbstractText")
+    abstract_text.set("Label", label.upper()[:-1])
     abstract_text.text = text
     return abstract_text
 
@@ -677,17 +656,16 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
         <AbstractText Label="CONCLUSIONS">The findings suggest...</AbstractText>
     </Abstract>
     """
-
-    abstract_el = ET.Element('Abstract')
-    abstract = get_abstracts(xml_tree).get('en')
     try:
-        if not abstract['structured']:
-            abstract_el.text = abstract.get('text')
+        abstract_el = ET.Element("Abstract")
+        abstract = article_abstract.Abstract(xml_tree).get_main_abstract().get('abstract')
+        if abstract.get('sections'):
+            for item in abstract.get('sections'):
+                abstract_el.append(add_abstract_text(item.get('title'), item.get('p')))
         else:
-            for label, text in abstract.get('text').items():
-                abstract_el.append(add_abstract_text(label, text))
+            abstract_el.text = abstract.get('p')
         xml_pubmed.append(abstract_el)
-    except TypeError:
+    except AttributeError:
         pass
 
 
@@ -701,14 +679,24 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
       <AbstractText Label="CONCLUSION">Une meilleure estimation du fardeau économique global des facteurs de risque multiples au sein d’une population peut faciliter l’établissement des priorités et améliorer le soutien aux initiatives de prevention primaire. </AbstractText>
     </OtherAbstract>
     """
-    abstract_el = ET.Element('OtherAbstract')
-    for lang, abstract in get_abstracts(xml_tree).items():
-        if lang != 'en':
-            abstract_el.set('Language', lang)
-            if not abstract['structured']:
-                abstract_el.text = abstract.get('text')
-            else:
-                for label, text in abstract.get('text').items():
-                    abstract_el.append(add_abstract_text(label, text))
-            xml_pubmed.append(abstract_el)
-  
+    try:
+        article_abstracts = article_abstract.Abstract(xml_tree)
+        main_lang = article_abstracts.get_main_abstract().get('lang')
+        abstracts = article_abstracts.get_abstracts()
+        for item in abstracts:
+            abstract = item.get('abstract')
+            lang = item.get('lang')
+            if main_lang != lang:
+                abstract_el = ET.Element("OtherAbstract")
+                abstract_el.set("Language", lang)
+                if abstract.get('sections'):
+                    for section in abstract.get('sections'):
+                        abstract_el.append(add_abstract_text(section.get('title'), section.get('p')))
+                else:
+                    abstract_el.text = abstract.get('p')
+
+                xml_pubmed.append(abstract_el)
+    except AttributeError:
+        pass
+     
+    

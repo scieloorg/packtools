@@ -1,6 +1,7 @@
 """
 <journal-meta>
     <journal-id journal-id-type="publisher-id">tinf</journal-id>
+    <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
     <journal-title-group>
         <journal-title>Transinformação</journal-title>
         <abbrev-journal-title abbrev-type="publisher">Transinformação</abbrev-journal-title>
@@ -80,3 +81,12 @@ class Publisher:
         for node in self.xmltree.xpath('.//journal-meta//publisher//publisher-name'):
             names.append(node.text)
         return names
+
+
+class JournalID:
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    @property
+    def nlm_ta(self):
+        return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="nlm-ta"]')

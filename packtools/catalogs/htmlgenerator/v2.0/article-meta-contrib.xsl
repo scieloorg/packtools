@@ -253,13 +253,13 @@
 
     <xsl:template match="contrib-id" mode="url"/>
     <xsl:template match="contrib-id[@contrib-id-type='orcid']" mode="url"
-        >http://orcid.org/</xsl:template>
+        >https://orcid.org/</xsl:template>
     <xsl:template match="contrib-id[@contrib-id-type='lattes']" mode="url"
-        >http://lattes.cnpq.br/</xsl:template>
+        >https://lattes.cnpq.br/</xsl:template>
     <xsl:template match="contrib-id[@contrib-id-type='scopus']" mode="url"
         >https://www.scopus.com/authid/detail.uri?authorId=</xsl:template>
     <xsl:template match="contrib-id[@contrib-id-type='researchid']" mode="url"
-        >http://www.researcherid.com/rid/</xsl:template>
+        >https://www.researcherid.com/rid/</xsl:template>
 
     <xsl:template match="aff" mode="insert-separator">
         <xsl:apply-templates select="institution" mode="insert-separator"/>

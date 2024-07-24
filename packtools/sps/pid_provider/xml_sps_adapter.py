@@ -13,8 +13,8 @@ class PidProviderXMLAdapter:
         self.xml_with_pre = xml_with_pre
         self.pkg_name = pkg_name
 
-    def tostring(self):
-        return self.xml_with_pre.tostring()
+    def tostring(self, pretty_print=False):
+        return self.xml_with_pre.tostring(pretty_print=pretty_print)
 
     @property
     def sps_pkg_name(self):
@@ -38,7 +38,13 @@ class PidProviderXMLAdapter:
 
     @property
     def v2_prefix(self):
+        # S + ISSN + YEAR ou 14 primeiros dígitos do pid clássico
         return self.xml_with_pre.v2_prefix
+
+    @property
+    def order(self):
+        # até 5 dígitos, em geral 5 últimos dígitos do pid v2
+        return self.xml_with_pre.order
 
     @property
     def volume(self):
@@ -112,6 +118,10 @@ class PidProviderXMLAdapter:
     def aop_pid(self, value):
         self.xml_with_pre.aop_pid = value
 
+    @order.setter
+    def order(self, value):
+        self.xml_with_pre.order = value
+
     @property
     def z_links(self):
         if not hasattr(self, "_links") or not self._links:
@@ -148,6 +158,12 @@ class PidProviderXMLAdapter:
         if not hasattr(self, "_partial_body") or not self._partial_body:
             self._partial_body = _str_with_64_char(self.xml_with_pre.partial_body)
         return self._partial_body
+
+    @property
+    def z_journal_title(self):
+        if not hasattr(self, "_journal_title") or not self._journal_title:
+            self._journal_title = _str_with_64_char(self.xml_with_pre.journal_title)
+        return self._journal_title
 
     def query_params(self, filter_by_issue=False, aop_version=False):
         """
@@ -191,12 +207,12 @@ class PidProviderXMLAdapter:
                 _params["fpage_seq"] = self.fpage_seq
                 _params["lpage"] = self.lpage
 
+        _params["z_journal_title"] = self.z_journal_title
         _params["journal__issn_print"] = self.journal_issn_print
         _params["journal__issn_electronic"] = self.journal_issn_electronic
         _params["article_pub_year"] = self.article_pub_year
         _params["z_article_titles_texts"] = self.z_article_titles_texts
 
-        LOGGER.info(_params)
         return _params
 
     @classmethod
@@ -213,7 +229,6 @@ class PidProviderXMLAdapter:
         dict
         """
         _params = params.copy()
-        LOGGER.info(f"Adapt params input: {_params}")
         attr_names = (
             "main_doi",
             "pkg_name",
@@ -230,14 +245,13 @@ class PidProviderXMLAdapter:
                 _params[f"{attr_name}__iexact"] = _params.pop(attr_name)
             except KeyError:
                 continue
-        LOGGER.info(f"Adapt params output: {_params}")
         return _params
 
     @property
     def query_list(self):
         items = []
         if self.is_aop:
-            LOGGER.info("self.is_aop")
+            LOGGER.debug("self.is_aop")
             # o xml_adapter não contém dados de issue
             # não indica na consulta o valor para o atributo issue
             # então o registro encontrado pode ou não ter dados de issue
@@ -246,7 +260,7 @@ class PidProviderXMLAdapter:
         else:
             # o xml_adapter contém dados de issue
             # inclui na consulta os dados de issue
-            LOGGER.info("not self.is_aop")
+            LOGGER.debug("not self.is_aop")
             params = self.query_params(filter_by_issue=True)
             items.append(params)
 

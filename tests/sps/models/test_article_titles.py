@@ -112,11 +112,13 @@ class ArticleTitlesTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
+        self.maxDiff = None
         expected = [{
             "lang": "es",
+            "parent_name": "article",
             "text": (
                 "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
@@ -124,12 +126,18 @@ class ArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
+                "de Tasas de Interés : un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
+            "html_text": (
+                "Inmunización de <b>Flujos Financieros</b> con Futuros "
+                "de Tasas de Interés: un Análisis de Duración y"
+                " Convexidad con el Modelo de Nelson y Siegel"
+            )
         },
         {
             "lang": "en",
+            "parent_name": "article",
             "text": (
                 ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
@@ -140,11 +148,16 @@ class ArticleTitlesTest(TestCase):
                 "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                 "THE NELSON & SIEGEL MODEL"
             ),
+            "html_text": (
+                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                "THE NELSON & SIEGEL MODEL"
+            ),
         },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
 
 
 class SubArticleTitlesTest(TestCase):
@@ -158,7 +171,7 @@ class SubArticleTitlesTest(TestCase):
               </title-group>
             </article-meta>
           </front>
-            <sub-article article-type="translation" xml:lang="en">
+            <sub-article article-type="translation" id="1" xml:lang="en">
 
             <front-stub>
 
@@ -171,36 +184,149 @@ class SubArticleTitlesTest(TestCase):
         </article>
         """)
         xmltree = etree.fromstring(xml)
-        self.article_titles = ArticleTitles(xmltree)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
     def test_data(self):
+        self.maxDiff = None
+        expected = [
+            {
+                "lang": "es",
+                "parent_name": "article",
+                "text": (
+                    "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
+                    "de Tasas de Interés: un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+                "plain_text": (
+                    "Inmunización de Flujos Financieros con Futuros "
+                    "de Tasas de Interés : un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+                "html_text": (
+                    "Inmunización de <b>Flujos Financieros</b> con Futuros "
+                    "de Tasas de Interés: un Análisis de Duración y"
+                    " Convexidad con el Modelo de Nelson y Siegel"
+                ),
+            },
+            {
+                "id": "1",
+                "lang": "en",
+                "parent_name": "sub-article",
+                "text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "plain_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "html_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+            },
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(self.article_titles.data[i], item)
+
+
+class ArticleTitlesWithStyleTest(TestCase):
+    def setUp(self):
+        xml = ("""
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+              <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+                <trans-title-group xml:lang="en">
+                  <trans-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></trans-title>
+                </trans-title-group>
+              </title-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
+
+    def test_data(self):
+        self.maxDiff = None
         expected = [{
             "lang": "es",
-            "text": (
-                "Inmunización de <bold>Flujos Financieros</bold> con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
-                " Convexidad con el Modelo de Nelson y Siegel"
-            ),
-            "plain_text": (
-                "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés: un Análisis de Duración y"
-                " Convexidad con el Modelo de Nelson y Siegel"
-            ),
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         {
             "lang": "en",
-            "text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "plain_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
-        for i, item in enumerate(self.article_titles.data):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(self.article_titles.data[i], item)
+
+
+class SubArticleTitlesWithStyleTest(TestCase):
+    def setUp(self):
+        xml = ("""
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+              <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+              </title-group>
+            </article-meta>
+          </front>
+            <sub-article article-type="translation" id="1" xml:lang="en">
+
+            <front-stub>
+
+                <title-group>
+                <article-title><bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold></article-title>
+                </title-group>
+
+            </front-stub>
+            </sub-article>
+        </article>
+        """)
+        xmltree = etree.fromstring(xml)
+        self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
+
+    def test_data(self):
+        self.maxDiff = None
+        expected = [{
+            "lang": "es",
+            "parent_name": "article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
+        },
+        {
+            "id": "1",
+            "lang": "en",
+            "parent_name": "sub-article",
+            "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
+                    'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
+            "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
+                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
+        },
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(self.article_titles.data[i], item)
