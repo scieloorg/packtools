@@ -193,21 +193,21 @@ class FundingGroup:
             all necessary details.
         """
         return {
-            # Tipo do artigo, obtido do atributo "article-type" no elemento raiz do XML.
+            # Type of the article, obtained from the "article-type" attribute in the XML root element.
             "article_type": self.article_type,
-            # Idioma do artigo, obtida do atributo "lang" no namespace XML.
+            # Language of the article, obtained from the "lang" attribute in the XML namespace.
             "article_lang": self.article_lang,
-            # Possíveis informações sobre financiamento extraídas do grupo de notas de rodapé financeiro.
+            # Possible financial information extracted from the financial footnote group.
             "fn_financial_information": self.fn_financial_information(funding_special_chars, award_id_special_chars),
-            # Grupos de concessões, contendo fontes de financiamento e IDs de concessões.
+            # Award groups, containing funding sources and award IDs.
             "award_groups": self.award_groups,
-            # Fontes de financiamento listadas em "award-groups".
+            # Funding sources listed in "award-groups".
             "funding_sources": self.funding_sources,
-            # Informações sobre financiamento obtidas em "funding-statement".
+            # Funding information obtained in "funding-statement".
             "funding_statement": self.funding_statement,
-            # Principais destinatários de concessões obtidas em "principal-award-recipient".
+            # Principal award recipients obtained in "principal-award-recipient".
             "principal_award_recipients": self.principal_award_recipients,
-            # Informações sobre financiamento obtidas em "ack".
+            # Funding information obtained in "ack".
             "ack": self.ack
         }
 
