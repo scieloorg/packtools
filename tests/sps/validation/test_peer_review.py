@@ -1,6 +1,11 @@
 import unittest
 from lxml import etree
 
+from packtools.sps.models.article_contribs import ArticleContribs, ContribGroup
+from packtools.sps.models.history_dates import HistoryDates
+from packtools.sps.models.peer_review import CustomMetaGroup
+from packtools.sps.models.related_articles import RelatedItems
+
 from packtools.sps.validation.peer_review import (
     AuthorPeerReviewValidation,
     DatePeerReviewValidation,
@@ -11,160 +16,64 @@ from packtools.sps.validation.peer_review import (
 
 
 class ArticleAuthorsValidationTest(unittest.TestCase):
-    def setUp(self):
-        xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
-               <front>
-                  <article-meta>
-                     <article-id pub-id-type="doi">10.1590/123456720182998OPR</article-id>
-                     <article-categories>
-                        <subj-group subj-group-type="heading">
-                           <subject>Peer-Review</subject>
-                        </subj-group>
-                     </article-categories>
-                     <title-group>
-                        <article-title>Open Peer Review: article X</article-title>
-                     </title-group>
-                     <contrib-group>
-                        <contrib contrib-type="author">
-                           <name>
-                              <surname>Doe</surname>
-                              <given-names>Jane X</given-names>
-                           </name>
-                           <role specific-use="reviewer">Reviewer</role>
-                           <xref ref-type="aff" rid="aff1" />
-                        </contrib>
-                     </contrib-group>
-                     <aff id="aff1">...</aff>
-                     <history>
-                        <date date-type="reviewer-report-received">
-                           <day>10</day>
-                           <month>01</month>
-                           <year>2022</year>
-                        </date>
-                     </history>
-                     <permissions>...</permissions>
-                     <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
-                     <custom-meta-group>
-                        <custom-meta>
-                           <meta-name>peer-review-recommendation</meta-name>
-                           <meta-value>accept</meta-value>
-                        </custom-meta>
-                     </custom-meta-group>
-                  </article-meta>
-               </front>
-               <body>
-                  <sec>
-                     <title>Reviewer</title>
-                     <p>Vivamus elementum sapien tellus, a suscipit elit auctor in. Cras est nisl,
-            egestas
-            non ultrices ut, fringilla eu magna. Morbi ullamcorper et diam a elementum.
-            Phasellus vitae diam eget arcu dignissim ultrices.</p>
-                     <p>Sed in laoreet sem. Morbi vel imperdiet magna. Curabitur a velit maximus,
-            volutpat
-            metus in, posuere sem. Etiam eget lacus lorem. Nulla facilisi..</p>
-                  </sec>
-               </body>
-            <sub-article article-type="reviewer-report" id="s1" xml:lang="en">
-               <front-stub>
-                  <article-id pub-id-type="doi">10.1590/123456720182998OPR</article-id>
-                  <article-categories>
-                     <subj-group subj-group-type="heading">
-                        <subject>Peer-Review</subject>
-                     </subj-group>
-                     ...
-                  </article-categories>
-                  <title-group>
-                     <article-title>Open Peer Review: article X</article-title>
-                  </title-group>
-                  <contrib-group>
-                     <contrib contrib-type="author">
-                        <name>
-                           <surname>Doe</surname>
-                           <given-names>Jane X.</given-names>
-                        </name>
-                        <role specific-use="reviewer">Reviewer</role>
-                        <xref ref-type="aff" rid="aff1" />
-                     </contrib>
-                  </contrib-group>
-                  <aff id="aff1">...</aff>
-                  <history>
-                     <date date-type="reviewer-report-received">
-                        <day>10</day>
-                        <month>01</month>
-                        <year>2022</year>
-                     </date>
-                  </history>
-                  <permissions>...</permissions>
-                  <custom-meta-group>
-                     <custom-meta>
-                        <meta-name>peer-review-recommendation</meta-name>
-                        <meta-value>accept</meta-value>
-                     </custom-meta>
-                  </custom-meta-group>
-                  ...
-               </front-stub>
-               <body>
-                  <sec>
-                     <title>Reviewer</title>
-                     <p>Vivamus elementum sapien tellus, a suscipit elit auctor in. Cras est nisl,
-            egestas non ultrices ut, fringilla
-            eu magna. Morbi ullamcorper et diam a elementum. Phasellus vitae diam eget
-            arcu dignissim ultrices. Mauris
-            tempor orci metus, a finibus augue viverra id. Phasellus vitae metus quis
-            metus ultrices venenatis. Integer risus
-            massa, sodales in luctus eget, facilisis at ante. Aliquam pulvinar elit
-            venenatis libero auctor vestibulum.</p>
-                     <p>Sed in laoreet sem. Morbi vel imperdiet magna. Curabitur a velit maximus,
-            volutpat metus in, posuere
-            sem. Etiam eget lacus lorem. Nulla facilisi. Phasellus in mi urna. Donec
-            finibus, erat non pharetra dignissim, arcu
-            neque vestibulum enim, vel mollis orci nisl sit amet mauris. Nullam ac iaculis
-            leo. Morbi lobortis arcu velit, at aliquet
-            metus faucibus id.</p>
-                  </sec>
-               </body>
-            </sub-article>
-            </article>
-            """
-        self.xmltree_success = etree.fromstring(xml)
-
     def test_contrib_type_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="reviewer">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'contrib',
-                'sub_item': '@contrib-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['author'],
-                'got_value': 'author',
-                'message': "Got author, expected ['author']",
-                'advice': None,
-                'data': None
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                "item": "contrib",
+                "sub_item": "@contrib-type",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["author"],
+                "got_value": "author",
+                "message": "Got author, expected ['author']",
+                "advice": None,
+                "data": {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'reviewer', 'text': 'Reviewer'}],
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
             }
         ]
-        obtained = list(AuthorPeerReviewValidation(
-            contrib={
-                'contrib-type': 'author',
-                'role': [
-                    {
-                        "text": "Reviewer",
-                        "content-type": None,
-                        "specific-use": "reviewer"
-                    }
-                ]
-            },
-            contrib_type_list=['author']
-        ).contrib_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
+        contrib = list(ArticleContribs(self.xmltree).contribs)[0]
+        obtained = list(
+            AuthorPeerReviewValidation(
+                contrib=contrib,
+                contrib_type_list=["author"],
+            ).contrib_type_validation
+        )
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -172,296 +81,683 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
 
     def test_contrib_type_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="compiler">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="reviewer">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'contrib',
-                'sub_item': '@contrib-type',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
-                'expected_value': ['author'],
-                'got_value': 'reader',
-                'message': "Got reader, expected ['author']",
-                'advice': "provide one item of this list: ['author']",
-                'data': None
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                "item": "contrib",
+                "sub_item": "@contrib-type",
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "expected_value": ["author"],
+                "got_value": "compiler",
+                "message": "Got compiler, expected ['author']",
+                "advice": "provide one item of this list: ['author']",
+                "data": {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'reviewer', 'text': 'Reviewer'}],
+                    'contrib_type': 'compiler',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
             }
         ]
-        obtained = list(AuthorPeerReviewValidation(
-            contrib={
-                'contrib-type': 'reader',
-                'role': [
-                    {
-                        "text": "Reviewer",
-                        "content-type": None,
-                        "specific-use": "reviewer"
-                    }
-                ]
-            },
-            contrib_type_list=['author']
-        ).contrib_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
+        contrib = list(ArticleContribs(self.xmltree).contribs)[0]
+        obtained = list(
+            AuthorPeerReviewValidation(
+                contrib=contrib,
+                contrib_type_list=["author"],
+            ).contrib_type_validation
+        )
+
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
     def test_specific_use_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="reviewer">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'role',
                 'sub_item': '@specific-use',
-                'validation_type': 'value in list',
-                'response': 'OK',
+                "validation_type": "value in list",
+                "response": "OK",
                 'expected_value': ['reviewer', 'editor'],
-                'got_value': 'reviewer',
-                'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None,
-                'data': None
+                'got_value': ['reviewer'],
+                'message': "Got ['reviewer'], expected ['reviewer', 'editor']",
+                "advice": None,
+                "data": {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'reviewer', 'text': 'Reviewer'}],
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
             }
         ]
-        obtained = list(AuthorPeerReviewValidation(
-            contrib={
-                'contrib-type': 'author',
-                'role': [
-                    {
-                        "text": "Reviewer",
-                        "content-type": None,
-                        "specific-use": "reviewer"
-                    }
-                ]
-            },
-            contrib_type_list=['author'],
-            specific_use_list=['reviewer', 'editor']
-        ).role_specific_use_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        contrib = list(ArticleContribs(self.xmltree).contribs)[0]
+        obtained = list(
+            AuthorPeerReviewValidation(
+                contrib=contrib,
+                contrib_type_list=["author"],
+                specific_use_list=["reviewer", "editor"]
+            ).role_specific_use_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_specific_use_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'role',
                 'sub_item': '@specific-use',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
+                "validation_type": "value in list",
+                "response": "ERROR",
                 'expected_value': ['reviewer', 'editor'],
-                'got_value': None,
-                'message': "Got None, expected ['reviewer', 'editor']",
+                'got_value': ['review'],
+                'message': "Got ['review'], expected ['reviewer', 'editor']",
                 'advice': "provide one item of this list: ['reviewer', 'editor']",
-                'data': None
+                "data": {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'review', 'text': 'Reviewer'}],
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
             }
         ]
-        obtained = list(AuthorPeerReviewValidation(
-            contrib={
-                'contrib-type': 'author',
-                'role': [
-                    {
-                        "text": "Reviewer",
-                        "content-type": None,
-                        "specific-use": "reader"
-                    }
-                ]
-            },
-            contrib_type_list=['author'],
-            specific_use_list=['reviewer', 'editor']
-        ).role_specific_use_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        contrib = list(ArticleContribs(self.xmltree).contribs)[0]
+        obtained = list(
+            AuthorPeerReviewValidation(
+                contrib=contrib,
+                contrib_type_list=["author"],
+                specific_use_list=["reviewer", "editor"]
+            ).role_specific_use_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_date_type_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'date',
                 'sub_item': '@date-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
+                "validation_type": "value in list",
+                "response": "OK",
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'reviewer-report-received',
                 'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
                 'advice': None,
-                'data': None
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'article_date': None,
+                    'collection_date': None,
+                    'history': {
+                        'reviewer-report-received': {
+                            'day': '10',
+                            'month': '01',
+                            'type': 'reviewer-report-received',
+                            'year': '2022'
+                        },
+                    }
+                }
             }
         ]
-        obtained = list(DatePeerReviewValidation(
-            date_type="reviewer-report-received",
-            date_type_list=["reviewer-report-received"]
-        ).date_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        date = list(HistoryDates(self.xmltree).history_dates())[0]
+        obtained = list(
+            DatePeerReviewValidation(
+                date=date,
+                date_type="reviewer-report-received",
+                date_type_list=["reviewer-report-received"]
+            ).date_type_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_date_type_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="accepted">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'date',
                 'sub_item': '@date-type',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
+                "validation_type": "value in list",
+                "response": "ERROR",
                 'expected_value': ['reviewer-report-received'],
                 'got_value': 'accepted',
                 'message': "Got accepted, expected ['reviewer-report-received']",
                 'advice': "provide one item of this list: ['reviewer-report-received']",
-                'data': None
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'article_date': None,
+                    'collection_date': None,
+                    'history': {
+                        'accepted': {
+                            'day': '10',
+                            'month': '01',
+                            'type': 'accepted',
+                            'year': '2022'
+                        },
+                    }
+                }
             }
         ]
-        obtained = list(DatePeerReviewValidation(
-            date_type="accepted",
-            date_type_list=["reviewer-report-received"]
-        ).date_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        date = list(HistoryDates(self.xmltree).history_dates())[0]
+        obtained = list(
+            DatePeerReviewValidation(
+                date=date,
+                date_type="accepted",
+                date_type_list=["reviewer-report-received"]
+            ).date_type_validation
+        )
 
-    def test_custom_meta_name_validation_success(self):
-        self.maxDiff = None
-        expected = [
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'custom-meta',
-                'sub_item': 'meta-name',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'peer-review-recommendation',
-                'got_value': 'peer-review-recommendation',
-                'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None,
-                'data': None
-            }
-        ]
-        obtained = list(CustomMetaPeerReviewValidation(
-            meta_name='peer-review-recommendation',
-            meta_value='accept'
-        ).custom_meta_name_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
-
-    def test_custom_meta_name_validation_fail(self):
-        self.maxDiff = None
-        expected = [
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'custom-meta',
-                'sub_item': 'meta-name',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'a value for <custom-meta>',
-                'got_value': None,
-                'message': 'Got None, expected a value for <custom-meta>',
-                'advice': 'provide a value for <custom-meta>',
-                'data': None
-            }
-        ]
-        obtained = list(CustomMetaPeerReviewValidation(
-            meta_name=None,
-            meta_value='accept'
-        ).custom_meta_name_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_custom_meta_value_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'custom-meta',
                 'sub_item': 'meta-value',
-                'validation_type': 'value in list',
-                'response': 'OK',
+                "validation_type": "value in list",
+                "response": "OK",
                 'expected_value': ['revision', 'major-revision'],
                 'got_value': 'revision',
                 'message': "Got revision, expected ['revision', 'major-revision']",
                 'advice': None,
-                'data': None
+                'data': {
+                    'meta_name': 'peer-review-recommendation',
+                    'meta_value': 'revision',
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en'
+                },
             }
         ]
-        obtained = list(CustomMetaPeerReviewValidation(
-            meta_name=None,
-            meta_value='revision',
-            meta_value_list=['revision', 'major-revision']
-        ).custom_meta_value_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        custom_meta = list(CustomMetaGroup(self.xmltree).data)[0]
+        obtained = list(
+            CustomMetaPeerReviewValidation(
+                custom_meta=custom_meta,
+                meta_value_list=['revision', 'major-revision']
+            ).custom_meta_value_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_custom_meta_value_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>accepted</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
                 'item': 'custom-meta',
                 'sub_item': 'meta-value',
-                'validation_type': 'value in list',
-                'response': 'ERROR',
+                "validation_type": "value in list",
+                "response": "ERROR",
                 'expected_value': ['revision', 'major-revision'],
                 'got_value': 'accepted',
                 'message': "Got accepted, expected ['revision', 'major-revision']",
                 'advice': "provide one item of this list: ['revision', 'major-revision']",
-                'data': None
+                'data': {
+                    'meta_name': 'peer-review-recommendation',
+                    'meta_value': 'accepted',
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en'
+                },
             }
         ]
-        obtained = list(CustomMetaPeerReviewValidation(
-            meta_name=None,
-            meta_value='accepted',
-            meta_value_list=['revision', 'major-revision']
-        ).custom_meta_value_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        custom_meta = list(CustomMetaGroup(self.xmltree).data)[0]
+        obtained = list(
+            CustomMetaPeerReviewValidation(
+                custom_meta=custom_meta,
+                meta_value_list=['revision', 'major-revision']
+            ).custom_meta_value_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_custom_meta_name_validation_success(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
+        expected = [
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'custom-meta',
+                'sub_item': 'meta-name',
+                'validation_type': 'exist',
+                "response": "OK",
+                'expected_value': 'peer-review-recommendation',
+                'got_value': 'peer-review-recommendation',
+                'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
+                'advice': None,
+                'data': {
+                    'meta_name': 'peer-review-recommendation',
+                    'meta_value': 'revision',
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en'
+                },
+            }
+        ]
+        custom_meta = list(CustomMetaGroup(self.xmltree).data)[0]
+        obtained = list(
+            CustomMetaPeerReviewValidation(
+                custom_meta=custom_meta,
+                meta_value_list=['revision', 'major-revision']
+            ).custom_meta_name_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_custom_meta_name_validation_fail(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name></meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
+        expected = [
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'custom-meta',
+                'sub_item': 'meta-name',
+                'validation_type': 'exist',
+                "response": "ERROR",
+                'expected_value': 'a value for <custom-meta>',
+                'got_value': None,
+                'message': 'Got None, expected a value for <custom-meta>',
+                'advice': 'provide a value for <custom-meta>',
+                'data': {
+                    'meta_name': None,
+                    'meta_value': 'revision',
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en'
+                },
+            }
+        ]
+        custom_meta = list(CustomMetaGroup(self.xmltree).data)[0]
+        obtained = list(
+            CustomMetaPeerReviewValidation(
+                custom_meta=custom_meta,
+                meta_value_list=['revision', 'major-revision']
+            ).custom_meta_name_validation
+        )
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_related_article_type_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@related-article-type',
                 'validation_type': 'value in list',
@@ -470,122 +766,148 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': 'peer-reviewed-material',
                 'message': "Got peer-reviewed-material, expected ['peer-reviewed-material']",
                 'advice': None,
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    'id': 'r01',
+                    "related-article-type": "peer-reviewed-material",
+                    'href': '10.1590/abd1806-4841.20142998',
+                }
             }
         ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
         obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed-material",
+            related_article=related_article,
             related_article_type_list=["peer-reviewed-material"],
-            href="10.1590/abd1806-4841.20142998",
-            link_type='doi',
             link_type_list=['doi']
         ).related_article_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_related_article_type_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="major-revision" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+            """
+        )
         expected = [
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@related-article-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
                 'expected_value': ['peer-reviewed-material'],
-                'got_value': 'peer-reviewed',
-                'message': "Got peer-reviewed, expected ['peer-reviewed-material']",
+                'got_value': 'major-revision',
+                'message': "Got major-revision, expected ['peer-reviewed-material']",
                 'advice': "provide one item of this list: ['peer-reviewed-material']",
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    'id': 'r01',
+                    "related-article-type": "major-revision",
+                    'href': '10.1590/abd1806-4841.20142998',
+                }
             }
         ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
         obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed",
+            related_article=related_article,
             related_article_type_list=["peer-reviewed-material"],
-            href="10.1590/abd1806-4841.20142998",
-            link_type='doi',
             link_type_list=['doi']
         ).related_article_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
 
-    def test_related_article_xlink_href_validation_success(self):
-        self.maxDiff = None
-        expected = [
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'related-article',
-                'sub_item': '@xlink:href',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/abd1806-4841.20142998',
-                'got_value': '10.1590/abd1806-4841.20142998',
-                'message': 'Got 10.1590/abd1806-4841.20142998, expected 10.1590/abd1806-4841.20142998',
-                'advice': None,
-                'data': None
-            }
-        ]
-        obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed-material",
-            related_article_type_list=["peer-reviewed-material"],
-            href="10.1590/abd1806-4841.20142998",
-            link_type='doi',
-            link_type_list=['doi']
-        ).related_article_href_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
-
-    def test_related_article_xlink_href_validation_fail(self):
-        self.maxDiff = None
-        expected = [
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'related-article',
-                'sub_item': '@xlink:href',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'a value for <related-article @xlink:href>',
-                'got_value': None,
-                'message': 'Got None, expected a value for <related-article @xlink:href>',
-                'advice': 'provide a value for <related-article @xlink:href>',
-                'data': None
-            }
-        ]
-        obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed-material",
-            related_article_type_list=["peer-reviewed-material"],
-            href=None,
-            link_type='doi',
-            link_type_list=['doi']
-        ).related_article_href_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_related_article_ext_link_type_validation_success(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
@@ -594,29 +916,73 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': 'doi',
                 'message': "Got doi, expected ['doi']",
                 'advice': None,
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                    "href": "10.1590/abd1806-4841.20142998",
+                }
             }
         ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
         obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed-material",
+            related_article=related_article,
             related_article_type_list=["peer-reviewed-material"],
-            href="10.1590/abd1806-4841.20142998",
-            link_type='doi',
             link_type_list=['doi']
         ).related_article_ext_link_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
     def test_related_article_ext_link_type_validation_fail(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="uri" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
@@ -625,192 +991,73 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': 'uri',
                 'message': "Got uri, expected ['doi']",
                 'advice': "provide one item of this list: ['doi']",
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    'ext-link-type': 'uri',
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                    "href": "10.1590/abd1806-4841.20142998",
+                }
             }
         ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
         obtained = list(RelatedArticleValidation(
-            related_article_type="peer-reviewed-material",
+            related_article=related_article,
             related_article_type_list=["peer-reviewed-material"],
-            href="10.1590/abd1806-4841.20142998",
-            link_type='uri',
             link_type_list=['doi']
         ).related_article_ext_link_type_validation)
-        for item in obtained:
-            item['title'] = 'Peer review validation'
-            item['parent'] = 'article'
-            item['parent_id'] = None
-        self.assertEqual(expected, obtained)
 
-    def test_peer_review_validation(self):
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_related_article_xlink_href_validation_success(self):
         self.maxDiff = None
-        obtained = list(PeerReviewsValidation(
-            self.xmltree_success,
-            contrib_type_list=['author'],
-            specific_use_list=["reviewer", "editor"],
-            date_type_list=["reviewer-report-received"],
-            meta_value_list=['accept', 'formal-accept'],
-            related_article_type_list=["peer-reviewed-material"],
-            link_type_list=['doi']
-        ).nodes_validation)
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         expected = [
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'contrib',
-                'sub_item': '@contrib-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['author'],
-                'got_value': 'author',
-                'message': "Got author, expected ['author']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'role',
-                'sub_item': '@specific-use',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['reviewer', 'editor'],
-                'got_value': 'reviewer',
-                'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'date',
-                'sub_item': '@date-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['reviewer-report-received'],
-                'got_value': 'reviewer-report-received',
-                'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'custom-meta',
-                'sub_item': 'meta-name',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'peer-review-recommendation',
-                'got_value': 'peer-review-recommendation',
-                'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'custom-meta',
-                'sub_item': 'meta-value',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['accept', 'formal-accept'],
-                'got_value': 'accept',
-                'message': "Got accept, expected ['accept', 'formal-accept']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'item': 'contrib',
-                'sub_item': '@contrib-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['author'],
-                'got_value': 'author',
-                'message': "Got author, expected ['author']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'item': 'role',
-                'sub_item': '@specific-use',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['reviewer', 'editor'],
-                'got_value': 'reviewer',
-                'message': "Got reviewer, expected ['reviewer', 'editor']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'item': 'date',
-                'sub_item': '@date-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['reviewer-report-received'],
-                'got_value': 'reviewer-report-received',
-                'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'item': 'custom-meta',
-                'sub_item': 'meta-name',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'peer-review-recommendation',
-                'got_value': 'peer-review-recommendation',
-                'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'item': 'custom-meta',
-                'sub_item': 'meta-value',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['accept', 'formal-accept'],
-                'got_value': 'accept',
-                'message': "Got accept, expected ['accept', 'formal-accept']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'related-article',
-                'sub_item': '@related-article-type',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'expected_value': ['peer-reviewed-material'],
-                'got_value': 'peer-reviewed-material',
-                'message': "Got peer-reviewed-material, expected ['peer-reviewed-material']",
-                'advice': None,
-                'data': None
-            },
-            {
-                'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@xlink:href',
                 'validation_type': 'exist',
@@ -819,12 +1066,319 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': '10.1590/abd1806-4841.20142998',
                 'message': 'Got 10.1590/abd1806-4841.20142998, expected 10.1590/abd1806-4841.20142998',
                 'advice': None,
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                    'href': '10.1590/abd1806-4841.20142998',
+                }
+            }
+        ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
+        obtained = list(RelatedArticleValidation(
+            related_article=related_article,
+            related_article_type_list=["peer-reviewed-material"],
+            link_type_list=['doi']
+        ).related_article_href_validation)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_related_article_xlink_href_validation_fail(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="review">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>revision</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
+        expected = [
+            {
+                'title': 'Peer review validation',
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
+                'item': 'related-article',
+                'sub_item': '@xlink:href',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': 'a value for <related-article @xlink:href>',
+                'got_value': None,
+                'message': 'Got None, expected a value for <related-article @xlink:href>',
+                'advice': 'provide a value for <related-article @xlink:href>',
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                }
+            }
+        ]
+        related_article = list(RelatedItems(self.xmltree).related_articles)[0]
+        obtained = list(RelatedArticleValidation(
+            related_article=related_article,
+            related_article_type_list=["peer-reviewed-material"],
+            link_type_list=['doi']
+        ).related_article_href_validation)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_peer_review_validation(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="reviewer">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>accept</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
+        obtained = list(PeerReviewsValidation(
+            self.xmltree,
+            contrib_type_list=['author'],
+            specific_use_list=["reviewer", "editor"],
+            date_type_list=["reviewer-report-received"],
+            meta_value_list=['accept', 'formal-accept'],
+            related_article_type_list=["peer-reviewed-material"],
+            link_type_list=['doi']
+        ).validate())
+        expected = [
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                "item": "contrib",
+                "sub_item": "@contrib-type",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["author"],
+                "got_value": "author",
+                "message": "Got author, expected ['author']",
+                "advice": None,
+                "data": {
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'reviewer', 'text': 'Reviewer'}],
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
+            },
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'role',
+                'sub_item': '@specific-use',
+                "validation_type": "value in list",
+                "response": "OK",
+                'expected_value': ['reviewer', 'editor'],
+                'got_value': ['reviewer'],
+                'message': "Got ['reviewer'], expected ['reviewer', 'editor']",
+                "advice": None,
+                "data": {
+                    'contrib_full_name': 'Jane X Doe',
+                    'contrib_name': {'given-names': 'Jane X', 'surname': 'Doe'},
+                    'contrib_role': [{'content-type': None, 'specific-use': 'reviewer', 'text': 'Reviewer'}],
+                    'contrib_type': 'author',
+                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                },
+            },
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'date',
+                'sub_item': '@date-type',
+                "validation_type": "value in list",
+                "response": "OK",
+                'expected_value': ['reviewer-report-received'],
+                'got_value': 'reviewer-report-received',
+                'message': "Got reviewer-report-received, expected ['reviewer-report-received']",
+                'advice': None,
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'reviewer-report',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'article_date': None,
+                    'collection_date': None,
+                    'history': {
+                        'reviewer-report-received': {
+                            'day': '10',
+                            'month': '01',
+                            'type': 'reviewer-report-received',
+                            'year': '2022'
+                        },
+                    }
+                }
+            },
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'custom-meta',
+                'sub_item': 'meta-name',
+                'validation_type': 'exist',
+                "response": "OK",
+                'expected_value': 'peer-review-recommendation',
+                'got_value': 'peer-review-recommendation',
+                'message': 'Got peer-review-recommendation, expected peer-review-recommendation',
+                'advice': None,
+                'data': {
+                    'meta_name': 'peer-review-recommendation',
+                    'meta_value': 'accept'
+                },
+            },
+            {
+                "title": "Peer review validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "reviewer-report",
+                "parent_lang": "en",
+                'item': 'custom-meta',
+                'sub_item': 'meta-value',
+                "validation_type": "value in list",
+                "response": "OK",
+                'expected_value': ['accept', 'formal-accept'],
+                'got_value': 'accept',
+                'message': "Got accept, expected ['accept', 'formal-accept']",
+                'advice': None,
+                'data': {
+                    'meta_name': 'peer-review-recommendation',
+                    'meta_value': 'accept'
+                }
             },
             {
                 'title': 'Peer review validation',
-                'parent': 'article',
-                'parent_id': None,
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
+                'item': 'related-article',
+                'sub_item': '@related-article-type',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': ['peer-reviewed-material'],
+                'got_value': 'peer-reviewed-material',
+                'message': "Got peer-reviewed-material, expected ['peer-reviewed-material']",
+                'advice': None,
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    'id': 'r01',
+                    "related-article-type": "peer-reviewed-material",
+                    'href': '10.1590/abd1806-4841.20142998',
+                }
+            },
+            {
+                'title': 'Peer review validation',
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
+                'item': 'related-article',
+                'sub_item': '@xlink:href',
+                'validation_type': 'exist',
+                'response': 'OK',
+                'expected_value': '10.1590/abd1806-4841.20142998',
+                'got_value': '10.1590/abd1806-4841.20142998',
+                'message': 'Got 10.1590/abd1806-4841.20142998, expected 10.1590/abd1806-4841.20142998',
+                'advice': None,
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                    'href': '10.1590/abd1806-4841.20142998',
+                }
+            },
+            {
+                'title': 'Peer review validation',
+                "parent": "article",
+                'parent_article_type': 'reviewer-report',
+                "parent_id": None,
+                "parent_lang": "en",
                 'item': 'related-article',
                 'sub_item': '@ext-link-type',
                 'validation_type': 'value in list',
@@ -833,7 +1387,16 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                 'got_value': 'doi',
                 'message': "Got doi, expected ['doi']",
                 'advice': None,
-                'data': None
+                "data": {
+                    "parent": "article",
+                    'parent_article_type': 'reviewer-report',
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "ext-link-type": "doi",
+                    "id": "r01",
+                    'related-article-type': 'peer-reviewed-material',
+                    "href": "10.1590/abd1806-4841.20142998",
+                }
             }
         ]
 
@@ -843,8 +1406,43 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
 
     def test_peer_review_keys_validation(self):
         self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            dtdversion="1.3" specific-use="sps-1.10" article-type="reviewer-report" xml:lang="en">
+                <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Doe</surname>
+                                <given-names>Jane X</given-names>
+                            </name>
+                            <role specific-use="reviewer">Reviewer</role>
+                            <xref ref-type="aff" rid="aff1" />
+                        </contrib>
+                    </contrib-group>
+                    <history>
+                        <date date-type="reviewer-report-received">
+                            <day>10</day>
+                            <month>01</month>
+                            <year>2022</year>
+                        </date>
+                    </history>
+                    <related-article related-article-type="peer-reviewed-material" id="r01" xlink:href="10.1590/abd1806-4841.20142998" ext-link-type="doi" />
+                    <custom-meta-group>
+                        <custom-meta>
+                           <meta-name>peer-review-recommendation</meta-name>
+                           <meta-value>accept</meta-value>
+                        </custom-meta>
+                     </custom-meta-group>
+                </article-meta>
+                </front>
+            </article>
+                """
+        )
         validations = PeerReviewsValidation(
-            self.xmltree_success,
+            self.xmltree,
             contrib_type_list=['author'],
             specific_use_list=["reviewer", "editor"],
             date_type_list=["reviewer-report-received"],
@@ -853,7 +1451,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
             link_type_list=['doi']
         )
 
-        obtained_dicts = list(validations.nodes_validation)
+        obtained_dicts = list(validations.validate())
 
         expected_keys = ['title', 'parent', 'parent_id', 'item', 'sub_item', 'validation_type', 'response',
                          'expected_value', 'got_value', 'message', 'advice']
@@ -864,5 +1462,5 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                     self.assertIn(expected_key, obtained_dict.keys())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

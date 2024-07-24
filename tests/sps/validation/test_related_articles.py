@@ -13,9 +13,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            
+            <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
-            
+            </front>
             </article>
 
             """
@@ -36,8 +36,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article type validation',
-                'parent': None,
+                'parent': 'article',
+                'parent_article_type': 'correction',
                 'parent_id': None,
+                'parent_lang': 'en',
                 'item': 'related-article',
                 'sub_item': 'related-article-type',
                 'validation_type': 'match',
@@ -47,6 +49,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'message': "Got corrected-article, expected ['corrected-article']",
                 'advice': None,
                 'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'correction',
+                    'parent_id': None,
+                    'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
@@ -65,9 +71,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="retraction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-
+            <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="retraction-forward" xlink:href="10.1590/1808-057x202090350"/>
-
+            </front>
             </article>
 
             """
@@ -88,8 +94,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article type validation',
-                'parent': None,
+                'parent': 'article',
+                'parent_article_type': 'retraction',
                 'parent_id': None,
+                'parent_lang': 'en',
                 'item': 'related-article',
                 'sub_item': 'related-article-type',
                 'validation_type': 'match',
@@ -100,6 +108,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'advice': "The article-type: retraction does not match the related-article-type: retraction-forward, "
                           "provide one of the following items: ['retracted-article', 'article-retracted']",
                 'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'retraction',
+                    'parent_id': None,
+                    'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
@@ -118,9 +130,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-
+            <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
-
+            </front>
             </article>
 
             """
@@ -130,8 +142,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'parent': None,
+                'parent': 'article',
+                'parent_article_type': 'correction-forward',
                 'parent_id': None,
+                'parent_lang': 'en',
                 'item': 'related-article',
                 'sub_item': 'xlink:href',
                 'validation_type': 'exist',
@@ -141,6 +155,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'message': 'Got 10.1590/1808-057x202090350, expected 10.1590/1808-057x202090350',
                 'advice': None,
                 'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'correction-forward',
+                    'parent_id': None,
+                    'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
@@ -159,9 +177,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-
+            <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />
-
+            </front>
             </article>
 
             """
@@ -171,8 +189,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         expected = [
             {
                 'title': 'Related article doi validation',
-                'parent': None,
+                'parent': 'article',
+                'parent_article_type': 'correction-forward',
                 'parent_id': None,
+                'parent_lang': 'en',
                 'item': 'related-article',
                 'sub_item': 'xlink:href',
                 'validation_type': 'exist',
@@ -183,6 +203,10 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'advice': 'Provide a valid DOI for <related-article ext-link-type="doi" id="ra1" '
                           'related-article-type="corrected-article" /> ',
                 'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'correction-forward',
+                    'parent_id': None,
+                    'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'id': 'ra1',
                     'related-article-type': 'corrected-article'

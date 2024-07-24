@@ -1,0 +1,7 @@
+{
+    "sps_version": "sps-1.10",
+    "specific_use_list": [
+        "reviewer",
+        "editor"
+    ],
+}
