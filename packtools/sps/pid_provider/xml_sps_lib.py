@@ -13,6 +13,7 @@ from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.models.v2.article_assets import ArticleAssets
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_authors import Authors
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_ids import ArticleIds
@@ -893,29 +894,30 @@ class XMLWithPre:
     @property
     def components(self):
         _components = {}
+        for item in self.renditions:
+            _components[item["name"]] = item
+        for item in self.assets:
+            _components[item["name"]] = item
+        return _components
+
+    @property
+    def assets(self):
+        items = []
         xml_assets = ArticleAssets(self.xmltree)
         for xml_graphic in xml_assets.items:
-            if _components.get(xml_graphic.xlink_href):
+            if xml_graphic.xlink_href in items:
                 continue
-
+            items.append(xml_graphic.xlink_href)
             component_type = (
                 "supplementary-material"
                 if xml_graphic.is_supplementary_material
                 else "asset"
             )
-            _components[xml_graphic.xlink_href] = {
+            yield {
+                "name": xml_graphic.xlink_href,
                 "xml_elem_id": xml_graphic.id,
                 "component_type": component_type,
             }
-
-        xml_renditions = ArticleRenditions(self.xmltree)
-        for item in xml_renditions.article_renditions:
-            name = self.sps_pkg_name + ".pdf" if item.is_main_language else f"{self.sps_pkg_name}-{item.language}.pdf"
-            _components[name] = {
-                "lang": item.language,
-                "component_type": "rendition",
-            }
-        return _components
 
     @property
     def renditions(self):

@@ -34,7 +34,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_without_role(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <contrib-group>
@@ -74,6 +75,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -96,9 +99,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -110,7 +113,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_role_and_content_type_empty(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <contrib-group>
@@ -152,6 +156,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -180,9 +186,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -194,7 +200,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_role_without_content_type(self):
         self.maxDiff = None
         xml = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -228,6 +235,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -260,9 +269,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -282,7 +291,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_role_no_text_with_content_type(self):
         self.maxDiff = None
         xml = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -317,6 +327,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -354,9 +366,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -376,7 +388,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_wrong_role_and_content_type(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <contrib-group>
@@ -411,6 +424,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -448,9 +463,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -470,7 +485,8 @@ class ArticleContribsValidationTest(TestCase):
     def test_success_role(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <contrib-group>
@@ -505,6 +521,8 @@ class ArticleContribsValidationTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -539,9 +557,9 @@ class ArticleContribsValidationTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -563,7 +581,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_format_fail(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -600,6 +619,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "format",
@@ -621,9 +642,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -634,7 +655,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_format_without_orcid(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -668,6 +690,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "format",
@@ -687,9 +711,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -701,7 +725,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_format_success(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -739,6 +764,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "format",
@@ -759,9 +786,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             }
         ]
@@ -773,7 +800,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_is_unique_ok(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -809,8 +837,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         expected = [
             {
                 "title": "Author ORCID element is unique",
-                "parent": None,
+                "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
@@ -830,7 +860,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_is_unique_not_ok(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -866,8 +897,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         expected = [
             {
                 "title": "Author ORCID element is unique",
-                "parent": None,
+                "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
@@ -884,10 +917,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_authors_orcid_is_registered_sucess(self):
+    def test_validate_authors_orcid_is_registered_success(self):
         self.maxDiff = None
         xml = """
-                <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                       <contrib-group>
@@ -926,6 +960,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID element is registered",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
@@ -935,7 +971,22 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
                 "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": None,
-                "data": None,
+                "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                    "contrib_ids": {"orcid": "0990-0001-0058-4853"},
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "prefix": "Prof",
+                        "suffix": "Nieto",
+                        "surname": "VENEGAS MARTÍNEZ",
+                    },
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             }
         ]
 
@@ -946,7 +997,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_is_registered_fail(self):
         self.maxDiff = None
         xml = """
-                <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                       <contrib-group>
@@ -985,6 +1037,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID element is registered",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
@@ -994,7 +1048,22 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
                 "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": "ORCID 0990-0001-0058-4853 is not registered to any authors",
-                "data": None,
+                "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_ids": {"orcid": "0990-0001-0058-4853"},
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "prefix": "Prof",
+                        "suffix": "Nieto",
+                        "surname": "VENEGAS-MARTÍNEZ",
+                    },
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             }
         ]
 
@@ -1005,7 +1074,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate_authors_orcid_is_registered_fail_empty(self):
         self.maxDiff = None
         xml = """
-                <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                       <contrib-group>
@@ -1044,6 +1114,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "Author ORCID element is registered",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
@@ -1053,7 +1125,22 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
                 "['0990-0001-0058-4853', None]",
                 "advice": "ORCID 0990-0001-0058-4853 is not registered to any authors",
-                "data": None,
+                "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                    "contrib_ids": {"orcid": "0990-0001-0058-4853"},
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "prefix": "Prof",
+                        "suffix": "Nieto",
+                        "surname": "VENEGAS MARTÍNEZ",
+                    },
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             }
         ]
 
@@ -1065,7 +1152,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -1098,7 +1186,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -1119,8 +1208,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         expected = [
             {
                 'title': 'Collab list authors identification',
-                'parent': None,
-                'parent_id': None,
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 'item': 'contrib-group',
                 'sub_item': '@content-type',
                 'validation_type': 'exist',
@@ -1132,10 +1223,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 'data': {
                     'collab': 'The MARS Group',
                     'contrib_type': 'author',
-                    'parent': 'article',
-                    'parent_article_type': None,
-                    'parent_id': None,
-                    'parent_lang': None
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 }
             }
         ]
@@ -1146,7 +1237,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
     def test_validate(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
         <front>
             <article-meta>
               <contrib-group>
@@ -1184,8 +1276,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         expected = [
             {
                 "title": "Author ORCID element is unique",
-                "parent": None,
+                "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
@@ -1200,6 +1294,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -1223,15 +1319,17 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             },
             {
                 "title": "Author ORCID",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "format",
@@ -1252,15 +1350,17 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             },
             {
                 "title": "Author ORCID element is registered",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "exist",
@@ -1270,14 +1370,31 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
                            "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
                 "advice": 'ORCID 0990-0001-0058-4853 is not registered to any authors',
-                "data": None,
+                "data": {
+                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_ids": {"orcid": "0990-0001-0058-4853"},
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "prefix": "Prof",
+                        "suffix": "Nieto",
+                        "surname": "VENEGAS-MARTÍNEZ",
+                    },
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             },
             {
                 'title': 'Author without affiliation',
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 'item': 'contrib',
                 'sub_item': 'aff',
-                'parent': 'article',
-                'parent_id': None,
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'author affiliation data',
@@ -1295,16 +1412,18 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     'contrib_ids': {'orcid': '0990-0001-0058-4853'},
                     'contrib_type': 'author',
                     'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': None,
-                    'parent_lang': None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 }
             },
             {
                 "title": "CRediT taxonomy for contribs",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "role",
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
@@ -1323,15 +1442,17 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "a"}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             },
             {
                 "title": "Author ORCID",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "contrib-id",
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "format",
@@ -1347,9 +1468,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "contrib_type": "author",
                     "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "a"}],
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
             },
         ]
@@ -1363,7 +1484,8 @@ class ArticleAuthorsValidationAff(TestCase):
     def test_validate_authors_affiliations_success(self):
         self.maxDiff = None
         xml = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -1416,7 +1538,8 @@ class ArticleAuthorsValidationAff(TestCase):
     def test_validate_authors_affiliations_fail(self):
         self.maxDiff = None
         xml = """
-            <article>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <contrib-group>
@@ -1446,10 +1569,12 @@ class ArticleAuthorsValidationAff(TestCase):
         expected = [
             {
                 'title': 'Author without affiliation',
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 'item': 'contrib',
                 'sub_item': 'aff',
-                'parent': 'article',
-                'parent_id': None,
                 'validation_type': 'exist',
                 'response': 'ERROR',
                 'expected_value': 'author affiliation data',
@@ -1464,10 +1589,10 @@ class ArticleAuthorsValidationAff(TestCase):
                     },
                     'contrib_type': 'author',
                     'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': None,
-                    'parent_lang': None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 }
             }
         ]

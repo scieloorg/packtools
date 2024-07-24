@@ -1,0 +1,10 @@
+{
+    "_comment": "data availability specific use",
+    "sps_version": "sps-1.10",
+    "specific_use": [
+        "data-available",
+        "data-available-upon-request",
+        "data-not-available",
+        "uninformed"
+    ]
+}

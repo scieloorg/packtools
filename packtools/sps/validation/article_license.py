@@ -4,6 +4,7 @@ from packtools.sps.validation.exceptions import (
     ValidationLicenseException,
     ValidationLicenseCodeException
 )
+from packtools.sps.validation.utils import format_response
 
 
 class ArticleLicenseValidation:
@@ -22,7 +23,7 @@ class ArticleLicenseValidation:
             tags_to_convert_to_html=tags_to_convert_to_html
         )
 
-    def validate_license(self, expected_value):
+    def validate_license(self, expected_value, error_level="ERROR"):
         """
         Checks whether the license data complies with the standard specified by the journal.
 
@@ -121,19 +122,24 @@ class ArticleLicenseValidation:
             is_valid = expected_value.get(lang) == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
-            yield {
-                'title': 'Article license validation',
-                'xpath': './permissions//license',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value_msg,
-                'got_value': obtained_license_p,
-                'message': f'Got {obtained_license_p}, expected: {expected_value_msg}',
-                'advice': None if is_valid else 'Provide license data that is consistent with the language: {} and '
-                                                'standard adopted by the journal'.format(lang)
-            }
+            yield format_response(
+                    title='Article license validation',
+                    parent=data.get("parent"),
+                    parent_id=data.get("parent_id"),
+                    parent_article_type=data.get("parent_article_type"),
+                    parent_lang=data.get("parent_lang"),
+                    item="permissions",
+                    sub_item="license",
+                    validation_type="value",
+                    is_valid=is_valid,
+                    expected=expected_value_msg,
+                    obtained=obtained_license_p,
+                    advice='Provide license data that is consistent with the language: {} and standard adopted by the journal'.format(lang),
+                    data=obtained_license_p,
+                    error_level=error_level,
+            )
 
-    def validate_license_code(self, expected_code):
+    def validate_license_code(self, expected_code, error_level="ERROR"):
         """
         Checks whether the license code complies with the values in code_list.
 
@@ -192,17 +198,23 @@ class ArticleLicenseValidation:
             obtained_link = licenses.get('link')
             obtained_code = obtained_link.split('/')[4] if obtained_link else None
             is_valid = expected_code == obtained_code
-            yield {
-                'title': 'Article license code validation',
-                'xpath': './permissions//license',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_code,
-                'got_value': obtained_code,
-                'message': f"Got: {obtained_code}, expected: {expected_code}",
-                'advice': None if is_valid else f"Provide {expected_code} code license information"
-            }
-    
+            yield format_response(
+                title='Article license code validation',
+                parent=licenses.get("parent"),
+                parent_id=licenses.get("parent_id"),
+                parent_article_type=licenses.get("parent_article_type"),
+                parent_lang=licenses.get("parent_lang"),
+                item="permissions",
+                sub_item="license",
+                validation_type="value",
+                is_valid=is_valid,
+                expected=expected_code,
+                obtained=obtained_code,
+                advice=f"Provide {expected_code} code license information",
+                data=licenses,
+                error_level=error_level,
+            )
+
     
     def validate(self, data):
         """
