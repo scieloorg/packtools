@@ -40,11 +40,16 @@ def node_plain_text(node):
     if node is None:
         return
     for xref in node.findall(".//xref"):
-        for child in xref.findall(".//*"):
-            child.text = ""
-        xref.text = ""
-    text = " ".join([text for text in node.xpath(".//text()") if text.strip()])
-    return " ".join(text.split())
+        # Limpa todo o conteúdo do nó <xref>
+        xref.clear()
+
+        # Extrai todo o texto dos nós, removendo subtags
+    text_content = "".join(node.xpath(".//text()"))
+
+    # Remove espaços extras
+    text_content = ' '.join(text_content.split())
+
+    return text_content
 
 
 def node_text_without_xref(node):
@@ -447,7 +452,7 @@ def get_parent_context(xmltree):
     main = xmltree.xpath(".")[0]
     main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
     main_article_type = main.get("article-type")
-    for node in xmltree.xpath(".//front | .//body | .//back | .//sub-article"):
+    for node in xmltree.xpath("./front | ./body | ./back | ./sub-article"):
         parent = "sub-article" if node.tag == "sub-article" else "article"
         parent_id = node.get("id")
         lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
