@@ -1,115 +1,129 @@
+import xml.etree.ElementTree as ET
+
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+
+
 class Fig:
     """
     Represents a figure element within an XML document.
 
     **Attributes:**
-        node (xml.etree.ElementTree.Element): The XML element representing the figure.
+        element (xml.etree.ElementTree.Element): The XML element representing the figure.
 
     **Parameters:**
-        node (xml.etree.ElementTree.Element): The XML element representing the figure.
+        element (xml.etree.ElementTree.Element): The XML element representing the figure.
     """
 
-    def __init__(self, node):
+    def __init__(self, element):
         """
         Initializes a Fig object.
 
         **Parameters:**
-            node (xml.etree.ElementTree.Element): The XML element representing the figure.
+            element (xml.etree.ElementTree.Element): The XML element representing the figure.
         """
-        self.node = node
+        self.element = element
 
     @property
-    def id(self):
+    def fig_id(self):
         """
-        Returns the ID of the figure from the 'id' attribute of the node.
+        Returns the ID of the figure from the 'id' attribute of the element.
 
         Returns:
             str: The ID of the figure, or None if the 'id' attribute is not found.
         """
-        return self.node.get("id")
+        return self.element.get("id")
+
+    @property
+    def fig_type(self):
+        """
+        Returns the type of the figure from the 'fig-type' attribute of the element.
+
+        Returns:
+            str: The type of the figure, or None if the 'fig-type' attribute is not found.
+        """
+        return self.element.get("fig-type")
+
+    @property
+    def label(self):
+        """
+        Returns the label of the figure.
+
+        Returns:
+            str: The text content of the <label> element, or None if the element is not found.
+        """
+        return self.element.findtext("label")
+
+    @property
+    def graphic_href(self):
+        """
+        Returns the href of the graphic element within the figure.
+
+        Returns:
+            str: The value of the 'xlink:href' attribute of the <graphic> element,
+                 or None if the element or attribute is not found.
+        """
+        graphic_element = self.element.find(".//graphic")
+        if graphic_element is not None:
+            return graphic_element.get("{http://www.w3.org/1999/xlink}href")
+        return None
+
+    @property
+    def caption_text(self):
+        """
+        Returns the text content of the caption element within the figure.
+
+        Returns:
+            str: The concatenated text content of the <caption> element,
+                 or an empty string if the element is not found.
+        """
+        caption_element = self.element.find(".//caption")
+        if caption_element is not None:
+            return ET.tostring(caption_element, encoding='unicode', method='text').strip()
+        return ""
+
+    @property
+    def source_attrib(self):
+        """
+        Returns the text content of the attrib element within the figure.
+
+        Returns:
+            str: The text content of the <attrib> element, or None if the element is not found.
+        """
+        return self.element.findtext("attrib")
+
+    @property
+    def alternative_elements(self):
+        """
+        Returns a list of tags within the alternatives element.
+
+        Returns:
+            list: A list of tag names of the elements within the <alternatives> element,
+                  or an empty list if the element is not found.
+        """
+        alternative_elements = self.element.find('.//alternatives')
+        if alternative_elements is not None:
+            return [child.tag for child in alternative_elements]
+        return []
 
     @property
     def data(self):
         """
         Returns a dictionary containing the figure's data.
 
-        Currently, this only includes the 'fig_id'.
-
         Returns:
-            dict: A dictionary with the key 'fig_id' and the value being the figure's ID.
-        """
-        # TODO: Add other attributes to the data dictionary (graphic, label, caption, alternatives...)
-        return {"fig_id": self.id}
-
-
-class Parent:
-    """
-    Represents a parent element (article or sub-article) in the context of figures.
-
-    **Attributes:**
-        parent_node (xml.etree.ElementTree.Element): The XML element representing the parent.
-        lang (str): The language associated with the parent element (extracted from the 'xml:lang' attribute).
-        article_type (str): The type of article (extracted from the 'article-type' attribute).
-        parent_name (str): The name of the parent element (either "article" or "sub-article").
-        parent_id (str): The ID of the parent element.
-
-    **Parameters:**
-        node (xml.etree.ElementTree.Element): The XML element representing the parent.
-        lang (str): The language associated with the parent element (extracted from the 'xml:lang' attribute).
-        article_type (str): The type of article (extracted from the 'article-type' attribute).
-        parent (str): The name of the parent element (either "article" or "sub-article").
-        parent_id (str): The ID of the parent element.
-    """
-
-    def __init__(self, node, lang, article_type, parent, parent_id):
-        """
-        Initializes a Parent object.
-
-        **Parameters:**
-            node (xml.etree.ElementTree.Element): The XML element representing the parent.
-            lang (str): The language associated with the parent element (extracted from the 'xml:lang' attribute).
-            article_type (str): The type of article (extracted from the 'article-type' attribute).
-            parent (str): The name of the parent element (either "article" or "sub-article").
-            parent_id (str): The ID of the parent element.
-        """
-        self.parent_node = node
-        self.lang = lang
-        self.article_type = article_type
-        self.parent_name = parent
-        self.parent_id = parent_id
-
-    @property
-    def data(self):
-        """
-        Returns a dictionary containing the parent's information.
-
-        Returns:
-            dict: A dictionary with keys 'parent', 'parent_id', 'parent_lang', and 'parent_article_type'.
+            dict: A dictionary with keys 'fig_id', 'fig_type', 'label', 'graphic_href', 'caption_text', 'source_attrib', and 'alternative_tags',
+                  containing the respective data of the figure.
         """
         return {
-            "parent": self.parent_name,
-            "parent_id": self.parent_id,
-            "parent_lang": self.lang,
-            "parent_article_type": self.article_type,
+            "alternative_parent": "fig",
+            "fig_id": self.fig_id,
+            "fig_type": self.fig_type,
+            "label": self.label,
+            "graphic_href": self.graphic_href,
+            "caption_text": self.caption_text,
+            "source_attrib": self.source_attrib,
+            "alternative_elements": self.alternative_elements
         }
-
-    @property
-    def items(self):
-        """
-        Yields dictionaries containing combined data for figures within the parent's context.
-
-        Iterates through child nodes that are either 'fig' or 'fig-group' elements with an 'id' attribute.
-        The yielded dictionary combines the parent's information with the figure's data.
-
-        Yields:
-            dict: A dictionary containing information about a figure within the parent's context.
-        """
-        parent_data = self.data
-        for node in self.parent_node.xpath(".//fig[@id] | .//fig-group[@id]"):
-            tablewrap = Fig(node)
-            data = tablewrap.data
-            data.update(parent_data)
-            yield data
 
 
 class ArticleFigs:
@@ -146,38 +160,11 @@ class ArticleFigs:
                   containing information about figures within that language context.
         """
         langs = {}
-        for (
-            parent_node,
-            lang,
-            article_type,
-            parent_name,
-            parent_id,
-        ) in self._get_parent_context:
-            parent = Parent(parent_node, lang, article_type, parent_name, parent_id)
-            langs[lang] = parent.items
-        return langs
-
-    @property
-    def _get_parent_context(self):
-        """
-        Yields information about parent contexts (article or sub-article elements) in the XML document.
-
-        1. Extracts information from the main element (e.g., language and article type).
-        2. Iterates through article-meta and sub-article elements.
-        3. For each element, extracts its type ("article" or "sub-article"), ID, language (if specified),
-           and article type (if specified). Defaults to values from the main element if not found locally.
-        4. Yields a tuple containing the parent node, language, article type, parent name, and parent ID.
-
-        Yields:
-            tuple: A tuple containing information for each parent context:
-                   (parent_node, lang, article_type, parent_name, parent_id)
-        """
-        main = self.xmltree.xpath(".")[0]
-        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
-        main_article_type = main.get("article-type")
-        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
-            parent = "sub-article" if node.tag == "sub-article" else "article"
-            parent_id = node.get("id")
-            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
-            article_type = node.get("article-type") or main_article_type
-            yield node, lang, article_type, parent, parent_id
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+            for item in node.xpath(".//fig"):
+                figure = Fig(item)
+                data = figure.data
+                parent = put_parent_context(data, lang, article_type, parent, parent_id)
+                langs[lang] = parent
+        if langs:
+            return langs
