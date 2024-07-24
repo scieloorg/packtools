@@ -1,191 +1,180 @@
-class Tablewrap:
+import xml.etree.ElementTree as ET
+
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
+
+
+class TableWrap:
     """
-    Represents a tablewrap element within an XML document (assuming this is the intended purpose).
+    Represents a table wrap element within an XML document.
 
     **Parameters:**
-        node (xml.etree.ElementTree.Element): The XML element representing the tablewrap.
+        element (xml.etree.ElementTree.Element): The XML element representing the table wrap.
 
     **Attributes:**
-        node (xml.etree.ElementTree.Element): The internal representation of the parsed XML element.
+        element (xml.etree.ElementTree.Element): The internal representation of the parsed XML element.
     """
 
-    def __init__(self, node):
+    def __init__(self, element):
         """
-        Initializes a Tablewrap object.
+        Initializes a TableWrap object.
 
         **Parameters:**
-            node (xml.etree.ElementTree.Element): The XML element representing the tablewrap.
+            element (xml.etree.ElementTree.Element): The XML element representing the table wrap.
         """
-        self.node = node
+        self.element = element
 
     @property
-    def id(self):
+    def table_wrap_id(self):
         """
-        Returns the ID of the tablewrap from the 'id' attribute of the node.
+        Returns the ID of the table wrap from the 'id' attribute of the element.
 
         Returns:
-            str: The ID of the tablewrap, or None if the 'id' attribute is not found.
+            str: The ID of the table wrap, or None if the 'id' attribute is not found.
         """
-        return self.node.get("id")
+        return self.element.get("id")
+
+    @property
+    def label(self):
+        """
+        Returns the label of the table wrap.
+
+        Returns:
+            str: The text content of the <label> element, or None if the element is not found.
+        """
+        return self.element.findtext("label")
+
+    @property
+    def caption(self):
+        """
+        Returns the text content of the caption element within the table-wrap.
+
+        Returns:
+            str: The concatenated text content of the <caption> element,
+                 or an empty string if the element is not found.
+        """
+        caption_element = self.element.find(".//caption")
+        if caption_element is not None:
+            return ET.tostring(caption_element, encoding='unicode', method='text').strip()
+        return ""
+
+    @property
+    def footnote(self):
+        """
+        Returns the text content of the table-wrap-foot element.
+
+        Returns:
+            str: The concatenated text content of the <table-wrap-foot> element,
+                 or an empty string if the element is not found.
+        """
+        footnote_element = self.element.find('.//table-wrap-foot')
+        if footnote_element is not None:
+            return node_plain_text(footnote_element)
+        return ""
+
+    @property
+    def footnote_id(self):
+        """
+        Returns the ID of the first fn element within the table-wrap-foot.
+
+        Returns:
+            str: The ID of the first <fn> element, or None if the element or attribute is not found.
+        """
+        footnote_element = self.element.find('.//table-wrap-foot')
+        if footnote_element is not None:
+            fn_element = footnote_element.find('.//fn')
+            if fn_element is not None:
+                return fn_element.get("id")
+        return None
+
+    @property
+    def footnote_label(self):
+        """
+        Returns the label of the first fn element within the table-wrap-foot.
+
+        Returns:
+            str: The text content of the <label> element within the first <fn> element,
+                 or None if the element is not found.
+        """
+        footnote_element = self.element.find('.//table-wrap-foot')
+        if footnote_element is not None:
+            return footnote_element.findtext('.//fn//label')
+        return None
+
+    @property
+    def alternative_elements(self):
+        """
+        Returns a list of tags within the alternatives element.
+
+        Returns:
+            list: A list of tag names of the elements within the <alternatives> element,
+                  or an empty list if the element is not found.
+        """
+        alternative_elements = self.element.find('.//alternatives')
+        if alternative_elements is not None:
+            return [child.tag for child in alternative_elements]
+        return []
 
     @property
     def data(self):
         """
-        Returns a dictionary containing the tablewrap's data.
-
-        Currently, this only includes the 'tablewrap_id'.
-
-        **Note:** This property currently lacks information beyond the ID. You might want to
-        consider adding other relevant attributes like 'graphic', 'label', 'caption', or 'alternatives'
-        as indicated in the existing TODO comment.
+        Returns a dictionary containing the table wrap's data.
 
         Returns:
-            dict: A dictionary with the key 'tablewrap_id' and the value being the tablewrap's ID.
-        """
-        # TODO: Add other attributes to the data dictionary (graphic, label, caption, alternatives...)
-        return {"tablewrap_id": self.id}
-
-
-class Parent:
-    """
-    Represents a parent element (article or sub-article) in the context of tablewraps.
-
-    **Parameters:**
-        node (xml.etree.ElementTree.Element): The XML element representing the parent.
-        lang (str): The language associated with the parent element (extracted from the 'xml:lang' attribute).
-        article_type (str): The type of article (extracted from the 'article-type' attribute).
-        parent (str): The name of the parent element (either "article" or "sub-article").
-        parent_id (str): The ID of the parent element.
-
-    **Attributes:**
-        parent_node (xml.etree.ElementTree.Element): The internal representation of the parsed XML element representing the parent.
-        lang (str): The language associated with the parent.
-        article_type (str): The type of article associated with the parent.
-        parent_name (str): The name of the parent element ("article" or "sub-article").
-        parent_id (str): The ID of the parent element.
-    """
-
-    def __init__(self, node, lang, article_type, parent, parent_id):
-        """
-        Initializes a Parent object.
-
-        **Parameters:**
-            node (xml.etree.ElementTree.Element): The XML element representing the parent.
-            lang (str): The language associated with the parent element (extracted from the 'xml:lang' attribute).
-            article_type (str): The type of article (extracted from the 'article-type' attribute).
-            parent (str): The name of the parent element (either "article" or "sub-article").
-            parent_id (str): The ID of the parent element.
-        """
-        self.parent_node = node
-        self.lang = lang
-        self.article_type = article_type
-        self.parent_name = parent
-        self.parent_id = parent_id
-
-    @property
-    def data(self):
-        """
-        Returns a dictionary containing the parent's information.
-
-        Returns:
-            dict: A dictionary with keys 'parent', 'parent_id', 'parent_lang', and 'parent_article_type'.
+            dict: A dictionary with keys 'table_wrap_id', 'label', 'caption',
+                  'footnote', 'footnote_id', 'footnote_label', and 'alternative_elements',
+                  containing the respective data of the table wrap.
         """
         return {
-            "parent": self.parent_name,
-            "parent_id": self.parent_id,
-            "parent_lang": self.lang,
-            "parent_article_type": self.article_type,
+            "alternative_parent": "table-wrap",
+            "table_wrap_id": self.table_wrap_id,
+            "label": self.label,
+            "caption": self.caption,
+            "footnote": self.footnote,
+            "footnote_id": self.footnote_id,
+            "footnote_label": self.footnote_label,
+            "alternative_elements": self.alternative_elements
         }
 
-    @property
-    def items(self):
-        """
-        Yields dictionaries containing combined data for tablewraps within the parent's context.
 
-        Iterates through child nodes that are 'table-wrap' elements and creates `Tablewrap` objects.
-        For each tablewrap, it yields a dictionary containing combined data:
-          - The tablewrap's data (currently just 'tablewrap_id').
-          - The parent's information.
-
-        Yields:
-            dict: A dictionary containing information about a tablewrap within the parent's context.
-        """
-        parent_data = self.data
-        for node in self.parent_node.xpath(
-            ".//table-wrap"
-        ):  # Look for 'table-wrap' elements
-            tablewrap = Tablewrap(node)  # Assuming Tablewrap class exists
-            data = tablewrap.data
-            data.update(parent_data)
-            yield data
-
-
-class ArticleTablewraps:
+class ArticleTableWraps:
     """
-    Represents an article with its associated tablewraps, grouped by language.
+    Represents an article with its associated table wraps, grouped by language.
 
     **Parameters:**
-        xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
+        xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
 
     **Attributes:**
-        xmltree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
+        xml_tree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
     """
 
-    def __init__(self, xmltree):
+    def __init__(self, xml_tree):
         """
-        Initializes an ArticleTablewraps object.
+        Initializes an ArticleTableWraps object.
 
         **Parameters:**
-            xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
+            xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
         """
-        self.xmltree = xmltree
+        self.xml_tree = xml_tree
 
     @property
     def items_by_lang(self):
         """
-        Returns a dictionary containing information about tablewraps grouped by language.
+        Returns a dictionary containing information about table wraps grouped by language.
 
         Iterates through parent contexts (article or sub-article elements) in the XML document
-        and creates `Parent` objects. For each parent context, it yields data for associated tablewraps
+        and creates `Parent` objects. For each parent context, it yields data for associated table wraps
         using the `parent.items` generator.
 
         Returns:
             dict: A dictionary where keys are languages and values are generators that yield dictionaries
-                  containing information about tablewraps within that language context.
+                  containing information about table wraps within that language context.
         """
         langs = {}
-        for (
-            parent_node,
-            lang,
-            article_type,
-            parent_name,
-            parent_id,
-        ) in self._get_parent_context:
-            parent = Parent(parent_node, lang, article_type, parent_name, parent_id)
-            langs[lang] = parent.items
-        return langs
-
-    @property
-    def _get_parent_context(self):
-        """
-        Yields information about parent contexts (article or sub-article elements) in the XML document.
-
-        1. Extracts information from the main element (e.g., language and article type).
-        2. Iterates through article-meta and sub-article elements.
-        3. For each element, extracts its type ("article" or "sub-article"), ID, language (if specified),
-           and article type (if specified). Defaults to values from the main element if not found locally.
-        4. Yields a tuple containing the parent node, language, article type, parent name, and parent ID.
-
-        Yields:
-            tuple: A tuple containing information for each parent context:
-                   (parent_node, lang, article_type, parent_name, parent_id)
-        """
-        main = self.xmltree.xpath(".")[0]
-        main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
-        main_article_type = main.get("article-type")
-        for node in self.xmltree.xpath(".//article-meta | .//sub-article"):
-            parent = "sub-article" if node.tag == "sub-article" else "article"
-            parent_id = node.get("id")
-            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang") or main_lang
-            article_type = node.get("article-type") or main_article_type
-            yield node, lang, article_type, parent, parent_id
+        for node, lang, article_type, parent_context, parent_id in get_parent_context(self.xml_tree):
+            for item in node.xpath(".//table-wrap"):
+                table_wrap = TableWrap(item)
+                data = table_wrap.data
+                parent_context = put_parent_context(data, lang, article_type, parent_context, parent_id)
+                langs[lang] = parent_context
+        if langs:
+            return langs
