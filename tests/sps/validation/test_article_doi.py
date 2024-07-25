@@ -85,7 +85,7 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_exists())
         expected = [
             {
-                'title': 'article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -115,7 +115,7 @@ class ArticleDoiTest(unittest.TestCase):
                 ],
             },
             {
-                'title': 'sub-article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': 's1',
@@ -170,7 +170,7 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_exists())
         expected = [
             {
-                'title': 'article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -201,7 +201,7 @@ class ArticleDoiTest(unittest.TestCase):
                 ],
             },
             {
-                'title': 'sub-article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': 's1',
@@ -257,7 +257,7 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_exists())
         expected = [
             {
-                'title': 'article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -287,7 +287,7 @@ class ArticleDoiTest(unittest.TestCase):
                 ],
             },
             {
-                'title': 'sub-article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': 's1',
@@ -344,7 +344,7 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_exists())
         expected = [
             {
-                'title': 'article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -375,7 +375,7 @@ class ArticleDoiTest(unittest.TestCase):
                 ],
             },
             {
-                'title': 'sub-article DOI element',
+                'title': 'Article DOI element exists',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': 's1',
@@ -442,7 +442,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'parent_lang': 'pt',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist/verification',
+                'validation_type': 'unique',
                 'response': 'OK',
                 'expected_value': 'Unique DOI values',
                 'got_value': ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'],
@@ -509,7 +509,7 @@ class ArticleDoiTest(unittest.TestCase):
                 'parent_lang': 'pt',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist/verification',
+                'validation_type': 'unique',
                 'response': 'CRITICAL',
                 'expected_value': 'Unique DOI values',
                 'got_value': ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'],

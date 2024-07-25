@@ -82,7 +82,7 @@ class ArticleDoiValidation:
         """
         for doi in self.doi.data:
             yield format_response(
-                title=f'{doi.get("parent")} DOI element',
+                title='Article DOI element exists',
                 parent=doi.get("parent"),
                 parent_id=doi.get("parent_id"),
                 parent_article_type=doi.get("parent_article_type"),
@@ -184,7 +184,7 @@ class ArticleDoiValidation:
             parent_lang=self.articles.main_lang,
             item="article-id",
             sub_item='@pub-id-type="doi"',
-            validation_type='exist/verification',
+            validation_type='unique',
             is_valid=validated,
             expected='Unique DOI values',
             obtained=list(dois.keys()),
