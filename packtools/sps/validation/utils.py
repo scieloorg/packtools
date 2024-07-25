@@ -1,6 +1,8 @@
 import requests
 from langdetect import detect
 
+from packtools.sps.libs.requester import fetch_data
+
 
 def format_response(
     title,
@@ -38,12 +40,8 @@ def format_response(
 
 def get_doi_information(doi):
     url = f"https://api.crossref.org/works/{doi}"
-    response = requests.get(url)
-    if response.status_code != 200:
-        raise Exception(f"Error fetching DOI information: {response.status_code}")
-
-    data = response.json()
-    item = data['message']
+    response = fetch_data(url=url, json=True)
+    item = response['message']
 
     result = {}
 
