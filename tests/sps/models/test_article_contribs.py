@@ -477,6 +477,7 @@ class ContribWithoutXrefTest(TestCase):
                 'scopus': '24771926600'
             },
             'collab': 'The MARS Group',
+            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_name': {
                 'given-names': 'Albert',
                 'surname': 'Einstein',
@@ -710,6 +711,7 @@ class ArticleContribTest(TestCase):
                 'parent_id': None,
                 'parent_lang': 'en',
                 'contrib_ids': {'orcid': '0000-0003-2243-0821'},
+                'contrib_full_name': 'Silvana de Castro',
                 'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
                 'contrib_full_name': 'Silvana de Castro',
                 'contrib_type': 'author',

@@ -4,6 +4,7 @@ from packtools.sps.validation.exceptions import (
     ValidationIssnsException,
     ValidationJournalMetaException
 )
+from packtools.sps.validation.utils import format_response
 
 
 class ISSNValidation:
@@ -78,7 +79,8 @@ class ISSNValidation:
                 'message': 'Got <issn pub-type="{}">{}</issn> expected <issn pub-type="{}">{}</issn>'.format(
                     tp, issn_obtained, tp, issn_expected
                 ),
-                'advice': None if is_valid else 'Provide an ISSN value as expected: <issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
+                'advice': None if is_valid else 'Provide an ISSN value as expected: <issn pub-type="{}">{}</issn>'.format(
+                    tp, issn_expected),
             }
 
 
@@ -127,22 +129,29 @@ class TitleValidation:
             }
         ]
 
-    def abbreviated_journal_title_validation(self, expected_value):
+    def abbreviated_journal_title_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to abbreviated journal title')
         is_valid = self.journal_titles.abbreviated_journal_title == expected_value
-        return [
-            {
-                'title': 'Abbreviated journal title element validation',
-                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value,
-                'got_value': self.journal_titles.abbreviated_journal_title,
-                'message': 'Got {} expected {}'.format(self.journal_titles.abbreviated_journal_title, expected_value),
-                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
-            }
-        ]
+        yield format_response(
+            title='Abbreviated journal title element validation',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item="journal-title-group",
+            sub_item="abbrev-journal-title",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.journal_titles.abbreviated_journal_title,
+            advice='Provide a journal title value as expected: {}'.format(expected_value),
+            data={
+                item.get("type"): item.get("value")
+                for item in self.journal_titles.data
+            },
+            error_level=error_level,
+        )
 
 
 class PublisherNameValidation:
@@ -151,7 +160,7 @@ class PublisherNameValidation:
         self.publisher = Publisher(self.xmltree)
         self.publisher_name_list = publisher_name_list
 
-    def validate_publisher_names(self, publisher_name_list):
+    def validate_publisher_names(self, publisher_name_list, error_level="CRITICAL"):
         """
         Checks whether the publisher name is as expected.
 
@@ -170,6 +179,8 @@ class PublisherNameValidation:
         Params
         ------
         publisher_name_list : list
+        error_level : str, optional
+            The severity level of the validation error, by default "CRITICAL".
 
         Returns
         -------
@@ -178,14 +189,19 @@ class PublisherNameValidation:
             [
                 {
                     'title': 'Publisher name element validation',
-                    'xpath': './/publisher//publisher-name',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'item': 'publisher',
+                    'sub_item': 'publisher-name',
                     'validation_type': 'value',
                     'response': 'OK',
-                    'expected_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
-                    'got_value': 'Faculdade de Saúde Pública da Universidade de São Paulo',
-                    'message': 'Got Faculdade de Saúde Pública da Universidade de São Paulo, expected
-                     Faculdade de Saúde Pública da Universidade de São Paulo',
-                    'advice': None
+                    'expected_value': 'Fundação Oswaldo Cruz',
+                    'got_value': 'Fundação Oswaldo Cruz',
+                    'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                    'advice': None,
+                    'data': None,
                 },...
             ]
         """
@@ -198,16 +214,22 @@ class PublisherNameValidation:
 
         for expected, obtained in zip(expected_list, obtained_list):
             is_valid = expected == obtained
-            yield {
-                    'title': 'Publisher name element validation',
-                    'xpath': './/publisher//publisher-name',
-                    'validation_type': 'value',
-                    'response': 'OK' if is_valid else 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
-                    'message': 'Got {} expected {}'.format(obtained, expected),
-                    'advice': None if is_valid else f'Provide the expected publisher name: {expected}'
-            }
+            yield format_response(
+                title='Publisher name element validation',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item="publisher",
+                sub_item="publisher-name",
+                validation_type="value",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=obtained,
+                advice=f'Provide the expected publisher name: {expected}',
+                data=None,
+                error_level=error_level,
+            )
 
         if len(obtained_list) != len(expected_list):
             if len(expected_list) > len(obtained_list):
@@ -223,16 +245,22 @@ class PublisherNameValidation:
             message = f'The following items is / are {item_description} in the XML: {diff_str}'
             advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
-            yield {
-                    'title': 'Publisher name element validation',
-                    'xpath': './/publisher//publisher-name',
-                    'validation_type': 'value',
-                    'response': 'ERROR',
-                    'expected_value': expected_list,
-                    'got_value': obtained_list,
-                    'message': message,
-                    'advice': advice
-            }
+            yield format_response(
+                title='Publisher name element validation',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item="publisher",
+                sub_item="publisher-name",
+                validation_type="value",
+                is_valid=False,
+                expected=expected_list,
+                obtained=obtained_list,
+                advice=advice,
+                data=None,
+                error_level=error_level,
+            )
 
 
 class JournalIdValidation:
@@ -240,20 +268,68 @@ class JournalIdValidation:
         self.xmltree = xmltree
         self.nlm_ta = JournalID(xmltree).nlm_ta
 
-    def nlm_ta_id_validation(self, expected_value):
+    def nlm_ta_id_validation(self, expected_value, error_level="CRITICAL"):
+        """
+        Checks whether the NLM TA ID value is as expected.
+
+        XML input
+        ---------
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+                <journal-meta>
+                    <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+                </journal-meta>
+            </front>
+        </article>
+
+        Params
+        ------
+        expected_value : str
+            The expected NLM TA ID value to validate against.
+        error_level : str, optional
+            The severity level of the validation error, by default "CRITICAL".
+
+        Returns
+        -------
+        list of dict
+            A list of dictionaries, such as:
+            [
+                {
+                    'title': 'Journal ID element validation',
+                    'parent': 'article',
+                    'parent_article_type': "research-article",
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'item': 'journal-meta',
+                    'sub_item': 'journal-id',
+                    'validation_type': 'value',
+                    'response': 'OK',
+                    'expected_value': 'Rev Saude Publica',
+                    'got_value': 'Rev Saude Publica',
+                    'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                    'advice': None,
+                    'data': None,
+                },...
+            ]
+        """
         is_valid = self.nlm_ta == expected_value
-        return [
-            {
-                'title': 'Journal ID element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value,
-                'got_value': self.nlm_ta,
-                'message': 'Got {} expected {}'.format(self.nlm_ta, expected_value),
-                'advice': None if is_valid else 'Provide an nlm-ta value as expected: {}'.format(expected_value)
-            }
-        ]
+        yield format_response(
+            title='Journal ID element validation',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item="journal-meta",
+            sub_item="journal-id",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.nlm_ta,
+            advice='Provide an nlm-ta value as expected: {}'.format(expected_value),
+            data=None,
+            error_level=error_level,
+        )
 
 
 class JournalMetaValidation:
@@ -285,8 +361,8 @@ class JournalMetaValidation:
         resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
                             acronym.acronym_validation(expected_values['acronym']) + \
                             title.journal_title_validation(expected_values['journal-title']) + \
-                            title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title']) + \
+                            list(title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])) + \
                             list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
-                            nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta'])
+                            list(nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta']))
 
         return resp_journal_meta

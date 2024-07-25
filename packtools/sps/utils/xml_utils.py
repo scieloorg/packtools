@@ -1,5 +1,6 @@
 import logging
 import re
+import string
 
 from copy import deepcopy
 from lxml import etree
@@ -28,7 +29,7 @@ def node_plain_text(node):
     Função que retorna texto de nó, sem subtags e com espaços padronizados
 
     Entrada:
-    ```xml
+    ```
     <node>
         <italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref>
     </node>
@@ -38,12 +39,14 @@ def node_plain_text(node):
     Duguetia leucotricha (Annonaceae)
     """
     if node is None:
-        return
+        return ""
+
+    # Remove o conteúdo de todos os nós <xref>
     for xref in node.findall(".//xref"):
         # Limpa todo o conteúdo do nó <xref>
         xref.clear()
 
-        # Extrai todo o texto dos nós, removendo subtags
+    # Extrai todo o texto dos nós, removendo subtags
     text_content = "".join(node.xpath(".//text()"))
 
     # Remove espaços extras

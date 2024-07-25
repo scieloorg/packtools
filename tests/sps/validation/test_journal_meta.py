@@ -212,38 +212,56 @@ class TitleTest(TestCase):
         expected = [
             {
                 'title': 'Abbreviated journal title element validation',
-                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'abbrev-journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
-                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude-Manguinhos',
-                'advice': None
+                'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'advice': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos'
+                },
             }
         ]
-        obtained = self.title.abbreviated_journal_title_validation('Hist. cienc. saude-Manguinhos')
-        for i, item in enumerate(obtained):
+        obtained = list(self.title.abbreviated_journal_title_validation('Hist. cienc. saude-Manguinhos'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_abbreviated_journal_title_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Abbreviated journal title element validation',
-                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'abbrev-journal-title',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'Hist. cienc. saude Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
-                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude Manguinhos',
-                'advice': 'Provide a journal title value as expected: Hist. cienc. saude Manguinhos'
+                'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude Manguinhos',
+                'advice': 'Provide a journal title value as expected: Hist. cienc. saude Manguinhos',
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos'
+                },
             }
         ]
-        obtained = self.title.abbreviated_journal_title_validation('Hist. cienc. saude Manguinhos')
-        for i, item in enumerate(obtained):
+        obtained = list(self.title.abbreviated_journal_title_validation('Hist. cienc. saude Manguinhos'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 class PublisherTest(TestCase):
@@ -284,166 +302,227 @@ class PublisherTest(TestCase):
         self.one_publisher = PublisherNameValidation(self.xmltree_one_publisher)
         self.more_than_one_publisher = PublisherNameValidation(self.xmltree_more_than_one_publisher)
 
-    def test_validate_publisher_names_one_sucess(self):
+    def test_validate_publisher_names_one_success(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
-                'advice': None
+                'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'advice': None,
+                'data': None,
             }
         ]
-        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_publisher_names_one_fail(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
+                'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'data': None,
             }
         ]
-        obtained = self.one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_publisher_names_more_than_one_sucess(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
-                'advice': None
+                'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'advice': None,
+                'data': None,
             },
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'UNESP',
                 'got_value': 'UNESP',
-                'message': 'Got UNESP expected UNESP',
-                'advice': None
+                'message': 'Got UNESP, expected UNESP',
+                'advice': None,
+                'data': None,
             }
         ]
-        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_publisher_names_more_than_one_fail(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz'
+                'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
+                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'data': None,
             },
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'UNIFESP',
                 'got_value': 'UNESP',
-                'message': 'Got UNESP expected UNIFESP',
-                'advice': 'Provide the expected publisher name: UNIFESP'
+                'message': 'Got UNESP, expected UNIFESP',
+                'advice': 'Provide the expected publisher name: UNIFESP',
+                'data': None,
             }
         ]
-        obtained = self.more_than_one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz', 'UNIFESP'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.more_than_one_publisher.validate_publisher_names(['Fund. Oswaldo Cruz', 'UNIFESP']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_publisher_names_XML_has_not_expected_items(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
-                'advice': None
+                'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'advice': None,
+                'data': None,
             },
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': ['Fundação Oswaldo Cruz'],
                 'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
-                'message': 'The following items is / are not expected in the XML: UNESP',
-                'advice': 'Remove the following items from the XML: UNESP'
+                'message': "Got ['Fundação Oswaldo Cruz', 'UNESP'], expected ['Fundação Oswaldo Cruz']",
+                'advice': 'Remove the following items from the XML: UNESP',
+                'data': None,
             }
         ]
-        obtained = self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.more_than_one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_validate_publisher_names_function_has_not_expected_items(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
-                'message': 'Got Fundação Oswaldo Cruz expected Fundação Oswaldo Cruz',
-                'advice': None
+                'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'advice': None,
+                'data': None,
             },
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'got_value': ['Fundação Oswaldo Cruz'],
-                'message': 'The following items is / are missing in the XML: UNESP',
+                'message': "Got ['Fundação Oswaldo Cruz'], expected ['Fundação Oswaldo Cruz', 'UNESP']",
                 'advice': 'Complete the following items in the XML: UNESP',
+                'data': None,
             }
         ]
-        obtained = self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP'])
-        for i, item in enumerate(obtained):
+        obtained = list(self.one_publisher.validate_publisher_names(['Fundação Oswaldo Cruz', 'UNESP']))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 class JournalIdValidationTest(TestCase):
     def setUp(self):
         self.xmltree = etree.fromstring(
             """
-            <article>
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
                 <front>
                     <journal-meta>
                         <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
@@ -458,38 +537,50 @@ class JournalIdValidationTest(TestCase):
         expected = [
             {
                 'title': 'Journal ID element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'journal-meta',
+                'sub_item': 'journal-id',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
-                'message': 'Got Rev Saude Publica expected Rev Saude Publica',
-                'advice': None
+                'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'advice': None,
+                'data': None,
             }
         ]
-        obtained = JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev Saude Publica')
-        for i, item in enumerate(obtained):
+        obtained = list(JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev Saude Publica'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_nlm_ta_id_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Journal ID element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'parent': 'article',
+                'parent_article_type': "research-article",
+                'parent_id': None,
+                'parent_lang': "pt",
+                'item': 'journal-meta',
+                'sub_item': 'journal-id',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'Rev de Saude Publica',
                 'got_value': 'Rev Saude Publica',
-                'message': 'Got Rev Saude Publica expected Rev de Saude Publica',
-                'advice': 'Provide an nlm-ta value as expected: Rev de Saude Publica'
+                'message': 'Got Rev Saude Publica, expected Rev de Saude Publica',
+                'advice': 'Provide an nlm-ta value as expected: Rev de Saude Publica',
+                'data': None,
             }
         ]
-        obtained = JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev de Saude Publica')
-        for i, item in enumerate(obtained):
+        obtained = list(JournalIdValidation(self.xmltree).nlm_ta_id_validation('Rev de Saude Publica'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 class JournalMetaValidationTest(TestCase):
@@ -562,36 +653,57 @@ class JournalMetaValidationTest(TestCase):
             },
             {
                 'title': 'Abbreviated journal title element validation',
-                'xpath': './journal-meta/journal-title-group/abbrev-journal-title',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'journal-title-group',
+                'sub_item': 'abbrev-journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
-                'message': 'Got Hist. cienc. saude-Manguinhos expected Hist. cienc. saude-Manguinhos',
-                'advice': None
+                'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'advice': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos'
+                },
             },
             {
                 'title': 'Publisher name element validation',
-                'xpath': './/publisher//publisher-name',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'publisher',
+                'sub_item': 'publisher-name',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
-                'advice': None
+                'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz, expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'advice': None,
+                'data': None,
             },
             {
                 'title': 'Journal ID element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="nlm-ta"]',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': "en",
+                'item': 'journal-meta',
+                'sub_item': 'journal-id',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
-                'message': 'Got Rev Saude Publica expected Rev Saude Publica',
-                'advice': None
+                'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'advice': None,
+                'data': None,
             }
         ]
-        obtained = self.journal_meta.validate({
+        obtained = list(self.journal_meta.validate({
             'issns': {
                 'ppub': '0103-5053',
                 'epub': '1678-4790'
@@ -601,8 +713,8 @@ class JournalMetaValidationTest(TestCase):
             'abbrev-journal-title': 'Hist. cienc. saude-Manguinhos',
             'publisher-name': ['Casa de Oswaldo Cruz, Fundação Oswaldo Cruz'],
             'nlm-ta': 'Rev Saude Publica'
-        })
+        }))
 
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)

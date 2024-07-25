@@ -12,7 +12,7 @@ class RelatedArticlesValidation:
         self.related_articles = [related for related in related_articles.RelatedItems(xmltree).related_articles]
         self.article_type = article_and_subarticles.ArticleAndSubArticles(xmltree).main_article_type
 
-    def related_articles_matches_article_type_validation(self, correspondence_list=None):
+    def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
         """
         Check whether the article type attribute of the article matches the options provided in a standard list.
 
@@ -69,8 +69,10 @@ class RelatedArticlesValidation:
                 is_valid = obtained_related_article in expected_values_for_related_article_type
                 yield format_response(
                     title='Related article type validation',
-                    parent=None,
-                    parent_id=None,
+                    parent=related_article.get("parent"),
+                    parent_id=related_article.get("parent_id"),
+                    parent_article_type=related_article.get("parent_article_type"),
+                    parent_lang=related_article.get("parent_lang"),
                     item='related-article',
                     sub_item='related-article-type',
                     validation_type='match',
@@ -80,10 +82,11 @@ class RelatedArticlesValidation:
                     advice=f"The article-type: {self.article_type} does not match the related-article-type: "
                            f"{obtained_related_article}, provide one of the following items: "
                            f"{expected_values_for_related_article_type}",
-                    data=related_article
+                    data=related_article,
+                    error_level=error_level
                 )
 
-    def related_articles_doi(self):
+    def related_articles_doi(self, error_level="ERROR"):
         """
         Checks if there is a DOI for related articles.
 
@@ -118,8 +121,10 @@ class RelatedArticlesValidation:
             expected_value = doi if doi else 'A valid DOI or URI for related-article/@xlink:href'
             yield format_response(
                 title='Related article doi validation',
-                parent=None,
-                parent_id=None,
+                parent=related_article.get("parent"),
+                parent_id=related_article.get("parent_id"),
+                parent_article_type=related_article.get("parent_article_type"),
+                parent_lang=related_article.get("parent_lang"),
                 item='related-article',
                 sub_item='xlink:href',
                 validation_type='exist',
@@ -128,5 +133,6 @@ class RelatedArticlesValidation:
                 obtained=doi,
                 advice=f'Provide a valid DOI for <related-article ext-link-type="doi" id="{related_article.get("id")}" '
                        f'related-article-type="{related_article.get("related-article-type")}" /> ',
-                data=related_article
+                data=related_article,
+                error_level=error_level
             )
