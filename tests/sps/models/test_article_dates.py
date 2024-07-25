@@ -27,6 +27,8 @@ from packtools.sps.models.article_dates import (
     HistoryDates,
 )
 
+from packtools.sps.utils import xml_utils
+
 
 def _get_xml(articlemeta_content=None):
     if articlemeta_content is None:
@@ -348,6 +350,73 @@ class HistoryDatesTest(TestCase):
                     },
                 }
             },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_reviews_as_sub_article(self):
+        self.maxDiff = None
+        xml_history_date = xml_utils.get_xml_tree('tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml')
+
+        obtained = list(HistoryDates(xml_history_date).history_dates())
+
+        expected = [
+            {
+                'article_date': {'day': '09', 'month': '05', 'type': 'pub', 'year': '2023'},
+                'collection_date': {'season': 'Apr-Jun', 'type': 'collection', 'year': '2023'},
+                'history': {
+                    'accepted': {
+                        'day': '13',
+                        'month': '03',
+                        'type': 'accepted',
+                        'year': '2023'
+                    },
+                    'received': {
+                        'day': '16',
+                        'month': '09',
+                        'type': 'received',
+                        'year': '2022'
+                    }
+                },
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt'
+            },
+            {
+                'article_date': {'day': '09', 'month': '05', 'type': 'pub', 'year': '2023'},
+                'collection_date': {'season': 'Apr-Jun', 'type': 'collection', 'year': '2023'},
+                'history': {
+                    'reviewer-report-received': {
+                        'day': '11',
+                        'month': '12',
+                        'type': 'reviewer-report-received',
+                        'year': '2022'
+                    }
+                },
+                'parent': 'sub-article',
+                'parent_article_type': 'reviewer-report',
+                'parent_id': 's2',
+                'parent_lang': 'pt'
+            },
+            {
+                'article_date': {'day': '09', 'month': '05', 'type': 'pub', 'year': '2023'},
+                'collection_date': {'season': 'Apr-Jun', 'type': 'collection', 'year': '2023'},
+                'history': {
+                    'reviewer-report-received': {
+                        'day': '24',
+                        'month': '12',
+                        'type': 'reviewer-report-received',
+                        'year': '2022'
+                    }
+                },
+                'parent': 'sub-article',
+                'parent_article_type': 'reviewer-report',
+                'parent_id': 's3',
+                'parent_lang': 'pt'
+            }
         ]
 
         for i, item in enumerate(expected):
