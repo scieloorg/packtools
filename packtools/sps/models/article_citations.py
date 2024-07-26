@@ -1,6 +1,4 @@
-from lxml import etree as ET
-
-from ..utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
 
 
 def get_label(node):

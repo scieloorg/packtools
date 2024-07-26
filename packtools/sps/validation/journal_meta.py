@@ -1,4 +1,4 @@
-from ..models.journal_meta import ISSN, Acronym, Title, Publisher, JournalID
+from packtools.sps.models.journal_meta import ISSN, Acronym, Title, Publisher, JournalID
 from packtools.sps.validation.exceptions import (
     ValidationPublisherException,
     ValidationIssnsException,

@@ -1,5 +1,5 @@
-from ..models.front_articlemeta_issue import ArticleMetaIssue
-from ..validation.exceptions import ValidationIssueMissingValue
+from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
+from packtools.sps.validation.exceptions import ValidationIssueMissingValue
 from packtools.sps.validation.utils import format_response
 
 

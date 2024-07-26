@@ -1,4 +1,4 @@
-from ..models.article_xref import ArticleXref
+from packtools.sps.models.article_xref import ArticleXref
 from packtools.sps.validation.utils import format_response
 
 

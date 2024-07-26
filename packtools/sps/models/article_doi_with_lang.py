@@ -1,6 +1,3 @@
-from lxml import etree
-
-
 class DoiWithLang:
 
     """

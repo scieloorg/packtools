@@ -1,4 +1,4 @@
-from ..utils import xml_utils
+from packtools.sps.utils import xml_utils
 
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
