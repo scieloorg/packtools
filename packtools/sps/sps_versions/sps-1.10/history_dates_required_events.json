@@ -1,0 +1,15 @@
+{
+    "_comment": "values for history date events",
+    "sps_version": "sps-1.10",
+    "required_events": [
+        "accepted",
+        "corrected",
+        "pub",
+        "preprint",
+        "received",
+        "resubmitted",
+        "retracted",
+        "rev-recd",
+        "rev-request"
+    ]
+}
