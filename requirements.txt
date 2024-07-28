@@ -12,3 +12,4 @@ tox==4.11.4
 langcodes==3.3.0
 -e git+https://github.com/scieloorg/scielo_scholarly_data#egg=scielo_scholarly_data
 ipdb==0.13.13
+langdetect~=1.0.9
