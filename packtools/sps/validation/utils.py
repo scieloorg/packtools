@@ -30,4 +30,3 @@ def format_response(
         "advice": None if is_valid else advice,
         "data": data,
     }
-

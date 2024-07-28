@@ -1,0 +1,4 @@
+{
+    "special_chars_funding": [".", ","],
+    "special_chars_award_id": ["/", ".", "-"]
+}

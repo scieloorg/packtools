@@ -212,3 +212,74 @@ class FundingTest(TestCase):
             "doi.org.//123.456.789-0"
         ))
 
+    def test_extract_funding_data(self):
+        self.maxDiff = None
+        expected = {
+            "article_type": "research-article",
+            "article_lang": "en",
+            "fn_financial_information": [
+                {
+                    'fn-type': 'financial-disclosure',
+                    'look-like-funding-source': [
+                        'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
+                        'Fundação de Amparo à Pesquisa do Estado de São Paulo',
+                        'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.'
+                    ],
+                    'look-like-award-id': [
+                        '303625/2019-8',
+                        '2016/17640-0',
+                        '0001.'
+                    ]
+                },
+                {
+                    'fn-type': 'supported-by',
+                    'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
+                    'look-like-award-id': ['123.456-7'],
+                }
+            ],
+            "award_groups": [
+                {
+                    "award-id": ["2019JJ40269"],
+                    "funding-source": ["Natural Science Foundation of Hunan Province"]
+                },
+                {
+                    "award-id": ["2020CFB547"],
+                    "funding-source": ["Hubei Provincial Natural Science Foundation of China"]
+                }
+            ],
+            "funding_sources": [
+                "Natural Science Foundation of Hunan Province",
+                "Hubei Provincial Natural Science Foundation of China"
+            ],
+            "funding_statement": "Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial "
+                                 "Natural Science Foundation of China Grant No. 2020CFB547",
+            "principal_award_recipients": [
+                "Stanford",
+                "Berkeley"
+            ],
+            "ack": [
+                {
+                    "title": 'Acknowledgments',
+                    "text": 'Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and '
+                            'Anesthesiology, RJ, Brazil, provided important support for this research. This study was '
+                            'funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment ('
+                            'CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil. This study was presented as a '
+                            'poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 '
+                            'November 2018, Belém do Pará, Brazil.'
+                }
+            ]
+        }
+        obtained = self.funding.extract_funding_data(
+            funding_special_chars=['.', ','],
+            award_id_special_chars=['/', '.', '-']
+        )
+        self.assertEqual(expected, obtained)
+
+    def test_data(self):
+        self.maxDiff = None
+        expected = [
+            {"award-id": "2019JJ40269", "funding-source": ["Natural Science Foundation of Hunan Province"]},
+            {"award-id": "2020CFB547", "funding-source": ["Hubei Provincial Natural Science Foundation of China"]}
+        ]
+        obtained = self.funding.data
+        self.assertListEqual(expected, obtained)
