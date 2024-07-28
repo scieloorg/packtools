@@ -1,7 +1,7 @@
-from ..models.footnotes import ArticleFootnotes
-from ..models.article_and_subarticles import ArticleAndSubArticles
-from ..validation.utils import format_response
-from ..validation.exceptions import ValidationFootnotes
+from packtools.sps.models.footnotes import ArticleFootnotes
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.exceptions import ValidationFootnotes
 
 
 class FootnoteValidation:
