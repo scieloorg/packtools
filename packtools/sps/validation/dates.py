@@ -1,6 +1,8 @@
 from datetime import datetime, date
 
-from packtools.sps.models.dates import ArticleDates
+from packtools.sps.models.article_dates import HistoryDates
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.validation.utils import format_response
 
 
 def date_dict_to_date(date_dict):
@@ -86,11 +88,10 @@ def sort_by_reference_list(publication_events, standard_publication_order):
 
 class ArticleDatesValidation:
     def __init__(self, xmltree):
-        self.history = ArticleDates(xmltree)
-        self.article_date = ArticleDates(xmltree).article_date
-        self.collection_date = ArticleDates(xmltree).collection_date
+        self.history = HistoryDates(xmltree)
+        self.article = ArticleAndSubArticles(xmltree)
 
-    def validate_history_dates(self, order, required_events):
+    def validate_history_dates(self, order, required_events, error_level=None):
         """
         Checks events in an article's history for completeness, validity, and chronological date main_sequence.
 
@@ -136,6 +137,8 @@ class ArticleDatesValidation:
             A list with the main_sequence in which events occur.
         required_events : list
             A list with required events.
+        error_level : str
+            Label that defines the criticality of the error.
 
         Returns
         -------
@@ -144,83 +147,142 @@ class ArticleDatesValidation:
             [
                 {
                     'title': 'History date validation',
-                    'xpath': './/front//history//date',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'item': 'history',
+                    'sub_item': 'date',
                     'validation_type': 'value',
                     'response': 'OK',
                     'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
                     'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
-                    'message': "Got [('received', '1998-01-05'), ('rev-request', '1998-03-14'), ('rev-recd', "
-                               "'1998-05-24'), ('accepted', '1998-06-06'), ('corrected', '2012-06-01')]",
-                    'advice': None
+                    'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'], expected ["
+                               "'received', 'rev-request', 'rev-recd', 'accepted', 'corrected']",
+                    'advice': None,
+                    'data': {
+                        'article_date': None,
+                        'collection_date': None,
+                        'history': {
+                            'received': {
+                                'day': '05',
+                                'month': '01',
+                                'type': 'received',
+                                'year': '1998'
+                            },
+                            'rev-request': {
+                                'day': '14',
+                                'month': '03',
+                                'type': 'rev-request',
+                                'year': '1998'
+                            },
+                            'rev-recd': {
+                                'day': '24',
+                                'month': '05',
+                                'type': 'rev-recd',
+                                'year': '1998'
+                            },
+                            'accepted': {
+                                'day': '06',
+                                'month': '06',
+                                'type': 'accepted',
+                                'year': '1998'
+                            },
+                            'corrected': {
+                                'day': '01',
+                                'month': '06',
+                                'type': 'corrected',
+                                'year': '2012'
+                            }
+                        },
+                        'parent': 'article',
+                        'parent_article_type': 'research-article',
+                        'parent_id': None,
+                        'parent_lang': 'en'
+                    },
                 }, ...
             ]
         """
+        error_level = error_level or "ERROR"
         obtained_events = []
 
         # obtem os nomes dos eventos e suas respectivas datas
-        for event_type, event_date in self.history.history_dates_dict.items():
-            # verifica se a data é válida
-            is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
-            # resposta para data inválida
-            if not is_valid:
-                yield {
-                    'title': 'History date validation',
-                    'xpath': './/front//history//date',
-                    'validation_type': 'format',
-                    'response': 'ERROR',
-                    'expected_value': expected,
-                    'got_value': obtained,
-                    'message': message,
-                    'advice': advice
-                }
-            else:
-                # as tuplas (nome do evento, data válida) são introduzidas na lista obtained_events
-                obtained_events.append((event_type, obtained))
+        for item in self.history.history_dates():
+            for event_type, event_date in item.get("history").items():
+                # verifica se a data é válida
+                is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
+                # resposta para data inválida
+                if not is_valid:
+                    yield format_response(
+                        title='History date validation',
+                        parent=item.get("parent"),
+                        parent_id=item.get("parent_id"),
+                        parent_article_type=item.get("parent_article_type"),
+                        parent_lang=item.get("parent_lang"),
+                        item="history",
+                        sub_item="date",
+                        validation_type="format",
+                        is_valid=is_valid,
+                        expected=expected,
+                        obtained=obtained,
+                        advice=advice,
+                        data=item,
+                        error_level=error_level,
+                    )
+                else:
+                    # as tuplas (nome do evento, data válida) são introduzidas na lista obtained_events
+                    obtained_events.append((event_type, obtained))
 
-        # ordena a lista de eventos de forma cronológica
-        ordered_by_date = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
+            # ordena a lista de eventos de forma cronológica
+            ordered_by_date = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
 
-        # obtem uma lista com os nomes dos eventos ordenados
-        ordered_by_event = [event[0] for event in ordered_by_date]
+            # obtem uma lista com os nomes dos eventos ordenados
+            ordered_by_event = [event[0] for event in ordered_by_date]
 
-        # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
-        missing_events = sort_by_reference_list(list(set(required_events) - set(ordered_by_event)), order)
+            # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
+            missing_events = sort_by_reference_list(list(set(required_events) - set(ordered_by_event)), order)
 
-        # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
-        unknown_events = sorted(list(set(ordered_by_event) - set(order)))
+            # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
+            unknown_events = sorted(list(set(ordered_by_event) - set(order)))
 
-        # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
-        is_ordered = is_subsequence_in_order(ordered_by_event, order)
-        is_complete = missing_events == []
-        are_all_known = unknown_events == []
-        is_valid = is_ordered and is_complete and are_all_known
+            # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
+            is_ordered = is_subsequence_in_order(ordered_by_event, order)
+            is_complete = missing_events == []
+            are_all_known = unknown_events == []
+            is_valid = is_ordered and is_complete and are_all_known
 
-        # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
-        # ordenados pelo padrão
-        expected = sort_by_reference_list(
-            list((set(ordered_by_event) | set(required_events)) - set(unknown_events)), order)
+            # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
+            # ordenados pelo padrão
+            expected = sort_by_reference_list(
+                list((set(ordered_by_event) | set(required_events)) - set(unknown_events)), order)
 
-        # prepara o conteúdo de advice
-        advice = 'Provide:'
-        if not is_ordered:
-            advice += f' the dates of {expected} in chronological order;'
-        if not is_complete:
-            advice += f' valid date for {missing_events};'
-        if not are_all_known:
-            advice += f' removal of events {unknown_events};'
+            # prepara o conteúdo de advice
+            advice = 'Provide:'
+            if not is_ordered:
+                advice += f' the dates of {expected} in chronological order;'
+            if not is_complete:
+                advice += f' valid date for {missing_events};'
+            if not are_all_known:
+                advice += f' removal of events {unknown_events};'
 
-        yield {
-            'title': 'History date validation',
-            'xpath': './/front//history//date',
-            'validation_type': 'value',
-            'response': 'OK' if is_valid else 'ERROR',
-            'expected_value': expected,
-            'got_value': ordered_by_event,
-            'message': f'Got {ordered_by_date}',
-            'advice': None if is_valid else advice
-        }
+            yield format_response(
+                    title='History date validation',
+                    parent=item.get("parent"),
+                    parent_id=item.get("parent_id"),
+                    parent_article_type=item.get("parent_article_type"),
+                    parent_lang=item.get("parent_lang"),
+                    item="history",
+                    sub_item="date",
+                    validation_type="value",
+                    is_valid=is_valid,
+                    expected=expected,
+                    obtained=ordered_by_event,
+                    advice=advice,
+                    data=item,
+                    error_level=error_level,
+            )
 
-    def validate_number_of_digits_in_article_date(self):
+    def validate_number_of_digits_in_article_date(self, error_level=None):
         """
         Checks whether date components have the correct number of digits.
 
@@ -243,49 +305,62 @@ class ArticleDatesValidation:
             </front>
         </article>
 
+        Parameters
+        ----------
+        error_level : str
+            Label that defines the criticality of the error.
+
         Returns
         -------
         list of dict such as:
             [
                 {
                     'title': 'Article pub-date day validation',
-                    'xpath': './/front//pub-date[@date-type="pub"]/day',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'item': 'pub-date',
+                    'sub_item': 'day',
                     'validation_type': 'format',
                     'response': 'OK',
                     'expected_value': '03',
                     'got_value': '03',
-                    'message': 'Got 2 expected 2 numeric digits',
-                    'advice': None
-                },...
+                    'message': 'Got 03, expected 03',
+                    'advice': None,
+                    'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '2024'},
+                }, ...
             ]
         """
-        result = []
+        error_level = error_level or "ERROR"
+
         for elem, expected in zip(('day', 'month', 'year'), (2, 2, 4)):
-            value = self.article_date[elem]
+            value = self.history.article_date.get(elem) or ""
             obtained = len(value)
             validated = obtained == expected
             if value.isdigit():
                 expected_value = value.zfill(expected)
-                message = 'Got {} expected {}'.format(value, expected_value)
             else:
-                expected_value = 'A numeric digit for {} represented with {} digits'.format(elem, expected)
-                message = 'Got a non-numeric value for {}'.format(elem)
+                expected_value = 'a numeric digit for {} represented with {} digits'.format(elem, expected)
                 validated = False
-            result.append(
-                {
-                    'title': 'Article pub-date {} validation'.format(elem),
-                    'xpath': './/front//pub-date[@date-type="pub"]/{}'.format(elem),
-                    'validation_type': 'format',
-                    'response': 'OK' if validated else 'ERROR',
-                    'expected_value': expected_value,
-                    'got_value': value,
-                    'message': message,
-                    'advice': None if validated else 'Provide a {}-digit numeric value for {}'.format(expected, elem)
-                }
+            yield format_response(
+                title='Article pub-date {} validation'.format(elem),
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.article.main_article_type,
+                parent_lang=self.article.main_lang,
+                item="pub-date",
+                sub_item=elem,
+                validation_type="format",
+                is_valid=validated,
+                expected=expected_value,
+                obtained=value,
+                advice='Provide a {}-digit numeric value for {}'.format(expected, elem),
+                data=self.history.article_date,
+                error_level=error_level,
             )
-        return result
 
-    def validate_article_date(self, future_date):
+    def validate_article_date(self, future_date, error_level=None):
         """
         Checks if the publication date is valid and before a deadline.
 
@@ -311,42 +386,60 @@ class ArticleDatesValidation:
         Params
         ------
         future_date : str
+            A deadline.
+        error_level : str
+            Label that defines the criticality of the error.
 
         Returns
         -------
         dict such as:
             {
                 'title': 'Article pub-date validation',
-                'xpath': './/front//pub-date[@date-type="pub"]',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'pub-date',
+                'sub_item': "@date-type='pub'",
                 'validation_type': 'value',
                 'response': 'OK',
-                'expected_value': 'A date in the format: YYYY-MM-DD less than 2023-12-12',
+                'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
                 'got_value': '2023-01-01',
-                'message': '2023-01-01 is an valid date',
-                'advice': None
+                'message': 'Got 2023-01-01, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
+                'advice': None,
+                'data': {'day': '01', 'month': '01', 'type': 'pub', 'year': '2023'},
             }
         """
 
-        got_value = '-'.join([self.article_date[elem] for elem in ['year', 'month', 'day']])
+        future_date = future_date or datetime.now().strftime("%Y-%m-%d")
+
+        error_level = error_level or "ERROR"
+
+        got_value = '-'.join([self.history.article_date.get(elem) for elem in ['year', 'month', 'day']])
         try:
-            date_dict_to_date(self.article_date)
+            date_dict_to_date(self.history.article_date)
             validated = got_value <= future_date
         except ValueError as e:
             validated = False
 
-        return {
-            'title': 'Article pub-date validation',
-            'xpath': './/front//pub-date[@date-type="pub"]',
-            'validation_type': 'value',
-            'response': 'OK' if validated else 'ERROR',
-            'expected_value': 'A date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
-            'got_value': got_value,
-            'message': '{} is an {}'.format(got_value, 'valid date' if validated else 'invalid date'),
-            'advice': None if validated else 'Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(
-                future_date)
-        }
+        return format_response(
+            title='Article pub-date validation',
+            parent="article",
+            parent_id=None,
+            parent_article_type=self.article.main_article_type,
+            parent_lang=self.article.main_lang,
+            item="pub-date",
+            sub_item="@date-type='pub'",
+            validation_type="value",
+            is_valid=validated,
+            expected='a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
+            obtained=got_value,
+            advice='Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
+            data=self.history.article_date,
+            error_level=error_level,
+        )
 
-    def validate_collection_date(self, future_date):
+    def validate_collection_date(self, future_date, error_level=None):
         """
         Checks if the collection date exists, is valid and before a deadline.
 
@@ -375,27 +468,39 @@ class ArticleDatesValidation:
         Params
         ------
         future_date : str
+            A deadline.
+        error_level : str
+            Label that defines the criticality of the error.
 
         Returns
         -------
-        list of dict, such as:
-            [
-                {
-                    'title': 'Collection pub-date validation',
-                    'xpath': './/front//pub-date[@date-type="collection"]',
-                    'validation_type': 'format',
-                    'response': 'OK',
-                    'expected_value': '2023',
-                    'got_value': '2023',
-                    'message': 'Got 2023 expected 2023',
-                    'advice': None
-                }
-            ]
+        dict such as:
+            {
+                'title': 'Collection pub-date validation',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'pub-date',
+                'sub_item': "@date-type='collection'",
+                'validation_type': 'format',
+                'response': 'OK',
+                'expected_value': '2023',
+                'got_value': '2023',
+                'message': 'Got 2023, expected 2023',
+                'advice': None,
+                'data': {'type': 'collection', 'year': '2023'},
+            }
         """
-        try:
-            obtained = self.collection_date.get('year')
-            advice = None
 
+        error_level = error_level or "ERROR"
+
+        future_date = future_date or datetime.now().year
+
+        obtained = self.history.collection_date.get("year") if self.history.collection_date else None
+
+        try:
+            advice = None
             if not obtained.isdigit():
                 advice = 'Provide only numeric values for the collection year'
             elif len(obtained) != 4:
@@ -406,27 +511,39 @@ class ArticleDatesValidation:
             is_valid = advice is None
             expected = obtained if is_valid else "the publication date of the collection"
 
-            yield {
-                'title': 'Collection pub-date validation',
-                'xpath': './/front//pub-date[@date-type="collection"]',
-                'validation_type': 'format',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected,
-                'got_value': obtained,
-                'message': 'Got {} expected {}'.format(obtained, expected),
-                'advice': advice
-            }
+            return format_response(
+                title='Collection pub-date validation',
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.article.main_article_type,
+                parent_lang=self.article.main_lang,
+                item="pub-date",
+                sub_item="@date-type='collection'",
+                validation_type='format',
+                is_valid=is_valid,
+                expected=expected,
+                obtained=obtained,
+                advice=advice,
+                data=self.history.collection_date,
+                error_level=error_level,
+            )
         except AttributeError:
-            yield {
-                'title': 'Collection pub-date validation',
-                'xpath': './/front//pub-date[@date-type="collection"]',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'the publication date of the collection',
-                'got_value': None,
-                'message': 'Got None expected the publication date of the collection',
-                'advice': 'Provide the publication date of the collection'
-            }
+            return format_response(
+                title='Collection pub-date validation',
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.article.main_article_type,
+                parent_lang=self.article.main_lang,
+                item="pub-date",
+                sub_item="@date-type='collection'",
+                validation_type='exist',
+                is_valid=False,
+                expected='the publication date of the collection',
+                obtained=None,
+                advice='Provide the publication date of the collection',
+                data=self.history.collection_date,
+                error_level=error_level,
+            )
 
     def validate(self, data):
         """
