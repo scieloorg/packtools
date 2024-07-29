@@ -2,7 +2,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.models.article_contribs import ArticleContribs, ContribGroup
-from packtools.sps.models.history_dates import HistoryDates
+from packtools.sps.models.article_dates import HistoryDates
 from packtools.sps.models.peer_review import CustomMetaGroup
 from packtools.sps.models.related_articles import RelatedItems
 

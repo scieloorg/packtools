@@ -1,5 +1,5 @@
 from packtools.sps.models.article_contribs import ContribGroup
-from packtools.sps.models.history_dates import HistoryDates
+from packtools.sps.models.article_dates import HistoryDates
 from packtools.sps.models.peer_review import PeerReview, CustomMeta
 from packtools.sps.models.related_articles import RelatedItems
 from packtools.sps.validation.exceptions import ValidationPeerReviewException

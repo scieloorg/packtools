@@ -1,0 +1,7 @@
+{
+    "sps_version": "sps-1.10",
+    "contrib_type_list": [
+        "author",
+        "compiler",
+    ],
+}
