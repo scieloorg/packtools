@@ -49,6 +49,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
+                'parent': 'article',
                 'article_id': None,
                 'article_type': 'research-article',
                 'lang': 'pt',
@@ -56,6 +57,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'subject': 'ARTIGOS'
             },
             {
+                'parent': 'sub-article',
                 'article_id': 's2',
                 'article_type': 'reviewer-report',
                 'lang': 'pt',
@@ -63,6 +65,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'subject': 'Pareceres'
             },
             {
+                'parent': 'sub-article',
                 'article_id': 's3',
                 'article_type': 'reviewer-report',
                 'lang': 'pt',
@@ -70,6 +73,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'subject': 'Pareceres'
             },
             {
+                'parent': 'sub-article',
                 'article_id': 's1',
                 'article_type': 'translation',
                 'lang': 'en',
@@ -77,6 +81,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'subject': 'ARTICLES'
             },
             {
+                'parent': 'sub-article',
                 'article_id': 's5',
                 'article_type': 'reviewer-report',
                 'lang': 'en',
@@ -84,6 +89,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'subject': 'Reviews'
             },
             {
+                'parent': 'sub-article',
                 'article_id': 's6',
                 'article_type': 'reviewer-report',
                 'lang': 'en',
