@@ -114,38 +114,50 @@ class AcronymTest(TestCase):
         expected = [
             {
                 'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'journal-meta',
+                'sub_item': 'journal-id[@journal-id-type="publisher-id"]',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'advice': None,
+                'data': {'acronym': 'hcsm'}
             }
         ]
-        obtained = self.acronym.acronym_validation('hcsm')
-        for i, item in enumerate(obtained):
+        obtained = list(self.acronym.acronym_validation('hcsm'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
     def test_acronym_validation_fail(self):
         self.maxDiff = None
         expected = [
             {
                 'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'journal-meta',
+                'sub_item': 'journal-id[@journal-id-type="publisher-id"]',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'hcs',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcs',
-                'advice': 'Provide an acronym value as expected: hcs'
+                'message': 'Got hcsm, expected hcs',
+                'advice': 'Provide an acronym value as expected: hcs',
+                'data': {'acronym': 'hcsm'}
             }
         ]
-        obtained = self.acronym.acronym_validation('hcs')
-        for i, item in enumerate(obtained):
+        obtained = list(self.acronym.acronym_validation('hcs'))
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+                self.assertDictEqual(obtained[i], item)
 
 
 class TitleTest(TestCase):
@@ -633,13 +645,19 @@ class JournalMetaValidationTest(TestCase):
             },
             {
                 'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'journal-meta',
+                'sub_item': 'journal-id[@journal-id-type="publisher-id"]',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'advice': None,
+                'data': {'acronym': 'hcsm'}
             },
             {
                 'title': 'Journal title element validation',
