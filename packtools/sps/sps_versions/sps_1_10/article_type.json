@@ -1,0 +1,41 @@
+{
+    "sps_version": "sps-1.10",
+    "article_type_list": {
+        "article": [
+            "article-commentary",
+            "book-review",
+            "brief-report",
+            "case-report",
+            "correction",
+            "editorial",
+            "in-brief",
+            "letter",
+            "other",
+            "partial-retraction",
+            "rapid-communication",
+            "reply",
+            "research-article",
+            "retraction",
+            "review-article",
+            "data-article"
+        ],
+        "sub-article": [
+            "translation",
+            "editorial",
+            "announcement",
+            "correction",
+            "retraction",
+            "letter",
+            "brief-report",
+            "addendum",
+            "reply",
+            "discussion",
+            "case-report",
+            "obituary",
+            "book-review",
+            "in-memoriam",
+            "news",
+            "other"
+        ]
+    }
+}
