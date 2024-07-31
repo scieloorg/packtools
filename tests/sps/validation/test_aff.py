@@ -52,6 +52,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="original"',
                 "validation_type": "exist",
@@ -82,6 +84,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
@@ -112,6 +116,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "country",
                 "validation_type": "exist",
@@ -142,6 +148,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "country",
                 "sub_item": "@country",
                 "validation_type": "value in list",
@@ -172,6 +180,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "state",
                 "validation_type": "exist",
@@ -202,6 +212,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "city",
                 "validation_type": "exist",
@@ -232,6 +244,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="original"',
                 "validation_type": "exist",
@@ -267,6 +281,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
@@ -299,6 +315,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "country",
                 "validation_type": "exist",
@@ -331,6 +349,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "country",
                 "sub_item": "@country",
                 "validation_type": "value in list",
@@ -363,6 +383,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "state",
                 "validation_type": "exist",
@@ -395,6 +417,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "city",
                 "validation_type": "exist",
@@ -432,7 +456,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliation_without_original(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -458,6 +482,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="original"',
                 "validation_type": "exist",
@@ -478,9 +504,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": None,
                     "parent": "article",
-                    "parent_article_type": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "parent_id": None,
-                    "parent_lang": None,
                     "state": "MG",
                 },
             }
@@ -493,7 +519,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_orgname(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -518,6 +544,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
@@ -539,9 +567,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "parent_id": None,
-                    "parent_lang": None,
                     "state": "MG",
                 },
             }
@@ -554,7 +582,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_country(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -580,6 +608,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "country",
                 "validation_type": "exist",
@@ -600,9 +630,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             }
@@ -615,7 +645,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_country_code(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -644,6 +674,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "country",
                 "sub_item": "@country",
                 "validation_type": "value in list",
@@ -665,9 +697,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             }
@@ -680,7 +712,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_state(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -706,6 +738,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "state",
                 "validation_type": "exist",
@@ -727,9 +761,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": None,
                 },
             }
@@ -742,7 +776,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_city(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -768,6 +802,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "city",
                 "validation_type": "exist",
@@ -789,9 +825,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             }
@@ -804,7 +840,7 @@ class AffiliationValidationTest(TestCase):
     def test_affiliations_without_id(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff>
@@ -830,6 +866,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "@id",
                 "validation_type": "exist",
@@ -851,9 +889,9 @@ class AffiliationValidationTest(TestCase):
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
                     "Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             }
@@ -866,7 +904,7 @@ class AffiliationValidationTest(TestCase):
     def test_validate(self):
         self.maxDiff = None
         xml = """
-        <article>
+        <article article-type="research-article" xml:lang="pt">
             <front>
                 <article-meta>
                     <aff id="aff1">
@@ -904,6 +942,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="original"',
                 "validation_type": "exist",
@@ -924,9 +964,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -934,6 +974,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
@@ -954,9 +996,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -964,6 +1006,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "country",
                 "validation_type": "exist",
@@ -984,9 +1028,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -994,6 +1038,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "country",
                 "sub_item": "@country",
                 "validation_type": "value in list",
@@ -1014,9 +1060,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1024,6 +1070,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "state",
                 "validation_type": "exist",
@@ -1044,9 +1092,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1054,6 +1102,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "city",
                 "validation_type": "exist",
@@ -1074,9 +1124,9 @@ class AffiliationValidationTest(TestCase):
                     "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                     "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1084,6 +1134,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="original"',
                 "validation_type": "exist",
@@ -1109,9 +1161,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1119,6 +1171,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "institution",
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
@@ -1141,9 +1195,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1151,6 +1205,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "aff",
                 "sub_item": "country",
                 "validation_type": "exist",
@@ -1173,9 +1229,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1183,6 +1239,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "country",
                 "sub_item": "@country",
                 "validation_type": "value in list",
@@ -1205,9 +1263,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1215,6 +1273,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "state",
                 "validation_type": "exist",
@@ -1237,9 +1297,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
@@ -1247,6 +1307,8 @@ class AffiliationValidationTest(TestCase):
                 "title": "Affiliation validation",
                 "parent": "article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
                 "item": "addr-line",
                 "sub_item": "city",
                 "validation_type": "exist",
@@ -1269,9 +1331,9 @@ class AffiliationValidationTest(TestCase):
                     "Saúde. Faculdade de Medicina. Universidade Federal de "
                     "Minas Gerais. Belo Horizonte, MG, Brasil",
                     "parent": "article",
-                    "parent_article_type": None,
                     "parent_id": None,
-                    "parent_lang": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                     "state": "MG",
                 },
             },
