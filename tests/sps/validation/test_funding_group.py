@@ -2,6 +2,7 @@ import unittest
 
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.funding_group import FundingGroupValidation
+from packtools.sps.utils import xml_utils
 
 
 def callable_validation_success(award_id):
@@ -1180,6 +1181,63 @@ class FundingGroupValidationTest(unittest.TestCase):
         xml_tree = get_xml_tree(xml_str)
         obtained = list(FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_fail))
         self.assertEqual([], obtained)
+
+    def test_funding_sources_validation_fix_bug(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree('tests/samples/1518-8787-rsp-56-37.xml')
+        obtained = list(FundingGroupValidation(
+            xml_tree,
+            special_chars_funding=['.', ','],
+            special_chars_award_id=['/', '.', '-']
+        ).funding_sources_exist_validation())
+
+        expected = [
+            {
+                "title": "Funding source element validation",
+                "parent": "article",
+                "parent_article_type": "other",
+                "parent_id": None,
+                "parent_lang": "en",
+                "item": "award-group",
+                "sub_item": "funding-source",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "at least 1 value for funding source and at least 1 value "
+                                  "for award id",
+                "got_value": "1 values for funding source and 1 values for award id",
+                "message": "Got 1 values for funding source and 1 values for award id, "
+                           "expected at least 1 value for funding source and at least 1 value "
+                           "for award id",
+                "advice": None,
+                "data": {
+                    "ack": [],
+                    "article_lang": "en",
+                    "article_type": "other",
+                    "award_groups": [
+                        {"award-id": ["442776/2019-5"], "funding-source": ["CNPq"]},
+                        {"award-id": ["2018/14384-9"], "funding-source": ["Fapesp"]},
+                    ],
+                    "fn_financial_information": [
+                        {
+                            "fn-type": "financial-disclosure",
+                            "look-like-award-id": ["442776/2019-5"],
+                            "look-like-funding-source": [],
+                        }
+                    ],
+                    "funding_sources": ["CNPq", "Fapesp"],
+                    "funding_statement": "Funding: Conselho Nacional de Desenvolvimento "
+                                         "Científico e Tecnológico (CNPq - "
+                                         "442776/2019-5). Fundação de Amparo à Pesquisa "
+                                         "do Estado de São Paulo (Fapesp - "
+                                         "2018/14384-9).",
+                    "principal_award_recipients": [],
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
 
 
 if __name__ == '__main__':
