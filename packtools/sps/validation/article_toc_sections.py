@@ -11,43 +11,7 @@ class ArticleTocSectionsValidation:
 
     def validate_article_toc_sections(self, expected_toc_sections, error_level="CRITICAL"):
         """
-        Check whether the TOC sections matches the options provided in a standard list.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
-            dtd-version="1.0" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <title-group>
-                        <article-title>Título del artículo</article-title>
-                    </title-group>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
-                </article-meta>
-            </front>
-            <sub-article article-type="translation" id="01" xml:lang="pt">
-                <front-stub>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Ciências da Saúde</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Saúde Pública</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
-                    <title-group>
-                        <article-title>Article title</article-title>
-                    </title-group>
-                </front-stub>
-            </sub-article>
-        </article>
+        Check whether the TOC sections match the options provided in a standard list.
 
         Params
         ------
@@ -56,45 +20,12 @@ class ArticleTocSectionsValidation:
                 "en": ["Health Sciences"],
                 "pt": ["Ciências da Saúde"]
             }
-        level_error : str
+        error_level : str
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Article section title validation',
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'item': 'subj-group',
-                    'sub_item': 'subject',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['Health Sciences'],
-                    'got_value': 'Health Sciences',
-                    'message': "Got Health Sciences, expected ['Health Sciences']",
-                    'advice': None,
-                    'data': {
-                        'en': {
-                            'parent': 'article',
-                            'parent_article_type': 'research-article',
-                            'parent_id': None,
-                            'parent_lang': 'en',
-                            'text': 'Health Sciences'
-                        },
-                        'pt': {
-                            'parent': 'sub-article',
-                            'parent_article_type': 'translation',
-                            'parent_id': '01',
-                            'parent_lang': 'pt',
-                            'text': 'Ciências da Saúde'
-                        }
-                    },
-                },...
-            ]
+        generator of dict
+            A generator that yields dictionaries with validation results.
         """
         obtained_toc_sections = self.article_toc_sections.sections_dict
         if obtained_toc_sections:
