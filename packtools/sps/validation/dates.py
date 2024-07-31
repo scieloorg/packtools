@@ -439,7 +439,7 @@ class ArticleDatesValidation:
             error_level=error_level,
         )
 
-    def validate_collection_date(self, future_date, error_level=None):
+    def validate_collection_date(self, future_date=None, error_level=None):
         """
         Checks if the collection date exists, is valid and before a deadline.
 
