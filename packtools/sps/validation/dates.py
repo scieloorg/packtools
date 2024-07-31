@@ -360,7 +360,7 @@ class ArticleDatesValidation:
                 error_level=error_level,
             )
 
-    def validate_article_date(self, future_date, error_level=None):
+    def validate_article_date(self, future_date=None, error_level=None):
         """
         Checks if the publication date is valid and before a deadline.
 
