@@ -1,4 +1,8 @@
-from packtools.sps.utils.xml_utils import node_text_without_xref, get_parent_context, put_parent_context
+from packtools.sps.utils.xml_utils import (
+    node_text_without_xref,
+    get_parent_context,
+    put_parent_context,
+)
 
 
 def get_node_without_subtag(node):
@@ -30,9 +34,7 @@ class AffiliationExtractor:
         institution_aff = ["orgname", "orgdiv1", "orgdiv2", "original"]
 
         # Define se a extração vai ocorrer com subtags ou sem.
-        aff_text = (
-            node_text_without_xref if subtag else get_node_without_subtag
-        )
+        aff_text = node_text_without_xref if subtag else get_node_without_subtag
 
         for node in nodes:
             for aff_node in node.xpath("aff"):
