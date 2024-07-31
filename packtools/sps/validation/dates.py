@@ -360,7 +360,7 @@ class ArticleDatesValidation:
                 error_level=error_level,
             )
 
-    def validate_article_date(self, future_date, error_level=None):
+    def validate_article_date(self, future_date=None, error_level=None):
         """
         Checks if the publication date is valid and before a deadline.
 
@@ -439,7 +439,7 @@ class ArticleDatesValidation:
             error_level=error_level,
         )
 
-    def validate_collection_date(self, future_date, error_level=None):
+    def validate_collection_date(self, future_date=None, error_level=None):
         """
         Checks if the collection date exists, is valid and before a deadline.
 
@@ -505,7 +505,7 @@ class ArticleDatesValidation:
                 advice = 'Provide only numeric values for the collection year'
             elif len(obtained) != 4:
                 advice = 'Provide a four-digit numeric value for the year of collection'
-            elif obtained > future_date:
+            elif int(obtained) > int(future_date):
                 advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
 
             is_valid = advice is None
