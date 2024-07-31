@@ -505,7 +505,7 @@ class ArticleDatesValidation:
                 advice = 'Provide only numeric values for the collection year'
             elif len(obtained) != 4:
                 advice = 'Provide a four-digit numeric value for the year of collection'
-            elif obtained > future_date:
+            elif int(obtained) > int(future_date):
                 advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
 
             is_valid = advice is None
