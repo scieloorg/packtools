@@ -37,31 +37,34 @@ class ArticleTocSectionsValidation:
             for lang in all_langs:
                 is_valid = False
                 title = 'Article section title validation'
-                validation = "exist"
+                validation_type = "exist"
                 expected = expected_toc_sections.get(lang)
                 obtained = obtained_toc_sections.get(lang)
                 obtained_msg = obtained.get('text') if obtained else None
-                advice = 'Provide missing section for language: {}'.format(lang)
+                advice = f'Provide missing section for language: {lang}'
+
                 if lang in common_langs:
-                    if obtained.get('text'):
-                        # verifica se o título de seção está presente na lista esperada
-                        is_valid = obtained.get('text') in expected
-                        if obtained.get("parent") == "sub-article":
-                            title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
-                        validation = 'value in list'
+                    try:
+                        if obtained.get('text'):
+                            is_valid = obtained.get('text') in expected
+                            if obtained.get("parent") == "sub-article":
+                                title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
+                            validation_type = 'value in list'
+                    except AttributeError:
+                        pass
                 elif lang in obtained_langs:
-                    advice = 'Remove unexpected section for language: {}'.format(lang)
+                    advice = f'Remove unexpected section for language: {lang}'
 
                 yield format_response(
                     title=title,
-                    parent=obtained.get("parent"),
-                    parent_id=obtained.get("parent_id"),
-                    parent_article_type=obtained.get("parent_article_type"),
-                    parent_lang=obtained.get("parent_lang"),
+                    parent=obtained.get("parent") if obtained else None,
+                    parent_id=obtained.get("parent_id") if obtained else None,
+                    parent_article_type=obtained.get("parent_article_type") if obtained else None,
+                    parent_lang=obtained.get("parent_lang") if obtained else None,
                     item="subj-group",
                     sub_item="subject",
                     is_valid=is_valid,
-                    validation_type=validation,
+                    validation_type=validation_type,
                     expected=expected,
                     obtained=obtained_msg,
                     advice=advice,
