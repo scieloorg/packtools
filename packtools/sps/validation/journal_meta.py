@@ -363,11 +363,9 @@ class JournalMetaValidation:
         publisher = PublisherNameValidation(self.xmltree)
         nlm_ta = JournalIdValidation(self.xmltree)
 
-        resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
-                            list(acronym.acronym_validation(expected_values['acronym'])) + \
-                            title.journal_title_validation(expected_values['journal-title']) + \
-                            list(title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])) + \
-                            list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
-                            list(nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta']))
-
-        return resp_journal_meta
+        yield from issn.validate_issn(expected_values['issns'])
+        yield from acronym.acronym_validation(expected_values['acronym'])
+        yield from title.journal_title_validation(expected_values['journal-title'])
+        yield from title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])
+        yield from publisher.validate_publisher_names(expected_values['publisher-name'])
+        yield from nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta'])
