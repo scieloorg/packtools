@@ -76,9 +76,14 @@ def get_xml_tree(xml_file_path):
 def get_data(filename, key, sps_version=None):
     sps_version = sps_version or "default"
     # Reads contents with UTF-8 encoding and returns str.
-    content = files(f'packtools.sps.sps_versions.{sps_version}').joinpath(f"{filename}.json").read_text()
+    content = (
+        files(f"packtools.sps.sps_versions")
+        .joinpath(f"{sps_version}")
+        .joinpath(f"{filename}.json")
+        .read_text()
+    )
     x = " ".join(content.split())
-    fixed = x.replace(', ]', ']').replace(', }', '}')
+    fixed = x.replace(", ]", "]").replace(", }", "}")
     data = json.loads(fixed)
     return data[key]
 
@@ -131,8 +136,7 @@ def validate_xml_content(sps_pkg_name, xmltree, params):
     )
 
     sps_version = xmltree.find(".").get("specific-use")
-    sps_version = sps_version.replace("-", "_")
-    sps_version = sps_version.replace(".", "_")
+
     for validation_group, f in validation_group_and_function_items:
         try:
             items = f(xmltree, sps_version, params)
