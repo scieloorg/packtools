@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from lxml import etree
 
+from packtools.sps.utils import xml_utils
 from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
 
 
@@ -800,6 +801,72 @@ class ArticleTocSectionsTest(TestCase):
             },
         ]
         obtained = list(self.article_toc_sections.validade_article_title_is_different_from_section_titles())
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_toc_sections_to_fix_bug(self):
+        self.maxDiff = None
+        self.xmltree = xml_utils.get_xml_tree('tests/samples/1518-8787-rsp-56-37.xml')
+
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+        expected_section = {
+             "en": ["Comments"],
+             "pt": ["Comentários"]
+        }
+        expected = [
+            {
+                'title': 'Article section title validation',
+                'parent': 'article',
+                'parent_article_type': 'other',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'got_value': 'Comments',
+                'expected_value': ['Comments'],
+                'message': "Got Comments, expected ['Comments']",
+                'advice': None,
+                'data': {
+                    'en': {
+                        'parent': 'article',
+                        'parent_article_type': 'other',
+                        'parent_id': None,
+                        'parent_lang': 'en',
+                        'text': 'Comments'
+                    }
+                },
+            },
+            {
+                'title': 'Article section title validation',
+                'parent': None,
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': None,
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'exist',
+                'response': 'CRITICAL',
+                'got_value': None,
+                'expected_value': ['Comentários'],
+                'message': "Got None, expected ['Comentários']",
+                'advice': 'Provide missing section for language: pt',
+                'data': {
+                    'en': {
+                        'parent': 'article',
+                        'parent_article_type': 'other',
+                        'parent_id': None,
+                        'parent_lang': 'en',
+                        'text': 'Comments'
+                    }
+                },
+            }
+
+        ]
+        obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
         for i, item in enumerate(expected):
             with self.subTest(i):
