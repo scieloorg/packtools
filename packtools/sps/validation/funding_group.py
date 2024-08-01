@@ -56,7 +56,7 @@ class FundingGroupValidation:
                     advice = 'Provide value for funding source'
                 else:
                     is_valid = True
-            data = self.funding_group_object.data(self.special_chars_funding, self.special_chars_award_id)
+            data = self.funding_group_object.extract_funding_data(self.special_chars_funding, self.special_chars_award_id)
             yield format_response(
                 title=title,
                 parent="article",
@@ -76,7 +76,7 @@ class FundingGroupValidation:
 
     def award_id_format_validation(self, callable_validation=None, error_level="ERROR"):
         callable_validation = callable_validation or _callable_extern_validate_default
-        data = self.funding_group_object.data(self.special_chars_funding, self.special_chars_award_id)
+        data = self.funding_group_object.extract_funding_data(self.special_chars_funding, self.special_chars_award_id)
         for funding in self.funding_group:
             for award_id in funding.get("award-id"):
                 is_valid = callable_validation(award_id)
