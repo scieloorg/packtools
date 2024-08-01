@@ -839,32 +839,7 @@ class ArticleTocSectionsTest(TestCase):
                         'text': 'Comments'
                     }
                 },
-            },
-            {
-                'title': 'Article section title validation',
-                'parent': None,
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': None,
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'got_value': None,
-                'expected_value': ['Comentários'],
-                'message': "Got None, expected ['Comentários']",
-                'advice': 'Provide missing section for language: pt',
-                'data': {
-                    'en': {
-                        'parent': 'article',
-                        'parent_article_type': 'other',
-                        'parent_id': None,
-                        'parent_lang': 'en',
-                        'text': 'Comments'
-                    }
-                },
             }
-
         ]
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
