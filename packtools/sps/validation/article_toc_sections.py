@@ -31,10 +31,9 @@ class ArticleTocSectionsValidation:
         if obtained_toc_sections:
             obtained_langs = set(obtained_toc_sections)
             expected_langs = set(expected_toc_sections)
-            all_langs = sorted(list(obtained_langs | expected_langs))
             common_langs = sorted(list(obtained_langs & expected_langs))
 
-            for lang in all_langs:
+            for lang in common_langs:
                 is_valid = False
                 title = 'Article section title validation'
                 validation_type = "exist"
@@ -43,17 +42,14 @@ class ArticleTocSectionsValidation:
                 obtained_msg = obtained.get('text') if obtained else None
                 advice = f'Provide missing section for language: {lang}'
 
-                if lang in common_langs:
-                    try:
-                        if obtained.get('text'):
-                            is_valid = obtained.get('text') in expected
-                            if obtained.get("parent") == "sub-article":
-                                title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
-                            validation_type = 'value in list'
-                    except AttributeError:
-                        pass
-                elif lang in obtained_langs:
-                    advice = f'Remove unexpected section for language: {lang}'
+                try:
+                    if obtained.get('text'):
+                        is_valid = obtained.get('text') in expected
+                        if obtained.get("parent") == "sub-article":
+                            title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
+                        validation_type = 'value in list'
+                except AttributeError:
+                    pass
 
                 yield format_response(
                     title=title,
