@@ -9,27 +9,27 @@ class FigTest(unittest.TestCase):
         xml = (
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
-            '<body>'
-            '<p>'
+            "<body>"
+            "<p>"
             '<fig fig-type="map" id="f02">'
-            '<label>FIGURE 2</label>'
-            '<caption>'
-            '<title>Título da figura</title>'
-            '</caption>'
+            "<label>FIGURE 2</label>"
+            "<caption>"
+            "<title>Título da figura</title>"
+            "</caption>"
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.tif"/>'
-            '<attrib>Fonte: IBGE (2018)</attrib>'
-            '<alternatives>'
+            "<attrib>Fonte: IBGE (2018)</attrib>"
+            "<alternatives>"
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-lowres.tif" mime-subtype="low-resolution"/>'
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-highres.tif" mime-subtype="high-resolution"/>'
-            '<textual-alternative>'
-            '<p>Texto alternativo que descreve a figura em detalhes para acessibilidade.</p>'
-            '</textual-alternative>'
+            "<textual-alternative>"
+            "<p>Texto alternativo que descreve a figura em detalhes para acessibilidade.</p>"
+            "</textual-alternative>"
             '<media xlink:href="1234-5678-zwy-12-04-0123-gf02.mp4" mime-subtype="video"/>'
-            '</alternatives>'
-            '</fig>'
-            '</p>'
-            '</body>'
-            '</article>'
+            "</alternatives>"
+            "</fig>"
+            "</p>"
+            "</body>"
+            "</article>"
         )
         self.xmltree = etree.fromstring(xml)
         self.fig_element = self.xmltree.xpath("//fig")[0]
@@ -54,7 +54,10 @@ class FigTest(unittest.TestCase):
         self.assertEqual(self.fig_obj.source_attrib, "Fonte: IBGE (2018)")
 
     def test_alternative_elements(self):
-        self.assertListEqual(self.fig_obj.alternative_elements, ['graphic', 'graphic', 'textual-alternative', 'media'])
+        self.assertListEqual(
+            self.fig_obj.alternative_elements,
+            ["graphic", "graphic", "textual-alternative", "media"],
+        )
 
     def test_data(self):
         expected_data = {
@@ -65,7 +68,12 @@ class FigTest(unittest.TestCase):
             "graphic_href": "1234-5678-zwy-12-04-0123-gf02.tif",
             "caption_text": "Título da figura",
             "source_attrib": "Fonte: IBGE (2018)",
-            "alternative_elements": ['graphic', 'graphic', 'textual-alternative', 'media']
+            "alternative_elements": [
+                "graphic",
+                "graphic",
+                "textual-alternative",
+                "media",
+            ],
         }
         self.assertDictEqual(self.fig_obj.data, expected_data)
 
@@ -75,38 +83,38 @@ class ArticleFigsTest(unittest.TestCase):
         xml = (
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
-            '<body>'
-            '<p>'
+            "<body>"
+            "<p>"
             '<fig fig-type="map" id="f02">'
-            '<label>FIGURE 2</label>'
-            '<caption>'
-            '<title>Título da figura</title>'
-            '</caption>'
+            "<label>FIGURE 2</label>"
+            "<caption>"
+            "<title>Título da figura</title>"
+            "</caption>"
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.tif"/>'
-            '<attrib>Fonte: IBGE (2018)</attrib>'
-            '<alternatives>'
+            "<attrib>Fonte: IBGE (2018)</attrib>"
+            "<alternatives>"
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-lowres.tif" mime-subtype="low-resolution"/>'
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-highres.tif" mime-subtype="high-resolution"/>'
-            '<textual-alternative>'
-            '<p>Texto alternativo que descreve a figura em detalhes para acessibilidade.</p>'
-            '</textual-alternative>'
+            "<textual-alternative>"
+            "<p>Texto alternativo que descreve a figura em detalhes para acessibilidade.</p>"
+            "</textual-alternative>"
             '<media xlink:href="1234-5678-zwy-12-04-0123-gf02.mp4" mime-subtype="video"/>'
-            '</alternatives>'
-            '</fig>'
-            '</p>'
-            '</body>'
+            "</alternatives>"
+            "</fig>"
+            "</p>"
+            "</body>"
             '<sub-article article-type="translation" id="TRen" xml:lang="en">'
-		    '<body>'
+            "<body>"
             '<fig fig-type="map" id="f01">'
-            '<label>Map 1</label>'
-            '<caption>'
-            '<title>Título do Mapa</title>'
-            '</caption>'
+            "<label>Map 1</label>"
+            "<caption>"
+            "<title>Título do Mapa</title>"
+            "</caption>"
             '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf01.tif"/>'
-            '</fig>'
-            '</body>'
-            '</sub-article>'
-            '</article>'
+            "</fig>"
+            "</body>"
+            "</sub-article>"
+            "</article>"
         )
         self.xmltree = etree.fromstring(xml)
 
@@ -156,8 +164,9 @@ class ArticleFigsTest(unittest.TestCase):
 
         for lang, item in expected.items():
             with self.subTest(lang):
-                self.assertDictEqual(item, obtained[lang])
+                for i, data in enumerate(item):
+                    self.assertDictEqual(data, obtained[lang][i])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
