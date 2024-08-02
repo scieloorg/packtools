@@ -96,6 +96,51 @@ class FigValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
+    def test_fig_validation_with_fig_elements_fix_bug(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree(
+            "tests/fixtures/htmlgenerator/table_wrap_group_and_fig_group/2236-8906"
+            "-hoehnea-49-e1082020/2236-8906-hoehnea-49-e1082020.xml"
+        )
+        obtained = list(FigValidation(xmltree).validate_fig_existence())
+
+        expected = [
+            {
+                "title": "validation of <fig> elements",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "item": "fig",
+                "sub_item": None,
+                "validation_type": "exist",
+                "expected_value": "<fig> element",
+                "got_value": "<fig> present",
+                "response": "OK",
+                "message": "Got <fig> present, expected <fig> element",
+                "advice": None,
+                "data": {
+                    "alternative_elements": [],
+                    "alternative_parent": "fig",
+                    "caption_text": "Mapa com a localização das três áreas de estudo, Parque Estadual da Cantareira, "
+                    "São Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.",
+                    "fig_id": None,
+                    "fig_type": None,
+                    "graphic_href": None,
+                    "label": "Figura 1",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "source_attrib": None,
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
 
 if __name__ == "__main__":
     unittest.main()
