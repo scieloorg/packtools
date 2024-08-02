@@ -164,7 +164,9 @@ class ArticleFigs:
             for item in node.xpath(".//fig"):
                 figure = Fig(item)
                 data = figure.data
-                parent = put_parent_context(data, lang, article_type, parent, parent_id)
-                langs[lang] = parent
+                langs.setdefault(lang, [])
+                langs[lang].append(
+                    put_parent_context(data, lang, article_type, parent, parent_id)
+                )
         if langs:
             return langs
