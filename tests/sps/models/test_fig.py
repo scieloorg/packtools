@@ -115,34 +115,43 @@ class ArticleFigsTest(unittest.TestCase):
         obtained = ArticleFigs(self.xmltree).items_by_lang
 
         expected = {
-            "pt": {
-                "alternative_parent": "fig",
-                "fig_id": "f02",
-                "fig_type": "map",
-                "label": "FIGURE 2",
-                "graphic_href": "1234-5678-zwy-12-04-0123-gf02.tif",
-                "caption_text": "Título da figura",
-                "source_attrib": "Fonte: IBGE (2018)",
-                "alternative_elements": ['graphic', 'graphic', 'textual-alternative', 'media'],
-                "parent": "article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "parent_article_type": "research-article",
-            },
-            "en": {
-                "alternative_parent": "fig",
-                "fig_id": "f01",
-                "fig_type": "map",
-                "label": "Map 1",
-                "graphic_href": "1234-5678-zwy-12-04-0123-gf01.tif",
-                "caption_text": "Título do Mapa",
-                "source_attrib": None,
-                "alternative_elements": [],
-                "parent": "sub-article",
-                "parent_id": "TRen",
-                "parent_lang": "en",
-                "parent_article_type": "translation",
-            },
+            "pt": [
+                {
+                    "alternative_parent": "fig",
+                    "fig_id": "f02",
+                    "fig_type": "map",
+                    "label": "FIGURE 2",
+                    "graphic_href": "1234-5678-zwy-12-04-0123-gf02.tif",
+                    "caption_text": "Título da figura",
+                    "source_attrib": "Fonte: IBGE (2018)",
+                    "alternative_elements": [
+                        "graphic",
+                        "graphic",
+                        "textual-alternative",
+                        "media",
+                    ],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "parent_article_type": "research-article",
+                }
+            ],
+            "en": [
+                {
+                    "alternative_parent": "fig",
+                    "fig_id": "f01",
+                    "fig_type": "map",
+                    "label": "Map 1",
+                    "graphic_href": "1234-5678-zwy-12-04-0123-gf01.tif",
+                    "caption_text": "Título do Mapa",
+                    "source_attrib": None,
+                    "alternative_elements": [],
+                    "parent": "sub-article",
+                    "parent_id": "TRen",
+                    "parent_lang": "en",
+                    "parent_article_type": "translation",
+                }
+            ],
         }
 
         for lang, item in expected.items():
