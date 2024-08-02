@@ -9,23 +9,24 @@ class FigValidation:
 
     def validate_fig_existence(self, error_level="WARNING"):
         if self.figures_by_language:
-            for lang, figure_data in self.figures_by_language.items():
-                yield format_response(
-                    title="validation of <fig> elements",
-                    parent=figure_data.get("parent"),
-                    parent_id=figure_data.get("parent_id"),
-                    parent_article_type=figure_data.get("parent_article_type"),
-                    parent_lang=figure_data.get("parent_lang"),
-                    item="fig",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=True,
-                    expected=figure_data.get("fig_id"),
-                    obtained=figure_data.get("fig_id"),
-                    advice=None,
-                    data=figure_data,
-                    error_level="OK",
-                )
+            for lang, figure_data_list in self.figures_by_language.items():
+                for figure_data in figure_data_list:
+                    yield format_response(
+                        title="validation of <fig> elements",
+                        parent=figure_data.get("parent"),
+                        parent_id=figure_data.get("parent_id"),
+                        parent_article_type=figure_data.get("parent_article_type"),
+                        parent_lang=figure_data.get("parent_lang"),
+                        item="fig",
+                        sub_item=None,
+                        validation_type="exist",
+                        is_valid=True,
+                        expected="<fig> element",
+                        obtained="<fig> present",
+                        advice=None,
+                        data=figure_data,
+                        error_level="OK",
+                    )
         else:
             yield format_response(
                 title="validation of <fig> elements",
