@@ -1,5 +1,5 @@
-from ..models.fig import ArticleFigs
-from ..validation.utils import format_response
+from packtools.sps.models.fig import ArticleFigs
+from packtools.sps.validation.utils import format_response
 
 
 class FigValidation:
