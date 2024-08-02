@@ -2,6 +2,7 @@ import unittest
 from lxml import etree
 
 from packtools.sps.validation.fig import FigValidation
+from packtools.sps.utils import xml_utils
 
 
 class FigValidationTest(unittest.TestCase):
@@ -70,9 +71,9 @@ class FigValidationTest(unittest.TestCase):
                 "sub_item": None,
                 "validation_type": "exist",
                 "response": "OK",
-                "expected_value": "f01",
-                "got_value": "f01",
-                "message": "Got f01, expected f01",
+                "expected_value": "<fig> element",
+                "got_value": "<fig> present",
+                "message": "Got <fig> present, expected <fig> element",
                 "advice": None,
                 "data": {
                     "alternative_parent": "fig",
