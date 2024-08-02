@@ -1,0 +1,34 @@
+{
+    "_comment": "This JSON file describes the standard values for the attributes related to the \"peer-review\" process in SciELO's XML format.\n\n- sps_version: Specifies the SPS version used.\n- date_type_list: A list of possible values for the \"date-type\" attribute in the \"peer-review\" tag, representing different stages and actions in the peer review process.\n- meta_value_list: A list of possible values for the \"meta\" attribute, indicating various outcomes or statuses in the review process.\n- related_article_type_list: A list of possible types for related articles, specifically those that are peer-reviewed or contain reviewer reports.\n- specific_use_list: A list of possible values for the \"specific-use\" attribute, identifying the role of the content (e.g., reviewer or editor).",
+    "sps_version": "sps-1.9",
+    "date_type_list": [
+        "accepted",
+        "editor-assigned",
+        "editor-decision",
+        "published",
+        "received",
+        "reviewer-report-received",
+        "reviewer-report-sent",
+        "revision-received",
+        "revision-requested",
+        "revised"
+    ],
+    "meta_value_list": [
+        "revision",
+        "major-revision",
+        "minor-revision",
+        "reject",
+        "reject-with-resubmit",
+        "accept",
+        "formal-accept",
+        "accept-in-principle",
+    ],
+    "related_article_type_list": [
+        "peer-reviewed-material",
+        "reviewer-report"
+    ],
+    "specific_use_list": [
+        "reviewer",
+        "editor"
+    ]
+}
