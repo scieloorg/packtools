@@ -1,5 +1,3 @@
-import xml.etree.ElementTree as ET
-
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
 
@@ -78,7 +76,7 @@ class Fig:
         """
         caption_element = self.element.find(".//caption")
         if caption_element is not None:
-            return ET.tostring(caption_element, encoding='unicode', method='text').strip()
+            return caption_element.xpath("string()").strip()
         return ""
 
     @property
@@ -100,7 +98,7 @@ class Fig:
             list: A list of tag names of the elements within the <alternatives> element,
                   or an empty list if the element is not found.
         """
-        alternative_elements = self.element.find('.//alternatives')
+        alternative_elements = self.element.find(".//alternatives")
         if alternative_elements is not None:
             return [child.tag for child in alternative_elements]
         return []
@@ -122,7 +120,7 @@ class Fig:
             "graphic_href": self.graphic_href,
             "caption_text": self.caption_text,
             "source_attrib": self.source_attrib,
-            "alternative_elements": self.alternative_elements
+            "alternative_elements": self.alternative_elements,
         }
 
 
@@ -131,10 +129,10 @@ class ArticleFigs:
     Represents an article with its associated figures, grouped by language.
 
     **Parameters:**
-        xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
+        xmltree (lxml.etree._ElementTree): The parsed XML document representing the article.
 
     **Attributes:**
-        xmltree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
+        xmltree (lxml.etree._ElementTree): The internal representation of the parsed XML document.
     """
 
     def __init__(self, xmltree):
@@ -142,7 +140,7 @@ class ArticleFigs:
         Initializes an ArticleFigs object.
 
         **Parameters:**
-            xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
+            xmltree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element): The parsed XML document representing the article.
         """
         self.xmltree = xmltree
 
@@ -160,7 +158,9 @@ class ArticleFigs:
                   containing information about figures within that language context.
         """
         langs = {}
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+        for node, lang, article_type, parent, parent_id in get_parent_context(
+            self.xmltree
+        ):
             for item in node.xpath(".//fig"):
                 figure = Fig(item)
                 data = figure.data
