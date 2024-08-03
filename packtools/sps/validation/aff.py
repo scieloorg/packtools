@@ -380,9 +380,9 @@ class AffiliationValidation:
             sub_item="@id",
             validation_type="exist",
             is_valid=bool(aff_id),
-            expected=_("city affiliation"),
+            expected=_("affiliation ID"),
             obtained=aff_id,
-            advice=_("provide the city affiliation"),
+            advice=_("provide the affiliation ID"),
             data=self.affiliation,
             error_level=error_level,
         )
