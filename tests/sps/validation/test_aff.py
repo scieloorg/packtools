@@ -7,6 +7,7 @@ from packtools.sps.validation.aff import (
     AffiliationValidation,
     AffiliationsListValidation,
 )
+from packtools.sps.utils import xml_utils
 
 
 class AffiliationValidationTest(TestCase):
@@ -620,6 +621,7 @@ class AffiliationValidationTest(TestCase):
                 "advice": "provide the country affiliation",
                 "data": {
                     "city": "Belo Horizonte",
+                    "country_code": None,
                     "country_name": None,
                     "email": None,
                     "id": "aff1",
@@ -872,10 +874,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "@id",
                 "validation_type": "exist",
                 "response": "CRITICAL",
-                "expected_value": "city affiliation",
+                "expected_value": "affiliation ID",
                 "got_value": None,
-                "message": "Got None, expected city affiliation",
-                "advice": "provide the city affiliation",
+                "message": "Got None, expected affiliation ID",
+                "advice": "provide the affiliation ID",
                 "data": {
                     "city": None,
                     "country_name": "Brasil",
