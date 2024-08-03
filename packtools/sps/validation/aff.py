@@ -78,6 +78,50 @@ class AffiliationsListValidation:
             )
         yield from self.validade_affiliations_list(country_codes_list)
 
+    def validate_affiliation_count_article_vs_sub_article(self, error_level="CRITICAL"):
+        """
+        Validate that the number of affiliations in articles matches the number in sub-articles.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported in case of mismatch. Default is "CRITICAL".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result comparing the number of affiliations.
+        """
+        article_count = sum(
+            1 for aff in self.affiliations_list if aff["parent"] == "article"
+        )
+        sub_article_count = sum(
+            1
+            for aff in self.affiliations_list
+            if aff["parent"] == "sub-article"
+            and aff["parent_article_type"] == "translation"
+        )
+
+        yield format_response(
+            title="Affiliation count validation",
+            parent=None,
+            parent_id=None,
+            parent_article_type=None,
+            parent_lang=None,
+            item="aff",
+            sub_item=None,
+            validation_type="match",
+            is_valid=article_count == sub_article_count,
+            expected="equal counts in articles and sub-articles",
+            obtained=f"articles: {article_count}, sub-articles: {sub_article_count}",
+            advice="Ensure the number of affiliations in articles matches the number in sub-articles.",
+            data={
+                "article_count": article_count,
+                "sub_article_count": sub_article_count,
+            },
+            error_level=error_level,
+        )
+
 
 class AffiliationValidation:
     """
