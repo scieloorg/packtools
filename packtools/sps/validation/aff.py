@@ -3,7 +3,6 @@ from packtools.sps.validation.exceptions import (
     AffiliationValidationValidateCountryCodeException,
 )
 from packtools.sps.validation.utils import format_response
-
 from packtools.translator import _
 
 
@@ -388,9 +387,20 @@ class AffiliationValidation:
         )
 
     def validate_affiliation(self):
-        yield from self.validate_original()
-        yield from self.validate_orgname()
-        yield from self.validate_country()
-        yield from self.validate_country_code()
-        yield from self.validate_state()
-        yield from self.validate_city()
+        """
+        Validate the affiliation based on its parent type.
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation results for the affiliation.
+        """
+        if self.affiliation.get("parent") == "article":
+            yield from self.validate_original()
+            yield from self.validate_orgname()
+            yield from self.validate_country()
+            yield from self.validate_country_code()
+            yield from self.validate_state()
+            yield from self.validate_city()
+        elif self.affiliation.get("parent_article_type") == "translation":
+            yield from self.validate_original()
