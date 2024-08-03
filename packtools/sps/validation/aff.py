@@ -8,11 +8,45 @@ from packtools.translator import _
 
 
 class AffiliationsListValidation:
+    """
+    Class for validating a list of affiliations within an XML document.
+
+    Parameters
+    ----------
+    xml_tree : lxml.etree._ElementTree
+        The parsed XML document representing the article.
+    country_codes_list : list, optional
+        List of valid country codes for validation.
+    """
+
     def __init__(self, xml_tree, country_codes_list=None):
+        """
+        Initialize the AffiliationsListValidation object.
+
+        Parameters
+        ----------
+        xml_tree : lxml.etree._ElementTree
+            The parsed XML document representing the article.
+        country_codes_list : list, optional
+            List of valid country codes for validation.
+        """
         self.affiliations_list = Affiliation(xml_tree).affiliation_list
         self.country_codes_list = country_codes_list
 
     def validade_affiliations_list(self, country_codes_list=None):
+        """
+        Validate the list of affiliations against a list of country codes.
+
+        Parameters
+        ----------
+        country_codes_list : list, optional
+            List of valid country codes for validation. If not provided, uses the instance's country_codes_list.
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation results for each affiliation.
+        """
         country_codes_list = country_codes_list or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException(
@@ -24,6 +58,19 @@ class AffiliationsListValidation:
             ).validate_affiliation()
 
     def validate(self, data):
+        """
+        Validate the affiliations using data provided in the dictionary.
+
+        Parameters
+        ----------
+        data : dict
+            A dictionary containing the data for validation, specifically the country_codes_list.
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation results for each affiliation.
+        """
         country_codes_list = data["country_codes_list"] or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException(
@@ -33,11 +80,45 @@ class AffiliationsListValidation:
 
 
 class AffiliationValidation:
+    """
+    Class for validating a single affiliation within an XML document.
+
+    Parameters
+    ----------
+    affiliation : dict
+        A dictionary containing the affiliation data.
+    country_codes_list : list, optional
+        List of valid country codes for validation.
+    """
+
     def __init__(self, affiliation, country_codes_list=None):
+        """
+        Initialize the AffiliationValidation object.
+
+        Parameters
+        ----------
+        affiliation : dict
+            A dictionary containing the affiliation data.
+        country_codes_list : list, optional
+            List of valid country codes for validation.
+        """
         self.affiliation = affiliation
         self.country_codes_list = country_codes_list
 
     def validate_original(self, error_level=None):
+        """
+        Validate the presence of the original affiliation content.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "ERROR".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the original affiliation.
+        """
         original = self.affiliation.get("original")
         error_level = error_level or "ERROR"
         yield format_response(
@@ -58,6 +139,19 @@ class AffiliationValidation:
         )
 
     def validate_orgname(self, error_level=None):
+        """
+        Validate the presence of the orgname affiliation content.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "CRITICAL".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the orgname affiliation.
+        """
         orgname = self.affiliation.get("orgname")
         error_level = error_level or "CRITICAL"
         yield format_response(
@@ -78,6 +172,19 @@ class AffiliationValidation:
         )
 
     def validate_country(self, error_level=None):
+        """
+        Validate the presence of the country affiliation content.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "CRITICAL".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the country affiliation.
+        """
         country = self.affiliation.get("country_name")
         error_level = error_level or "CRITICAL"
         yield format_response(
@@ -98,6 +205,21 @@ class AffiliationValidation:
         )
 
     def validate_country_code(self, country_codes_list=None, error_level=None):
+        """
+        Validate the country code against a list of valid country codes.
+
+        Parameters
+        ----------
+        country_codes_list : list, optional
+            List of valid country codes for validation. If not provided, uses the instance's country_codes_list.
+        error_level : str, optional
+            The level of error to be reported. Default is "CRITICAL".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the country code.
+        """
         country_codes_list = country_codes_list or self.country_codes_list
         if not country_codes_list:
             raise AffiliationValidationValidateCountryCodeException(
@@ -123,6 +245,19 @@ class AffiliationValidation:
         )
 
     def validate_state(self, error_level=None):
+        """
+        Validate the presence of the state affiliation content.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "ERROR".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the state affiliation.
+        """
         state = self.affiliation.get("state")
         error_level = error_level or "ERROR"
         yield format_response(
@@ -143,6 +278,19 @@ class AffiliationValidation:
         )
 
     def validate_city(self, error_level=None):
+        """
+        Validate the presence of the city affiliation content.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "ERROR".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the city affiliation.
+        """
         city = self.affiliation.get("city")
         error_level = error_level or "ERROR"
         yield format_response(
@@ -163,6 +311,19 @@ class AffiliationValidation:
         )
 
     def validate_id(self, error_level=None):
+        """
+        Validate the presence of the affiliation ID.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of error to be reported. Default is "CRITICAL".
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation result for the affiliation ID.
+        """
         aff_id = self.affiliation.get("id")
         error_level = error_level or "CRITICAL"
         yield format_response(
