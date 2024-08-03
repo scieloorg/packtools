@@ -7,6 +7,7 @@ from packtools.sps.validation.aff import (
     AffiliationValidation,
     AffiliationsListValidation,
 )
+from packtools.sps.utils import xml_utils
 
 
 class AffiliationValidationTest(TestCase):
@@ -620,6 +621,7 @@ class AffiliationValidationTest(TestCase):
                 "advice": "provide the country affiliation",
                 "data": {
                     "city": "Belo Horizonte",
+                    "country_code": None,
                     "country_name": None,
                     "email": None,
                     "id": "aff1",
@@ -872,10 +874,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "@id",
                 "validation_type": "exist",
                 "response": "CRITICAL",
-                "expected_value": "city affiliation",
+                "expected_value": "affiliation ID",
                 "got_value": None,
-                "message": "Got None, expected city affiliation",
-                "advice": "provide the city affiliation",
+                "message": "Got None, expected affiliation ID",
+                "advice": "provide the affiliation ID",
                 "data": {
                     "city": None,
                     "country_name": "Brasil",
@@ -1339,6 +1341,546 @@ class AffiliationValidationTest(TestCase):
             },
         ]
 
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_sub_article_original_only(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        data = {"country_codes_list": ["BR"]}
+        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        expected = [
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": " Universidade Federal de Pelotas. Faculdade de\n"
+                "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                "Pelotas, RS,\n"
+                "\t\t\t\t\tBrasil",
+                "message": "Got  Universidade Federal de Pelotas. Faculdade de\n"
+                "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                "Pelotas, RS,\n"
+                "\t\t\t\t\tBrasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade Federal de Pelotas",
+                "message": "Got Universidade Federal de Pelotas, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "RS",
+                "message": "Got RS, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Pelotas",
+                "message": "Got Pelotas, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": "I",
+                    "orgdiv1": "Faculdade de Medicina",
+                    "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": " Universidade Federal de Pelotas. Escola\n"
+                "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                "Pós-Graduação em Educação Física.\n"
+                "\t\t\t\t\tPelotas, RS, Brasil",
+                "message": "Got  Universidade Federal de Pelotas. Escola\n"
+                "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
+                "em Educação Física.\n"
+                "\t\t\t\t\tPelotas, RS, Brasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "institution",
+                "sub_item": '@content-type="orgname"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade Federal de Pelotas",
+                "message": "Got Universidade Federal de Pelotas, expected orgname affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "aff",
+                "sub_item": "country",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "message": "Got Brasil, expected country affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "country",
+                "sub_item": "@country",
+                "validation_type": "value in list",
+                "response": "OK",
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "message": "Got BR, expected ['BR']",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "addr-line",
+                "sub_item": "state",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "state affiliation",
+                "got_value": "RS",
+                "message": "Got RS, expected state affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "addr-line",
+                "sub_item": "city",
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "city affiliation",
+                "got_value": "Pelotas",
+                "message": "Got Pelotas, expected city affiliation",
+                "advice": None,
+                "data": {
+                    "city": "Pelotas",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff2",
+                    "label": "II",
+                    "orgdiv1": "Escola Superior de Educação Física",
+                    "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                    "orgname": "Universidade Federal de Pelotas",
+                    "original": " Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "state": "RS",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "sub-article",
+                "parent_id": "TRpt",
+                "parent_article_type": "translation",
+                "parent_lang": "pt",
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Universidade Federal de Pelotas. Faculdade de\n"
+                "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                "Pelotas, RS,\n"
+                "\t\t\t\t\tBrasil",
+                "message": "Got Universidade Federal de Pelotas. Faculdade de\n"
+                "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                "Pelotas, RS,\n"
+                "\t\t\t\t\tBrasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "id": "aff1002",
+                    "label": "I",
+                    "original": "Universidade Federal de Pelotas. Faculdade de\n"
+                    "\t\t\t\t\tMedicina. Programa de Pós-Graduação em "
+                    "Epidemiologia. Pelotas, RS,\n"
+                    "\t\t\t\t\tBrasil",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "TRpt",
+                    "parent_lang": "pt",
+                },
+            },
+            {
+                "title": "Affiliation validation",
+                "parent": "sub-article",
+                "parent_id": "TRpt",
+                "parent_article_type": "translation",
+                "parent_lang": "pt",
+                "item": "institution",
+                "sub_item": '@content-type="original"',
+                "validation_type": "exist",
+                "response": "OK",
+                "expected_value": "original affiliation",
+                "got_value": "Universidade Federal de Pelotas. Escola\n"
+                "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                "Pós-Graduação em Educação Física.\n"
+                "\t\t\t\t\tPelotas, RS, Brasil",
+                "message": "Got Universidade Federal de Pelotas. Escola\n"
+                "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
+                "em Educação Física.\n"
+                "\t\t\t\t\tPelotas, RS, Brasil, expected original affiliation",
+                "advice": None,
+                "data": {
+                    "id": "aff2002",
+                    "label": "II",
+                    "original": "Universidade Federal de Pelotas. Escola\n"
+                    "\t\t\t\t\tSuperior de Educação Física. Programa de "
+                    "Pós-Graduação em Educação Física.\n"
+                    "\t\t\t\t\tPelotas, RS, Brasil",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "TRpt",
+                    "parent_lang": "pt",
+                },
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_count_article_vs_sub_article(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        obtained = list(
+            AffiliationsListValidation(
+                xml_tree
+            ).validate_affiliation_count_article_vs_sub_article()
+        )
+        expected = [
+            {
+                "title": "Affiliation count validation",
+                "parent": None,
+                "parent_id": None,
+                "parent_article_type": None,
+                "parent_lang": None,
+                "item": "aff",
+                "sub_item": None,
+                "validation_type": "match",
+                "response": "OK",
+                "expected_value": "equal counts in articles and sub-articles",
+                "got_value": "articles: 2, sub-articles: 2",
+                "message": "Got articles: 2, sub-articles: 2, expected equal counts in articles and sub-articles",
+                "advice": None,
+                "data": {"article_count": 2, "sub_article_count": 2},
+            }
+        ]
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])

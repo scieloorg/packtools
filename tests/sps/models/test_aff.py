@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from packtools.sps.models.aff import AffiliationExtractor
 from packtools.sps.models.aff import Affiliation
+from packtools.sps.utils import xml_utils
 
 from lxml import etree
 
@@ -888,7 +889,7 @@ class AffiliationTest(TestCase):
         """
 
         xml = etree.fromstring(xml)
-        data = Affiliation(xml).affiliation_by_id
+        data = Affiliation(xml).get_affiliations_article_or_sub_article()
 
         expected_output = {
             "aff1": {
@@ -982,3 +983,138 @@ class AffiliationTest(TestCase):
         for k, item in data.items():
             with self.subTest(k):
                 self.assertDictEqual(expected_output[k], item)
+
+    def test_extract_affiliation_fix_bug(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        data = Affiliation(xmltree).get_affiliations_article_or_sub_article()
+
+        expected_output = {
+            "aff1": {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": "Faculdade de Medicina",
+                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
+                "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+            "aff2": {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff2",
+                "label": "II",
+                "orgdiv1": "Escola Superior de Educação Física",
+                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Escola\n\t\t\t\t\tSuperior de Educação Física. Programa "
+                "de Pós-Graduação em Educação Física.\n\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+            "aff1002": {
+                "id": "aff1002",
+                "label": "I",
+                "original": "Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
+                "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
+                "parent_lang": "pt",
+            },
+            "aff2002": {
+                "id": "aff2002",
+                "label": "II",
+                "original": "Universidade Federal de Pelotas. Escola\n\t\t\t\t\tSuperior de Educação Física. "
+                "Programa de Pós-Graduação em Educação Física.\n\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
+                "parent_lang": "pt",
+            },
+        }
+
+        self.assertEqual(4, len(data))
+        for k, item in data.items():
+            with self.subTest(k):
+                self.assertDictEqual(expected_output[k], item)
+
+    def test_extract_affiliation_list(self):
+        self.maxDiff = None
+        xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        data = Affiliation(xmltree).affiliation_list
+
+        expected_output = [
+            {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": "Faculdade de Medicina",
+                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
+                "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+            {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff2",
+                "label": "II",
+                "orgdiv1": "Escola Superior de Educação Física",
+                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Escola\n\t\t\t\t\tSuperior de Educação Física. Programa "
+                "de Pós-Graduação em Educação Física.\n\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+            {
+                "id": "aff1002",
+                "label": "I",
+                "original": "Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
+                "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
+                "parent_lang": "pt",
+            },
+            {
+                "id": "aff2002",
+                "label": "II",
+                "original": "Universidade Federal de Pelotas. Escola\n\t\t\t\t\tSuperior de Educação Física. "
+                "Programa de Pós-Graduação em Educação Física.\n\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
+                "parent_lang": "pt",
+            },
+        ]
+
+        self.assertListEqual(data, expected_output)
