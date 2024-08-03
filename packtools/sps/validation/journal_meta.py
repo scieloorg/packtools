@@ -89,22 +89,27 @@ class AcronymValidation:
         self.xmltree = xmltree
         self.journal_acronym = Acronym(xmltree)
 
-    def acronym_validation(self, expected_value):
+    def acronym_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to acronym')
         is_valid = self.journal_acronym.text == expected_value
-        return [
-            {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value,
-                'got_value': self.journal_acronym.text,
-                'message': 'Got {} expected {}'.format(self.journal_acronym.text, expected_value),
-                'advice': None if is_valid else 'Provide an acronym value as expected: {}'.format(expected_value)
-            }
-        ]
+
+        yield format_response(
+            title='Journal acronym element validation',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item="journal-id",
+            sub_item="@journal-id-type='publisher-id'",
+            validation_type="value",
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.journal_acronym.text,
+            advice='Provide an acronym value as expected: {}'.format(expected_value),
+            data={"acronym": self.journal_acronym.text},
+            error_level=error_level,
+        )
 
 
 class TitleValidation:
@@ -358,11 +363,9 @@ class JournalMetaValidation:
         publisher = PublisherNameValidation(self.xmltree)
         nlm_ta = JournalIdValidation(self.xmltree)
 
-        resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
-                            acronym.acronym_validation(expected_values['acronym']) + \
-                            title.journal_title_validation(expected_values['journal-title']) + \
-                            list(title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])) + \
-                            list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
-                            list(nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta']))
-
-        return resp_journal_meta
+        yield from issn.validate_issn(expected_values['issns'])
+        yield from acronym.acronym_validation(expected_values['acronym'])
+        yield from title.journal_title_validation(expected_values['journal-title'])
+        yield from title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])
+        yield from publisher.validate_publisher_names(expected_values['publisher-name'])
+        yield from nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta'])
