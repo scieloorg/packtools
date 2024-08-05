@@ -18,9 +18,14 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xmltree).validate_fig_existence())
 
+        # Remover a chave "node" dos dados obtidos
+        for item in obtained:
+            if item.get("data"):
+                item["data"].pop("node", None)
+
         expected = [
             {
-                "title": "validation of <fig> elements",
+                "title": "fig presence",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -30,8 +35,8 @@ class FigValidationTest(unittest.TestCase):
                 "validation_type": "exist",
                 "response": "WARNING",
                 "expected_value": "<fig> element",
-                "got_value": None,
-                "message": "Got None, expected <fig> element",
+                'got_value': None,
+                'message': 'Got None, expected <fig> element',
                 "advice": "Add <fig> element to illustrate the content.",
                 "data": None,
             }
@@ -60,9 +65,14 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xmltree).validate_fig_existence())
 
+        # Remover a chave "node" dos dados obtidos
+        for item in obtained:
+            if item.get("data"):
+                item["data"].pop("node", None)
+
         expected = [
             {
-                "title": "validation of <fig> elements",
+                "title": "fig presence",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -72,8 +82,23 @@ class FigValidationTest(unittest.TestCase):
                 "validation_type": "exist",
                 "response": "OK",
                 "expected_value": "<fig> element",
-                "got_value": "<fig> present",
-                "message": "Got <fig> present, expected <fig> element",
+                'got_value': '<fig xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                             'id="f01"><label>Figure 1</label><graphic '
+                             'xlink:href="image1.png"/><alternatives><graphic '
+                             'xlink:href="image1-lowres.png" '
+                             'mime-subtype="low-resolution"/><graphic '
+                             'xlink:href="image1-highres.png" '
+                             'mime-subtype="high-resolution"/></alternatives></fig>',
+                'message': 'Got <fig xmlns:xlink="http://www.w3.org/1999/xlink" '
+                           'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                           'id="f01"><label>Figure 1</label><graphic '
+                           'xlink:href="image1.png"/><alternatives><graphic '
+                           'xlink:href="image1-lowres.png" '
+                           'mime-subtype="low-resolution"/><graphic '
+                           'xlink:href="image1-highres.png" '
+                           'mime-subtype="high-resolution"/></alternatives></fig>, expected '
+                           '<fig> element',
                 "advice": None,
                 "data": {
                     "alternative_parent": "fig",
@@ -104,9 +129,14 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xmltree).validate_fig_existence())
 
+        # Remover a chave "node" dos dados obtidos
+        for item in obtained:
+            if item.get("data"):
+                item["data"].pop("node", None)
+
         expected = [
             {
-                "title": "validation of <fig> elements",
+                "title": "fig presence",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -115,9 +145,19 @@ class FigValidationTest(unittest.TestCase):
                 "sub_item": None,
                 "validation_type": "exist",
                 "expected_value": "<fig> element",
-                "got_value": "<fig> present",
+                "got_value": '<fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                             'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xml:lang="pt"><label>Figura 1</label><caption><title>Mapa com a '
+                             'localização das três áreas de estudo, Parque Estadual da '
+                             'Cantareira, São Paulo, SP, Brasil. Elaborado por Marina '
+                             'Kanashiro, 2019.</title></caption></fig>',
                 "response": "OK",
-                "message": "Got <fig> present, expected <fig> element",
+                'message': 'Got <fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                           'xmlns:xlink="http://www.w3.org/1999/xlink" '
+                           'xml:lang="pt"><label>Figura 1</label><caption><title>Mapa com a '
+                           'localização das três áreas de estudo, Parque Estadual da '
+                           'Cantareira, São Paulo, SP, Brasil. Elaborado por Marina '
+                           'Kanashiro, 2019.</title></caption></fig>, expected <fig> element',
                 "advice": None,
                 "data": {
                     "alternative_elements": [],
