@@ -1,3 +1,5 @@
+from lxml import etree
+
 from packtools.sps.models.fig import ArticleFigs
 from packtools.sps.validation.utils import format_response
 
@@ -51,8 +53,9 @@ class FigValidation:
         if self.figures_by_language:
             for lang, figure_data_list in self.figures_by_language.items():
                 for figure_data in figure_data_list:
+                    figure_node = figure_data.get("node").element
                     yield format_response(
-                        title="validation of <fig> elements",
+                        title="fig presence",
                         parent=figure_data.get("parent"),
                         parent_id=figure_data.get("parent_id"),
                         parent_article_type=figure_data.get("parent_article_type"),
@@ -62,14 +65,14 @@ class FigValidation:
                         validation_type="exist",
                         is_valid=True,
                         expected="<fig> element",
-                        obtained="<fig> present",
+                        obtained=etree.tostring(figure_node, encoding='unicode'),
                         advice=None,
                         data=figure_data,
                         error_level="OK",
                     )
         else:
             yield format_response(
-                title="validation of <fig> elements",
+                title="fig presence",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.xmltree.get("article-type"),
