@@ -19,7 +19,7 @@ class TableWrapValidationTest(unittest.TestCase):
 
         expected = [
             {
-                "title": "validation of <table-wrap> elements",
+                "title": "table-wrap presence",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -55,13 +55,25 @@ class TableWrapValidationTest(unittest.TestCase):
             "</alternatives>"
             "</table-wrap>"
             "</body>"
+            '<sub-article article-type="translation" xml:lang="en">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1:</label>"
+            "<caption>Table caption</caption>"
+            "<alternatives>"
+            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
+            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
+            "</alternatives>"
+            "</table-wrap>"
+            "</body>"
+            "</sub-article>"
             "</article>"
         )
         obtained = list(TableWrapValidation(xmltree).validate_tablewrap_existence())
 
         expected = [
             {
-                "title": "validation of <table-wrap> elements",
+                "title": "table-wrap presence",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -70,9 +82,25 @@ class TableWrapValidationTest(unittest.TestCase):
                 "sub_item": None,
                 "validation_type": "exist",
                 "response": "OK",
-                "expected_value": "t01",
-                "got_value": "t01",
-                "message": "Got t01, expected t01",
+                'expected_value': '<table-wrap> element',
+                'got_value': '<table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                             'id="t01"><label>Table 1</label><caption>Table '
+                             'caption</caption><alternatives><graphic '
+                             'xlink:href="image1-lowres.png" '
+                             'mime-subtype="low-resolution"/><graphic '
+                             'xlink:href="image1-highres.png" '
+                             'mime-subtype="high-resolution"/></alternatives></table-wrap>',
+
+                'message': 'Got <table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" '
+                           'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                           'id="t01"><label>Table 1</label><caption>Table '
+                           'caption</caption><alternatives><graphic '
+                           'xlink:href="image1-lowres.png" '
+                           'mime-subtype="low-resolution"/><graphic '
+                           'xlink:href="image1-highres.png" '
+                           'mime-subtype="high-resolution"/></alternatives></table-wrap>, '
+                           'expected <table-wrap> element',
                 "advice": None,
                 "data": {
                     "alternative_parent": "table-wrap",
@@ -90,6 +118,11 @@ class TableWrapValidationTest(unittest.TestCase):
                 },
             }
         ]
+
+        # Remover a chave "node" dos dados obtidos
+        for item in obtained:
+            if item.get("data"):
+                item["data"].pop("node", None)
 
         for i, item in enumerate(expected):
             with self.subTest(i):

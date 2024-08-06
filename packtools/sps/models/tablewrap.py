@@ -174,7 +174,11 @@ class ArticleTableWraps:
             for item in node.xpath(".//table-wrap"):
                 table_wrap = TableWrap(item)
                 data = table_wrap.data
-                parent_context = put_parent_context(data, lang, article_type, parent_context, parent_id)
-                langs[lang] = parent_context
+                data["node"] = table_wrap
+                langs.setdefault(lang, [])
+                langs[lang].append(
+                    put_parent_context(data, lang, article_type, parent_context, parent_id)
+                )
+
         if langs:
             return langs
