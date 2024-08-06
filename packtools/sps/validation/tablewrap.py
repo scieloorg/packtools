@@ -30,7 +30,7 @@ class TableWrapValidation:
                 )
         else:
             yield format_response(
-                title="validation of <table-wrap> elements",
+                title="table-wrap presence",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.xmltree.get("article-type"),
