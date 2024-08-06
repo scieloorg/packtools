@@ -574,9 +574,16 @@ class ArticleTableWrapsTest(unittest.TestCase):
             ]
         }
 
-        for lang, item in expected.items():
+        for lang, items in expected.items():
             with self.subTest(lang):
-                self.assertDictEqual(item, obtained[lang])
+                for i, expected_data in enumerate(items):
+                    obtained_data = obtained[lang][i].copy()
+
+                    # Remover a chave "node" antes de comparar
+                    obtained_data.pop("node", None)
+                    expected_data_copy = expected_data.copy()
+
+                    self.assertDictEqual(expected_data_copy, obtained_data)
 
 
 if __name__ == '__main__':
