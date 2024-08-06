@@ -1,5 +1,7 @@
-from ..models.tablewrap import ArticleTableWraps
-from ..validation.utils import format_response
+from lxml import etree
+
+from packtools.sps.models.tablewrap import ArticleTableWraps
+from packtools.sps.validation.utils import format_response
 
 
 class TableWrapValidation:
