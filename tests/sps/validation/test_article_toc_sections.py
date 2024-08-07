@@ -846,3 +846,5 @@ class ArticleTocSectionsTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
+
+        self.assertEqual(len(obtained), 1)
