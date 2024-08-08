@@ -97,6 +97,7 @@ class ArticleTocSectionsValidation:
             ]
         """
         obtained_toc_sections = self.article_toc_sections.sections_dict
+
         if obtained_toc_sections:
             obtained_langs = set(obtained_toc_sections)
             expected_langs = set(expected_toc_sections)
@@ -109,30 +110,30 @@ class ArticleTocSectionsValidation:
                 validation = "exist"
                 expected = expected_toc_sections.get(lang)
                 obtained = obtained_toc_sections.get(lang)
-                obtained_msg = obtained.get('text') if obtained else None
+                obtained_subject = obtained.get('text') if obtained else None
                 advice = 'Provide missing section for language: {}'.format(lang)
                 if lang in common_langs:
                     if obtained.get('text'):
                         # verifica se o título de seção está presente na lista esperada
-                        is_valid = obtained.get('text') in expected
+                        is_valid = obtained_subject in expected
                         if obtained.get("parent") == "sub-article":
                             title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
                         validation = 'value in list'
                 elif lang in obtained_langs:
-                    advice = 'Remove unexpected section for language: {}'.format(lang)
+                    advice = 'Check unexpected section {} for language: {}'.format(obtained_subject, lang)
 
                 yield format_response(
                     title=title,
-                    parent=obtained.get("parent"),
-                    parent_id=obtained.get("parent_id"),
-                    parent_article_type=obtained.get("parent_article_type"),
-                    parent_lang=obtained.get("parent_lang"),
+                    parent=obtained.get("parent") if obtained else None,
+                    parent_id=obtained.get("parent_id") if obtained else None,
+                    parent_article_type=obtained.get("parent_article_type") if obtained else None,
+                    parent_lang=obtained.get("parent_lang") if obtained else None,
                     item="subj-group",
                     sub_item="subject",
                     is_valid=is_valid,
                     validation_type=validation,
-                    expected=expected,
-                    obtained=obtained_msg,
+                    expected=expected if expected else "subject value",
+                    obtained=obtained_subject,
                     advice=advice,
                     data=obtained_toc_sections,
                     error_level=error_level,

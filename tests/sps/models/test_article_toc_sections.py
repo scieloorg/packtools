@@ -21,9 +21,6 @@ class ArticleTocSectionsTest(TestCase):
                     <article-categories>
                         <subj-group subj-group-type="heading">
                             <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
                         </subj-group>
                     </article-categories>
                 </article-meta>
@@ -32,9 +29,6 @@ class ArticleTocSectionsTest(TestCase):
                 <front-stub>
                     <subj-group subj-group-type="heading">
                         <subject>Ciências da Saúde</subject>
-                        <subj-group subj-group-type="sub-heading">
-                            <subject>Saúde Pública</subject>
-                        </subj-group>
                     </subj-group>
                     <title-group>
                         <article-title>Article title</article-title>
@@ -60,9 +54,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_id': '01',
                 'parent_lang': 'pt',
                 'text': 'Ciências da Saúde'
-            },
+            }
         ]
         obtained = list(self.article_toc_sections.sections)
+
+        self.assertEqual(len(obtained), 2)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -82,9 +78,6 @@ class ArticleTocSectionsTest(TestCase):
                     <article-categories>
                         <subj-group subj-group-type="heading">
                             <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
                         </subj-group>
                     </article-categories>
                 </article-meta>
@@ -94,9 +87,6 @@ class ArticleTocSectionsTest(TestCase):
                     <article-categories>
                         <subj-group subj-group-type="heading">
                             <subject>Ciências da Saúde</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Saúde Pública</subject>
-                            </subj-group>
                         </subj-group>
                     </article-categories>
                     <title-group>
@@ -130,11 +120,11 @@ class ArticleTocSectionsTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
-    def test_sub_sections(self):
+    def test_article_section_empty_tag(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="en">
             <front>
                 <article-meta>
@@ -143,29 +133,21 @@ class ArticleTocSectionsTest(TestCase):
                     </title-group>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                            <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
+                            <subject></subject>
                         </subj-group>
                     </article-categories>
                 </article-meta>
             </front>
             <sub-article article-type="translation" id="01" xml:lang="pt">
                 <front-stub>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Ciências da Saúde</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Saúde Pública</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
+                    <subj-group subj-group-type="heading">
+                        <subject></subject>
+                    </subj-group>
                     <title-group>
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>
+            </sub-article>        
             </article>
             """
         )
@@ -177,20 +159,29 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
-                'text': 'Public Health'
+                'text': ''
+            },
+            {
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'pt',
+                'text': ''
             }
         ]
-        obtained = list(self.article_toc_sections.sub_sections)
+        obtained = list(self.article_toc_sections.sections)
+
+        self.assertEqual(len(obtained), 2)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_sub_sections_dict(self):
+    def test_article_section_missing_tag(self):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="en">
             <front>
                 <article-meta>
@@ -199,50 +190,46 @@ class ArticleTocSectionsTest(TestCase):
                     </title-group>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                            <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
+            
                         </subj-group>
                     </article-categories>
                 </article-meta>
             </front>
             <sub-article article-type="translation" id="01" xml:lang="pt">
                 <front-stub>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Ciências da Saúde</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Saúde Pública</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
+                    <subj-group subj-group-type="heading">
+
+                    </subj-group>
                     <title-group>
                         <article-title>Article title</article-title>
                     </title-group>
                 </front-stub>
-            </sub-article>
+            </sub-article>        
             </article>
             """
         )
         self.article_toc_sections = ArticleTocSections(self.xmltree)
 
-        expected = {
-            'en': {
+        expected = [
+            {
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
-                'text': 'Public Health'
+                'text': None
             },
-            'pt': {
+            {
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
                 'parent_lang': 'pt',
-                'text': 'Saúde Pública'
+                'text': None
             }
-        }
-        obtained = self.article_toc_sections.sub_sections_dict
+        ]
+        obtained = list(self.article_toc_sections.sections)
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(len(obtained), 2)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
