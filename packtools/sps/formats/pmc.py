@@ -170,6 +170,3 @@ def xml_pmc_ref(xml_tree):
     for ref in refs:
         ref.remove(ref.find("./mixed-citation"))
 
-
-def xml_pmc_refactor_pub_date(xmltree):
-    ...
