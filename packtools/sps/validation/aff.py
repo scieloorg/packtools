@@ -1,4 +1,4 @@
-from packtools.sps.models.aff import Affiliation
+from packtools.sps.models.v2.aff import ArticleAffiliations
 from packtools.sps.validation.exceptions import (
     AffiliationValidationValidateCountryCodeException,
 )
@@ -29,7 +29,8 @@ class AffiliationsListValidation:
         country_codes_list : list, optional
             List of valid country codes for validation.
         """
-        self.affiliations_list = Affiliation(xml_tree).affiliation_list
+        self.affiliations = ArticleAffiliations(xml_tree)
+        self.affiliations_list = list(self.affiliations.article_affs()) + list(self.affiliations.sub_article_translation_affs())
         self.country_codes_list = country_codes_list
 
     def validade_affiliations_list(self, country_codes_list=None):
@@ -91,15 +92,8 @@ class AffiliationsListValidation:
         dict
             A dictionary containing the validation result comparing the number of affiliations.
         """
-        article_count = sum(
-            1 for aff in self.affiliations_list if aff["parent"] == "article"
-        )
-        sub_article_count = sum(
-            1
-            for aff in self.affiliations_list
-            if aff["parent"] == "sub-article"
-            and aff["parent_article_type"] == "translation"
-        )
+        article_count = len(list(self.affiliations.article_affs()))
+        sub_article_count = len(list(self.affiliations.sub_article_translation_affs()))
 
         yield format_response(
             title="Affiliation count validation",
