@@ -8,12 +8,17 @@ class ArticleTocSections:
 
     @property
     def sections(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-                self.xmltree
-        ):
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+            found = False
             for item in node.xpath(".//subj-group[@subj-group-type='heading']/subject"):
+                found = True
                 _section = {
                     "text": node_text_without_xref(item),
+                }
+                yield put_parent_context(_section, lang, article_type, parent, parent_id)
+            if not found:
+                _section = {
+                    "text": None,
                 }
                 yield put_parent_context(_section, lang, article_type, parent, parent_id)
 
@@ -22,22 +27,4 @@ class ArticleTocSections:
         return {
             item['parent_lang']: item
             for item in self.sections
-        }
-
-    @property
-    def sub_sections(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-                self.xmltree
-        ):
-            for item in node.xpath(".//subj-group[@subj-group-type='heading']/subj-group/subject"):
-                _section = {
-                    "text": node_text_without_xref(item),
-                }
-                yield put_parent_context(_section, lang, article_type, parent, parent_id)
-
-    @property
-    def sub_sections_dict(self):
-        return {
-            item['parent_lang']: item
-            for item in self.sub_sections
         }
