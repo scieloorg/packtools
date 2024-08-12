@@ -52,7 +52,7 @@ def xml_pmc_aff(xml_tree):
             
             addr_line = aff.find("./addr-line")
             if addr_line is not None:
-                named_contents = addr_line.findall(".//named-content")
+                named_contents = addr_line.xpath(".//named-content | .//state | .//city ")
                 aff_with_address.extend([named_content.text for named_content in named_contents])
             
             country = aff.find("./country")
