@@ -511,11 +511,12 @@ class ArticleContribsValidation:
                 }
             ]
         """
-        orcid_exclusive = set(self.orcid_list)
-        orcid_freq = {}
-        for orcid in orcid_exclusive:
-            orcid_freq[orcid] = self.orcid_list.count(orcid)
-        is_valid = len(self.orcid_list) == len(orcid_exclusive)
+        orcid_dict = {}
+        for contrib in self.contribs.contribs:
+            orcid = contrib.get("contrib_ids", {}).get("orcid")
+            if orcid:
+                orcid_dict.setdefault(orcid, [])
+                orcid_dict[orcid].append(contrib.get("contrib_full_name"))
 
         diff = []
         if not is_valid:
