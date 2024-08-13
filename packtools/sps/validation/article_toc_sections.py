@@ -28,6 +28,7 @@ class ArticleTocSectionsValidation:
             A generator that yields dictionaries with validation results.
         """
         obtained_toc_sections = self.article_toc_sections.sections_dict
+
         if obtained_toc_sections:
             obtained_langs = set(obtained_toc_sections)
             expected_langs = set(expected_toc_sections)
@@ -39,17 +40,17 @@ class ArticleTocSectionsValidation:
                 validation_type = "exist"
                 expected = expected_toc_sections.get(lang)
                 obtained = obtained_toc_sections.get(lang)
-                obtained_msg = obtained.get('text') if obtained else None
-                advice = f'Provide missing section for language: {lang}'
-
-                try:
+                obtained_subject = obtained.get('text') if obtained else None
+                advice = 'Provide missing section for language: {}'.format(lang)
+                if lang in common_langs:
                     if obtained.get('text'):
-                        is_valid = obtained.get('text') in expected
+                        # verifica se o título de seção está presente na lista esperada
+                        is_valid = obtained_subject in expected
                         if obtained.get("parent") == "sub-article":
                             title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
-                        validation_type = 'value in list'
-                except AttributeError:
-                    pass
+                        validation = 'value in list'
+                elif lang in obtained_langs:
+                    advice = 'Check unexpected section {} for language: {}'.format(obtained_subject, lang)
 
                 yield format_response(
                     title=title,
@@ -60,9 +61,9 @@ class ArticleTocSectionsValidation:
                     item="subj-group",
                     sub_item="subject",
                     is_valid=is_valid,
-                    validation_type=validation_type,
-                    expected=expected,
-                    obtained=obtained_msg,
+                    validation_type=validation,
+                    expected=expected if expected else "subject value",
+                    obtained=obtained_subject,
                     advice=advice,
                     data=obtained_toc_sections,
                     error_level=error_level,

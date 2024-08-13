@@ -9,7 +9,7 @@ class AuthorNotesValidation:
         self.author_notes = ArticleAuthorNotes(self.xmltree).author_notes
         self.fn_type_list = fn_type_list
 
-    def validate_corresp_tag_presence(self, author_note):
+    def validate_corresp_tag_presence(self, author_note, error_level="ERROR"):
         """
             Checks the existence of the corresponding author identification.
 
@@ -83,6 +83,8 @@ class AuthorNotesValidation:
             title="Author notes validation",
             parent=author_note.get("parent"),
             parent_id=author_note.get("parent_id"),
+            parent_article_type=author_note.get("parent_article_type"),
+            parent_lang=author_note.get("parent_lang"),
             item="author-notes",
             sub_item="corresp",
             validation_type="exist",
@@ -90,10 +92,11 @@ class AuthorNotesValidation:
             expected=corresp if is_valid else "corresponding author identification",
             obtained=corresp,
             advice="provide identification data of the corresponding author",
+            error_level=error_level,
             data=author_note
         )
 
-    def validate_fn_type_attribute_presence(self, author_note):
+    def validate_fn_type_attribute_presence(self, author_note, error_level="ERROR"):
         """
             Checks if every fn tag has the fn-type attribute.
 
@@ -163,6 +166,8 @@ class AuthorNotesValidation:
             title="Author notes validation",
             parent=author_note.get("parent"),
             parent_id=author_note.get("parent_id"),
+            parent_article_type=author_note.get("parent_article_type"),
+            parent_lang=author_note.get("parent_lang"),
             item="fn",
             sub_item="@fn-type",
             validation_type="exist",
@@ -170,10 +175,11 @@ class AuthorNotesValidation:
             expected=f"{fn_count} fn-types",
             obtained=f"{len(fn_types)} fn-types",
             advice="provide one @fn-type for each <fn> tag",
+            error_level=error_level,
             data=author_note
         )
 
-    def validate_fn_type_attribute_value(self, author_note, fn_type_list=None):
+    def validate_fn_type_attribute_value(self, author_note, fn_type_list=None, error_level="ERROR"):
         """
             Checks whether the value of the fn-type tag complies with the list of expected values.
 
@@ -244,6 +250,8 @@ class AuthorNotesValidation:
                 title="Author notes validation",
                 parent=author_note.get("parent"),
                 parent_id=author_note.get("parent_id"),
+                parent_article_type=author_note.get("parent_article_type"),
+                parent_lang=author_note.get("parent_lang"),
                 item="fn",
                 sub_item="@fn-type",
                 validation_type="value in list",
@@ -251,6 +259,7 @@ class AuthorNotesValidation:
                 expected=fn_type_list,
                 obtained=fn_type,
                 advice=f"provide a value for @fn-type according according to the list: {fn_type_list}",
+                error_level=error_level,
                 data=author_note
             )
 

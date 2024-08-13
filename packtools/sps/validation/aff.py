@@ -39,11 +39,13 @@ class AffiliationValidation:
 
     def validate_original(self, error_level=None):
         original = self.affiliation.get("original")
-        error_level = error_level or 'ERROR'
+        error_level = error_level or "ERROR"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="institution",
             sub_item='@content-type="original"',
             validation_type="exist",
@@ -57,11 +59,13 @@ class AffiliationValidation:
 
     def validate_orgname(self, error_level=None):
         orgname = self.affiliation.get("orgname")
-        error_level = error_level or 'CRITICAL'
+        error_level = error_level or "CRITICAL"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="institution",
             sub_item='@content-type="orgname"',
             validation_type="exist",
@@ -75,11 +79,13 @@ class AffiliationValidation:
 
     def validate_country(self, error_level=None):
         country = self.affiliation.get("country_name")
-        error_level = error_level or 'CRITICAL'
+        error_level = error_level or "CRITICAL"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="aff",
             sub_item="country",
             validation_type="exist",
@@ -98,11 +104,13 @@ class AffiliationValidation:
                 "Function requires list of country codes"
             )
         country_code = self.affiliation.get("country_code")
-        error_level = error_level or 'CRITICAL'
+        error_level = error_level or "CRITICAL"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="country",
             sub_item="@country",
             validation_type="value in list",
@@ -116,11 +124,13 @@ class AffiliationValidation:
 
     def validate_state(self, error_level=None):
         state = self.affiliation.get("state")
-        error_level = error_level or 'ERROR'
+        error_level = error_level or "ERROR"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="addr-line",
             sub_item="state",
             validation_type="exist",
@@ -134,11 +144,13 @@ class AffiliationValidation:
 
     def validate_city(self, error_level=None):
         city = self.affiliation.get("city")
-        error_level = error_level or 'ERROR'
+        error_level = error_level or "ERROR"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="addr-line",
             sub_item="city",
             validation_type="exist",
@@ -152,11 +164,13 @@ class AffiliationValidation:
 
     def validate_id(self, error_level=None):
         aff_id = self.affiliation.get("id")
-        error_level = error_level or 'CRITICAL'
+        error_level = error_level or "CRITICAL"
         yield format_response(
             title="Affiliation validation",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
+            parent_article_type=self.affiliation.get("parent_article_type"),
+            parent_lang=self.affiliation.get("parent_lang"),
             item="aff",
             sub_item="@id",
             validation_type="exist",
