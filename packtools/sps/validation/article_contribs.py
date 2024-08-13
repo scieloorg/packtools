@@ -518,9 +518,12 @@ class ArticleContribsValidation:
                 orcid_dict.setdefault(orcid, [])
                 orcid_dict[orcid].append(contrib.get("contrib_full_name"))
 
+        is_valid = True
         diff = []
-        if not is_valid:
-            diff = [item for item, freq in orcid_freq.items() if freq > 1]
+        for orcid, names in orcid_dict.items():
+            if len(names) > 1 and len(set(names)) > 1:
+                is_valid = False
+                diff.append(orcid)
 
         yield format_response(
             title="Author ORCID element is unique",
@@ -533,7 +536,7 @@ class ArticleContribsValidation:
             validation_type="uniqueness",
             is_valid=is_valid,
             expected="Unique ORCID values",
-            obtained=self.orcid_list,
+            obtained=orcid_dict,
             advice="Consider replacing the following ORCIDs that are not unique: {}".format(
                 " | ".join(diff)
             ),
