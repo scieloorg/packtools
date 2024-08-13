@@ -846,8 +846,14 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "uniqueness",
                 "response": "OK",
                 "expected_value": "Unique ORCID values",
-                "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
-                "message": "Got ['0990-0001-0058-4853', '0000-3333-1238-6873'], expected Unique ORCID values",
+                "got_value": {
+                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
+                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
+                },
+                "message": "Got {"
+                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
+                           "'0000-3333-1238-6873': ['Vanessa M. Higa']"
+                           "}, expected Unique ORCID values",
                 "advice": None,
                 "data": None,
             }
@@ -906,8 +912,12 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "uniqueness",
                 "response": "ERROR",
                 "expected_value": "Unique ORCID values",
-                "got_value": ["0990-0001-0058-4853", "0990-0001-0058-4853"],
-                "message": "Got ['0990-0001-0058-4853', '0990-0001-0058-4853'], expected Unique ORCID values",
+                "got_value": {
+                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', 'Vanessa M. Higa']
+                },
+                "message": "Got {"
+                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', 'Vanessa M. Higa']"
+                           "}, expected Unique ORCID values",
                 "advice": "Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853",
                 "data": None,
             }
@@ -1285,8 +1295,14 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "uniqueness",
                 "response": "OK",
                 "expected_value": "Unique ORCID values",
-                "got_value": ["0990-0001-0058-4853", "0000-3333-1238-6873"],
-                "message": "Got ['0990-0001-0058-4853', '0000-3333-1238-6873'], expected Unique ORCID values",
+                "got_value": {
+                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
+                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
+                },
+                "message": "Got {"
+                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
+                           "'0000-3333-1238-6873': ['Vanessa M. Higa']"
+                           "}, expected Unique ORCID values",
                 "advice": None,
                 "data": None,
             },
@@ -1473,6 +1489,158 @@ class ArticleContribsValidationOrcidTest(TestCase):
                     "parent_lang": "pt",
                 },
             },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_unique_orcid_for_authors_with_same_name(self):
+        self.maxDiff = None
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="en">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        obtained = list(
+            ArticleContribsValidation(xmltree, data={}).validate_contribs_orcid_is_unique()
+        )
+
+        expected = [
+            {
+                "title": "Author ORCID element is unique",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "contrib-id",
+                "sub_item": '@contrib-id-type="orcid"',
+                "validation_type": "uniqueness",
+                "response": "OK",
+                "expected_value": "Unique ORCID values",
+                "got_value": {
+                    '0990-0001-0058-4853': [
+                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
+                    ]
+                },
+                "message": "Got {"
+                           "'0990-0001-0058-4853': ["
+                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', "
+                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'"
+                           "]}, expected Unique ORCID values",
+                "advice": None,
+                "data": None,
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_unique_orcid_for_authors_with_different_names(self):
+        self.maxDiff = None
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+        dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                                <prefix>Prof</prefix>
+                                <suffix>Nieto</suffix>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="en">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
+                            <name>
+                                <surname>VENEGAS-MARTÍNEZ</surname>
+                                <given-names>FRANCISCO</given-names>
+                            </name>
+                            <xref ref-type="aff" rid="aff1"/>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        obtained = list(
+            ArticleContribsValidation(xmltree, data={}).validate_contribs_orcid_is_unique()
+        )
+
+        expected = [
+            {
+                "title": "Author ORCID element is unique",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "contrib-id",
+                "sub_item": '@contrib-id-type="orcid"',
+                "validation_type": "uniqueness",
+                "response": "ERROR",
+                "expected_value": "Unique ORCID values",
+                "got_value": {
+                    '0990-0001-0058-4853': [
+                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                        'FRANCISCO VENEGAS-MARTÍNEZ'
+                    ]
+                },
+                "message": "Got {"
+                           "'0990-0001-0058-4853': ["
+                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', "
+                           "'FRANCISCO VENEGAS-MARTÍNEZ'"
+                           "]}, expected Unique ORCID values",
+                "advice": 'Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853',
+                "data": None,
+            }
         ]
 
         for i, item in enumerate(expected):
