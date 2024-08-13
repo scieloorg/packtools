@@ -461,13 +461,6 @@ class ArticleContribsValidation:
             for contrib_group in self.xmltree.xpath('.//contrib-group')
         ]
 
-    @property
-    def orcid_list(self):
-        return [
-            contrib.get("contrib_ids", {}).get("orcid")
-            for contrib in self.contribs.contribs
-        ]
-
     def validate_contribs_orcid_is_unique(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is unique.
