@@ -1554,13 +1554,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "Unique ORCID values",
                 "got_value": {
                     '0990-0001-0058-4853': [
-                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                         'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
                     ]
                 },
                 "message": "Got {"
                            "'0990-0001-0058-4853': ["
-                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', "
                            "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'"
                            "]}, expected Unique ORCID values",
                 "advice": None,
@@ -1629,15 +1627,12 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "Unique ORCID values",
                 "got_value": {
                     '0990-0001-0058-4853': [
-                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
-                        'FRANCISCO VENEGAS-MARTÍNEZ'
+                        'FRANCISCO VENEGAS-MARTÍNEZ',
+                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
                     ]
                 },
-                "message": "Got {"
-                           "'0990-0001-0058-4853': ["
-                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', "
-                           "'FRANCISCO VENEGAS-MARTÍNEZ'"
-                           "]}, expected Unique ORCID values",
+                "message": "Got {'0990-0001-0058-4853': ['FRANCISCO VENEGAS-MARTÍNEZ', 'Prof "
+                           "FRANCISCO VENEGAS-MARTÍNEZ Nieto']}, expected Unique ORCID values",
                 "advice": 'Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853',
                 "data": None,
             }
