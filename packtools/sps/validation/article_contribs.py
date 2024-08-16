@@ -461,13 +461,6 @@ class ArticleContribsValidation:
             for contrib_group in self.xmltree.xpath('.//contrib-group')
         ]
 
-    @property
-    def orcid_list(self):
-        return [
-            contrib.get("contrib_ids", {}).get("orcid")
-            for contrib in self.contribs.contribs
-        ]
-
     def validate_contribs_orcid_is_unique(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is unique.
@@ -518,15 +511,25 @@ class ArticleContribsValidation:
                 }
             ]
         """
-        orcid_exclusive = set(self.orcid_list)
-        orcid_freq = {}
-        for orcid in orcid_exclusive:
-            orcid_freq[orcid] = self.orcid_list.count(orcid)
-        is_valid = len(self.orcid_list) == len(orcid_exclusive)
+        orcid_dict = {}
+        for contrib in self.contribs.contribs:
+            orcid = contrib.get("contrib_ids", {}).get("orcid")
+            if orcid:
+                orcid_dict.setdefault(orcid, set())
+                orcid_dict[orcid].add(contrib.get("contrib_full_name"))
 
+        is_valid = True
         diff = []
-        if not is_valid:
-            diff = [item for item, freq in orcid_freq.items() if freq > 1]
+        for orcid, names in orcid_dict.items():
+            if len(names) > 1:
+                is_valid = False
+                diff.append(orcid)
+
+        # Para a realização dos testes é necessária uma ordem estável para os nomes
+        obtained = {
+            orcid: sorted(list(names))
+            for orcid, names in orcid_dict.items()
+        }
 
         yield format_response(
             title="Author ORCID element is unique",
@@ -539,7 +542,7 @@ class ArticleContribsValidation:
             validation_type="uniqueness",
             is_valid=is_valid,
             expected="Unique ORCID values",
-            obtained=self.orcid_list,
+            obtained=obtained,
             advice="Consider replacing the following ORCIDs that are not unique: {}".format(
                 " | ".join(diff)
             ),
