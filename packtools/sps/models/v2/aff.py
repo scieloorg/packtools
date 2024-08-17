@@ -1,3 +1,8 @@
+import re
+
+from lxml import etree
+
+
 class Affiliation:
     def __init__(self, aff_node):
         self.aff_node = aff_node
@@ -66,9 +71,9 @@ class Affiliation:
         }
 
     def _get_institution_info(self, inst_type):
-        return self.aff_node.findtext(
-                f'institution[@content-type="{inst_type}"]'
-            )
+        return self._clean_string(
+           self.aff_node.findtext(f'institution[@content-type="{inst_type}"]')
+        )
 
     def _get_loc_type_info(self, loc_type):
         location = self.aff_node.findtext(f"addr-line/{loc_type}")
@@ -76,14 +81,19 @@ class Affiliation:
             location = self.aff_node.findtext(f'addr-line/named-content[@content-type="{loc_type}"]')
         return location
 
+    def _clean_string(self, text):
+        if text:
+            text_without_whitespace = re.sub(r'[\n\t\r]+', ' ', text)
+            final_text = re.sub(r'\s+', ' ', text_without_whitespace).strip()
+            return final_text
+
 
 class Affiliations:
     def __init__(self, node):
         self.node = node
 
-    @property
     def affiliations(self):
-        for aff_node in self.node.xpath(".//aff"):
+        for aff_node in self.node.xpath("./article-meta/aff | ./contrib-group/aff | ./front-stub/aff"):
             yield Affiliation(aff_node)
 
 
@@ -92,7 +102,7 @@ class ArticleAffiliations:
         self.xml_tree = xml_tree
 
     def _get_affiliation_data(self, node, article_type, lang, parent="article", parent_id=None):
-        for aff in Affiliations(node).affiliations:
+        for aff in Affiliations(node).affiliations():
             data = aff.data
             data["parent"] = parent
             data["parent_id"] = parent_id
@@ -108,18 +118,15 @@ class ArticleAffiliations:
             yield from self._get_affiliation_data(node, article_type, lang)
 
     def sub_article_translation_affs(self):
-        for node in self.xml_tree.xpath("./sub-article"):
-            if node.get("article-type") == "translation":
-                article_type = node.get("article-type")
-                lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-                yield from self._get_affiliation_data(node, article_type, lang, parent="sub-article", parent_id=node.get("id"))
+        for node in self.xml_tree.xpath("./sub-article[@article-type='translation']"):
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            yield from self._get_affiliation_data(node, "translation", lang, parent="sub-article", parent_id=node.get("id"))
 
     def sub_article_non_translation_affs(self):
-        for node in self.xml_tree.xpath("./sub-article"):
-            if node.get("article-type") != "translation":
-                article_type = node.get("article-type")
-                lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-                yield from self._get_affiliation_data(node, article_type, lang, parent="sub-article", parent_id=node.get("id"))
+        for node in self.xml_tree.xpath("./sub-article[@article-type!='translation']"):
+            article_type = node.get("article-type")
+            lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            yield from self._get_affiliation_data(node, article_type, lang, parent="sub-article", parent_id=node.get("id"))
 
     def all_affs(self):
         yield from self.article_affs()
