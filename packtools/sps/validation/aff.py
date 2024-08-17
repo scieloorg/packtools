@@ -29,6 +29,7 @@ class AffiliationsListValidation:
         country_codes_list : list, optional
             List of valid country codes for validation.
         """
+        self.xml_tree = xml_tree
         self.affiliations = ArticleAffiliations(xml_tree)
         self.affiliations_list = list(self.affiliations.article_affs()) + list(self.affiliations.sub_article_translation_affs())
         self.country_codes_list = country_codes_list
@@ -92,8 +93,10 @@ class AffiliationsListValidation:
         dict
             A dictionary containing the validation result comparing the number of affiliations.
         """
-        article_count = len(list(self.affiliations.article_affs()))
-        sub_article_count = len(list(self.affiliations.sub_article_translation_affs()))
+        article_list = list(ArticleAffiliations(self.xml_tree).article_affs())
+        article_count = len(article_list)
+        sub_article_list = list(ArticleAffiliations(self.xml_tree).sub_article_translation_affs())
+        sub_article_count = len(sub_article_list)
 
         yield format_response(
             title="Affiliation count validation",
@@ -108,10 +111,13 @@ class AffiliationsListValidation:
             expected="equal counts in articles and sub-articles",
             obtained=f"articles: {article_count}, sub-articles: {sub_article_count}",
             advice="Ensure the number of affiliations in articles matches the number in sub-articles.",
-            data={
-                "article_count": article_count,
-                "sub_article_count": sub_article_count,
-            },
+            data=[
+                {
+                    "article": f'<aff id={aff1.get("id")}>',
+                    "sub_article": f'<aff id={aff2.get("id")}>'
+                }
+                for aff1, aff2 in zip(article_list, sub_article_list)
+            ],
             error_level=error_level,
         )
 
