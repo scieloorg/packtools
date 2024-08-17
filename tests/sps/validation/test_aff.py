@@ -1351,7 +1351,7 @@ class AffiliationValidationTest(TestCase):
                 <article article-type="research-article" xml:lang="pt">
                     <front>
                         <article-meta>
-                            
+
                         </article-meta>
                     </front>
                     <sub-article article-type="translation" id="TRpt" xml:lang="pt">
@@ -1359,9 +1359,7 @@ class AffiliationValidationTest(TestCase):
                             <aff id="aff1002">
                                 <label>I</label>
                                 <country country="BR">Brasil</country>
-                                <institution content-type="original">Universidade Federal de Pelotas. Faculdade de
-                                    Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS,
-                                    Brasil</institution>
+                                <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
                             </aff>
                         </front-stub>
                     </sub-article>
@@ -1383,15 +1381,8 @@ class AffiliationValidationTest(TestCase):
                 "validation_type": "exist",
                 "response": "OK",
                 "expected_value": "original affiliation",
-                "got_value": "Universidade Federal de Pelotas. Faculdade de\n"
-                             "                                    Medicina. Programa de "
-                             "Pós-Graduação em Epidemiologia. Pelotas, RS,\n"
-                             "                                    Brasil",
-                "message": "Got Universidade Federal de Pelotas. Faculdade de\n"
-                           "                                    Medicina. Programa de "
-                           "Pós-Graduação em Epidemiologia. Pelotas, RS,\n"
-                           "                                    Brasil, expected original "
-                           "affiliation",
+                "got_value": "Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil",
+                "message": "Got Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil, expected original affiliation",
                 "advice": None,
                 "data": {
                     "city": None,
@@ -1403,10 +1394,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": None,
-                    "original": "Universidade Federal de Pelotas. Faculdade de\n"
-                                "                                    Medicina. Programa "
-                                "de Pós-Graduação em Epidemiologia. Pelotas, RS,\n"
-                                "                                    Brasil",
+                    "original": "Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil",
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": "TRpt",
@@ -1445,9 +1433,590 @@ class AffiliationValidationTest(TestCase):
                 "got_value": "articles: 2, sub-articles: 2",
                 "message": "Got articles: 2, sub-articles: 2, expected equal counts in articles and sub-articles",
                 "advice": None,
-                "data": {"article_count": 2, "sub_article_count": 2},
+                "data": [
+                    {
+                        'article': '<aff id=aff1>',
+                        'sub_article': '<aff id=aff1002>'
+                    },
+                    {
+                        'article': '<aff id=aff2>',
+                        'sub_article': '<aff id=aff2002>'
+                    }
+                ],
             }
         ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_2176_4573_bak_p58270(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
+        data = {"country_codes_list": ["BR"]}
+        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        expected = [
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": "original affiliation",
+                "got_value": "Mestre em Filosofia pelo Programa de Pós-Graduação em Filosofia "
+                             "da Universidade Federal da Paraíba -UFPB, João Pessoa, Paraíba, "
+                             "Brasil; kidinho_dc@hotmail.com",
+                "item": "institution",
+                "message": "Got Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                           "Filosofia da Universidade Federal da Paraíba -UFPB, João Pessoa, "
+                           "Paraíba, Brasil; kidinho_dc@hotmail.com, expected original "
+                           "affiliation",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": '@content-type="original"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade Federal da Paraíba -UFPB",
+                "item": "institution",
+                "message": "Got Universidade Federal da Paraíba -UFPB, expected orgname "
+                           "affiliation",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": '@content-type="orgname"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "item": "aff",
+                "message": "Got Brasil, expected country affiliation",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "country",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "item": "country",
+                "message": "Got BR, expected ['BR']",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "@country",
+                "title": "Affiliation validation",
+                "validation_type": "value in list",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": "state affiliation",
+                "got_value": "Paraíba",
+                "item": "addr-line",
+                "message": "Got Paraíba, expected state affiliation",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "state",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "João Pessoa",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": "kidinho_dc@hotmail.com",
+                    "id": "aff1",
+                    "label": "*",
+                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv2": None,
+                    "orgname": "Universidade Federal da Paraíba -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
+                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
+                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "Paraíba",
+                },
+                "expected_value": "city affiliation",
+                "got_value": "João Pessoa",
+                "item": "addr-line",
+                "message": "Got João Pessoa, expected city affiliation",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "city",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": None,
+                    "country_code": None,
+                    "country_name": None,
+                    "email": None,
+                    "id": "aff2",
+                    "label": "*",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": None,
+                    "original": "MA in Philosophy from Programa de Pós-Graduação em "
+                                "Filosofia at Universidade Federal da Paraíba – UFPB, "
+                                "João Pessoa, Paraíba, Brazil; kidinho_dc@hotmail.com",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "s1",
+                    "parent_lang": "en",
+                    "state": None,
+                },
+                "expected_value": "original affiliation",
+                "got_value": "MA in Philosophy from Programa de Pós-Graduação em Filosofia at "
+                             "Universidade Federal da Paraíba – UFPB, João Pessoa, Paraíba, "
+                             "Brazil; kidinho_dc@hotmail.com",
+                "item": "institution",
+                "message": "Got MA in Philosophy from Programa de Pós-Graduação em Filosofia "
+                           "at Universidade Federal da Paraíba – UFPB, João Pessoa, Paraíba, "
+                           "Brazil; kidinho_dc@hotmail.com, expected original affiliation",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "s1",
+                "parent_lang": "en",
+                "response": "OK",
+                "sub_item": '@content-type="original"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            }
+        ]
+        self.assertEqual(len(obtained), 7)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_count_2176_4573_bak_p58270(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
+        obtained = list(
+            AffiliationsListValidation(
+                xml_tree
+            ).validate_affiliation_count_article_vs_sub_article()
+        )
+        expected = [
+            {
+                "advice": None,
+                "data": [
+                    {
+                        "article": "<aff id=aff1>",
+                        "sub_article": "<aff id=aff2>"
+                    }
+                ],
+                "expected_value": "equal counts in articles and sub-articles",
+                "got_value": "articles: 1, sub-articles: 1",
+                "item": "aff",
+                "message": "Got articles: 1, sub-articles: 1, expected equal counts in "
+                           "articles and sub-articles",
+                "parent": None,
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "sub_item": None,
+                "title": "Affiliation count validation",
+                "validation_type": "match",
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_MNHpJQpnjvSX6pkKCg37yTJ(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
+        data = {"country_codes_list": ["BR"]}
+        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        expected = [
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": "original affiliation",
+                "got_value": "Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil",
+                "item": "institution",
+                "message": "Got Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil, "
+                           "expected original affiliation",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": '@content-type="original"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": "orgname affiliation",
+                "got_value": "Universidade do Sul de Santa Catarina",
+                "item": "institution",
+                "message": "Got Universidade do Sul de Santa Catarina, expected orgname "
+                           "affiliation",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": '@content-type="orgname"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": "country affiliation",
+                "got_value": "Brasil",
+                "item": "aff",
+                "message": "Got Brasil, expected country affiliation",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "country",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": ["BR"],
+                "got_value": "BR",
+                "item": "country",
+                "message": "Got BR, expected ['BR']",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "@country",
+                "title": "Affiliation validation",
+                "validation_type": "value in list",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": "state affiliation",
+                "got_value": "SC",
+                "item": "addr-line",
+                "message": "Got SC, expected state affiliation",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "state",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": "Tubarão",
+                    "country_code": "BR",
+                    "country_name": "Brasil",
+                    "email": None,
+                    "id": "aff1",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": "Universidade do Sul de Santa Catarina",
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "parent": "article",
+                    "parent_article_type": "letter",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "state": "SC",
+                },
+                "expected_value": "city affiliation",
+                "got_value": "Tubarão",
+                "item": "addr-line",
+                "message": "Got Tubarão, expected city affiliation",
+                "parent": "article",
+                "parent_article_type": "letter",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "OK",
+                "sub_item": "city",
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            },
+            {
+                "advice": None,
+                "data": {
+                    "city": None,
+                    "country_code": "BR",
+                    "country_name": "Brazil",
+                    "email": None,
+                    "id": "aff1001",
+                    "label": " 1 ",
+                    "orgdiv1": None,
+                    "orgdiv2": None,
+                    "orgname": None,
+                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brazil",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "TRen",
+                    "parent_lang": "en",
+                    "state": None,
+                },
+                "expected_value": "original affiliation",
+                "got_value": "Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil",
+                "item": "institution",
+                "message": "Got Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil, "
+                           "expected original affiliation",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRen",
+                "parent_lang": "en",
+                "response": "OK",
+                "sub_item": '@content-type="original"',
+                "title": "Affiliation validation",
+                "validation_type": "exist",
+            }
+        ]
+        self.assertEqual(len(obtained), 7)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
+        obtained = list(
+            AffiliationsListValidation(
+                xml_tree
+            ).validate_affiliation_count_article_vs_sub_article()
+        )
+        expected = [
+            {
+                "advice": None,
+                "data": [
+                    {
+                        "article": "<aff id=aff1>",
+                        "sub_article": "<aff id=aff1001>"
+                    }
+                ],
+                "expected_value": "equal counts in articles and sub-articles",
+                "got_value": "articles: 1, sub-articles: 1",
+                "item": "aff",
+                "message": "Got articles: 1, sub-articles: 1, expected equal counts in articles and sub-articles",
+                "parent": None,
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "sub_item": None,
+                "title": "Affiliation count validation",
+                "validation_type": "match",
+            }
+
+        ]
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
