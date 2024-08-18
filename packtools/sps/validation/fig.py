@@ -21,7 +21,7 @@ class FigValidation:
         Validates the existence of <fig> elements within the XML document and yields formatted responses.
     """
 
-    def __init__(self, xmltree):
+    def __init__(self, xml_tree):
         """
         Initializes a FigValidation object.
 
@@ -30,8 +30,8 @@ class FigValidation:
         xmltree : lxml.etree._ElementTree
             The parsed XML document representing the article.
         """
-        self.xmltree = xmltree
-        self.figures_by_language = ArticleFigs(xmltree).items_by_lang
+        self.xml_tree = xml_tree
+        self.figures = list(ArticleFigs(xml_tree).article_figs)
 
     def validate_fig_existence(self, error_level="WARNING"):
         """
@@ -50,33 +50,32 @@ class FigValidation:
         dict
             A dictionary containing the validation response.
         """
-        if self.figures_by_language:
-            for lang, figure_data_list in self.figures_by_language.items():
-                for figure_data in figure_data_list:
-                    figure_node = figure_data.get("node").element
-                    yield format_response(
-                        title="fig presence",
-                        parent=figure_data.get("parent"),
-                        parent_id=figure_data.get("parent_id"),
-                        parent_article_type=figure_data.get("parent_article_type"),
-                        parent_lang=figure_data.get("parent_lang"),
-                        item="fig",
-                        sub_item=None,
-                        validation_type="exist",
-                        is_valid=True,
-                        expected="<fig> element",
-                        obtained=etree.tostring(figure_node, encoding='unicode'),
-                        advice=None,
-                        data=figure_data,
-                        error_level="OK",
-                    )
+        if self.figures:
+            for figure in self.figures:
+                figure_node = figure.get("node").element
+                yield format_response(
+                    title="fig presence",
+                    parent=figure.get("parent"),
+                    parent_id=figure.get("parent_id"),
+                    parent_article_type=figure.get("parent_article_type"),
+                    parent_lang=figure.get("parent_lang"),
+                    item="fig",
+                    sub_item=None,
+                    validation_type="exist",
+                    is_valid=True,
+                    expected="<fig> element",
+                    obtained=etree.tostring(figure_node, encoding='unicode'),
+                    advice=None,
+                    data=figure,
+                    error_level="OK",
+                )
         else:
             yield format_response(
                 title="fig presence",
                 parent="article",
                 parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get(
+                parent_article_type=self.xml_tree.get("article-type"),
+                parent_lang=self.xml_tree.get(
                     "{http://www.w3.org/XML/1998/namespace}lang"
                 ),
                 item="fig",
