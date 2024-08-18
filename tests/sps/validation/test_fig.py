@@ -8,7 +8,7 @@ from packtools.sps.utils import xml_utils
 class FigValidationTest(unittest.TestCase):
     def test_fig_validation_no_fig_elements(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
@@ -16,7 +16,7 @@ class FigValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FigValidation(xmltree).validate_fig_existence())
+        obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
         # Remover a chave "node" dos dados obtidos
         for item in obtained:
@@ -48,7 +48,7 @@ class FigValidationTest(unittest.TestCase):
 
     def test_fig_validation_with_fig_elements(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
@@ -63,7 +63,7 @@ class FigValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FigValidation(xmltree).validate_fig_existence())
+        obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
         # Remover a chave "node" dos dados obtidos
         for item in obtained:
@@ -123,11 +123,11 @@ class FigValidationTest(unittest.TestCase):
 
     def test_fig_validation_with_fig_elements_fix_bug(self):
         self.maxDiff = None
-        xmltree = xml_utils.get_xml_tree(
+        xml_tree = xml_utils.get_xml_tree(
             "tests/fixtures/htmlgenerator/table_wrap_group_and_fig_group/2236-8906"
             "-hoehnea-49-e1082020/2236-8906-hoehnea-49-e1082020.xml"
         )
-        obtained = list(FigValidation(xmltree).validate_fig_existence())
+        obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
         # Remover a chave "node" dos dados obtidos
         for item in obtained:
@@ -174,12 +174,53 @@ class FigValidationTest(unittest.TestCase):
                     "parent_lang": "pt",
                     "source_attrib": None,
                 },
+            },
+            {
+                'title': 'fig presence',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'fig',
+                'sub_item': None,
+                'validation_type': 'exist',
+                'expected_value': '<fig> element',
+                'got_value': '<fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                             'xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en"><label>Figure '
+                             '14</label><caption><title>Axes 1 and 3 of the ordering analyses by the CA method of the '
+                             'three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, '
+                             'Brasil.</title></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xlink:href="2236-8906-hoehnea-49-e1082020-gf14.tif"/></fig>',
+                'response': 'OK',
+                'message': 'Got <fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+                           'xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en"><label>Figure '
+                           '14</label><caption><title>Axes 1 and 3 of the ordering analyses by the CA method of the '
+                           'three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, '
+                           'Brasil.</title></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
+                           'xlink:href="2236-8906-hoehnea-49-e1082020-gf14.tif"/></fig>, expected <fig> element',
+                'advice': None,
+                'data': {
+                    'alternative_elements': [],
+                    'alternative_parent': 'fig',
+                    'caption_text': 'Axes 1 and 3 of the ordering analyses by the CA method of the three study areas, '
+                                    'Parque Estadual da Cantareira, São Paulo, São Paulo State, Brasil.',
+                    'fig_id': None,
+                    'fig_type': None,
+                    'graphic_href': '2236-8906-hoehnea-49-e1082020-gf14.tif',
+                    'label': 'Figure 14',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'source_attrib': None
+                }
             }
         ]
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertEqual(len(obtained), 28)
+        # showing only the first and last record for the figure
+        self.assertDictEqual(expected[0], obtained[0])
+        self.assertDictEqual(expected[1], obtained[27])
 
 
 if __name__ == "__main__":
