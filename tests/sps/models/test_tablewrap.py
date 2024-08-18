@@ -1,7 +1,7 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.models.tablewrap import TableWrap, ArticleTableWraps
+from packtools.sps.models.tablewrap import TableWrap, ArticleTableWrappers
 
 
 class TableWrapTest(unittest.TestCase):
@@ -146,7 +146,7 @@ class TableWrapTest(unittest.TestCase):
         self.assertDictEqual(self.tablewrap_obj.data, expected_data)
 
 
-class ArticleTableWrapsTest(unittest.TestCase):
+class ArticleTableWrappersTest(unittest.TestCase):
     def setUp(self):
         xml = (
             """
@@ -493,12 +493,11 @@ class ArticleTableWrapsTest(unittest.TestCase):
         )
         self.xml_tree = etree.fromstring(xml)
 
-    def test_items_by_language(self):
+    def test_article_table_wrappers(self):
         self.maxDiff = None
-        obtained = ArticleTableWraps(self.xml_tree).items_by_lang
+        obtained = list(ArticleTableWrappers(self.xml_tree).article_table_wrappers)
 
-        expected = {
-            "pt": [
+        expected = [
                 {
                     "alternative_parent": "table-wrap",
                     "table_wrap_id": "t2",
@@ -532,9 +531,7 @@ class ArticleTableWrapsTest(unittest.TestCase):
                     'parent_id': None,
                     'parent_lang': 'pt',
                     'table_wrap_id': 't3'
-                }
-            ],
-            "en": [
+                },
                 {
                     'alternative_elements': ['graphic', 'table'],
                     'alternative_parent': 'table-wrap',
@@ -571,19 +568,15 @@ class ArticleTableWrapsTest(unittest.TestCase):
                      'parent_lang': 'en',
                      'table_wrap_id': 't5'
                 }
-            ]
-        }
+        ]
 
-        for lang, items in expected.items():
-            with self.subTest(lang):
-                for i, expected_data in enumerate(items):
-                    obtained_data = obtained[lang][i].copy()
-
-                    # Remover a chave "node" antes de comparar
-                    obtained_data.pop("node", None)
-                    expected_data_copy = expected_data.copy()
-
-                    self.assertDictEqual(expected_data_copy, obtained_data)
+        self.assertEqual(len(obtained), 4)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained_copy = obtained[i].copy()
+                obtained_copy.pop("node")
+                self.assertDictEqual(item, obtained_copy)
 
 
 if __name__ == '__main__':
