@@ -31,8 +31,8 @@ class FigTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        self.xmltree = etree.fromstring(xml)
-        self.fig_element = self.xmltree.xpath("//fig")[0]
+        self.xml_tree = etree.fromstring(xml)
+        self.fig_element = self.xml_tree.xpath("//fig")[0]
         self.fig_obj = Fig(self.fig_element)
 
     def test_fig_id(self):
@@ -147,95 +147,88 @@ class ArticleFigsTest(unittest.TestCase):
             </article>
             """
         )
-        self.xmltree = etree.fromstring(xml)
+        self.xml_tree = etree.fromstring(xml)
 
-    def test_items_by_lang(self):
+    def test_article_figs(self):
         self.maxDiff = None
-        obtained = ArticleFigs(self.xmltree).items_by_lang
+        obtained = list(ArticleFigs(self.xml_tree).article_figs)
 
-        expected = {
-            "pt": [
-                {
-                    "alternative_parent": "fig",
-                    "fig_id": "f02",
-                    "fig_type": "map",
-                    "label": "FIGURE 2",
-                    "graphic_href": "1234-5678-zwy-12-04-0123-gf02.tif",
-                    "caption_text": "Título da figura 1 em Português",
-                    "source_attrib": "Fonte: IBGE (2018)",
-                    "alternative_elements": [
-                        "graphic",
-                        "graphic",
-                        "textual-alternative",
-                        "media",
-                    ],
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "parent_article_type": "research-article",
-                },
-                {
-                    "alternative_parent": "fig",
-                    "fig_id": "f03",
-                    "fig_type": "map",
-                    "label": "FIGURE 3",
-                    "graphic_href": "1234-5678-zwy-12-04-0123-gf03.tif",
-                    "caption_text": "Título da figura 2 em Português",
-                    "source_attrib": "Fonte: IBGE (2019)",
-                    "alternative_elements": [
-                        "graphic",
-                        "graphic",
-                        "textual-alternative",
-                        "media",
-                    ],
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "parent_article_type": "research-article",
-                }
-            ],
-            "en": [
-                {
-                    "alternative_parent": "fig",
-                    "fig_id": "f01",
-                    "fig_type": "map",
-                    "label": "FIGURE 1",
-                    "graphic_href": "1234-5678-zwy-12-04-0123-gf01.tif",
-                    "caption_text": "Title of Map 1",
-                    "source_attrib": None,
-                    "alternative_elements": [],
-                    "parent": "sub-article",
-                    "parent_id": "TRen",
-                    "parent_lang": "en",
-                    "parent_article_type": "translation",
-                },
-                {
-                    "alternative_parent": "fig",
-                    "fig_id": "f04",
-                    "fig_type": "map",
-                    "label": "FIGURE 4",
-                    "graphic_href": "1234-5678-zwy-12-04-0123-gf04.tif",
-                    "caption_text": "Title of Map 2",
-                    "source_attrib": None,
-                    "alternative_elements": [],
-                    "parent": "sub-article",
-                    "parent_id": "TRen",
-                    "parent_lang": "en",
-                    "parent_article_type": "translation",
-                }
-            ],
-        }
+        expected = [
+            {
+                "alternative_parent": "fig",
+                "fig_id": "f02",
+                "fig_type": "map",
+                "label": "FIGURE 2",
+                "graphic_href": "1234-5678-zwy-12-04-0123-gf02.tif",
+                "caption_text": "Título da figura 1 em Português",
+                "source_attrib": "Fonte: IBGE (2018)",
+                "alternative_elements": [
+                    "graphic",
+                    "graphic",
+                    "textual-alternative",
+                    "media",
+                ],
+                "parent": "article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "parent_article_type": "research-article",
+            },
+            {
+                "alternative_parent": "fig",
+                "fig_id": "f03",
+                "fig_type": "map",
+                "label": "FIGURE 3",
+                "graphic_href": "1234-5678-zwy-12-04-0123-gf03.tif",
+                "caption_text": "Título da figura 2 em Português",
+                "source_attrib": "Fonte: IBGE (2019)",
+                "alternative_elements": [
+                    "graphic",
+                    "graphic",
+                    "textual-alternative",
+                    "media",
+                ],
+                "parent": "article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "parent_article_type": "research-article",
+            },
+            {
+                "alternative_parent": "fig",
+                "fig_id": "f01",
+                "fig_type": "map",
+                "label": "FIGURE 1",
+                "graphic_href": "1234-5678-zwy-12-04-0123-gf01.tif",
+                "caption_text": "Title of Map 1",
+                "source_attrib": None,
+                "alternative_elements": [],
+                "parent": "sub-article",
+                "parent_id": "TRen",
+                "parent_lang": "en",
+                "parent_article_type": "translation",
+            },
+            {
+                "alternative_parent": "fig",
+                "fig_id": "f04",
+                "fig_type": "map",
+                "label": "FIGURE 4",
+                "graphic_href": "1234-5678-zwy-12-04-0123-gf04.tif",
+                "caption_text": "Title of Map 2",
+                "source_attrib": None,
+                "alternative_elements": [],
+                "parent": "sub-article",
+                "parent_id": "TRen",
+                "parent_lang": "en",
+                "parent_article_type": "translation",
+            }
+        ]
 
-        for lang, items in expected.items():
-            with self.subTest(lang):
-                for i, expected_data in enumerate(items):
-                    obtained_data = obtained[lang][i].copy()
-
-                    # Remover a chave "node" antes de comparar
-                    obtained_data.pop("node", None)
-                    expected_data_copy = expected_data.copy()
-
-                    self.assertDictEqual(expected_data_copy, obtained_data)
+        self.assertEqual(len(obtained), 4)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained_copy = obtained[i].copy()
+                obtained_copy.pop("node")
+                self.assertDictEqual(item, obtained_copy)
 
 
 if __name__ == "__main__":
