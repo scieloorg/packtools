@@ -7,11 +7,8 @@ class TableWrap:
     """
     Represents a table wrap element within an XML document.
 
-    **Parameters:**
+    Parameters:
         element (xml.etree.ElementTree.Element): The XML element representing the table wrap.
-
-    **Attributes:**
-        element (xml.etree.ElementTree.Element): The internal representation of the parsed XML element.
     """
 
     def __init__(self, element):
@@ -49,7 +46,7 @@ class TableWrap:
         Returns the text content of the caption element within the table-wrap.
 
         Returns:
-            str: The concatenated text content of the <caption> element,
+            str: The text content of the <caption> element,
                  or an empty string if the element is not found.
         """
         caption_element = self.element.find(".//caption")
@@ -136,15 +133,27 @@ class TableWrap:
         }
 
 
-class ArticleTableWraps:
+class TableWrappers:
+    def __init__(self, node):
+        self.node = node
+
+    def table_wrappers(self):
+        """
+        Yields TableWrap objects for each <table-wrap> element within the provided node.
+
+        Yields:
+            TableWrap: An instance of the TableWrap class for each table-wrap element found.
+        """
+        for table in self.node.xpath(".//table-wrap"):
+            yield TableWrap(table)
+
+
+class ArticleTableWrappers:
     """
-    Represents an article with its associated table wraps, grouped by language.
+    Represents an article with its associated table wrappers, grouped by language.
 
-    **Parameters:**
+    Parameters:
         xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
-
-    **Attributes:**
-        xml_tree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
     """
 
     def __init__(self, xml_tree):
@@ -157,28 +166,20 @@ class ArticleTableWraps:
         self.xml_tree = xml_tree
 
     @property
-    def items_by_lang(self):
+    def article_table_wrappers(self):
         """
-        Returns a dictionary containing information about table wraps grouped by language.
+        Returns a dictionary containing information about table wrappers grouped by language.
 
         Iterates through parent contexts (article or sub-article elements) in the XML document
-        and creates `Parent` objects. For each parent context, it yields data for associated table wraps
+        and creates `Parent` objects. For each parent context, it yields data for associated table wrappers
         using the `parent.items` generator.
 
         Returns:
             dict: A dictionary where keys are languages and values are generators that yield dictionaries
-                  containing information about table wraps within that language context.
+                  containing information about table wrappers within that language context.
         """
-        langs = {}
         for node, lang, article_type, parent_context, parent_id in get_parent_context(self.xml_tree):
-            for item in node.xpath(".//table-wrap"):
-                table_wrap = TableWrap(item)
+            for table_wrap in TableWrappers(node).table_wrappers():
                 data = table_wrap.data
                 data["node"] = table_wrap
-                langs.setdefault(lang, [])
-                langs[lang].append(
-                    put_parent_context(data, lang, article_type, parent_context, parent_id)
-                )
-
-        if langs:
-            return langs
+                yield put_parent_context(data, lang, article_type, parent_context, parent_id)
