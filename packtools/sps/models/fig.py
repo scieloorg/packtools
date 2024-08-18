@@ -5,10 +5,7 @@ class Fig:
     """
     Represents a figure element within an XML document.
 
-    **Attributes:**
-        element (xml.etree.ElementTree.Element): The XML element representing the figure.
-
-    **Parameters:**
+    Parameters:
         element (xml.etree.ElementTree.Element): The XML element representing the figure.
     """
 
@@ -16,7 +13,7 @@ class Fig:
         """
         Initializes a Fig object.
 
-        **Parameters:**
+        Parameters:
             element (xml.etree.ElementTree.Element): The XML element representing the figure.
         """
         self.element = element
@@ -124,50 +121,50 @@ class Fig:
         }
 
 
+class Figs:
+    def __init__(self, fig_node):
+        self.fig_node = fig_node
+
+    def figs(self):
+        for fig in self.fig_node.xpath(".//fig"):
+            yield Fig(fig)
+
+
 class ArticleFigs:
     """
     Represents an article with its associated figures, grouped by language.
 
-    **Parameters:**
-        xmltree (lxml.etree._ElementTree): The parsed XML document representing the article.
-
-    **Attributes:**
-        xmltree (lxml.etree._ElementTree): The internal representation of the parsed XML document.
+    Parameters:
+        xml_tree (lxml.etree._ElementTree): The parsed XML document representing the article.
     """
 
-    def __init__(self, xmltree):
+    def __init__(self, xml_tree):
         """
         Initializes an ArticleFigs object.
 
-        **Parameters:**
-            xmltree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element): The parsed XML document representing the article.
+        Parameters:
+            xml_tree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element):
+            The parsed XML document representing the article.
         """
-        self.xmltree = xmltree
+        self.xml_tree = xml_tree
 
     @property
-    def items_by_lang(self):
+    def article_figs(self):
         """
-        Returns a dictionary containing information about figures grouped by language.
+        Generates information about figures grouped by language within the article.
 
-        Iterates through parent contexts (article or sub-article elements) in the XML document
+        Iterates through parent contexts (article or sub-article elements) in the XML document,
         and creates `Parent` objects. For each parent context, it yields data for associated figures
         using the `parent.items` generator.
 
-        Returns:
-            dict: A dictionary where keys are languages and values are generators that yield dictionaries
-                  containing information about figures within that language context.
+        Yields:
+            dict: A dictionary containing information about figures within the given language context,
+                  including language, article type, parent, parent ID, and figure data.
         """
-        langs = {}
         for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xmltree
+            self.xml_tree
         ):
-            for item in node.xpath(".//fig"):
-                figure = Fig(item)
+            for figure in Figs(node).figs():
                 data = figure.data
                 data["node"] = figure
-                langs.setdefault(lang, [])
-                langs[lang].append(
-                    put_parent_context(data, lang, article_type, parent, parent_id)
-                )
-        if langs:
-            return langs
+                yield put_parent_context(data, lang, article_type, parent, parent_id)
