@@ -1,0 +1,1067 @@
+<articles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://raw.githubusercontent.com/scieloorg/articles_meta/master/tests/xsd/scielo_sci/ThomsonReuters_publishing.xsd" dtd-version="1.10">
+<article lang_id="es" article-type="research-article">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher">aci</journal-id>
+<journal-title-group>
+<journal-title>ACIMED</journal-title>
+<abbrev-journal-title>ACIMED</abbrev-journal-title>
+</journal-title-group>
+<issn>1561-2880</issn>
+<collection>SciELO Cuba</collection>
+<publisher>
+<publisher-name>Centro Nacional de Información de Ciencias Médicas</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<unique-article-id pub-id-type="publisher-id">S1024-94352003000500002</unique-article-id>
+<article-id pub-id-type="publisher-id">S1024-94352003000500002</article-id>
+<title-group>
+<article-title lang_id="es">Motores de búsqueda sobre salud en Internet</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<name>
+<surname>Rodríguez Camiño</surname>
+<given-names>Reinaldo</given-names>
+</name>
+<xref ref-type="aff" rid="A01"/>
+</contrib>
+</contrib-group>
+<aff id="A01">
+<institution>Escuela Latinoamericana de Medicina.</institution>
+</aff>
+<pub-date>
+<month>10</month>
+<year>2003</year>
+</pub-date>
+<volume>11</volume>
+<issue>5</issue>
+<permissions>
+<license license-type="open-access" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<license-p>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</license-p>
+</license>
+</permissions>
+<self-uri href="http://scielo.sld.cu/scielo.php?script=sci_issuetoc&amp;pid=1024-943520030005&amp;lng=en" content-type="issue_page"/>
+<self-uri href="http://scielo.sld.cu/scielo.php?script=sci_serial&amp;pid=1024-9435&amp;lng=en" content-type="journal_page"/>
+<self-uri href="http://scielo.sld.cu/scielo.php?script=sci_arttext&amp;pid=S1024-94352003000500002&amp;lng=en&amp;tlng=en" content-type="full_text_page"/>
+<abstract lang_id="es">
+<p>Con la aparición del WWW, a principios de los años 90 del pasado siglo, se produjo un crecimiento vertiginoso del número de usuarios y recursos de información en Internet. Ante estas circunstancias, se desarrollaron los llamados motores de búsqueda, un tipo de herramienta imprescindible para explorar el océano de información existente en la red. Con el objetivo de comprender e identificar los principales motores de búsqueda especializados en salud pública y biomedicina, se realizó una profunda revisión del tema en Internet. Para ello, se emplearon: Google, Altavista, Yahoo, AOL y otros; algunos metabuscadores como Ixquick y un grupo de buscadores orientados a temas de salud. También, se consultaron bases de datos como Medline y Documents in Information Science (DoIS), esta última especializada en ciencias de la información. La información recopilada se introdujo en una base de datos creada en Microsoft Access. De ella, se extrajo una lista de 76 buscadores especializados en el tema objeto de estudio, con el propósito de crear una fuente de información y referencia, útil a los profesionales y técnicos de la salud, especialmente a los trabajadores del Sistema Nacional de Información de Ciencias Médicas. Ellos complementan la información que ofrecen grandes bases de datos biomédicas en línea como Medline, Current Contents, LILACS, Biosis y otras.</p>
+</abstract>
+<trans-abstract lang_id="en">
+<p>With the WWW, at the beginning of the 90's of the last century, a vertiginous growth of the number of users and resources of information in Internet took place. In these circumstances, the search engines were developed, a type of tool essential to explore the ocean of existing information in the network. With the purpose of understanding and identifying the main specialized search engines in public and biomedicine, a deep review of the subject was carried out in Internet. For it, we used: Google, Altavista, Yahoo, etc.; some metasearchesrs like Ixcquix and a group of finders oriented to health care subjects. Also, the data bases Medline and Documents in Information Science were consulted (DoIS), the last one is specialized in sciences of the information. The compiled information was introduced in a data base created in Microsoft Access. Of this, a list of 76 finders specialized in the subject was extracted study object in order to create a source of information and reference, useful to the professionals and technicians of the health care system, specially to the workers of the National System of Information of Medical Sciences. They enriched the information offered by great online biomedical database such as como Medline, Current Contents, LILACS, Biosis and others.</p>
+</trans-abstract>
+<kwd-group lang_id="es" kwd-group-type="author-generated">
+<kwd>INTERNET</kwd>
+<kwd>INFORMATICA MEDICA</kwd>
+<kwd>BIBLIOGRAFIA DE MEDICINA</kwd>
+<kwd>BASES DE DATOS BIBLIOGRAFICAS</kwd>
+<kwd>MOTORES DE BUSQUEDA</kwd>
+<kwd>INTERNET</kwd>
+<kwd>RECUPERACION DE LA INFORMACION</kwd>
+<kwd>ESTRATEGIAS DE BUSQUEDAS</kwd>
+<kwd>METABUSCADORES</kwd>
+<kwd>INDICES</kwd>
+<kwd>BASES DE DATOS BIBLIOGRAFICAS</kwd>
+</kwd-group>
+<kwd-group lang_id="en" kwd-group-type="author-generated">
+<kwd>INTERNET</kwd>
+<kwd>MEDICAL INFORMATICS</kwd>
+<kwd>BIBLIOGRAPHY OF MEDICINE</kwd>
+<kwd>DATABASES BIBLIOGRAPHIC</kwd>
+<kwd>SEARCH ENGINES</kwd>
+<kwd>INTERNET</kwd>
+<kwd>INFORMATION RETRIEVAL</kwd>
+<kwd>SEARCH STRATEGIES</kwd>
+<kwd>META-SEARCH ENGINES</kwd>
+<kwd>INDEXES</kwd>
+<kwd>DATABASES, BIBLIOGRAPHIC</kwd>
+</kwd-group>
+</article-meta>
+</front>
+<back>
+<ref-list>
+<ref id="B1">
+<element-citation publication-type="book">
+<source>La era de las nuevas tecnologías</source>
+<date>
+<year>1998</year>
+</date>
+<person-group>
+<name>
+<surname>González Manet</surname>
+<given-names>E</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B2">
+<element-citation publication-type="book">
+<source>Una breve historia de Internet</source>
+</element-citation>
+</ref>
+<ref id="B3">
+<element-citation publication-type="article">
+<article-title>Elementos conceptuales básicos útiles para comprender las redes de telecomunicaciones</article-title>
+<source>Acimed</source>
+<date>
+<year>2002</year>
+</date>
+<issue>6</issue>
+<volume>10</volume>
+<person-group>
+<name>
+<surname>Zayas Buigas</surname>
+<given-names>L de</given-names>
+</name>
+<name>
+<surname>Sao Avilés</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="Disponible%20en%3A%20http%3A//bvs.sld.cu/aci/vol10_6_01/aci030602.htm">Disponible en: http://bvs.sld.cu/aci/vol10_6_01/aci030602.htm</ext-link>
+</element-citation>
+</ref>
+<ref id="B4">
+<element-citation publication-type="book">
+<source>Buscadores especializados: profundizando en Internet</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>05</day>
+</date>
+<person-group>
+<name>
+<surname>Corredor</surname>
+<given-names>C</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B5">
+<element-citation publication-type="article">
+<article-title>Intramet</article-title>
+<source>Informátic@ Médica</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>08</day>
+</date>
+<issue>1</issue>
+<volume>2002</volume>
+<ext-link ext-link-type="uri" href="%3A%20http%3A//www.informaticamedica.org.ar">: http://www.informaticamedica.org.ar</ext-link>
+</element-citation>
+</ref>
+<ref id="B6">
+<element-citation publication-type="article">
+<article-title>Los portales de salud en la práctica médica</article-title>
+<source>Informátic@ Médica</source>
+<date>
+<year>2002</year>
+</date>
+<issue>1</issue>
+<volume>4</volume>
+<person-group>
+<name>
+<surname>Caño</surname>
+<given-names>E del</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.informaticamedica.org.ar">http://www.informaticamedica.org.ar</ext-link>
+</element-citation>
+</ref>
+<ref id="B7">
+<element-citation publication-type="article">
+<article-title>The quest for information: a guide to search the Internet</article-title>
+<source>J Contemp Dent Pract</source>
+<date>
+<year>2001</year>
+</date>
+<fpage>33</fpage>
+<lpage>4</lpage>
+<issue>4</issue>
+<volume>2</volume>
+<person-group>
+<name>
+<surname>Day</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.thejcdp.com/issue008/day/index_nlm.htm">http://www.thejcdp.com/issue008/day/index_nlm.htm</ext-link>
+</element-citation>
+</ref>
+<ref id="B8">
+<element-citation publication-type="book">
+<source>Pasado, presente y futuro de la recuperación de información en Internet [Monografía en línea]. Ponencia presentada en Congreso Internacional sobre Retos de la Alfabetización Tecnológica en un mundo de red</source>
+<date>
+<year>2000</year>
+</date>
+<person-group>
+<name>
+<surname>Moreno Romero</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B9">
+<element-citation publication-type="book">
+<source>Nua Internet Surveys. How many online?</source>
+</element-citation>
+</ref>
+<ref id="B10">
+<element-citation publication-type="article">
+<article-title>Internet... saber buscar. Giga</article-title>
+<source>Rev Cubana Computac</source>
+<date>
+<year>1999</year>
+</date>
+<fpage>44</fpage>
+<lpage>50</lpage>
+<issue>2</issue>
+<person-group>
+<name>
+<surname>Pérez Gómez</surname>
+<given-names>E</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B11">
+<element-citation publication-type="book">
+<source>Cómo utilizar herramientas de búsqueda en Internet sin terminar enloquecido?</source>
+<person-group>
+<name>
+<surname>Cowan</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B12">
+<element-citation publication-type="article">
+<article-title>Northern Light: poderosa e innovadora capacidad</article-title>
+<source>Prof Inform</source>
+<date>
+<year>2000</year>
+</date>
+<fpage>25</fpage>
+<lpage>34</lpage>
+<issue>10</issue>
+<volume>9</volume>
+<person-group>
+<name>
+<surname>García Testal</surname>
+<given-names>C</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B13">
+<element-citation publication-type="article">
+<article-title>Criterios para la evaluación de la calidad de las fuentes de información sobre salud en Internet</article-title>
+<source>Acimed</source>
+<date>
+<year>2002</year>
+</date>
+<issue>5</issue>
+<volume>10</volume>
+<person-group>
+<name>
+<surname>Núñez Gudás</surname>
+<given-names>M</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://bvs.sld.cu/revistas/aci/vol10_5_02/aci050502.htm%20%5B">http://bvs.sld.cu/revistas/aci/vol10_5_02/aci050502.htm [</ext-link>
+</element-citation>
+</ref>
+<ref id="B14">
+<element-citation publication-type="article">
+<article-title>Herramientas avanzadas para la búsqueda de información médica en el WEB</article-title>
+<source>Atención primaria</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>246</fpage>
+<lpage>52</lpage>
+<issue>4</issue>
+<volume>29</volume>
+<person-group>
+<name>
+<surname>Aguillo</surname>
+<given-names>IF</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://db.doyma.es/pdf/27/27v29n4a13027627pdf001.pdf%20%5B">http://db.doyma.es/pdf/27/27v29n4a13027627pdf001.pdf [</ext-link>
+</element-citation>
+</ref>
+<ref id="B15">
+<element-citation publication-type="article">
+<article-title>Indicators of accuracy of consumer health information on the Internet; a study of indicadors relating to information for managing fever in children in the home</article-title>
+<source>J Am Med Inform Assoc</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>73</fpage>
+<lpage>9</lpage>
+<issue>1</issue>
+<volume>9</volume>
+<person-group>
+<name>
+<surname>Fallés</surname>
+<given-names>D</given-names>
+</name>
+<name>
+<surname>Frické</surname>
+<given-names>M</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.jamia.org/cgi/content/full/9/1/73%20%5B">http://www.jamia.org/cgi/content/full/9/1/73 [</ext-link>
+</element-citation>
+</ref>
+<ref id="B16">
+<element-citation publication-type="article">
+<article-title>Toward quality management of medical information in the Internet: evaluation, labelling and filtering of information</article-title>
+<source>BMJ</source>
+<date>
+<year>1998</year>
+</date>
+<fpage>1496</fpage>
+<lpage>502</lpage>
+<volume>317</volume>
+<person-group>
+<name>
+<surname>Eysenbach</surname>
+<given-names>G</given-names>
+</name>
+<name>
+<surname>Diepgen</surname>
+<given-names>T</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://bmj.com/cgi/content/full/317/7171/1496%20%5B">http://bmj.com/cgi/content/full/317/7171/1496 [</ext-link>
+</element-citation>
+</ref>
+<ref id="B17">
+<element-citation publication-type="article">
+<article-title>La calidad de los contenidos médicos en Internet</article-title>
+<source>Informátic@ Médica</source>
+<date>
+<year>2001</year>
+</date>
+<issue>7</issue>
+<volume>3</volume>
+<person-group>
+<name>
+<surname>Melamud</surname>
+<given-names>AL</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="Disponible%20en%3A%20http%3A//www.informaticamedica.com.ar.">Disponible en: http://www.informaticamedica.com.ar.</ext-link>
+</element-citation>
+</ref>
+<ref id="B18">
+<element-citation publication-type="article">
+<article-title>Review of Internet health information: quality initiators</article-title>
+<source>J Med Internet Res</source>
+<date>
+<year>2001</year>
+</date>
+<fpage>28</fpage>
+<issue>4</issue>
+<volume>3</volume>
+<person-group>
+<name>
+<surname>Risk</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Dzenowagis</surname>
+<given-names>J</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.jmir.org. [">http://www.jmir.org. [</ext-link>
+</element-citation>
+</ref>
+<ref id="B19">
+<element-citation publication-type="article">
+<article-title>Guidelines for medical and health information on the Internet</article-title>
+<source>JAMA</source>
+<date>
+<year>2000</year>
+</date>
+<fpage>1600</fpage>
+<lpage>6.</lpage>
+<volume>2831</volume>
+<person-group>
+<collab>American Medical Association</collab>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.ama-assn.org/pub/category/1905.html%20%5B">http://www.ama-assn.org/pub/category/1905.html [</ext-link>
+</element-citation>
+</ref>
+<ref id="B20">
+<element-citation publication-type="article">
+<article-title>The poor quality of information about laparoscopy on the World Wide Web as indexed by popular search engine</article-title>
+<source>Surg Endos</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>170</fpage>
+<lpage>2</lpage>
+<volume>16</volume>
+<person-group>
+<name>
+<surname>Allen</surname>
+<given-names>JW</given-names>
+</name>
+<name>
+<surname>Finch</surname>
+<given-names>RJ</given-names>
+</name>
+<name>
+<surname>Coleman</surname>
+<given-names>MG</given-names>
+</name>
+<name>
+<surname>Nathanson</surname>
+<given-names>LK</given-names>
+</name>
+<name>
+<surname>Rourke</surname>
+<given-names>NAO</given-names>
+</name>
+<name>
+<surname>Fielding</surname>
+<given-names>GA</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B21">
+<element-citation publication-type="book">
+<source>Cómo sobrevivir a la infoxicación?</source>
+<person-group>
+<name>
+<surname>Cornella</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B22">
+<element-citation publication-type="book">
+<source>Infoxicación</source>
+</element-citation>
+</ref>
+<ref id="B23">
+<element-citation publication-type="article">
+<article-title>Cómo funcionan los servicios de búsqueda en Internet?: un informe especial para navegantes y creadores de información (Parte I)</article-title>
+<source>Prof Informac</source>
+<date>
+<year>1997</year>
+</date>
+<issue>5</issue>
+<volume>6</volume>
+<person-group>
+<name>
+<surname>Marcus Mora</surname>
+<given-names>MC</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.doc6.es/iwe%20%5B">http://www.doc6.es/iwe [</ext-link>
+</element-citation>
+</ref>
+<ref id="B24">
+<element-citation publication-type="article">
+<article-title>Motores de recuperación de información: un análisis comparativo (Parte I)</article-title>
+<source>Prof Informac</source>
+<date>
+<year>1998</year>
+</date>
+<issue>1-2</issue>
+<volume>7</volume>
+<person-group>
+<name>
+<surname>Marcus Mora</surname>
+<given-names>MC</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="Disponible%20en%3A%20http%3A//www.doc6.es/iwe%20%5B">Disponible en: http://www.doc6.es/iwe [</ext-link>
+</element-citation>
+</ref>
+<ref id="B25">
+<element-citation publication-type="book">
+<source>Buscadores en Internet</source>
+<date>
+<year>2002</year>
+<month>11</month>
+<day>18</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B26">
+<element-citation publication-type="book">
+<source>Buscadores temáticos de salud</source>
+<date>
+<year>2002</year>
+<month>01</month>
+<day>15</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B27">
+<element-citation publication-type="book">
+<source>Qué es la Internet invisible?, una puerta a lo inaccesible</source>
+<date>
+<year>2002</year>
+<month>01</month>
+<day>15</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B28">
+<element-citation publication-type="book">
+<source>Internet visible e invisible</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>10</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B29">
+<element-citation publication-type="book">
+<source>The megasite project: a metasite</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>29</day>
+</date>
+<person-group>
+<name>
+<surname>Anderson</surname>
+<given-names>PF</given-names>
+</name>
+<name>
+<surname>Allee</surname>
+<given-names>N</given-names>
+</name>
+<name>
+<surname>Chung</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Westra</surname>
+<given-names>B</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B30">
+<element-citation publication-type="article">
+<article-title>Lo que Internet esconde y por qué</article-title>
+<source>Prof Informac</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>109</fpage>
+<lpage>12</lpage>
+<issue>2</issue>
+<volume>11</volume>
+<person-group>
+<name>
+<surname>Marcus Mora</surname>
+<given-names>MC</given-names>
+</name>
+<name>
+<surname>Codina</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B31">
+<element-citation publication-type="article">
+<article-title>Motores de recuperación de información: un análisis comparativo (Parte II)</article-title>
+<source>Prof Informac</source>
+<date>
+<year>1998</year>
+</date>
+<issue>1-2</issue>
+<volume>7</volume>
+<person-group>
+<name>
+<surname>Marcus Mora</surname>
+<given-names>MC</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.doc6.es/iwe">http://www.doc6.es/iwe</ext-link>
+</element-citation>
+</ref>
+<ref id="B32">
+<element-citation publication-type="book">
+<source>Buscadores: pequeños trucos para usar los buscadores</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>12</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B33">
+<element-citation publication-type="book">
+<source>Motores de búsqueda</source>
+<date>
+<year>1998</year>
+</date>
+<person-group>
+<name>
+<surname>Filiberti</surname>
+<given-names>FL</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B34">
+<element-citation publication-type="article">
+<article-title>Motores de navegación</article-title>
+<source>Giga; Rev Cubana Computac</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>32</fpage>
+<lpage>5</lpage>
+<issue>2</issue>
+<person-group>
+<name>
+<surname>Becerra López</surname>
+<given-names>H</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B35">
+<element-citation publication-type="article">
+<article-title>Los buscadores, las minas y el oro</article-title>
+<source>Giga; Rev Cubana Computac</source>
+<date>
+<year>1999</year>
+</date>
+<fpage>36</fpage>
+<lpage>41</lpage>
+<issue>4</issue>
+<person-group>
+<name>
+<surname>Osa Díaz</surname>
+<given-names>R de la</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B36">
+<element-citation publication-type="conference">
+<conf-name>Congreso Internacional de Información INFO'99</conf-name>
+<conf-loc>La Habana</conf-loc>
+<source>Algunas herramientas de búsqueda en Internet: Su evolución y estado actual [Monografía en CD/ROM</source>
+<date>
+<year>1999</year>
+</date>
+<person-group>
+<name>
+<surname>Hernández Muguercia</surname>
+<given-names>G</given-names>
+</name>
+<name>
+<surname>Valdés Morris</surname>
+<given-names>M</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B37">
+<element-citation publication-type="conference">
+<conf-name>III Jornada Científica de la Biblioteca Médica Nacional</conf-name>
+<conf-loc>La Habana</conf-loc>
+<source>El uso de los buscadores en Internet</source>
+<date>
+<year>2002</year>
+<month>07</month>
+<day>15</day>
+</date>
+<person-group>
+<name>
+<surname>Torres Pombert</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B38">
+<element-citation publication-type="conference">
+<conf-name>IV Congreso Nacional de Usuarios de Internet e Intranet.</conf-name>
+<conf-loc>Madrid</conf-loc>
+<source>El futuro de la búsqueda de información en Internet</source>
+<date>
+<year>2002</year>
+<month>09</month>
+<day>18</day>
+</date>
+<person-group>
+<name>
+<surname>García Alonso</surname>
+<given-names>JJ</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B39">
+<element-citation publication-type="conference">
+<conf-name>VI Jornadas Españolas de Documentación FESABID'98</conf-name>
+<conf-loc>Valencia</conf-loc>
+<source>Evaluación de los principales buscadores desde el punto de vista documental: recogida, análisis y recuperación de recursos de información</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>15</day>
+</date>
+<person-group>
+<name>
+<surname>Maldonado Martínez</surname>
+<given-names>A</given-names>
+</name>
+<name>
+<surname>Fernández Sánchez</surname>
+<given-names>E</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B40">
+<element-citation publication-type="book">
+<source>Buscar por la WEB: Los trucos para no perderse en Internet</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>17</day>
+</date>
+<person-group>
+<name>
+<surname>Grau</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B41">
+<element-citation publication-type="book">
+<source>Historia del directorio Yahoo</source>
+<date>
+<year>2002</year>
+<month>04</month>
+<day>04</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B42">
+<element-citation publication-type="article">
+<article-title>Análisis del buscador múltiple Copernic 2001 Pro</article-title>
+<source>BID</source>
+<date>
+<year>2001</year>
+</date>
+<issue>6</issue>
+<person-group>
+<name>
+<surname>Franganillo</surname>
+<given-names>J</given-names>
+</name>
+<name>
+<surname>Figuerola</surname>
+<given-names>TM</given-names>
+</name>
+</person-group>
+<ext-link ext-link-type="uri" href="http://www.ub.es/bid/06frang2.htm">http://www.ub.es/bid/06frang2.htm</ext-link>
+</element-citation>
+</ref>
+<ref id="B43">
+<element-citation publication-type="book">
+<source>Web search strategies</source>
+<date>
+<year>2002</year>
+<month>09</month>
+<day>15</day>
+</date>
+<person-group>
+<name>
+<surname>Flanagan</surname>
+<given-names>O</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B44">
+<element-citation publication-type="book">
+<source>Searching the Internet: recommended sites and search techniques</source>
+<date>
+<year>2002</year>
+<month>06</month>
+<day>08</day>
+</date>
+<person-group>
+<collab>University at Albany Libraries</collab>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B45">
+<element-citation publication-type="book">
+<source>Guía para el uso de la base de datos REPIDISCA en el CD/ROM OPS</source>
+<date>
+<year>1991</year>
+</date>
+<person-group>
+<name>
+<surname>Bryce</surname>
+<given-names>M</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B46">
+<element-citation publication-type="book">
+<source>The anatomy of a large-scale hypertextual web search engine</source>
+<date>
+<year>2002</year>
+<month>07</month>
+<day>17</day>
+</date>
+<person-group>
+<name>
+<surname>Brin</surname>
+<given-names>S</given-names>
+</name>
+<name>
+<surname>Page</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B47">
+<element-citation publication-type="article">
+<article-title>Information retrieval on the Internet: a guide for dental practitioners</article-title>
+<source>Dent Clin N Am</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>435</fpage>
+<lpage>62</lpage>
+<volume>46</volume>
+<person-group>
+<name>
+<surname>Spallek</surname>
+<given-names>H</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B48">
+<element-citation publication-type="article">
+<article-title>Using Internet search engines to estimate word frequency</article-title>
+<source>Behav Res Meth, Instrum &amp; Comp</source>
+<date>
+<year>2002</year>
+</date>
+<fpage>286</fpage>
+<lpage>90</lpage>
+<issue>2</issue>
+<volume>34</volume>
+<person-group>
+<name>
+<surname>Blair</surname>
+<given-names>IV</given-names>
+</name>
+<name>
+<surname>Urland</surname>
+<given-names>GR</given-names>
+</name>
+<name>
+<surname>Ma</surname>
+<given-names>JE</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B49">
+<element-citation publication-type="article">
+<article-title>Relación de algunos recursos y sitios de interés biomédico en Internet</article-title>
+<source>Acimed</source>
+<date>
+<year>2000</year>
+</date>
+<fpage>157</fpage>
+<lpage>60</lpage>
+<issue>2</issue>
+<volume>8</volume>
+<ext-link ext-link-type="uri" href="http://bvs.sld.cu/revistas/aci/vol8_2_00/aci10200.html">http://bvs.sld.cu/revistas/aci/vol8_2_00/aci10200.html</ext-link>
+</element-citation>
+</ref>
+<ref id="B50">
+<element-citation publication-type="conference">
+<conf-name>Congreso Internacional de Información INFO'2002</conf-name>
+<conf-loc>La Habana</conf-loc>
+<source>Directorio de buscadores de salud en Internet [Monografía en CD/ROM]</source>
+<date>
+<year>2002</year>
+</date>
+<person-group>
+<name>
+<surname>Sarduy Domínguez</surname>
+<given-names>Y</given-names>
+</name>
+</person-group>
+</element-citation>
+</ref>
+<ref id="B51">
+<element-citation publication-type="book">
+<source>Buscadores en salud-Internet</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>15</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B52">
+<element-citation publication-type="book">
+<source>Buscador de links de medicina</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>18</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B53">
+<element-citation publication-type="book">
+<source>Buscador de salud en español</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>22</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B54">
+<element-citation publication-type="book">
+<source>Buscadores de salud</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>22</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B55">
+<element-citation publication-type="book">
+<source>Guía de búsqueda en medicina</source>
+<date>
+<year>2002</year>
+<month>09</month>
+<day>10</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B56">
+<element-citation publication-type="book">
+<source>Información y directorio de los principales motores de búsqueda mundiales y regionales.</source>
+<date>
+<year>2002</year>
+<month>10</month>
+<day>20</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B57">
+<element-citation publication-type="book">
+<source>Los mejores buscadores de Internet</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>12</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B58">
+<element-citation publication-type="book">
+<source>Busca ya; tu guía de buscadores, recopilados de buscadores</source>
+<date>
+<year>2002</year>
+<month>11</month>
+<day>18</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B59">
+<element-citation publication-type="book">
+<source>Buscadores de salud en inglés</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>18</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B60">
+<element-citation publication-type="book">
+<source>Indice de buscadores de la web</source>
+<date>
+<year>2002</year>
+<month>01</month>
+<day>18</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B61">
+<element-citation publication-type="book">
+<source>Buscadores salud y medicina</source>
+<date>
+<year>2003</year>
+<month>01</month>
+<day>15</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B62">
+<element-citation publication-type="book">
+<source>Buscadores médicos y bases de datos</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>20</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B63">
+<element-citation publication-type="book">
+<source>Buscadores de salud</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>21</day>
+</date>
+</element-citation>
+</ref>
+<ref id="B64">
+<element-citation publication-type="book">
+<source>Buscadores médicos</source>
+<date>
+<year>2002</year>
+<month>12</month>
+<day>22</day>
+</date>
+</element-citation>
+</ref>
+</ref-list>
+</back>
+</article>
+</articles>
