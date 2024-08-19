@@ -1,0 +1,2977 @@
+<article
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+	<front> 
+		<journal-meta> 
+			<journal-id journal-id-type="nlm-ta">J Bras Nefrol</journal-id> 
+			<journal-id journal-id-type="publisher-id">jbn</journal-id> 
+			<journal-title-group> 
+				<journal-title>Brazilian Journal of Nephrology</journal-title> 
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Nephrol.</abbrev-journal-title> 
+			</journal-title-group> 
+			<issn pub-type="ppub">0101-2800</issn> 
+			<issn pub-type="epub">2175-8239</issn> 
+			<publisher> 
+				<publisher-name>Sociedade Brasileira de Nefrologia</publisher-name> 
+			</publisher> 
+		</journal-meta> 
+		<article-meta> 
+			<article-id specific-use="scielo-v3" pub-id-type="publisher-id">FHzG5B5vMwRtX53hdrB336N</article-id> 
+			<article-id specific-use="previous-pid" pub-id-type="publisher-id">S0101-28002022005054401</article-id> 
+			<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0101-28002023000200244</article-id> 
+			<article-id pub-id-type="doi">10.1590/2175-8239-JBN-2022-0081en</article-id> 
+			<article-categories> 
+				<subj-group subj-group-type="heading"> 
+					<subject>Perspectives/Opinion</subject> 
+				</subj-group> 
+			</article-categories> 
+			<title-group> 
+				<article-title>The challenges of the pandemic and the vaccination against covid-19 in pediatric patients with kidney disease</article-title> 
+			</title-group> 
+			<contrib-group> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-0491-6783</contrib-id> 
+					<name> 
+						<surname>Soeiro</surname> 
+						<given-names>Em&#237;lia Maria Dantas</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff1"> 
+						<sup>1</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-1534-3861</contrib-id> 
+					<name> 
+						<surname>Penido</surname> 
+						<given-names>Maria Goretti Moreira Guimar&#227;es</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff2"> 
+						<sup>2</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-0334-8470</contrib-id> 
+					<name> 
+						<surname>Palma</surname> 
+						<given-names>Lilian Monteiro Pereira</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff3"> 
+						<sup>3</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-7880-1858</contrib-id> 
+					<name> 
+						<surname>Bresolin</surname> 
+						<given-names>Nilzete Liberato</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff4"> 
+						<sup>4</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-2277-2840</contrib-id> 
+					<name> 
+						<surname>Lima</surname> 
+						<given-names>Eduardo Jorge da Fonseca</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff1"> 
+						<sup>1</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0001-7478-3931</contrib-id> 
+					<name> 
+						<surname>Koch</surname> 
+						<given-names>Vera Hermina Kalika</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff5"> 
+						<sup>5</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9766-9354</contrib-id> 
+					<name> 
+						<surname>Tavares</surname> 
+						<given-names>Marcelo de Sousa</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff2"> 
+						<sup>2</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-6719-6509</contrib-id> 
+					<name> 
+						<surname>Sylvestre</surname> 
+						<given-names>Lucimary</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff6"> 
+						<sup>6</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9286-2825</contrib-id> 
+					<name> 
+						<surname>Bernardes</surname> 
+						<given-names>Rejane de Paula</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff7"> 
+						<sup>7</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9014-3819</contrib-id> 
+					<name> 
+						<surname>Garcia</surname> 
+						<given-names>Clotilde Druck</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff8"> 
+						<sup>8</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0003-4519-0613</contrib-id> 
+					<name> 
+						<surname>Andrade</surname> 
+						<given-names>Maria Cristina de</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff9"> 
+						<sup>9</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-3654-0709</contrib-id> 
+					<name> 
+						<surname>Kaufman</surname> 
+						<given-names>Arnauld</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff10"> 
+						<sup>10</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff11"> 
+						<sup>11</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff12"> 
+						<sup>12</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff13"> 
+						<sup>13</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0003-3187-4424</contrib-id> 
+					<name> 
+						<surname>Chow</surname> 
+						<given-names>Charles Yea Zen</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff14"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0001-5920-2238</contrib-id> 
+					<name> 
+						<surname>Martins</surname> 
+						<given-names>Suelen Bianca Stopa</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff14"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-6116-8355</contrib-id> 
+					<name> 
+						<surname>Camargo</surname> 
+						<given-names>Suzana Friedlander Del Nero</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff14"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+			</contrib-group> 
+			<aff id="aff1"> 
+				<label>1</label> 
+				<institution content-type="orgname">Instituto de Medicina Integral Professor Fernando Figueira</institution> 
+				<addr-line> 
+					<city>Recife</city> 
+					<state>PE</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Instituto de Medicina Integral Professor Fernando Figueira, Recife, PE, Brazil.</institution> 
+			</aff> 
+			<aff id="aff2"> 
+				<label>2</label> 
+				<institution content-type="orgname">Santa Casa de Belo Horizonte</institution> 
+				<institution content-type="orgdiv1">Centro de Nefrologia</institution> 
+				<institution content-type="orgdiv2">Unidade de Nefrologia Pedi&#225;trica</institution> 
+				<addr-line> 
+					<city>Belo Horizonte</city> 
+					<state>MG</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Santa Casa de Belo Horizonte, Centro de Nefrologia, Unidade de Nefrologia Pedi&#225;trica, Belo Horizonte, MG, Brazil.</institution> 
+			</aff> 
+			<aff id="aff3"> 
+				<label>3</label> 
+				<institution content-type="orgname">Universidade Estadual de Campinas</institution> 
+				<institution content-type="orgdiv1">Departamento de Pediatria</institution> 
+				<addr-line> 
+					<city>Campinas</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Estadual de Campinas, Departamento de Pediatria, Campinas, SP, Brazil.</institution> 
+			</aff> 
+			<aff id="aff4"> 
+				<label>4</label> 
+				<institution content-type="orgname">Universidade Federal de Santa Catarina</institution> 
+				<addr-line> 
+					<city>Florian&#243;polis</city> 
+					<state>SC</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal de Santa Catarina, Florian&#243;polis, SC, Brazil.</institution> 
+			</aff> 
+			<aff id="aff5"> 
+				<label>5</label> 
+				<institution content-type="orgname">ospital das Cl&#237;nicas da Faculdade de Medicina da USP</institution> 
+				<institution content-type="orgdiv1">Instituto da Crian&#231;a e do Adolescente</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Hospital das Cl&#237;nicas da Faculdade de Medicina da USP, Instituto da Crian&#231;a e do Adolescente, S&#227;o Paulo, SP, Brazil.</institution> 
+			</aff> 
+			<aff id="aff6"> 
+				<label>6</label> 
+				<institution content-type="orgname">Hospital Pequeno Pr&#237;ncipe</institution> 
+				<addr-line> 
+					<city>Curitiba</city> 
+					<state>PR</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Hospital Pequeno Pr&#237;ncipe, Curitiba, PR, Brazil.</institution> 
+			</aff> 
+			<aff id="aff7"> 
+				<label>7</label> 
+				<institution content-type="orgname">Cl&#237;nica Nefrokids</institution> 
+				<addr-line> 
+					<city>Curitiba</city> 
+					<state>PR</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Cl&#237;nica Nefrokids, Curitiba, PR, Brazil.</institution> 
+			</aff> 
+			<aff id="aff8"> 
+				<label>8</label> 
+				<institution content-type="orgname">Universidade Federal de Ci&#234;ncias da Sa&#250;de de Porto Alegre</institution> 
+				<institution content-type="orgdiv1">Santa Casa de Porto Alegre</institution> 
+				<addr-line> 
+					<city>Porto Alegre</city> 
+					<state>RS</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal de Ci&#234;ncias da Sa&#250;de de Porto Alegre, Santa Casa de Porto Alegre, Servi&#231;o de Pedi&#225;trica, Porto Alegre, RS, Brazil.</institution> 
+			</aff> 
+			<aff id="aff9"> 
+				<label>9</label> 
+				<institution content-type="orgname">Universidade Federal de S&#227;o Paulo</institution> 
+				<institution content-type="orgdiv1">Escola Paulista de Medicina</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal de S&#227;o Paulo, Escola Paulista de Medicina, S&#227;o Paulo, SP, Brazil.</institution> 
+			</aff> 
+			<aff id="aff10"> 
+				<label>10</label> 
+				<institution content-type="orgname">Instituto de Puericultura e Pediatria Martag&#227;o Gesteira</institution> 
+				<addr-line> 
+					<city>Rio de Janeiro</city> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Instituto de Puericultura e Pediatria Martag&#227;o Gesteira, Rio de Janeiro, RJ, Brazil.</institution> 
+			</aff> 
+			<aff id="aff11"> 
+				<label>11</label> 
+				<institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution> 
+				<addr-line> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal do Rio de Janeiro, RJ, Brazil.</institution> 
+			</aff> 
+			<aff id="aff12"> 
+				<label>12</label> 
+				<institution content-type="orgname">Hospital Federal dos Servidores do Estado do Rio de Janeiro</institution> 
+				<addr-line> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Hospital Federal dos Servidores do Estado do Rio de Janeiro, RJ, Brazil.</institution> 
+			</aff> 
+			<aff id="aff13"> 
+				<label>13</label> 
+				<institution content-type="orgname">Grupo Assist&#234;ncia M&#233;dica Nefrol&#243;gica</institution> 
+				<addr-line> 
+					<city>Rio de Janeiro</city> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Grupo Assist&#234;ncia M&#233;dica Nefrol&#243;gica, Rio de Janeiro, RJ, Brazil.</institution> 
+			</aff> 
+			<aff id="aff14"> 
+				<label>14</label> 
+				<institution content-type="orgname">Hospital do Rim</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Hospital do Rim, S&#227;o Paulo, SP, Brazil.</institution> 
+			</aff> 
+			<author-notes> 
+				<corresp id="c1">
+					<label>Correspondence to:</label> Maria Goretti Moreira Guimar&#227;es Penido. E-mail: 
+					<email>mariagorettipenido@yahoo.com.br</email>
+				</corresp> 
+				<fn fn-type="con"> 
+					<label>Authors&#8217; Contributions</label> 
+					<p>All authors contributed with the idea and study design and were involved in data acquisition, supervision, data analysis, and writing the manuscript.</p> 
+				</fn> 
+				<fn fn-type="conflict"> 
+					<label>Conflict of Interest</label> 
+					<p>The authors have no conflict of interest to declare.</p> 
+				</fn> 
+			</author-notes> 
+			<pub-date date-type="pub" publication-format="electronic"> 
+				<day>24</day> 
+				<month>10</month> 
+				<year>2022</year> 
+			</pub-date> 
+			<pub-date publication-format="electronic" date-type="collection"> 
+				<season>Apr-Jun</season> 
+				<year>2023</year> 
+			</pub-date> 
+			<volume>45</volume> 
+			<issue>2</issue> 
+			<fpage>244</fpage> 
+			<lpage>251</lpage> 
+			<history> 
+				<date date-type="received"> 
+					<day>07</day> 
+					<month>05</month> 
+					<year>2022</year> 
+				</date> 
+				<date date-type="accepted"> 
+					<day>11</day> 
+					<month>09</month> 
+					<year>2022</year> 
+				</date> 
+			</history> 
+			<permissions> 
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en"> 
+					<license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p> 
+				</license> 
+			</permissions> 
+			<abstract> 
+				<title>ABSTRACT</title> 
+				<p>The covid-19 vaccine confers direct protection and reduces transmission rates of the virus and new variants. Vaccines from Pfizer/BioNTech and CoronaVac have been cleared for children in Brazil. They are safe, effective, and immunogenic. There are no known complications associated with the use of steroids or vaccines in pediatric patients with covid-19 and nephrotic syndrome. With or without immunosuppression, these patients are not at increased risk of severe covid-19, and steroids are safe for them. A milder form of covid-19 occurs in patients with chronic kidney disease without the need for hospitalization. The vaccine response may be reduced and/or the duration of antibodies after vaccination may be shorter than in the general population. However, considering risk of exposure, vaccination against covid-19 is recommended. It is believed that patients with hemolytic-uremic syndrome are at higher risk of severe covid-19. Vaccination is recommended, although specific data on the safety and efficacy of the covid-19 vaccine are limited. There is agreement that the benefits of induced immunity outweigh the risks of immunization. Vaccination against covid-19 is recommended for children and adolescents needing kidney transplantation or who have undergone transplantation. These patients present decreased immune response after vaccination, but immunization is recommended because the benefits outweigh the risks of vaccination. Current recommendations in Brazil stipulate the use of the messenger RNA vaccine. This paper aims to provide pediatric nephrologists with the latest knowledge about vaccination against covid-19 for children with kidney disease.</p> 
+			</abstract> 
+			<kwd-group xml:lang="en"> 
+				<title>Keywords:</title> 
+				<kwd>Vaccines</kwd> 
+				<kwd>Covid-19</kwd> 
+				<kwd>Hemolytic-Uremic Syndrome</kwd> 
+				<kwd>Nephrotic Syndrome</kwd> 
+				<kwd>Renal Insufficiency</kwd> 
+				<kwd>Chronic</kwd> 
+				<kwd>Kidney transplantation</kwd> 
+			</kwd-group> 
+			<counts> 
+				<fig-count count="2"/> 
+				<ref-count count="40"/> 
+			</counts> 
+		</article-meta> 
+	</front> 
+	<body> 
+		<sec sec-type="intro"> 
+			<title>INTRODUCTION</title> 
+			<p>Covid-19 was first detected in December 2019 in Hubei (Wuhan) province, China. The virus has spread rapidly around the world, and by March 2022, 29 million cases of covid-19 and 652,000 deaths from the disease had been confirmed in Brazil
+				<sup>(
+					<xref ref-type="bibr" rid="B1">1</xref>)
+				</sup>. In that same period, 6,531 cases of pediatric severe acute respiratory syndrome due to covid-19 and 1,503 cases of multisystem inflammatory syndrome in children with 93 deaths had been confirmed
+				<sup>(
+					<xref ref-type="bibr" rid="B2">2</xref>,
+					<xref ref-type="bibr" rid="B3">3</xref>)
+				</sup>.
+			</p> 
+			<p>A large proportion of children with covid-19 are asymptomatic or have mild symptoms, and the presence of comorbid conditions is considered a risk factor. A Brazilian study showed that 41% of children admitted to intensive care units had comorbid conditions
+				<sup>(
+					<xref ref-type="bibr" rid="B4">4</xref>)
+				</sup>.
+			</p> 
+			<p>There are few reports on the risk of severe disease from covid-19 in immunocompromised pediatric patients. Population studies have shown that children and adolescents are exposed to the virus in a similar way to adults and are potential vectors in disease transmission
+				<sup>(
+					<xref ref-type="bibr" rid="B5">5</xref>)
+				</sup>.
+			</p> 
+			<p>The covid-19 vaccine confers direct protection, reduces the rates of virus transmission and the emergence of new variants
+				<sup>(
+					<xref ref-type="bibr" rid="B6">6</xref>)
+				</sup>. Lv et al. have demonstrated the safety, efficacy and immunogenicity of these vaccines in healthy pediatric populations. Adverse events are rare and mild, and benefits of vaccination outweigh the risks
+				<sup>(
+					<xref ref-type="bibr" rid="B7">7</xref>)
+				</sup>.
+			</p> 
+			<p>The Pfizer/BioNTech vaccines (BNT162b2), authorized for children aged five years and older, and CoronaVac, authorized for children aged six years and older, are currently approved in Brazil. CoronaVac (Sinovac) is a vaccine with inactivated virus. The Pfizer-BioNTech covid-19 (BNT162b2) vaccine is a lipid nanoparticle of nucleoside-modified mRNA that enables the expression of SARS-CoV-2 protein S on the cell surface. It causes the activation of cytotoxic and helper T-cells and induction of humoral immunity, thereby producing neutralizing antibodies. Both vaccines are safe, effective, and immunogenic.</p> 
+			<p>The most common adverse events in children and adolescents are injection site pain, fever, headache, and fatigue. Most of these events were not serious and deaths have not been reported
+				<sup>(
+					<xref ref-type="bibr" rid="B7">7</xref>)
+				</sup>. Rare cases of myocarditis and/or pericarditis have been reported in association with the administration of the second dose of the covid-19 BNT162b2 mRNA vaccine after a short interval from the first dose (&lt; 30 days), but no deaths have been attributed to these complications
+				<sup>(
+					<xref ref-type="bibr" rid="B7">7</xref>)
+				</sup>.
+			</p> 
+			<p>
+				<xref ref-type="fig" rid="F01">Chart 1</xref>shows the risks of SARS-CoV-2 infection and the recommendations for the vaccination against covid-19 for each category of pediatric patients with kidney disease.
+			</p> 
+			<fig id="F01" position="float"> 
+				<label>Chart 1</label> 
+				<caption> 
+					<title>Risk of SARS-CoV-2 infection and recommendations for vaccination against covid-19 for each category of pediatric patient with kidney disease</title> 
+				</caption> 
+				<alternatives> 
+					<graphic xlink:href="https://minio.scielo.br/documentstore/2175-8239/FHzG5B5vMwRtX53hdrB336N/3646627dd6d9a62157512d02af45111e8a7a2c9d.jpg"/> 
+					<graphic xlink:href="https://minio.scielo.br/documentstore/2175-8239/FHzG5B5vMwRtX53hdrB336N/e9c4e597e54f7ec267c549f4597646e9c2c4dab4.jpg" specific-use="scielo-web" content-type="scielo-267x140"/> 
+				</alternatives> 
+			</fig> 
+			<sec> 
+				<title>Covid-19 and Covid-19 Vaccination in Children and Adolescents with Nephrotic Syndrome (NS)</title> 
+				<p>Most children with idiopathic NS relapse or are steroid-dependent, and require chronic use of immunosuppressants. Urinary loss of endogenous antibodies during NS decompensation and immunosuppressant therapy increase the risk of infections
+					<sup>(
+						<xref ref-type="bibr" rid="B8">8</xref>)
+					</sup>. Evidence points to immune system dysregulation involving B and T cells as part of the pathophysiology of NS, suggesting that vaccines may promote disease recurrence via the induction of immune response.
+				</p> 
+				<p>To date, there have been few reports of NS associated with covid-19 infection. A systematic review about covid-19 in patients with NS concluded that, with or without immunosuppressant therapy, patients were not at increased risk of severe covid-19, steroid treatment was safe, and the incidence of disease recurrence remained unchanged
+					<sup>(
+						<xref ref-type="bibr" rid="B9">9</xref>)
+					</sup>. On the other hand, a study performed in New Delhi showed that patients with decompensated NS had a sixfold risk of developing severe complications during covid-19, such as severe acute kidney injury, shock, respiratory failure, encephalopathy, or death10. Cases of NS from minimal injuries triggered after vaccination against covid-19 involving adults and one adolescent have been reported
+					<sup>(
+						<xref ref-type="bibr" rid="B8">8</xref>,
+						<xref ref-type="bibr" rid="B11">11</xref>)
+					</sup>. Recommendations for vaccination are mostly based on expert opinions, considering the lack of controlled studies.
+				</p> 
+				<sec> 
+					<title> 
+						<italic>Immunosuppressant therapy for children and adolescents during the pandemic
+							<sup>
+								<xref ref-type="bibr" rid="B13">9</xref>
+							</sup>
+						</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Continue ongoing treatment, advising parents to report SARS-CoV-2 infection or related symptoms.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Initiate or intensify immunosuppressant therapy as needed, without concerns related to covid-19.</p> 
+						</list-item> 
+						<list-item> 
+							<p>These patients do not require more stringent protective measures compared to their healthy peers.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Covid-19 infection in children and adolescents with NS</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>For children with covid-19 in remission, treatment must be the same as the one given to healthy children and preventive hospitalization is not needed. Signs of recurrence must be monitored and, in cases of severe disease, hospitalization and reduction of immunosuppressant therapy must be considered.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In cases of mild or asymptomatic infection, maintain ongoing treatment with immuno&#173;suppressants; immediate hospitalization should be avoided. Monitor for signs of recurrence.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>NS recurrence in children and adolescents</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Recurrent disease is treated with corticosteroids; there is no reason to delay the initiation of therapy.</p> 
+						</list-item> 
+						<list-item> 
+							<p>For covid-19-related recurrent disease, the usual protocol must be enforced.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Recommendations regarding covid-19 vaccines for children and adolescents with NS</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Vaccinate all patients with NS, following the age limits established by regulatory agencies.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Signs of recurrence must be monitored after vaccination;</p> 
+						</list-item> 
+						<list-item> 
+							<p>Vaccines must not be administered to individuals with recurring disease.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Every immunosuppressed patient over the age of 12 must have the third dose of the vaccine and receive the fourth dose four months later.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In the case of ongoing anti-CD20 therapy (rituximab), vaccination must be postponed for at least six months after treatment cessation.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Covid-19 Vaccines for Children and Adolescents with NS on Rituximab</italic> 
+					</title> 
+					<p>The response to vaccination in patients taking rituximab is reduced. Thus, properly timing the administration of vaccines is necessary. Extending the interval between doses or discontinuing rituximab infusions allows immature B-cells to recover and proper vaccine response while levels of memory (pathogenic) B-cells remain low. An alternative strategy is to vaccinate patients at least four weeks prior to rituximab infusion or 12 to 20 weeks after the end of the infusion cycle. Monitoring the effect of rituximab from CD19 lymphocyte levels allows the discontinuation of the drug in asymptomatic and selected patients, which allows the definition of the time needed to improve response to vaccination. Rituximab infusions can be resumed four weeks after completing the vaccination scheme
+						<sup>(
+							<xref ref-type="bibr" rid="B12">12</xref>,
+							<xref ref-type="bibr" rid="B13">13</xref>)
+						</sup>.
+					</p> 
+				</sec> 
+			</sec> 
+			<sec> 
+				<title>Covid-19 and Vaccination Against Covid-19 in Children and Adolescents with Chronic Kidney Disease on Dialysis</title> 
+				<p>There are few studies about covid-19 in pediatric patients with chronic kidney disease (CKD) and on dialysis (peritoneal dialysis, PD, or hemodialysis, HD). These studies report the occurrence of milder disease and no need for hospitalization
+					<sup>(
+						<xref ref-type="bibr" rid="B13">13</xref>,
+						<xref ref-type="bibr" rid="B14">14</xref>)
+					</sup>. On the other hand, Aimen et al. found that CKD was the most common comorbid condition in symptomatic children and adolescents. One of the three deaths reported in their study involved a patient on PD
+					<sup>(
+						<xref ref-type="bibr" rid="B15">15</xref>)
+					</sup>. In Brazil, one of the countries with the highest number of deaths by covid-19 in the pediatric age group, there is no specific data about patients on dialysis.
+				</p> 
+				<p>The usual vaccination schedule is recommended for children and adolescents, with special attention to vaccines with attenuated virus, which are contraindicated after renal transplantation. Vaccine response in CKD patients may be reduced and/or antibodies may be active for shorter periods of time than in the general population
+					<sup>(
+						<xref ref-type="bibr" rid="B16">16</xref>)
+					</sup>. Nonetheless, given the risk of exposure, vaccination against covid-19 is recommended. It is also important that family members of dialysis patients get the full vaccination regimen, especially those with children under five years of age.
+				</p> 
+				<p>There is no evidence regarding the efficacy of covid-19 vaccines in pediatric patients on dialysis. In the Netherlands, the RECOVAC consortium (REnal patients COvid-19 VACcination), a prospective cohort study including dialysis patients older than 18 years, was organized to evaluate the efficacy of covid-19 vaccines in patients with CKD stages 4 and 5 and after kidney transplantation, comparing them with unvaccinated controls
+					<sup>(
+						<xref ref-type="bibr" rid="B17">17</xref>)
+					</sup>.
+				</p> 
+				<p>Zitt et al. evaluated the safety and immunogenicity of the BNT162b2 vaccine in HD patients. They found local reactions in 38% after the first dose, while 29.2% had mild reactions after the second dose (2.1% moderate; 2.1% serious adverse events). Systemic events occurred rarely, and the most frequent were diarrhea (4% mild; 4% moderate) and fatigue (8% mild). After the first dose, 42% developed adequate vaccine response as assessed by IgG levels against anti-SARS-CoV-2 spike protein
+					<sup>(
+						<xref ref-type="bibr" rid="B18">18</xref>)
+					</sup>. After the second dose, seroconversion was observed in 97.2% and was correlated with prior hepatitis B seroconversion and age (younger patients). Patients who had local reactions tended to have higher levels of protective antibodies. Conversely, patients on immunosuppressants during the study had lower levels of protective antibodies
+					<sup>(
+						<xref ref-type="bibr" rid="B18">18</xref>)
+					</sup>.
+				</p> 
+				<p>Shashar et al. discussed the administration of the third dose in individuals on HD. The authors observed that the group that received the booster, compared to controls, had higher levels of protective antibodies, despite being older and having a greater incidence of hypertension. Serologic response was inversely associated with levels of inflammation markers and malnutrition. A drop in protective antibodies levels was observed eight months after vaccination in the group that did not receive booster shots
+					<sup>(
+						<xref ref-type="bibr" rid="B19">19</xref>)
+					</sup>. This observation contributed to the discussion of the need for a third dose in individuals on HD
+					<sup>(
+						<xref ref-type="bibr" rid="B20">20</xref>)
+					</sup>. Angel-Korman et al. confirmed this need, while others have wondered whether vaccination of individuals on HD should be considered on an individual basis
+					<sup>(
+						<xref ref-type="bibr" rid="B21">21</xref>,
+						<xref ref-type="bibr" rid="B22">22</xref>)
+					</sup>.
+				</p> 
+				<p>Based on study findings, some medical societies have presented specific recommendations for pediatric patients on dialysis. The British Association for Pediatric Nephrology (BAPN) recommends that covid-19 booster be given only to adolescents with CKD older than 12 years
+					<sup>(
+						<xref ref-type="bibr" rid="B23">23</xref>)
+					</sup>. The EUDIAL working group of the European Dialysis and Transplant Association (2021) stated that adult patients and children alike should be vaccinated against covid-19
+					<sup>(
+						<xref ref-type="bibr" rid="B24">24</xref>)
+					</sup>.
+				</p> 
+				<sec> 
+					<title> 
+						<italic>Covid-19 infection in children and adolescents with CKD and on dialysis</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Use the same treatment given to healthy children without the need for preventive hospitalization. In case of severe symptoms, consider hospitalization.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In case of mild or asymptomatic infection, maintain treatment; immediate hospitalization should be avoided.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Recommendations to vaccinate children and adolescents with CKD and on dialysis against covid-19</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Vaccinate all pediatric patients with CKD and on dialysis, following the age limits set by regulatory agencies.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Vaccinate preferably with an mRNA vaccine, in accordance with age restrictions.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Family members of patients on dialysis and with CKD must comply with the complete vaccination scheme, especially those with children under the age of five years.</p> 
+						</list-item> 
+						<list-item> 
+							<p>All immunosuppressed patients over 12 years of age must take the third dose of the vaccine and the fourth dose four months later.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+			</sec> 
+			<sec> 
+				<title>Covid-19 and Covid-19 Vaccination in Children and Adolescents with Atypical Hemolytic-Uremic Syndrome (aHUS)</title> 
+				<p>aHUS is a microangiopathic disorder whose pathophysiology overlaps with the cytokine storm observed in severe covid-19
+					<sup>(
+						<xref ref-type="bibr" rid="B25">25</xref>)
+					</sup>. This shared pathophysiology suggests that patients with aHUS are at increased risk of developing severe covid-19, regardless of the status of the treatment for aHUS, including individuals previously diagnosed with covid-19
+					<sup>(
+						<xref ref-type="bibr" rid="B26">26</xref>)
+					</sup>. The recommendation is that these patients are immunized against covid-19
+					<sup>(
+						<xref ref-type="bibr" rid="B27">27</xref>,
+						<xref ref-type="bibr" rid="B28">28</xref>)
+					</sup>. Although specific safety and efficacy data on the Pfizer-BioNTech vaccine is limited, there is agreement that the benefits of induced immunity outweigh the risks tied to immunization
+					<sup>(
+						<xref ref-type="bibr" rid="B29">29</xref>)
+					</sup>. In Brazil, the use of live inactive virus vaccines (CoronaVac/Sinovac) has not been authorized for immunosuppressed patients
+					<sup>(
+						<xref ref-type="bibr" rid="B27">27</xref>)
+					</sup>. Since aHUS is a serious condition, it has been excluded from the Pfizer-BioNTech, Moderna, and AstraZeneca vaccine trials. Thus, it is unclear whether currently available vaccines are as effective for these patients as they were for the studied populations
+					<sup>(
+						<xref ref-type="bibr" rid="B30">30</xref>,
+						<xref ref-type="bibr" rid="B31">31</xref>)
+					</sup>. There is no data to suggest that the available vaccines are less effective or less safe for individuals with aHUS than for the general population.
+				</p> 
+				<sec> 
+					<title> 
+						<italic>Covid-19 infection in children and adolescents with aHUS</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Maintain treatment; no need for preventive hospitalization. In case of severe infection, consider hospitalization and discontinuation of treatment.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In cases of mild or asymptomatic infection, maintain treatment; immediate hospitalization should be avoided.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Recommendations for covid-19 vaccination in children and adolescents with aHUS</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Vaccinate all pediatric patients with aHUS, following the age limits set by regulatory agencies.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Children and adolescents with a history of severe allergic reaction to a previous dose of vaccine or to one of its components should not be vaccinated
+								<sup>(
+									<xref ref-type="bibr" rid="B31">31</xref>)
+								</sup>.
+							</p> 
+						</list-item> 
+						<list-item> 
+							<p>Family members of patients diagnosed with aHUS must comply with the full vaccination scheme, especially family members of children aged less than five years.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In case of comorbid conditions, vaccination must be postponed in individuals with severe acute fever or acute infection.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In case of mild infection and/or low fever, do not postpone vaccination.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In patients with thrombocytopenia and coagulation disorders, the vaccine must be administered with caution as in other intramuscular injections, with risk of local hematoma.</p> 
+						</list-item> 
+					</list> 
+					<p>Patients on eculizumab should be vaccinated as close as possible to the day of drug infusion (days before or days after) because of the theoretical possibility that such approach might reduce the chance of disease exacerbation related to vaccine administration
+						<sup>(
+							<xref ref-type="bibr" rid="B29">29</xref>)
+						</sup>.
+					</p> 
+					<p>Covid-19 vaccines can be given concurrently or at any time before or after any other indicated vaccine
+						<sup>(
+							<xref ref-type="bibr" rid="B29">29</xref>)
+						</sup>. This is a change from the previous recommendation, which called for a 14-day interval before or after receiving a covid-19 vaccine. The basis for this change in recommendation stems from general administrative guidance for vaccines and guidance from the US Advisory Committee on Immunization Practices (ACIP)
+						<sup>(
+							<xref ref-type="bibr" rid="B28">28</xref>)
+						</sup>.
+					</p> 
+				</sec> 
+			</sec> 
+			<sec> 
+				<title>Covid-19 and Covid-19 Vaccination in Children and Adolescents Undvergoing Kidney Transplantation</title> 
+				<p>The covid-19 pandemic has negatively impacted pediatric transplantation in Brazil and affected areas such as outpatient care, monitoring, transdisciplinary care, medication, patient/family education/support, schooling, employment, and care of pediatric kidney transplant patients diagnosed with covid-19.</p> 
+				<p>Vaccination against covid-19 is recommended for all individuals, including children and adolescents waiting for kidney transplantation or transplant patients, as authorized by the FDA (Food and Drug Administration) and recommended by the Brazilian Ministry of Health
+					<sup>(
+						<xref ref-type="bibr" rid="B32">32</xref>)
+					</sup>. In suspected or confirmed cases, vaccination must not be performed during the quarantine period
+					<sup>(
+						<xref ref-type="bibr" rid="B27">27</xref>,
+						<xref ref-type="bibr" rid="B33">33</xref>)
+					</sup>. In Brazil, the current recommendation is to use the Comirnaty (Pfizer-BioNTech) messenger RNA (mRNA) vaccine for immunosuppressed patients with an ideal interval of eight weeks between the first and second doses, in individuals aged 5 to 17 years
+					<sup>(
+						<xref ref-type="bibr" rid="B27">27</xref>)
+					</sup>.
+				</p> 
+				<p>The covid-19 vaccine causes reduced immune response in solid organ transplant recipients when compared to immunocompetent individuals
+					<sup>(
+						<xref ref-type="bibr" rid="B34">34</xref>)
+					</sup>. Studies in adult recipients have shown that vaccination led to a reduction of almost 80% in the incidence of symptomatic covid-19 compared to unvaccinated recipients
+					<sup>(
+						<xref ref-type="bibr" rid="B35">35</xref>)
+					</sup>. Unfortunately, studies in pediatric solid organ transplant recipients are limited. Qin et al. showed that 73% of pediatric patients had a positive antibody response after two doses of mRNA vaccine
+					<sup>(
+						<xref ref-type="bibr" rid="B36">36</xref>)
+					</sup>. Experience with other vaccines has shown that they continue to provide substantial protection against infections and more severe disease in this vulnerable population and should be recommended before and after transplantation
+					<sup>(
+						<xref ref-type="bibr" rid="B35">35</xref>)
+					</sup>. Considering this experience, covid-19 vaccination for all solid organ recipients is recommended
+					<sup>(
+						<xref ref-type="bibr" rid="B37">37</xref>,
+						<xref ref-type="bibr" rid="B38">38</xref>)
+					</sup>.
+				</p> 
+				<sec> 
+					<title> 
+						<italic>Covid-19 infection in pediatric kidney transplant recipients</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Maintain the same treatment given to healthy children, with no need for preventive hospitalization. In case of severe covid-19 infection, consider hospitalization.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In case of mild or asymptomatic infection, maintain treatment; hospitalization should be avoided.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+				<sec> 
+					<title> 
+						<italic>Recommendations vaccinating children and adolescents undergoing kidney transplantation against covid-19</italic> 
+					</title> 
+					<list list-type="roman-upper"> 
+						<list-item> 
+							<p>Vaccinate all pediatric kidney transplant patients, following the age limits set by regulatory agencies.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Use preferably an mRNA vaccine, following age restrictions.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Family members of renal transplant patients must comply with the full vaccination scheme, especially family members of children aged less than five years
+								<sup>(
+									<xref ref-type="bibr" rid="B39">39</xref>)
+								</sup>.
+							</p> 
+						</list-item> 
+						<list-item> 
+							<p>In suspected or confirmed cases, do not vaccinate during the quarantine period;</p> 
+						</list-item> 
+						<list-item> 
+							<p>Kidney transplant recipients should receive any of the available covid-19 vaccines based on age and eligibility criteria.</p> 
+						</list-item> 
+						<list-item> 
+							<p>The optimal time to begin vaccination or complete the vaccination scheme after transplantation is unclear. Experts recommend waiting at least one month after transplantation to allow for a more robust immune response.</p> 
+						</list-item> 
+						<list-item> 
+							<p>All immunosuppressed patients over the age of 12 must have the third dose of the vaccine and the fourth dose four months later.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Contraindications to the mRNA vaccine for solid organ recipients are the same as the general population: 
+								<list list-type="bullet">
+									<list-item>
+										<p>Hypersensitivity to the active ingredient or to any of the excipients of the vaccine.</p>
+									</list-item>
+									<list-item>
+										<p>Confirmed anaphylactic reaction to a previous dose of a covid-19 vaccine.</p>
+									</list-item>
+								</list>
+							</p> 
+						</list-item> 
+						<list-item> 
+							<p>Postpone vaccination in individuals with severe acute fever or acute infection. Mild infection and/or low-grade fever should NOT cause postponement of vaccination.</p> 
+						</list-item> 
+						<list-item> 
+							<p>In patients with thrombocytopenia and coagulation disorders, administer the vaccine with caution, as with other intramuscular injections, with risk of local hematoma;</p> 
+						</list-item> 
+						<list-item> 
+							<p>Do not postpone kidney transplantation for kidney transplant candidates. They can receive the vaccine and do not need to wait for the procedure.</p> 
+						</list-item> 
+						<list-item> 
+							<p>After transplant, the interval to start or complete the vaccination scheme is 30 days.</p> 
+						</list-item> 
+						<list-item> 
+							<p>Do not change the immunosuppressants in use; postpone vaccination if the patient has acute fever.</p> 
+						</list-item> 
+						<list-item> 
+							<p>After vaccination, wear face masks, practice social distancing, and clean hands frequently.</p> 
+						</list-item> 
+					</list> 
+				</sec> 
+			</sec> 
+		</sec> 
+		<sec> 
+			<title>FINAL CONSIDERATIONS</title> 
+			<p>Covid-19 causes mild symptoms or is asymptomatic in the majority of pediatric patients with CKD, on immunosuppressants due to glomerular disease, or undergoing renal transplantation.</p> 
+			<p>In this group of individuals, vaccination against covid-19 is very important, since it confers direct protection and prevention against the disease. Vaccines reduce virus transmission rates and the emergence of new variants. Adverse events are rare and mild, and the benefits outweigh the risks.</p> 
+			<p>Immunocompromised patients may not develop sufficient immune response after two doses of the vaccine. Studies recommend additional vaccines to improve response. Acceptance of the covid-19 vaccine is necessary to limit the risk that the disease poses to patients
+				<sup>(
+					<xref ref-type="bibr" rid="B40">40</xref>)
+				</sup>.
+			</p> 
+		</sec> 
+	</body> 
+	<back> 
+		<ref-list> 
+			<title>References</title> 
+			<ref id="B1"> 
+				<label>1.</label> 
+				<mixed-citation>1. Brasil. Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]. Bras&#237;lia (DF): Minist&#233;rio da Sa&#250;de; 2022. (Boletim Epidemiol&#243;gico Especial, 103). [cited 2022 Mar 5]. 
+					<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-103-boletim-coe-coronavirus.pdf/view">Available from: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-103-boletim-coe-coronavirus.pdf/view</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<collab>Brasil</collab> 
+					</person-group> 
+					<source>Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]</source> 
+					<publisher-loc>Bras&#237;lia (DF)</publisher-loc> 
+					<publisher-name>Minist&#233;rio da Sa&#250;de</publisher-name> 
+					<year>2022</year> 
+					<comment>(Boletim Epidemiol&#243;gico Especial, 103)</comment> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-103-boletim-coe-coronavirus.pdf/view">Available from: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-103-boletim-coe-coronavirus.pdf/view</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B2"> 
+				<label>2.</label> 
+				<mixed-citation>2. Brasil. Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]. Bras&#237;lia (DF): Minist&#233;rio da Sa&#250;de; 2022. (Boletim Epidemiol&#243;gico Especial; 100). [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-100-boletim-coe-coronavirus.pdf/view">https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-100-boletim-coe-coronavirus.pdf/view</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Brasil</collab> 
+					</person-group> 
+					<source>Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]</source> 
+					<publisher-loc>Bras&#237;lia (DF)</publisher-loc> 
+					<publisher-name>Minist&#233;rio da Sa&#250;de</publisher-name> 
+					<year>2022</year> 
+					<comment>(Boletim Epidemiol&#243;gico Especial; 10</comment> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-100-boletim-coe-coronavirus.pdf/view">https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-100-boletim-coe-coronavirus.pdf/view</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B3"> 
+				<label>3.</label> 
+				<mixed-citation>3. Brasil. Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]. Bras&#237;lia (DF): Minist&#233;rio da Sa&#250;de; 2022. (Boletim Epidemiol&#243;gico Especial; 99). [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-99-boletim-coe-coronavirus.pdf/view">https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-99-boletim-coe-coronavirus.pdf/view</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Brasil</collab> 
+					</person-group> 
+					<source>Minist&#233;rio da Sa&#250;de. Doen&#231;a pelo Novo Coronav&#237;rus &#8211; COVID-19 [Internet]</source> 
+					<publisher-loc>Bras&#237;lia (DF)</publisher-loc> 
+					<publisher-name>Minist&#233;rio da Sa&#250;de</publisher-name> 
+					<year>2022</year> 
+					<comment>(Boletim Epidemiol&#243;gico Especial; 99)</comment> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-99-boletim-coe-coronavirus.pdf/view">https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/boletins-epidemiologicos/covid-19/2022/boletim-epidemiologico-no-99-boletim-coe-coronavirus.pdf/view</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B4"> 
+				<label>4.</label> 
+				<mixed-citation>4. Prata-Barbosa A, Lima-Setta F, Santos GRD, Lanziotti VS, de Castro REV, de Souza DC, et al Pediatric patients with COVID-19 admitted to intensive care units in Brazil: a prospective multicenter study. J Pediatr (Rio J). 2020;96(5):582-92. doi: http://dx.doi.org/10.1016/j.jped.2020.07.002. PubMed PMID: 32781034.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Prata-Barbosa</surname> 
+							<given-names>A.</given-names> 
+						</name> 
+						<name> 
+							<surname>Lima-Setta</surname> 
+							<given-names>F.</given-names> 
+						</name> 
+						<name> 
+							<surname>Santos</surname> 
+							<given-names>GRD</given-names> 
+						</name> 
+						<name> 
+							<surname>Lanziotti</surname> 
+							<given-names>VS</given-names> 
+						</name> 
+						<name> 
+							<surname>de Castro</surname> 
+							<given-names>REV</given-names> 
+						</name> 
+						<name> 
+							<surname>de Souza</surname> 
+							<given-names>DC</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>et al Pediatric patients with COVID-19 admitted to intensive care units in Brazil: a prospective multicenter study</article-title> 
+					<source>J Pediatr (Rio J)</source> 
+					<year>2020</year> 
+					<volume>96</volume> 
+					<issue>5</issue> 
+					<fpage>582</fpage> 
+					<lpage>92</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1016/j.jped.2020.07.002</pub-id> 
+					<pub-id pub-id-type="pmid">32781034</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B5"> 
+				<label>5.</label> 
+				<mixed-citation>5. Chu VT, Yousaf AR, Chang K, Schwartz NG, McDaniel CJ, Lee SH, et al. Household transmission of SARS-CoV-2 from children and adolescents. N Engl J Med. 2021;385(10):954-6. doi: http://dx.doi.org/10.1056/NEJMc2031915. PubMed PMID: 34289272.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Chu</surname> 
+							<given-names>VT</given-names> 
+						</name> 
+						<name> 
+							<surname>Yousaf</surname> 
+							<given-names>AR</given-names> 
+						</name> 
+						<name> 
+							<surname>Chang</surname> 
+							<given-names>K</given-names> 
+						</name> 
+						<name> 
+							<surname>Schwartz</surname> 
+							<given-names>NG</given-names> 
+						</name> 
+						<name> 
+							<surname>McDaniel</surname> 
+							<given-names>CJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Lee</surname> 
+							<given-names>SH</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Household transmission of SARS-CoV-2 from children and adolescents</article-title> 
+					<source>N Engl J Med</source> 
+					<year>2021</year> 
+					<volume>385</volume> 
+					<issue>10</issue> 
+					<fpage>954</fpage> 
+					<lpage>6</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1056/NEJMc2031915</pub-id> 
+					<pub-id pub-id-type="pmid">34289272</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B6"> 
+				<label>6.</label> 
+				<mixed-citation>6. Klein NP, Stockwell MS, Demarco M, Gaglani M, Kharbanda AB, Irving SA, et al. Effectiveness of COVID-19 Pfizer-BioNTech BNT162b2 mRNA Vaccination in Preventing COVID-19-Associated Emergency Department and Urgent Care Encounters and Hospitalizations Among Nonimmunocompromised Children and Adolescents Aged 5-17 Years &#8211; VISION Network, 10 States, April 2021-January 2022. MMWR Morb Mortal Wkly Rep. 2022 Mar 4;71(9):352-8. doi: http://dx.doi.org/10.15585/mmwr.mm7109e3. PMID: 35239634.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Klein</surname> 
+							<given-names>NP</given-names> 
+						</name> 
+						<name> 
+							<surname>Stockwell</surname> 
+							<given-names>MS</given-names> 
+						</name> 
+						<name> 
+							<surname>Demarco</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Gaglani</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Kharbanda</surname> 
+							<given-names>AB</given-names> 
+						</name> 
+						<name> 
+							<surname>Irving</surname> 
+							<given-names>SA</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Effectiveness of COVID-19 Pfizer-BioNTech BNT162b2 mRNA Vaccination in Preventing COVID-19-Associated Emergency Department and Urgent Care Encounters and Hospitalizations Among Nonimmunocompromised Children and Adolescents Aged 5-17 Years &#8211; VISION Network, 10 States, April 2021-January 2022</article-title> 
+					<source>MMWR Morb Mortal Wkly Rep</source> 
+					<year>2022</year> 
+					<comment>Mar 4</comment> 
+					<volume>71</volume> 
+					<issue>9</issue> 
+					<fpage>352</fpage> 
+					<lpage>8</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.15585/mmwr.mm7109e3</pub-id> 
+					<pub-id pub-id-type="pmid">35239634</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B7"> 
+				<label>7.</label> 
+				<mixed-citation>7. Lv M, Luo X, Shen Q, Lei R, Liu X, Liu E, et al. Safety, immunogenicity, and efficacy of COVID-19 vaccines in children and adolescents: a systematic review. Vaccines (Basel). 2021;9(10):1102. doi: http://dx.doi.org/10.3390/vaccines9101102. PubMed PMID: 34696210.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Lv</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Luo</surname> 
+							<given-names>X</given-names> 
+						</name> 
+						<name> 
+							<surname>Shen</surname> 
+							<given-names>Q</given-names> 
+						</name> 
+						<name> 
+							<surname>Lei</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Liu</surname> 
+							<given-names>X</given-names> 
+						</name> 
+						<name> 
+							<surname>Liu</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Safety, immunogenicity, and efficacy of COVID-19 vaccines in children and adolescents: a systematic review</article-title> 
+					<source>Vaccines (Basel)</source> 
+					<year>2021</year> 
+					<volume>9</volume> 
+					<issue>10</issue> 
+					<fpage>1102</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.3390/vaccines9101102</pub-id> 
+					<pub-id pub-id-type="pmid">34696210</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B8"> 
+				<label>8.</label> 
+				<mixed-citation>8. Angeletti A, Bruschi M, Bianchin S, Bonato I, Montobbio C, Verrina E, et al. Vaccines and disease relapses in children with nephrotic syndrome. CJASN. 2021;16(6):937-8. doi: http://dx.doi.org/10.2215/CJN.01890221. PubMed PMID: 34117084.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Angeletti</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Bruschi</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Bianchin</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Bonato</surname> 
+							<given-names>I</given-names> 
+						</name> 
+						<name> 
+							<surname>Montobbio</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Verrina</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Vaccines and disease relapses in children with nephrotic syndrome</article-title> 
+					<source>CJASN</source> 
+					<year>2021</year> 
+					<volume>16</volume> 
+					<issue>6</issue> 
+					<fpage>937</fpage> 
+					<lpage>8</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.2215/CJN.01890221</pub-id> 
+					<pub-id pub-id-type="pmid">34117084</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B9"> 
+				<label>9.</label> 
+				<mixed-citation>9. Morello W, Vianello FA, Proverbio E, Peruzzi L, Pasini A, Montini G. COVID-19 and idiopathic nephrotic syndrome in children: systematic review of the literature and recommendations from a highly affected area. Pediatr Nephrol. 2022;37(4):757-64. doi: http://dx.doi.org/10.1007/s00467-021-05330-2. PMid:34687377.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Morello</surname> 
+							<given-names>W</given-names> 
+						</name> 
+						<name> 
+							<surname>Vianello</surname> 
+							<given-names>FA</given-names> 
+						</name> 
+						<name> 
+							<surname>Proverbio</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Peruzzi</surname> 
+							<given-names>L</given-names> 
+						</name> 
+						<name> 
+							<surname>Pasini</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Montini</surname> 
+							<given-names>G</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>COVID-19 and idiopathic nephrotic syndrome in children: systematic review of the literature and recommendations from a highly affected area</article-title> 
+					<source>Pediatr Nephrol</source> 
+					<year>2022</year> 
+					<volume>37</volume> 
+					<issue>4</issue> 
+					<fpage>757</fpage> 
+					<lpage>64</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1007/s00467-021-05330-2</pub-id> 
+					<pub-id pub-id-type="pmid">34687377</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B10"> 
+				<label>10.</label> 
+				<mixed-citation>10. Krishnasamy S, Sinha A, Bagga A. SARS-CoV-2 infection in children with nephrotic syndrome. Pediatr Nephrol. 2022;37(3):685-6. doi: http://dx.doi.org/10.1007/s00467-021-05399-9. PubMed PMID: 35006355.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Krishnasamy</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Sinha</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Bagga</surname> 
+							<given-names>A</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>SARS-CoV-2 infection in children with nephrotic syndrome</article-title> 
+					<source>Pediatr Nephrol</source> 
+					<year>2022</year> 
+					<volume>37</volume> 
+					<issue>3</issue> 
+					<fpage>685</fpage> 
+					<lpage>6</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1007/s00467-021-05399-9</pub-id> 
+					<pub-id pub-id-type="pmid">35006355</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B11"> 
+				<label>11.</label> 
+				<mixed-citation>11. Nakazawa E, Uchimura T, Hirai Y, Togashi H, Oyama Y, Inaba A, et al. New-onset pediatric nephrotic syndrome following Pfizer-BioNTech SARS-CoV-2 vaccination: a case report and literature review. CEN Case Rep. 2022;11(2):242-6. http://dx.doi.org/10.1007/s13730-021-00656-0. PubMed PMID: 34782983.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Nakazawa</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Uchimura</surname> 
+							<given-names>T</given-names> 
+						</name> 
+						<name> 
+							<surname>Hirai</surname> 
+							<given-names>Y</given-names> 
+						</name> 
+						<name> 
+							<surname>Togashi</surname> 
+							<given-names>H</given-names> 
+						</name> 
+						<name> 
+							<surname>Oyama</surname> 
+							<given-names>Y</given-names> 
+						</name> 
+						<name> 
+							<surname>Inaba</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>New-onset pediatric nephrotic syndrome following Pfizer-BioNTech SARS-CoV-2 vaccination: a case report and literature review</article-title> 
+					<source>CEN Case Rep</source> 
+					<year>2022</year> 
+					<volume>11</volume> 
+					<issue>2</issue> 
+					<fpage>242</fpage> 
+					<lpage>6</lpage> 
+					<pub-id pub-id-type="doi">http://dx.doi.org/10.1007/s13730-021-00656-0</pub-id> 
+					<pub-id pub-id-type="pmid">34782983</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B12"> 
+				<label>12.</label> 
+				<mixed-citation>12. Waldman RA, Creed M, Sharp K, Adalsteinsson J, Imitola J, Durso T, et al. Toward a COVID-19 vaccine strategy for patients with pemphigus on rituximab. J Am Acad Dermatol. 2021;84(4):e197-8. doi: http://dx.doi.org/10.1016/j.jaad.2020.10.075. PubMed PMID: 33130180.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Waldman</surname> 
+							<given-names>RA</given-names> 
+						</name> 
+						<name> 
+							<surname>Creed</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Sharp</surname> 
+							<given-names>K</given-names> 
+						</name> 
+						<name> 
+							<surname>Adalsteinsson</surname> 
+							<given-names>J</given-names> 
+						</name> 
+						<name> 
+							<surname>Imitola</surname> 
+							<given-names>J</given-names> 
+						</name> 
+						<name> 
+							<surname>Durso</surname> 
+							<given-names>T</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Toward a COVID-19 vaccine strategy for patients with pemphigus on rituximab</article-title> 
+					<source>J Am Acad Dermatol</source> 
+					<year>2021</year> 
+					<volume>84</volume> 
+					<issue>4</issue> 
+					<fpage>e197</fpage> 
+					<lpage>8</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1016/j.jaad.2020.10.075</pub-id> 
+					<pub-id pub-id-type="pmid">33130180</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B13"> 
+				<label>13.</label> 
+				<mixed-citation>13. Ferretti F, Cannatelli R, Benucci M, Carmagnola S, Clementi E, Danelli P, et al. How to manage COVID-19 vaccination in immune-mediated inflammatory diseases: an expert opinion by IMIDs study group. Front Immunol. 12:656362. doi: http://dx.doi.org/10.3389/fimmu.2021.656362.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Ferretti</surname> 
+							<given-names>F</given-names> 
+						</name> 
+						<name> 
+							<surname>Cannatelli</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Benucci</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Carmagnola</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Clementi</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Danelli</surname> 
+							<given-names>P</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>How to manage COVID-19 vaccination in immune-mediated inflammatory diseases: an expert opinion by IMIDs study group</article-title> 
+					<source>Front Immunol</source> 
+					<volume>12</volume> 
+					<fpage>656362</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.3389/fimmu.2021.656362</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B14"> 
+				<label>14.</label> 
+				<mixed-citation>14. Krishnasamy S, Mantan M, Mishra K, Kapoor K, Brijwal M, Kumar M, et al. SARS-CoV-2 infection in children with chronic kidney disease. Pediatr Nephrol. 2022;37(4):849-57. doi: http://dx.doi.org/10.1007/s00467-021-05218-1. PubMed PMID: 34519896.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Krishnasamy.</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Mantan</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Mishra</surname> 
+							<given-names>K</given-names> 
+						</name> 
+						<name> 
+							<surname>Kapoor</surname> 
+							<given-names>K</given-names> 
+						</name> 
+						<name> 
+							<surname>Brijwal</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Kumar</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>SARS-CoV-2 infection in children with chronic kidney disease</article-title> 
+					<source>Pediatr Nephrol</source> 
+					<year>2022</year> 
+					<volume>37</volume> 
+					<issue>4</issue> 
+					<fpage>849</fpage> 
+					<lpage>57</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1007/s00467-021-05218-1</pub-id> 
+					<pub-id pub-id-type="pmid">34519896</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B15"> 
+				<label>15.</label> 
+				<mixed-citation>15. Aimen C, Bari A, Rashid J, Alvi Y, Naz F, Rana N, et al. Comorbidity and covid-19 in children &#8211; a single center experience. Pakistan Paediatric J. 2020;44(4):306-13.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Aimen</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Bari</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Rashid</surname> 
+							<given-names>J</given-names> 
+						</name> 
+						<name> 
+							<surname>Alvi</surname> 
+							<given-names>Y</given-names> 
+						</name> 
+						<name> 
+							<surname>Naz</surname> 
+							<given-names>F</given-names> 
+						</name> 
+						<name> 
+							<surname>Rana</surname> 
+							<given-names>N</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Comorbidity and covid-19 in children &#8211; a single center experience</article-title> 
+					<source>Pakistan Paediatric J</source> 
+					<year>2020</year> 
+					<volume>44</volume> 
+					<issue>4</issue> 
+					<fpage>306</fpage> 
+					<lpage>13</lpage> 
+				</element-citation> 
+			</ref> 
+			<ref id="B16"> 
+				<label>16.</label> 
+				<mixed-citation>16. Neu AM. Immunizations in children with chronic kidney disease. Pediatr Nephrol. 2012;27(8):1257-63. doi: http://dx.doi.org/10.1007/s00467-011-2042-3. PubMed PMID: 22048175.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Neu</surname> 
+							<given-names>AM</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Immunizations in children with chronic kidney disease</article-title> 
+					<source>Pediatr Nephrol</source> 
+					<year>2012</year> 
+					<volume>27</volume> 
+					<issue>8</issue> 
+					<fpage>1257</fpage> 
+					<lpage>63</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1007/s00467-011-2042-3</pub-id> 
+					<pub-id pub-id-type="pmid">22048175</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B17"> 
+				<label>17.</label> 
+				<mixed-citation>17. Bouwmans P, Messchendorp AL, Sanders JS, Hilbrands L, Reinders MEJ, Vart P, et al. Long-term efficacy and safety of SARS- CoV-2 vaccination in patients with chronic kidney disease, on dialysis or after kidney transplantation: a national prospective observational cohort study. BMC Nephrol. 2022;23(1):55. doi: http://dx.doi.org/10.1186/s12882-022-02680-3. PubMed PMID: 35123437.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Bouwmans</surname> 
+							<given-names>P</given-names> 
+						</name> 
+						<name> 
+							<surname>Messchendorp</surname> 
+							<given-names>AL</given-names> 
+						</name> 
+						<name> 
+							<surname>Sanders</surname> 
+							<given-names>JS</given-names> 
+						</name> 
+						<name> 
+							<surname>Hilbrands</surname> 
+							<given-names>L</given-names> 
+						</name> 
+						<name> 
+							<surname>Reinders</surname> 
+							<given-names>MEJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Vart</surname> 
+							<given-names>P</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Long-term efficacy and safety of SARS- CoV-2 vaccination in patients with chronic kidney disease, on dialysis or after kidney transplantation: a national prospective observational cohort study</article-title> 
+					<source>BMC Nephrol</source> 
+					<year>2022</year> 
+					<volume>23</volume> 
+					<issue>1</issue> 
+					<fpage>55</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1186/s12882-022-02680-3</pub-id> 
+					<pub-id pub-id-type="pmid">35123437</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B18"> 
+				<label>18.</label> 
+				<mixed-citation>18. Zitt E, Davidovic T, Schimpf J, Abbassi-Nik A, Mutschlechner B, Ulmer H, et al. The Safety and Immunogenicity of the mRNA-BNT162b2 SARS-CoV-2 Vaccine in Hemodialysis Patients. Front Immunol. 2021;12:704773. doi: http://dx.doi.org/10.3389/fimmu.2021.704773. PubMed PMID: 34220867.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Zitt</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Davidovic</surname> 
+							<given-names>T</given-names> 
+						</name> 
+						<name> 
+							<surname>Schimpf</surname> 
+							<given-names>J</given-names> 
+						</name> 
+						<name> 
+							<surname>Abbassi-Nik</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Mutschlechner</surname> 
+							<given-names>B</given-names> 
+						</name> 
+						<name> 
+							<surname>Ulmer</surname> 
+							<given-names>H</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>The Safety and Immunogenicity of the mRNA-BNT162b2 SARS-CoV-2 Vaccine in Hemodialysis Patients</article-title> 
+					<source>Front Immunol</source> 
+					<year>2021</year> 
+					<volume>12</volume> 
+					<fpage>704773</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.3389/fimmu.2021.704773</pub-id> 
+					<pub-id pub-id-type="pmid">34220867</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B19"> 
+				<label>19.</label> 
+				<mixed-citation>19. Shashar M, Nacasch N, Grupper A, Benchetrit S, Halperin T, Erez D, et al. Humoral response to Pfizer BNT162b2 vaccine booster in maintenance hemodialysis patients. Am J Nephrol. 2022;53(2-3):207-14. doi: http://dx.doi.org/10.1159/000521676. PubMed PMID: 35172312.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Shashar</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Nacasch</surname> 
+							<given-names>N</given-names> 
+						</name> 
+						<name> 
+							<surname>Grupper</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Benchetrit</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Halperin</surname> 
+							<given-names>T</given-names> 
+						</name> 
+						<name> 
+							<surname>Erez</surname> 
+							<given-names>D</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Humoral response to Pfizer BNT162b2 vaccine booster in maintenance hemodialysis patients</article-title> 
+					<source>Am J Nephrol</source> 
+					<year>2022</year> 
+					<volume>53</volume> 
+					<issue>2-3</issue> 
+					<fpage>207</fpage> 
+					<lpage>14</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1159/000521676</pub-id> 
+					<pub-id pub-id-type="pmid">35172312</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B20"> 
+				<label>20.</label> 
+				<mixed-citation>20. Speer C, Goth D, Benning L, Buylaert M, Schaier M, Grenz J, et al. Early humoral responses of hemodialysis patients after covid-19 vaccination with bnt162b2. CJASN. 2021;16(7):1073-82. doi: http://dx.doi.org/10.2215/CJN.03700321. PubMed PMID: 34031181.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Speer</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Goth</surname> 
+							<given-names>D</given-names> 
+						</name> 
+						<name> 
+							<surname>Benning</surname> 
+							<given-names>L</given-names> 
+						</name> 
+						<name> 
+							<surname>Buylaert</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Schaier</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Grenz</surname> 
+							<given-names>J</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Early humoral responses of hemodialysis patients after covid-19 vaccination with bnt162b2</article-title> 
+					<source>CJASN</source> 
+					<year>2021</year> 
+					<volume>16</volume> 
+					<issue>7</issue> 
+					<fpage>1073</fpage> 
+					<lpage>82</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.2215/CJN.03700321</pub-id> 
+					<pub-id pub-id-type="pmid">34031181</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B21"> 
+				<label>21.</label> 
+				<mixed-citation>21. Angel-Korman A, Peres E, Bryk G, Lustig Y, Indenbaum V, Amit S, et al. Diminished and waning immunity to COVID-19 vaccination among hemodialysis patients in Israel: the case for a third vaccine dose. Clin Kidney J. 2021;15(2):226-34. doi: http://dx.doi.org/10.1093/ckj/sfab206. PubMed PMID: 35140934.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Angel-Korman</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Peres</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Bryk</surname> 
+							<given-names>G</given-names> 
+						</name> 
+						<name> 
+							<surname>Lustig</surname> 
+							<given-names>Y</given-names> 
+						</name> 
+						<name> 
+							<surname>Indenbaum</surname> 
+							<given-names>V</given-names> 
+						</name> 
+						<name> 
+							<surname>Amit</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Diminished and waning immunity to COVID-19 vaccination among hemodialysis patients in Israel: the case for a third vaccine dose</article-title> 
+					<source>Clin Kidney J</source> 
+					<year>2021</year> 
+					<volume>15</volume> 
+					<issue>2</issue> 
+					<fpage>226</fpage> 
+					<lpage>34</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1093/ckj/sfab206</pub-id> 
+					<pub-id pub-id-type="pmid">35140934</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B22"> 
+				<label>22.</label> 
+				<mixed-citation>22. Carr EJ, Wu M, Harvey R, Billany RE, Wall EC, Kelly G, et al. Omicron neutralising antibodies after COVID-19 vaccination in haemodialysis patients. Lancet. 2022;399(10327):800-2. doi: http://dx.doi.org/10.1016/S0140-6736(22)00104-0. PubMed PMID: 35065703.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Carr</surname> 
+							<given-names>EJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Wu</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Harvey</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Billany</surname> 
+							<given-names>RE</given-names> 
+						</name> 
+						<name> 
+							<surname>Wall</surname> 
+							<given-names>EC</given-names> 
+						</name> 
+						<name> 
+							<surname>Kelly</surname> 
+							<given-names>G</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Omicron neutralising antibodies after COVID-19 vaccination in haemodialysis patients</article-title> 
+					<source>Lancet</source> 
+					<year>2022</year> 
+					<volume>399</volume> 
+					<issue>10327</issue> 
+					<fpage>800</fpage> 
+					<lpage>2</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1016/S0140-6736(22)00104-0</pub-id> 
+					<pub-id pub-id-type="pmid">35065703</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B23"> 
+				<label>23.</label> 
+				<mixed-citation>23. British Association for Pediatric Nephrology. Updated COVID-19 guidance for children with kidney disease on dialysis, and immunosuppression (including kidney transplants) [Internet]. Bristol (UK): British Association for Pediatric Nephrology; 2021 [cited 2022 Feb 22]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://ukkidney.org/sites/renal.org/files/BAPN/BAPN%20Covid%20advice%20for%20Children%20and%20Young%20People%20Sept%20%202021%20final.pdf">https://ukkidney.org/sites/renal.org/files/BAPN/BAPN%20Covid%20advice%20for%20Children%20and%20Young%20People%20Sept%20%202021%20final.pdf</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="webpage"> 
+					<person-group person-group-type="author"> 
+						<collab>British Association for Pediatric Nephrology</collab> 
+					</person-group> 
+					<source>Updated COVID-19 guidance for children with kidney disease on dialysis, and immunosuppression (including kidney transplants) [Internet]</source> 
+					<publisher-loc>Bristol (UK)</publisher-loc> 
+					<publisher-name>British Association for Pediatric Nephrology</publisher-name> 
+					<year>2021</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Feb 22]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://ukkidney.org/sites/renal.org/files/BAPN/BAPN%20Covid%20advice%20for%20Children%20and%20Young%20People%20Sept%20%202021%20final.pdf">https://ukkidney.org/sites/renal.org/files/BAPN/BAPN%20Covid%20advice%20for%20Children%20and%20Young%20People%20Sept%20%202021%20final.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B24"> 
+				<label>24.</label> 
+				<mixed-citation>24. Combe C, Kirsch AH, Alfano G, Luyckx VA, Shroff R, Kanbay M, et al. At least 156 reasons to prioritize COVID-19 vaccination in patients receiving in-centre haemodialysis. Nephrol Dial Transplant. 2021;36(4):571-4. doi: http://dx.doi.org/10.1093/ndt/gfab007. PubMed PMID: 33475137.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Combe</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Kirsch</surname> 
+							<given-names>AH</given-names> 
+						</name> 
+						<name> 
+							<surname>Alfano</surname> 
+							<given-names>G</given-names> 
+						</name> 
+						<name> 
+							<surname>Luyckx</surname> 
+							<given-names>VA</given-names> 
+						</name> 
+						<name> 
+							<surname>Shroff</surname> 
+							<given-names>R</given-names> 
+						</name> 
+						<name> 
+							<surname>Kanbay</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>At least 156 reasons to prioritize COVID-19 vaccination in patients receiving in-centre haemodialysis</article-title> 
+					<source>Nephrol Dial Transplant</source> 
+					<year>2021</year> 
+					<volume>36</volume> 
+					<issue>4</issue> 
+					<fpage>571</fpage> 
+					<lpage>4</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1093/ndt/gfab007</pub-id> 
+					<pub-id pub-id-type="pmid">33475137</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B25"> 
+				<label>25.</label> 
+				<mixed-citation>25. Chauhan AJ, Wiffen LJ, Brown TP. COVID-19: A collision of complement, coagulation and inflammatory pathways. J Thromb Haemost. 2020;18(9):2110-7. doi: http://dx.doi.org/10.1111/jth.14981. PubMed PMID: 32608159.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Chauhan</surname> 
+							<given-names>AJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Wiffen</surname> 
+							<given-names>LJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Brown</surname> 
+							<given-names>TP</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>COVID-19: A collision of complement, coagulation and inflammatory pathways</article-title> 
+					<source>J Thromb Haemost</source> 
+					<year>2020</year> 
+					<volume>18</volume> 
+					<issue>9</issue> 
+					<fpage>2110</fpage> 
+					<lpage>7</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1111/jth.14981</pub-id> 
+					<pub-id pub-id-type="pmid">32608159</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B26"> 
+				<label>26.</label> 
+				<mixed-citation>26. National Advisory Committee on Immunization. Recommendations on the use of COVID-19 vaccine [2021-10-22] [Internet]. Canada (CA): National Advisory Committee on Immunization; 2021 [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.canada.ca/en/public-health/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines">https://www.canada.ca/en/public-health/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>National Advisory Committee on Immunization</collab> 
+					</person-group> 
+					<source>Recommendations on the use of COVID-19 vaccine [2021-10-22] [Internet]</source> 
+					<publisher-loc>Canada (CA)</publisher-loc> 
+					<publisher-name>National Advisory Committee on Immunization</publisher-name> 
+					<year>2021</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.canada.ca/en/public-health/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines">https://www.canada.ca/en/public-health/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B27"> 
+				<label>27.</label> 
+				<mixed-citation>27. Brasil. Minist&#233;rio da Sa&#250;de. Plano Nacional de Operacionaliza&#231;&#227;o das Vacinas contra COVID-19 &#8211; PNO [Internet]. Bras&#237;lia (DF): Minist&#233;rio da Sa&#250;de; 2021 [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/coronavirus/vacinas/plano-nacional-de-operacionalizacao-da-vacina-contra-a-covid-19">https://www.gov.br/saude/pt-br/coronavirus/vacinas/plano-nacional-de-operacionalizacao-da-vacina-contra-a-covid-19</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Brasil</collab> 
+					</person-group> 
+					<source>Minist&#233;rio da Sa&#250;de. Plano Nacional de Operacionaliza&#231;&#227;o das Vacinas contra COVID-19 &#8211; PNO [Internet]</source> 
+					<publisher-loc>Bras&#237;lia (DF)</publisher-loc> 
+					<publisher-name>Minist&#233;rio da Sa&#250;de</publisher-name> 
+					<year>2021</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.gov.br/saude/pt-br/coronavirus/vacinas/plano-nacional-de-operacionalizacao-da-vacina-contra-a-covid-19">https://www.gov.br/saude/pt-br/coronavirus/vacinas/plano-nacional-de-operacionalizacao-da-vacina-contra-a-covid-19</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B28"> 
+				<label>28.</label> 
+				<mixed-citation>28. Centers for Disease Control and Prevention. Advisory Committee on Immunization Practices (ACIP) [Internet]. Atlanta (GA): CDC; 2022 [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.cdc.gov/vaccines/acip/index.html">https://www.cdc.gov/vaccines/acip/index.html</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Centers for Disease Control and Prevention</collab> 
+					</person-group> 
+					<source>Advisory Committee on Immunization Practices (ACIP) [Internet]</source> 
+					<publisher-loc>Atlanta (GA)</publisher-loc> 
+					<publisher-name>CDC</publisher-name> 
+					<year>2022</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.cdc.gov/vaccines/acip/index.html">https://www.cdc.gov/vaccines/acip/index.html</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B29"> 
+				<label>29.</label> 
+				<mixed-citation>29. National Advisory Committee on Immunization. Recommendation on the use of the Pfizer-BioNTech COVID-19 vaccine (10 mcg) in children 5&#8211;11 years of age [Internet]. Canada (CA): National Advisory Committee on Immunization; 2021 &#8211; [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.canada.ca/content/dam/phac-aspc/documents/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines/pfizer-biontech-10-mcg-children-5-11-years-age/pfizer-biontech-10-mcg-children-5-11-years-age.pdf">https://www.canada.ca/content/dam/phac-aspc/documents/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines/pfizer-biontech-10-mcg-children-5-11-years-age/pfizer-biontech-10-mcg-children-5-11-years-age.pdf</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>National Advisory Committee on Immunization</collab> 
+					</person-group> 
+					<source>Recommendation on the use of the Pfizer-BioNTech COVID-19 vaccine (10 mcg) in children 5&#8211;11 years of age [Internet]</source> 
+					<publisher-loc>Canada (CA)</publisher-loc> 
+					<publisher-name>National Advisory Committee on Immunization</publisher-name> 
+					<year>2021</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.canada.ca/content/dam/phac-aspc/documents/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines/pfizer-biontech-10-mcg-children-5-11-years-age/pfizer-biontech-10-mcg-children-5-11-years-age.pdf">https://www.canada.ca/content/dam/phac-aspc/documents/services/immunization/national-advisory-committee-on-immunization-naci/recommendations-use-covid-19-vaccines/pfizer-biontech-10-mcg-children-5-11-years-age/pfizer-biontech-10-mcg-children-5-11-years-age.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B30"> 
+				<label>30.</label> 
+				<mixed-citation>30. Associa&#231;&#227;o Brasileira de Transplantes de &#211;rg&#227;os. Dimensionamento dos transplantes no Brasil e em cada estado 2014&#8211;2021 [Internet]. S&#227;o Paulo (SP): Associa&#231;&#227;o Brasileira de Transplantes de &#211;rg&#227;os; 2022 [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="http://www.abto.org.br">http://www.abto.org.br</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Associa&#231;&#227;o Brasileira de Transplantes de &#211;rg&#227;os</collab> 
+					</person-group> 
+					<source>Dimensionamento dos transplantes no Brasil e em cada estado 2014&#8211;2021 [Internet]</source> 
+					<publisher-loc>S&#227;o Paulo (SP)</publisher-loc> 
+					<publisher-name>Associa&#231;&#227;o Brasileira de Transplantes de &#211;rg&#227;os;</publisher-name> 
+					<year>2022</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="http://www.abto.org.br">http://www.abto.org.br</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B31"> 
+				<label>31</label> 
+				<mixed-citation>31. L&#8217;Huillier AG, Ardura MI, Chaudhuri A, Danziger-Isakov L, Dulek D, Green M, et al. COVID-19 vaccination in pediatric solid organ transplant recipients &#8211; Current state and future directions. Pediatr Transplant. 2021;25(6):e14031. doi: https://doi.org/10.1111/petr.14031.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>L&#8217;Huillier</surname> 
+							<given-names>AG</given-names> 
+						</name> 
+						<name> 
+							<surname>Ardura</surname> 
+							<given-names>MI</given-names> 
+						</name> 
+						<name> 
+							<surname>Chaudhuri</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Danziger-Isakov</surname> 
+							<given-names>L</given-names> 
+						</name> 
+						<name> 
+							<surname>Dulek</surname> 
+							<given-names>D</given-names> 
+						</name> 
+						<name> 
+							<surname>Green</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>COVID-19 vaccination in pediatric solid organ transplant recipients &#8211; Current state and future directions</article-title> 
+					<source>Pediatr Transplant</source> 
+					<year>2021</year> 
+					<volume>25</volume> 
+					<issue>6</issue> 
+					<fpage>e14031</fpage> 
+					<pub-id pub-id-type="doi">doi: https://doi.org/10.1111/petr.14031</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B32"> 
+				<label>1</label> 
+				<mixed-citation>1 32. Centers for Disease Control and Prevention. COVID-19 ACIP Vaccine Recommendations [Internet]. Atlanta (GA): CDC; 2022 [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.cdc.gov/vaccines/hcp/acip-recs/vacc-specific/covid-19.html">https://www.cdc.gov/vaccines/hcp/acip-recs/vacc-specific/covid-19.html</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Centers for Disease Control and Prevention</collab> 
+					</person-group> 
+					<source>COVID-19 ACIP Vaccine Recommendations [Internet]</source> 
+					<publisher-loc>Atlanta (GA)</publisher-loc> 
+					<publisher-name>CDC</publisher-name> 
+					<year>2022</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5]</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.cdc.gov/vaccines/hcp/acip-recs/vacc-specific/covid-19.html">https://www.cdc.gov/vaccines/hcp/acip-recs/vacc-specific/covid-19.html</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B33"> 
+				<label>33.</label> 
+				<mixed-citation>33. Woodworth KR, Moulia D, Collins JP, Hadler SC, Jones JM, Reddy SC, et al. The Advisory Committee on Immunization Practices&#8217; Interim Recommendation for Use of Pfizer-BioNTech COVID-19 Vaccine in Children Aged 5&#8211;11 Years. MMWR Morb Mortal Wkly Rep. 2021;70(45):1579-83. doi: http://dx.doi.org/10.15585/mmwr.mm7045e1. PubMed PMID: 34758012.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Woodworth</surname> 
+							<given-names>KR</given-names> 
+						</name> 
+						<name> 
+							<surname>Moulia</surname> 
+							<given-names>D</given-names> 
+						</name> 
+						<name> 
+							<surname>Collins</surname> 
+							<given-names>JP</given-names> 
+						</name> 
+						<name> 
+							<surname>Hadler</surname> 
+							<given-names>SC</given-names> 
+						</name> 
+						<name> 
+							<surname>Jones</surname> 
+							<given-names>JM</given-names> 
+						</name> 
+						<name> 
+							<surname>Reddy</surname> 
+							<given-names>SC</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>The Advisory Committee on Immunization Practices&#8217; Interim Recommendation for Use of Pfizer-BioNTech COVID-19 Vaccine in Children Aged 5&#8211;11 Years</article-title> 
+					<source>MMWR Morb Mortal Wkly Rep</source> 
+					<year>2021</year> 
+					<volume>70</volume> 
+					<issue>45</issue> 
+					<fpage>1579</fpage> 
+					<lpage>83</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.15585/mmwr.mm7045e1</pub-id> 
+					<pub-id pub-id-type="pmid">34758012</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B34"> 
+				<label>34.</label> 
+				<mixed-citation>34. Downes KJ, Statler VA, Orscheln RC, Cousino MK, Green M, Michaels MG, et al. Return to School and COVID-19 Vaccination for Pediatric Solid Organ Transplant Recipients in the United States: expert Opinion for 2021-2022. J Pediatric Infect Dis Soc. 2022;11(2):43-54. doi: http://dx.doi.org/10.1093/jpids/piab098. PubMed PMID: 34734268.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Downes</surname> 
+							<given-names>KJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Statler</surname> 
+							<given-names>VA</given-names> 
+						</name> 
+						<name> 
+							<surname>Orscheln</surname> 
+							<given-names>RC</given-names> 
+						</name> 
+						<name> 
+							<surname>Cousino</surname> 
+							<given-names>MK</given-names> 
+						</name> 
+						<name> 
+							<surname>Green</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Michaels</surname> 
+							<given-names>MG</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Return to School and COVID-19 Vaccination for Pediatric Solid Organ Transplant Recipients in the United States: expert Opinion for 2021-2022</article-title> 
+					<source>J Pediatric Infect Dis Soc</source> 
+					<year>2022</year> 
+					<volume>11(</volume> 
+					<issue>2</issue> 
+					<fpage>43</fpage> 
+					<lpage>54</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1093/jpids/piab098</pub-id> 
+					<pub-id pub-id-type="pmid">34734268</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B35"> 
+				<label>35.</label> 
+				<mixed-citation>35. Aslam S, Adler E, Mekeel K, Little SJ. Clinical effectiveness of COVID-19 vaccination in solid organ transplant recipients. Transpl Infect Dis. 2021;23(5):e13705. doi: http://dx.doi.org/10.1111/tid.13705.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Aslam</surname> 
+							<given-names>S</given-names> 
+						</name> 
+						<name> 
+							<surname>Adler</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Mekeel</surname> 
+							<given-names>K</given-names> 
+						</name> 
+						<name> 
+							<surname>Little</surname> 
+							<given-names>SJ</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Clinical effectiveness of COVID-19 vaccination in solid organ transplant recipients</article-title> 
+					<source>Transpl Infect Dis</source> 
+					<year>2021</year> 
+					<volume>23</volume> 
+					<issue>5</issue> 
+					<fpage>e13705</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1111/tid.13705</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B36"> 
+				<label>36.</label> 
+				<mixed-citation>36. Qin CX, Auerbach SR, Charnaya O, Danziger-Isakov LA, Ebel NH, Feldman AG, et al. Antibody response to 2-dose SARS-CoV-2 mRNA vaccination in pediatric solid organ transplant recipients. Am J Transplant. 2022;22(2):669-72. doi: http://dx.doi.org/10.1111/ajt.16841. PubMed PMID: 34517430.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Qin</surname> 
+							<given-names>CX</given-names> 
+						</name> 
+						<name> 
+							<surname>Auerbach</surname> 
+							<given-names>SR</given-names> 
+						</name> 
+						<name> 
+							<surname>Charnaya</surname> 
+							<given-names>O</given-names> 
+						</name> 
+						<name> 
+							<surname>Danziger-Isakov</surname> 
+							<given-names>LA</given-names> 
+						</name> 
+						<name> 
+							<surname>Ebel</surname> 
+							<given-names>NH</given-names> 
+						</name> 
+						<name> 
+							<surname>Feldman</surname> 
+							<given-names>AG</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Antibody response to 2-dose SARS-CoV-2 mRNA vaccination in pediatric solid organ transplant recipients</article-title> 
+					<source>Am J Transplant</source> 
+					<year>2022</year> 
+					<volume>22</volume> 
+					<issue>2</issue> 
+					<fpage>669</fpage> 
+					<lpage>72</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1111/ajt.16841</pub-id> 
+					<pub-id pub-id-type="pmid">34517430</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B37"> 
+				<label>37.</label> 
+				<mixed-citation>37. Downes KJ, Statler VA, Orscheln RC, Cousino MK, Green M, Michaels MG, et al. Return to School and COVID-19 Vaccination for Pediatric Solid Organ Transplant Recipients in the United States: expert Opinion for 2021-2022. J Pediatric Infect Dis Soc. 2022;11(2):43-54. doi: http://dx.doi.org/10.1093/jpids/piab098. PubMed PMID: 34734268.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Downes</surname> 
+							<given-names>KJ</given-names> 
+						</name> 
+						<name> 
+							<surname>Statler</surname> 
+							<given-names>VA</given-names> 
+						</name> 
+						<name> 
+							<surname>Orscheln</surname> 
+							<given-names>RC</given-names> 
+						</name> 
+						<name> 
+							<surname>Cousino</surname> 
+							<given-names>MK</given-names> 
+						</name> 
+						<name> 
+							<surname>Green</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Michaels</surname> 
+							<given-names>MG</given-names> 
+						</name> 
+						<etal/> 
+					</person-group> 
+					<article-title>Return to School and COVID-19 Vaccination for Pediatric Solid Organ Transplant Recipients in the United States: expert Opinion for 2021-2022</article-title> 
+					<source>J Pediatric Infect Dis Soc</source> 
+					<year>2022</year> 
+					<volume>11</volume> 
+					<issue>2</issue> 
+					<fpage>43</fpage> 
+					<lpage>54</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1093/jpids/piab098</pub-id> 
+					<pub-id pub-id-type="pmid">34734268</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B38"> 
+				<label>38.</label> 
+				<mixed-citation>38. Minotti C, Tirelli F, Barbieri E, Giaquinto C, Don&#224; D. How is immunosuppressive status affecting children and adults in SARS-CoV-2 infection? A systematic review. J Infect. 2020;81(1):e61-6. doi: http://dx.doi.org/10.1016/j.jinf.2020.04.026. PubMed PMID: 32335173.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Minotti</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Tirelli</surname> 
+							<given-names>F</given-names> 
+						</name> 
+						<name> 
+							<surname>Barbieri</surname> 
+							<given-names>E</given-names> 
+						</name> 
+						<name> 
+							<surname>Giaquinto</surname> 
+							<given-names>C</given-names> 
+						</name> 
+						<name> 
+							<surname>Don&#224;</surname> 
+							<given-names>D</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>How is immunosuppressive status affecting children and adults in SARS-CoV-2 infection? A systematic review</article-title> 
+					<source>J Infect</source> 
+					<year>2020</year> 
+					<volume>81</volume> 
+					<issue>1</issue> 
+					<fpage>e61</fpage> 
+					<lpage>6</lpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1016/j.jinf.2020.04.026</pub-id> 
+					<pub-id pub-id-type="pmid">32335173</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B39"> 
+				<label>39.</label> 
+				<mixed-citation>39. Sociedade Brasileira de Pediatria. Vacinas COVID-19 em crian&#231;as no Brasil: uma quest&#227;o priorit&#225;ria de sa&#250;de p&#250;blica [Internet]. S&#227;o Paulo: SBP; 2021 (Nota de Alerta, no 20, 28 de dezembro de 2021). [cited 2022 Mar 5]. Available from: 
+					<ext-link ext-link-type="uri" xlink:href="https://www.sbp.com.br/fileadmin/user_upload/23325b-NA_Vacinas_COVID-19_em_crc_no_BR_Uma_questao_prioritaria_SaudePubl.pdf">https://www.sbp.com.br/fileadmin/user_upload/23325b-NA_Vacinas_COVID-19_em_crc_no_BR_Uma_questao_prioritaria_SaudePubl.pdf</ext-link>
+				</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<collab>Sociedade Brasileira de Pediatria</collab> 
+					</person-group> 
+					<source>Vacinas COVID-19 em crian&#231;as no Brasil: uma quest&#227;o priorit&#225;ria de sa&#250;de p&#250;blica [Internet]</source> 
+					<publisher-loc>S&#227;o Paulo</publisher-loc> 
+					<publisher-name>SBP</publisher-name> 
+					<year>2021</year> 
+					<date-in-citation content-type="access-date">[cited 2022 Mar 5</date-in-citation> 
+					<comment>Available from: 
+						<ext-link ext-link-type="uri" xlink:href="https://www.sbp.com.br/fileadmin/user_upload/23325b-NA_Vacinas_COVID-19_em_crc_no_BR_Uma_questao_prioritaria_SaudePubl.pdf">https://www.sbp.com.br/fileadmin/user_upload/23325b-NA_Vacinas_COVID-19_em_crc_no_BR_Uma_questao_prioritaria_SaudePubl.pdf</ext-link>
+					</comment> 
+				</element-citation> 
+			</ref> 
+			<ref id="B40"> 
+				<label>40.</label> 
+				<mixed-citation>40. Dulek DE, Ardura MI, Green M, Michaels MG, Chaudhuri A, Vasquez L, et al. Update on COVID-19 vaccination in pediatric solid organ transplant recipients. Pediatr Transplant. 2022;26(5):e14235. doi: http://dx.doi.org/10.1111/petr.14235.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>Dulek</surname> 
+							<given-names>DE</given-names> 
+						</name> 
+						<name> 
+							<surname>Ardura</surname> 
+							<given-names>MI</given-names> 
+						</name> 
+						<name> 
+							<surname>Green</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>Michaels</surname> 
+							<given-names>MG</given-names> 
+						</name> 
+						<name> 
+							<surname>Chaudhuri</surname> 
+							<given-names>A</given-names> 
+						</name> 
+						<name> 
+							<surname>Vasquez</surname> 
+							<given-names>L</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Update on COVID-19 vaccination in pediatric solid organ transplant recipients</article-title> 
+					<source>Pediatr Transplant</source> 
+					<year>2022</year> 
+					<volume>26</volume> 
+					<issue>5</issue> 
+					<fpage>e14235</fpage> 
+					<pub-id pub-id-type="doi">doi: http://dx.doi.org/10.1111/petr.14235</pub-id> 
+				</element-citation> 
+			</ref> 
+		</ref-list> 
+	</back> 
+	<sub-article article-type="translation" id="s1" xml:lang="pt"> 
+		<front-stub> 
+			<article-id pub-id-type="doi">10.1590/2175-8239-JBN-2022-0081pt</article-id> 
+			<article-categories> 
+				<subj-group subj-group-type="heading"> 
+					<subject>Perspectivas/Opini&#227;o</subject> 
+				</subj-group> 
+			</article-categories> 
+			<title-group> 
+				<article-title>Os desafios da pandemia e a vacina&#231;&#227;o covid-19 na popula&#231;&#227;o pedi&#225;trica com doen&#231;as renais</article-title> 
+			</title-group> 
+			<contrib-group> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-0491-6783</contrib-id> 
+					<name> 
+						<surname>Soeiro</surname> 
+						<given-names>Em&#237;lia Maria Dantas</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff15"> 
+						<sup>1</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-1534-3861</contrib-id> 
+					<name> 
+						<surname>Guimar&#227;es Penido</surname> 
+						<given-names>Maria Goretti Moreira</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff16"> 
+						<sup>2</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-0334-8470</contrib-id> 
+					<name> 
+						<surname>Palma</surname> 
+						<given-names>Lilian Monteiro Pereira</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff17"> 
+						<sup>3</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-7880-1858</contrib-id> 
+					<name> 
+						<surname>Bresolin</surname> 
+						<given-names>Nilzete Liberato</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff18"> 
+						<sup>4</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-2277-2840</contrib-id> 
+					<name> 
+						<surname>Fonseca Lima</surname> 
+						<given-names>Eduardo Jorge da</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff15"> 
+						<sup>1</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0001-7478-3931</contrib-id> 
+					<name> 
+						<surname>Koch</surname> 
+						<given-names>Vera Hermina Kalika</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff19"> 
+						<sup>5</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9766-9354</contrib-id> 
+					<name> 
+						<surname>Tavares</surname> 
+						<given-names>Marcelo de Sousa</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff16"> 
+						<sup>2</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-6719-6509</contrib-id> 
+					<name> 
+						<surname>Sylvestre</surname> 
+						<given-names>Lucimary</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff20"> 
+						<sup>6</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9286-2825</contrib-id> 
+					<name> 
+						<surname>Bernardes</surname> 
+						<given-names>Rejane de Paula</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff21"> 
+						<sup>7</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-9014-3819</contrib-id> 
+					<name> 
+						<surname>Garcia</surname> 
+						<given-names>Clotilde Druck</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff22"> 
+						<sup>8</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0003-4519-0613</contrib-id> 
+					<name> 
+						<surname>Andrade</surname> 
+						<given-names>Maria Cristina de</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff23"> 
+						<sup>9</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-3654-0709</contrib-id> 
+					<name> 
+						<surname>Kaufman</surname> 
+						<given-names>Arnauld</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff24"> 
+						<sup>10</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff25"> 
+						<sup>11</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff26"> 
+						<sup>12</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff27"> 
+						<sup>13</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0003-3187-4424</contrib-id> 
+					<name> 
+						<surname>Chow</surname> 
+						<given-names>Charles Yea Zen</given-names> 
+						<suffix/> 
+					</name> 
+					<xref ref-type="aff" rid="aff28"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0001-5920-2238</contrib-id> 
+					<name> 
+						<surname>Martins</surname> 
+						<given-names>Suelen Bianca Stopa</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff28"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-6116-8355</contrib-id> 
+					<name> 
+						<surname>Nero Camargo</surname> 
+						<given-names>Suzana Friedlander Del</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff28"> 
+						<sup>14</sup> 
+					</xref> 
+				</contrib> 
+			</contrib-group> 
+			<aff id="aff15"> 
+				<label>1</label> 
+				<institution content-type="orgname">Instituto de Medicina Integral Professor Fernando Figueira</institution> 
+				<addr-line> 
+					<city>Recife</city> 
+					<state>PE</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Instituto de Medicina Integral Professor Fernando Figueira, Recife, PE, Brasil.</institution> 
+			</aff> 
+			<aff id="aff16"> 
+				<label>2</label> 
+				<institution content-type="orgname">Santa Casa de Belo Horizonte</institution> 
+				<institution content-type="orgdiv1">Centro de Nefrologia</institution> 
+				<institution content-type="orgdiv2">Unidade de Nefrologia Pedi&#225;trica</institution> 
+				<addr-line> 
+					<city>Belo Horizonte</city> 
+					<state>MG</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Santa Casa de Belo Horizonte, Centro de Nefrologia, Unidade de Nefrologia Pedi&#225;trica, Belo Horizonte, MG, Brasil.</institution> 
+			</aff> 
+			<aff id="aff17"> 
+				<label>3</label> 
+				<institution content-type="orgname">Universidade Estadual de Campinas</institution> 
+				<institution content-type="orgdiv1">Departamento de Pediatria</institution> 
+				<addr-line> 
+					<city>Campinas</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Estadual de Campinas, Departamento de Pediatria, Campinas, SP, Brasil.</institution> 
+			</aff> 
+			<aff id="aff18"> 
+				<label>4</label> 
+				<institution content-type="orgname">Universidade Federal de Santa Catarina</institution> 
+				<addr-line> 
+					<city>Florian&#243;polis</city> 
+					<state>SC</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal de Santa Catarina, Florian&#243;polis, SC, Brasil.</institution> 
+			</aff> 
+			<aff id="aff19"> 
+				<label>5</label> 
+				<institution content-type="orgname">ospital das Cl&#237;nicas da Faculdade de Medicina da USP</institution> 
+				<institution content-type="orgdiv1">Instituto da Crian&#231;a e do Adolescente</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Hospital das Cl&#237;nicas da Faculdade de Medicina da USP, Instituto da Crian&#231;a e do Adolescente, S&#227;o Paulo, SP, Brasil.</institution> 
+			</aff> 
+			<aff id="aff20"> 
+				<label>6</label> 
+				<institution content-type="orgname">Hospital Pequeno Pr&#237;ncipe</institution> 
+				<addr-line> 
+					<city>Curitiba</city> 
+					<state>PR</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Hospital Pequeno Pr&#237;ncipe, Curitiba, PR, Brasil.</institution> 
+			</aff> 
+			<aff id="aff21"> 
+				<label>7</label> 
+				<institution content-type="orgname">Cl&#237;nica Nefrokids</institution> 
+				<addr-line> 
+					<city>Curitiba</city> 
+					<state>PR</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Cl&#237;nica Nefrokids, Curitiba, PR, Brasil.</institution> 
+			</aff> 
+			<aff id="aff22"> 
+				<label>8</label> 
+				<institution content-type="orgname">Universidade Federal de Ci&#234;ncias da Sa&#250;de de Porto Alegre</institution> 
+				<institution content-type="orgdiv1">Santa Casa de Porto Alegre</institution> 
+				<addr-line> 
+					<city>Porto Alegre</city> 
+					<state>RS</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal de Ci&#234;ncias da Sa&#250;de de Porto Alegre, Santa Casa de Porto Alegre, Servi&#231;o de Pedi&#225;trica, Porto Alegre, RS, Brasil.</institution> 
+			</aff> 
+			<aff id="aff23"> 
+				<label>9</label> 
+				<institution content-type="orgname">Universidade Federal de S&#227;o Paulo</institution> 
+				<institution content-type="orgdiv1">Escola Paulista de Medicina</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal de S&#227;o Paulo, Escola Paulista de Medicina, S&#227;o Paulo, SP, Brasil.</institution> 
+			</aff> 
+			<aff id="aff24"> 
+				<label>10</label> 
+				<institution content-type="orgname">Instituto de Puericultura e Pediatria Martag&#227;o Gesteira</institution> 
+				<addr-line> 
+					<city>Rio de Janeiro</city> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Instituto de Puericultura e Pediatria Martag&#227;o Gesteira, Rio de Janeiro, RJ, Brasil.</institution> 
+			</aff> 
+			<aff id="aff25"> 
+				<label>11</label> 
+				<institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution> 
+				<addr-line> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Universidade Federal do Rio de Janeiro, RJ, Brasil.</institution> 
+			</aff> 
+			<aff id="aff26"> 
+				<label>12</label> 
+				<institution content-type="orgname">Hospital Federal dos Servidores do Estado do Rio de Janeiro</institution> 
+				<addr-line> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Hospital Federal dos Servidores do Estado do Rio de Janeiro, RJ, Brasil.</institution> 
+			</aff> 
+			<aff id="aff27"> 
+				<label>13</label> 
+				<institution content-type="orgname">Grupo Assist&#234;ncia M&#233;dica Nefrol&#243;gica</institution> 
+				<addr-line> 
+					<city>Rio de Janeiro</city> 
+					<state>RJ</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Grupo Assist&#234;ncia M&#233;dica Nefrol&#243;gica, Rio de Janeiro, RJ, Brasil.</institution> 
+			</aff> 
+			<aff id="aff28"> 
+				<label>14</label> 
+				<institution content-type="orgname">Hospital do Rim</institution> 
+				<addr-line> 
+					<city>S&#227;o Paulo</city> 
+					<state>SP</state> 
+				</addr-line> 
+				<country country="BR">Brasil</country> 
+				<institution content-type="original">Hospital do Rim, S&#227;o Paulo, SP, Brasil.</institution> 
+			</aff> 
+			<author-notes> 
+				<corresp id="c2">
+					<label>Correspond&#234;ncia para:</label> Maria Goretti Moreira Guimar&#227;es Penido. E-mail:
+					<email> mariagorettipenido@yahoo.com.br</email>
+				</corresp> 
+				<fn fn-type="con"> 
+					<label>Contribui&#231;&#227;o dos Autores</label> 
+					<p>Todos os autores foram respons&#225;veis pela ideia, desenho do estudo, aquisi&#231;&#227;o de dados, supervis&#227;o, an&#225;lise dos dados e reda&#231;&#227;o do artigo.</p> 
+					<p>Conflito de Interesse</p> 
+				</fn> 
+				<fn fn-type="conflict"> 
+					<label>Conflito de Interesse</label> 
+					<p>Os autores declaram que n&#227;o h&#225; nenhum conflito de interesse.</p> 
+				</fn> 
+			</author-notes> 
+			<abstract> 
+				<title>Resumo</title> 
+				<p>A vacina covid-19 confere prote&#231;&#227;o direta, reduz as taxas de transmiss&#227;o do v&#237;rus e de novas variantes. No Brasil, est&#227;o liberadas para a popula&#231;&#227;o pedi&#225;trica as vacinas Pfizer/BioNTech e a CoronaVac, ambas seguras, eficazes e imunog&#234;nicas. Pacientes pedi&#225;tricos com s&#237;ndrome nefr&#243;tica e covid-19 t&#234;m curso cl&#237;nico regular sem complica&#231;&#245;es relacionadas ao uso de esteroides ou vacinas. Esses pacientes, com ou sem imunossupress&#227;o, n&#227;o apresentam maior risco de covid-19 grave e o tratamento com esteroides &#233; seguro. Os pacientes com doen&#231;a renal cr&#244;nica t&#234;m covid-19 mais leve, sem necessidade de hospitaliza&#231;&#227;o. A resposta vacinal pode ser reduzida e/ou a dura&#231;&#227;o dos anticorpos p&#243;s-vacina&#231;&#227;o pode ser menor do que na popula&#231;&#227;o geral. Entretanto, a vacina covid-19 est&#225; recomendada, considerando o risco de exposi&#231;&#227;o. Acredita-se que pacientes com s&#237;ndrome hemol&#237;tico-ur&#234;mica teriam maior risco de covid-19 grave. A vacina &#233; recomendada, embora dados espec&#237;ficos sobre seguran&#231;a e efic&#225;cia da vacina covid-19 sejam limitados. H&#225; concord&#226;ncia que os benef&#237;cios da imunidade induzida superam quaisquer riscos da imuniza&#231;&#227;o. A vacina covid-19 &#233; recomendada para crian&#231;as e adolescentes candidatos ao transplante renal ou j&#225; transplantados. Esses pacientes t&#234;m resposta imunol&#243;gica reduzida ap&#243;s a vacina, entretanto ela &#233; recomendada porque os benef&#237;cios superam qualquer risco dessa vacina&#231;&#227;o. A recomenda&#231;&#227;o atual no Brasil &#233; a vacina de tecnologia RNA mensageiro. O objetivo deste documento &#233; levar aos nefrologistas pedi&#225;tricos os conhecimentos mais recentes sobre a vacina&#231;&#227;o contra contra-19 em crian&#231;as com doen&#231;as renais.</p> 
+			</abstract> 
+			<kwd-group xml:lang="pt"> 
+				<title>Descritores:</title> 
+				<kwd>Vacinas</kwd> 
+				<kwd>Covid-19</kwd> 
+				<kwd>S&#237;ndrome Hemol&#237;tico-Ur&#234;mica</kwd> 
+				<kwd>S&#237;ndrome Nefr&#243;tica</kwd> 
+				<kwd>Insufici&#234;ncia Renal Cr&#244;nica</kwd> 
+				<kwd>Di&#225;lise</kwd> 
+				<kwd>Transplante de Rim</kwd> 
+			</kwd-group> 
+		</front-stub> 
+		<body> 
+			<sec sec-type="intro"> 
+				<title>INTRRODU&#199;&#195;O</title> 
+				<p>A covid-19 foi detectada pela primeira vez em dezembro de 2019, na prov&#237;ncia de Hubei (Wuhan), China. O v&#237;rus se disseminou rapidamente pelo mundo, e em mar&#231;o de 2022 foram confirmados 29 milh&#245;es de casos de covid-19 e 652 mil &#243;bitos decorrentes da doen&#231;a no Brasil
+					<sup>(
+						<xref ref-type="bibr" rid="B1">1</xref>)
+					</sup>. Nesse mesmo per&#237;odo foram confirmados 6.531 casos de s&#237;ndrome respirat&#243;ria aguda grave pedi&#225;trica por covid-19 e 1.503 casos da s&#237;ndrome inflamat&#243;ria multissist&#234;mica pedi&#225;trica com 93 &#243;bitos
+					<sup>(
+						<xref ref-type="bibr" rid="B2">2</xref>,
+						<xref ref-type="bibr" rid="B3">3</xref>)
+					</sup>.
+				</p> 
+				<p>Grande parte das crian&#231;as com covid-19 &#233; assintom&#225;tica ou tem sintomas leves, e a presen&#231;a de comorbidades &#233; considerada fator de risco. Um estudo brasileiro mostrou que 41% das crian&#231;as admitidas em Unidades de Terapia Intensiva apresentavam comorbidades
+					<sup>(
+						<xref ref-type="bibr" rid="B4">4</xref>)
+					</sup>.
+				</p> 
+				<p>Poucos s&#227;o os relatos sobre o risco de doen&#231;a grave por covid-19 em pacientes pedi&#225;tricos imunocomprometidos. Estudos populacionais mostraram que crian&#231;as e adolescentes s&#227;o expostos ao v&#237;rus de modo semelhante aos adultos e s&#227;o vetores potenciais na transmiss&#227;o da doen&#231;a
+					<sup>(
+						<xref ref-type="bibr" rid="B5">5</xref>)
+					</sup>.
+				</p> 
+				<p>A vacina contra covid-19 confere prote&#231;&#227;o direta, reduz as taxas de transmiss&#227;o do v&#237;rus e o surgimento de novas variantes
+					<sup>(
+						<xref ref-type="bibr" rid="B6">6</xref>)
+					</sup>. Lv et al. demonstraram seguran&#231;a, efic&#225;cia e imunogenicidade dessas vacinas na popula&#231;&#227;o pedi&#225;trica saud&#225;vel. Eventos adversos s&#227;o raros e leves, e os benef&#237;cios se sobrep&#245;em aos riscos
+					<sup>(
+						<xref ref-type="bibr" rid="B7">7</xref>)
+					</sup>.
+				</p> 
+				<p>Atualmente, est&#227;o liberadas no Brasil as vacinas Pfizer/BioNTech (BNT162b2), autorizadas para crian&#231;as a partir dos 5 anos de idade, e a CoronaVac, liberada para crian&#231;as a partir dos 6 anos de idade. A CoronaVac (Sinovac) e&#769; uma vacina com v&#237;rus inativado. A vacina Pfizer-BioNTech covid-19 (BNT162b2) e&#769; uma nanoparti&#769;cula lipi&#769;dica de mRNA com nucleosi&#769;deo modificado que permite a express&#227;o da prote&#237;na S do SARS-CoV-2 na superf&#237;cie celular. Ocorre ativa&#231;&#227;o dos linf&#243;citos T citot&#243;xicos e 
+					<italic>helper</italic> e indu&#231;&#227;o da imunidade humoral com produ&#231;&#227;o de anticorpos neutralizantes. Ambas as vacinas s&#227;o seguras, eficazes e imunog&#234;nicas.
+				</p> 
+				<p>Foi demonstrado que o evento adverso mais comum em crian&#231;as e adolescentes foi dor no local da aplica&#231;&#227;o, febre, cefaleia e fadiga. A maioria desses eventos n&#227;o foi grave e n&#227;o houve &#243;bitos
+					<sup>(
+						<xref ref-type="bibr" rid="B7">7</xref>)
+					</sup>. Casos raros de miocardite e/ou pericardite foram relacionados &#224; vacina BNT162b2 mRNA covid-19 ap&#243;s a segunda dose, relacionados ao intervalo entre as doses (&lt; 30 dias) e sem &#243;bitos por essas complica&#231;&#245;es
+					<sup>(
+						<xref ref-type="bibr" rid="B7">7</xref>)
+					</sup>.
+				</p> 
+				<p>No 
+					<xref ref-type="fig" rid="F02">Quadro 1</xref>, est&#227;o descritos os riscos da infec&#231;&#227;o pelo v&#237;rus SARS-CoV-2 e recomenda&#231;&#245;es da vacina covid-19 para cada categoria de paciente pedi&#225;trico com doen&#231;a renal conforme detalharemos a seguir.
+				</p> 
+				<fig id="F02" position="float"> 
+					<label>Quadro 1</label> 
+					<caption> 
+						<title>Riscos da infec&#231;&#227;o pelo v&#237;rus SARS-CoV-2 e recomenda&#231;&#245;es da vacina covid-19 para cada categoria de paciente pedi&#225;trico com doen&#231;a renal</title> 
+					</caption> 
+					<alternatives> 
+						<graphic xlink:href="https://minio.scielo.br/documentstore/2175-8239/FHzG5B5vMwRtX53hdrB336N/70fd3dfa56ffe413ad225a45558db48b74b6fd24.jpg"/> 
+						<graphic xlink:href="https://minio.scielo.br/documentstore/2175-8239/FHzG5B5vMwRtX53hdrB336N/2270fbdeef3db6a4bd7e0757f7754dc54b8eb3e7.jpg" specific-use="scielo-web" content-type="scielo-267x140"/> 
+					</alternatives> 
+				</fig> 
+				<sec> 
+					<title>Covid-19 e Vacina&#231;&#227;o Covid-19 em Crian&#231;as e A dolescentes com S&#237;ndrome Nefr&#243;tica (SN)</title> 
+					<p>A maioria das crian&#231;as com SN idiop&#225;tica apresenta recidivas frequentes ou s&#227;o corticodependentes, requerendo uso cr&#244;nico de imunossupressores. A perda urin&#225;ria de anticorpos end&#243;genos durante a descompensa&#231;&#227;o da SN e a imunossupress&#227;o farmacol&#243;gica contribuem para maior risco de infec&#231;&#245;es
+						<sup>(
+							<xref ref-type="bibr" rid="B8">8</xref>)
+						</sup>. Evid&#234;ncias apontam para desregula&#231;&#227;o do sistema imunol&#243;gico envolvendo c&#233;lulas B e T como parte da fisiopatog&#234;nese da SN, sugerindo a possibilidade de vacinas promoverem recidivas da doen&#231;a ao induzir resposta imune.
+					</p> 
+					<p>At&#233; o momento, h&#225; poucos relatos de SN associada &#224; infec&#231;&#227;o por covid-19. Uma revis&#227;o sistem&#225;tica sobre covid-19 em pacientes com SN concluiu que, com ou sem imunossupress&#227;o, esses pacientes n&#227;o apresentaram maior risco de covid-19 grave, o tratamento com esteroides foi seguro, e a incid&#234;ncia de recidivas permaneceu inalterada
+						<sup>(
+							<xref ref-type="bibr" rid="B9">9</xref>)
+						</sup>. Por outro lado, um estudo feito em Nova Delhi mostrou que pacientes com SN descompensada apresentaram risco seis vezes maior de desenvolver complica&#231;&#245;es graves durante a covid-19, como: les&#227;o renal aguda grave, choque, insufici&#234;ncia respirat&#243;ria, encefalopatia ou morte
+						<sup>(
+							<xref ref-type="bibr" rid="B10">10</xref>)
+						</sup>. H&#225; descri&#231;&#227;o de casos de SN por les&#245;es m&#237;nimas desencadeados ap&#243;s a vacina&#231;&#227;o com covid-19 em adultos e em um adolescente
+						<sup>(
+							<xref ref-type="bibr" rid="B8">8</xref>,
+							<xref ref-type="bibr" rid="B11">11</xref>)
+						</sup>. As recomenda&#231;&#245;es para vacina&#231;&#227;o s&#227;o em sua maioria baseadas em opini&#245;es de especialistas, considerando a falta de estudos controlados.
+					</p> 
+					<sec> 
+						<title> 
+							<italic>Imunossupress&#227;o de crian&#231;as e adolescentes durante a pandemia</italic> 
+							<sup>(
+								<xref ref-type="bibr" rid="B9">9</xref>)
+							</sup> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Continuar o tratamento em curso, orientando os pais que relatem qualquer infec&#231;&#227;o por SARS-CoV-2 ou sintomas relacionados;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Iniciar ou intensificar a terapia imunossupressora sempre que necess&#225;rio, sem preocupa&#231;&#245;es relacionadas &#224; covid-19;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Esses pacientes n&#227;o necessitam de medidas de prote&#231;&#227;o mais rigorosas em compara&#231;&#227;o aos seus pares saud&#225;veis.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Infec&#231;&#227;o por covid-19 em crian&#231;as e adolescentes com SN</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>No caso de covid-19 em crian&#231;as em remiss&#227;o, o tratamento deve ser o mesmo administrado a crian&#231;as saud&#225;veis e n&#227;o h&#225; necessidade de interna&#231;&#227;o preventiva. Sinais de recidiva devem ser monitorizados e, em quadro grave da doen&#231;a, considerar hospitaliza&#231;&#227;o e redu&#231;&#227;o da terapia imunossupressora;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Em casos de infec&#231;&#227;o leve ou assintom&#225;tica, manter o tratamento em curso com a imunossupress&#227;o, e a hospitaliza&#231;&#227;o imediata deve ser evitada. Sinais de recidiva devem ser monitorizados.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Recidivas da SN em crian&#231;as e adolescentes</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>As recidivas s&#227;o tratadas com corticosteroides e n&#227;o h&#225; raz&#227;o para adiar o in&#237;cio da terapia;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso das recidivas relacionadas ao covid-19, o protocolo habitual deve ser aplicado.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Recomenda&#231;&#245;es para as vacina covid-19 em crian&#231;as e adolescentes com SN</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Vacinar todos os pacientes com SN, seguindo os limites de idade estabelecidos pelas ag&#234;ncias reguladoras;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Ap&#243;s a vacina&#231;&#227;o, os sinais de recidiva devem ser monitorizados;</p> 
+							</list-item> 
+							<list-item> 
+								<p>A vacina&#231;&#227;o n&#227;o deve ser realizada durante as recidivas;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Todo paciente imunossuprimido e com mais de 12 anos dever&#225; fazer a terceira dose da vacina e ap&#243;s quatro meses receber a quarta dose;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso de terapia anti-CD20 em andamento (rituximabe), a vacina&#231;&#227;o deve ser adiada por pelo menos seis meses ap&#243;s a suspens&#227;o do tratamento.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Vacinas covid-19 para crian&#231;as e adolescentes com SN em uso de rituximabe</italic> 
+						</title> 
+						<p>A resposta &#224; vacina&#231;&#227;o em pacientes em uso de rituximabe &#233; reduzida. Assim, &#233; necess&#225;ria a adequa&#231;&#227;o quanto &#224; &#233;poca da aplica&#231;&#227;o das doses da vacina. A extens&#227;o do intervalo entre as doses ou interrup&#231;&#227;o do esquema de infus&#227;o de rituximabe permite a recupera&#231;&#227;o de c&#233;lulas B imaturas e permite respostas vacinais enquanto os n&#237;veis de c&#233;lulas B de mem&#243;ria (que s&#227;o patog&#234;nicas) permanecem baixos. Estrat&#233;gia alternativa &#233; vacinar pelo menos quatro semanas antes da infus&#227;o de rituximabe ou vacinar de 12 a 20 semanas ap&#243;s o t&#233;rmino do ciclo de infus&#245;es. O monitoramento da a&#231;&#227;o do rituximabe pelos n&#237;veis de linf&#243;citos CD19 permite a suspens&#227;o de seu uso em pacientes assintom&#225;ticos e selecionados, favorecendo a adequa&#231;&#227;o e determina&#231;&#227;o do melhor tempo de resposta &#224; vacina&#231;&#227;o. A nova infus&#227;o de rituximabe pode ser retomada quatro semanas ap&#243;s o esquema vacinal completo
+							<sup>(
+								<xref ref-type="bibr" rid="B12">12</xref>,
+								<xref ref-type="bibr" rid="B13">13</xref>)
+							</sup>.
+						</p> 
+					</sec> 
+				</sec> 
+				<sec> 
+					<title>Covid-19 e Vacina&#231;&#227;o Covid-19 em Crian&#231;as e Adolescentes com Doen&#231;a Renal Cr&#244;nica e em Di&#225;lise</title> 
+					<p>H&#225; poucos estudos sobre covid-19 em pacientes pedi&#225;tricos com doen&#231;a renal cr&#244;nica (DRC) e em di&#225;lise (di&#225;lise peritoneal, DP, e hemodi&#225;lise, HD). Esses estudos relatam uma doen&#231;a mais leve e sem necessidade de hospitaliza&#231;&#227;o
+						<sup>(
+							<xref ref-type="bibr" rid="B13">13</xref>,
+							<xref ref-type="bibr" rid="B14">14</xref>
+						</sup>,. Por outro lado, Aimen et al. encontraram que a DRC foi a comorbidade mais comum em crian&#231;as e adolescentes sintom&#225;ticos, inclusive ocorrendo o &#243;bito em um paciente em DP dentre os tr&#234;s &#243;bitos da casu&#237;stica
+						<sup>(
+							<xref ref-type="bibr" rid="B15">15</xref>)
+						</sup>. No Brasil, um dos pa&#237;ses com o maior n&#250;mero de mortes por covid-19 na faixa et&#225;ria pedi&#225;trica, infelizmente n&#227;o h&#225; dados espec&#237;ficos para aqueles pacientes em di&#225;lise.
+					</p> 
+					<p>Na popula&#231;&#227;o pedi&#225;trica em di&#225;lise preconiza-se o calend&#225;rio vacinal habitual, com especial aten&#231;&#227;o &#224;s vacinas com v&#237;rus atenuado, que s&#227;o contraindicadas ap&#243;s o transplante renal (TxR). A resposta vacinal nos pacientes com DRC pode ser reduzida e/ou a dura&#231;&#227;o dos anticorpos ap&#243;s a vacina&#231;&#227;o tamb&#233;m pode ser menor do que na popula&#231;&#227;o em geral
+						<sup>(
+							<xref ref-type="bibr" rid="B16">16</xref>)
+						</sup>. Entretanto, recomenda-se a vacina contra covid-19, considerando o risco de exposi&#231;&#227;o. Tamb&#233;m &#233; importante que os familiares dos pacientes em di&#225;lise fa&#231;am o esquema vacinal completo, sobretudo os familiares das crian&#231;as menores de cinco anos.
+					</p> 
+					<p>Ainda n&#227;o h&#225; evid&#234;ncias quanto &#224; efic&#225;cia das vacinas contra covid-19 em pacientes pedi&#225;tricos em di&#225;lise. Na Holanda foi criado o RECOVAC consortium (
+						<italic>REnal patients COvid-19 VACcination</italic>), um estudo de coorte prospectivo com pacientes em di&#225;lise maiores de 18 anos para avaliar a efic&#225;cia da vacina&#231;&#227;o contra covid-19 em pacientes com DRC est&#225;gios 4 e 5 e p&#243;s-TxR, comparando-os com grupos-controle de n&#227;o vacinados
+						<sup>(
+							<xref ref-type="bibr" rid="B17">17</xref>)
+						</sup>.
+					</p> 
+					<p>Zitt et al. avaliaram a seguran&#231;a e imunogenicidade da vacina BNT162b2 em pacientes em HD. Constataram rea&#231;&#245;es locais em 38% ap&#243;s a primeira dose e 29,2% com rea&#231;&#245;es leves ap&#243;s a segunda dose (2,1% moderadas; 2,1% eventos adversos graves). Eventos sist&#234;micos ocorreram raramente, e os mais frequentes foram diarreia (4% leve; 4% moderada) e fadiga (8% leve). Ap&#243;s a primeira dose, 42% desenvolveram resposta vacinal adequada avaliada pelos n&#237;veis de IgG contra a prote&#237;na S (
+						<italic>spike</italic>) anti-SARS-CoV-2 
+						<italic>spike</italic>
+						<sup>(
+							<xref ref-type="bibr" rid="B18">18</xref>)
+						</sup>. Ap&#243;s a segunda dose, a soroconvers&#227;o foi observada em 97,2% e esteve relacionada &#224; soroconvers&#227;o pr&#233;via contra hepatite B e idade (pacientes mais jovens). Pacientes que tiveram rea&#231;&#245;es locais apresentaram tend&#234;ncia a maiores n&#237;veis de anticorpos protetores (AcP). Inversamente, os pacientes em uso de imunossupressores durante o estudo apresentaram menores n&#237;veis de anticorpos protetores
+						<sup>(
+							<xref ref-type="bibr" rid="B18">18</xref>)
+						</sup>.
+					</p> 
+					<p>A discuss&#227;o sobre aplica&#231;&#227;o de terceira dose na popula&#231;&#227;o em HD foi avaliada por Shashar et al. Os autores observaram que o grupo que recebeu o refor&#231;o, comparado a um grupo-controle, apresentou maiores n&#237;veis de AcP, apesar de serem mais idosos e haver maior propor&#231;&#227;o de hipertensos. A resposta sorol&#243;gica esteve inversamente associada aos n&#237;veis de marcadores de inflama&#231;&#227;o e desnutri&#231;&#227;o. Queda nos n&#237;veis de AcP foi observada ap&#243;s oito meses da vacina&#231;&#227;o no grupo que n&#227;o recebeu o refor&#231;o
+						<sup>(
+							<xref ref-type="bibr" rid="B19">19</xref>)
+						</sup>. Essa observa&#231;&#227;o colaborou para a discuss&#227;o de necessidade de terceira dose na popula&#231;&#227;o em HD
+						<sup>(
+							<xref ref-type="bibr" rid="B20">20</xref>)
+						</sup>. Angel-Korman et al. confirmam essa necessidade, e outros questionaram a possibilidade de individua&#231;&#227;o do esquema vacinal em pacientes em HD
+						<sup>(
+							<xref ref-type="bibr" rid="B21">21</xref>,
+							<xref ref-type="bibr" rid="B22">22</xref>)
+						</sup>.
+					</p> 
+					<p>Baseado nos estudos, algumas sociedades apresentaram recomenda&#231;&#245;es espec&#237;ficas para a popula&#231;&#227;o pedi&#225;trica em di&#225;lise. A Associa&#231;&#227;o Brit&#226;nica de Nefrologia Pedi&#225;trica (BAPN) recomenda a aplica&#231;&#227;o de refor&#231;o contra covid-19 somente em adolescentes com DRC maiores de 12 anos
+						<sup>(
+							<xref ref-type="bibr" rid="B23">23</xref>)
+						</sup>. O grupo de trabalho EUDIAL, da Associa&#231;&#227;o Europeia de Di&#225;lise e Transplante (
+						<italic>European Dialysis and Transplant Association &#8211; 2021</italic>), ressaltou a prioriza&#231;&#227;o de pacientes adultos e crian&#231;as para receberem vacinas contra a covid-19
+						<sup>(
+							<xref ref-type="bibr" rid="B24">24</xref>)
+						</sup>.
+					</p> 
+					<sec> 
+						<title> 
+							<italic>Infec&#231;&#227;o por covid-19 em crian&#231;as e adolescentes com DRC e em di&#225;lise</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Utilizar o mesmo tratamento administrado a crian&#231;as saud&#225;veis sem necessidade de interna&#231;&#227;o preventiva. Diante de quadro grave considerar hospitaliza&#231;&#227;o;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso de infec&#231;&#227;o leve ou assintom&#225;tica, manter o tratamento em curso, e a hospitaliza&#231;&#227;o imediata deve ser evitada.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Recomenda&#231;&#245;es para vacina&#231;&#227;o covid-19 em crian&#231;as e adolescentes com DRC e em di&#225;lise</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Vacinar todos os pacientes pedi&#225;tricos com DRC e em di&#225;lise, seguindo os limites de idade estabelecidos pelas ag&#234;ncias reguladoras;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Vacinar preferencialmente com uma vacina de mRNA, de acordo com a restri&#231;&#227;o de idade;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Familiares dos pacientes em di&#225;lise e aqueles com DRC devem fazer o esquema vacinal completo, sobretudo os familiares das crian&#231;as menores de 5 anos;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Todo paciente imunossuprimido e maior de 12 anos de idade dever&#225; fazer a terceira dose da vacina e, ap&#243;s quatro meses dessa dose, a administra&#231;&#227;o da quarta dose.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+				</sec> 
+				<sec> 
+					<title>Covid-19 e Vacina&#231;&#227;o Covid-19 em Crian&#231;as e Adolescentes com S&#237;ndrome Hemol&#237;tico-Ur&#234;mica (SHUa)</title> 
+					<p>SHUa &#233; um dist&#250;rbio microangiop&#225;tico cuja fisiopatologia se sobrep&#245;e &#224; tempestade de citocinas que caracteriza a covid-19 grave
+						<sup>(
+							<xref ref-type="bibr" rid="B25">25</xref>)
+						</sup>. Essa fisiopatologia compartilhada sugere que pacientes com SHUa tenham maior risco de covid-19 grave, independentemente do 
+						<italic>status</italic> do tratamento da SHUa, incluindo aqueles que tiveram infec&#231;&#227;o pregressa por covid-19
+						<sup>(
+							<xref ref-type="bibr" rid="B26">26</xref>)
+						</sup>. A recomenda&#231;&#227;o &#233; que esses pacientes recebam imuniza&#231;&#245;es contra covid-19
+						<sup>(
+							<xref ref-type="bibr" rid="B27">27</xref>,
+							<xref ref-type="bibr" rid="B28">28</xref>)
+						</sup>. Embora dados espec&#237;ficos de seguran&#231;a e efic&#225;cia das vacinas Pfizer-BioNTech sejam limitados, h&#225; concord&#226;ncia que os benef&#237;cios da imunidade induzida superam quaisquer riscos da imuniza&#231;&#227;o
+						<sup>(
+							<xref ref-type="bibr" rid="B29">29</xref>)
+						</sup>. No Brasil, o uso da vacina de v&#237;rus vivo inativado (CoronaVac/Sinovac) n&#227;o foi ainda autorizado para uso em imunossuprimidos
+						<sup>(
+							<xref ref-type="bibr" rid="B27">27</xref>)
+						</sup>. Considerando que a SHUa &#233; uma doen&#231;a grave, a mesma foi exclu&#237;da dos ensaios cl&#237;nicos de vacinas Pfizer-BioNTech, Moderna e AstraZeneca. Assim, n&#227;o se sabe se as vacinas atualmente dispon&#237;veis s&#227;o t&#227;o eficazes para esses pacientes quanto foram para a popula&#231;&#227;o do estudo
+						<sup>(
+							<xref ref-type="bibr" rid="B30">30</xref>,
+							<xref ref-type="bibr" rid="B31">31</xref>)
+						</sup>, e n&#227;o h&#225; dados que sugiram que as vacinas dispon&#237;veis seriam menos eficazes ou menos seguras do que para a popula&#231;&#227;o em geral.
+					</p> 
+					<sec> 
+						<title> 
+							<italic>Infec&#231;&#227;o por covid-19 em crian&#231;as e adolescentes com SHUa</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Manter o tratamento, e n&#227;o h&#225; necessidade de interna&#231;&#227;o preventiva. Em caso de infec&#231;&#227;o grave, considerar hospitaliza&#231;&#227;o e suspens&#227;o do tratamento;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Em casos de infec&#231;&#227;o leve ou assintom&#225;tica, manter o tratamento em curso, e a hospitaliza&#231;&#227;o imediata deve ser evitada.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Recomenda&#231;&#245;es para vacina&#231;&#227;o covid-19 em crian&#231;as e adolescentes com SHUa</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Vacinar todos os pacientes pedi&#225;tricos com SHUa, seguindo os limites de idade estabelecidos pelas ag&#234;ncias reguladoras;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Crian&#231;as e adolescentes com hist&#243;rico de rea&#231;&#227;o al&#233;rgica grave a uma dose anterior de vacina ou a um de seus componentes n&#227;o devem receber a vacina
+									<sup>(
+										<xref ref-type="bibr" rid="B31">31</xref>)
+									</sup>;
+								</p> 
+							</list-item> 
+							<list-item> 
+								<p>Familiares dos pacientes com diagn&#243;stico de SHUa devem fazer o esquema vacinal completo, sobretudo os familiares das crian&#231;as menores de 5 anos;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso de comorbidades, a vacina&#231;&#227;o deve ser adiada em indiv&#237;duos que apresentem doen&#231;a febril aguda grave ou infec&#231;&#227;o aguda;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso de infec&#231;&#227;o leve e/ou febre baixa, n&#227;o adiar a vacina&#231;&#227;o;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Em pacientes com trombocitopenia e dist&#250;rbios da coagula&#231;&#227;o, a vacina deve ser administrada com cautela tal como ocorre em outras inje&#231;&#245;es intramusculares, com risco de hematoma local.</p> 
+							</list-item> 
+						</list> 
+						<p>Pacientes em uso de eculizumabe devem organizar a vacina&#231;&#227;o para que ocorra o mais pr&#243;ximo poss&#237;vel da dose (dias antes ou dias ap&#243;s) devido &#224; possibilidade te&#243;rica de que esse esquema possa reduzir a chance de exacerba&#231;&#227;o da doen&#231;a relacionada &#224; administra&#231;&#227;o da vacina
+							<sup>(
+								<xref ref-type="bibr" rid="B29">29</xref>)
+							</sup>.
+						</p> 
+						<p>Vacinas covid-19 podem ser administradas concomitantemente ou a qualquer momento antes ou depois de qualquer outra vacina indicada
+							<sup>(
+								<xref ref-type="bibr" rid="B29">29</xref>)
+							</sup>. Essa &#233; uma mudan&#231;a em rela&#231;&#227;o &#224; recomenda&#231;&#227;o anterior, que preconizava intervalo de 14 dias antes ou ap&#243;s o recebimento de uma vacina contra a covid-19. A base para essa mudan&#231;a na recomenda&#231;&#227;o &#233; uma orienta&#231;&#227;o administrativa geral para vacinas e orienta&#231;&#227;o do Comit&#234; Consultivo dos EUA sobre Pr&#225;ticas de Imuniza&#231;&#227;o (ACIP)
+							<sup>(
+								<xref ref-type="bibr" rid="B28">28</xref>)
+							</sup>.
+						</p> 
+					</sec> 
+				</sec> 
+				<sec> 
+					<title>Covid-19 e Vacina&#231;&#227;o Covid-19 em Crian&#231;as e Adolescentes Submetidos a Transplante Renal</title> 
+					<p>A pandemia covid-19 impactou negativamente o transplante pedi&#225;trico no Brasil, e afetou quest&#245;es como: atividade ambulatorial, monitoramento, atendimento transdisciplinar, medicamentos, educa&#231;&#227;o/apoio ao paciente/fam&#237;lia, escola, emprego e cuidados dos pacientes pedi&#225;tricos transplantados renais que apresentaram covid-19.</p> 
+					<p>A vacina&#231;&#227;o covid-19 &#233; recomendada para todos os indiv&#237;duos, incluindo crian&#231;as e adolescentes candidatos ao TxR ou j&#225; transplantados, autorizado pelo FDA (
+						<italic>Food and Drug Administration</italic>) e incentivado pelo Minist&#233;rio da Sa&#250;de no Brasil
+						<sup>(
+							<xref ref-type="bibr" rid="B32">32</xref>)
+						</sup>. Nos casos suspeitos ou confirmados, a vacina&#231;&#227;o n&#227;o deve ser realizada durante o per&#237;odo de quarentena
+						<sup>(
+							<xref ref-type="bibr" rid="B27">27</xref>,
+							<xref ref-type="bibr" rid="B33">33</xref>)
+						</sup>. No Brasil, a recomenda&#231;&#227;o atual &#233; o uso da vacina de tecnologia RNA mensageiro (mRNA) Comirnaty (Pfizer-BioNTech) para os pacientes imunossuprimidos com intervalo ideal de oito semanas entre a primeira e a segunda dose, em indiv&#237;duos de 5 a 17 anos
+						<sup>(
+							<xref ref-type="bibr" rid="B27">27</xref>)
+						</sup>.
+					</p> 
+					<p>A vacina contra covid-19 determina resposta imunol&#243;gica reduzida em receptores de transplante de &#243;rg&#227;os s&#243;lidos quando comparados a indiv&#237;duos imunocompetentes
+						<sup>(
+							<xref ref-type="bibr" rid="B34">34</xref>)
+						</sup>. Estudos em receptores adultos mostraram que a vacina&#231;&#227;o levou &#224; redu&#231;&#227;o de quase 80% na incid&#234;ncia de covid-19 sintom&#225;tico em compara&#231;&#227;o com receptores n&#227;o vacinados
+						<sup>(
+							<xref ref-type="bibr" rid="B35">35</xref>)
+						</sup>. Infelizmente, estudos em receptores de transplante de &#243;rg&#227;os s&#243;lidos pedi&#225;tricos s&#227;o limitados. Qin et al. mostraram que 73% dos pacientes pedi&#225;tricos tiveram resposta positiva de anticorpos ap&#243;s duas doses de vacina de mRNA
+						<sup>(
+							<xref ref-type="bibr" rid="B36">36</xref>)
+						</sup>. Experi&#234;ncias com outras vacinas mostraram que elas continuam a fornecer prote&#231;&#227;o substancial contra infec&#231;&#245;es e doen&#231;as mais graves nessa popula&#231;&#227;o vulner&#225;vel e devem ser recomendadas antes e ap&#243;s o transplante
+						<sup>(
+							<xref ref-type="bibr" rid="B35">35</xref>)
+						</sup>. Considerando essa experi&#234;ncia, a vacina&#231;&#227;o contra covid-19 para todos os receptores de &#243;rg&#227;os s&#243;lidos &#233; recomendada
+						<sup>(
+							<xref ref-type="bibr" rid="B37">37</xref>,
+							<xref ref-type="bibr" rid="B38">38</xref>)
+						</sup>.
+					</p> 
+					<sec> 
+						<title> 
+							<italic>Infec&#231;&#227;o por covid-19 em crian&#231;as e adolescentes transplantados renais</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Manter o mesmo tratamento administrado a crian&#231;as saud&#225;veis, n&#227;o havendo necessidade de interna&#231;&#227;o preventiva. Em quadro grave de covid-19, deve-se considerar a hospitaliza&#231;&#227;o;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Em caso de infec&#231;&#227;o leve ou assintom&#225;tica, manter o tratamento em curso, e a hospitaliza&#231;&#227;o deve ser evitada.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+					<sec> 
+						<title> 
+							<italic>Recomenda&#231;&#245;es para vacina&#231;&#227;o covid-19 em crian&#231;as e adolescentes submetidos a TxR</italic> 
+						</title> 
+						<list list-type="roman-upper"> 
+							<list-item> 
+								<p>Vacinar todos os pacientes pedi&#225;tricos transplantados renais, seguindo os limites de idade estabelecidos pelas ag&#234;ncias reguladoras;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Utilizar preferencialmente uma vacina de mRNA, de acordo com a restri&#231;&#227;o de idade;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Familiares dos pacientes transplantados renais devem fazer o esquema vacinal completo, sobretudo os familiares das crian&#231;as menores de 5 anos
+									<sup>(
+										<xref ref-type="bibr" rid="B39">39</xref>)
+									</sup>;
+								</p> 
+							</list-item> 
+							<list-item> 
+								<p>Em casos suspeitos ou confirmados, n&#227;o vacinar durante o per&#237;odo de quarentena;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Receptores de transplante renal devem receber qualquer uma das vacinas covid-19 dispon&#237;veis com base na idade e elegibilidade de cada uma;</p> 
+							</list-item> 
+							<list-item> 
+								<p>O momento ideal para iniciar a vacina&#231;&#227;o ou completar a s&#233;rie vacinal ap&#243;s o transplante n&#227;o &#233; claro. Especialistas recomendam esperar pelo menos um m&#234;s ap&#243;s o transplante para permitir uma resposta imune mais robusta;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Todo paciente imunossuprimido e maior de 12 anos dever&#225; fazer a terceira dose da vacina e, ap&#243;s quatro meses dessa dose, a administra&#231;&#227;o da quarta dose;</p> 
+							</list-item> 
+							<list-item> 
+								<p>As contraindica&#231;&#245;es &#224; vacina de mRNA para pacientes receptores de &#243;rg&#227;os s&#243;lidos s&#227;o as mesmas da popula&#231;&#227;o geral: 
+									<list list-type="bullet">
+										<list-item>
+											<p>Hipersensibilidade ao princi&#769;pio ativo ou a qualquer dos excipientes da vacina;</p>
+										</list-item>
+										<list-item>
+											<p>Reac&#807;a&#771;o anafila&#769;tica confirmada a uma dose anterior de uma vacina covid-19.</p>
+										</list-item>
+									</list>
+								</p> 
+							</list-item> 
+							<list-item> 
+								<p>Adiar a vacinac&#807;a&#771;o em indivi&#769;duos com doenc&#807;a febril aguda grave ou infecc&#807;a&#771;o aguda. Infecc&#807;a&#771;o leve e/ou febre baixa N&#195;O devem causar o adiamento da vacinac&#807;a&#771;o;</p> 
+							</list-item> 
+							<list-item> 
+								<p>No caso de pacientes com trombocitopenia e distu&#769;rbios da coagulac&#807;a&#771;o, administrar a vacina com cautela, tal como ocorre em outras injec&#807;o&#771;es intramusculares, com risco de hematoma local;</p> 
+							</list-item> 
+							<list-item> 
+								<p>N&#227;o adiar o transplante renal para candidatos a transplante renal. Eles podem receber a vacina e n&#227;o precisam aguardar intervalo de tempo para o procedimento;</p> 
+							</list-item> 
+							<list-item> 
+								<p>Ap&#243;s o transplante, o intervalo para iniciar ou completar o esquema vacinal &#233; de 30 dias;</p> 
+							</list-item> 
+							<list-item> 
+								<p>N&#227;o alterar a medica&#231;&#227;o imunossupressora em uso, e a vacina deve ser adiada caso o paciente esteja na vig&#234;ncia de quadro febril agudo.</p> 
+							</list-item> 
+							<list-item> 
+								<p>Ap&#243;s a vacina&#231;&#227;o, recomenda-se o uso de m&#225;scaras, distanciamento social e higieniza&#231;&#227;o frequente das m&#227;os.</p> 
+							</list-item> 
+						</list> 
+					</sec> 
+				</sec> 
+			</sec> 
+			<sec> 
+				<title>CONSIDERA&#199;&#213;ES FINAIS</title> 
+				<p>Na maioria das crian&#231;as com DRC (especialmente as imunossuprimidas por glomerulopatias ou submetidas ao transplante renal) a covid-19 pode causar sintomas leves ou evoluir de forma assintom&#225;tica. Comorbidades representam fatores de risco para formas graves nessa popula&#231;&#227;o.</p> 
+				<p>A vacina contra covid-19 para esse grupo &#233; muito importante por conferir prote&#231;&#227;o direta e prevenir contra esse risco potencial. Al&#233;m disso, a mesma reduz a taxa de transmiss&#227;o do v&#237;rus e o surgimento de novas variantes. Os eventos adversos s&#227;o raros e leves, e os benef&#237;cios se sobrep&#245;em aos riscos.</p> 
+				<p>Pacientes imunocomprometidos podem n&#227;o desenvolver resposta imune suficiente ap&#243;s duas doses da vacina. Estudos recomendam dose adicional para melhorar a resposta. Aceitar a vacina covid-19 &#233; necess&#225;rio para limitar o risco que a covid-19 representa para esses pacientes
+					<sup>(
+						<xref ref-type="bibr" rid="B40">40</xref>)
+					</sup>.
+				</p> 
+			</sec> 
+		</body> 
+	</sub-article>
+</article>
