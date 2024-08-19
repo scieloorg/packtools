@@ -158,36 +158,61 @@ class ArticleFigs:
     Represents an article with its associated figures, grouped by language.
 
     Parameters:
-        xml_tree (lxml.etree._ElementTree): The parsed XML document representing the article.
+        xml_tree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element):
+        The parsed XML document representing the article.
     """
 
     def __init__(self, xml_tree):
-        """
-        Initializes an ArticleFigs object.
-
-        Parameters:
-            xml_tree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element):
-            The parsed XML document representing the article.
-        """
         self.xml_tree = xml_tree
 
     @property
-    def article_figs(self):
+    def get_all_figs(self):
         """
         Generates information about figures grouped by language within the article.
 
         Iterates through parent contexts (article or sub-article elements) in the XML document,
-        and creates `Parent` objects. For each parent context, it yields data for associated figures
-        using the `parent.items` generator.
+        and generates data for associated figures using the `Figs` class.
 
         Yields:
             dict: A dictionary containing information about figures within the given language context,
                   including language, article type, parent, parent ID, and figure data.
         """
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xml_tree
-        ):
-            for figure in Figs(node).figs():
-                data = figure.data
-                data["node"] = figure
-                yield put_parent_context(data, lang, article_type, parent, parent_id)
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
+            for figure in Figs(node, lang, article_type, parent, parent_id).figs():
+                yield figure
+
+    @property
+    def get_article_figs(self):
+        """
+        Generates information about figures associated directly with the main article.
+
+        Yields:
+            dict: A dictionary containing figure data where the parent context is the main article.
+        """
+        for fig in self.get_all_figs:
+            if fig.get("parent") == "article":
+                yield fig
+
+    @property
+    def get_sub_article_translation_figs(self):
+        """
+        Generates information about figures within sub-articles of type 'translation'.
+
+        Yields:
+            dict: A dictionary containing figure data where the parent context is a sub-article of type 'translation'.
+        """
+        for fig in self.get_all_figs:
+            if fig.get("parent") == "sub-article" and fig.get("parent_article_type") == "translation":
+                yield fig
+
+    @property
+    def get_sub_article_non_translation_figs(self):
+        """
+        Generates information about figures within sub-articles that are not of type 'translation'.
+
+        Yields:
+            dict: A dictionary containing figure data where the parent context is a sub-article that is not of type 'translation'.
+        """
+        for fig in self.get_all_figs:
+            if fig.get("parent") == "sub-article" and fig.get("parent_article_type") != "translation":
+                yield fig
