@@ -1,4 +1,5 @@
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
+from packtools.sps.validation.utils import extract_urls_from_node
 
 
 def get_label(node):
@@ -142,6 +143,7 @@ class ArticleCitations:
         for citation in self.article_citations():
             print(citation)
         """
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
             for item in node.xpath("./ref-list//ref"):
                 tags = [
                     ("ref_id", get_ref_id(item)),
@@ -159,6 +161,7 @@ class ArticleCitations:
                     ("article_title", get_article_title(item)),
                     ("citation_ids", get_citation_ids(item)),
                     ("mixed_citation", get_mixed_citation(item)),
+                    ("xlinks", extract_urls_from_node(item))
                 ]
                 d = dict()
                 for name, value in tags:
@@ -169,3 +172,4 @@ class ArticleCitations:
                             d[name] = value
                 d["author_type"] = "institutional" if get_collab(item) else "person"
                 yield put_parent_context(d, lang, article_type, parent, parent_id)
+
