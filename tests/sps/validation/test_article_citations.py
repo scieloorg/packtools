@@ -148,6 +148,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -283,6 +289,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -418,6 +430,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "201a",
                     "parent": "article",
                     "parent_id": None,
@@ -551,6 +569,12 @@ class ArticleCitationValidationTest(TestCase):
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "volume": "150",
                     "parent": "article",
                     "parent_id": None,
@@ -686,6 +710,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -819,6 +849,12 @@ class ArticleCitationValidationTest(TestCase):
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -958,6 +994,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1091,6 +1133,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1226,6 +1274,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1415,6 +1469,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1550,6 +1610,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1686,6 +1752,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1823,6 +1895,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1884,6 +1962,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -1949,6 +2033,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -2010,6 +2100,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -2071,6 +2167,12 @@ class ArticleCitationValidationTest(TestCase):
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
                     "volume": "150",
+                    "xlinks": {
+                        'ext-link': [
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                            'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                        ]
+                    },
                     "year": "2015",
                     "parent": "article",
                     "parent_id": None,
@@ -2078,6 +2180,94 @@ class ArticleCitationValidationTest(TestCase):
                     "parent_lang": "en",
                 },
             },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_xlink(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <element-citation publication-type="journal">
+            <person-group person-group-type="author">
+            <name>
+            <surname>Tran</surname>
+            <given-names>B</given-names>
+            <prefix>The Honorable</prefix>
+            <suffix>III</suffix>
+            </name>
+            <name>
+            <surname>Falster</surname>
+            <given-names>MO</given-names>
+            </name>
+            <name>
+            <surname>Douglas</surname>
+            <given-names>K</given-names>
+            </name>
+            <name>
+            <surname>Blyth</surname>
+            <given-names>F</given-names>
+            </name>
+            <name>
+            <surname>Jorm</surname>
+            <given-names>LR</given-names>
+            </name>
+            </person-group>
+            <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+            <source>Drug Alcohol Depend.</source>
+            <year>2015</year>
+            <volume>150</volume>
+            <fpage>85</fpage>
+            <lpage>91</lpage>
+            <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+            <elocation-id>elocation_B1</elocation-id>
+            <pub-id pub-id-type="pmid">00000000</pub-id>
+            <pub-id pub-id-type="pmcid">11111111</pub-id>
+            <comment>
+            DOI:
+            <ext-link ext-link-type="uri" xlink:href="[https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </comment>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(
+            ArticleCitationsValidation(xmltree).validate_article_citations(
+                xmltree,
+                publication_type_list=["journal", "book"],
+                start_year=2000,
+                end_year=2020,
+            )
+        )
+
+        expected = [
+            {
+                'title': 'invalid URL',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'ref',
+                'sub_item': 'ext-link',
+                'validation_type': 'format',
+                'response': 'ERROR',
+                'expected_value': 'a valid URL',
+                'got_value': '[https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                'message': 'Got [https://doi.org/10.1016/j.drugalcdep.2015.02.028, expected a valid URL',
+                'advice': 'Check the format of the provided URL',
+                'data': None,
+            }
         ]
 
         for i, item in enumerate(expected):
