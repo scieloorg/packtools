@@ -7,12 +7,12 @@ from packtools.sps.validation.utils import format_response
 class TableWrapValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.table_wrappers = list(ArticleTableWrappers(xmltree).article_table_wrappers)
+        self.table_wrappers = list(ArticleTableWrappers(xmltree).get_all_table_wrappers)
 
     def validate_tablewrap_existence(self, error_level="WARNING"):
         if self.table_wrappers:
             for table_wrap_data in self.table_wrappers:
-                table_wrap_node = table_wrap_data.get("node").element
+                table_wrap_node = table_wrap_data.get("node")
                 yield format_response(
                     title="table-wrap presence",
                     parent=table_wrap_data.get("parent"),
