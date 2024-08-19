@@ -122,12 +122,35 @@ class Fig:
 
 
 class Figs:
-    def __init__(self, fig_node):
+    """
+    Handles the extraction of figure data from an XML node and its context.
+
+    Parameters:
+        fig_node (xml.etree.ElementTree.Element): The XML node containing figures.
+        lang (str): The language of the article or sub-article.
+        article_type (str): The type of the article (e.g., "research-article").
+        parent (str): The parent element type (e.g., "article", "sub-article").
+        parent_id (str): The ID of the parent element.
+    """
+
+    def __init__(self, fig_node, lang, article_type, parent, parent_id):
         self.fig_node = fig_node
+        self.lang = lang
+        self.article_type = article_type
+        self.parent = parent
+        self.parent_id = parent_id
 
     def figs(self):
+        """
+        Generates data for each figure found within the node.
+
+        Yields:
+            dict: A dictionary containing figure data, along with context from the parent node.
+        """
         for fig in self.fig_node.xpath(".//fig"):
-            yield Fig(fig)
+            data = Fig(fig).data
+            data["node"] = fig
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
 class ArticleFigs:
