@@ -113,8 +113,8 @@ class AffiliationsListValidation:
             advice="Ensure the number of affiliations in articles matches the number in sub-articles.",
             data=[
                 {
-                    "article": f'<aff id={aff1.get("id")}>',
-                    "sub_article": f'<aff id={aff2.get("id")}>'
+                    "article": f'<aff id=\"{aff1.get("id")}\">',
+                    "sub_article": f'<aff id=\"{aff2.get("id")}\">'
                 }
                 for aff1, aff2 in zip(article_list, sub_article_list)
             ],
