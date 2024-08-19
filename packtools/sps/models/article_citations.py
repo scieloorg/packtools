@@ -94,9 +94,54 @@ class ArticleCitations:
 
     @property
     def article_citations(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xmltree
-        ):
+        """
+        Generates a dictionary containing citation data from article references.
+
+        This function iterates over all citation nodes in an XML document, extracting
+        various pieces of information from each reference, such as authors, publication details,
+        and associated URLs. It then yields a dictionary for each citation, including
+        contextual information about the parent article.
+
+        The function is designed to be used as a generator, yielding one citation dictionary
+        at a time.
+
+        Parameters:
+        -----------
+        None (This is a method of a class and assumes `self.xmltree` is available within the instance)
+
+        Yields:
+        -------
+        dict
+            A dictionary containing the extracted citation data along with parent context.
+            The dictionary includes the following keys:
+            - 'ref_id': Identifier of the reference.
+            - 'label': The label of the reference (e.g., "1", "A").
+            - 'publication_type': The type of publication (e.g., "journal", "book").
+            - 'source': The source title of the citation.
+            - 'main_author': The main author of the reference.
+            - 'all_authors': All authors of the reference.
+            - 'volume': The volume of the cited work.
+            - 'issue': The issue number of the cited work.
+            - 'fpage': The first page of the cited work.
+            - 'lpage': The last page of the cited work.
+            - 'elocation_id': The e-location ID of the cited work.
+            - 'year': The publication year of the cited work.
+            - 'article_title': The title of the cited article.
+            - 'citation_ids': Any identifiers associated with the citation (e.g., DOI).
+            - 'mixed_citation': The mixed citation text.
+            - 'xlinks': A dictionary of URLs found within the reference.
+            - 'author_type': The type of author ('institutional' or 'person').
+            - Additional contextual information about the parent node, including:
+                - 'lang': The language of the parent article.
+                - 'article_type': The type of the parent article.
+                - 'parent': The parent node in the XML structure.
+                - 'parent_id': The identifier of the parent node.
+
+        Example:
+        --------
+        for citation in self.article_citations():
+            print(citation)
+        """
             for item in node.xpath("./ref-list//ref"):
                 tags = [
                     ("ref_id", get_ref_id(item)),
