@@ -1,7 +1,7 @@
 from packtools.sps.models.article_citations import ArticleCitations
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.validation.exceptions import ValidationArticleCitationsException
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import format_response, is_valid_url_format
 
 
 class ArticleCitationValidation:
@@ -432,6 +432,28 @@ class ArticleCitationsValidation:
         self, xmltree, publication_type_list=None, start_year=None, end_year=None
     ):
         for article_citation in self.article_citations:
+            xlinks = article_citation.get("xlinks")
+            if xlinks:
+                for tag, urls in xlinks.items():
+                    for url in urls:
+                        if not is_valid_url_format(url):
+                            yield format_response(
+                                title="invalid URL",
+                                parent=article_citation.get("parent"),
+                                parent_id=article_citation.get("parent_id"),
+                                parent_article_type=article_citation.get("parent_article_type"),
+                                parent_lang=article_citation.get("parent_lang"),
+                                item="ref",
+                                sub_item=tag,
+                                validation_type="format",
+                                is_valid=False,
+                                expected="a valid URL",
+                                obtained=url,
+                                advice="Check the format of the provided URL",
+                                data=None,
+                                error_level="ERROR",
+                            )
+
             citation = ArticleCitationValidation(
                 xmltree, article_citation, publication_type_list
             )
