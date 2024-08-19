@@ -484,7 +484,6 @@ class ContribWithoutXrefTest(TestCase):
                 'prefix': 'Prof',
                 'suffix': 'Nieto'
             },
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_role': [
                 {
                     'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
@@ -618,13 +617,13 @@ class ContribGroupTest(TestCase):
                 'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
             },
             {
-                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS) , World Health Organization , Geneva, '
+                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, '
                           'Switzerland',
                 'contrib_type': 'author'
             },
             {
                 'collab': 'Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island '
-                          'Department of Health , Providence, Rhode Island',
+                          'Department of Health, Providence, Rhode Island',
                 'contrib_type': 'author'
             },
             {
@@ -713,7 +712,6 @@ class ArticleContribTest(TestCase):
                 'contrib_ids': {'orcid': '0000-0003-2243-0821'},
                 'contrib_full_name': 'Silvana de Castro',
                 'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
-                'contrib_full_name': 'Silvana de Castro',
                 'contrib_type': 'author',
                 'contrib_xref': [
                     {'ref_type': 'aff', 'rid': 'aff1', 'text': 'a'},
@@ -777,5 +775,60 @@ class ArticleContribTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
+
+    def test_fix_bug_example(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree('tests/samples/example.xml')
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'JEFFERSON C. SIMÕES',
+            'VIVIANA ALDER',
+            'JULIANA M. SAYÃO'
+        ]
+        self.assertEqual(len(obtained), 3)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
+
+    def test_fix_bug_example2(self):
+        self.maxDiff = None
+        xml_tree = xml_utils.get_xml_tree('tests/samples/example2.xml')
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Emília Maria Dantas Soeiro',
+            'Maria Goretti Moreira Guimarães Penido',
+            'Lilian Monteiro Pereira Palma',
+            'Nilzete Liberato Bresolin',
+            'Eduardo Jorge da Fonseca Lima',
+            'Vera Hermina Kalika Koch',
+            'Marcelo de Sousa Tavares',
+            'Lucimary Sylvestre',
+            'Rejane de Paula Bernardes',
+            'Clotilde Druck Garcia',
+            'Maria Cristina de Andrade',
+            'Arnauld Kaufman',
+            'Charles Yea Zen Chow',
+            'Suelen Bianca Stopa Martins',
+            'Suzana Friedlander Del Nero Camargo',
+            'Emília Maria Dantas Soeiro',
+            'Maria Goretti Moreira Guimarães Penido',
+            'Lilian Monteiro Pereira Palma',
+            'Nilzete Liberato Bresolin',
+            'Eduardo Jorge da Fonseca Lima',
+            'Vera Hermina Kalika Koch',
+            'Marcelo de Sousa Tavares',
+            'Lucimary Sylvestre',
+            'Rejane de Paula Bernardes',
+            'Clotilde Druck Garcia',
+            'Maria Cristina de Andrade',
+            'Arnauld Kaufman',
+            'Charles Yea Zen Chow',
+            'Suelen Bianca Stopa Martins',
+            'Suzana Friedlander Del Nero Camargo'
+        ]
+        self.assertEqual(len(obtained), 30)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
 
