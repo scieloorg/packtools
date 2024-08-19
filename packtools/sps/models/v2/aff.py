@@ -2,6 +2,7 @@ import re
 
 from lxml import etree
 
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
 class Affiliation:
     def __init__(self, aff_node):
@@ -81,12 +82,18 @@ class Affiliation:
 
 
 class Affiliations:
-    def __init__(self, node):
+    def __init__(self, node, lang, article_type, parent, parent_id):
         self.node = node
+        self.lang = lang
+        self.article_type = article_type
+        self.parent = parent
+        self.parent_id = parent_id
 
     def affiliations(self):
-        for aff_node in self.node.xpath("./article-meta/aff | ./contrib-group/aff | ./front-stub/aff"):
-            yield Affiliation(aff_node)
+        for aff_node in self.node.xpath("./article-meta//aff | ./contrib-group//aff | ./front-stub//aff"):
+            data = Affiliation(aff_node).data
+            data["node"] = aff_node
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
 class ArticleAffiliations:
