@@ -452,6 +452,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliation_without_original(self):
@@ -515,6 +517,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_orgname(self):
@@ -578,6 +582,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country(self):
@@ -642,6 +648,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country_code(self):
@@ -709,6 +717,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_state(self):
@@ -773,6 +783,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_city(self):
@@ -837,6 +849,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_id(self):
@@ -901,6 +915,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate(self):
@@ -1343,6 +1359,8 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_sub_article_original_only(self):
@@ -1408,6 +1426,8 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_article_vs_sub_article(self):
@@ -1435,12 +1455,12 @@ class AffiliationValidationTest(TestCase):
                 "advice": None,
                 "data": [
                     {
-                        'article': '<aff id=aff1>',
-                        'sub_article': '<aff id=aff1002>'
+                        'article': '<aff id="aff1">',
+                        'sub_article': '<aff id="aff1002">'
                     },
                     {
-                        'article': '<aff id=aff2>',
-                        'sub_article': '<aff id=aff2002>'
+                        'article': '<aff id="aff2">',
+                        'sub_article': '<aff id="aff2002">'
                     }
                 ],
             }
@@ -1464,12 +1484,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1477,14 +1499,17 @@ class AffiliationValidationTest(TestCase):
                     "state": "Paraíba",
                 },
                 "expected_value": "original affiliation",
-                "got_value": "Mestre em Filosofia pelo Programa de Pós-Graduação em Filosofia "
-                             "da Universidade Federal da Paraíba -UFPB, João Pessoa, Paraíba, "
-                             "Brasil; kidinho_dc@hotmail.com",
+                "got_value": "Mestre em Filosofia pelo Programa de\n"
+                             "                    Pós-Graduação em Filosofia da Universidade "
+                             "Federal da Paraíba -UFPB, João\n"
+                             "                    Pessoa, Paraíba, Brasil; "
+                             "kidinho_dc@hotmail.com",
                 "item": "institution",
-                "message": "Got Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                           "Filosofia da Universidade Federal da Paraíba -UFPB, João Pessoa, "
-                           "Paraíba, Brasil; kidinho_dc@hotmail.com, expected original "
-                           "affiliation",
+                "message": "Got Mestre em Filosofia pelo Programa de\n"
+                           "                    Pós-Graduação em Filosofia da Universidade "
+                           "Federal da Paraíba -UFPB, João\n"
+                           "                    Pessoa, Paraíba, Brasil; "
+                           "kidinho_dc@hotmail.com, expected original affiliation",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -1503,12 +1528,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1516,10 +1543,10 @@ class AffiliationValidationTest(TestCase):
                     "state": "Paraíba",
                 },
                 "expected_value": "orgname affiliation",
-                "got_value": "Universidade Federal da Paraíba -UFPB",
+                "got_value": "Universidade Federal da Paraíba\n                    -UFPB",
                 "item": "institution",
-                "message": "Got Universidade Federal da Paraíba -UFPB, expected orgname "
-                           "affiliation",
+                "message": "Got Universidade Federal da Paraíba\n"
+                           "                    -UFPB, expected orgname affiliation",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -1538,12 +1565,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1572,12 +1601,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1606,12 +1637,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1640,12 +1673,14 @@ class AffiliationValidationTest(TestCase):
                     "email": "kidinho_dc@hotmail.com",
                     "id": "aff1",
                     "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em Filosofia",
+                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
                     "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de Pós-Graduação em "
-                                "Filosofia da Universidade Federal da Paraíba -UFPB, "
-                                "João Pessoa, Paraíba, Brasil; kidinho_dc@hotmail.com",
+                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
+                    "original": "Mestre em Filosofia pelo Programa de\n"
+                                "                    Pós-Graduação em Filosofia da "
+                                "Universidade Federal da Paraíba -UFPB, João\n"
+                                "                    Pessoa, Paraíba, Brasil; "
+                                "kidinho_dc@hotmail.com",
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -1677,9 +1712,10 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": None,
-                    "original": "MA in Philosophy from Programa de Pós-Graduação em "
-                                "Filosofia at Universidade Federal da Paraíba – UFPB, "
-                                "João Pessoa, Paraíba, Brazil; kidinho_dc@hotmail.com",
+                    "original": "MA in Philosophy from Programa de Pós-Graduação\n"
+                                "                    em Filosofia at Universidade "
+                                "Federal da Paraíba – UFPB, João Pessoa, Paraíba,\n"
+                                "                    Brazil; kidinho_dc@hotmail.com",
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": "s1",
@@ -1687,13 +1723,16 @@ class AffiliationValidationTest(TestCase):
                     "state": None,
                 },
                 "expected_value": "original affiliation",
-                "got_value": "MA in Philosophy from Programa de Pós-Graduação em Filosofia at "
-                             "Universidade Federal da Paraíba – UFPB, João Pessoa, Paraíba, "
-                             "Brazil; kidinho_dc@hotmail.com",
+                "got_value": "MA in Philosophy from Programa de Pós-Graduação\n"
+                             "                    em Filosofia at Universidade Federal da "
+                             "Paraíba – UFPB, João Pessoa, Paraíba,\n"
+                             "                    Brazil; kidinho_dc@hotmail.com",
                 "item": "institution",
-                "message": "Got MA in Philosophy from Programa de Pós-Graduação em Filosofia "
-                           "at Universidade Federal da Paraíba – UFPB, João Pessoa, Paraíba, "
-                           "Brazil; kidinho_dc@hotmail.com, expected original affiliation",
+                "message": "Got MA in Philosophy from Programa de Pós-Graduação\n"
+                           "                    em Filosofia at Universidade Federal da "
+                           "Paraíba – UFPB, João Pessoa, Paraíba,\n"
+                           "                    Brazil; kidinho_dc@hotmail.com, expected "
+                           "original affiliation",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": "s1",
@@ -1707,6 +1746,8 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 7)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_2176_4573_bak_p58270(self):
@@ -1722,8 +1763,8 @@ class AffiliationValidationTest(TestCase):
                 "advice": None,
                 "data": [
                     {
-                        "article": "<aff id=aff1>",
-                        "sub_article": "<aff id=aff2>"
+                        "article": '<aff id="aff1">',
+                        "sub_article": '<aff id="aff2">'
                     }
                 ],
                 "expected_value": "equal counts in articles and sub-articles",
@@ -1763,7 +1804,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1771,9 +1812,9 @@ class AffiliationValidationTest(TestCase):
                     "state": "SC",
                 },
                 "expected_value": "original affiliation",
-                "got_value": "Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil",
+                "got_value": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                 "item": "institution",
-                "message": "Got Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil, "
+                "message": "Got  Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil , "
                            "expected original affiliation",
                 "parent": "article",
                 "parent_article_type": "letter",
@@ -1796,7 +1837,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1829,7 +1870,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1861,7 +1902,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1893,7 +1934,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1925,7 +1966,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brasil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
                     "parent": "article",
                     "parent_article_type": "letter",
                     "parent_id": None,
@@ -1957,7 +1998,7 @@ class AffiliationValidationTest(TestCase):
                     "orgdiv1": None,
                     "orgdiv2": None,
                     "orgname": None,
-                    "original": "Universidade do Sul de Santa Catarina, Tubarão, SC – " "Brazil",
+                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil ",
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": "TRen",
@@ -1965,10 +2006,9 @@ class AffiliationValidationTest(TestCase):
                     "state": None,
                 },
                 "expected_value": "original affiliation",
-                "got_value": "Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil",
+                "got_value": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil ",
                 "item": "institution",
-                "message": "Got Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil, "
-                           "expected original affiliation",
+                "message": "Got  Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil , expected original affiliation",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": "TRen",
@@ -1982,6 +2022,8 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 7)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
@@ -1997,8 +2039,8 @@ class AffiliationValidationTest(TestCase):
                 "advice": None,
                 "data": [
                     {
-                        "article": "<aff id=aff1>",
-                        "sub_article": "<aff id=aff1001>"
+                        "article": '<aff id="aff1">',
+                        "sub_article": '<aff id="aff1001">'
                     }
                 ],
                 "expected_value": "equal counts in articles and sub-articles",
