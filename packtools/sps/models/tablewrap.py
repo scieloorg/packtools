@@ -134,8 +134,12 @@ class TableWrap:
 
 
 class TableWrappers:
-    def __init__(self, node):
+    def __init__(self, node, lang, article_type, parent, parent_id):
         self.node = node
+        self.lang = lang
+        self.article_type = article_type
+        self.parent = parent
+        self.parent_id = parent_id
 
     def table_wrappers(self):
         """
@@ -145,7 +149,9 @@ class TableWrappers:
             TableWrap: An instance of the TableWrap class for each table-wrap element found.
         """
         for table in self.node.xpath(".//table-wrap"):
-            yield TableWrap(table)
+            data = TableWrap(table).data
+            data["node"] = table
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
 class ArticleTableWrappers:
@@ -166,7 +172,7 @@ class ArticleTableWrappers:
         self.xml_tree = xml_tree
 
     @property
-    def article_table_wrappers(self):
+    def get_all_table_wrappers(self):
         """
         Returns a dictionary containing information about table wrappers grouped by language.
 
@@ -179,7 +185,23 @@ class ArticleTableWrappers:
                   containing information about table wrappers within that language context.
         """
         for node, lang, article_type, parent_context, parent_id in get_parent_context(self.xml_tree):
-            for table_wrap in TableWrappers(node).table_wrappers():
-                data = table_wrap.data
-                data["node"] = table_wrap
-                yield put_parent_context(data, lang, article_type, parent_context, parent_id)
+            for table_wrap in TableWrappers(node, lang, article_type, parent_context, parent_id).table_wrappers():
+                yield table_wrap
+
+    @property
+    def get_article_table_wrappers(self):
+        for table in self.get_all_table_wrappers:
+            if table.get("parent") == "article":
+                yield table
+
+    @property
+    def get_sub_article_translation_table_wrappers(self):
+        for table in self.get_all_table_wrappers:
+            if table.get("parent") == "sub-article" and table.get("parent_article_type") == "translation":
+                yield table
+
+    @property
+    def get_sub_article_non_translation_table_wrappers(self):
+        for table in self.get_all_table_wrappers:
+            if table.get("parent") == "sub-article" and table.get("parent_article_type") != "translation":
+                yield table
