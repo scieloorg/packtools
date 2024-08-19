@@ -27,11 +27,11 @@ class FigValidation:
 
         Parameters
         ----------
-        xmltree : lxml.etree._ElementTree
+        xml_tree : lxml.etree._ElementTree
             The parsed XML document representing the article.
         """
         self.xml_tree = xml_tree
-        self.figures = list(ArticleFigs(xml_tree).article_figs)
+        self.figures = list(ArticleFigs(xml_tree).get_all_figs)
 
     def validate_fig_existence(self, error_level="WARNING"):
         """
@@ -52,7 +52,7 @@ class FigValidation:
         """
         if self.figures:
             for figure in self.figures:
-                figure_node = figure.get("node").element
+                figure_node = figure.get("node")
                 yield format_response(
                     title="fig presence",
                     parent=figure.get("parent"),
