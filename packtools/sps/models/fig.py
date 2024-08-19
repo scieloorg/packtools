@@ -1,11 +1,10 @@
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
-
 class Fig:
     """
     Represents a figure element within an XML document.
 
-    Parameters:
+    Attributes:
         element (xml.etree.ElementTree.Element): The XML element representing the figure.
     """
 
@@ -106,7 +105,8 @@ class Fig:
         Returns a dictionary containing the figure's data.
 
         Returns:
-            dict: A dictionary with keys 'fig_id', 'fig_type', 'label', 'graphic_href', 'caption_text', 'source_attrib', and 'alternative_tags',
+            dict: A dictionary with keys 'fig_id', 'fig_type', 'label', 'graphic_href',
+                  'caption_text', 'source_attrib', and 'alternative_elements',
                   containing the respective data of the figure.
         """
         return {
