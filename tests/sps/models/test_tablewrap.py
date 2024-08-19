@@ -493,9 +493,9 @@ class ArticleTableWrappersTest(unittest.TestCase):
         )
         self.xml_tree = etree.fromstring(xml)
 
-    def test_article_table_wrappers(self):
+    def test_get_article_table_wrappers(self):
         self.maxDiff = None
-        obtained = list(ArticleTableWrappers(self.xml_tree).article_table_wrappers)
+        obtained = list(ArticleTableWrappers(self.xml_tree).get_article_table_wrappers)
 
         expected = [
                 {
@@ -531,7 +531,21 @@ class ArticleTableWrappersTest(unittest.TestCase):
                     'parent_id': None,
                     'parent_lang': 'pt',
                     'table_wrap_id': 't3'
-                },
+                }
+        ]
+
+        self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i].pop("node")
+                self.assertDictEqual(item, obtained[i])
+
+    def test_get_sub_article_translation_table_wrappers(self):
+        self.maxDiff = None
+        obtained = list(ArticleTableWrappers(self.xml_tree).get_sub_article_translation_table_wrappers)
+
+        expected = [
                 {
                     'alternative_elements': ['graphic', 'table'],
                     'alternative_parent': 'table-wrap',
@@ -570,13 +584,103 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 }
         ]
 
-        self.assertEqual(len(obtained), 4)
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 # Remove "node" antes da verificação
-                obtained_copy = obtained[i].copy()
-                obtained_copy.pop("node")
-                self.assertDictEqual(item, obtained_copy)
+                obtained[i].pop("node")
+                self.assertDictEqual(item, obtained[i])
+
+    def test_get_sub_article_non_translation_table_wrappers(self):
+        self.maxDiff = None
+        obtained = list(ArticleTableWrappers(self.xml_tree).get_sub_article_non_translation_table_wrappers)
+
+        self.assertEqual(len(obtained), 0)
+
+
+def test_get_all_table_wrappers(self):
+    self.maxDiff = None
+    obtained = list(ArticleTableWrappers(self.xml_tree).get_all_table_wrappers)
+
+    expected = [
+        {
+            "alternative_parent": "table-wrap",
+            "table_wrap_id": "t2",
+            "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
+                       "restante do Brasil, 1918-1930 - em milhões de metros",
+            "footnote": "* Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
+                        "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
+            "label": "Tabela 2:",
+            "footnote_id": "TFN3",
+            "footnote_label": "*",
+            "alternative_elements": ['graphic', 'table'],
+            "parent": "article",
+            "parent_article_type": "research-article",
+            "parent_id": None,
+            "parent_lang": "pt",
+        },
+        {
+            'alternative_elements': ['graphic', 'table'],
+            'alternative_parent': 'table-wrap',
+            'caption': 'Produção de tecidos de algodão da Fábrica XYZ, do estado de Minas '
+                       'Gerais e do restante do Brasil, 1931-1940 - em milhões de metros',
+            'footnote': '* Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do '
+                        'Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. '
+                        '1933; 25/05/1934, p. 1333; 30/06/1935, p. 1343; 15/07/1936 p. '
+                        '1437.',
+            'footnote_id': 'TFN4',
+            'footnote_label': '*',
+            'label': 'Tabela 3:',
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'table_wrap_id': 't3'
+        },
+        {
+            'alternative_elements': ['graphic', 'table'],
+            'alternative_parent': 'table-wrap',
+            'caption': 'Production of cotton fabrics by XYZ Factory, state of Minas '
+                       'Gerais and the rest of Brazil, 1941-1950 - in millions of meters',
+            'footnote': '* Source: Author (2023, p. 123); MINAS GERAIS. Official Journal '
+                        'of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, '
+                        'p. 1943; 25/05/1944, p. 1433; 30/06/1945, p. 1443; 15/07/1946 p. '
+                        '1537.',
+            'footnote_id': 'TFN5',
+            'footnote_label': '*',
+            'label': 'Table 4:',
+            'parent': 'sub-article',
+            'parent_article_type': 'translation',
+            'parent_id': None,
+            'parent_lang': 'en',
+            'table_wrap_id': 't4'
+        },
+        {
+            'alternative_elements': ['graphic', 'table'],
+            'alternative_parent': 'table-wrap',
+            'caption': 'Production of cotton fabrics by ABC Factory, state of Rio de '
+                       'Janeiro and the rest of Brazil, 1951-1960 - in millions of meters',
+            'footnote': '* Source: Author (2023, p. 123); RIO DE JANEIRO. Official '
+                        'Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; '
+                        '20/03/1953, p. 1953; 25/05/1954, p. 1533; 30/06/1955, p. 1543; '
+                        '15/07/1956 p. 1637.',
+            'footnote_id': 'TFN6',
+            'footnote_label': '*',
+            'label': 'Table 5:',
+            'parent': 'sub-article',
+            'parent_article_type': 'translation',
+            'parent_id': None,
+            'parent_lang': 'en',
+            'table_wrap_id': 't5'
+        }
+    ]
+
+    self.assertEqual(len(obtained), 4)
+    for i, item in enumerate(expected):
+        with self.subTest(i):
+            # Remove "node" antes da verificação
+            obtained[i].pop("node")
+            self.assertDictEqual(item, obtained[i])
 
 
 if __name__ == '__main__':
