@@ -45,9 +45,16 @@ class Contrib:
     @property
     def contrib_full_name(self):
         name_parts = ['prefix', 'given-names', 'surname', 'suffix']
-        name = self.contrib_name
-        if name is not None:
-            return ' '.join(name.get(part, '') for part in name_parts).strip()
+        name_dict = self.contrib_name
+
+        if name_dict is not None:
+            full_name = []
+            for part in name_parts:
+                if name_part := name_dict.get(part):
+                    full_name.append(name_part)
+            if full_name:
+                return ' '.join(full_name)
+        return ''
 
     @property
     def collab(self):
