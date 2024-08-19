@@ -1,6 +1,19 @@
 import unittest
 
-from packtools.sps.validation.utils import get_doi_information
+from packtools.sps.utils import xml_utils
+from packtools.sps.validation.utils import get_doi_information, is_valid_url_format, extract_urls_from_node
+
+
+def _get_all_ext_links(xml_node):
+    ext_links = []
+    if xml_node.tag == 'ext-link':
+        href = xml_node.attrib.get('href', None)
+        if href:
+            ext_links.append(href)
+    for child in xml_node:
+        ext_links.extend(_get_all_ext_links(child))
+
+    return ext_links
 
 
 class MyTestCase(unittest.TestCase):
