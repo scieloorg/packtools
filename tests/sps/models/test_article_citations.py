@@ -8,14 +8,18 @@ class AuthorsTest(TestCase):
     def test_citations_many_authors(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
             <title>REFERENCES</title>
             <ref id="B1">
             <label>1.</label>
             <mixed-citation>
-            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: 
+            the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: 
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">
+            https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </mixed-citation>
             <element-citation publication-type="journal">
             <person-group person-group-type="author">
@@ -108,6 +112,12 @@ class AuthorsTest(TestCase):
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "en",
+                'xlinks': {
+                    'ext-link': [
+                        'https://doi.org/10.1016/j.drugalcdep.2015.02.028',
+                        'https://doi.org/10.1016/j.drugalcdep.2015.02.028'
+                    ]
+                },
             }
         ]
         for i, item in enumerate(expected):
@@ -151,7 +161,7 @@ class AuthorsTest(TestCase):
                 "ref_id": "B2",
                 "publication_type": "book",
                 "author_type": "person",
-                "mixed_citation": "BARTHES, Roland. Aula . São Pulo: Cultrix, 1987.",
+                "mixed_citation": "BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.",
                 "source": "Aula",
                 "main_author": {"surname": "BARTHES", "given-names": "Roland"},
                 "all_authors": [{"surname": "BARTHES", "given-names": "Roland"}],
