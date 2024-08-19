@@ -71,21 +71,13 @@ class Affiliation:
         }
 
     def _get_institution_info(self, inst_type):
-        return self._clean_string(
-           self.aff_node.findtext(f'institution[@content-type="{inst_type}"]')
-        )
+        return self.aff_node.findtext(f'institution[@content-type="{inst_type}"]')
 
     def _get_loc_type_info(self, loc_type):
         location = self.aff_node.findtext(f"addr-line/{loc_type}")
         if not location:
             location = self.aff_node.findtext(f'addr-line/named-content[@content-type="{loc_type}"]')
         return location
-
-    def _clean_string(self, text):
-        if text:
-            text_without_whitespace = re.sub(r'[\n\t\r]+', ' ', text)
-            final_text = re.sub(r'\s+', ' ', text_without_whitespace).strip()
-            return final_text
 
 
 class Affiliations:
