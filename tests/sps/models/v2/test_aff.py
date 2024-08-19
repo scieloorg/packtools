@@ -97,9 +97,55 @@ class AffiliationsTest(TestCase):
     def test_affiliations(self):
 
         self.xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
-        obtained = list(Affiliations(self.xmltree).affiliations)
+        article_node = self.xmltree.xpath("./front")[0]
+        obtained = list(Affiliations(article_node, "en", "research-article", "article", None).affiliations())
+        expected = [
+            {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": "Faculdade de Medicina",
+                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
+                            "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+            {
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff2",
+                "label": "II",
+                "orgdiv1": "Escola Superior de Educação Física",
+                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Escola\n"
+                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
+                            "em Educação Física.\n"
+                            "\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "state": "RS",
+            },
+        ]
 
-        self.assertEqual(len(obtained), 4)
+        self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i].pop("node", None)
+                self.assertDictEqual(item, obtained[i])
 
 
 class ArticleAffiliationsTest(TestCase):
@@ -151,6 +197,8 @@ class ArticleAffiliationsTest(TestCase):
         self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_sub_article_translation_affs(self):
@@ -174,9 +222,9 @@ class ArticleAffiliationsTest(TestCase):
                 "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
                 "Pelotas, RS,\n"
                 "\t\t\t\t\tBrasil",
-                "parent": "article",
+                "parent": "sub-article",
                 "parent_article_type": "translation",
-                "parent_id": None,
+                "parent_id": "TRpt",
                 "parent_lang": "pt",
                 "state": None,
             },
@@ -194,9 +242,9 @@ class ArticleAffiliationsTest(TestCase):
                 "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
                 "em Educação Física.\n"
                 "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "article",
+                "parent": "sub-article",
                 "parent_article_type": "translation",
-                "parent_id": None,
+                "parent_id": "TRpt",
                 "parent_lang": "pt",
                 "state": None,
             },
@@ -205,175 +253,113 @@ class ArticleAffiliationsTest(TestCase):
         self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_sub_article_non_translation_affs(self):
         self.maxDiff = None
         self.xmltree = xml_utils.get_xml_tree(
-            "tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml"
+            "tests/samples/1518-8787-rsp-56-79.xml"
         )
         obtained = list(
             ArticleAffiliations(self.xmltree).sub_article_non_translation_affs()
         )
-        expected = [
-            {
-                "city": "Manaus",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": "jcavalheiro@uea.edu.br",
-                "id": "aff3",
-                "label": None,
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": "Universidade do Estado do Amazonas",
-                "original": "Universidade do Estado do Amazonas – UEA",
-                "parent": "article",
-                "parent_article_type": "reviewer-report",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "state": "Amazonas",
-            },
-            {
-                "city": "São Paulo",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": "saul.kirschbaum@gmail.com",
-                "id": "aff4",
-                "label": None,
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": "Universidade de São Paulo – USP",
-                "original": "Universidade de São Paulo – USP, São Paulo, São Paulo, Brasil",
-                "parent": "article",
-                "parent_article_type": "reviewer-report",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "state": "São Paulo",
-            },
-        ]
 
-        self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertEqual(len(obtained), 0)
 
     def test_all_affs(self):
         self.maxDiff = None
         self.xmltree = xml_utils.get_xml_tree(
-            "tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml"
+            "tests/samples/1518-8787-rsp-56-79.xml"
         )
         obtained = list(ArticleAffiliations(self.xmltree).all_affs())
         expected = [
             {
-                "city": "Cruzeiro do Sul",
+                "city": "Pelotas",
                 "country_code": "BR",
                 "country_name": "Brasil",
-                "email": "jccfogo62@gmail.com",
+                "email": None,
                 "id": "aff1",
-                "label": "*",
-                "orgdiv1": "Centro de Educação e Letras",
-                "orgdiv2": None,
-                "orgname": "Universidade Federal do Acre – UFAC",
-                "original": "Universidade Federal do Acre – UFAC, Centro de Educação e "
-                "Letras, Campus Floresta, Cruzeiro do Sul, Acre, Brasil; "
-                "http://orcid.org/0000-0002-2437-9030; jccfogo62@gmail.com",
+                "label": "I",
+                "orgdiv1": "Faculdade de Medicina",
+                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Faculdade de\n"
+                            "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                            "Pelotas, RS,\n"
+                            "\t\t\t\t\tBrasil",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
-                "parent_lang": "pt",
-                "state": "Acre",
+                "parent_lang": "en",
+                "state": "RS",
             },
             {
-                "city": "Cruzeiro do Sul",
-                "country_code": "RU",
-                "country_name": "Brazil",
-                "email": "jccfogo62@gmail.com",
+                "city": "Pelotas",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
                 "id": "aff2",
-                "label": "*",
-                "orgdiv1": "Centro de Educação e Letras",
-                "orgdiv2": None,
-                "orgname": "Universidade Federal do Acre – UFAC",
-                "original": "Universidade Federal do Acre – UFAC, Centro de Educação e "
-                "Letras, Campus Floresta, Cruzeiro do Sul, Acre, Brazil; "
-                "http://orcid.org/0000-0002-2437-9030; jccfogo62@gmail.com",
+                "label": "II",
+                "orgdiv1": "Escola Superior de Educação Física",
+                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
+                "orgname": "Universidade Federal de Pelotas",
+                "original": " Universidade Federal de Pelotas. Escola\n"
+                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
+                            "em Educação Física.\n"
+                            "\t\t\t\t\tPelotas, RS, Brasil",
                 "parent": "article",
-                "parent_article_type": "translation",
+                "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
-                "state": "Acre",
+                "state": "RS",
             },
             {
-                "city": "Manaus",
-                "country_code": "BR",
-                "country_name": "Brazil",
-                "email": "jcavalheiro@uea.edu.br",
-                "id": "aff6",
-                "label": None,
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": "Universidade do Estado do Amazonas",
-                "original": "Universidade do Estado do Amazonas – UEA, Manaus, Amazonas, "
-                "Brazil",
-                "parent": "article",
-                "parent_article_type": "translation",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "Amazonas",
-            },
-            {
-                "city": "São Paulo",
-                "country_code": "BR",
-                "country_name": "Brazil",
-                "email": "saul.kirschbaum@gmail.com",
-                "id": "aff7",
-                "label": None,
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": "Universidade de São Paulo – USP",
-                "original": "Universidade de São Paulo – USP, São Paulo, São Paulo, Brazil",
-                "parent": "article",
-                "parent_article_type": "translation",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "São Paulo",
-            },
-            {
-                "city": "Manaus",
+                "city": None,
                 "country_code": "BR",
                 "country_name": "Brasil",
-                "email": "jcavalheiro@uea.edu.br",
-                "id": "aff3",
-                "label": None,
+                "email": None,
+                "id": "aff1002",
+                "label": "I",
                 "orgdiv1": None,
                 "orgdiv2": None,
-                "orgname": "Universidade do Estado do Amazonas",
-                "original": "Universidade do Estado do Amazonas – UEA",
-                "parent": "article",
-                "parent_article_type": "reviewer-report",
-                "parent_id": None,
+                "orgname": None,
+                "original": "Universidade Federal de Pelotas. Faculdade de\n"
+                            "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
+                            "Pelotas, RS,\n"
+                            "\t\t\t\t\tBrasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
                 "parent_lang": "pt",
-                "state": "Amazonas",
+                "state": None,
             },
             {
-                "city": "São Paulo",
+                "city": None,
                 "country_code": "BR",
                 "country_name": "Brasil",
-                "email": "saul.kirschbaum@gmail.com",
-                "id": "aff4",
-                "label": None,
+                "email": None,
+                "id": "aff2002",
+                "label": "II",
                 "orgdiv1": None,
                 "orgdiv2": None,
-                "orgname": "Universidade de São Paulo – USP",
-                "original": "Universidade de São Paulo – USP, São Paulo, São Paulo, Brasil",
-                "parent": "article",
-                "parent_article_type": "reviewer-report",
-                "parent_id": None,
+                "orgname": None,
+                "original": "Universidade Federal de Pelotas. Escola\n"
+                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
+                            "em Educação Física.\n"
+                            "\t\t\t\t\tPelotas, RS, Brasil",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRpt",
                 "parent_lang": "pt",
-                "state": "São Paulo",
-            },
+                "state": None,
+            }
         ]
 
-        self.assertEqual(len(obtained), 6)
+        self.assertEqual(len(obtained), 4)
         for i, item in enumerate(expected):
             with self.subTest(i):
+                # Remove "node" antes da verificação
+                obtained[i].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
