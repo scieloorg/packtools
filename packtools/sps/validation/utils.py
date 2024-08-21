@@ -1,5 +1,6 @@
 import requests
 from langdetect import detect
+import urllib.parse
 
 from packtools.sps.libs.requester import fetch_data
 
@@ -67,3 +68,12 @@ def get_doi_information(doi):
     ]
 
     return result
+
+
+def is_valid_url_format(text):
+    """Checks if a given text string resembles a URL pattern using urllib.parse."""
+    try:
+        parsed_url = urllib.parse.urlparse(text)
+        return bool(parsed_url.scheme) and bool(parsed_url.netloc)
+    except ValueError:
+        return False
