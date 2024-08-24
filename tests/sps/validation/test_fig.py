@@ -18,11 +18,6 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
-        # Remover a chave "node" dos dados obtidos
-        for item in obtained:
-            if item.get("data"):
-                item["data"].pop("node", None)
-
         expected = [
             {
                 "title": "fig presence",
@@ -65,11 +60,6 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
-        # Remover a chave "node" dos dados obtidos
-        for item in obtained:
-            if item.get("data"):
-                item["data"].pop("node", None)
-
         expected = [
             {
                 "title": "fig presence",
@@ -82,23 +72,8 @@ class FigValidationTest(unittest.TestCase):
                 "validation_type": "exist",
                 "response": "OK",
                 "expected_value": "<fig> element",
-                'got_value': '<fig xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'id="f01"><label>Figure 1</label><graphic '
-                             'xlink:href="image1.png"/><alternatives><graphic '
-                             'xlink:href="image1-lowres.png" '
-                             'mime-subtype="low-resolution"/><graphic '
-                             'xlink:href="image1-highres.png" '
-                             'mime-subtype="high-resolution"/></alternatives></fig>',
-                'message': 'Got <fig xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'id="f01"><label>Figure 1</label><graphic '
-                           'xlink:href="image1.png"/><alternatives><graphic '
-                           'xlink:href="image1-lowres.png" '
-                           'mime-subtype="low-resolution"/><graphic '
-                           'xlink:href="image1-highres.png" '
-                           'mime-subtype="high-resolution"/></alternatives></fig>, expected '
-                           '<fig> element',
+                'got_value': '<fig fig-type="None" id="f01">',
+                'message': 'Got <fig fig-type="None" id="f01">, expected <fig> element',
                 "advice": None,
                 "data": {
                     "alternative_parent": "fig",
@@ -129,11 +104,6 @@ class FigValidationTest(unittest.TestCase):
         )
         obtained = list(FigValidation(xml_tree).validate_fig_existence())
 
-        # Remover a chave "node" dos dados obtidos
-        for item in obtained:
-            if item.get("data"):
-                item["data"].pop("node", None)
-
         expected = [
             {
                 "title": "fig presence",
@@ -145,19 +115,9 @@ class FigValidationTest(unittest.TestCase):
                 "sub_item": None,
                 "validation_type": "exist",
                 "expected_value": "<fig> element",
-                "got_value": '<fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xml:lang="pt"><label>Figura 1</label><caption><title>Mapa com a '
-                             'localização das três áreas de estudo, Parque Estadual da '
-                             'Cantareira, São Paulo, SP, Brasil. Elaborado por Marina '
-                             'Kanashiro, 2019.</title></caption></fig>',
+                'got_value': '<fig fig-type="None" id="None">',
                 "response": "OK",
-                'message': 'Got <fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xml:lang="pt"><label>Figura 1</label><caption><title>Mapa com a '
-                           'localização das três áreas de estudo, Parque Estadual da '
-                           'Cantareira, São Paulo, SP, Brasil. Elaborado por Marina '
-                           'Kanashiro, 2019.</title></caption></fig>, expected <fig> element',
+                'message': 'Got <fig fig-type="None" id="None">, expected <fig> element',
                 "advice": None,
                 "data": {
                     "alternative_elements": [],
@@ -185,19 +145,9 @@ class FigValidationTest(unittest.TestCase):
                 'sub_item': None,
                 'validation_type': 'exist',
                 'expected_value': '<fig> element',
-                'got_value': '<fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en"><label>Figure '
-                             '14</label><caption><title>Axes 1 and 3 of the ordering analyses by the CA method of the '
-                             'three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, '
-                             'Brasil.</title></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xlink:href="2236-8906-hoehnea-49-e1082020-gf14.tif"/></fig>',
+                'got_value': '<fig fig-type="None" id="None">',
                 'response': 'OK',
-                'message': 'Got <fig xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en"><label>Figure '
-                           '14</label><caption><title>Axes 1 and 3 of the ordering analyses by the CA method of the '
-                           'three study areas, Parque Estadual da Cantareira, São Paulo, São Paulo State, '
-                           'Brasil.</title></caption><graphic xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xlink:href="2236-8906-hoehnea-49-e1082020-gf14.tif"/></fig>, expected <fig> element',
+                'message': 'Got <fig fig-type="None" id="None">, expected <fig> element',
                 'advice': None,
                 'data': {
                     'alternative_elements': [],
