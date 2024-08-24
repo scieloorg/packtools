@@ -34,7 +34,7 @@ class ArticleXrefValidationTest(TestCase):
             </article>
             """
         )
-        obtained = list(ArticleXrefValidation(self.xml_tree).validate_rid(element_name="*"))
+        obtained = list(ArticleXrefValidation(self.xml_tree).validate_rid())
 
         expected = [
             {
@@ -191,7 +191,7 @@ class ArticleXrefValidationTest(TestCase):
                 },
             }
         ]
-        obtained = list(self.article_xref.validate_rid(element_name="*"))
+        obtained = list(self.article_xref.validate_rid())
         self.assertEqual(len(obtained), 3)
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -298,7 +298,7 @@ class ArticleXrefValidationTest(TestCase):
             }
         ]
 
-        obtained = list(self.article_xref.validate_id(element_name="*"))
+        obtained = list(self.article_xref.validate_id())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -404,7 +404,7 @@ class ArticleXrefValidationTest(TestCase):
             }
         ]
 
-        obtained = list(self.article_xref.validate_id(element_name="*"))
+        obtained = list(self.article_xref.validate_id())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
