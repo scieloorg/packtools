@@ -7,7 +7,7 @@ class ArticleXrefValidation:
         self.xml_tree = xml_tree
         self.article_xref = ArticleXref(xml_tree)
 
-    def validate_rid(self, element_name, error_level="ERROR"):
+    def validate_rid(self, element_name=None, error_level="ERROR"):
         """
         Checks if all `rid` attributes (source) in `<xref>` elements have corresponding `id` attributes (destination)
         in the XML document.
@@ -62,7 +62,7 @@ class ArticleXrefValidation:
                     error_level=error_level,
                 )
 
-    def validate_id(self, element_name, error_level="ERROR"):
+    def validate_id(self, element_name=None, error_level="ERROR"):
         """
         Checks if all `id` attributes (destination) in the XML document have corresponding `rid` attributes (source)
         in `<xref>` elements.
