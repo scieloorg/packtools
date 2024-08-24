@@ -84,24 +84,8 @@ class TableWrapValidationTest(unittest.TestCase):
                 "validation_type": "exist",
                 "response": "OK",
                 'expected_value': '<table-wrap> element',
-                'got_value': '<table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'id="t01"><label>Table 1</label><caption>Table '
-                             'caption</caption><alternatives><graphic '
-                             'xlink:href="image1-lowres.png" '
-                             'mime-subtype="low-resolution"/><graphic '
-                             'xlink:href="image1-highres.png" '
-                             'mime-subtype="high-resolution"/></alternatives></table-wrap>',
-
-                'message': 'Got <table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'id="t01"><label>Table 1</label><caption>Table '
-                           'caption</caption><alternatives><graphic '
-                           'xlink:href="image1-lowres.png" '
-                           'mime-subtype="low-resolution"/><graphic '
-                           'xlink:href="image1-highres.png" '
-                           'mime-subtype="high-resolution"/></alternatives></table-wrap>, '
-                           'expected <table-wrap> element',
+                'got_value': '<table-wrap id="t01">',
+                'message': 'Got <table-wrap id="t01">, expected <table-wrap> element',
                 "advice": None,
                 "data": {
                     "alternative_parent": "table-wrap",
@@ -120,27 +104,17 @@ class TableWrapValidationTest(unittest.TestCase):
             }
         ]
 
-        # Remover a chave "node" dos dados obtidos
-        for item in obtained:
-            if item.get("data"):
-                item["data"].pop("node", None)
-
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_fig_validation_with_fig_elements_fix_bug(self):
+    def test_tablewrap_validation_with_tablewrap_elements_fix_bug(self):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree(
             "tests/fixtures/htmlgenerator/table_wrap_group_and_fig_group/2236-8906"
             "-hoehnea-49-e1082020/2236-8906-hoehnea-49-e1082020.xml"
         )
         obtained = list(TableWrapValidation(xml_tree).validate_tablewrap_existence())
-
-        # Remover a chave "node" dos dados obtidos
-        for item in obtained:
-            if item.get("data"):
-                item["data"].pop("node", None)
 
         expected = [
             {
@@ -161,19 +135,9 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": None,
                 },
                 "expected_value": "<table-wrap> element",
-                "got_value": '<table-wrap xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xml:lang="pt"><label>Tabela '
-                             "1</label><caption><title>Classificação Sucessional adotada por "
-                             "alguns autores ao longo dos "
-                             "anos.</title></caption></table-wrap>",
+                'got_value': '<table-wrap id="None">',
                 "item": "table-wrap",
-                "message": 'Got <table-wrap xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xml:lang="pt"><label>Tabela '
-                           "1</label><caption><title>Classificação Sucessional adotada por "
-                           "alguns autores ao longo dos anos.</title></caption></table-wrap>, "
-                           "expected <table-wrap> element",
+                "message": 'Got <table-wrap id="None">, expected <table-wrap> element',
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -203,70 +167,9 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": None,
                 },
                 "expected_value": "<table-wrap> element",
-                "got_value": '<table-wrap xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                             'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                             'xml:lang="en"><label>Table 4</label><caption><title>List of '
-                             "threatened species and their classification in the lists of "
-                             '<xref ref-type="bibr" rid="B48">São Paulo, 2016</xref>, Brazil, '
-                             "2019c and IUCN, 2019. VU categories: Vulnerable, EN: Endangered "
-                             "and EX: Extinct.</title></caption><table><thead><tr><th "
-                             'rowspan="2" align="left">Espécie</th><th align="left"/><th '
-                             'align="center">Listas</th><th align="left"/></tr><tr><th '
-                             'align="center">São Paulo</th><th align="center">Brasil</th><th '
-                             'align="center">IUCN</th></tr></thead><tbody><tr><td '
-                             'align="left"><italic>Ocotea catharinensis</italic> Mez</td><td '
-                             'align="center">VU</td><td align="center">VU</td><td '
-                             'align="center">VU</td></tr><tr><td align="left"><italic>Cedrela '
-                             'fissilis</italic> Vell.</td><td align="center">VU</td><td '
-                             'align="center">VU</td><td align="center">EN</td></tr><tr><td '
-                             'align="left"><italic>Trichilia silvatica</italic> C.DC.</td><td '
-                             'align="center">-</td><td align="center">-</td><td '
-                             'align="center">VU</td></tr><tr><td align="left"><italic>Virola '
-                             "bicuhyba</italic> (Schott ex Spreng.) Warb.</td><td "
-                             'align="center">EN</td><td align="center">EN</td><td '
-                             'align="center">-</td></tr><tr><td align="left"><italic>Eugenia '
-                             'prasina</italic> O.Berg</td><td align="center">-</td><td '
-                             'align="center">-</td><td align="center">VU</td></tr><tr><td '
-                             'align="left"><italic>Euplassa cantareirae</italic> '
-                             'Sleumer</td><td align="center">EX</td><td '
-                             'align="center">EN</td><td align="center">-</td></tr><tr><td '
-                             'align="left"><italic>Pouteria bullata</italic> (S.Moore) '
-                             'Baehni</td><td align="center">EN</td><td '
-                             'align="center">EN</td><td '
-                             'align="center">VU</td></tr></tbody></table></table-wrap>',
+                'got_value': '<table-wrap id="None">',
                 "item": "table-wrap",
-                "message": 'Got <table-wrap xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-                           'xmlns:xlink="http://www.w3.org/1999/xlink" '
-                           'xml:lang="en"><label>Table 4</label><caption><title>List of '
-                           "threatened species and their classification in the lists of <xref "
-                           'ref-type="bibr" rid="B48">São Paulo, 2016</xref>, Brazil, 2019c '
-                           "and IUCN, 2019. VU categories: Vulnerable, EN: Endangered and EX: "
-                           'Extinct.</title></caption><table><thead><tr><th rowspan="2" '
-                           'align="left">Espécie</th><th align="left"/><th '
-                           'align="center">Listas</th><th align="left"/></tr><tr><th '
-                           'align="center">São Paulo</th><th align="center">Brasil</th><th '
-                           'align="center">IUCN</th></tr></thead><tbody><tr><td '
-                           'align="left"><italic>Ocotea catharinensis</italic> Mez</td><td '
-                           'align="center">VU</td><td align="center">VU</td><td '
-                           'align="center">VU</td></tr><tr><td align="left"><italic>Cedrela '
-                           'fissilis</italic> Vell.</td><td align="center">VU</td><td '
-                           'align="center">VU</td><td align="center">EN</td></tr><tr><td '
-                           'align="left"><italic>Trichilia silvatica</italic> C.DC.</td><td '
-                           'align="center">-</td><td align="center">-</td><td '
-                           'align="center">VU</td></tr><tr><td align="left"><italic>Virola '
-                           "bicuhyba</italic> (Schott ex Spreng.) Warb.</td><td "
-                           'align="center">EN</td><td align="center">EN</td><td '
-                           'align="center">-</td></tr><tr><td align="left"><italic>Eugenia '
-                           'prasina</italic> O.Berg</td><td align="center">-</td><td '
-                           'align="center">-</td><td align="center">VU</td></tr><tr><td '
-                           'align="left"><italic>Euplassa cantareirae</italic> '
-                           'Sleumer</td><td align="center">EX</td><td '
-                           'align="center">EN</td><td align="center">-</td></tr><tr><td '
-                           'align="left"><italic>Pouteria bullata</italic> (S.Moore) '
-                           'Baehni</td><td align="center">EN</td><td '
-                           'align="center">EN</td><td '
-                           'align="center">VU</td></tr></tbody></table></table-wrap>, '
-                           "expected <table-wrap> element",
+                'message': 'Got <table-wrap id="None">, expected <table-wrap> element',
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
