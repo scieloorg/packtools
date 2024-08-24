@@ -1,21 +1,17 @@
 import xml.etree.ElementTree as ET
-
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
+from packtools.sps.utils.xml_utils import put_parent_context, node_plain_text
 
 
 class TableWrap:
     """
-    Represents a table wrap element within an XML document.
-
-    Parameters:
-        element (xml.etree.ElementTree.Element): The XML element representing the table wrap.
+    Represents a <table-wrap> element within an XML document.
     """
 
     def __init__(self, element):
         """
         Initializes a TableWrap object.
 
-        **Parameters:**
+        Parameters:
             element (xml.etree.ElementTree.Element): The XML element representing the table wrap.
         """
         self.element = element
@@ -43,11 +39,10 @@ class TableWrap:
     @property
     def caption(self):
         """
-        Returns the text content of the caption element within the table-wrap.
+        Returns the text content of the <caption> element within the table-wrap.
 
         Returns:
-            str: The text content of the <caption> element,
-                 or an empty string if the element is not found.
+            str: The text content of the <caption> element, or an empty string if the element is not found.
         """
         caption_element = self.element.find(".//caption")
         if caption_element is not None:
@@ -57,7 +52,7 @@ class TableWrap:
     @property
     def footnote(self):
         """
-        Returns the text content of the table-wrap-foot element.
+        Returns the text content of the <table-wrap-foot> element.
 
         Returns:
             str: The concatenated text content of the <table-wrap-foot> element,
@@ -71,7 +66,7 @@ class TableWrap:
     @property
     def footnote_id(self):
         """
-        Returns the ID of the first fn element within the table-wrap-foot.
+        Returns the ID of the first <fn> element within the <table-wrap-foot>.
 
         Returns:
             str: The ID of the first <fn> element, or None if the element or attribute is not found.
@@ -86,7 +81,7 @@ class TableWrap:
     @property
     def footnote_label(self):
         """
-        Returns the label of the first fn element within the table-wrap-foot.
+        Returns the label of the first <fn> element within the <table-wrap-foot>.
 
         Returns:
             str: The text content of the <label> element within the first <fn> element,
@@ -100,11 +95,11 @@ class TableWrap:
     @property
     def alternative_elements(self):
         """
-        Returns a list of tags within the alternatives element.
+        Returns a list of tags within the <alternatives> element.
 
         Returns:
-            list: A list of tag names of the elements within the <alternatives> element,
-                  or an empty list if the element is not found.
+            list of str: A list of tag names of the elements within the <alternatives> element,
+                         or an empty list if the element is not found.
         """
         alternative_elements = self.element.find('.//alternatives')
         if alternative_elements is not None:
@@ -134,39 +129,53 @@ class TableWrap:
 
 
 class TableWrappers:
-    def __init__(self, node, lang, article_type, parent, parent_id):
+    def __init__(self, node):
+        """
+        Initializes a TableWrappers object.
+
+        Parameters:
+            node (xml.etree.ElementTree.Element): The XML node containing table-wrap elements.
+        """
         self.node = node
-        self.lang = lang
-        self.article_type = article_type
-        self.parent = parent
-        self.parent_id = parent_id
 
     def table_wrappers(self):
         """
         Yields TableWrap objects for each <table-wrap> element within the provided node.
 
         Yields:
-            TableWrap: An instance of the TableWrap class for each table-wrap element found.
+            dict: A dictionary containing table-wrap data with context from the parent node.
         """
-        for table in self.node.xpath(".//table-wrap"):
+        parent = self.node.tag
+        parent_id = self.node.get("id")
+
+        if parent == "article":
+            root = self.node.xpath(".")[0]
+            path = "./front//table-wrap | ./body//table-wrap | ./back//table-wrap"
+        else:
+            root = self.node
+            path = ".//table-wrap"
+
+        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
+        article_type = root.get("article-type")
+
+        for table in root.xpath(path):
             data = TableWrap(table).data
-            data["node"] = table
-            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+            yield put_parent_context(data, lang, article_type, parent, parent_id)
 
 
 class ArticleTableWrappers:
     """
     Represents an article with its associated table wrappers, grouped by language.
 
-    Parameters:
+    Attributes:
         xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
     """
 
     def __init__(self, xml_tree):
         """
-        Initializes an ArticleTableWraps object.
+        Initializes an ArticleTableWrappers object.
 
-        **Parameters:**
+        Parameters:
             xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
         """
         self.xml_tree = xml_tree
@@ -174,34 +183,47 @@ class ArticleTableWrappers:
     @property
     def get_all_table_wrappers(self):
         """
-        Returns a dictionary containing information about table wrappers grouped by language.
+        Yields dictionaries containing information about table wrappers grouped by language.
 
         Iterates through parent contexts (article or sub-article elements) in the XML document
-        and creates `Parent` objects. For each parent context, it yields data for associated table wrappers
-        using the `parent.items` generator.
+        and generates data for associated table wrappers using the `TableWrappers` class.
 
-        Returns:
-            dict: A dictionary where keys are languages and values are generators that yield dictionaries
-                  containing information about table wrappers within that language context.
+        Yields:
+            dict: A dictionary containing information about table wrappers within the given language context,
+                  including language, article type, parent, parent ID, and table wrapper data.
         """
-        for node, lang, article_type, parent_context, parent_id in get_parent_context(self.xml_tree):
-            for table_wrap in TableWrappers(node, lang, article_type, parent_context, parent_id).table_wrappers():
-                yield table_wrap
+        yield from self.get_article_table_wrappers
+        yield from self.get_sub_article_translation_table_wrappers
+        yield from self.get_sub_article_non_translation_table_wrappers
 
     @property
     def get_article_table_wrappers(self):
-        for table in self.get_all_table_wrappers:
-            if table.get("parent") == "article":
-                yield table
+        """
+        Yields data for table wrappers associated directly with the main article.
+
+        Yields:
+            dict: A dictionary containing table wrapper data where the parent context is the main article.
+        """
+        yield from TableWrappers(self.xml_tree).table_wrappers()
 
     @property
     def get_sub_article_translation_table_wrappers(self):
-        for table in self.get_all_table_wrappers:
-            if table.get("parent") == "sub-article" and table.get("parent_article_type") == "translation":
-                yield table
+        """
+        Yields data for table wrappers within sub-articles of type 'translation'.
+
+        Yields:
+            dict: A dictionary containing table wrapper data where the parent context is a sub-article of type 'translation'.
+        """
+        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
+            yield from TableWrappers(node).table_wrappers()
 
     @property
     def get_sub_article_non_translation_table_wrappers(self):
-        for table in self.get_all_table_wrappers:
-            if table.get("parent") == "sub-article" and table.get("parent_article_type") != "translation":
-                yield table
+        """
+        Yields data for table wrappers within sub-articles that are not of type 'translation'.
+
+        Yields:
+            dict: A dictionary containing table wrapper data where the parent context is a sub-article that is not of type 'translation'.
+        """
+        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
+            yield from TableWrappers(node).table_wrappers()
