@@ -1,8 +1,5 @@
-import re
+from packtools.sps.utils.xml_utils import put_parent_context
 
-from lxml import etree
-
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
 class Affiliation:
     def __init__(self, aff_node):
@@ -82,18 +79,27 @@ class Affiliation:
 
 
 class Affiliations:
-    def __init__(self, node, lang, article_type, parent, parent_id):
+    def __init__(self, node):
         self.node = node
-        self.lang = lang
-        self.article_type = article_type
-        self.parent = parent
-        self.parent_id = parent_id
 
     def affiliations(self):
-        for aff_node in self.node.xpath("./article-meta//aff | ./contrib-group//aff | ./front-stub//aff"):
+        parent = self.node.tag
+        parent_id = self.node.get("id")
+
+        if parent == "article":
+            root = self.node.xpath(".")[0]
+            path = "./front/article-meta//aff"
+        else:
+            root = self.node
+            path = "./contrib-group//aff | ./front-stub//aff"
+
+        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
+        article_type = root.get("article-type")
+
+        for aff_node in self.node.xpath(path):
             data = Affiliation(aff_node).data
-            data["node"] = aff_node
-            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+
+            yield put_parent_context(data, lang, article_type, parent, parent_id)
 
 
 class ArticleAffiliations:
@@ -101,21 +107,17 @@ class ArticleAffiliations:
         self.xml_tree = xml_tree
 
     def article_affs(self):
-        for aff in self.all_affs():
-            if aff.get("parent") == "article":
-                yield aff
+        yield from Affiliations(self.xml_tree).affiliations()
 
     def sub_article_translation_affs(self):
-        for aff in self.all_affs():
-            if aff.get("parent") == "sub-article" and aff.get("parent_article_type") == "translation":
-                yield aff
+        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
+            yield from Affiliations(node).affiliations()
 
     def sub_article_non_translation_affs(self):
-        for aff in self.all_affs():
-            if aff.get("parent") == "sub-article" and aff.get("parent_article_type") != "translation":
-                yield aff
+        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
+            yield from Affiliations(node).affiliations()
 
     def all_affs(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
-            for aff in Affiliations(node, lang, article_type, parent, parent_id).affiliations():
-                yield aff
+        yield from self.article_affs()
+        yield from self.sub_article_translation_affs()
+        yield from self.sub_article_non_translation_affs()
