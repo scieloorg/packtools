@@ -452,8 +452,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliation_without_original(self):
@@ -517,8 +515,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_orgname(self):
@@ -582,8 +578,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country(self):
@@ -648,8 +642,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country_code(self):
@@ -717,8 +709,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_state(self):
@@ -783,8 +773,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_city(self):
@@ -849,8 +837,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_id(self):
@@ -915,8 +901,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate(self):
@@ -1359,8 +1343,6 @@ class AffiliationValidationTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_sub_article_original_only(self):
@@ -1426,8 +1408,6 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_article_vs_sub_article(self):
@@ -1746,8 +1726,6 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 7)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_2176_4573_bak_p58270(self):
@@ -2022,8 +2000,6 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(len(obtained), 7)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained[i]["data"].pop("node", None)
                 self.assertDictEqual(item, obtained[i])
 
     def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
