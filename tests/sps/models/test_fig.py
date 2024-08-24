@@ -162,33 +162,6 @@ class ArticleFigsTest(unittest.TestCase):
                                 <attrib>Data Source: Experimental Data 2020</attrib>
                             </fig>
                         </sec>
-                        <sec>
-                            <title>Supplementary Tables</title>
-                            <table-wrap id="st1">
-                                <label>SUPPLEMENTARY TABLE 1</label>
-                                <caption>
-                                    <title>Table of Experimental Results</title>
-                                </caption>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Experiment</th>
-                                            <th>Result</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Exp 1</td>
-                                            <td>Positive</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Exp 2</td>
-                                            <td>Negative</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </table-wrap>
-                        </sec>
                     </body>
                 </sub-article>
             </article>
@@ -287,10 +260,7 @@ class ArticleFigsTest(unittest.TestCase):
         self.assertEqual(len(obtained), 5)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained_copy = obtained[i].copy()
-                obtained_copy.pop("node")
-                self.assertDictEqual(item, obtained_copy)
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_article_figs(self):
         self.maxDiff = None
@@ -340,10 +310,7 @@ class ArticleFigsTest(unittest.TestCase):
         self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained_copy = obtained[i].copy()
-                obtained_copy.pop("node")
-                self.assertDictEqual(item, obtained_copy)
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_sub_article_translation_figs(self):
         self.maxDiff = None
@@ -383,10 +350,7 @@ class ArticleFigsTest(unittest.TestCase):
         self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained_copy = obtained[i].copy()
-                obtained_copy.pop("node")
-                self.assertDictEqual(item, obtained_copy)
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_sub_article_non_translation_figs(self):
         self.maxDiff = None
@@ -412,10 +376,7 @@ class ArticleFigsTest(unittest.TestCase):
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
-                # Remove "node" antes da verificação
-                obtained_copy = obtained[i].copy()
-                obtained_copy.pop("node")
-                self.assertDictEqual(item, obtained_copy)
+                self.assertDictEqual(item, obtained[i])
 
 
 if __name__ == "__main__":
