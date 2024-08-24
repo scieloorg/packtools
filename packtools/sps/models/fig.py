@@ -1,4 +1,5 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.utils.xml_utils import put_parent_context
+
 
 class Fig:
     """
@@ -91,8 +92,8 @@ class Fig:
         Returns a list of tags within the alternatives element.
 
         Returns:
-            list: A list of tag names of the elements within the <alternatives> element,
-                  or an empty list if the element is not found.
+            list of str: A list of tag names of the elements within the <alternatives> element,
+                         or an empty list if the element is not found.
         """
         alternative_elements = self.element.find(".//alternatives")
         if alternative_elements is not None:
@@ -125,20 +126,18 @@ class Figs:
     """
     Handles the extraction of figure data from an XML node and its context.
 
-    Parameters:
-        fig_node (xml.etree.ElementTree.Element): The XML node containing figures.
-        lang (str): The language of the article or sub-article.
-        article_type (str): The type of the article (e.g., "research-article").
-        parent (str): The parent element type (e.g., "article", "sub-article").
-        parent_id (str): The ID of the parent element.
+    Attributes:
+        node (xml.etree.ElementTree.Element): The XML node containing figures.
     """
 
-    def __init__(self, fig_node, lang, article_type, parent, parent_id):
-        self.fig_node = fig_node
-        self.lang = lang
-        self.article_type = article_type
-        self.parent = parent
-        self.parent_id = parent_id
+    def __init__(self, node):
+        """
+        Initializes a Figs object.
+
+        Parameters:
+            node (xml.etree.ElementTree.Element): The XML node containing figures.
+        """
+        self.node = node
 
     def figs(self):
         """
@@ -147,22 +146,41 @@ class Figs:
         Yields:
             dict: A dictionary containing figure data, along with context from the parent node.
         """
-        for fig in self.fig_node.xpath(".//fig"):
+        parent = self.node.tag
+        parent_id = self.node.get("id")
+
+        if parent == "article":
+            root = self.node.xpath(".")[0]
+            path = "./front//fig | ./body//fig | ./back//fig"
+        else:
+            root = self.node
+            path = ".//fig"
+
+        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
+        article_type = root.get("article-type")
+
+        for fig in root.xpath(path):
             data = Fig(fig).data
-            data["node"] = fig
-            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+            yield put_parent_context(data, lang, article_type, parent, parent_id)
 
 
 class ArticleFigs:
     """
     Represents an article with its associated figures, grouped by language.
 
-    Parameters:
+    Attributes:
         xml_tree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element):
         The parsed XML document representing the article.
     """
 
     def __init__(self, xml_tree):
+        """
+        Initializes an ArticleFigs object.
+
+        Parameters:
+            xml_tree (lxml.etree._ElementTree or xml.etree.ElementTree.ElementTree or lxml.etree.Element):
+            The parsed XML document representing the article.
+        """
         self.xml_tree = xml_tree
 
     @property
@@ -177,9 +195,9 @@ class ArticleFigs:
             dict: A dictionary containing information about figures within the given language context,
                   including language, article type, parent, parent ID, and figure data.
         """
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
-            for figure in Figs(node, lang, article_type, parent, parent_id).figs():
-                yield figure
+        yield from self.get_article_figs
+        yield from self.get_sub_article_translation_figs
+        yield from self.get_sub_article_non_translation_figs
 
     @property
     def get_article_figs(self):
@@ -189,9 +207,7 @@ class ArticleFigs:
         Yields:
             dict: A dictionary containing figure data where the parent context is the main article.
         """
-        for fig in self.get_all_figs:
-            if fig.get("parent") == "article":
-                yield fig
+        yield from Figs(self.xml_tree).figs()
 
     @property
     def get_sub_article_translation_figs(self):
@@ -201,9 +217,8 @@ class ArticleFigs:
         Yields:
             dict: A dictionary containing figure data where the parent context is a sub-article of type 'translation'.
         """
-        for fig in self.get_all_figs:
-            if fig.get("parent") == "sub-article" and fig.get("parent_article_type") == "translation":
-                yield fig
+        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
+            yield from Figs(node).figs()
 
     @property
     def get_sub_article_non_translation_figs(self):
@@ -213,6 +228,5 @@ class ArticleFigs:
         Yields:
             dict: A dictionary containing figure data where the parent context is a sub-article that is not of type 'translation'.
         """
-        for fig in self.get_all_figs:
-            if fig.get("parent") == "sub-article" and fig.get("parent_article_type") != "translation":
-                yield fig
+        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
+            yield from Figs(node).figs()
