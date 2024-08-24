@@ -38,7 +38,9 @@ class Ids:
     def __init__(self, node):
         self.node = node
 
-    def ids(self, element_name):
+    def ids(self, element_name=None):
+        if not element_name:
+            element_name = "*"
         parent = self.node.tag
         parent_id = self.node.get("id")
 
