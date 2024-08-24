@@ -96,9 +96,8 @@ class AffiliationTest(TestCase):
 class AffiliationsTest(TestCase):
     def test_affiliations(self):
 
-        self.xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
-        article_node = self.xmltree.xpath("./front")[0]
-        obtained = list(Affiliations(article_node, "en", "research-article", "article", None).affiliations())
+        self.xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        obtained = list(Affiliations(self.xml_tree).affiliations())
         expected = [
             {
                 "city": "Pelotas",
