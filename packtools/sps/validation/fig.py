@@ -52,7 +52,6 @@ class FigValidation:
         """
         if self.figures:
             for figure in self.figures:
-                figure_node = figure.get("node")
                 yield format_response(
                     title="fig presence",
                     parent=figure.get("parent"),
@@ -64,7 +63,7 @@ class FigValidation:
                     validation_type="exist",
                     is_valid=True,
                     expected="<fig> element",
-                    obtained=etree.tostring(figure_node, encoding='unicode'),
+                    obtained=f"<fig fig-type=\"{figure.get('fig_type')}\" id=\"{figure.get('fig_id')}\">",
                     advice=None,
                     data=figure,
                     error_level="OK",
