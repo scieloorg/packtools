@@ -776,59 +776,110 @@ class ArticleContribTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_fix_bug_example(self):
+    def test_fix_bug_without_prefix(self):
         self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree('tests/samples/example.xml')
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <suffix>Nieto</suffix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
         obtained = list(ArticleContribs(xml_tree).contribs)
         expected = [
-            'JEFFERSON C. SIMÕES',
-            'VIVIANA ALDER',
-            'JULIANA M. SAYÃO'
+            'JEFFERSON C. SIMÕES Nieto'
         ]
-        self.assertEqual(len(obtained), 3)
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
-    def test_fix_bug_example2(self):
+    def test_fix_bug_without_suffix(self):
         self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree('tests/samples/example2.xml')
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <prefix>Prof</prefix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
         obtained = list(ArticleContribs(xml_tree).contribs)
         expected = [
-            'Emília Maria Dantas Soeiro',
-            'Maria Goretti Moreira Guimarães Penido',
-            'Lilian Monteiro Pereira Palma',
-            'Nilzete Liberato Bresolin',
-            'Eduardo Jorge da Fonseca Lima',
-            'Vera Hermina Kalika Koch',
-            'Marcelo de Sousa Tavares',
-            'Lucimary Sylvestre',
-            'Rejane de Paula Bernardes',
-            'Clotilde Druck Garcia',
-            'Maria Cristina de Andrade',
-            'Arnauld Kaufman',
-            'Charles Yea Zen Chow',
-            'Suelen Bianca Stopa Martins',
-            'Suzana Friedlander Del Nero Camargo',
-            'Emília Maria Dantas Soeiro',
-            'Maria Goretti Moreira Guimarães Penido',
-            'Lilian Monteiro Pereira Palma',
-            'Nilzete Liberato Bresolin',
-            'Eduardo Jorge da Fonseca Lima',
-            'Vera Hermina Kalika Koch',
-            'Marcelo de Sousa Tavares',
-            'Lucimary Sylvestre',
-            'Rejane de Paula Bernardes',
-            'Clotilde Druck Garcia',
-            'Maria Cristina de Andrade',
-            'Arnauld Kaufman',
-            'Charles Yea Zen Chow',
-            'Suelen Bianca Stopa Martins',
-            'Suzana Friedlander Del Nero Camargo'
+            'Prof JEFFERSON C. SIMÕES'
         ]
-        self.assertEqual(len(obtained), 30)
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
+    def test_fix_bug_without_given_name(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Prof SIMÕES Nieto'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
+    def test_fix_bug_without_surname(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix> 
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Prof JEFFERSON C. Nieto'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
