@@ -92,6 +92,53 @@ class AffiliationTest(TestCase):
 
         self.assertDictEqual(obtained, expected)
 
+    def test_str_main_tag(self):
+        self.assertEqual(
+            self.aff.str_main_tag,
+            '<aff id="aff1">'
+        )
+
+    def test_str(self):
+        self.maxDiff = None
+        self.assertEqual(
+            str(self.aff),
+            """<?xml version='1.0' encoding='utf-8'?>
+<aff id="aff1">
+            <label>I</label>
+            <institution content-type="orgname">Universidade Federal de Pelotas</institution>
+            <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+            <institution content-type="orgdiv2">Programa de Pós-Graduação em Epidemiologia</institution>
+            <addr-line>
+                <named-content content-type="city">Pelotas</named-content>
+                <named-content content-type="state">RS</named-content>
+            </addr-line>
+            <country country="BR">Brasil</country>
+            <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
+            <email>exemplo@ufpel.edu.br</email>
+        </aff>"""
+        )
+
+    def test_xml(self):
+        self.maxDiff = None
+        self.assertEqual(
+            self.aff.xml,
+            """<?xml version='1.0' encoding='utf-8'?>
+<aff id="aff1">
+            <label>I</label>
+            <institution content-type="orgname">Universidade Federal de Pelotas</institution>
+            <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+            <institution content-type="orgdiv2">Programa de Pós-Graduação em Epidemiologia</institution>
+            <addr-line>
+                <named-content content-type="city">Pelotas</named-content>
+                <named-content content-type="state">RS</named-content>
+            </addr-line>
+            <country country="BR">Brasil</country>
+            <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
+            <email>exemplo@ufpel.edu.br</email>
+        </aff>
+"""
+        )
+
 
 class AffiliationsTest(TestCase):
     def test_affiliations(self):
