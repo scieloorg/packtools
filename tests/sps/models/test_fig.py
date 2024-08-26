@@ -35,6 +35,50 @@ class FigTest(unittest.TestCase):
         self.fig_element = self.xml_tree.xpath("//fig")[0]
         self.fig_obj = Fig(self.fig_element)
 
+    def test_str_main_tag(self):
+        self.assertEqual(
+            self.fig_obj.str_main_tag(),
+            '<fig fig-type="map" id="f02">'
+        )
+
+    def test_str(self):
+        self.assertEqual(
+            str(self.fig_obj),
+            "<?xml version='1.0' encoding='utf-8'?>\n<fig xmlns:xlink=\"http://www.w3.org/1999/xlink\" "
+            "xmlns:mml=\"http://www.w3.org/1998/Math/MathML\" fig-type=\"map\" id=\"f02\"><label>FIGURE "
+            "2</label><caption><title>Título da figura</title></caption><graphic "
+            "xlink:href=\"1234-5678-zwy-12-04-0123-gf02.tif\"/><attrib>Fonte: IBGE ("
+            "2018)</attrib><alternatives><graphic xlink:href=\"1234-5678-zwy-12-04-0123-gf02-lowres.tif\" "
+            "mime-subtype=\"low-resolution\"/><graphic xlink:href=\"1234-5678-zwy-12-04-0123-gf02-highres.tif\" "
+            "mime-subtype=\"high-resolution\"/><textual-alternative><p>Texto alternativo que descreve a figura em "
+            "detalhes para acessibilidade.</p></textual-alternative><media "
+            "xlink:href=\"1234-5678-zwy-12-04-0123-gf02.mp4\" mime-subtype=\"video\"/></alternatives></fig>"
+        )
+
+    def test_xml(self):
+        self.maxDiff = None
+        self.assertEqual(
+            self.fig_obj.xml(),
+            """<?xml version='1.0' encoding='utf-8'?>
+<fig xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" fig-type="map" id="f02">
+  <label>FIGURE 2</label>
+  <caption>
+    <title>Título da figura</title>
+  </caption>
+  <graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.tif"/>
+  <attrib>Fonte: IBGE (2018)</attrib>
+  <alternatives>
+    <graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-lowres.tif" mime-subtype="low-resolution"/>
+    <graphic xlink:href="1234-5678-zwy-12-04-0123-gf02-highres.tif" mime-subtype="high-resolution"/>
+    <textual-alternative>
+      <p>Texto alternativo que descreve a figura em detalhes para acessibilidade.</p>
+    </textual-alternative>
+    <media xlink:href="1234-5678-zwy-12-04-0123-gf02.mp4" mime-subtype="video"/>
+  </alternatives>
+</fig>
+"""
+        )
+
     def test_fig_id(self):
         self.assertEqual(self.fig_obj.fig_id, "f02")
 
