@@ -1,6 +1,6 @@
 import itertools
 
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.utils.xml_utils import put_parent_context, tostring
 
 
 class Xref:
@@ -28,6 +28,11 @@ class Id:
         self.node = node
         self.node_id = self.node.get("id")
         self.node_tag = self.node.tag
+        self.str_main_tag = f'<{self.node_tag} id="{self.node_id}">'
+        self.xml = tostring(node=self.node, doctype=None, pretty_print=True, xml_declaration=True)
+
+    def __str__(self):
+        return tostring(self.node)
 
     @property
     def data(self):
@@ -36,6 +41,14 @@ class Id:
 
 class Ids:
     def __init__(self, node):
+        """
+        Initializes the Ids class with an XML node.
+
+        Parameters:
+        node : lxml.etree._Element
+            The XML node (element) that contains one or more <node @id> elements.
+            This can be the root of an `xml_tree` or a node representing a `sub-article`.
+        """
         self.node = node
 
     def ids(self, element_name=None):
