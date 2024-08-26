@@ -62,6 +62,33 @@ class IdTest(TestCase):
         obtained = {"tag": "aff", "id": "aff1"}
         self.assertDictEqual(self.node_id.data, obtained)
 
+    def test_str_main_tag(self):
+        self.assertEqual(
+            self.node_id.str_main_tag,
+            '<aff id="aff1">'
+        )
+
+    def test_str(self):
+        self.assertEqual(
+            str(self.node_id),
+            """<?xml version='1.0' encoding='utf-8'?>
+<aff id="aff1">
+                        <p>affiliation</p>
+                    </aff>
+                """
+        )
+
+    def test_xml(self):
+        self.assertEqual(
+            self.node_id.xml,
+            """<?xml version='1.0' encoding='utf-8'?>
+<aff id="aff1">
+                        <p>affiliation</p>
+                    </aff>
+                
+"""
+        )
+
 
 class IdsTest(TestCase):
     def setUp(self):
