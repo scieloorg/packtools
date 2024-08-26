@@ -1,9 +1,20 @@
-from packtools.sps.utils.xml_utils import put_parent_context
+from packtools.sps.utils.xml_utils import put_parent_context, tostring
 
 
 class Affiliation:
     def __init__(self, aff_node):
         self.aff_node = aff_node
+
+    @property
+    def str_main_tag(self):
+        return f'<aff id="{self.aff_id}">'
+
+    def __str__(self):
+        return tostring(self.aff_node)
+
+    @property
+    def xml(self):
+        return tostring(node=self.aff_node, doctype=None, pretty_print=True, xml_declaration=True)
 
     @property
     def aff_id(self):
@@ -80,6 +91,14 @@ class Affiliation:
 
 class Affiliations:
     def __init__(self, node):
+        """
+        Initializes the Affiliations class with an XML node.
+
+        Parameters:
+        node : lxml.etree._Element
+            The XML node (element) that contains one or more <aff> elements.
+            This can be the root of an `xml_tree` or a node representing a `sub-article`.
+        """
         self.node = node
 
     def affiliations(self):
