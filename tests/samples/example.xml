@@ -1,0 +1,237 @@
+<article
+	xmlns:mml="http://www.w3.org/1998/Math/MathML"
+	xmlns:xlink="http://www.w3.org/1999/xlink" article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+	<front> 
+		<journal-meta> 
+			<journal-id journal-id-type="nlm-ta">An Acad Bras Cienc</journal-id> 
+			<journal-id journal-id-type="publisher-id">aabc</journal-id> 
+			<journal-title-group> 
+				<journal-title>Anais da Academia Brasileira de Ci&#234;ncias</journal-title> 
+				<abbrev-journal-title abbrev-type="publisher">An. Acad. Bras. Ci&#234;nc.</abbrev-journal-title> 
+			</journal-title-group> 
+			<issn pub-type="ppub">0001-3765</issn> 
+			<issn pub-type="epub">1678-2690</issn> 
+			<publisher> 
+				<publisher-name>Academia Brasileira de Ci&#234;ncias</publisher-name> 
+			</publisher> 
+		</journal-meta> 
+		<article-meta> 
+			<article-id specific-use="scielo-v3" pub-id-type="publisher-id">ysymS5tSfyBcdwbrwGhCwKj</article-id> 
+			<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0001-37652023000600151</article-id> 
+			<article-id pub-id-type="other">00151</article-id> 
+			<article-id pub-id-type="doi">10.1590/0001-3765202320231270</article-id> 
+			<article-categories> 
+				<subj-group subj-group-type="heading"> 
+					<subject>FOREWORD</subject> 
+				</subj-group> 
+			</article-categories> 
+			<title-group> 
+				<article-title>Forty years of Brazilian Antarctic research: A second volume</article-title> 
+			</title-group> 
+			<contrib-group> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0001-5555-3401</contrib-id> 
+					<name> 
+						<surname>SIM&#213;ES</surname> 
+						<given-names>JEFFERSON C.</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff1"> 
+						<sup>1</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff2"> 
+						<sup>2</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-7375-3279</contrib-id> 
+					<name> 
+						<surname/> 
+						<given-names>VIVIANA ALDER</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff3"> 
+						<sup>3</sup> 
+					</xref> 
+					<xref ref-type="aff" rid="aff4"> 
+						<sup>4</sup> 
+					</xref> 
+				</contrib> 
+				<contrib contrib-type="author"> 
+					<contrib-id contrib-id-type="orcid">0000-0002-3619-0323</contrib-id> 
+					<name> 
+						<surname>SAY&#195;O</surname> 
+						<given-names>JULIANA M.</given-names> 
+					</name> 
+					<xref ref-type="aff" rid="aff5"> 
+						<sup>5</sup> 
+					</xref> 
+				</contrib> 
+			</contrib-group> 
+			<aff id="aff1"> 
+				<label> 
+					<sup>1</sup> 
+				</label> 
+				<institution content-type="orgname">Universidade Federal do Rio Grande do Sul/UFRGS</institution> 
+				<institution content-type="orgdiv1">Instituto de Geoci&#234;ncias</institution> 
+				<addr-line> 
+					<named-content content-type="city">Porto Alegre</named-content> 
+					<named-content content-type="state">RS</named-content> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal do Rio Grande do Sul/UFRGS, Instituto de Geoci&#234;ncias, Av. Bento Gon&#231;alves, 9500, 90650-001 Porto Alegre, RS, Brazil</institution> 
+			</aff> 
+			<aff id="aff2"> 
+				<label> 
+					<sup>2</sup> 
+				</label> 
+				<institution content-type="orgname">University of Maine</institution> 
+				<institution content-type="orgdiv1">Climate Change Institute</institution> 
+				<addr-line> 
+					<named-content content-type="city">Orono</named-content> 
+					<named-content content-type="state">ME</named-content> 
+				</addr-line> 
+				<country country="US">USA</country> 
+				<institution content-type="original">University of Maine, Climate Change Institute, 04469, Orono, ME, USA</institution> 
+			</aff> 
+			<aff id="aff3"> 
+				<label> 
+					<sup>3</sup> 
+				</label> 
+				<institution content-type="orgname">UBA</institution> 
+				<institution content-type="orgdiv1">Facultad de Ciencias Exactas y Naturales</institution> 
+				<addr-line> 
+					<named-content content-type="city">Ciudad Universitaria</named-content> 
+					<named-content content-type="state">Ciudad Aut&#243;noma de Buenos Aires</named-content> 
+				</addr-line> 
+				<country country="AR">Argentina</country> 
+				<institution content-type="original">UBA, Facultad de Ciencias Exactas y Naturales, Dpto. de Ecolog&#237;a, Gen&#233;tica y Evoluci&#243;n e Inst. de Ecolog&#237;a, Gen&#233;tica y Evoluci&#243;n de Buenos Aires (UBA-CONICET), Pabell&#243;n II, 4&#176; Piso, Lab. Ecolog&#237;a Marina Microbiana, Intendente G&#252;iraldes 2620, Ciudad Universitaria, C1428EHA, Ciudad Aut&#243;noma de Buenos Aires, Argentina</institution> 
+			</aff> 
+			<aff id="aff4"> 
+				<label> 
+					<sup>4</sup> 
+				</label> 
+				<institution content-type="orgname">Universidad Nacional de San Mart&#237;n (UNSAM)</institution> 
+				<institution content-type="orgdiv1">Instituto Ant&#225;rtico Argentino</institution> 
+				<addr-line> 
+					<named-content content-type="city">San Mart&#237;n</named-content> 
+					<named-content content-type="state">Provincia de Buenos Aires</named-content> 
+				</addr-line> 
+				<country country="AR">Argentina</country> 
+				<institution content-type="original">Universidad Nacional de San Mart&#237;n (UNSAM), Instituto Ant&#225;rtico Argentino, Av. 25 de Mayo 1143, Campus Miguelete, 1650, San Mart&#237;n, Provincia de Buenos Aires, Argentina</institution> 
+			</aff> 
+			<aff id="aff5"> 
+				<label> 
+					<sup>5</sup> 
+				</label> 
+				<institution content-type="orgname">Universidade Federal do Rio de Janeiro</institution> 
+				<institution content-type="orgdiv1">Laborat&#243;rio de Paleobiologia e Paleogeografia Ant&#225;rtica</institution> 
+				<addr-line> 
+					<named-content content-type="city">Rio de Janeiro</named-content> 
+					<named-content content-type="state">RJ</named-content> 
+				</addr-line> 
+				<country country="BR">Brazil</country> 
+				<institution content-type="original">Universidade Federal do Rio de Janeiro, Laborat&#243;rio de Paleobiologia e Paleogeografia Ant&#225;rtica, Museu Nacional, Quinta da Boa Vista, s/n, 29040-040 Rio de Janeiro, RJ, Brazil</institution> 
+			</aff> 
+			<pub-date date-type="pub" publication-format="electronic"> 
+				<day>08</day> 
+				<month>12</month> 
+				<year>2023</year> 
+			</pub-date> 
+			<pub-date date-type="collection" publication-format="electronic"> 
+				<year>2023</year> 
+			</pub-date> 
+			<volume>95</volume> 
+			<issue>suppl 3</issue> 
+			<elocation-id>e20231270</elocation-id> 
+			<history> 
+				<date date-type="received"> 
+					<day>18</day> 
+					<month>11</month> 
+					<year>2023</year> 
+				</date> 
+				<date date-type="accepted"> 
+					<day>18</day> 
+					<month>11</month> 
+					<year>2023</year> 
+				</date> 
+			</history> 
+			<permissions> 
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en"> 
+					<license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License</license-p> 
+				</license> 
+			</permissions> 
+		</article-meta> 
+	</front> 
+	<body> 
+		<p>This special volume of the Annals of the Brazilian Academy of Sciences (ABC) is the second one commemorating the 40 years of ongoing activity in the Brazilian Antarctic Program (PROANTAR). The first one was published last year (
+			<xref ref-type="bibr" rid="B1">Kellner 2022</xref>) and dedicated to the late Professor Ant&#244;nio Carlos Rocha-Campos, president of the Scientific Committee on Antarctic Research (SCAR) from 1994 to 1998 (
+			<xref ref-type="bibr" rid="B3">Sim&#245;es et al. 2022</xref>).
+		</p> 
+		<p>This volume is being published just after the implementation of the second decadal action plan for Brazilian Antarctic science covering the period 2023&#8211;2032 (Minist&#233;rio da Ci&#234;ncia, Tecnologia e Inova&#231;&#245;es 2023). This plan presents strategic guidelines for the management of polar science. The advancement of national research in Antarctica covered all areas of knowledge, including efforts to disseminate polar science, expanding the dissemination of information generated and results obtained, and producing benefits for the entire society. For the first time, it gives attention to Human and Social Sciences and amplifies the Brazilian Polar research to the Arctic. </p> 
+		<p>The research in Antarctica is multidisciplinary and fundamental for understanding the processes that occur at high latitudes and their global relevance. It contributes to recognizing environmental and climate changes at different time scales (from geological to historical ones), fostering the interface between public policies and scientific knowledge. Following this idea, we present this multidisciplinary volume, which includes glaciological articles (on glaciers retreat and the consequent changes in glacial morphology and how it affects the distribution of benthic organisms, biogeochemical and oceanic characteristics of fjords, the environmental interpretation of ice cores), geophysics of the upper atmosphere, permafrost and its fast changes. In short, it overviews the rapid environmental changes in the northern tip of the Antarctic Peninsula and offshore islands.</p> 
+		<p>Many of the results reported in this volume result from actions of Brazilian scientists within the scope of activities promoted by SCAR and in cooperation with colleagues from various countries. Most of the research described here was funded by the Brazilian Ministry of Science, Technology and Innovations (MCTI) through the National Council for Scientific and Technological Development (CNPq) within PROANTAR&#8217;s scope. The production of this volume also received financial support from the National Institute of Science and Technology of the Cryosphere (INCT da Criosfera).</p> 
+	</body> 
+	<back> 
+		<ref-list> 
+			<title>REFERENCES</title> 
+			<ref id="B1"> 
+				<mixed-citation>KELLNER AWA. 2022. Research in Antarctica &#8211; challenging but necessary. Forty Years of Brazilian Antarctic research: A tribute to Professor Antonio Rocha-Campos. An Acad Bras Cienc 94: e202294S1. https://doi.org/10.1590/0001-37652022202294S1.</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>KELLNER</surname> 
+							<given-names>AWA</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Research in Antarctica &#8211; challenging but necessary</article-title> 
+					<source>An Acad Bras Cienc</source> 
+					<year>2022</year> 
+					<volume>94</volume> 
+					<pub-id pub-id-type="doi">10.1590/0001-37652022202294S1</pub-id> 
+				</element-citation> 
+			</ref> 
+			<ref id="B2"> 
+				<mixed-citation>MINIST&#201;RIO DA CI&#202;NCIA, TECNOLOGIA E INOVA&#199;&#213;ES. 2023. Ten-year Plan for Antarctic Science in Brazil: 2023&#8211;2032. Bras&#237;lia, Minist&#233;rio da Ci&#234;ncia, Tecnologia e Inova&#231;&#245;es.</mixed-citation> 
+				<element-citation publication-type="book"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>MINIST&#201;RIO DA</surname> 
+							<given-names>CI&#202;NCIA</given-names> 
+						</name> 
+						<name> 
+							<surname>TECNOLOGIA E</surname> 
+							<given-names>INOVA&#199;&#213;ES</given-names> 
+						</name> 
+					</person-group> 
+					<source>Ten-year Plan for Antarctic Science in Brazil: 2023&#8211;2032</source> 
+					<year>2023</year> 
+					<publisher-loc>Minist&#233;rio da Ci&#234;ncia</publisher-loc> 
+					<publisher-name>Bras&#237;lia</publisher-name> 
+				</element-citation> 
+			</ref> 
+			<ref id="B3"> 
+				<mixed-citation>SIM&#213;ES JC, LEPPE M &amp; SAY&#195;O JM 2022. Forty Years of Brazilian Antarctic research: A tribute to Professor Antonio Rocha-Campos. An Acad Bras Cienc 94: e20220493. https://doi.org/10.1590/0001-3765202220220493</mixed-citation> 
+				<element-citation publication-type="journal"> 
+					<person-group person-group-type="author"> 
+						<name> 
+							<surname>SIM&#213;ES</surname> 
+							<given-names>JC</given-names> 
+						</name> 
+						<name> 
+							<surname>LEPPE</surname> 
+							<given-names>M</given-names> 
+						</name> 
+						<name> 
+							<surname>SAY&#195;O JM</surname> 
+							<given-names>JEFFERSON C.</given-names> 
+						</name> 
+					</person-group> 
+					<article-title>Forty Years of Brazilian Antarctic research: A tribute to Professor Antonio Rocha-Campos</article-title> 
+					<source>An Acad Bras Cienc</source> 
+					<year>2022</year> 
+					<volume>94</volume> 
+					<pub-id pub-id-type="doi">10.1590/0001-3765202220220493</pub-id> 
+				</element-citation> 
+			</ref> 
+		</ref-list> 
+	</back>
+</article>

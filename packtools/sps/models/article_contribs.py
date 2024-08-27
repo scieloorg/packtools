@@ -47,7 +47,7 @@ class Contrib:
         name_parts = ['prefix', 'given-names', 'surname', 'suffix']
         name = self.contrib_name
         if name is not None:
-            return ' '.join(name.get(part, '') for part in name_parts).strip()
+            return ' '.join(name.get(part, '') for part in name_parts if name.get(part)).strip()
 
     @property
     def collab(self):

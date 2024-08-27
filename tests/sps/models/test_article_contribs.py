@@ -484,7 +484,6 @@ class ContribWithoutXrefTest(TestCase):
                 'prefix': 'Prof',
                 'suffix': 'Nieto'
             },
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
             'contrib_role': [
                 {
                     'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
@@ -618,13 +617,13 @@ class ContribGroupTest(TestCase):
                 'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
             },
             {
-                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS) , World Health Organization , Geneva, '
+                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, '
                           'Switzerland',
                 'contrib_type': 'author'
             },
             {
                 'collab': 'Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island '
-                          'Department of Health , Providence, Rhode Island',
+                          'Department of Health, Providence, Rhode Island',
                 'contrib_type': 'author'
             },
             {
@@ -713,7 +712,6 @@ class ArticleContribTest(TestCase):
                 'contrib_ids': {'orcid': '0000-0003-2243-0821'},
                 'contrib_full_name': 'Silvana de Castro',
                 'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
-                'contrib_full_name': 'Silvana de Castro',
                 'contrib_type': 'author',
                 'contrib_xref': [
                     {'ref_type': 'aff', 'rid': 'aff1', 'text': 'a'},
@@ -778,4 +776,110 @@ class ArticleContribTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
+    def test_fix_bug_without_prefix(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <suffix>Nieto</suffix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'JEFFERSON C. SIMÕES Nieto'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
+    def test_fix_bug_without_suffix(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <prefix>Prof</prefix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Prof JEFFERSON C. SIMÕES'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
+
+    def test_fix_bug_without_given_name(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <surname>SIM&#213;ES</surname> 
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix>
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Prof SIMÕES Nieto'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
+
+    def test_fix_bug_without_surname(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring("""
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+            <front>
+                <contrib-group> 
+                    <contrib contrib-type="author"> 
+                        <name> 
+                            <given-names>JEFFERSON C.</given-names>
+                            <prefix>Prof</prefix>
+                            <suffix>Nieto</suffix> 
+                        </name> 
+                    </contrib>
+                </contrib-group>
+            </front>
+        </article>
+        """)
+        obtained = list(ArticleContribs(xml_tree).contribs)
+        expected = [
+            'Prof JEFFERSON C. Nieto'
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertEqual(item, obtained[i].get("contrib_full_name"))
