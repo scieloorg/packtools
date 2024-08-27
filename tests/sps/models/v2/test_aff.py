@@ -102,8 +102,7 @@ class AffiliationTest(TestCase):
         self.maxDiff = None
         self.assertEqual(
             str(self.aff),
-            """<?xml version='1.0' encoding='utf-8'?>
-<aff id="aff1">
+            """<aff id="aff1">
             <label>I</label>
             <institution content-type="orgname">Universidade Federal de Pelotas</institution>
             <institution content-type="orgdiv1">Faculdade de Medicina</institution>
@@ -121,9 +120,8 @@ class AffiliationTest(TestCase):
     def test_xml(self):
         self.maxDiff = None
         self.assertEqual(
-            self.aff.xml,
-            """<?xml version='1.0' encoding='utf-8'?>
-<aff id="aff1">
+            self.aff.xml(),
+            """<aff id="aff1">
             <label>I</label>
             <institution content-type="orgname">Universidade Federal de Pelotas</institution>
             <institution content-type="orgdiv1">Faculdade de Medicina</institution>
