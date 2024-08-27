@@ -10,11 +10,10 @@ class Affiliation:
         return f'<aff id="{self.aff_id}">'
 
     def __str__(self):
-        return tostring(self.aff_node)
+        return tostring(self.aff_node, xml_declaration=False)
 
-    @property
-    def xml(self):
-        return tostring(node=self.aff_node, doctype=None, pretty_print=True, xml_declaration=True)
+    def xml(self, pretty_print=True):
+        return tostring(node=self.aff_node, doctype=None, pretty_print=pretty_print, xml_declaration=False)
 
     @property
     def aff_id(self):
@@ -106,7 +105,7 @@ class Affiliations:
         parent_id = self.node.get("id")
 
         if parent == "article":
-            root = self.node.xpath(".")[0]
+            root = self.node.find(".")
             path = "./front/article-meta//aff"
         else:
             root = self.node
