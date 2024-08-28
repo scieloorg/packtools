@@ -233,60 +233,8 @@ class CorrectedArticleValidationTest(TestCase):
             </article>
             """
         )
-        obtained = list(CorrectedArticleValidation(self.xml_tree).validate_related_article())
+        obtained = list(CorrectedArticleValidation(self.xml_tree).validate_related_articles_and_history_dates())
         expected = [
-            {
-                "title": "errata",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "correction",
-                "parent_lang": "en",
-                "item": "related-article",
-                "sub_item": "@related-article-type",
-                "validation_type": "match",
-                "response": "OK",
-                "expected_value": 'at least one <related-article related-article-type="correction-forward">',
-                "got_value": '<related-article ext-link-type="doi" id="RA1" related-article-type="correction-forward" xlink:href="10.5935/abc.20160032"/>',
-                "message": f'Got <related-article ext-link-type="doi" id="RA1" related-article-type="correction-forward" xlink:href="10.5935/abc.20160032"/>, '
-                           f'expected at least one <related-article related-article-type="correction-forward">',
-                "advice": None,
-                "data": {
-                    'ext-link-type': 'doi',
-                    'href': '10.5935/abc.20160032',
-                    'id': 'RA1',
-                    'parent': 'article',
-                    'parent_article_type': 'correction',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'related-article-type': 'correction-forward'
-                },
-            },
-            {
-                "title": "errata",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "correction",
-                "parent_lang": "en",
-                "item": "related-article",
-                "sub_item": "@related-article-type",
-                "validation_type": "match",
-                "response": "OK",
-                "expected_value": 'at least one <related-article related-article-type="correction-forward">',
-                "got_value": '<related-article ext-link-type="doi" id="RA2" related-article-type="correction-forward" xlink:href="10.5935/abc.20150051"/>',
-                "message": f'Got <related-article ext-link-type="doi" id="RA2" related-article-type="correction-forward" xlink:href="10.5935/abc.20150051"/>, '
-                           f'expected at least one <related-article related-article-type="correction-forward">',
-                "advice": None,
-                "data": {
-                    'ext-link-type': 'doi',
-                    'href': '10.5935/abc.20150051',
-                    'id': 'RA2',
-                    'parent': 'article',
-                    'parent_article_type': 'correction',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'related-article-type': 'correction-forward'
-                },
-            },
             {
                 "title": "errata",
                 "parent": "article",
