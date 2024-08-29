@@ -103,7 +103,11 @@ class IdsTest(TestCase):
                         <aff id="aff1">
                             <p>affiliation</p>
                         </aff>
-    
+                        
+                        <aff id="aff2">
+                            <p>affiliation</p>
+                        </aff>    
+        
                         <p><xref ref-type="fig" rid="fig1">1</xref></p>
                         <fig id="fig1">
                             <p>figure</p>
@@ -130,9 +134,17 @@ class IdsTest(TestCase):
                 "parent_id": None,
                 "parent_lang": "en",
                 "tag": "aff",
+            },
+            {
+                "id": "aff2",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "tag": "aff",
             }
         ]
-        self.assertEqual(len(obtained), 1)
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
@@ -150,6 +162,9 @@ class ArticleXrefTest(TestCase):
                         <aff id="aff1">
                             <p>affiliation</p>
                         </aff>
+                        <aff id="aff2">
+                            <p>affiliation</p>
+                        </aff>
                     </article-meta>
                 </front>
 
@@ -164,7 +179,10 @@ class ArticleXrefTest(TestCase):
                                 <xref ref-type="aff" rid="aff2">2</xref>
                             </contrib>
                         </contrib-group>
-                        <aff id="aff2">
+                        <aff id="aff3">
+                            <institution>Universidad Ejemplo</institution>
+                        </aff>
+                        <aff id="aff4">
                             <institution>Universidad Ejemplo</institution>
                         </aff>
                     </front-stub>
@@ -191,6 +209,26 @@ class ArticleXrefTest(TestCase):
             "aff2": [
                 {
                     "id": "aff2",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "tag": "aff",
+                }
+            ],
+            "aff3": [
+                {
+                    "id": "aff3",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": None,
+                    "parent_lang": "es",
+                    "tag": "aff",
+                }
+            ],
+            "aff4": [
+                {
+                    "id": "aff4",
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": None,
@@ -199,7 +237,7 @@ class ArticleXrefTest(TestCase):
                 }
             ]
         }
-        self.assertEqual(len(obtained), 2)
+        self.assertEqual(len(obtained), 4)
         for id, item in expected.items():
             for i, subitem in enumerate(item):
                 with self.subTest(id):
@@ -239,9 +277,17 @@ class ArticleXrefTest(TestCase):
                 "parent_id": None,
                 "parent_lang": "en",
                 "tag": "aff",
+            },
+            {
+                "id": "aff2",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "tag": "aff",
             }
         ]
-        self.assertEqual(len(obtained), 1)
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
@@ -250,7 +296,15 @@ class ArticleXrefTest(TestCase):
         obtained = list(self.article_xref.sub_article_translation_ids(element_name="aff"))
         expected = [
             {
-                "id": "aff2",
+                "id": "aff3",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": None,
+                "parent_lang": "es",
+                "tag": "aff",
+            },
+            {
+                "id": "aff4",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": None,
@@ -258,7 +312,7 @@ class ArticleXrefTest(TestCase):
                 "tag": "aff",
             }
         ]
-        self.assertEqual(len(obtained), 1)
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
