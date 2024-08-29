@@ -4,37 +4,28 @@ from packtools.sps.models.article_dates import HistoryDates
 
 
 class ValidationBase:
-    def __init__(self, xml_tree, related_article_type, validation_title):
-        """
-        Initializes the base validation class.
-
-        Args:
-            xml_tree (ElementTree): The XML tree of the document to be validated.
-            related_article_type (str): The type of related article to be validated.
-            validation_title (str): The title of the validation for identification purposes.
-        """
+    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
         self.xml_tree = xml_tree
-        self.validation_title = validation_title
         self.article_lang = xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
-        self.article_type = xml_tree.xpath(".")[0].get("article-type")
-        self.related_articles = self._get_related_articles(xml_tree, related_article_type)
+        self.article_type = xml_tree.find(".").get("article-type")
+        self.expected_article_type = expected_article_type
+        self.expected_related_article_type = expected_related_article_type
+        self.related_articles = self._get_related_articles()
 
-    def validate_related_article(self, expected_article_type, expected_related_article_type, expected_response,
-                                 error_level=None):
+    def validate_related_article(self, error_level="ERROR"):
         """
         Validates the related articles against the expected type and other criteria.
 
         Args:
-            expected_article_type (str): The expected article type for validation.
-            expected_related_article_type (str): The expected related article type.
-            expected_response (str): The expected response message if validation passes.
-            error_level (str, optional): The error level for the validation response. Defaults to None.
+            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
 
         Yields:
             dict: A formatted response indicating whether the validation passed or failed.
         """
-        if self.article_type != expected_article_type:
+        if self.article_type != self.expected_article_type:
             return
+
+        expected_response = f'at least one <related-article related-article-type="{self.expected_related_article_type}">'
 
         if self.related_articles:
             yield from (
@@ -52,16 +43,16 @@ class ValidationBase:
         else:
             yield self._format_response(
                 validation_type="exist",
-                expected=f'at least one <related-article related-article-type="{expected_related_article_type}">',
+                expected=f'at least one <related-article related-article-type="{self.expected_related_article_type}">',
                 error_level=error_level,
                 is_valid=False,
-                advice=f'provide <related-article related-article-type="{expected_related_article_type}">',
+                advice=f'provide <related-article related-article-type="{self.expected_related_article_type}">',
             )
 
-    def _get_related_articles(self, xml_tree, related_article_type):
+    def _get_related_articles(self,):
         return [
-            article for article in RelatedItems(xml_tree).related_articles
-            if article.get("related-article-type") == related_article_type
+            article for article in RelatedItems(self.xml_tree).related_articles
+            if article.get("related-article-type") == self.expected_related_article_type
         ]
 
     def _format_obtained(self, related_article):
@@ -74,7 +65,7 @@ class ValidationBase:
     def _format_response(self, validation_type, expected, error_level, is_valid, related_article=None, obtained=None,
                          advice=None, data=None):
         return format_response(
-            title=self.validation_title,
+            title="errata",
             parent=related_article.get("parent") if related_article else "article",
             parent_id=related_article.get("parent_id") if related_article else None,
             parent_article_type="correction",
@@ -92,66 +83,26 @@ class ValidationBase:
 
 
 class ErrataValidation(ValidationBase):
-    def __init__(self, xml_tree):
-        super().__init__(xml_tree, related_article_type="corrected-article", validation_title="errata")
-
-    def validate_related_article(
-        self,
-        expected_article_type="correction",
-        expected_related_article_type="corrected-article",
-        expected_response='at least one <related-article related-article-type="corrected-article">',
-        error_level="ERROR",
-    ):
-        """
-        Validates related articles specifically for errata.
-
-        Args:
-            expected_article_type (str): The expected article type for validation.
-            expected_related_article_type (str): The expected related article type.
-            expected_response (str): The expected response message if validation passes.
-            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
-
-        Yields:
-            dict: A formatted response indicating whether the validation passed or failed.
-        """
-        yield from super().validate_related_article(
-            expected_article_type=expected_article_type,
-            expected_related_article_type=expected_related_article_type,
-            expected_response=expected_response,
-            error_level=error_level,
-        )
+    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
+        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
 
 
 class CorrectedArticleValidation(ValidationBase):
-    def __init__(self, xml_tree):
-        super().__init__(xml_tree, related_article_type="correction-forward", validation_title="errata")
-        self.history_dates = self._get_history_dates(xml_tree)
+    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
+        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
+        self.history_dates = self._get_history_dates()
 
-    def validate_related_article(
-        self,
-        expected_article_type="correction",
-        expected_related_article_type="correction-forward",
-        expected_response='at least one <related-article related-article-type="correction-forward">',
-        error_level="ERROR",
-    ):
+    def validate_related_article(self, error_level="ERROR"):
         """
         Validates related articles specifically for corrected articles.
 
         Args:
-            expected_article_type (str): The expected article type for validation.
-            expected_related_article_type (str): The expected related article type.
-            expected_response (str): The expected response message if validation passes.
             error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
 
         Yields:
             dict: A formatted response indicating whether the validation passed or failed.
         """
-        yield from super().validate_related_article(
-            expected_article_type=expected_article_type,
-            expected_related_article_type=expected_related_article_type,
-            expected_response=expected_response,
-            error_level=error_level,
-        )
+        yield from super().validate_related_article(error_level=error_level)
 
     def validate_related_articles_and_history_dates(self, error_level="ERROR"):
         """
@@ -184,8 +135,8 @@ class CorrectedArticleValidation(ValidationBase):
                 error_level=error_level,
             )
 
-    def _get_history_dates(self, xml_tree):
+    def _get_history_dates(self):
         return [
-            date for date in HistoryDates(xml_tree).history_dates()
+            date for date in HistoryDates(self.xml_tree).history_dates()
             if "corrected" in date.get("history")
         ]
