@@ -22,7 +22,7 @@ class ErrataValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "errata",
+                "title": "validation matching 'correction' and 'corrected-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -63,7 +63,7 @@ class ErrataValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "errata",
+                "title": "validation matching 'correction' and 'corrected-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -112,7 +112,7 @@ class CorrectedArticleValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "errata",
+                "title": "validation matching 'correction' and 'correction-forward'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -179,7 +179,7 @@ class CorrectedArticleValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "errata",
+                "title": "validation matching 'correction' and 'correction-forward'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -256,7 +256,7 @@ class CorrectedArticleValidationTest(TestCase):
         ).validate_related_articles_and_history_dates())
         expected = [
             {
-                "title": "errata",
+                "title": "validation related and corrected dates count",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
