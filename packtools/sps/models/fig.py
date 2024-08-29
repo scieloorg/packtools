@@ -9,10 +9,10 @@ class Fig:
         return f'<fig fig-type="{self.fig_type}" id="{self.fig_id}">'
 
     def __str__(self):
-        return tostring(self.element)
+        return tostring(self.element, xml_declaration=False)
 
-    def xml(self):
-        return tostring(node=self.element, doctype=None, pretty_print=True, xml_declaration=True)
+    def xml(self, pretty_print=True):
+        return tostring(node=self.element, doctype=None, pretty_print=pretty_print, xml_declaration=False)
 
     @property
     def fig_id(self):
@@ -76,24 +76,21 @@ class Figs:
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
         self.node = node
+        self.node = node.find(".") if node.tag == "article" else node
+        self.parent = self.node.tag
+        self.parent_id = self.node.get("id")
+        self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.article_type = self.node.get("article-type")
 
     def figs(self):
-        parent = self.node.tag
-        parent_id = self.node.get("id")
-
-        if parent == "article":
-            root = self.node.xpath(".")[0]
+        if self.parent == "article":
             path = "./front//fig | ./body//fig | ./back//fig"
         else:
-            root = self.node
             path = ".//fig"
 
-        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
-        article_type = root.get("article-type")
-
-        for fig in root.xpath(path):
+        for fig in self.node.xpath(path):
             data = Fig(fig).data
-            yield put_parent_context(data, lang, article_type, parent, parent_id)
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
 class ArticleFigs:
