@@ -15,7 +15,11 @@ class ErrataValidationTest(TestCase):
 
             """
         )
-        obtained = list(ErrataValidation(self.xml_tree).validate_related_article())
+        obtained = list(ErrataValidation(
+            self.xml_tree,
+            expected_article_type="correction",
+            expected_related_article_type="corrected-article"
+        ).validate_related_article())
         expected = [
             {
                 "title": "errata",
@@ -52,7 +56,11 @@ class ErrataValidationTest(TestCase):
 
             """
         )
-        obtained = list(ErrataValidation(self.xml_tree).validate_related_article())
+        obtained = list(ErrataValidation(
+            self.xml_tree,
+            expected_article_type="correction",
+            expected_related_article_type="corrected-article"
+        ).validate_related_article())
         expected = [
             {
                 "title": "errata",
@@ -97,7 +105,11 @@ class CorrectedArticleValidationTest(TestCase):
 
             """
         )
-        obtained = list(CorrectedArticleValidation(self.xml_tree).validate_related_article())
+        obtained = list(CorrectedArticleValidation(
+            self.xml_tree,
+            expected_article_type="correction",
+            expected_related_article_type="correction-forward"
+        ).validate_related_article())
         expected = [
             {
                 "title": "errata",
@@ -160,7 +172,11 @@ class CorrectedArticleValidationTest(TestCase):
             </article>
             """
         )
-        obtained = list(CorrectedArticleValidation(self.xml_tree).validate_related_article())
+        obtained = list(CorrectedArticleValidation(
+            self.xml_tree,
+            expected_article_type="correction",
+            expected_related_article_type="correction-forward"
+        ).validate_related_article())
         expected = [
             {
                 "title": "errata",
@@ -233,7 +249,11 @@ class CorrectedArticleValidationTest(TestCase):
             </article>
             """
         )
-        obtained = list(CorrectedArticleValidation(self.xml_tree).validate_related_articles_and_history_dates())
+        obtained = list(CorrectedArticleValidation(
+            self.xml_tree,
+            expected_article_type="correction",
+            expected_related_article_type="correction-forward"
+        ).validate_related_articles_and_history_dates())
         expected = [
             {
                 "title": "errata",
