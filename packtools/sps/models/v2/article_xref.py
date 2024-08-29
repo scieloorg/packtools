@@ -49,29 +49,23 @@ class Ids:
             The XML node (element) that contains one or more <node @id> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node
+        self.node = node.find(".") if node.tag == "article" else node
+        self.parent = self.node.tag
+        self.parent_id = self.node.get("id")
+        self.article_type = node.get("article-type")
+        self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
-    def ids(self, element_name=None):
-        if not element_name:
-            element_name = "*"
-        parent = self.node.tag
-        parent_id = self.node.get("id")
-
-        if parent == "article":
-            root = self.node.xpath(".")[0]
+    def ids(self, element_name="*"):
+        if self.parent == "article":
             path = f"./front//{element_name}[@id] | ./body//{element_name}[@id] | ./back//{element_name}[@id]"
         else:
-            root = self.node
             path = f".//{element_name}[@id]"
-
-        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
-        article_type = root.get("article-type")
 
         for id_node in self.node.xpath(path):
             id_data = Id(id_node).data
 
             yield put_parent_context(
-                id_data, lang, article_type, parent, parent_id
+                id_data, self.lang, self.article_type, self.parent, self.parent_id
             )
 
 
