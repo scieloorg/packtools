@@ -75,7 +75,6 @@ class Figs:
             The XML node (element) that contains one or more <fig> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node
         self.node = node.find(".") if node.tag == "article" else node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
