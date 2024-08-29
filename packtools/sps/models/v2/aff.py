@@ -98,26 +98,22 @@ class Affiliations:
             The XML node (element) that contains one or more <aff> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node
+        self.node = node.find(".") if node.tag == "article" else node
+        self.parent = self.node.tag
+        self.parent_id = self.node.get("id")
+        self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.article_type = self.node.get("article-type")
 
     def affiliations(self):
-        parent = self.node.tag
-        parent_id = self.node.get("id")
-
-        if parent == "article":
-            root = self.node.find(".")
+        if self.parent == "article":
             path = "./front/article-meta//aff"
         else:
-            root = self.node
             path = "./contrib-group//aff | ./front-stub//aff"
-
-        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
-        article_type = root.get("article-type")
 
         for aff_node in self.node.xpath(path):
             data = Affiliation(aff_node).data
 
-            yield put_parent_context(data, lang, article_type, parent, parent_id)
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
 
 
 class ArticleAffiliations:
