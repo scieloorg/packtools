@@ -12,7 +12,7 @@ class ValidationBase:
         self.expected_related_article_type = expected_related_article_type
         self.related_articles = self._get_related_articles()
 
-    def validate_related_article(self, error_level="ERROR"):
+    def validate_related_article(self, title, error_level="ERROR"):
         """
         Validates the related articles against the expected type and other criteria.
 
@@ -30,6 +30,7 @@ class ValidationBase:
         if self.related_articles:
             yield from (
                 self._format_response(
+                    title=title,
                     validation_type="match",
                     expected=expected_response,
                     error_level=error_level,
@@ -42,6 +43,7 @@ class ValidationBase:
             )
         else:
             yield self._format_response(
+                title=title,
                 validation_type="exist",
                 expected=f'at least one <related-article related-article-type="{self.expected_related_article_type}">',
                 error_level=error_level,
@@ -62,10 +64,10 @@ class ValidationBase:
             f'xlink:href="{related_article.get("href")}"/>'
         )
 
-    def _format_response(self, validation_type, expected, error_level, is_valid, related_article=None, obtained=None,
+    def _format_response(self, title, validation_type, expected, error_level, is_valid, related_article=None, obtained=None,
                          advice=None, data=None):
         return format_response(
-            title="errata",
+            title=title,
             parent=related_article.get("parent") if related_article else "article",
             parent_id=related_article.get("parent_id") if related_article else None,
             parent_article_type="correction",
@@ -86,13 +88,7 @@ class ErrataValidation(ValidationBase):
     def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
         super().__init__(xml_tree, expected_article_type, expected_related_article_type)
 
-
-class CorrectedArticleValidation(ValidationBase):
-    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
-        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
-        self.history_dates = self._get_history_dates()
-
-    def validate_related_article(self, error_level="ERROR"):
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'corrected-article'"):
         """
         Validates related articles specifically for corrected articles.
 
@@ -102,7 +98,25 @@ class CorrectedArticleValidation(ValidationBase):
         Yields:
             dict: A formatted response indicating whether the validation passed or failed.
         """
-        yield from super().validate_related_article(error_level=error_level)
+        yield from super().validate_related_article(error_level=error_level, title=title)
+
+
+class CorrectedArticleValidation(ValidationBase):
+    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
+        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
+        self.history_dates = self._get_history_dates()
+
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'correction-forward'"):
+        """
+        Validates related articles specifically for corrected articles.
+
+        Args:
+            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
+
+        Yields:
+            dict: A formatted response indicating whether the validation passed or failed.
+        """
+        yield from super().validate_related_article(error_level=error_level, title=title)
 
     def validate_related_articles_and_history_dates(self, error_level="ERROR"):
         """
@@ -119,7 +133,7 @@ class CorrectedArticleValidation(ValidationBase):
 
         if history_date_count < related_article_count:
             yield format_response(
-                title="errata",
+                title="validation related and corrected dates count",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.article_type,
