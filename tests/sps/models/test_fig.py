@@ -42,9 +42,10 @@ class FigTest(unittest.TestCase):
         )
 
     def test_str(self):
+        self.maxDiff = None
         self.assertEqual(
             str(self.fig_obj),
-            "<?xml version='1.0' encoding='utf-8'?>\n<fig xmlns:xlink=\"http://www.w3.org/1999/xlink\" "
+            "<fig xmlns:xlink=\"http://www.w3.org/1999/xlink\" "
             "xmlns:mml=\"http://www.w3.org/1998/Math/MathML\" fig-type=\"map\" id=\"f02\"><label>FIGURE "
             "2</label><caption><title>Título da figura</title></caption><graphic "
             "xlink:href=\"1234-5678-zwy-12-04-0123-gf02.tif\"/><attrib>Fonte: IBGE ("
@@ -59,8 +60,7 @@ class FigTest(unittest.TestCase):
         self.maxDiff = None
         self.assertEqual(
             self.fig_obj.xml(),
-            """<?xml version='1.0' encoding='utf-8'?>
-<fig xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" fig-type="map" id="f02">
+            """<fig xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" fig-type="map" id="f02">
   <label>FIGURE 2</label>
   <caption>
     <title>Título da figura</title>
