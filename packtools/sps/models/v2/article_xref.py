@@ -29,7 +29,9 @@ class Id:
         self.node_id = self.node.get("id")
         self.node_tag = self.node.tag
         self.str_main_tag = f'<{self.node_tag} id="{self.node_id}">'
-        self.xml = tostring(node=self.node, doctype=None, pretty_print=True, xml_declaration=True)
+
+    def xml(self, doctype=None, pretty_print=True, xml_declaration=True):
+        return tostring(node=self.node, doctype=doctype, pretty_print=pretty_print, xml_declaration=xml_declaration)
 
     def __str__(self):
         return tostring(self.node)
@@ -49,7 +51,7 @@ class Ids:
             The XML node (element) that contains one or more <node @id> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node.find(".") if node.tag == "article" else node
+        self.node = node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
         self.article_type = node.get("article-type")
@@ -95,7 +97,7 @@ class ArticleXref:
         return response
 
     def article_ids(self, element_name):
-        yield from Ids(self.xml_tree).ids(element_name)
+        yield from Ids(self.xml_tree.find(".")).ids(element_name)
 
     def sub_article_translation_ids(self, element_name):
         for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
