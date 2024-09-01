@@ -45,7 +45,7 @@ class ValidationBase:
             yield self._format_response(
                 title=title,
                 validation_type="exist",
-                expected=f'at least one <related-article related-article-type="{self.expected_related_article_type}">',
+                expected=expected_response,
                 error_level=error_level,
                 is_valid=False,
                 advice=f'provide <related-article related-article-type="{self.expected_related_article_type}">',
@@ -70,7 +70,7 @@ class ValidationBase:
             title=title,
             parent=related_article.get("parent") if related_article else "article",
             parent_id=related_article.get("parent_id") if related_article else None,
-            parent_article_type="correction",
+            parent_article_type=related_article.get("parent_article_type") if related_article else None,
             parent_lang=related_article.get("parent_lang") if related_article else self.article_lang,
             item="related-article",
             sub_item="@related-article-type",
@@ -118,7 +118,7 @@ class CorrectedArticleValidation(ValidationBase):
         """
         yield from super().validate_related_article(error_level=error_level, title=title)
 
-    def validate_related_articles_and_history_dates(self, error_level="ERROR"):
+    def validate_history_dates(self, error_level="ERROR"):
         """
         Validates that the number of related articles matches the number of corresponding corrected dates.
 
