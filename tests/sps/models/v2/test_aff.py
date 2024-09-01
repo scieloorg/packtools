@@ -185,9 +185,9 @@ class AffiliationsTest(TestCase):
         ]
 
         self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
 
 class ArticleAffiliationsTest(TestCase):
@@ -237,9 +237,9 @@ class ArticleAffiliationsTest(TestCase):
         ]
 
         self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_sub_article_translation_affs(self):
         self.maxDiff = None
@@ -291,9 +291,9 @@ class ArticleAffiliationsTest(TestCase):
         ]
 
         self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_sub_article_non_translation_affs(self):
         self.maxDiff = None
@@ -396,6 +396,6 @@ class ArticleAffiliationsTest(TestCase):
         ]
 
         self.assertEqual(len(obtained), 4)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
