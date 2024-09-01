@@ -75,7 +75,7 @@ class Figs:
             The XML node (element) that contains one or more <fig> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node.find(".") if node.tag == "article" else node
+        self.node = node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
         self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -104,7 +104,7 @@ class ArticleFigs:
 
     @property
     def get_article_figs(self):
-        yield from Figs(self.xml_tree).figs()
+        yield from Figs(self.xml_tree.find(".")).figs()
 
     @property
     def get_sub_article_translation_figs(self):
