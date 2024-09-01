@@ -302,9 +302,9 @@ class ArticleFigsTest(unittest.TestCase):
         ]
 
         self.assertEqual(len(obtained), 5)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_article_figs(self):
         self.maxDiff = None
@@ -352,9 +352,9 @@ class ArticleFigsTest(unittest.TestCase):
         ]
 
         self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_get_sub_article_translation_figs(self):
         self.maxDiff = None
@@ -418,9 +418,9 @@ class ArticleFigsTest(unittest.TestCase):
         ]
 
         self.assertEqual(len(obtained), 1)
-        for i, item in enumerate(obtained):
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
 
 if __name__ == "__main__":
