@@ -78,16 +78,34 @@ class IdTest(TestCase):
                 """
         )
 
-    def test_xml(self):
-        self.assertEqual(
-            self.node_id.xml,
-            """<?xml version='1.0' encoding='utf-8'?>
+    def test_xml_1(self):
+        self.maxDiff = None
+        result = self.node_id.xml(doctype=None, pretty_print=True, xml_declaration=True)
+        expected = """<?xml version='1.0' encoding='utf-8'?>
 <aff id="aff1">
                         <p>affiliation</p>
                     </aff>
                 
 """
-        )
+        self.assertEqual(result, expected)
+
+    def test_xml_2(self):
+        self.maxDiff = None
+        result = self.node_id.xml(doctype=None, pretty_print=True, xml_declaration=None)
+        expected = """<aff id="aff1">
+                        <p>affiliation</p>
+                    </aff>
+                
+"""
+        self.assertEqual(result, expected)
+
+    def test_xml_3(self):
+        self.maxDiff = None
+        result = self.node_id.xml(doctype=None, pretty_print=None, xml_declaration=None)
+        expected = """<aff id="aff1">
+                        <p>affiliation</p>
+                    </aff>"""
+        self.assertEqual(result.strip(), expected)
 
 
 class IdsTest(TestCase):
