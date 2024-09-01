@@ -25,7 +25,7 @@ class ErrataValidationTest(TestCase):
                 "title": "validation matching 'correction' and 'corrected-article'",
                 "parent": "article",
                 "parent_id": None,
-                "parent_article_type": "correction",
+                "parent_article_type": None,
                 "parent_lang": "en",
                 "item": "related-article",
                 "sub_item": "@related-article-type",
@@ -38,9 +38,10 @@ class ErrataValidationTest(TestCase):
                 "data": None,
             }
         ]
-        for i, item in enumerate(obtained):
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_validate_related_article_found(self):
         self.maxDiff = None
@@ -89,9 +90,10 @@ class ErrataValidationTest(TestCase):
                 },
             }
         ]
-        for i, item in enumerate(obtained):
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
 
 class CorrectedArticleValidationTest(TestCase):
@@ -115,7 +117,7 @@ class CorrectedArticleValidationTest(TestCase):
                 "title": "validation matching 'correction' and 'correction-forward'",
                 "parent": "article",
                 "parent_id": None,
-                "parent_article_type": "correction",
+                "parent_article_type": None,
                 "parent_lang": "en",
                 "item": "related-article",
                 "sub_item": "@related-article-type",
@@ -128,9 +130,10 @@ class CorrectedArticleValidationTest(TestCase):
                 "data": None,
             }
         ]
-        for i, item in enumerate(obtained):
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_validate_related_article_found(self):
         self.maxDiff = None
@@ -205,9 +208,10 @@ class CorrectedArticleValidationTest(TestCase):
                 },
             }
         ]
-        for i, item in enumerate(obtained):
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
 
     def test_validate_count_related_article_count_date(self):
         self.maxDiff = None
@@ -253,7 +257,7 @@ class CorrectedArticleValidationTest(TestCase):
             self.xml_tree,
             expected_article_type="correction",
             expected_related_article_type="correction-forward"
-        ).validate_related_articles_and_history_dates())
+        ).validate_history_dates())
         expected = [
             {
                 "title": "validation related and corrected dates count",
@@ -290,6 +294,7 @@ class CorrectedArticleValidationTest(TestCase):
                 ]
             }
         ]
-        for i, item in enumerate(obtained):
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(item, expected[i])
+                self.assertDictEqual(item, obtained[i])
