@@ -1,38 +1,70 @@
-from ..models.fig import ArticleFigs
-from ..validation.utils import format_response
+from packtools.sps.models.fig import ArticleFigs
+from packtools.sps.validation.utils import format_response
 
 
 class FigValidation:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self.figures_by_language = ArticleFigs(xmltree).items_by_lang
+    """
+    A class used to validate the existence of <fig> elements within an XML document.
+
+    Attributes
+    ----------
+    xml_tree : lxml.etree._ElementTree
+        The parsed XML document representing the article.
+    figures : list
+        A list of dictionaries containing information about figures extracted from the XML.
+
+    Methods
+    -------
+    validate_fig_existence(error_level="WARNING")
+        Validates the existence of <fig> elements within the XML document and yields formatted responses.
+    """
+
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
+        self.figures = list(ArticleFigs(xml_tree).get_all_figs)
 
     def validate_fig_existence(self, error_level="WARNING"):
-        if self.figures_by_language:
-            for lang, figure_data in self.figures_by_language.items():
+        """
+        Validates the existence of <fig> elements within the XML document.
+
+        If <fig> elements are found, yields a formatted response for each figure.
+        If no <fig> elements are found, yields a single formatted response indicating their absence.
+
+        Parameters
+        ----------
+        error_level : str, optional
+            The level of the error to be reported (default is "WARNING").
+
+        Yields
+        ------
+        dict
+            A dictionary containing the validation response for each <fig> element, or a single response indicating no figures were found.
+        """
+        if self.figures:
+            for figure in self.figures:
                 yield format_response(
-                    title="validation of <fig> elements",
-                    parent=figure_data.get("parent"),
-                    parent_id=figure_data.get("parent_id"),
-                    parent_article_type=figure_data.get("parent_article_type"),
-                    parent_lang=figure_data.get("parent_lang"),
+                    title="fig presence",
+                    parent=figure.get("parent"),
+                    parent_id=figure.get("parent_id"),
+                    parent_article_type=figure.get("parent_article_type"),
+                    parent_lang=figure.get("parent_lang"),
                     item="fig",
                     sub_item=None,
                     validation_type="exist",
                     is_valid=True,
-                    expected=figure_data.get("fig_id"),
-                    obtained=figure_data.get("fig_id"),
+                    expected="<fig> element",
+                    obtained=f'<fig fig-type="{figure.get("fig_type")}" id="{figure.get("fig_id")}">',
                     advice=None,
-                    data=figure_data,
+                    data=figure,
                     error_level="OK",
                 )
         else:
             yield format_response(
-                title="validation of <fig> elements",
+                title="fig presence",
                 parent="article",
                 parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get(
+                parent_article_type=self.xml_tree.get("article-type"),
+                parent_lang=self.xml_tree.get(
                     "{http://www.w3.org/XML/1998/namespace}lang"
                 ),
                 item="fig",

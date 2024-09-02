@@ -1,67 +1,33 @@
-import xml.etree.ElementTree as ET
-
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.utils.xml_utils import put_parent_context, tostring
 
 
 class Fig:
-    """
-    Represents a figure element within an XML document.
-
-    **Attributes:**
-        element (xml.etree.ElementTree.Element): The XML element representing the figure.
-
-    **Parameters:**
-        element (xml.etree.ElementTree.Element): The XML element representing the figure.
-    """
-
     def __init__(self, element):
-        """
-        Initializes a Fig object.
-
-        **Parameters:**
-            element (xml.etree.ElementTree.Element): The XML element representing the figure.
-        """
         self.element = element
+
+    def str_main_tag(self):
+        return f'<fig fig-type="{self.fig_type}" id="{self.fig_id}">'
+
+    def __str__(self):
+        return tostring(self.element, xml_declaration=False)
+
+    def xml(self, pretty_print=True):
+        return tostring(node=self.element, doctype=None, pretty_print=pretty_print, xml_declaration=False)
 
     @property
     def fig_id(self):
-        """
-        Returns the ID of the figure from the 'id' attribute of the element.
-
-        Returns:
-            str: The ID of the figure, or None if the 'id' attribute is not found.
-        """
         return self.element.get("id")
 
     @property
     def fig_type(self):
-        """
-        Returns the type of the figure from the 'fig-type' attribute of the element.
-
-        Returns:
-            str: The type of the figure, or None if the 'fig-type' attribute is not found.
-        """
         return self.element.get("fig-type")
 
     @property
     def label(self):
-        """
-        Returns the label of the figure.
-
-        Returns:
-            str: The text content of the <label> element, or None if the element is not found.
-        """
         return self.element.findtext("label")
 
     @property
     def graphic_href(self):
-        """
-        Returns the href of the graphic element within the figure.
-
-        Returns:
-            str: The value of the 'xlink:href' attribute of the <graphic> element,
-                 or None if the element or attribute is not found.
-        """
         graphic_element = self.element.find(".//graphic")
         if graphic_element is not None:
             return graphic_element.get("{http://www.w3.org/1999/xlink}href")
@@ -69,51 +35,24 @@ class Fig:
 
     @property
     def caption_text(self):
-        """
-        Returns the text content of the caption element within the figure.
-
-        Returns:
-            str: The concatenated text content of the <caption> element,
-                 or an empty string if the element is not found.
-        """
         caption_element = self.element.find(".//caption")
         if caption_element is not None:
-            return ET.tostring(caption_element, encoding='unicode', method='text').strip()
+            return caption_element.xpath("string()").strip()
         return ""
 
     @property
     def source_attrib(self):
-        """
-        Returns the text content of the attrib element within the figure.
-
-        Returns:
-            str: The text content of the <attrib> element, or None if the element is not found.
-        """
         return self.element.findtext("attrib")
 
     @property
     def alternative_elements(self):
-        """
-        Returns a list of tags within the alternatives element.
-
-        Returns:
-            list: A list of tag names of the elements within the <alternatives> element,
-                  or an empty list if the element is not found.
-        """
-        alternative_elements = self.element.find('.//alternatives')
+        alternative_elements = self.element.find(".//alternatives")
         if alternative_elements is not None:
             return [child.tag for child in alternative_elements]
         return []
 
     @property
     def data(self):
-        """
-        Returns a dictionary containing the figure's data.
-
-        Returns:
-            dict: A dictionary with keys 'fig_id', 'fig_type', 'label', 'graphic_href', 'caption_text', 'source_attrib', and 'alternative_tags',
-                  containing the respective data of the figure.
-        """
         return {
             "alternative_parent": "fig",
             "fig_id": self.fig_id,
@@ -122,49 +61,57 @@ class Fig:
             "graphic_href": self.graphic_href,
             "caption_text": self.caption_text,
             "source_attrib": self.source_attrib,
-            "alternative_elements": self.alternative_elements
+            "alternative_elements": self.alternative_elements,
         }
 
 
+class Figs:
+    def __init__(self, node):
+        """
+        Initializes the Figs class with an XML node.
+
+        Parameters:
+        node : lxml.etree._Element
+            The XML node (element) that contains one or more <fig> elements.
+            This can be the root of an `xml_tree` or a node representing a `sub-article`.
+        """
+        self.node = node
+        self.parent = self.node.tag
+        self.parent_id = self.node.get("id")
+        self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.article_type = self.node.get("article-type")
+
+    def figs(self):
+        if self.parent == "article":
+            path = "./front//fig | ./body//fig | ./back//fig"
+        else:
+            path = ".//fig"
+
+        for fig in self.node.xpath(path):
+            data = Fig(fig).data
+            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+
+
 class ArticleFigs:
-    """
-    Represents an article with its associated figures, grouped by language.
-
-    **Parameters:**
-        xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
-
-    **Attributes:**
-        xmltree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
-    """
-
-    def __init__(self, xmltree):
-        """
-        Initializes an ArticleFigs object.
-
-        **Parameters:**
-            xmltree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
-        """
-        self.xmltree = xmltree
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
 
     @property
-    def items_by_lang(self):
-        """
-        Returns a dictionary containing information about figures grouped by language.
+    def get_all_figs(self):
+        yield from self.get_article_figs
+        yield from self.get_sub_article_translation_figs
+        yield from self.get_sub_article_non_translation_figs
 
-        Iterates through parent contexts (article or sub-article elements) in the XML document
-        and creates `Parent` objects. For each parent context, it yields data for associated figures
-        using the `parent.items` generator.
+    @property
+    def get_article_figs(self):
+        yield from Figs(self.xml_tree.find(".")).figs()
 
-        Returns:
-            dict: A dictionary where keys are languages and values are generators that yield dictionaries
-                  containing information about figures within that language context.
-        """
-        langs = {}
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
-            for item in node.xpath(".//fig"):
-                figure = Fig(item)
-                data = figure.data
-                parent = put_parent_context(data, lang, article_type, parent, parent_id)
-                langs[lang] = parent
-        if langs:
-            return langs
+    @property
+    def get_sub_article_translation_figs(self):
+        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
+            yield from Figs(node).figs()
+
+    @property
+    def get_sub_article_non_translation_figs(self):
+        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
+            yield from Figs(node).figs()
