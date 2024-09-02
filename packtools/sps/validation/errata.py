@@ -70,7 +70,7 @@ class ValidationBase:
             title=title,
             parent=related_article.get("parent") if related_article else "article",
             parent_id=related_article.get("parent_id") if related_article else None,
-            parent_article_type=related_article.get("parent_article_type") if related_article else None,
+            parent_article_type=related_article.get("parent_article_type") if related_article else self.article_type,
             parent_lang=related_article.get("parent_lang") if related_article else self.article_lang,
             item="related-article",
             sub_item="@related-article-type",
