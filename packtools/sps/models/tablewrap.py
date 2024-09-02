@@ -84,7 +84,7 @@ class TableWrappers:
             The XML node (element) that contains one or more <table-wrap> elements.
             This can be the root of an `xml_tree` or a node representing a `sub-article`.
         """
-        self.node = node.find(".") if node.tag == "article" else node
+        self.node = node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
         self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -113,7 +113,7 @@ class ArticleTableWrappers:
 
     @property
     def get_article_table_wrappers(self):
-        yield from TableWrappers(self.xml_tree).table_wrappers()
+        yield from TableWrappers(self.xml_tree.find(".")).table_wrappers()
 
     @property
     def get_sub_article_translation_table_wrappers(self):
