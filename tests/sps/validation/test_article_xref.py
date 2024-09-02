@@ -9,7 +9,7 @@ class ArticleXrefValidationTest(TestCase):
 
     def test_validate_rids_matches(self):
         self.maxDiff = None
-        self.xmltree = etree.fromstring(
+        self.xml_tree = etree.fromstring(
             """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
@@ -34,7 +34,7 @@ class ArticleXrefValidationTest(TestCase):
             </article>
             """
         )
-        obtained = list(ArticleXrefValidation(self.xmltree).validate_rid())
+        obtained = list(ArticleXrefValidation(self.xml_tree).validate_rid())
 
         expected = [
             {
@@ -52,12 +52,10 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got aff1, expected aff1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'aff',
+                    'rid': 'aff1',
+                    'text': '1'
+                }
             },
             {
                 'title': 'xref element rid attribute validation',
@@ -74,12 +72,10 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got fig1, expected fig1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'fig',
+                    'rid': 'fig1',
+                    'text': '1'
+                }
             },
             {
                 'title': 'xref element rid attribute validation',
@@ -96,14 +92,13 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got table1, expected table1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'table',
+                    'rid': 'table1',
+                    'text': '1'
+                }
             }
         ]
+        self.assertEqual(len(obtained), 3)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -112,21 +107,21 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
-                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>
                         <aff id="aff1">
                             <p>affiliation</p>
                         </aff>
-    
-                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>
                         <fig id="fig1">
                             <p>figure</p>
                         </fig>
-    
-                        <p><xref ref-type="table" rid="table1">1</xref></p>     
+
+                        <p><xref ref-type="table" rid="table1">1</xref></p>
                     </article-meta>
                 </front>
             </article>
@@ -150,12 +145,10 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got aff1, expected aff1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'aff',
+                    'rid': 'aff1',
+                    'text': '1'
+                }
             },
             {
                 'title': 'xref element rid attribute validation',
@@ -172,12 +165,10 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got fig1, expected fig1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'fig',
+                    'rid': 'fig1',
+                    'text': '1'
+                }
             },
             {
                 'title': 'xref element rid attribute validation',
@@ -194,15 +185,14 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got None, expected table1',
                 'advice': 'For each xref[@rid="table1"] must have at least one corresponding element which @id="table1"',
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1')],
-                    'parent': 'article',
-                    'parent_article_type': "research-article",
-                    'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']},
+                    'ref-type': 'table',
+                    'rid': 'table1',
+                    'text': '1'
+                },
             }
         ]
         obtained = list(self.article_xref.validate_rid())
+        self.assertEqual(len(obtained), 3)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -211,21 +201,21 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
-                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>
                         <aff id="aff1">
                             <p>affiliation</p>
                         </aff>
-    
-                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>
                         <fig id="fig1">
                             <p>figure</p>
                         </fig>
-    
-                        <p><xref ref-type="table" rid="table1">1</xref></p>     
+
+                        <p><xref ref-type="table" rid="table1">1</xref></p>
                         <table id="table1">
                             <p>table</p>
                         </table>
@@ -252,12 +242,12 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got aff1, expected aff1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'aff1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']
+                    'parent_lang': 'pt',
+                    'tag': 'aff'
                 }
             },
             {
@@ -275,12 +265,12 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got fig1, expected fig1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'fig1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']
+                    'parent_lang': 'pt',
+                    'tag': 'fig'
                 }
             },
             {
@@ -298,12 +288,12 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got table1, expected table1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'table1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1', 'table1']
+                    'parent_lang': 'pt',
+                    'tag': 'table'
                 }
             }
         ]
@@ -318,20 +308,20 @@ class ArticleXrefValidationTest(TestCase):
         self.maxDiff = None
         self.xmltree = etree.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
             dtd-version="1.0" article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
-                        <p><xref ref-type="aff" rid="aff1">1</xref></p>     
+                        <p><xref ref-type="aff" rid="aff1">1</xref></p>
                         <aff id="aff1">
                             <p>affiliation</p>
                         </aff>
-    
-                        <p><xref ref-type="fig" rid="fig1">1</xref></p>     
+
+                        <p><xref ref-type="fig" rid="fig1">1</xref></p>
                         <fig id="fig1">
                             <p>figure</p>
                         </fig>
-        
+
                         <table id="table1">
                             <p>table</p>
                         </table>
@@ -358,13 +348,13 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got aff1, expected aff1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'aff1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1']
-                },
+                    'parent_lang': 'pt',
+                    'tag': 'aff'
+                }
             },
             {
                 'title': 'element id attribute validation',
@@ -381,13 +371,13 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got fig1, expected fig1',
                 'advice': None,
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'fig1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1']
-                },
+                    'parent_lang': 'pt',
+                    'tag': 'fig'
+                }
             },
             {
                 'title': 'element id attribute validation',
@@ -404,12 +394,12 @@ class ArticleXrefValidationTest(TestCase):
                 'message': 'Got None, expected table1',
                 'advice': 'For each @id="table1" must have at least one corresponding element which xref[@rid="table1"]',
                 'data': {
-                    'ids': [('aff', 'aff1'), ('fig', 'fig1'), ('table', 'table1')],
+                    'id': 'table1',
                     'parent': 'article',
-                    'parent_article_type': "research-article",
+                    'parent_article_type': 'research-article',
                     'parent_id': None,
-                    'parent_lang': "pt",
-                    'rids': ['aff1', 'fig1']
+                    'parent_lang': 'pt',
+                    'tag': 'table'
                 },
             }
         ]
