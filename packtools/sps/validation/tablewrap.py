@@ -1,17 +1,17 @@
-from ..models.tablewrap import ArticleTableWraps
-from ..validation.utils import format_response
+from packtools.sps.models.tablewrap import ArticleTableWrappers
+from packtools.sps.validation.utils import format_response
 
 
 class TableWrapValidation:
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.table_wraps_by_language = ArticleTableWraps(xmltree).items_by_lang
+        self.table_wrappers = list(ArticleTableWrappers(xmltree).get_all_table_wrappers)
 
     def validate_tablewrap_existence(self, error_level="WARNING"):
-        if self.table_wraps_by_language:
-            for lang, table_wrap_data in self.table_wraps_by_language.items():
+        if self.table_wrappers:
+            for table_wrap_data in self.table_wrappers:
                 yield format_response(
-                    title="validation of <table-wrap> elements",
+                    title="table-wrap presence",
                     parent=table_wrap_data.get("parent"),
                     parent_id=table_wrap_data.get("parent_id"),
                     parent_article_type=table_wrap_data.get("parent_article_type"),
@@ -20,15 +20,15 @@ class TableWrapValidation:
                     sub_item=None,
                     validation_type="exist",
                     is_valid=True,
-                    expected=table_wrap_data.get("table_wrap_id"),
-                    obtained=table_wrap_data.get("table_wrap_id"),
+                    expected="<table-wrap> element",
+                    obtained=f'<table-wrap id="{table_wrap_data.get("table_wrap_id")}">',
                     advice=None,
                     data=table_wrap_data,
                     error_level="OK",
                 )
         else:
             yield format_response(
-                title="validation of <table-wrap> elements",
+                title="table-wrap presence",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.xmltree.get("article-type"),
