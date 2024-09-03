@@ -29,26 +29,40 @@ class ValidationBase:
 
         if self.related_articles:
             yield from (
-                self._format_response(
+                format_response(
                     title=title,
+                    parent=related_article.get("parent"),
+                    parent_id=related_article.get("parent_id"),
+                    parent_article_type=related_article.get("parent_article_type"),
+                    parent_lang=related_article.get("parent_lang"),
+                    item="related-article",
+                    sub_item="@related-article-type",
                     validation_type="match",
-                    expected=expected_response,
-                    error_level=error_level,
                     is_valid=True,
-                    related_article=related_article,
+                    expected=expected_response,
                     obtained=self._format_obtained(related_article),
-                    data=related_article
+                    advice=None,
+                    data=related_article,
+                    error_level=error_level
                 )
                 for related_article in self.related_articles
             )
         else:
-            yield self._format_response(
+            yield format_response(
                 title=title,
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.article_type,
+                parent_lang=self.article_lang,
+                item="related-article",
+                sub_item="@related-article-type",
                 validation_type="exist",
-                expected=expected_response,
-                error_level=error_level,
                 is_valid=False,
+                expected=expected_response,
+                obtained=None,
                 advice=f'provide <related-article related-article-type="{self.expected_related_article_type}">',
+                data=None,
+                error_level=error_level
             )
 
     def _get_related_articles(self,):
@@ -62,25 +76,6 @@ class ValidationBase:
             f'<related-article ext-link-type="{related_article.get("ext-link-type")}" '
             f'id="{related_article.get("id")}" related-article-type="{related_article.get("related-article-type")}" '
             f'xlink:href="{related_article.get("href")}"/>'
-        )
-
-    def _format_response(self, title, validation_type, expected, error_level, is_valid, related_article=None, obtained=None,
-                         advice=None, data=None):
-        return format_response(
-            title=title,
-            parent=related_article.get("parent") if related_article else "article",
-            parent_id=related_article.get("parent_id") if related_article else None,
-            parent_article_type=related_article.get("parent_article_type") if related_article else self.article_type,
-            parent_lang=related_article.get("parent_lang") if related_article else self.article_lang,
-            item="related-article",
-            sub_item="@related-article-type",
-            validation_type=validation_type,
-            is_valid=is_valid,
-            expected=expected,
-            obtained=obtained,
-            advice=advice,
-            data=data,
-            error_level=error_level,
         )
 
 
