@@ -28,12 +28,10 @@ class ArticleTocSectionsValidation:
             A generator that yields dictionaries with validation results.
         """
         obtained_toc_sections = self.article_toc_sections.sections_dict
-
         if obtained_toc_sections:
             obtained_langs = set(obtained_toc_sections)
             expected_langs = set(expected_toc_sections)
             common_langs = sorted(list(obtained_langs & expected_langs))
-
             for lang in common_langs:
                 is_valid = False
                 title = 'Article section title validation'
@@ -48,7 +46,7 @@ class ArticleTocSectionsValidation:
                         is_valid = obtained_subject in expected
                         if obtained.get("parent") == "sub-article":
                             title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
-                        validation = 'value in list'
+                        validation_type = 'value in list'
                 elif lang in obtained_langs:
                     advice = 'Check unexpected section {} for language: {}'.format(obtained_subject, lang)
 
@@ -61,7 +59,7 @@ class ArticleTocSectionsValidation:
                     item="subj-group",
                     sub_item="subject",
                     is_valid=is_valid,
-                    validation_type=validation,
+                    validation_type=validation_type,
                     expected=expected if expected else "subject value",
                     obtained=obtained_subject,
                     advice=advice,
@@ -79,7 +77,7 @@ class ArticleTocSectionsValidation:
                 sub_item="subject",
                 is_valid=False,
                 validation_type="exist",
-                expected=expected_toc_sections,
+                expected=expected_toc_sections if expected_toc_sections else "subject value",
                 obtained=obtained_toc_sections,
                 advice='Provide a subject value for <subj-group subj-group-type="heading">',
                 data=obtained_toc_sections,
@@ -198,6 +196,32 @@ class ArticleTocSectionsValidation:
                 data=obtained_toc_sections,
                 error_level=error_level,
             )
+
+    def validate_article_subsections(self, error_level="CRITICAL"):
+        subjects = {}
+        for subject in self.article_toc_sections.sections:
+            lang = subject.get("parent_lang")
+            subjects.setdefault(lang, [])
+            subjects[lang].append(subject)
+        for lang, subject in subjects.items():
+            if len(subject) > 1:
+                _subjects = [item.get("text") for item in subject]
+                yield format_response(
+                    title="subsection validation",
+                    parent=subject[0].get("parent"),
+                    parent_id=subject[0].get("parent_id"),
+                    parent_article_type=subject[0].get("parent_article_type"),
+                    parent_lang=subject[0].get("parent_lang"),
+                    item="subj-group",
+                    sub_item="subject",
+                    is_valid=False,
+                    validation_type="exist",
+                    expected="only one subject per language",
+                    obtained=" | ".join(_subjects),
+                    advice=f"use the following pattern: <subject>{_subjects[0]}: {_subjects[1]}</subject>",
+                    data=subject,
+                    error_level=error_level,
+                )
 
     def validate(self, data):
         """
