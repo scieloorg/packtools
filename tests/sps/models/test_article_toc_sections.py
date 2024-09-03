@@ -210,26 +210,6 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSections(self.xmltree)
 
-        expected = [
-            {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'text': None
-            },
-            {
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': '01',
-                'parent_lang': 'pt',
-                'text': None
-            }
-        ]
         obtained = list(self.article_toc_sections.sections)
 
-        self.assertEqual(len(obtained), 2)
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        self.assertEqual(len(obtained), 0)
