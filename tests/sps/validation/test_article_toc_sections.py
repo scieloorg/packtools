@@ -150,38 +150,7 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': "01",
-                'parent_lang': 'en',
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': ['Health Sciences'],
-                'got_value': None,
-                'message': "Got None, expected ['Health Sciences']",
-                'advice': 'Provide missing section for language: en',
-                'data': {
-                    'en': {
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': "01",
-                        'parent_lang': 'en',
-                        'text': None
-                    },
-                    'es': {
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'es',
-                        'text': None
-                    }
-                }
-            },
-            {
-                'title': 'Article section title validation',
+                'title': 'Article or sub-article section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -190,62 +159,16 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'exist',
                 'response': 'CRITICAL',
-                'expected_value': "subject value",
-                'got_value': None,
-                'message': "Got None, expected subject value",
-                'advice': 'Check unexpected section None for language: es',
-                'data': {
-                    'en': {
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': "01",
-                        'parent_lang': 'en',
-                        'text': None
-                    },
-                    'es': {
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'es',
-                        'text': None
-                    }
-                }
-            },
-            {
-                'title': 'Article section title validation',
-                'parent': None,
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': None,
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': ['Ciências da Saúde'],
-                'got_value': None,
-                'message': "Got None, expected ['Ciências da Saúde']",
-                'advice': 'Provide missing section for language: pt',
-                'data': {
-                    'en': {
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': "01",
-                        'parent_lang': 'en',
-                        'text': None
-                    },
-                    'es': {
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'es',
-                        'text': None
-                    }
-                }
+                'expected_value': {'en': ['Health Sciences'], 'pt': ['Ciências da Saúde']},
+                'got_value': {},
+                'message': "Got {}, expected {'en': ['Health Sciences'], 'pt': ['Ciências da Saúde']}",
+                'advice': 'Provide a subject value for <subj-group subj-group-type="heading">',
+                'data': {}
             }
         ]
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
-        self.assertEqual(len(obtained), 3)
+        self.assertEqual(len(obtained), 1)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -610,7 +533,7 @@ class ArticleTocSectionsTest(TestCase):
         expected_section = {}
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Article or sub-article section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -620,61 +543,15 @@ class ArticleTocSectionsTest(TestCase):
                 'validation_type': 'exist',
                 'response': 'CRITICAL',
                 'expected_value': "subject value",
-                'got_value': None,
-                'message': 'Got None, expected subject value',
-                'advice': 'Check unexpected section None for language: en',
-                'data': {
-                    'en': {
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'en',
-                        'text': None
-                    },
-                    'pt': {
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': '01',
-                        'parent_lang': 'pt',
-                        'text': None
-                    }
-                },
-            },
-            {
-                'title': 'Article section title validation',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': "01",
-                'parent_lang': 'pt',
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': "subject value",
-                'got_value': None,
-                'message': 'Got None, expected subject value',
-                'advice': 'Check unexpected section None for language: pt',
-                'data': {
-                    'en': {
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'en',
-                        'text': None
-                    },
-                    'pt': {
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': '01',
-                        'parent_lang': 'pt',
-                        'text': None
-                    }
-                },
+                'got_value': {},
+                'message': 'Got {}, expected subject value',
+                'advice': 'Provide a subject value for <subj-group subj-group-type="heading">',
+                'data': {},
             }
         ]
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
-        self.assertEqual(len(obtained), 2)
+        self.assertEqual(len(obtained), 1)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -917,7 +794,6 @@ class ArticleTocSectionsTest(TestCase):
     def test_validate_article_toc_sections_to_fix_bug(self):
         self.maxDiff = None
         self.xmltree = xml_utils.get_xml_tree('tests/samples/1518-8787-rsp-56-37.xml')
-
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
              "en": ["Comments"],
@@ -956,3 +832,116 @@ class ArticleTocSectionsTest(TestCase):
                 self.assertDictEqual(obtained[i], item)
 
         self.assertEqual(len(obtained), 1)
+
+    def test_validate_article_toc_sections_more_then_one(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+            dtd-version="1.0" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título del artículo</article-title>
+                    </title-group>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Health Sciences</subject>
+                            <subj-group subj-group-type="heading">
+                                <subject>Improper Subject</subject>
+                            </subj-group>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="pt">
+                <front-stub>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Ciências da Saúde</subject>
+                            <subj-group subj-group-type="heading">
+                                <subject>Assunto Indevido</subject>
+                            </subj-group>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>Article title</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>
+            </article>
+            """
+        )
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+
+        expected = [
+            {
+                'title': 'subsection validation',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'exist',
+                'response': 'CRITICAL',
+                'expected_value': 'only one subject per language',
+                'got_value': 'Health Sciences | Improper Subject',
+                'message': 'Got Health Sciences | Improper Subject, expected only one subject per language',
+                'advice': 'use the following pattern: <subject>Health Sciences: Improper Subject</subject>',
+                'data': [
+                    {
+                        'parent': 'article',
+                        'parent_article_type': 'research-article',
+                        'parent_id': None,
+                        'parent_lang': 'en',
+                        'text': 'Health Sciences'
+                    },
+                    {
+                        'parent': 'article',
+                        'parent_article_type': 'research-article',
+                        'parent_id': None,
+                        'parent_lang': 'en',
+                        'text': 'Improper Subject'
+                    }
+                ]
+            },
+            {
+                'title': 'subsection validation',
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'pt',
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'exist',
+                'response': 'CRITICAL',
+                'expected_value': 'only one subject per language',
+                'got_value': 'Ciências da Saúde | Assunto Indevido',
+                'message': 'Got Ciências da Saúde | Assunto Indevido, expected only one subject per language',
+                'advice': 'use the following pattern: <subject>Ciências da Saúde: Assunto Indevido</subject>',
+                'data': [
+                    {
+                        'parent': 'sub-article',
+                        'parent_article_type': 'translation',
+                        'parent_id': '01',
+                        'parent_lang': 'pt',
+                        'text': 'Ciências da Saúde'
+                    },
+                    {
+                        'parent': 'sub-article',
+                        'parent_article_type': 'translation',
+                        'parent_id': '01',
+                        'parent_lang': 'pt',
+                        'text': 'Assunto Indevido'
+                    }
+                ]
+            }
+        ]
+        obtained = list(self.article_toc_sections.validate_article_subsections())
+
+        self.assertEqual(len(obtained), 2)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
