@@ -1,15 +1,17 @@
 from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_titles import ArticleTitles
 from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.exceptions import ValidationExpectedTocSectionsException
 
 
 class ArticleTocSectionsValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, expected_toc_sections=None):
         self.xmltree = xmltree
         self.article_toc_sections = ArticleTocSections(xmltree)
         self.article_titles = ArticleTitles(xmltree)
+        self.expected_toc_sections = expected_toc_sections
 
-    def validate_article_toc_sections(self, expected_toc_sections, error_level="CRITICAL"):
+    def validate_article_toc_sections(self, expected_toc_sections=None, error_level="CRITICAL"):
         """
         Check whether the TOC sections match the options provided in a standard list.
 
@@ -27,6 +29,9 @@ class ArticleTocSectionsValidation:
         generator of dict
             A generator that yields dictionaries with validation results.
         """
+        # expected_toc_sections = expected_toc_sections or self.expected_toc_sections
+        if not expected_toc_sections:
+            raise ValidationExpectedTocSectionsException("Function requires a list of expected toc sections.")
         obtained_toc_sections = self.article_toc_sections.sections_dict
         if obtained_toc_sections:
             obtained_langs = set(obtained_toc_sections)
@@ -37,52 +42,54 @@ class ArticleTocSectionsValidation:
                 title = 'Article section title validation'
                 validation_type = "exist"
                 expected = expected_toc_sections.get(lang)
-                obtained = obtained_toc_sections.get(lang)
-                obtained_subject = obtained.get('text') if obtained else None
-                advice = 'Provide missing section for language: {}'.format(lang)
-                if lang in common_langs:
-                    if obtained.get('text'):
-                        # verifica se o título de seção está presente na lista esperada
-                        is_valid = obtained_subject in expected
-                        if obtained.get("parent") == "sub-article":
-                            title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
-                        validation_type = 'value in list'
-                elif lang in obtained_langs:
-                    advice = 'Check unexpected section {} for language: {}'.format(obtained_subject, lang)
+                obtained_toc_sections_by_lang = obtained_toc_sections.get(lang)
+                for obtained in obtained_toc_sections_by_lang:
+                    obtained_subject = obtained.get('section') if obtained else None
+                    advice = 'Provide missing section for language: {}'.format(lang)
+                    if lang in common_langs:
+                        if obtained.get('section'):
+                            # verifica se o título de seção está presente na lista esperada
+                            is_valid = obtained_subject in expected
+                            if obtained.get("parent") == "sub-article":
+                                title = f'Sub-article (id={obtained.get("parent_id")}) section title validation'
+                            validation_type = 'value in list'
+                    elif lang in obtained_langs:
+                        advice = 'Check unexpected section {} for language: {}'.format(obtained_subject, lang)
 
+                    yield format_response(
+                        title=title,
+                        parent=obtained.get("parent") if obtained else None,
+                        parent_id=obtained.get("parent_id") if obtained else None,
+                        parent_article_type=obtained.get("parent_article_type") if obtained else None,
+                        parent_lang=obtained.get("parent_lang") if obtained else None,
+                        item="subj-group",
+                        sub_item="subject",
+                        is_valid=is_valid,
+                        validation_type=validation_type,
+                        expected=expected if expected else "subject value",
+                        obtained=obtained_subject,
+                        advice=advice,
+                        data=obtained_toc_sections,
+                        error_level=error_level,
+                    )
+        else:
+            for lang, section in expected_toc_sections.items():
                 yield format_response(
-                    title=title,
-                    parent=obtained.get("parent") if obtained else None,
-                    parent_id=obtained.get("parent_id") if obtained else None,
-                    parent_article_type=obtained.get("parent_article_type") if obtained else None,
-                    parent_lang=obtained.get("parent_lang") if obtained else None,
+                    title='Article or sub-article section title validation',
+                    parent='article',
+                    parent_id=None,
+                    parent_article_type=self.xmltree.get("article-type"),
+                    parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
                     item="subj-group",
                     sub_item="subject",
-                    is_valid=is_valid,
-                    validation_type=validation_type,
-                    expected=expected if expected else "subject value",
-                    obtained=obtained_subject,
-                    advice=advice,
+                    is_valid=False,
+                    validation_type="exist",
+                    expected=f"<subject>{section}</subject> for '{lang}' language",
+                    obtained=obtained_toc_sections,
+                    advice='Provide a subject value for <subj-group subj-group-type="heading">',
                     data=obtained_toc_sections,
                     error_level=error_level,
                 )
-        else:
-            yield format_response(
-                title='Article or sub-article section title validation',
-                parent='article',
-                parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
-                item="subj-group",
-                sub_item="subject",
-                is_valid=False,
-                validation_type="exist",
-                expected=expected_toc_sections if expected_toc_sections else "subject value",
-                obtained=obtained_toc_sections,
-                advice='Provide a subject value for <subj-group subj-group-type="heading">',
-                data=obtained_toc_sections,
-                error_level=error_level,
-            )
 
     def validade_article_title_is_different_from_section_titles(self, error_level="ERROR"):
         """
@@ -170,32 +177,33 @@ class ArticleTocSectionsValidation:
             ]
         """
         obtained_toc_sections = self.article_toc_sections.sections_dict
-        article_title = self.article_titles.article_title_dict
+        article_titles = self.article_titles.article_title_dict
 
         for lang, sections in obtained_toc_sections.items():
-            is_valid = article_title.get(lang) != sections.get('text')
-            article = article_title.get(lang)
-            section = sections.get("text")
-            if sections.get("parent") == "article":
-                validation_title = 'Article or sub-article section title validation'
-            else:
-                validation_title = f'Sub-article (id={sections.get("parent_id")}) section title validation'
-            yield format_response(
-                title=validation_title,
-                parent=sections.get("parent"),
-                parent_id=sections.get("parent_id"),
-                parent_article_type=sections.get("parent_article_type"),
-                parent_lang=sections.get("parent_lang"),
-                item="subj-group",
-                sub_item="subject",
-                is_valid=is_valid,
-                validation_type="match",
-                expected='\'{}\' (article title) different from \'{}\' (section titles)'.format(article, section),
-                obtained='article title: \'{}\', section titles: \'{}\''.format(article, section),
-                advice="Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)",
-                data=obtained_toc_sections,
-                error_level=error_level,
-            )
+            for section in sections:
+                article_title = article_titles.get(lang)
+                section_title = section.get("section")
+                is_valid = article_title != section_title
+                if section.get("parent") == "article":
+                    validation_title = 'Article or sub-article section title validation'
+                else:
+                    validation_title = f'Sub-article (id={section.get("parent_id")}) section title validation'
+                yield format_response(
+                    title=validation_title,
+                    parent=section.get("parent"),
+                    parent_id=section.get("parent_id"),
+                    parent_article_type=section.get("parent_article_type"),
+                    parent_lang=section.get("parent_lang"),
+                    item="subj-group",
+                    sub_item="subject",
+                    is_valid=is_valid,
+                    validation_type="match",
+                    expected='\'{}\' (article title) different from \'{}\' (section titles)'.format(article_title, section_title),
+                    obtained='article title: \'{}\', section titles: \'{}\''.format(article_title, section_title),
+                    advice="Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)",
+                    data=obtained_toc_sections,
+                    error_level=error_level,
+                )
 
     def validate_article_subsections(self, error_level="CRITICAL"):
         subjects = {}
@@ -205,7 +213,7 @@ class ArticleTocSectionsValidation:
             subjects[lang].append(subject)
         for lang, subject in subjects.items():
             if len(subject) > 1:
-                _subjects = [item.get("text") for item in subject]
+                _subjects = [item.get("section") for item in subject]
                 yield format_response(
                     title="subsection validation",
                     parent=subject[0].get("parent"),
