@@ -206,12 +206,7 @@ class ArticleTocSectionsValidation:
                 )
 
     def validate_article_subsections(self, error_level="CRITICAL"):
-        subjects = {}
-        for subject in self.article_toc_sections.sections:
-            lang = subject.get("parent_lang")
-            subjects.setdefault(lang, [])
-            subjects[lang].append(subject)
-        for lang, subject in subjects.items():
+        for lang, subject in self.article_toc_sections.sections_dict.items():
             if len(subject) > 1:
                 _subjects = [item.get("section") for item in subject]
                 yield format_response(
