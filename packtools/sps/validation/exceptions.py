@@ -90,3 +90,7 @@ class ValidationAlternativesException(Exception):
 
 class ValidationFnTypeException(Exception):
     ...
+
+
+class ValidationExpectedTocSectionsException(Exception):
+    ...
