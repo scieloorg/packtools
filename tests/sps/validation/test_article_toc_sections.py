@@ -48,7 +48,7 @@ class ArticleTocSectionsTest(TestCase):
             }
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Document section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -70,7 +70,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -81,13 +81,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document section title validation',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -109,7 +109,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -120,7 +120,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
@@ -165,47 +165,10 @@ class ArticleTocSectionsTest(TestCase):
             "en": "Health Sciences",
             "pt": "Ciências da Saúde"
         }
-        expected = [
-            {
-                'title': 'Article or sub-article section title validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'es',
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': "<subject>Health Sciences</subject> for 'en' language",
-                'got_value': {},
-                'message': "Got {}, expected <subject>Health Sciences</subject> for 'en' language",
-                'advice': 'Provide a subject value for <subj-group subj-group-type="heading">',
-                'data': {}
-            },
-            {
-                'title': 'Article or sub-article section title validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'es',
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': "<subject>Ciências da Saúde</subject> for 'pt' language",
-                'got_value': {},
-                'message': "Got {}, expected <subject>Ciências da Saúde</subject> for 'pt' language",
-                'advice': 'Provide a subject value for <subj-group subj-group-type="heading">',
-                'data': {}
-            }
-        ]
+
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
-        self.assertEqual(len(obtained), 2)
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        self.assertEqual(len(obtained), 0)
 
     def test_validate_article_toc_sections_fail_section_obtained_not_in_expected(self):
         self.maxDiff = None
@@ -247,7 +210,7 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Document section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -269,7 +232,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -280,13 +243,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document section title validation',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -308,7 +271,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -319,7 +282,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
@@ -373,7 +336,7 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Document section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -395,7 +358,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -406,13 +369,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document section title validation',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -434,7 +397,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -445,7 +408,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
@@ -499,7 +462,7 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Document section title validation',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -521,7 +484,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -532,13 +495,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document section title validation',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -560,7 +523,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Health Sciences']
                         }
                     ],
                     'pt': [
@@ -571,7 +534,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Ciências da Saúde']
                         }
                     ]
                 },
@@ -615,7 +578,7 @@ class ArticleTocSectionsTest(TestCase):
         with self.assertRaises(ValidationExpectedTocSectionsException) as context:
             obtained = list(self.article_toc_sections.validate_article_toc_sections())
 
-        self.assertEqual(str(context.exception), "Function requires a list of expected toc sections.")
+        self.assertEqual(str(context.exception), "Function requires a dict of expected toc sections.")
 
     def test_validade_article_title_is_different_from_section_titles_success(self):
         self.maxDiff = None
@@ -660,7 +623,7 @@ class ArticleTocSectionsTest(TestCase):
 
         expected = [
             {
-                'title': 'Article or sub-article section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -685,7 +648,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -694,7 +657,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -705,7 +668,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -714,13 +677,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Article or sub-article section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -745,7 +708,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -754,7 +717,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -765,7 +728,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -774,13 +737,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -805,7 +768,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -814,7 +777,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -825,7 +788,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -834,13 +797,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -864,7 +827,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -873,7 +836,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -884,7 +847,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -893,7 +856,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
@@ -949,7 +912,7 @@ class ArticleTocSectionsTest(TestCase):
 
         expected = [
             {
-                'title': 'Article or sub-article section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -974,7 +937,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -983,7 +946,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -994,7 +957,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1003,13 +966,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Article or sub-article section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -1034,7 +997,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1043,7 +1006,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -1054,7 +1017,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1063,13 +1026,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -1094,7 +1057,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1103,7 +1066,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -1114,7 +1077,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1123,13 +1086,13 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
             },
             {
-                'title': 'Sub-article (id=01) section title validation',
+                'title': 'Document title must not be similar to section title',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -1152,7 +1115,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': ['Health Sciences', 'Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1161,7 +1124,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Public Health']
                         }
                     ],
                     'pt': [
@@ -1172,7 +1135,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1181,7 +1144,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Saúde Pública']
                         }
                     ]
                 },
@@ -1189,6 +1152,7 @@ class ArticleTocSectionsTest(TestCase):
         ]
         obtained = list(self.article_toc_sections.validade_article_title_is_different_from_section_titles())
 
+        self.assertEqual(len(obtained), 4)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -1203,7 +1167,7 @@ class ArticleTocSectionsTest(TestCase):
         }
         expected = [
             {
-                'title': 'Article section title validation',
+                'title': 'Document section title validation',
                 'parent': 'article',
                 'parent_article_type': 'other',
                 'parent_id': None,
@@ -1225,7 +1189,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Comments',
                             'subj_group_type': 'heading',
-                            'subsections': []
+                            'subsections': ['Comments']
                         }
                     ]
                 },
@@ -1233,11 +1197,11 @@ class ArticleTocSectionsTest(TestCase):
         ]
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
+        self.assertEqual(len(obtained), 1)
+
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
-
-        self.assertEqual(len(obtained), 1)
 
     def test_validate_article_toc_sections_more_then_one(self):
         self.maxDiff = None
@@ -1282,7 +1246,7 @@ class ArticleTocSectionsTest(TestCase):
 
         expected = [
             {
-                'title': 'subsection validation',
+                'title': 'Multiple Subjects Validation in Article TOC',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -1294,7 +1258,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': 'only one subject per language',
                 'got_value': 'Health Sciences | Improper Subject',
                 'message': 'Got Health Sciences | Improper Subject, expected only one subject per language',
-                'advice': 'use the following pattern: <subject>Health Sciences: Improper Subject</subject>',
+                'advice': "Ensure only one subject per language. Current subjects: ['Health Sciences', 'Improper Subject'].",
                 'data': [
                     {
                         'parent': 'article',
@@ -1303,7 +1267,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'en',
                         'section': 'Health Sciences',
                         'subj_group_type': 'heading',
-                        'subsections': ['Improper Subject']
+                        'subsections': ['Health Sciences', 'Improper Subject']
                     },
                     {
                         'parent': 'article',
@@ -1312,12 +1276,12 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'en',
                         'section': 'Improper Subject',
                         'subj_group_type': None,
-                        'subsections': []
+                        'subsections': ['Improper Subject']
                     }
                 ]
             },
             {
-                'title': 'subsection validation',
+                'title': 'Multiple Subjects Validation in Article TOC',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -1329,7 +1293,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': 'only one subject per language',
                 'got_value': 'Ciências da Saúde | Assunto Indevido',
                 'message': 'Got Ciências da Saúde | Assunto Indevido, expected only one subject per language',
-                'advice': 'use the following pattern: <subject>Ciências da Saúde: Assunto Indevido</subject>',
+                'advice': "Ensure only one subject per language. Current subjects: ['Ciências da Saúde', 'Assunto Indevido'].",
                 'data': [
                     {
                         'parent': 'sub-article',
@@ -1338,7 +1302,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'pt',
                         'section': 'Ciências da Saúde',
                         'subj_group_type': 'heading',
-                        'subsections': ['Assunto Indevido']
+                        'subsections': ['Ciências da Saúde', 'Assunto Indevido']
                     },
                     {
                         'parent': 'sub-article',
@@ -1347,12 +1311,138 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'pt',
                         'section': 'Assunto Indevido',
                         'subj_group_type': None,
-                        'subsections': []
+                        'subsections': ['Assunto Indevido']
                     }
                 ]
             }
         ]
-        obtained = list(self.article_toc_sections.validate_article_subsections())
+        obtained = list(self.article_toc_sections.validate_article_section_and_subsection_number())
+
+        self.assertEqual(len(obtained), 2)
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_toc_sections_subj_group_type(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
+            dtd-version="1.0" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Título del artículo</article-title>
+                    </title-group>
+                    <article-categories>
+                        <subj-group>
+                            <subject>Health Sciences</subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="01" xml:lang="pt">
+                <front-stub>
+                    <article-categories>
+                        <subj-group>
+                            <subject>Ciências da Saúde</subject>
+                        </subj-group>
+                    </article-categories>
+                    <title-group>
+                        <article-title>Article title</article-title>
+                    </title-group>
+                </front-stub>
+            </sub-article>
+            </article>
+            """
+        )
+        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
+        expected_section = {
+                "en": "Health Sciences",
+                "pt": "Ciências da Saúde"
+            }
+        expected = [
+            {
+                'title': "Attribute '@subj-group-type' validation",
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'subj-group',
+                'sub_item': '@subj-group-type',
+                'validation_type': 'match',
+                'response': 'CRITICAL',
+                'expected_value': 'heading',
+                'got_value': None,
+                'message': 'Got None, expected heading',
+                'advice': "the value for '@subj-group-type' must be heading",
+                'data': {
+                    'en': [
+                        {
+                            'parent': 'article',
+                            'parent_article_type': 'research-article',
+                            'parent_id': None,
+                            'parent_lang': 'en',
+                            'section': 'Health Sciences',
+                            'subj_group_type': None,
+                            'subsections': ['Health Sciences']
+                        }
+                    ],
+                    'pt': [
+                        {
+                            'parent': 'sub-article',
+                            'parent_article_type': 'translation',
+                            'parent_id': '01',
+                            'parent_lang': 'pt',
+                            'section': 'Ciências da Saúde',
+                            'subj_group_type': None,
+                            'subsections': ['Ciências da Saúde']
+                        }
+                    ]
+                },
+            },
+            {
+                'title': "Attribute '@subj-group-type' validation",
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'pt',
+                'item': 'subj-group',
+                'sub_item': '@subj-group-type',
+                'validation_type': 'match',
+                'response': 'CRITICAL',
+                'expected_value': 'heading',
+                'got_value': None,
+                'message': 'Got None, expected heading',
+                'advice': "the value for '@subj-group-type' must be heading",
+                'data': {
+                    'en': [
+                        {
+                            'parent': 'article',
+                            'parent_article_type': 'research-article',
+                            'parent_id': None,
+                            'parent_lang': 'en',
+                            'section': 'Health Sciences',
+                            'subj_group_type': None,
+                            'subsections': ['Health Sciences']
+                        }
+                    ],
+                    'pt': [
+                        {
+                            'parent': 'sub-article',
+                            'parent_article_type': 'translation',
+                            'parent_id': '01',
+                            'parent_lang': 'pt',
+                            'section': 'Ciências da Saúde',
+                            'subj_group_type': None,
+                            'subsections': ['Ciências da Saúde']
+                        }
+                    ]
+                },
+            },
+        ]
+        obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
         self.assertEqual(len(obtained), 2)
 
