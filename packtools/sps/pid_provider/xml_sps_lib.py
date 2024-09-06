@@ -843,8 +843,11 @@ class XMLWithPre:
                 "article-id",
             )
             for sibling_name in pub_date_preceding_siblings:
-                self.xmltree.find(f".//article-meta/{sibling_name}").append(node)
-                break
+                try:
+                    self.xmltree.find(f".//article-meta/{sibling_name}").addnext(node)
+                    break
+                except AttributeError:
+                    continue
 
         if node is not None:
             try:
