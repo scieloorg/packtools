@@ -48,7 +48,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': 'heading',
-                'subsections': ['Health Sciences']
+                'subsections': []
             },
             {
                 'parent': 'sub-article',
@@ -57,7 +57,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': ['Ciências da Saúde']
+                'subsections': []
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -109,7 +109,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': None,
-                'subsections': ['Health Sciences']
+                'subsections': []
             },
             {
                 'parent': 'sub-article',
@@ -118,7 +118,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': None,
-                'subsections': ['Ciências da Saúde']
+                'subsections': []
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -173,7 +173,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences',
                     'subj_group_type': 'heading',
-                    'subsections': ['Health Sciences']
+                    'subsections': []
                 }
             ],
             'pt': [
@@ -184,7 +184,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': ['Ciências da Saúde']
+                    'subsections': []
                 }
             ]
         }
@@ -234,7 +234,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': None,
                 'subj_group_type': 'heading',
-                'subsections': [None]
+                'subsections': []
             },
             {
                 'parent': 'sub-article',
@@ -243,7 +243,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': None,
                 'subj_group_type': 'heading',
-                'subsections': [None]
+                'subsections': []
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -363,7 +363,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': 'heading',
-                'subsections': ['Health Sciences', 'Health Sciences Subsection']
+                'subsections': ['Health Sciences Subsection']
             },
             {
                 'parent': 'article',
@@ -372,7 +372,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences Subsection',
                 'subj_group_type': 'heading',
-                'subsections': ['Health Sciences Subsection']
+                'subsections': []
             },
             {
                 'parent': 'sub-article',
@@ -381,7 +381,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': ['Ciências da Saúde', 'Subseção Ciências da Saúde']
+                'subsections': ['Subseção Ciências da Saúde']
             },
             {
                 'parent': 'sub-article',
@@ -390,7 +390,7 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Subseção Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': ['Subseção Ciências da Saúde']
+                'subsections': []
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -449,7 +449,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences',
                     'subj_group_type': 'heading',
-                    'subsections': ['Health Sciences', 'Health Sciences Subsection']
+                    'subsections': ['Health Sciences Subsection']
                 },
                 {
                     'parent': 'article',
@@ -458,7 +458,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences Subsection',
                     'subj_group_type': 'heading',
-                    'subsections': ['Health Sciences Subsection']
+                    'subsections': []
                 }
             ],
             "pt": [
@@ -469,7 +469,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': ['Ciências da Saúde', 'Subseção Ciências da Saúde']
+                    'subsections': ['Subseção Ciências da Saúde']
                 },
                 {
                     'parent': 'sub-article',
@@ -478,7 +478,7 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Subseção Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': ['Subseção Ciências da Saúde']
+                    'subsections': []
                 }
             ]
         }
