@@ -32,55 +32,54 @@ class ArticleTocSectionsValidation:
         expected_toc_sections = expected_toc_sections or self.expected_toc_sections
         if not expected_toc_sections:
             raise ValidationExpectedTocSectionsException("Function requires a dict of expected toc sections.")
-        obtained_toc_sections = self.article_toc_sections.sections_dict
-        if obtained_toc_sections:
-            for lang, sections_list in obtained_toc_sections.items():
-                for obtained in sections_list:
-                    # Valida o valor do atributo subj-group-type
-                    if (subject_type := obtained["subj_group_type"]) != "heading":
-                        yield format_response(
-                            title="Attribute '@subj-group-type' validation",
-                            parent=obtained["parent"],
-                            parent_id=obtained["parent_id"],
-                            parent_article_type=obtained["parent_article_type"],
-                            parent_lang=obtained["parent_lang"],
-                            item="subj-group",
-                            sub_item="@subj-group-type",
-                            is_valid=False,
-                            validation_type="match",
-                            expected="heading",
-                            obtained=subject_type,
-                            advice="the value for '@subj-group-type' must be heading",
-                            data=obtained_toc_sections,
-                            error_level=error_level,
-                        )
 
-                    else:
-                        # Se subj-group-type está correto, valida o título
-                        is_valid = False
-                        expected = expected_toc_sections.get(lang)
-                        obtained_subject = obtained['section']
-                        validation_type = 'exist'
-                        if obtained_subject:
-                            # verifica se o título de seção está presente na lista esperada
-                            is_valid = obtained_subject.split(":")[0] in expected
-                            validation_type = 'value in list'
-                        yield format_response(
-                            title='Document section title validation',
-                            parent=obtained["parent"],
-                            parent_id=obtained["parent_id"],
-                            parent_article_type=obtained["parent_article_type"],
-                            parent_lang=obtained["parent_lang"],
-                            item="subj-group",
-                            sub_item="subject",
-                            is_valid=is_valid,
-                            validation_type=validation_type,
-                            expected=expected or "subject value",
-                            obtained=obtained_subject,
-                            advice='Provide missing section for language: {}'.format(lang),
-                            data=obtained_toc_sections,
-                            error_level=error_level,
-                        )
+        for lang, sections_list in self.article_toc_sections.sections_dict.items():
+            for obtained in sections_list:
+                # Valida o valor do atributo subj-group-type
+                if (subject_type := obtained["subj_group_type"]) != "heading":
+                    yield format_response(
+                        title="Attribute '@subj-group-type' validation",
+                        parent=obtained["parent"],
+                        parent_id=obtained["parent_id"],
+                        parent_article_type=obtained["parent_article_type"],
+                        parent_lang=obtained["parent_lang"],
+                        item="subj-group",
+                        sub_item="@subj-group-type",
+                        is_valid=False,
+                        validation_type="match",
+                        expected="heading",
+                        obtained=subject_type,
+                        advice="the value for '@subj-group-type' must be heading",
+                        data=obtained,
+                        error_level=error_level,
+                    )
+
+                else:
+                    # Se subj-group-type está correto, valida o título
+                    is_valid = False
+                    expected = expected_toc_sections.get(lang)
+                    obtained_subject = obtained['section']
+                    validation_type = 'exist'
+                    if obtained_subject:
+                        # verifica se o título de seção está presente na lista esperada
+                        is_valid = obtained_subject.split(":")[0] in expected
+                        validation_type = 'value in list'
+                    yield format_response(
+                        title='Document section title validation',
+                        parent=obtained["parent"],
+                        parent_id=obtained["parent_id"],
+                        parent_article_type=obtained["parent_article_type"],
+                        parent_lang=obtained["parent_lang"],
+                        item="subj-group",
+                        sub_item="subject",
+                        is_valid=is_valid,
+                        validation_type=validation_type,
+                        expected=expected or "subject value",
+                        obtained=obtained_subject,
+                        advice='Provide missing section for language: {}'.format(lang),
+                        data=obtained,
+                        error_level=error_level,
+                    )
 
     def validade_article_title_is_different_from_section_titles(self, error_level="ERROR"):
         """
@@ -218,7 +217,7 @@ class ArticleTocSectionsValidation:
                 )
             if has_subsections:
                 yield format_response(
-                    title="Incorrect subsection structure in XML for article TOC",
+                    title="Unexpected XML structure: article-categories/subject-group/subject-group/subject",
                     parent=subject[0]["parent"],
                     parent_id=subject[0]["parent_id"],
                     parent_article_type=subject[0]["parent_article_type"],
