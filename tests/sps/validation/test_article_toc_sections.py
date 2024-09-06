@@ -70,7 +70,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -81,7 +81,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -109,7 +109,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -120,7 +120,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -232,7 +232,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -243,7 +243,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -271,7 +271,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -282,7 +282,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -358,7 +358,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -369,7 +369,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -397,7 +397,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -408,7 +408,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -484,7 +484,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -495,7 +495,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -523,7 +523,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -534,7 +534,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -648,7 +648,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -657,7 +657,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -668,7 +668,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -677,7 +677,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -708,7 +708,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -717,7 +717,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -728,7 +728,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -737,7 +737,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -768,7 +768,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -777,7 +777,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -788,7 +788,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -797,7 +797,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -827,7 +827,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -836,7 +836,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -847,7 +847,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -856,7 +856,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -937,7 +937,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -946,7 +946,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -957,7 +957,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -966,7 +966,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -997,7 +997,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1006,7 +1006,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -1017,7 +1017,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1026,7 +1026,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -1057,7 +1057,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1066,7 +1066,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -1077,7 +1077,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1086,7 +1086,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -1115,7 +1115,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': 'heading',
-                            'subsections': ['Health Sciences', 'Public Health']
+                            'subsections': ['Public Health']
                         },
                         {
                             'parent': 'article',
@@ -1124,7 +1124,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Public Health',
                             'subj_group_type': 'heading',
-                            'subsections': ['Public Health']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -1135,7 +1135,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': 'heading',
-                            'subsections': ['Ciências da Saúde', 'Saúde Pública']
+                            'subsections': ['Saúde Pública']
                         },
                         {
                             'parent': 'sub-article',
@@ -1144,7 +1144,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Saúde Pública',
                             'subj_group_type': 'heading',
-                            'subsections': ['Saúde Pública']
+                            'subsections': []
                         }
                     ]
                 },
@@ -1189,7 +1189,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Comments',
                             'subj_group_type': 'heading',
-                            'subsections': ['Comments']
+                            'subsections': []
                         }
                     ]
                 },
@@ -1258,7 +1258,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': 'only one subject per language',
                 'got_value': 'Health Sciences | Improper Subject',
                 'message': 'Got Health Sciences | Improper Subject, expected only one subject per language',
-                'advice': "Ensure only one subject per language. Current subjects: ['Health Sciences', 'Improper Subject'].",
+                'advice': "One subject per language. Current subjects (en): ['Health Sciences', 'Improper Subject'].",
                 'data': [
                     {
                         'parent': 'article',
@@ -1267,7 +1267,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'en',
                         'section': 'Health Sciences',
                         'subj_group_type': 'heading',
-                        'subsections': ['Health Sciences', 'Improper Subject']
+                        'subsections': ['Improper Subject']
                     },
                     {
                         'parent': 'article',
@@ -1276,7 +1276,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'en',
                         'section': 'Improper Subject',
                         'subj_group_type': None,
-                        'subsections': ['Improper Subject']
+                        'subsections': []
                     }
                 ]
             },
@@ -1293,7 +1293,7 @@ class ArticleTocSectionsTest(TestCase):
                 'expected_value': 'only one subject per language',
                 'got_value': 'Ciências da Saúde | Assunto Indevido',
                 'message': 'Got Ciências da Saúde | Assunto Indevido, expected only one subject per language',
-                'advice': "Ensure only one subject per language. Current subjects: ['Ciências da Saúde', 'Assunto Indevido'].",
+                'advice': "One subject per language. Current subjects (pt): ['Ciências da Saúde', 'Assunto Indevido'].",
                 'data': [
                     {
                         'parent': 'sub-article',
@@ -1302,7 +1302,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'pt',
                         'section': 'Ciências da Saúde',
                         'subj_group_type': 'heading',
-                        'subsections': ['Ciências da Saúde', 'Assunto Indevido']
+                        'subsections': ['Assunto Indevido']
                     },
                     {
                         'parent': 'sub-article',
@@ -1311,7 +1311,7 @@ class ArticleTocSectionsTest(TestCase):
                         'parent_lang': 'pt',
                         'section': 'Assunto Indevido',
                         'subj_group_type': None,
-                        'subsections': ['Assunto Indevido']
+                        'subsections': []
                     }
                 ]
             }
@@ -1386,7 +1386,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': None,
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -1397,7 +1397,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': None,
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
@@ -1425,7 +1425,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'en',
                             'section': 'Health Sciences',
                             'subj_group_type': None,
-                            'subsections': ['Health Sciences']
+                            'subsections': []
                         }
                     ],
                     'pt': [
@@ -1436,7 +1436,7 @@ class ArticleTocSectionsTest(TestCase):
                             'parent_lang': 'pt',
                             'section': 'Ciências da Saúde',
                             'subj_group_type': None,
-                            'subsections': ['Ciências da Saúde']
+                            'subsections': []
                         }
                     ]
                 },
