@@ -16,7 +16,7 @@ class ArticleTocSections:
                     "section": section
                 }
                 subsections = []
-                for subsection in item.xpath(".//subject"):
+                for subsection in item.xpath("./subj-group//subject"):
                     subsections.append(node_text_without_xref(subsection) or None)
                 _section["subsections"] = subsections
                 yield put_parent_context(_section, lang, article_type, parent, parent_id)
