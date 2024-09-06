@@ -34,18 +34,16 @@ class ArticleTocSectionsValidation:
             raise ValidationExpectedTocSectionsException("Function requires a dict of expected toc sections.")
         obtained_toc_sections = self.article_toc_sections.sections_dict
         if obtained_toc_sections:
-            obtained_langs = sorted(list(set(obtained_toc_sections)))
-            for lang in obtained_langs:
-                obtained_toc_sections_by_lang = obtained_toc_sections.get(lang)
-                for obtained in obtained_toc_sections_by_lang:
+            for lang, sections_list in obtained_toc_sections.items():
+                for obtained in sections_list:
                     # Valida o valor do atributo subj-group-type
-                    if (subject_type := obtained.get("subj_group_type")) != "heading":
+                    if (subject_type := obtained["subj_group_type"]) != "heading":
                         yield format_response(
                             title="Attribute '@subj-group-type' validation",
-                            parent=obtained.get("parent") if obtained else None,
-                            parent_id=obtained.get("parent_id") if obtained else None,
-                            parent_article_type=obtained.get("parent_article_type") if obtained else None,
-                            parent_lang=obtained.get("parent_lang") if obtained else None,
+                            parent=obtained["parent"],
+                            parent_id=obtained["parent_id"],
+                            parent_article_type=obtained["parent_article_type"],
+                            parent_lang=obtained["parent_lang"],
                             item="subj-group",
                             sub_item="@subj-group-type",
                             is_valid=False,
@@ -61,7 +59,7 @@ class ArticleTocSectionsValidation:
                         # Se subj-group-type está correto, valida o título
                         is_valid = False
                         expected = expected_toc_sections.get(lang)
-                        obtained_subject = obtained.get('section') if obtained else None
+                        obtained_subject = obtained['section']
                         validation_type = 'exist'
                         if obtained_subject:
                             # verifica se o título de seção está presente na lista esperada
@@ -69,15 +67,15 @@ class ArticleTocSectionsValidation:
                             validation_type = 'value in list'
                         yield format_response(
                             title='Document section title validation',
-                            parent=obtained.get("parent") if obtained else None,
-                            parent_id=obtained.get("parent_id") if obtained else None,
-                            parent_article_type=obtained.get("parent_article_type") if obtained else None,
-                            parent_lang=obtained.get("parent_lang") if obtained else None,
+                            parent=obtained["parent"],
+                            parent_id=obtained["parent_id"],
+                            parent_article_type=obtained["parent_article_type"],
+                            parent_lang=obtained["parent_lang"],
                             item="subj-group",
                             sub_item="subject",
                             is_valid=is_valid,
                             validation_type=validation_type,
-                            expected=expected if expected else "subject value",
+                            expected=expected or "subject value",
                             obtained=obtained_subject,
                             advice='Provide missing section for language: {}'.format(lang),
                             data=obtained_toc_sections,
@@ -176,14 +174,14 @@ class ArticleTocSectionsValidation:
             for section in sections:
                 article_title = article_titles.get(lang)
                 section_title = section["section"].split(':')[0] if section["section"] else None
-                is_valid = article_title != section_title
+                is_valid = article_title.upper() != section_title.upper()
 
                 yield format_response(
                     title="Document title must not be similar to section title",
-                    parent=section.get("parent"),
-                    parent_id=section.get("parent_id"),
-                    parent_article_type=section.get("parent_article_type"),
-                    parent_lang=section.get("parent_lang"),
+                    parent=section["parent"],
+                    parent_id=section["parent_id"],
+                    parent_article_type=section["parent_article_type"],
+                    parent_lang=section["parent_lang"],
                     item="subj-group",
                     sub_item="subject",
                     is_valid=is_valid,
@@ -197,34 +195,34 @@ class ArticleTocSectionsValidation:
 
     def validate_article_section_and_subsection_number(self, error_level="CRITICAL"):
         for lang, subject in self.article_toc_sections.sections_dict.items():
-            _subjects = [item.get("section") for item in subject]
+            _subjects = [item["section"] for item in subject]
             has_multiple_subjects = len(subject) > 1
             has_subsections = len(subject[0].get("subsections", [])) > 0 if not has_multiple_subjects else False
 
             if has_multiple_subjects:
                 yield format_response(
                     title="Multiple Subjects Validation in Article TOC",
-                    parent=subject[0].get("parent"),
-                    parent_id=subject[0].get("parent_id"),
-                    parent_article_type=subject[0].get("parent_article_type"),
-                    parent_lang=subject[0].get("parent_lang"),
+                    parent=subject[0]["parent"],
+                    parent_id=subject[0]["parent_id"],
+                    parent_article_type=subject[0]["parent_article_type"],
+                    parent_lang=subject[0]["parent_lang"],
                     item="subj-group",
                     sub_item="subject",
                     is_valid=False,
                     validation_type="exist",
                     expected="only one subject per language",
                     obtained=" | ".join(_subjects),
-                    advice=f"Ensure only one subject per language. Current subjects: {_subjects}.",
+                    advice=f"One subject per language. Current subjects ({subject[0]['parent_lang']}): {_subjects}.",
                     data=subject,
                     error_level=error_level,
                 )
             if has_subsections:
                 yield format_response(
-                    title="Subsections Validation in Article TOC",
-                    parent=subject[0].get("parent"),
-                    parent_id=subject[0].get("parent_id"),
-                    parent_article_type=subject[0].get("parent_article_type"),
-                    parent_lang=subject[0].get("parent_lang"),
+                    title="Incorrect subsection structure in XML for article TOC",
+                    parent=subject[0]["parent"],
+                    parent_id=subject[0]["parent_id"],
+                    parent_article_type=subject[0]["parent_article_type"],
+                    parent_lang=subject[0]["parent_lang"],
                     item="subj-group",
                     sub_item="subsection",
                     is_valid=False,
