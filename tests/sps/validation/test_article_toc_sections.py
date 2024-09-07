@@ -1122,7 +1122,7 @@ class ArticleTocSectionsTest(TestCase):
 
         expected = [
             {
-                'title': 'Multiple Subjects Validation in Article TOC',
+                'title': "Exceding subject-group/subject",
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -1157,7 +1157,7 @@ class ArticleTocSectionsTest(TestCase):
                 ]
             },
             {
-                'title': 'Multiple Subjects Validation in Article TOC',
+                'title': "Exceding subject-group/subject",
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -1264,6 +1264,30 @@ class ArticleTocSectionsTest(TestCase):
                 }
             },
             {
+                'title': 'Document section title validation',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'Health Sciences',
+                'got_value': 'Health Sciences',
+                'message': 'Got Health Sciences, expected Health Sciences',
+                'advice': None,
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'section': 'Health Sciences',
+                    'subj_group_type': None,
+                    'subsections': []
+                 }
+            },
+            {
                 'title': "Attribute '@subj-group-type' validation",
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
@@ -1287,10 +1311,34 @@ class ArticleTocSectionsTest(TestCase):
                     'subsections': []
                 }
             },
+            {
+                'title': 'Document section title validation',
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'pt',
+                'item': 'subj-group',
+                'sub_item': 'subject',
+                'validation_type': 'value in list',
+                'response': 'OK',
+                'expected_value': 'Ciências da Saúde',
+                'got_value': 'Ciências da Saúde',
+                'message': 'Got Ciências da Saúde, expected Ciências da Saúde',
+                'advice': None,
+                'data': {
+                    'parent': 'sub-article',
+                    'parent_article_type': 'translation',
+                    'parent_id': '01',
+                    'parent_lang': 'pt',
+                    'section': 'Ciências da Saúde',
+                    'subj_group_type': None,
+                    'subsections': []
+                }
+            },
         ]
         obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
 
-        self.assertEqual(len(obtained), 2)
+        self.assertEqual(len(obtained), 4)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
