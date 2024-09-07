@@ -54,32 +54,31 @@ class ArticleTocSectionsValidation:
                         error_level=error_level,
                     )
 
-                else:
-                    # Se subj-group-type está correto, valida o título
-                    is_valid = False
-                    expected = expected_toc_sections.get(lang)
-                    obtained_subject = obtained['section']
-                    validation_type = 'exist'
-                    if obtained_subject:
-                        # verifica se o título de seção está presente na lista esperada
-                        is_valid = obtained_subject.split(":")[0] in expected
-                        validation_type = 'value in list'
-                    yield format_response(
-                        title='Document section title validation',
-                        parent=obtained["parent"],
-                        parent_id=obtained["parent_id"],
-                        parent_article_type=obtained["parent_article_type"],
-                        parent_lang=obtained["parent_lang"],
-                        item="subj-group",
-                        sub_item="subject",
-                        is_valid=is_valid,
-                        validation_type=validation_type,
-                        expected=expected or "subject value",
-                        obtained=obtained_subject,
-                        advice='Provide missing section for language: {}'.format(lang),
-                        data=obtained,
-                        error_level=error_level,
-                    )
+                # Valida o título
+                is_valid = False
+                expected = expected_toc_sections.get(lang)
+                obtained_subject = obtained['section']
+                validation_type = 'exist'
+                if obtained_subject:
+                    # verifica se o título de seção está presente na lista esperada
+                    is_valid = obtained_subject.split(":")[0] in expected
+                    validation_type = 'value in list'
+                yield format_response(
+                    title='Document section title validation',
+                    parent=obtained["parent"],
+                    parent_id=obtained["parent_id"],
+                    parent_article_type=obtained["parent_article_type"],
+                    parent_lang=obtained["parent_lang"],
+                    item="subj-group",
+                    sub_item="subject",
+                    is_valid=is_valid,
+                    validation_type=validation_type,
+                    expected=expected or "subject value",
+                    obtained=obtained_subject,
+                    advice='Provide missing section for language: {}'.format(lang),
+                    data=obtained,
+                    error_level=error_level,
+                )
 
     def validade_article_title_is_different_from_section_titles(self, error_level="ERROR"):
         """
@@ -200,7 +199,7 @@ class ArticleTocSectionsValidation:
 
             if has_multiple_subjects:
                 yield format_response(
-                    title="Multiple Subjects Validation in Article TOC",
+                    title="Exceding subject-group/subject",
                     parent=subject[0]["parent"],
                     parent_id=subject[0]["parent_id"],
                     parent_article_type=subject[0]["parent_article_type"],
