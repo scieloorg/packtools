@@ -1,85 +1,127 @@
 from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
 
 
-class Fn:
-    def __init__(self, fn_node):
-        self.fn_node = fn_node
-        self.fn_id = self.fn_node.get("id")
-        self.fn_type = self.fn_node.get("fn-type")
-        self.fn_label = self.fn_node.findtext("label")
-        self.fn_text = process_subtags(self.fn_node)
-
-    def data(self):
-        return {
-            "fn_id": self.fn_id,
-            "fn_type": self.fn_type,
-            "fn_label": self.fn_label,
-            "fn_text": self.fn_text
-        }
-
-
-class Fns:
-    def __init__(self, node):
+class NoteGroup:
+    def __init__(self, node, parent):
         self.node = node
+        self.parent = parent
 
+    @property
     def fns(self):
         for fn_node in self.node.xpath(".//fn"):
             fn = Fn(fn_node)
-            yield fn.data()
-
-
-class FnGroup:
-    def __init__(self, node):
-        self.node = node
-
-    def fn_group(self):
-        for data in Fns(self.node).fns():
-            data["fn_parent"] = "fn-group"
+            data = fn.data
+            data["fn_parent"] = self.parent
             yield data
 
+    @property
+    def data(self):
+        return {
+            "fns": list(self.fns)
+        }
 
-class FnGroups:
-    def __init__(self, node):
+
+class NoteGroups:
+    def __init__(self, node, node_tag):
         self.node = node
+        self.node_tag = node_tag
         self.parent = node.tag
         self.parent_id = node.get("id")
         self.parent_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
         self.parent_article_type = self.node.get("article-type")
 
-    def fn_groups(self):
-        for fn_group in self.node.xpath(".//fn-group"):
-            data = {
-                "fns": [fn for fn in FnGroup(fn_group).fn_group()]
-            }
+    @property
+    def _get_note_class(self):
+        if self.node_tag == "fn-group":
+            return FnGroup
+        elif self.node_tag == "author-notes":
+            return AuthorNote
+        else:
+            raise ValueError(f"Unsupported node tag: {self.node_tag}")
+
+    @property
+    def items(self):
+        note_class = self._get_note_class
+        for group in self.node.xpath(f".//{self.node_tag}"):
+            data = note_class(group).data
             yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
 
 
-class AuthorNote:
+class Fn:
     def __init__(self, node):
+        # footnote node
         self.node = node
+        self.id = self.node.get("id")
+        self.type = self.node.get("fn-type")
+        self.label = self.node.findtext("label")
+        self.text = process_subtags(self.node)
+        self.has_bold = bool(self.node.findtext("bold"))
 
-    def author_note(self):
-        for data in Fns(self.node).fns():
-            data["fn_parent"] = "author-notes"
-            yield data
+    @property
+    def data(self):
+        return {
+            "fn_id": self.id,
+            "fn_type": self.type,
+            "fn_label": self.label,
+            "fn_text": self.text,
+            "fn_has_bold": self.has_bold
+        }
 
 
-class AuthorNotes:
+class FnGroup(NoteGroup):
     def __init__(self, node):
-        self.node = node
-        self.parent = node.tag
-        self.parent_id = node.get("id")
-        self.parent_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-        self.parent_article_type = self.node.get("article-type")
+        # footnote group node
+        super().__init__(node, "fn-group")
 
-    def author_notes(self):
-        for author_note in self.node.xpath(".//author-notes"):
-            data = {
-                "corresp": process_subtags(author_note.find("corresp")),
-                "corresp_label": process_subtags(author_note.find("corresp/label")),
-                "fns": [fn for fn in AuthorNote(author_note).author_note()]
-            }
-            yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
+    @property
+    def label(self):
+        return self.node.findtext("label")
+
+    @property
+    def title(self):
+        return self.node.findtext("title")
+
+    @property
+    def data(self):
+        return {
+            **super().data,
+            "label": self.label,
+            "title": self.title
+        }
+
+
+class FnGroups(NoteGroups):
+    def __init__(self, node):
+        # article or sub-article node
+        super().__init__(node, "fn-group")
+
+
+class AuthorNote(NoteGroup):
+    def __init__(self, node):
+        # author note node
+        super().__init__(node, "author-notes")
+
+    @property
+    def corresp(self):
+        return process_subtags(self.node.find("corresp"))
+
+    @property
+    def corresp_label(self):
+        return process_subtags(self.node.find("corresp/label"))
+
+    @property
+    def data(self):
+        return {
+            **super().data,
+            "corresp": self.corresp,
+            "corresp_label": self.corresp_label
+        }
+
+
+class AuthorNotes(NoteGroups):
+    def __init__(self, node):
+        # article or sub-article node
+        super().__init__(node, "author-notes")
 
 
 class ArticleNotes:
@@ -87,10 +129,10 @@ class ArticleNotes:
         self.xml_tree = xml_tree
 
     def article_author_notes(self):
-        yield from AuthorNotes(self.xml_tree.find(".")).author_notes()
+        yield from AuthorNotes(self.xml_tree.find(".")).items
 
     def article_fn_groups_notes(self):
-        yield from FnGroups(self.xml_tree.find(".")).fn_groups()
+        yield from FnGroups(self.xml_tree.find(".")).items
 
     def article_notes(self):
         yield from self.article_fn_groups_notes()
@@ -98,11 +140,11 @@ class ArticleNotes:
 
     def sub_article_author_notes(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from AuthorNotes(sub_article).author_notes()
+            yield from AuthorNotes(sub_article).items
 
     def sub_article_fn_groups_notes(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from FnGroups(sub_article).fn_groups()
+            yield from FnGroups(sub_article).items
 
     def sub_article_notes(self):
         yield from self.sub_article_fn_groups_notes()
