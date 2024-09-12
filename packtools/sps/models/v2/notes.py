@@ -2,16 +2,16 @@ from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
 
 
 class BaseNoteGroup:
-    def __init__(self, fn_container_node, fn_container_tag_name):
-        self.fn_container_node = fn_container_node
-        self.fn_container_tag_name = fn_container_tag_name
+    def __init__(self, fn_parent_node):
+        self.fn_parent_node = fn_parent_node
+        self.fn_parent_tag_name = fn_parent_node.tag
 
     @property
     def fns(self):
-        for fn_node in self.fn_container_node.xpath(".//fn"):
+        for fn_node in self.fn_parent_node.xpath(".//fn"):
             fn = Fn(fn_node)
             data = fn.data
-            data["fn_parent"] = self.fn_container_tag_name
+            data["fn_parent"] = self.fn_parent_tag_name
             yield data
 
     @property
@@ -22,9 +22,9 @@ class BaseNoteGroup:
 
 
 class BaseNoteGroups:
-    def __init__(self, article_or_sub_article_node, fn_container_tag_name, NoteGroupClass):
+    def __init__(self, article_or_sub_article_node, fn_parent_tag_name, NoteGroupClass):
         self.article_or_sub_article_node = article_or_sub_article_node
-        self.fn_container_tag_name = fn_container_tag_name
+        self.fn_parent_tag_name = fn_parent_tag_name
         self.parent = article_or_sub_article_node.tag
         self.parent_id = article_or_sub_article_node.get("id")
         self.parent_lang = article_or_sub_article_node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -33,19 +33,19 @@ class BaseNoteGroups:
 
     @property
     def items(self):
-        for fn_container_node in self.article_or_sub_article_node.xpath(f".//{self.fn_container_tag_name}"):
-            data = self.NoteGroupClass(fn_container_node).data
+        for fn_parent_node in self.article_or_sub_article_node.xpath(f".//{self.fn_parent_tag_name}"):
+            data = self.NoteGroupClass(fn_parent_node).data
             yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
 
 
 class Fn:
-    def __init__(self, fn_node):
-        self.fn_node = fn_node
-        self.id = self.fn_node.get("id")
-        self.type = self.fn_node.get("fn-type")
-        self.label = self.fn_node.findtext("label")
-        self.text = process_subtags(self.fn_node)
-        self.has_bold = bool(self.fn_node.findtext("bold"))
+    def __init__(self, node):
+        self.node = node
+        self.id = self.node.get("id")
+        self.type = self.node.get("fn-type")
+        self.label = self.node.findtext("label")
+        self.text = process_subtags(self.node)
+        self.has_bold = bool(self.node.findtext("bold"))
 
     @property
     def data(self):
@@ -59,16 +59,14 @@ class Fn:
 
 
 class FnGroup(BaseNoteGroup):
-    def __init__(self, fn_group_node):
-        super().__init__(fn_group_node, "fn-group")
 
     @property
     def label(self):
-        return self.fn_container_node.findtext("label")
+        return self.fn_parent_node.findtext("label")
 
     @property
     def title(self):
-        return self.fn_container_node.findtext("title")
+        return self.fn_parent_node.findtext("title")
 
     @property
     def data(self):
@@ -85,16 +83,14 @@ class FnGroups(BaseNoteGroups):
 
 
 class AuthorNote(BaseNoteGroup):
-    def __init__(self, author_notes_node):
-        super().__init__(author_notes_node, "author-notes")
 
     @property
     def corresp(self):
-        return process_subtags(self.fn_container_node.find("corresp"))
+        return process_subtags(self.fn_parent_node.find("corresp"))
 
     @property
     def corresp_label(self):
-        return process_subtags(self.fn_container_node.find("corresp/label"))
+        return process_subtags(self.fn_parent_node.find("corresp/label"))
 
     @property
     def data(self):
