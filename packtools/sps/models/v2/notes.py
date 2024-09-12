@@ -1,17 +1,17 @@
 from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
 
 
-class NoteGroup:
-    def __init__(self, node, parent):
-        self.node = node
-        self.parent = parent
+class BaseNoteGroup:
+    def __init__(self, fn_container_node, fn_container_tag_name):
+        self.fn_container_node = fn_container_node
+        self.fn_container_tag_name = fn_container_tag_name
 
     @property
     def fns(self):
-        for fn_node in self.node.xpath(".//fn"):
+        for fn_node in self.fn_container_node.xpath(".//fn"):
             fn = Fn(fn_node)
             data = fn.data
-            data["fn_parent"] = self.parent
+            data["fn_parent"] = self.fn_container_tag_name
             yield data
 
     @property
@@ -21,41 +21,31 @@ class NoteGroup:
         }
 
 
-class NoteGroups:
-    def __init__(self, node, node_tag):
-        self.node = node
-        self.node_tag = node_tag
-        self.parent = node.tag
-        self.parent_id = node.get("id")
-        self.parent_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-        self.parent_article_type = self.node.get("article-type")
-
-    @property
-    def _get_note_class(self):
-        if self.node_tag == "fn-group":
-            return FnGroup
-        elif self.node_tag == "author-notes":
-            return AuthorNote
-        else:
-            raise ValueError(f"Unsupported node tag: {self.node_tag}")
+class BaseNoteGroups:
+    def __init__(self, article_or_sub_article_node, fn_container_tag_name, NoteGroupClass):
+        self.article_or_sub_article_node = article_or_sub_article_node
+        self.fn_container_tag_name = fn_container_tag_name
+        self.parent = article_or_sub_article_node.tag
+        self.parent_id = article_or_sub_article_node.get("id")
+        self.parent_lang = article_or_sub_article_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.parent_article_type = article_or_sub_article_node.get("article-type")
+        self.NoteGroupClass = NoteGroupClass
 
     @property
     def items(self):
-        note_class = self._get_note_class
-        for group in self.node.xpath(f".//{self.node_tag}"):
-            data = note_class(group).data
+        for fn_container_node in self.article_or_sub_article_node.xpath(f".//{self.fn_container_tag_name}"):
+            data = self.NoteGroupClass(fn_container_node).data
             yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
 
 
 class Fn:
-    def __init__(self, node):
-        # footnote node
-        self.node = node
-        self.id = self.node.get("id")
-        self.type = self.node.get("fn-type")
-        self.label = self.node.findtext("label")
-        self.text = process_subtags(self.node)
-        self.has_bold = bool(self.node.findtext("bold"))
+    def __init__(self, fn_node):
+        self.fn_node = fn_node
+        self.id = self.fn_node.get("id")
+        self.type = self.fn_node.get("fn-type")
+        self.label = self.fn_node.findtext("label")
+        self.text = process_subtags(self.fn_node)
+        self.has_bold = bool(self.fn_node.findtext("bold"))
 
     @property
     def data(self):
@@ -68,18 +58,17 @@ class Fn:
         }
 
 
-class FnGroup(NoteGroup):
-    def __init__(self, node):
-        # footnote group node
-        super().__init__(node, "fn-group")
+class FnGroup(BaseNoteGroup):
+    def __init__(self, fn_group_node):
+        super().__init__(fn_group_node, "fn-group")
 
     @property
     def label(self):
-        return self.node.findtext("label")
+        return self.fn_container_node.findtext("label")
 
     @property
     def title(self):
-        return self.node.findtext("title")
+        return self.fn_container_node.findtext("title")
 
     @property
     def data(self):
@@ -90,24 +79,22 @@ class FnGroup(NoteGroup):
         }
 
 
-class FnGroups(NoteGroups):
-    def __init__(self, node):
-        # article or sub-article node
-        super().__init__(node, "fn-group")
+class FnGroups(BaseNoteGroups):
+    def __init__(self, article_or_sub_article_node):
+        super().__init__(article_or_sub_article_node, "fn-group", FnGroup)
 
 
-class AuthorNote(NoteGroup):
-    def __init__(self, node):
-        # author note node
-        super().__init__(node, "author-notes")
+class AuthorNote(BaseNoteGroup):
+    def __init__(self, author_notes_node):
+        super().__init__(author_notes_node, "author-notes")
 
     @property
     def corresp(self):
-        return process_subtags(self.node.find("corresp"))
+        return process_subtags(self.fn_container_node.find("corresp"))
 
     @property
     def corresp_label(self):
-        return process_subtags(self.node.find("corresp/label"))
+        return process_subtags(self.fn_container_node.find("corresp/label"))
 
     @property
     def data(self):
@@ -118,10 +105,9 @@ class AuthorNote(NoteGroup):
         }
 
 
-class AuthorNotes(NoteGroups):
-    def __init__(self, node):
-        # article or sub-article node
-        super().__init__(node, "author-notes")
+class AuthorNotes(BaseNoteGroups):
+    def __init__(self, article_or_sub_article_node):
+        super().__init__(article_or_sub_article_node, "author-notes", AuthorNote)
 
 
 class ArticleNotes:
