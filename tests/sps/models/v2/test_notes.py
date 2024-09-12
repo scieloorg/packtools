@@ -43,8 +43,8 @@ class FnTest(TestCase):
     def test_text(self):
         self.assertEqual(self.fn.text, "*1Os autores declaram não haver conflito de interesses.")
 
-    def test_has_bold(self):
-        self.assertTrue(self.fn.has_bold)
+    def test_bold(self):
+        self.assertTrue(self.fn.bold)
 
     def test_fn_data(self):
         self.assertDictEqual(
@@ -54,7 +54,7 @@ class FnTest(TestCase):
                 "fn_type": "conflict",
                 "fn_label": "1",
                 "fn_text": "*1Os autores declaram não haver conflito de interesses.",
-                "fn_has_bold": True
+                "fn_bold": "*"
             }
         )
 
@@ -91,7 +91,7 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_has_bold': False
+                'fn_bold': None
             },
             {
                 'fn_id': 'fn3',
@@ -100,7 +100,7 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_has_bold': False
+                'fn_bold': None
             },
             {
                 'fn_id': 'fn4',
@@ -109,7 +109,7 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_has_bold': False
+                'fn_bold': None
             }
         ]
         for i, item in enumerate(obtained):
@@ -158,7 +158,7 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                     {
                         'fn_id': 'fn3',
@@ -167,7 +167,7 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                     {
                         'fn_id': 'fn4',
@@ -176,7 +176,7 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     }
                 ]
             }
@@ -219,7 +219,7 @@ class AuthorNoteTest(TestCase):
                 'fn_parent': 'author-notes',
                 'fn_text': '1Os autores declaram não haver conflito de interesses.',
                 'fn_type': 'conflict',
-                'fn_has_bold': False
+                'fn_bold': None
             }
         ]
         for i, item in enumerate(obtained):
@@ -285,7 +285,7 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': '1Os autores declaram não haver conflito de interesses.',
                         'fn_type': 'conflict',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                 ]
             },
@@ -304,7 +304,7 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Não há conflito de interesse entre os autores do artigo.',
                         'fn_type': 'coi-statement',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                     {
                         'fn_id': None,
@@ -312,7 +312,7 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Todos os autores tiveram contribuição igualitária na criação do artigo.',
                         'fn_type': 'equal',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     }
                 ]
             }
@@ -392,7 +392,7 @@ class ArticleNotesTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': True
+                        'fn_bold': "A)"
                     },
                     {
                         'fn_id': 'fn3',
@@ -401,7 +401,7 @@ class ArticleNotesTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                     {
                         'fn_id': 'fn4',
@@ -410,7 +410,7 @@ class ArticleNotesTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     }
                 ]
             },
@@ -431,7 +431,7 @@ class ArticleNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': '1Os autores declaram não haver conflito de interesses.',
                         'fn_type': 'conflict',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                 ]
             },
@@ -450,7 +450,7 @@ class ArticleNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Não há conflito de interesse entre os autores do artigo.',
                         'fn_type': 'coi-statement',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     },
                     {
                         'fn_id': None,
@@ -458,7 +458,7 @@ class ArticleNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Todos os autores tiveram contribuição igualitária na criação do artigo.',
                         'fn_type': 'equal',
-                        'fn_has_bold': False
+                        'fn_bold': None
                     }
                 ]
             }
