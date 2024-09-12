@@ -1,16 +1,14 @@
-from packtools.sps.models import (
-    related_articles,
-    article_and_subarticles
-)
+from packtools.sps.models.v2.related_articles import RelatedArticles
+from packtools.sps.models import article_and_subarticles
 
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
 from packtools.sps.validation.utils import format_response
 
 
 class RelatedArticlesValidation:
-    def __init__(self, xmltree):
-        self.related_articles = [related for related in related_articles.RelatedItems(xmltree).related_articles]
-        self.article_type = article_and_subarticles.ArticleAndSubArticles(xmltree).main_article_type
+    def __init__(self, xml_tree):
+        self.related_articles = list(RelatedArticles(xml_tree).related_articles())
+        self.article_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
 
     def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
         """
