@@ -13,9 +13,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-meta>
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
             </front>
+            </article-meta>
             </article>
 
             """
@@ -56,11 +58,12 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'text': ''
                 }
             }
         ]
-
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -69,11 +72,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="retraction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-meta>
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="retraction-forward" xlink:href="10.1590/1808-057x202090350"/>
             </front>
+            </article-meta>
             </article>
 
             """
@@ -115,11 +120,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'retraction-forward'
+                    'related-article-type': 'retraction-forward',
+                    'text': ''
                 }
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -128,11 +135,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-meta>
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
             </front>
+            </article-meta>
             </article>
 
             """
@@ -162,11 +171,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'text': ''
                 }
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -175,11 +186,13 @@ class RelatedArticlesValidationTest(unittest.TestCase):
         self.maxDiff = None
         xmltree = etree.fromstring(
             """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <article-meta>
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />
             </front>
+            </article-meta>
             </article>
 
             """
@@ -209,11 +222,14 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'text': '',
+                    'href': None
                 }
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
