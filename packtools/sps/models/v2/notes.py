@@ -4,14 +4,13 @@ from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
 class BaseNoteGroup:
     def __init__(self, fn_parent_node):
         self.fn_parent_node = fn_parent_node
-        self.fn_parent_tag_name = fn_parent_node.tag
 
     @property
     def fns(self):
         for fn_node in self.fn_parent_node.xpath(".//fn"):
             fn = Fn(fn_node)
             data = fn.data
-            data["fn_parent"] = self.fn_parent_tag_name
+            data["fn_parent"] = self.fn_parent_node.tag
             yield data
 
     @property
@@ -45,7 +44,7 @@ class Fn:
         self.type = self.node.get("fn-type")
         self.label = self.node.findtext("label")
         self.text = process_subtags(self.node)
-        self.has_bold = bool(self.node.findtext("bold"))
+        self.bold = self.node.findtext("bold")
 
     @property
     def data(self):
@@ -54,7 +53,7 @@ class Fn:
             "fn_type": self.type,
             "fn_label": self.label,
             "fn_text": self.text,
-            "fn_has_bold": self.has_bold
+            "fn_bold": self.bold
         }
 
 
