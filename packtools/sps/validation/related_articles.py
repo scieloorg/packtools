@@ -1,5 +1,5 @@
 from packtools.sps.models.v2.related_articles import RelatedArticles
-from packtools.sps.models import article_and_subarticles
+from packtools.sps.models import article_and_subarticles, article_dates
 
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
 from packtools.sps.validation.utils import format_response
@@ -9,6 +9,7 @@ class RelatedArticlesValidation:
     def __init__(self, xml_tree):
         self.related_articles = list(RelatedArticles(xml_tree).related_articles())
         self.article_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
+        self.history_events = list(article_dates.ArticleDates(xml_tree).history_dates_dict)
 
     def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
         """
@@ -134,3 +135,25 @@ class RelatedArticlesValidation:
                 data=related_article,
                 error_level=error_level
             )
+
+    def related_article_attributes_validation(self, error_level="ERROR"):
+        for related_article in self.related_articles:
+            for attrib in ("related-article-type", "id", "href", "ext-link-type"):
+                if not related_article[attrib]:
+                    yield format_response(
+                        title='Related article type validation',
+                        parent=related_article.get("parent"),
+                        parent_id=related_article.get("parent_id"),
+                        parent_article_type=related_article.get("parent_article_type"),
+                        parent_lang=related_article.get("parent_lang"),
+                        item='related-article',
+                        sub_item=f'@{attrib}',
+                        validation_type='exist',
+                        is_valid=False,
+                        expected=f"a value for @{attrib}",
+                        obtained=None,
+                        advice=f"Provide a value for @{attrib}",
+                        data=related_article,
+                        error_level=error_level
+                    )
+
