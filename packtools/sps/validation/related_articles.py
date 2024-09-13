@@ -157,3 +157,27 @@ class RelatedArticlesValidation:
                         error_level=error_level
                     )
 
+    def related_articles_matches_history_date_validation(self, correspondence_list=None, error_level="ERROR"):
+        if not correspondence_list:
+            raise ValidationRelatedArticleException("Function requires a dictionary with article type and history date event")
+
+        for related_article in self.related_articles:
+            expected_event = correspondence_list.get(self.article_type)
+            obtained_events = self.history_events
+            is_valid = expected_event in obtained_events
+            yield format_response(
+                title='Related article type validation',
+                parent=related_article.get("parent"),
+                parent_id=related_article.get("parent_id"),
+                parent_article_type=related_article.get("parent_article_type"),
+                parent_lang=related_article.get("parent_lang"),
+                item='date',
+                sub_item='@date-type',
+                validation_type='exist',
+                is_valid=is_valid,
+                expected=expected_event,
+                obtained=obtained_events,
+                advice=f"Provide {expected_event} event in <history>",
+                data=related_article,
+                error_level=error_level
+            )
