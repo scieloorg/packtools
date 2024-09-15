@@ -1,19 +1,20 @@
-from packtools.sps.models.footnotes import ArticleFootnotes
+from packtools.sps.models.v2.notes import ArticleNotes
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.validation.utils import format_response
 from packtools.sps.validation.exceptions import ValidationFootnotes
 
 
 class FootnoteValidation:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
+    def __init__(self, xml_tree, fns_dict):
+        self.xml_tree = xml_tree
+        self.fns_dict = fns_dict
 
     @property
     def dtd_version(self):
-        article = ArticleAndSubArticles(self.xmltree)
+        article = ArticleAndSubArticles(self.xml_tree)
         return article.main_dtd_version
 
-    def fn_validation(self):
+    def coi_statement_vs_conflict_by_dtd_validation(self, error_level="ERROR"):
         """
         Checks if fn-type is coi-statement for dtd-version >= 1.3
 
@@ -80,67 +81,171 @@ class FootnoteValidation:
         if not dtd:
             return
 
-        fns = ArticleFootnotes(self.xmltree)
-        for fn in fns.article_footnotes:
+        for fn in self.fns_dict.get("fns"):
             fn_type = fn.get("fn_type")
-            parent = fn.get("parent")
-            parent_id = fn.get("parent_id")
-            parent_article_type = fn.get("parent_article_type")
-            parent_lang = fn.get("parent_lang")
-            fn_parent = fn.get("fn_parent")
-
             if dtd >= 1.3 and fn_type == "conflict":
-                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "coi-statement", "conflict")
+                yield format_response(
+                    title="Footnotes validation",
+                    parent=self.fns_dict.get("parent"),
+                    parent_id=self.fns_dict.get("parent_id"),
+                    parent_article_type=self.fns_dict.get("parent_article_type"),
+                    parent_lang=self.fns_dict.get("parent_lang"),
+                    item=fn.get("fn_parent"),
+                    sub_item="fn",
+                    validation_type="match",
+                    is_valid=False,
+                    expected='<fn fn-type="coi-statement">',
+                    obtained='<fn fn-type="conflict">',
+                    advice="replace conflict with coi-statement",
+                    data=self.fns_dict,
+                    error_level=error_level
+                )
             elif dtd < 1.3 and fn_type == "coi-statement":
-                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "conflict", "coi-statement")
+                yield format_response(
+                    title="Footnotes validation",
+                    parent=self.fns_dict.get("parent"),
+                    parent_id=self.fns_dict.get("parent_id"),
+                    parent_article_type=self.fns_dict.get("parent_article_type"),
+                    parent_lang=self.fns_dict.get("parent_lang"),
+                    item=fn.get("fn_parent"),
+                    sub_item="fn",
+                    validation_type="match",
+                    is_valid=False,
+                    expected='<fn fn-type="conflict">',
+                    obtained='<fn fn-type="coi-statement">',
+                    advice="replace coi-statement with conflict",
+                    data=self.fns_dict,
+                    error_level=error_level
+                )
 
-    def _generate_response(self, fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, expected, obtained):
-        """
-        Helper method to generate the response dictionary for validation.
+    def missing_corresp_label_validation(self, error_level="WARNING"):
+        if bool(self.fns_dict.get("corresp")) and not bool(self.fns_dict.get("corresp_label")):
+            yield format_response(
+                title="Missing corresp label validation",
+                parent=self.fns_dict.get("parent"),
+                parent_id=self.fns_dict.get("parent_id"),
+                parent_article_type=self.fns_dict.get("parent_article_type"),
+                parent_lang=self.fns_dict.get("parent_lang"),
+                item="corresp",
+                sub_item="label",
+                validation_type="exist",
+                is_valid=False,
+                expected="<label> in <corresp>",
+                obtained=self.fns_dict.get("corresp_label"),
+                advice="Provide <label> in <corresp>",
+                data=self.fns_dict,
+                error_level=error_level
+            )
 
-        Params
-        ------
-        fn : dict
-            The footnote dictionary.
+    def missing_fn_label_validation(self, error_level="WARNING"):
+        for fn in self.fns_dict.get("fns"):
+            if not bool(fn.get("fn_label")):
+                yield format_response(
+                    title="Missing fn label validation",
+                    parent=self.fns_dict.get("parent"),
+                    parent_id=self.fns_dict.get("parent_id"),
+                    parent_article_type=self.fns_dict.get("parent_article_type"),
+                    parent_lang=self.fns_dict.get("parent_lang"),
+                    item="fn",
+                    sub_item="label",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected="<label> in <fn>",
+                    obtained=fn.get("fn_label"),
+                    advice="Provide <label> in <fn>",
+                    data=self.fns_dict,
+                    error_level=error_level
+                )
 
-        parent : str
-            The parent element.
+    def title_presence_in_corresp_validation(self, error_level="ERROR"):
+        if bool(self.fns_dict.get("corresp")) and bool(self.fns_dict.get("corresp_title")):
+            yield format_response(
+                title="Title presence in corresp validation",
+                parent=self.fns_dict.get("parent"),
+                parent_id=self.fns_dict.get("parent_id"),
+                parent_article_type=self.fns_dict.get("parent_article_type"),
+                parent_lang=self.fns_dict.get("parent_lang"),
+                item="corresp",
+                sub_item="title",
+                validation_type="exist",
+                is_valid=False,
+                expected="<title> not in <corresp>",
+                obtained=f'<title>{self.fns_dict.get("corresp_title")}</title>',
+                advice="Remove <title> from <corresp>",
+                data=self.fns_dict,
+                error_level=error_level
+            )
 
-        parent_id : str or None
-            The parent ID if available.
+    def title_presence_in_fn_validation(self, error_level="ERROR"):
+        for fn in self.fns_dict.get("fns"):
+            if bool(fn.get("fn_title")):
+                yield format_response(
+                    title="Title presence in fn validation",
+                    parent=self.fns_dict.get("parent"),
+                    parent_id=self.fns_dict.get("parent_id"),
+                    parent_article_type=self.fns_dict.get("parent_article_type"),
+                    parent_lang=self.fns_dict.get("parent_lang"),
+                    item="fn",
+                    sub_item="title",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected="<title> not in <fn>",
+                    obtained=f'<title>{fn.get("fn_title")}</title>',
+                    advice="Remove <title> from <fn>",
+                    data=self.fns_dict,
+                    error_level=error_level
+                )
 
-        parent_article_type : str
-            The type of the parent article.
+    def bold_presence_in_corresp_validation(self, error_level="ERROR"):
+        if bool(self.fns_dict.get("corresp")) and (bool(self.fns_dict.get("corresp_bold")) or self.fns_dict.get("corresp_bold") == ""):
+            yield format_response(
+                title="Bold presence in corresp validation",
+                parent=self.fns_dict.get("parent"),
+                parent_id=self.fns_dict.get("parent_id"),
+                parent_article_type=self.fns_dict.get("parent_article_type"),
+                parent_lang=self.fns_dict.get("parent_lang"),
+                item="corresp",
+                sub_item="bold",
+                validation_type="exist",
+                is_valid=False,
+                expected="<bold> not in <corresp>",
+                obtained=f"<bold>{self.fns_dict.get('corresp_bold')}</bold>",
+                advice="Remove <bold> from <corresp>",
+                data=self.fns_dict,
+                error_level=error_level
+            )
 
-        parent_lang : str
-            The language of the parent article.
+    def bold_presence_in_fn_validation(self, error_level="ERROR"):
+        for fn in self.fns_dict.get("fns"):
+            if bool(fn.get("fn_bold")) or fn.get("fn_bold") == "":
+                yield format_response(
+                    title="Bold presence in fn validation",
+                    parent=self.fns_dict.get("parent"),
+                    parent_id=self.fns_dict.get("parent_id"),
+                    parent_article_type=self.fns_dict.get("parent_article_type"),
+                    parent_lang=self.fns_dict.get("parent_lang"),
+                    item="fn",
+                    sub_item="bold",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected="<bold> not in <fn>",
+                    obtained=f"<bold>{fn.get('fn_bold')}</bold>",
+                    advice="Remove <bold> from <fn>",
+                    data=self.fns_dict,
+                    error_level=error_level
+                )
 
-        fn_parent : str
-            The footnote parent element.
 
-        expected : str
-            The expected value.
+class FootnotesValidation:
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
 
-        obtained : str
-            The obtained value.
-
-        Returns
-        -------
-        dict
-            The formatted response dictionary.
-        """
-        return format_response(
-            title="Footnotes validation",
-            parent=parent,
-            parent_id=parent_id,
-            parent_article_type=parent_article_type,
-            parent_lang=parent_lang,
-            item=fn_parent,
-            sub_item="fn",
-            validation_type="match",
-            is_valid=False,
-            expected=f'<fn fn-type="{expected}">',
-            obtained=f'<fn fn-type="{obtained}">',
-            advice=f"replace {obtained} with {expected}",
-            data=fn
-        )
+    def article_notes_validation(self):
+        for fns_dict in ArticleNotes(self.xml_tree).all_notes():
+            validation = FootnoteValidation(self.xml_tree, fns_dict)
+            yield from validation.coi_statement_vs_conflict_by_dtd_validation()
+            yield from validation.missing_corresp_label_validation()
+            yield from validation.title_presence_in_corresp_validation()
+            yield from validation.title_presence_in_fn_validation()
+            yield from validation.bold_presence_in_corresp_validation()
+            yield from validation.bold_presence_in_fn_validation()
