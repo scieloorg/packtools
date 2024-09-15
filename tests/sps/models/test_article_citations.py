@@ -108,6 +108,7 @@ class AuthorsTest(TestCase):
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "en",
+                "ext_link": ['https://doi.org/10.1016/j.drugalcdep.2015.02.028'],
             }
         ]
         for i, item in enumerate(expected):
@@ -151,7 +152,7 @@ class AuthorsTest(TestCase):
                 "ref_id": "B2",
                 "publication_type": "book",
                 "author_type": "person",
-                "mixed_citation": "BARTHES, Roland. Aula . São Pulo: Cultrix, 1987.",
+                "mixed_citation": "BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.",
                 "source": "Aula",
                 "main_author": {"surname": "BARTHES", "given-names": "Roland"},
                 "all_authors": [{"surname": "BARTHES", "given-names": "Roland"}],
