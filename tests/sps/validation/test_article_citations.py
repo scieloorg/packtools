@@ -129,6 +129,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -264,6 +265,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -399,6 +401,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -533,6 +536,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -667,6 +671,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -801,6 +806,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -939,6 +945,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1072,6 +1079,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1207,6 +1215,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1402,6 +1411,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1531,6 +1541,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1667,6 +1678,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1804,6 +1816,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1865,6 +1878,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1930,6 +1944,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -1991,6 +2006,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -2052,6 +2068,7 @@ class ArticleCitationValidationTest(TestCase):
                         "pmid": "00000000",
                     },
                     "elocation_id": "elocation_B1",
+                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1",
                     "lpage": "91",
@@ -2061,6 +2078,113 @@ class ArticleCitationValidationTest(TestCase):
                         "suffix": "III",
                         "surname": "Tran",
                     },
+                    "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
+                    "LR. Smoking and potentially preventable "
+                    "hospitalisation: the benefit of smoking cessation "
+                    "in older ages. Drug Alcohol Depend. "
+                    "2015;150:85-91. DOI: "
+                    "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    "publication_type": "journal",
+                    "ref_id": "B1",
+                    "source": "Drug Alcohol Depend.",
+                    "volume": "150",
+                    "year": "2015",
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "en",
+                },
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_article_citation_ext_link(self):
+        self.maxDiff = None
+        xml = """
+        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+        <back>
+        <ref-list>
+        <title>REFERENCES</title>
+        <ref id="B1">
+        <label>1.</label>
+        <mixed-citation>
+        1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. 
+        Drug Alcohol Depend. 2015;150:85-91. DOI: 
+        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">
+        https://doi.org/10.1016/j.drugalcdep.2015.02.028
+        </ext-link>
+        </mixed-citation>
+        <element-citation publication-type="journal">
+        <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
+        <source>Drug Alcohol Depend.</source>
+        <year>2015</year>
+        <volume>150</volume>
+        <fpage>85</fpage>
+        <lpage>91</lpage>
+        <pub-id pub-id-type="doi">10.1016/B1</pub-id>
+        <elocation-id>elocation_B1</elocation-id>
+        <pub-id pub-id-type="pmid">00000000</pub-id>
+        <pub-id pub-id-type="pmcid">11111111</pub-id>
+        <comment>
+        DOI:
+        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">
+        https://doi.org/10.1016/j.drugalcdep.2015.02.028
+        </ext-link>. 
+        Full text available at: 
+        <ext-link ext-link-type="uri" xlink:href="https://www.example.com/fulltext">
+        https://www.example.com/fulltext
+        </ext-link>
+        </comment>
+        </element-citation>
+        </ref>
+        </ref-list>
+        </back>
+        </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(
+            ArticleCitationValidation(
+                xmltree, citation
+            ).validate_article_citation_ext_link()
+        )
+
+        expected = [
+            {
+                "title": "element citation validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "element-citation",
+                'sub_item': 'ext-link',
+                "validation_type": "exist",
+                "response": "ERROR",
+                'expected_value': '1 <ext-link> per reference',
+                'got_value': '2 <ext-link> per reference',
+                'message': 'Got 2 <ext-link> per reference, expected 1 <ext-link> per reference',
+                'advice': 'The source in reference (ref-id: B1) has 2 <ext-link> per reference',
+                "data": {
+                    "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages",
+                    "author_type": "person",
+                    "citation_ids": {
+                        "doi": "10.1016/B1",
+                        "pmcid": "11111111",
+                        "pmid": "00000000",
+                    },
+                    "elocation_id": "elocation_B1",
+                    "ext_link": [
+                        "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "https://www.example.com/fulltext"
+                    ],
+                    "fpage": "85",
+                    "label": "1",
+                    "lpage": "91",
                     "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
                     "LR. Smoking and potentially preventable "
                     "hospitalisation: the benefit of smoking cessation "
