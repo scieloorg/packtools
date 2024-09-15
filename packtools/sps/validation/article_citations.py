@@ -421,6 +421,26 @@ class ArticleCitationValidation:
             error_level=error_level,
         )
 
+    def validate_article_citation_ext_link(self, error_level="ERROR"):
+        links = self.citation.get("ext_link")
+        is_valid = len(links) == 1
+        yield format_response(
+            title="element citation validation",
+            parent=self.citation.get("parent"),
+            parent_id=self.citation.get("parent_id"),
+            parent_article_type=self.citation.get("parent_article_type"),
+            parent_lang=self.citation.get("parent_lang"),
+            item="element-citation",
+            sub_item="ext-link",
+            is_valid=is_valid,
+            validation_type="exist",
+            expected="1 <ext-link> per reference",
+            obtained=f"{len(links)} <ext-link> per reference",
+            advice=f"The source in reference (ref-id: {self.citation.get('ref_id')}) has {len(links)} <ext-link> per reference",
+            data=self.citation,
+            error_level=error_level,
+        )
+
 
 class ArticleCitationsValidation:
     def __init__(self, xmltree, publication_type_list=None):
@@ -444,3 +464,4 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_publication_type(
                 publication_type_list
             )
+            yield from citation.validate_article_citation_ext_link()
