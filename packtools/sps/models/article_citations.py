@@ -1,4 +1,4 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text
+from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text, process_subtags
 
 
 def get_label(node):
@@ -86,6 +86,28 @@ def get_elocation_id(node):
 def get_ref_id(node):
     return node.get("id")
 
+def get_comment_text(node):
+    # localizar elementos <comment> que contêm <ext-link>
+    comments = node.xpath("//element-citation/comment[ext-link]")
+    results = []
+    for comment in comments:
+        # texto completo do <comment>
+        comment_text = comment.text
+
+        # extrai o primeiro elemento <ext-link> dentro do <comment>
+        ext_link = comment.find("ext-link")
+
+        # verifica se há um texto antes do <ext-link> e extrai esse texto
+        if comment_text and ext_link is not None:
+            text_between = comment_text.strip()
+            results.append({
+                'full_comment': process_subtags(comment),
+                'text_between': text_between,
+                'ext_link_text': process_subtags(ext_link)
+            })
+
+    return results
+
 
 class ArticleCitations:
 
@@ -114,6 +136,7 @@ class ArticleCitations:
                     ("article_title", get_article_title(item)),
                     ("citation_ids", get_citation_ids(item)),
                     ("mixed_citation", get_mixed_citation(item)),
+                    ("comment_text", get_comment_text(item))
                 ]
                 d = dict()
                 for name, value in tags:
