@@ -405,3 +405,24 @@ class ArticleDoiValidation:
                     data=self.doi.data,
                     error_level=error_level,
                 )
+
+    def validate_different_doi_in_translation(self, error_level="WARNING"):
+        article_doi = self.doi.main_doi
+        for doi in self.doi.data:
+            if doi["parent_article_type"] == "translation" and doi["value"] == article_doi:
+                yield format_response(
+                    title='Different DOIs for tranaltions',
+                    parent=doi.get("parent"),
+                    parent_id=doi.get("parent_id"),
+                    parent_article_type=doi.get("parent_article_type"),
+                    parent_lang=doi.get("lang"),
+                    item="article-id",
+                    sub_item='@pub-id-type="doi"',
+                    validation_type='match',
+                    is_valid=False,
+                    expected="use unique DOIs for articles and sub-articles",
+                    obtained=f"article DOI: {article_doi}, sub-article DOI: {doi['value']}",
+                    advice="consider using different DOIs for article and sub-article",
+                    data=self.doi.data,
+                    error_level=error_level,
+                )
