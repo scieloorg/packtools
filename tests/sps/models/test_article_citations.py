@@ -104,6 +104,13 @@ class AuthorsTest(TestCase):
                     "pmcid": "11111111",
                     "doi": "10.1016/B1",
                 },
+                "comment_text": [
+                    {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI:"
+                    }
+                ],
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -151,7 +158,7 @@ class AuthorsTest(TestCase):
                 "ref_id": "B2",
                 "publication_type": "book",
                 "author_type": "person",
-                "mixed_citation": "BARTHES, Roland. Aula . São Pulo: Cultrix, 1987.",
+                "mixed_citation": "BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.",
                 "source": "Aula",
                 "main_author": {"surname": "BARTHES", "given-names": "Roland"},
                 "all_authors": [{"surname": "BARTHES", "given-names": "Roland"}],
