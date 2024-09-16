@@ -421,6 +421,26 @@ class ArticleCitationValidation:
             error_level=error_level,
         )
 
+    def validate_text_between_comment_and_ext_link(self, error_level="ERROR"):
+        for item in self.citation.get("comment_text"):
+            if item["text_between"] == "":
+                yield format_response(
+                    title="text_between_comment_and_ext_link",
+                    parent=self.citation.get("parent"),
+                    parent_id=self.citation.get("parent_id"),
+                    parent_article_type=self.citation.get("parent_article_type"),
+                    parent_lang=self.citation.get("parent_lang"),
+                    item="element-citation",
+                    sub_item="comment",
+                    is_valid=False,
+                    validation_type="exist",
+                    expected="text between comment and ext-link",
+                    obtained=item["text_between"],
+                    advice="provide a text between comment and ext-link",
+                    data=item,
+                    error_level=error_level,
+                )
+
 
 class ArticleCitationsValidation:
     def __init__(self, xmltree, publication_type_list=None):
@@ -444,3 +464,4 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_publication_type(
                 publication_type_list
             )
+            yield from citation.validate_text_between_comment_and_ext_link()
