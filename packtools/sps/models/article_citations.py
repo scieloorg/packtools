@@ -75,6 +75,19 @@ class ArticleReference:
     def get_ref_id(self):
         return self.ref.get("id")
 
+    def get_extlink_and_comment_content(self):
+        ext_link = self.ref.find("./element-citation//ext-link")
+        if ext_link is not None:
+            comment = self.ref.find("./element-citation/comment")
+            if comment is not None:
+                text_between = comment.text
+                full_comment = process_subtags(comment) or None
+                return {
+                    'full_comment': full_comment,
+                    'text_between': text_between,
+                    'ext_link_text': process_subtags(ext_link)
+                }
+
 
 
 class ArticleCitations:
