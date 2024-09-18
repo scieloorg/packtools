@@ -88,6 +88,12 @@ class ArticleReference:
                     'ext_link_text': process_subtags(ext_link)
                 }
 
+    def get_text_before_extlink(self):
+        extlink_node = self.ref.find("./element-citation/ext-link")
+        if extlink_node is not None:
+            previous = extlink_node.getprevious()
+            if previous is not None:
+                return previous.tail
 
 
 class ArticleCitations:
