@@ -422,10 +422,40 @@ class ArticleCitationValidation:
         )
 
     def validate_text_between_comment_and_ext_link(self, error_level="ERROR"):
-        for item in self.citation.get("comment_text"):
-            if item["text_between"] == "":
+        comment = self.citation.get("comment_text")
+        text_before_extlink = self.citation.get("text_before_extlink")
+        if not comment:
+            return
+
+        ext_link_text = comment.get("ext_link_text")
+        full_comment = comment.get("full_comment")
+        text_between = comment.get("text_between")
+
+        scenarios = [
+            {
+                "condition": not full_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
+            },
+            {
+                "condition": not full_comment and not text_before_extlink,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
+                "advice": "Remove the <comment> tag that has no content"
+            },
+            {
+                "condition": full_comment and not text_between,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment><ext-link>{ext_link_text}</ext-link></comment>",
+                "advice": "Remove the <comment> tag that has no content"
+            }
+        ]
+
+        for scenario in scenarios:
+            if scenario["condition"]:
                 yield format_response(
-                    title="text_between_comment_and_ext_link",
+                    title="text between comment and ext-link",
                     parent=self.citation.get("parent"),
                     parent_id=self.citation.get("parent_id"),
                     parent_article_type=self.citation.get("parent_article_type"),
@@ -434,10 +464,10 @@ class ArticleCitationValidation:
                     sub_item="comment",
                     is_valid=False,
                     validation_type="exist",
-                    expected="text between comment and ext-link",
-                    obtained=item["text_between"],
-                    advice="provide a text between comment and ext-link",
-                    data=item,
+                    expected=scenario["expected"],
+                    obtained=scenario["obtained"],
+                    advice=scenario["advice"],
+                    data=self.citation,
                     error_level=error_level,
                 )
 
