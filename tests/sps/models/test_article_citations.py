@@ -1,5 +1,5 @@
 from packtools.sps.models.article_citations import ArticleCitations
-from unittest import TestCase, skip
+from unittest import TestCase
 
 from lxml import etree
 
@@ -52,9 +52,7 @@ class AuthorsTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI:<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -104,13 +102,11 @@ class AuthorsTest(TestCase):
                     "pmcid": "11111111",
                     "doi": "10.1016/B1",
                 },
-                "comment_text": [
-                    {
+                "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI:https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "text_between": "DOI:"
-                    }
-                ],
+                    },
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -247,3 +243,159 @@ class AuthorsTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
+
+    def test_extlink_and_comment_content_ref_B1(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B1">
+                        <element-citation publication-type="other">
+                            <comment></comment>text<ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = {
+            'author_type': 'person',
+            'comment_text': {
+                'ext_link_text': 'https://...',
+                'full_comment': None,
+                'text_between': None
+            },
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'publication_type': 'other',
+            'ref_id': 'B1',
+            'text_before_extlink': 'text'
+        }
+        self.assertDictEqual(expected, obtained[0])
+
+    def test_extlink_and_comment_content_ref_B2(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B2">
+                        <element-citation publication-type="other">
+                            <comment>text<ext-link>https://... </ext-link></comment>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = {
+            'author_type': 'person',
+            'comment_text': {
+                'ext_link_text': 'https://...',
+                'full_comment': 'texthttps://...',
+                'text_between': 'text'
+            },
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'publication_type': 'other',
+            'ref_id': 'B2'
+        }
+        self.assertDictEqual(expected, obtained[0])
+
+    def test_extlink_and_comment_content_ref_B3(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B3">
+                        <element-citation publication-type="other">
+                            <comment></comment><ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = {
+            'author_type': 'person',
+            'comment_text': {
+                'ext_link_text': 'https://...',
+                'full_comment': None,
+                'text_between': None
+            },
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'publication_type': 'other',
+            'ref_id': 'B3'
+        }
+        self.assertDictEqual(expected, obtained[0])
+
+    def test_extlink_and_comment_content_ref_B4(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B4">
+                        <element-citation publication-type="other">
+                            <ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = {
+            'author_type': 'person',
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'publication_type': 'other',
+            'ref_id': 'B4'
+        }
+        self.assertDictEqual(expected, obtained[0])
+
+    def test_extlink_and_comment_content_ref_B5(self):
+        xml = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B5">
+                        <element-citation publication-type="other">
+                            <comment><ext-link>https://... </ext-link></comment>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+        xmltree = etree.fromstring(xml)
+        obtained = list(ArticleCitations(xmltree).article_citations)
+        expected = {
+            'author_type': 'person',
+            'comment_text': {
+                'ext_link_text': 'https://...',
+                'full_comment': 'https://...',
+                'text_between': None
+            },
+            'parent': 'article',
+            'parent_article_type': 'research-article',
+            'parent_id': None,
+            'parent_lang': 'pt',
+            'publication_type': 'other',
+            'ref_id': 'B5'
+        }
+        self.assertDictEqual(expected, obtained[0])
