@@ -127,6 +127,10 @@ class ArticleReference:
         return d
 
 
+def get_ext_link(node):
+    return [node_plain_text(item) for item in node.xpath(".//element-citation//ext-link")]
+
+
 class ArticleCitations:
 
     def __init__(self, xmltree):
@@ -135,7 +139,7 @@ class ArticleCitations:
     @property
     def article_citations(self):
         for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xmltree
+                self.xmltree
         ):
             for item in node.xpath(".//ref-list/ref"):
                 ref = ArticleReference(item)

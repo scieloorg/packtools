@@ -500,3 +500,4 @@ class ArticleCitationsValidation:
                 publication_type_list
             )
             yield from citation.validate_comment_is_required_or_not()
+            
