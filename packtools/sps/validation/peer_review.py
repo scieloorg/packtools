@@ -260,20 +260,22 @@ class PeerReviewsValidation:
         self.link_type_list = link_type_list
 
     def article(self):
-        node = self.xml_tree.find(".//article-meta")
-        node_tag = "article"
-        if node is not None:
-            node_id = self.xml_tree.attrib.get("id")
-            node_lang = self.xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
-            yield node, node_tag, node_id, node_lang
+        if self.xml_tree.attrib.get("article-type") == "reviewer-report":
+            node = self.xml_tree.find(".//article-meta")
+            node_tag = "article"
+            if node is not None:
+                node_id = self.xml_tree.attrib.get("id")
+                node_lang = self.xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
+                yield node, node_tag, node_id, node_lang
 
     def sub_articles(self):
         nodes = self.xml_tree.xpath(".//sub-article")
         node_tag = "sub-article"
         for node in nodes:
-            node_id = node.get("id")
-            node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-            yield node, node_tag, node_id, node_lang
+            if node.get("article-type") == "reviewer-report":
+                node_id = node.get("id")
+                node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+                yield node, node_tag, node_id, node_lang
 
     def nodes(self):
         yield from self.article()
@@ -281,17 +283,12 @@ class PeerReviewsValidation:
 
     def validate(self):
         article_type = self.xml_tree.get("article-type")
-        if article_type == "reviewer-report":
-            for node, node_tag, node_id, node_lang in self.nodes():
-                for item in self.node_validation(node):
-                    yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
-            for node, node_tag, node_id, node_lang in self.article():
-                for item in self.specific_validation():
-                    yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
-        else:
-            for node, node_tag, node_id, node_lang in self.article():
-                for item in self.specific_validation():
-                    yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
+        for node, node_tag, node_id, node_lang in self.nodes():
+            for item in self.node_validation(node):
+                yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
+        for node, node_tag, node_id, node_lang in self.article():
+            for item in self.specific_validation():
+                yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
 
     def node_validation(self, node):
         yield from self.author_validation(node)
