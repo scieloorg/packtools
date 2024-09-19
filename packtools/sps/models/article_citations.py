@@ -6,10 +6,7 @@ class ArticleReference:
         self.ref = ref
 
     def get_label(self):
-        text = node_plain_text(self.ref.find("./label"))
-        if text is not None and text.endswith("."):
-            text = text[:-1]
-        return text
+        return node_plain_text(self.ref.find("./label"))
 
     def get_publication_type(self):
         return self.ref.find("./element-citation").get("publication-type")
