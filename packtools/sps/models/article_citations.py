@@ -95,6 +95,37 @@ class ArticleReference:
             if previous is not None:
                 return previous.tail
 
+    def data(self):
+        tags = [
+            ("ref_id", self.get_ref_id()),
+            ("label", self.get_label()),
+            ("publication_type", self.get_publication_type()),
+            ("source", self.get_source()),
+            ("main_author", self.get_main_author()),
+            ("all_authors", self.get_all_authors()),
+            ("volume", self.get_volume()),
+            ("issue", self.get_issue()),
+            ("fpage", self.get_fpage()),
+            ("lpage", self.get_lpage()),
+            ("elocation_id", self.get_elocation_id()),
+            ("year", self.get_year()),
+            ("article_title", self.get_article_title()),
+            ("citation_ids", self.get_citation_ids()),
+            ("mixed_citation", self.get_mixed_citation()),
+            ("comment_text", self.get_extlink_and_comment_content()),
+            ("text_before_extlink", self.get_text_before_extlink())
+        ]
+        d = dict()
+        for name, value in tags:
+            if value is not None and len(value) > 0:
+                try:
+                    d[name] = value.text
+                except AttributeError:
+                    d[name] = value
+        d["author_type"] = "institutional" if self.get_collab() else "person"
+
+        return d
+
 
 class ArticleCitations:
 
@@ -108,31 +139,5 @@ class ArticleCitations:
         ):
             for item in node.xpath(".//ref-list/ref"):
                 ref = ArticleReference(item)
-                tags = [
-                    ("ref_id", ref.get_ref_id()),
-                    ("label", ref.get_label()),
-                    ("publication_type", ref.get_publication_type()),
-                    ("source", ref.get_source()),
-                    ("main_author", ref.get_main_author()),
-                    ("all_authors", ref.get_all_authors()),
-                    ("volume", ref.get_volume()),
-                    ("issue", ref.get_issue()),
-                    ("fpage", ref.get_fpage()),
-                    ("lpage", ref.get_lpage()),
-                    ("elocation_id", ref.get_elocation_id()),
-                    ("year", ref.get_year()),
-                    ("article_title", ref.get_article_title()),
-                    ("citation_ids", ref.get_citation_ids()),
-                    ("mixed_citation", ref.get_mixed_citation()),
-                    ("comment_text", ref.get_extlink_and_comment_content()),
-                    ("text_before_extlink", ref.get_text_before_extlink())
-                ]
-                d = dict()
-                for name, value in tags:
-                    if value is not None and len(value) > 0:
-                        try:
-                            d[name] = value.text
-                        except AttributeError:
-                            d[name] = value
-                d["author_type"] = "institutional" if ref.get_collab() else "person"
-                yield put_parent_context(d, lang, article_type, parent, parent_id)
+                data = ref.data()
+                yield put_parent_context(data, lang, article_type, parent, parent_id)
