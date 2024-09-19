@@ -65,7 +65,7 @@ class AuthorsTest(TestCase):
         expected = [
             {
                 "ref_id": "B1",
-                "label": "1",
+                "label": "1.",
                 "publication_type": "journal",
                 "author_type": "person",
                 "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially "
@@ -103,10 +103,12 @@ class AuthorsTest(TestCase):
                     "doi": "10.1016/B1",
                 },
                 "comment_text": {
-                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "full_comment": "DOI:https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI:"
-                    },
+                    "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    "full_comment": "DOI:https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    "text_between": "DOI:",
+                    'text_before': None,
+                    'has_comment': True,
+                },
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -265,7 +267,9 @@ class AuthorsTest(TestCase):
             'comment_text': {
                 'ext_link_text': 'https://...',
                 'full_comment': None,
-                'text_between': None
+                'text_before': 'text',
+                'text_between': None,
+                'has_comment': True,
             },
             'parent': 'article',
             'parent_article_type': 'research-article',
@@ -298,7 +302,9 @@ class AuthorsTest(TestCase):
             'comment_text': {
                 'ext_link_text': 'https://...',
                 'full_comment': 'texthttps://...',
-                'text_between': 'text'
+                'text_between': 'text',
+                'text_before': None,
+                'has_comment': True,
             },
             'parent': 'article',
             'parent_article_type': 'research-article',
@@ -330,7 +336,9 @@ class AuthorsTest(TestCase):
             'comment_text': {
                 'ext_link_text': 'https://...',
                 'full_comment': None,
-                'text_between': None
+                'text_before': None,
+                'text_between': None,
+                'has_comment': True,
             },
             'parent': 'article',
             'parent_article_type': 'research-article',
@@ -359,6 +367,13 @@ class AuthorsTest(TestCase):
         obtained = list(ArticleCitations(xmltree).article_citations)
         expected = {
             'author_type': 'person',
+            'comment_text': {
+                'ext_link_text': 'https://...',
+                'full_comment': None,
+                'text_before': None,
+                'text_between': None,
+                'has_comment': False,
+            },
             'parent': 'article',
             'parent_article_type': 'research-article',
             'parent_id': None,
@@ -389,7 +404,9 @@ class AuthorsTest(TestCase):
             'comment_text': {
                 'ext_link_text': 'https://...',
                 'full_comment': 'https://...',
-                'text_between': None
+                'text_before': None,
+                'text_between': None,
+                'has_comment': True,
             },
             'parent': 'article',
             'parent_article_type': 'research-article',
