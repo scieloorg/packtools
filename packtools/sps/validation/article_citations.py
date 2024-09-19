@@ -421,28 +421,33 @@ class ArticleCitationValidation:
             error_level=error_level,
         )
 
-    def validate_text_between_comment_and_ext_link(self, error_level="ERROR"):
-        comment = self.citation.get("comment_text")
+    def validate_comment_is_required_or_not(self, error_level="ERROR"):
+        comment = self.citation.get("comment_text", {})
         text_before_extlink = self.citation.get("text_before_extlink")
-        if not comment:
-            return
 
         ext_link_text = comment.get("ext_link_text")
         full_comment = comment.get("full_comment")
         text_between = comment.get("text_between")
+        has_comment = comment.get("has_comment")
 
         scenarios = [
             {
-                "condition": not full_comment and text_before_extlink,
+                "condition": has_comment and not full_comment and text_before_extlink,
                 "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
                 "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
                 "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
             },
             {
-                "condition": not full_comment and not text_before_extlink,
+                "condition": has_comment and not full_comment and not text_before_extlink,
                 "expected": f"<ext-link>{ext_link_text}</ext-link>",
                 "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
                 "advice": "Remove the <comment> tag that has no content"
+            },
+            {
+                "condition": not has_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
             },
             {
                 "condition": full_comment and not text_between,
@@ -455,7 +460,7 @@ class ArticleCitationValidation:
         for scenario in scenarios:
             if scenario["condition"]:
                 yield format_response(
-                    title="text between comment and ext-link",
+                    title="validate comment is required or not",
                     parent=self.citation.get("parent"),
                     parent_id=self.citation.get("parent_id"),
                     parent_article_type=self.citation.get("parent_article_type"),
@@ -494,4 +499,4 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_publication_type(
                 publication_type_list
             )
-            yield from citation.validate_text_between_comment_and_ext_link()
+            yield from citation.validate_comment_is_required_or_not()
