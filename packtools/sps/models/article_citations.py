@@ -36,8 +36,7 @@ class ArticleReference:
         return result
 
     def get_collab(self):
-        collabs = self.ref.xpath("./element-citation/person-group//collab")
-        return [node_plain_text(collab) for collab in collabs]
+        return [node_plain_text(collab) for collab in self.ref.xpath("./element-citation/person-group//collab")]
 
     def get_volume(self):
         return node_plain_text(self.ref.find("./element-citation/volume"))
