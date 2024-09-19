@@ -129,11 +129,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -267,11 +269,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -405,11 +409,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -542,11 +548,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -679,11 +687,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -816,11 +826,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -957,11 +969,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1093,11 +1107,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1231,11 +1247,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1429,11 +1447,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
                     "LR. Smoking and potentially preventable "
@@ -1561,11 +1581,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1700,11 +1722,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1840,11 +1864,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1906,11 +1932,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1976,11 +2004,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2042,11 +2072,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2108,11 +2140,13 @@ class ArticleCitationValidationTest(TestCase):
                     "comment_text": {
                         "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
                         "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "text_between": "DOI: "
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2143,7 +2177,7 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_text_between_comment_and_ext_link_B1(self):
+    def test_validate_comment_is_required_or_not_B1(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
@@ -2161,11 +2195,11 @@ class ArticleCitationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_text_between_comment_and_ext_link())
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         expected = [
             {
-                "title": "text between comment and ext-link",
+                "title": "validate comment is required or not",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -2184,7 +2218,9 @@ class ArticleCitationValidationTest(TestCase):
                     'comment_text': {
                         'ext_link_text': 'https://...',
                         'full_comment': None,
-                        'text_between': None
+                        'text_between': None,
+                        'text_before': 'text',
+                        'has_comment': True,
                     },
                     'parent': 'article',
                     'parent_article_type': 'research-article',
@@ -2201,7 +2237,7 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_text_between_comment_and_ext_link_B2(self):
+    def test_validate_comment_is_required_or_not_B2(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
@@ -2219,11 +2255,11 @@ class ArticleCitationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_text_between_comment_and_ext_link())
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         self.assertListEqual(obtained, [])
 
-    def test_validate_text_between_comment_and_ext_link_B3(self):
+    def test_validate_comment_is_required_or_not_B3(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
@@ -2241,11 +2277,11 @@ class ArticleCitationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_text_between_comment_and_ext_link())
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         expected = [
             {
-                "title": "text between comment and ext-link",
+                "title": "validate comment is required or not",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -2264,7 +2300,9 @@ class ArticleCitationValidationTest(TestCase):
                     'comment_text': {
                         'ext_link_text': 'https://...',
                         'full_comment': None,
-                        'text_between': None
+                        'text_between': None,
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     'parent': 'article',
                     'parent_article_type': 'research-article',
@@ -2280,7 +2318,7 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_text_between_comment_and_ext_link_B4(self):
+    def test_validate_comment_is_required_or_not_B4(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
@@ -2298,11 +2336,11 @@ class ArticleCitationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_text_between_comment_and_ext_link())
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         self.assertListEqual(obtained, [])
 
-    def test_validate_text_between_comment_and_ext_link_B5(self):
+    def test_validate_comment_is_required_or_not_B5(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
@@ -2320,11 +2358,11 @@ class ArticleCitationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_text_between_comment_and_ext_link())
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         expected = [
             {
-                "title": "text between comment and ext-link",
+                "title": "validate comment is required or not",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -2343,7 +2381,9 @@ class ArticleCitationValidationTest(TestCase):
                     'comment_text': {
                         'ext_link_text': 'https://...',
                         'full_comment': 'https://...',
-                        'text_between': None
+                        'text_between': None,
+                        'text_before': None,
+                        'has_comment': True,
                     },
                     'parent': 'article',
                     'parent_article_type': 'research-article',
