@@ -1346,6 +1346,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                     'id': 'r01',
                     "related-article-type": "peer-reviewed-material",
                     'href': '10.1590/abd1806-4841.20142998',
+                    'text': ''
                 }
             },
             {
@@ -1371,6 +1372,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                     "id": "r01",
                     'related-article-type': 'peer-reviewed-material',
                     'href': '10.1590/abd1806-4841.20142998',
+                    'text': ''
                 }
             },
             {
@@ -1396,6 +1398,7 @@ class ArticleAuthorsValidationTest(unittest.TestCase):
                     "id": "r01",
                     'related-article-type': 'peer-reviewed-material',
                     "href": "10.1590/abd1806-4841.20142998",
+                    'text': ''
                 }
             }
         ]

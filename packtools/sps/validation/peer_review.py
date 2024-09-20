@@ -1,7 +1,8 @@
 from packtools.sps.models.article_contribs import ContribGroup
 from packtools.sps.models.article_dates import HistoryDates
 from packtools.sps.models.peer_review import PeerReview, CustomMeta
-from packtools.sps.models.related_articles import RelatedItems
+from packtools.sps.models.v2.related_articles import RelatedArticles
+from packtools.sps.utils.xml_utils import put_parent_context
 from packtools.sps.validation.exceptions import ValidationPeerReviewException
 from packtools.sps.validation.utils import format_response
 
@@ -45,7 +46,7 @@ class RelatedArticleValidation:
         # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
         # @xlink:href com número DOI do artigo revisado;
         href = self.related_article.get("href")
-        is_valid = href is not None
+        is_valid = bool(href)
         yield format_response(
             title="Peer review validation",
             parent=self.related_article.get("parent"),
@@ -272,8 +273,8 @@ class PeerReviewsValidation:
         node_tag = "sub-article"
         for node in nodes:
             if node.get("article-type") == "reviewer-report":
-                node_id = self.xml_tree.attrib.get("id")
-                node_lang = self.xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
+                node_id = node.get("id")
+                node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
                 yield node, node_tag, node_id, node_lang
 
     def nodes(self):
@@ -281,20 +282,13 @@ class PeerReviewsValidation:
         yield from self.sub_articles()
 
     def validate(self):
+        article_type = self.xml_tree.get("article-type")
         for node, node_tag, node_id, node_lang in self.nodes():
             for item in self.node_validation(node):
-                item['parent'] = node_tag
-                item["parent_id"] = node_id
-                item["parent_article_type"] = "reviewer-report"
-                item["parent_lang"] = node_lang
-                yield item
+                yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
         for node, node_tag, node_id, node_lang in self.article():
             for item in self.specific_validation():
-                item['parent'] = node_tag
-                item["parent_id"] = node_id
-                item["parent_article_type"] = "reviewer-report"
-                item["parent_lang"] = node_lang
-                yield item
+                yield put_parent_context(item, node_lang, article_type, node_tag, node_id)
 
     def node_validation(self, node):
         yield from self.author_validation(node)
@@ -353,8 +347,8 @@ class PeerReviewsValidation:
             raise ValidationPeerReviewException("Function requires list of related article types")
         if link_type_list is None:
             raise ValidationPeerReviewException("Function requires list of link types")
-        related_items = RelatedItems(self.xml_tree)
-        for item in related_items.related_articles:
+        related_items = RelatedArticles(self.xml_tree)
+        for item in related_items.related_articles():
             validation = RelatedArticleValidation(
                 related_article=item,
                 related_article_type_list=self.related_article_type_list,
