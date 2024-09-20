@@ -74,9 +74,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -128,10 +126,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -165,7 +170,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_success(self):
         self.maxDiff = None
         xml = """
-                   <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                   <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
                    article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
                    <back>
                    <ref-list>
@@ -210,9 +215,7 @@ class ArticleCitationValidationTest(TestCase):
                    <elocation-id>elocation_B1</elocation-id>
                    <pub-id pub-id-type="pmid">00000000</pub-id>
                    <pub-id pub-id-type="pmcid">11111111</pub-id>
-                   <comment>
-                   DOI:
-                   <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+                   <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
                    </comment>
                    </element-citation>
                    </ref>
@@ -264,10 +267,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -301,7 +311,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_fail_invalid(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -346,9 +356,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -400,10 +408,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -437,7 +452,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_year_fail_missing(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -481,9 +496,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -535,10 +548,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -571,7 +591,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_source_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -616,9 +636,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -670,10 +688,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -707,7 +732,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_source_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -751,9 +776,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -805,10 +828,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -841,7 +871,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_article_title_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -886,9 +916,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -944,10 +972,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -981,7 +1016,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_article_title_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1025,9 +1060,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1078,10 +1111,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1115,7 +1155,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_authors_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1160,9 +1200,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1214,10 +1252,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1251,7 +1296,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_collab_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1347,7 +1392,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_authors_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1368,9 +1413,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1410,10 +1453,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
                     "LR. Smoking and potentially preventable "
@@ -1441,7 +1491,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_publication_type_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1486,9 +1536,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1540,10 +1588,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1577,7 +1632,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_publication_type_fail(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1622,9 +1677,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1677,10 +1730,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1714,7 +1774,7 @@ class ArticleCitationValidationTest(TestCase):
     def test_validate_article_citation_success(self):
         self.maxDiff = None
         xml = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
             article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <back>
             <ref-list>
@@ -1759,9 +1819,7 @@ class ArticleCitationValidationTest(TestCase):
             <elocation-id>elocation_B1</elocation-id>
             <pub-id pub-id-type="pmid">00000000</pub-id>
             <pub-id pub-id-type="pmcid">11111111</pub-id>
-            <comment>
-            DOI:
-            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            <comment>DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
             </comment>
             </element-citation>
             </ref>
@@ -1815,10 +1873,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1877,10 +1942,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -1943,10 +2015,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2005,10 +2084,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2067,10 +2153,17 @@ class ArticleCitationValidationTest(TestCase):
                         "pmcid": "11111111",
                         "pmid": "00000000",
                     },
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "text_between": "DOI: ",
+                        'text_before': None,
+                        'has_comment': True,
+                    },
                     "elocation_id": "elocation_B1",
                     "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
-                    "label": "1",
+                    "label": "1.",
                     "lpage": "91",
                     "main_author": {
                         "given-names": "B",
@@ -2101,107 +2194,222 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_article_citation_ext_link(self):
+    def test_validate_comment_is_required_or_not_B1(self):
         self.maxDiff = None
         xml = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-        <back>
-        <ref-list>
-        <title>REFERENCES</title>
-        <ref id="B1">
-        <label>1.</label>
-        <mixed-citation>
-        1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. 
-        Drug Alcohol Depend. 2015;150:85-91. DOI: 
-        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">
-        https://doi.org/10.1016/j.drugalcdep.2015.02.028
-        </ext-link>
-        </mixed-citation>
-        <element-citation publication-type="journal">
-        <article-title>Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages</article-title>
-        <source>Drug Alcohol Depend.</source>
-        <year>2015</year>
-        <volume>150</volume>
-        <fpage>85</fpage>
-        <lpage>91</lpage>
-        <pub-id pub-id-type="doi">10.1016/B1</pub-id>
-        <elocation-id>elocation_B1</elocation-id>
-        <pub-id pub-id-type="pmid">00000000</pub-id>
-        <pub-id pub-id-type="pmcid">11111111</pub-id>
-        <comment>
-        DOI:
-        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">
-        https://doi.org/10.1016/j.drugalcdep.2015.02.028
-        </ext-link>. 
-        Full text available at: 
-        <ext-link ext-link-type="uri" xlink:href="https://www.example.com/fulltext">
-        https://www.example.com/fulltext
-        </ext-link>
-        </comment>
-        </element-citation>
-        </ref>
-        </ref-list>
-        </back>
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B1">
+                        <element-citation publication-type="other">
+                            <comment></comment>text<ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
         </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(
-            ArticleCitationValidation(
-                xmltree, citation
-            ).validate_article_citation_ext_link()
-        )
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
 
         expected = [
             {
-                "title": "element citation validation",
+                "title": "validate comment is required or not",
                 "parent": "article",
-                "parent_id": None,
                 "parent_article_type": "research-article",
-                "parent_lang": "en",
+                "parent_id": None,
+                "parent_lang": "pt",
                 "item": "element-citation",
-                'sub_item': 'ext-link',
+                "sub_item": "comment",
                 "validation_type": "exist",
                 "response": "ERROR",
-                'expected_value': '1 <ext-link> per reference',
-                'got_value': '2 <ext-link> per reference',
-                'message': 'Got 2 <ext-link> per reference, expected 1 <ext-link> per reference',
-                'advice': 'The source in reference (ref-id: B1) has 2 <ext-link> per reference',
-                "data": {
-                    "article_title": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages",
-                    "author_type": "person",
-                    "citation_ids": {
-                        "doi": "10.1016/B1",
-                        "pmcid": "11111111",
-                        "pmid": "00000000",
+                "got_value": "<comment></comment>text<ext-link>https://...</ext-link>",
+                "expected_value": "<comment>text<ext-link>https://...</ext-link></comment>",
+                "message": "Got <comment></comment>text<ext-link>https://...</ext-link>, expected "
+                           "<comment>text<ext-link>https://...</ext-link></comment>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag",
+                'data': {
+                    'author_type': 'person',
+                    'comment_text': {
+                        'ext_link_text': 'https://...',
+                        'full_comment': None,
+                        'text_between': None,
+                        'text_before': 'text',
+                        'has_comment': True,
                     },
-                    "elocation_id": "elocation_B1",
-                    "ext_link": [
-                        "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                        "https://www.example.com/fulltext"
-                    ],
-                    "fpage": "85",
-                    "label": "1",
-                    "lpage": "91",
-                    "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
-                    "LR. Smoking and potentially preventable "
-                    "hospitalisation: the benefit of smoking cessation "
-                    "in older ages. Drug Alcohol Depend. "
-                    "2015;150:85-91. DOI: "
-                    "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
-                    "publication_type": "journal",
-                    "ref_id": "B1",
-                    "source": "Drug Alcohol Depend.",
-                    "volume": "150",
-                    "year": "2015",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "en",
-                },
-            },
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'publication_type': 'other',
+                    'ref_id': 'B1',
+                    'text_before_extlink': 'text'
+                }
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_comment_is_required_or_not_B2(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B2">
+                        <element-citation publication-type="other">
+                            <comment>text<ext-link>https://... </ext-link></comment>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
+
+        self.assertListEqual(obtained, [])
+
+    def test_validate_comment_is_required_or_not_B3(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B3">
+                        <element-citation publication-type="other">
+                            <comment></comment><ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
+
+        expected = [
+            {
+                "title": "validate comment is required or not",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "item": "element-citation",
+                "sub_item": "comment",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "got_value": "<comment></comment><ext-link>https://...</ext-link>",
+                "expected_value": "<ext-link>https://...</ext-link>",
+                "message": "Got <comment></comment><ext-link>https://...</ext-link>, expected "
+                           "<ext-link>https://...</ext-link>",
+                "advice": "Remove the <comment> tag that has no content",
+                'data': {
+                    'author_type': 'person',
+                    'comment_text': {
+                        'ext_link_text': 'https://...',
+                        'full_comment': None,
+                        'text_between': None,
+                        'text_before': None,
+                        'has_comment': True,
+                    },
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'publication_type': 'other',
+                    'ref_id': 'B3'
+                }
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_comment_is_required_or_not_B4(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B4">
+                        <element-citation publication-type="other">
+                            <ext-link>https://... </ext-link>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
+
+        self.assertListEqual(obtained, [])
+
+    def test_validate_comment_is_required_or_not_B5(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" specific-use="sps-1.4" dtd-version="1.0" xml:lang="pt" article-type="research-article">
+            <back>
+                <ref-list>
+                    <ref id="B5">
+                        <element-citation publication-type="other">
+                            <comment><ext-link>https://... </ext-link></comment>
+                        </element-citation>
+                    </ref>
+                </ref-list>
+            </back>
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(xml_tree, citation).validate_comment_is_required_or_not())
+
+        expected = [
+            {
+                "title": "validate comment is required or not",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "item": "element-citation",
+                "sub_item": "comment",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "got_value": "<comment><ext-link>https://...</ext-link></comment>",
+                "expected_value": "<ext-link>https://...</ext-link>",
+                "message": "Got <comment><ext-link>https://...</ext-link></comment>, expected "
+                           "<ext-link>https://...</ext-link>",
+                "advice": "Remove the <comment> tag that has no content",
+                'data': {
+                    'author_type': 'person',
+                    'comment_text': {
+                        'ext_link_text': 'https://...',
+                        'full_comment': 'https://...',
+                        'text_between': None,
+                        'text_before': None,
+                        'has_comment': True,
+                    },
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'publication_type': 'other',
+                    'ref_id': 'B5'
+                }
+            }
         ]
 
         for i, item in enumerate(expected):

@@ -421,25 +421,60 @@ class ArticleCitationValidation:
             error_level=error_level,
         )
 
-    def validate_article_citation_ext_link(self, error_level="ERROR"):
-        links = self.citation.get("ext_link")
-        is_valid = len(links) == 1
-        yield format_response(
-            title="element citation validation",
-            parent=self.citation.get("parent"),
-            parent_id=self.citation.get("parent_id"),
-            parent_article_type=self.citation.get("parent_article_type"),
-            parent_lang=self.citation.get("parent_lang"),
-            item="element-citation",
-            sub_item="ext-link",
-            is_valid=is_valid,
-            validation_type="exist",
-            expected="1 <ext-link> per reference",
-            obtained=f"{len(links)} <ext-link> per reference",
-            advice=f"The source in reference (ref-id: {self.citation.get('ref_id')}) has {len(links)} <ext-link> per reference",
-            data=self.citation,
-            error_level=error_level,
-        )
+    def validate_comment_is_required_or_not(self, error_level="ERROR"):
+        comment = self.citation.get("comment_text", {})
+        text_before_extlink = self.citation.get("text_before_extlink")
+
+        ext_link_text = comment.get("ext_link_text")
+        full_comment = comment.get("full_comment")
+        text_between = comment.get("text_between")
+        has_comment = comment.get("has_comment")
+
+        scenarios = [
+            {
+                "condition": has_comment and not full_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
+            },
+            {
+                "condition": has_comment and not full_comment and not text_before_extlink,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
+                "advice": "Remove the <comment> tag that has no content"
+            },
+            {
+                "condition": not has_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
+            },
+            {
+                "condition": full_comment and not text_between,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment><ext-link>{ext_link_text}</ext-link></comment>",
+                "advice": "Remove the <comment> tag that has no content"
+            }
+        ]
+
+        for scenario in scenarios:
+            if scenario["condition"]:
+                yield format_response(
+                    title="validate comment is required or not",
+                    parent=self.citation.get("parent"),
+                    parent_id=self.citation.get("parent_id"),
+                    parent_article_type=self.citation.get("parent_article_type"),
+                    parent_lang=self.citation.get("parent_lang"),
+                    item="element-citation",
+                    sub_item="comment",
+                    is_valid=False,
+                    validation_type="exist",
+                    expected=scenario["expected"],
+                    obtained=scenario["obtained"],
+                    advice=scenario["advice"],
+                    data=self.citation,
+                    error_level=error_level,
+                )
 
 
 class ArticleCitationsValidation:
@@ -464,4 +499,5 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_publication_type(
                 publication_type_list
             )
-            yield from citation.validate_article_citation_ext_link()
+            yield from citation.validate_comment_is_required_or_not()
+            
