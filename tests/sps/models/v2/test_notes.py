@@ -408,6 +408,48 @@ class ArticleNotesTest(TestCase):
         obtained = list(ArticleNotes(self.xml_tree).all_notes())
         expected = [
             {
+                "fns": [
+                    {
+                        "fn_bold": "A)",
+                        "fn_id": "fn2",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "A)Study presents design and production of an LED lamp "
+                                   "for photovoltaic light traps.",
+                        "fn_title": None,
+                        "fn_type": "other",
+                    },
+                    {
+                        "fn_bold": None,
+                        "fn_id": "fn3",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "The LED lamp switches on and off automatically, controls "
+                                   "the battery charge and indicates the operating status of "
+                                   "the system.",
+                        "fn_title": None,
+                        "fn_type": "other",
+                    },
+                    {
+                        "fn_bold": None,
+                        "fn_id": "fn4",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "The LED lamp is a superior substitute for the standard "
+                                   "fluorescent lamps used in conventional light traps.",
+                        "fn_title": None,
+                        "fn_type": "other",
+                    },
+                ],
+                "label": None,
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "title": "Highlights: ",
+            }
+            ,
+            {
                 "corresp": "Correspondência: Roseana Mara Aredes Priuli Av. Juscelino "
                            "Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio "
                            "Recanto Real Rua 4, 440 15021-450 São José do Rio Preto, SP, "
@@ -487,7 +529,7 @@ class ArticleNotesTest(TestCase):
             }
 
         ]
-        self.assertEqual(len(obtained), 3)
+        self.assertEqual(len(obtained), 4)
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(item, expected[i])
