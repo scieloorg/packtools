@@ -22,18 +22,22 @@ class BaseNoteGroup:
 
 class BaseNoteGroups:
     def __init__(self, article_or_sub_article_node, fn_parent_tag_name, NoteGroupClass):
+        self.article_or_sub_article_node = article_or_sub_article_node
         self.fn_parent_tag_name = fn_parent_tag_name
         self.parent = article_or_sub_article_node.tag
         self.parent_id = article_or_sub_article_node.get("id")
         self.parent_lang = article_or_sub_article_node.get("{http://www.w3.org/XML/1998/namespace}lang")
         self.parent_article_type = article_or_sub_article_node.get("article-type")
         self.NoteGroupClass = NoteGroupClass
-        self.article_or_sub_article_node = article_or_sub_article_node \
-            if self.parent == "sub-article" else article_or_sub_article_node.find("./")
 
     @property
     def items(self):
-        for fn_parent_node in self.article_or_sub_article_node.xpath(f".//{self.fn_parent_tag_name}"):
+        if self.parent == "article":
+            xpath = f".//front//{self.fn_parent_tag_name} | .//body//{self.fn_parent_tag_name} | .//back//{self.fn_parent_tag_name}"
+        else:
+            xpath = f".//{self.fn_parent_tag_name}"
+
+        for fn_parent_node in self.article_or_sub_article_node.xpath(xpath):
             data = self.NoteGroupClass(fn_parent_node).data
             yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
 
