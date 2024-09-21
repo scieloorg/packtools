@@ -1,11 +1,11 @@
-import unittest
+from unittest import TestCase
 from lxml import etree
 
-from packtools.sps.validation.footnotes import FootnoteValidation
+from packtools.sps.validation.footnotes import FootnoteValidation, AuthorNoteValidation, ArticleNotesValidation
 from packtools.sps.models.v2.notes import ArticleNotes
 
 
-class MyTestCase(unittest.TestCase):
+class ArticleNotesValidationTest(TestCase):
     def test_coi_statement_vs_conflict_by_dtd_validation_coi_statement_expected(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
@@ -36,13 +36,24 @@ class MyTestCase(unittest.TestCase):
             '</sub-article>'
             '</article>'
         )
+
+        dtd_version = xml_tree.find(".").get("dtd-version")
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).coi_statement_vs_conflict_by_dtd_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            context = {
+                "parent": fn_dict.get("parent"),
+                "parent_article_type": fn_dict.get("parent_article_type"),
+                "parent_id": fn_dict.get("parent_id"),
+                "parent_lang": fn_dict.get("parent_lang"),
+            }
+            for fn in fn_dict.get("fns"):
+                resp = FootnoteValidation(dtd_version, fn).coi_statement_vs_conflict_by_dtd_validation()
+                resp.update(context)
+                obtained.append(resp)
 
         expected = [
             {
-                'title': 'Footnotes validation',
+                'title': 'coi statement vs conflict by dtd',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -56,33 +67,17 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got <fn fn-type="conflict">, expected <fn fn-type="coi-statement">',
                 'advice': 'replace conflict with coi-statement',
                 'data': {
-                    'corresp': 'Correspondência: Roseana Mara Aredes Priuli Av. '
-                               'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
-                               'Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 '
-                               'São José do Rio Preto, SP, Brasil E-mail: '
-                               'roseanap@gmail.com',
-                    'corresp_label': 'Correspondência',
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': 'fn_01',
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'Os autores declaram não haver conflito de interesses.',
-                            'fn_type': 'conflict',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt'
+                    'fn_bold': None,
+                    'fn_id': 'fn_01',
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'Os autores declaram não haver conflito de interesses.',
+                    'fn_type': 'conflict',
+                    'fn_title': None
                 },
             },
             {
-                'title': 'Footnotes validation',
+                'title': 'coi statement vs conflict by dtd',
                 'parent': 'sub-article',
                 'parent_id': 'TRen',
                 'parent_article_type': 'translation',
@@ -96,25 +91,13 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got <fn fn-type="conflict">, expected <fn fn-type="coi-statement">',
                 'advice': 'replace conflict with coi-statement',
                 'data': {
-                    'corresp': None,
-                    'corresp_label': None,
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': None,
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'The authors declare there is no conflict of interest.',
-                            'fn_type': 'conflict',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'sub-article',
-                    'parent_article_type': 'translation',
-                    'parent_id': 'TRen',
-                    'parent_lang': 'en'
+                    'fn_bold': None,
+                    'fn_id': None,
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'The authors declare there is no conflict of interest.',
+                    'fn_type': 'conflict',
+                    'fn_title': None
                 },
             },
         ]
@@ -155,13 +138,23 @@ class MyTestCase(unittest.TestCase):
             '</article>'
         )
 
+        dtd_version = xml_tree.find(".").get("dtd-version")
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).coi_statement_vs_conflict_by_dtd_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            context = {
+                "parent": fn_dict.get("parent"),
+                "parent_article_type": fn_dict.get("parent_article_type"),
+                "parent_id": fn_dict.get("parent_id"),
+                "parent_lang": fn_dict.get("parent_lang"),
+            }
+            for fn in fn_dict.get("fns"):
+                resp = FootnoteValidation(dtd_version, fn).coi_statement_vs_conflict_by_dtd_validation()
+                resp.update(context)
+                obtained.append(resp)
 
         expected = [
             {
-                'title': 'Footnotes validation',
+                'title': 'coi statement vs conflict by dtd',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -175,33 +168,17 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got <fn fn-type="coi-statement">, expected <fn fn-type="conflict">',
                 'advice': 'replace coi-statement with conflict',
                 'data': {
-                    'corresp': 'Correspondência: Roseana Mara Aredes Priuli Av. '
-                               'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
-                               'Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 '
-                               'São José do Rio Preto, SP, Brasil E-mail: '
-                               'roseanap@gmail.com',
-                    'corresp_label': 'Correspondência',
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': 'fn_01',
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'Os autores declaram não haver conflito de interesses.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt'
+                    'fn_bold': None,
+                    'fn_id': 'fn_01',
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'Os autores declaram não haver conflito de interesses.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': None
                 },
             },
             {
-                'title': 'Footnotes validation',
+                'title': 'coi statement vs conflict by dtd',
                 'parent': 'sub-article',
                 'parent_id': 'TRen',
                 'parent_article_type': 'translation',
@@ -215,25 +192,13 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got <fn fn-type="coi-statement">, expected <fn fn-type="conflict">',
                 'advice': 'replace coi-statement with conflict',
                 'data': {
-                    'corresp': None,
-                    'corresp_label': None,
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': None,
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'The authors declare there is no conflict of interest.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'sub-article',
-                    'parent_article_type': 'translation',
-                    'parent_id': 'TRen',
-                    'parent_lang': 'en'
+                    'fn_bold': None,
+                    'fn_id': None,
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'The authors declare there is no conflict of interest.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': None
                 },
             }
         ]
@@ -274,8 +239,10 @@ class MyTestCase(unittest.TestCase):
         )
 
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).missing_corresp_label_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            resp = AuthorNoteValidation(fn_dict).missing_corresp_label_validation()
+            if resp:
+                obtained.append(resp)
 
         expected = [
             {
@@ -356,9 +323,19 @@ class MyTestCase(unittest.TestCase):
             '</article>'
         )
 
+        dtd_version = xml_tree.find(".").get("dtd-version")
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).missing_fn_label_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            context = {
+                "parent": fn_dict.get("parent"),
+                "parent_article_type": fn_dict.get("parent_article_type"),
+                "parent_id": fn_dict.get("parent_id"),
+                "parent_lang": fn_dict.get("parent_lang"),
+            }
+            for fn in fn_dict.get("fns"):
+                resp = FootnoteValidation(dtd_version, fn).missing_fn_label_validation()
+                resp.update(context)
+                obtained.append(resp)
 
         expected = [
             {
@@ -376,29 +353,13 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got None, expected <label> in <fn>',
                 'advice': 'Provide <label> in <fn>',
                 'data': {
-                    'corresp': 'Roseana Mara Aredes Priuli Av. '
-                               'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
-                               'Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 '
-                               'São José do Rio Preto, SP, Brasil E-mail: '
-                               'roseanap@gmail.com',
-                    'corresp_label': None,
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': 'fn_01',
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'Os autores declaram não haver conflito de interesses.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt'
+                    'fn_bold': None,
+                    'fn_id': 'fn_01',
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'Os autores declaram não haver conflito de interesses.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': None
                 },
             },
             {
@@ -416,25 +377,13 @@ class MyTestCase(unittest.TestCase):
                 'message': 'Got None, expected <label> in <fn>',
                 'advice': 'Provide <label> in <fn>',
                 'data': {
-                    'corresp': None,
-                    'corresp_label': None,
-                    'corresp_title': None,
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': None,
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'The authors declare there is no conflict of interest.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'sub-article',
-                    'parent_article_type': 'translation',
-                    'parent_id': 'TRen',
-                    'parent_lang': 'en'
+                    'fn_bold': None,
+                    'fn_id': None,
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'The authors declare there is no conflict of interest.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': None
                 },
             }
         ]
@@ -468,8 +417,10 @@ class MyTestCase(unittest.TestCase):
         )
 
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).title_presence_in_corresp_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            resp = AuthorNoteValidation(fn_dict).title_presence_in_corresp_validation()
+            if resp:
+                obtained.append(resp)
 
         expected = [
             {
@@ -482,10 +433,10 @@ class MyTestCase(unittest.TestCase):
                 'sub_item': 'title',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': '<title> not in <corresp>',
+                'expected_value': '<label> in <corresp>',
                 'got_value': '<title>Correspondente</title>',
-                'message': 'Got <title>Correspondente</title>, expected <title> not in <corresp>',
-                'advice': 'Remove <title> from <corresp>',
+                'message': 'Got <title>Correspondente</title>, expected <label> in <corresp>',
+                'advice': 'Replace <title> by <label>',
                 'data': {
                     'corresp': 'CorrespondenteRoseana Mara Aredes Priuli Av. '
                                'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
@@ -543,9 +494,19 @@ class MyTestCase(unittest.TestCase):
             '</article>'
         )
 
+        dtd_version = xml_tree.find(".").get("dtd-version")
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).title_presence_in_fn_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            context = {
+                "parent": fn_dict.get("parent"),
+                "parent_article_type": fn_dict.get("parent_article_type"),
+                "parent_id": fn_dict.get("parent_id"),
+                "parent_lang": fn_dict.get("parent_lang"),
+            }
+            for fn in fn_dict.get("fns"):
+                resp = FootnoteValidation(dtd_version, fn).title_presence_in_fn_validation()
+                resp.update(context)
+                obtained.append(resp)
 
         expected = [
             {
@@ -558,34 +519,18 @@ class MyTestCase(unittest.TestCase):
                 'sub_item': 'title',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': '<title> not in <fn>',
+                'expected_value': '<label> in <fn>',
                 'got_value': '<title>Conflito</title>',
-                'message': 'Got <title>Conflito</title>, expected <title> not in <fn>',
-                'advice': 'Remove <title> from <fn>',
+                'message': 'Got <title>Conflito</title>, expected <label> in <fn>',
+                'advice': 'Replace <title> by <label>',
                 'data': {
-                    'corresp': 'CorrespondenteRoseana Mara Aredes Priuli Av. '
-                               'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
-                               'Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 '
-                               'São José do Rio Preto, SP, Brasil E-mail: '
-                               'roseanap@gmail.com',
-                    'corresp_label': None,
-                    'corresp_title': 'Correspondente',
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': None,
-                            'fn_id': 'fn_01',
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'ConflitoOs autores declaram não haver conflito de interesses.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': 'Conflito'
-                        }
-                    ],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt'
+                    'fn_bold': None,
+                    'fn_id': 'fn_01',
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'ConflitoOs autores declaram não haver conflito de interesses.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': 'Conflito'
                 },
             }
         ]
@@ -619,8 +564,10 @@ class MyTestCase(unittest.TestCase):
         )
 
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).bold_presence_in_corresp_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            resp = AuthorNoteValidation(fn_dict).bold_presence_in_corresp_validation()
+            if resp:
+                obtained.append(resp)
 
         expected = [
             {
@@ -633,10 +580,10 @@ class MyTestCase(unittest.TestCase):
                 'sub_item': 'bold',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': '<bold> not in <corresp>',
+                'expected_value': '<label> in <corresp>',
                 'got_value': '<bold></bold>',
-                'message': 'Got <bold></bold>, expected <bold> not in <corresp>',
-                'advice': 'Remove <bold> from <corresp>',
+                'message': 'Got <bold></bold>, expected <label> in <corresp>',
+                'advice': 'Replace <bold> by <label>',
                 'data': {
                     'corresp': 'Roseana Mara Aredes Priuli Av. '
                                'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
@@ -694,9 +641,19 @@ class MyTestCase(unittest.TestCase):
             '</article>'
         )
 
+        dtd_version = xml_tree.find(".").get("dtd-version")
         obtained = []
-        for fns_dict in ArticleNotes(xml_tree).all_notes():
-            obtained.extend(FootnoteValidation(xml_tree, fns_dict).bold_presence_in_fn_validation())
+        for fn_dict in ArticleNotes(xml_tree).all_notes():
+            context = {
+                "parent": fn_dict.get("parent"),
+                "parent_article_type": fn_dict.get("parent_article_type"),
+                "parent_id": fn_dict.get("parent_id"),
+                "parent_lang": fn_dict.get("parent_lang"),
+            }
+            for fn in fn_dict.get("fns"):
+                resp = FootnoteValidation(dtd_version, fn).bold_presence_in_fn_validation()
+                resp.update(context)
+                obtained.append(resp)
 
         expected = [
             {
@@ -709,39 +666,196 @@ class MyTestCase(unittest.TestCase):
                 'sub_item': 'bold',
                 'validation_type': 'exist',
                 'response': 'ERROR',
-                'expected_value': '<bold> not in <fn>',
+                'expected_value': '<label> in <fn>',
                 'got_value': '<bold>Conflito</bold>',
-                'message': 'Got <bold>Conflito</bold>, expected <bold> not in <fn>',
-                'advice': 'Remove <bold> from <fn>',
+                'message': 'Got <bold>Conflito</bold>, expected <label> in <fn>',
+                'advice': 'Replace <bold> by <label>',
                 'data': {
-                    'corresp': 'CorrespondenteRoseana Mara Aredes Priuli Av. '
-                               'Juscelino Kubistcheck de Oliveira, 1220, Jardim '
-                               'Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 '
-                               'São José do Rio Preto, SP, Brasil E-mail: '
-                               'roseanap@gmail.com',
-                    'corresp_label': None,
-                    'corresp_title': 'Correspondente',
-                    'corresp_bold': None,
-                    'fns': [
-                        {
-                            'fn_bold': 'Conflito',
-                            'fn_id': 'fn_01',
-                            'fn_label': None,
-                            'fn_parent': 'author-notes',
-                            'fn_text': 'ConflitoOs autores declaram não haver conflito de interesses.',
-                            'fn_type': 'coi-statement',
-                            'fn_title': None
-                        }
-                    ],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt'
+                    'fn_bold': 'Conflito',
+                    'fn_id': 'fn_01',
+                    'fn_label': None,
+                    'fn_parent': 'author-notes',
+                    'fn_text': 'ConflitoOs autores declaram não haver conflito de interesses.',
+                    'fn_type': 'coi-statement',
+                    'fn_title': None
                 },
             }
         ]
 
         self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_article_notes_validation(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.2" article-type="research-article" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<author-notes>'
+            '<corresp>'
+            'Roseana Mara Aredes Priuli  Av. Juscelino Kubistcheck de Oliveira, 1220, '
+            'Jardim Panorama, Condomínio Recanto Real Rua 4, 440  15021-450 São José do Rio Preto, SP, Brasil  E-mail: '
+            '<email>roseanap@gmail.com</email>'
+            '</corresp>'
+            '<fn id="fn_01" fn-type="coi-statement">'
+            '<p>Os autores declaram não haver conflito de interesses.</p>'
+            '</fn>'
+            '</author-notes>'
+            '</article-meta>'
+            '</front>'
+            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
+            '<front-stub>'
+            '<author-notes>'
+            '<fn fn-type="coi-statement">'
+            '<p>The authors declare there is no conflict of interest.</p>'
+            '</fn>'
+            '</author-notes>'
+            '</front-stub>'
+            '</sub-article>'
+            '</article>'
+        )
+
+        obtained = list(ArticleNotesValidation(xml_tree).article_notes_validation())
+
+        expected = [
+            {
+                "title": "Missing corresp label validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "corresp",
+                "sub_item": "label",
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "<label> in <corresp>",
+                "got_value": None,
+                "message": "Got None, expected <label> in <corresp>",
+                "advice": "Provide <label> in <corresp>",
+                "data": {
+                    "corresp": "Roseana Mara Aredes Priuli Av. Juscelino Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio Recanto Real Rua 4, 440 15021-450 São José do Rio Preto, SP, Brasil E-mail: roseanap@gmail.com",
+                    "corresp_bold": None,
+                    "corresp_label": None,
+                    "corresp_title": None,
+                    "fns": [
+                        {
+                            "fn_bold": None,
+                            "fn_id": "fn_01",
+                            "fn_label": None,
+                            "fn_parent": "author-notes",
+                            "fn_text": "Os autores declaram não haver conflito de interesses.",
+                            "fn_title": None,
+                            "fn_type": "coi-statement"
+                        }
+                    ],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt"
+                }
+            },
+            {
+                "title": "coi statement vs conflict by dtd",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "author-notes",
+                "sub_item": "fn",
+                "validation_type": "match",
+                "response": "ERROR",
+                "expected_value": "<fn fn-type=\"conflict\">",
+                "got_value": "<fn fn-type=\"coi-statement\">",
+                "message": "Got <fn fn-type=\"coi-statement\">, expected <fn fn-type=\"conflict\">",
+                "advice": "replace coi-statement with conflict",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn_01",
+                    "fn_label": None,
+                    "fn_parent": "author-notes",
+                    "fn_text": "Os autores declaram não haver conflito de interesses.",
+                    "fn_title": None,
+                    "fn_type": "coi-statement"
+                }
+            },
+            {
+                "title": "Missing fn label validation",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "fn",
+                "sub_item": "label",
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "<label> in <fn>",
+                "got_value": None,
+                "message": "Got None, expected <label> in <fn>",
+                "advice": "Provide <label> in <fn>",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn_01",
+                    "fn_label": None,
+                    "fn_parent": "author-notes",
+                    "fn_text": "Os autores declaram não haver conflito de interesses.",
+                    "fn_title": None,
+                    "fn_type": "coi-statement"
+                }
+            },
+            {
+                "title": "coi statement vs conflict by dtd",
+                "parent": "sub-article",
+                "parent_id": "TRen",
+                "parent_article_type": "translation",
+                "parent_lang": "en",
+                "item": "author-notes",
+                "sub_item": "fn",
+                "validation_type": "match",
+                "response": "ERROR",
+                "expected_value": "<fn fn-type=\"conflict\">",
+                "got_value": "<fn fn-type=\"coi-statement\">",
+                "message": "Got <fn fn-type=\"coi-statement\">, expected <fn fn-type=\"conflict\">",
+                "advice": "replace coi-statement with conflict",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": None,
+                    "fn_label": None,
+                    "fn_parent": "author-notes",
+                    "fn_text": "The authors declare there is no conflict of interest.",
+                    "fn_title": None,
+                    "fn_type": "coi-statement"
+                }
+            },
+            {
+                "title": "Missing fn label validation",
+                "parent": "sub-article",
+                "parent_id": "TRen",
+                "parent_article_type": "translation",
+                "parent_lang": "en",
+                "item": "fn",
+                "sub_item": "label",
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "<label> in <fn>",
+                "got_value": None,
+                "message": "Got None, expected <label> in <fn>",
+                "advice": "Provide <label> in <fn>",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": None,
+                    "fn_label": None,
+                    "fn_parent": "author-notes",
+                    "fn_text": "The authors declare there is no conflict of interest.",
+                    "fn_title": None,
+                    "fn_type": "coi-statement"
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 5)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
