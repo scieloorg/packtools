@@ -59,6 +59,11 @@ class ArticleReference:
     def get_mixed_citation(self):
         return node_plain_text(self.ref.find("./mixed-citation"))
 
+    def get_mixed_citation_sub_tags(self):
+        element = self.ref.find("./mixed-citation")
+        if element is not None:
+            return [child.tag for child in element]
+
     def get_citation_ids(self):
         ids = {}
         for pub_id in self.ref.xpath(".//pub-id"):
@@ -112,6 +117,7 @@ class ArticleReference:
             ("article_title", self.get_article_title()),
             ("citation_ids", self.get_citation_ids()),
             ("mixed_citation", self.get_mixed_citation()),
+            ("mixed_citation_sub_tags", self.get_mixed_citation_sub_tags()),
             ("comment_text", self.get_extlink_and_comment_content()),
             ("text_before_extlink", self.get_text_before_extlink())
         ]
