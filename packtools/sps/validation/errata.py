@@ -3,6 +3,21 @@ from packtools.sps.models.related_articles import RelatedItems
 from packtools.sps.models.article_dates import HistoryDates
 
 
+def _get_related_articles(xml_tree, expected_related_article_type):
+    return [
+        article for article in RelatedItems(xml_tree).related_articles
+        if article.get("related-article-type") == expected_related_article_type
+    ]
+
+
+def _format_obtained(related_article):
+    return (
+        f'<related-article ext-link-type="{related_article.get("ext-link-type")}" '
+        f'id="{related_article.get("id")}" related-article-type="{related_article.get("related-article-type")}" '
+        f'xlink:href="{related_article.get("href")}"/>'
+    )
+
+
 class ValidationBase:
     def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
         self.xml_tree = xml_tree
@@ -10,17 +25,11 @@ class ValidationBase:
         self.article_type = xml_tree.find(".").get("article-type")
         self.expected_article_type = expected_article_type
         self.expected_related_article_type = expected_related_article_type
-        self.related_articles = self._get_related_articles()
+        self.related_articles = _get_related_articles(xml_tree, expected_related_article_type)
 
     def validate_related_article(self, title, error_level="ERROR"):
         """
         Validates the related articles against the expected type and other criteria.
-
-        Args:
-            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
-
-        Yields:
-            dict: A formatted response indicating whether the validation passed or failed.
         """
         if self.article_type != self.expected_article_type:
             return
@@ -40,7 +49,7 @@ class ValidationBase:
                     validation_type="match",
                     is_valid=True,
                     expected=expected_response,
-                    obtained=self._format_obtained(related_article),
+                    obtained=_format_obtained(related_article),
                     advice=None,
                     data=related_article,
                     error_level=error_level
@@ -65,65 +74,13 @@ class ValidationBase:
                 error_level=error_level
             )
 
-    def _get_related_articles(self,):
-        return [
-            article for article in RelatedItems(self.xml_tree).related_articles
-            if article.get("related-article-type") == self.expected_related_article_type
-        ]
-
-    def _format_obtained(self, related_article):
-        return (
-            f'<related-article ext-link-type="{related_article.get("ext-link-type")}" '
-            f'id="{related_article.get("id")}" related-article-type="{related_article.get("related-article-type")}" '
-            f'xlink:href="{related_article.get("href")}"/>'
-        )
-
-
-class ErrataValidation(ValidationBase):
-    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
-        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
-
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'corrected-article'"):
-        """
-        Validates related articles specifically for corrected articles.
-
-        Args:
-            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
-
-        Yields:
-            dict: A formatted response indicating whether the validation passed or failed.
-        """
-        yield from super().validate_related_article(error_level=error_level, title=title)
-
-
-class CorrectedArticleValidation(ValidationBase):
-    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
-        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
-        self.history_dates = self._get_history_dates()
-
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'correction-forward'"):
-        """
-        Validates related articles specifically for corrected articles.
-
-        Args:
-            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
-
-        Yields:
-            dict: A formatted response indicating whether the validation passed or failed.
-        """
-        yield from super().validate_related_article(error_level=error_level, title=title)
-
-    def validate_history_dates(self, error_level="ERROR"):
+    def validate_history_dates(self, expected_history_event, error_level="ERROR"):
         """
         Validates that the number of related articles matches the number of corresponding corrected dates.
-
-        Args:
-            error_level (str, optional): The error level for the validation response. Defaults to "ERROR".
-
-        Yields:
-            dict: A formatted response indicating whether the validation passed or failed.
         """
-        history_date_count = len(self.history_dates)
+        history_data = list(HistoryDates(self.xml_tree).history_dates())
+        history_dates = [date for date in history_data if expected_history_event in date.get("history")]
+        history_date_count = len(history_dates)
         related_article_count = len(self.related_articles)
 
         if history_date_count < related_article_count:
@@ -137,15 +94,64 @@ class CorrectedArticleValidation(ValidationBase):
                 sub_item="@related-article-type",
                 validation_type="exist",
                 is_valid=False,
-                expected='equal numbers of <related-article type="correction-forward"> and <date type="corrected">',
-                obtained=f'{related_article_count} <related-article type="correction-forward"> and {history_date_count} <date type="corrected">',
-                advice='for each <related-article type="correction-forward">, there must be a corresponding <date type="corrected"> in <history>',
-                data=self.history_dates,
+                expected=f'equal numbers of <related-article type="{self.expected_related_article_type}"> and <date type="{expected_history_event}">',
+                obtained=f'{related_article_count} <related-article type="{self.expected_related_article_type}"> and {history_date_count} <date type="{expected_history_event}">',
+                advice=f'for each <related-article type="{self.expected_related_article_type}">, there must be a corresponding <date type="{expected_history_event}"> in <history>',
+                data=history_data,
                 error_level=error_level,
             )
 
-    def _get_history_dates(self):
-        return [
-            date for date in HistoryDates(self.xml_tree).history_dates()
-            if "corrected" in date.get("history")
-        ]
+
+class SpecificValidation(ValidationBase):
+    """
+    Base class for specific validations to handle common functionality for Errata, ArticleCorrected,
+    ArticleRetracted, and ArticlePartiallyRetracted validations.
+    """
+
+    def __init__(self, xml_tree, expected_article_type, expected_related_article_type):
+        super().__init__(xml_tree, expected_article_type, expected_related_article_type)
+
+    def validate_related_article(self, error_level="ERROR", title=None):
+        """
+        Common logic for validating related articles, where `title` must be provided by subclasses.
+        """
+        if title is None:
+            raise ValueError("Title must be provided for the validation.")
+        yield from super().validate_related_article(title=title, error_level=error_level)
+
+    def validate_history_dates(self, error_level="ERROR", expected_history_event=None):
+        """
+        Common logic for validating history dates, where `expected_history_event` must be provided by subclasses.
+        """
+        if expected_history_event is None:
+            raise ValueError("Expected history event must be provided.")
+        yield from super().validate_history_dates(expected_history_event=expected_history_event, error_level=error_level)
+
+
+class ErrataValidation(SpecificValidation):
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'corrected-article'"):
+        yield from super().validate_related_article(error_level=error_level, title=title)
+
+
+class ArticleCorrectedValidation(SpecificValidation):
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'correction-forward'"):
+        yield from super().validate_related_article(error_level=error_level, title=title)
+
+    def validate_history_dates(self, error_level="ERROR", expected_history_event="corrected"):
+        yield from super().validate_history_dates(error_level=error_level, expected_history_event=expected_history_event)
+
+
+class ArticleRetractedInFullValidation(SpecificValidation):
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'retraction' and 'retracted-article'"):
+        yield from super().validate_related_article(error_level=error_level, title=title)
+
+    def validate_history_dates(self, error_level="ERROR", expected_history_event="retracted"):
+        yield from super().validate_history_dates(error_level=error_level, expected_history_event=expected_history_event)
+
+
+class ArticlePartiallyRetractedValidation(SpecificValidation):
+    def validate_related_article(self, error_level="ERROR", title="validation matching 'retraction' and 'partial-retraction'"):
+        yield from super().validate_related_article(error_level=error_level, title=title)
+
+    def validate_history_dates(self, error_level="ERROR", expected_history_event="retracted"):
+        yield from super().validate_history_dates(error_level=error_level, expected_history_event=expected_history_event)
