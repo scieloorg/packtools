@@ -85,7 +85,7 @@ class ValidationBase:
 
         if history_date_count < related_article_count:
             yield format_response(
-                title="validation related and corrected dates count",
+                title="related and corrected dates count",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.article_type,
@@ -129,12 +129,12 @@ class SpecificValidation(ValidationBase):
 
 
 class ErrataValidation(SpecificValidation):
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'corrected-article'"):
+    def validate_related_article(self, error_level="ERROR", title="matching 'correction' and 'corrected-article'"):
         yield from super().validate_related_article(error_level=error_level, title=title)
 
 
 class ArticleCorrectedValidation(SpecificValidation):
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'correction' and 'correction-forward'"):
+    def validate_related_article(self, error_level="ERROR", title="matching 'correction' and 'correction-forward'"):
         yield from super().validate_related_article(error_level=error_level, title=title)
 
     def validate_history_dates(self, error_level="ERROR", expected_history_event="corrected"):
@@ -142,7 +142,7 @@ class ArticleCorrectedValidation(SpecificValidation):
 
 
 class ArticleRetractedInFullValidation(SpecificValidation):
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'retraction' and 'retracted-article'"):
+    def validate_related_article(self, error_level="ERROR", title="matching 'retraction' and 'retracted-article'"):
         yield from super().validate_related_article(error_level=error_level, title=title)
 
     def validate_history_dates(self, error_level="ERROR", expected_history_event="retracted"):
@@ -150,7 +150,7 @@ class ArticleRetractedInFullValidation(SpecificValidation):
 
 
 class ArticlePartiallyRetractedValidation(SpecificValidation):
-    def validate_related_article(self, error_level="ERROR", title="validation matching 'retraction' and 'partial-retraction'"):
+    def validate_related_article(self, error_level="ERROR", title="matching 'retraction' and 'partial-retraction'"):
         yield from super().validate_related_article(error_level=error_level, title=title)
 
     def validate_history_dates(self, error_level="ERROR", expected_history_event="retracted"):
