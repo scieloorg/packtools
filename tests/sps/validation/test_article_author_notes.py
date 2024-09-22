@@ -648,7 +648,7 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'expected_value': None,
                 'got_value': 'current-aff',
                 'message': 'Got current-aff, expected None',
-                'advice': "Author's mini CV/biography data use <bio>",
+                'advice': "Use to identify Author's mini CV and use to identify current affiliation",
                 'data': {
                     'corresp': [],
                     'fn_count': 1,
