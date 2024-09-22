@@ -22,7 +22,7 @@ class ErrataValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'correction' and 'corrected-article'",
+                "title": "matching 'correction' and 'corrected-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -64,7 +64,7 @@ class ErrataValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'correction' and 'corrected-article'",
+                "title": "matching 'correction' and 'corrected-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -114,7 +114,7 @@ class ArticleCorrectedValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'correction' and 'correction-forward'",
+                "title": "matching 'correction' and 'correction-forward'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -182,7 +182,7 @@ class ArticleCorrectedValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'correction' and 'correction-forward'",
+                "title": "matching 'correction' and 'correction-forward'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -260,7 +260,7 @@ class ArticleCorrectedValidationTest(TestCase):
         ).validate_history_dates())
         expected = [
             {
-                "title": "validation related and corrected dates count",
+                "title": "related and corrected dates count",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "correction",
@@ -318,7 +318,7 @@ class ArticleRetractedInFullValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'retraction' and 'retracted-article'",
+                "title": "matching 'retraction' and 'retracted-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
@@ -360,7 +360,7 @@ class ArticleRetractedInFullValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'retraction' and 'retracted-article'",
+                "title": "matching 'retraction' and 'retracted-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
@@ -438,7 +438,7 @@ class ArticleRetractedInFullValidationTest(TestCase):
         ).validate_history_dates())
         expected = [
             {
-                "title": "validation related and corrected dates count",
+                "title": "related and corrected dates count",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
@@ -496,7 +496,7 @@ class ArticlePartiallyRetractedValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'retraction' and 'partial-retraction'",
+                "title": "matching 'retraction' and 'partial-retraction'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
@@ -538,7 +538,7 @@ class ArticlePartiallyRetractedValidationTest(TestCase):
         ).validate_related_article())
         expected = [
             {
-                "title": "validation matching 'retraction' and 'retracted-article'",
+                "title": "matching 'retraction' and 'retracted-article'",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
@@ -616,7 +616,7 @@ class ArticlePartiallyRetractedValidationTest(TestCase):
         ).validate_history_dates())
         expected = [
             {
-                "title": "validation related and corrected dates count",
+                "title": "related and corrected dates count",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "retraction",
