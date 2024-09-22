@@ -264,46 +264,42 @@ class AuthorNotesValidation:
             )
 
     def validate_current_affiliation_attrib_type_deprecation(self, author_note, error_level="ERROR"):
-        for fn_type in author_note.get("fn_types") or []:
-            if fn_type == "current-aff":
-                yield format_response(
-                    title="Author notes current aff deprecated validation",
-                    parent=author_note.get("parent"),
-                    parent_id=author_note.get("parent_id"),
-                    parent_article_type=author_note.get("parent_article_type"),
-                    parent_lang=author_note.get("parent_lang"),
-                    item="fn",
-                    sub_item="@fn-type",
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=None,
-                    obtained=fn_type,
-                    advice=f"Author's mini CV/biography data use <bio>",
-                    error_level=error_level,
-                    data=author_note
-                )
+        if "current-aff" in author_note.get("fn_types") or []:
+            yield format_response(
+                title="Author notes current aff deprecated validation",
+                parent=author_note.get("parent"),
+                parent_id=author_note.get("parent_id"),
+                parent_article_type=author_note.get("parent_article_type"),
+                parent_lang=author_note.get("parent_lang"),
+                item="fn",
+                sub_item="@fn-type",
+                validation_type="exist",
+                is_valid=False,
+                expected=None,
+                obtained="current-aff",
+                advice=f"Use to identify Author's mini CV and use to identify current affiliation",
+                error_level=error_level,
+                data=author_note
+            )
 
     def validate_contribution_attrib_type_deprecation(self, author_note, error_level="WARNING"):
-        roles = self.xmltree.xpath(".//role")
-        if len(roles) > 0:
-            for fn_type in author_note.get("fn_types") or []:
-                if fn_type == "con":
-                    yield format_response(
-                        title="Author notes contribution deprecated validation",
-                        parent=author_note.get("parent"),
-                        parent_id=author_note.get("parent_id"),
-                        parent_article_type=author_note.get("parent_article_type"),
-                        parent_lang=author_note.get("parent_lang"),
-                        item="fn",
-                        sub_item="@fn-type",
-                        validation_type="exist",
-                        is_valid=False,
-                        expected=None,
-                        obtained=fn_type,
-                        advice="Using @fn-type='con' for authorship contributions is discouraged; use <role> instead.",
-                        error_level=error_level,
-                        data=author_note
-                    )
+        if "con" in author_note.get("fn_types") or []:
+            yield format_response(
+                title="Author notes contribution deprecated validation",
+                parent=author_note.get("parent"),
+                parent_id=author_note.get("parent_id"),
+                parent_article_type=author_note.get("parent_article_type"),
+                parent_lang=author_note.get("parent_lang"),
+                item="fn",
+                sub_item="@fn-type",
+                validation_type="exist",
+                is_valid=False,
+                expected=None,
+                obtained="con",
+                advice="Using @fn-type='con' for authorship contributions is discouraged; use <role> instead.",
+                error_level=error_level,
+                data=author_note
+            )
 
     def validate_author_note(self, fn_type_list=None):
         for author_note in self.author_notes:
