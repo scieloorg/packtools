@@ -134,7 +134,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -150,6 +149,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -275,7 +275,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -291,6 +290,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -416,7 +416,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -432,6 +431,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -556,7 +556,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -572,6 +571,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -696,7 +696,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -712,6 +711,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -836,7 +836,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -852,6 +851,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "volume": "150",
@@ -980,7 +980,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -996,6 +995,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1119,7 +1119,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1135,6 +1134,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1260,7 +1260,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1276,6 +1275,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1373,6 +1373,7 @@ class ArticleCitationValidationTest(TestCase):
                     "setor aeronáutico e para o programa de inovação "
                     "para competitividade, e dá outras providências. "
                     "Diário Oficial da União 2001 dez 19.",
+                    'mixed_citation_sub_tags': ['u', 'italic'],
                     "publication_type": "other",
                     "ref_id": "B2",
                     "source": "Diário Oficial da União",
@@ -1461,7 +1462,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1471,6 +1471,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1596,7 +1597,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1612,6 +1612,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1738,7 +1739,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1754,6 +1754,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1835,6 +1836,7 @@ class ArticleCitationValidationTest(TestCase):
                 publication_type_list=["journal", "book"],
                 start_year=2000,
                 end_year=2020,
+                allowed_tags=['bold', 'italic', 'p'],
             )
         )
 
@@ -1881,7 +1883,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1897,6 +1898,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -1950,7 +1952,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -1966,6 +1967,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -2023,7 +2025,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -2039,6 +2040,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -2092,7 +2094,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -2108,6 +2109,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -2161,7 +2163,6 @@ class ArticleCitationValidationTest(TestCase):
                         'has_comment': True,
                     },
                     "elocation_id": "elocation_B1",
-                    "ext_link": ["https://doi.org/10.1016/j.drugalcdep.2015.02.028"],
                     "fpage": "85",
                     "label": "1.",
                     "lpage": "91",
@@ -2177,6 +2178,7 @@ class ArticleCitationValidationTest(TestCase):
                     "in older ages. Drug Alcohol Depend. "
                     "2015;150:85-91. DOI: "
                     "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    'mixed_citation_sub_tags': ['ext-link'],
                     "publication_type": "journal",
                     "ref_id": "B1",
                     "source": "Drug Alcohol Depend.",
@@ -2188,8 +2190,76 @@ class ArticleCitationValidationTest(TestCase):
                     "parent_lang": "en",
                 },
             },
+            {
+                "advice": "remove ['ext-link'] from mixed-citation",
+                "data": {
+                    "all_authors": [
+                        {
+                            "given-names": "B",
+                            "prefix": "The Honorable",
+                            "suffix": "III",
+                            "surname": "Tran",
+                        },
+                        {"given-names": "MO", "surname": "Falster"},
+                        {"given-names": "K", "surname": "Douglas"},
+                        {"given-names": "F", "surname": "Blyth"},
+                        {"given-names": "LR", "surname": "Jorm"},
+                    ],
+                    "article_title": "Smoking and potentially preventable "
+                                     "hospitalisation: the benefit of smoking cessation "
+                                     "in older ages",
+                    "author_type": "person",
+                    "citation_ids": {"doi": "10.1016/B1", "pmcid": "11111111", "pmid": "00000000"},
+                    "comment_text": {
+                        "ext_link_text": "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "full_comment": "DOI: " "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                        "has_comment": True,
+                        "text_before": None,
+                        "text_between": "DOI: ",
+                    },
+                    "elocation_id": "elocation_B1",
+                    "fpage": "85",
+                    "label": "1.",
+                    "lpage": "91",
+                    "main_author": {
+                        "given-names": "B",
+                        "prefix": "The Honorable",
+                        "suffix": "III",
+                        "surname": "Tran",
+                    },
+                    "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
+                                      "LR. Smoking and potentially preventable "
+                                      "hospitalisation: the benefit of smoking cessation "
+                                      "in older ages. Drug Alcohol Depend. "
+                                      "2015;150:85-91. DOI: "
+                                      "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    "mixed_citation_sub_tags": ["ext-link"],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "publication_type": "journal",
+                    "ref_id": "B1",
+                    "source": "Drug Alcohol Depend.",
+                    "volume": "150",
+                    "year": "2015",
+                },
+                "expected_value": ["bold", "italic", "p"],
+                "got_value": ["ext-link"],
+                "item": "element-citation",
+                "message": "Got ['ext-link'], expected ['bold', 'italic', 'p']",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "response": "ERROR",
+                "sub_item": "mixed-citation",
+                "title": "mixed citation sub-tags",
+                "validation_type": "exist",
+            }
         ]
 
+        self.assertEqual(len(obtained), 6)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -2410,6 +2480,74 @@ class ArticleCitationValidationTest(TestCase):
                     'ref_id': 'B5'
                 }
             }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_mixed_citation_tags(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <label>1.</label>
+            <mixed-citation>
+            1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
+            </mixed-citation>
+            <element-citation publication-type="journal" />
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+        """
+
+        xmltree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        obtained = list(
+            ArticleCitationValidation(
+                xmltree, citation
+            ).validate_mixed_citation_tags(allowed_tags=['bold', 'italic', 'p'])
+        )
+
+        expected = [
+            {
+                "advice": "remove ['ext-link'] from mixed-citation",
+                "data": {
+                    "author_type": "person",
+                    "label": "1.",
+                    "mixed_citation": "1. Tran B, Falster MO, Douglas K, Blyth F, Jorm "
+                                      "LR. Smoking and potentially preventable "
+                                      "hospitalisation: the benefit of smoking cessation "
+                                      "in older ages. Drug Alcohol Depend. "
+                                      "2015;150:85-91. DOI: "
+                                      "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                    "mixed_citation_sub_tags": ["ext-link"],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "publication_type": "journal",
+                    "ref_id": "B1",
+                },
+                "expected_value": ["bold", "italic", "p"],
+                "got_value": ["ext-link"],
+                "item": "element-citation",
+                "message": "Got ['ext-link'], expected ['bold', 'italic', 'p']",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "response": "ERROR",
+                "sub_item": "mixed-citation",
+                "title": "mixed citation sub-tags",
+                "validation_type": "exist",
+            }
+
         ]
 
         for i, item in enumerate(expected):
