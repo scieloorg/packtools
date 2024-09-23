@@ -187,6 +187,71 @@ class TableWrapValidationTest(unittest.TestCase):
         self.assertDictEqual(expected[0], obtained[0])
         self.assertDictEqual(expected[1], obtained[7])
 
+    def test_validate_tablewrap_elements(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap>'
+            "<alternatives>"
+            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
+            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
+            "</alternatives>"
+            "</table-wrap>"
+            "</body>"
+            '<sub-article article-type="translation" xml:lang="en">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1:</label>"
+            "<caption>Table caption</caption>"
+            "<alternatives>"
+            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
+            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
+            "</alternatives>"
+            "</table-wrap>"
+            "</body>"
+            "</sub-article>"
+            "</article>"
+        )
+        obtained = list(TableWrapValidation(xmltree).validate_tablewrap_elements())
+
+        expected = [
+            {
+                "advice": "provide <table-wrap @id> or <label> or <caption> for <table-wrap>",
+                "data": {
+                    "alternative_elements": ["graphic", "graphic"],
+                    "alternative_parent": "table-wrap",
+                    "caption": "",
+                    "footnote": "",
+                    "footnote_id": None,
+                    "footnote_label": None,
+                    "label": None,
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "pt",
+                    "table_wrap_id": None,
+                },
+                "expected_value": "<table-wrap @id> or <label> or <caption> elements",
+                "got_value": [],
+                "item": "table-wrap",
+                "message": "Got [], expected <table-wrap @id> or <label> or <caption> elements",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "response": "ERROR",
+                "sub_item": "<table-wrap @id> / <label> / <caption>",
+                "title": "table-wrap elements",
+                "validation_type": "exist",
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
 
 if __name__ == "__main__":
     unittest.main()
