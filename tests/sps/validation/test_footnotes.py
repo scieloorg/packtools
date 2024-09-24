@@ -240,7 +240,7 @@ class ArticleNotesValidationTest(TestCase):
 
         obtained = []
         for fn_dict in ArticleNotes(xml_tree).all_notes():
-            resp = AuthorNoteValidation(fn_dict).missing_corresp_label_validation()
+            resp = AuthorNoteValidation(fn_dict).missing_element_label_validation()
             if resp:
                 obtained.append(resp)
 
@@ -333,7 +333,7 @@ class ArticleNotesValidationTest(TestCase):
                 "parent_lang": fn_dict.get("parent_lang"),
             }
             for fn in fn_dict.get("fns"):
-                resp = FootnoteValidation(dtd_version, fn).missing_fn_label_validation()
+                resp = FootnoteValidation(dtd_version, fn).missing_element_label_validation()
                 resp.update(context)
                 obtained.append(resp)
 
@@ -418,7 +418,7 @@ class ArticleNotesValidationTest(TestCase):
 
         obtained = []
         for fn_dict in ArticleNotes(xml_tree).all_notes():
-            resp = AuthorNoteValidation(fn_dict).title_presence_in_corresp_validation()
+            resp = AuthorNoteValidation(fn_dict).title_presence_in_element_validation()
             if resp:
                 obtained.append(resp)
 
@@ -504,7 +504,7 @@ class ArticleNotesValidationTest(TestCase):
                 "parent_lang": fn_dict.get("parent_lang"),
             }
             for fn in fn_dict.get("fns"):
-                resp = FootnoteValidation(dtd_version, fn).title_presence_in_fn_validation()
+                resp = FootnoteValidation(dtd_version, fn).title_presence_in_element_validation()
                 resp.update(context)
                 obtained.append(resp)
 
@@ -565,7 +565,7 @@ class ArticleNotesValidationTest(TestCase):
 
         obtained = []
         for fn_dict in ArticleNotes(xml_tree).all_notes():
-            resp = AuthorNoteValidation(fn_dict).bold_presence_in_corresp_validation()
+            resp = AuthorNoteValidation(fn_dict).bold_presence_in_element_validation()
             if resp:
                 obtained.append(resp)
 
@@ -651,7 +651,7 @@ class ArticleNotesValidationTest(TestCase):
                 "parent_lang": fn_dict.get("parent_lang"),
             }
             for fn in fn_dict.get("fns"):
-                resp = FootnoteValidation(dtd_version, fn).bold_presence_in_fn_validation()
+                resp = FootnoteValidation(dtd_version, fn).bold_presence_in_element_validation()
                 resp.update(context)
                 obtained.append(resp)
 
@@ -859,7 +859,3 @@ class ArticleNotesValidationTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
-
-
-if __name__ == '__main__':
-    unittest.main()
