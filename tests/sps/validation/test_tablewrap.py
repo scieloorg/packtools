@@ -218,7 +218,7 @@ class TableWrapValidationTest(unittest.TestCase):
 
         expected = [
             {
-                "advice": "provide <table-wrap @id> or <label> or <caption> for <table-wrap>",
+                "advice": "provide table-wrap/@id or label or caption for table-wrap",
                 "data": {
                     "alternative_elements": ["graphic", "graphic"],
                     "alternative_parent": "table-wrap",
@@ -233,16 +233,16 @@ class TableWrapValidationTest(unittest.TestCase):
                     "parent_lang": "pt",
                     "table_wrap_id": None,
                 },
-                "expected_value": "<table-wrap @id> or <label> or <caption> elements",
+                "expected_value": "table-wrap/@id or label or caption elements",
                 "got_value": [],
                 "item": "table-wrap",
-                "message": "Got [], expected <table-wrap @id> or <label> or <caption> elements",
+                "message": "Got [], expected table-wrap/@id or label or caption elements",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
                 "response": "ERROR",
-                "sub_item": "<table-wrap @id> / <label> / <caption>",
+                "sub_item": "table-wrap/@id or label or caption",
                 "title": "table-wrap elements",
                 "validation_type": "exist",
             }
