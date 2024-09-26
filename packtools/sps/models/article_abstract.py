@@ -409,12 +409,16 @@ class AbstractTextNode(BaseTextNode):
 
 
 class ArticleAbstract:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, selection=None):
         self._xmltree = xmltree
         self.tags_to_keep = None
         self.tags_to_keep_with_content = None
         self.tags_to_remove_with_content = None
         self.tags_to_convert_to_html = None
+        # Define os <abstract> considerados:
+        # "standard" considera os resumos que possuem tipo específico
+        # "all" considera os resumos independentemente do tipo
+        self.selection = selection or "standard"
 
     def configure(
             self,
@@ -532,11 +536,6 @@ class ArticleAbstract:
                 out["p"] = p
         return out
 
-    def _get_lang_attribute(self, node):
-        if node is not None:
-            return node.get("{http://www.w3.org/XML/1998/namespace}lang")
-        return None
-
     def get_main_abstract(self, structured=False):
         """
         Obtem o resumo principal
@@ -586,34 +585,42 @@ class ArticleAbstract:
             }
         ]
         """
-
-        abstract_node = self._xmltree.find(".//article-meta//abstract")
+        if self.selection == "all":
+            xpath = ".//article-meta//abstract"
+        else:
+            xpath = ".//article-meta//abstract[not (@abstract-type)]"
+        try:
+            abstract_node = self._xmltree.xpath(xpath)[0]
+        except IndexError:
+            return
         article = self._xmltree.find(".")
-        article_lang = self._get_lang_attribute(article)
-        if abstract_node is not None:
-            abstract_lang = self._get_lang_attribute(abstract_node)
-            if structured:
-                abstract = self._get_structured_abstract(
-                    node=abstract_node,
-                    lang=abstract_lang or article_lang
-                )
-                abstract["parent_name"] = "article"
-                yield abstract
-            else:
-                abstract = AbstractTextNode(
-                    node=abstract_node,
-                    lang=abstract_lang or article_lang
-                )
-                abstract.configure(
-                    tags_to_keep=self.tags_to_keep,
-                    tags_to_keep_with_content=self.tags_to_keep_with_content,
-                    tags_to_remove_with_content=self.tags_to_remove_with_content,
-                    tags_to_convert_to_html=self.tags_to_convert_to_html
-                )
+        article_lang = article.get("{http://www.w3.org/XML/1998/namespace}lang")
+        abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        if structured:
+            resp = self._get_structured_abstract(
+                node=abstract_node,
+                lang=abstract_lang or article_lang
+            )
+        else:
+            abstract = AbstractTextNode(
+                node=abstract_node,
+                lang=abstract_lang or article_lang
+            )
+            abstract.configure(
+                tags_to_keep=self.tags_to_keep,
+                tags_to_keep_with_content=self.tags_to_keep_with_content,
+                tags_to_remove_with_content=self.tags_to_remove_with_content,
+                tags_to_convert_to_html=self.tags_to_convert_to_html
+            )
 
-                resp = abstract.item
-                resp["parent_name"] = "article"
-                yield resp
+            resp = abstract.item
+
+        resp["parent"] = "article"
+        resp["parent_id"] = article.get("id")
+        resp["parent_lang"] = article_lang
+        resp["parent_article_type"] = article.get("article-type")
+        resp["abstract_type"] = abstract_node.get("abstract-type")
+        yield resp
 
     def get_sub_article_abstract(self, structured=False):
         """
@@ -667,34 +674,44 @@ class ArticleAbstract:
 
         for sub_article in self._xmltree.xpath(".//sub-article"):
             sub_article_id = sub_article.get('id')
-            abstract_node = sub_article.find(".//front-stub//abstract")
-            if abstract_node is not None:
-                sub_article_lang = self._get_lang_attribute(sub_article)
-                abstract_lang = self._get_lang_attribute(abstract_node)
-                if structured:
-                    abstract = self._get_structured_abstract(
-                        node=abstract_node,
-                        lang=sub_article_lang or abstract_lang
-                    )
-                    abstract["parent_name"] = "sub-article"
-                    abstract["id"] = sub_article_id
-                    yield abstract
-                else:
-                    abstract = AbstractTextNode(
-                        node=abstract_node,
-                        lang=sub_article_lang or abstract_lang
-                    )
-                    abstract.configure(
-                        tags_to_keep=self.tags_to_keep,
-                        tags_to_keep_with_content=self.tags_to_keep_with_content,
-                        tags_to_remove_with_content=self.tags_to_remove_with_content,
-                        tags_to_convert_to_html=self.tags_to_convert_to_html
-                    )
+            sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
 
-                    resp = abstract.item
-                    resp["parent_name"] = "sub-article"
-                    resp["id"] = sub_article_id
-                    yield resp
+            if self.selection == "all":
+                xpath = ".//front-stub//abstract"
+            else:
+                xpath = ".//front-stub//abstract[not (@abstract-type)]"
+            try:
+                abstract_node = self._xmltree.xpath(xpath)[0]
+            except IndexError:
+                return
+
+            abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
+            if structured:
+                resp = self._get_structured_abstract(
+                    node=abstract_node,
+                    lang=sub_article_lang or abstract_lang
+                )
+            else:
+                abstract = AbstractTextNode(
+                    node=abstract_node,
+                    lang=sub_article_lang or abstract_lang
+                )
+                abstract.configure(
+                    tags_to_keep=self.tags_to_keep,
+                    tags_to_keep_with_content=self.tags_to_keep_with_content,
+                    tags_to_remove_with_content=self.tags_to_remove_with_content,
+                    tags_to_convert_to_html=self.tags_to_convert_to_html
+                )
+
+                resp = abstract.item
+
+            resp["parent"] = "sub-article"
+            resp["parent_id"] = sub_article_id
+            resp["parent_lang"] = sub_article_lang
+            resp["parent_article_type"] = sub_article.get("article-type")
+            resp["id"] = sub_article_id
+            resp["abstract_type"] = abstract_node.get("abstract-type")
+            yield resp
 
     def get_trans_abstract(self, structured=False):
         """
@@ -747,16 +764,20 @@ class ArticleAbstract:
         """
 
         article = self._xmltree.find(".")
-        article_lang = self._get_lang_attribute(article)
-        for abstract_node in self._xmltree.xpath(".//trans-abstract"):
-            abstract_lang = self._get_lang_attribute(abstract_node)
+        article_lang = article.get("{http://www.w3.org/XML/1998/namespace}lang")
+
+        if self.selection == "all":
+            xpath = ".//article-meta//trans-abstract"
+        else:
+            xpath = ".//article-meta//trans-abstract[not (@abstract-type)]"
+
+        for abstract_node in self._xmltree.xpath(xpath):
+            abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
             if structured:
-                abstract = self._get_structured_abstract(
+                resp = self._get_structured_abstract(
                     node=abstract_node,
                     lang=abstract_lang or article_lang
                 )
-                abstract["parent_name"] = "article"
-                yield abstract
             else:
                 abstract = AbstractTextNode(
                     node=abstract_node,
@@ -770,8 +791,12 @@ class ArticleAbstract:
                 )
 
                 resp = abstract.item
-                resp["parent_name"] = "article"
-                yield resp
+            resp["parent"] = "article"
+            resp["parent_id"] = article.get("id")
+            resp["parent_lang"] = article_lang
+            resp["parent_article_type"] = article.get("article-type")
+            resp["abstract_type"] = abstract_node.get("abstract-type")
+            yield resp
 
     def get_abstracts(self, structured=False):
         yield from self.get_main_abstract(structured)
@@ -831,10 +856,16 @@ class Highlight:
             yield process_subtags(highlight)
 
     @property
+    def tag_list(self):
+        for highlight in self.node.xpath('.//list//item'):
+            yield process_subtags(highlight)
+
+    @property
     def data(self):
         return {
             "title": self.title,
-            "highlights": list(self.p)
+            "highlights": list(self.p),
+            "list": list(self.tag_list)
         }
 
 
