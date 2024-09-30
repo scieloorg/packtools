@@ -1856,6 +1856,7 @@ class HighlightTest(TestCase):
         expected = {
             "title": "HIGHLIGHTS",
             'list': [],
+            'kwds': [],
             "highlights": [
                 'Nam vitae leo aliquet, pretium ante at, faucibus felis',
                 'Aliquam ac mauris et libero pulvinar facilisis',
@@ -1910,6 +1911,7 @@ class HighlightsTest(TestCase):
                     'Ut a erat ac odio placerat convallis'
                 ],
                 'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -1924,6 +1926,7 @@ class HighlightsTest(TestCase):
                     'Ut a erat ac odio placerat convallis'
                 ],
                 'list': [],
+                'kwds': [],
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
@@ -1976,6 +1979,7 @@ class HighlightsTransAbstractTest(TestCase):
                     'Ut a erat ac odio placerat convallis'
                 ],
                 'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -1990,6 +1994,7 @@ class HighlightsTransAbstractTest(TestCase):
                     'Ut a erat ac odio placerat convallis'
                 ],
                 'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -2046,7 +2051,8 @@ class VisualAbstractTest(TestCase):
             "title": "Visual Abstract",
             "fig_id": "vf01",
             "caption": "Título",
-            "graphic": "1234-5678-zwy-12-04-0123-vs01.tif"
+            "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+            'kwds': [],
         }
 
         obtained = self.visual_abstract.data
@@ -2105,6 +2111,7 @@ class VisualAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
             },
             {
                 "title": "Visual Abstract",
@@ -2115,6 +2122,7 @@ class VisualAbstractsTest(TestCase):
                 'parent_id': '01',
                 'parent_article_type': 'translation',
                 'parent_lang': 'es',
+                'kwds': [],
             },
         ]
 
@@ -2172,6 +2180,7 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
             },
             {
                 "title": "Visual Abstract",
@@ -2182,6 +2191,7 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
             },
         ]
 
