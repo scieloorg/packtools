@@ -33,17 +33,18 @@ class RelatedArticle:
 class RelatedArticlesByNode:
     def __init__(self, node):
         self.node = node
-        self.node = node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
         self.article_type = node.get("article-type")
         self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
-    def related_articles(self):
+    def related_articles(self, related_article_type=None):
         if self.parent == "article":
             path = ".//article-meta//related-article"
         else:
             path = ".//front-stub//related-article"
+        if related_article_type:
+            path += f"[@related-article-type='{related_article_type}']"
         for related_article in self.node.xpath(path):
             data = RelatedArticle(related_article).data()
             yield put_parent_context(
@@ -52,15 +53,16 @@ class RelatedArticlesByNode:
 
 
 class RelatedArticles:
-    def __init__(self, xml_tree):
+    def __init__(self, xml_tree, related_article_type=None):
         self.xml_tree = xml_tree
+        self.related_article_type = related_article_type
 
     def article(self):
-        yield from RelatedArticlesByNode(self.xml_tree.find(".")).related_articles()
+        yield from RelatedArticlesByNode(self.xml_tree.find(".")).related_articles(self.related_article_type)
 
     def sub_articles(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from RelatedArticlesByNode(sub_article).related_articles()
+            yield from RelatedArticlesByNode(sub_article).related_articles(self.related_article_type)
 
     def related_articles(self):
         yield from self.article()
