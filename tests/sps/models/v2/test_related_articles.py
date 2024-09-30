@@ -152,3 +152,33 @@ class RelatedArticlesTest(TestCase):
         obtained = list(RelatedArticles(self.xml_tree).related_articles())
 
         self.assertEqual(len(obtained), 18)
+
+    def test_related_articles_by_related_article_type(self):
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="article-commentary" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <article-meta>
+            <related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139" />
+            <related-article ext-link-type="doi" id="A02" related-article-type="corrected-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139" />
+            </article-meta>
+            </front>
+            </article>
+            """
+        obtained = list(RelatedArticles(xml_utils.get_xml_tree(xml), related_article_type="commentary-article").related_articles())
+        expected = [
+            {
+                'ext-link-type': 'doi',
+                'href': '10.1590/0101-3173.2022.v45n1.p139',
+                'id': 'A01',
+                'parent': 'article',
+                'parent_article_type': 'article-commentary',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'related-article-type': 'commentary-article',
+                'text': ''
+            },
+
+        ]
+        self.assertEqual(len(obtained), 1)
+        self.assertDictEqual(obtained[0], expected[0])
