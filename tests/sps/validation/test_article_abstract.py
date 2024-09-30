@@ -64,6 +64,7 @@ class HighlightsValidationTest(TestCase):
                     'parent_lang': 'en',
                     'title': 'HIGHLIGHTS',
                     "list": [],
+                    'kwds': [],
                 },
             },
             {
@@ -94,6 +95,7 @@ class HighlightsValidationTest(TestCase):
                     'parent_lang': 'es',
                     'title': 'HIGHLIGHTS',
                     "list": [],
+                    'kwds': [],
                 },
             }
         ]
@@ -192,6 +194,7 @@ class HighlightsValidationTest(TestCase):
                 "advice": 'Replace <list> + <item> for <title> + <p>',
                 "data": {
                     "highlights": [],
+                    'kwds': [],
                     "list": ['highlight 1', 'highlight 2'],
                     "parent": "article",
                     "parent_article_type": "research-article",
@@ -252,6 +255,7 @@ class HighlightsValidationTest(TestCase):
                 "data": {
                     "highlights": ['highlight 1'],
                     "list": [],
+                    'kwds': [],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
@@ -334,6 +338,7 @@ class VisualAbstractsValidationTest(TestCase):
                     'parent_id': None,
                     'parent_article_type': 'research-article',
                     'parent_lang': 'en',
+                    'kwds': [],
                 }
             },
             {
@@ -359,6 +364,7 @@ class VisualAbstractsValidationTest(TestCase):
                     'parent_id': '01',
                     'parent_article_type': 'translation',
                     'parent_lang': 'es',
+                    'kwds': [],
                 }
             }
         ]
