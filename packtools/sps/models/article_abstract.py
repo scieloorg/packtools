@@ -861,11 +861,17 @@ class Highlight:
             yield process_subtags(highlight)
 
     @property
+    def kwds(self):
+        for kwd in self.node.xpath('.//kwd'):
+            yield kwd
+
+    @property
     def data(self):
         return {
             "title": self.title,
             "highlights": list(self.p),
-            "list": list(self.tag_list)
+            "list": list(self.tag_list),
+            "kwds": list(self.kwds)
         }
 
 
@@ -933,12 +939,18 @@ class VisualAbstract:
             return graphic_node.get('{http://www.w3.org/1999/xlink}href')
 
     @property
+    def kwds(self):
+        for kwd in self.node.xpath('.//kwd'):
+            yield kwd
+
+    @property
     def data(self):
         return {
             "title": self.title,
             "fig_id": self.fig_id,
             "caption": self.caption,
-            "graphic": self.graphic
+            "graphic": self.graphic,
+            "kwds": list(self.kwds),
         }
 
 
