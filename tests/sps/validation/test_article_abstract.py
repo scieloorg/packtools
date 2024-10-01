@@ -33,11 +33,11 @@ class HighlightsValidationTest(TestCase):
             """
         )
 
-        obtained = list(HighlightsValidation(xmltree).highlight_validation())
+        obtained = list(HighlightsValidation(xmltree).validate_existence())
 
         expected = [
             {
-                'title': 'Article highlights validation',
+                'title': 'Article highlights',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -68,7 +68,7 @@ class HighlightsValidationTest(TestCase):
                 },
             },
             {
-                'title': 'Article highlights validation',
+                'title': 'Article highlights',
                 'parent': 'sub-article',
                 'parent_id': '01',
                 'parent_article_type': 'translation',
@@ -119,11 +119,11 @@ class HighlightsValidationTest(TestCase):
             """
         )
 
-        obtained = list(HighlightsValidation(xmltree).highlight_validation("WARNING"))
+        obtained = list(HighlightsValidation(xmltree).validate_existence())
 
         expected = [
             {
-                'title': 'Article highlights validation',
+                'title': 'Article highlights',
                 'parent': None,
                 'parent_id': None,
                 'parent_article_type': None,
@@ -132,9 +132,9 @@ class HighlightsValidationTest(TestCase):
                 'sub_item': '@abstract-type="key-points"',
                 'validation_type': 'exist',
                 'response': 'WARNING',
-                'expected_value': 'article highlights',
+                'expected_value': 'highlights',
                 'got_value': None,
-                'message': "Got None, expected article highlights",
+                'message': "Got None, expected highlights",
                 'advice': None,
                 'data': None,
             }
@@ -248,10 +248,11 @@ class HighlightsValidationTest(TestCase):
                 "response": "ERROR",
                 "item": "abstract",
                 "sub_item": '@abstract-type="key-points"',
-                "expected_value": 'more than one <title><p>item</p></title>',
-                "got_value": '<title><p>highlight 1</p></title>',
-                "message": 'Got <title><p>highlight 1</p></title>, expected more than one <title><p>item</p></title>',
-                "advice": 'Provide more than one item like <title><p>item</p></title>',
+                "expected_value": '<title>TITLE</title> and more than one <p>ITEM</p>',
+                "got_value": '<title>HIGHLIGHTS</title><p>highlight 1</p>',
+                "message": 'Got <title>HIGHLIGHTS</title><p>highlight 1</p>, '
+                           'expected <title>TITLE</title> and more than one <p>ITEM</p>',
+                "advice": 'Provide like <title>TITLE</title> and more than one <p>ITEM</p>',
                 "data": {
                     "highlights": ['highlight 1'],
                     "list": [],
@@ -266,6 +267,60 @@ class HighlightsValidationTest(TestCase):
         ]
 
         self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_kwd_in_abstract_validation(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = list(HighlightsValidation(xmltree).kwd_in_abstract_validation())
+
+        expected = [
+            {
+                "title": 'kwd in abstract',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": "abstract",
+                "sub_item": '@abstract-type="key-points"',
+                "expected_value": "keywords (<kwd>) not in <abstract abstract-type='key-points'>",
+                "got_value": ['kwd_01', 'kwd_02'],
+                "message": "Got ['kwd_01', 'kwd_02'], expected keywords (<kwd>) not in <abstract abstract-type='key-points'>",
+                "advice": "Remove keywords (<kwd>) from <abstract abstract-type='key-points'>",
+                "data": {
+                    "highlights": [],
+                    "list": [],
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
@@ -312,11 +367,11 @@ class VisualAbstractsValidationTest(TestCase):
             """
         )
 
-        obtained = list(VisualAbstractsValidation(xmltree).visual_abstracts_validation())
+        obtained = list(VisualAbstractsValidation(xmltree).validate_existence())
 
         expected = [
             {
-                'title': 'Article visual abstracts validation',
+                'title': 'Article visual abstracts',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -342,7 +397,7 @@ class VisualAbstractsValidationTest(TestCase):
                 }
             },
             {
-                'title': 'Article visual abstracts validation',
+                'title': 'Article visual abstracts',
                 'parent': 'sub-article',
                 'parent_id': '01',
                 'parent_article_type': 'translation',
@@ -389,11 +444,11 @@ class VisualAbstractsValidationTest(TestCase):
             """
         )
 
-        obtained = list(VisualAbstractsValidation(xmltree).visual_abstracts_validation("WARNING"))
+        obtained = list(VisualAbstractsValidation(xmltree).validate_existence("WARNING"))
 
         expected = [
             {
-                'title': 'Article visual abstracts validation',
+                'title': 'Article visual abstracts',
                 'parent': None,
                 'parent_id': None,
                 'parent_article_type': None,
@@ -402,14 +457,69 @@ class VisualAbstractsValidationTest(TestCase):
                 'sub_item': '@abstract-type="graphical"',
                 'validation_type': 'exist',
                 'response': 'WARNING',
-                'expected_value': 'article visual abstracts',
+                'expected_value': 'visual abstracts',
                 'got_value': None,
-                'message': 'Got None, expected article visual abstracts',
+                'message': 'Got None, expected visual abstracts',
                 'advice': None,
                 'data': None,
             }
         ]
 
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_kwd_in_abstract_validation(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = list(VisualAbstractsValidation(xmltree).kwd_in_abstract_validation())
+
+        expected = [
+            {
+                "title": 'kwd in abstract',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": "abstract",
+                "sub_item": '@abstract-type="graphical"',
+                "expected_value": "keywords (<kwd>) not in <abstract abstract-type='graphical'>",
+                "got_value": ['kwd_01', 'kwd_02'],
+                "message": "Got ['kwd_01', 'kwd_02'], expected keywords (<kwd>) not in <abstract abstract-type='graphical'>",
+                "advice": "Remove keywords (<kwd>) from <abstract abstract-type='graphical'>",
+                "data": {
+                    'caption': None,
+                    'fig_id': None,
+                    'graphic': None,
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
@@ -443,7 +553,7 @@ class ArticleAbstractValidationTest(TestCase):
             """
         )
 
-        obtained = list(ArticleAbstractValidation(xmltree).abstract_type_validation())
+        obtained = list(ArticleAbstractValidation(xmltree).abstract_type_validation(expected_abstract_type_validate=["key-points", "graphical"]))
 
         expected = [
             {
