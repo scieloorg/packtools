@@ -1934,7 +1934,7 @@ class HighlightsTest(TestCase):
             }
         ]
 
-        obtained = list(self.highlights.article_highlights())
+        obtained = list(self.highlights.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -2002,7 +2002,7 @@ class HighlightsTransAbstractTest(TestCase):
             }
         ]
 
-        obtained = list(self.highlights.article_highlights())
+        obtained = list(self.highlights.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -2126,7 +2126,7 @@ class VisualAbstractsTest(TestCase):
             },
         ]
 
-        obtained = list(self.visual_abstracts.article_visual_abstracts())
+        obtained = list(self.visual_abstracts.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -2195,7 +2195,7 @@ class VisualTransAbstractsTest(TestCase):
             },
         ]
 
-        obtained = list(self.visual_abstracts.article_visual_abstracts())
+        obtained = list(self.visual_abstracts.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):

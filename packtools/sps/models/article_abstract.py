@@ -852,7 +852,7 @@ class Highlight:
 
     @property
     def p(self):
-        for highlight in self.node.xpath('.//p'):
+        for highlight in self.node.xpath('p'):
             yield process_subtags(highlight)
 
     @property
@@ -862,7 +862,7 @@ class Highlight:
 
     @property
     def kwds(self):
-        for kwd in self.node.xpath('.//kwd'):
+        for kwd in self.node.xpath('.//kwd/text()'):
             yield kwd
 
     @property
@@ -891,7 +891,7 @@ class ArticleHighlights:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def article_highlights(self):
+    def article_abstracts(self):
         main = self.xmltree.xpath(".")[0]
         main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
         main_article_type = main.get("article-type")
@@ -940,7 +940,7 @@ class VisualAbstract:
 
     @property
     def kwds(self):
-        for kwd in self.node.xpath('.//kwd'):
+        for kwd in self.node.xpath('.//kwd/text()'):
             yield kwd
 
     @property
@@ -970,7 +970,7 @@ class ArticleVisualAbstracts:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
-    def article_visual_abstracts(self):
+    def article_abstracts(self):
         main = self.xmltree.xpath(".")[0]
         main_lang = main.get("{http://www.w3.org/XML/1998/namespace}lang")
         main_article_type = main.get("article-type")
