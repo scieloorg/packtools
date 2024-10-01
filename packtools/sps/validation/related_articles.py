@@ -1,7 +1,7 @@
-from packtools.sps.models import (
-    related_articles,
-    article_and_subarticles
-)
+import re
+
+from packtools.sps.models import article_and_subarticles
+from packtools.sps.models.v2 import related_articles
 
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
 from packtools.sps.validation.utils import format_response
@@ -9,7 +9,7 @@ from packtools.sps.validation.utils import format_response
 
 class RelatedArticlesValidation:
     def __init__(self, xmltree):
-        self.related_articles = [related for related in related_articles.RelatedItems(xmltree).related_articles]
+        self.related_articles = [related for related in related_articles.RelatedArticles(xmltree).related_articles()]
         self.article_type = article_and_subarticles.ArticleAndSubArticles(xmltree).main_article_type
 
     def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
@@ -136,3 +136,27 @@ class RelatedArticlesValidation:
                 data=related_article,
                 error_level=error_level
             )
+
+    def attrib_order_in_related_article_tag(self, error_level="ERROR"):
+        pattern = r'<related-article\s+(?:xmlns:xlink="http://www\.w3\.org/1999/xlink"\s+)?related-article-type="[' \
+                  r'^"]*"\s+id="[^"]*"\s+ext-link-type="doi"\s+xlink:href="[^"]*"\s*/?>'
+
+        for related_article in self.related_articles:
+            full_tag = related_article.get('full_tag')
+            if not re.match(pattern, full_tag):
+                yield format_response(
+                    title='attrib order in related article tag',
+                    parent=related_article.get("parent"),
+                    parent_id=related_article.get("parent_id"),
+                    parent_article_type=related_article.get("parent_article_type"),
+                    parent_lang=related_article.get("parent_lang"),
+                    item='related-article',
+                    sub_item=None,
+                    validation_type='match',
+                    is_valid=False,
+                    expected='<related-article related-article-type="TYPE" id="ID" xlink:href="HREF" ext-link-type="doi">',
+                    obtained=full_tag,
+                    advice='provide the attributes in the specified order',
+                    data=related_article,
+                    error_level=error_level
+                )

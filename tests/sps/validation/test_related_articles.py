@@ -14,7 +14,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
+            <article-meta>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
+            </article-meta>
             </front>
             </article>
 
@@ -56,7 +58,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" '
+                                'id="ra1" related-article-type="corrected-article" '
+                                'xlink:href="10.1590/1808-057x202090350" />',
+                    'text': '',
                 }
             }
         ]
@@ -72,7 +78,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="retraction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
+            <article-meta>
             <related-article ext-link-type="doi" id="ra1" related-article-type="retraction-forward" xlink:href="10.1590/1808-057x202090350"/>
+            </article-meta>
             </front>
             </article>
 
@@ -115,7 +123,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'retraction-forward'
+                    'related-article-type': 'retraction-forward',
+                    'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" '
+                                'id="ra1" related-article-type="retraction-forward" '
+                                'xlink:href="10.1590/1808-057x202090350" />',
+                    'text': ''
                 }
             }
         ]
@@ -131,7 +143,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
+            <article-meta>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
+            </article-meta>
             </front>
             </article>
 
@@ -162,7 +176,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'ext-link-type': 'doi',
                     'href': '10.1590/1808-057x202090350',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" '
+                                'id="ra1" related-article-type="corrected-article" '
+                                'xlink:href="10.1590/1808-057x202090350" />',
+                    'text': ''
                 }
             }
         ]
@@ -178,7 +196,9 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
+            <article-meta>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />
+            </article-meta>
             </front>
             </article>
 
@@ -209,11 +229,76 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'parent_lang': 'en',
                     'ext-link-type': 'doi',
                     'id': 'ra1',
-                    'related-article-type': 'corrected-article'
+                    'related-article-type': 'corrected-article',
+                    'full_tag': '<related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />',
+                    'href': None,
+                    'text': ''
                 }
             }
         ]
 
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_attrib_order_in_related_article_tag(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+            <article-meta>
+            <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
+            <related-article related-article-type="corrected-article" id="ra1" ext-link-type="doi" xlink:href="10.1590/1808-057x202090350"/>
+            </article-meta>
+            </front>
+            </article>
+
+            """
+        )
+        obtained = list(RelatedArticlesValidation(xmltree).attrib_order_in_related_article_tag())
+
+        expected = [
+            {
+                'title': 'attrib order in related article tag',
+                'parent': 'article',
+                'parent_article_type': 'correction-forward',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'item': 'related-article',
+                'sub_item': None,
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': '<related-article related-article-type="TYPE" id="ID" xlink:href="HREF" '
+                                  'ext-link-type="doi">',
+                'got_value': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" '
+                             'id="ra1" related-article-type="corrected-article" '
+                             'xlink:href="10.1590/1808-057x202090350" />',
+                'message': 'Got <related-article xmlns:xlink="http://www.w3.org/1999/xlink" '
+                           'ext-link-type="doi" id="ra1" '
+                           'related-article-type="corrected-article" '
+                           'xlink:href="10.1590/1808-057x202090350" />, expected '
+                           '<related-article related-article-type="TYPE" id="ID" '
+                           'xlink:href="HREF" ext-link-type="doi">',
+                'advice': 'provide the attributes in the specified order',
+                'data': {
+                    'parent': 'article',
+                    'parent_article_type': 'correction-forward',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'ext-link-type': 'doi',
+                    'href': '10.1590/1808-057x202090350',
+                    'id': 'ra1',
+                    'related-article-type': 'corrected-article',
+                    'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" '
+                                'id="ra1" related-article-type="corrected-article" '
+                                'xlink:href="10.1590/1808-057x202090350" />',
+                    'text': ''
+                }
+            },
+        ]
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
