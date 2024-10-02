@@ -1,4 +1,5 @@
 # coding: utf-8
+import io
 from lxml import etree as ET
 
 from packtools.sps.models import (
@@ -9,20 +10,42 @@ from packtools.sps.models import (
     article_citations,
     article_ids,
     article_titles,
-    dates,
+    article_dates,
     front_articlemeta_issue,
     journal_meta,
     kwd_group,
 )
 
 
-def xml_pubmed_article_pipe():
-    return ET.Element("Article")
+def xml_pubmed_article_set():
+    root = ET.Element("ArticleSet")
+    tree = ET.ElementTree(root)
+    return tree
+
+
+def xml_pubmed_dtd_header(xml_pubmed):
+    """
+        The file header is the first line of the XML file that tells us the DTD information. It must appear in the PubMed XML files exactly as:
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN"
+        "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
+        You will be notified if this header changes.
+    """
+    xml_pubmed.docinfo.public_id = "-//NLM//DTD PubMed 2.8//EN"
+    xml_pubmed.docinfo.system_url = "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd"
+
+    return xml_pubmed
+
+def xml_pubmed_article_pipe(xml_pubmed):
+    root  = xml_pubmed.getroot()
+    el = ET.Element("Article")
+    root.append(el)
 
 
 def xml_pubmed_journal_pipe(xml_pubmed):
+    article_element = xml_pubmed.find("./Article")
     el = ET.Element("Journal")
-    xml_pubmed.append(el)
+    article_element.append(el)
 
 
 def get_publisher(xml_tree):
