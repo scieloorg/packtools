@@ -74,7 +74,6 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag, process_subtags
 
 
-class Abstract:
 class BaseAbstract:
     def __init__(self, node):
         self.node = node
@@ -107,6 +106,7 @@ class BaseAbstract:
         }
 
 
+class Abstract(BaseAbstract):
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
@@ -874,28 +874,11 @@ class ArticleAbstract:
         return d
 
 
-class Highlight:
-    def __init__(self, node):
-        self.node = node
-
-    @property
-    def title(self):
-        return self.node.findtext('title')
-
-    @property
-    def p(self):
-        for highlight in self.node.xpath('p'):
-            yield process_subtags(highlight)
-
+class Highlight(BaseAbstract):
     @property
     def tag_list(self):
         for highlight in self.node.xpath('.//list//item'):
             yield process_subtags(highlight)
-
-    @property
-    def kwds(self):
-        for kwd in self.node.xpath('.//kwd/text()'):
-            yield kwd
 
     @property
     def data(self):
@@ -903,7 +886,8 @@ class Highlight:
             "title": self.title,
             "highlights": list(self.p),
             "list": list(self.tag_list),
-            "kwds": list(self.kwds)
+            "kwds": list(self.kwds),
+            "abstract_type": self.abstract_type
         }
 
 
@@ -944,14 +928,7 @@ class ArticleHighlights:
                 yield data
 
 
-class VisualAbstract:
-    def __init__(self, node):
-        self.node = node
-
-    @property
-    def title(self):
-        return self.node.findtext(".//title")
-
+class VisualAbstract(BaseAbstract):
     @property
     def fig_id(self):
         fig_node = self.node.find(".//fig")
@@ -971,11 +948,6 @@ class VisualAbstract:
             return graphic_node.get('{http://www.w3.org/1999/xlink}href')
 
     @property
-    def kwds(self):
-        for kwd in self.node.xpath('.//kwd/text()'):
-            yield kwd
-
-    @property
     def data(self):
         return {
             "title": self.title,
@@ -983,6 +955,7 @@ class VisualAbstract:
             "caption": self.caption,
             "graphic": self.graphic,
             "kwds": list(self.kwds),
+            "abstract_type": self.abstract_type
         }
 
 
