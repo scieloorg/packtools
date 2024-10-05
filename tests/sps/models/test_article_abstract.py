@@ -1835,6 +1835,12 @@ class HighlightTest(TestCase):
             """)
         self.highlight = Highlight(xmltree.xpath('.//abstract')[0])
 
+    def test_get_abstract_type_returns_abstract_type(self):
+        self.assertEqual(self.highlight.abstract_type, "key-points")
+
+    def test_get_data_returns_abstract_type(self):
+        self.assertEqual(self.highlight.data["abstract_type"], "key-points")
+
     def test_highlight_title(self):
         self.assertEqual(self.highlight.title, "HIGHLIGHTS")
 
@@ -1862,7 +1868,8 @@ class HighlightTest(TestCase):
                 'Aliquam ac mauris et libero pulvinar facilisis',
                 'Fusce aliquam ipsum ut diam luctus porta',
                 'Ut a erat ac odio placerat convallis'
-            ]
+            ],
+            'abstract_type': 'key-points',
         }
 
         obtained = self.highlight.data
@@ -1916,6 +1923,7 @@ class HighlightsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             },
             {
                 "title": "HIGHLIGHTS",
@@ -1931,6 +1939,7 @@ class HighlightsTest(TestCase):
                 'parent_article_type': 'translation',
                 'parent_id': '01',
                 'parent_lang': 'es',
+                'abstract_type': 'key-points',
             }
         ]
 
@@ -1984,6 +1993,7 @@ class HighlightsTransAbstractTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             },
             {
                 "title": "HIGHLIGHTS",
@@ -1999,6 +2009,7 @@ class HighlightsTransAbstractTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             }
         ]
 
@@ -2053,6 +2064,7 @@ class VisualAbstractTest(TestCase):
             "caption": "Título",
             "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
             'kwds': [],
+            'abstract_type': 'graphical',
         }
 
         obtained = self.visual_abstract.data
@@ -2112,6 +2124,7 @@ class VisualAbstractsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
                 'kwds': [],
+                'abstract_type': 'graphical',
             },
             {
                 "title": "Visual Abstract",
@@ -2123,6 +2136,7 @@ class VisualAbstractsTest(TestCase):
                 'parent_article_type': 'translation',
                 'parent_lang': 'es',
                 'kwds': [],
+                'abstract_type': 'graphical',
             },
         ]
 
@@ -2181,6 +2195,7 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
                 'kwds': [],
+                'abstract_type': 'graphical',
             },
             {
                 "title": "Visual Abstract",
@@ -2192,6 +2207,7 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
                 'kwds': [],
+                'abstract_type': 'graphical',
             },
         ]
 
