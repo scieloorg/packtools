@@ -75,6 +75,38 @@ from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag, pr
 
 
 class Abstract:
+class BaseAbstract:
+    def __init__(self, node):
+        self.node = node
+
+    @property
+    def title(self):
+        return self.node.findtext('title')
+
+    @property
+    def p(self):
+        for highlight in self.node.xpath('p'):
+            yield process_subtags(highlight)
+
+    @property
+    def kwds(self):
+        for kwd in self.node.xpath('.//kwd/text()'):
+            yield kwd
+
+    @property
+    def abstract_type(self):
+        return self.node.get("abstract-type")
+
+    @property
+    def data(self):
+        return {
+            "title": self.title,
+            "p": list(self.p),
+            "kwds": list(self.kwds),
+            "abstract_type": self.abstract_type
+        }
+
+
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
