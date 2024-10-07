@@ -115,7 +115,7 @@ def xml_pubmed_volume_pipe(xml_pubmed, xml_tree):
     if volume is not None:
         el = ET.Element("Volume")
         el.text = volume
-        xml_pubmed.find("Journal").append(el)
+        xml_pubmed.find(".//Journal").append(el)
 
 
 def get_issue(xml_tree):
@@ -128,17 +128,19 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
     """
     <Issue>11</Issue>
     """
+    el = ET.Element("Issue")
+    xml_pubmed.find(".//Journal").append(el)
     issue = get_issue(xml_tree)
+    if not issue and not get_volume:
+        
     if issue is not None:
-        el = ET.Element("Issue")
         el.text = issue
-        xml_pubmed.find("Journal").append(el)
+        xml_pubmed.find(".//Journal").append(el)
 
 
 def get_date(xml_tree):
-    date = dates.ArticleDates(xml_tree)
-
-    return date.article_date
+    date = article_dates.HistoryDates(xmltree=xml_tree).article_date
+    return date
 
 
 def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
