@@ -151,21 +151,21 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
         <Day>06</Day>
     </PubDate>
     """
+    
     date = get_date(xml_tree)
     if date is not None:
         dt = ET.Element("PubDate")
         dt.set("PubStatus", "epublish")
-        for element in ["year", "month", "day"]:
+        for key in date:
             # TODO
-            # Season
-            # The season of publication. e.g.,Winter, Spring, Summer, Fall. Do not use if a Month is available.
-            # There is no example of using this value in the files.
+            # Year is required.
+            if key == "season" and date.get("month") or key == "type":
+                continue
+            el = ET.Element(key.capitalize())
+            el.text = date.get(key)
+            dt.append(el)
 
-            if date.get(element):
-                el = ET.Element(element.capitalize())
-                el.text = date.get(element)
-                dt.append(el)
-        xml_pubmed.find("Journal").append(dt)
+        xml_pubmed.find(".//Journal").append(dt)
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -197,7 +197,7 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
     if title.get("en") is not None:
         el = ET.Element("ArticleTitle")
         el.text = title.get("en")
-        xml_pubmed.append(el)
+        xml_pubmed.find("./Article").append(el)
 
 
 def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
@@ -211,7 +211,7 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
     if title.get(main_lang) is not None:
         el = ET.Element("VernacularTitle")
         el.text = title.get(main_lang)
-        xml_pubmed.append(el)
+        xml_pubmed.find("./Article").append(el)
 
 
 def get_first_page(xml_tree):
@@ -225,11 +225,17 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
     <FirstPage LZero="save">e20220291</FirstPage>
     """
     first_page = get_first_page(xml_tree)
-    if first_page is not None:
+    ids = get_elocation(xml_tree)
+    if first_page:
         el = ET.Element("FirstPage")
         el.set("LZero", "save")
         el.text = first_page
-        xml_pubmed.append(el)
+        xml_pubmed.find(".//Article").append(el)
+    elif not ids.get("v2") and not ids.get("doi"):
+        ...
+        # TODO
+        # Report Error
+        # This tag is Required if ELocationID is not present.
 
 
 def get_elocation(xml_tree):
@@ -251,7 +257,14 @@ def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
     <ELocationID EIdType="pii">S0001-37652022000501309</ELocationID>
     <ELocationID EIdType="doi">10.1590/0001-3765202220201894</ELocationID>
     """
+    
     ids = get_elocation(xml_tree)
+    if not ids.get("v2") and not ids.get("doi") and not get_first_page(xml_tree=xml_tree):
+        ...
+        # TODO
+        # Report Error.
+        # This tag is Required if FirstPage is not present.
+    
     add_elocation(xml_pubmed, ids.get("v2"), "pii")
     add_elocation(xml_pubmed, ids.get("doi"), "doi")
 
@@ -268,7 +281,7 @@ def add_langs(xml_pubmed, xml_tree):
         if lang.get("lang") is not None:
             el = ET.Element("Language")
             el.text = lang.get("lang").upper()
-            xml_pubmed.append(el)
+            xml_pubmed.find("./Article").append(el)
 
 
 def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
@@ -279,8 +292,10 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree, pretty_print=True):
-    xml_pubmed = xml_pubmed_article_pipe()
+def pipeline_pubmed(xml_tree, pretty_print=True, report={}):
+    xml_pubmed = xml_pubmed_article_set()
+    xml_pubmed = xml_pubmed_dtd_header(xml_pubmed=xml_pubmed)
+    xml_pubmed_article_pipe(xml_pubmed=xml_pubmed)
     xml_pubmed_journal_pipe(xml_pubmed)
     xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
     xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
