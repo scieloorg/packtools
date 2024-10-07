@@ -165,7 +165,7 @@ class AffiliationValidation:
         original = self.affiliation.get("original")
         error_level = error_level or "ERROR"
         yield format_response(
-            title="Affiliation validation",
+            title="original",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -198,7 +198,7 @@ class AffiliationValidation:
         orgname = self.affiliation.get("orgname")
         error_level = error_level or "CRITICAL"
         yield format_response(
-            title="Affiliation validation",
+            title="orgname",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -231,7 +231,7 @@ class AffiliationValidation:
         country = self.affiliation.get("country_name")
         error_level = error_level or "CRITICAL"
         yield format_response(
-            title="Affiliation validation",
+            title="country name",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -271,7 +271,7 @@ class AffiliationValidation:
         country_code = self.affiliation.get("country_code")
         error_level = error_level or "CRITICAL"
         yield format_response(
-            title="Affiliation validation",
+            title="country code",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -304,7 +304,7 @@ class AffiliationValidation:
         state = self.affiliation.get("state")
         error_level = error_level or "ERROR"
         yield format_response(
-            title="Affiliation validation",
+            title="state",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -337,7 +337,7 @@ class AffiliationValidation:
         city = self.affiliation.get("city")
         error_level = error_level or "ERROR"
         yield format_response(
-            title="Affiliation validation",
+            title="city",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
@@ -370,7 +370,7 @@ class AffiliationValidation:
         aff_id = self.affiliation.get("id")
         error_level = error_level or "CRITICAL"
         yield format_response(
-            title="Affiliation validation",
+            title="id",
             parent=self.affiliation.get("parent"),
             parent_id=self.affiliation.get("parent_id"),
             parent_article_type=self.affiliation.get("parent_article_type"),
