@@ -320,7 +320,7 @@ def pipeline_pubmed(xml_tree, pretty_print=True, report={}):
     xml_pubmed_other_abstract(xml_pubmed, xml_tree)
 
     xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, encoding="utf-8").decode("utf-8")
+    return ET.tostring(xml_tree, pretty_print=pretty_print, xml_declaration=True, encoding="utf-8").decode("utf-8")
 
 
 def get_authors(xml_tree):
