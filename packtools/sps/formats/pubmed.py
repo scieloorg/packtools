@@ -464,7 +464,7 @@ def xml_pubmed_publication_type(xml_pubmed, xml_tree):
     if publication_type is not None:
         el = ET.Element("PublicationType")
         el.text = publication_type
-        xml_pubmed.append(el)
+        xml_pubmed.find("./Article").append(el)
 
 
 def get_article_id_pii(xml_tree):
@@ -496,11 +496,11 @@ def xml_pubmed_article_id(xml_pubmed, xml_tree):
             article_id.set("IdType", "doi")
             article_id.text = doi
             article_id_list.append(article_id)
-        xml_pubmed.append(article_id_list)
+        xml_pubmed.find("./Article").append(article_id_list)
 
 
 def get_event_date(xml_tree, event):
-    event_date = dates.ArticleDates(xml_tree).history_dates_dict
+    event_date = article_dates.ArticleDates(xml_tree).history_dates_dict
     return event_date.get(event)
 
 
@@ -541,7 +541,12 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
     history_dates = {
         "received": get_event_date(xml_tree, "received"),
         "accepted": get_event_date(xml_tree, "accepted"),
-        "ecollection": dates.ArticleDates(xml_tree).collection_date,
+        "revised": get_event_date(xml_tree, "rev-recd"),
+        #aheadofprint?
+        #Data de publicação (eletrônica ou impressa). pub
+        # "epublish": get_event_date(xml_tree, "pub"),
+        "ppublish": get_event_date(xml_tree, "pub"),
+        "ecollection": article_dates.ArticleDates(xml_tree).collection_date,
     }
 
     history = ET.Element("History")
@@ -552,14 +557,16 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
             add_date(el, date)
             history.append(el)
 
-    xml_pubmed.append(history)
+    xml_pubmed.find("./Article").append(history)
 
 
 def xml_pubmed_copyright_information(xml_pubmed, xml_tree):
-    ...
-    # TODO
-    # The Copyright information associated with this article.
-    # There is no example of using this value in the files.
+    if xml_tree.find(".//copyright-statement") is not None:
+        element_copyright = xml_tree.find(".//copyright-statement") 
+        text_copyright = element_copyright.text
+        el = ET.Element("CopyrightInformation")
+        el.text = text_copyright
+        xml_pubmed.find("./Article").append(el)
 
 
 def xml_pubmed_coi_statement(xml_pubmed, xml_tree):
@@ -613,7 +620,7 @@ def xml_pubmed_object_list(xml_pubmed, xml_tree):
             param.text = kwd.get("text")
             obj.append(param)
             obj_list.append(obj)
-    xml_pubmed.append(obj_list)
+    xml_pubmed.find("./Article").append(obj_list)
 
     # TODO
     # The Object tag includes the Type attribute, which may include only one of the following values
@@ -716,7 +723,7 @@ def xml_pubmed_abstract(xml_pubmed, xml_tree):
                 abstract_el.append(add_abstract_text(item.get('title'), item.get('p')))
         else:
             abstract_el.text = abstract.get('p')
-        xml_pubmed.append(abstract_el)
+        xml_pubmed.find("./Article").append(abstract_el)
     except AttributeError:
         pass
 
