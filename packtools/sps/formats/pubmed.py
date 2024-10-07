@@ -56,7 +56,7 @@ def get_publisher(xml_tree):
         pass
 
 
-def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report):
     """
     <PublisherName>Colégio Brasileiro de Cirurgia Digestiva</PublisherName>
     """
@@ -64,7 +64,13 @@ def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree):
     if publisher is not None:
         el = ET.Element("PublisherName")
         el.text = publisher
-        xml_pubmed.find("Journal").append(el)
+        xml_pubmed.find(".//Journal").append(el)
+    else:
+        report.update({
+            "missing_tags": "PublisherName",
+            "validation_errors": "Value not found for publisher",
+            "tag_path": ".//journal-meta//publisher//publisher-name",
+        })
 
 
 def get_journal_title(xml_tree):
@@ -73,7 +79,7 @@ def get_journal_title(xml_tree):
     return journal_title.abbreviated_journal_title
 
 
-def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report):
     """
     <JournalTitle>Arq Bras Cir Dig</JournalTitle>
     """
@@ -81,7 +87,13 @@ def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree):
     if journal_title is not None:
         el = ET.Element("JournalTitle")
         el.text = journal_title
-        xml_pubmed.find("Journal").append(el)
+        xml_pubmed.find(".//Journal").append(el)
+    else:
+        report.update({
+            "missing_tags": "JournalTitle",
+            "validation_errors": "Value not found for Journal Title",
+            "tag_path": './/journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
+        })
 
 
 def get_issn(xml_tree):
@@ -90,7 +102,7 @@ def get_issn(xml_tree):
     return issn.epub or issn.ppub
 
 
-def xml_pubmed_issn_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report):
     """
     <Issn>1678-2674</Issn>
     """
@@ -98,7 +110,13 @@ def xml_pubmed_issn_pipe(xml_pubmed, xml_tree):
     if issn != "":
         el = ET.Element("Issn")
         el.text = issn
-        xml_pubmed.find("Journal").append(el)
+        xml_pubmed.find(".//Journal").append(el)
+    else:
+        report.update({
+            "missing_tags": "Issn",
+            "validation_errors": "Value not found for Issn",
+            "tag_path": './/journal-meta//issn',
+        })
 
 
 def get_volume(xml_tree):
@@ -107,12 +125,20 @@ def get_volume(xml_tree):
     return issue.volume
 
 
-def xml_pubmed_volume_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report):
     """
     <Volume>37</Volume>
     """
     volume = get_volume(xml_tree)
-    if volume is not None:
+    issue = get_issue(xml_tree)
+    if not volume and not issue:
+        report.update({
+            "missing_tags": "Volume",
+            "validation_errors": "Volume is required if issue empty",
+            "tag_path": './/front/article-meta/volume',
+        })
+        return
+    if volume:
         el = ET.Element("Volume")
         el.text = volume
         xml_pubmed.find(".//Journal").append(el)
@@ -124,16 +150,22 @@ def get_issue(xml_tree):
     return issue.issue
 
 
-def xml_pubmed_issue_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report):
     """
     <Issue>11</Issue>
     """
-    el = ET.Element("Issue")
-    xml_pubmed.find(".//Journal").append(el)
+    
     issue = get_issue(xml_tree)
-    if not issue and not get_volume:
-        
-    if issue is not None:
+    volume = get_volume(xml_tree)
+    if not issue and not volume:
+        report.update({
+            "missing_tags": "Issue",
+            "validation_errors": "Issue is required if volume empty",
+            "tag_path": './/front/article-meta/issue',
+        })
+        return
+    if issue:
+        el = ET.Element("Issue")
         el.text = issue
         xml_pubmed.find(".//Journal").append(el)
 
@@ -143,7 +175,7 @@ def get_date(xml_tree):
     return date
 
 
-def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report):
     """
     <PubDate PubStatus="epublish">
         <Year>2023</Year>
@@ -166,6 +198,12 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree):
             dt.append(el)
 
         xml_pubmed.find(".//Journal").append(dt)
+    else:
+        report.update({
+            "missing_tags": "PubDate",
+            "validation_errors": "Date is required",
+            "tag_path": './/pub-date',
+        })        
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -475,7 +513,7 @@ def get_article_id_doi(xml_tree):
     return article_ids.ArticleIds(xml_tree).doi
 
 
-def xml_pubmed_article_id(xml_pubmed, xml_tree):
+def xml_pubmed_article_id(xml_pubmed, xml_tree, report):
     """
     <ArticleIdList>
         <ArticleId IdType="pii">S0102-311X2022001205003</ArticleId>
@@ -497,6 +535,13 @@ def xml_pubmed_article_id(xml_pubmed, xml_tree):
             article_id.text = doi
             article_id_list.append(article_id)
         xml_pubmed.find("./Article").append(article_id_list)
+    else:
+        report.update({
+            "missing_tags": "ArticleIdList",
+            "validation_errors": "Not found value for ArticleId",
+            "tag_path": './/article-id',
+        })
+        
 
 
 def get_event_date(xml_tree, event):
