@@ -328,17 +328,24 @@ def get_authors(xml_tree):
 
 
 def add_first_name(author_reg, author_tag):
-    if author_reg.get("given_names"):
-        first = ET.Element("FirstName")
-        first.text = author_reg.get("given_names")
-        author_tag.append(first)
+    if given_names := author_reg.get("given_names"):
+        if prefix := author_reg.get("prefix"):
+            first = f"{prefix} {given_names}"
+        else:
+            first = given_names
+        return first
 
 
 def add_last_name(author_reg, author_tag):
     if author_reg.get("surname"):
-        last = ET.Element("LastName")
-        last.text = author_reg.get("surname")
-        author_tag.append(last)
+        last = author_reg.get("surname")
+        return last
+
+def add_suffix_name(author_reg, author_tag):
+    if author_reg.get("suffix"):
+        suffix = ET.Element("Suffix")
+        suffix.text = author_reg.get("suffix")
+        author_tag.append(suffix)
 
 
 def get_affiliations(author_reg, xml_tree):
@@ -377,21 +384,26 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
         author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
             author_tag = ET.Element("Author")
-            add_first_name(author_reg, author_tag)
-
-            # TODO
-            # add_middle_name(author_reg, author_tag)
-            # The Author’s full middle name, or initial if the full name is not available. Multiple names are allowed
-            # in this tag.
-            # There is no example of using this value in the files.
-
-            add_last_name(author_reg, author_tag)
-
-            # TODO
-            # add_suffix(author_reg, author_tag)
-            # The Author's suffix, if any, e.g. "Jr", "Sr", "II", "IV". Do not include honorific titles,
-            # e.g. "M.D.", "Ph.D.".
-            # There is no example of using this value in the files
+            first_name_element = ET.Element("FirstName")
+            last_name_element = ET.Element("LastName")
+            first_name = add_first_name(author_reg, author_tag)
+            last_name = add_last_name(author_reg, author_tag)
+            
+            if first_name and not last_name:
+                last_name_element.text = first_name
+                first_name_element.set("EmptyYN", "Y")
+                author_tag.append(first_name_element)
+                author_tag.append(last_name_element)
+            elif last_name:
+                last_name_element.text = last_name
+                if first_name:
+                    first_name_element.text = first_name
+                else:
+                    first_name_element.set("EmptyYN", "Y")
+                author_tag.append(first_name_element)
+                author_tag.append(last_name_element)
+    
+            add_suffix_name(author_reg, author_tag)
 
             # TODO
             # add_collective_name(author_reg, author_tag)
@@ -433,7 +445,7 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
             # be tagged with the FirstName, MiddleName, LastName, Suffix, and Affiliation tags.
             # There is no example of using this value in the files
 
-        xml_pubmed.append(author_list_tag)
+        xml_pubmed.find(".//Article").append(author_list_tag)
 
 
 def get_publication_type(xml_tree):
