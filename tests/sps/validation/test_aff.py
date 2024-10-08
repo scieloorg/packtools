@@ -48,14 +48,10 @@ class AffiliationValidationTest(TestCase):
         obtained = list(
             AffiliationsListValidation(xml_tree, ["BR"]).validate_affiliations_list()
         )
-        expected = [
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-        ]
-        self.assertEqual(14, len(obtained))
+        self.assertEqual(0, len(obtained))
         for i, item in enumerate(obtained):
             with self.subTest(i):
-                self.assertEqual(expected[i], item["title"])
+                self.assertIsNone(item)
 
 
     def test_affiliation_without_original(self):
@@ -80,7 +76,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_original()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_original())
 
         expected = {
                 "title": "original",
@@ -114,7 +110,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_orgname(self):
         self.maxDiff = None
@@ -137,7 +133,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_orgname()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_orgname())
 
         expected = {
                 "title": "orgname",
@@ -172,7 +168,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
 
     def test_affiliations_without_country(self):
@@ -197,7 +193,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_country()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_country())
 
         expected = {
                 "title": "country name",
@@ -232,7 +228,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
 
     def test_affiliations_without_country_code(self):
@@ -258,7 +254,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code()
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code())
 
         expected = {
                 "title": "country code",
@@ -293,7 +289,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
 
     def test_affiliations_without_state(self):
@@ -318,7 +314,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_state()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_state())
 
         expected = {
                 "title": "state",
@@ -353,7 +349,7 @@ class AffiliationValidationTest(TestCase):
                     "state": None,
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_city(self):
         self.maxDiff = None
@@ -377,7 +373,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_city()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_city())
 
         expected = {
                 "title": "city",
@@ -412,7 +408,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_id(self):
         self.maxDiff = None
@@ -436,7 +432,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = AffiliationValidation(affiliations_list[0]).validate_id()
+        obtained = list(AffiliationValidation(affiliations_list[0]).validate_id())
 
         expected = {
                 "title": "id",
@@ -471,7 +467,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(expected, obtained[0])
 
     def test_validate(self):
         self.maxDiff = None
@@ -508,15 +504,7 @@ class AffiliationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
-
-        expected = [
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-        ]
-        self.assertEqual(14, len(obtained))
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertEqual(expected[i], item["title"])
+        self.assertEqual(0, len(obtained))
 
     def test_validate_affiliation_sub_article_original_only(self):
         self.maxDiff = None
@@ -551,12 +539,11 @@ class AffiliationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
-
         expected = [
-            "id", "original",
-            "id", "original",
+            "orgname", "country name", "country code", "state", "city",
+            "orgname", "country name", "country code", "state", "city"
         ]
-        self.assertEqual(4, len(obtained))
+        self.assertEqual(10, len(obtained))
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertEqual(expected[i], item["title"])
@@ -607,10 +594,10 @@ class AffiliationValidationTest(TestCase):
         validation = AffiliationsListValidation(xml_tree)
         obtained = list(validation.validate(data))
         expected = [
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-            "id", "original",
+            "label", 
+            "label", "orgname", "country name", "country code", "state", "city",
         ]
-        self.assertEqual(9, len(obtained))
+        self.assertEqual(7, len(obtained))
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertEqual(expected[i], item["title"])
@@ -658,15 +645,13 @@ class AffiliationValidationTest(TestCase):
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
         expected = [
-            "id", "original", "orgname", "country name", "country code", "state", "city",
-            "id", "original",
-            "id", "original",
+            "label", 
+            "label", "orgname", "country name", "country code", "state", "city",
         ]
-        self.assertEqual(9, len(obtained))
+        self.assertEqual(7, len(obtained))
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertEqual(expected[i], item["title"])
-
 
     def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
         self.maxDiff = None
