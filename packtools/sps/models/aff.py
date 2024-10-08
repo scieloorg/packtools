@@ -1,3 +1,5 @@
+import logging
+
 from packtools.sps.utils.xml_utils import (
     node_text_without_xref,
     get_parent_context,
@@ -194,7 +196,8 @@ class Affiliation:
                 try:
                     address["country_code"] = aff_node.find("country").get("country")
                 except AttributeError:
-                    pass
+                    address["country_code"] = None
+
                 address["email"] = aff_node.findtext("email")
 
                 item = {
