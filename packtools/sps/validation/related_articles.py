@@ -184,24 +184,3 @@ class RelatedArticlesValidation:
                 data=related_article,
                 error_level=error_level
             )
-
-    def related_article_attributes_validation(self, error_level="ERROR"):
-        for related_article in self.related_articles:
-            for attrib in ("related-article-type", "id", "href", "ext-link-type"):
-                if not related_article[attrib]:
-                    yield format_response(
-                        title='Related article attributes validation',
-                        parent=related_article.get("parent"),
-                        parent_id=related_article.get("parent_id"),
-                        parent_article_type=related_article.get("parent_article_type"),
-                        parent_lang=related_article.get("parent_lang"),
-                        item='related-article',
-                        sub_item=f'@{attrib}',
-                        validation_type='exist',
-                        is_valid=False,
-                        expected=f"a value for @{attrib}",
-                        obtained=None,
-                        advice=f"Provide a value for @{attrib}",
-                        data=related_article,
-                        error_level=error_level
-                    )
