@@ -8,7 +8,17 @@ de Foucault.
 </related-article>
 """
 
-from packtools.sps.utils.xml_utils import put_parent_context, process_subtags
+from packtools.sps.utils.xml_utils import put_parent_context, process_subtags, tostring
+
+
+def remove_namespaces(xml_string):
+    namespaces_to_remove = [
+        'xmlns:xlink="http://www.w3.org/1999/xlink"',
+        'xmlns:mml="http://www.w3.org/1998/Math/MathML"',
+    ]
+    for ns in namespaces_to_remove:
+        xml_string = xml_string.replace(ns + " ", "")
+    return xml_string
 
 
 class RelatedArticle:
