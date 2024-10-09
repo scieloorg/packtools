@@ -131,6 +131,10 @@ class RelatedArticlesValidation:
         ValidationRelatedArticleException
             If the expected_related_article_types is not provided.
         """
+
+    def validate_history_date(
+        self, expected_date_type, history_events, error_level="ERROR"
+    ):
         """
         Validate that the expected history date type exists within the related-article history events.
 
@@ -162,25 +166,25 @@ class RelatedArticlesValidation:
         dict or None
             Validation response indicating whether the expected date type is present, or None if not applicable.
         """
+        if not expected_date_type:
+            return
 
-        for related_article in self.related_articles:
-            doi = related_article.get('href')
-            is_valid = doi is not None
-            expected_value = doi if doi else 'A valid DOI or URI for related-article/@xlink:href'
-            yield format_response(
-                title='Related article doi validation',
-                parent=related_article.get("parent"),
-                parent_id=related_article.get("parent_id"),
-                parent_article_type=related_article.get("parent_article_type"),
-                parent_lang=related_article.get("parent_lang"),
-                item='related-article',
-                sub_item='xlink:href',
-                validation_type='exist',
-                is_valid=is_valid,
-                expected=expected_value,
-                obtained=doi,
-                advice=f'Provide a valid DOI for <related-article ext-link-type="doi" id="{related_article.get("id")}" '
-                       f'related-article-type="{related_article.get("related-article-type")}" /> ',
-                data=related_article,
-                error_level=error_level
+        if expected_date_type not in history_events:
+            return format_response(
+                title="history date",
+                parent=self.related_article_dict.get("parent"),
+                parent_id=self.related_article_dict.get("parent_id"),
+                parent_article_type=self.related_article_dict.get(
+                    "parent_article_type"
+                ),
+                parent_lang=self.related_article_dict.get("parent_lang"),
+                item="related-article / date",
+                sub_item=f'@related-article-type={self.related_article_dict.get("related-article-type")} / @date-type={expected_date_type}',
+                validation_type="exist",
+                is_valid=False,
+                expected=expected_date_type,
+                obtained=history_events,
+                advice=f"Provide the publication date of the {expected_date_type}",
+                data=history_events,
+                error_level=error_level,
             )
