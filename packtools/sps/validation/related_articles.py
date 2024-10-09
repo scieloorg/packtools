@@ -7,6 +7,11 @@ from packtools.sps.validation.utils import format_response
 
 
 class RelatedArticlesValidation:
+    """
+    Class to validate related articles in an XML tree, ensuring the article type matches
+    predefined correspondence rules and other criteria like DOI presence and attribute order.
+    """
+
     def __init__(self, xml_tree):
         self.related_articles = list(RelatedArticles(xml_tree).related_articles())
         self.article_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
@@ -14,45 +19,39 @@ class RelatedArticlesValidation:
 
     def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
         """
-        Check whether the article type attribute of the article matches the options provided in a standard list.
+        Validate related articles in the XML tree against correspondence rules for article types.
 
-        XML input
-        ---------
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-        <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
-        </article>
+        Parameters
+        ----------
+        correspondence_dict : dict
+            Dictionary mapping article types to valid related article types, like:
+            "correspondence_dict": {
+                "research-article": ["retraction-forward", "partial-retraction", "correction-forward", "addendum"],
+                "retraction": ["retracted-article", "retraction-forward"],
+                "partial-retraction": ["retracted-article", "partial-retraction"],
+                "correction": ["corrected-article"],
+                "addendum": ["article"]
+            }
+        absence_error_level : str, optional
+            Error level when related-article is missing (default is "ERROR").
+        match_error_level : str, optional
+            Error level when related-article type does not match expected type (default is "ERROR").
+        doi_error_level : str, optional
+            Error level for DOI validation (default is "ERROR").
+        order_error_level : str, optional
+            Error level for attribute order validation (default is "ERROR").
+        date_error_level : str, optional
+            Error level for date validation (default is "ERROR").
 
-        Params
+        Yields
         ------
-        correspondence_list : list of dict, such as:
-            [
-                {
-                    'article-type': 'correction',
-                    'related-article-types': ['corrected-article']
-                },
-                {
-                    'article-type': 'retraction',
-                    'related-article-types': ['retracted-article']
-                }, ...
-            ]
+        dict
+            A validation response for each check performed.
 
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Related article type validation',
-                    'xpath': './article[@article-type] .//related-article[@related-article-type]',
-                    'validation_type': 'match',
-                    'response': 'OK',
-                    'expected_value': ['corrected-article'],
-                    'got_value': 'corrected-article',
-                    'message': 'Got corrected-article, expected one of the following items: ['corrected-article'],
-                    'advice': None
-                }, ...
-            ]
+        Raises
+        ------
+        ValidationRelatedArticleException
+            If the correspondence_dict is not provided.
         """
         if not correspondence_list:
             raise ValidationRelatedArticleException("Function requires a list of dictionary with article type and related article types")
@@ -87,32 +86,81 @@ class RelatedArticlesValidation:
                 )
 
     def related_articles_doi(self, error_level="ERROR"):
+    """
+    Class to validate individual related article elements within the XML structure.
+    """
         """
-        Checks if there is a DOI for related articles.
+        Initialize the RelatedArticleValidation class.
 
-        XML input
-        ---------
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-        <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
-        </article>
+        Parameters
+        ----------
+        related_article_dict : dict
+            Dictionary representing the attributes of a related article element in the XML, like:
+            {
+                'ext-link-type': 'doi',
+                'href': '10.1590/s1413-65382620000100001',
+                'id': 'RA1',
+                'parent': 'article',
+                'parent_article_type': 'correction',
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'related-article-type': 'corrected-article',
+                'text': '',
+                'full_tag': '<related-article id="RA1" related-article-type="corrected-article" ext-link-type="doi" '
+                            'xlink:href="10.1590/s1413-65382620000100001"/>',
+            }
+        """
+
+        """
+        Validate that the related-article type matches the expected types based on the article type.
+
+        Parameters
+        ----------
+        expected_related_article_types : list of str, optional
+            A list of valid related-article types.
+        error_level : str, optional
+            The error level for the validation (default is "ERROR").
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Related article doi validation',
-                    'xpath': './/related-article/@xLink:href',
-                    'validation_type': 'exist',
-                    'response': 'OK',
-                    'expected_value': '10.1590/1808-057x202090350',
-                    'got_value': '10.1590/1808-057x202090350',
-                    'message': 'Got 10.1590/1808-057x202090350, expected 10.1590/1808-057x202090350',
-                    'advice': None
+        dict
+            Validation response indicating whether the related-article type matches the expected types.
+
+        Raises
+        ------
+        ValidationRelatedArticleException
+            If the expected_related_article_types is not provided.
+        """
+        """
+        Validate that the expected history date type exists within the related-article history events.
+
+        Parameters
+        ----------
+        expected_date_type : str
+            The expected date type (e.g., 'received', 'accepted').
+        history_events : dict
+            Dictionary of historical events and their associated dates, like:
+            {
+                "accepted": {
+                    "day": "06",
+                    "month": "06",
+                    "type": "accepted",
+                    "year": "1998",
+                },
+                "corrected": {
+                    "day": "01",
+                    "month": "06",
+                    "type": "corrected",
+                    "year": "2012",
                 },...
-            ]
+            }
+        error_level : str, optional
+            The error level for the validation (default is "ERROR").
+
+        Returns
+        -------
+        dict or None
+            Validation response indicating whether the expected date type is present, or None if not applicable.
         """
 
         for related_article in self.related_articles:
