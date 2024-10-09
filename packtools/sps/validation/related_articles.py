@@ -132,6 +132,30 @@ class RelatedArticlesValidation:
             If the expected_related_article_types is not provided.
         """
 
+    def validate_related_article_doi(self, error_level="ERROR"):
+        doi = self.related_article_dict.get("href")
+        is_valid = doi is not None
+        expected_value = (
+            doi if doi else "A valid DOI or URI for related-article/@xlink:href"
+        )
+        return format_response(
+            title="Related article doi validation",
+            parent=self.related_article_dict.get("parent"),
+            parent_id=self.related_article_dict.get("parent_id"),
+            parent_article_type=self.related_article_dict.get("parent_article_type"),
+            parent_lang=self.related_article_dict.get("parent_lang"),
+            item="related-article",
+            sub_item="xlink:href",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=doi,
+            advice=f'Provide a valid DOI for <related-article ext-link-type="doi" id="{self.related_article_dict.get("id")}" '
+            f'related-article-type="{self.related_article_dict.get("related-article-type")}" /> ',
+            data=self.related_article_dict,
+            error_level=error_level,
+        )
+
     def validate_attrib_order_in_related_article_tag(self, error_level="ERROR"):
         pattern = r'<related-article\s+(?:xmlns:xlink="http://www\.w3\.org/1999/xlink"\s+)?related-article-type="[^"]*"\s+id="[^"]*"\s+ext-link-type="doi"\s+xlink:href="[^"]*"\s*/?>'
         full_tag = self.related_article_dict.get("full_tag")
