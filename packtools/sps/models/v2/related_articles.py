@@ -30,7 +30,7 @@ class RelatedArticle:
         }
 
 
-class RelatedArticlesByNode:
+class RelatedArticlesParent:
     def __init__(self, node):
         self.node = node
         self.parent = self.node.tag
