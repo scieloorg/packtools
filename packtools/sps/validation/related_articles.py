@@ -132,6 +132,30 @@ class RelatedArticlesValidation:
             If the expected_related_article_types is not provided.
         """
 
+    def validate_attrib_order_in_related_article_tag(self, error_level="ERROR"):
+        pattern = r'<related-article\s+(?:xmlns:xlink="http://www\.w3\.org/1999/xlink"\s+)?related-article-type="[^"]*"\s+id="[^"]*"\s+ext-link-type="doi"\s+xlink:href="[^"]*"\s*/?>'
+        full_tag = self.related_article_dict.get("full_tag")
+
+        if not re.match(pattern, full_tag):
+            return format_response(
+                title="attrib order in related article tag",
+                parent=self.related_article_dict.get("parent"),
+                parent_id=self.related_article_dict.get("parent_id"),
+                parent_article_type=self.related_article_dict.get(
+                    "parent_article_type"
+                ),
+                parent_lang=self.related_article_dict.get("parent_lang"),
+                item="related-article",
+                sub_item=None,
+                validation_type="match",
+                is_valid=False,
+                expected='<related-article related-article-type="TYPE" id="ID" xlink:href="HREF" ext-link-type="doi">',
+                obtained=full_tag,
+                advice="Provide the attributes in the specified order",
+                data=self.related_article_dict,
+                error_level=error_level,
+            )
+
     def validate_history_date(
         self, expected_date_type, history_events, error_level="ERROR"
     ):
