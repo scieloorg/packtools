@@ -99,6 +99,8 @@ class RelatedArticlesTest(TestCase):
                 'parent_lang': 'pt',
                 'related-article-type': 'corrected-article',
                 'text': ''
+                "full_tag": '<related-article id="RA1" related-article-type="corrected-article" ext-link-type="doi" '
+                'xlink:href="10.1590/s1413-65382620000100001"/>',
             },
             {
                 'ext-link-type': 'doi',
@@ -110,6 +112,8 @@ class RelatedArticlesTest(TestCase):
                 'parent_lang': 'pt',
                 'related-article-type': 'corrected-article',
                 'text': ''
+                "full_tag": '<related-article id="RA9" related-article-type="corrected-article" ext-link-type="doi" '
+                'xlink:href="10.1590/s1413-65382620000100009"/>',
             },
 
         ]
@@ -130,6 +134,8 @@ class RelatedArticlesTest(TestCase):
                 'parent_lang': 'en',
                 'related-article-type': 'corrected-article',
                 'text': ''
+                "full_tag": '<related-article id="RA10" related-article-type="corrected-article" ext-link-type="doi" '
+                'xlink:href="10.1590/s1413-65382620000100001"/>',
             },
             {
                 'ext-link-type': 'doi',
@@ -141,6 +147,8 @@ class RelatedArticlesTest(TestCase):
                 'parent_lang': 'en',
                 'related-article-type': 'corrected-article',
                 'text': ''
+                "full_tag": '<related-article id="RA18" related-article-type="corrected-article" ext-link-type="doi" '
+                'xlink:href="10.1590/s1413-65382620000100009"/>',
             },
 
         ]
@@ -177,6 +185,8 @@ class RelatedArticlesTest(TestCase):
                 'parent_lang': 'pt',
                 'related-article-type': 'commentary-article',
                 'text': ''
+                "full_tag": '<related-article ext-link-type="doi" id="A01" related-article-type="commentary-article" '
+                'xlink:href="10.1590/0101-3173.2022.v45n1.p139"/>',
             },
 
         ]
