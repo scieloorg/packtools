@@ -13,11 +13,18 @@ class RelatedArticlesValidation:
     """
 
     def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
         self.related_articles = list(RelatedArticles(xml_tree).related_articles())
-        self.article_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
-        self.history_events = list(article_dates.ArticleDates(xml_tree).history_dates_dict)
 
-    def related_articles_matches_article_type_validation(self, correspondence_list=None, error_level="ERROR"):
+    def validate(
+        self,
+        correspondence_dict=None,
+        absence_error_level="ERROR",
+        match_error_level="ERROR",
+        doi_error_level="ERROR",
+        order_error_level="ERROR",
+        date_error_level="ERROR",
+    ):
         """
         Validate related articles in the XML tree against correspondence rules for article types.
 
@@ -53,39 +60,57 @@ class RelatedArticlesValidation:
         ValidationRelatedArticleException
             If the correspondence_dict is not provided.
         """
-        if not correspondence_list:
-            raise ValidationRelatedArticleException("Function requires a list of dictionary with article type and related article types")
+        if not correspondence_dict:
+            raise ValidationRelatedArticleException(
+                "Function requires a dictionary with article type and related article types"
+            )
 
-        expected_values_for_related_article_type = None
-        for item in correspondence_list:
-            if isinstance(item, dict) and item.get('article-type') == self.article_type:
-                expected_values_for_related_article_type = item['related-article-types']
-                break
-
-        if expected_values_for_related_article_type:
+        if not self.related_articles:
+            parent_article_type = self.xml_tree.get("article-type")
+            yield format_response(
+                title="Related article type validation",
+                parent="article",
+                parent_id=None,
+                parent_article_type=parent_article_type,
+                parent_lang=self.xml_tree.get(
+                    "{http://www.w3.org/XML/1998/namespace}lang"
+                ),
+                item="related-article",
+                sub_item="related-article-type",
+                validation_type="match",
+                is_valid=False,
+                expected=correspondence_dict[parent_article_type],
+                obtained=self.related_articles,
+                advice=f"The article-type: {parent_article_type} does not match the related-article-type: "
+                f"{correspondence_dict[parent_article_type]}, provide one of the following items: "
+                f"{correspondence_dict[parent_article_type]}",
+                data=None,
+                error_level=absence_error_level,
+            )
+        else:
+            history_events = article_dates.HistoryDates(self.xml_tree).history_dates()
             for related_article in self.related_articles:
-                obtained_related_article = related_article.get('related-article-type')
-                is_valid = obtained_related_article in expected_values_for_related_article_type
-                yield format_response(
-                    title='Related article type validation',
-                    parent=related_article.get("parent"),
-                    parent_id=related_article.get("parent_id"),
-                    parent_article_type=related_article.get("parent_article_type"),
-                    parent_lang=related_article.get("parent_lang"),
-                    item='related-article',
-                    sub_item='related-article-type',
-                    validation_type='match',
-                    is_valid=is_valid,
-                    expected=expected_values_for_related_article_type,
-                    obtained=obtained_related_article,
-                    advice=f"The article-type: {self.article_type} does not match the related-article-type: "
-                           f"{obtained_related_article}, provide one of the following items: "
-                           f"{expected_values_for_related_article_type}",
-                    data=related_article,
-                    error_level=error_level
-                )
+                related_article_validation = RelatedArticleValidation(related_article)
+                if related_article_types := correspondence_dict.get(
+                    related_article.get("parent_article_type")
+                ):
+                    yield related_article_validation.validate_related_article_matches_article_type(
+                        expected_related_article_types=related_article_types,
+                        error_level=match_error_level,
+                    )
+                    yield related_article_validation.validate_related_article_doi(
+                        error_level=doi_error_level
+                    )
+                    yield related_article_validation.validate_attrib_order_in_related_article_tag(
+                        error_level=order_error_level
+                    )
+                    yield related_article_validation.validate_history_date(
+                        expected_date_type=None,
+                        history_events=history_events,
+                        error_level=date_error_level,
+                    )
 
-    def related_articles_doi(self, error_level="ERROR"):
+
     """
     Class to validate individual related article elements within the XML structure.
     """
