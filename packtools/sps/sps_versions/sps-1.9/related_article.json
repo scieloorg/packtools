@@ -2,26 +2,26 @@
     "_comment": "List of possible correspondences between article type and related article types",
     "source": "SciELO. Guia para o registro, marcação e publicação de retratação [online]. SciELO,\n2023 [cited 10 July 2024]. Available from: \nhttps://wp.scielo.org/wp-content/uploads/guia_retratacao.pdf \nhttps://wp.scielo.org/wp-content/uploads/guia_errata.pdf \nhttps://wp.scielo.org/wp-content/uploads/guia_adendo.pdf",
     "sps_version": "sps-1.10",
-    "correspondence_list": [
-        {
-            "article-type": "research-article",
-            "related-article-types": ["retraction-forward", "partial-retraction", "correction-forward", "addendum"]
-        },
-        {
-            "article-type": "retraction",
-            "related-article-types": ["retracted-article", "retraction-forward"]
-        },
-        {
-            "article-type": "partial-retraction",
-            "related-article-types": ["retracted-article", "partial-retraction"]
-        },
-        {
-            "article-type": "correction",
-            "related-article-types": ["corrected-article"]
-        },
-        {
-            "article-type": "addendum",
-            "related-article-types": ["article"]
-        }
-    ]
+    "correspondence_dict": {
+        "research-article": [
+            "retraction-forward",
+            "partial-retraction",
+            "correction-forward",
+            "addendum"
+        ],
+        "retraction": [
+            "retracted-article",
+            "retraction-forward"
+        ],
+        "partial-retraction": [
+            "retracted-article",
+            "partial-retraction"
+        ],
+        "correction": [
+            "corrected-article"
+        ],
+        "addendum": [
+            "article"
+        ]
+    }
 }
