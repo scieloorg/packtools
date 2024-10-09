@@ -25,7 +25,9 @@ class RelatedArticle:
     def __init__(self, related_article_node):
         self.related_article_node = related_article_node
         self.ext_link_type = self.related_article_node.get("ext-link-type")
-        self.related_article_type = self.related_article_node.get("related-article-type")
+        self.related_article_type = self.related_article_node.get(
+            "related-article-type"
+        )
         self.id = self.related_article_node.get("id")
         self.href = self.related_article_node.get("{http://www.w3.org/1999/xlink}href")
         self.text = process_subtags(self.related_article_node)
@@ -36,7 +38,10 @@ class RelatedArticle:
             "id": self.id,
             "related-article-type": self.related_article_type,
             "href": self.href,
-            "text": self.text
+            "text": self.text,
+            "full_tag": remove_namespaces(
+                tostring(self.related_article_node, xml_declaration=False)
+            ),
         }
 
 
@@ -68,11 +73,15 @@ class RelatedArticles:
         self.related_article_type = related_article_type
 
     def article(self):
-        yield from RelatedArticlesByNode(self.xml_tree.find(".")).related_articles(self.related_article_type)
+        yield from RelatedArticlesParent(self.xml_tree.find(".")).related_articles(
+            self.related_article_type
+        )
 
     def sub_articles(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from RelatedArticlesByNode(sub_article).related_articles(self.related_article_type)
+            yield from RelatedArticlesParent(sub_article).related_articles(
+                self.related_article_type
+            )
 
     def related_articles(self):
         yield from self.article()
