@@ -421,15 +421,92 @@ class ArticleCitationValidation:
             error_level=error_level,
         )
 
+    def validate_comment_is_required_or_not(self, error_level="ERROR"):
+        comment = self.citation.get("comment_text", {})
+        text_before_extlink = self.citation.get("text_before_extlink")
+
+        ext_link_text = comment.get("ext_link_text")
+        full_comment = comment.get("full_comment")
+        text_between = comment.get("text_between")
+        has_comment = comment.get("has_comment")
+
+        scenarios = [
+            {
+                "condition": has_comment and not full_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
+            },
+            {
+                "condition": has_comment and not full_comment and not text_before_extlink,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
+                "advice": "Remove the <comment> tag that has no content"
+            },
+            {
+                "condition": not has_comment and text_before_extlink,
+                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
+                "obtained": f"{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
+                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag"
+            },
+            {
+                "condition": full_comment and not text_between,
+                "expected": f"<ext-link>{ext_link_text}</ext-link>",
+                "obtained": f"<comment><ext-link>{ext_link_text}</ext-link></comment>",
+                "advice": "Remove the <comment> tag that has no content"
+            }
+        ]
+
+        for scenario in scenarios:
+            if scenario["condition"]:
+                yield format_response(
+                    title="validate comment is required or not",
+                    parent=self.citation.get("parent"),
+                    parent_id=self.citation.get("parent_id"),
+                    parent_article_type=self.citation.get("parent_article_type"),
+                    parent_lang=self.citation.get("parent_lang"),
+                    item="element-citation",
+                    sub_item="comment",
+                    is_valid=False,
+                    validation_type="exist",
+                    expected=scenario["expected"],
+                    obtained=scenario["obtained"],
+                    advice=scenario["advice"],
+                    data=self.citation,
+                    error_level=error_level,
+                )
+
+    def validate_mixed_citation_tags(self, error_level="ERROR", allowed_tags=None):
+        if allowed_tags is None:
+            raise ValidationArticleCitationsException("Function requires list of allowed tags")
+        remaining_tags = list(set(self.citation.get("mixed_citation_sub_tags")) - set(allowed_tags))
+        if remaining_tags:
+            yield format_response(
+                title="mixed citation sub-tags",
+                parent=self.citation.get("parent"),
+                parent_id=self.citation.get("parent_id"),
+                parent_article_type=self.citation.get("parent_article_type"),
+                parent_lang=self.citation.get("parent_lang"),
+                item="element-citation",
+                sub_item="mixed-citation",
+                is_valid=False,
+                validation_type="exist",
+                expected=allowed_tags,
+                obtained=self.citation.get("mixed_citation_sub_tags"),
+                advice=f"remove {remaining_tags} from mixed-citation",
+                data=self.citation,
+                error_level=error_level,
+            )
+
 
 class ArticleCitationsValidation:
-    def __init__(self, xmltree, publication_type_list=None):
-        self._xmltree = xmltree
-        self.article_citations = ArticleCitations(self._xmltree).article_citations
+    def __init__(self, xml_tree, publication_type_list=None):
+        self.xml_tree = xml_tree
+        self.article_citations = ArticleCitations(self.xml_tree).article_citations
         self.publication_type_list = publication_type_list
 
     def validate_article_citations(
-        self, xmltree, publication_type_list=None, start_year=None, end_year=None
+        self, xmltree, publication_type_list=None, start_year=None, end_year=None, allowed_tags=None
     ):
         for article_citation in self.article_citations:
             citation = ArticleCitationValidation(
@@ -444,3 +521,6 @@ class ArticleCitationsValidation:
             yield from citation.validate_article_citation_publication_type(
                 publication_type_list
             )
+            yield from citation.validate_comment_is_required_or_not()
+            yield from citation.validate_mixed_citation_tags(allowed_tags=allowed_tags)
+            
