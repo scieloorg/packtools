@@ -1,6 +1,7 @@
-from packtools.sps.models.v2.related_articles import RelatedArticles
-from packtools.sps.models import article_and_subarticles, article_dates
+import re
 
+from packtools.sps.models.v2.related_articles import RelatedArticles
+from packtools.sps.models import article_dates
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
 from packtools.sps.validation.utils import format_response
 
