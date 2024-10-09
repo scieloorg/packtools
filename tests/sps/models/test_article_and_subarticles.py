@@ -53,42 +53,48 @@ class ArticleAndSubarticlesTest(TestCase):
                 'article_type': 'research-article',
                 'lang': 'pt',
                 'line_number': 2,
-                'subject': 'ARTIGOS'
+                'subject': 'ARTIGOS',
+                'parent_name': 'article',
             },
             {
                 'article_id': 's2',
                 'article_type': 'reviewer-report',
                 'lang': 'pt',
                 'line_number': 93,
-                'subject': 'Pareceres'
+                'subject': 'Pareceres',
+                'parent_name': 'sub-article',
             },
             {
                 'article_id': 's3',
                 'article_type': 'reviewer-report',
                 'lang': 'pt',
                 'line_number': 141,
-                'subject': 'Pareceres'
+                'subject': 'Pareceres',
+                'parent_name': 'sub-article',
             },
             {
                 'article_id': 's1',
                 'article_type': 'translation',
                 'lang': 'en',
                 'line_number': 189,
-                'subject': 'ARTICLES'
+                'subject': 'ARTICLES',
+                'parent_name': 'sub-article',
             },
             {
                 'article_id': 's5',
                 'article_type': 'reviewer-report',
                 'lang': 'en',
                 'line_number': 233,
-                'subject': 'Reviews'
+                'subject': 'Reviews',
+                'parent_name': 'sub-article',
             },
             {
                 'article_id': 's6',
                 'article_type': 'reviewer-report',
                 'lang': 'en',
                 'line_number': 271,
-                'subject': 'Reviews'
+                'subject': 'Reviews',
+                'parent_name': 'sub-article',
             }
         ]
         obtained = [d for d in ArticleAndSubArticles(xmltree).data]
