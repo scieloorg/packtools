@@ -111,9 +111,12 @@ class RelatedArticlesValidation:
                     )
 
 
+class RelatedArticleValidation:
     """
     Class to validate individual related article elements within the XML structure.
     """
+
+    def __init__(self, related_article_dict):
         """
         Initialize the RelatedArticleValidation class.
 
@@ -135,7 +138,11 @@ class RelatedArticlesValidation:
                             'xlink:href="10.1590/s1413-65382620000100001"/>',
             }
         """
+        self.related_article_dict = related_article_dict
 
+    def validate_related_article_matches_article_type(
+        self, expected_related_article_types=None, error_level="ERROR"
+    ):
         """
         Validate that the related-article type matches the expected types based on the article type.
 
@@ -156,6 +163,31 @@ class RelatedArticlesValidation:
         ValidationRelatedArticleException
             If the expected_related_article_types is not provided.
         """
+        if not expected_related_article_types:
+            raise ValidationRelatedArticleException(
+                "Function requires a list of expected related article types"
+            )
+
+        obtained_related_article = self.related_article_dict.get("related-article-type")
+        is_valid = obtained_related_article in expected_related_article_types
+        return format_response(
+            title="Related article type validation",
+            parent=self.related_article_dict.get("parent"),
+            parent_id=self.related_article_dict.get("parent_id"),
+            parent_article_type=self.related_article_dict.get("parent_article_type"),
+            parent_lang=self.related_article_dict.get("parent_lang"),
+            item="related-article",
+            sub_item="related-article-type",
+            validation_type="match",
+            is_valid=is_valid,
+            expected=expected_related_article_types,
+            obtained=obtained_related_article,
+            advice=f"The article-type: {self.related_article_dict.get('parent_article_type')} does not match the related-article-type: "
+            f"{obtained_related_article}, provide one of the following items: "
+            f"{expected_related_article_types}",
+            data=self.related_article_dict,
+            error_level=error_level,
+        )
 
     def validate_related_article_doi(self, error_level="ERROR"):
         doi = self.related_article_dict.get("href")
