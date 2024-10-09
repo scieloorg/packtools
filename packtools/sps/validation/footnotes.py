@@ -1,19 +1,84 @@
-from packtools.sps.models.footnotes import ArticleFootnotes
-from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.models.v2.notes import ArticleNotes
 from packtools.sps.validation.utils import format_response
 from packtools.sps.validation.exceptions import ValidationFootnotes
 
 
-class FootnoteValidation:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
+class BaseNoteValidation:
+    def __init__(self, note_dict, element_tag):
+        self.note_dict = note_dict
+        self.element_tag = element_tag
+        self.check_element_existence = bool(self.note_dict.get("corresp")) if self.element_tag == "corresp" else True
 
-    @property
-    def dtd_version(self):
-        article = ArticleAndSubArticles(self.xmltree)
-        return article.main_dtd_version
+    def missing_element_label_validation(self, error_level="WARNING"):
+        if self.check_element_existence and not bool(self.note_dict.get(f"{self.element_tag}_label")):
+            return format_response(
+                title=f"Missing {self.element_tag} label validation",
+                parent=self.note_dict.get("parent"),
+                parent_id=self.note_dict.get("parent_id"),
+                parent_article_type=self.note_dict.get("parent_article_type"),
+                parent_lang=self.note_dict.get("parent_lang"),
+                item=self.element_tag,
+                sub_item="label",
+                validation_type="exist",
+                is_valid=False,
+                expected=f"<label> in <{self.element_tag}>",
+                obtained=self.note_dict.get(f"{self.element_tag}_label"),
+                advice=f"Provide <label> in <{self.element_tag}>",
+                data=self.note_dict,
+                error_level=error_level
+            )
 
-    def fn_validation(self):
+    def title_presence_in_element_validation(self, error_level="ERROR"):
+        if self.check_element_existence and bool(self.note_dict.get(f"{self.element_tag}_title")):
+            return format_response(
+                title=f"Title presence in {self.element_tag} validation",
+                parent=self.note_dict.get("parent"),
+                parent_id=self.note_dict.get("parent_id"),
+                parent_article_type=self.note_dict.get("parent_article_type"),
+                parent_lang=self.note_dict.get("parent_lang"),
+                item=self.element_tag,
+                sub_item="title",
+                validation_type="exist",
+                is_valid=False,
+                expected=f"<label> in <{self.element_tag}>",
+                obtained=f'<title>{self.note_dict.get(f"{self.element_tag}_title")}</title>',
+                advice="Replace <title> by <label>",
+                data=self.note_dict,
+                error_level=error_level
+            )
+
+    def bold_presence_in_element_validation(self, error_level="ERROR"):
+        if self.check_element_existence and (bool(self.note_dict.get(f"{self.element_tag}_bold")) or self.note_dict.get(f"{self.element_tag}_bold") == ""):
+            return format_response(
+                title=f"Bold presence in {self.element_tag} validation",
+                parent=self.note_dict.get("parent"),
+                parent_id=self.note_dict.get("parent_id"),
+                parent_article_type=self.note_dict.get("parent_article_type"),
+                parent_lang=self.note_dict.get("parent_lang"),
+                item=self.element_tag,
+                sub_item="bold",
+                validation_type="exist",
+                is_valid=False,
+                expected=f"<label> in <{self.element_tag}>",
+                obtained=f"<bold>{self.note_dict.get(f'{self.element_tag}_bold')}</bold>",
+                advice="Replace <bold> by <label>",
+                data=self.note_dict,
+                error_level=error_level
+            )
+
+
+class AuthorNoteValidation(BaseNoteValidation):
+    def __init__(self, fn_dict):
+        super().__init__(note_dict=fn_dict, element_tag='corresp')
+
+
+class FootnoteValidation(BaseNoteValidation):
+    def __init__(self, dtd_version, fn):
+        self.dtd_version = dtd_version
+        self.fn = fn
+        super().__init__(note_dict=fn, element_tag='fn')
+
+    def coi_statement_vs_conflict_by_dtd_validation(self, error_level="ERROR"):
         """
         Checks if fn-type is coi-statement for dtd-version >= 1.3
 
@@ -80,67 +145,105 @@ class FootnoteValidation:
         if not dtd:
             return
 
-        fns = ArticleFootnotes(self.xmltree)
-        for fn in fns.article_footnotes:
-            fn_type = fn.get("fn_type")
-            parent = fn.get("parent")
-            parent_id = fn.get("parent_id")
-            parent_article_type = fn.get("parent_article_type")
-            parent_lang = fn.get("parent_lang")
-            fn_parent = fn.get("fn_parent")
+        fn_type = self.fn.get("fn_type")
+        if dtd >= 1.3 and fn_type == "conflict":
+            return format_response(
+                title="coi statement vs conflict by dtd",
+                parent=None,
+                parent_id=None,
+                parent_article_type=None,
+                parent_lang=None,
+                item=self.fn.get("fn_parent"),
+                sub_item="fn",
+                validation_type="match",
+                is_valid=False,
+                expected='<fn fn-type="coi-statement">',
+                obtained='<fn fn-type="conflict">',
+                advice="replace conflict with coi-statement",
+                data=self.fn,
+                error_level=error_level
+            )
+        elif dtd < 1.3 and fn_type == "coi-statement":
+            return format_response(
+                title="coi statement vs conflict by dtd",
+                parent=None,
+                parent_id=None,
+                parent_article_type=None,
+                parent_lang=None,
+                item=self.fn.get("fn_parent"),
+                sub_item="fn",
+                validation_type="match",
+                is_valid=False,
+                expected='<fn fn-type="conflict">',
+                obtained='<fn fn-type="coi-statement">',
+                advice="replace coi-statement with conflict",
+                data=self.fn,
+                error_level=error_level
+            )
 
-            if dtd >= 1.3 and fn_type == "conflict":
-                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "coi-statement", "conflict")
-            elif dtd < 1.3 and fn_type == "coi-statement":
-                yield self._generate_response(fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, "conflict", "coi-statement")
 
-    def _generate_response(self, fn, parent, parent_id, parent_article_type, parent_lang, fn_parent, expected, obtained):
+class ArticleNotesValidation:
+    def __init__(self, xml_tree):
+        self.xml_tree = xml_tree
+        self.fns_dict = list(ArticleNotes(self.xml_tree).all_notes())
+        self.dtd_version = xml_tree.find(".").get("dtd-version")
+
+    def generate_context(self, fn_dict):
         """
-        Helper method to generate the response dictionary for validation.
-
-        Params
-        ------
-        fn : dict
-            The footnote dictionary.
-
-        parent : str
-            The parent element.
-
-        parent_id : str or None
-            The parent ID if available.
-
-        parent_article_type : str
-            The type of the parent article.
-
-        parent_lang : str
-            The language of the parent article.
-
-        fn_parent : str
-            The footnote parent element.
-
-        expected : str
-            The expected value.
-
-        obtained : str
-            The obtained value.
-
-        Returns
-        -------
-        dict
-            The formatted response dictionary.
+        Gera o contexto comum para todas as validações.
         """
-        return format_response(
-            title="Footnotes validation",
-            parent=parent,
-            parent_id=parent_id,
-            parent_article_type=parent_article_type,
-            parent_lang=parent_lang,
-            item=fn_parent,
-            sub_item="fn",
-            validation_type="match",
-            is_valid=False,
-            expected=f'<fn fn-type="{expected}">',
-            obtained=f'<fn fn-type="{obtained}">',
-            advice=f"replace {obtained} with {expected}",
-            data=fn
-        )
+        return {
+            "parent": fn_dict.get("parent"),
+            "parent_article_type": fn_dict.get("parent_article_type"),
+            "parent_id": fn_dict.get("parent_id"),
+            "parent_lang": fn_dict.get("parent_lang"),
+        }
+
+    def article_author_notes_validation(self):
+        """
+        Valida as notas de autor (author notes) do artigo.
+        """
+        for fn_dict in self.fns_dict:
+            context = self.generate_context(fn_dict)
+            for item in self.author_validation(fn_dict):
+                if item:
+                    item.update(context)
+                    yield item
+
+    def article_footnotes_validation(self):
+        """
+        Valida as notas de rodapé (footnotes) do artigo.
+        """
+        for fn_dict in self.fns_dict:
+            context = self.generate_context(fn_dict)
+            for fn in fn_dict.get("fns"):
+                for item in self.footnote_validation(fn):
+                    if item:
+                        item.update(context)
+                        yield item
+
+    def article_notes_validation(self):
+        """
+        Executa as validações para todas as notas do artigo (autor e rodapé).
+        """
+        yield from self.article_author_notes_validation()
+        yield from self.article_footnotes_validation()
+
+    def author_validation(self, fn_dict):
+        """
+        Aplica as validações de notas de autor.
+        """
+        author_validation = AuthorNoteValidation(fn_dict)
+        yield author_validation.missing_element_label_validation()
+        yield author_validation.title_presence_in_element_validation()
+        yield author_validation.bold_presence_in_element_validation()
+
+    def footnote_validation(self, fn):
+        """
+        Aplica as validações de notas de rodapé.
+        """
+        fn_validation = FootnoteValidation(self.dtd_version, fn)
+        yield fn_validation.coi_statement_vs_conflict_by_dtd_validation()
+        yield fn_validation.missing_element_label_validation()
+        yield fn_validation.title_presence_in_element_validation()
+        yield fn_validation.bold_presence_in_element_validation()
