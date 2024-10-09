@@ -8,14 +8,26 @@ de Foucault.
 </related-article>
 """
 
-from packtools.sps.utils.xml_utils import put_parent_context, process_subtags
+from packtools.sps.utils.xml_utils import put_parent_context, process_subtags, tostring
+
+
+def remove_namespaces(xml_string):
+    namespaces_to_remove = [
+        'xmlns:xlink="http://www.w3.org/1999/xlink"',
+        'xmlns:mml="http://www.w3.org/1998/Math/MathML"',
+    ]
+    for ns in namespaces_to_remove:
+        xml_string = xml_string.replace(ns + " ", "")
+    return xml_string
 
 
 class RelatedArticle:
     def __init__(self, related_article_node):
         self.related_article_node = related_article_node
         self.ext_link_type = self.related_article_node.get("ext-link-type")
-        self.related_article_type = self.related_article_node.get("related-article-type")
+        self.related_article_type = self.related_article_node.get(
+            "related-article-type"
+        )
         self.id = self.related_article_node.get("id")
         self.href = self.related_article_node.get("{http://www.w3.org/1999/xlink}href")
         self.text = process_subtags(self.related_article_node)
@@ -26,24 +38,28 @@ class RelatedArticle:
             "id": self.id,
             "related-article-type": self.related_article_type,
             "href": self.href,
-            "text": self.text
+            "text": self.text,
+            "full_tag": remove_namespaces(
+                tostring(self.related_article_node, xml_declaration=False)
+            ),
         }
 
 
-class RelatedArticlesByNode:
+class RelatedArticlesParent:
     def __init__(self, node):
-        self.node = node
         self.node = node
         self.parent = self.node.tag
         self.parent_id = self.node.get("id")
         self.article_type = node.get("article-type")
         self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
 
-    def related_articles(self):
+    def related_articles(self, related_article_type=None):
         if self.parent == "article":
             path = ".//article-meta//related-article"
         else:
             path = ".//front-stub//related-article"
+        if related_article_type:
+            path += f"[@related-article-type='{related_article_type}']"
         for related_article in self.node.xpath(path):
             data = RelatedArticle(related_article).data()
             yield put_parent_context(
@@ -52,15 +68,20 @@ class RelatedArticlesByNode:
 
 
 class RelatedArticles:
-    def __init__(self, xml_tree):
+    def __init__(self, xml_tree, related_article_type=None):
         self.xml_tree = xml_tree
+        self.related_article_type = related_article_type
 
     def article(self):
-        yield from RelatedArticlesByNode(self.xml_tree.find(".")).related_articles()
+        yield from RelatedArticlesParent(self.xml_tree.find(".")).related_articles(
+            self.related_article_type
+        )
 
     def sub_articles(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from RelatedArticlesByNode(sub_article).related_articles()
+            yield from RelatedArticlesParent(sub_article).related_articles(
+                self.related_article_type
+            )
 
     def related_articles(self):
         yield from self.article()
