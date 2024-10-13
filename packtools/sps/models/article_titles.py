@@ -29,10 +29,11 @@ class ArticleTitles:
 
     @property
     def article_title_dict(self):
-        return {
-            item['lang']: item['text']
-            for item in self.article_title_list
-        }
+        resp = {}
+        for item in self.article_title_list:
+            if item and item.get('lang'):
+                resp[item['lang']] = item
+        return resp
 
     @property
     def article_title(self):
