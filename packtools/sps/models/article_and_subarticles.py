@@ -53,6 +53,7 @@ class ArticleAndSubArticles:
                 "article_id": None,
                 "line_number": self.main_line_number,
                 "subject": self.main_subject,
+                "parent_name": "article",
             })
 
         for sub_article in self.xmltree.xpath(".//sub-article"):
@@ -65,6 +66,7 @@ class ArticleAndSubArticles:
                 "article_type": sub_article.get('article-type'),
                 "article_id": sub_article.get('id'),
                 "line_number": sub_article.sourceline,
-                "subject": subject.text if subject is not None else None
+                "subject": subject.text if subject is not None else None,
+                "parent_name": "sub-article",
             })
         return _data

@@ -29,29 +29,31 @@ class ArticleTitles:
 
     @property
     def article_title_dict(self):
-        return {
-            item['lang']: item['text']
-            for item in self.article_title_list
-        }
+        resp = {}
+        for item in self.article_title_list:
+            if item and item.get('lang'):
+                resp[item['lang']] = item
+        return resp
 
     @property
     def article_title(self):
         for node_with_lang in xml_utils.get_nodes_with_lang(
                 self.xmltree,
                 ".", ".//article-meta//article-title"):
-            return {
-                "parent_name": "article",
-                "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
-                "html_text": xml_utils.process_subtags(
-                    node_with_lang["node"],
-                    tags_to_keep=self.tags_to_keep,
-                    tags_to_keep_with_content=self.tags_to_keep_with_content,
-                    tags_to_remove_with_content=self.tags_to_remove_with_content,
-                    tags_to_convert_to_html=self.tags_to_convert_to_html
-                )
-            }
+            if node_with_lang["node"] is not None:
+                return {
+                    "parent_name": "article",
+                    "lang": node_with_lang["lang"],
+                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "html_text": xml_utils.process_subtags(
+                        node_with_lang["node"],
+                        tags_to_keep=self.tags_to_keep,
+                        tags_to_keep_with_content=self.tags_to_keep_with_content,
+                        tags_to_remove_with_content=self.tags_to_remove_with_content,
+                        tags_to_convert_to_html=self.tags_to_convert_to_html
+                    )
+                }
 
     @property
     def trans_titles(self):
@@ -59,20 +61,21 @@ class ArticleTitles:
         for node_with_lang in xml_utils.get_nodes_with_lang(
                 self.xmltree,
                 ".//article-meta//trans-title-group", "trans-title"):
-            _title = {
-                "parent_name": "article",
-                "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
-                "html_text": xml_utils.process_subtags(
-                    node_with_lang["node"],
-                    tags_to_keep=self.tags_to_keep,
-                    tags_to_keep_with_content=self.tags_to_keep_with_content,
-                    tags_to_remove_with_content=self.tags_to_remove_with_content,
-                    tags_to_convert_to_html=self.tags_to_convert_to_html
-                )
-            }
-            _titles.append(_title)
+            if node_with_lang["node"] is not None:
+                _title = {
+                    "parent_name": "article",
+                    "lang": node_with_lang["lang"],
+                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "html_text": xml_utils.process_subtags(
+                        node_with_lang["node"],
+                        tags_to_keep=self.tags_to_keep,
+                        tags_to_keep_with_content=self.tags_to_keep_with_content,
+                        tags_to_remove_with_content=self.tags_to_remove_with_content,
+                        tags_to_convert_to_html=self.tags_to_convert_to_html
+                    )
+                }
+                _titles.append(_title)
         return _titles
 
     @property
@@ -82,19 +85,20 @@ class ArticleTitles:
                 self.xmltree,
                 ".//sub-article[@article-type='translation']",
                 ".//front-stub//article-title"):
-            _title = {
-                "parent_name": "sub-article",
-                "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
-                "html_text": xml_utils.process_subtags(
-                    node_with_lang["node"],
-                    tags_to_keep=self.tags_to_keep,
-                    tags_to_keep_with_content=self.tags_to_keep_with_content,
-                    tags_to_remove_with_content=self.tags_to_remove_with_content,
-                    tags_to_convert_to_html=self.tags_to_convert_to_html
-                ),
-                "id": node_with_lang["id"]
-            }
-            _titles.append(_title)
+            if node_with_lang["node"] is not None:
+                _title = {
+                    "parent_name": "sub-article",
+                    "lang": node_with_lang["lang"],
+                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "html_text": xml_utils.process_subtags(
+                        node_with_lang["node"],
+                        tags_to_keep=self.tags_to_keep,
+                        tags_to_keep_with_content=self.tags_to_keep_with_content,
+                        tags_to_remove_with_content=self.tags_to_remove_with_content,
+                        tags_to_convert_to_html=self.tags_to_convert_to_html
+                    ),
+                    "id": node_with_lang["id"]
+                }
+                _titles.append(_title)
         return _titles
