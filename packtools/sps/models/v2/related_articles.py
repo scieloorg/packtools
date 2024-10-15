@@ -8,8 +8,6 @@ de Foucault.
 </related-article>
 """
 
-import xml.etree.ElementTree as ET
-
 from packtools.sps.utils.xml_utils import put_parent_context, process_subtags
 
 
@@ -28,15 +26,8 @@ class RelatedArticle:
             "id": self.id,
             "related-article-type": self.related_article_type,
             "href": self.href,
-            "text": self.text,
-            "full_tag": self.full_tag
+            "text": self.text
         }
-
-    @property
-    def full_tag(self):
-        ET.register_namespace('xlink', "http://www.w3.org/1999/xlink")
-        opening_tag = ET.tostring(self.related_article_node, encoding='unicode').split('>')[0] + '>'
-        return opening_tag
 
 
 class RelatedArticlesByNode:
