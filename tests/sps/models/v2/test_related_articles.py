@@ -16,7 +16,6 @@ from packtools.sps.models.v2.related_articles import RelatedArticle, RelatedArti
 
 class RelatedArticleTest(TestCase):
     def test_related_article(self):
-        self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink">
             <front>
@@ -38,16 +37,13 @@ class RelatedArticleTest(TestCase):
             "href": "10.1590/0101-3173.2022.v45n1.p139",
             "text": "Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de "
                     "Glucksmann en <i>El coraje de la verdad</i> de Foucault. Trans/form/ação : revista de Filosofia "
-                    "da Unesp, v. 45, n. 1, p. 139-158, 2022.",
-            'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" id="A01" '
-                        'related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139">',
+                    "da Unesp, v. 45, n. 1, p. 139-158, 2022."
         }
         self.assertDictEqual(obtained, expected)
 
 
 class RelatedArticlesByNodeTest(TestCase):
     def test_related_articles(self):
-        self.maxDiff = None
         xml = """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="article-commentary" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
@@ -77,9 +73,7 @@ class RelatedArticlesByNodeTest(TestCase):
                 "href": "10.1590/0101-3173.2022.v45n1.p139",
                 "text": "Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de "
                         "Glucksmann en <i>El coraje de la verdad</i> de Foucault. Trans/form/ação : revista de Filosofia "
-                        "da Unesp, v. 45, n. 1, p. 139-158, 2022.",
-                'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" ext-link-type="doi" id="A01" '
-                            'related-article-type="commentary-article" xlink:href="10.1590/0101-3173.2022.v45n1.p139">',
+                        "da Unesp, v. 45, n. 1, p. 139-158, 2022."
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -104,10 +98,7 @@ class RelatedArticlesTest(TestCase):
                 'parent_id': None,
                 'parent_lang': 'pt',
                 'related-article-type': 'corrected-article',
-                'text': '',
-                'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" id="RA1" '
-                            'related-article-type="corrected-article" ext-link-type="doi" '
-                            'xlink:href="10.1590/s1413-65382620000100001" />',
+                'text': ''
             },
             {
                 'ext-link-type': 'doi',
@@ -118,10 +109,7 @@ class RelatedArticlesTest(TestCase):
                 'parent_id': None,
                 'parent_lang': 'pt',
                 'related-article-type': 'corrected-article',
-                'text': '',
-                'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" id="RA9" '
-                            'related-article-type="corrected-article" ext-link-type="doi" '
-                            'xlink:href="10.1590/s1413-65382620000100009" />',
+                'text': ''
             },
 
         ]
@@ -141,10 +129,7 @@ class RelatedArticlesTest(TestCase):
                 'parent_id': "s1",
                 'parent_lang': 'en',
                 'related-article-type': 'corrected-article',
-                'text': '',
-                'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" id="RA10" '
-                            'related-article-type="corrected-article" ext-link-type="doi" '
-                            'xlink:href="10.1590/s1413-65382620000100001" />',
+                'text': ''
             },
             {
                 'ext-link-type': 'doi',
@@ -155,10 +140,7 @@ class RelatedArticlesTest(TestCase):
                 'parent_id': "s1",
                 'parent_lang': 'en',
                 'related-article-type': 'corrected-article',
-                'text': '',
-                'full_tag': '<related-article xmlns:xlink="http://www.w3.org/1999/xlink" id="RA18" '
-                            'related-article-type="corrected-article" ext-link-type="doi" '
-                            'xlink:href="10.1590/s1413-65382620000100009" />',
+                'text': ''
             },
 
         ]
