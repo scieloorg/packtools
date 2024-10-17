@@ -30,6 +30,17 @@ class TestBuildArticleNode(unittest.TestCase):
 
         self.assertDictEqual(article_node.attrib, expected_attributes)
 
+    def test_build_article_node_error(self):
+        with self.assertRaises(KeyError) as e:
+            build_article_node(
+                article_data={
+                    'specific-use': 'sps-1.8',
+                    'article-type': 'research-article',
+                    'xml:lang': 'pt'
+                }
+            )
+        self.assertEqual(str(e.exception), '"\'dtd-version\' is required"')
+
 
 if __name__ == '__main__':
     unittest.main()

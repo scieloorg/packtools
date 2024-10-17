@@ -11,14 +11,17 @@ def build_article_node(article_data: dict):
     for prefix, uri in namespaces.items():
         ET.register_namespace(prefix, uri)
 
-    # Cria o elemento <article>
-    article_elem = ET.Element("article", {
-        "xmlns:xlink": namespaces["xlink"],
-        "xmlns:mml": namespaces["mml"],
-        "dtd-version": article_data.get("dtd-version"),
-        "specific-use": article_data.get("specific-use"),
-        "article-type": article_data.get("article-type"),
-        "xml:lang": article_data.get("xml:lang")
-    })
+    try:
+        # Cria o elemento <article>
+        article_elem = ET.Element("article", {
+            "xmlns:xlink": namespaces["xlink"],
+            "xmlns:mml": namespaces["mml"],
+            "dtd-version": article_data["dtd-version"],
+            "specific-use": article_data["specific-use"],
+            "article-type": article_data["article-type"],
+            "xml:lang": article_data["xml:lang"]
+        })
+    except KeyError as e:
+        raise KeyError(f"{e} is required")
 
     return article_elem
