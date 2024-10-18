@@ -1,0 +1,31 @@
+{
+    "article_type_rules": {
+        "article_type_error_level": "CRITICAL",
+        "article_type_vs_subject_expected_similarity": "1",
+        "article_type_vs_subject_expected_similarity_error_level": "WARNING",
+        "article_type_vs_subject_target_article_types": [
+            "letter"
+        ],
+        "article_type_list": [
+            "addendum",
+            "article-commentary",
+            "book-review",
+            "brief-report",
+            "case-report",
+            "correction",
+            "editorial",
+            "data-article",
+            "letter",
+            "obituary",
+            "partial-retraction",
+            "product-review",
+            "rapid-communication",
+            "reply",
+            "research-article",
+            "retraction",
+            "review-article",
+            "reviewer-report",
+            "other"
+        ]
+    }
+}

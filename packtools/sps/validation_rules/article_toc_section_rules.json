@@ -1,0 +1,7 @@
+{
+    "article_toc_section_rules": {
+        "error_level": "CRITICAL",
+        "similar_to_article_title_error_level": "ERROR",
+        "unexpected_subsection_error_level": "CRITICAL"
+    }
+}

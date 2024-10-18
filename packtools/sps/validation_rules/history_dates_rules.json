@@ -1,0 +1,16 @@
+{
+    "history_dates_rules": {
+        "error_level": "CRITICAL",
+        "date_list": [
+            {"type": "preprint", "required": false},
+            {"type": "received", "required": true},
+            {"type": "resubmitted", "required": false},
+            {"type": "rev-request", "required": true},
+            {"type": "rev-recd", "required": true},
+            {"type": "accepted", "required": true},
+            {"type": "pub", "required": true},
+            {"type": "corrected", "required": false},
+            {"type": "retracted", "required": false}
+        ]
+    }
+}
