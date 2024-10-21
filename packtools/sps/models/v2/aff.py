@@ -65,17 +65,17 @@ class Affiliation:
     @property
     def data(self):
         return {
-            "city": self.city,
-            "country_code": self.country_code,
-            "country_name": self.country,
-            "email": self.email,
             "id": self.aff_id,
             "label": self.label,
+            "original": self.original,
+            "orgname": self.orgname,
             "orgdiv1": self.orgdiv1,
             "orgdiv2": self.orgdiv2,
-            "orgname": self.orgname,
-            "original": self.original,
+            "country_name": self.country,
+            "country_code": self.country_code,
             "state": self.state
+            "city": self.city,
+            "email": self.email,
         }
 
     def _get_institution_info(self, inst_type):
@@ -126,6 +126,12 @@ class ArticleAffiliations:
     def sub_article_translation_affs(self):
         for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
             yield from Affiliations(node).affiliations()
+
+    def sub_article_translation_affs_by_lang(self):
+        langs = {}
+        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
+            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = Affiliations(node).affiliations()
+        return langs
 
     def sub_article_non_translation_affs(self):
         for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
