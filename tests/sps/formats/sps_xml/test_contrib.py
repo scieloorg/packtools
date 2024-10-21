@@ -9,10 +9,8 @@ class TestBuildContribAuthor(unittest.TestCase):
         # Dados de exemplo para o teste com valores válidos
         self.valid_data = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600"
-            },
+            "orcid": "0000-0001-8528-2091",
+            "scopus": "24771926600",
             "prefix": "Prof.",
             "surname": "Einstein",
             "given_names": "Albert",
@@ -98,10 +96,8 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
     """
         {
             "contrib_type": None,
-            "contrib_ids": {
-                "orcid": None,
-                "scopus": None
-            },
+            "orcid": None,
+            "scopus": None,
             "surname": None,
             "given_names": None,
             "affiliations": [
@@ -115,32 +111,18 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "contrib_type": None
         }
 
-        with self.assertRaises(KeyError) as e:
+        with self.assertRaises(NameError) as e:
             build_contrib_author(data)
 
-        self.assertEqual(str(e.exception), "'contrib-type is required'")
+        self.assertEqual(str(e.exception), "contrib-type is required")
 
     def test_contrib_author_contrib_ids_None(self):
         data = {
             "contrib_type": "author",
-            "contrib_ids": None
-        }
-        with self.assertRaises(KeyError) as e:
-            build_contrib_author(data)
-
-        self.assertEqual(str(e.exception), "'contrib-id-type is required'")
-
-    def test_contrib_author_contrib_ids_attrib_None(self):
-        data = {
-            "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": None,
-            },
+            "scopus": None
         }
         expected_xml_str = (
-            '<contrib contrib-type="author">'
-            '<contrib-id contrib-id-type="orcid" />'
-            '</contrib>'
+            '<contrib contrib-type="author" />'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
@@ -153,11 +135,7 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "surname": None,
         }
         expected_xml_str = (
-            '<contrib contrib-type="author">'
-            '<name>'
-            '<surname />'
-            '</name>'
-            '</contrib>'
+            '<contrib contrib-type="author" />'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
@@ -169,9 +147,7 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "affiliations": None,
         }
         expected_xml_str = (
-            '<contrib contrib-type="author">'
-            '<xref />'
-            '</contrib>'
+            '<contrib contrib-type="author" />'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
