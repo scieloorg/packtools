@@ -1,6 +1,6 @@
 from packtools.sps.models.article_dates import ArticleDates
 
-from packtools.sps.validation.aff import AffiliationsListValidation
+from packtools.sps.validation.aff import AffiliationsValidation
 from packtools.sps.validation.article_abstract import (
     HighlightsValidation,
     VisualAbstractsValidation,
@@ -59,16 +59,12 @@ from packtools.sps.validation.journal_meta import (
 def validate_affiliations(xmltree, params):
     country_codes_list = params["country_codes_list"]
 
-    # FIXME acesso a country_codes_list dentro das classes e métodos
-    validator = AffiliationsListValidation(xmltree, country_codes_list)
-    
-    aff_rules = params["aff_rules"]
-    aff_rules["country_codes_list"] = country_codes_list
+    validator = AffiliationsValidation(xmltree, country_codes_list)
 
+    aff_rules = params["aff_rules"]
     yield from validator.validate_main_affiliations(**aff_rules)
 
     translated_aff_rules = params["translated_aff_rules"]
-    translated_aff_rules["country_codes_list"] = country_codes_list
     yield from validator.validate_translated_affiliations(**translated_aff_rules)
 
 
