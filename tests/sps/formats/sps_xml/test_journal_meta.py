@@ -8,17 +8,13 @@ class TestBuildJournalMeta(unittest.TestCase):
     def setUp(self):
         # Dados de exemplo para uso em testes
         self.data = {
-            "journal_ids": {
-                "nlm-ta": "Braz J Med Biol Res",
-                "publisher-id": "bjmbr"
-            },
+            "journal_ids_nlm-ta": "Braz J Med Biol Res",
+            "journal_ids_publisher-id": "bjmbr",
             "journal_title": "Brazilian Journal of Medical and Biological Research",
             "abbrev_journal_title": "Braz. J. Med. Biol. Res.",
-            "issn": {
-                "epub": "1414-431X",
-                "ppub": "0100-879X"
-            },
-            "publisher_name": "Associação Brasileira de Divulgação Científica"
+            "issn_epub": "1414-431X",
+            "issn_ppub": "0100-879X",
+            "publisher_names": ["Associação Brasileira de Divulgação Científica"]
         }
         self.journal_meta_elem = build_journal_meta(self.data)
 
@@ -86,42 +82,13 @@ class TestBuildJournalMeta(unittest.TestCase):
 
 
 class TestBuildJournalMetaNoneValues(unittest.TestCase):
-
-    def setUp(self):
-        self.empty_data = {
-            "journal_ids": {
-                "nlm-ta": None,
-            },
-            "journal_title": "",
-            "abbrev_journal_title": "",
-            "issn": {},
-            "publisher_name": ""
-        }
-
     def test_journal_meta_journal_id_None(self):
         data = {
-            "journal_ids": None
+            "journal_ids_nlm-ta": None,
+            "journal_ids_publisher-id": None,
         }
         expected_xml_str = (
-            '<journal-meta>'
-            '<journal-id />'
-            '</journal-meta>'
-        )
-
-        journal_meta_elem = build_journal_meta(data)
-        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
-        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
-
-    def test_journal_meta_journal_id_attrib_None(self):
-        data = {
-            "journal_ids": {
-                "nlm-ta": None,
-            },
-        }
-        expected_xml_str = (
-            '<journal-meta>'
-            '<journal-id journal-id-type="nlm-ta" />'
-            '</journal-meta>'
+            '<journal-meta />'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -133,11 +100,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "journal_title": None,
         }
         expected_xml_str = (
-            '<journal-meta>'
-            '<journal-title-group>'
-            '<journal-title />'
-            '</journal-title-group>'
-            '</journal-meta>'
+            '<journal-meta />'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -149,11 +112,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "abbrev_journal_title": None,
         }
         expected_xml_str = (
-            '<journal-meta>'
-            '<journal-title-group>'
-            '<abbrev-journal-title abbrev-type="publisher" />'
-            '</journal-title-group>'
-            '</journal-meta>'
+            '<journal-meta />'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -162,28 +121,11 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
 
     def test_journal_meta_issn_None(self):
         data = {
-            "issn": None,
+            "issn_epub": None,
+            "issn_ppub": None,
         }
         expected_xml_str = (
-            '<journal-meta>'
-            '<issn />'
-            '</journal-meta>'
-        )
-
-        journal_meta_elem = build_journal_meta(data)
-        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
-        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
-
-    def test_journal_meta_issn_attrib_None(self):
-        data = {
-            "issn": {
-                "epub": None,
-            }
-        }
-        expected_xml_str = (
-            '<journal-meta>'
-            '<issn pub-type="epub" />'
-            '</journal-meta>'
+            '<journal-meta />'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -192,12 +134,10 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
 
     def test_journal_meta_publisher_name_None(self):
         data = {
-            "publisher_name": None,
+            "publisher_names": None,
         }
         expected_xml_str = (
-            '<journal-meta>'
-            '<publisher><publisher-name /></publisher>'
-            '</journal-meta>'
+            '<journal-meta />'
         )
 
         journal_meta_elem = build_journal_meta(data)
