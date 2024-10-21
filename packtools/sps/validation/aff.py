@@ -2,13 +2,13 @@ import logging
 
 from packtools.sps.models.v2.aff import ArticleAffiliations
 from packtools.sps.validation.exceptions import (
-    AffiliationValidationValidateCountryCodeException,
+    AffiliationCountryCodeListNotProvidedException,
 )
 from packtools.sps.validation.utils import format_response, build_response
 from packtools.translator import _
 
 
-class AffiliationsListValidation:
+class AffiliationsValidation:
     """
     Class for validating a list of affiliations within an XML document.
 
@@ -20,9 +20,9 @@ class AffiliationsListValidation:
         List of valid country codes for validation.
     """
 
-    def __init__(self, xml_tree, country_codes_list=None):
+    def __init__(self, xml_tree, country_codes_list):
         """
-        Initialize the AffiliationsListValidation object.
+        Initialize the AffiliationsValidation object.
 
         Parameters
         ----------
@@ -31,82 +31,49 @@ class AffiliationsListValidation:
         country_codes_list : list, optional
             List of valid country codes for validation.
         """
+        if not country_codes_list:
+            raise AffiliationCountryCodeListNotProvidedException(
+                "AffiliationValidation.__init__ requires list of country codes"
+            )
+
         self.xml_tree = xml_tree
         self.affiliations = ArticleAffiliations(xml_tree)
-        self.affiliations_list = list(self.affiliations.article_affs()) + list(self.affiliations.sub_article_translation_affs())
-
+        self.main_affs = list(self.affiliations.article_affs())
+        self.translation_affs = list(self.affiliations.sub_article_translation_affs())
+        self.translation_affs_by_lang = self.affiliations.sub_article_translation_affs_by_lang()
         self.country_codes_list = country_codes_list
 
-    def validate_affiliations_list(self, country_codes_list=None):
-        """
-        Validate all the document affiliations
-
-        Parameters
-        ----------
-        country_codes_list : list, optional
-            List of valid country codes for validation. If not provided, uses the instance's country_codes_list.
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation results for each affiliation.
-        """
-        country_codes_list = country_codes_list or self.country_codes_list
-        yield from self.validate_main_affiliations(country_codes_list)
-        yield from self.validate_translated_affiliations(country_codes_list)
-
-    def validate_main_affiliations(self, country_codes_list=None, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
-        items = list(self.affiliations.article_affs())
+    def validate_main_affiliations(self, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
+        items = self.main_affs
         total = len(items)
         if total == 1:
             label_error_level = "INFO"
         for affiliation in items:
             yield from AffiliationValidation(
-                affiliation, country_codes_list
+                affiliation, self.country_codes_list
             ).validate(
                 id_error_level, label_error_level, original_error_level, orgname_error_level, country_error_level, country_code_error_level, state_error_level, city_error_level
             )
 
-    def validate_translated_affiliations(self, country_codes_list=None, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
+    def validate_translated_affiliations(self, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
         orgname_error_level = orgname_error_level or "INFO"
         country_error_level = country_error_level or "INFO"
         country_code_error_level = country_code_error_level or "INFO"
         state_error_level = state_error_level or "INFO"
         city_error_level = city_error_level or "INFO"
 
-        items = list(self.affiliations.sub_article_translation_affs())
+        items = self.translation_affs
         total = len(items)
         if total == 1:
             label_error_level = "INFO"
         for affiliation in items:
             yield from AffiliationValidation(
-                affiliation, country_codes_list
+                affiliation, self.country_codes_list
             ).validate(
                 id_error_level, label_error_level, original_error_level, orgname_error_level, country_error_level, country_code_error_level, state_error_level, city_error_level
             )
 
-    def validate(self, data):
-        """
-        Validate the affiliations using data provided in the dictionary.
-
-        Parameters
-        ----------
-        data : dict
-            A dictionary containing the data for validation, specifically the country_codes_list.
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation results for each affiliation.
-        """
-        country_codes_list = data["country_codes_list"] or self.country_codes_list
-        if not country_codes_list:
-            raise AffiliationValidationValidateCountryCodeException(
-                "Function requires list of country codes"
-            )
-        yield from self.validate_affiliations_list(country_codes_list)
-
-    def validate_affiliation_count_article_vs_sub_article(self, error_level="CRITICAL"):
+    def validate_affiliation_count(self, error_level="CRITICAL"):
         """
         Validate that the number of affiliations in articles matches the number in sub-articles.
 
@@ -120,37 +87,45 @@ class AffiliationsListValidation:
         dict
             A dictionary containing the validation result comparing the number of affiliations.
         """
-        article_list = list(ArticleAffiliations(self.xml_tree).article_affs())
-        article_count = len(article_list)
-        sub_article_list = list(ArticleAffiliations(self.xml_tree).sub_article_translation_affs())
-        sub_article_count = len(sub_article_list)
+        if not self.translation_affs_by_lang:
+            return
 
-        yield format_response(
-            title="Affiliation count validation",
-            parent=None,
-            parent_id=None,
-            parent_article_type=None,
-            parent_lang=None,
-            item="aff",
-            sub_item=None,
-            validation_type="match",
-            is_valid=article_count == sub_article_count,
-            expected="equal counts in articles and sub-articles",
-            obtained=f"articles: {article_count}, sub-articles: {sub_article_count}",
-            advice="Ensure the number of affiliations in articles matches the number in sub-articles.",
-            data=[
-                {
-                    "article": f'<aff id=\"{aff1.get("id")}\">',
-                    "sub_article": f'<aff id=\"{aff2.get("id")}\">'
-                }
-                for aff1, aff2 in zip(article_list, sub_article_list)
-            ],
-            error_level=error_level,
-        )
+        article_list = self.main_affs
+        article_count = len(article_list)
+
+        for lang, items in self.translation_affs_by_lang.items():
+            sub_article_count = len(items)
+            if article_count == sub_article_count:
+                continue
+
+            affs = [
+                item.aff_id
+                for item in self.main_affs
+            ]
+            trans_affs = [
+                item.aff_id
+                for item in items
+            ]
+            yield format_response(
+                title="Total of affiliations",
+                parent=None,
+                parent_id=None,
+                parent_article_type=None,
+                parent_lang=None,
+                item="aff",
+                sub_item=None,
+                validation_type="match",
+                is_valid=False,
+                expected=f"equal counts in articles and sub-articles",
+                obtained=f"article: {article_count}, sub-article {lang}: {sub_article_count}",
+                advice=f"Check how the affiliations were identified in article-meta and in sub-article {lang}",
+                data={"article": affs, f"sub-article-{lang}": trans_affs},
+                error_level=error_level,
+            )
 
 
 class AffiliationValidation:
-    def __init__(self, affiliation, country_codes_list=None):
+    def __init__(self, affiliation, country_codes_list):
         """
         Initialize the AffiliationValidation object.
 
@@ -161,6 +136,10 @@ class AffiliationValidation:
         country_codes_list : list, optional
             List of valid country codes for validation.
         """
+        if not country_codes_list:
+            raise AffiliationCountryCodeListNotProvidedException(
+                "AffiliationValidation.__init__ requires list of country codes"
+            )
         self.affiliation = affiliation
         self.country_codes_list = country_codes_list
 
@@ -305,21 +284,21 @@ class AffiliationValidation:
             A dictionary containing the validation result for the country code.
         """
         country_codes_list = self.country_codes_list
-        if not country_codes_list:
-            raise AffiliationValidationValidateCountryCodeException(
-                "Function requires list of country codes"
-            )
         country_code = self.affiliation.get("country_code")
         error_level = error_level or "CRITICAL"
+
         if (not country_code in country_codes_list) or (error_level == "INFO"):
+
+            is_valid = country_code in country_codes_list
+
             yield build_response(
                 title="country code",
                 parent=self.affiliation,
                 item="country",
                 sub_item="@country",
                 validation_type="value in list",
-                is_valid=country_code in country_codes_list,
-                expected=self.country_codes_list,
+                is_valid=is_valid,
+                expected=country_code if is_valid else f"one of {self.country_codes_list}",
                 obtained=country_code,
                 advice=_("provide a valid @country"),
                 data=self.affiliation,
