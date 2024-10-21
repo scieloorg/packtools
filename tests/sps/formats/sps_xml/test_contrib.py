@@ -13,8 +13,10 @@ class TestBuildContribAuthor(unittest.TestCase):
                 "orcid": "0000-0001-8528-2091",
                 "scopus": "24771926600"
             },
+            "prefix": "Prof.",
             "surname": "Einstein",
             "given_names": "Albert",
+            "suffix": "Neto",
             "affiliations": [
                 {"rid": "aff1", "text": "1"}
             ]
@@ -40,8 +42,12 @@ class TestBuildContribAuthor(unittest.TestCase):
         self.assertIsNotNone(name_elem)
         surname_elem = name_elem.find("surname")
         given_names_elem = name_elem.find("given-names")
+        prefix_elem = name_elem.find("prefix")
+        suffix_elem = name_elem.find("suffix")
         self.assertEqual(surname_elem.text, "Einstein")
         self.assertEqual(given_names_elem.text, "Albert")
+        self.assertEqual(prefix_elem.text, "Prof.")
+        self.assertEqual(suffix_elem.text, "Neto")
 
     def test_contrib_author_affiliations(self):
         xref_elems = self.contrib_elem.findall("xref")
@@ -51,7 +57,18 @@ class TestBuildContribAuthor(unittest.TestCase):
         self.assertEqual(xref_elem.get("rid"), "aff1")
         self.assertEqual(xref_elem.text, "1")
 
+    def test_contrib_author_collab(self):
+        data = {
+            "contrib_type": "author",
+            "collab": "The Brazil Flora Group"
+        }
+        contrib_elem = build_contrib_author(data)
+        self.assertEqual(len(contrib_elem), 1)
+        self.assertEqual(contrib_elem.get("contrib-type"), "author")
+        self.assertEqual(contrib_elem.find("collab").text, "The Brazil Flora Group")
+
     def test_contrib_author_as_string(self):
+        self.maxDiff = None
         # Gera o XML a partir dos dados válidos
         contrib_elem = build_contrib_author(self.valid_data)
 
@@ -66,6 +83,8 @@ class TestBuildContribAuthor(unittest.TestCase):
             '<name>'
             '<surname>Einstein</surname>'
             '<given-names>Albert</given-names>'
+            '<prefix>Prof.</prefix>'
+            '<suffix>Neto</suffix>'
             '</name>'
             '<xref ref-type="aff" rid="aff1">1</xref>'
             '</contrib>'
@@ -76,10 +95,8 @@ class TestBuildContribAuthor(unittest.TestCase):
 
 
 class TestBuildContribAuthorNoneValues(unittest.TestCase):
-
-    def setUp(self):
-        # Dados de exemplo para o teste com valores nulos
-        self.valid_data = {
+    """
+        {
             "contrib_type": None,
             "contrib_ids": {
                 "orcid": None,
@@ -91,75 +108,74 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
                 {"rid": None, "text": None}
             ]
         }
+    """
 
-    def _build_and_compare(self, expected_xml_str):
-        """Método auxiliar para construção e comparação do XML gerado"""
-        contrib_elem = build_contrib_author(self.valid_data)
+    def test_contrib_author_contrib_type_None(self):
+        data = {
+            "contrib_type": None
+        }
+
+        with self.assertRaises(KeyError) as e:
+            build_contrib_author(data)
+
+        self.assertEqual(str(e.exception), "'contrib-type is required'")
+
+    def test_contrib_author_contrib_ids_None(self):
+        data = {
+            "contrib_type": "author",
+            "contrib_ids": None
+        }
+        with self.assertRaises(KeyError) as e:
+            build_contrib_author(data)
+
+        self.assertEqual(str(e.exception), "'contrib-id-type is required'")
+
+    def test_contrib_author_contrib_ids_attrib_None(self):
+        data = {
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": None,
+            },
+        }
+        expected_xml_str = (
+            '<contrib contrib-type="author">'
+            '<contrib-id contrib-id-type="orcid" />'
+            '</contrib>'
+        )
+        contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
-    def test_contrib_author_with_all_null_values(self):
+    def test_contrib_author_contrib_surname_None(self):
+        # vale para os demais elementos em <name>
+        data = {
+            "contrib_type": "author",
+            "surname": None,
+        }
         expected_xml_str = (
-            '<contrib contrib-type="">'
-            '<contrib-id contrib-id-type="orcid" />'
-            '<contrib-id contrib-id-type="scopus" />'
+            '<contrib contrib-type="author">'
             '<name>'
             '<surname />'
-            '<given-names />'
             '</name>'
             '</contrib>'
         )
-        self._build_and_compare(expected_xml_str)
+        contrib_elem = build_contrib_author(data)
+        generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
-    def test_contrib_author_without_contrib_id(self):
-        self.valid_data.pop("contrib_ids")
+    def test_contrib_author_contrib_affiliations_None(self):
+        data = {
+            "contrib_type": "author",
+            "affiliations": None,
+        }
         expected_xml_str = (
-            '<contrib contrib-type="">'
-            '<name>'
-            '<surname />'
-            '<given-names />'
-            '</name>'
+            '<contrib contrib-type="author">'
+            '<xref />'
             '</contrib>'
         )
-        self._build_and_compare(expected_xml_str)
-
-    def test_contrib_author_without_contrib_id_type(self):
-        self.valid_data["contrib_ids"].pop("orcid")
-        expected_xml_str = (
-            '<contrib contrib-type="">'
-            '<contrib-id contrib-id-type="scopus" />'
-            '<name>'
-            '<surname />'
-            '<given-names />'
-            '</name>'
-            '</contrib>'
-        )
-        self._build_and_compare(expected_xml_str)
-
-    def test_contrib_author_without_contrib_ids(self):
-        self.valid_data.pop("contrib_ids")
-        expected_xml_str = (
-            '<contrib contrib-type="">'
-            '<name>'
-            '<surname />'
-            '<given-names />'
-            '</name>'
-            '</contrib>'
-        )
-        self._build_and_compare(expected_xml_str)
-
-    def test_contrib_author_without_surname(self):
-        self.valid_data.pop("surname")
-        expected_xml_str = (
-            '<contrib contrib-type="">'
-            '<contrib-id contrib-id-type="orcid" />'
-            '<contrib-id contrib-id-type="scopus" />'
-            '<name>'
-            '<given-names />'
-            '</name>'
-            '</contrib>'
-        )
-        self._build_and_compare(expected_xml_str)
+        contrib_elem = build_contrib_author(data)
+        generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
 
 if __name__ == '__main__':
