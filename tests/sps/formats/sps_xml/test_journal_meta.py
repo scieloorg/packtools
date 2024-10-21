@@ -98,60 +98,111 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "publisher_name": ""
         }
 
-    def _build_and_compare(self, expected_xml_str):
-        """Método auxiliar para construção e comparação do XML gerado"""
-        journal_meta_elem = build_journal_meta(self.empty_data)
+    def test_journal_meta_journal_id_None(self):
+        data = {
+            "journal_ids": None
+        }
+        expected_xml_str = (
+            '<journal-meta>'
+            '<journal-id />'
+            '</journal-meta>'
+        )
+
+        journal_meta_elem = build_journal_meta(data)
         generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
-    def test_journal_meta_empty_data(self):
+    def test_journal_meta_journal_id_attrib_None(self):
+        data = {
+            "journal_ids": {
+                "nlm-ta": None,
+            },
+        }
         expected_xml_str = (
             '<journal-meta>'
             '<journal-id journal-id-type="nlm-ta" />'
-            '<journal-title-group>'
-            '<journal-title />'
-            '<abbrev-journal-title abbrev-type="publisher" />'
-            '</journal-title-group>'
-            '<publisher>'
-            '<publisher-name />'
-            '</publisher>'
             '</journal-meta>'
         )
-        self._build_and_compare(expected_xml_str)
 
-    def test_journal_meta_without_journal_ids(self):
-        self.maxDiff = None
-        # Exclui journal_ids para testar a ausência
-        self.empty_data.pop("journal_ids")
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_journal_meta_journal_title_None(self):
+        data = {
+            "journal_title": None,
+        }
         expected_xml_str = (
             '<journal-meta>'
             '<journal-title-group>'
             '<journal-title />'
-            '<abbrev-journal-title abbrev-type="publisher" />'
             '</journal-title-group>'
-            '<publisher>'
-            '<publisher-name />'
-            '</publisher>'
             '</journal-meta>'
         )
-        self._build_and_compare(expected_xml_str)
 
-    def test_journal_meta_without_issn(self):
-        # Exclui issn para testar a ausência
-        self.empty_data.pop("issn")
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_journal_meta_abbrev_journal_title_None(self):
+        data = {
+            "abbrev_journal_title": None,
+        }
         expected_xml_str = (
             '<journal-meta>'
-            '<journal-id journal-id-type="nlm-ta" />'
             '<journal-title-group>'
-            '<journal-title />'
             '<abbrev-journal-title abbrev-type="publisher" />'
             '</journal-title-group>'
-            '<publisher>'
-            '<publisher-name />'
-            '</publisher>'
             '</journal-meta>'
         )
-        self._build_and_compare(expected_xml_str)
+
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_journal_meta_issn_None(self):
+        data = {
+            "issn": None,
+        }
+        expected_xml_str = (
+            '<journal-meta>'
+            '<issn />'
+            '</journal-meta>'
+        )
+
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_journal_meta_issn_attrib_None(self):
+        data = {
+            "issn": {
+                "epub": None,
+            }
+        }
+        expected_xml_str = (
+            '<journal-meta>'
+            '<issn pub-type="epub" />'
+            '</journal-meta>'
+        )
+
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_journal_meta_publisher_name_None(self):
+        data = {
+            "publisher_name": None,
+        }
+        expected_xml_str = (
+            '<journal-meta>'
+            '<publisher><publisher-name /></publisher>'
+            '</journal-meta>'
+        )
+
+        journal_meta_elem = build_journal_meta(data)
+        generated_xml_str = ET.tostring(journal_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
 
 if __name__ == '__main__':
