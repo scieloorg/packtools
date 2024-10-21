@@ -73,7 +73,7 @@ class Affiliation:
             "orgdiv2": self.orgdiv2,
             "country_name": self.country,
             "country_code": self.country_code,
-            "state": self.state
+            "state": self.state,
             "city": self.city,
             "email": self.email,
         }

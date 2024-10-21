@@ -94,7 +94,7 @@ class AffiliationsValidation:
         article_count = len(article_list)
 
         for lang, items in self.translation_affs_by_lang.items():
-            sub_article_count = len(items)
+            sub_article_count = len(list(items))
             if article_count == sub_article_count:
                 continue
 
