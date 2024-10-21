@@ -1,0 +1,29 @@
+{
+    "references_rules": {
+        "allowed_tags": [],
+        "year_error_level": "CRITICAL",
+        "source_error_level": "CRITICAL",
+        "article_title_error_level": "ERROR",
+        "authors_error_level": "ERROR",
+        "publication_type_error_level": "CRITICAL",
+        "comment_error_level": "ERROR",
+        "mixed_citation_error_level": "CRITICAL",
+        "publication_type_list": [
+            "book",
+            "confproc",
+            "data",
+            "database",
+            "journal",
+            "legal-doc",
+            "letter",
+            "newspaper",
+            "patent",
+            "preprint",
+            "report",
+            "software",
+            "thesis",
+            "webpage",
+            "other"
+        ]
+    }
+}
