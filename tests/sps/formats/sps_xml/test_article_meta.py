@@ -96,3 +96,38 @@ class TestBuildArticleTitle(unittest.TestCase):
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
 
+class TestBuildAttribs(unittest.TestCase):
+    def test_build_article_attribs(self):
+        data = {
+            "volume": "69",
+            "issue": "3",
+            "fpage": "227",
+            "lpage": "232"
+        }
+        expected_xml_str = (
+            '<article-meta>'
+            '<volume>69</volume>'
+            '<issue>3</issue>'
+            '<fpage>227</fpage>'
+            '<lpage>232</lpage>'
+            '</article-meta>'
+        )
+        article_meta_elem = build_article_meta(data)
+        generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_build_article_attribs_None(self):
+        data = {
+            "volume": None,
+            "issue": None,
+            "fpage": None,
+            "lpage": None
+        }
+        expected_xml_str = (
+            '<article-meta />'
+        )
+        article_meta_elem = build_article_meta(data)
+        generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+
