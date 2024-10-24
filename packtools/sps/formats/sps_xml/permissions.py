@@ -27,7 +27,6 @@ def build_permissions(data):
             elem.text = text
             permissions_elem.append(elem)
 
-    # lincenses é uma lista de dicionários com dados de license
     try:
         for license_dict in data["licenses"]:
             try:
