@@ -2,6 +2,32 @@
     "graphical_abstract_rules": {
         "kwd_error_level": "CRITICAL",
         "title_error_level": "WARNING",
-        "graphic_error_level": "CRITICAL"
+        "graphic_error_level": "CRITICAL",
+        "absence_error_level": "WARNING",
+        "article_type_accepts": [
+            "case-report",
+            "research-article",
+            "review-article",
+        ],
+        "article_type_unexpects": [
+            "addendum",
+            "article-commentary",
+            "book-review",
+            "brief-report",
+            "correction",
+            "editorial",
+            "letter",
+            "obituary",
+            "partial-retraction",
+            "product-review",
+            "rapid-communication",
+            "reply",
+            "retraction",
+            "other"            
+        ],
+        "article_type_neutral": [
+            "reviewer-report",
+            "data-article",
+        ]
     }
 }
