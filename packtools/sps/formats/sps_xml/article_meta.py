@@ -6,7 +6,11 @@ data = {
     "article_title": "Conocimientos de los pediatras sobre la laringomalacia",
     "trans_title": {
         "en": "Pediatrician knowledge about laryngomalacia",
-    }
+    },
+    "volume": "69",
+    "issue": "3",
+    "fpage": "227",
+    "lpage": "232"
 }
 """
 
@@ -50,5 +54,12 @@ def build_article_meta(data):
             title_group_elem.append(trans_title_group_elem)
 
         article_meta.append(title_group_elem)
+
+    for item in ("volume", "issue", "fpage", "lpage"):
+        elem_text = data.get(item)
+        if elem_text:
+            elem = ET.Element(item)
+            elem.text = elem_text
+            article_meta.append(elem)
 
     return article_meta
