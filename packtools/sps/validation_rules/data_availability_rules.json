@@ -1,0 +1,11 @@
+{
+    "data_availability_rules": {
+        "error_level": "CRITICAL",
+        "specific_use_list": [
+            "data-available",
+            "data-available-upon-request",
+            "data-not-available",
+            "uninformed"
+        ]
+    }
+}

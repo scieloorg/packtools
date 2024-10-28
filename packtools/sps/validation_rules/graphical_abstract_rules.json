@@ -1,0 +1,7 @@
+{
+    "graphical_abstract_rules": {
+        "kwd_error_level": "CRITICAL",
+        "title_error_level": "WARNING",
+        "graphic_error_level": "CRITICAL"
+    }
+}

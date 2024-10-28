@@ -39,6 +39,37 @@ def format_response(
     }
 
 
+def build_response(
+    title,
+    parent,
+    item,
+    sub_item,
+    validation_type,
+    is_valid,
+    expected,
+    obtained,
+    advice,
+    data,
+    error_level,
+):
+    return {
+        "title": title,
+        "parent": parent.get("parent"),
+        "parent_id": parent.get("parent_id"),
+        "parent_article_type": parent.get("parent_article_type"),
+        "parent_lang": parent.get("parent_lang"),
+        "item": item,
+        "sub_item": sub_item,
+        "validation_type": validation_type,
+        "response": "OK" if is_valid else error_level,
+        "expected_value": expected,
+        "got_value": obtained,
+        "message": f"Got {obtained}, expected {expected}",
+        "advice": None if is_valid else advice,
+        "data": data,
+    }
+
+
 def get_doi_information(doi):
     url = f"https://api.crossref.org/works/{doi}"
     response = fetch_data(url=url, json=True)

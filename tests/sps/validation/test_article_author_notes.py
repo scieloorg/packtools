@@ -599,6 +599,128 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
+    def test_validate_current_affiliation_attrib_type_deprecation(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+            <article-meta>
+            <author-notes>
+            <fn fn-type="current-aff">
+            <institution>Universidade de São Paulo</institution>
+            <addr-line>Departamento de Biologia</addr-line>
+            <city>São Paulo</city>
+            <country>Brasil</country>
+            </fn>
+            </author-notes>
+            </article-meta>
+            </front>
+            <sub-article article-type="translation" id="TRen" xml:lang="en">
+            <front-stub>
+            <author-notes>
+            <fn fn-type="current-aff">
+            <institution>University of São Paulo</institution>
+            <addr-line>Department of Biology</addr-line>
+            <city>São Paulo</city>
+            <country>Brazil</country>
+            </fn>
+            </author-notes>
+            </front-stub>
+            </sub-article>
+            </article>
+            '''
+        )
+
+        author_note = list(ArticleAuthorNotes(self.xmltree).author_notes)[0]
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_current_affiliation_attrib_type_deprecation(author_note))
+        expected = [
+            {
+                'title': 'Author notes current aff deprecated validation',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'fn',
+                'sub_item': '@fn-type',
+                'validation_type': 'exist',
+                'response': 'ERROR',
+                'expected_value': None,
+                'got_value': 'current-aff',
+                'message': 'Got current-aff, expected None',
+                'advice': "Use to identify Author's mini CV and use to identify current affiliation",
+                'data': {
+                    'corresp': [],
+                    'fn_count': 1,
+                    'fn_types': ['current-aff'],
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
+                }
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_contribution_attrib_type_deprecation(self):
+        self.maxDiff = None
+        self.xmltree = etree.fromstring(
+            '''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
+            <front>
+            <article-meta>
+            <contrib-group>
+            <contrib contrib-type="author">
+            <name>
+            <surname>Silva</surname>
+            <given-names>João</given-names>
+            </name>
+            <role>Lead Author</role>
+            </contrib>
+            </contrib-group>
+            <author-notes>
+            <fn fn-type="con">Lead Author</fn>
+            </author-notes>
+            </article-meta>
+            </front>
+            </article>
+            '''
+        )
+
+        author_note = list(ArticleAuthorNotes(self.xmltree).author_notes)[0]
+        obtained = list(AuthorNotesValidation(self.xmltree).validate_contribution_attrib_type_deprecation(author_note))
+        expected = [
+            {
+                'title': 'Author notes contribution deprecated validation',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'fn',
+                'sub_item': '@fn-type',
+                'validation_type': 'exist',
+                'response': 'WARNING',
+                'expected_value': None,
+                'got_value': 'con',
+                'message': 'Got con, expected None',
+                'advice': "Using @fn-type='con' for authorship contributions is discouraged; use <role> instead.",
+                'data': {
+                    'corresp': [],
+                    'fn_count': 1,
+                    'fn_types': ['con'],
+                    'parent': 'article',
+                    'parent_id': None,
+                    'parent_article_type': 'research-article',
+                    'parent_lang': 'pt'
+                }
+            }
+        ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
 
 if __name__ == '__main__':
     unittest.main()

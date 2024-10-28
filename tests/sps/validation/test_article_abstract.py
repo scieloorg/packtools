@@ -2,107 +2,15 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
-from packtools.sps.validation.article_abstract import HighlightsValidation, VisualAbstractsValidation
+from packtools.sps.validation.article_abstract import HighlightValidation, HighlightsValidation, VisualAbstractValidation, VisualAbstractsValidation, ArticleAbstractsValidation
+from packtools.sps.models.article_abstract import ArticleHighlights, ArticleVisualAbstracts
 
 
 class HighlightsValidationTest(TestCase):
-    def test_highlight_validation_exist(self):
+
+    def test_highlight_validate_exists(self):
         self.maxDiff = None
-        xmltree = ET.fromstring(
-            """
-            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <abstract abstract-type="key-points">
-                            <title>HIGHLIGHTS</title>
-                            <p>highlight 1</p>
-                            <p>highlight 2</p>
-                        </abstract>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="01" xml:lang="es">
-                    <front-stub>
-                        <abstract abstract-type="key-points">
-                            <title>HIGHLIGHTS</title>
-                            <p>highlight 1</p>
-                            <p>highlight 2</p>
-                        </abstract>
-                    </front-stub>
-                </sub-article>
-            </article>
-            """
-        )
-
-        obtained = list(HighlightsValidation(xmltree).highlight_validation())
-
-        expected = [
-            {
-                'title': 'Article highlights validation',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'abstract',
-                'sub_item': '@abstract-type="key-points"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': [
-                    'highlight 1',
-                    'highlight 2'
-                ],
-                'got_value': [
-                    'highlight 1',
-                    'highlight 2'
-                ],
-                'message': "Got ['highlight 1', 'highlight 2'], expected ['highlight 1', 'highlight 2']",
-                'advice': None,
-                'data': {
-                    'highlights': ['highlight 1', 'highlight 2'],
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'title': 'HIGHLIGHTS'
-                },
-            },
-            {
-                'title': 'Article highlights validation',
-                'parent': 'sub-article',
-                'parent_id': '01',
-                'parent_article_type': 'translation',
-                'parent_lang': 'es',
-                'item': 'abstract',
-                'sub_item': '@abstract-type="key-points"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': [
-                    'highlight 1',
-                    'highlight 2'
-                ],
-                'got_value': [
-                    'highlight 1',
-                    'highlight 2'
-                ],
-                'message': "Got ['highlight 1', 'highlight 2'], expected ['highlight 1', 'highlight 2']",
-                'advice': None,
-                'data': {
-                    'highlights': ['highlight 1', 'highlight 2'],
-                    'parent': 'sub-article',
-                    'parent_article_type': 'translation',
-                    'parent_id': '01',
-                    'parent_lang': 'es',
-                    'title': 'HIGHLIGHTS'
-                },
-            }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-    def test_highlight_validation_not_exist(self):
-        self.maxDiff = None
-        xmltree = ET.fromstring(
+        xml_tree = ET.fromstring(
             """
             <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
                 <front>
@@ -115,137 +23,310 @@ class HighlightsValidationTest(TestCase):
             """
         )
 
-        obtained = list(HighlightsValidation(xmltree).highlight_validation("WARNING"))
+        obtained = HighlightsValidation(xml_tree).validate_exists()
+
+        expected = {
+                'title': 'Article abstracts',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': None,
+                'parent_lang': 'en',
+                'item': 'abstract',
+                'sub_item': None,
+                'validation_type': 'exist',
+                'response': 'WARNING',
+                'expected_value': 'abstracts',
+                'got_value': [],
+                'message': 'Got [], expected abstracts',
+                'advice': 'article has no abstract',
+                'data': None,
+            }
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_highlight_validate_tag_list_in_abstract(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <list>
+                                <item>highlight 1</item>
+                                <item>highlight 2</item>
+                            </list>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <list>
+                                <item>highlight 1</item>
+                                <item>highlight 2</item>
+                            </list>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleHighlights(xmltree).article_abstracts():
+            obtained.append(HighlightValidation(abstract).validate_tag_list_in_abstract())
 
         expected = [
             {
-                'title': 'Article highlights validation',
-                'parent': None,
-                'parent_id': None,
-                'parent_article_type': None,
-                'parent_lang': None,
-                'item': 'abstract',
-                'sub_item': '@abstract-type="key-points"',
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'article highlights',
-                'got_value': None,
-                'message': "Got None, expected article highlights",
-                'advice': None,
-                'data': None,
+                "title": "list",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (key-points)',
+                "sub_item": 'list',
+                "expected_value": None,
+                "got_value": ['highlight 1', 'highlight 2'],
+                "message": "Got ['highlight 1', 'highlight 2'], expected None",
+                "advice": 'Remove <list> and add <p>',
+                "data": {
+                    'abstract_type': 'key-points',
+                    "highlights": [],
+                    'kwds': [],
+                    "list": ['highlight 1', 'highlight 2'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": "HIGHLIGHTS",
+                }
+            },
+            {
+                "title": "list",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "01",
+                "parent_lang": "es",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (key-points)',
+                "sub_item": 'list',
+                "expected_value": None,
+                "got_value": ['highlight 1', 'highlight 2'],
+                "message": "Got ['highlight 1', 'highlight 2'], expected None",
+                "advice": 'Remove <list> and add <p>',
+                "data": {
+                    'abstract_type': 'key-points',
+                    "highlights": [],
+                    'kwds': [],
+                    "list": ['highlight 1', 'highlight 2'],
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "01",
+                    "parent_lang": "es",
+                    "title": "HIGHLIGHTS",
+                }
             }
         ]
 
+        self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_highlight_validate_tag_p_in_abstract(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>highlight 1</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="key-points">
+                            <title>HIGHLIGHTS</title>
+                            <p>highlight 1</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleHighlights(xmltree).article_abstracts():
+            obtained.append(HighlightValidation(abstract).validate_tag_p_in_abstract())
+
+        expected = [
+            {
+                "title": "p",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (key-points)',
+                "sub_item": 'p',
+                "expected_value": 'p',
+                "got_value": ['highlight 1'],
+                "message": "Got ['highlight 1'], expected p",
+                "advice": 'Provide more than one p',
+                "data": {
+                    'abstract_type': 'key-points',
+                    "highlights": ['highlight 1'],
+                    "list": [],
+                    'kwds': [],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": "HIGHLIGHTS",
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_highlight_validate_unexpected_kwd(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleHighlights(xmltree).article_abstracts():
+            obtained.append(HighlightValidation(abstract).validate_unexpected_kwd())
+
+        expected = [
+            {
+                "title": 'unexpected kwd',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (key-points)',
+                "sub_item": 'kwd',
+                "expected_value": None,
+                "got_value": ['kwd_01', 'kwd_02'],
+                "message": "Got ['kwd_01', 'kwd_02'], expected None",
+                "advice": "Remove keywords (<kwd>) from <abstract abstract-type='key-points'>",
+                "data": {
+                    'abstract_type': 'key-points',
+                    "highlights": [],
+                    "list": [],
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_highlight_validate_tag_title_in_abstract(self):
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points">
+                            <p>highlight 1</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="key-points">
+                            <p>highlight 1</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleHighlights(xmltree).article_abstracts():
+            obtained.append(HighlightValidation(abstract).validate_tag_title_in_abstract())
+
+        expected = [
+            {
+                "title": 'title',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (key-points)',
+                "sub_item": 'title',
+                "expected_value": 'title',
+                "got_value": None,
+                "message": 'Got None, expected title',
+                "advice": 'Provide title',
+                "data": {
+                    'abstract_type': 'key-points',
+                    "highlights": ['highlight 1'],
+                    "list": [],
+                    'kwds': [],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
 
 class VisualAbstractsValidationTest(TestCase):
-    def test_visual_abstracts_validation_exist(self):
+    def test_visual_abstracts_validate_exists(self):
         self.maxDiff = None
-        xmltree = ET.fromstring(
+        xml_tree = ET.fromstring(
             """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
-            specific-use="sps-1.9" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <abstract abstract-type="graphical">
-                            <title>Visual Abstract</title>
-                                <p>
-                                    <fig id="vf01">
-                                        <caption>
-                                            <title>Título</title>
-                                        </caption>
-                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
-                                    </fig>
-                                </p>
-                        </abstract>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="01" xml:lang="es">
-                    <front-stub>
-                        <abstract abstract-type="graphical">
-                            <title>Visual Abstract</title>
-                                <p>
-                                    <fig id="vf01">
-                                        <caption>
-                                            <title>Título</title>
-                                        </caption>
-                                        <graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif"/>
-                                    </fig>
-                                </p>
-                        </abstract>
-                    </front-stub>
-                </sub-article>
-            </article>
-            """
-        )
-
-        obtained = list(VisualAbstractsValidation(xmltree).visual_abstracts_validation())
-
-        expected = [
-            {
-                'title': 'Article visual abstracts validation',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'abstract',
-                'sub_item': '@abstract-type="graphical"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1234-5678-zwy-12-04-0123-vs01.tif',
-                'got_value': '1234-5678-zwy-12-04-0123-vs01.tif',
-                'message': 'Got 1234-5678-zwy-12-04-0123-vs01.tif, expected 1234-5678-zwy-12-04-0123-vs01.tif',
-                'advice': None,
-                'data': {
-                    'title': 'Visual Abstract',
-                    'fig_id': 'vf01',
-                    'caption': 'Título',
-                    'graphic': '1234-5678-zwy-12-04-0123-vs01.tif',
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'en',
-                }
-            },
-            {
-                'title': 'Article visual abstracts validation',
-                'parent': 'sub-article',
-                'parent_id': '01',
-                'parent_article_type': 'translation',
-                'parent_lang': 'es',
-                'item': 'abstract',
-                'sub_item': '@abstract-type="graphical"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1234-5678-zwy-12-04-0123-vs01.tif',
-                'got_value': '1234-5678-zwy-12-04-0123-vs01.tif',
-                'message': 'Got 1234-5678-zwy-12-04-0123-vs01.tif, expected 1234-5678-zwy-12-04-0123-vs01.tif',
-                'advice': None,
-                'data': {
-                    'title': 'Visual Abstract',
-                    'fig_id': 'vf01',
-                    'caption': 'Título',
-                    'graphic': '1234-5678-zwy-12-04-0123-vs01.tif',
-                    'parent': 'sub-article',
-                    'parent_id': '01',
-                    'parent_article_type': 'translation',
-                    'parent_lang': 'es',
-                }
-            }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-    def test_visual_abstracts_validation_not_exist(self):
-        self.maxDiff = None
-        xmltree = ET.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
             specific-use="sps-1.9" xml:lang="en">
                 <front>
                     <article-meta />
@@ -257,27 +338,288 @@ class VisualAbstractsValidationTest(TestCase):
             """
         )
 
-        obtained = list(VisualAbstractsValidation(xmltree).visual_abstracts_validation("WARNING"))
+        obtained = VisualAbstractsValidation(xml_tree).validate_exists()
+
+        expected = {
+                'title': 'Article abstracts',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': None,
+                'parent_lang': 'en',
+                'item': 'abstract',
+                'sub_item': None,
+                'validation_type': 'exist',
+                'response': 'WARNING',
+                'expected_value': 'abstracts',
+                'got_value': [],
+                'message': 'Got [], expected abstracts',
+                'advice': 'article has no abstract',
+                'data': None,
+            }
+
+        self.assertDictEqual(obtained, expected)
+
+    def test_visual_abstracts_validate_unexpected_kwd(self):
+        self.maxDiff = None
+        xml_tree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
+            obtained.append(VisualAbstractValidation(abstract).validate_unexpected_kwd())
 
         expected = [
             {
-                'title': 'Article visual abstracts validation',
-                'parent': None,
-                'parent_id': None,
-                'parent_article_type': None,
-                'parent_lang': None,
-                'item': 'abstract',
-                'sub_item': '@abstract-type="graphical"',
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'article visual abstracts',
-                'got_value': None,
-                'message': 'Got None, expected article visual abstracts',
-                'advice': None,
-                'data': None,
+                "title": 'unexpected kwd',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (graphical)',
+                "sub_item": 'kwd',
+                "expected_value": None,
+                "got_value": ['kwd_01', 'kwd_02'],
+                "message": "Got ['kwd_01', 'kwd_02'], expected None",
+                "advice": "Remove keywords (<kwd>) from <abstract abstract-type='graphical'>",
+                "data": {
+                    'abstract_type': 'graphical',
+                    'caption': None,
+                    'fig_id': None,
+                    'graphic': None,
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_visual_abstracts_validate_tag_title_in_abstract(self):
+        self.maxDiff = None
+        xml_tree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
+            obtained.append(VisualAbstractValidation(abstract).validate_tag_title_in_abstract())
+
+        expected = [
+            {
+                "title": 'title',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (graphical)',
+                "sub_item": 'title',
+                "expected_value": 'title',
+                "got_value": None,
+                "message": 'Got None, expected title',
+                "advice": 'Provide title',
+                "data": {
+                    'abstract_type': 'graphical',
+                    'caption': None,
+                    'fig_id': None,
+                    'graphic': None,
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_visual_abstracts_validate_tag_graphic_in_abstract(self):
+        self.maxDiff = None
+        xml_tree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical">
+                            <kwd-group xml:lang="en">
+                                <kwd>kwd_01</kwd>
+                                <kwd>kwd_02</kwd>
+                            </kwd-group>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        obtained = []
+        for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
+            obtained.append(VisualAbstractValidation(abstract).validate_tag_graphic_in_abstract())
+
+        expected = [
+            {
+                "title": 'graphic',
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "item": 'abstract (graphical)',
+                "sub_item": 'graphic',
+                "expected_value": 'graphic',
+                "got_value": None,
+                "message": 'Got None, expected graphic',
+                "advice": 'Provide graphic',
+                "data": {
+                    'abstract_type': 'graphical',
+                    'caption': None,
+                    'fig_id': None,
+                    'graphic': None,
+                    'kwds': ['kwd_01', 'kwd_02'],
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "title": None,
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+
+class ArticleAbstractValidationTest(TestCase):
+    def test_abstract_type_validation(self):
+        self.maxDiff = None
+        xml_tree = ET.fromstring(
+            """
+            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="invalid-value">
+                            <title>HIGHLIGHTS</title>
+                            <p>highlight 1</p>
+                            <p>highlight 2</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="01" xml:lang="es">
+                    <front-stub>
+                        <abstract abstract-type="invalid-value">
+                            <title>HIGHLIGHTS</title>
+                            <p>highlight 1</p>
+                            <p>highlight 2</p>
+                        </abstract>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+        )
+
+        obtained = list(ArticleAbstractsValidation(xml_tree).validate_abstracts_type(expected_abstract_type_list=["key-points", "graphical"]))
+
+        expected = [
+            {
+                "title": "abstract-type attribute",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "item": "abstract",
+                "sub_item": "@abstract-type",
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "got_value": '<abstract abstract-type="invalid-value">',
+                "expected_value": '<abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "message": 'Got <abstract abstract-type="invalid-value">, expected <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "advice": 'Provide <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "data": {
+                    "abstract_type": "invalid-value",
+                    "html_text": "HIGHLIGHTS highlight 1 highlight 2",
+                    "lang": "en",
+                    "parent": "article",
+                    "parent_article_type": "research-article",
+                    "parent_id": None,
+                    "parent_lang": "en",
+                    "plain_text": "HIGHLIGHTS highlight 1 highlight 2",
+                },
+            },
+            {
+                "title": "abstract-type attribute",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "01",
+                "parent_lang": "es",
+                "item": "abstract",
+                "sub_item": "@abstract-type",
+                "validation_type": "value in list",
+                "response": "ERROR",
+                "got_value": '<abstract abstract-type="invalid-value">',
+                "expected_value": '<abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "message": 'Got <abstract abstract-type="invalid-value">, expected <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "advice": 'Provide <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "data": {
+                    "abstract_type": "invalid-value",
+                    "html_text": "HIGHLIGHTS highlight 1 highlight 2",
+                    "id": "01",
+                    "lang": "es",
+                    "parent": "sub-article",
+                    "parent_article_type": "translation",
+                    "parent_id": "01",
+                    "parent_lang": "es",
+                    "plain_text": "HIGHLIGHTS highlight 1 highlight 2",
+                },
+            }
+
+        ]
+
+        self.assertEqual(len(obtained), 2)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
