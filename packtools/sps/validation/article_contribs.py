@@ -31,7 +31,7 @@ class ContribValidation:
     def __init__(self, contrib):
         self.contrib = contrib
 
-    def validate_contribs_role(self, credit_taxonomy_terms_and_urls):
+    def validate_role(self, credit_taxonomy_terms_and_urls):
         """
         Checks contributor roles according to CRediT taxonomy.
 
@@ -117,7 +117,7 @@ class ContribValidation:
                 author=_contrib_name,
             )
 
-    def validate_contribs_orcid_format(self, error_level="ERROR"):
+    def validate_orcid_format(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is valid.
 
@@ -195,7 +195,7 @@ class ContribValidation:
             error_level=error_level
         )
 
-    def validate_contribs_orcid_is_registered(self, callable_get_validate=None, error_level="ERROR"):
+    def validate_orcid_is_registered(self, callable_get_validate=None, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is registered.
 
@@ -279,7 +279,7 @@ class ContribValidation:
             error_level=error_level
         )
 
-    def validate_contribs_collab_list(self, content_types, error_level="ERROR"):
+    def validate_collab_list(self, content_types, error_level="ERROR"):
         """
         Checks if there is identification of authors for a group of collaborators.
 
@@ -351,7 +351,7 @@ class ContribValidation:
                 error_level=error_level
             )
 
-    def validate_contribs_affiliations(self, error_level="ERROR"):
+    def validate_affiliations(self, error_level="ERROR"):
         """
         Checks if an author has the corresponding affiliation data.
 
@@ -441,11 +441,11 @@ class ContribsValidation:
     def validate(self):
         contrib = ContribValidation(self.contrib)
 
-        yield from contrib.validate_contribs_role(self.data["credit_taxonomy_terms_and_urls"])
-        yield from contrib.validate_contribs_orcid_format()
-        yield from contrib.validate_contribs_orcid_is_registered(self.data["callable_get_data"])
-        yield from contrib.validate_contribs_collab_list(self.content_types)
-        yield from contrib.validate_contribs_affiliations()
+        yield from contrib.validate_role(self.data["credit_taxonomy_terms_and_urls"])
+        yield from contrib.validate_orcid_format()
+        yield from contrib.validate_orcid_is_registered(self.data["callable_get_data"])
+        yield from contrib.validate_collab_list(self.content_types)
+        yield from contrib.validate_affiliations()
 
 
 class ArticleContribsValidation:
@@ -461,7 +461,7 @@ class ArticleContribsValidation:
             for contrib_group in self.xmltree.xpath('.//contrib-group')
         ]
 
-    def validate_contribs_orcid_is_unique(self, error_level="ERROR"):
+    def validate_orcid_is_unique(self, error_level="ERROR"):
         """
         Checks whether a contributor's ORCID is unique.
 
@@ -552,7 +552,7 @@ class ArticleContribsValidation:
 
     def validate(self):
         # A validação da unicidade do ORCID é feita uma única vez por artigo
-        yield from self.validate_contribs_orcid_is_unique()
+        yield from self.validate_orcid_is_unique()
         for contrib in self.contribs.contribs:
             yield from ContribsValidation(contrib, self.data, self.content_types).validate()
 
