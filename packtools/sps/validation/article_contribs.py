@@ -10,7 +10,7 @@ def _callable_extern_validate_default(orcid):
 
 def _response(contrib, is_valid, expected, obtained, author, error_level="ERROR"):
     return format_response(
-        title="CRediT taxonomy for contribs",
+        title="CRediT taxonomy",
         parent=contrib.get("parent"),
         parent_id=contrib.get("parent_id"),
         parent_article_type=contrib.get("parent_article_type"),
@@ -21,7 +21,7 @@ def _response(contrib, is_valid, expected, obtained, author, error_level="ERROR"
         is_valid=is_valid,
         expected=expected,
         obtained=obtained,
-        advice=f"The author {author} does not have a valid role. Provide a role from the list: {expected}",
+        advice=f"Provide the correct CRediT taxonomy: {expected}",
         data=contrib,
         error_level=error_level
     )
@@ -73,7 +73,7 @@ class ContribValidation:
             A list of dictionaries, such as:
             [
                 {
-                    'title': 'CRediT taxonomy for contribs',
+                    'title': 'CRediT taxonomy',
                     'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
                     'validation_type': 'value in list',
                     'response': 'OK',
@@ -155,7 +155,7 @@ class ContribValidation:
             A list of dictionaries, such as:
             [
                 {
-                    'title': 'Author ORCID',
+                    'title': 'ORCID format',
                     'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                     'validation_type': 'format',
                     'response': 'OK',
@@ -173,11 +173,11 @@ class ContribValidation:
         _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
         expected_value = (
-            _orcid if is_valid else "a Open Researcher and Contributor ID valid"
+            _orcid if is_valid else "valid ORCID"
         )
 
         yield format_response(
-            title="Author ORCID",
+            title="ORCID format",
             parent=self.contrib.get("parent"),
             parent_id=self.contrib.get("parent_id"),
             parent_article_type=self.contrib.get("parent_article_type"),
@@ -188,7 +188,7 @@ class ContribValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=_orcid,
-            advice=f"The author {self.contrib_name} has {_orcid} as ORCID and its format is not valid. Provide a valid ORCID.",
+            advice=f"Provide a valid ORCID.",
             data=self.contrib,
             error_level=error_level
         )
@@ -239,7 +239,7 @@ class ContribValidation:
             A list of dictionaries, such as:
             [
                 {
-                'title': 'Author ORCID element is registered',
+                'title': 'Registered ORCID',
                 'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                 'validation_type': 'exist',
                 'response': 'OK',
@@ -260,18 +260,18 @@ class ContribValidation:
         is_valid = self.contrib_name == expected_contrib_name
 
         yield format_response(
-            title="Author ORCID element is registered",
+            title="Registered ORCID",
             parent=self.contrib.get("parent"),
             parent_id=self.contrib.get("parent_id"),
             parent_article_type=self.contrib.get("parent_article_type"),
             parent_lang=self.contrib.get("parent_lang"),
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
-            validation_type="exist",
+            validation_type="registered",
             is_valid=is_valid,
             expected=[orcid, expected_contrib_name],
             obtained=[orcid, self.contrib_name],
-            advice="ORCID {} is not registered to any authors".format(orcid),
+            advice=f"Provide a valid ORCID for {self.contrib_name}",
             data=self.contrib,
             error_level=error_level
         )
@@ -420,9 +420,9 @@ class ContribValidation:
                 sub_item='aff',
                 validation_type='exist',
                 is_valid=False,
-                expected='author affiliation data',
+                expected='affiliation',
                 obtained=None,
-                advice=f'provide author affiliation data for {self.contrib_name}',
+                advice=f'provide affiliation for {self.contrib_name}',
                 data=self.contrib,
                 error_level=error_level
             )
@@ -496,7 +496,7 @@ class ArticleContribsValidation:
             A list of dictionaries, such as:
             [
                 {
-                    'title': 'Author ORCID element is unique',
+                    'title': 'Unique ORCID',
                     'xpath': './/contrib-id[@contrib-id-type="orcid"]',
                     'validation_type': 'uniqueness',
                     'response': 'OK',
@@ -528,7 +528,7 @@ class ArticleContribsValidation:
         }
 
         yield format_response(
-            title="Author ORCID element is unique",
+            title="Unique ORCID",
             parent="article",
             parent_id=None,
             parent_article_type=self.xmltree.get("article-type"),
