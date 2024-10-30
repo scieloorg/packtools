@@ -17,17 +17,38 @@ credit_taxonomy_terms_and_urls = [
 ]
 
 
-def callable_get_data(orcid):
+def callable_get_unmatched_data(orcid, contrib):
     tests = {
-        "0990-0001-0058-4853": "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
-        "0000-3333-1238-6873": "Vanessa M. Higa",
+        "0990-0001-0058-4853": {
+            "data": "Autor registrado com orcid = 0990-0001-0058-4853",
+            "is_valid": False,
+        },
+
+        "0000-3333-1238-6873": {
+            "data": "Vanessa M. Higa",
+            "is_valid": True,
+        },
     }
     return tests.get(orcid)
 
 
-def callable_get_data_empty(orcid):
-    tests = {"0990-0001-0058-4853": None, "0000-3333-1238-6873": None}
+def callable_get_matched_data(orcid, contrib):
+    tests = {
+        "0990-0001-0058-4853": {
+            "data": "FRANCISCO VENEGAS MARTÍNEZ Nieto",
+            "is_valid": True,
+        },
+
+        "0000-3333-1238-6873": {
+            "data": "Vanessa M. Higa",
+            "is_valid": True,
+        },
+    }
     return tests.get(orcid)
+
+
+def callable_get_not_found_data(orcid, contrib):
+    return {"data": None, "is_valid": False}
 
 
 class ArticleContribsValidationTest(TestCase):
@@ -628,7 +649,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "valid ORCID",
                 "got_value": "0990-01-58-4853",
                 "message": "Got 0990-01-58-4853, expected valid ORCID",
-                "advice": "Provide a valid ORCID.",
+                "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-01-58-4853"},
@@ -698,7 +719,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "expected_value": "valid ORCID",
                 "got_value": None,
                 "message": "Got None, expected valid ORCID",
-                "advice": "Provide a valid ORCID.",
+                "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_name": {
@@ -961,7 +982,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib).validate_orcid_is_registered(callable_get_data)
+            ContribValidation(contrib).validate_orcid_is_registered(callable_get_matched_data)
         )
 
         expected = [
@@ -975,10 +996,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "OK",
-                "expected_value": ["0990-0001-0058-4853", 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'],
-                "got_value": ["0990-0001-0058-4853", 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'],
-                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
-                "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
+                "expected_value": 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                "got_value": 'FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                "message": "Got FRANCISCO VENEGAS MARTÍNEZ Nieto, expected Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "advice": None,
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
@@ -1038,7 +1058,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib).validate_orcid_is_registered(callable_get_data)
+            ContribValidation(contrib).validate_orcid_is_registered(callable_get_not_found_data)
         )
 
         expected = [
@@ -1052,11 +1072,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "ERROR",
-                "expected_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
-                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
-                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
-                "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
-                "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "expected_value": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "got_value": None,
+                "message": "Got None, expected Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
@@ -1115,7 +1134,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib).validate_orcid_is_registered(callable_get_data_empty)
+            ContribValidation(contrib).validate_orcid_is_registered(callable_get_not_found_data)
         )
 
         expected = [
@@ -1129,11 +1148,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "ERROR",
-                "expected_value": ["0990-0001-0058-4853", None],
-                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
-                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto'], expected "
-                "['0990-0001-0058-4853', None]",
-                "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
+                "expected_value": "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
+                "got_value": None,
+                "message": "Got None, expected Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
+                "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
@@ -1278,7 +1296,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         data = {
                     "credit_taxonomy_terms_and_urls": credit_taxonomy_terms_and_urls,
-                    "callable_get_data": callable_get_data,
+                    "callable_get_data": callable_get_unmatched_data,
                 }
         obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data).validate())
 
@@ -1380,11 +1398,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "ERROR",
-                "expected_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto"],
-                "got_value": ["0990-0001-0058-4853", "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
-                "message": "Got ['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], expected "
-                           "['0990-0001-0058-4853', 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto']",
-                "advice": 'Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                "expected_value": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "got_value": "Autor registrado com orcid = 0990-0001-0058-4853",
+                "message": "Got Autor registrado com orcid = 0990-0001-0058-4853, expected Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},

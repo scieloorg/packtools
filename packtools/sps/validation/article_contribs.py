@@ -166,6 +166,10 @@ class ContribValidation:
                 },...
             ]
         """
+        if not self.contrib_name:
+            # não há contrib_name, logo não há orcid
+            return
+
         _default_orcid = (
             r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$"
         )
@@ -188,7 +192,7 @@ class ContribValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=_orcid,
-            advice=f"Provide a valid ORCID.",
+            advice=None if is_valid else f"Provide a valid ORCID for {self.contrib_name}",
             data=self.contrib,
             error_level=error_level
         )
@@ -252,12 +256,21 @@ class ContribValidation:
                 ...
             ]
         """
+        if not self.contrib_name:      
+            # não há contrib_name, logo não há orcid
+            return
+
+        orcid = self.contrib.get("contrib_ids", {}).get("orcid")
+        if not orcid:
+            return
+
         callable_get_validate = (
             callable_get_validate or _callable_extern_validate_default
         )
-        orcid = self.contrib.get("contrib_ids", {}).get("orcid")
-        expected_contrib_name = callable_get_validate(orcid)
-        is_valid = self.contrib_name == expected_contrib_name
+        if not callable_get_validate:
+            return
+
+        result = callable_get_validate(orcid, self.contrib)
 
         yield format_response(
             title="Registered ORCID",
@@ -268,10 +281,10 @@ class ContribValidation:
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="registered",
-            is_valid=is_valid,
-            expected=[orcid, expected_contrib_name],
-            obtained=[orcid, self.contrib_name],
-            advice=f"Provide a valid ORCID for {self.contrib_name}",
+            is_valid=result['is_valid'],
+            expected=self.contrib_name,
+            obtained=result["data"],
+            advice=None if result['is_valid'] else f"Identify the correct ORCID for {self.contrib_name}",
             data=self.contrib,
             error_level=error_level
         )
@@ -391,10 +404,10 @@ class ContribValidation:
                     'parent_id': None,
                     'validation_type': 'exist',
                     'response': 'ERROR',
-                    'expected_value': 'author affiliation data',
+                    'expected_value': 'affiliation',
                     'got_value': None,
-                    'message': 'Got None, expected author affiliation data',
-                    'advice': 'provide author affiliation data for FRANCISCO VENEGAS-MARTÍNEZ',
+                    'message': 'Got None, expected affiliation',
+                    'advice': 'provide affiliation for FRANCISCO VENEGAS-MARTÍNEZ',
                     'data': {
                         'aff_rids': ['aff1'],
                         'contrib-type': 'author',
