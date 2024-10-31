@@ -415,7 +415,7 @@ class ContribValidation:
 
     def validate_name_or_collab(self):
         error_level = self.data["name_or_collab_error_level"]
-        item = self.contrib.get("collab") or self.contrib.get("name")
+        item = self.contrib.get("contrib_name") or self.contrib.get("collab")
         if not item:
             yield build_response(
                 title='name or collab',
@@ -436,7 +436,7 @@ class ContribValidation:
         yield from self.validate_orcid_format()
         yield from self.validate_orcid_is_registered(is_orcid_registered)
         yield from self.validate_affiliations()
-        # yield from self.validate_name_or_collab()
+        yield from self.validate_name_or_collab()
 
 
 class ArticleContribsValidation:
