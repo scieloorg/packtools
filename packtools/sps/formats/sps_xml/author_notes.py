@@ -18,6 +18,8 @@ data = {
 
 import xml.etree.ElementTree as ET
 
+from packtools.sps.formats.sps_xml.fn_group import build_fn
+
 
 def build_author_notes(data):
     author_notes_elem = ET.Element("author-notes")
@@ -47,14 +49,9 @@ def build_author_notes(data):
 
         author_notes_elem.append(corresp_elem)
 
-    fns_dict = data.get("fns")
-    if fns_dict and isinstance(fns_dict, dict):
-        for fn_type, text in fns_dict.items():
-            if text:
-                fn_elem = ET.Element("fn", attrib={"fn-type": fn_type})
-                p_elem = ET.Element("p")
-                p_elem.text = text
-                fn_elem.append(p_elem)
-                author_notes_elem.append(fn_elem)
+    fn_list = data.get("fns")
+    for fn_dict in fn_list or []:
+        fn_elem = build_fn(fn_dict)
+        author_notes_elem.append(fn_elem)
 
     return author_notes_elem
