@@ -18,7 +18,6 @@ from packtools.sps.validation.article_data_availability import (
     DataAvailabilityValidation,
 )
 from packtools.sps.validation.article_doi import ArticleDoiValidation
-from packtools.sps.validation.article_ids import ArticleIdsValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
 from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
@@ -159,15 +158,6 @@ def validate_article_ids(xmltree, params):
 
     validator = ArticleIdValidation(xmltree)
     yield from validator.validate_article_id_other(article_ids_rules["error_level"])
-
-    validator = ArticleIdsValidation(xmltree)
-    # FIXME add article_ids_rules["error_level"]
-    yield from validator.pub_type_id_other_has_five_digits(
-        # error_level=article_ids_rules["error_level"]
-    )
-    yield from validator.pub_type_id_other_is_numeric(
-        # error_level=article_ids_rules["error_level"]
-    )
 
     validator = ArticleDoiValidation(xmltree)
     yield from validator.validate_doi_exists(error_level=article_doi_rules["error_level"])
