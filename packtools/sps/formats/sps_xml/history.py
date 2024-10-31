@@ -33,13 +33,20 @@ import xml.etree.ElementTree as ET
 def build_history(data):
     history_elem = ET.Element("history")
 
-    for event, date in data.items():
-        if isinstance(date, dict) and any(date.get(key) for key in ("day", "month", "year")):
-            date_elem = ET.Element("date", attrib={"date-type": event})
-            for date_part, value in date.items():
-                if value:
-                    date_part_elem = ET.Element(date_part)
-                    date_part_elem.text = value
-                    date_elem.append(date_part_elem)
-            history_elem.append(date_elem)
+    for item in data:
+        if not item.get("year"):
+            raise ValueError("year is required")
+
+        date_type = item.get("date_type")
+        if not date_type:
+            raise ValueError("date_type is required")
+
+        date_elem = ET.Element("date", attrib={"date-type": date_type})
+
+        for event in ("day", "month", "season", "year", "era"):
+            if (event_text := item.get(event)) is not None:
+                date_part_elem = ET.Element(event)
+                date_part_elem.text = event_text
+                date_elem.append(date_part_elem)
+        history_elem.append(date_elem)
     return history_elem
