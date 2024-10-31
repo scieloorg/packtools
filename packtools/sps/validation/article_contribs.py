@@ -34,7 +34,7 @@ class ContribValidation:
         self.contrib = contrib
         self.contrib_name = self.contrib.get("contrib_full_name")
 
-    def validate_role(self, credit_taxonomy_terms_and_urls):
+    def validate_role(self):
         """
         Checks contributor roles according to CRediT taxonomy.
 
@@ -89,6 +89,8 @@ class ContribValidation:
                 },...
             ]
         """
+        error_level = self.data["credit_taxonomy_terms_and_urls_error_level"]
+        credit_taxonomy_terms_and_urls = self.data["credit_taxonomy_terms_and_urls"]
         expected_value = [
             f'<role content-type="{role["uri"]}">{role["term"]}</role>'
             for role in credit_taxonomy_terms_and_urls
@@ -108,6 +110,7 @@ class ContribValidation:
                     expected=expected_value,
                     obtained=role,
                     author=self.contrib_name,
+                    error_level=error_level
                 )
         else:
             yield _response(
@@ -116,9 +119,10 @@ class ContribValidation:
                 expected=expected_value,
                 obtained=None,
                 author=self.contrib_name,
+                error_level=error_level
             )
 
-    def validate_orcid_format(self, error_level="ERROR"):
+    def validate_orcid_format(self):
         """
         Checks whether a contributor's ORCID is valid.
 
@@ -168,6 +172,7 @@ class ContribValidation:
                 },...
             ]
         """
+        error_level = self.data["orcid_format_error_level"]
         if not self.contrib_name:
             # não há contrib_name, logo não há orcid
             return
@@ -199,7 +204,7 @@ class ContribValidation:
             error_level=error_level
         )
 
-    def validate_orcid_is_registered(self, callable_get_validate=None, error_level="ERROR"):
+    def validate_orcid_is_registered(self, is_orcid_registered):
         """
         Checks whether a contributor's ORCID is registered.
 
@@ -258,6 +263,7 @@ class ContribValidation:
                 ...
             ]
         """
+        error_level = self.data["orcid_is_registered_error_level"]
         if not self.contrib_name:      
             # não há contrib_name, logo não há orcid
             return
@@ -266,13 +272,13 @@ class ContribValidation:
         if not orcid:
             return
 
-        callable_get_validate = (
-            callable_get_validate or _callable_extern_validate_default
+        is_orcid_registered = (
+            is_orcid_registered or _callable_extern_validate_default
         )
-        if not callable_get_validate:
+        if not is_orcid_registered:
             return
 
-        result = callable_get_validate(orcid, self.contrib)
+        result = is_orcid_registered(orcid, self.contrib)
 
         yield format_response(
             title="Registered ORCID",
@@ -291,7 +297,7 @@ class ContribValidation:
             error_level=error_level
         )
 
-    def validate_affiliations(self, error_level="ERROR"):
+    def validate_affiliations(self):
         """
         Checks if an author has the corresponding affiliation data.
 
@@ -351,6 +357,7 @@ class ContribValidation:
                 },...
             ]
         """
+        error_level = self.data["affiliations_error_level"]
         affs = self.contrib.get("affs")
         if not affs:
             yield format_response(
@@ -370,7 +377,8 @@ class ContribValidation:
                 error_level=error_level
             )
 
-    def validate_name(self, error_level="ERROR"):
+    def validate_name(self):
+        error_level = self.data["name_error_level"]
         item = self.contrib.get("contrib_name")
         if not item:
             yield build_response(
@@ -387,7 +395,8 @@ class ContribValidation:
                 error_level=error_level
             )
 
-    def validate_collab(self, error_level="ERROR"):
+    def validate_collab(self):
+        error_level = self.data["collab_error_level"]
         item = self.contrib.get("collab")
         if not item:
             yield build_response(
@@ -404,7 +413,8 @@ class ContribValidation:
                 error_level=error_level
             )
 
-    def validate_name_or_collab(self, error_level="ERROR"):
+    def validate_name_or_collab(self):
+        error_level = self.data["name_or_collab_error_level"]
         item = self.contrib.get("collab") or self.contrib.get("name")
         if not item:
             yield build_response(
@@ -421,17 +431,19 @@ class ContribValidation:
                 error_level=error_level
             )
 
-    def validate(self):
-        yield from self.validate_role(self.data["credit_taxonomy_terms_and_urls"])
+    def validate(self, is_orcid_registered):
+        yield from self.validate_role()
         yield from self.validate_orcid_format()
-        yield from self.validate_orcid_is_registered(self.data["callable_get_data"])
+        yield from self.validate_orcid_is_registered(is_orcid_registered)
         yield from self.validate_affiliations()
+        # yield from self.validate_name_or_collab()
 
 
 class ArticleContribsValidation:
-    def __init__(self, xmltree, data):
+    def __init__(self, xmltree, data, is_orcid_registered):
         self.xmltree = xmltree
         self.data = data
+        self.is_orcid_registered = is_orcid_registered
         self.contribs = ArticleContribs(self.xmltree)
 
     @property
@@ -441,7 +453,7 @@ class ArticleContribsValidation:
             for contrib_group in self.xmltree.xpath('.//contrib-group')
         ]
 
-    def validate_orcid_is_unique(self, error_level="ERROR"):
+    def validate_orcid_is_unique(self):
         """
         Checks whether a contributor's ORCID is unique.
 
@@ -491,6 +503,7 @@ class ArticleContribsValidation:
                 }
             ]
         """
+        error_level = self.data["orcid_is_unique_error_level"]
         orcid_dict = {}
         for contrib in self.contribs.contribs:
             orcid = contrib.get("contrib_ids", {}).get("orcid")
@@ -535,7 +548,7 @@ class ArticleContribsValidation:
         yield from self.validate_orcid_is_unique()
 
         for contrib in self.contribs.contribs:
-            yield from ContribValidation(contrib, self.data).validate()
+            yield from ContribValidation(contrib, self.data).validate(self.is_orcid_registered)
 
         validator = CollabListValidation(self.xmltree.find("."), self.data)
         yield from validator.validate()
@@ -614,13 +627,13 @@ class CollabListValidation:
                 obtained=None,
                 advice="Add contrib-group which has contrib/name",
                 data=self.data,
-                error_level=self.args["content_type_error_level"]
+                error_level=self.args["collab_list_error_level"]
             )
         else:
             for contrib in contrib_group.contribs:
                 contrib.update(self.parent_data)
                 validator = ContribValidation(contrib, self.args)
-                yield from validator.validate_collab(self.args["contrib_collab_error_level"])
+                yield from validator.validate_collab()
 
     def validate_contrib_group__name(self):
         try:
@@ -637,11 +650,11 @@ class CollabListValidation:
                 obtained=None,
                 advice="Add content-type='collab-list' to contrib-group must have contrib/name",
                 data=self.data,
-                error_level=self.args["content_type_error_level"]
+                error_level=self.args["collab_list_error_level"]
             )
         else:
             for contrib in contrib_group.contribs:
                 contrib.update(self.parent_data)
                 validator = ContribValidation(contrib, self.args)
-                yield from validator.validate_name(self.args["contrib_name_error_level"])
+                yield from validator.validate_name()
 

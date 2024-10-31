@@ -82,13 +82,14 @@ class ArticleContribsValidationTest(TestCase):
             </front>
         </article>
         """
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         expected = [
@@ -131,7 +132,7 @@ class ArticleContribsValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_role_and_content_type_empty(self):
+    def test_role_and_collab_list_empty(self):
         self.maxDiff = None
         xml = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
@@ -164,12 +165,13 @@ class ArticleContribsValidationTest(TestCase):
         </article>
         """
 
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         expected = [
@@ -218,7 +220,7 @@ class ArticleContribsValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_role_without_content_type(self):
+    def test_role_without_collab_list(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
@@ -296,20 +298,20 @@ class ArticleContribsValidationTest(TestCase):
                 },
             }
         ]
-
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_role_no_text_with_content_type(self):
+    def test_role_no_text_with_collab_list(self):
         self.maxDiff = None
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
@@ -394,19 +396,20 @@ class ArticleContribsValidationTest(TestCase):
             }
         ]
 
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_wrong_role_and_content_type(self):
+    def test_wrong_role_and_collab_list(self):
         self.maxDiff = None
         xml = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
@@ -491,12 +494,13 @@ class ArticleContribsValidationTest(TestCase):
             }
         ]
 
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         for i, item in enumerate(expected):
@@ -585,12 +589,13 @@ class ArticleContribsValidationTest(TestCase):
             }
         ]
 
+        data = {}
+        data["credit_taxonomy_terms_and_urls"] = credit_taxonomy_terms_and_urls
+        data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         obtained = list(
-            ContribValidation(contrib, data={}).validate_role(
-                credit_taxonomy_terms_and_urls=credit_taxonomy_terms_and_urls,
-            )
+            ContribValidation(contrib, data).validate_role()
         )
 
         for i, item in enumerate(expected):
@@ -632,8 +637,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
+        data = {
+            "orcid_format_error_level": "ERROR"
+        }
         obtained = list(
-            ContribValidation(contrib, data={}).validate_orcid_format())
+            ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
             {
@@ -703,7 +711,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(ContribValidation(contrib, data={}).validate_orcid_format())
+        data = {
+            "orcid_format_error_level": "ERROR"
+        }
+        obtained = list(ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
             {
@@ -776,8 +787,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
+        data = {
+            "orcid_format_error_level": "ERROR"
+        }
         obtained = list(
-            ContribValidation(contrib, data={}).validate_orcid_format())
+            ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
             {
@@ -848,10 +862,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
           </front>
         </article>
         """
-
+        data = {}
+        data["orcid_is_unique_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data={}).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -914,10 +929,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
           </front>
         </article>
         """
-
+        data = {}
+        data["orcid_is_unique_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data={}).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -981,8 +997,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
+        data = {
+            "orcid_is_registered_error_level": "ERROR"
+        }
         obtained = list(
-            ContribValidation(contrib, data={}).validate_orcid_is_registered(callable_get_matched_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_matched_data)
         )
 
         expected = [
@@ -1057,8 +1076,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
+        data = {
+            "orcid_is_registered_error_level": "ERROR"
+        }
         obtained = list(
-            ContribValidation(contrib, data={}).validate_orcid_is_registered(callable_get_not_found_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_not_found_data)
         )
 
         expected = [
@@ -1133,8 +1155,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
+        data = {
+            "orcid_is_registered_error_level": "ERROR"
+        }
         obtained = list(
-            ContribValidation(contrib, data={}).validate_orcid_is_registered(callable_get_not_found_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_not_found_data)
         )
 
         expected = [
@@ -1204,9 +1229,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
         )
 
         data = {
-            "contrib_name_error_level": "ERROR",
-            "contrib_collab_error_level": "ERROR",
-            "content_type_error_level": "ERROR",
+            "name_error_level": "ERROR",
+            "collab_error_level": "ERROR",
+            "collab_list_error_level": "ERROR",
         }
         validator = CollabListValidation(parent_node=xml_tree.find("."), args=data)
         obtained = list(validator.validate())
@@ -1231,9 +1256,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
             """
         )
         data = {
-            "contrib_name_error_level": "ERROR",
-            "contrib_collab_error_level": "ERROR",
-            "content_type_error_level": "ERROR",
+            "name_error_level": "ERROR",
+            "collab_error_level": "ERROR",
+            "collab_list_error_level": "ERROR",
         }
         validator = CollabListValidation(parent_node=xml_tree.find("."), args=data)
         obtained = list(validator.validate())
@@ -1297,10 +1322,18 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         data = {
-                    "credit_taxonomy_terms_and_urls": credit_taxonomy_terms_and_urls,
-                    "callable_get_data": callable_get_unmatched_data,
-                }
-        obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data).validate())
+            "credit_taxonomy_terms_and_urls": credit_taxonomy_terms_and_urls,
+            "credit_taxonomy_terms_and_urls_error_level": "ERROR",
+            "orcid_format_error_level": "ERROR",
+            "orcid_is_registered_error_level": "ERROR",
+            "affiliations_error_level": "ERROR",
+            "name_error_level": "ERROR",
+            "collab_error_level": "ERROR",
+            "name_or_collab_error_level": "ERROR",
+            "orcid_is_unique_error_level": "ERROR",
+            "collab_list_error_level": "ERROR"
+        }
+        obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data, is_orcid_registered=callable_get_unmatched_data).validate())
 
         expected = [
             {
@@ -1552,10 +1585,12 @@ class ArticleContribsValidationOrcidTest(TestCase):
             </sub-article>
         </article>
         """
-
+        data = {
+            "orcid_is_unique_error_level": "ERROR",
+        }
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data={}).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -1625,10 +1660,12 @@ class ArticleContribsValidationOrcidTest(TestCase):
             </sub-article>
         </article>
         """
-
+        data = {
+            "orcid_is_unique_error_level": "ERROR",
+        }
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data={}).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -1713,7 +1750,10 @@ class ArticleAuthorsValidationAff(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(ContribValidation(contrib, data={}).validate_affiliations())
+        data = {
+            "affiliations_error_level": "ERROR"
+        }
+        obtained = list(ContribValidation(contrib, data).validate_affiliations())
         self.assertListEqual(obtained, [])
 
     def test_validate_authors_affiliations_fail(self):
@@ -1746,7 +1786,10 @@ class ArticleAuthorsValidationAff(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(ContribValidation(contrib, data={}).validate_affiliations())
+        data = {
+            "affiliations_error_level": "ERROR"
+        }
+        obtained = list(ContribValidation(contrib, data).validate_affiliations())
         expected = [
             {
                 'title': 'Author without affiliation',
