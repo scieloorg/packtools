@@ -173,9 +173,8 @@ class TestBuildAffCountry(unittest.TestCase):
     def test_build_aff_country(self):
         data = {
             "aff_id": "aff01",
-            "country": {
-                "BR": "Brazil",
-            },
+            "country_code": "BR",
+            "country_name": "Brazil",
         }
         expected_xml_str = (
             '<aff id="aff01">'
@@ -189,7 +188,8 @@ class TestBuildAffCountry(unittest.TestCase):
     def test_build_aff_country_None(self):
         data = {
             "aff_id": "aff01",
-            "country": None
+            "country_code": None,
+            "country_name": None,
         }
 
         expected_xml_str = (
