@@ -4,11 +4,14 @@ data = {
     "corresp_label": "*",
     "corresp_text": "Correspondence Dr. Edmundo Figueira Departamento de Fisioterapia, Universidade FISP - Hogwarts,  Brasil.",
     "corresp_email": "contato@foo.com"
-    "fns": {
-        (fn-type: p)
-        "conflict": "Não há conflito de interesse entre os autores do artigo."
-        "equal": "Todos os autores tiveram contribuição igualitária na criação do artigo."
-    }
+    "fns": [
+        {
+            "fn_type": "supported-by",
+            "fn_id": "fn01",
+            "fn_label": "*",
+            "fn_p": "Vivamus sodales fermentum lorem,..."
+        }
+    ]
 }
 
 """
