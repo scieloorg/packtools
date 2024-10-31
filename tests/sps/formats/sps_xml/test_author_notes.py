@@ -114,10 +114,16 @@ class TestBuildAuthorNotesCorrespEmail(unittest.TestCase):
 class TestBuildAuthorNotesFootnotes(unittest.TestCase):
     def test_build_author_notes_fn(self):
         data = {
-            "fns": {
-                "conflict": "Não há conflito de interesse entre os autores do artigo.",
-                "equal": "Todos os autores tiveram contribuição igualitária na criação do artigo."
-            }
+            "fns": [
+                {
+                    "fn_type": "conflict",
+                    "fn_p": "Não há conflito de interesse entre os autores do artigo."
+                },
+                {
+                    "fn_type": "equal",
+                    "fn_p": "Todos os autores tiveram contribuição igualitária na criação do artigo."
+                },
+            ]
         }
         expected_xml_str = (
             '<author-notes>'
@@ -135,10 +141,7 @@ class TestBuildAuthorNotesFootnotes(unittest.TestCase):
 
     def test_build_author_notes_fn_None(self):
         data = {
-            "fns": {
-                "conflict": None,
-                "equal": None
-            }
+            "fns": None
         }
         expected_xml_str = (
             '<author-notes />'
