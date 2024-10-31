@@ -1,26 +1,30 @@
 """
-data = {
-    "received": {
+data = [
+    {
+        "date_type": "received",
         "day": "15",
         "month": "03",
         "year": "2013"
     },
-    "rev-recd": {
+    {
+        "date_type": "rev-recd",
         "day": "06",
         "month": "11",
         "year": "2013"
     },
-    "accepted": {
+    {
+        "date_type": "accepted",
         "day": "12",
         "month": "05",
         "year": "2013"
     },
-    "preprint": {
+    {
+        "date_type": "preprint",
         "day": "21",
         "month": "09",
         "year": "2012"
     },
-}
+]
 """
 
 import xml.etree.ElementTree as ET
