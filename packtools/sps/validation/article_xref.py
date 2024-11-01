@@ -7,7 +7,7 @@ class ArticleXrefValidation:
         self.xml_tree = xml_tree
         self.article_xref = ArticleXref(xml_tree)
 
-    def validate_rid(self, element_name=None, error_level="ERROR"):
+    def validate_xref_rid_has_corresponding_element_id(self, error_level="ERROR"):
         """
             Checks if all `rid` attributes (source) in `<xref>` elements have corresponding `id` attributes (destination)
             in the XML document.
@@ -41,12 +41,13 @@ class ArticleXrefValidation:
                 - attributes (dict): A dictionary of the element's attributes.
         """
 
-        ids = self.article_xref.all_ids(element_name)
+        ids = self.article_xref.all_ids("*")
         for rid, rid_list in self.article_xref.all_xref_rids().items():
-            for rid_data in rid_list:
+            for xref in rid_list:
                 is_valid = rid in ids
+                element_name = xref.get("element_name") 
                 yield format_response(
-                    title="xref element rid attribute validation",
+                    title="xref[@rid] -> *[@id]",
                     parent="article",
                     parent_id=None,
                     parent_article_type=self.xml_tree.get("article-type"),
@@ -59,14 +60,12 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=rid,
                     obtained=rid if is_valid else None,
-                    advice='For each xref[@rid="{}"] must have at least one corresponding element which @id="{}"'.format(
-                        rid, rid
-                    ),
-                    data=rid_data,
+                    advice=f'Check if xref[@rid="{rid}"] is correct or insert the missing {element_name}[@id="{rid}"]',
+                    data=xref,
                     error_level=error_level,
                 )
 
-    def validate_id(self, element_name=None, error_level="ERROR"):
+    def validate_element_id_has_corresponding_xref_rid(self, elements_requires_xref_rid=None, error_level="ERROR"):
         """
             Checks if all `id` attributes (destination) in the XML document have corresponding `rid` attributes (source)
             in `<xref>` elements.
@@ -99,12 +98,21 @@ class ArticleXrefValidation:
                 - tag (str): The tag of the element being validated.
                 - attributes (dict): A dictionary of the element's attributes.
         """
+        elements_requires_xref_rid = elements_requires_xref_rid or []
+        default_error_level = error_level
         rids = self.article_xref.all_xref_rids()
-        for id, id_list in self.article_xref.all_ids(element_name).items():
+        for id, id_list in self.article_xref.all_ids("*").items():
             for id_data in id_list:
+                tag = id_data.get("tag")
+                if tag in elements_requires_xref_rid:
+                    error_level = "CRITICAL"
+                    expectation = "must"
+                else:
+                    error_level = default_error_level
+                    expectation = "can"
                 is_valid = id in rids
                 yield format_response(
-                    title="element id attribute validation",
+                    title="*[@id] -> xref[@rid]",
                     parent=id_data.get("parent"),
                     parent_id=id_data.get("parent_id"),
                     parent_article_type=id_data.get("parent_article_type"),
@@ -115,23 +123,7 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=id,
                     obtained=id if is_valid else None,
-                    advice='For each @id="{}" must have at least one corresponding element which xref[@rid="{}"]'.format(
-                        id, id
-                    ),
+                    advice=f'Check if {tag}[@id="{id}"] is correct or insert the missing xref[@rid="{id}"]',
                     data=id_data,
                     error_level=error_level,
                 )
-
-    def validate(self, data):
-        """
-        Função que executa as validações da classe ArticleXrefValidation.
-
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-
-        """
-        xref_id_results = {"article_xref_id_validation": self.validate_id()}
-        xref_rid_results = {"article_xref_rid_validation": self.validate_rid()}
-
-        xref_id_results.update(xref_rid_results)
-        return xref_id_results
