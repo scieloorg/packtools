@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 from lxml import etree
-
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 
 
