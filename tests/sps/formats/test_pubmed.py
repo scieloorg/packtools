@@ -28,11 +28,27 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_abstract,
     xml_pubmed_other_abstract,
     xml_pubmed_copyright_information,
+    pipeline_pubmed,
 )
 
 
 class PipelinePubmed(unittest.TestCase):
     maxDiff = None
+
+    def get_expected_dtd_header(self):
+        return b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">\n<ArticleSet/>\n'''
+    
+    def get_expected_article_pipe(self):
+        return b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">\n<ArticleSet>\n  <Article/>\n</ArticleSet>\n'''
+    
+    def get_xml_pubmed_base(self):
+        return ET.fromstring(
+            '<ArticleSet>'
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+            '</ArticleSet>'
+        )
 
     def test_xml_pubmed_dtd_header(self):
         expected = b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
