@@ -342,16 +342,13 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_issue_pipe_without_issue(self):
-        expected = (
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '<Issue/>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+    def test_xml_pubmed_missing_issue_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Issue",
+            validation_errors="Issue in PubMed XMl is required if Volume is empty",
+            tag_path='.//front/article-meta/issue',
+        )            
+        expected_xml = self.get_expected_xml_base()
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -364,11 +361,13 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+        report = {}
+        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_pub_date_pipe(self):
         expected = (
