@@ -345,7 +345,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_missing_issue_pipe(self):
         expected_report = self.get_expected_report(
             missing_tag="Issue",
-            validation_errors="Issue in PubMed XMl is required if Volume is empty",
+            validation_errors="Issue in PubMed XML is required if Volume is empty",
             tag_path='.//front/article-meta/issue',
         )            
         expected_xml = self.get_expected_xml_base()
