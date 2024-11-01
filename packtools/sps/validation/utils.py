@@ -78,8 +78,8 @@ def get_doi_information(doi):
     result = {}
 
     # Extrair títulos e detectar idioma
-    titles = item.get('title', [])
-    original_titles = item.get('original-title', [])
+    titles = item.get('title') or []
+    original_titles = item.get('original-title') or []
     all_titles = titles + original_titles
 
     for title in all_titles:
@@ -95,7 +95,7 @@ def get_doi_information(doi):
     # Adicionar autores ao resultado
     result['authors'] = [
         f"{author['family']}, {author['given']}"
-        for author in item.get('author', [])
+        for author in item.get('author') or []
     ]
 
     return result
