@@ -50,6 +50,16 @@ class PipelinePubmed(unittest.TestCase):
             '</ArticleSet>'
         )
 
+    def get_expected_xml_base(self):
+        return ET.tostring(self.get_xml_pubmed_base(), encoding="utf-8").decode("utf-8")
+
+    def get_expected_report(self, missing_tag, validation_errors, tag_path):
+        return  {
+            "missing_tags": missing_tag,
+            "validation_errors": validation_errors,
+            "tag_path": tag_path,
+        }
+
     def test_xml_pubmed_dtd_header(self):
         expected = self.get_expected_dtd_header()
         xml = xml_pubmed_article_set()
@@ -108,12 +118,12 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_missing_publisher_name(self):
-        expected_report = {
-            "missing_tags": "PublisherName",
-            "validation_errors": "Value not found for publisher",
-            "tag_path": ".//journal-meta//publisher//publisher-name",
-        }
-        expected_xml = ET.tostring(self.get_xml_pubmed_base(), encoding="utf-8").decode("utf-8")
+        expected_report = self.get_expected_report(
+            missing_tag="PublisherName",
+            validation_errors="Value not found for PublisherName",
+            tag_path=".//journal-meta//publisher//publisher-name",
+        )
+        expected_xml = self.get_expected_xml_base()
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -165,14 +175,13 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_journal_title_pipe_without_title(self):
-        expected = (
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
+    def test_xml_pubmed_missing_journal_title_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="JournalTitle",
+            validation_errors="Value not found for JournalTitle",
+            tag_path='.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
         )
+        expected_xml = self.get_expected_xml_base()
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -185,11 +194,13 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+        report = {}
+        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_issn_pipe(self):
         expected = (
