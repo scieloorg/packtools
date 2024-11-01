@@ -51,17 +51,14 @@ class PipelinePubmed(unittest.TestCase):
         )
 
     def test_xml_pubmed_dtd_header(self):
-        expected = b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">
-<ArticleSet/>
-'''
+        expected = self.get_expected_dtd_header()
         xml = xml_pubmed_article_set()
         xml = xml_pubmed_dtd_header(xml_pubmed=xml)
         xml_str = ET.tostring(xml, pretty_print=True, encoding="UTF-8")
         self.assertEqual(xml_str, expected)
 
-
     def test_xml_pubmed_article_pipe(self):
-        expected = b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">\n<ArticleSet>\n  <Article/>\n</ArticleSet>\n'''
+        expected = self.get_expected_article_pipe()
         xml = xml_pubmed_article_set()
         xml_pubmed = xml_pubmed_dtd_header(xml_pubmed=xml)
         xml_pubmed_article_pipe(xml_pubmed=xml_pubmed)
@@ -72,7 +69,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_journal_pipe(self):
         str_pubmed = b'''\n<ArticleSet>\n  <Article/>\n</ArticleSet>\n'''
         xml_pubmed = ET.fromstring(str_pubmed)
-        expected = b'''<ArticleSet>\n  <Article><Journal/></Article>\n</ArticleSet>\n'''
+        expected = self.get_xml_pubmed_base()
         xml_pubmed_journal_pipe(xml_pubmed=xml_pubmed)
         
         obtained = ET.tostring(xml_pubmed, encoding="utf-8", pretty_print=True)
@@ -89,13 +86,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -110,7 +101,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -122,11 +113,7 @@ class PipelinePubmed(unittest.TestCase):
             '<Journal/>'
             '</Article>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -154,13 +141,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -176,7 +157,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -190,13 +171,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -224,13 +199,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -244,7 +213,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -260,13 +229,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -276,7 +239,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -292,13 +255,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -311,10 +268,10 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
+        import ipdb; ipdb.set_trace()
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_volume_pipe_without_volume(self):
@@ -327,14 +284,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -346,7 +296,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -362,13 +312,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -381,7 +325,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -397,14 +341,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -436,13 +373,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -460,7 +391,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -479,13 +410,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -501,7 +426,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -521,13 +446,7 @@ class PipelinePubmed(unittest.TestCase):
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -552,6 +471,7 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_pub_date_pipe_without_year(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<PubDate PubStatus="epublish">'
@@ -560,12 +480,9 @@ class PipelinePubmed(unittest.TestCase):
             '</PubDate>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -619,17 +536,14 @@ class PipelinePubmed(unittest.TestCase):
         expected = (
             '<ArticleSet>'
             '<Article>'
+            '<Journal/>'
             '<ArticleTitle>'
             'Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?'
             '</ArticleTitle>'
             '</Article>'
             '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<ArticleSet>'
-            '<Article/>'
-            '</ArticleSet>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="letter" '
@@ -1994,6 +1908,14 @@ class PipelinePubmed(unittest.TestCase):
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
         
         self.assertEqual(obtained, expected)
+
+
+class PipelinePubmedTest(unittest.TestCase):
+    def test_pipeline_pubmed(self,):
+        xml_file = ET.parse("/home/samuelv/Desktop/scielo/packtools/packtools/tests/sps/fixtures/formats/pubmed/S0066-782X2024000600303.xml")
+        report = {}
+        xml = pipeline_pubmed(xml_tree=xml_file, report=report)
+        import ipdb; ipdb.set_trace()
 
 if __name__ == '__main__':
     unittest.main()
