@@ -232,16 +232,13 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_issn_pipe_without_issn(self):
-        expected = (
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '<Issn>1678-2674</Issn>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
+    def test_xml_pubmed_missing_issn_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Issn",
+            validation_errors="Value not found for Issn",
+            tag_path='.//journal-meta//issn',            
         )
+        expected_xml = self.get_expected_xml_base()
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -252,11 +249,13 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report={})
+        report = {}
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_volume_pipe(self):
         expected = (
