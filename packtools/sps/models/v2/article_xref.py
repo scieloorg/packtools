@@ -31,7 +31,12 @@ class Id:
         self.str_main_tag = f'<{self.node_tag} id="{self.node_id}">'
 
     def xml(self, doctype=None, pretty_print=True, xml_declaration=True):
-        return tostring(node=self.node, doctype=doctype, pretty_print=pretty_print, xml_declaration=xml_declaration)
+        return tostring(
+            node=self.node,
+            doctype=doctype,
+            pretty_print=pretty_print,
+            xml_declaration=xml_declaration,
+        )
 
     def __str__(self):
         return tostring(self.node)
@@ -80,7 +85,7 @@ class ArticleXref:
         for item in itertools.chain(
             self.article_ids(element_name),
             self.sub_article_translation_ids(element_name),
-            self.sub_article_non_translation_ids(element_name)
+            self.sub_article_non_translation_ids(element_name),
         ):
             id = item.get("id")
             response.setdefault(id, [])
@@ -106,4 +111,3 @@ class ArticleXref:
     def sub_article_non_translation_ids(self, element_name):
         for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
             yield from Ids(node).ids(element_name)
-
