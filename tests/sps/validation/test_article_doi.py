@@ -603,248 +603,67 @@ class ArticleDoiTest(unittest.TestCase):
             callable_get_data_ok
         ))
 
+        xml = {
+            "title": "Title in English",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier",
+            ]
+        }
+        xml2 = {
+            "title": "Título em Português",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier",
+            ]
+        }
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270, expected 10.1590/2176-4573e59270',
+                'expected_value': xml,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {xml}',
                 'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
+                'data': {
+                    'similarity': 1.0,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             },
             {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Title in English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English, expected Title in English',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia, expected Martínez-Momblán, Maria Antonia',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier, expected Colina-Torralva, Javier',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 's1',
+                'parent_article_type': "translation",
+                'parent_id': "s1",
                 'parent_lang': 'pt',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'OK',
-                'expected_value': '10.1590/2176-4573p59270',
-                'got_value': '10.1590/2176-4573p59270',
-                'message': 'Got 10.1590/2176-4573p59270, expected 10.1590/2176-4573p59270',
+                'expected_value': xml2,
+                'got_value': xml2,
+                'message': f'Got {xml2}, expected {xml2}',
                 'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 's1',
-                'parent_lang': 'pt',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Título em Português',
-                'got_value': 'Título em Português',
-                'message': 'Got Título em Português, expected Título em Português',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 's1',
-                'parent_lang': 'pt',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia, expected Martínez-Momblán, Maria Antonia',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 's1',
-                'parent_lang': 'pt',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier, expected Colina-Torralva, Javier',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
+                'data': {
+                    'similarity': 1.0,
+                    'lang': 'pt',
+                    'parent': 'sub-article',
+                    'parent_article_type': 'translation',
+                    'parent_id': 's1',
+                    'value': '10.1590/2176-4573p59270'
+                }
+            
             }
-
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -904,72 +723,71 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_not_registered
         ))
-
+        
+        xml = {
+            "title": "Title in English",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier",
+            ]
+        }
+        registered = None
+        xml2 = {
+            "title": "Título em Português",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier",
+            ]
+        }
+        
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
                 'expected_value': 'Data registered to the DOI 10.1590/2176-4573e59270',
-                'got_value': None,
-                'message': 'Got None, expected Data registered to the DOI 10.1590/2176-4573e59270',
+                'got_value': xml,
+                'message': f'Got {xml}, expected Data registered to the DOI 10.1590/2176-4573e59270',
                 'advice': 'Consult again after DOI has been registered',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
+                'data': {
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             },
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': 's1',
                 'parent_lang': 'pt',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
                 'expected_value': 'Data registered to the DOI 10.1590/2176-4573p59270',
-                'got_value': None,
-                'message': 'Got None, expected Data registered to the DOI 10.1590/2176-4573p59270',
+                'got_value': xml2,
+                'message': f'Got {xml2}, expected Data registered to the DOI 10.1590/2176-4573p59270',
                 'advice': 'Consult again after DOI has been registered',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    },
-                    {
-                        'lang': 'pt',
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 's1',
-                        'value': '10.1590/2176-4573p59270'
-                    }
-                ],
+                'data': {
+                    'lang': 'pt',
+                    'parent': 'sub-article',
+                    'parent_article_type': 'translation',
+                    'parent_id': 's1',
+                    'value': '10.1590/2176-4573p59270'
+                },
             }
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+                self.assertDictEqual(item, obtained[i])
 
     def test_validate_doi_registered_only_doi_is_correct(self):
         self.maxDiff = None
@@ -1003,102 +821,40 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_ok
         ))
+        xml = {
+            "title": "Title English",
+            "authors": [
+                "Martínez, Maria Antonia",
+                "Colina, Javier"
+            ],
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+        }
 
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270, expected 10.1590/2176-4573e59270',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': 'Title in English',
-                'got_value': 'Title English',
-                'message': 'Got Title English, expected Title in English',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia, expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina, Javier',
-                'message': 'Got Colina, Javier, expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': "Check the DOI number",
+                'data': {
+                    'similarity': 0.8936170212765957,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             }
         ]
         for i, item in enumerate(expected):
@@ -1137,102 +893,36 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_ok
         ))
-
+        xml = {
+            "title": "Title in English",
+            "authors": ["Martínez, Maria Antonia", "Colina, Javier"]
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+        }
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59271',
-                'message': 'Got 10.1590/2176-4573e59271, expected 10.1590/2176-4573e59270',
-                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Title in English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English, expected Title in English',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia, expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina, Javier',
-                'message': 'Got Colina, Javier, expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': 'Check the DOI number',
+                'data': {
+                    'similarity': 0.9109947643979057,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59271'
+                }
             }
         ]
         for i, item in enumerate(expected):
@@ -1271,102 +961,40 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_ok
         ))
-
+        # TODO
+        xml = {
+            "title": "Title English",
+            "authors": [
+                "Martínez, Maria Antonia",
+                "Colina-Torralva, Javier"
+            ],
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+        }
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59271',
-                'message': 'Got 10.1590/2176-4573e59271, expected 10.1590/2176-4573e59270',
-                'advice': 'DOI not registered or validator not found, provide a value for doi element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Title in English',
-                'got_value': 'Title English',
-                'message': 'Got Title English, expected Title in English',
-                'advice': 'DOI not registered or validator not found, provide a value for title element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': 'Martínez-Momblán, Maria Antonia',
-                'got_value': 'Martínez, Maria Antonia',
-                'message': 'Got Martínez, Maria Antonia, expected Martínez-Momblán, Maria Antonia',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Colina-Torralva, Javier',
-                'message': 'Got Colina-Torralva, Javier, expected Colina-Torralva, Javier',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59271'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': 'Check the DOI number',
+                'data': {
+                    'similarity': 0.9441624365482234,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59271'
+                }
             }
         ]
         for i, item in enumerate(expected):
@@ -1405,76 +1033,39 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_missing_authors
         ))
-
+        xml = {
+            "title": "Title in English",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier"
+            ],
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": [],
+        }
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270, expected 10.1590/2176-4573e59270',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Title in English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English, expected Title in English',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': [],
-                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
-                'message': 'The following items are surplus in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'advice': 'Remove the following items from the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': 'Check the DOI number',
+                'data': {
+                    'similarity': 0.5945945945945946,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             }
         ]
         for i, item in enumerate(expected):
@@ -1499,76 +1090,37 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_ok
         ))
-
+        # TODO
+        xml = {
+            "title": "Title in English",
+            "authors": [],
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier']
+        }
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270, expected 10.1590/2176-4573e59270',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Title in English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English, expected Title in English',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
-                'got_value': [],
-                'message': 'The following items are not found in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'advice': 'Complete the following items in the XML: Martínez-Momblán, Maria Antonia | Colina-Torralva, Javier',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': 'Check the DOI number',
+                'data': {
+                    'similarity': 0.5945945945945946,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             }
         ]
         for i, item in enumerate(expected):
@@ -1607,100 +1159,42 @@ class ArticleDoiTest(unittest.TestCase):
         obtained = list(ArticleDoiValidation(xml_tree).validate_doi_registered(
             callable_get_data_one_author
         ))
+        xml = {
+            "title": "Title in English",
+            "authors": [
+                "Martínez-Momblán, Maria Antonia",
+                "Colina-Torralva, Javier",
+            ]
+        }
+        registered = {
+            "title": "Title in English",
+            "authors": [
+                "Colina-Torralva, Javier"
+            ]
+        }
 
         expected = [
             {
-                'title': 'Article DOI is registered',
+                'title': 'Registered DOI',
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '10.1590/2176-4573e59270',
-                'got_value': '10.1590/2176-4573e59270',
-                'message': 'Got 10.1590/2176-4573e59270, expected 10.1590/2176-4573e59270',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'Title in English',
-                'got_value': 'Title in English',
-                'message': 'Got Title in English, expected Title in English',
-                'advice': None,
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
+                'validation_type': 'registered',
                 'response': 'CRITICAL',
-                'expected_value': 'Colina-Torralva, Javier',
-                'got_value': 'Martínez-Momblán, Maria Antonia',
-                'message': 'Got Martínez-Momblán, Maria Antonia, expected Colina-Torralva, Javier',
-                'advice': 'DOI not registered or validator not found, provide a value for author element that '
-                          'matches the record for DOI.',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
-            },
-            {
-                'title': 'Article DOI is registered',
-                'parent': 'article',
-                'parent_article_type': None,
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="doi"',
-                'validation_type': 'exist',
-                'response': 'CRITICAL',
-                'expected_value': ['Colina-Torralva, Javier'],
-                'got_value': ['Martínez-Momblán, Maria Antonia', 'Colina-Torralva, Javier'],
-                'message': 'The following items are surplus in the XML: Colina-Torralva, Javier',
-                'advice': 'Remove the following items from the XML: Colina-Torralva, Javier',
-                'data': [
-                    {
-                        'lang': 'en',
-                        'parent': 'article',
-                        'parent_article_type': None,
-                        'value': '10.1590/2176-4573e59270'
-                    }
-                ],
+                'expected_value': registered,
+                'got_value': xml,
+                'message': f'Got {xml}, expected {registered}',
+                'advice': 'Check the DOI number',
+                'data': {
+                    'similarity': 0.7976878612716763,
+                    'lang': 'en',
+                    'parent': 'article',
+                    'parent_article_type': None,
+                    'value': '10.1590/2176-4573e59270'
+                }
             }
         ]
         for i, item in enumerate(expected):
