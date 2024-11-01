@@ -1,7 +1,6 @@
 import unittest
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-
 from packtools.sps.validation.article_doi import ArticleDoiValidation
 
 

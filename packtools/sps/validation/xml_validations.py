@@ -1,40 +1,33 @@
 from packtools.sps.models.article_dates import ArticleDates
-
 from packtools.sps.validation.aff import AffiliationsListValidation
 from packtools.sps.validation.article_abstract import (
-    HighlightsValidation,
-    VisualAbstractsValidation,
-    ArticleAbstractsValidation,
-)
+    ArticleAbstractsValidation, HighlightsValidation,
+    VisualAbstractsValidation)
 from packtools.sps.validation.article_and_subarticles import (
-    ArticleAttribsValidation,
-    ArticleIdValidation,
-    ArticleLangValidation,
-    ArticleTypeValidation,
-)
-from packtools.sps.validation.article_citations import ArticleCitationsValidation
+    ArticleAttribsValidation, ArticleIdValidation, ArticleLangValidation,
+    ArticleTypeValidation)
+from packtools.sps.validation.article_citations import \
+    ArticleCitationsValidation
 from packtools.sps.validation.article_contribs import ArticleContribsValidation
-from packtools.sps.validation.article_data_availability import (
-    DataAvailabilityValidation,
-)
+from packtools.sps.validation.article_data_availability import \
+    DataAvailabilityValidation
 from packtools.sps.validation.article_doi import ArticleDoiValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
-from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
+from packtools.sps.validation.article_toc_sections import \
+    ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import ArticleDatesValidation
 from packtools.sps.validation.fig import FigValidation
 from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
+from packtools.sps.validation.journal_meta import (JournalIdValidation,
+                                                   PublisherNameValidation,
+                                                   TitleValidation)
 
 # remover journal
 # from packtools.sps.validation.journal import xValidation
 
 
-from packtools.sps.validation.journal_meta import (
-    TitleValidation,
-    PublisherNameValidation,
-    JournalIdValidation,
-)
 
 # PR pendente
 # from packtools.sps.validation.article_author_notes import xValidation

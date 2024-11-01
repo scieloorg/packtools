@@ -1,7 +1,7 @@
-import requests
-from langdetect import detect
 import urllib.parse
 
+import requests
+from langdetect import detect
 from packtools.sps.libs.requester import fetch_data
 
 

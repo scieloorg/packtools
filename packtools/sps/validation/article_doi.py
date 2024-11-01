@@ -1,9 +1,9 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_contribs import ArticleContribs
+from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_titles import ArticleTitles
-from packtools.sps.validation.utils import format_response, get_doi_information
 from packtools.sps.validation.similarity_utils import how_similar
+from packtools.sps.validation.utils import format_response, get_doi_information
 
 
 def _callable_extern_validate_default(doi):
