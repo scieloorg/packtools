@@ -161,11 +161,11 @@ def validate_article_ids(xmltree, params):
 
     validator = ArticleDoiValidation(xmltree)
     yield from validator.validate_doi_exists(error_level=article_doi_rules["error_level"])
-    # TODO 
-    # yield from validator.validate_doi_registered(
-    #     callable_get_data=article_doi_rules["doi_api_get"],
-    #     error_level=article_doi_rules["check_deposit_error_level"],
-    # )
+    
+    yield from validator.validate_doi_registered(
+        callable_get_data=params.get("doi_api_get"),
+        error_level=article_doi_rules["registered_doi_error_level"],
+    )
     yield from validator.validate_all_dois_are_unique(
         error_level=article_doi_rules["unique_error_level"]
     )
