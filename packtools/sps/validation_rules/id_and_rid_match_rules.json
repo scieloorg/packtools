@@ -1,7 +1,7 @@
 {
     "id_and_rid_match_rules": {
-        "error_level": "CRITICAL",
         "required_id_error_level": "CRITICAL",
-        "required_rid_error_level": "ERROR"
+        "required_rid_error_level": "ERROR",
+        "elements_required_rid": ["ref", "table-wrap", "fig", "disp-formula", "aff", "corresp"]
     }
 }
