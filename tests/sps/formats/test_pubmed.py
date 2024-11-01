@@ -107,12 +107,13 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_publisher_name_pipe_without_publisher(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+    def test_xml_pubmed_missing_publisher_name(self):
+        expected_report = {
+            "missing_tags": "PublisherName",
+            "validation_errors": "Value not found for publisher",
+            "tag_path": ".//journal-meta//publisher//publisher-name",
+        }
+        expected_xml = ET.tostring(self.get_xml_pubmed_base(), encoding="utf-8").decode("utf-8")
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -124,12 +125,13 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = {}
+        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_journal_title_pipe(self):
         expected = (
