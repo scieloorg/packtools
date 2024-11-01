@@ -3,6 +3,19 @@ import itertools
 from packtools.sps.utils.xml_utils import put_parent_context, tostring
 
 
+# https://jats.nlm.nih.gov/publishing/tag-library/1.4/attribute/ref-type.html
+ELEMENT_NAME = {
+    "table": "table-wrap",
+    "bibr": "ref",
+}
+
+def get_element_name(ref_type):
+    try:
+        return ELEMENT_NAME[ref_type]
+    except KeyError:
+        return ref_type
+
+
 class Xref:
     """<xref ref-type="aff" rid="aff1">1</xref>"""
 
@@ -18,6 +31,7 @@ class Xref:
             "ref-type": self.xref_type,
             "rid": self.xref_rid,
             "text": self.xref_text,
+            "element_name": get_element_name(self.xref_type)
         }
 
 
