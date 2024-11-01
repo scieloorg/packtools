@@ -73,29 +73,25 @@ def build_response(
 def get_doi_information(doi):
     url = f"https://api.crossref.org/works/{doi}"
     response = fetch_data(url=url, json=True)
-    item = response['message']
+    item = response["message"]
 
     result = {}
 
     # Extrair títulos e detectar idioma
-    titles = item.get('title') or []
-    original_titles = item.get('original-title') or []
+    titles = item.get("title") or []
+    original_titles = item.get("original-title") or []
     all_titles = titles + original_titles
 
     for title in all_titles:
         try:
             lang = detect(title)  # Detecta o idioma do título
         except:
-            lang = 'unknown'
-        result[lang] = {
-            'title': title,
-            'doi': doi
-        }
+            lang = "unknown"
+        result[lang] = {"title": title, "doi": doi}
 
     # Adicionar autores ao resultado
-    result['authors'] = [
-        f"{author['family']}, {author['given']}"
-        for author in item.get('author') or []
+    result["authors"] = [
+        f"{author['family']}, {author['given']}" for author in item.get("author") or []
     ]
 
     return result

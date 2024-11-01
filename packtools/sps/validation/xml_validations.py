@@ -60,7 +60,7 @@ def validate_affiliations(xmltree, params):
 
     # FIXME acesso a country_codes_list dentro das classes e métodos
     validator = AffiliationsListValidation(xmltree, country_codes_list)
-    
+
     aff_rules = params["aff_rules"]
     aff_rules["country_codes_list"] = country_codes_list
 
@@ -142,11 +142,15 @@ def validate_article_type(xmltree, params):
     try:
         yield from validator.validate_article_type_vs_subject_similarity(
             subjects_list=journal_data["subjects_list"],
-            expected_similarity=article_type_rules["article_type_vs_subject_expected_similarity"],
+            expected_similarity=article_type_rules[
+                "article_type_vs_subject_expected_similarity"
+            ],
             error_level=article_type_rules[
                 "article_type_vs_subject_expected_similarity_error_level"
             ],
-            target_article_types=article_type_rules["article_type_vs_subject_target_article_types"],
+            target_article_types=article_type_rules[
+                "article_type_vs_subject_target_article_types"
+            ],
         )
     except KeyError:
         pass
@@ -160,8 +164,10 @@ def validate_article_ids(xmltree, params):
     yield from validator.validate_article_id_other(article_ids_rules["error_level"])
 
     validator = ArticleDoiValidation(xmltree)
-    yield from validator.validate_doi_exists(error_level=article_doi_rules["error_level"])
-    
+    yield from validator.validate_doi_exists(
+        error_level=article_doi_rules["error_level"]
+    )
+
     yield from validator.validate_doi_registered(
         callable_get_data=params.get("doi_api_get"),
         error_level=article_doi_rules["registered_doi_error_level"],
@@ -205,8 +211,7 @@ def validate_references(xmltree, params):
 
 def validate_article_contribs(xmltree, params):
     # FIXME
-    def f(arg):
-        ...
+    def f(arg): ...
 
     article_contribs_rules = params["article_contribs_rules"]
 
@@ -302,11 +307,9 @@ def validate_article_dates(xmltree, params):
     # TODO required_events depends on article_type
 
     required_events = [
-        item["type"]
-        for item in history_dates_rules["date_list"]
-        if item["required"]
+        item["type"] for item in history_dates_rules["date_list"] if item["required"]
     ]
-    
+
     # FIXME
     # try:
     #     for related_article in related_articles:
@@ -315,10 +318,7 @@ def validate_article_dates(xmltree, params):
     #         )
     # except KeyError:
     #     pass
-    order = [
-        item["type"]
-        for item in history_dates_rules["date_list"]
-    ]
+    order = [item["type"] for item in history_dates_rules["date_list"]]
     yield from validator.validate_history_dates(
         order=order,
         required_events=required_events,
@@ -345,7 +345,7 @@ def validate_bibliographic_strip(xmltree, params):
     pagination_rules = params["pagination_rules"]
 
     # TODO adicionar error_level, corrigir o nome da classe
-    # FIXME 
+    # FIXME
     #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/front_articlemeta_issue.py", line 391, in validation_pagination_attributes_exist
     # yield format_response(
     # TypeError: format_response() missing 3 required positional arguments: 'parent_article_type', 'parent_lang', and 'error_level'

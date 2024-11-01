@@ -16,7 +16,11 @@ class ArticleDoiValidation:
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.doi = DoiWithLang(self.xmltree)
         self.titles = ArticleTitles(self.xmltree).article_title_dict
-        self.authors = [item for item in ArticleContribs(self.xmltree).contribs if item.get("parent") == "article"]
+        self.authors = [
+            item
+            for item in ArticleContribs(self.xmltree).contribs
+            if item.get("parent") == "article"
+        ]
 
     def validate_doi_exists(self, error_level="CRITICAL"):
         """
@@ -83,20 +87,20 @@ class ArticleDoiValidation:
         """
         for doi in self.doi.data:
             yield format_response(
-                title='Article DOI element exists',
+                title="Article DOI element exists",
                 parent=doi.get("parent"),
                 parent_id=doi.get("parent_id"),
                 parent_article_type=doi.get("parent_article_type"),
                 parent_lang=doi.get("lang"),
                 item="article-id",
                 sub_item='@pub-id-type="doi"',
-                validation_type='exist',
+                validation_type="exist",
                 is_valid=bool(doi.get("value")),
-                expected=doi.get("value") or 'article DOI',
+                expected=doi.get("value") or "article DOI",
                 obtained=doi.get("value"),
                 advice=f'Provide a valid DOI for the {doi.get("parent")} represented by the following tag: '
-                       f'<{doi.get("parent")} article-type="{doi.get("parent_article_type")}" '
-                       f'id="{doi.get("parent_id")}" xml:lang="{doi.get("lang")}">',
+                f'<{doi.get("parent")} article-type="{doi.get("parent_article_type")}" '
+                f'id="{doi.get("parent_id")}" xml:lang="{doi.get("lang")}">',
                 data=self.doi.data,
                 error_level=error_level,
             )
@@ -169,27 +173,29 @@ class ArticleDoiValidation:
         validated = True
         dois = {}
         for item in self.doi.data:
-            if item['value'] in dois:
+            if item["value"] in dois:
                 validated = False
-                dois[item['value']] += 1
+                dois[item["value"]] += 1
             else:
-                dois[item['value']] = 1
+                dois[item["value"]] = 1
 
         diff = [doi for doi, freq in dois.items() if freq > 1]
 
         yield format_response(
-            title='Article DOI element is unique',
+            title="Article DOI element is unique",
             parent="article",
             parent_id=None,
             parent_article_type=self.articles.main_article_type,
             parent_lang=self.articles.main_lang,
             item="article-id",
             sub_item='@pub-id-type="doi"',
-            validation_type='unique',
+            validation_type="unique",
             is_valid=validated,
-            expected='Unique DOI values',
+            expected="Unique DOI values",
             obtained=list(dois.keys()),
-            advice='Consider replacing the following DOIs that are not unique: {}'.format(" | ".join(diff)),
+            advice="Consider replacing the following DOIs that are not unique: {}".format(
+                " | ".join(diff)
+            ),
             data=self.doi.data,
             error_level=error_level,
         )
@@ -304,14 +310,16 @@ class ArticleDoiValidation:
             return
 
         for doi_data in self.doi.data:
-            lang = doi_data.get('lang')
-            xml_doi = doi_data.get('value')
+            lang = doi_data.get("lang")
+            xml_doi = doi_data.get("value")
             xml_title = self.titles.get(lang)
             xml_authors = []
             for author in self.authors:
                 try:
                     contrib_name = author["contrib_name"]
-                    fullname = f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
+                    fullname = (
+                        f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
+                    )
                     xml_authors.append(fullname)
                 except KeyError:
                     pass
@@ -319,12 +327,12 @@ class ArticleDoiValidation:
                 "title": xml_title,
                 "authors": xml_authors,
             }
-        
+
             registered = callable_get_data(xml_doi)
             # verifica se houve resposta da aplicação
             if registered:
-                registered_title = registered.get(lang).get('title')
-                registered_authors = registered.get('authors') or []
+                registered_title = registered.get(lang).get("title")
+                registered_authors = registered.get("authors") or []
                 expected = {
                     "title": registered_title,
                     "authors": registered_authors,
@@ -333,14 +341,14 @@ class ArticleDoiValidation:
                 similar = similarity > 0.98
                 doi_data["similarity"] = similarity
                 yield format_response(
-                    title='Registered DOI',
+                    title="Registered DOI",
                     parent=doi_data.get("parent"),
                     parent_id=doi_data.get("parent_id"),
                     parent_article_type=doi_data.get("parent_article_type"),
                     parent_lang=doi_data.get("lang"),
                     item="article-id",
                     sub_item='@pub-id-type="doi"',
-                    validation_type='registered',
+                    validation_type="registered",
                     is_valid=similar,
                     expected=expected,
                     obtained=got,
@@ -351,18 +359,18 @@ class ArticleDoiValidation:
             else:
                 # Resposta para o caso de não haver identificação do DOI
                 yield format_response(
-                    title='Registered DOI',
+                    title="Registered DOI",
                     parent=doi_data.get("parent"),
                     parent_id=doi_data.get("parent_id"),
                     parent_article_type=doi_data.get("parent_article_type"),
                     parent_lang=doi_data.get("lang"),
                     item="article-id",
                     sub_item='@pub-id-type="doi"',
-                    validation_type='registered',
+                    validation_type="registered",
                     is_valid=False,
-                    expected='Data registered to the DOI {}'.format(xml_doi),
+                    expected="Data registered to the DOI {}".format(xml_doi),
                     obtained=got,
-                    advice='Consult again after DOI has been registered',
+                    advice="Consult again after DOI has been registered",
                     data=doi_data,
                     error_level=error_level,
                 )
@@ -370,16 +378,19 @@ class ArticleDoiValidation:
     def validate_different_doi_in_translation(self, error_level="WARNING"):
         article_doi = self.doi.main_doi
         for doi in self.doi.data:
-            if doi["parent_article_type"] == "translation" and doi["value"] == article_doi:
+            if (
+                doi["parent_article_type"] == "translation"
+                and doi["value"] == article_doi
+            ):
                 yield format_response(
-                    title='Different DOIs for tranaltions',
+                    title="Different DOIs for tranaltions",
                     parent=doi.get("parent"),
                     parent_id=doi.get("parent_id"),
                     parent_article_type=doi.get("parent_article_type"),
                     parent_lang=doi.get("lang"),
                     item="article-id",
                     sub_item='@pub-id-type="doi"',
-                    validation_type='match',
+                    validation_type="match",
                     is_valid=False,
                     expected="use unique DOIs for articles and sub-articles",
                     obtained=f"article DOI: {article_doi}, sub-article DOI: {doi['value']}",
