@@ -120,7 +120,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_missing_publisher_name(self):
         expected_report = self.get_expected_report(
             missing_tag="PublisherName",
-            validation_errors="Value not found for PublisherName",
+            validation_errors="Value not found in SciELO XML for PublisherName",
             tag_path=".//journal-meta//publisher//publisher-name",
         )
         expected_xml = self.get_expected_xml_base()
@@ -178,7 +178,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_missing_journal_title_pipe(self):
         expected_report = self.get_expected_report(
             missing_tag="JournalTitle",
-            validation_errors="Value not found for JournalTitle",
+            validation_errors="Value not found in SciELO XML for JournalTitle",
             tag_path='.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
         )
         expected_xml = self.get_expected_xml_base()
@@ -289,7 +289,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_missing_volume_pipe(self):
         expected_report = self.get_expected_report(
             missing_tag="Volume",
-            validation_errors="Volume is required if Issue empty",
+            validation_errors="Volume in PubMed XML is required if Issue is empty",
             tag_path='.//front/article-meta/volume',            
         )
         expected_xml = self.get_expected_xml_base()
