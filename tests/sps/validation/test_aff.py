@@ -1,3 +1,4 @@
+import logging
 from unittest import TestCase
 
 from lxml import etree
@@ -45,414 +46,13 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         obtained = list(
-            AffiliationsListValidation(xml_tree, ["BR"]).validade_affiliations_list()
+            AffiliationsListValidation(xml_tree, ["BR"]).validate_affiliations_list()
         )
-
-        expected = [
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "original affiliation",
-                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="orgname"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "orgname affiliation",
-                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte",
-                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "country",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "message": "Got Brasil, expected country affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "country",
-                "sub_item": "@country",
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "message": "Got BR, expected ['BR']",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "state",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "state affiliation",
-                "got_value": "MG",
-                "message": "Got MG, expected state affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "city",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "city affiliation",
-                "got_value": "Belo Horizonte",
-                "message": "Got Belo Horizonte, expected city affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "original affiliation",
-                "got_value": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
-                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
-                "message": "Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
-                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original "
-                "affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="orgname"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "orgname affiliation",
-                "got_value": "Universidade Federal de Minas Gerais",
-                "message": "Got Universidade Federal de Minas Gerais, expected orgname affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "country",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "message": "Got Brasil, expected country affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "country",
-                "sub_item": "@country",
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "message": "Got BR, expected ['BR']",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "state",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "state affiliation",
-                "got_value": "MG",
-                "message": "Got MG, expected state affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "city",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "city affiliation",
-                "got_value": "Belo Horizonte",
-                "message": "Got Belo Horizonte, expected city affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-        ]
-
-        for i, item in enumerate(expected):
+        self.assertEqual(0, len(obtained))
+        for i, item in enumerate(obtained):
             with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+                self.assertIsNone(item)
+
 
     def test_affiliation_without_original(self):
         self.maxDiff = None
@@ -478,9 +78,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_original())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "original",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -511,11 +110,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_orgname(self):
         self.maxDiff = None
@@ -540,9 +135,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_orgname())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "orgname",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -551,10 +145,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": '@content-type="orgname"',
                 "validation_type": "exist",
                 "response": "CRITICAL",
-                "expected_value": "orgname affiliation",
+                "expected_value": "orgname",
                 "got_value": None,
-                "message": "Got None, expected orgname affiliation",
-                "advice": "provide the orgname affiliation",
+                "message": "Got None, expected orgname",
+                "advice": "provide the orgname",
                 "data": {
                     "city": "Belo Horizonte",
                     "country_code": "BR",
@@ -574,11 +168,8 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
+        self.assertDictEqual(expected, obtained[0])
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country(self):
         self.maxDiff = None
@@ -604,9 +195,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_country())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "country name",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -615,10 +205,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "country",
                 "validation_type": "exist",
                 "response": "CRITICAL",
-                "expected_value": "country affiliation",
+                "expected_value": "country name",
                 "got_value": None,
-                "message": "Got None, expected country affiliation",
-                "advice": "provide the country affiliation",
+                "message": "Got None, expected country name",
+                "advice": "provide the country name",
                 "data": {
                     "city": "Belo Horizonte",
                     "country_code": None,
@@ -638,11 +228,8 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
+        self.assertDictEqual(expected, obtained[0])
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_country_code(self):
         self.maxDiff = None
@@ -667,13 +254,10 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(
-            AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code()
-        )
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "country code",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -685,7 +269,7 @@ class AffiliationValidationTest(TestCase):
                 "expected_value": ["BR"],
                 "got_value": None,
                 "message": "Got None, expected ['BR']",
-                "advice": "provide a valid @country affiliation",
+                "advice": "provide a valid @country",
                 "data": {
                     "city": "Belo Horizonte",
                     "country_code": None,
@@ -705,11 +289,8 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
+        self.assertDictEqual(expected, obtained[0])
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
 
     def test_affiliations_without_state(self):
         self.maxDiff = None
@@ -735,9 +316,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_state())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "state",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -746,10 +326,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "state",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "expected_value": "state affiliation",
+                "expected_value": "state",
                 "got_value": None,
-                "message": "Got None, expected state affiliation",
-                "advice": "provide the state affiliation",
+                "message": "Got None, expected state",
+                "advice": "provide the state",
                 "data": {
                     "city": "Belo Horizonte",
                     "country_code": "BR",
@@ -769,11 +349,7 @@ class AffiliationValidationTest(TestCase):
                     "state": None,
                 },
             }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_city(self):
         self.maxDiff = None
@@ -799,9 +375,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_city())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "city",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -810,10 +385,10 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "city",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "expected_value": "city affiliation",
+                "expected_value": "city",
                 "got_value": None,
-                "message": "Got None, expected city affiliation",
-                "advice": "provide the city affiliation",
+                "message": "Got None, expected city",
+                "advice": "provide the city",
                 "data": {
                     "city": None,
                     "country_name": "Brasil",
@@ -833,11 +408,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_id(self):
         self.maxDiff = None
@@ -863,9 +434,8 @@ class AffiliationValidationTest(TestCase):
         affiliations_list = list(Affiliation(xml_tree).affiliation_list)
         obtained = list(AffiliationValidation(affiliations_list[0]).validate_id())
 
-        expected = [
-            {
-                "title": "Affiliation validation",
+        expected = {
+                "title": "id",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -897,11 +467,7 @@ class AffiliationValidationTest(TestCase):
                     "state": "MG",
                 },
             }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertDictEqual(expected, obtained[0])
 
     def test_validate(self):
         self.maxDiff = None
@@ -938,412 +504,7 @@ class AffiliationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
-
-        expected = [
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "original affiliation",
-                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil, expected original affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="orgname"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "orgname affiliation",
-                "got_value": "Secretaria Municipal de Saúde de Belo Horizonte",
-                "message": "Got Secretaria Municipal de Saúde de Belo Horizonte, expected orgname affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "country",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "message": "Got Brasil, expected country affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "country",
-                "sub_item": "@country",
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "message": "Got BR, expected ['BR']",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "state",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "state affiliation",
-                "got_value": "MG",
-                "message": "Got MG, expected state affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "city",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "city affiliation",
-                "got_value": "Belo Horizonte",
-                "message": "Got Belo Horizonte, expected city affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "original affiliation",
-                "got_value": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
-                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
-                "message": "Got Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. "
-                "Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil, expected original "
-                "affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="orgname"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "orgname affiliation",
-                "got_value": "Universidade Federal de Minas Gerais",
-                "message": "Got Universidade Federal de Minas Gerais, expected orgname affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "country",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "message": "Got Brasil, expected country affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "country",
-                "sub_item": "@country",
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "message": "Got BR, expected ['BR']",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "state",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "state affiliation",
-                "got_value": "MG",
-                "message": "Got MG, expected state affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-            {
-                "title": "Affiliation validation",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "city",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "city affiliation",
-                "got_value": "Belo Horizonte",
-                "message": "Got Belo Horizonte, expected city affiliation",
-                "advice": None,
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff2",
-                    "label": "II",
-                    "orgdiv1": "Faculdade de Medicina",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal de Minas Gerais",
-                    "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em "
-                    "Saúde. Faculdade de Medicina. Universidade Federal de "
-                    "Minas Gerais. Belo Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            },
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertEqual(0, len(obtained))
 
     def test_validate_affiliation_sub_article_original_only(self):
         self.maxDiff = None
@@ -1363,6 +524,15 @@ class AffiliationValidationTest(TestCase):
                             </aff>
                         </front-stub>
                     </sub-article>
+                    <sub-article article-type="translation" id="TRes" xml:lang="es">
+                        <front-stub>
+                            <aff id="aff1002">
+                                <label>I</label>
+                                <country country="BR">Brasil</country>
+                                <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
+                            </aff>
+                        </front-stub>
+                    </sub-article>
                 </article>
                 """
 
@@ -1370,45 +540,13 @@ class AffiliationValidationTest(TestCase):
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
         expected = [
-            {
-                "title": "Affiliation validation",
-                "parent": "sub-article",
-                "parent_id": "TRpt",
-                "parent_article_type": "translation",
-                "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "original affiliation",
-                "got_value": "Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil",
-                "message": "Got Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil, expected original affiliation",
-                "advice": None,
-                "data": {
-                    "city": None,
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1002",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": None,
-                    "original": "Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil",
-                    "parent": "sub-article",
-                    "parent_article_type": "translation",
-                    "parent_id": "TRpt",
-                    "parent_lang": "pt",
-                    "state": None,
-                }
-            }
-
+            "orgname", "country name", "country code", "state", "city",
+            "orgname", "country name", "country code", "state", "city"
         ]
-
-        self.assertEqual(len(obtained), 1)
-        for i, item in enumerate(expected):
+        self.assertEqual(10, len(obtained))
+        for i, item in enumerate(obtained):
             with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+                self.assertEqual(expected[i], item["title"])
 
     def test_validate_affiliation_count_article_vs_sub_article(self):
         self.maxDiff = None
@@ -1453,280 +591,17 @@ class AffiliationValidationTest(TestCase):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        validation = AffiliationsListValidation(xml_tree)
+        obtained = list(validation.validate(data))
         expected = [
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": "original affiliation",
-                "got_value": "Mestre em Filosofia pelo Programa de\n"
-                             "                    Pós-Graduação em Filosofia da Universidade "
-                             "Federal da Paraíba -UFPB, João\n"
-                             "                    Pessoa, Paraíba, Brasil; "
-                             "kidinho_dc@hotmail.com",
-                "item": "institution",
-                "message": "Got Mestre em Filosofia pelo Programa de\n"
-                           "                    Pós-Graduação em Filosofia da Universidade "
-                           "Federal da Paraíba -UFPB, João\n"
-                           "                    Pessoa, Paraíba, Brasil; "
-                           "kidinho_dc@hotmail.com, expected original affiliation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": '@content-type="original"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": "orgname affiliation",
-                "got_value": "Universidade Federal da Paraíba\n                    -UFPB",
-                "item": "institution",
-                "message": "Got Universidade Federal da Paraíba\n"
-                           "                    -UFPB, expected orgname affiliation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": '@content-type="orgname"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "item": "aff",
-                "message": "Got Brasil, expected country affiliation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "country",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "item": "country",
-                "message": "Got BR, expected ['BR']",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "@country",
-                "title": "Affiliation validation",
-                "validation_type": "value in list",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": "state affiliation",
-                "got_value": "Paraíba",
-                "item": "addr-line",
-                "message": "Got Paraíba, expected state affiliation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "state",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "João Pessoa",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": "kidinho_dc@hotmail.com",
-                    "id": "aff1",
-                    "label": "*",
-                    "orgdiv1": "Programa de Pós-Graduação em\n" "                    Filosofia",
-                    "orgdiv2": None,
-                    "orgname": "Universidade Federal da Paraíba\n" "                    -UFPB",
-                    "original": "Mestre em Filosofia pelo Programa de\n"
-                                "                    Pós-Graduação em Filosofia da "
-                                "Universidade Federal da Paraíba -UFPB, João\n"
-                                "                    Pessoa, Paraíba, Brasil; "
-                                "kidinho_dc@hotmail.com",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "Paraíba",
-                },
-                "expected_value": "city affiliation",
-                "got_value": "João Pessoa",
-                "item": "addr-line",
-                "message": "Got João Pessoa, expected city affiliation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "city",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": None,
-                    "country_code": None,
-                    "country_name": None,
-                    "email": None,
-                    "id": "aff2",
-                    "label": "*",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": None,
-                    "original": "MA in Philosophy from Programa de Pós-Graduação\n"
-                                "                    em Filosofia at Universidade "
-                                "Federal da Paraíba – UFPB, João Pessoa, Paraíba,\n"
-                                "                    Brazil; kidinho_dc@hotmail.com",
-                    "parent": "sub-article",
-                    "parent_article_type": "translation",
-                    "parent_id": "s1",
-                    "parent_lang": "en",
-                    "state": None,
-                },
-                "expected_value": "original affiliation",
-                "got_value": "MA in Philosophy from Programa de Pós-Graduação\n"
-                             "                    em Filosofia at Universidade Federal da "
-                             "Paraíba – UFPB, João Pessoa, Paraíba,\n"
-                             "                    Brazil; kidinho_dc@hotmail.com",
-                "item": "institution",
-                "message": "Got MA in Philosophy from Programa de Pós-Graduação\n"
-                           "                    em Filosofia at Universidade Federal da "
-                           "Paraíba – UFPB, João Pessoa, Paraíba,\n"
-                           "                    Brazil; kidinho_dc@hotmail.com, expected "
-                           "original affiliation",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "s1",
-                "parent_lang": "en",
-                "response": "OK",
-                "sub_item": '@content-type="original"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            }
+            "label", 
+            "label", "orgname", "country name", "country code", "state", "city",
         ]
-        self.assertEqual(len(obtained), 7)
-        for i, item in enumerate(expected):
+        self.assertEqual(7, len(obtained))
+        for i, item in enumerate(obtained):
             with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+                self.assertEqual(expected[i], item["title"])
+
 
     def test_validate_affiliation_count_2176_4573_bak_p58270(self):
         self.maxDiff = None
@@ -1770,237 +645,13 @@ class AffiliationValidationTest(TestCase):
         data = {"country_codes_list": ["BR"]}
         obtained = list(AffiliationsListValidation(xml_tree).validate(data))
         expected = [
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": "original affiliation",
-                "got_value": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                "item": "institution",
-                "message": "Got  Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil , "
-                           "expected original affiliation",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": '@content-type="original"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": "orgname affiliation",
-                "got_value": "Universidade do Sul de Santa Catarina",
-                "item": "institution",
-                "message": "Got Universidade do Sul de Santa Catarina, expected orgname "
-                           "affiliation",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": '@content-type="orgname"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": "country affiliation",
-                "got_value": "Brasil",
-                "item": "aff",
-                "message": "Got Brasil, expected country affiliation",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "country",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": ["BR"],
-                "got_value": "BR",
-                "item": "country",
-                "message": "Got BR, expected ['BR']",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "@country",
-                "title": "Affiliation validation",
-                "validation_type": "value in list",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": "state affiliation",
-                "got_value": "SC",
-                "item": "addr-line",
-                "message": "Got SC, expected state affiliation",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "state",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": "Tubarão",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Universidade do Sul de Santa Catarina",
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brasil ",
-                    "parent": "article",
-                    "parent_article_type": "letter",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "state": "SC",
-                },
-                "expected_value": "city affiliation",
-                "got_value": "Tubarão",
-                "item": "addr-line",
-                "message": "Got Tubarão, expected city affiliation",
-                "parent": "article",
-                "parent_article_type": "letter",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": "city",
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "city": None,
-                    "country_code": "BR",
-                    "country_name": "Brazil",
-                    "email": None,
-                    "id": "aff1001",
-                    "label": " 1 ",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": None,
-                    "original": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil ",
-                    "parent": "sub-article",
-                    "parent_article_type": "translation",
-                    "parent_id": "TRen",
-                    "parent_lang": "en",
-                    "state": None,
-                },
-                "expected_value": "original affiliation",
-                "got_value": " Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil ",
-                "item": "institution",
-                "message": "Got  Universidade do Sul de Santa Catarina, Tubarão, SC – Brazil , expected original affiliation",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "TRen",
-                "parent_lang": "en",
-                "response": "OK",
-                "sub_item": '@content-type="original"',
-                "title": "Affiliation validation",
-                "validation_type": "exist",
-            }
+            "label", 
+            "label", "orgname", "country name", "country code", "state", "city",
         ]
-        self.assertEqual(len(obtained), 7)
-        for i, item in enumerate(expected):
+        self.assertEqual(7, len(obtained))
+        for i, item in enumerate(obtained):
             with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+                self.assertEqual(expected[i], item["title"])
 
     def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
         self.maxDiff = None

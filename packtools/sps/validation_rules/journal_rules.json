@@ -1,0 +1,7 @@
+{
+    "journal_rules": {
+        "abbrev_journal_title_error_level": "CRITICAL",
+        "publisher_name_error_level": "CRITICAL",
+        "nlm_journal_title_error_level": "CRITICAL"
+    }
+}

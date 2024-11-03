@@ -1,0 +1,36 @@
+{
+    "peer_review_rules": {
+        "article_type_list": [
+            "reviewer-report"
+        ],
+        "date_type_list": [
+            "accepted",
+            "editor-assigned",
+            "editor-decision",
+            "published",
+            "received",
+            "reviewer-report-received",
+            "reviewer-report-sent",
+            "revision-received",
+            "revision-requested",
+            "revised"
+        ],
+        "meta_value_list": [
+            "revision",
+            "major-revision",
+            "minor-revision",
+            "reject",
+            "reject-with-resubmit",
+            "accept",
+            "formal-accept",
+            "accept-in-principle"
+        ],
+        "related_article_type_list": [
+            "peer-reviewed-material"
+        ],
+        "contrib_type_list": [
+            "reviewer",
+            "editor"
+        ]
+    }
+}

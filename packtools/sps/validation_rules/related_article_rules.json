@@ -1,0 +1,41 @@
+{
+    "related_article_rules": {
+        "ext_link_type_list": [
+            "doi",
+            "uri"
+        ],
+        "related_article_type_list": [
+            "corrected-article",
+            "correction-forward",
+            "retracted-article",
+            "retraction-forward",
+            "retracted-article",
+            "partial-retraction",
+            "article",
+            "addendum",
+            "commentary-article",
+            "commentary",
+            "article",
+            "letter",
+            "peer-reviewed-material",
+            "reviewer-report",
+            "preprint"
+        ],
+        "article_type_correspondence_list": [
+            {"article-type": "addendum", "related_article_type_list": ["article"]},
+            {"article-type": "article-commentary", "related_article_type_list": ["commentary"]},
+            {"article-type": "correction", "related_article_type_list": ["corrected-article"]},
+            {"article-type": "partial-retraction", "related_article_type_list": ["retracted-article"]},
+            {"article-type": "retraction", "related_article_type_list": ["retracted-article"]},
+            {"article-type": "reviewer-report", "related_article_type_list": ["peer-reviewed-material"]}
+        ],
+        "required_history_events": {
+            "preprint": "preprint",
+            "correction-forward": "corrected"
+        }
+
+    }
+
+}
+
+            

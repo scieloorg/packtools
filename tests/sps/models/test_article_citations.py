@@ -72,6 +72,7 @@ class AuthorsTest(TestCase):
                 "preventable hospitalisation: the benefit of smoking cessation in older ages. Drug "
                 "Alcohol Depend. 2015;150:85-91. DOI: "
                 "https://doi.org/10.1016/j.drugalcdep.2015.02.028",
+                'mixed_citation_sub_tags': ['ext-link'],
                 "source": "Drug Alcohol Depend.",
                 "main_author": {
                     "surname": "Tran",
@@ -113,7 +114,6 @@ class AuthorsTest(TestCase):
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "en",
-                "ext_link": ['https://doi.org/10.1016/j.drugalcdep.2015.02.028'],
             }
         ]
         for i, item in enumerate(expected):
@@ -158,6 +158,7 @@ class AuthorsTest(TestCase):
                 "publication_type": "book",
                 "author_type": "person",
                 "mixed_citation": "BARTHES, Roland. Aula. São Pulo: Cultrix, 1987.",
+                'mixed_citation_sub_tags': ['italic'],
                 "source": "Aula",
                 "main_author": {"surname": "BARTHES", "given-names": "Roland"},
                 "all_authors": [{"surname": "BARTHES", "given-names": "Roland"}],
@@ -226,6 +227,7 @@ class AuthorsTest(TestCase):
                 "tecnologia para o setor aeronáutico e para o programa de "
                 "inovação para competitividade, e dá outras providências. "
                 "Diário Oficial da União 2001 dez 19.",
+                'mixed_citation_sub_tags': ['u', 'italic'],
                 "source": "Diário Oficial da União",
                 "article_title": "Lei n.º 10.332, de 19/12/2001: Instituiu mecanismo de "
                 "financiamento para o programa de ciência e tecnologia para "

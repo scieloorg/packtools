@@ -120,7 +120,6 @@ class TestBuildPermissionsCopyrightHolder(unittest.TestCase):
             '<license license-type="open-access" xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" xml:lang="pt">'
             'This is an article published in open access under a Creative Commons license'
             '</license>'
-            '</permissions>'
         )
         permissions_elem = build_permissions(data)
         generated_xml_str = ET.tostring(permissions_elem, encoding="unicode", method="xml")
@@ -178,6 +177,7 @@ class TestBuildPermissionsLicenses(unittest.TestCase):
         data = {
             "licenses": None
         }
+        
         with self.assertRaises(TypeError) as e:
             build_permissions(data)
         self.assertEqual(str(e.exception), "licenses must be a list")

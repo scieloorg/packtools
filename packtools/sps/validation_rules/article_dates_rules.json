@@ -1,0 +1,8 @@
+{
+    "article_dates_rules": {
+        "error_level": "CRITICAL",
+        "article_date_format_error_level": "CRITICAL",
+        "article_date_value_error_level": "ERROR",
+        "collection_date_value_error_level": "ERROR"
+    }
+}
