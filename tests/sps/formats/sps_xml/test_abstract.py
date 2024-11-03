@@ -1,6 +1,6 @@
 import unittest
 import xml.etree.ElementTree as ET
-from packtools.sps.formats.sps_xml.abstract import build_structured_abstract, build_simple_abstract, build_visual_abstract
+from packtools.sps.formats.sps_xml.abstract import build_structured_abstract, build_visual_abstract
 
 
 class TestBuildStructuredAbstractTitle(unittest.TestCase):
@@ -106,16 +106,16 @@ class TestBuildSimpleAbstractTitle(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_simple_abstract(data)
+        abstract_elem = build_structured_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
-    def test_build_structured_abstract_title_None(self):
+    def test_build_simple_abstract_title_None(self):
         data = {
             "title": None
         }
         with self.assertRaises(ValueError) as e:
-            build_simple_abstract(data)
+            build_structured_abstract(data)
         self.assertEqual(str(e.exception), "title is required")
 
 
@@ -131,7 +131,7 @@ class TestBuildSimpleAbstractParagraph(unittest.TestCase):
             'p>Verificar a sensibilidade e especificidade ...</p>'
             '</abstract>'
         )
-        abstract_elem = build_simple_abstract(data)
+        abstract_elem = build_structured_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -145,7 +145,7 @@ class TestBuildSimpleAbstractParagraph(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_simple_abstract(data)
+        abstract_elem = build_structured_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
