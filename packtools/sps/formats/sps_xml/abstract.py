@@ -29,6 +29,12 @@ def build_structured_abstract(data):
     title_elem.text = title_text
     abstract_elem.append(title_elem)
 
+    p_text = data.get("p")
+    if p_text:
+        p_elem = ET.Element("p")
+        p_elem.text = p_text
+        abstract_elem.append(p_elem)
+
     secs = data.get("secs")
     if isinstance(secs, list):
         for sec in secs:
@@ -45,35 +51,6 @@ def build_structured_abstract(data):
                     p_elem.text = p_text
                     sec_elem.append(p_elem)
                 abstract_elem.append(sec_elem)
-
-    return abstract_elem
-
-
-"""
-example of simple abstract:
-data = {
-            "title": "Resumo",
-            "p": "Verificar a sensibilidade e especificidade ..."
-        }
-"""
-
-
-def build_simple_abstract(data):
-    abstract_elem = ET.Element("abstract")
-
-    title_text = data.get("title")
-    if not title_text:
-        raise ValueError(f"title is required")
-
-    title_elem = ET.Element("title")
-    title_elem.text = title_text
-    abstract_elem.append(title_elem)
-
-    p_text = data.get("p")
-    if p_text:
-        p_elem = ET.Element("p")
-        p_elem.text = p_text
-        abstract_elem.append(p_elem)
 
     return abstract_elem
 
