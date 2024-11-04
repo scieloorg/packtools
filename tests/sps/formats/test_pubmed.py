@@ -1719,13 +1719,5 @@ class PipelinePubmed(unittest.TestCase):
         
         self.assertEqual(obtained, expected)
 
-
-class PipelinePubmedTest(unittest.TestCase):
-    def test_pipeline_pubmed(self,):
-        xml_file = ET.parse("/home/samuelv/Desktop/scielo/packtools/packtools/tests/sps/fixtures/formats/pubmed/S0066-782X2024000600303.xml")
-        report = {}
-        xml = pipeline_pubmed(xml_tree=xml_file, report=report)
-        import ipdb; ipdb.set_trace()
-
 if __name__ == '__main__':
     unittest.main()
