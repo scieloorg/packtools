@@ -111,7 +111,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -135,7 +135,7 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
-        report = {}
+        report = []
         xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -169,7 +169,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -194,7 +194,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -226,7 +226,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -249,7 +249,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -280,7 +280,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
         self.assertEqual(obtained, expected)
@@ -304,7 +304,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -335,7 +335,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -360,7 +360,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -400,7 +400,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report={})
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
@@ -429,7 +429,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -457,7 +457,7 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
-        report = {}
+        report = []
         xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -483,7 +483,7 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
-        report = {}
+        report = []
         xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -621,7 +621,7 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
-        report = {}
+        report = []
         xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -678,7 +678,7 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
-        report = {}
+        report = []
         xml_pubmed_elocation_pipe(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -1031,7 +1031,7 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        report = {}
+        report = []
         xml_pubmed_article_id(xml_pubmed, xml_tree, report=report)
 
         obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
@@ -1718,6 +1718,14 @@ class PipelinePubmed(unittest.TestCase):
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
         
         self.assertEqual(obtained, expected)
+
+
+class PipelinePubmedTest(unittest.TestCase):
+    def test_pipeline_pubmed(self,):
+        xml_file = ET.parse("/home/samuelv/Desktop/scielo/packtools/packtools/tests/sps/fixtures/formats/pubmed/S0066-782X2024000600303.xml")
+        report = []
+        xml = pipeline_pubmed(xml_tree=xml_file, report=report)
+        import ipdb; ipdb.set_trace()
 
 if __name__ == '__main__':
     unittest.main()

@@ -17,7 +17,7 @@ from packtools.sps.models import (
 from packtools.sps.models.v2 import aff
 
 def update_report(report, missing_tag, validation_errors, tag_path):
-    return report.update({
+    report.append({
             "missing_tags": missing_tag,
             "validation_errors": validation_errors,
             "tag_path": tag_path,
@@ -358,7 +358,7 @@ def xml_pubmed_language_pipe(xml_pubmed, xml_tree):
     add_langs(xml_pubmed, xml_tree)
 
 
-def pipeline_pubmed(xml_tree, pretty_print=True, report={}):
+def pipeline_pubmed(xml_tree, pretty_print=True, report=[]):
     xml_pubmed = xml_pubmed_article_set()
     xml_pubmed = xml_pubmed_dtd_header(xml_pubmed=xml_pubmed)
     xml_pubmed_article_pipe(xml_pubmed=xml_pubmed)
