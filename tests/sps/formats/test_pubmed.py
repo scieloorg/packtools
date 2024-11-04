@@ -603,13 +603,14 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_first_page_pipe_without_first_page(self):
-        expected = (
-            '<Article/>'
+    def test_xml_pubmed_first_page_pipe_missing_first_page(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ELocationID",
+            validation_errors="FirstPage is Required if ELocationID is not present",
+            tag_path=".//front/article-meta/elocation-id",
         )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -620,12 +621,13 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = {}
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_elocation_pipe(self):
         expected = (
