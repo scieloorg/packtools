@@ -465,17 +465,14 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained_xml, expected_xml)
         self.assertEqual(expected_report, report)
 
-    def test_xml_pubmed_pub_date_pipe_without_date(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_pub_date_pipe_missing_pub_date(self):
+        expected_report = self.get_expected_report(
+            missing_tag="PubDate",
+            validation_errors="PubDate is required",
+            tag_path='.//pub-date',      
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -486,12 +483,13 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = {}
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_article_title_pipe(self):
         expected = (
