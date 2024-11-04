@@ -3,7 +3,6 @@ import io
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    aff,
     article_abstract,
     article_and_subarticles,
     article_authors,
@@ -15,7 +14,14 @@ from packtools.sps.models import (
     journal_meta,
     kwd_group,
 )
+from packtools.sps.models.v2 import aff
 
+def update_report(report, missing_tag, validation_errors, tag_path):
+    return report.update({
+            "missing_tags": missing_tag,
+            "validation_errors": validation_errors,
+            "tag_path": tag_path,
+        })
 
 def xml_pubmed_article_set():
     root = ET.Element("ArticleSet")
@@ -66,11 +72,12 @@ def xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report):
         el.text = publisher
         xml_pubmed.find(".//Journal").append(el)
     else:
-        report.update({
-            "missing_tags": "PublisherName",
-            "validation_errors": "Value not found for publisher",
-            "tag_path": ".//journal-meta//publisher//publisher-name",
-        })
+        update_report(
+            report=report, 
+            missing_tag="PublisherName",
+            validation_errors="Value not found in SciELO XML for PublisherName",
+            tag_path=".//journal-meta//publisher//publisher-name",
+        )
 
 
 def get_journal_title(xml_tree):
@@ -89,11 +96,12 @@ def xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report):
         el.text = journal_title
         xml_pubmed.find(".//Journal").append(el)
     else:
-        report.update({
-            "missing_tags": "JournalTitle",
-            "validation_errors": "Value not found for Journal Title",
-            "tag_path": './/journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
-        })
+        update_report(
+            report=report, 
+            missing_tag="JournalTitle",
+            validation_errors="Value not found in SciELO XML for JournalTitle",
+            tag_path='.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
+        )
 
 
 def get_issn(xml_tree):
@@ -112,11 +120,12 @@ def xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report):
         el.text = issn
         xml_pubmed.find(".//Journal").append(el)
     else:
-        report.update({
-            "missing_tags": "Issn",
-            "validation_errors": "Value not found for Issn",
-            "tag_path": './/journal-meta//issn',
-        })
+        update_report(
+            report=report, 
+            missing_tag="Issn",
+            validation_errors="Value not found for Issn",
+            tag_path='.//journal-meta//issn',
+        )
 
 
 def get_volume(xml_tree):
@@ -132,12 +141,12 @@ def xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report):
     volume = get_volume(xml_tree)
     issue = get_issue(xml_tree)
     if not volume and not issue:
-        report.update({
-            "missing_tags": "Volume",
-            "validation_errors": "Volume is required if issue empty",
-            "tag_path": './/front/article-meta/volume',
-        })
-        return
+        update_report(
+            report=report, 
+            missing_tag="Volume",
+            validation_errors="Volume in PubMed XML is required if Issue is empty",
+            tag_path='.//front/article-meta/volume',
+        )
     if volume:
         el = ET.Element("Volume")
         el.text = volume
@@ -158,12 +167,12 @@ def xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report):
     issue = get_issue(xml_tree)
     volume = get_volume(xml_tree)
     if not issue and not volume:
-        report.update({
-            "missing_tags": "Issue",
-            "validation_errors": "Issue is required if volume empty",
-            "tag_path": './/front/article-meta/issue',
-        })
-        return
+        update_report(
+            report=report, 
+            missing_tag="Issue",
+            validation_errors="Issue in PubMed XML is required if Volume is empty",
+            tag_path='.//front/article-meta/issue',
+        )
     if issue:
         el = ET.Element("Issue")
         el.text = issue
@@ -186,24 +195,39 @@ def xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report):
     
     date = get_date(xml_tree)
     if date is not None:
-        dt = ET.Element("PubDate")
-        dt.set("PubStatus", "epublish")
-        for key in date:
-            # TODO
-            # Year is required.
-            if key == "season" and date.get("month") or key == "type":
-                continue
-            el = ET.Element(key.capitalize())
-            el.text = date.get(key)
-            dt.append(el)
+        if 'day' and not 'month' in date:
+            update_report(
+                report=report,
+                missing_tag="Month",
+                validation_errors="Month is Required if the Day tag is present.",
+                tag_path=".//pub-date",
+            )
+        if 'year' not in date:
+            update_report(
+                report=report,
+                missing_tag="Year",
+                validation_errors="Value not found in SciELO XML for Year",
+                tag_path=".//pub-date",
+            )
+        else:
+            dt = ET.Element("PubDate")
+            dt.set("PubStatus", "epublish")
+            for key in date:
+                # Season diferente entre SciELO XML e PubMed XML
+                if key == "season" and date.get("month") or key == "type":
+                    continue
+                el = ET.Element(key.capitalize())
+                el.text = date.get(key)
+                dt.append(el)
 
-        xml_pubmed.find(".//Journal").append(dt)
+            xml_pubmed.find(".//Journal").append(dt)
     else:
-        report.update({
-            "missing_tags": "PubDate",
-            "validation_errors": "Date is required",
-            "tag_path": './/pub-date',
-        })        
+        update_report(
+            report=report, 
+            missing_tag="PubDate",
+            validation_errors="PubDate is required",
+            tag_path='.//pub-date',
+        )
 
 
 def xml_pubmed_replaces_pipe(xml_pubmed, xml_tree):
@@ -258,7 +282,7 @@ def get_first_page(xml_tree):
     return issue.elocation_id
 
 
-def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree, report):
     """
     <FirstPage LZero="save">e20220291</FirstPage>
     """
@@ -270,10 +294,12 @@ def xml_pubmed_first_page_pipe(xml_pubmed, xml_tree):
         el.text = first_page
         xml_pubmed.find(".//Article").append(el)
     elif not ids.get("v2") and not ids.get("doi"):
-        ...
-        # TODO
-        # Report Error
-        # This tag is Required if ELocationID is not present.
+        update_report(
+            report=report, 
+            missing_tag="ELocationID",
+            validation_errors="FirstPage is Required if ELocationID is not present",
+            tag_path=".//front/article-meta/elocation-id",
+        )
 
 
 def get_elocation(xml_tree):
@@ -287,10 +313,10 @@ def add_elocation(xml_pubmed, value, key):
         el = ET.Element("ELocationID")
         el.set("EIdType", key)
         el.text = value
-        xml_pubmed.append(el)
+        xml_pubmed.find(".//Article").append(el)
 
 
-def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
+def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree, report):
     """
     <ELocationID EIdType="pii">S0001-37652022000501309</ELocationID>
     <ELocationID EIdType="doi">10.1590/0001-3765202220201894</ELocationID>
@@ -298,10 +324,12 @@ def xml_pubmed_elocation_pipe(xml_pubmed, xml_tree):
     
     ids = get_elocation(xml_tree)
     if not ids.get("v2") and not ids.get("doi") and not get_first_page(xml_tree=xml_tree):
-        ...
-        # TODO
-        # Report Error.
-        # This tag is Required if FirstPage is not present.
+        update_report(
+            report=report, 
+            missing_tag="ELocationID",
+            validation_errors="ELocationID is Required if FirstPage is not present",
+            tag_path='.//article-id',
+        )
     
     add_elocation(xml_pubmed, ids.get("v2"), "pii")
     add_elocation(xml_pubmed, ids.get("doi"), "doi")
@@ -335,34 +363,34 @@ def pipeline_pubmed(xml_tree, pretty_print=True, report={}):
     xml_pubmed = xml_pubmed_dtd_header(xml_pubmed=xml_pubmed)
     xml_pubmed_article_pipe(xml_pubmed=xml_pubmed)
     xml_pubmed_journal_pipe(xml_pubmed)
-    xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report)
     xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
-    xml_pubmed_elocation_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
+    xml_pubmed_first_page_pipe(xml_pubmed, xml_tree, report)
+    xml_pubmed_elocation_pipe(xml_pubmed, xml_tree, report)
     xml_pubmed_language_pipe(xml_pubmed, xml_tree)
     xml_pubmed_author_list(xml_pubmed, xml_tree)
-    xml_pubmed_publication_type(xml_pubmed, xml_tree)
-    xml_pubmed_article_id(xml_pubmed, xml_tree)
+    # xml_pubmed_publication_type(xml_pubmed, xml_tree)
+    xml_pubmed_article_id(xml_pubmed, xml_tree, report)
     xml_pubmed_history(xml_pubmed, xml_tree)
     xml_pubmed_copyright_information(xml_pubmed, xml_tree)
     xml_pubmed_coi_statement(xml_pubmed, xml_tree)
     xml_pubmed_object_list(xml_pubmed, xml_tree)
-    xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
-    xml_pubmed_citations(xml_pubmed, xml_tree)
+    # xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
+    # xml_pubmed_citations(xml_pubmed, xml_tree)
     xml_pubmed_abstract(xml_pubmed, xml_tree)
     xml_pubmed_other_abstract(xml_pubmed, xml_tree)
 
-    xml_tree = ET.ElementTree(xml_pubmed)
-    return ET.tostring(xml_tree, pretty_print=pretty_print, xml_declaration=True, encoding="utf-8").decode("utf-8")
+    return ET.tostring(xml_pubmed, pretty_print=pretty_print, xml_declaration=True, encoding="UTF-8").decode("utf-8")
 
 
 def get_authors(xml_tree):
-    return article_authors.Authors(xml_tree).contribs
+    return article_authors.Authors(xml_tree).contribs_in_article_meta
 
 
 def add_first_name(author_reg, author_tag):
@@ -387,11 +415,11 @@ def add_suffix_name(author_reg, author_tag):
 
 
 def get_affiliations(author_reg, xml_tree):
-    affiliations = aff.AffiliationExtractor(xml_tree).get_affiliation_dict(subtag=False)
+    affiliations = list(aff.ArticleAffiliations(xml_tree=xml_tree).all_affs())
     affiliation_list = []
     for rid in author_reg.get("rid-aff"):
         affiliation_list.append(
-            affiliations.get(rid).get("institution")[0].get("original")
+            next((d for d in affiliations if d["id"] == rid), {}).get("original")
         )
     return affiliation_list
 
@@ -498,6 +526,8 @@ def xml_pubmed_publication_type(xml_pubmed, xml_tree):
     """
     <PublicationType>Journal Article</PublicationType>
     """
+    # TODO
+    # Não é possível extrair esses dados do SciELO XML pois são diferentes do PUBMED
     publication_type = get_publication_type(xml_tree)
     if publication_type is not None:
         el = ET.Element("PublicationType")
@@ -536,11 +566,12 @@ def xml_pubmed_article_id(xml_pubmed, xml_tree, report):
             article_id_list.append(article_id)
         xml_pubmed.find("./Article").append(article_id_list)
     else:
-        report.update({
-            "missing_tags": "ArticleIdList",
-            "validation_errors": "Not found value for ArticleId",
-            "tag_path": './/article-id',
-        })
+        update_report(
+            report=report, 
+            missing_tag="ArticleIdList",
+            validation_errors="Value not found in SciELO XML for ArticleID",
+            tag_path='.//article-id[@pub-id-type="doi"]',
+        )
         
 
 
@@ -589,6 +620,8 @@ def xml_pubmed_history(xml_pubmed, xml_tree):
         "revised": get_event_date(xml_tree, "rev-recd"),
         #aheadofprint?
         #Data de publicação (eletrônica ou impressa). pub
+        # TODO
+        # No XML, diferenciar epublisher de ppublisher
         # "epublish": get_event_date(xml_tree, "pub"),
         "ppublish": get_event_date(xml_tree, "pub"),
         "ecollection": article_dates.ArticleDates(xml_tree).collection_date,
@@ -683,10 +716,10 @@ def xml_pubmed_title_reference_list(xml_pubmed, xml_tree):
     """
     title = xml_tree.find("./back/ref-list/title")
     if title is not None:
-        xml_pubmed.append(ET.Element("ReferenceList"))
+        xml_pubmed.find(".//Article").append(ET.Element("ReferenceList"))
         title_el = ET.Element("Title")
         title_el.text = title.text
-        xml_pubmed.find("./ReferenceList").append(title_el)
+        xml_pubmed.find(".//ReferenceList").append(title_el)
 
 
 def add_element_citation_id(ids):
@@ -725,7 +758,7 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
      </ReferenceList>
     """
     refs = article_citations.ArticleCitations(xml_tree).article_citations
-    xml = xml_pubmed.find("./ReferenceList")
+    xml = xml_pubmed.find(".//ReferenceList")
     for ref in refs:
         ref_el = ET.Element("Reference")
         citation = ET.Element("Citation")
@@ -799,7 +832,7 @@ def xml_pubmed_other_abstract(xml_pubmed, xml_tree):
                 else:
                     abstract_el.text = abstract.get('p')
 
-                xml_pubmed.append(abstract_el)
+                xml_pubmed.find("./Article").append(abstract_el)
     except AttributeError:
         pass
      
