@@ -406,20 +406,13 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_pub_date_pipe_without_month(self):
-        expected = (
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '<PubDate PubStatus="epublish">'
-            '<Year>2023</Year>'
-            '<Season>Jan-Feb</Season>'
-            '<Day>06</Day>'
-            '</PubDate>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
+    def test_xml_pubmed_pub_date_pipe_missing_month(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Month",
+            validation_errors="Month is Required if the Day tag is present.",
+            tag_path=".//pub-date",            
         )
+        expected_xml = self.get_expected_xml_base()
         xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -429,7 +422,6 @@ class PipelinePubmed(unittest.TestCase):
             '<article-meta>'
             '<pub-date publication-format="electronic" date-type="pub">'
             '<day>06</day>'
-            '<season>Jan-Feb</season>'
             '<year>2023</year>'
             '</pub-date>'
             '</article-meta>'
@@ -437,11 +429,13 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        report = {}
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_pub_date_pipe_without_year(self):
         expected = (
