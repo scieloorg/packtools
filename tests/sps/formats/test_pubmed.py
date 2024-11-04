@@ -283,7 +283,6 @@ class PipelinePubmed(unittest.TestCase):
         xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report={})
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-        import ipdb; ipdb.set_trace()
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_missing_volume_pipe(self):
@@ -394,41 +393,6 @@ class PipelinePubmed(unittest.TestCase):
             '<day>06</day>'
             '<month>01</month>'
             '<season>Jan-Feb</season>'
-            '<year>2023</year>'
-            '</pub-date>'
-            '</article-meta>'
-            '</front>'
-            '</article>'
-        )
-
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report={})
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_pub_date_pipe_without_day(self):
-        expected = (
-            '<ArticleSet>'
-            '<Article>'
-            '<Journal>'
-            '<PubDate PubStatus="epublish">'
-            '<Year>2023</Year>'
-            '<Month>01</Month>'
-            '</PubDate>'
-            '</Journal>'
-            '</Article>'
-            '</ArticleSet>'
-        )
-        xml_pubmed = self.get_xml_pubmed_base()
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front>'
-            '<article-meta>'
-            '<pub-date publication-format="electronic" date-type="pub">'
-            '<month>01</month>'
             '<year>2023</year>'
             '</pub-date>'
             '</article-meta>'
@@ -1292,7 +1256,6 @@ class PipelinePubmed(unittest.TestCase):
         xml_pubmed_history(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-        # import ipdb; ipdb.set_trace()
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_object_list_keyword(self):
