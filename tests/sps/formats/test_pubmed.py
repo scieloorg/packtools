@@ -660,6 +660,32 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_elocation_pipe_missing_ELocationID(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ELocationID",
+            validation_errors="ELocationID is Required if FirstPage is not present",
+            tag_path='.//article-id',
+        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        report = {}
+        xml_pubmed_elocation_pipe(xml_pubmed, xml_tree, report=report)
+
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
+
     def test_xml_pubmed_language_pipe(self):
         expected = (
             '<ArticleSet>'
