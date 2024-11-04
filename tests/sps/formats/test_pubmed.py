@@ -1072,13 +1072,14 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_article_id_without_all_ids(self):
-        expected = (
-            '<Article/>'
+    def test_xml_pubmed_article_id_missing_article_id(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ArticleIdList",
+            validation_errors="Value not found in SciELO XML for ArticleID",
+            tag_path='.//article-id[@pub-id-type="doi"]',
         )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -1092,11 +1093,13 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_article_id(xml_pubmed, xml_tree)
+        report = {}
+        xml_pubmed_article_id(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_history(self):
         expected = (
