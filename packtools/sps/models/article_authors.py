@@ -22,9 +22,16 @@ class Authors:
             return None
 
     @property
-    def contribs(self):
+    def contribs_in_article_meta(self):
+        return self.contribs(xpath_contrib=self.node.xpath(".//article-meta//contrib"))
+
+    @property
+    def contribs_in_sub_article(self):
+        return self.contribs(xpath_contrib=self.node.xpath(".//sub-article//contrib"))
+
+    def contribs(self, xpath_contrib):
         _data = []
-        for node in self.node.xpath(".//contrib"):
+        for node in xpath_contrib:
             _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
@@ -74,7 +81,7 @@ class Authors:
         affs = Affiliation(self.node)
         affs_by_id = affs.affiliation_by_id
 
-        for item in self.contribs:
+        for item in self.contribs_in_article_meta:
             for rid in item.get("aff_rids") or []:
                 item.setdefault("affs", [])
                 item["affs"].append(affs_by_id.get(rid))
