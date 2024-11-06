@@ -338,7 +338,7 @@ class Abstract(BaseAbstract):
                 "id": identificador do 'sub-article'
             }
         """
-        abstract_node = None
+
         for sub_article in self.xmltree.xpath(".//sub-article"): 
             try:
                 abstract_node = sub_article.xpath(".//abstract[not(@abstract-type)]")[0]
