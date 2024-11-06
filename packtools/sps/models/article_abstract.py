@@ -264,11 +264,11 @@ class Abstract(BaseAbstract):
             "abstract": resumo no formato indicado
         }
         """
-        abstract_node = None
-        for node in self.xmltree.findall(".//article-meta//abstract"):
-            if node.get("abstract-type") != "graphical":
-                abstract_node = node
-
+        try:
+            abstract_node = self.xmltree.xpath(".//abstract[not(@abstract-type)]")[0]
+        except IndexError:
+            abstract_node = None
+  
         if abstract_node is not None:
             abstract = self._format_abstract(
                 abstract_node=abstract_node,
@@ -340,9 +340,10 @@ class Abstract(BaseAbstract):
         """
         abstract_node = None
         for sub_article in self.xmltree.xpath(".//sub-article"): 
-            for node in self.xmltree.findall(".//abstract"):
-                if node.get("abstract-type") != "graphical":
-                    abstract_node = node
+            try:
+                abstract_node = sub_article.xpath(".//abstract[not(@abstract-type)]")[0]
+            except IndexError:
+                abstract_node = None
             if abstract_node is not None:
                 sub_article_lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
                 abstract_lang = abstract_node.get("{http://www.w3.org/XML/1998/namespace}lang")
