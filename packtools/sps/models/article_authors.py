@@ -21,10 +21,9 @@ class Authors:
         except IndexError:
             return None
 
-    @property
-    def contribs(self):
+    def _extract_contribs(self, xpath_contrib):
         _data = []
-        for node in self.node.xpath(".//contrib"):
+        for node in self.node.xpath(xpath_contrib):
             _author = _get_collab(node)
             for tag in ("surname", "prefix", "suffix"):
                 data = node.findtext(f".//{tag}")
@@ -68,6 +67,19 @@ class Authors:
             _author["contrib-type"] = node.attrib.get("contrib-type")
             _data.append(_author)
         return _data
+
+    
+    @property
+    def contribs_in_article_meta(self):
+        return self._extract_contribs(".//article-meta//contrib")
+        
+    @property
+    def contribs_in_sub_article(self):
+        return self._extract_contribs(".//sub-article//contrib")
+
+    @property
+    def contribs(self):
+        return self._extract_contribs(".//contrib")
 
     @property
     def contribs_with_affs(self):
