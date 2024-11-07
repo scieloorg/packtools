@@ -1,40 +1,87 @@
-"""
-data = {
-    "formula-id": "e01",
-    "label": "(1)",
-    "codification": "mml:math",
-    "codification-id": "m1",
-    "formula": "<mml:mrow><mml:msub><mml:mi>q</mml:mi><mml:mi>c</mml:mi></mml:msub><mml:mo>=</mml:mo><mml:mi>h</mml:mi>
-    <mml:mrow><mml:mo>(</mml:mo><mml:mrow><mml:mi>T</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>T</mml:mi><mml:mn>0
-    </mml:mn></mml:msub></mml:mrow><mml:mo>)</mml:mo></mml:mrow></mml:mrow></mml:math>",
-    "alternative-link": "0103-507X-rbti-26-02-0089-ee10.svg"
-}
-"""
-
 import xml.etree.ElementTree as ET
 
 
-def build_disp_formula(data):
-    required_fields = ["formula-id", "codification", "codification-id", "formula"]
+def build_formula(data):
+    """
+    data = {
+        "codification": "mml:math",
+        "id": "m1",
+        "text": "fórmula no formato mml"
+    }
+    """
+    required_fields = ("codification", "id", "text")
     missing_fields = [field for field in required_fields if not data.get(field)]
 
     if missing_fields:
         raise ValueError(f"Missing required fields: {', '.join(missing_fields)}")
 
-    disp_formula_elem = ET.Element("disp-formula", attrib={"id": data["formula-id"]})
+    codification = data["codification"]
+    formula_id = data["id"]
+    formula_text = data["text"]
 
-    if label := data.get("label"):
-        label_elem = ET.SubElement(disp_formula_elem, "label")
-        label_elem.text = label
+    valid_codifications = ("mml:math", "tex-math", "graphic")
 
-    codification_elem = ET.Element(data["codification"], attrib={"id": data["codification-id"]})
-    codification_elem.text = data["formula"]
+    if codification not in valid_codifications:
+        raise KeyError(f"Invalid codification. Expected values are: {', '.join(valid_codifications)}")
 
-    if alternative_link := data.get("alternative-link"):
-        alternative_elem = ET.SubElement(disp_formula_elem, "alternatives")
-        alternative_elem.append(codification_elem)
-        ET.SubElement(alternative_elem, "graphic", attrib={"xlink:href": alternative_link})
+    if codification == "graphic":
+        attributes = {"xlink:href": formula_text, "id": formula_id}
     else:
-        disp_formula_elem.append(codification_elem)
+        attributes = {"id": formula_id}
+
+    formula_elem = ET.Element(codification, attrib=attributes)
+
+    if codification != "graphic":
+        formula_elem.text = formula_text
+
+    return formula_elem
+
+
+def build_disp_formula(data):
+    """
+    data = {
+        "formula-id": "e01",
+        "label": "(1)",
+        "formulas": [
+            {
+                "codification": "mml:math",
+                "id": "m1",
+                "text": "fórmula no formato mml"
+            },
+            {
+                "codification": "tex-math",
+                "id": "t1",
+                "text": "fórmula no formato tex"
+            },
+            {
+                "codification": "graphic",
+                "id": "g1",
+                "text": "0103-507X-rbti-26-02-0089-ee10.svg"
+            }
+        ]
+    }
+    """
+    # build disp-formula
+    if not (formula_id := data.get("formula-id")):
+        raise ValueError("formula-id is required")
+
+    disp_formula_elem = ET.Element("disp-formula", attrib={"id": formula_id})
+
+    # add label
+    if label := data.get("label"):
+        ET.SubElement(disp_formula_elem, "label").text = label
+
+    formulas = data.get("formulas", [])
+    if not formulas:
+        raise ValueError("At least one representation of the formula is required")
+
+    if len(formulas) == 1:
+        # add one formula
+        disp_formula_elem.append(build_formula(formulas[0]))
+    else:
+        # add alternatives (many formulas)
+        alternatives_elem = ET.SubElement(disp_formula_elem, "alternatives")
+        for formula in formulas:
+            alternatives_elem.append(build_formula(formula))
 
     return disp_formula_elem
