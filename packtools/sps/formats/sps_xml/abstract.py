@@ -18,7 +18,7 @@ data = {
 import xml.etree.ElementTree as ET
 
 
-def build_structured_abstract(data):
+def build_abstract(data):
     abstract_elem = ET.Element("abstract")
 
     title_text = data.get("title")
