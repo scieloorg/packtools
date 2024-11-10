@@ -476,15 +476,37 @@ class ArticleCitationValidation:
                     error_level=error_level,
                 )
 
+    def validate_mixed_citation_tags(self, error_level="ERROR", allowed_tags=None):
+        if allowed_tags is None:
+            raise ValidationArticleCitationsException("Function requires list of allowed tags")
+        remaining_tags = list(set(self.citation.get("mixed_citation_sub_tags")) - set(allowed_tags))
+        if remaining_tags:
+            yield format_response(
+                title="mixed citation sub-tags",
+                parent=self.citation.get("parent"),
+                parent_id=self.citation.get("parent_id"),
+                parent_article_type=self.citation.get("parent_article_type"),
+                parent_lang=self.citation.get("parent_lang"),
+                item="element-citation",
+                sub_item="mixed-citation",
+                is_valid=False,
+                validation_type="exist",
+                expected=allowed_tags,
+                obtained=self.citation.get("mixed_citation_sub_tags"),
+                advice=f"remove {remaining_tags} from mixed-citation",
+                data=self.citation,
+                error_level=error_level,
+            )
+
 
 class ArticleCitationsValidation:
-    def __init__(self, xmltree, publication_type_list=None):
-        self._xmltree = xmltree
-        self.article_citations = ArticleCitations(self._xmltree).article_citations
+    def __init__(self, xml_tree, publication_type_list=None):
+        self.xml_tree = xml_tree
+        self.article_citations = ArticleCitations(self.xml_tree).article_citations
         self.publication_type_list = publication_type_list
 
     def validate_article_citations(
-        self, xmltree, publication_type_list=None, start_year=None, end_year=None
+        self, xmltree, publication_type_list=None, start_year=None, end_year=None, allowed_tags=None
     ):
         for article_citation in self.article_citations:
             citation = ArticleCitationValidation(
@@ -500,4 +522,5 @@ class ArticleCitationsValidation:
                 publication_type_list
             )
             yield from citation.validate_comment_is_required_or_not()
+            yield from citation.validate_mixed_citation_tags(allowed_tags=allowed_tags)
             

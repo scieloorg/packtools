@@ -1,0 +1,5 @@
+{
+    "pagination_rules": {
+        "error_level": "WARNING"
+    }
+}

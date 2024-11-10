@@ -1493,8 +1493,12 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'en',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
@@ -1508,8 +1512,12 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'en',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'en', 'plain_text': 'Abstract'},
                 'sections': [
                     {
@@ -1541,9 +1549,13 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'es',
                 'lang': 'es',
                 'id': '01',
-                'parent_name': 'sub-article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
@@ -1560,9 +1572,13 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'es',
                 'lang': 'es',
                 'id': '01',
-                'parent_name': 'sub-article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
                 'sections': [
                     {
@@ -1594,8 +1610,12 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'pt',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
@@ -1612,8 +1632,12 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'pt',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'pt', 'plain_text': 'Abstract'},
                 'sections': [
                         {
@@ -1645,8 +1669,12 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = [
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'en',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'en', 'plain_text': 'Abstract'},
                 'sections': [
                     {
@@ -1672,9 +1700,13 @@ class ArticleAbstractTest(TestCase):
                 ]
             },
             {
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'es',
                 'lang': 'es',
                 'id': '01',
-                'parent_name': 'sub-article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'es', 'plain_text': 'Abstract'},
                 'sections': [
                     {
@@ -1700,8 +1732,12 @@ class ArticleAbstractTest(TestCase):
                 ]
             },
             {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'pt',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'title': {'html_text': 'Abstract', 'lang': 'pt', 'plain_text': 'Abstract'},
                 'sections': [
                     {
@@ -1737,25 +1773,37 @@ class ArticleAbstractTest(TestCase):
         self.maxDiff = None
         expected = {
             'en': {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'en',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
                               'bold aninhado text conteúdo de bold'
             },
             'es': {
+                'parent': 'sub-article',
+                'parent_article_type': 'translation',
+                'parent_id': '01',
+                'parent_lang': 'es',
                 'lang': 'es',
                 'id': '01',
-                'parent_name': 'sub-article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
                               'bold aninhado text conteúdo de bold'
             },
             'pt': {
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
                 'lang': 'pt',
-                'parent_name': 'article',
+                'abstract_type': None,
                 'html_text': 'Abstract inicio <b>conteúdo de bold</b> text meio text <b>conteúdo de bold</b> text fim text '
                              '<b>conteúdo de bold</b> aninhado text <b>conteúdo <i>de</i> bold</b>',
                 'plain_text': 'Abstract inicio conteúdo de bold text meio text conteúdo de bold text fim text conteúdo de '
@@ -1787,6 +1835,12 @@ class HighlightTest(TestCase):
             """)
         self.highlight = Highlight(xmltree.xpath('.//abstract')[0])
 
+    def test_get_abstract_type_returns_abstract_type(self):
+        self.assertEqual(self.highlight.abstract_type, "key-points")
+
+    def test_get_data_returns_abstract_type(self):
+        self.assertEqual(self.highlight.data["abstract_type"], "key-points")
+
     def test_highlight_title(self):
         self.assertEqual(self.highlight.title, "HIGHLIGHTS")
 
@@ -1798,7 +1852,7 @@ class HighlightTest(TestCase):
             'Ut a erat ac odio placerat convallis'
         ]
 
-        obtained = list(self.highlight.highlights)
+        obtained = list(self.highlight.p)
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1807,12 +1861,15 @@ class HighlightTest(TestCase):
     def test_data(self):
         expected = {
             "title": "HIGHLIGHTS",
+            'list': [],
+            'kwds': [],
             "highlights": [
                 'Nam vitae leo aliquet, pretium ante at, faucibus felis',
                 'Aliquam ac mauris et libero pulvinar facilisis',
                 'Fusce aliquam ipsum ut diam luctus porta',
                 'Ut a erat ac odio placerat convallis'
-            ]
+            ],
+            'abstract_type': 'key-points',
         }
 
         obtained = self.highlight.data
@@ -1860,10 +1917,13 @@ class HighlightsTest(TestCase):
                     'Fusce aliquam ipsum ut diam luctus porta',
                     'Ut a erat ac odio placerat convallis'
                 ],
+                'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             },
             {
                 "title": "HIGHLIGHTS",
@@ -1873,14 +1933,17 @@ class HighlightsTest(TestCase):
                     'Fusce aliquam ipsum ut diam luctus porta',
                     'Ut a erat ac odio placerat convallis'
                 ],
+                'list': [],
+                'kwds': [],
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
                 'parent_lang': 'es',
+                'abstract_type': 'key-points',
             }
         ]
 
-        obtained = list(self.highlights.article_highlights())
+        obtained = list(self.highlights.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1924,10 +1987,13 @@ class HighlightsTransAbstractTest(TestCase):
                     'Fusce aliquam ipsum ut diam luctus porta',
                     'Ut a erat ac odio placerat convallis'
                 ],
+                'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             },
             {
                 "title": "HIGHLIGHTS",
@@ -1937,14 +2003,17 @@ class HighlightsTransAbstractTest(TestCase):
                     'Fusce aliquam ipsum ut diam luctus porta',
                     'Ut a erat ac odio placerat convallis'
                 ],
+                'list': [],
+                'kwds': [],
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
+                'abstract_type': 'key-points',
             }
         ]
 
-        obtained = list(self.highlights.article_highlights())
+        obtained = list(self.highlights.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1993,7 +2062,9 @@ class VisualAbstractTest(TestCase):
             "title": "Visual Abstract",
             "fig_id": "vf01",
             "caption": "Título",
-            "graphic": "1234-5678-zwy-12-04-0123-vs01.tif"
+            "graphic": "1234-5678-zwy-12-04-0123-vs01.tif",
+            'kwds': [],
+            'abstract_type': 'graphical',
         }
 
         obtained = self.visual_abstract.data
@@ -2052,6 +2123,8 @@ class VisualAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
+                'abstract_type': 'graphical',
             },
             {
                 "title": "Visual Abstract",
@@ -2062,10 +2135,12 @@ class VisualAbstractsTest(TestCase):
                 'parent_id': '01',
                 'parent_article_type': 'translation',
                 'parent_lang': 'es',
+                'kwds': [],
+                'abstract_type': 'graphical',
             },
         ]
 
-        obtained = list(self.visual_abstracts.article_visual_abstracts())
+        obtained = list(self.visual_abstracts.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -2119,6 +2194,8 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
+                'abstract_type': 'graphical',
             },
             {
                 "title": "Visual Abstract",
@@ -2129,10 +2206,12 @@ class VisualTransAbstractsTest(TestCase):
                 'parent_id': None,
                 'parent_article_type': 'research-article',
                 'parent_lang': 'en',
+                'kwds': [],
+                'abstract_type': 'graphical',
             },
         ]
 
-        obtained = list(self.visual_abstracts.article_visual_abstracts())
+        obtained = list(self.visual_abstracts.article_abstracts())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
