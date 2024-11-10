@@ -1,6 +1,6 @@
 import unittest
 import xml.etree.ElementTree as ET
-from packtools.sps.formats.sps_xml.abstract import build_structured_abstract, build_visual_abstract
+from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract
 
 
 class TestBuildStructuredAbstractTitle(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestBuildStructuredAbstractTitle(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -22,7 +22,7 @@ class TestBuildStructuredAbstractTitle(unittest.TestCase):
             "title": None
         }
         with self.assertRaises(ValueError) as e:
-            build_structured_abstract(data)
+            build_abstract(data)
         self.assertEqual(str(e.exception), "title is required")
 
 
@@ -54,7 +54,7 @@ class TestBuildStructuredAbstractSections(unittest.TestCase):
             '</sec>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -68,7 +68,7 @@ class TestBuildStructuredAbstractSections(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -91,7 +91,7 @@ class TestBuildStructuredAbstractSections(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -106,7 +106,7 @@ class TestBuildSimpleAbstractTitle(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -115,7 +115,7 @@ class TestBuildSimpleAbstractTitle(unittest.TestCase):
             "title": None
         }
         with self.assertRaises(ValueError) as e:
-            build_structured_abstract(data)
+            build_abstract(data)
         self.assertEqual(str(e.exception), "title is required")
 
 
@@ -131,7 +131,7 @@ class TestBuildSimpleAbstractParagraph(unittest.TestCase):
             'p>Verificar a sensibilidade e especificidade ...</p>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
@@ -145,7 +145,7 @@ class TestBuildSimpleAbstractParagraph(unittest.TestCase):
             '<title>Resumo</title>'
             '</abstract>'
         )
-        abstract_elem = build_structured_abstract(data)
+        abstract_elem = build_abstract(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
