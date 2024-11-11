@@ -57,9 +57,9 @@ class TestBuildRefSubElements(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
             '<label>1</label>'
             '<mixed-citation>Aires M, Paz AA, Perosa CT. Situação de saúde...</mixed-citation>'
+            '<element-citation publication-type="journal">'
             '<article-title>Situação de saúde e grau de...</article-title>'
             '<source>Rev Gaucha Enferm</source>'
             '<publisher-loc>Rio de Janeiro</publisher-loc>'
@@ -68,6 +68,7 @@ class TestBuildRefSubElements(unittest.TestCase):
             '<issue>3</issue>'
             '<fpage>192</fpage>'
             '<lpage>199</lpage>'
+            '</element-citation>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -108,10 +109,11 @@ class TestBuildRefExtLink(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal">'
             '<ext-link ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">'
             'http://socialsciences.scielo.org'
             '</ext-link>'
+            '</element-citation>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -185,8 +187,9 @@ class TestBuildRefPubId(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal">'
             '<pub-id pub-id-type="pmid">15867408</pub-id>'
+            '</element-citation>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -258,8 +261,9 @@ class TestBuildDateInCitation(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal">'
             '<date-in-citation content-type="updated">2006 Jul 20</date-in-citation>'
+            '</element-citation>'
             '</ref>'
         )
         ref_elem = build_ref(data)
