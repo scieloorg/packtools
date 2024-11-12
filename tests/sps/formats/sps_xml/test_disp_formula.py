@@ -10,9 +10,8 @@ class TestBuildDispFormulaId(unittest.TestCase):
             "formula-id": "e01",
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": "m1"
                 }
             ]
         }
@@ -30,9 +29,8 @@ class TestBuildDispFormulaId(unittest.TestCase):
             "formula-id": None,
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": "m1"
                 }
             ]
         }
@@ -48,9 +46,8 @@ class TestBuildDispFormulaLabel(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": "m1"
                 }
             ]
         }
@@ -70,9 +67,8 @@ class TestBuildDispFormulaLabel(unittest.TestCase):
             "label": None,
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": "m1"
                 }
             ]
         }
@@ -103,15 +99,14 @@ class TestBuildDispFormula(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": None,
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": None
                 }
             ]
         }
         with self.assertRaises(ValueError) as e:
             build_disp_formula(data)
-        self.assertEqual(str(e.exception), "Missing required fields: id")
+        self.assertEqual(str(e.exception), "A valid codification type and ID are required.")
 
     def test_build_disp_formula_formula_None(self):
         data = {
@@ -119,15 +114,14 @@ class TestBuildDispFormula(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": None
+                    "mml:math": None,
+                    "id": "m1"
                 }
             ]
         }
         with self.assertRaises(ValueError) as e:
             build_disp_formula(data)
-        self.assertEqual(str(e.exception), "Missing required fields: text")
+        self.assertEqual(str(e.exception), "A valid codification type and ID are required.")
 
 
 class TestBuildDispFormulaAlternatives(unittest.TestCase):
@@ -137,19 +131,16 @@ class TestBuildDispFormulaAlternatives(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "codification": "mml:math",
-                    "id": "m1",
-                    "text": "fórmula no formato mml"
+                    "mml:math": "fórmula no formato mml",
+                    "id": "m1"
                 },
                 {
-                    "codification": "tex-math",
-                    "id": "t1",
-                    "text": "fórmula no formato tex"
+                    "tex-math": "fórmula no formato tex",
+                    "id": "t1"
                 },
                 {
-                    "codification": "graphic",
-                    "id": "g1",
-                    "text": "0103-507X-rbti-26-02-0089-ee10.svg"
+                    "graphic": "0103-507X-rbti-26-02-0089-ee10.svg",
+                    "id": "g1"
                 }
             ]
         }
