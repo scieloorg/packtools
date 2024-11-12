@@ -4,35 +4,25 @@ import xml.etree.ElementTree as ET
 def build_formula(data):
     """
     data = {
-        "codification": "mml:math",
-        "id": "m1",
-        "text": "fórmula no formato mml"
+        "mml:math": "fórmula no formato mml",
+        "id": "m1"
     }
     """
-    required_fields = ("codification", "id", "text")
-    missing_fields = [field for field in required_fields if not data.get(field)]
-
-    if missing_fields:
-        raise ValueError(f"Missing required fields: {', '.join(missing_fields)}")
-
-    codification = data["codification"]
-    formula_id = data["id"]
-    formula_text = data["text"]
-
-    valid_codifications = ("mml:math", "tex-math", "graphic")
-
-    if codification not in valid_codifications:
-        raise KeyError(f"Invalid codification. Expected values are: {', '.join(valid_codifications)}")
-
-    if codification == "graphic":
-        attributes = {"xlink:href": formula_text, "id": formula_id}
+    for cod_type in ("mml:math", "tex-math", "graphic"):
+        if (cod_value := data.get(cod_type)) and (cod_id := data.get("id")):
+            break
     else:
-        attributes = {"id": formula_id}
+        raise ValueError(f"A valid codification type and ID are required.")
 
-    formula_elem = ET.Element(codification, attrib=attributes)
+    if cod_type == "graphic":
+        attributes = {"xlink:href": cod_value, "id": cod_id}
+    else:
+        attributes = {"id": cod_id}
 
-    if codification != "graphic":
-        formula_elem.text = formula_text
+    formula_elem = ET.Element(cod_type, attrib=attributes)
+
+    if cod_type != "graphic":
+        formula_elem.text = cod_value
 
     return formula_elem
 
@@ -44,19 +34,16 @@ def build_disp_formula(data):
         "label": "(1)",
         "formulas": [
             {
-                "codification": "mml:math",
-                "id": "m1",
-                "text": "fórmula no formato mml"
+                "mml:math": "fórmula no formato mml",
+                "id": "m1"
             },
             {
-                "codification": "tex-math",
-                "id": "t1",
-                "text": "fórmula no formato tex"
+                "tex-math": "fórmula no formato tex",
+                "id": "t1"
             },
             {
-                "codification": "graphic",
-                "id": "g1",
-                "text": "0103-507X-rbti-26-02-0089-ee10.svg"
+                "graphic": "0103-507X-rbti-26-02-0089-ee10.svg",
+                "id": "g1"
             }
         ]
     }
