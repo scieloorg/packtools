@@ -3,11 +3,30 @@ import xml.etree.ElementTree as ET
 from packtools.sps.formats.sps_xml.table_wrap import build_table_wrap
 
 
-class TestBuildTableId(unittest.TestCase):
+class TestBuildTableExceptions(unittest.TestCase):
+
+    def test_build_table_wrap_without_table(self):
+        data = {
+            "table-wrap-id": "t01",
+            "tables": None
+        }
+        with self.assertRaises(ValueError) as e:
+            build_table_wrap(data)
+        self.assertEqual(str(e.exception), "At least one representation of the table is required")
+
+    def test_build_table_wrap_codification_invalid(self):
+        data = {
+            "table-wrap-id": "t01",
+            "tables": [{"formula": "codificação da formula"}]
+        }
+        with self.assertRaises(ValueError) as e:
+            build_table_wrap(data)
+        self.assertEqual(str(e.exception), "A valid codification type ('table' or 'graphic') is required.")
 
     def test_build_table_wrap_without_id(self):
         data = {
-            "table-wrap-id": None
+            "table-wrap-id": None,
+            "tables": [{"table": "codificação da tabela"}]
         }
         with self.assertRaises(ValueError) as e:
             build_table_wrap(data)
@@ -20,10 +39,12 @@ class TestBuildTableLabel(unittest.TestCase):
         data = {
             "table-wrap-id": "t01",
             "label": "Table 1",
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<label>Table 1</label>'
+            '<table>codificação da tabela</table>'
             '</table-wrap>'
         )
 
@@ -34,10 +55,13 @@ class TestBuildTableLabel(unittest.TestCase):
     def test_build_table_wrap_label_None(self):
         data = {
             "table-wrap-id": "t01",
-            "label": None
+            "label": None,
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
-            '<table-wrap id="t01" />'
+            '<table-wrap id="t01">'
+            '<table>codificação da tabela</table>'
+            '</table-wrap>'
         )
 
         table_elem = build_table_wrap(data)
@@ -52,6 +76,7 @@ class TestBuildTableCaption(unittest.TestCase):
             "table-wrap-id": "t01",
             "caption-title": "Título da tabela",
             "caption-p": ["Deaths Among Patients..."],
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
             '<table-wrap id="t01">'
@@ -59,6 +84,7 @@ class TestBuildTableCaption(unittest.TestCase):
             '<title>Título da tabela</title>'
             '<p>Deaths Among Patients...</p>'
             '</caption>'
+            '<table>codificação da tabela</table>'
             '</table-wrap>'
         )
 
@@ -71,12 +97,14 @@ class TestBuildTableCaption(unittest.TestCase):
             "table-wrap-id": "t01",
             "caption-title": None,
             "caption-p": ["Deaths Among Patients..."],
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<caption>'
             '<p>Deaths Among Patients...</p>'
             '</caption>'
+            '<table>codificação da tabela</table>'
             '</table-wrap>'
         )
 
@@ -88,13 +116,15 @@ class TestBuildTableCaption(unittest.TestCase):
         data = {
             "table-wrap-id": "t01",
             "caption-title": "Título da tabela",
-            "caption-p": None
+            "caption-p": None,
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<caption>'
             '<title>Título da tabela</title>'
             '</caption>'
+            '<table>codificação da tabela</table>'
             '</table-wrap>'
         )
 
@@ -108,11 +138,8 @@ class TestBuildTableFootnotes(unittest.TestCase):
     def test_build_table_wrap_footnotes_id(self):
         data = {
             "table-wrap-id": "t01",
-            "fns": [
-                {
-                    "fn-id": None
-                }
-            ]
+            "fns": [{"fn-id": None}],
+            "tables": [{"table": "codificação da tabela"}]
         }
         with self.assertRaises(ValueError) as e:
             build_table_wrap(data)
@@ -121,10 +148,13 @@ class TestBuildTableFootnotes(unittest.TestCase):
     def test_build_table_wrap_footnotes_None(self):
         data = {
             "table-wrap-id": "t01",
-            "fns": None
+            "fns": None,
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
-            '<table-wrap id="t01" />'
+            '<table-wrap id="t01">'
+            '<table>codificação da tabela</table>'
+            '</table-wrap>'
         )
 
         table_elem = build_table_wrap(data)
@@ -139,13 +169,44 @@ class TestBuildTableFootnotes(unittest.TestCase):
                     "fn-id": "fn01",
                     "fn-label": None
                 }
-            ]
+            ],
+            "tables": [{"table": "codificação da tabela"}]
         }
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<table-wrap-foot>'
             '<fn id="fn01" />'
             '</table-wrap-foot>'
+            '<table>codificação da tabela</table>'
+            '</table-wrap>'
+        )
+
+        table_elem = build_table_wrap(data)
+        generated_xml_str = ET.tostring(table_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+
+class TestBuildTableAlternatives(unittest.TestCase):
+
+    def test_build_table_wrap_alternatives(self):
+        data = {
+            "table-wrap-id": "t01",
+            "tables": [
+                {
+                    "graphic": "nomedaimagemdatabela.svg",
+                    "id": "g1"
+                },
+                {
+                    "table": "codificação da tabela"
+                }
+            ]
+        }
+        expected_xml_str = (
+            '<table-wrap id="t01">'
+            '<alternatives>'
+            '<graphic xlink:href="nomedaimagemdatabela.svg" id="g1" />'
+            '<table>codificação da tabela</table>'
+            '</alternatives>'
             '</table-wrap>'
         )
 
