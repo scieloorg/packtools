@@ -26,7 +26,7 @@ def build_permissions(data):
             elem = ET.Element(item)
             elem.text = text
             permissions_elem.append(elem)
-
+            
     try:
         for license_dict in data["licenses"]:
             try:
@@ -47,3 +47,4 @@ def build_permissions(data):
         raise TypeError("licenses must be a list")
 
     return permissions_elem
+  
