@@ -1,19 +1,49 @@
-"""
-data = {
-    "fig-id": "f01",
-    "fig-type": "map",
-    "label": "Figure 1",
-    "caption-title": "Título de figura",
-    "caption-p": ["Deaths Among Patients..."],
-    "graphic-xlink": "1234-5678-zwy-12-04-0123-gf02.tif",
-    "attrib": "Fonte: IBGE (2018)"
-}
-"""
-
 import xml.etree.ElementTree as ET
 
 
 def build_fig(data):
+    """
+    Constructs an XML `fig` element based on the provided data.
+
+    Args:
+        data (dict): A dictionary containing the attributes and sub-elements
+            for the `fig` element. Expected keys include:
+            - "fig-id" (str): Required. The ID for the figure.
+            - "fig-type" (str): Optional. The type of the figure.
+            - "label" (str): Optional. The label for the figure.
+            - "caption-title" (str): Optional. The title of the caption.
+            - "caption-p" (list of str): Optional. Paragraphs for the caption.
+            - "graphic-xlink" (str): Optional. The xlink for a graphic element.
+            - "attrib" (str): Optional. An additional attribute for the figure.
+
+    Returns:
+        xml.etree.ElementTree.Element: The constructed `fig` XML element.
+
+    Raises:
+        ValueError: If the "fig-id" key is missing in the input data.
+
+    Example input:
+        data = {
+            "fig-id": "f01",
+            "fig-type": "map",
+            "label": "Figure 1",
+            "caption-title": "Título de figura",
+            "caption-p": ["Deaths Among Patients..."],
+            "graphic-xlink": "1234-5678-zwy-12-04-0123-gf02.tif",
+            "attrib": "Fonte: IBGE (2018)"
+        }
+
+    Example output:
+        <fig id="f01" fig-type="map">
+            <label>Figure 1</label>
+            <caption>
+                <title>Título de figura</title>
+                <p>Deaths Among Patients...</p>
+            </caption>
+            <graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.tif" />
+            <attrib>Fonte: IBGE (2018)</attrib>
+        </fig>
+    """
     fig_id = data.get("fig-id")
     if not fig_id:
         raise ValueError("Attrib id is required")
