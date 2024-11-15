@@ -1,32 +1,7 @@
-"""
-data = {
-    "table-wrap-id": "t01",
-    "label": "Table 1",
-    "caption-title": "Título da tabela",
-    "caption-p": ["Deaths Among Patients..."],
-    "fns": [
-        {
-            "fn-id": "fn01",
-            "fn-label": "*",
-            "fn-p": "text"
-        }
-    ],
-    "tables": [
-        {
-            "graphic": "nomedaimagemdatabela.svg",
-            "id": "g1"
-        },
-        {
-            "table": "codificação da tabela"
-        }
-    ]
-}
-
-obs.:
-    - nota de tabela não tem o atributo 'fn-type'
-    - o atributo 'id' é obrigatório
-    - pode existir um único 'table' e muitos 'graphic' em 'table-wrap'
-"""
+# obs.:
+#    - nota de tabela não tem o atributo 'fn-type'
+#    - o atributo 'id' é obrigatório
+#    - pode existir um único 'table' e muitos 'graphic' em 'table-wrap'
 
 import xml.etree.ElementTree as ET
 
@@ -46,6 +21,15 @@ def build_table(data):
 
     Raises:
     ValueError: If neither "table" nor "graphic" are provided in the data.
+
+    Example input:
+        data = {
+            "graphic": "nomedaimagemdatabela.svg",
+            "id": "g1"
+        }
+
+    Example output:
+        <graphic xlink:href="nomedaimagemdatabela.svg" id="g1" />
     """
     for table_type in ("table", "graphic"):
         if table_value := data.get(table_type):
@@ -87,6 +71,49 @@ def build_table_wrap(data):
 
     Raises:
     ValueError: If required keys are missing or data is malformed.
+
+    Example input:
+        data = {
+            "table-wrap-id": "t01",
+            "label": "Table 1",
+            "caption-title": "Título da tabela",
+            "caption-p": ["Deaths Among Patients..."],
+            "fns": [
+                {
+                    "fn-id": "fn01",
+                    "fn-label": "*",
+                    "fn-p": "text"
+                }
+            ],
+            "tables": [
+                {
+                    "graphic": "nomedaimagemdatabela.svg",
+                    "id": "g1"
+                },
+                {
+                    "table": "codificação da tabela"
+                }
+            ]
+        }
+
+    Example output:
+        <table-wrap id="t01">
+            <label>Table 1</label>
+            <caption>
+                <title>Título da tabela</title>
+                <p>Deaths Among Patients...</p>
+            </caption>
+            <table-wrap-foot>
+                <fn id="fn01">
+                    <label>*</label>
+                    <p>text</p>
+                </fn>
+            </table-wrap-foot>
+            <alternatives>
+                <graphic xlink:href="nomedaimagemdatabela.svg" id="g1" />
+                <table>codificação da tabela</table>
+            </alternatives>
+        </table-wrap>
     """
     if not (table_id := data.get("table-wrap-id")):
         raise ValueError("Attrib table-wrap-id is required")
