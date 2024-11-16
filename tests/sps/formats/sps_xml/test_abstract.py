@@ -1,6 +1,6 @@
 import unittest
 import xml.etree.ElementTree as ET
-from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract
+from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract, build_trans_abstract
 
 
 class TestBuildStructuredAbstractTitle(unittest.TestCase):
@@ -259,3 +259,35 @@ class TestBuildVisualAbstractHref(unittest.TestCase):
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
 
+class TestBuildTransAbstractTitle(unittest.TestCase):
+    def test_build_structured_abstract_title(self):
+        data = {
+            "title": "Resumo",
+            "lang": "pt",
+            "secs": [
+                {
+                    "title": "Objetivo",
+                    "p": "Verificar a sensibilidade e especificidade ..."
+                },
+                {
+                    "title": "Métodos",
+                    "p": "Durante quatro meses foram selecionados ..."
+                }
+            ]
+        }
+        expected_xml_str = (
+            '<trans-abstract xml:lang="pt">'
+            '<title>Resumo</title>'
+            '<sec>'
+            '<title>Objetivo</title>'
+            '<p>Verificar a sensibilidade e especificidade ...</p>'
+            '</sec>'
+            '<sec>'
+            '<title>Métodos</title>'
+            '<p>Durante quatro meses foram selecionados ...</p>'
+            '</sec>'
+            '</trans-abstract>'
+        )
+        abstract_elem = build_trans_abstract(data)
+        generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
