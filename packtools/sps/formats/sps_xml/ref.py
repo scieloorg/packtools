@@ -152,6 +152,10 @@ def build_ref(data, node=None):
         ref_elem, "element-citation", attrib={"publication-type": publication_type}
     )
 
+    if node:
+        for person_group in node.get("person-group") or []:
+            element_citation_elem.append(person_group)
+
     basic_keys = (
         "article-title",
         "chapter-title",
