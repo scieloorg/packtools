@@ -319,3 +319,42 @@ class TestBuildDateInCitation(unittest.TestCase):
         ref_elem = build_ref(data)
         generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+
+class TestBuildRefPersonGroup(unittest.TestCase):
+    def test_build_ref_person_group(self):
+        data = {
+            "ref-id": "B1",
+            "publication-type": "journal",
+        }
+        node = {
+           "person-group": [
+               ET.fromstring(
+                   '<person-group person-group-type="author">'
+                   '<name>'
+                   '<surname>Einstein</surname>'
+                   '<given-names>Albert</given-names>'
+                   '<prefix>Prof.</prefix>'
+                   '<suffix>Neto</suffix>'
+                   '</name>'
+                   '</person-group>'
+               )
+           ]
+        }
+        expected_xml_str = (
+            '<ref id="B1">'
+            '<element-citation publication-type="journal">'
+            '<person-group person-group-type="author">'
+            '<name>'
+            '<surname>Einstein</surname>'
+            '<given-names>Albert</given-names>'
+            '<prefix>Prof.</prefix>'
+            '<suffix>Neto</suffix>'
+            '</name>'
+            '</person-group>'
+            '</element-citation>'
+            '</ref>'
+        )
+        ref_elem = build_ref(data, node)
+        generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
