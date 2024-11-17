@@ -41,12 +41,16 @@ data = {
     ]
 }
 
+node = {
+    "person-group": [<Element>, <Element>]
+}
+
 """
 
 import xml.etree.ElementTree as ET
 
 
-def build_ref(data):
+def build_ref(data, node=None):
     if not (id_text := data.get("ref-id")):
         raise ValueError("attribute ref-id is required")
 
