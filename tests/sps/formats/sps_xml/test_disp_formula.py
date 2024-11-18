@@ -96,7 +96,6 @@ class TestBuildDispFormula(unittest.TestCase):
     def test_build_disp_formula_codification_id_None(self):
         data = {
             "formula-id": "e01",
-            "label": "(1)",
             "formulas": [
                 {
                     "mml:math": "fórmula no formato mml",
@@ -104,9 +103,14 @@ class TestBuildDispFormula(unittest.TestCase):
                 }
             ]
         }
-        with self.assertRaises(ValueError) as e:
-            build_disp_formula(data)
-        self.assertEqual(str(e.exception), "A valid codification type and ID are required.")
+        expected_xml_str = (
+            '<disp-formula id="e01">'
+            '<mml:math>fórmula no formato mml</mml:math>'
+            '</disp-formula>'
+        )
+        disp_formula_elem = build_disp_formula(data)
+        generated_xml_str = ET.tostring(disp_formula_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
     def test_build_disp_formula_formula_None(self):
         data = {
@@ -121,11 +125,12 @@ class TestBuildDispFormula(unittest.TestCase):
         }
         with self.assertRaises(ValueError) as e:
             build_disp_formula(data)
-        self.assertEqual(str(e.exception), "A valid codification type and ID are required.")
+        self.assertEqual(str(e.exception), "A valid codification type is required.")
 
 
 class TestBuildDispFormulaAlternatives(unittest.TestCase):
     def test_build_disp_formula_alternatives(self):
+        self.maxDiff = None
         data = {
             "formula-id": "e01",
             "label": "(1)",
@@ -139,8 +144,7 @@ class TestBuildDispFormulaAlternatives(unittest.TestCase):
                     "id": "t1"
                 },
                 {
-                    "graphic": "0103-507X-rbti-26-02-0089-ee10.svg",
-                    "id": "g1"
+                    "graphic": "0103-507X-rbti-26-02-0089-ee10.svg"
                 }
             ]
         }
@@ -150,7 +154,7 @@ class TestBuildDispFormulaAlternatives(unittest.TestCase):
             '<alternatives>'
             '<mml:math id="m1">fórmula no formato mml</mml:math>'
             '<tex-math id="t1">fórmula no formato tex</tex-math>'
-            '<graphic xlink:href="0103-507X-rbti-26-02-0089-ee10.svg" id="g1" />'
+            '<graphic xlink:href="0103-507X-rbti-26-02-0089-ee10.svg" />'
             '</alternatives>'
             '</disp-formula>'
         )
