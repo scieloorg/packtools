@@ -29,15 +29,17 @@ def build_formula(data):
 
     """
     for cod_type in ("mml:math", "tex-math", "graphic"):
-        if (cod_value := data.get(cod_type)) and (cod_id := data.get("id")):
+        if cod_value := data.get(cod_type):
+            cod_id = data.get("id")
             break
     else:
-        raise ValueError(f"A valid codification type and ID are required.")
+        raise ValueError("A valid codification type is required.")
 
+    attributes = {}
     if cod_type == "graphic":
-        attributes = {"xlink:href": cod_value, "id": cod_id}
-    else:
-        attributes = {"id": cod_id}
+        attributes["xlink:href"] = cod_value
+    elif cod_id:
+        attributes["id"] = cod_id
 
     formula_elem = ET.Element(cod_type, attrib=attributes)
 
