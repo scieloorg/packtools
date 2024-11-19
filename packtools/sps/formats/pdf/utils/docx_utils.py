@@ -225,3 +225,86 @@ def get_first_paragraph(element):
     except KeyError:
         element.add_paragraph()
         return element.paragraphs[0]
+
+def add_table(docx, table_data, header_style_name='SCL Table Heading'):
+    """
+    Adds a table to a DOCX document with the specified data and formatting.
+
+    Args:
+        docx (docx.Document): The DOCX document to which the table will be added.
+        table_data (dict): A dictionary containing the table data with the following keys:
+            - 'label' (str): The label for the table.
+            - 'title' (str): The title of the table.
+            - 'headers' (list of list of str): A list containing the header rows of the table.
+            - 'rows' (list of list of str): A list containing the data rows of the table.
+
+    Returns:
+        None
+    """
+    add_paragraph_with_formatting(docx, 
+        f"{table_data['label']}. {table_data['title']}", 
+        style_name=header_style_name,
+    )
+
+    headers = table_data['headers']
+    rows = table_data['rows']
+
+    num_cols = len(headers[0]) if headers else len(rows[0])
+    table = docx.add_table(rows=1 + len(rows), cols=num_cols)
+
+    if headers:
+        header_row = table.rows[0]
+        for i, header in enumerate(headers[0]):
+            cell = header_row.cells[i]
+            cell.text = header
+            style_cell(cell, bold=True, font_size=7, align='center')
+
+    for i, row_data in enumerate(rows):
+        row = table.rows[i + 1]
+        for j, cell_data in enumerate(row_data):
+            try:
+                cell = row.cells[j]
+                cell.text = cell_data if cell_data else ''
+                style_cell(cell, font_size=7, align='right')
+            except IndexError:
+                ...
+
+    table.allow_autofit = True
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table.style = 'Light Shading'
+
+def style_cell(cell, bold=False, font_size=7, font_color=None, align='center', bg_color=None):
+    """
+    Styles a table cell in a DOCX document.
+
+    Args:
+        cell (docx.table._Cell): The cell to style.
+        bold (bool, optional): If True, sets the text to bold. Defaults to False.
+        font_size (int, optional): The font size of the text. Defaults to 7.
+        font_color (docx.shared.RGBColor, optional): The font color as an RGBColor object. Defaults to None.
+        align (str, optional): The alignment of the text. Can be 'center', 'left', or 'right'. Defaults to 'center'.
+        bg_color (str, optional): The background color of the cell in hex format (e.g., 'FFFFFF' for white). Defaults to None.
+
+    Returns:
+        None
+    """
+    paragraph = cell.paragraphs[0]
+    run = paragraph.runs[0]
+    font = run.font
+    font.bold = bold
+    font.size = Pt(font_size)
+    
+    if font_color:
+        font.color.rgb = font_color
+    
+    if align == 'center':
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    elif align == 'left':
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    elif align == 'right':
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    
+    if bg_color:
+        shading_elm = OxmlElement('w:shd')
+        shading_elm.set(qn('w:fill'), bg_color)
+        cell._element.get_or_add_tcPr().append(shading_elm)
