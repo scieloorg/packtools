@@ -107,3 +107,27 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
     left_run.style = docx.styles[style_name]
 
     return para
+
+def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragraph Char'):
+    """
+    Adds the DOI (Digital Object Identifier) code to the first page header of the DOCX document, with the DOI URL formatted as a tab-indented string.
+    
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        doi_code (str): The DOI code to be added.
+        paragraph (python-docx.Paragraph, optional): The paragraph object to add the DOI URL to. If not provided, the first paragraph in the first page header will be used.
+        style_name (str, optional): The name of the style to apply to the DOI URL. Defaults to 'SCL Header Paragraph Char'.
+    
+    Returns:
+        None
+    """
+    doi_url = f"http://dx.doi.org/{doi_code}"
+
+    if paragraph:
+        para = paragraph
+    else:
+        first_page_header = docx_utils.get_first_page_header(docx)
+        para = docx_utils.get_first_paragraph(first_page_header)
+
+    r = para.add_run(f'\t{doi_url}')
+    r.style = docx.styles[style_name]

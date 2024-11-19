@@ -12,3 +12,8 @@ class TestJournalTitlePipe(unittest.TestLoader):
     # TODO
     ...
 
+
+class TestDocxDoiPipe(unittest.TestCase):
+    # TODO
+    ...
+
