@@ -140,6 +140,45 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
 
     return data
 
+def extract_body_data(xml_tree):
+    """
+    Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the body data from.
+    
+    Returns:
+        list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
+            - 'level': The nesting level of the section.
+            - 'title': The title of the section, if present.
+            - 'paragraphs': A list of the text content of each paragraph in the section, excluding paragraphs that contain table references or table wrappers.
+            - 'tables': A list of dictionaries representing the tables in the section, as returned by the `extract_table_data` function.
+    """
+    data = []
+
+    for document_section in xml_tree.findall('.//sec'):
+        sec = {'paragraphs': [], 'tables': []}
+        sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
+        sec['title'] = document_section.find('title')
+
+        if sec['title'] is not None:
+            sec['title'] = sec['title'].text
+            for para in document_section.findall('p'):
+                has_table_ref = para.find('.//xref[@ref-type="table"]') is not None
+                has_table_wrap = para.find('.//table-wrap') is not None
+
+                if not has_table_ref and not has_table_wrap:
+                    para_text = xml_utils.get_text_from_node(para)
+                    if para_text:
+                        sec['paragraphs'].append(para_text)
+
+            for table_wrap in document_section.findall('.//table-wrap'):
+                sec['tables'].append(extract_table_data(table_wrap))
+
+        data.append(sec)
+    
+    return data
+
 def extract_acknowledgment_data(xml_tree):
     """
     Extracts acknowledgment data from an XML tree.

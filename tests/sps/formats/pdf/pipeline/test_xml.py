@@ -258,6 +258,131 @@ class TestExtractArticleTitle(unittest.TestCase):
         xml = etree.fromstring('<article><article-meta></article-meta></article>')
         with self.assertRaises(AttributeError):
             xml_pipe.extract_article_title(xml)
+
+class TestExtractBodyData(unittest.TestCase):
+
+    def test_extract_body_data_basic(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>Paragraph 1</p>'
+            '<p>Paragraph 2</p>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': ['Paragraph 1', 'Paragraph 2'],
+                'tables': []
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_with_tables(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>Paragraph 1</p>'
+            '<table-wrap>'
+            '<label>Table 1</label>'
+            '<title>Sample Table</title>'
+            '<table>'
+            '<thead><tr><th>Header</th></tr></thead>'
+            '<tbody><tr><td>Data</td></tr></tbody>'
+            '</table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': ['Paragraph 1'],
+                'tables': [
+                    {
+                        'label': 'Table 1',
+                        'title': 'Sample Table',
+                        'headers': [['Header']],
+                        'rows': [['Data']]
+                    }
+                ]
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_with_nested_sections(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>Paragraph 1</p>'
+            '<sec>'
+            '<title>Subsection 1.1</title>'
+            '<p>Paragraph 1.1</p>'
+            '</sec>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': ['Paragraph 1'],
+                'tables': []
+            },
+            {
+                'level': 2,
+                'title': 'Subsection 1.1',
+                'paragraphs': ['Paragraph 1.1'],
+                'tables': []
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_body_data_with_table_references(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<sec>'
+            '<title>Section 1</title>'
+            '<p>Paragraph with <xref ref-type="table">Table 1</xref></p>'
+            '<table-wrap>'
+            '<label>Table 1</label>'
+            '<title>Sample Table</title>'
+            '<table>'
+            '<thead><tr><th>Header</th></tr></thead>'
+            '<tbody><tr><td>Data</td></tr></tbody>'
+            '</table>'
+            '</table-wrap>'
+            '</sec>'
+            '</article>'
+        )
+        expected = [
+            {
+                'level': 1,
+                'title': 'Section 1',
+                'paragraphs': [],
+                'tables': [
+                    {
+                        'label': 'Table 1',
+                        'title': 'Sample Table',
+                        'headers': [['Header']],
+                        'rows': [['Data']]
+                    }
+                ]
+            }
+        ]
+        result = xml_pipe.extract_body_data(xml)
+        self.assertEqual(result, expected)
+
+
 class TestExtractCategory(unittest.TestCase):
 
     def setUp(self):
