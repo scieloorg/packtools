@@ -545,6 +545,46 @@ class TestExtractFooterData(unittest.TestCase):
         expected = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': ''}
         result = xml_pipe.extract_footer_data(xml)
         self.assertEqual(result, expected)
+
+
+class TestExtractJournalTitle(unittest.TestCase):
+
+    def test_extract_journal_title_basic(self):
+        xml = etree.fromstring(
+            '<article><journal-meta><journal-title>Science Journal</journal-title></journal-meta></article>'
+        )
+        result = xml_pipe.extract_journal_title(xml)
+        self.assertEqual(result, 'Science Journal')
+
+    def test_extract_journal_title_return_node(self):
+        xml = etree.fromstring(
+            '<article><journal-meta><journal-title>Science Journal</journal-title></journal-meta></article>'
+        )
+        result = xml_pipe.extract_journal_title(xml, return_text=False)
+        self.assertIsInstance(result, etree._Element)
+        self.assertEqual(result.tag, 'journal-title')
+        self.assertEqual(result.text, 'Science Journal')
+
+    def test_extract_journal_title_empty(self):
+        xml = etree.fromstring(
+            '<article><journal-meta><journal-title></journal-title></journal-meta></article>'
+        )
+        result = xml_pipe.extract_journal_title(xml)
+        self.assertEqual(result, '')
+
+    def test_extract_journal_title_missing(self):
+        xml = etree.fromstring('<article><journal-meta></journal-meta></article>')
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_journal_title(xml)
+
+    def test_extract_journal_title_with_nested_elements(self):
+        xml = etree.fromstring(
+            '<article><journal-meta><journal-title>Science <italic>Journal</italic></journal-title></journal-meta></article>'
+        )
+        result = xml_pipe.extract_journal_title(xml)
+        self.assertEqual(result, 'Science Journal')
+
+
 class TestExtractKeywordsData(unittest.TestCase):
 
     def test_extract_keywords_data_basic(self):
