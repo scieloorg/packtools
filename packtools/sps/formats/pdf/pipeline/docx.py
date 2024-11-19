@@ -181,3 +181,46 @@ def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', ch
         character_style_name=character_style_name, 
         sup_mark="[^]"
     )
+
+def docx_affiliation_pipe(docx, affiliations, paragraph_style_name='SCL Affiliation', character_style_name='SCL Affiliation Char'):
+    """
+    Adds the affiliations to the first page header of the DOCX document, with each affiliation on a new line.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        affiliations (list): The list of affiliations to be added.
+        paragraph_style_name (str, optional): The name of the style to apply to the paragraph containing the affiliations. Defaults to 'SCL Affiliation'.
+        character_style_name (str, optional): The name of the style to apply to the affiliations. Defaults to 'SCL Affiliation Char'.
+
+    Returns:
+        None
+    """
+    for aff in affiliations:
+        docx_utils.add_text_paragraph_with_formatting_sup(
+            docx, 
+            aff, 
+            paragraph_style_name=paragraph_style_name,
+            character_style_name=character_style_name, 
+            sup_mark="[^]"
+        )
+
+def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affiliation', character_style_name='SCL Affiliation Char'):
+    """
+    Adds the corresponding author to the first page header of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        corresponding (str): The corresponding author to be added.
+        paragraph_style_name (str, optional): The name of the style to apply to the paragraph containing the corresponding author. Defaults to 'SCL Affiliation'.
+        character_style_name (str, optional): The name of the style to apply to the corresponding author. Defaults to 'SCL Affiliation Char'.
+
+    Returns:
+        None
+    """
+    docx_utils.add_text_paragraph_with_formatting_sup(
+        docx,
+        corresponding,
+        paragraph_style_name=paragraph_style_name,
+        character_style_name=character_style_name,
+        sup_mark="[^]"
+    )

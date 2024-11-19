@@ -32,3 +32,13 @@ class TestDocxAuthorsPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxAffiliationPipe(unittest.TestCase):
+    # TODO
+    ...
+
+
+class TestDocxCorrespondingPipe(unittest.TestCase):
+    # TODO
+    ...
+
