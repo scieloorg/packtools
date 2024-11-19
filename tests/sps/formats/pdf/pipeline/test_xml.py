@@ -48,3 +48,47 @@ class TestExtractArticleMainLanguage(unittest.TestCase):
         expected = "es"
         result = xml_pipe.extract_article_main_language(xmltree)
         self.assertEqual(expected, result)
+
+
+class TestExtractArticleTitle(unittest.TestCase):
+
+    def test_extract_article_title_basic(self):
+        xml = etree.fromstring(
+            '<article><article-meta>'
+            '<article-title>Sample Title</article-title>'
+            '</article-meta></article>'
+        )
+        result = xml_pipe.extract_article_title(xml)
+        self.assertEqual(result, 'Sample Title')
+
+    def test_extract_article_title_return_element(self):
+        xml = etree.fromstring(
+            '<article><article-meta>'
+            '<article-title>Sample Title</article-title>'
+            '</article-meta></article>'
+        )
+        result = xml_pipe.extract_article_title(xml, return_text=False)
+        self.assertIsInstance(result, etree._Element)
+        
+    def test_extract_article_title_empty(self):
+        xml = etree.fromstring(
+            '<article><article-meta>'
+            '<article-title></article-title>'
+            '</article-meta></article>'
+        )
+        result = xml_pipe.extract_article_title(xml)
+        self.assertEqual(result, '')
+
+    def test_extract_article_title_with_formatting(self):
+        xml = etree.fromstring(
+            '<article><article-meta>'
+            '<article-title>Title with <italic>formatting</italic></article-title>'
+            '</article-meta></article>'
+        )
+        result = xml_pipe.extract_article_title(xml)
+        self.assertEqual(result, 'Title with formatting')
+
+    def test_extract_article_title_missing(self):
+        xml = etree.fromstring('<article><article-meta></article-meta></article>')
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_article_title(xml)
