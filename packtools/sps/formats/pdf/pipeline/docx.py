@@ -342,3 +342,47 @@ def docx_second_header_pipe(
 
     r2 = para.add_run(f'\t{article_title}')
     r2.style = docx.styles[character_header_style_name]
+
+def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
+    """
+    Adds the footer information to the second page footer of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        footer_data (dict): The data to be added to the footer.
+        paragraph_style_name (str, optional): The name of the style to apply to the footer. Defaults to 'SCL Footer'.
+
+    Returns:
+        None
+    """
+    footer = docx_utils.get_second_footer(docx)
+
+    para = footer.paragraphs[0]
+    para.style = docx.styles[paragraph_style_name]
+
+    page_number_run = para.add_run()
+
+    fld_char_start = OxmlElement('w:fldChar')
+    fld_char_start.set(qn('w:fldCharType'), 'begin')
+    page_number_run._element.append(fld_char_start)
+
+    instr_text = OxmlElement('w:instrText')
+    instr_text.text = "PAGE \\* MERGEFORMAT"
+    page_number_run._element.append(instr_text)
+
+    fld_char_end = OxmlElement('w:fldChar')
+    fld_char_end.set(qn('w:fldCharType'), 'end')
+    page_number_run._element.append(fld_char_end)
+    
+    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
+
+    sect_pr = docx.sections[1]._sectPr
+    pg_num_type = OxmlElement('w:pgNumType')
+
+    try:
+        current_page_number = int(footer_data['fpage']) + 1
+    except ValueError:
+        current_page_number = 1
+
+    pg_num_type.set(ns.qn('w:start'), str(current_page_number))
+    sect_pr.append(pg_num_type)

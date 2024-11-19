@@ -62,3 +62,8 @@ class TestDocxSecondHeaderPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxSecondFooterPipe(unittest.TestCase):
+    # TODO
+    ...
+
