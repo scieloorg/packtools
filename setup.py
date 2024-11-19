@@ -82,6 +82,7 @@ setup(
             "htmlgenerator=packtools.htmlgenerator:main",
             "package_optimiser=packtools.package_optimiser:main",
             "package_maker=packtools.package_maker:main",
+            "pdf_generator=packtools.sps.formats.pdf_generator:main",
         ]
     }
 )
