@@ -131,3 +131,17 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
 
     r = para.add_run(f'\t{doi_url}')
     r.style = docx.styles[style_name]
+
+def docx_article_type_and_category_pipe(docx, category, article_type='Original Article', style_name='SCL Article Category'):
+    """
+    Adds the article category and type to the first page header of the DOCX document.
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        category (str):
+    
+    Returns:
+        None
+    """
+    article_category_text = ' | '.join([category, article_type])
+    article_category_el = docx.add_paragraph(article_category_text)
+    article_category_el.style = docx.styles[style_name]
