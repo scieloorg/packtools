@@ -52,3 +52,8 @@ class TestDocxKeyworksPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxCiteAsPipe(unittest.TestCase):
+    # TODO
+    ...
+

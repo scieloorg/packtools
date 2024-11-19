@@ -273,3 +273,40 @@ def docx_keyworks_pipe(
 
     r2 = para.add_run(f'{keywords_content}')
     r2.style = docx.styles[keyworks_character_paragraph_style_name]
+
+def docx_cite_as_pipe(
+        docx,
+        cite_as_part_one,
+        journal_title,
+        footer_data,
+
+):
+    """
+    Adds the citation information to the first page footer of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        cite_as_part_one (str): The first part of the citation information to be added.
+        journal_title (str): The title of the journal to be added.
+        footer_data (dict): The data to be added to the footer.
+
+    Returns:
+        None
+    """
+    cite_as_part_two = f'{footer_data["volume"]}: {footer_data["fpage"]}-{footer_data["lpage"]}'
+
+    footer = docx_utils.get_first_page_footer(docx)
+    para = docx_utils.get_first_paragraph(footer)
+    para.style = docx.styles['SCL Paragraph Cite As']
+
+    footer_style = docx.styles['SCL Paragraph Cite As Footer Char']
+    docx_utils.add_run_with_style(para, 'CITE AS: ', footer_style)
+
+    p1_style = docx.styles['SCL Paragraph Cite As Char']
+    docx_utils.add_run_with_style(para, cite_as_part_one, p1_style)
+
+    journal_title_style = docx.styles['SCL Paragraph Cite As Journal Title Char']
+    docx_utils.add_run_with_style(para, f'{journal_title} ', journal_title_style)
+
+    p2_style = docx.styles['SCL Paragraph Cite As Char']
+    docx_utils.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
