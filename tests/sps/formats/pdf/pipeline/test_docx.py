@@ -21,3 +21,8 @@ class TestDocxDoiPipe(unittest.TestCase):
 class TestDocxArticleTypeAndCategoryPipe(unittest.TestCase):
     # TODO
     ...
+
+
+class TestDocxArticleTitlePipe(unittest.TestCase):
+    # TODO
+    ...

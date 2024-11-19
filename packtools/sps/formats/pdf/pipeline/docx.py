@@ -145,3 +145,18 @@ def docx_article_type_and_category_pipe(docx, category, article_type='Original A
     article_category_text = ' | '.join([category, article_type])
     article_category_el = docx.add_paragraph(article_category_text)
     article_category_el.style = docx.styles[style_name]
+
+def docx_article_title_pipe(docx, article_title, style_name='SCL Article Title'):
+    """
+    Adds the article title to the first page header of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        article_title (str): The title of the article to be added.
+        style_name (str, optional): The name of the style to apply to the article title. Defaults to 'SCL Article Title'.
+    
+    Returns:
+        None
+    """
+    article_title_el = docx.add_heading(article_title, level=1)
+    article_title_el.style = docx.styles[style_name]
