@@ -82,3 +82,8 @@ class TestDocxReferencesPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxAcknowledgmentsPipe(unittest.TestCase):
+    # TODO
+    ...
+

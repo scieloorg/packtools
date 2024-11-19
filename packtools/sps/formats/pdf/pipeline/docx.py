@@ -462,3 +462,21 @@ def docx_references_pipe(
     for reference in references:
         paragraph = docx.add_paragraph(reference)
         paragraph.style = docx.styles[paragraph_style_name]
+
+def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragraphs, paragraph_section_style_name='SCL Section Title'):
+    """
+    Adds the acknowledgments section to the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        acknowledgment_title (str): The title of the acknowledgments section.
+        acknowledgement_paragraphs (list): The list of paragraphs to be added to the acknowledgments section.
+        paragraph_section_style_name (str, optional): The name of the style to apply to the acknowledgments section title. Defaults to 'SCL Section Title'.
+
+    Returns:
+        None
+    """
+    docx_utils.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
+
+    for text in acknowledgement_paragraphs:
+        docx_utils.add_paragraph_with_formatting(docx, text)
