@@ -444,6 +444,107 @@ class TestExtractCategory(unittest.TestCase):
         self.assertEqual(result, "")
 
 
+class TestExtractCiteAsPartOne(unittest.TestCase):
+
+    def test_extract_cite_as_part_one_text(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<fn-group>'
+            '<fn fn-type="other">'
+            '<p>Cite as: Example Citation</p>'
+            '</fn>'
+            '</fn-group>'
+            '</article>'
+        )
+        expected = 'Cite as: Example Citation'
+        result = xml_pipe.extract_cite_as_part_one(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_cite_as_part_one_node(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<fn-group>'
+            '<fn fn-type="other">'
+            '<p>Cite as: Example Citation</p>'
+            '</fn>'
+            '</fn-group>'
+            '</article>'
+        )
+        result = xml_pipe.extract_cite_as_part_one(xml, return_node=True)
+        self.assertIsInstance(result, etree._Element)
+        self.assertEqual(result.tag, 'p')
+        self.assertEqual(result.text, 'Cite as: Example Citation')
+
+    def test_extract_cite_as_part_one_no_fn_group(self):
+        xml = etree.fromstring('<article></article>')
+        result = xml_pipe.extract_cite_as_part_one(xml)
+        self.assertIsNone(result)
+
+    def test_extract_cite_as_part_one_no_fn_type_other(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<fn-group>'
+            '<fn fn-type="conflict">'
+            '<p>Not a citation</p>'
+            '</fn>'
+            '</fn-group>'
+            '</article>'
+        )
+        result = xml_pipe.extract_cite_as_part_one(xml)
+        self.assertIsNone(result)
+
+
+class TestExtractFooterData(unittest.TestCase):
+
+    def test_extract_footer_data_complete(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2023</year>'
+            '</pub-date>'
+            '<front>'
+            '<volume>10</volume>'
+            '<issue>2</issue>'
+            '<fpage>123</fpage>'
+            '<lpage>130</lpage>'
+            '</front>'
+            '</article>'
+        )
+        expected = {
+            'year': '2023',
+            'volume': '10',
+            'issue': '2',
+            'fpage': 123,
+            'lpage': 130
+        }
+        result = xml_pipe.extract_footer_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_footer_data_missing_elements(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<pub-date date-type="collection" publication-format="electronic">'
+            '<year>2023</year>'
+            '</pub-date>'
+            '<front>'
+            '</front>'
+            '</article>'
+        )
+        expected = {
+            'year': '2023',
+            'volume': '',
+            'issue': '',
+            'fpage': '',
+            'lpage': ''
+        }
+        result = xml_pipe.extract_footer_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_footer_data_no_pub_date(self):
+        xml = etree.fromstring('<article></article>')
+        expected = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': ''}
+        result = xml_pipe.extract_footer_data(xml)
+        self.assertEqual(result, expected)
 class TestExtractKeywordsData(unittest.TestCase):
 
     def test_extract_keywords_data_basic(self):

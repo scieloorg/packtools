@@ -140,6 +140,71 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
 
     return data
 
+def extract_footer_data(xmltree):
+    """
+    Extracts footer data from the given XML tree.
+    
+    Args:
+        xmltree (ElementTree): The XML tree to extract the footer data from.
+    
+    Returns:
+        dict: A dictionary containing the following keys:
+            - 'year': The year value from the pub-date element.
+            - 'front': The parent element of the pub-date element.
+            - 'volume': The volume value from the front element.
+            - 'issue': The issue value from the front element.
+            - 'fpage': The first page value from the front element, converted to an integer.
+            - 'lpage': The last page value from the front element, converted to an integer.
+    """
+    data = {'year': '', 'volume': '', 'issue': '', 'fpage': '', 'lpage': ''}
+
+    pub_date_section = xmltree.find(".//pub-date[@date-type='collection'][@publication-format='electronic']")
+    if pub_date_section is not None:
+        node_year = pub_date_section.find('.//year')
+        if node_year is not None:
+            data['year'] = node_year.text
+   
+        node_front = pub_date_section.getparent()
+        if node_front is not None:
+            node_fpage = node_front.find('.//fpage')
+            if node_fpage is not None:
+                data['fpage'] = int(node_fpage.text)
+    
+            node_lpage = node_front.find('.//lpage')
+            if node_lpage is not None:
+                data['lpage'] = int(node_lpage.text)
+
+            node_vol =   node_front.find('.//volume')
+            if node_vol is not None:
+                data['volume'] = node_vol.text
+
+            node_issue = node_front.find('.//issue')
+            if node_issue is not None:
+                data['issue'] = node_issue.text
+
+    return data
+
+def extract_cite_as_part_one(xml_tree, return_node=False):
+    """
+    Extracts the first part of the "cite as" data from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the "cite as" data from.
+        return_node (bool, optional): If True, returns the XML node containing the "cite as" data. If False, returns the text content of the node. Defaults to False.
+    
+    Returns:
+        str or ElementTree: The first part of the "cite as" data, either as a string or as an XML node, depending on the value of the `return_node` parameter.
+    """
+    fn_group = xml_tree.find('.//fn-group')
+    
+    if fn_group is not None:
+        part_one = fn_group.find('.//fn[@fn-type="other"]/p')
+        if part_one is not None:
+            if return_node:
+                return part_one
+            else:
+                return part_one.text
+
 def extract_body_data(xml_tree):
     """
     Extracts the body data from an XML tree, including section titles, paragraphs, and tables.
