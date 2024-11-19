@@ -43,6 +43,22 @@ def extract_journal_title(xml_tree, return_text=True):
         return ''.join(node.itertext()).strip()
     return node
 
+def extract_doi(xml_tree, return_text=True):
+    """
+    Extracts the DOI (Digital Object Identifier) code from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the DOI code from.
+        return_text (bool, optional): If True, returns the text content of the DOI element. If False, returns the element itself. Defaults to True.
+    
+    Returns:
+        str or ElementTree: The DOI code text or the DOI element, depending on the value of the `return_text` parameter.
+    """
+    node = xml_tree.find('.//article-id[@pub-id-type="doi"]')
+    if return_text:
+        return node.text
+    return node
+
 def extract_category(xml_tree, return_text=True):
     """
     Extracts the category from the given XML tree.

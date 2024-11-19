@@ -628,6 +628,62 @@ class TestExtractContribData(unittest.TestCase):
         self.assertEqual(result['authors_names'], ['John Smith[^]'])
         self.assertEqual(result['affiliations'], ['[^] University X'])
 
+
+class TestExtractDOI(unittest.TestCase):
+
+    def setUp(self):
+        self.xml_with_doi = etree.fromstring(
+            '<article>'
+            '<article-meta>'
+            '<article-id pub-id-type="doi">10.1234/example.doi.2023</article-id>'
+            '</article-meta>'
+            '</article>'
+        )
+        
+    def test_extract_doi_text(self):
+        result = xml_pipe.extract_doi(self.xml_with_doi, return_text=True)
+        self.assertEqual(result, "10.1234/example.doi.2023")
+
+    def test_extract_doi_element(self):
+        result = xml_pipe.extract_doi(self.xml_with_doi, return_text=False)
+        self.assertIsInstance(result, etree._Element)
+        self.assertEqual(result.tag, "article-id")
+        self.assertEqual(result.get("pub-id-type"), "doi")
+
+    def test_extract_doi_missing_doi(self):
+        xml_without_doi = etree.fromstring(
+            '<article>'
+            '<article-meta>'
+            '<article-id pub-id-type="other">12345</article-id>'
+            '</article-meta>'
+            '</article>'
+        )
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_doi(xml_without_doi)
+
+    def test_extract_doi_empty_doi(self):
+        xml_empty_doi = etree.fromstring(
+            '<article>'
+            '<article-meta>'
+            '<article-id pub-id-type="doi"></article-id>'
+            '</article-meta>'
+            '</article>'
+        )
+        result = xml_pipe.extract_doi(xml_empty_doi)
+        self.assertIsNone(result)
+
+    def test_extract_doi_malformed_xml(self):
+        xml_malformed = etree.fromstring(
+            '<article>'
+            '<article-meta>'
+            '<article-id>10.1234/malformed</article-id>'
+            '</article-meta>'
+            '</article>'
+        )
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_doi(xml_malformed)
+
+
 class TestExtractFooterData(unittest.TestCase):
 
     def test_extract_footer_data_complete(self):
