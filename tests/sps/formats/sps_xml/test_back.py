@@ -6,8 +6,8 @@ from packtools.sps.formats.sps_xml.back import build_back
 class TestBuildBack(unittest.TestCase):
     def test_build_back(self):
         self.maxDiff = None
-        node = {
-            "ack": [
+        node = [
+            [
                 ET.fromstring(
                     '<ack>'
                     '<title>Acknowledgments</title>'
@@ -16,7 +16,7 @@ class TestBuildBack(unittest.TestCase):
                     '</ack>'
                 )
             ],
-            "ref-list": [
+            [
                 ET.fromstring(
                     '<ref-list>'
                     '<title>References</title>'
@@ -40,7 +40,7 @@ class TestBuildBack(unittest.TestCase):
                     '</ref-list>'
                 )
             ]
-        }
+        ]
         expected_xml_str = (
             '<back>'
             '<ack>'
@@ -75,7 +75,7 @@ class TestBuildBack(unittest.TestCase):
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
     def test_build_back_None(self):
-        node = {}
+        node = []
         with self.assertRaises(ValueError) as e:
             build_back(node)
         self.assertEqual(str(e.exception), "A list of child elements is required.")
