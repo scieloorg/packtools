@@ -82,6 +82,95 @@ class TestExtractAbstractData(unittest.TestCase):
         result = xml_pipe.extract_abstract_data(xml)
         self.assertEqual(result, expected)
 
+
+class TestExtractAcknowledgmentData(unittest.TestCase):
+
+    def test_extract_acknowledgment_data_empty_xml(self):
+        xml_tree = etree.fromstring("<article></article>")
+        expected = {"paragraphs": [], 'title': ''}
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(expected, result)
+
+    def test_extract_acknowledgment_data_with_title_no_paragraphs(self):
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <ack>
+                    <title>Acknowledgments</title>
+                </ack>
+            </article>
+            """
+        )
+        expected = {
+            "title": "Acknowledgments",
+            "paragraphs": []
+        }
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(expected, result)
+
+    def test_extract_acknowledgment_data_with_paragraphs_no_title(self):
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <ack>
+                    <p>First acknowledgment paragraph</p>
+                    <p>Second acknowledgment paragraph</p>
+                </ack>
+            </article>
+            """
+        )
+        expected = {
+            "paragraphs": ["First acknowledgment paragraph", "Second acknowledgment paragraph"], "title": '',
+        }
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(expected, result)
+
+    def test_extract_acknowledgment_data_complete(self):
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <ack>
+                    <title>Acknowledgements Section</title>
+                    <p>Thank you to all contributors</p>
+                    <p>Special thanks to funding agencies</p>
+                    <p>Additional acknowledgments</p>
+                </ack>
+            </article>
+            """
+        )
+        expected = {
+            "title": "Acknowledgements Section",
+            "paragraphs": [
+                "Thank you to all contributors",
+                "Special thanks to funding agencies",
+                "Additional acknowledgments"
+            ]
+        }
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(expected, result)
+
+    def test_extract_acknowledgment_data_nested_paragraphs(self):
+        xml_tree = etree.fromstring(
+            """
+            <article>
+                <ack>
+                    <title>Acknowledgments</title>
+                    <sec>
+                        <p>Nested paragraph 1</p>
+                        <p>Nested paragraph 2</p>
+                    </sec>
+                </ack>
+            </article>
+            """
+        )
+        expected = {
+            "title": "Acknowledgments",
+            "paragraphs": ["Nested paragraph 1", "Nested paragraph 2"]
+        }
+        result = xml_pipe.extract_acknowledgment_data(xml_tree)
+        self.assertEqual(expected, result)
+
+
 class TestExtractArticleMainLanguage(unittest.TestCase):
 
     def test_extract_article_main_language_with_valid_lang(self):

@@ -139,6 +139,32 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
         data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
 
     return data
+
+def extract_acknowledgment_data(xml_tree):
+    """
+    Extracts acknowledgment data from an XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the acknowledgment data from.
+    
+    Returns:
+        dict: A dictionary containing the acknowledgment data, with the following keys:
+            - 'title': The title of the acknowledgment section, if present.
+            - 'paragraphs': A list of the text content of each paragraph in the acknowledgment section.
+    """
+    data = {'paragraphs': [], 'title': ''}
+
+    ack = xml_tree.find('.//ack')
+    if ack is not None:
+        title = ack.find('title')
+        if title is not None:
+            data['title'] = title.text
+    
+        for paragraph in ack.findall('.//p'):
+            data['paragraphs'].append(paragraph.text)
+
+    return data
+
 def extract_references_data(xml_tree):
     """
     Extracts reference data from an XML tree.
