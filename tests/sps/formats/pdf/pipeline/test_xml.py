@@ -306,6 +306,122 @@ class TestExtractKeywordsData(unittest.TestCase):
         result = xml_pipe.extract_keywords_data(xml)
         self.assertEqual(result, expected)
 
+
+
+class TestExtractTableData(unittest.TestCase):
+
+    def test_extract_table_data_complete(self):
+        xml_str = """
+            <table-wrap>
+                <label>Table 1</label>
+                <title>Sample Data</title>
+                <table>
+                    <thead>
+                        <tr><th>Name</th><th>Age</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>John</td><td>25</td></tr>
+                        <tr><td>Jane</td><td>30</td></tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        expected = {
+            'label': 'Table 1',
+            'title': 'Sample Data',
+            'headers': [['Name', 'Age']],
+            'rows': [['John', '25'], ['Jane', '30']]
+        }
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(expected, result)
+
+    def test_extract_table_data_no_label_no_title(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <thead>
+                        <tr><th>Col1</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Data1</td></tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        expected = {
+            'label': '',
+            'title': '',
+            'headers': [['Col1']],
+            'rows': [['Data1']]
+        }
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(expected, result)
+
+    def test_extract_table_data_empty_table(self):
+        xml_str = """
+            <table-wrap>
+                <label>Table 2</label>
+                <title>Empty Table</title>
+                <table>
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        expected = {
+            'label': 'Table 2',
+            'title': 'Empty Table',
+            'headers': [],
+            'rows': []
+        }
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(expected, result)
+
+    def test_extract_table_data_no_table(self):
+        xml_str = """
+            <table-wrap>
+                <label>Table 3</label>
+                <title>Missing Table</title>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        expected = {
+            'label': 'Table 3',
+            'title': 'Missing Table',
+            'headers': [],
+            'rows': []
+        }
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(expected, result)
+
+    def test_extract_table_data_multiple_header_rows(self):
+        xml_str = """
+            <table-wrap>
+                <table>
+                    <thead>
+                        <tr><th>Col1</th><th>Col2</th></tr>
+                        <tr><th>SubCol1</th><th>SubCol2</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Val1</td><td>Val2</td></tr>
+                    </tbody>
+                </table>
+            </table-wrap>
+        """
+        table_wrap = etree.fromstring(xml_str)
+        expected = {
+            'label': '',
+            'title': '',
+            'headers': [['Col1', 'Col2'], ['SubCol1', 'SubCol2']],
+            'rows': [['Val1', 'Val2']]
+        }
+        result = xml_pipe.extract_table_data(table_wrap)
+        self.assertEqual(expected, result)
+
+
 class TestExtractTransAbstractData(unittest.TestCase):
 
     def test_extract_trans_abstract_data_basic(self):

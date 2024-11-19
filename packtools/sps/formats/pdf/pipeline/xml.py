@@ -139,3 +139,37 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
         data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
 
     return data
+def extract_table_data(table_wrap):
+    """
+    Extracts table data from an XML table-wrap element.
+    
+    Args:
+        table_wrap (ElementTree): The XML table-wrap element to extract data from.
+    
+    Returns:
+        dict: A dictionary containing the following keys:
+            - 'label': The text content of the table label element, or an empty string if not found.
+            - 'title': The text content of the table title element, or an empty string if not found.
+            - 'headers': A list of lists, where each inner list represents the text content of the table header cells.
+            - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
+    """
+    table_label = table_wrap.find('.//label')
+    label_text = table_label.text if table_label is not None else ""
+
+    table_title = table_wrap.find('.//title')
+    title_text = table_title.text if table_title is not None else ""
+
+    headers = []
+    rows = []
+    table = table_wrap.find('.//table')
+
+    if table is not None:
+        thead = table.find('.//thead')
+        if thead is not None:
+            headers = [[th.text for th in tr.findall('.//th')] for tr in thead.findall('.//tr')]
+
+        tbody = table.find('.//tbody')
+        if tbody is not None:
+            rows = [[td.text for td in tr.findall('.//td')] for tr in tbody.findall('.//tr')]
+
+    return {'label': label_text, 'title': title_text, 'headers': headers, 'rows': rows}
