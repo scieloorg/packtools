@@ -73,7 +73,7 @@ class TestBuildFigXlink(unittest.TestCase):
     def test_build_fig_xlink(self):
         data = {
             "fig-id": "f01",
-            "graphic-xlink": "1234-5678-zwy-12-04-0123-gf02.tif",
+            "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
         }
         expected_xml_str = (
             '<fig id="f01">'
