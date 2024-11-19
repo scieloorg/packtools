@@ -480,3 +480,36 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
 
     for text in acknowledgement_paragraphs:
         docx_utils.add_paragraph_with_formatting(docx, text)
+
+def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, section_style_name='SCL Section Title'):
+    """
+    Adds the supplementary material section to the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        footer_data (dict): The data to be added to the footer.
+        supplementary_data (dict): The data to be added to the supplementary material section.
+        section_style_name (str, optional): The name of the style to apply to the supplementary material section title. Defaults to 'SCL Section Title'.
+
+    Returns:
+        None
+    """
+    section = docx.add_section()
+
+    section.footer.is_linked_to_previous = False
+    footer = section.footer
+
+    para = footer.add_paragraph()
+    para.style = docx.styles['SCL Footer']
+    
+    para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
+    
+    docx_utils.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
+
+    docx_utils.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
+    
+    for element in supplementary_data['elements']:
+        if element['type'] == 'table':
+            docx_utils.add_table(docx, element['content'])
+        elif element['type'] == 'text':
+            docx_utils.add_paragraph_with_formatting(docx, element['content'])

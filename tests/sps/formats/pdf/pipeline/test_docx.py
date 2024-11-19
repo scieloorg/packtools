@@ -87,3 +87,7 @@ class TestDocxAcknowledgmentsPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxSupplementaryMaterialPipe(unittest.TestCase):
+    # TODO
+    ...
