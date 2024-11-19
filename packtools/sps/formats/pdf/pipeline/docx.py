@@ -86,3 +86,24 @@ def pipeline_docx(xml_tree, data):
     docx_utils.docx_setup_sections(docx)
     
     return docx
+
+def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Title Char'):
+    """
+    Adds the journal title text to the first page header of the DOCX document, with each word on a new line.
+    
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        journal_title_text (str): The text of the journal title to be added.
+        style_name (str, optional): The name of the style to apply to the journal title text. Defaults to 'SCL Journal Title Char'.
+    
+    Returns:
+        python-docx.Paragraph: The paragraph object containing the journal title text.
+    """
+    first_page_header = docx_utils.get_first_page_header(docx)
+    first_page_header
+    para = docx_utils.get_first_paragraph(first_page_header)
+
+    left_run = para.add_run(journal_title_text.replace(' ', '\n'))
+    left_run.style = docx.styles[style_name]
+
+    return para
