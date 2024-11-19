@@ -160,3 +160,24 @@ def docx_article_title_pipe(docx, article_title, style_name='SCL Article Title')
     """
     article_title_el = docx.add_heading(article_title, level=1)
     article_title_el.style = docx.styles[style_name]
+
+def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', character_style_name='SCL Author Char'):
+    """
+    Adds the authors' names to the first page header of the DOCX document, with each name on a new line.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        authors_names (list): The list of authors' names to be added.
+        paragraph_style_name (str, optional): The name of the style to apply to the paragraph containing the authors' names. Defaults to 'SCL Author'.
+        character_style_name (str, optional): The name of the style to apply to the authors' names. Defaults to 'SCL Author Char'.
+
+    Returns:
+        None
+    """
+    docx_utils.add_authors_names_paragraph_with_formatting_sup(
+    docx, 
+        authors_names,
+        paragraph_style_name=paragraph_style_name,
+        character_style_name=character_style_name, 
+        sup_mark="[^]"
+    )
