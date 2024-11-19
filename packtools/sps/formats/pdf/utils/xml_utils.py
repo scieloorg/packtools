@@ -96,3 +96,31 @@ def get_text_from_mixed_citation_node(node):
     ref_text = _add_period(ref_text)
 
     return ref_text
+
+def _add_period(text):
+    """
+    Adds a period to the end of the given text if it does not already have one.
+
+    Args:
+        text (str): The text to add a period to.
+
+    Returns:
+        str: The text with a period added to the end.
+    """
+    if text and not text.endswith('.'):
+        text += '.'
+    return text
+
+def _remove_double_spaces(text):
+    """
+    Removes double spaces from the given text.
+
+    Args:
+        text (str): The text to remove double spaces from.
+
+    Returns:
+        str: The text with double spaces removed.
+    """
+    while '  ' in text:
+        text = text.replace('  ', ' ')
+    return text
