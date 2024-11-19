@@ -437,3 +437,28 @@ def docx_body_pipe(docx, body_data):
                 #   3. disable the one-column mode
                 #       multi_col_section = docx.add_section(WD_SECTION.CONTINUOUS)
                 #       setup_section_columns(multi_col_section, 2, TWO_COLUMNS_SPACING)
+
+def docx_references_pipe(
+        docx, 
+        title='References', 
+        references=[], 
+        section_style_name='SCL Section Title', 
+        paragraph_style_name='SCL Paragraph Reference',
+    ):
+    """
+    Adds the references section to the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        title (str, optional): The title of the references section. Defaults to 'References'.
+        references (list, optional): The list of references to be added. Defaults to [].
+        section_style_name (str, optional): The name of the style to apply to the section title. Defaults to 'SCL Section Title'.
+        paragraph_style_name (str, optional): The name of the style to apply to the reference paragraphs. Defaults to 'SCL Paragraph Reference'.
+    
+    Returns:
+        None
+    """
+    docx_utils.add_heading_with_formatting(docx, title, section_style_name, 2)
+    for reference in references:
+        paragraph = docx.add_paragraph(reference)
+        paragraph.style = docx.styles[paragraph_style_name]

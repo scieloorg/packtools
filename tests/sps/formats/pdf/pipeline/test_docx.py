@@ -77,3 +77,8 @@ class TestDocxBodyPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxReferencesPipe(unittest.TestCase):
+    # TODO
+    ...
+
