@@ -42,3 +42,13 @@ class TestDocxCorrespondingPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxAbstractPipe(unittest.TestCase):
+    # TODO
+    ...
+
+
+class TestDocxKeyworksPipe(unittest.TestCase):
+    # TODO
+    ...
+

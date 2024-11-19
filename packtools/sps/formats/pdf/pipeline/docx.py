@@ -224,3 +224,52 @@ def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affil
         character_style_name=character_style_name,
         sup_mark="[^]"
     )
+
+def docx_abstract_pipe(docx, abstract_title, abstract_content, title_paragraph_style_name='SCL Abstract Title', content_paragraph_style_name='SCL Paragraph Abstract'):
+    """
+    Adds the abstract title and content to the first page header of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        abstract_title (str): The title of the abstract to be added.
+        abstract_content (str): The content of the abstract to be added.
+        title_paragraph_style_name (str, optional): The name of the style to apply to the abstract title. Defaults to 'SCL Abstract Title'.
+        content_paragraph_style_name (str, optional): The name of the style to apply to the abstract content. Defaults to 'SCL Paragraph Abstract'.
+
+    Returns:
+        None
+    """
+    abstract_title_el = docx.add_heading(abstract_title, level=2)
+    abstract_title_el.style = docx.styles[title_paragraph_style_name]
+    abstract_content_el = docx.add_paragraph(abstract_content)
+    abstract_content_el.style = docx.styles[content_paragraph_style_name]
+
+def docx_keyworks_pipe(
+        docx, 
+        keywords_title, 
+        keywords_content, 
+        keywords_paragraph_style_name='SCL Paragraph Keywords', 
+        keywords_header_character_style_name='SCL Paragraph Keywords Header Char',
+        keyworks_character_paragraph_style_name='SCL Paragraph Keywords Char'):
+    """
+    Adds the keywords title and content to the first page header of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        keywords_title (str): The title of the keywords to be added.
+        keywords_content (str): The content of the keywords to be added.
+        keywords_paragraph_style_name (str, optional): The name of the style to apply to the keywords title. Defaults to 'SCL Paragraph Keywords'.
+        keywords_header_character_style_name (str, optional): The name of the style to apply to the keywords title. Defaults to 'SCL Paragraph Keywords Header Char'.
+        keyworks_character_paragraph_style_name (str, optional): The name of the style to apply to the keywords content. Defaults to 'SCL Paragraph Keywords Char'.
+
+    Returns:
+        None
+    """
+    para = docx.add_paragraph()
+    para.style = docx.styles[keywords_paragraph_style_name]
+
+    r1 = para.add_run(f'{keywords_title} ')
+    r1.style = docx.styles[keywords_header_character_style_name]
+
+    r2 = para.add_run(f'{keywords_content}')
+    r2.style = docx.styles[keyworks_character_paragraph_style_name]
