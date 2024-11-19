@@ -67,3 +67,32 @@ class TestDocxUtils(unittest.TestCase):
         self.assertEqual(table.cell(0, 0).text, 'Header 1')
         self.assertEqual(table.cell(1, 0).text, 'Row 1 Col 1')
 
+    def test_add_paragraph_with_formatting(self):
+        my_new_paragraph_name = 'My new paragraph style'
+        my_new_paragraph_style = self.doc.styles.add_style(my_new_paragraph_name, pdf_enum.WD_STYLE_TYPE.PARAGRAPH)
+        para = docx_utils.add_paragraph_with_formatting(self.doc, "Test paragraph", style_name=my_new_paragraph_style.name)
+        self.assertEqual(para.text, "Test paragraph")
+        self.assertEqual(para.style.name, my_new_paragraph_name)
+
+    def test_add_authors_names_paragraph_with_formatting_sup(self):
+        # TODO
+        ...
+
+    def test_add_text_paragraph_with_formatting_sup(self):
+        # TODO
+        ...
+
+    def test_add_run_with_style(self):
+        new_style = self.doc.styles.add_style('My new character style', pdf_enum.WD_STYLE_TYPE.CHARACTER)
+
+        para = self.doc.add_paragraph('This paragraph is about multimodal data and its style is `Default Paragraph Font`.')
+        self.assertEqual(para.runs[0].text, "This paragraph is about multimodal data and its style is `Default Paragraph Font`.")
+        self.assertEqual(para.runs[0].style.name, 'Default Paragraph Font')
+
+        docx_utils.add_run_with_style(para, "This text has a very specific style! I am not normal.", new_style)
+        self.assertEqual(para.runs[1].text, "This text has a very specific style! I am not normal.")
+        self.assertEqual(para.runs[1].style.name, 'My new character style')
+
+    def test_add_heading_with_formatting(self):
+        heading = docx_utils.add_heading_with_formatting(self.doc, "Introduction to Data Mining", 'Heading 1', level=1)
+        self.assertEqual(heading.text, "Introduction to Data Mining")

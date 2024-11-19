@@ -308,3 +308,122 @@ def style_cell(cell, bold=False, font_size=7, font_color=None, align='center', b
         shading_elm = OxmlElement('w:shd')
         shading_elm.set(qn('w:fill'), bg_color)
         cell._element.get_or_add_tcPr().append(shading_elm)
+
+def add_paragraph_with_formatting(docx, text, style_name='SCL Paragraph', element=None):
+    """
+    Adds a paragraph with specified formatting to a docx document.
+
+    Args:
+        docx (docx.Document): The docx document to which the paragraph will be added.
+        text (str): The text content of the paragraph.
+        style_name (str, optional): The name of the style to apply to the paragraph. Defaults to 'SCL Paragraph'.
+        element (docx.oxml.CT_Element, optional): An optional element to which the paragraph will be added. 
+            If None, the paragraph will be added to the docx document. Defaults to None.
+
+    Returns:
+        docx.text.paragraph.Paragraph: The newly added paragraph with the specified formatting.
+    """
+    if element is not None:
+        para = element.add_paragraph(text)
+    else:
+        para = docx.add_paragraph(text)
+    
+    para.style = docx.styles[style_name]
+
+    return para
+
+def add_authors_names_paragraph_with_formatting_sup(docx, authors_names, paragraph_style_name, character_style_name, sup_mark="[^]"):
+    """
+    Adds a paragraph to a docx document with formatted author names and superscript markers.
+
+    Args:
+        docx (docx.Document): The docx document to which the paragraph will be added.
+        authors_names (list of str): A list of author names, each potentially containing a superscript marker.
+        paragraph_style_name (str): The style name to be applied to the paragraph.
+        character_style_name (str): The style name to be applied to the text runs within the paragraph.
+        sup_mark (str, optional): The marker used to split normal text and superscript text in author names. Defaults to "[^]".
+
+    Returns:
+        docx.text.paragraph.Paragraph: The paragraph object that was added to the document.
+    """
+    para = docx.add_paragraph()
+    para.style = docx.styles[paragraph_style_name]
+
+    for ind, a in enumerate(authors_names):
+        try:
+            normal_text, sup_text = a.split(sup_mark)
+        except ValueError:
+            normal_text = a
+            sup_text = ''
+                
+        normal_run = para.add_run(normal_text)
+        normal_run.style = docx.styles[character_style_name]
+        
+        separator_text = ''
+
+        if ind <= len(authors_names) - 3:
+            separator_text = ', '
+
+        if ind == len(authors_names) - 2:
+            separator_text = ' and '
+
+        sup_run = para.add_run(sup_text)
+        sup_run.style = docx.styles[character_style_name]
+        sup_run.font.superscript = True
+
+        sep_run = para.add_run(separator_text)
+        sep_run.style = docx.styles[character_style_name]
+
+    return para
+
+def add_text_paragraph_with_formatting_sup(docx, text, paragraph_style_name, character_style_name, sup_mark="[^]"):
+    """
+    Adds a paragraph with formatted text to a docx document, including superscript formatting.
+    
+    Args:
+        docx (docx.Document): The docx document to which the paragraph will be added.
+        text (str): The text to be added to the paragraph. The text should contain a superscript marker.
+        paragraph_style_name (str): The name of the paragraph style to be applied.
+        character_style_name (str): The name of the character style to be applied.
+        sup_mark (str, optional): The marker indicating the superscript text. Defaults to "[^]".
+    
+    Raises:
+        ValueError: If the text does not contain the superscript marker.
+    """
+    para = docx.add_paragraph()
+    para.style = docx.styles[paragraph_style_name]
+
+    try:
+        sup_text, normal_text = text.split(sup_mark)
+    except ValueError:
+        normal_text = text
+        sup_text = ''
+            
+    sup_run = para.add_run(sup_text)
+    sup_run.style = docx.styles[character_style_name]
+    sup_run.font.superscript = True
+
+    normal_run = para.add_run(normal_text)
+    normal_run.style = docx.styles[character_style_name]
+
+def add_run_with_style(element, text, style):
+    run = element.add_run(text)
+    run.style = style
+
+def add_heading_with_formatting(docx, text, style_name, level):
+    """
+    Adds a heading to a DOCX document with specified formatting.
+
+    Args:
+        docx (docx.Document): The DOCX document to which the heading will be added.
+        text (str): The text content of the heading.
+        style_name (str): The name of the style to apply to the heading.
+        level (int): The level of the heading (e.g., 0 for title, 1 for main heading, etc.).
+
+    Returns:
+        docx.text.paragraph.Paragraph: The newly added heading with the specified formatting
+    """
+    heading = docx.add_heading(text, level=level)
+    heading.style = docx.styles[style_name]
+
+    return heading
