@@ -55,3 +55,53 @@ class TestGetTextFromNode(unittest.TestCase):
         result = xml_utils.get_text_from_node(xmltree)
         self.assertEqual(expected, result)
 
+
+class TestGetTextFromMixedCitationNode(unittest.TestCase):
+
+    def test_get_text_from_mixed_citation_node_with_simple_text(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Simple reference text</mixed-citation>'
+        )
+        expected = 'Simple reference text.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_with_italic(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Text with <italic>italicized</italic> content</mixed-citation>'
+        )
+        expected = 'Text with italicized content.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_with_multiple_elements(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Author A, <italic>Title B</italic>, <bold>Journal C</bold></mixed-citation>'
+        )
+        expected = 'Author A, Title B, Journal C.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_with_empty_elements(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Text <italic></italic> with <bold></bold> empty elements</mixed-citation>'
+        )
+        expected = 'Text with empty elements.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_already_has_period(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Reference ending with period.</mixed-citation>'
+        )
+        expected = 'Reference ending with period.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
+
+    def test_get_text_from_mixed_citation_node_with_nested_tail_text(self):
+        xml = etree.fromstring(
+            '<mixed-citation>Start <italic>italic</italic> middle <bold>bold</bold> end</mixed-citation>'
+        )
+        expected = 'Start italic middle bold end.'
+        result = xml_utils.get_text_from_mixed_citation_node(xml)
+        self.assertEqual(expected, result)
