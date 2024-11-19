@@ -427,3 +427,41 @@ def add_heading_with_formatting(docx, text, style_name, level):
     heading.style = docx.styles[style_name]
 
     return heading
+
+def level_to_style(level):
+    """
+    Convert a heading level to a corresponding style name.
+
+    Args:
+        level (int): The heading level to convert.
+
+    Returns:
+        str: The corresponding style name. Returns 'SCL Section Title' for level 2,
+             'SCL Subsection Title' for level 3, and 'SCL Paragraph' for all other levels.
+    """
+    if level == 2:
+        return 'SCL Section Title'
+    elif level == 3:
+        return 'SCL Subsection Title'
+    else:
+        return 'SCL Paragraph'
+
+def setup_section_columns(section, num_columns, column_spacing):
+    """
+    Configures the number of columns and the spacing between them for a given section in a DOCX document.
+
+    Args:
+        section (docx.section.Section): The section of the DOCX document to configure.
+        num_columns (int): The number of columns to set in the section.
+        column_spacing (int): The spacing between columns in twips (twentieths of a point).
+
+    Returns:
+        None
+    """
+    sect_pr = section._sectPr
+    cols = sect_pr.find(qn('w:cols'))
+    if cols is None:
+        cols = OxmlElement('w:cols')
+        sect_pr.append(cols)
+    cols.set(qn('w:num'), str(num_columns))
+    cols.set(qn('w:space'), str(column_spacing))

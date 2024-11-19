@@ -96,3 +96,13 @@ class TestDocxUtils(unittest.TestCase):
     def test_add_heading_with_formatting(self):
         heading = docx_utils.add_heading_with_formatting(self.doc, "Introduction to Data Mining", 'Heading 1', level=1)
         self.assertEqual(heading.text, "Introduction to Data Mining")
+
+    def test_level_to_style(self):
+        self.assertEqual(docx_utils.level_to_style(2), 'SCL Section Title')
+        self.assertEqual(docx_utils.level_to_style(3), 'SCL Subsection Title')
+        self.assertEqual(docx_utils.level_to_style(1), 'SCL Paragraph')
+
+    def test_setup_section_columns(self):
+        section = self.doc.sections[0]
+        docx_utils.setup_section_columns(section, 2, 720)
+        self.assertEqual(section._sectPr.xpath('.//w:cols')[0].get(docx_utils.qn('w:num')), '2')
