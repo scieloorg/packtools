@@ -27,6 +27,104 @@ def init_docx(data):
     copy_styles(source_docx, docx)
 
     return docx
+
+def copy_styles(source, target):
+    """
+    Copy styles from a source DOCX document to a target DOCX document.
+
+    Args:
+        source: The source DOCX document.
+        target: The target DOCX document.
+
+    Returns:
+        The target DOCX document with copied styles.
+    """
+    for style in source.styles:
+        if style.type in [
+            pdf_enum.WD_STYLE_TYPE.PARAGRAPH, 
+            pdf_enum.WD_STYLE_TYPE.CHARACTER
+        ]:
+            if style.name in target.styles:
+                target.styles[style.name].delete()
+            
+            new_style = target.styles.add_style(style.name, style.type)
+            new_style.base_style = style.base_style
+            new_style.hidden = style.hidden
+            new_style.priority = style.priority
+            new_style.quick_style = style.quick_style
+            new_style.unhide_when_used = style.unhide_when_used
+
+            if style.font.name:
+                new_style.font.name = style.font.name
+            
+            if style.font.size:
+                new_style.font.size = style.font.size
+            
+            new_style.font.bold = style.font.bold
+            new_style.font.italic = style.font.italic
+            new_style.font.underline = style.font.underline
+            new_style.font.strike = style.font.strike
+            new_style.font.all_caps = style.font.all_caps
+            
+            if style.font.color.rgb:
+                new_style.font.color.rgb = style.font.color.rgb
+            
+            if style.font.color.theme_color:
+                new_style.font.color.theme_color = style.font.color.theme_color
+            
+            new_style.font.highlight_color = style.font.highlight_color
+            new_style.font.superscript = style.font.superscript
+            new_style.font.subscript = style.font.subscript
+
+            if style.type == pdf_enum.WD_STYLE_TYPE.PARAGRAPH:
+                try:
+                    new_style.paragraph_format.alignment = style.paragraph_format.alignment
+                except ValueError:
+                    new_style.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+                new_style.paragraph_format.left_indent = style.paragraph_format.left_indent
+                new_style.paragraph_format.right_indent = style.paragraph_format.right_indent
+                new_style.paragraph_format.first_line_indent = style.paragraph_format.first_line_indent
+                new_style.paragraph_format.keep_together = style.paragraph_format.keep_together
+                new_style.paragraph_format.keep_with_next = style.paragraph_format.keep_with_next
+                new_style.paragraph_format.page_break_before = style.paragraph_format.page_break_before
+                new_style.paragraph_format.widow_control = style.paragraph_format.widow_control
+                new_style.paragraph_format.space_before = style.paragraph_format.space_before
+                new_style.paragraph_format.space_after = style.paragraph_format.space_after
+                new_style.paragraph_format.line_spacing = style.paragraph_format.line_spacing
+                new_style.paragraph_format.line_spacing_rule = style.paragraph_format.line_spacing_rule
+
+    return target
+
+def docx_setup_sections(docx, page_attributes=pdf_enum.PAGE_ATTRIBUTES):
+    """
+    Sets up the sections of a DOCX document with the specified page attributes.
+    
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        page_attributes (dict, optional): A dictionary of page attributes to apply to the sections. Defaults to pdf_enum.PAGE_ATTRIBUTES.
+    
+    Returns:
+        None
+    """
+    for ind, sec in enumerate(docx.sections):
+        if ind == 0:
+            sec.different_first_page_header_footer = page_attributes.get('different_first_page_header_footer')
+        elif ind == 1:
+            sec.header.is_linked_to_previous = False
+
+        sec.top_margin = page_attributes.get('top_margin')
+        sec.left_margin = page_attributes.get('left_margin')
+        sec.right_margin = page_attributes.get('right_margin')
+        sec.bottom_margin = page_attributes.get('bottom_margin')
+        sec.header_distance = page_attributes.get('header_distance')
+        sec.footer_distance = page_attributes.get('footer_distance')
+        sec.gutter = page_attributes.get('gutter')
+        sec.orientation = page_attributes.get('orientation')
+        sec.page_height = page_attributes.get('page_height')
+        sec.page_width = page_attributes.get('page_width')
+        sec.start_type = page_attributes.get('start_type')
+
 def get_first_section(docx):
     """
     Gets the first section of the given docx document.
