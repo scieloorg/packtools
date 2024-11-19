@@ -67,3 +67,8 @@ class TestDocxSecondFooterPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxPageVolIssueYearPipe(unittest.TestCase):
+    # TODO
+    ...
+

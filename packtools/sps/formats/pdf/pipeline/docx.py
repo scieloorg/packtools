@@ -386,3 +386,22 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
 
     pg_num_type.set(ns.qn('w:start'), str(current_page_number))
     sect_pr.append(pg_num_type)
+
+def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
+    """
+    Adds the page, volume, issue, and year information to the first page footer of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        footer_data (dict): The data to be added to the footer.
+        paragraph_style_name (str, optional): The name of the style to apply to the footer. Defaults to 'SCL Footer'.
+
+    Returns:
+        None
+    """
+    footer = docx_utils.get_first_page_footer(docx)
+    para = footer.add_paragraph()
+
+    para.style = docx.styles[paragraph_style_name]
+    para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
+
