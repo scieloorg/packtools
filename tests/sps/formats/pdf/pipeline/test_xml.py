@@ -92,3 +92,62 @@ class TestExtractArticleTitle(unittest.TestCase):
         xml = etree.fromstring('<article><article-meta></article-meta></article>')
         with self.assertRaises(AttributeError):
             xml_pipe.extract_article_title(xml)
+class TestExtractCategory(unittest.TestCase):
+
+    def setUp(self):
+        self.xml_with_category = etree.fromstring("""
+            <article>
+                <article-meta>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Original Article</subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </article>
+        """)
+        
+        self.xml_without_category = etree.fromstring("""
+            <article>
+                <article-meta>
+                    <article-categories>
+                        <subj-group>
+                            <subject>Other Content</subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </article>
+        """)
+
+    def test_extract_category_returns_text(self):
+        result = xml_pipe.extract_category(self.xml_with_category)
+        self.assertEqual(result, "Original Article")
+
+    def test_extract_category_returns_element(self):
+        result = xml_pipe.extract_category(self.xml_with_category, return_text=False)
+        self.assertIsInstance(result, etree._Element)
+        self.assertEqual(result.text, "Original Article")
+
+    def test_extract_category_missing_category_raises_attribute_error(self):
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_category(self.xml_without_category)
+
+    def test_extract_category_empty_xml_raises_attribute_error(self):
+        empty_xml = etree.fromstring("<article></article>")
+        with self.assertRaises(AttributeError):
+            xml_pipe.extract_category(empty_xml)
+
+    def test_extract_category_with_empty_subject(self):
+        xml = etree.fromstring("""
+            <article>
+                <article-meta>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject></subject>
+                        </subj-group>
+                    </article-categories>
+                </article-meta>
+            </article>
+        """)
+        result = xml_pipe.extract_category(xml)
+        self.assertEqual(result, "")
