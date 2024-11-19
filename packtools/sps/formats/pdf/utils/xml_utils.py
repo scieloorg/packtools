@@ -37,6 +37,35 @@ def get_text_from_node(node):
     text = _remove_double_spaces(text)
     return text
 
+def get_node_level(element, root):
+    """
+    Determines the level or depth of an XML element within the document tree.
+    
+    Args:
+        element (ElementTree): The XML element to get the level for.
+        root (ElementTree): The root XML element of the document.
+    
+    Returns:
+        int: The level or depth of the given element within the document tree.
+    """
+    level = 0
+    current = element
+
+    while current is not root:
+        parent_found = False
+
+        for sibling in root.iter():
+            if sibling is not current and current in sibling:
+                current = sibling
+                level += 1
+                parent_found = True
+                break
+
+        if not parent_found:
+            break
+
+    return level
+
 def get_text_from_mixed_citation_node(node):
     """
     Extracts text from a mixed_citation node, including its children.

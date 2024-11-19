@@ -105,3 +105,59 @@ class TestGetTextFromMixedCitationNode(unittest.TestCase):
         expected = 'Start italic middle bold end.'
         result = xml_utils.get_text_from_mixed_citation_node(xml)
         self.assertEqual(expected, result)
+
+
+class TestGetNodeLevel(unittest.TestCase):
+
+    def test_get_node_level_root_element(self):
+        xmltree = etree.fromstring("<root><a><b>text</b></a></root>")
+        result = xml_utils.get_node_level(xmltree, xmltree)
+        self.assertEqual(0, result)
+
+    def test_get_node_level_first_level(self):
+        xmltree = etree.fromstring("<root><a><b>text</b></a></root>")
+        element = xmltree.find(".//a")
+        result = xml_utils.get_node_level(element, xmltree)
+        self.assertEqual(1, result)
+
+    def test_get_node_level_second_level(self):
+        xmltree = etree.fromstring("<root><a><b>text</b></a></root>")
+        element = xmltree.find(".//b")
+        result = xml_utils.get_node_level(element, xmltree)
+        self.assertEqual(2, result)
+
+    def test_get_node_level_deep_nesting(self):
+        xmltree = etree.fromstring("<root><a><b><c><d>text</d></c></b></a></root>")
+        element = xmltree.find(".//d")
+        result = xml_utils.get_node_level(element, xmltree)
+        self.assertEqual(4, result)
+
+    def test_get_node_level_sibling_elements(self):
+        xmltree = etree.fromstring("<root><a>text1</a><b>text2</b></root>")
+        element = xmltree.find(".//b")
+        result = xml_utils.get_node_level(element, xmltree)
+        self.assertEqual(1, result)
+
+    def test_get_node_level_detached_element(self):
+        xmltree = etree.fromstring("<root><a><b>text</b></a></root>")
+        detached = etree.Element("detached")
+        result = xml_utils.get_node_level(detached, xmltree)
+        self.assertEqual(0, result)
+
+    def test_get_node_level_complex_structure(self):
+        xmltree = etree.fromstring(
+            """
+            <root>
+                <section>
+                    <title>Title</title>
+                    <para>
+                        <bold>Text</bold>
+                        <italic>More text</italic>
+                    </para>
+                </section>
+            </root>
+            """
+        )
+        element = xmltree.find(".//bold")
+        result = xml_utils.get_node_level(element, xmltree)
+        self.assertEqual(3, result)
