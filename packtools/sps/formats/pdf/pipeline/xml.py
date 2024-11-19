@@ -139,6 +139,34 @@ def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3
         data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
 
     return data
+def extract_supplementary_data(xml_tree):
+    """
+    Extracts supplementary data from an XML tree.
+
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the supplementary data from.
+
+    Returns:
+        dict: A dictionary containing the supplementary data, with the following keys:
+            - 'title': The title of the supplementary section, if present.
+            - 'paragraphs': A list of the text content of each paragraph in the supplementary section.
+    """
+    data = {'title': 'Supplementary Material', 'elements': []}
+
+    app_groups = xml_tree.findall('.//app-group')
+    if app_groups:
+        for app_group in app_groups:
+            for element in app_group:
+                if element.text:
+                    data['elements'].append({'content': element.text, 'type': 'text'})
+
+                for table_wrap in element.findall('.//table-wrap'):
+                    data['elements'].append({
+                        'type': 'table',
+                        'content': extract_table_data(table_wrap)
+                    })
+    return data
+
 def extract_table_data(table_wrap):
     """
     Extracts table data from an XML table-wrap element.
