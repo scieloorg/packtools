@@ -5,6 +5,83 @@ from lxml import etree
 from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
 
 
+class TestExtractAbstractData(unittest.TestCase):
+
+    def test_extract_abstract_data_with_title_and_content(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<title>Abstract Title</title>'
+            '<p>First paragraph.</p>'
+            '<p>Second paragraph.</p>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': 'Abstract Title',
+            'content': 'First paragraph. Second paragraph.'
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_with_title_only(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<title>Abstract Title</title>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': 'Abstract Title',
+            'content': ''
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_with_content_only(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<p>First paragraph.</p>'
+            '<p>Second paragraph.</p>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': '',
+            'content': 'First paragraph. Second paragraph.'
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_empty_abstract(self):
+        xml = etree.fromstring('<article><abstract></abstract></article>')
+        expected = {
+            'title': '',
+            'content': ''
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_no_abstract(self):
+        xml = etree.fromstring('<article></article>')
+        expected = {
+            'title': '',
+            'content': ''
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_abstract_data_with_nested_elements(self):
+        xml = etree.fromstring(
+            '<article><abstract>'
+            '<title>Abstract <italic>Title</italic></title>'
+            '<p>First <bold>paragraph</bold>.</p>'
+            '<p>Second <italic>paragraph</italic>.</p>'
+            '</abstract></article>'
+        )
+        expected = {
+            'title': 'Abstract Title',
+            'content': 'First paragraph. Second paragraph.'
+        }
+        result = xml_pipe.extract_abstract_data(xml)
+        self.assertEqual(result, expected)
+
 class TestExtractArticleMainLanguage(unittest.TestCase):
 
     def test_extract_article_main_language_with_valid_lang(self):

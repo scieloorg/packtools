@@ -47,3 +47,31 @@ def extract_article_title(xml_tree, return_text=True):
     if return_text:
         return ''.join(node.itertext()).strip()
     return node
+def extract_abstract_data(xml_tree):
+    """
+    Extracts the title and content of the abstract from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the abstract from.
+    
+    Returns:
+        dict: A dictionary containing the following keys:
+            - 'title': The text content of the abstract title element, or an empty string if not found.
+            - 'content': The text content of the abstract paragraphs, concatenated into a single string.
+    """
+    data = {'title': '', 'content': ''}
+
+    node_abstract = xml_tree.find(f'.//abstract')
+    if node_abstract is not None:
+        node_title = node_abstract.find('title')
+    
+        if node_title is not None:
+            data['title'] = ''.join(node_title.itertext()).strip()
+
+        abstract = []
+        for p in node_abstract.findall('p'):
+            if p is not None:
+                abstract.append(''.join(p.itertext()).strip())
+        data['content'] = ' '.join(abstract)
+
+    return data
