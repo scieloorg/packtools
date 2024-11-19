@@ -513,6 +513,121 @@ class TestExtractCiteAsPartOne(unittest.TestCase):
         self.assertIsNone(result)
 
 
+class TestExtractContribData(unittest.TestCase):
+
+    def test_extract_contrib_data_complete(self):
+        xml = etree.fromstring("""
+            <article>
+                <contrib-group>
+                    <contrib>
+                        <name>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                        <xref ref-type="corresp" rid="c1"/>
+                        <contrib-id contrib-id-type="orcid">0000-0002-1234-5678</contrib-id>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff1">
+                    <label>1</label>
+                    <institution content-type="original">University of Testing</institution>
+                </aff>
+                <author-notes>
+                    <corresp id="c1">
+                        <email>john.smith@test.edu</email>
+                    </corresp>
+                </author-notes>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['authors_names'], ['John Smith[^]1*'])
+        self.assertEqual(result['affiliations'], ['1[^] University of Testing'])
+        self.assertEqual(result['corresponding_author'], '*[^] Corresponding author: john.smith@test.edu; https://orcid.org/0000-0002-1234-5678')
+
+    def test_extract_contrib_data_multiple_authors(self):
+        xml = etree.fromstring("""
+            <article>
+                <contrib-group>
+                    <contrib>
+                        <name>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                    <contrib>
+                        <name>
+                            <surname>Doe</surname>
+                            <given-names>Jane</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff2"/>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff1">
+                    <label>1</label>
+                    <institution content-type="original">University A</institution>
+                </aff>
+                <aff id="aff2">
+                    <label>2</label>
+                    <institution content-type="original">University B</institution>
+                </aff>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['authors_names'], ['John Smith[^]1', 'Jane Doe[^]2'])
+        self.assertEqual(result['affiliations'], ['1[^] University A', '2[^] University B'])
+        self.assertEqual(result['corresponding_author'], '')
+
+    def test_extract_contrib_data_empty_tree(self):
+        xml = etree.fromstring("<article></article>")
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['authors_names'], [])
+        self.assertEqual(result['affiliations'], [])
+        self.assertEqual(result['corresponding_author'], '')
+
+    def test_extract_contrib_data_missing_institution(self):
+        xml = etree.fromstring("""
+            <article>
+                <contrib-group>
+                    <contrib>
+                        <name>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff1">
+                    <label>1</label>
+                </aff>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['authors_names'], ['John Smith[^]1'])
+        self.assertEqual(result['affiliations'], [])
+
+    def test_extract_contrib_data_missing_label(self):
+        xml = etree.fromstring("""
+            <article>
+                <contrib-group>
+                    <contrib>
+                        <name>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff1">
+                    <institution content-type="original">University X</institution>
+                </aff>
+            </article>
+        """)
+        result = xml_pipe.extract_contrib_data(xml)
+        self.assertEqual(result['authors_names'], ['John Smith[^]'])
+        self.assertEqual(result['affiliations'], ['[^] University X'])
+
 class TestExtractFooterData(unittest.TestCase):
 
     def test_extract_footer_data_complete(self):

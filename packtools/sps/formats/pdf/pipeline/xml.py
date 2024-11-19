@@ -74,6 +74,76 @@ def extract_article_title(xml_tree, return_text=True):
     if return_text:
         return ''.join(node.itertext()).strip()
     return node
+
+def extract_contrib_data(xml_tree):
+    """
+    Extracts contributor data from the given XML tree, including author names, affiliations, and corresponding author information.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract contributor data from.
+    
+    Returns:
+        dict: A dictionary containing the following keys:
+            - 'authors_names': A list of author names, with affiliations and corresponding author mark if applicable.
+            - 'affiliations': A list of affiliations, with label and institution name.
+            - 'corresponding_author': The corresponding author information, including email and ORCID if available.
+    """
+    authors_names = []    
+    affiliations = []
+    corresponding_author = ''
+
+    contrib_group = xml_tree.find('.//contrib-group')
+    if contrib_group is not None:
+        aff_mapping = {}
+
+        for aff in xml_tree.findall('.//aff'):
+            aff_id = aff.get('id')
+            label = aff.find('label').text if aff.find('label') is not None else ''
+            institution = aff.find('institution[@content-type="original"]')
+            institution_name = institution.text if institution is not None else ''
+            aff_mapping[aff_id] = (label, institution_name)
+
+        for contrib in contrib_group.findall('.//contrib'):
+            name = contrib.find('name')
+            if name is not None:
+                surname = name.find('surname')
+                given_names = name.find('given-names')
+                xref_aff = contrib.find('.//xref[@ref-type="aff"]')
+                xref_corresp = contrib.find('.//xref[@ref-type="corresp"]')
+                corresp_mark = '*' if xref_corresp is not None else ''
+
+                if surname is not None and given_names is not None:
+                    full_name = f"{given_names.text} {surname.text}[^]"
+
+                    if xref_aff is not None:
+                        aff_ref_id = xref_aff.get('rid', '')
+                        if aff_ref_id in aff_mapping:
+                            label, institution_name = aff_mapping[aff_ref_id]
+                            if label:
+                                full_name += label
+                    full_name += corresp_mark
+                    authors_names.append(full_name)
+        
+        for aff in xml_tree.findall('.//aff'):
+            label = aff.find('label').text if aff.find('label') is not None else ''
+            institution = aff.find('institution[@content-type="original"]')
+            institution_name = institution.text if institution is not None else ''
+            
+            if institution_name:
+                aff_info = f"{label}[^] {institution_name}"
+                affiliations.append(aff_info)
+
+    corresp = xml_tree.find('.//author-notes//corresp')
+    if corresp is not None:
+        email = corresp.find('.//email')
+        if email is not None:
+            orcid = contrib_group.find('.//contrib-id[@contrib-id-type="orcid"]')
+            orcid_text = f"; https://orcid.org/{orcid.text}" if orcid is not None else ''
+
+            corresponding_author = f"*[^] Corresponding author: {email.text}{orcid_text}"
+
+    return {'authors_names': authors_names, 'affiliations': affiliations, 'corresponding_author': corresponding_author}
+
 def extract_abstract_data(xml_tree):
     """
     Extracts the title and content of the abstract from the given XML tree.
