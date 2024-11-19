@@ -57,3 +57,8 @@ class TestDocxCiteAsPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxSecondHeaderPipe(unittest.TestCase):
+    # TODO
+    ...
+

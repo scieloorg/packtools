@@ -310,3 +310,35 @@ def docx_cite_as_pipe(
 
     p2_style = docx.styles['SCL Paragraph Cite As Char']
     docx_utils.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
+
+def docx_second_header_pipe(
+        docx, 
+        journal_title, 
+        article_title, 
+        paragraph_header_style_name='SCL Header Paragraph',
+        character_header_style_name='SCL Header Paragraph Char',
+        paragraph_title_style_name='SCL Journal Title Char'
+    ):
+    """
+    Adds the journal title and article title to the second page header of the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        journal_title (str): The title of the journal to be added.
+        article_title (str): The title of the article to be added.
+        paragraph_header_style_name (str, optional): The name of the style to apply to the journal title. Defaults to 'SCL Header Paragraph'.
+        character_header_style_name (str, optional): The name of the style to apply to the article title.
+
+    Returns:
+        None
+    """
+    header = docx_utils.get_second_header(docx)
+    header.is_linked_to_previous = False
+    para = header.add_paragraph()
+    para.style = docx.styles[paragraph_header_style_name]
+
+    r1 = para.add_run(journal_title.replace(' ', '\n'))
+    r1.style = docx.styles[paragraph_title_style_name]
+
+    r2 = para.add_run(f'\t{article_title}')
+    r2.style = docx.styles[character_header_style_name]
