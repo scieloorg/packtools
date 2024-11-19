@@ -405,3 +405,35 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     para.style = docx.styles[paragraph_style_name]
     para.add_run(f"{footer_data['fpage']} | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
 
+def docx_body_pipe(docx, body_data):
+    """
+    Adds the body content to the DOCX document.
+
+    Args:
+        docx (python-docx.Document): The DOCX document object.
+        body_data (list): The list of body sections to be added.
+
+    Returns:
+        None
+    """
+    section = docx_utils.get_or_create_second_section(docx)
+    docx_utils.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+
+    for section in body_data:
+        section_style_name = docx_utils.level_to_style(section['level'])
+        if section['title'] is not None:
+            docx_utils.add_heading_with_formatting(docx, section['title'], section_style_name, section['level'])
+
+            for para in section['paragraphs']:
+                docx_utils.add_paragraph_with_formatting(docx, para)
+
+            for table in section['tables']:
+                docx_utils.add_table(docx, table)
+                # FIXME: enable/disable one-column or two-column page tables
+                #   1. enable the one-column mode
+                #       single_col_section = docx.add_section(WD_SECTION.CONTINUOUS)
+                #       setup_section_columns(single_col_section, 1, 0)
+                #   2. add the table itself
+                #   3. disable the one-column mode
+                #       multi_col_section = docx.add_section(WD_SECTION.CONTINUOUS)
+                #       setup_section_columns(multi_col_section, 2, TWO_COLUMNS_SPACING)

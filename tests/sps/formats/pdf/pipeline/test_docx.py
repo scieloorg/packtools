@@ -72,3 +72,8 @@ class TestDocxPageVolIssueYearPipe(unittest.TestCase):
     # TODO
     ...
 
+
+class TestDocxBodyPipe(unittest.TestCase):
+    # TODO
+    ...
+
