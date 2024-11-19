@@ -15,6 +15,17 @@ def extract_article_main_language(xml_tree, namespaces={'xml': 'http://www.w3.or
     lang_attrib_name = "{" + f'{namespaces["xml"]}' + "}lang"
     return xml_tree.attrib.get(lang_attrib_name)
 
+def extract_article_type(xml_tree):
+    """
+    Extracts the article type from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the article type from.
+    
+    Returns:
+        str: The article type.
+    """
+    return xml_tree.attrib.get('article-type')
 
 def extract_journal_title(xml_tree, return_text=True):
     """

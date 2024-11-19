@@ -259,6 +259,25 @@ class TestExtractArticleTitle(unittest.TestCase):
         with self.assertRaises(AttributeError):
             xml_pipe.extract_article_title(xml)
 
+
+class TestExtractArticleType(unittest.TestCase):
+
+    def test_extract_article_type_valid(self):
+        xml = etree.fromstring('<article article-type="research-article"></article>')
+        result = xml_pipe.extract_article_type(xml)
+        self.assertEqual(result, 'research-article')
+
+    def test_extract_article_type_missing(self):
+        xml = etree.fromstring('<article></article>')
+        result = xml_pipe.extract_article_type(xml)
+        self.assertIsNone(result)
+
+    def test_extract_article_type_empty(self):
+        xml = etree.fromstring('<article article-type=""></article>')
+        result = xml_pipe.extract_article_type(xml)
+        self.assertEqual(result, '')
+
+
 class TestExtractBodyData(unittest.TestCase):
 
     def test_extract_body_data_basic(self):
