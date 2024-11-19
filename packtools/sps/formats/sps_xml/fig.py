@@ -13,7 +13,7 @@ def build_fig(data):
             - "label" (str): Optional. The label for the figure.
             - "caption-title" (str): Optional. The title of the caption.
             - "caption-p" (list of str): Optional. Paragraphs for the caption.
-            - "graphic-xlink" (str): Optional. The xlink for a graphic element.
+            - "graphic" (str): Optional. The xlink for a graphic element.
             - "attrib" (str): Optional. An additional attribute for the figure.
 
     Returns:
@@ -29,7 +29,7 @@ def build_fig(data):
             "label": "Figure 1",
             "caption-title": "Título de figura",
             "caption-p": ["Deaths Among Patients..."],
-            "graphic-xlink": "1234-5678-zwy-12-04-0123-gf02.tif",
+            "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
             "attrib": "Fonte: IBGE (2018)"
         }
 
@@ -81,7 +81,7 @@ def build_fig(data):
         fig_elem.append(caption_elem)
 
     # add xlink
-    if xlink := data.get("graphic-xlink"):
+    if xlink := data.get("graphic"):
         xlink_elem = ET.Element("graphic", attrib={"xlink:href": xlink})
         fig_elem.append(xlink_elem)
 
