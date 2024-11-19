@@ -75,3 +75,67 @@ def extract_abstract_data(xml_tree):
         data['content'] = ' '.join(abstract)
 
     return data
+
+def extract_trans_abstract_data(xml_tree, namespaces={'xml': 'http://www.w3.org/XML/1998/namespace'}):
+    """
+    Extracts the title and content of translated abstracts from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the translated abstracts from.
+        namespaces (dict, optional): A dictionary of XML namespaces to use in the XPath expressions.
+    
+    Returns:
+        list: A list of dictionaries, where each dictionary contains the following keys:
+            - 'lang': The language of the translated abstract.
+            - 'title': The title of the translated abstract.
+            - 'content': The content of the translated abstract.
+    """ 
+    data = []
+
+    lang_attrib_name = "{" + f'{namespaces["xml"]}' + "}lang"
+
+    for node in xml_tree.findall('.//trans-abstract'):
+        item = {'lang': '', 'title': '', 'content': ''}
+
+        node_title = node.find('title')
+        if node_title is not None:
+            item['title'] = node_title.text or ''
+
+        item['lang'] = node.attrib.get(lang_attrib_name)
+
+        abstract = []
+        for p in node.findall('p'):
+            if p is not None:
+                abstract.append(p.text or '')
+        item['content'] = ' '.join(abstract)
+
+        data.append(item)
+    
+    return data
+
+def extract_keywords_data(xml_tree, lang='en', namespaces={'xml': 'http://www.w3.org/XML/1998/namespace'}):
+    """
+    Extracts keyword data from the given XML tree.
+    
+    Args:
+        xml_tree (ElementTree): The XML tree to extract the keyword data from.
+        lang (str, optional): The language of the keywords to extract. Defaults to 'en'.
+        namespaces (dict, optional): A dictionary of XML namespaces to use in the XPath expressions.
+    
+    Returns:
+        dict: A dictionary containing the following keys:
+            - 'title': The text content of the keyword group title element, or an empty string if not found.
+            - 'keywords': A comma-separated string of the keyword text contents.
+    """
+    data = {'title': '', 'keywords': ''}
+
+    kwd_group = xml_tree.find(f'.//kwd-group[@xml:lang="{lang}"]', namespaces)
+     
+    if kwd_group is not None:
+        node_title = kwd_group.find('title')
+        if node_title is not None:
+            data['title'] = node_title.text
+
+        data['keywords'] = ', '.join([kwd.text for kwd in kwd_group.findall('kwd')])
+
+    return data

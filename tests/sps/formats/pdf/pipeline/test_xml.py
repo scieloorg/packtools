@@ -228,3 +228,177 @@ class TestExtractCategory(unittest.TestCase):
         """)
         result = xml_pipe.extract_category(xml)
         self.assertEqual(result, "")
+
+
+class TestExtractKeywordsData(unittest.TestCase):
+
+    def test_extract_keywords_data_basic(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords</title>'
+            '<kwd>Keyword1</kwd>'
+            '<kwd>Keyword2</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Keywords',
+            'keywords': 'Keyword1, Keyword2'
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_no_keywords(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<title>Keywords</title>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Keywords',
+            'keywords': ''
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_no_title(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="en">'
+            '<kwd>Keyword1</kwd>'
+            '<kwd>Keyword2</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': '',
+            'keywords': 'Keyword1, Keyword2'
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_different_language(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<kwd-group xml:lang="es">'
+            '<title>Palabras clave</title>'
+            '<kwd>Palabra1</kwd>'
+            '<kwd>Palabra2</kwd>'
+            '</kwd-group>'
+            '</article>'
+        )
+        expected = {
+            'title': 'Palabras clave',
+            'keywords': 'Palabra1, Palabra2'
+        }
+        result = xml_pipe.extract_keywords_data(xml, lang='es')
+        self.assertEqual(result, expected)
+
+    def test_extract_keywords_data_no_kwd_group(self):
+        xml = etree.fromstring('<article></article>')
+        expected = {
+            'title': '',
+            'keywords': ''
+        }
+        result = xml_pipe.extract_keywords_data(xml)
+        self.assertEqual(result, expected)
+
+class TestExtractTransAbstractData(unittest.TestCase):
+
+    def test_extract_trans_abstract_data_basic(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="en">'
+            '<title>English Abstract</title>'
+            '<p>First paragraph.</p>'
+            '<p>Second paragraph.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'en',
+                'title': 'English Abstract',
+                'content': 'First paragraph. Second paragraph.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_multiple_abstracts(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="en">'
+            '<title>English Abstract</title>'
+            '<p>First paragraph.</p>'
+            '</trans-abstract>'
+            '<trans-abstract xml:lang="es">'
+            '<title>Resumen en Español</title>'
+            '<p>Primer párrafo.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'en',
+                'title': 'English Abstract',
+                'content': 'First paragraph.'
+            },
+            {
+                'lang': 'es',
+                'title': 'Resumen en Español',
+                'content': 'Primer párrafo.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_no_abstracts(self):
+        xml = etree.fromstring('<article></article>')
+        expected = []
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_empty_abstract(self):
+        xml = etree.fromstring(
+            '<article>'
+            '<trans-abstract xml:lang="en">'
+            '<title></title>'
+            '<p></p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'en',
+                'title': '',
+                'content': ''
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(xml)
+        self.assertEqual(result, expected)
+
+    def test_extract_trans_abstract_data_custom_namespace(self):
+        xml = etree.fromstring(
+            '<article xmlns:custom="http://custom.namespace">'
+            '<trans-abstract custom:lang="fr">'
+            '<title>Résumé en Français</title>'
+            '<p>Premier paragraphe.</p>'
+            '</trans-abstract>'
+            '</article>'
+        )
+        expected = [
+            {
+                'lang': 'fr',
+                'title': 'Résumé en Français',
+                'content': 'Premier paragraphe.'
+            }
+        ]
+        result = xml_pipe.extract_trans_abstract_data(
+            xml, 
+            namespaces={'xml': 'http://custom.namespace'}
+        )
+        self.assertEqual(result, expected)
