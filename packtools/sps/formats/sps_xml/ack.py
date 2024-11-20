@@ -8,7 +8,7 @@ def build_ack(data):
     Args:
         data (dict): A dictionary containing acknowledgment details with the following keys:
             - "title" (str, optional): Title of the acknowledgment section.
-            - "paragraphs" (list of str, optional): A list of paragraphs for the acknowledgment.
+            - "p" (list of str, optional): A list of paragraphs for the acknowledgment.
 
     Returns:
         xml.etree.ElementTree.Element: An XML element representing the acknowledgment section.
@@ -16,7 +16,7 @@ def build_ack(data):
     Example input:
         data = {
             "title": "Acknowledgments",
-            "paragraphs": [
+            "p": [
                 "We thank the participants for their time.",
                 "Funding was provided by XYZ organization."
             ]
@@ -30,7 +30,7 @@ def build_ack(data):
         </ack>
     """
     title = data.get("title")
-    paragraphs = data.get("paragraphs")
+    paragraphs = data.get("p")
 
     if title or paragraphs:
         ack_elem = ET.Element("ack")
