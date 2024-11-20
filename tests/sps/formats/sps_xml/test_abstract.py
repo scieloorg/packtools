@@ -1,6 +1,6 @@
 import unittest
 import xml.etree.ElementTree as ET
-from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract, build_trans_abstract
+from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract, build_trans_abstract, build_highlights
 
 
 class TestBuildStructuredAbstractTitle(unittest.TestCase):
@@ -289,5 +289,65 @@ class TestBuildTransAbstractTitle(unittest.TestCase):
             '</trans-abstract>'
         )
         abstract_elem = build_trans_abstract(data)
+        generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+
+class TestBuildHighlightTitle(unittest.TestCase):
+    def test_build_highlight_title(self):
+        data = {
+            "title": "Highlights",
+        }
+        expected_xml_str = (
+            '<abstract abstract-type="key-points">'
+            '<title>Highlights</title>'
+            '</abstract>'
+        )
+        abstract_elem = build_highlights(data)
+        generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_build_highlight_title_None(self):
+        data = {
+            "title": None
+        }
+        with self.assertRaises(ValueError) as e:
+            build_highlights(data)
+        self.assertEqual(str(e.exception), "title is required")
+
+
+class TestBuildHighlightItems(unittest.TestCase):
+    def test_build_highlight_items(self):
+        data = {
+            "title": "Highlights",
+            "highlights": [
+                "highlight 1",
+                "highlight 2",
+                "highlight 3",
+            ]
+        }
+        expected_xml_str = (
+            '<abstract abstract-type="key-points">'
+            '<title>Highlights</title>'
+            '<p>highlight 1</p>'
+            '<p>highlight 2</p>'
+            '<p>highlight 3</p>'
+            '</abstract>'
+        )
+        abstract_elem = build_highlights(data)
+        generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+    def test_build_highlight_items_None(self):
+        data = {
+            "title": "Highlights",
+            "highlights": None
+        }
+        expected_xml_str = (
+            '<abstract abstract-type="key-points">'
+            '<title>Highlights</title>'
+            '</abstract>'
+        )
+        abstract_elem = build_highlights(data)
         generated_xml_str = ET.tostring(abstract_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
