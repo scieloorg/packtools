@@ -54,6 +54,7 @@ def build_ref(data, node=None):
             "lpage": "199",
             "ext-link": [
                 {
+                    "comment": "Disponível em: ",
                     "ext-link-type": "uri",
                     "xlink:href": "http://example.com",
                     "text": "http://example.com"
@@ -136,12 +137,18 @@ def build_ref(data, node=None):
         if not ext_link_type or not xlink_href:
             raise ValueError("ext-link-type and xlink:href are required")
 
-        if ext_link_text := ext_link.get("text"):
-            ET.SubElement(
-                element_citation_elem,
-                "ext-link",
-                attrib={"ext-link-type": ext_link_type, "xlink:href": xlink_href},
-            ).text = ext_link_text
+        ext_link_text = ext_link.get("text")
+        comment = ext_link.get("comment")
+
+        if ext_link_text:
+            ext_link_attributes = {"ext-link-type": ext_link_type, "xlink:href": xlink_href}
+
+            if comment:
+                comment_elem = ET.SubElement(element_citation_elem, "comment")
+                comment_elem.text = comment
+                ET.SubElement(comment_elem, "ext-link", attrib=ext_link_attributes).text = ext_link_text
+            else:
+                ET.SubElement(element_citation_elem, "ext-link", attrib=ext_link_attributes).text = ext_link_text
 
     for pub_id in data.get("pub-ids") or []:
         pub_id_type = pub_id.get("pub-id-type")
