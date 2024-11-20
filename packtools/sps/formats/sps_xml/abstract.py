@@ -196,14 +196,36 @@ def build_visual_abstract(data):
 
 def build_highlights(data):
     """
-    data = {
-        "title": "Highlights",
-        "highlights": [
-            "highlight 1",
-            "highlight 2",
-            "highlight 3",
-        ]
-    }
+    Builds a highlights abstract XML element.
+
+    Args:
+        data (dict): A dictionary containing the details for the highlights abstract with the following keys:
+            - "title" (str): The title of the abstract (required).
+            - "highlights" (list of str): A list of highlight points to include in the abstract (optional).
+
+    Returns:
+        xml.etree.ElementTree.Element: An XML element representing the highlights abstract.
+
+    Raises:
+        ValueError: If the "title" key is missing or empty.
+
+    Example:
+        Input:
+            data = {
+                "title": "Highlights",
+                "highlights": [
+                    "Highlight 1",
+                    "Highlight 2",
+                    "Highlight 3",
+                ]
+            }
+        Output:
+            <abstract abstract-type="key-points">
+                <title>Highlights</title>
+                <p>Highlight 1</p>
+                <p>Highlight 2</p>
+                <p>Highlight 3</p>
+            </abstract>
     """
     abstract_elem = ET.Element("abstract", attrib={"abstract-type": "key-points"})
 
