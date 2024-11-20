@@ -7,7 +7,7 @@ class TestBuildAck(unittest.TestCase):
     def test_build_ack(self):
         data = {
             "title": "Agradecimentos",
-            "paragraphs": ["Texto de agradecimento"]
+            "p": ["Texto de agradecimento"]
         }
         expected_xml_str = (
             '<ack>'
@@ -22,7 +22,7 @@ class TestBuildAck(unittest.TestCase):
     def test_build_ack_title_None(self):
         data = {
             "title": None,
-            "paragraphs": ["Texto de agradecimento"]
+            "p": ["Texto de agradecimento"]
         }
         expected_xml_str = (
             '<ack>'
@@ -36,7 +36,7 @@ class TestBuildAck(unittest.TestCase):
     def test_build_ack_paragraph_None(self):
         data = {
             "title": "Agradecimentos",
-            "paragraphs": None
+            "p": None
         }
         expected_xml_str = (
             '<ack>'
