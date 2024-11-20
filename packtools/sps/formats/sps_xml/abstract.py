@@ -43,7 +43,7 @@ def build_abstract(data):
             </abstract>
     """
     abstract_elem = ET.Element("abstract")
-    return build_abstract_content(data, abstract_elem)
+    return _build_abstract_content(data, abstract_elem)
 
 
 def build_trans_abstract(data):
@@ -69,10 +69,10 @@ def build_trans_abstract(data):
         raise ValueError("Lang is required")
 
     abstract_elem = ET.Element("trans-abstract", attrib={"xml:lang": lang})
-    return build_abstract_content(data, abstract_elem)
+    return _build_abstract_content(data, abstract_elem)
 
 
-def build_abstract_content(data, abstract_elem):
+def _build_abstract_content(data, abstract_elem):
     """
     Helper function to build the content of an abstract or translated abstract.
 
@@ -190,5 +190,30 @@ def build_visual_abstract(data):
 
     p_elem.append(fig_elem)
     abstract_elem.append(p_elem)
+
+    return abstract_elem
+
+
+def build_highlights(data):
+    """
+    data = {
+        "title": "Highlights",
+        "highlights": [
+            "highlight 1",
+            "highlight 2",
+            "highlight 3",
+        ]
+    }
+    """
+    abstract_elem = ET.Element("abstract", attrib={"abstract-type": "key-points"})
+
+    title_text = data.get("title")
+    if not title_text:
+        raise ValueError(f"title is required")
+
+    ET.SubElement(abstract_elem,"title").text = title_text
+
+    for highlight in (data.get("highlights") or []):
+        ET.SubElement(abstract_elem, "p").text = highlight
 
     return abstract_elem
