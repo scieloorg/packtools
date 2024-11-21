@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 
-def build_article_node(data):
+def build_article_node(data, nodes):
     """
     Builds an XML article node with the specified attributes and child elements.
 
@@ -22,18 +22,19 @@ def build_article_node(data):
 
     Example:
         Input:
-            article_data = {
+            data = {
                 "dtd-version": "1.1",
                 "specific-use": "sps-1.8",
                 "article-type": "research-article",
-                "xml:lang": "pt",
-                "children_nodes": [
-                    ET.fromstring('<front />'),
-                    ET.fromstring('<body />'),
-                    ET.fromstring('<back />'),
-                    ET.fromstring('<sub-article />')
-                ]
+                "xml:lang": "pt"
             }
+
+            nodes = [
+                ET.fromstring('<front />'),
+                ET.fromstring('<body />'),
+                ET.fromstring('<back />'),
+                ET.fromstring('<sub-article />')
+            ]
 
         Output:
             <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
@@ -66,8 +67,8 @@ def build_article_node(data):
     except KeyError as e:
         raise KeyError(f"{e} is required")
 
-    if list_node := data.get("children_nodes"):
-        article_elem.extend(list_node)
+    if nodes:
+        article_elem.extend(nodes)
     else:
         raise ValueError("A list of children nodes is required")
 
