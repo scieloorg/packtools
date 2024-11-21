@@ -172,6 +172,33 @@ class TestBuildRefExtLink(unittest.TestCase):
         generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
+    def test_build_ref_ext_link_in_comment(self):
+        self.maxDiff = None
+        data = {
+            "ref-id": "B1",
+            "publication-type": "journal",
+            "ext-link": [
+                {
+                    "ext-link-type": "uri",
+                    "xlink:href": "http://socialsciences.scielo.org",
+                    "text": "http://socialsciences.scielo.org",
+                    "comment": "Disponível em: "
+                }
+            ]
+        }
+        expected_xml_str = (
+            '<ref id="B1">'
+            '<element-citation publication-type="journal">'
+            '<comment>'
+            'Disponível em: <ext-link ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">http://socialsciences.scielo.org</ext-link>'
+            '</comment>'
+            '</element-citation>'
+            '</ref>'
+        )
+        ref_elem = build_ref(data)
+        generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
 
 class TestBuildRefPubId(unittest.TestCase):
     def test_build_ref_pub_id(self):
@@ -317,5 +344,44 @@ class TestBuildDateInCitation(unittest.TestCase):
             '</ref>'
         )
         ref_elem = build_ref(data)
+        generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
+        self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
+
+
+class TestBuildRefPersonGroup(unittest.TestCase):
+    def test_build_ref_person_group(self):
+        data = {
+            "ref-id": "B1",
+            "publication-type": "journal",
+        }
+        node = {
+           "person-group": [
+               ET.fromstring(
+                   '<person-group person-group-type="author">'
+                   '<name>'
+                   '<surname>Einstein</surname>'
+                   '<given-names>Albert</given-names>'
+                   '<prefix>Prof.</prefix>'
+                   '<suffix>Neto</suffix>'
+                   '</name>'
+                   '</person-group>'
+               )
+           ]
+        }
+        expected_xml_str = (
+            '<ref id="B1">'
+            '<element-citation publication-type="journal">'
+            '<person-group person-group-type="author">'
+            '<name>'
+            '<surname>Einstein</surname>'
+            '<given-names>Albert</given-names>'
+            '<prefix>Prof.</prefix>'
+            '<suffix>Neto</suffix>'
+            '</name>'
+            '</person-group>'
+            '</element-citation>'
+            '</ref>'
+        )
+        ref_elem = build_ref(data, node)
         generated_xml_str = ET.tostring(ref_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
