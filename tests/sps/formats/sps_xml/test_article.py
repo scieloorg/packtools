@@ -12,14 +12,14 @@ class TestBuildArticleNode(unittest.TestCase):
                 'dtd-version': '1.1',
                 'specific-use': 'sps-1.8',
                 'article-type': 'research-article',
-                'xml:lang': 'pt',
-                'children_nodes': [
+                'xml:lang': 'pt'
+            },
+            nodes=[
                     ET.fromstring('<front />'),
                     ET.fromstring('<body />'),
                     ET.fromstring('<back />'),
                     ET.fromstring('<sub-article />')
                 ]
-            }
         )
 
         expected_xml_str = (
@@ -41,7 +41,8 @@ class TestBuildArticleNode(unittest.TestCase):
                     'specific-use': 'sps-1.8',
                     'article-type': 'research-article',
                     'xml:lang': 'pt'
-                }
+                },
+                nodes=None
             )
         self.assertEqual(str(e.exception), '"\'dtd-version\' is required"')
 
@@ -53,7 +54,8 @@ class TestBuildArticleNode(unittest.TestCase):
                     'specific-use': 'sps-1.8',
                     'article-type': 'research-article',
                     'xml:lang': 'pt',
-                }
+                },
+                nodes=None
             )
         self.assertEqual(str(e.exception), "A list of children nodes is required")
 
