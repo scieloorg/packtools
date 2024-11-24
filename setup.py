@@ -22,6 +22,8 @@ INSTALL_REQUIRES = [
     'langcodes>=3.3.0',
     'picles.plumber>=0.11',
     'Pillow',
+    'openpyxl>=3.1.5',
+    'python-docx>=1.1.2',
 ]
 
 
