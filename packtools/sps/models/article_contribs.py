@@ -115,12 +115,11 @@ class ArticleContribs:
         self.xmltree = xmltree
         self.aff = Affiliation(xmltree).affiliation_by_id
 
-    @property
-    def contribs(self):
+    def _extract_contrib_group(self, xpath_contrib):
         for node, lang, article_type, parent, parent_id in get_parent_context(
             self.xmltree
         ):
-            for contrib_group in node.xpath(".//contrib-group"):
+            for contrib_group in node.xpath(xpath_contrib):
                 for contrib in ContribGroup(contrib_group).contribs:
                     affs = list(_get_affs(self.aff, contrib))
                     if affs:
@@ -128,6 +127,22 @@ class ArticleContribs:
                     yield put_parent_context(
                         contrib, lang, article_type, parent, parent_id
                     )
+
+    @property
+    def contribs_in_sub_article(self):
+        # FIXME: Em sub-article, podem existir contribs duplicados.
+        # Para evitar duplicidade, é necessário verificar se o contrib já foi adicionado ao conjunto de dados.
+        # Solução sugerida: Utilize uma estrutura como um conjunto (set) ou uma lógica de verificação 
+        # para garantir que cada contrib seja adicionado apenas uma vez ao data.
+        return self._extract_contrib_group(xpath_contrib=".//sub-article//contrib-group")
+
+    @property
+    def contribs_in_article_meta(self):
+        return self._extract_contrib_group(xpath_contrib=".//article-meta//contrib-group")
+
+    @property
+    def contribs(self):
+        return self._extract_contrib_group(xpath_contrib=".//contrib-group")
 
 
 def _get_affs(affs, contrib):
