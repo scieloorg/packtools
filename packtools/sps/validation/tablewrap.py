@@ -28,12 +28,15 @@ class ArticleTableWrapValidation:
         Performs validations on the article.
         Returns a generator with validation results.
         """
+        if not self.elements:
             yield format_response(
                 title="table-wrap presence",
                 parent="article",
                 parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                parent_article_type=self.xml_tree.get("article-type"),
+                parent_lang=self.xml_tree.get(
+                    "{http://www.w3.org/XML/1998/namespace}lang"
+                ),
                 item="table-wrap",
                 sub_item=None,
                 validation_type="exist",
@@ -42,7 +45,7 @@ class ArticleTableWrapValidation:
                 obtained=None,
                 advice="Add <table-wrap> element to properly illustrate the content.",
                 data=None,
-                error_level=error_level,
+                error_level=self.rules["absent_error_level"],
             )
 
     def validate_tablewrap_elements(self, error_level="ERROR"):
