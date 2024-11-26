@@ -67,3 +67,12 @@ class TableWrapValidation:
         self.data = data
         self.rules = rules
 
+    def validate(self):
+        """
+        Validates the attributes of the <table-wrap>.
+        Returns a generator with validation results.
+        """
+        for name in ("table_wrap_id", "label", "caption"):
+            if resp := self._validate_item(name):
+                yield resp
+
