@@ -156,14 +156,56 @@ class TableWrapValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
+    def test_validate_caption(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "caption_error_level": "CRITICAL",
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "caption",
                 "parent": "article",
-                "parent_article_type": "research-article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "response": "ERROR",
-                "sub_item": "table-wrap/@id or label or caption",
-                "title": "table-wrap elements",
+                "item": "table-wrap",
+                "sub_item": "caption",
                 "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "caption",
+                "got_value": None,
+                "message": "Got None, expected caption",
+                "advice": "Identify the caption",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "",
+                    "footnote": "",
+                    "footnote_id": None,
+                    "footnote_label": None,
+                    "alternative_elements": [],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             }
         ]
 
