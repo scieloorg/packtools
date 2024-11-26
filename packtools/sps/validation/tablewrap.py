@@ -23,6 +23,11 @@ class ArticleTableWrapValidation:
         self.xml_tree = xml_tree
         self.rules = rules
 
+    def validate(self):
+        """
+        Performs validations on the article.
+        Returns a generator with validation results.
+        """
             yield format_response(
                 title="table-wrap presence",
                 parent="article",
