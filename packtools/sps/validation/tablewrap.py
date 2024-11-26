@@ -51,3 +51,13 @@ class ArticleTableWrapValidation:
             for element in self.elements:
                 yield from TableWrapValidation(element, self.rules).validate()
 
+
+class TableWrapValidation:
+    """
+    Validates the attributes of a <table-wrap> element.
+
+    Args:
+        data: Dictionary containing the element's data.
+        rules: Dictionary containing validation rules.
+    """
+
