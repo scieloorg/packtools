@@ -47,6 +47,9 @@ class ArticleTableWrapValidation:
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
+        else:
+            for element in self.elements:
+                yield from TableWrapValidation(element, self.rules).validate()
 
     def validate_tablewrap_elements(self, error_level="ERROR"):
         if self.table_wrappers:
