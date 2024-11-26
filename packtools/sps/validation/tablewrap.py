@@ -51,28 +51,3 @@ class ArticleTableWrapValidation:
             for element in self.elements:
                 yield from TableWrapValidation(element, self.rules).validate()
 
-    def validate_tablewrap_elements(self, error_level="ERROR"):
-        if self.table_wrappers:
-            for table_wrap_data in self.table_wrappers:
-                elements_found = []
-                for element in ["table_wrap_id", "label", "caption"]:
-                    value = table_wrap_data.get(element)
-                    if value:
-                        elements_found.append(value)
-                if not bool(elements_found):
-                    yield format_response(
-                        title="table-wrap elements",
-                        parent=table_wrap_data.get("parent"),
-                        parent_id=table_wrap_data.get("parent_id"),
-                        parent_article_type=table_wrap_data.get("parent_article_type"),
-                        parent_lang=table_wrap_data.get("parent_lang"),
-                        item="table-wrap",
-                        sub_item="table-wrap/@id or label or caption",
-                        validation_type="exist",
-                        is_valid=False,
-                        expected="table-wrap/@id or label or caption elements",
-                        obtained=elements_found,
-                        advice="provide table-wrap/@id or label or caption for table-wrap",
-                        data=table_wrap_data,
-                        error_level=error_level,
-                    )
