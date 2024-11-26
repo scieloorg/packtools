@@ -61,3 +61,9 @@ class TableWrapValidation:
         rules: Dictionary containing validation rules.
     """
 
+    def __init__(self, data, rules):
+        if not isinstance(data, dict):
+            raise ValueError("data must be a dictionary.")
+        self.data = data
+        self.rules = rules
+
