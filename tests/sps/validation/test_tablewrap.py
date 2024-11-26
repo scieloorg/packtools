@@ -5,9 +5,9 @@ from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
 
 class TableWrapValidationTest(unittest.TestCase):
-    def test_tablewrap_validation_no_tablewrap_elements(self):
+    def test_validate_absent(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
@@ -15,7 +15,11 @@ class TableWrapValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(TableWrapValidation(xmltree).validate_tablewrap_existence())
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree, rules={"absent_error_level": "WARNING"}
+            ).validate()
+        )
 
         expected = [
             {
