@@ -11,6 +11,18 @@ class ArticleTableWrapValidation:
         rules: Dictionary containing validation rules.
     """
 
+    def __init__(self, xml_tree, rules):
+        if not hasattr(xml_tree, "get"):
+            raise ValueError("xml_tree must be a valid XML object.")
+        if not isinstance(rules, dict):
+            raise ValueError("rules must be a dictionary containing error levels.")
+        try:
+            self.elements = list(ArticleTableWrappers(xml_tree).get_all_table_wrappers)
+        except Exception as e:
+            raise RuntimeError(f"Error processing table-wraps: {e}")
+        self.xml_tree = xml_tree
+        self.rules = rules
+
             yield format_response(
                 title="table-wrap presence",
                 parent="article",
