@@ -2,6 +2,14 @@ from packtools.sps.models.tablewrap import ArticleTableWrappers
 from packtools.sps.validation.utils import format_response
 
 
+class ArticleTableWrapValidation:
+    """
+    Validates the <table-wrap> elements in an XML article.
+
+    Args:
+        xml_tree: XML object representing the article.
+        rules: Dictionary containing validation rules.
+    """
 
             yield format_response(
                 title="table-wrap presence",
