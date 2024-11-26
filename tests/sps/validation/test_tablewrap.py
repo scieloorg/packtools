@@ -1,8 +1,7 @@
 import unittest
 from lxml import etree
-from packtools.sps.utils import xml_utils
 
-from packtools.sps.validation.tablewrap import TableWrapValidation
+from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
 
 class TableWrapValidationTest(unittest.TestCase):
