@@ -72,11 +72,11 @@ class TableWrapValidation:
         Validates the attributes of the <table-wrap>.
         Returns a generator with validation results.
         """
-        for name in ("table_wrap_id", "label", "caption"):
-            if resp := self._validate_item(name):
+        for name, title in (("table_wrap_id", "id"), ("label", "label"), ("caption", "caption")):
+            if resp := self._validate_item(name, title):
                 yield resp
 
-    def _validate_item(self, name):
+    def _validate_item(self, name, title):
         """
         Validates the presence of an attribute in the <table-wrap>.
 
@@ -87,20 +87,20 @@ class TableWrapValidation:
             The validation result in the expected format.
         """
         if not self.data.get(name):
-            key_error_level = f"{name}_error_level"
+            key_error_level = f"{title}_error_level"
             return format_response(
-                title=name,
+                title=title,
                 parent=self.data.get("parent"),
                 parent_id=self.data.get("parent_id"),
                 parent_article_type=self.data.get("parent_article_type"),
                 parent_lang=self.data.get("parent_lang"),
                 item="table-wrap",
-                sub_item=name,
+                sub_item=title,
                 validation_type="exist",
                 is_valid=False,
-                expected=name,
+                expected=title,
                 obtained=None,
-                advice=f"Identify the {name}",
+                advice=f"Identify the {title}",
                 data=self.data,
                 error_level=self.rules[key_error_level],
             )
