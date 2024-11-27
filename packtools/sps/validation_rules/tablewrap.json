@@ -1,7 +1,7 @@
 {
     "table_wrap_rules": {
         "absent_error_level": "WARNING",
-        "table_wrap_id_error_level": "CRITICAL",
+        "id_error_level": "CRITICAL",
         "label_error_level": "CRITICAL",
         "caption_error_level": "CRITICAL"
     }
