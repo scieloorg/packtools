@@ -1,0 +1,6 @@
+{
+    "formula_rules": {
+        "absent_error_level": "WARNING",
+        "id_error_level": "CRITICAL"
+    }
+}
