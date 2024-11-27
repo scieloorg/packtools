@@ -59,25 +59,25 @@ class TableWrapValidationTest(unittest.TestCase):
         )
         obtained = list(
             ArticleTableWrapValidation(
-                xml_tree=xml_tree, rules={"table_wrap_id_error_level": "CRITICAL"}
+                xml_tree=xml_tree, rules={"id_error_level": "CRITICAL"}
             ).validate()
         )
 
         expected = [
             {
-                "title": "table_wrap_id",
+                "title": "id",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
                 "item": "table-wrap",
-                "sub_item": "table_wrap_id",
+                "sub_item": "id",
                 "validation_type": "exist",
                 "response": "CRITICAL",
-                "expected_value": "table_wrap_id",
+                "expected_value": "id",
                 "got_value": None,
-                "message": "Got None, expected table_wrap_id",
-                "advice": "Identify the table_wrap_id",
+                "message": "Got None, expected id",
+                "advice": "Identify the id",
                 "data": {
                     "alternative_parent": "table-wrap",
                     "table_wrap_id": None,
