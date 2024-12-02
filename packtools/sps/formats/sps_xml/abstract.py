@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_abstract(data):
@@ -68,7 +68,7 @@ def build_trans_abstract(data):
     if not (lang := data.get("lang")):
         raise ValueError("Lang is required")
 
-    abstract_elem = ET.Element("trans-abstract", attrib={"xml:lang": lang})
+    abstract_elem = ET.Element("trans-abstract", attrib={"{http://www.w3.org/XML/1998/namespace}lang": lang})
     return _build_abstract_content(data, abstract_elem)
 
 
@@ -185,7 +185,7 @@ def build_visual_abstract(data):
 
     href_text = data.get("href")
     if href_text:
-        graphic_elem = ET.Element("graphic", attrib={"xlink:href": href_text})
+        graphic_elem = ET.Element("graphic", attrib={"{http://www.w3.org/1999/xlink}href": href_text})
         fig_elem.append(graphic_elem)
 
     p_elem.append(fig_elem)
