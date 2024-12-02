@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.fig import build_fig
 
 
@@ -18,7 +18,7 @@ class TestBuildFigType(unittest.TestCase):
 
     def test_build_fig_type(self):
         data = {"fig-id": "f01", "fig-type": "map"}
-        expected_xml_str = '<fig id="f01" fig-type="map" />'
+        expected_xml_str = '<fig id="f01" fig-type="map"/>'
         fig_elem = build_fig(data)
         generated_xml_str = ET.tostring(fig_elem, encoding="unicode", method="xml")
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
@@ -77,8 +77,9 @@ class TestBuildFigXlink(unittest.TestCase):
         }
         expected_xml_str = (
             '<fig id="f01">'
-            '<graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.tif" />'
-            "</fig>"
+            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" '
+            'ns0:href="1234-5678-zwy-12-04-0123-gf02.tif"/>'
+            '</fig>'
         )
         fig_elem = build_fig(data)
         generated_xml_str = ET.tostring(fig_elem, encoding="unicode", method="xml")

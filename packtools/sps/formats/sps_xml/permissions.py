@@ -14,7 +14,7 @@ data = {
 }
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_permissions(data):
@@ -32,8 +32,8 @@ def build_permissions(data):
             try:
                 license_elem = ET.Element("license", attrib={
                     "license-type": license_dict["license-type"],
-                    "xlink:href": license_dict["xlink:href"],
-                    "xml:lang": license_dict["xml:lang"]
+                    "{http://www.w3.org/1999/xlink}href": license_dict["xlink:href"],
+                    "{http://www.w3.org/XML/1998/namespace}lang": license_dict["xml:lang"]
                 })
                 text = license_dict.get("license-p")
                 if text:

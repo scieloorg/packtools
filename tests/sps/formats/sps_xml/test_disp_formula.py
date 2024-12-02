@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.disp_formula import build_disp_formula
 
 
@@ -10,14 +10,16 @@ class TestBuildDispFormulaId(unittest.TestCase):
             "formula-id": "e01",
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": "m1"
                 }
             ]
         }
         expected_xml_str = (
             '<disp-formula id="e01">'
-            '<mml:math id="m1">fórmula no formato mml</mml:math>'
+            '<ns0:math xmlns:ns0="http://www.w3.org/1998/Math/MathML" id="m1">'
+            'fórmula no formato mml'
+            '</ns0:math>'
             '</disp-formula>'
         )
         disp_formula_elem = build_disp_formula(data)
@@ -29,7 +31,7 @@ class TestBuildDispFormulaId(unittest.TestCase):
             "formula-id": None,
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": "m1"
                 }
             ]
@@ -46,7 +48,7 @@ class TestBuildDispFormulaLabel(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": "m1"
                 }
             ]
@@ -54,7 +56,9 @@ class TestBuildDispFormulaLabel(unittest.TestCase):
         expected_xml_str = (
             '<disp-formula id="e01">'
             '<label>(1)</label>'
-            '<mml:math id="m1">fórmula no formato mml</mml:math>'
+            '<ns0:math xmlns:ns0="http://www.w3.org/1998/Math/MathML" id="m1">'
+            'fórmula no formato mml'
+            '</ns0:math>'
             '</disp-formula>'
         )
         disp_formula_elem = build_disp_formula(data)
@@ -67,14 +71,16 @@ class TestBuildDispFormulaLabel(unittest.TestCase):
             "label": None,
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": "m1"
                 }
             ]
         }
         expected_xml_str = (
             '<disp-formula id="e01">'
-            '<mml:math id="m1">fórmula no formato mml</mml:math>'
+            '<ns0:math xmlns:ns0="http://www.w3.org/1998/Math/MathML" id="m1">'
+            'fórmula no formato mml'
+            '</ns0:math>'
             '</disp-formula>'
         )
         disp_formula_elem = build_disp_formula(data)
@@ -98,14 +104,16 @@ class TestBuildDispFormula(unittest.TestCase):
             "formula-id": "e01",
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": None
                 }
             ]
         }
         expected_xml_str = (
             '<disp-formula id="e01">'
-            '<mml:math>fórmula no formato mml</mml:math>'
+            '<ns0:math xmlns:ns0="http://www.w3.org/1998/Math/MathML">'
+            'fórmula no formato mml'
+            '</ns0:math>'
             '</disp-formula>'
         )
         disp_formula_elem = build_disp_formula(data)
@@ -118,7 +126,7 @@ class TestBuildDispFormula(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "mml:math": None,
+                    "{http://www.w3.org/1998/Math/MathML}math": None,
                     "id": "m1"
                 }
             ]
@@ -136,7 +144,7 @@ class TestBuildDispFormulaAlternatives(unittest.TestCase):
             "label": "(1)",
             "formulas": [
                 {
-                    "mml:math": "fórmula no formato mml",
+                    "{http://www.w3.org/1998/Math/MathML}math": "fórmula no formato mml",
                     "id": "m1"
                 },
                 {
@@ -152,9 +160,14 @@ class TestBuildDispFormulaAlternatives(unittest.TestCase):
             '<disp-formula id="e01">'
             '<label>(1)</label>'
             '<alternatives>'
-            '<mml:math id="m1">fórmula no formato mml</mml:math>'
-            '<tex-math id="t1">fórmula no formato tex</tex-math>'
-            '<graphic xlink:href="0103-507X-rbti-26-02-0089-ee10.svg" />'
+            '<ns0:math xmlns:ns0="http://www.w3.org/1998/Math/MathML" id="m1">'
+            'fórmula no formato mml'
+            '</ns0:math>'
+            '<tex-math id="t1">'
+            'fórmula no formato tex'
+            '</tex-math>'
+            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" '
+            'ns0:href="0103-507X-rbti-26-02-0089-ee10.svg"/>'
             '</alternatives>'
             '</disp-formula>'
         )

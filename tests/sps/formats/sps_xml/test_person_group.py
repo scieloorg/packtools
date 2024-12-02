@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.person_group import build_person_group
 
 
@@ -71,7 +71,7 @@ class TestBuildPersonGroupCollab(unittest.TestCase):
         ]
 
         expected_xml_str = (
-            '<person-group person-group-type="author" />'
+            '<person-group person-group-type="author"/>'
         )
         for person_group_elem in build_person_group(data):
             generated_xml_str = ET.tostring(person_group_elem, encoding="unicode", method="xml")
@@ -105,7 +105,7 @@ class TestBuildPersonGroupRole(unittest.TestCase):
         ]
 
         expected_xml_str = (
-            '<person-group person-group-type="author" />'
+            '<person-group person-group-type="author"/>'
         )
         for person_group_elem in build_person_group(data):
             generated_xml_str = ET.tostring(person_group_elem, encoding="unicode", method="xml")

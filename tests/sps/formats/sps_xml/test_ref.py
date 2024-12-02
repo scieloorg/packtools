@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.ref import build_ref
 
 
@@ -11,7 +11,7 @@ class TestBuildRefAttribsRequired(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -86,7 +86,7 @@ class TestBuildRefSubElements(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -96,6 +96,7 @@ class TestBuildRefSubElements(unittest.TestCase):
 
 class TestBuildRefExtLink(unittest.TestCase):
     def test_build_ref_ext_link(self):
+        self.maxDiff = None
         data = {
             "ref-id": "B1",
             "publication-type": "journal",
@@ -110,9 +111,9 @@ class TestBuildRefExtLink(unittest.TestCase):
         expected_xml_str = (
             '<ref id="B1">'
             '<element-citation publication-type="journal">'
-            '<ext-link ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">'
-            'http://socialsciences.scielo.org'
-            '</ext-link>'
+            '<ext-link xmlns:ns0="http://www.w3.org/1999/xlink" '
+            'ext-link-type="uri" ns0:href="http://socialsciences.scielo.org">'
+            'http://socialsciences.scielo.org</ext-link>'
             '</element-citation>'
             '</ref>'
         )
@@ -128,7 +129,7 @@ class TestBuildRefExtLink(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -165,7 +166,7 @@ class TestBuildRefExtLink(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -189,9 +190,9 @@ class TestBuildRefExtLink(unittest.TestCase):
         expected_xml_str = (
             '<ref id="B1">'
             '<element-citation publication-type="journal">'
-            '<comment>'
-            'Disponível em: <ext-link ext-link-type="uri" xlink:href="http://socialsciences.scielo.org">http://socialsciences.scielo.org</ext-link>'
-            '</comment>'
+            '<comment>Disponível em: <ext-link xmlns:ns0="http://www.w3.org/1999/xlink" '
+            'ext-link-type="uri" ns0:href="http://socialsciences.scielo.org">'
+            'http://socialsciences.scielo.org</ext-link></comment>'
             '</element-citation>'
             '</ref>'
         )
@@ -231,7 +232,7 @@ class TestBuildRefPubId(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -266,7 +267,7 @@ class TestBuildRefPubId(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -305,7 +306,7 @@ class TestBuildDateInCitation(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)
@@ -340,7 +341,7 @@ class TestBuildDateInCitation(unittest.TestCase):
         }
         expected_xml_str = (
             '<ref id="B1">'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
         )
         ref_elem = build_ref(data)

@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.table_wrap import build_table_wrap
 
 
@@ -175,7 +175,7 @@ class TestBuildTableFootnotes(unittest.TestCase):
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<table-wrap-foot>'
-            '<fn id="fn01" />'
+            '<fn id="fn01"/>'
             '</table-wrap-foot>'
             '<table>codificação da tabela</table>'
             '</table-wrap>'
@@ -204,7 +204,8 @@ class TestBuildTableAlternatives(unittest.TestCase):
         expected_xml_str = (
             '<table-wrap id="t01">'
             '<alternatives>'
-            '<graphic xlink:href="nomedaimagemdatabela.svg" id="g1" />'
+            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" '
+            'ns0:href="nomedaimagemdatabela.svg" id="g1"/>'
             '<table>codificação da tabela</table>'
             '</alternatives>'
             '</table-wrap>'

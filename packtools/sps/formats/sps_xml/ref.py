@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_ref(data, node=None):
@@ -141,7 +141,7 @@ def build_ref(data, node=None):
         comment = ext_link.get("comment")
 
         if ext_link_text:
-            ext_link_attributes = {"ext-link-type": ext_link_type, "xlink:href": xlink_href}
+            ext_link_attributes = {"ext-link-type": ext_link_type, "{http://www.w3.org/1999/xlink}href": xlink_href}
 
             if comment:
                 comment_elem = ET.SubElement(element_citation_elem, "comment")

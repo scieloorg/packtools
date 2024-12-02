@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.author_notes import build_author_notes
 
 
@@ -10,7 +10,7 @@ class TestBuildAuthorNotesCorrespId(unittest.TestCase):
         }
         expected_xml_str = (
             '<author-notes>'
-            '<corresp id="c01" />'
+            '<corresp id="c01"/>'
             '</author-notes>'
         )
         author_notes_elem = build_author_notes(data)
@@ -22,7 +22,7 @@ class TestBuildAuthorNotesCorrespId(unittest.TestCase):
             "corresp_id": None
         }
         expected_xml_str = (
-            '<author-notes />'
+            '<author-notes/>'
         )
         author_notes_elem = build_author_notes(data)
         generated_xml_str = ET.tostring(author_notes_elem, encoding="unicode", method="xml")
@@ -36,7 +36,7 @@ class TestBuildAuthorNotesCorrespLabel(unittest.TestCase):
         }
         expected_xml_str = (
             '<author-notes>'
-            '<corresp />'
+            '<corresp/>'
             '</author-notes>'
         )
         author_notes_elem = build_author_notes(data)
@@ -48,7 +48,7 @@ class TestBuildAuthorNotesCorrespLabel(unittest.TestCase):
             "corresp_label": None
         }
         expected_xml_str = (
-            '<author-notes />'
+            '<author-notes/>'
         )
         author_notes_elem = build_author_notes(data)
         generated_xml_str = ET.tostring(author_notes_elem, encoding="unicode", method="xml")
@@ -76,7 +76,7 @@ class TestBuildAuthorNotesCorrespText(unittest.TestCase):
             "corresp_text": None
         }
         expected_xml_str = (
-            '<author-notes />'
+            '<author-notes/>'
         )
         author_notes_elem = build_author_notes(data)
         generated_xml_str = ET.tostring(author_notes_elem, encoding="unicode", method="xml")
@@ -104,7 +104,7 @@ class TestBuildAuthorNotesCorrespEmail(unittest.TestCase):
             "corresp_email": None
         }
         expected_xml_str = (
-            '<author-notes />'
+            '<author-notes/>'
         )
         author_notes_elem = build_author_notes(data)
         generated_xml_str = ET.tostring(author_notes_elem, encoding="unicode", method="xml")
@@ -144,7 +144,7 @@ class TestBuildAuthorNotesFootnotes(unittest.TestCase):
             "fns": None
         }
         expected_xml_str = (
-            '<author-notes />'
+            '<author-notes/>'
         )
         author_notes_elem = build_author_notes(data)
         generated_xml_str = ET.tostring(author_notes_elem, encoding="unicode", method="xml")

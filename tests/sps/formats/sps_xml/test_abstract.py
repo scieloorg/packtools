@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.abstract import build_abstract, build_visual_abstract, build_trans_abstract, build_highlights
 
 
@@ -160,7 +160,7 @@ class TestBuildVisualAbstractTitle(unittest.TestCase):
             '<abstract abstract-type="graphical">'
             '<title>Visual Abstract</title>'
             '<p>'
-            '<fig id="vf01" />'
+            '<fig id="vf01"/>'
             '</p>'
             '</abstract>'
         )
@@ -210,7 +210,7 @@ class TestBuildVisualAbstractCaption(unittest.TestCase):
             '<abstract abstract-type="graphical">'
             '<title>Visual Abstract</title>'
             '<p>'
-            '<fig id="vf01" />'
+            '<fig id="vf01"/>'
             '</p>'
             '</abstract>'
         )
@@ -231,7 +231,7 @@ class TestBuildVisualAbstractHref(unittest.TestCase):
             '<title>Visual Abstract</title>'
             '<p>'
             '<fig id="vf01">'
-            '<graphic xlink:href="1234-5678-zwy-12-04-0123-vs01.tif" />'
+            '<graphic xmlns:ns0="http://www.w3.org/1999/xlink" ns0:href="1234-5678-zwy-12-04-0123-vs01.tif"/>'
             '</fig>'
             '</p>'
             '</abstract>'
@@ -250,7 +250,7 @@ class TestBuildVisualAbstractHref(unittest.TestCase):
             '<abstract abstract-type="graphical">'
             '<title>Visual Abstract</title>'
             '<p>'
-            '<fig id="vf01" />'
+            '<fig id="vf01"/>'
             '</p>'
             '</abstract>'
         )

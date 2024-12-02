@@ -3,7 +3,7 @@
 #    - o atributo 'id' é obrigatório
 #    - pode existir um único 'table' e muitos 'graphic' em 'table-wrap'
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_table(data):
@@ -39,7 +39,7 @@ def build_table(data):
         raise ValueError("A valid codification type ('table' or 'graphic') is required.")
 
     # Define attributes based on type and presence of id
-    attributes = {"xlink:href": table_value} if table_type == "graphic" else {}
+    attributes = {"{http://www.w3.org/1999/xlink}href": table_value} if table_type == "graphic" else {}
     if table_id:
         attributes["id"] = table_id
 

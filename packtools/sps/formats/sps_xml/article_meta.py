@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_article_meta(data, node=None):
@@ -129,7 +129,7 @@ def process_article_title(data, article_meta):
         trans_title_dict = data.get("trans-title", {})
         for lang, text in trans_title_dict.items():
             trans_title_group_elem = ET.SubElement(
-                title_group_elem, "trans-title-group", attrib={"xml:lang": lang}
+                title_group_elem, "trans-title-group", attrib={"{http://www.w3.org/XML/1998/namespace}lang": lang}
             )
             ET.SubElement(trans_title_group_elem, "trans-title").text = text
 

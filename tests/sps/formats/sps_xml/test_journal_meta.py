@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.journal_meta import build_journal_meta
 
 
@@ -88,7 +88,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "journal_ids_publisher-id": None,
         }
         expected_xml_str = (
-            '<journal-meta />'
+            '<journal-meta/>'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -100,7 +100,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "journal_title": None,
         }
         expected_xml_str = (
-            '<journal-meta />'
+            '<journal-meta/>'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -112,7 +112,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "abbrev_journal_title": None,
         }
         expected_xml_str = (
-            '<journal-meta />'
+            '<journal-meta/>'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -125,7 +125,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "issn_ppub": None,
         }
         expected_xml_str = (
-            '<journal-meta />'
+            '<journal-meta/>'
         )
 
         journal_meta_elem = build_journal_meta(data)
@@ -137,7 +137,7 @@ class TestBuildJournalMetaNoneValues(unittest.TestCase):
             "publisher_names": None,
         }
         expected_xml_str = (
-            '<journal-meta />'
+            '<journal-meta/>'
         )
 
         journal_meta_elem = build_journal_meta(data)

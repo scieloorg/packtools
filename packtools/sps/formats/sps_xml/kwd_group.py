@@ -8,7 +8,7 @@ data = {
 }
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_kwd_group(data):
@@ -20,7 +20,7 @@ def build_kwd_group(data):
     if not kwd_title_text:
         raise ValueError("kwd-title is required")
 
-    kwd_group_elem = ET.Element("kwd-group", attrib={"xml:lang": kwd_lang_text})
+    kwd_group_elem = ET.Element("kwd-group", attrib={"{http://www.w3.org/XML/1998/namespace}lang": kwd_lang_text})
     kwd_title_elem = ET.Element("title")
     kwd_title_elem.text = kwd_title_text
     kwd_group_elem.append(kwd_title_elem)

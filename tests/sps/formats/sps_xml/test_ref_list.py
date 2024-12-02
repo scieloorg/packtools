@@ -1,10 +1,11 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.ref_list import build_ref_list
 
 
 class TestBuildRefList(unittest.TestCase):
     def test_build_ref_list_by_node(self):
+        self.maxDiff = None
         data = {
            "title": "References",
            "ref-list-node": [
@@ -27,11 +28,10 @@ class TestBuildRefList(unittest.TestCase):
             '<title>References</title>'
             '<ref id="B1">'
             '<label>1</label>'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
-            '<ref id="B2">'
-            '<label>2</label>'
-            '<element-citation publication-type="journal" />'
+            '<ref id="B2"><label>2</label>'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
             '</ref-list>'
         )
@@ -40,6 +40,7 @@ class TestBuildRefList(unittest.TestCase):
         self.assertEqual(generated_xml_str.strip(), expected_xml_str.strip())
 
     def test_build_ref_list_by_dict(self):
+        self.maxDiff = None
         data = {
            "title": "References",
            "ref-list-dict": [
@@ -60,11 +61,11 @@ class TestBuildRefList(unittest.TestCase):
             '<title>References</title>'
             '<ref id="B1">'
             '<label>1</label>'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
             '<ref id="B2">'
             '<label>2</label>'
-            '<element-citation publication-type="journal" />'
+            '<element-citation publication-type="journal"/>'
             '</ref>'
             '</ref-list>'
         )

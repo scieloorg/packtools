@@ -16,7 +16,7 @@ data = {
 
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 from packtools.sps.formats.sps_xml.fn_group import build_fn
 
