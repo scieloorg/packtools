@@ -293,7 +293,7 @@ class ArticleTypeValidation:
         self.subjects_list = subjects_list
         self.apply_to_article_types = apply_to_article_types
 
-    def validate_article_type(self, article_type_list=None, error_level=None):
+    def validate_article_type(self, article_type_list=None, error_level="CRITICAL"):
         """
         Check whether the article type attribute of the article matches the options provided in a standard list.
 
@@ -345,44 +345,46 @@ class ArticleTypeValidation:
                 },...
             ]
         """
-        article_type = self.articles.main_article_type
+        articles_data = self.articles.data
         article_type_list = article_type_list or self.article_type_list
-        error_level = error_level or "CRITICAL"
 
         if not article_type_list:
             raise ValidationArticleAndSubArticlesArticleTypeException(
                 "Function requires list of article types"
             )
 
-        validated = article_type in article_type_list
+        for article_data in articles_data:
+            parent = article_data.get("parent")
+            article_type = article_data.get("article_type")
 
-        data = self.articles.data[0]
-        data.update({
-            "specific_use": self.articles.main_specific_use,
-            "dtd_version": self.articles.main_dtd_version
-        })
+            validated = article_type in (article_type_list.get(parent) or [])
 
-        yield format_response(
-            title="Article type validation",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
-            item="article",
-            sub_item="@article-type",
-            validation_type="value in list",
-            is_valid=validated,
-            expected=article_type_list,
-            obtained=article_type,
-            advice="XML has {} as article-type, expected one item of this list: {}".format(
-                    article_type, " | ".join(article_type_list)
-            ),
-            data=data,
-            error_level=error_level,
-        )
+            article_data.update({
+                "specific_use": self.articles.main_specific_use,
+                "dtd_version": self.articles.main_dtd_version
+            })
+
+            yield format_response(
+                title="Article type validation",
+                parent=parent,
+                parent_id=article_data.get("article_id"),
+                parent_article_type=article_data.get("article_type"),
+                parent_lang=article_data.get("lang"),
+                item="article",
+                sub_item="@article-type",
+                validation_type="value in list",
+                is_valid=validated,
+                expected=article_type_list.get(parent),
+                obtained=article_type,
+                advice="XML has {} as article-type, expected one item of this list: {}".format(
+                        article_type, " | ".join(article_type_list.get(parent) or [])
+                ),
+                data=article_data,
+                error_level=error_level,
+            )
 
     def validate_article_type_vs_subject_similarity(
-        self, subjects_list=None, expected_similarity=1, error_level=None, target_article_types=None
+        self, subjects_list=None, expected_similarity=1, error_level="ERROR", target_article_types=None
     ):
         """
         Check how similar the type of article and its respective subjects are.
@@ -495,8 +497,6 @@ class ArticleTypeValidation:
             raise ValidationArticleAndSubArticlesSubjectsException(
                 "Function requires list of article types to check the similarity with subjects"
             )
-
-        error_level = error_level or "ERROR"
 
         articles = [article for article in self.articles.data if article.get("article_type") in target_article_types]
 

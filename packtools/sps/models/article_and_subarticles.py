@@ -48,6 +48,7 @@ class ArticleAndSubArticles:
         _data = []
         if self.main_article_type:
             _data.append({
+                "parent": "article",
                 "lang": self.main_lang,
                 "article_type": self.main_article_type,
                 "article_id": None,
@@ -61,6 +62,7 @@ class ArticleAndSubArticles:
             subject = sub_article.find('.//subject')
 
             _data.append({
+                "parent": "sub-article",
                 "lang": lang,
                 "article_type": sub_article.get('article-type'),
                 "article_id": sub_article.get('id'),
