@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.article_meta import build_article_meta
 
 
@@ -25,7 +25,7 @@ class TestBuildArticleMetaPubId(unittest.TestCase):
             "pub-id-other": None
         }
         expected_xml_str = (
-            '<article-meta />'
+            '<article-meta/>'
         )
         article_meta_elem = build_article_meta(data)
         generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
@@ -54,7 +54,7 @@ class TestBuildArticleMetaCategories(unittest.TestCase):
             "article-subject": None
         }
         expected_xml_str = (
-            '<article-meta />'
+            '<article-meta/>'
         )
         article_meta_elem = build_article_meta(data)
         generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
@@ -89,7 +89,7 @@ class TestBuildArticleMetaTitle(unittest.TestCase):
             "trans_title": None
         }
         expected_xml_str = (
-            '<article-meta />'
+            '<article-meta/>'
         )
         article_meta_elem = build_article_meta(data)
         generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
@@ -270,7 +270,7 @@ class TestBuildArticleMetaAttribs(unittest.TestCase):
             "lpage": None
         }
         expected_xml_str = (
-            '<article-meta />'
+            '<article-meta/>'
         )
         article_meta_elem = build_article_meta(data)
         generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
@@ -445,10 +445,11 @@ class TestBuildArticleMetaPermissions(unittest.TestCase):
         }
         data = {}
         expected_xml_str = (
-            '<article-meta xmlns:ns0="http://www.w3.org/1999/xlink">'
-            '<permissions>'
-            '<license license-type="open-access" ns0:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" xml:lang="pt">'
-            'This is an article published in open access under a Creative Commons license'
+            '<article-meta>'
+            '<permissions xmlns:xlink="http://www.w3.org/1999/xlink">'
+            '<license license-type="open-access" '
+            'xlink:href="http://creativecommons.org/licenses/by-nc-sa/4.0/" '
+            'xml:lang="pt">This is an article published in open access under a Creative Commons license'
             '</license>'
             '</permissions>'
             '</article-meta>'
@@ -502,11 +503,11 @@ class TestBuildArticleMetaCounts(unittest.TestCase):
         expected_xml_str = (
             '<article-meta>'
             '<counts>'
-            '<fig-count count="5" />'
-            '<table-count count="3" />'
-            '<equation-count count="10" />'
-            '<ref-count count="26" />'
-            '<page-count count="6" />'
+            '<fig-count count="5"/>'
+            '<table-count count="3"/>'
+            '<equation-count count="10"/>'
+            '<ref-count count="26"/>'
+            '<page-count count="6"/>'
             '</counts>'
             '</article-meta>'
         )
@@ -521,7 +522,7 @@ class TestBuildArticleMetaCounts(unittest.TestCase):
             "table-count": None
         }
         expected_xml_str = (
-            '<article-meta />'
+            '<article-meta/>'
         )
         article_meta_elem = build_article_meta(data)
         generated_xml_str = ET.tostring(article_meta_elem, encoding="unicode", method="xml")
