@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.contrib import build_contrib_author
 
 
@@ -122,7 +122,7 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "scopus": None
         }
         expected_xml_str = (
-            '<contrib contrib-type="author" />'
+            '<contrib contrib-type="author"/>'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
@@ -135,7 +135,7 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "surname": None,
         }
         expected_xml_str = (
-            '<contrib contrib-type="author" />'
+            '<contrib contrib-type="author"/>'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
@@ -147,7 +147,7 @@ class TestBuildContribAuthorNoneValues(unittest.TestCase):
             "affiliations": None,
         }
         expected_xml_str = (
-            '<contrib contrib-type="author" />'
+            '<contrib contrib-type="author"/>'
         )
         contrib_elem = build_contrib_author(data)
         generated_xml_str = ET.tostring(contrib_elem, encoding="unicode", method="xml")
