@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_article_node(data, nodes):
@@ -57,12 +57,10 @@ def build_article_node(data, nodes):
     try:
         # Cria o elemento <article>
         article_elem = ET.Element("article", {
-            "xmlns:xlink": namespaces["xlink"],
-            "xmlns:mml": namespaces["mml"],
             "dtd-version": data["dtd-version"],
             "specific-use": data["specific-use"],
             "article-type": data["article-type"],
-            "xml:lang": data["xml:lang"]
+            "{http://www.w3.org/XML/1998/namespace}lang": data["xml:lang"]
         })
     except KeyError as e:
         raise KeyError(f"{e} is required")
