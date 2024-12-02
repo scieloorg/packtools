@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_fig(data):
@@ -82,7 +82,7 @@ def build_fig(data):
 
     # add xlink
     if xlink := data.get("graphic"):
-        xlink_elem = ET.Element("graphic", attrib={"xlink:href": xlink})
+        xlink_elem = ET.Element("graphic", attrib={"{http://www.w3.org/1999/xlink}href": xlink})
         fig_elem.append(xlink_elem)
 
     # add attrib
