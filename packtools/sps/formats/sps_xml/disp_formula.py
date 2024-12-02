@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 
 def build_formula(data):
@@ -28,7 +28,7 @@ def build_formula(data):
         <mml:math id="m1">fórmula no formato mml</mml:math>
 
     """
-    for cod_type in ("mml:math", "tex-math", "graphic"):
+    for cod_type in ("{http://www.w3.org/1998/Math/MathML}math", "tex-math", "graphic"):
         if cod_value := data.get(cod_type):
             cod_id = data.get("id")
             break
@@ -37,7 +37,7 @@ def build_formula(data):
 
     attributes = {}
     if cod_type == "graphic":
-        attributes["xlink:href"] = cod_value
+        attributes["{http://www.w3.org/1999/xlink}href"] = cod_value
     elif cod_id:
         attributes["id"] = cod_id
 
