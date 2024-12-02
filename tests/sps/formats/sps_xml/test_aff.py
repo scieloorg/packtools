@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.aff import build_aff
 
 
@@ -9,7 +9,7 @@ class TestBuildAffId(unittest.TestCase):
             "aff_id": "aff01"
         }
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -46,7 +46,7 @@ class TestBuildAffLabel(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -75,7 +75,7 @@ class TestBuildAffOrgname(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -104,7 +104,7 @@ class TestBuildAffOrgdiv1(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -133,7 +133,7 @@ class TestBuildAffOrgdiv2(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -162,7 +162,7 @@ class TestBuildAffOriginal(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -193,7 +193,7 @@ class TestBuildAffCountry(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -227,7 +227,7 @@ class TestBuildAffAddrline(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
@@ -256,7 +256,7 @@ class TestBuildAffEmail(unittest.TestCase):
         }
 
         expected_xml_str = (
-            '<aff id="aff01" />'
+            '<aff id="aff01"/>'
         )
         aff_elem = build_aff(data)
         generated_xml_str = ET.tostring(aff_elem, encoding="unicode", method="xml")
