@@ -1,4 +1,4 @@
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 from packtools.sps.formats.sps_xml.ref import build_ref
 
