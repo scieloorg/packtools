@@ -473,3 +473,22 @@ def put_parent_context(data, lang, article_type, parent, parent_id):
         }
     )
     return data
+
+
+def get_parent_data(node):
+    return {
+        "parent": node.tag,
+        "parent_id": node.get("id"),
+        "parent_lang": node.get("{http://www.w3.org/XML/1998/namespace}lang"),
+        "parent_article_type": node.get("article-type"),
+        "xpath": "sub-article" if node.tag == "sub-article" else "front | body | back"
+    }
+
+
+def get_parents(xmltree):
+    main = xmltree.xpath(".")[0]
+    yield get_parent_data(main)
+    for node in xmltree.xpath("./sub-article"):
+        yield get_parent_data(node)
+        for sub_node in node.xpath("./sub-article"):
+            yield get_parent_data(sub_node)
