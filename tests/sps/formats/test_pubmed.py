@@ -3,6 +3,8 @@ from lxml import etree as ET
 from packtools.sps.utils import xml_utils
 
 from packtools.sps.formats.pubmed import (
+    xml_pubmed_article_set,
+    xml_pubmed_dtd_header,
     xml_pubmed_article_pipe,
     xml_pubmed_journal_pipe,
     xml_pubmed_publisher_name_pipe,
@@ -25,50 +27,76 @@ from packtools.sps.formats.pubmed import (
     xml_pubmed_citations,
     xml_pubmed_abstract,
     xml_pubmed_other_abstract,
+    xml_pubmed_copyright_information,
+    pipeline_pubmed,
 )
 
 
 class PipelinePubmed(unittest.TestCase):
     maxDiff = None
 
-    def test_xml_pubmed_article_pipe(self):
-        expected = (
-            '<Article/>'
+    def get_expected_dtd_header(self):
+        return b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">\n<ArticleSet/>\n'''
+    
+    def get_expected_article_pipe(self):
+        return b'''<!DOCTYPE ArticleSet PUBLIC "-//NLM//DTD PubMed 2.8//EN" "https://dtd.nlm.nih.gov/ncbi/pubmed/in/PubMed.dtd">\n<ArticleSet>\n  <Article/>\n</ArticleSet>\n'''
+    
+    def get_xml_pubmed_base(self):
+        return ET.fromstring(
+            '<ArticleSet>'
+            '<Article>'
+            '<Journal/>'
+            '</Article>'
+            '</ArticleSet>'
         )
 
-        obtained = ET.tostring(xml_pubmed_article_pipe(), encoding="utf-8").decode("utf-8")
+    def get_expected_xml_base(self):
+        return ET.tostring(self.get_xml_pubmed_base(), encoding="utf-8").decode("utf-8")
+
+    def get_expected_report(self, missing_tag, validation_errors, tag_path):
+        return  {
+            "missing_tags": missing_tag,
+            "validation_errors": validation_errors,
+            "tag_path": tag_path,
+        }
+
+    def test_xml_pubmed_dtd_header(self):
+        expected = self.get_expected_dtd_header()
+        xml = xml_pubmed_article_set()
+        xml = xml_pubmed_dtd_header(xml_pubmed=xml)
+        xml_str = ET.tostring(xml, pretty_print=True, encoding="UTF-8")
+        self.assertEqual(xml_str, expected)
+
+    def test_xml_pubmed_article_pipe(self):
+        expected = self.get_expected_article_pipe()
+        xml = xml_pubmed_article_set()
+        xml_pubmed = xml_pubmed_dtd_header(xml_pubmed=xml)
+        xml_pubmed_article_pipe(xml_pubmed=xml_pubmed)
+        obtained = ET.tostring(xml, encoding="utf-8", pretty_print=True)
 
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_journal_pipe(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-
-        xml_pubmed_journal_pipe(xml_pubmed)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        str_pubmed = b'''\n<ArticleSet>\n  <Article/>\n</ArticleSet>\n'''
+        xml_pubmed = ET.fromstring(str_pubmed)
+        expected = self.get_xml_pubmed_base()
+        xml_pubmed_journal_pipe(xml_pubmed=xml_pubmed)
+        
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8", pretty_print=True)
 
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_publisher_name_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<PublisherName>Colégio Brasileiro de Cirurgia Digestiva</PublisherName>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -83,23 +111,20 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_publisher_name_pipe_without_publisher(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_missing_publisher_name(self):
+        expected_report = self.get_expected_report(
+            missing_tag="PublisherName",
+            validation_errors="Value not found in SciELO XML for PublisherName",
+            tag_path=".//journal-meta//publisher//publisher-name",
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -110,26 +135,25 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = []
+        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_publisher_name_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_journal_title_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<JournalTitle>ABCD, arq. bras. cir. dig.</JournalTitle>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -145,23 +169,20 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_journal_title_pipe_without_title(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_missing_journal_title_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="JournalTitle",
+            validation_errors="Value not found in SciELO XML for JournalTitle",
+            tag_path='.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]',
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -173,25 +194,25 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_journal_title_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_issn_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<Issn>1678-2674</Issn>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -205,23 +226,20 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_issn_pipe_without_issn(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_missing_issn_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Issn",
+            validation_errors="Value not found for Issn",
+            tag_path='.//journal-meta//issn',            
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -231,25 +249,25 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issn_pipe(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_issn_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_volume_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<Volume>37</Volume>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -262,23 +280,19 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_volume_pipe_without_volume(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_missing_volume_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Volume",
+            validation_errors="Volume in PubMed XML is required if Issue is empty",
+            tag_path='.//front/article-meta/volume',            
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -290,25 +304,25 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_volume_pipe(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_volume_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_issue_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<Issue>11</Issue>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -321,23 +335,20 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_issue_pipe_without_issue(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+    def test_xml_pubmed_missing_issue_pipe(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Issue",
+            validation_errors="Issue in PubMed XML is required if Volume is empty",
+            tag_path='.//front/article-meta/issue',
+        )            
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -349,14 +360,17 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_issue_pipe(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_issue_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_pub_date_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Journal>'
             '<PubDate PubStatus="epublish">'
@@ -366,12 +380,9 @@ class PipelinePubmed(unittest.TestCase):
             '</PubDate>'
             '</Journal>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -381,6 +392,7 @@ class PipelinePubmed(unittest.TestCase):
             '<pub-date publication-format="electronic" date-type="pub">'
             '<day>06</day>'
             '<month>01</month>'
+            '<season>Jan-Feb</season>'
             '<year>2023</year>'
             '</pub-date>'
             '</article-meta>'
@@ -388,65 +400,20 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=[])
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_pub_date_pipe_without_day(self):
-        expected = (
-            '<Article>'
-            '<Journal>'
-            '<PubDate PubStatus="epublish">'
-            '<Year>2023</Year>'
-            '<Month>01</Month>'
-            '</PubDate>'
-            '</Journal>'
-            '</Article>'
+    def test_xml_pubmed_pub_date_pipe_missing_month(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Month",
+            validation_errors="Month is Required if the Day tag is present.",
+            tag_path=".//pub-date",            
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front>'
-            '<article-meta>'
-            '<pub-date publication-format="electronic" date-type="pub">'
-            '<month>01</month>'
-            '<year>2023</year>'
-            '</pub-date>'
-            '</article-meta>'
-            '</front>'
-            '</article>'
-        )
-
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_pub_date_pipe_without_month(self):
-        expected = (
-            '<Article>'
-            '<Journal>'
-            '<PubDate PubStatus="epublish">'
-            '<Year>2023</Year>'
-            '<Day>06</Day>'
-            '</PubDate>'
-            '</Journal>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -462,28 +429,22 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
-    def test_xml_pubmed_pub_date_pipe_without_year(self):
-        expected = (
-            '<Article>'
-            '<Journal>'
-            '<PubDate PubStatus="epublish">'
-            '<Month>01</Month>'
-            '<Day>06</Day>'
-            '</PubDate>'
-            '</Journal>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+    def test_xml_pubmed_pub_date_pipe_missing_year(self):
+        expected_report = self.get_expected_report(
+            missing_tag="Year",
+            validation_errors="Value not found in SciELO XML for Year",
+            tag_path=".//pub-date",         
+        )        
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -491,31 +452,27 @@ class PipelinePubmed(unittest.TestCase):
             '<front>'
             '<article-meta>'
             '<pub-date publication-format="electronic" date-type="pub">'
-            '<day>06</day>'
-            '<month>01</month>'
             '</pub-date>'
             '</article-meta>'
             '</front>'
             '</article>'
         )
+        report = []
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_pub_date_pipe_without_date(self):
-        expected = (
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
+    def test_xml_pubmed_pub_date_pipe_missing_pub_date(self):
+        expected_report = self.get_expected_report(
+            missing_tag="PubDate",
+            validation_errors="PubDate is required",
+            tag_path='.//pub-date',      
         )
-        xml_pubmed = ET.fromstring(
-            '<Article>'
-            '<Journal/>'
-            '</Article>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -526,24 +483,26 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = []
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_article_title_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
+            '<Journal/>'
             '<ArticleTitle>'
             'Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?'
             '</ArticleTitle>'
             '</Article>'
+            '</ArticleSet>'
         )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" article-type="letter" '
@@ -562,30 +521,6 @@ class PipelinePubmed(unittest.TestCase):
             '</title-group>'
             '</front-stub>'
             '</sub-article>'
-            '</article>'
-        )
-
-        xml_pubmed_article_title_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_article_title_pipe_without_title(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front>'
-            '<article-meta>'
-            '</article-meta>'
-            '</front>'
             '</article>'
         )
 
@@ -597,14 +532,18 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_vernacular_title_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<VernacularTitle>'
             'Dissecção Espontânea da Artéria Coronária: Existem Diferenças entre Homens e Mulheres?'
             '</VernacularTitle>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -633,38 +572,18 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_vernacular_title_pipe_without_title(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<front>'
-            '<article-meta>'
-            '</article-meta>'
-            '</front>'
-            '</article>'
-        )
-
-        xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
     def test_xml_pubmed_first_page_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<FirstPage LZero="save">e2022440</FirstPage>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -684,13 +603,14 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_first_page_pipe_without_first_page(self):
-        expected = (
-            '<Article/>'
+    def test_xml_pubmed_first_page_pipe_missing_first_page(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ELocationID",
+            validation_errors="FirstPage is Required if ELocationID is not present",
+            tag_path=".//front/article-meta/elocation-id",
         )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -701,12 +621,13 @@ class PipelinePubmed(unittest.TestCase):
             '</front>'
             '</article>'
         )
+        report = []
+        xml_pubmed_pub_date_pipe(xml_pubmed, xml_tree, report=report)
 
-        xml_pubmed_first_page_pipe(xml_pubmed, xml_tree)
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_elocation_pipe(self):
         expected = (
@@ -739,15 +660,45 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
+    def test_xml_pubmed_elocation_pipe_missing_ELocationID(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ELocationID",
+            validation_errors="ELocationID is Required if FirstPage is not present",
+            tag_path='.//article-id',
+        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
+            '<front>'
+            '<article-meta>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        report = []
+        xml_pubmed_elocation_pipe(xml_pubmed, xml_tree, report=report)
+
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
+
     def test_xml_pubmed_language_pipe(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Language>PT</Language>'
             '<Language>EN</Language>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -767,12 +718,16 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_language_pipe_one_lang(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Language>PT</Language>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -788,25 +743,6 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_language_pipe_without_lang(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="letter" dtd-version="1.1" specific-use="sps-1.9">'
-            '</article>'
-        )
-
-        xml_pubmed_language_pipe(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_author_list(self):
         expected = (
@@ -1037,37 +973,21 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_publication_type_without_type(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '</article>'
-        )
-
-        xml_pubmed_publication_type(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
     def test_xml_pubmed_article_id(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<ArticleIdList>'
             '<ArticleId IdType="pii">S0066-782X2023000100501</ArticleId>'
             '<ArticleId IdType="doi">10.36660/abc.20210550</ArticleId>'
             '</ArticleIdList>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -1090,75 +1010,14 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_article_id_without_pii(self):
-        expected = (
-            '<Article>'
-            '<ArticleIdList>'
-            '<ArticleId IdType="doi">10.36660/abc.20210550</ArticleId>'
-            '</ArticleIdList>'
-            '</Article>'
+    def test_xml_pubmed_article_id_missing_article_id(self):
+        expected_report = self.get_expected_report(
+            missing_tag="ArticleIdList",
+            validation_errors="Value not found in SciELO XML for ArticleID",
+            tag_path='.//article-id[@pub-id-type="doi"]',
         )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="letter" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
-            '<front>'
-            '<article-meta>'
-            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">6LBrxmZwBqzgcwcCzgQQwzL</article-id>'
-            '<article-id pub-id-type="other">00501</article-id>'
-            '<article-id pub-id-type="doi">10.36660/abc.20210550</article-id>'
-            '</article-meta>'
-            '</front>'
-            '</article>'
-        )
-
-        xml_pubmed_article_id(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_article_id_without_doi(self):
-        expected = (
-            '<Article>'
-            '<ArticleIdList>'
-            '<ArticleId IdType="pii">S0066-782X2023000100501</ArticleId>'
-            '</ArticleIdList>'
-            '</Article>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="letter" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
-            '<front>'
-            '<article-meta>'
-            '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">6LBrxmZwBqzgcwcCzgQQwzL</article-id>'
-            '<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0066-782X2023000100501</article-id>'
-            '<article-id pub-id-type="other">00501</article-id>'
-            '</article-meta>'
-            '</front>'
-            '</article>'
-        )
-
-        xml_pubmed_article_id(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
-
-    def test_xml_pubmed_article_id_without_all_ids(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
+        expected_xml = self.get_expected_xml_base()
+        xml_pubmed = self.get_xml_pubmed_base()
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -1172,14 +1031,17 @@ class PipelinePubmed(unittest.TestCase):
             '</article>'
         )
 
-        xml_pubmed_article_id(xml_pubmed, xml_tree)
+        report = []
+        xml_pubmed_article_id(xml_pubmed, xml_tree, report=report)
 
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        obtained_xml = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
 
-        self.assertEqual(obtained, expected)
+        self.assertEqual(obtained_xml, expected_xml)
+        self.assertEqual(expected_report, report)
 
     def test_xml_pubmed_history(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<History>'
             '<PubDate PubStatus="received">'
@@ -1192,14 +1054,22 @@ class PipelinePubmed(unittest.TestCase):
             '<Month>06</Month>'
             '<Day>15</Day>'
             '</PubDate>'
+            '<PubDate PubStatus="revised">'
+            '<Year>2022</Year>'
+            '<Month>06</Month>'
+            '<Day>15</Day>'    
+            '</PubDate>'        
             '<PubDate PubStatus="ecollection">'
             '<Year>2023</Year>'
-            '</PubDate>'
+            '</PubDate>'    
             '</History>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -1231,6 +1101,11 @@ class PipelinePubmed(unittest.TestCase):
             '<month>06</month>'
             '<year>2022</year>'
             '</date>'
+            '<date date-type="rev-recd">'
+            '<day>15</day>'
+            '<month>06</month>'
+            '<year>2022</year>'
+            '</date>'   
             '</history>'
             '</article-meta>'
             '</front>'
@@ -1240,7 +1115,6 @@ class PipelinePubmed(unittest.TestCase):
         xml_pubmed_history(xml_pubmed, xml_tree)
 
         obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
         self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_object_list_keyword(self):
@@ -1317,28 +1191,6 @@ class PipelinePubmed(unittest.TestCase):
 
         self.assertEqual(obtained, expected)
 
-    def test_xml_pubmed_without_title_reference_list(self):
-        expected = (
-            '<Article/>'
-        )
-        xml_pubmed = ET.fromstring(
-            '<Article/>'
-        )
-        xml_tree = ET.fromstring(
-            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '
-            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
-            '<back>'
-            '<ref-list/>'
-            '</back>'
-            '</article>'
-        )
-
-        xml_pubmed_title_reference_list(xml_pubmed, xml_tree)
-
-        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
-
-        self.assertEqual(obtained, expected)
 
     def test_xml_pubmed_citations(self):
         self.maxDiff = None
@@ -1595,6 +1447,7 @@ class PipelinePubmed(unittest.TestCase):
     def test_xml_pubmed_abstract_without_sections(self):
         self.maxDiff = None
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Abstract>'
             'Patterns of beta diversity of plankton communities in rivers have been mainly determined by '
@@ -1613,9 +1466,12 @@ class PipelinePubmed(unittest.TestCase):
             'of environmental changes may be more noticeable at the functional level of communities.'
             '</Abstract>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -1652,6 +1508,7 @@ class PipelinePubmed(unittest.TestCase):
 
     def test_xml_pubmed_abstract_with_sections(self):
         expected = (
+            '<ArticleSet>'
             '<Article>'
             '<Abstract>'
             '<AbstractText Label="BACKGROUND">Hydatid disease, a parasitic infestation caused by Echinococcus granulosus larvae, is an infectious disease endemic in different areas, such as India, Australia, and South America. The liver is well known as the organ most commonly affected by hydatid disease and may present a wide variety of complications such as hepatothoracic hydatid transit, cyst superinfection, intra-abdominal dissemination, and communication of the biliary cyst with extravasation of parasitic material into the bile duct, also called cholangiohydatidosis. Humans are considered an intermediate host, exposed to these larvae by hand-to-mouth contamination of the feces of infected dogs.</AbstractText>'
@@ -1661,9 +1518,12 @@ class PipelinePubmed(unittest.TestCase):
             '<AbstractText Label="CONCLUSIONS">Endoscopic retrograde cholangiopancreatography is a safe and useful method for the treatment of biliary complications of hepatic hydatid disease and should be considered the first-line procedure for biliary drainage in cases of cholangiohydatid disease involving secondary acute cholangitis.</AbstractText>'
             '</Abstract>'
             '</Article>'
+            '</ArticleSet>'
         )
         xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
             '<Article/>'
+            '</ArticleSet>'
         )
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
@@ -1828,6 +1688,44 @@ class PipelinePubmed(unittest.TestCase):
         self.assertEqual(obtained, expected)
 
 
+    def test_xml_pubmed_copyright(self):
+        xml_tree = ET.fromstring(
+            '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> '
+            '<front>'
+            '<article-meta>'
+            '<permissions>'
+            '<copyright-statement>Copyright © 2014 SciELO</copyright-statement>'
+            '</permissions>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_pubmed = ET.fromstring(
+            '<ArticleSet>'
+            '<Article/>'
+            '</ArticleSet>'
+        )
+
+        expected = (
+            '<ArticleSet>'
+            '<Article>'
+            '<CopyrightInformation>Copyright © 2014 SciELO</CopyrightInformation>'
+            '</Article>'
+            '</ArticleSet>'
+        )
+        xml_pubmed_copyright_information(xml_pubmed, xml_tree)
+        obtained = ET.tostring(xml_pubmed, encoding="utf-8").decode("utf-8")
+        
+        self.assertEqual(obtained, expected)
+
+
+class PipelinePubmedTest(unittest.TestCase):
+    def test_pipeline_pubmed(self,):
+        xml_file = ET.parse("/home/samuelv/Desktop/scielo/packtools/packtools/tests/sps/fixtures/formats/pubmed/S0066-782X2024000600303.xml")
+        report = []
+        xml = pipeline_pubmed(xml_tree=xml_file, report=report)
+        import ipdb; ipdb.set_trace()
 
 if __name__ == '__main__':
     unittest.main()
