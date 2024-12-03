@@ -8,6 +8,31 @@
             "key-points",
             "graphical",
             null
+        ],
+        "article_type_requires": [
+            "case-report",
+            "research-article",
+            "review-article",
+        ],
+        "article_type_unexpects": [
+            "addendum",
+            "article-commentary",
+            "book-review",
+            "brief-report",
+            "correction",
+            "editorial",
+            "letter",
+            "obituary",
+            "partial-retraction",
+            "product-review",
+            "rapid-communication",
+            "reply",
+            "retraction",
+            "other"            
+        ],
+        "article_type_neutral": [
+            "reviewer-report",
+            "data-article",
         ]
     }
 }

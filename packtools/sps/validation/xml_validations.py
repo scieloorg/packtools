@@ -81,12 +81,16 @@ def validate_abstracts(xmltree, params):
         expected_abstract_type_list=abstract_rules["abstract_type_list"],
     )
 
-    # FIXME
-    # yield from validator.validate_exists(
-    #     error_level=abstract_rules["abstract_presence_error_level"],
-    # )
+    validator = AbstractsValidation(xmltree)
+    yield from validator.validate_exists(
+        article_type_requires=abstract_rules["article_type_requires"],
+        article_type_unexpects=abstract_rules["article_type_unexpects"],
+        article_type_neutral=abstract_rules["article_type_neutral"],
+        article_type_accepts=[]
+    )
 
     highlight_rules = params["highlight_rules"]
+
     validator = HighlightsValidation(xmltree)
     yield from validator.validate(
         kwd_error_level=highlight_rules["kwd_error_level"],
@@ -94,13 +98,26 @@ def validate_abstracts(xmltree, params):
         p_error_level=highlight_rules["p_error_level"],
         list_error_level=highlight_rules["list_error_level"],
     )
+    yield validator.validate_exists(
+        article_type_requires=[],
+        article_type_unexpects=highlight_rules["article_type_unexpects"],
+        article_type_neutral=highlight_rules["article_type_neutral"],
+        article_type_accepts=highlight_rules["article_type_accepts"]
+    )
 
     graphical_abstract_rules = params["graphical_abstract_rules"]
+
     validator = VisualAbstractsValidation(xmltree)
     yield from validator.validate(
         kwd_error_level=graphical_abstract_rules["kwd_error_level"],
         title_error_level=graphical_abstract_rules["title_error_level"],
         graphic_error_level=graphical_abstract_rules["graphic_error_level"],
+    )
+    yield validator.validate_exists(
+        article_type_requires=[],
+        article_type_unexpects=graphical_abstract_rules["article_type_unexpects"],
+        article_type_neutral=graphical_abstract_rules["article_type_neutral"],
+        article_type_accepts=graphical_abstract_rules["article_type_accepts"]
     )
 
 

@@ -2,12 +2,49 @@ from unittest import TestCase
 
 from lxml import etree as ET
 
-from packtools.sps.validation.article_abstract import HighlightValidation, HighlightsValidation, VisualAbstractValidation, VisualAbstractsValidation, ArticleAbstractsValidation
-from packtools.sps.models.article_abstract import ArticleHighlights, ArticleVisualAbstracts
+from packtools.sps.validation.article_abstract import (
+    HighlightValidation,
+    HighlightsValidation,
+    VisualAbstractValidation,
+    VisualAbstractsValidation,
+    ArticleAbstractsValidation,
+)
+from packtools.sps.models.article_abstract import (
+    ArticleHighlights,
+    ArticleVisualAbstracts,
+)
+
+VALIDATE_EXISTS_PARAMS = {
+    "article_type_requires": [],
+    "article_type_unexpects": [
+        "addendum",
+        "article-commentary",
+        "book-review",
+        "brief-report",
+        "correction",
+        "editorial",
+        "letter",
+        "obituary",
+        "partial-retraction",
+        "product-review",
+        "rapid-communication",
+        "reply",
+        "retraction",
+        "other",
+    ],
+    "article_type_neutral": [
+        "reviewer-report",
+        "data-article",
+    ],
+    "article_type_accepts": [
+        "case-report",
+        "research-article",
+        "review-article",
+    ],
+}
 
 
 class HighlightsValidationTest(TestCase):
-
     def test_highlight_validate_exists(self):
         self.maxDiff = None
         xml_tree = ET.fromstring(
@@ -23,24 +60,26 @@ class HighlightsValidationTest(TestCase):
             """
         )
 
-        obtained = HighlightsValidation(xml_tree).validate_exists()
+        obtained = HighlightsValidation(xml_tree).validate_exists(
+            **VALIDATE_EXISTS_PARAMS
+        )
 
         expected = {
-                'title': 'Article abstracts',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': None,
-                'parent_lang': 'en',
-                'item': 'abstract',
-                'sub_item': None,
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'abstracts',
-                'got_value': [],
-                'message': 'Got [], expected abstracts',
-                'advice': 'article has no abstract',
-                'data': None,
-            }
+            "title": "abstracts (key-points)",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "en",
+            "item": "abstracts (key-points)",
+            "sub_item": None,
+            "validation_type": "exist",
+            "response": "OK",
+            "expected_value": "abstracts (key-points) is acceptable",
+            "got_value": [],
+            "message": "Got [], expected abstracts (key-points) is acceptable",
+            "advice": None,
+            "data": [],
+        }
 
         self.assertDictEqual(expected, obtained)
 
@@ -77,7 +116,9 @@ class HighlightsValidationTest(TestCase):
 
         obtained = []
         for abstract in ArticleHighlights(xmltree).article_abstracts():
-            obtained.append(HighlightValidation(abstract).validate_tag_list_in_abstract())
+            obtained.append(
+                HighlightValidation(abstract).validate_tag_list_in_abstract()
+            )
 
         expected = [
             {
@@ -88,23 +129,23 @@ class HighlightsValidationTest(TestCase):
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (key-points)',
-                "sub_item": 'list',
+                "item": "abstract (key-points)",
+                "sub_item": "list",
                 "expected_value": None,
-                "got_value": ['highlight 1', 'highlight 2'],
+                "got_value": ["highlight 1", "highlight 2"],
                 "message": "Got ['highlight 1', 'highlight 2'], expected None",
-                "advice": 'Remove <list> and add <p>',
+                "advice": "Remove <list> and add <p>",
                 "data": {
-                    'abstract_type': 'key-points',
+                    "abstract_type": "key-points",
                     "highlights": [],
-                    'kwds': [],
-                    "list": ['highlight 1', 'highlight 2'],
+                    "kwds": [],
+                    "list": ["highlight 1", "highlight 2"],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": "HIGHLIGHTS",
-                }
+                },
             },
             {
                 "title": "list",
@@ -114,24 +155,24 @@ class HighlightsValidationTest(TestCase):
                 "parent_lang": "es",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (key-points)',
-                "sub_item": 'list',
+                "item": "abstract (key-points)",
+                "sub_item": "list",
                 "expected_value": None,
-                "got_value": ['highlight 1', 'highlight 2'],
+                "got_value": ["highlight 1", "highlight 2"],
                 "message": "Got ['highlight 1', 'highlight 2'], expected None",
-                "advice": 'Remove <list> and add <p>',
+                "advice": "Remove <list> and add <p>",
                 "data": {
-                    'abstract_type': 'key-points',
+                    "abstract_type": "key-points",
                     "highlights": [],
-                    'kwds': [],
-                    "list": ['highlight 1', 'highlight 2'],
+                    "kwds": [],
+                    "list": ["highlight 1", "highlight 2"],
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": "01",
                     "parent_lang": "es",
                     "title": "HIGHLIGHTS",
-                }
-            }
+                },
+            },
         ]
 
         self.assertEqual(len(obtained), 2)
@@ -177,23 +218,23 @@ class HighlightsValidationTest(TestCase):
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (key-points)',
-                "sub_item": 'p',
-                "expected_value": 'p',
-                "got_value": ['highlight 1'],
+                "item": "abstract (key-points)",
+                "sub_item": "p",
+                "expected_value": "p",
+                "got_value": ["highlight 1"],
                 "message": "Got ['highlight 1'], expected p",
-                "advice": 'Provide more than one p',
+                "advice": "Provide more than one p",
                 "data": {
-                    'abstract_type': 'key-points',
-                    "highlights": ['highlight 1'],
+                    "abstract_type": "key-points",
+                    "highlights": ["highlight 1"],
                     "list": [],
-                    'kwds': [],
+                    "kwds": [],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": "HIGHLIGHTS",
-                }
+                },
             }
         ]
 
@@ -227,30 +268,30 @@ class HighlightsValidationTest(TestCase):
 
         expected = [
             {
-                "title": 'unexpected kwd',
+                "title": "unexpected kwd",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (key-points)',
-                "sub_item": 'kwd',
+                "item": "abstract (key-points)",
+                "sub_item": "kwd",
                 "expected_value": None,
-                "got_value": ['kwd_01', 'kwd_02'],
+                "got_value": ["kwd_01", "kwd_02"],
                 "message": "Got ['kwd_01', 'kwd_02'], expected None",
                 "advice": "Remove keywords (<kwd>) from <abstract abstract-type='key-points'>",
                 "data": {
-                    'abstract_type': 'key-points',
+                    "abstract_type": "key-points",
                     "highlights": [],
                     "list": [],
-                    'kwds': ['kwd_01', 'kwd_02'],
+                    "kwds": ["kwd_01", "kwd_02"],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": None,
-                }
+                },
             }
         ]
 
@@ -284,34 +325,36 @@ class HighlightsValidationTest(TestCase):
 
         obtained = []
         for abstract in ArticleHighlights(xmltree).article_abstracts():
-            obtained.append(HighlightValidation(abstract).validate_tag_title_in_abstract())
+            obtained.append(
+                HighlightValidation(abstract).validate_tag_title_in_abstract()
+            )
 
         expected = [
             {
-                "title": 'title',
+                "title": "title",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (key-points)',
-                "sub_item": 'title',
-                "expected_value": 'title',
+                "item": "abstract (key-points)",
+                "sub_item": "title",
+                "expected_value": "title",
                 "got_value": None,
-                "message": 'Got None, expected title',
-                "advice": 'Provide title',
+                "message": "Got None, expected title",
+                "advice": "Provide title",
                 "data": {
-                    'abstract_type': 'key-points',
-                    "highlights": ['highlight 1'],
+                    "abstract_type": "key-points",
+                    "highlights": ["highlight 1"],
                     "list": [],
-                    'kwds': [],
+                    "kwds": [],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": None,
-                }
+                },
             }
         ]
 
@@ -338,24 +381,26 @@ class VisualAbstractsValidationTest(TestCase):
             """
         )
 
-        obtained = VisualAbstractsValidation(xml_tree).validate_exists()
+        obtained = VisualAbstractsValidation(xml_tree).validate_exists(
+            **VALIDATE_EXISTS_PARAMS
+        )
 
         expected = {
-                'title': 'Article abstracts',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': None,
-                'parent_lang': 'en',
-                'item': 'abstract',
-                'sub_item': None,
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'abstracts',
-                'got_value': [],
-                'message': 'Got [], expected abstracts',
-                'advice': 'article has no abstract',
-                'data': None,
-            }
+            "title": "abstracts (graphical)",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "en",
+            "item": "abstracts (graphical)",
+            "sub_item": None,
+            "validation_type": "exist",
+            "response": "OK",
+            "expected_value": "abstracts (graphical) is acceptable",
+            "got_value": [],
+            "message": "Got [], expected abstracts (graphical) is acceptable",
+            "advice": None,
+            "data": [],
+        }
 
         self.assertDictEqual(obtained, expected)
 
@@ -380,35 +425,37 @@ class VisualAbstractsValidationTest(TestCase):
 
         obtained = []
         for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
-            obtained.append(VisualAbstractValidation(abstract).validate_unexpected_kwd())
+            obtained.append(
+                VisualAbstractValidation(abstract).validate_unexpected_kwd()
+            )
 
         expected = [
             {
-                "title": 'unexpected kwd',
+                "title": "unexpected kwd",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (graphical)',
-                "sub_item": 'kwd',
+                "item": "abstract (graphical)",
+                "sub_item": "kwd",
                 "expected_value": None,
-                "got_value": ['kwd_01', 'kwd_02'],
+                "got_value": ["kwd_01", "kwd_02"],
                 "message": "Got ['kwd_01', 'kwd_02'], expected None",
                 "advice": "Remove keywords (<kwd>) from <abstract abstract-type='graphical'>",
                 "data": {
-                    'abstract_type': 'graphical',
-                    'caption': None,
-                    'fig_id': None,
-                    'graphic': None,
-                    'kwds': ['kwd_01', 'kwd_02'],
+                    "abstract_type": "graphical",
+                    "caption": None,
+                    "fig_id": None,
+                    "graphic": None,
+                    "kwds": ["kwd_01", "kwd_02"],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": None,
-                }
+                },
             }
         ]
 
@@ -438,35 +485,37 @@ class VisualAbstractsValidationTest(TestCase):
 
         obtained = []
         for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
-            obtained.append(VisualAbstractValidation(abstract).validate_tag_title_in_abstract())
+            obtained.append(
+                VisualAbstractValidation(abstract).validate_tag_title_in_abstract()
+            )
 
         expected = [
             {
-                "title": 'title',
+                "title": "title",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (graphical)',
-                "sub_item": 'title',
-                "expected_value": 'title',
+                "item": "abstract (graphical)",
+                "sub_item": "title",
+                "expected_value": "title",
                 "got_value": None,
-                "message": 'Got None, expected title',
-                "advice": 'Provide title',
+                "message": "Got None, expected title",
+                "advice": "Provide title",
                 "data": {
-                    'abstract_type': 'graphical',
-                    'caption': None,
-                    'fig_id': None,
-                    'graphic': None,
-                    'kwds': ['kwd_01', 'kwd_02'],
+                    "abstract_type": "graphical",
+                    "caption": None,
+                    "fig_id": None,
+                    "graphic": None,
+                    "kwds": ["kwd_01", "kwd_02"],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": None,
-                }
+                },
             }
         ]
 
@@ -496,35 +545,37 @@ class VisualAbstractsValidationTest(TestCase):
 
         obtained = []
         for abstract in ArticleVisualAbstracts(xml_tree).article_abstracts():
-            obtained.append(VisualAbstractValidation(abstract).validate_tag_graphic_in_abstract())
+            obtained.append(
+                VisualAbstractValidation(abstract).validate_tag_graphic_in_abstract()
+            )
 
         expected = [
             {
-                "title": 'graphic',
+                "title": "graphic",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "validation_type": "exist",
                 "response": "ERROR",
-                "item": 'abstract (graphical)',
-                "sub_item": 'graphic',
-                "expected_value": 'graphic',
+                "item": "abstract (graphical)",
+                "sub_item": "graphic",
+                "expected_value": "graphic",
                 "got_value": None,
-                "message": 'Got None, expected graphic',
-                "advice": 'Provide graphic',
+                "message": "Got None, expected graphic",
+                "advice": "Provide graphic",
                 "data": {
-                    'abstract_type': 'graphical',
-                    'caption': None,
-                    'fig_id': None,
-                    'graphic': None,
-                    'kwds': ['kwd_01', 'kwd_02'],
+                    "abstract_type": "graphical",
+                    "caption": None,
+                    "fig_id": None,
+                    "graphic": None,
+                    "kwds": ["kwd_01", "kwd_02"],
                     "parent": "article",
                     "parent_article_type": "research-article",
                     "parent_id": None,
                     "parent_lang": "en",
                     "title": None,
-                }
+                },
             }
         ]
 
@@ -562,11 +613,15 @@ class ArticleAbstractValidationTest(TestCase):
             """
         )
 
-        obtained = list(ArticleAbstractsValidation(xml_tree).validate_abstracts_type(expected_abstract_type_list=["key-points", "graphical"]))
+        obtained = list(
+            ArticleAbstractsValidation(xml_tree).validate_abstracts_type(
+                expected_abstract_type_list=["key-points", "graphical"]
+            )
+        )
 
         expected = [
             {
-                "title": "abstract-type attribute",
+                "title": "@abstract-type",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
@@ -575,10 +630,10 @@ class ArticleAbstractValidationTest(TestCase):
                 "sub_item": "@abstract-type",
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "got_value": '<abstract abstract-type="invalid-value">',
-                "expected_value": '<abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
-                "message": 'Got <abstract abstract-type="invalid-value">, expected <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
-                "advice": 'Provide <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "got_value": "invalid-value",
+                "expected_value": ["key-points", "graphical"],
+                "message": "Got invalid-value, expected ['key-points', 'graphical']",
+                "advice": "Use one of ['key-points', 'graphical'] as abstract-type",
                 "data": {
                     "abstract_type": "invalid-value",
                     "html_text": "HIGHLIGHTS highlight 1 highlight 2",
@@ -591,7 +646,7 @@ class ArticleAbstractValidationTest(TestCase):
                 },
             },
             {
-                "title": "abstract-type attribute",
+                "title": "@abstract-type",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": "01",
@@ -600,10 +655,10 @@ class ArticleAbstractValidationTest(TestCase):
                 "sub_item": "@abstract-type",
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "got_value": '<abstract abstract-type="invalid-value">',
-                "expected_value": '<abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
-                "message": 'Got <abstract abstract-type="invalid-value">, expected <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
-                "advice": 'Provide <abstract abstract-type="key-points"> or <abstract abstract-type="graphical">',
+                "got_value": "invalid-value",
+                "expected_value": ["key-points", "graphical"],
+                "message": "Got invalid-value, expected ['key-points', 'graphical']",
+                "advice": "Use one of ['key-points', 'graphical'] as abstract-type",
                 "data": {
                     "abstract_type": "invalid-value",
                     "html_text": "HIGHLIGHTS highlight 1 highlight 2",
@@ -615,8 +670,7 @@ class ArticleAbstractValidationTest(TestCase):
                     "parent_lang": "es",
                     "plain_text": "HIGHLIGHTS highlight 1 highlight 2",
                 },
-            }
-
+            },
         ]
 
         self.assertEqual(len(obtained), 2)
