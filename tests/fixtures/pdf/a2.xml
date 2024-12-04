@@ -1,0 +1,2688 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">tinf</journal-id>
+      <journal-title-group>
+        <journal-title>Transinformação</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Transinformação</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0103-3786</issn>
+      <issn pub-type="epub">2318-0889</issn>
+      <publisher>
+        <publisher-name>Pontifícia Universidade Católica de Campinas</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">mwYFrMFSyksG5RsJzD85MpM</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0103-37862023000100500</article-id>
+      <article-id pub-id-type="other">00500</article-id>
+      <article-id pub-id-type="doi">10.1590/2318-0889202335e227169</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>ORIGINAL</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>A publicação científica brasileira e chinesa indexada na <italic>Web of Science</italic>: análise da área de Ciência da Informação </article-title>
+        <trans-title-group xml:lang="en">
+          <trans-title>
+            <italic>The Brazilian and Chinese scientific publication indexed on the Web of Science: analysis of the Information Science area</italic>
+          </trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <contrib-id contrib-id-type="orcid">0000-0002-5255-0800</contrib-id>
+          <name>
+            <surname>Santos</surname>
+            <given-names>Laura Lavínia Sabino dos</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">
+            <sup>1</sup>
+          </xref>
+          <xref ref-type="corresp" rid="c1"/>
+          <role>concepção e desenho da pesquisa</role>
+          <role>análise e interpretação dos dados</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-9639-6390</contrib-id>
+          <name>
+            <surname>Rodrigues</surname>
+            <given-names>Rosângela Schwarz</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">
+            <sup>2</sup>
+          </xref>
+          <role>concepção e desenho da pesquisa</role>
+          <role>análise e interpretação dos dados</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-8909-1898</contrib-id>
+          <name>
+            <surname>Neubert</surname>
+            <given-names>Patrícia da Silva</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">
+            <sup>3</sup>
+          </xref>
+          <role>concepção e desenho da pesquisa</role>
+          <role>análise e interpretação dos dados</role>
+          <role>revisão e aprovação da versão final do artigo</role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>
+          <sup>1</sup>
+        </label>
+        <institution content-type="original">Universidade Federal de Santa Catarina, Programa de Pós-Graduação em Ciência da Informação. Florianópolis, SC, Brasil.</institution>
+        <institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+        <institution content-type="orgdiv1">Programa de Pós-Graduação em Ciência da Informação</institution>
+        <addr-line>
+          <city>Florianópolis</city>
+          <state>SC</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff2">
+        <label>
+          <sup>2</sup>
+        </label>
+        <institution content-type="original">Universidade Federal de Santa Catarina, Departamento de Ciência da Informação, Programa de Pós-Graduação em Ciência da Informação. Florianópolis, SC, Brasil.</institution>
+        <institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+        <institution content-type="orgdiv1">Departamento de Ciência da Informação</institution>
+        <institution content-type="orgdiv2">Programa de Pós-Graduação em Ciência da Informação</institution>
+        <addr-line>
+          <city>Florianópolis</city>
+          <state>SC</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff3">
+        <label>
+          <sup>3</sup>
+        </label>
+        <institution content-type="original">Universidade Federal de Santa Catarina, Departamento de Ciência da Informação, Programa de Pós-Graduação em Ciência da Informação. Florianópolis, SC, Brasil.</institution>
+        <institution content-type="orgname">Universidade Federal de Santa Catarina</institution>
+        <institution content-type="orgdiv1">Departamento de Ciência da Informação</institution>
+        <institution content-type="orgdiv2">Programa de Pós-Graduação em Ciência da Informação</institution>
+        <addr-line>
+          <city>Florianópolis</city>
+          <state>SC</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <author-notes>
+        <corresp id="c1"><label> Correspondência para/Correspondence to: </label> L. L. S. SANTOS. Email: <email>laura.santoos79@gmail.com</email> </corresp>
+        <fn fn-type="edited-by">
+          <label>Editor</label>
+          <p>César Antonio Pereira</p>
+        </fn>
+        <fn fn-type="conflict">
+          <label>Conflito de interesses</label>
+          <p>Os autores declaram não haver conflito de interesses.</p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>05</day>
+        <month>06</month>
+        <year>2023</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2023</year>
+      </pub-date>
+      <volume>35</volume>
+      <elocation-id>e227169</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>30</day>
+          <month>11</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>29</day>
+          <month>03</month>
+          <year>2023</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+          <license-p>A Revista Transinformação é adepta do Acesso Aberto (Open Access) e todo o seu conteúdo está disponível e protegido sob a <ext-link ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by/4.0/">Licença Creative Commons</ext-link> (CC-BY). </license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Resumo</title>
+        <p>Este estudo compara o perfil da publicação científica brasileira e o da chinesa na área de Ciência da Informação indexada na <italic>Web of Science</italic>. Os objetivos específicos são: (a) levantar o número de artigos publicado por cada país; (b) identificar as características dos periódicos nos quais os artigos são publicados; e (c) identificar a nacionalidade e a tipologia dos <italic>publishers</italic> que editam os periódicos. A busca na <italic>Web of Science</italic> resultou em 6.417 artigos de autores vinculados às instituições brasileiras e chinesas, respectivamente, 2005 e 4.412, sendo 29,5% da publicação brasileira em inglês, e a maioria da chinesa (99,9%). Do total de 221 títulos, a produção brasileira é publicada em 99, e a chinesa em 122, majoritariamente via subscrição diferente do modelo de acesso identificado nos artigos: 91% dos chineses via subscrição e 76% dos brasileiros em acesso aberto. A maior concentração dos títulos ocorre na Inglaterra, nos Estados Unidos e na Holanda, com Fator de Impacto inferior a 1. Editoras comerciais publicam a maioria dos artigos chineses (92,3%), enquanto os artigos brasileiros concentram-se em editoras universitárias de acesso aberto (72,3%). Conclui-se que a produção científica em Ciência da Informação brasileira e chinesa na <italic>Web of Science</italic> apresenta estratégias diversificadas: a brasileira se destaca pela indexação dos periódicos nacionais, publicando artigos em português e em Acesso Aberto, enquanto a chinesa pela publicação em inglês, em periódicos indexados na base e majoritariamente editado por editoras comerciais. Na China, há uma produção mais internacionalizada que a brasileira, porém com maior dependência do sistema por parte da comunidade científica. </p>
+      </abstract>
+      <trans-abstract xml:lang="en">
+        <title>Abstract</title>
+        <p>
+          <italic>This study compares the profile of Brazilian and Chinese scientific publications in Information Science indexed in the Web of Science. The specific objectives are: (a) to survey the number of articles published by each country; (b) identify the characteristics of the journals in which the articles are published; and (c) identify the nationality and type of publishers that edit these journals. The Web of Science search yielded 6,417 articles, with 2,005 articles authored by Brazilian institutions and 4,412 articles authored by Chinese institutions. Of these articles, 29.5% of the Brazilian publications and the majority (99.9%) of the Chinese publications were in English. Brazilian production is published in 99 of the 221 journals, while Chinese is published in 122. Different access models were identified for the articles. Specifically, 91% of Chinese publications were accessible via subscription and 76% of the Brazilians via open access. The highest concentration of journals is in England, the United States, and the Netherlands, with an Impact Factor of less than one. Commercial publishers publish most Chinese articles (92.3%) while Brazilian articles are predominantly available through university publishers with open access repositories (72.3%). It is concluded that the scientific production in the field of Information Science from Brazil and China, as indexed in the Web of Science, exhibits diversified strategies. Brazil stands out for the indexing of national journals and publishing articles in Portuguese that are available through Open Access repositories. On the other hand, China is notable for its publication of articles in English, in journals that are already indexed in the Web of Science, and predominantly edited by commercial publishers. A more internationalized production than the Brazilian one, but with greater dependence on the system by the scientific community.</italic>
+        </p>
+      </trans-abstract>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave:</title>
+        <kwd>Acesso Aberto</kwd>
+        <kwd>Brasil e China</kwd>
+        <kwd>Ciência da Informação</kwd>
+        <kwd>Periódicos científicos</kwd>
+        <kwd>Produção científica</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>Open Access</kwd>
+        <kwd>Brazil and China</kwd>
+        <kwd>Information Science</kwd>
+        <kwd>Scientific journals</kwd>
+        <kwd>Scientific production</kwd>
+      </kwd-group>
+      <counts>
+        <fig-count count="1"/>
+        <table-count count="4"/>
+        <ref-count count="45"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introdução</title>
+      <p>Uma das principais atividades da comunidade científica é a troca de informações sobre as pesquisas e seus resultados, permitindo aos cientistas discutirem novas ideias entre si, pois “[...] toda ciência é uma atividade social determinada por condições históricas e socioeconômicas” ( <xref alt="Le Coadic, 2004, p. 17" rid="ref-17" ref-type="bibr">Le Coadic, 2004, p. 17</xref>). </p>
+      <p>Na ciência, a comunicação formal é viabilizada principalmente na publicação dos artigos de periódicos, principal veículo para a disseminação do conhecimento científico ( <xref alt="Rodrigues; Fachin, 2010" rid="ref-30" ref-type="bibr">Rodrigues; Fachin, 2010</xref>). Para assegurar a qualidade dos diferentes tipos de pesquisas, os resultados obtidos por um cientista são discutidos e revisados por seus pares ( <xref alt="Gingras, 2020" rid="ref-11" ref-type="bibr">Gingras, 2020</xref>; <xref alt="Pinfield et al., 2020" rid="ref-27" ref-type="bibr">Pinfield <italic>et al.</italic>, 2020</xref>). Neste processo, o autor faz a submissão do artigo seguindo as diretrizes para os autores da revista. Em seguida, o editor do periódico envia o conteúdo aos pares – revisores que possuem conhecimento da temática e área pesquisada –, que avaliam o manuscrito e o devolvem para o editor do periódico com seus pareceres ( <xref alt="Lopes; Borges, 2021" rid="ref-18" ref-type="bibr">Lopes; Borges, 2021</xref>). Somente após essa avaliação e posterior aprovação, um artigo científico é publicado. </p>
+      <p>Pela publicação contínua das novidades resultantes de pesquisas científicas, os periódicos registram a memória da Ciência, se constituindo como “[...] a fonte documental principal que registra, organiza e expressa a produção científica, produção esta que é medida a partir do número e impacto dos artigos e outras comunicações publicadas em periódicos científicos” ( <xref alt="Packer; Meneghini, 2006, p. 237" rid="ref-26" ref-type="bibr">Packer; Meneghini, 2006, p. 237</xref>), motivo pelo qual as “[...] áreas que se organizam e se estruturam para criar, manter, disseminar e preservar suas informações” ( <xref alt="Rodrigues; Fachin, 2010, p. 34" rid="ref-30" ref-type="bibr">Rodrigues; Fachin, 2010, p. 34</xref>), o que torna essencial que o periódico esteja indexado em uma base de dados para que tenha visibilidade, bem como seja identificado, lido e citado ( <xref alt="López-Cózar, 2017" rid="ref-19" ref-type="bibr">López-Cózar, 2017</xref>). </p>
+      <p>Na Ciência da Informação (CI), como campo do conhecimento cujo estudo engloba as “[...] propriedades gerais da informação (natureza, gênese, efeitos), e a análise de seus processos de construção, comunicação e uso” ( <xref alt="Le Coadic, 2004, p. 25" rid="ref-17" ref-type="bibr">Le Coadic, 2004, p. 25</xref>), cabem estudos sobre a publicação científica, dentre os quais se incluem as características de tal produção. Para Arboit, Bufrem e Gonzáles ( <xref alt="2011, p. 77" rid="ref-3" ref-type="bibr">2011, p. 77</xref>), é “[...] por meio da análise das publicações distribuídas em uma determinada região e em períodos distintos, é possível detectar as transformações ocorridas na ciência, uma vez que a comunicação científica reflete o status do desenvolvimento de uma área”, inclusive da produção do próprio campo de CI. </p>
+      <p>Na CI, uma ciência social, os padrões de investimento e produção tendem a ser diversos das ciências exatas e naturais. A produção científica brasileira na área é objeto de estudos variados, enfatizando desde o interesse de pesquisa em tópicos ou assuntos específicos ao crescimento e à indexação da publicação em bases nacionais e internacionais ( <xref alt="Filippo, 2015" rid="ref-10" ref-type="bibr">Filippo, 2015</xref>; <xref alt="Rodrigues; Stubert, 2015" rid="ref-33" ref-type="bibr">Rodrigues; Stubert, 2015</xref>; <xref alt="Pinto; Matias; Moreiro-González, 2016" rid="ref-28" ref-type="bibr">Pinto; Matias; Moreiro-González, 2016</xref>; <xref alt="Silva; Oliveira, 2021" rid="ref-38" ref-type="bibr">Silva; Oliveira, 2021</xref>). O estudo da produção científica indexada serve para fornecer um panorama da área e proporcionar indicativos da visibilidade e internacionalização da produção nacional. </p>
+      <p>O acesso aberto é um movimento que visa constituir um corpo cada vez maior de literatura sem barreiras de preços e de permissão de uso, fornecendo uma alternativa acessível e aproveitando os recursos das Tecnologias da Informação e da Comunicação (TICs) para a redução de custos e a ampliação da distribuição e do impacto dos autores ( <xref alt="Suber, 2019" rid="ref-40" ref-type="bibr">Suber, 2019</xref>; <xref alt="Abadal, 2021" rid="ref-1" ref-type="bibr">Abadal, 2021</xref>). </p>
+      <p>A produção científica chinesa vem se destacando por sua performance em publicação nos periódicos indexados na <italic>WoS</italic>, a principal base indexadora internacional. Conforme observado pela Unesco ( <xref alt="United Nations Educational, Scientific and Cultural Organization, 2021" rid="ref-42" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2021</xref>) as publicações chinesas em todas as áreas do conhecimento passaram a representar 24,5% do total mundial em 2019, fazendo jus ao investimento feito pela China, entre 2014 e 2018, responsável por quase metade (44%) do crescimento nos gastos globais com pesquisas nesse período. Trata-se de um contexto diferente do cenário brasileiro, que tenta manter a produção científica apesar dos cortes orçamentários no investimento em ciência, que ocorrem desde 2016 ( <xref alt="Negri, 2021" rid="ref-24" ref-type="bibr">Negri, 2021</xref>). </p>
+      <p>No caso da China, estudos anteriores apresentam a dificuldade de identificação de periódicos chineses em bases de dados internacionais, o que também ocorre com periódicos editados em outras regiões consideradas periféricas, como é o caso da América Latina ( <xref alt="Hasan; Singh, 2015" rid="ref-14" ref-type="bibr">Hasan; Singh, 2015</xref>). Entretanto, a política científica chinesa de investimento em pesquisa tem elevado o volume da sua produção em bases de dados internacionais, especialmente na WoS, conforme estudos recentes têm apontado, a ponto de a China ser o país com maior número de artigos ( <xref alt="United Nations Educational, Scientific and Cultural Organization, 2021" rid="ref-42" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2021</xref>; <xref alt="Zhao; Pan; Hua, 2021" rid="ref-45" ref-type="bibr">Zhao; Pan; Hua, 2021</xref>). </p>
+      <p>Na CI, a produção científica chinesa é historicamente tímida em relação a outras áreas do país, totalizando cerca de três centenas de artigos na WoS em três décadas, de 1979-2009 ( <xref alt="He; Wang, 2006" rid="ref-13" ref-type="bibr">He; Wang, 2006</xref>; <xref alt="Wang, 2011" rid="ref-43" ref-type="bibr">Wang, 2011</xref>), número que vem aumentando consideravelmente nos últimos anos, chegando a 541 artigos entre 2008-2017, especialmente pelo incentivo financeiro dado pelo governo chinês para a publicação em periódicos indexados na WoS ( <xref alt="Zhao; Pan; Hua, 2021" rid="ref-45" ref-type="bibr">Zhao; Pan; Hua, 2021</xref>). </p>
+      <p>A ascensão da publicação científica da China levanta questionamentos sobre o comportamento da produção indexada na WoS na área da Ciência da Informação, especialmente em relação à produção brasileira: qual é a semelhança ou a diferença entre o perfil da publicação brasileira em comparação com a chinesa, na área da Ciência da Informação? A <italic>WoS</italic> foi escolhida por ser referência internacional entre as bases de dados de periódicos científicos, considerada aquela que representa a produção da elite científica e por compor a estratégia de internacionalização e incentivo à publicação adotada pela China e pelo Brasil, que valoram a publicação nos periódicos indexados na WoS com maior peso do que em outras bases ( <xref alt="Packer; Meneghini, 2006" rid="ref-26" ref-type="bibr">Packer; Meneghini, 2006</xref>; <xref alt="Zhao; Pan; Hua, 2021" rid="ref-45" ref-type="bibr">Zhao; Pan; Hua, 2021</xref>). </p>
+      <p>Este artigo tem por objetivo comparar a publicação científica brasileira e chinesa na área da Ciência da Informação publicada na <italic>WoS</italic> entre 2016 e 2021, com os seguintes objetivos específicos: (a) levantar o número de artigos publicados por cada país; (b) identificar as características dos periódicos nos quais os artigos são publicados; e (c) identificar a nacionalidade e a tipologia dos publishers que editam os periódicos. </p>
+      <p>Para responder ao objetivo, foi feito um levantamento dos artigos de autores vinculados a instituições brasileiras e chinesas nos últimos seis anos (2016, 2017, 2018, 2019, 2020 e 2021) na <italic>Web of Science</italic>. </p>
+    </sec>
+    <sec id="procedimentos-metodológicos">
+      <title>Procedimentos Metodológicos</title>
+      <p>No procedimento técnico de coleta de dados, foi utilizada a pesquisa documental nos <italic>sites</italic> da <italic>Web of Science</italic>, referente aos periódicos e às editoras. Para a análise dos dados, foram usados métodos mistos, quantitativo e qualitativo, visto que os dois se complementam. Nessa abordagem, segundo Creswell ( <xref alt="2014" rid="ref-7" ref-type="bibr">2014</xref>), tal associação fornece melhores possibilidades analíticas. </p>
+      <p>A coleta foi realizada utilizando a estratégia de busca para os dois países: (CU= ( <italic>nome do país</italic>) AND (SU= <italic>Information Science</italic>)). Restringiu-se o resultado pelo tipo de documento utilizando a opção “ <italic>article</italic>” e, quanto aos idiomas, optou-se por “ <italic>all languages</italic>”. O período estipulado foi de 2016 a 2021. A escolha desse período em particular surgiu em razão do relatório “ <italic>Unesco Science Report: towards 2030</italic>” publicado pela Unesco ( <xref alt="United Nations Educational, Scientific and Cultural Organization, 2015" rid="ref-41" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2015</xref>), o qual aponta o crescimento das publicações científicas da China que quase duplicaram entre 2010 e 2015, passando a representar 20% da produção científica global. Esta busca foi realizada em maio de 2022 e recuperou 4412 artigos válidos para a China e 2005 para o Brasil. Selecionando somente o idioma inglês, foi realizada outra pesquisa, com a mesma estratégia de busca, para analisar o volume de publicações em inglês. Nessa segunda etapa, foram recuperados 4406 artigos válidos para a China e 591 para o Brasil. </p>
+      <p>Para a tabulação dos dados, foi utilizada a planilha do <italic>Microsoft Excel</italic>. Cabe ressaltar que, para estudo das editoras, juntaram-se as filiais com a matriz das grandes corporações editoriais transnacionais. </p>
+    </sec>
+    <sec id="resultados-e-discussão">
+      <title>Resultados e Discussão</title>
+      <p>Os artigos identificados somam 6.417 documentos publicados entre 2016 a 2021 na área da Ciência da Informação indexados na <italic>WoS</italic>, sendo 2.005 artigos de autores vinculados a instituições brasileiras e 4.412 artigos vinculados a instituições chinesas. Comparativamente, a produção chinesa é superior à brasileira, equivalente a pouco mais do que o dobro do volume de artigos, indicativa da liderança em produção científica da China relatada no <italic>Science &amp; Engineering Indicators</italic> 2018, que registra sua performance a nível mundial, ultrapassando os EUA ( <xref alt="National Science Board, 2018" rid="ref-23" ref-type="bibr">National Science Board, 2018</xref>). Ao longo do período analisado, a produção de ambos os países aumenta anualmente, exceto a produção científica brasileira em 2021 – inferior a 2020 (353 e 448 artigos respectivamente) –, conforme já observado em outros estudos ( <xref alt="Feitosa et al., 2020" rid="ref-9" ref-type="bibr">Feitosa <italic>et al.</italic>, 2020</xref>; <xref alt="United Nations Educational, Scientific and Cultural Organization, 2021" rid="ref-42" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2021</xref>). </p>
+      <p>Quanto ao idioma, há, comparativamente, comportamentos distintos: uma fração da produção científica em ciência da informação brasileira é publicada em inglês (29,5% (591)), enquanto a chinesa é majoritariamente (99,9% (4.406)) publicada em inglês. Nos anos de 2016, 2017 e 2021, todo o volume de publicações chinesas na WoS foi publicado em língua inglesa (Figura <xref alt="1" rid="fig1" ref-type="fig">1</xref>). Mesmo nos outros anos, é possível identificar uma constância na publicação em inglês, com uma diferença de apenas 2 artigos no total da produção anual publicada em outros idiomas. Estudos apontam a importância de as pesquisas científicas serem publicadas em inglês, língua franca da ciência, a fim de ampliar a visibilidade da produção científica no cenário global ( <xref alt="Guédon, 2011" rid="ref-12" ref-type="bibr">Guédon, 2011</xref>; <xref alt="Manual de Santiago, 2007" rid="ref-20" ref-type="bibr">Manual de Santiago, 2007</xref>; <xref alt="Santos, 2015" rid="ref-35" ref-type="bibr">Santos, 2015</xref>; <xref alt="Di Bitetti; Ferreras, 2017" rid="ref-8" ref-type="bibr">Di Bitetti; Ferreras, 2017</xref>). Assim, é coerente a estratégia de investimento em Ciência adotada pela China ( <xref alt="United Nations Educational, Scientific and Cultural Organization, 2021" rid="ref-42" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2021</xref>). </p>
+      <p>No caso da produção científica brasileira em língua inglesa, observa-se um percentual maior em 2016 (54,4% dos artigos anuais) que foi decrescendo a 36% em 2021 (Figura <xref alt="1" rid="fig1" ref-type="fig">1</xref>). Esse resultado pode ser justificado pelo aumento da presença de periódicos brasileiros na base e pelo padrão de publicação da produção científica brasileira majoritariamente em português ( <xref alt="Neubert, 2020" rid="ref-25" ref-type="bibr">Neubert, 2020</xref>). As discussões sobre o uso da língua inglesa são correntes na ciência ( <xref alt="Meneghini; Packer, 2007" rid="ref-21" ref-type="bibr">Meneghini; Packer, 2007</xref>; <xref alt="Rosa; Alves, 2011" rid="ref-34" ref-type="bibr">Rosa; Alves, 2011</xref>; <xref alt="Alcadipani, 2017" rid="ref-2" ref-type="bibr">Alcadipani, 2017</xref>; <xref alt="Sauvé; Mongeon; Larivière, 2022" rid="ref-36" ref-type="bibr">Sauvé; Mongeon; Larivière, 2022</xref>), pois tendem a priorizar questões globais em detrimento de temas e visibilidade locais. Os dois países apresentam modelos distintos, como se pode observar na Figura <xref alt="1" rid="fig1" ref-type="fig">1</xref>. </p>
+      <p>
+        <fig id="fig1">
+          <label>Figura 1 -</label>
+          <caption>
+            <title>Comparação do idioma dos artigos produzido por autores brasileiros e chineses em periódicos da CI entre Brasil entre 2016 e 2021.</title>
+          </caption>
+          <attrib>Fonte: Dados da pesquisa (2022).</attrib>
+          <alternatives>
+            <graphic mimetype="image" mime-subtype="jpeg" xlink:href="https://minio.scielo.br/documentstore/2318-0889/mwYFrMFSyksG5RsJzD85MpM/374d0a758a9136f9ea207a714c700e9116cd24a4.jpg"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/2318-0889/mwYFrMFSyksG5RsJzD85MpM/1c9fd06d924d5f136d49528ddace6dac18a9eb77.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>A análise do tipo de acesso dos periódicos (Tabela <xref alt="1" rid="tbl1" ref-type="table">1</xref>) identificou que os autores com vínculo institucional brasileiro publicaram em 99 títulos diferentes, sendo 64 (65%) via subscrição, 30 (30%) em acesso aberto diamante e 5 (5%) em acesso aberto com cobrança de taxas para os autores. Os autores com vínculo com instituições chinesas publicaram em 122 títulos diferentes, sendo 96 (79%) por subscrição, seguido de 17 (14%) títulos, cujo acesso é aberto diamante ou sem APC e 9 (7%) de acesso aberto com cobrança de taxas para os autores. </p>
+      <p>Conforme Xiaolin Zhang – presidente do Comitê de Planejamento Estratégico da Biblioteca Nacional de Ciência e Tecnologia no Ministério da Ciência e Tecnologia em Pequim –, desde 2014 o governo chinês tem promovido o acesso aberto em seu país, incentivando e financiando a publicação de pesquisas científicas via A.A ( <xref alt="Schiermeier, 2018" rid="ref-37" ref-type="bibr">Schiermeier, 2018</xref>). Todavia, 70% da produção científica chinesa publicada em periódicos internacionais, financiados pelo <italic>Natural Science Foundation of China</italic> (NSFC), está bloqueada por <italic>paywall</italic>, sendo certo que a China deve comprá-los de volta com subscrições caras ( <xref alt="Schiermeier, 2018" rid="ref-37" ref-type="bibr">Schiermeier, 2018</xref>). Os resultados obtidos confirmam a afirmação: os dados apontam que 96 (79%) dos títulos nos quais a China publica sua produção, equivalente a 91,4% (4033) dos artigos, são destinados a periódicos protegidos por subscrição. </p>
+      <p>
+        <table-wrap id="tbl1">
+          <label>Tabela 1 -</label>
+          <caption>
+            <title>Distribuição, por tipo de acesso, do número de periódicos indexados na <italic>WoS</italic> entre 2016 e 2021 com produção de autores vinculados a instituições brasileiras e chinesas. </title>
+          </caption>
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2"/>
+                <th align="left" colspan="4">
+                  <italic>Brasil</italic>
+                </th>
+                <th align="left" colspan="4">
+                  <italic>China</italic>
+                </th>
+              </tr>
+              <tr>
+                <th align="left" colspan="2">Artigos</th>
+                <th colspan="2">Periódicos</th>
+                <th align="left" colspan="2">Artigos</th>
+                <th colspan="2">Periódicos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Modelo de Acesso</td>
+                <td align="left">n</td>
+                <td>%</td>
+                <td>n</td>
+                <td>%</td>
+                <td align="left">n</td>
+                <td>%</td>
+                <td>n</td>
+                <td>%</td>
+              </tr>
+              <tr>
+                <td>Aberto</td>
+                <td align="left">1526</td>
+                <td>76,1</td>
+                <td>5</td>
+                <td>5,0</td>
+                <td align="left">144</td>
+                <td>3,3</td>
+                <td>9</td>
+                <td>7,0</td>
+              </tr>
+              <tr>
+                <td>Aberto – com taxas de autor</td>
+                <td align="left">16</td>
+                <td>0,8</td>
+                <td>30</td>
+                <td>30,0</td>
+                <td align="left">235</td>
+                <td>5,3</td>
+                <td>17</td>
+                <td>14,0</td>
+              </tr>
+              <tr>
+                <td>Subscrição</td>
+                <td align="left">463</td>
+                <td>23,1</td>
+                <td>64</td>
+                <td>65,0</td>
+                <td align="left">4033</td>
+                <td>91,4</td>
+                <td>96</td>
+                <td>79,0</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td align="left">2005</td>
+                <td>100</td>
+                <td>99</td>
+                <td>100</td>
+                <td align="left">4412</td>
+                <td>100</td>
+                <td>122</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <attrib>Fonte: Dados da pesquisa (Florianópolis, 2022).</attrib>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>A descrição das características dos periódicos mostrou os títulos com maior número de artigos, o que revela uma concentração importante em poucos títulos. O número de artigos é um indicador importante para retratar o desempenho dos periódicos científicos em determinada área do conhecimento ( <xref alt="Rodrigues; Stubert, 2015" rid="ref-33" ref-type="bibr">Rodrigues; Stubert, 2015</xref>; <xref alt="Koshikawa, 2020" rid="ref-15" ref-type="bibr">Koshikawa, 2020</xref>). </p>
+      <p>Da produção científica chinesa, 3,3% (144) dos artigos está em acesso aberto; da brasileira, o acesso aberto representa 76,1% (1.526) dos artigos. Os títulos com maior número de artigos de autores brasileiros são 917 (45,7%) dos 2005, sendo 279 (13,9%) Em Questão, 225 (11,2%) Informação &amp; Sociedade, 221 (11%) Perspectivas em Ciência da Informação e 192 (9,6%) Encontros Bibli, todos editados por universidades públicas federais. Esse resultado corrobora Babini e Rovelli ( <xref alt="2020" rid="ref-4" ref-type="bibr">2020</xref>), segundo os quais as universidades são as principais protagonistas do acesso aberto sem cobrança de taxas das publicações científicas, sendo essa uma tendência da América Latina, que é a região que mais promove a ciência aberta no mundo. Björk e Korkeamäki ( <xref alt="2020" rid="ref-5" ref-type="bibr">2020</xref>) destacam que o acesso aberto prevalece em países onde o inglês não é o idioma principal de publicação científica. </p>
+      <p>A concentração no volume de artigos chineses destaca o número de publicações na <italic>Scientometrics</italic>, com 464 unidades (10,5%), na <italic>Information Processing &amp; Management</italic>, com 339 (7,7%), na <italic>International Journal of Geographical Information Science, com</italic> 283 (6,4%) e na <italic>Information &amp; Management</italic>, com 198 (4,5%), todos publicados por editores comerciais, que juntos publicam 1.266 (29,1%) dos 4.412 artigos. Segundo os dados da Tabela <xref alt="1" rid="tbl1" ref-type="table">1</xref>, 91,4% (4.033) dos artigos chineses concentram-se em periódicos cujo acesso se dá via subscrição. Essa assimetria no volume de publicações entre Brasil e China é observada pela Unesco ( <xref alt="United Nations Educational, Scientific and Cultural Organization, 2021" rid="ref-42" ref-type="bibr">United Nations Educational, Scientific and Cultural Organization, 2021</xref>), que aponta a China responsável, em 2019, por 24,5% do total mundial das publicações de todas as áreas do conhecimento, enquanto o Brasil representou 2,8% do total global no mesmo período. No entanto, os resultados da pesquisa indicam, conforme Tabela <xref alt="2" rid="tbl2" ref-type="table">2</xref>, que os artigos do Brasil foram publicados majoritariamente em periódicos brasileiros, não sendo identificados periódicos chineses na base. </p>
+      <p>
+        <table-wrap id="tbl2">
+          <label>Tabela 2 -</label>
+          <caption>
+            <title>Distribuição dos artigos na WoS entre 2016 e 2021 de autores vinculados a instituições brasileiras e chinesas.</title>
+          </caption>
+          <table>
+            <thead>
+              <tr>
+                <th align="left" rowspan="2">
+                  <italic>Periódico</italic>
+                </th>
+                <th align="left" rowspan="2">
+                  <italic>Editora</italic>
+                </th>
+                <th align="left" rowspan="2">
+                  <italic>País</italic>
+                </th>
+                <th align="left" colspan="3">
+                  <italic>Brasil</italic>
+                </th>
+                <th align="left" colspan="3">
+                  <italic>China</italic>
+                </th>
+              </tr>
+              <tr>
+                <th align="left">n</th>
+                <th>%</th>
+                <th>m.a.*</th>
+                <th align="left">n</th>
+                <th>%</th>
+                <th>m.a.*</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">Scientometrics</td>
+                <td align="left">Springer</td>
+                <td align="left">NL</td>
+                <td align="left">103</td>
+                <td>5,1</td>
+                <td>Subs</td>
+                <td align="left">464</td>
+                <td>10,5</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Inform Process Manag</td>
+                <td align="left">Elsevier</td>
+                <td align="left">UK</td>
+                <td align="left">29</td>
+                <td>1,4</td>
+                <td>Subs</td>
+                <td align="left">339</td>
+                <td>7,7</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Int J Geogr Inf Sci</td>
+                <td align="left">T&amp;F</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">283</td>
+                <td>6,4</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Em Questao</td>
+                <td align="left">UFRGS</td>
+                <td align="left">BR</td>
+                <td align="left">279</td>
+                <td>13,9</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Soc–Estud</td>
+                <td align="left">UFPB</td>
+                <td align="left">BR</td>
+                <td align="left">225</td>
+                <td>11,2</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Perspect Cienc Inf</td>
+                <td align="left">UFMG</td>
+                <td align="left">BR</td>
+                <td align="left">221</td>
+                <td>11</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Manage</td>
+                <td align="left">Elsevier</td>
+                <td align="left">NL</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">198</td>
+                <td>4,5</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Encontros Bibli</td>
+                <td align="left">UFSC</td>
+                <td align="left">BR</td>
+                <td align="left">192</td>
+                <td>9,6</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Int J Inf Manage</td>
+                <td align="left">Elsevier</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">169</td>
+                <td>3,8</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Rev Ibero–Am Cienc Inf</td>
+                <td align="left">UnB</td>
+                <td align="left">BR</td>
+                <td align="left">162</td>
+                <td>8,1</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">J Knowl Manag</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">29</td>
+                <td>1,4</td>
+                <td>Subs</td>
+                <td align="left">143</td>
+                <td>3,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Assoc Inf Sci Tech</td>
+                <td align="left">Wiley</td>
+                <td align="left">US</td>
+                <td align="left">21</td>
+                <td>1,0</td>
+                <td>Subs</td>
+                <td align="left">140</td>
+                <td>3,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Informetr</td>
+                <td align="left">Elsevier</td>
+                <td align="left">NL</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">139</td>
+                <td>3,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Telemat Inform</td>
+                <td align="left">Elsevier</td>
+                <td align="left">NL</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">133</td>
+                <td>3,0</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Libr Hi Tech</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">130</td>
+                <td>2,9</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Electron Libr</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">123</td>
+                <td>2,8</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Technol People</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">110</td>
+                <td>2,5</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Transinformacao</td>
+                <td align="left">PUC–Camp</td>
+                <td align="left">BR</td>
+                <td align="left">108</td>
+                <td>5,4</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">J Glob Inf Manag</td>
+                <td align="left">IGI Global</td>
+                <td align="left">US</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">98</td>
+                <td>2,2</td>
+                <td>APC</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Syst Res</td>
+                <td align="left">Informs</td>
+                <td align="left">US</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">97</td>
+                <td>2,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Inf Sci</td>
+                <td align="left">SAGE</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">97</td>
+                <td>2,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Atoz</td>
+                <td align="left">UFPR</td>
+                <td align="left">BR</td>
+                <td align="left">90</td>
+                <td>4,5</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Online Inf Rev</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">78</td>
+                <td>1,8</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Enterp Inf Manag</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">75</td>
+                <td>1,7</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Aslib J Inf Manag</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">73</td>
+                <td>1,7</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Mis Q</td>
+                <td align="left">UMN</td>
+                <td align="left">US</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">66</td>
+                <td>1,5</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Manage Inform Syst</td>
+                <td align="left">T&amp;F</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">62</td>
+                <td>1,4</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">J Acad Libr</td>
+                <td align="left">Elsevier</td>
+                <td align="left">US</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">57</td>
+                <td>1,3</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Dev</td>
+                <td align="left">Sage</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">56</td>
+                <td>1,3</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Inf Discov Deliv</td>
+                <td align="left">Emerald</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">56</td>
+                <td>1,3</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Knowl Man Res Pract</td>
+                <td align="left">T&amp; F</td>
+                <td align="left">UK</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+                <td align="left">53</td>
+                <td>1,2</td>
+                <td>Subs</td>
+              </tr>
+              <tr>
+                <td align="left">Investig Bibliotecol</td>
+                <td align="left">Unam</td>
+                <td align="left">MX</td>
+                <td align="left">52</td>
+                <td>2,6</td>
+                <td>AA</td>
+                <td align="left">–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Outros***</td>
+                <td align="left"/>
+                <td align="left"/>
+                <td align="left">494</td>
+                <td>24,6</td>
+                <td/>
+                <td align="left">1173</td>
+                <td>26,6</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td align="left">Total</td>
+                <td align="left"/>
+                <td align="left"/>
+                <td align="left">2005</td>
+                <td/>
+                <td/>
+                <td align="left">4412</td>
+                <td/>
+                <td/>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <p>Legenda: Outros (BR): 87 títulos de periódicos com até 50 artigos cada, Outros (CN): 98 títulos de periódicos com até 50 artigos cada.</p>
+            <p>Fonte: Dados da pesquisa (Florianópolis, 2022).</p>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>Quanto à nacionalidade dos periódicos, a maior concentração dos títulos ocorre na Inglaterra, nos Estados Unidos e na Holanda (Tabela <xref alt="3" rid="tbl3" ref-type="table">3</xref>), coerente com o padrão observado na cobertura geográfica dos periódicos indexados na WoS em estudos anteriores ( <xref alt="Mongeon; Paul-Hus, 2016" rid="ref-22" ref-type="bibr">Mongeon; Paul-Hus, 2016</xref>; <xref alt="Rodrigues; Salm; Neubert, 2017" rid="ref-32" ref-type="bibr">Rodrigues; Salm; Neubert, 2017</xref>). Esse resultado é também observado por Rodrigues e Stubert ( <xref alt="2015" rid="ref-33" ref-type="bibr">2015</xref>), ao analisarem os periódicos da área de Ciência da Informação na WoS, praticamente todos vinculados às grandes editoras comerciais, embora se observe, em <italic>Emerging Source Citation Index</italic>, a ampliação da cobertura geográfica dos periódicos da área ( <xref alt="Repiso, 2019" rid="ref-29" ref-type="bibr">Repiso, 2019</xref>). Zhangz e Siverstsen ( <xref alt="2020" rid="ref-44" ref-type="bibr">2020</xref>) destacam que a maioria dos artigos científicos são publicados em periódicos cujas editoras são da Holanda, do Reino Unido e dos Estados Unidos. </p>
+      <table-wrap id="tbl3">
+        <label>Tabela 3 -</label>
+        <caption>
+          <title>Distribuição do FI dos periódicos e país das publicações, presentes na WoS entre 2016 e 2021, com artigos de autores brasileiros e chineses na área da Ciência da Informação.</title>
+        </caption>
+        <table>
+          <thead align="center">
+            <tr>
+              <th align="left" rowspan="2">FI</th>
+              <th colspan="4">Total</th>
+              <th colspan="4">0– 0,9</th>
+              <th colspan="4">1– 1,9</th>
+              <th colspan="4">2– 2,9</th>
+              <th colspan="4">3–3,9</th>
+              <th colspan="4">4– 4,9</th>
+              <th colspan="4">5– 5,9</th>
+              <th colspan="4">6– 6,9</th>
+              <th colspan="4">7– 14,9</th>
+            </tr>
+            <tr>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+              <th colspan="2">Brasil</th>
+              <th colspan="2">China</th>
+            </tr>
+            <tr>
+              <th align="left">País</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+              <th>n</th>
+              <th>%</th>
+            </tr>
+          </thead>
+          <tbody align="center">
+            <tr>
+              <td align="left">ENG</td>
+              <td>36</td>
+              <td>36</td>
+              <td>50</td>
+              <td>41</td>
+              <td>13</td>
+              <td>13</td>
+              <td>25</td>
+              <td>21</td>
+              <td>6</td>
+              <td>6,1</td>
+              <td>7</td>
+              <td>5,7</td>
+              <td>5</td>
+              <td>5</td>
+              <td>5</td>
+              <td>4</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>3</td>
+              <td>4</td>
+              <td>3</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>2</td>
+              <td>3</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td align="left">EU</td>
+              <td>22</td>
+              <td>22</td>
+              <td>41</td>
+              <td>34</td>
+              <td>9</td>
+              <td>9,1</td>
+              <td>13</td>
+              <td>11</td>
+              <td>4</td>
+              <td>4</td>
+              <td>8</td>
+              <td>6,6</td>
+              <td>3</td>
+              <td>3</td>
+              <td>6</td>
+              <td>5</td>
+              <td>1</td>
+              <td>1</td>
+              <td>3</td>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+              <td>4</td>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+              <td>4</td>
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td align="left">NL</td>
+              <td>10</td>
+              <td>10</td>
+              <td>10</td>
+              <td>8,2</td>
+              <td>4</td>
+              <td>4</td>
+              <td>4</td>
+              <td>3,3</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td align="left">ES</td>
+              <td>9</td>
+              <td>9,1</td>
+              <td>2</td>
+              <td>1,6</td>
+              <td>7</td>
+              <td>7,1</td>
+              <td>–</td>
+              <td>–</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>0,8</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">BR</td>
+              <td>8</td>
+              <td>8,1</td>
+              <td>–</td>
+              <td/>
+              <td>8</td>
+              <td>8,1</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">IN</td>
+              <td>4</td>
+              <td>4</td>
+              <td>3</td>
+              <td>2,5</td>
+              <td>4</td>
+              <td>4</td>
+              <td>3</td>
+              <td>2,5</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">DE</td>
+              <td>2</td>
+              <td>2</td>
+              <td>3</td>
+              <td>2,5</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>1,6</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <td>0,8</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">CA</td>
+              <td>–</td>
+              <td/>
+              <td>3</td>
+              <td>2,5</td>
+              <td>–</td>
+              <td>–</td>
+              <td>2</td>
+              <td>1,6</td>
+              <td>–</td>
+              <td>–</td>
+              <td>1</td>
+              <td>0,8</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">Outros*</td>
+              <td>8</td>
+              <td>8,1</td>
+              <td>10</td>
+              <td>8,2</td>
+              <td>8</td>
+              <td>8,1</td>
+              <td>9</td>
+              <td>7,4</td>
+              <td>–</td>
+              <td>–</td>
+              <td>1</td>
+              <td>0,8</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td align="left">Total</td>
+              <td>99</td>
+              <td>100</td>
+              <td>122</td>
+              <td>100</td>
+              <td>54</td>
+              <td>55</td>
+              <td>58</td>
+              <td>48</td>
+              <td>12</td>
+              <td>12</td>
+              <td>19</td>
+              <td>16</td>
+              <td>9</td>
+              <td>9</td>
+              <td>12</td>
+              <td>10</td>
+              <td>5</td>
+              <td>5</td>
+              <td>7</td>
+              <td>6</td>
+              <td>5</td>
+              <td>5</td>
+              <td>9</td>
+              <td>7</td>
+              <td>4</td>
+              <td>4</td>
+              <td>7</td>
+              <td>6</td>
+              <td>4</td>
+              <td>4</td>
+              <td>3</td>
+              <td>3</td>
+              <td>6</td>
+              <td>6</td>
+              <td>7</td>
+              <td>6</td>
+            </tr>
+          </tbody>
+        </table>
+        <table-wrap-foot>
+          <p>Fonte: Dados da pesquisa (Florianópolis, 2022).</p>
+          <p>Outros* (BR): 8 países (China, Costa Rica, Cuba, Grécia, Itália, México, Polônia e Singapura) com até 1 título de periódico cada e cujo FI era de no máximo 0,4.</p>
+          <p>Outros* (CN): 10 países (Brasil, China, Grécia, Malásia, Nigéria, Polônia, Suécia, Singapura, Taiwan e África do Sul) com até 1 título de periódico cada e cujo FI era de no máximo 1,2.</p>
+        </table-wrap-foot>
+      </table-wrap>
+      <p>Comparativamente, é possível perceber distintos comportamentos e estratégia de indexação na WoS: na brasileira, nota-se o aumento da produção pela indexação de seus periódicos na base ( <xref alt="Neubert, 2020" rid="ref-25" ref-type="bibr">Neubert, 2020</xref>); e na chinesa, nota-se o aumento da produção pela publicação em periódicos já indexados em <italic>WoS</italic>, justificada inclusive pela dificuldade em indexar periódicos editados em países tradicionalmente fora da mainstream science ( <xref alt="Guédon, 2011" rid="ref-12" ref-type="bibr">Guédon, 2011</xref>). Tal comportamento implica a avaliação da produção científica pela associação do FI às publicações. Na Tabela <xref alt="3" rid="tbl3" ref-type="table">3</xref>, observa-se que 54,5% dos periódicos com publicações brasileiras e 47,5% dos chineses têm fator de impacto menor que 1, ocorrência comum na área das Ciências Sociais Aplicadas e na CI ( <xref alt="Repiso, 2019" rid="ref-29" ref-type="bibr">Repiso, 2019</xref>). Também se observa que os maiores FI são de periódicos editados na Inglaterra, nos EUA e na Holanda, tradicionais sedes de editores comerciais que têm sua produção indexada em <italic>WoS</italic>, conforme observado em uma série de estudos anteriores ( <xref alt="Pinto; Matias; Moreiro-González, 2016" rid="ref-28" ref-type="bibr">Pinto; Matias; Moreiro-González, 2016</xref>; <xref alt="Repiso, 2019" rid="ref-29" ref-type="bibr">Repiso, 2019</xref>; <xref alt="Rodrigues; Neubert; Araújo, 2020" rid="ref-31" ref-type="bibr">Rodrigues; Neubert; Araújo, 2020</xref>). Comparativamente, a produção chinesa é publicada em periódicos com FI mais elevados do que a brasileira, conforme os dados da Tabela <xref alt="3" rid="tbl3" ref-type="table">3</xref>. </p>
+      <p>A identificação das editoras que publicam os periódicos nos quais os artigos brasileiros e chineses na área de CI indexados na WoS são publicados permitiu constatar um padrão já identificado em outros estudos ( <xref alt="Rodrigues; Stubert, 2015" rid="ref-33" ref-type="bibr">Rodrigues; Stubert, 2015</xref>; <xref alt="Rodrigues; Salm; Neubert, 2017" rid="ref-32" ref-type="bibr">Rodrigues; Salm; Neubert, 2017</xref>; <xref alt="Björk; Korkeamäki, 2020" rid="ref-5" ref-type="bibr">Björk; Korkeamäki, 2020</xref>; <xref alt="Rodrigues; Neubert; Araújo, 2020" rid="ref-31" ref-type="bibr">Rodrigues; Neubert; Araújo, 2020</xref>), com a maioria dos títulos ligados às grandes editoras comerciais, responsáveis por 65 (65,7%) e 94 (77%) títulos com artigos de autores brasileiros e chineses, respectivamente. </p>
+      <p>As editoras comerciais são também as entidades editoriais que mais publicam artigos de autores chineses (4072), sendo 92,3% do total de publicações. Por outro lado, com 1450 (72,3%) artigos, as publicações de autores brasileiros da CI seguem o padrão identificado por Rodrigues, Neubert e Araújo ( <xref alt="2020" rid="ref-31" ref-type="bibr">2020</xref>): concentram-se majoritariamente em editoras universitárias. Cabe destacar que as editoras comerciais publicam quase 10 vezes mais artigos de autores chineses do que de brasileiros, sendo certo que o total de publicações é pouco mais do que o dobro. </p>
+      <p>Observa-se também na Tabela <xref alt="4" rid="tbl4" ref-type="table">4</xref> uma situação comum na produção indexada em bases de dados internacionais: a liderança da <italic>Elsevier</italic> ( <xref alt="Larivière; Haustein; Mongeon, 2015" rid="ref-16" ref-type="bibr">Larivière; Haustein; Mongeon, 2015</xref>; <xref alt="Stoy; Morais; Borrell-Damián, 2019" rid="ref-39" ref-type="bibr">Stoy; Morais; Borrell-Damián, 2019</xref>; <xref alt="Rodrigues; Neubert; Araújo, 2020" rid="ref-31" ref-type="bibr">Rodrigues; Neubert; Araújo, 2020</xref>). Essa empresa é responsável por 1132 artigos das publicações de autores chineses, o que equivale a 25,7% do total da amostra. A Elsevier publica 97 (4,8%) dos artigos de autores brasileiros, ficando atrás da Springer, que concentra 113 (5,6%) publicações de autores com vínculo brasileiro, abrigando um percentual menor de periódicos (6,1%) em relação à Elsevier (11,1%). </p>
+      <p>
+        <table-wrap id="tbl4">
+          <label>Tabela 4 -</label>
+          <caption>
+            <title>Distribuição, por tipo de editora, dos artigos e periódicos indexados na WoS entre 2016 e 2021 de autores brasileiros e chineses da Ciência da Informação.</title>
+          </caption>
+          <table>
+            <thead>
+              <tr>
+                <th align="left" rowspan="2">Tipo</th>
+                <th rowspan="2">País</th>
+                <th rowspan="2">Editora</th>
+                <th colspan="4">Brasil</th>
+                <th colspan="4">China</th>
+              </tr>
+              <tr>
+                <th colspan="2">Artigos</th>
+                <th colspan="2">Periódicos</th>
+                <th colspan="2">Artigos</th>
+                <th colspan="2">Periódicos</th>
+              </tr>
+              <tr>
+                <th colspan="3"/>
+                <th align="left">n</th>
+                <th>%</th>
+                <th>n</th>
+                <th>%</th>
+                <th align="left">n</th>
+                <th>%</th>
+                <th>n</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody align="center">
+              <tr>
+                <td align="left" rowspan="8">Comercial</td>
+                <td>NL</td>
+                <td>Elsevier</td>
+                <td>97</td>
+                <td>4,8</td>
+                <td>11</td>
+                <td>11,1</td>
+                <td>1132</td>
+                <td>25,7</td>
+                <td>11</td>
+                <td>9,0</td>
+              </tr>
+              <tr>
+                <td align="left">UK</td>
+                <td>Emerald</td>
+                <td>84</td>
+                <td>4,2</td>
+                <td>19</td>
+                <td>19,2</td>
+                <td>958</td>
+                <td>21,7</td>
+                <td>23</td>
+                <td>18,9</td>
+              </tr>
+              <tr>
+                <td align="left">DE</td>
+                <td>Springer</td>
+                <td>113</td>
+                <td>5,6</td>
+                <td>6</td>
+                <td>6,1</td>
+                <td>554</td>
+                <td>12,6</td>
+                <td>7</td>
+                <td>5,7</td>
+              </tr>
+              <tr>
+                <td align="left">UK</td>
+                <td>Taylor&amp;Francis</td>
+                <td>41</td>
+                <td>2,0</td>
+                <td>5</td>
+                <td>5,1</td>
+                <td>514</td>
+                <td>11,7</td>
+                <td>19</td>
+                <td>15,6</td>
+              </tr>
+              <tr>
+                <td align="left">US</td>
+                <td>Sage</td>
+                <td>26</td>
+                <td>1,3</td>
+                <td>7</td>
+                <td>7,1</td>
+                <td>246</td>
+                <td>5,6</td>
+                <td>8</td>
+                <td>6,6</td>
+              </tr>
+              <tr>
+                <td align="left">US</td>
+                <td>Wiley</td>
+                <td>25</td>
+                <td>1,2</td>
+                <td>3</td>
+                <td>3,0</td>
+                <td>209</td>
+                <td>4,7</td>
+                <td>4</td>
+                <td>3,3</td>
+              </tr>
+              <tr>
+                <td align="left">US</td>
+                <td>IGI Global</td>
+                <td>11</td>
+                <td>0,5</td>
+                <td>5</td>
+                <td>5,1</td>
+                <td>194</td>
+                <td>4,4</td>
+                <td>7</td>
+                <td>5,7</td>
+              </tr>
+              <tr>
+                <td/>
+                <td>Outras Com.(13)</td>
+                <td>76</td>
+                <td>3,8</td>
+                <td>9</td>
+                <td>9,1</td>
+                <td>265</td>
+                <td>6,0</td>
+                <td>15</td>
+                <td>12,3</td>
+              </tr>
+              <tr>
+                <td align="center" colspan="3">Parcial Comercial</td>
+                <td>473</td>
+                <td>23,6</td>
+                <td>65</td>
+                <td>65,7</td>
+                <td>4072</td>
+                <td>92,3</td>
+                <td>94</td>
+                <td>77,0</td>
+              </tr>
+              <tr>
+                <td rowspan="7">Universitária</td>
+                <td>BR</td>
+                <td>UFRGS</td>
+                <td>279</td>
+                <td>13,9</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>UFPB</td>
+                <td>225</td>
+                <td>11,2</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>UFMG</td>
+                <td>221</td>
+                <td>11,0</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>UFSC</td>
+                <td>192</td>
+                <td>9,6</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>UnB</td>
+                <td>162</td>
+                <td>8,1</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>PUC–Campinas</td>
+                <td>108</td>
+                <td>5,4</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>2</td>
+                <td>–</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td/>
+                <td>Outras Uni.(24)</td>
+                <td>263</td>
+                <td>13,1</td>
+                <td>20</td>
+                <td>20,2</td>
+                <td>249</td>
+                <td>5,6</td>
+                <td>15</td>
+                <td>12,3</td>
+              </tr>
+              <tr>
+                <td colspan="3">Parcial Universitária</td>
+                <td>1450</td>
+                <td>72,3</td>
+                <td>26</td>
+                <td>26,3</td>
+                <td>251</td>
+                <td>5,7</td>
+                <td>16</td>
+                <td>13,1</td>
+              </tr>
+              <tr>
+                <td rowspan="7">Associação</td>
+                <td>US</td>
+                <td>AssocInformSyst</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>57</td>
+                <td>1,3</td>
+                <td>3</td>
+                <td>2,5</td>
+              </tr>
+              <tr>
+                <td>BR</td>
+                <td>AssocSerArqNac</td>
+                <td>44</td>
+                <td>2,2</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>US</td>
+                <td>AssocCompMach</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>9</td>
+                <td>0,2</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td>GR</td>
+                <td>ISAST</td>
+                <td>5</td>
+                <td>0,2</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>2</td>
+                <td>–</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td>US</td>
+                <td>AmerLibAssoc</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>8</td>
+                <td>0,2</td>
+                <td>2</td>
+                <td>1,6</td>
+              </tr>
+              <tr>
+                <td>US</td>
+                <td>AssocCollResLib</td>
+                <td>1</td>
+                <td>–</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>4</td>
+                <td>0,1</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td>US</td>
+                <td>AmAssocLawLib</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>1</td>
+                <td>–</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td colspan="3">Parcial Associação</td>
+                <td>50</td>
+                <td>2,5</td>
+                <td>3</td>
+                <td>3,0</td>
+                <td>81</td>
+                <td>1,8</td>
+                <td>9</td>
+                <td>7,4</td>
+              </tr>
+              <tr>
+                <td rowspan="4">Governo</td>
+                <td>CU</td>
+                <td>BNCJM</td>
+                <td>13</td>
+                <td>0,6</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>ES</td>
+                <td>CSIC</td>
+                <td>9</td>
+                <td>0,4</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>1</td>
+                <td>–</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td>IN</td>
+                <td>NISCAIR</td>
+                <td>1</td>
+                <td>0,0</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>2</td>
+                <td>–</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td>IN</td>
+                <td>DESIDOC</td>
+                <td>1</td>
+                <td>0,0</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td colspan="3">Parcial Governo</td>
+                <td>24</td>
+                <td>1,2</td>
+                <td>4</td>
+                <td>4,0</td>
+                <td>3</td>
+                <td>0,1</td>
+                <td>2</td>
+                <td>1,6</td>
+              </tr>
+              <tr>
+                <td align="left">Outros</td>
+                <td>IN</td>
+                <td>PHCOGNET</td>
+                <td>8</td>
+                <td>0,4</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>5</td>
+                <td>0,1</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td colspan="3">Parcial/Outros</td>
+                <td>8</td>
+                <td>0,4</td>
+                <td>1</td>
+                <td>1,0</td>
+                <td>5</td>
+                <td>0,1</td>
+                <td>1</td>
+                <td>0,8</td>
+              </tr>
+              <tr>
+                <td align="left">Total</td>
+                <td/>
+                <td/>
+                <td>2005</td>
+                <td>100</td>
+                <td>99</td>
+                <td>100</td>
+                <td>4412</td>
+                <td>100</td>
+                <td>122</td>
+                <td>100</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <p>Fonte: Dados da pesquisa (Florianópolis, 2022).</p>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>Toda a produção de artigos de autores da China indexados na WoS é publicada por editoras de outros países. Esse resultado remete à observação feita por Zhangz e Siverstsen ( <xref alt="2020" rid="ref-44" ref-type="bibr">2020</xref>), que apontam que, apesar de a China ser atualmente o país líder em produção científica em todas as áreas do conhecimento na <italic>WoS</italic>, tem poucos títulos indexados na <italic>Web of Science</italic>. De acordo com a lista de 2021 do <italic>Journal Citation Reports</italic> ( <italic>JCR</italic>), as editoras brasileiras publicam 410 (1,9%) títulos, o que representa 1,9% do total de 21.428 periódicos presentes na <italic>WoS</italic>. Nesse mesmo ano, 403 (1,9%) periódicos eram provenientes de editoras da China ( <xref alt="Clarivate Analytics, 2022" rid="ref-6" ref-type="bibr">Clarivate Analytics, 2022</xref>). </p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Conclusão</title>
+      <p>O levantamento dos dados referente à publicação científica de autores com vínculo institucional brasileiro e chinês na área da Ciência da Informação mostrou o modelo de publicação fomentado no Brasil com percentual importante de títulos brasileiros e em português, sendo evidente ainda que a China tem prioridade de publicação no idioma inglês e em títulos estrangeiros.</p>
+      <p>Nos dois modelos a política pública de internacionalização científica do país se materializa no reconhecimento do trabalho dos cientistas que publicam em inglês em periódicos com alto Fator de Impacto (a maioria de propriedade dos oligopólios comerciais), o que se reflete nas escolhas dos pesquisadores. Trata-se de duas alternativas de internacionalização que podem geram consequências importantes para a segurança do acesso às suas próprias publicações. Os pesquisadores chineses publicam o dobro de artigos do que os brasileiros e praticamente todos no idioma inglês e em títulos por subscrição publicados pelas grandes editoras comerciais transnacionais que compõem o oligopólio dominando a publicação da ciência em praticamente todas as áreas e em todos os países. O modelo brasileiro se materializa em duas ações concomitantes: a publicação de artigos em títulos dos grandes oligopólios e no investimento em periódicos próprios de qualidade (indexados na <italic>WoS</italic>), muitos com publicações também em inglês, com o suporte essencial do SciELO, que atua também como um indexador. </p>
+      <p>Além das alternativas de subscrição e do acesso aberto dourado e diamante, deve-se considerar que, para trabalhos futuros, a emergência dos acordos transformadores e suas consequências ainda não são suficientemente identificadas e mensuradas, em acordos que devem ter causas de sigilo como os <italic>Big Deals</italic>, dos quais derivam. </p>
+      <p>Considerando as publicações de autores brasileiros e chineses da Ciência da Informação, a análise das editoras por país não identificou periódicos ou editoras chinesas na área da Ciência da Informação. A distribuição dos artigos e periódicos mostrou que, em relação às publicações de autores brasileiros, mesmo as editoras comerciais sendo responsáveis pelo maior número de títulos (65,7%), a maioria (72,3%) dos artigos de autores brasileiros são publicados por editoras universitárias e brasileiras. No caso da China, os artigos (92,3%) e títulos (77,0%) concentram-se em editoras comerciais.</p>
+      <p>Conclui-se que o domínio em publicações de Acesso Aberto, característica comum do Brasil, contrasta com a realidade da China que, apesar de protagonista no quesito produção científica em Ciência da Informação, concentra as publicações de autores chineses nas mãos das editoras comerciais, reforçando, assim, a dependência do sistema dos oligopólios editoriais, comprometendo a própria segurança da ciência que produz.</p>
+    </sec>
+  </body>
+  <back>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="ref-1">
+        <mixed-citation>Abadal, E. Ciencia abierta: un modelo con piezas por encajar. Arbor, v. 197, n. 799, p. a588, 2021. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3989/arbor.2021.799003">https://doi.org/10.3989/arbor.2021.799003</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Abadal</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <article-title>Ciencia abierta: un modelo con piezas por encajar</article-title>
+          <source>Arbor</source>
+          <year iso-8601-date="2021">2021</year>
+          <volume>197</volume>
+          <issue>799</issue>
+          <pub-id pub-id-type="doi">10.3989/arbor.2021.799003</pub-id>
+          <elocation-id>a588</elocation-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-2">
+        <mixed-citation>Alcadipani, R. Periódicos brasileiros em inglês: a mímica do publish or perish “global”. Revista de Administração de Empresas, v. 57, n. 4, p. 405-41, 2017. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S0034-759020170410">https://doi.org/10.1590/S0034-759020170410</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Alcadipani</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <article-title>Periódicos brasileiros em inglês: a mímica do publish or perish “global”</article-title>
+          <source>Revista de Administração de Empresas</source>
+          <year iso-8601-date="2017">2017</year>
+          <volume>57</volume>
+          <issue>4</issue>
+          <pub-id pub-id-type="doi">10.1590/S0034-759020170410</pub-id>
+          <fpage>405</fpage>
+          <lpage>41</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-3">
+        <mixed-citation>Arboit, A. E.; Bufrem, L. S.; González, J. A. M. A produção brasileira em Ciência da Informação no exterior como reflexo de institucionalização científica. Perspectivas em Ciência da Informação, v. 16, n. 3, p. 75-92, 2011. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://periodicos.ufmg.br/index.php/pci/article/view/22448">https://periodicos.ufmg.br/index.php/pci/article/view/22448</ext-link> </comment>. Acesso em: 20 out. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Arboit</surname>
+              <given-names>A. E.</given-names>
+            </name>
+            <name>
+              <surname>Bufrem</surname>
+              <given-names>L. S.</given-names>
+            </name>
+            <name>
+              <surname>González</surname>
+              <given-names>J. A. M.</given-names>
+            </name>
+          </person-group>
+          <article-title>A produção brasileira em Ciência da Informação no exterior como reflexo de institucionalização científica</article-title>
+          <source>Perspectivas em Ciência da Informação</source>
+          <year iso-8601-date="2011">2011</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-10-20">Acesso em: 20 out. 2022</date-in-citation>
+          <volume>16</volume>
+          <issue>3</issue>
+          <fpage>75</fpage>
+          <lpage>92</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://periodicos.ufmg.br/index.php/pci/article/view/22448">https://periodicos.ufmg.br/index.php/pci/article/view/22448</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-4">
+        <mixed-citation>Babini, D.; Rovelli, L. Tendencias recientes em las políticas científicas de ciência abierta y acceso abierto em Iberoamérica. Ciudad Autónoma de Buenos Aires: CLACSO; Fundación Carolina, 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.fundacioncarolina.es/wp-content/uploads/2020/12/Ciencia-Abierta.pdf">https://www.fundacioncarolina.es/wp-content/uploads/2020/12/Ciencia-Abierta.pdf</ext-link> </comment>. Acesso em: 2 fev. 2021. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Babini</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Rovelli</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <source>Tendencias recientes em las políticas científicas de ciência abierta y acceso abierto em Iberoamérica</source>
+          <publisher-name>CLACSO; Fundación Carolina</publisher-name>
+          <publisher-loc>Ciudad Autónoma de Buenos Aires</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.fundacioncarolina.es/wp-content/uploads/2020/12/Ciencia-Abierta.pdf">https://www.fundacioncarolina.es/wp-content/uploads/2020/12/Ciencia-Abierta.pdf</ext-link> </comment>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-02-02">Acesso em: 2 fev. 2021</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="ref-5">
+        <mixed-citation>Björk, B-C.; Korkeamäki, T. Adoption of the Open Access Business Model in Scientific Journal Publishing: A Cross-disciplinary Study. College &amp; Research Libraries, v. 81, n. 7, p. 1080-1094, 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://crl.acrl.org/index.php/crl/article/view/24671">https://crl.acrl.org/index.php/crl/article/view/24671</ext-link> </comment>. Acesso em: 29 jun. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Björk</surname>
+              <given-names>B-C.</given-names>
+            </name>
+            <name>
+              <surname>Korkeamäki</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <article-title>Adoption of the Open Access Business Model in Scientific Journal Publishing: A Cross-disciplinary Study</article-title>
+          <source>College &amp; Research Libraries</source>
+          <year iso-8601-date="2020">2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-06-29">Acesso em: 29 jun. 2021</date-in-citation>
+          <volume>81</volume>
+          <issue>7</issue>
+          <fpage>1080</fpage>
+          <lpage>1094</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://crl.acrl.org/index.php/crl/article/view/24671">https://crl.acrl.org/index.php/crl/article/view/24671</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-6">
+        <mixed-citation>Clarivate Analytics. 2021 Journal Citation Reports. 2022. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://jcr-clarivate.ez46.periodicos.capes.gov.br/jcr/browse-journals">https://jcr-clarivate.ez46.periodicos.capes.gov.br/jcr/browse-journals</ext-link> </comment>. Acesso em: 7 out. 2021. </mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>Clarivate Analytics</collab>
+          </person-group>
+          <source>2021 Journal Citation Reports</source>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://jcr-clarivate.ez46.periodicos.capes.gov.br/jcr/browse-journals">https://jcr-clarivate.ez46.periodicos.capes.gov.br/jcr/browse-journals</ext-link> </comment>
+          <year iso-8601-date="2022">2022</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-10-07">Acesso em: 7 out. 2021</date-in-citation>
+        </element-citation>
+      </ref>
+      <ref id="ref-7">
+        <mixed-citation>Creswell, J. W. Investigação qualitativa e projeto de pesquisa: escolhendo entre cinco abordagens. 3. ed. Porto Alegre: Penso, 2014.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Creswell</surname>
+              <given-names>J. W.</given-names>
+            </name>
+          </person-group>
+          <source>Investigação qualitativa e projeto de pesquisa: escolhendo entre cinco abordagens</source>
+          <publisher-name>Penso</publisher-name>
+          <publisher-loc>Porto Alegre</publisher-loc>
+          <year iso-8601-date="2014">2014</year>
+          <edition>3</edition>
+        </element-citation>
+      </ref>
+      <ref id="ref-8">
+        <mixed-citation>Di Bitetti, M. S.; Ferreras, J. A. Publish (in English) or perish: the effect on citation rate of using languages other than English in scientific publications. Ambio, v. 46, n. 1, p. 121-127, 2017. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://link.springer.com/article/10.1007/s13280-016-0820-7">https://link.springer.com/article/10.1007/s13280-016-0820-7</ext-link> </comment>. Acesso em: 10 abr. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Di Bitetti</surname>
+              <given-names>M. S.</given-names>
+            </name>
+            <name>
+              <surname>Ferreras</surname>
+              <given-names>J. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Publish (in English) or perish: The effect on citation rate of using languages other than English in scientific publications</article-title>
+          <source>Ambio</source>
+          <year iso-8601-date="2017">2017</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-04-10">Acesso em: 10 abr. 2021</date-in-citation>
+          <volume>46</volume>
+          <issue>1</issue>
+          <fpage>121</fpage>
+          <lpage>127</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://link.springer.com/article/10.1007/s13280-016-0820-7">https://link.springer.com/article/10.1007/s13280-016-0820-7</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-9">
+        <mixed-citation>Feitosa, A. L. F. et al. Analysis of Brazilian scientific production in Orofacial Motricity. Revista CEFAC, v. 22, n. 5, e3520, p. 1-9, 2020. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1982-0216/20202253520">https://doi.org/10.1590/1982-0216/20202253520</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Feitosa</surname>
+              <given-names>A. L. F.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Analysis of Brazilian scientific production in Orofacial Motricity</article-title>
+          <source>Revista CEFAC</source>
+          <year iso-8601-date="2020">2020</year>
+          <volume>22</volume>
+          <issue>5</issue>
+          <pub-id pub-id-type="doi">10.1590/1982-0216/20202253520</pub-id>
+          <elocation-id>e3520</elocation-id>
+        </element-citation>
+      </ref>
+      <ref id="ref-10">
+        <mixed-citation>Filippo, D. O que o brasil publica em biblioteconomia e documentação? estudo da produção internacional e análise de clusters bibliográficos (web of science 2000-2014). Em Questão, v. 21, n. 3, p. 43-63, 2015. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://seer.ufrgs.br/index.php/EmQuestao/article/view/58382">https://seer.ufrgs.br/index.php/EmQuestao/article/view/58382</ext-link> </comment>. Acesso em: 8 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Filippo</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <article-title>O que o brasil publica em biblioteconomia e documentação? estudo da produção internacional e análise de clusters bibliográficos (web of science 2000-2014)</article-title>
+          <source>Em Questão</source>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-08">Acesso em: 8 nov. 2022</date-in-citation>
+          <volume>21</volume>
+          <issue>3</issue>
+          <fpage>43</fpage>
+          <lpage>63</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://seer.ufrgs.br/index.php/EmQuestao/article/view/58382">https://seer.ufrgs.br/index.php/EmQuestao/article/view/58382</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-11">
+        <mixed-citation>Gingras, Y. The transformation of the scientific paper: from knowledge to accounting unit. In: Biagioli, M.; Lippman, A. Gaming the metrics: misconduct and manipulation in academic research. Cambridge: MIT Press, 2020. p. 43-55. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://direct.mit.edu/books/book/4598/chapter/211130/The-Transformation-of-the-Scientific-Paper-From">https://direct.mit.edu/books/book/4598/chapter/211130/The-Transformation-of-the-Scientific-Paper-From</ext-link> </comment>. Acesso em: 4 jun. 2022. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gingras</surname>
+              <given-names>Y.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>The transformation of the scientific paper: from knowledge to accounting unit</chapter-title>
+          <source>Gaming the metrics: misconduct and manipulation in academic research</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Biagioli</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Lippman</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <publisher-name>MIT Press</publisher-name>
+          <publisher-loc>Cambridge</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-06-04">Acesso em: 4 jun. 2022</date-in-citation>
+          <fpage>43</fpage>
+          <lpage>55</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://direct.mit.edu/books/book/4598/chapter/211130/The-Transformation-of-the-Scientific-Paper-From">https://direct.mit.edu/books/book/4598/chapter/211130/The-Transformation-of-the-Scientific-Paper-From</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-12">
+        <mixed-citation>Guédon, J-C. El acceso abierto y La división entre ciencia “principal” y “periférica”. Crítica y emancipación, v. 3, n. 6, p. 135-180, 2011. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://core.ac.uk/download/pdf/11889704.pdf">https://core.ac.uk/download/pdf/11889704.pdf</ext-link> </comment>. Acesso em: 10 abr. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Guédon</surname>
+              <given-names>J-C.</given-names>
+            </name>
+          </person-group>
+          <article-title>El acceso abierto y La división entre ciencia “principal” y “periférica”</article-title>
+          <source>Crítica y emancipación</source>
+          <year iso-8601-date="2011">2011</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-04-10">Acesso em: 10 abr. 2021</date-in-citation>
+          <volume>3</volume>
+          <issue>6</issue>
+          <fpage>135</fpage>
+          <lpage>180</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://core.ac.uk/download/pdf/11889704.pdf">https://core.ac.uk/download/pdf/11889704.pdf</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-13">
+        <mixed-citation>He, T.; Wang, W. Library and information science research in China: an international perspective. The International Information &amp; Library Review, v. 38, n. 4, p. 185-191, 2006. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1080/10572317.2006.10762721">https://doi.org/10.1080/10572317.2006.10762721</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>He</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Wang</surname>
+              <given-names>W.</given-names>
+            </name>
+          </person-group>
+          <article-title>Library and information science research in China: an international perspective</article-title>
+          <source>The International Information &amp; Library Review</source>
+          <year iso-8601-date="2006">2006</year>
+          <volume>38</volume>
+          <issue>4</issue>
+          <pub-id pub-id-type="doi">10.1080/10572317.2006.10762721</pub-id>
+          <fpage>185</fpage>
+          <lpage>191</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-14">
+        <mixed-citation>Hasan, N.; Singh, M. Library and information science research output: a study based on Web of Science. Collnet Journal of Scientometrics and Information Management, v. 9, n. 1, p. 47-64, 2015. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1080/09737766.2015.1027089">https://doi.org/10.1080/09737766.2015.1027089</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hasan</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name>
+              <surname>Singh</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>Library and information science research output: a study based on Web of Science</article-title>
+          <source>Collnet Journal of Scientometrics and Information Management</source>
+          <year iso-8601-date="2015">2015</year>
+          <volume>9</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1080/09737766.2015.1027089</pub-id>
+          <fpage>47</fpage>
+          <lpage>64</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-15">
+        <mixed-citation>Koshikawa, N. China passes US as world’s top researcher, showing its R&amp;D might. Nikkei Asia, Tóquio, ago., 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://asia.nikkei.com/Business/Science/China-passes-US-as-world-s-top-researcher-showing-its-R-D-might">https://asia.nikkei.com/Business/Science/China-passes-US-as-world-s-top-researcher-showing-its-R-D-might</ext-link> </comment>. Acesso em: 29 abr. 2021. </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Koshikawa</surname>
+              <given-names>N.</given-names>
+            </name>
+          </person-group>
+          <source>China passes US as world’s top researcher, showing its R&amp;D might</source>
+          <publisher-name>Nikkei Asia</publisher-name>
+          <publisher-loc>Tóquio</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+          <month>08</month>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-04-29">Acesso em: 29 abr. 2021</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://asia.nikkei.com/Business/Science/China-passes-US-as-world-s-top-researcher-showing-its-R-D-might">https://asia.nikkei.com/Business/Science/China-passes-US-as-world-s-top-researcher-showing-its-R-D-might</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-16">
+        <mixed-citation>Larivière, V.; Haustein, S.; Mongeon, P. The Oligopoly of Academic Publishers in the Digital Era. PLoS ONE, v. 10, n. 6, 2015. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502</ext-link> </comment>. Acesso em: 20 maio 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Larivière</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Haustein</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Mongeon</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <article-title>The Oligopoly of Academic Publishers in the Digital Era</article-title>
+          <source>PLoS ONE</source>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-05-20">Acesso em: 20 maio 2021</date-in-citation>
+          <volume>10</volume>
+          <issue>6</issue>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0127502</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-17">
+        <mixed-citation>Le Coadic, Y.-F. A ciência da informação. 2. ed. Brasília, DF: Briquet de Lemos, 2004.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Le Coadic</surname>
+              <given-names>Y.-F.</given-names>
+            </name>
+          </person-group>
+          <source>A ciência da informação</source>
+          <publisher-name>Briquet de Lemos</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2004">2004</year>
+          <edition>2</edition>
+        </element-citation>
+      </ref>
+      <ref id="ref-18">
+        <mixed-citation>Lopes, S.; Borges, M. M. A validação da ciência: dos processos tradicionais aos novos modelos. In: Borges, M. M.; Casado, E. S. (coord.). Sob a lente da Ciência Aberta: Olhares de Portugal, Espanha e Brasil. Coimbra: Coimbra University Press, 2021. p. 97-118. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://monographs.uc.pt/iuc/catalog/download/184/374/679-1?inline=1">http://monographs.uc.pt/iuc/catalog/download/184/374/679-1?inline=1</ext-link> </comment>. Acesso em: 16 nov. 2022. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lopes</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Borges</surname>
+              <given-names>M. M.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A validação da ciência: dos processos tradicionais aos novos modelos</chapter-title>
+          <source>Sob a lente da Ciência Aberta: Olhares de Portugal, Espanha e Brasil</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Borges</surname>
+              <given-names>M. M.</given-names>
+            </name>
+            <name>
+              <surname>Casado</surname>
+              <given-names>E. S.</given-names>
+            </name>
+          </person-group>
+          <publisher-name>Coimbra University Press</publisher-name>
+          <publisher-loc>Coimbra</publisher-loc>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-16">Acesso em: 16 nov. 2022</date-in-citation>
+          <fpage>97</fpage>
+          <lpage>118</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://monographs.uc.pt/iuc/catalog/download/184/374/679-1?inline=1">http://monographs.uc.pt/iuc/catalog/download/184/374/679-1?inline=1</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-19">
+        <mixed-citation>López-Cózar, E. D. Evaluar revistas científicas: um afán com mucho presente y passado e incierto futuro. In: Abadal, E. (org.). Revistas científicas: situación actual y retos de futuro. Barcelona: Editora da Universidade de Barcelona, 2017. p. 73-103. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://eprints.rclis.org/32132/">http://eprints.rclis.org/32132/</ext-link> </comment>. Acesso em: 18 maio 2022. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>López-Cózar</surname>
+              <given-names>E. D.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Evaluar revistas científicas: um afán com mucho presente y passado e incierto futuro</chapter-title>
+          <source>Revistas científicas: situación actual y retos de futuro</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Abadal</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <publisher-name>Editora da Universidade de Barcelona</publisher-name>
+          <publisher-loc>Barcelona</publisher-loc>
+          <year iso-8601-date="2017">2017</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-05-18">Acesso em: 18 maio 2022</date-in-citation>
+          <fpage>73</fpage>
+          <lpage>103</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://eprints.rclis.org/32132/">http://eprints.rclis.org/32132/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-20">
+        <mixed-citation>Manual de Santiago. Manual de Indicadores de Internacionalización de la Ciencia y la Tecnología. Santiago: RICYT, 2007. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.ricyt.org/manuales/doc_view/1-manual-de-santiago">http://www.ricyt.org/manuales/doc_view/1-manual-de-santiago</ext-link> </comment>. Acesso em: 10 abr. 2021. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Manual de Santiago</collab>
+          </person-group>
+          <source>Manual de Indicadores de Internacionalización de la Ciencia y la Tecnología</source>
+          <publisher-name>RICYT</publisher-name>
+          <publisher-loc>Santiago</publisher-loc>
+          <year iso-8601-date="2007">2007</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-04-10">Acesso em: 10 abr. 2021</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.ricyt.org/manuales/doc_view/1-manual-de-santiago">http://www.ricyt.org/manuales/doc_view/1-manual-de-santiago</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-21">
+        <mixed-citation>Meneghini, R.; Packer, A. L. Is there science beyond English? Initiatives to increase the quality and visibility of non-English publications might help to break down language barriers in scientific communication. EMBO Rep., v. 8, n. 2, p. 112-116, 2007. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/sj.embor.7400906">https://doi.org/10.1038/sj.embor.7400906</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Meneghini</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Packer</surname>
+              <given-names>A. L.</given-names>
+            </name>
+          </person-group>
+          <article-title>Is there science beyond English? Initiatives to increase the quality and visibility of non-English publications might help to break down language barriers in scientific communication</article-title>
+          <source>EMBO Rep</source>
+          <year iso-8601-date="2007">2007</year>
+          <volume>8</volume>
+          <issue>2</issue>
+          <pub-id pub-id-type="doi">10.1038/sj.embor.7400906</pub-id>
+          <fpage>112</fpage>
+          <lpage>116</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-22">
+        <mixed-citation>Mongeon, P.; Paul-Hus, A. The journal coverage of Web of Science and Scopus: a comparative analysis. Scientometrics, v. 106, n. 1, p. 213-228, 2016. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1007/s11192-015-1765-5">https://doi.org/10.1007/s11192-015-1765-5</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mongeon</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>Paul-Hus</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <article-title>The journal coverage of Web of Science and Scopus: A comparative analysis</article-title>
+          <source>Scientometrics</source>
+          <year iso-8601-date="2016">2016</year>
+          <volume>106</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1007/s11192-015-1765-5</pub-id>
+          <fpage>213</fpage>
+          <lpage>228</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-23">
+        <mixed-citation>National Science Board. Science and engineering indicators 2018. Alexandria: National Science Foundation (NSB-2018-1), 2018. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.nsf.gov/statistics/2018/nsb20181/report/sections/overview/research-publications">https://www.nsf.gov/statistics/2018/nsb20181/report/sections/overview/research-publications</ext-link> </comment>. Acesso em: 25 maio 2021. </mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>National Science Board</collab>
+          </person-group>
+          <source>Science and engineering indicators 2018</source>
+          <publisher-name>National Science Foundation (NSB-2018-1)</publisher-name>
+          <publisher-loc>Alexandria</publisher-loc>
+          <year iso-8601-date="2018">2018</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-05-25">Acesso em: 25 maio 2021</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.nsf.gov/statistics/2018/nsb20181/report/sections/overview/research-publications">https://www.nsf.gov/statistics/2018/nsb20181/report/sections/overview/research-publications</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-24">
+        <mixed-citation>Negri, F. Políticas Públicas para Ciência e Tecnologia no Brasil: cenário e evolução recente. IPEA, 2021. (Nota Técnica, nº 92). <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.ipea.gov.br/portal/images/stories/PDFs/pubpreliminar/210825_publicacao_preliminar_nt_politicas_publicas_para_ciencia_e_tecnoogia.pdf">https://www.ipea.gov.br/portal/images/stories/PDFs/pubpreliminar/210825_publicacao_preliminar_nt_politicas_publicas_para_ciencia_e_tecnoogia.pdf</ext-link> </comment>. Acesso em: 20 out. 2022. </mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Negri</surname>
+              <given-names>F.</given-names>
+            </name>
+          </person-group>
+          <source>Políticas Públicas para Ciência e Tecnologia no Brasil: cenário e evolução recente</source>
+          <publisher-name>IPEA</publisher-name>
+          <year iso-8601-date="2021">2021</year>
+          <comment>Nota Técnica, nº 92</comment>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-10-20">Acesso em: 20 out. 2022</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.ipea.gov.br/portal/images/stories/PDFs/pubpreliminar/210825_publicacao_preliminar_nt_politicas_publicas_para_ciencia_e_tecnoogia.pdf">https://www.ipea.gov.br/portal/images/stories/PDFs/pubpreliminar/210825_publicacao_preliminar_nt_politicas_publicas_para_ciencia_e_tecnoogia.pdf</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-25">
+        <mixed-citation>Neubert, P. S. Publicação Científica em Títulos Mainstream: a situação latino-americana. 2020. 178 p. Tese (Doutorado em Ciência da Informação) – Universidade Federal de Santa Catarina, Florianópolis, 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/handle/123456789/215962">https://repositorio.ufsc.br/handle/123456789/215962</ext-link> </comment>. Acesso em: 20 out. 2022. </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Neubert</surname>
+              <given-names>P. S.</given-names>
+            </name>
+          </person-group>
+          <source>Publicação Científica em Títulos Mainstream: a situação latino-americana. 2020</source>
+          <size units="pages">178</size>
+          <comment content-type="degree">Doutorado em Ciência da Informação</comment>
+          <publisher-name>Universidade Federal de Santa Catarina</publisher-name>
+          <publisher-loc>Florianópolis</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-10-20">Acesso em: 20 out. 2022</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufsc.br/handle/123456789/215962">https://repositorio.ufsc.br/handle/123456789/215962</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-26">
+        <mixed-citation>Packer, A. L.; Meneghini, R. Visibilidade da produção científica. In: Población, D. A.; Witter, G. P.; Silva, J. F. M. Da. Comunicação e produção científica: contexto, indicadores, avaliação. São Paulo: Angellara, 2006. cap. 9. p. 235-259.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Packer</surname>
+              <given-names>A. L.</given-names>
+            </name>
+            <name>
+              <surname>Meneghini</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Visibilidade da produção científica</chapter-title>
+          <source>Comunicação e produção científica: contexto, indicadores, avaliação</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Población</surname>
+              <given-names>D. A.</given-names>
+            </name>
+            <name>
+              <surname>Witter</surname>
+              <given-names>G. P.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>J. F. M. Da</given-names>
+            </name>
+          </person-group>
+          <publisher-name>Angellara</publisher-name>
+          <publisher-loc>São Paulo</publisher-loc>
+          <year iso-8601-date="2006">2006</year>
+          <volume>cap. 9</volume>
+          <fpage>235</fpage>
+          <lpage>259</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-27">
+        <mixed-citation>Pinfield, S. et al. Open access: beginnings and developments. In: Open Access in Theory and Practice investigates: the theory-practice relationship and openness. Londres: Routledge, 2020. cap. 1, p. 13-30. Doi: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.4324/9780429276842">https://doi.org/10.4324/9780429276842</ext-link> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pinfield</surname>
+              <given-names>S.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <chapter-title>Open access: beginnings and developments</chapter-title>
+          <source>Open Access in Theory and Practice investigates: the theory-practice relationship and openness</source>
+          <publisher-name>Routledge</publisher-name>
+          <publisher-loc>Londres</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+          <volume>cap. 1</volume>
+          <pub-id pub-id-type="doi">10.4324/9780429276842</pub-id>
+          <fpage>13</fpage>
+          <lpage>30</lpage>
+        </element-citation>
+      </ref>
+      <ref id="ref-28">
+        <mixed-citation>Pinto, A. L.; Matias, M.; Moreiro-González, J. A. Produção da ciência da informação na Web of Science entre 1994 e 2013 e a lista Qualis/Capes da área. Ibersid: Revista de Sistemas de Información y Documentación, v. 10, n. 1, p. 51-61, 2016. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/20.500.11959/brapci/167792">http://hdl.handle.net/20.500.11959/brapci/167792</ext-link> </comment>. Acesso em: 8 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pinto</surname>
+              <given-names>A. L.</given-names>
+            </name>
+            <name>
+              <surname>Matias</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Moreiro-González</surname>
+              <given-names>J. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Produção da ciência da informação na Web of Science entre 1994 e 2013 e a lista Qualis/Capes da área</article-title>
+          <source>Ibersid: Revista de Sistemas de Información y Documentación</source>
+          <year iso-8601-date="2016">2016</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-08">Acesso em: 8 nov. 2022</date-in-citation>
+          <volume>10</volume>
+          <issue>1</issue>
+          <fpage>51</fpage>
+          <lpage>61</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://hdl.handle.net/20.500.11959/brapci/167792">http://hdl.handle.net/20.500.11959/brapci/167792</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-29">
+        <mixed-citation>Repiso, R. Impacto de las revistas emergentes de Bibliotecología y Ciencia de la Información en Web of Science (2017). Bibliotecas. Anales de Investigación, v. 15, n. 1, p. 126-129, 2019. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/111622">https://brapci.inf.br/index.php/res/v/111622</ext-link> </comment>. Acesso em: 18 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Repiso</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <article-title>Impacto de las revistas emergentes de Bibliotecología y Ciencia de la Información en Web of Science (2017)</article-title>
+          <source>Bibliotecas. Anales de Investigación</source>
+          <year iso-8601-date="2019">2019</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-18">Acesso em: 18 nov. 2022</date-in-citation>
+          <volume>15</volume>
+          <issue>1</issue>
+          <fpage>126</fpage>
+          <lpage>129</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/111622">https://brapci.inf.br/index.php/res/v/111622</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-30">
+        <mixed-citation>Rodrigues, R. S.; Fachin, G. R. B. Portal de periódicos científicos: um trabalho multidisciplinar. TransInformação, v. 22, n. 1, p. 33-45, 2010. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-37862010000100003">http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-37862010000100003</ext-link> </comment>. Acesso em: 4 set. 2020. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Fachin</surname>
+              <given-names>G. R. B.</given-names>
+            </name>
+          </person-group>
+          <article-title>Portal de periódicos científicos: um trabalho multidisciplinar</article-title>
+          <source>TransInformação</source>
+          <year iso-8601-date="2010">2010</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2020-09-04">Acesso em: 4 set. 2020</date-in-citation>
+          <volume>22</volume>
+          <issue>1</issue>
+          <fpage>33</fpage>
+          <lpage>45</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-37862010000100003">http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-37862010000100003</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-31">
+        <mixed-citation>Rodrigues, R. S.; Neubert, P.; Araújo, B. K. H. The publications of brazilian authors: access, distribution and publishers. Em Questão, v. 26, n. 2, p. 13-31, 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://seer.ufrgs.br/EmQuestao/article/view/97431/0">https://seer.ufrgs.br/EmQuestao/article/view/97431/0</ext-link> </comment>. Acesso em: 22 jun. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Neubert</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>Araújo</surname>
+              <given-names>B. K. H.</given-names>
+            </name>
+          </person-group>
+          <article-title>The publications of brazilian authors: Access, distribution and publishers</article-title>
+          <source>Em Questão</source>
+          <year iso-8601-date="2020">2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-06-22">Acesso em: 22 jun. 2021</date-in-citation>
+          <volume>26</volume>
+          <issue>2</issue>
+          <fpage>13</fpage>
+          <lpage>31</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://seer.ufrgs.br/EmQuestao/article/view/97431/0">https://seer.ufrgs.br/EmQuestao/article/view/97431/0</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-32">
+        <mixed-citation>Rodrigues, R. S.; Salm, J.; Neubert, P. S. Publicação científica brasileira na área de agricultura: estudo dos artigos indexados em Web of Science. In: Encontro Nacional de Pesquisa em Ciência da Informação, 18., 2017, Marília. Anais [...] Marília: UNESP, 2017. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://enancib.marilia.unesp.br/index.php/XVIII_ENANCIB/ENANCIB/paper/view/84">http://enancib.marilia.unesp.br/index.php/XVIII_ENANCIB/ENANCIB/paper/view/84</ext-link> </comment>. Acesso em: 6 set. 2020. </mixed-citation>
+        <element-citation publication-type="confproc">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Salm</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Neubert</surname>
+              <given-names>P. S.</given-names>
+            </name>
+          </person-group>
+          <article-title>Publicação científica brasileira na área de agricultura: estudo dos artigos indexados em Web of Science</article-title>
+          <conf-name>Encontro Nacional de Pesquisa em Ciência da Informação, 18</conf-name>
+          <conf-date>2017</conf-date>
+          <conf-loc>Marília</conf-loc>
+          <source>Anais [...]</source>
+          <publisher-name>UNESP</publisher-name>
+          <publisher-loc>Marília</publisher-loc>
+          <year iso-8601-date="2017">2017</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2020-09-06">Acesso em: 6 set. 2020</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://enancib.marilia.unesp.br/index.php/XVIII_ENANCIB/ENANCIB/paper/view/84">http://enancib.marilia.unesp.br/index.php/XVIII_ENANCIB/ENANCIB/paper/view/84</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-33">
+        <mixed-citation>Rodrigues, R. S.; Stubert, D. Periódicos Científicos da Ciência da Informação: os títulos indexados na WoS. Revista Española de Documentación Científica, v. 38, n. 3, p. e094-e094, 2015. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://redc.revistas.csic.es/index.php/redc/article/view/897/1259">http://redc.revistas.csic.es/index.php/redc/article/view/897/1259</ext-link> </comment>. Acesso em: 24 mar. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rodrigues</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Stubert</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <article-title>Periódicos Científicos da Ciência da Informação: os títulos indexados na WoS</article-title>
+          <source>Revista Española de Documentación Científica</source>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-03-24">Acesso em: 24 mar. 2021</date-in-citation>
+          <volume>38</volume>
+          <issue>3</issue>
+          <fpage>e094</fpage>
+          <lpage>e094</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://redc.revistas.csic.es/index.php/redc/article/view/897/1259">http://redc.revistas.csic.es/index.php/redc/article/view/897/1259</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-34">
+        <mixed-citation>Rosa, A. R.; Alves, M. A. Pode o conhecimento em gestão e organização falar português? Revista de Administração de Empresas, v. 51, n. 3, p. 255-264, 2011. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S0034-75902011000300006">http://dx.doi.org/10.1590/S0034-75902011000300006</ext-link> </comment>. Acesso em: 25 jun. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Rosa</surname>
+              <given-names>A. R.</given-names>
+            </name>
+            <name>
+              <surname>Alves</surname>
+              <given-names>M. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>Pode o conhecimento em gestão e organização falar português?</article-title>
+          <source>Revista de Administração de Empresas</source>
+          <year iso-8601-date="2011">2011</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-06-25">Acesso em: 25 jun. 2021</date-in-citation>
+          <volume>51</volume>
+          <issue>3</issue>
+          <pub-id pub-id-type="doi">10.1590/S0034-75902011000300006.</pub-id>
+          <fpage>255</fpage>
+          <lpage>264</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S0034-75902011000300006">http://dx.doi.org/10.1590/S0034-75902011000300006</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-35">
+        <mixed-citation>Santos, S. M. O desempenho das universidades brasileiras nos rankings internacionais: áreas de destaque da produção científica brasileira. 2015. Tese (Doutorado em Cultura e Informação) – Universidade de São Paulo, São Paulo, 2015. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.teses.usp.br/teses/disponiveis/27/27151/tde-26052015-122043/pt-br.php">https://www.teses.usp.br/teses/disponiveis/27/27151/tde-26052015-122043/pt-br.php</ext-link> </comment>. Acesso em: 2 fev. 2021. </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Santos</surname>
+              <given-names>S. M.</given-names>
+            </name>
+          </person-group>
+          <source>O desempenho das universidades brasileiras nos rankings internacionais: áreas de destaque da produção científica brasileira. 2015</source>
+          <comment content-type="degree">Doutorado em Cultura e Informação</comment>
+          <publisher-name>Universidade de São Paulo</publisher-name>
+          <publisher-loc>São Paulo</publisher-loc>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-02-02">Acesso em: 2 fev. 2021</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.teses.usp.br/teses/disponiveis/27/27151/tde-26052015-122043/pt-br.php">https://www.teses.usp.br/teses/disponiveis/27/27151/tde-26052015-122043/pt-br.php</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-36">
+        <mixed-citation>Sauvé, J-S; Mongeon, P.; Larivière, V. From art to science: A bibliometric analysis of architectural scholarly production from 1980 to 2015. Plos one, v. 17, n. 11, p. e0276840, 2022. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0276840">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0276840</ext-link> </comment>. Acesso em: 15 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sauvé</surname>
+              <given-names>J.-S.</given-names>
+            </name>
+            <name>
+              <surname>Mongeon</surname>
+              <given-names>P.</given-names>
+            </name>
+            <name>
+              <surname>Larivière</surname>
+              <given-names>V.</given-names>
+            </name>
+          </person-group>
+          <article-title>From art to science: A bibliometric analysis of architectural scholarly production from 1980 to 2015</article-title>
+          <source>Plos one</source>
+          <year iso-8601-date="2022">2022</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-15">Acesso em: 15 nov. 2022</date-in-citation>
+          <volume>17</volume>
+          <issue>11</issue>
+          <elocation-id>e0276840</elocation-id>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0276840">https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0276840</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-37">
+        <mixed-citation>Schiermeier, Q. China backs bold plan to tear down journal paywalls. Nature, v. 564, p. 171-172, 2018. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.nature.com/articles/d41586-018-07659-5">https://www.nature.com/articles/d41586-018-07659-5</ext-link> </comment>. Acesso em: 2. jun. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schiermeier</surname>
+              <given-names>Q.</given-names>
+            </name>
+          </person-group>
+          <article-title>China backs bold plan to tear down journal paywalls</article-title>
+          <source>Nature</source>
+          <year iso-8601-date="2018">2018</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-06-02">Acesso em: 2. jun. 2021</date-in-citation>
+          <volume>564</volume>
+          <fpage>171</fpage>
+          <lpage>172</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.nature.com/articles/d41586-018-07659-5">https://www.nature.com/articles/d41586-018-07659-5</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-38">
+        <mixed-citation>Silva, S. M.; Oliveira, M. A produção científica da ciência da informação no brasil: análise do período de 2010 a 2020 nas bases de dados web of science e scopus. Pesquisa Brasileira em Ciência da Informação e Biblioteconomia, v. 16, n. 1, p. 1-14, 2021. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/158331">https://brapci.inf.br/index.php/res/v/158331</ext-link> </comment>. Acesso em: 8 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silva</surname>
+              <given-names>S. M.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>A produção científica da ciência da informação no brasil: análise do período de 2010 a 2020 nas bases de dados web of science e scopus</article-title>
+          <source>Pesquisa Brasileira em Ciência da Informação e Biblioteconomia</source>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-08">Acesso em: 8 nov. 2022</date-in-citation>
+          <volume>16</volume>
+          <issue>1</issue>
+          <fpage>1</fpage>
+          <lpage>14</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://brapci.inf.br/index.php/res/v/158331">https://brapci.inf.br/index.php/res/v/158331</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-39">
+        <mixed-citation>Stoy, L.; Morais, R.; Borrell-Damián, L. Decrypting the big deal landscape: Follow-up of the 2019 EUA big deals survey report. 2019. Suíça: European University Association, 2019. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://eua.eu/downloads/publications/2019%20big%20deals%20report.pdf">https://eua.eu/downloads/publications/2019%20big%20deals%20report.pdf</ext-link> </comment>. Acesso em: 13 maio 2021. </mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Stoy</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Morais</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Borrell-Damián</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <source>Decrypting the big deal landscape: Follow-up of the 2019 EUA big deals survey report. 2019</source>
+          <publisher-name>European University Association</publisher-name>
+          <publisher-loc>Suíça</publisher-loc>
+          <year iso-8601-date="2019">2019</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-05-13">Acesso em: 13 maio 2021</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://eua.eu/downloads/publications/2019%20big%20deals%20report.pdf">https://eua.eu/downloads/publications/2019%20big%20deals%20report.pdf</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-40">
+        <mixed-citation>Suber, P. Open access overview: focusing on open access to peer-reviewed research articles and their preprints. 2019. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://knowledgeunbound.mitpress.mit.edu/pub/q9i5uziw/release/1">https://knowledgeunbound.mitpress.mit.edu/pub/q9i5uziw/release/1</ext-link> </comment>. Acesso em: 31 maio 2022. </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Suber</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <source>Open access overview: focusing on open access to peer-reviewed research articles and their preprints</source>
+          <year iso-8601-date="2019">2019</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-05-31">Acesso em: 31 maio 2022</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://knowledgeunbound.mitpress.mit.edu/pub/q9i5uziw/release/1">https://knowledgeunbound.mitpress.mit.edu/pub/q9i5uziw/release/1</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-41">
+        <mixed-citation>United Nations Educational, Scientific and Cultural Organization. Unesco Science Report: towards 2030. Paris: United Nations Educational, Scientific and Cultural Organization, 2015. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://en.unesco.org/usr-contents">https://en.unesco.org/usr-contents</ext-link> </comment>. Acesso em 1 set. 2020. </mixed-citation>
+        <element-citation publication-type="report">
+          <person-group person-group-type="author">
+            <collab>United Nations Educational, Scientific and Cultural Organization</collab>
+          </person-group>
+          <source>Unesco Science Report: towards 2030</source>
+          <publisher-name>United Nations Educational, Scientific and Cultural Organization</publisher-name>
+          <publisher-loc>Paris</publisher-loc>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2020-09-01">Acesso em 1 set. 2020</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://en.unesco.org/usr-contents">https://en.unesco.org/usr-contents</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-42">
+        <mixed-citation>United Nations Educational, Scientific and Cultural Organization. Unesco Science Report: the race against time for smarter development. S. Schneegans, T. Straza and J. Lewis (ed.). Unesco Publishing: Paris, 2021. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.unesco.org/reports/science/2021/en">https://www.unesco.org/reports/science/2021/en</ext-link> </comment>. Acesso em: 6 jun. 2022. </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>United Nations Educational, Scientific and Cultural Organization</collab>
+          </person-group>
+          <source>Unesco Science Report: the race against time for smarter development</source>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Schneegans</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Straza</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Lewis</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <publisher-name>Unesco Publishing</publisher-name>
+          <publisher-loc>Paris</publisher-loc>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-06-06">Acesso em: 6 jun. 2022</date-in-citation>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.unesco.org/reports/science/2021/en">https://www.unesco.org/reports/science/2021/en</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-43">
+        <mixed-citation>Wang, C. The development of China’s scholarly publications in library and information science, 1979-2009: An analysis of ISI literature, Library Management, v. 32 n. 6/7, p. 435-443, 2011. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://doi-org.ez46.periodicos.capes.gov.br/10.1108/01435121111158574">https://doi-org.ez46.periodicos.capes.gov.br/10.1108/01435121111158574</ext-link> </comment>. Acevsso em: 8 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wang</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <article-title>The development of China’s scholarly publications in library and information science, 1979-2009: An analysis of ISI literature</article-title>
+          <source>Library Management</source>
+          <year iso-8601-date="2011">2011</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-08">Acevsso em: 8 nov. 2022</date-in-citation>
+          <volume>32</volume>
+          <issue>6/7</issue>
+          <fpage>435</fpage>
+          <lpage>443</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://doi-org.ez46.periodicos.capes.gov.br/10.1108/01435121111158574">https://doi-org.ez46.periodicos.capes.gov.br/10.1108/01435121111158574</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-44">
+        <mixed-citation>Zhangz, L.; Siverstsen, G. The New Research Assessment Reform in China and Its Implementation. Scholarly Assessment Reports, v. 2, n.1, p. 3, 2020. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.scholarlyassessmentreports.org/articles/10.29024/sar.15/">https://www.scholarlyassessmentreports.org/articles/10.29024/sar.15/</ext-link> </comment>. Acesso em: 2 jun. 2021. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zhangz</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Siverstsen</surname>
+              <given-names>G.</given-names>
+            </name>
+          </person-group>
+          <article-title>The New Research Assessment Reform in China and Its Implementation</article-title>
+          <source>Scholarly Assessment Reports</source>
+          <year iso-8601-date="2020">2020</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2021-06-02">Acesso em: 2 jun. 2021</date-in-citation>
+          <volume>2</volume>
+          <issue>1</issue>
+          <fpage>3</fpage>
+          <lpage/>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://www.scholarlyassessmentreports.org/articles/10.29024/sar.15/">https://www.scholarlyassessmentreports.org/articles/10.29024/sar.15/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="ref-45">
+        <mixed-citation>Zhao, Z.; Pan, X.; Hua, W. Comparative analysis of the research productivity, publication quality, and collaboration patterns of top ranked library and information science schools in China and the United States. Scientometrics, v.126, n. 2, p. 931-950, 2021. <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://ideas.repec.org/a/spr/scient/v126y2021i2d10.1007_s11192-020-03796-9.html">https://ideas.repec.org/a/spr/scient/v126y2021i2d10.1007_s11192-020-03796-9.html</ext-link> </comment>. Acesso em: 8 nov. 2022. </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zhao</surname>
+              <given-names>Z.</given-names>
+            </name>
+            <name>
+              <surname>Pan</surname>
+              <given-names>X.</given-names>
+            </name>
+            <name>
+              <surname>Hua</surname>
+              <given-names>W.</given-names>
+            </name>
+          </person-group>
+          <article-title>Comparative analysis of the research productivity, publication quality, and collaboration patterns of top ranked library and information science schools in China and the United States</article-title>
+          <source>Scientometrics</source>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2022-11-08">Acesso em: 8 nov. 2022</date-in-citation>
+          <volume>126</volume>
+          <issue>2</issue>
+          <fpage>931</fpage>
+          <lpage>950</lpage>
+          <comment>Disponível em: <ext-link ext-link-type="uri" xlink:href="https://ideas.repec.org/a/spr/scient/v126y2021i2d10.1007_s11192-020-03796-9.html">https://ideas.repec.org/a/spr/scient/v126y2021i2d10.1007_s11192-020-03796-9.html</ext-link> </comment>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="supported-by">
+        <label>Apoio/Support</label>
+        <p>Fundação de Amparo à Pesquisa e Inovação do Estado de Santa Catarina (Edital nº 48/2021)</p>
+      </fn>
+      <fn fn-type="other">
+        <label>Como citar este artigo/How to cite this article:</label>
+        <p>Santos, L. L. S.; Rodrigues, R. S.; Neubert, P. S. A publicação científica brasileira e chinesa indexada na Web of Science: análise da área de Ciência da Informação. Transinformação. v. 35, e227169, 2023. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/2318-0889202335e227169">https://doi.org/10.1590/2318-0889202335e227169</ext-link> </p>
+      </fn>
+    </fn-group>
+  </back>
+</article>

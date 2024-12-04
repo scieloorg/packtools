@@ -1,0 +1,1358 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">ecos</journal-id>
+      <journal-title-group>
+        <journal-title>Economia e Sociedade</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Economia e Sociedade</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0104-0618</issn>
+      <issn pub-type="epub">1982-3533</issn>
+      <publisher>
+        <publisher-name>Instituto de Economia da Universidade Estadual de Campinas; Publicações</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">zdjm6ybt7nMSBKXTxVq7PYn</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0104-06182024000300604</article-id>
+      <article-id pub-id-type="doi">10.1590/1982-3533.2024v33n3.282794</article-id>
+      <article-id pub-id-type="other">00604</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>China / Original article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>The “new normal” of the Chinese economy</article-title>
+        <trans-title-group xml:lang="pt">
+          <trans-title>O “novo normal” da economia chinesa</trans-title>
+        </trans-title-group>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6023-631X</contrib-id>
+          <name>
+            <surname>Medeiros</surname>
+            <given-names>Carlos Aguiar de</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">**</xref>
+          <xref ref-type="aff" rid="aff2">***</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-6055-2788</contrib-id>
+          <name>
+            <surname>Gouveia</surname>
+            <given-names>Esther Majerowicz</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff3">****</xref>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>**</label>
+        <institution content-type="orgname">Federal University of Rio de Janeiro, (IE. UFRJ)</institution>
+        <institution content-type="orgdiv1">Institute of Economics</institution>
+        <addr-line>
+          <city>Rio de Janeiro</city>
+          <state>RJ</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <email>carlosaguiarde@gmail.com</email>
+        <institution content-type="original">Emeritus Professor of the Postgraduate Programs at the Institute of Economics at the Federal University of Rio de Janeiro, (IE. UFRJ), Rio de Janeiro, RJ, Brazil. E-mail: carlosaguiarde@gmail.com. ORCID: https://orcid.org/0000-0002-6023-631X</institution>
+      </aff>
+      <aff id="aff2">
+        <label>***</label>
+        <institution content-type="orgname">National Council for Scientific and Technological Development (CNPQ)</institution>
+        <addr-line>
+          <city>Brasília</city>
+          <state>DF</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <institution content-type="original">Researcher at the National Council for Scientific and Technological Development (CNPQ), Brasília, DF, Brazil</institution>
+      </aff>
+      <aff id="aff3">
+        <label>****</label>
+        <institution content-type="orgname">Federal University of Rio Grande do Norte, (UFRN)</institution>
+        <addr-line>
+          <city>Natal</city>
+          <state>RN</state>
+        </addr-line>
+        <country country="BR">Brazil</country>
+        <email>estherzinhamj@yahoo.com.br</email>
+        <institution content-type="original">Adjunct professor at the Federal University of Rio Grande do Norte, (UFRN), Natal, RN, Brazil. E-mail: estherzinhamj@yahoo.com.br. ORCID: https://orcid.org/0000-0001-6055-2788</institution>
+      </aff>
+      <author-notes>
+        <fn fn-type="edited-by">
+          <p>
+            <bold>Editor Responsável pela Avaliação</bold>
+            <italic>Carolina Troncoso Baltar</italic>
+          </p>
+        </fn>
+      </author-notes>
+      <pub-date publication-format="electronic" date-type="pub">
+        <day>09</day>
+        <month>08</month>
+        <year>2024</year>
+      </pub-date>
+      <pub-date publication-format="electronic" date-type="collection">
+        <year>2024</year>
+      </pub-date>
+      <volume>33</volume>
+      <issue>3</issue>
+      <elocation-id>e282794</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>30</day>
+          <month>01</month>
+          <year>2024</year>
+        </date>
+        <date date-type="accepted">
+          <day>19</day>
+          <month>03</month>
+          <year>2024</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>Abstract</title>
+        <p>We examine the drivers of China’s recent economic growth slowdown considering a demand-led growth perspective and the structural changes over the last decades. We argue that such a slowdown corresponds in part to a desired trajectory towards a growth pattern based on a greater protagonism of domestic consumption and a more balanced economy focused on innovation. This change referred to as the “new normal” responded to external and internal structural trends and distributive and institutional conflicts that, after 2008, reduced the low wage growth path and generated high real estate speculative investments. We argue that the new normal will possibly lead to a moderate growth rate for China’s historical experience, but higher than that of the OECD, and possibly more socially and environmentally balanced than previously.</p>
+      </abstract>
+      <trans-abstract xml:lang="pt">
+        <title>Resumo</title>
+        <p>O presente artigo examina os fundamentos da recente desaceleração do crescimento econômico da China, considerando tanto uma perspectiva de crescimento liderado pela demanda quanto as mudanças estruturais ao longo das últimas décadas. Argumenta-se que tal desaceleração corresponde, em parte, a uma trajetória desejada em direção a um padrão de crescimento baseado em um maior protagonismo do consumo interno e em uma economia mais equilibrada e focada na inovação. Esta mudança denominada “Novo normal” respondeu às tendências estruturais externas e internas e aos conflitos distributivos e institucionais que, após 2008, reduziram a trajetória de crescimento baseada em baixos salários e geraram elevados investimentos especulativos imobiliários. Sustenta-se que o “Novo normal” conduzirá possivelmente a uma taxa de crescimento moderada para a experiência histórica da China, mas superior à da OCDE, e possivelmente mais equilibrada social e ambientalmente do que anteriormente.</p>
+        <p><bold>JEL:</bold> O53, O47, O49.</p>
+      </trans-abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>New normal</kwd>
+        <kwd>China</kwd>
+        <kwd>Economic development</kwd>
+        <kwd>Growth regimes</kwd>
+        <kwd>Structural change</kwd>
+      </kwd-group>
+      <kwd-group xml:lang="pt">
+        <title>Palavras-chave:</title>
+        <kwd>Novo normal</kwd>
+        <kwd>China</kwd>
+        <kwd>Desenvolvimento econômico</kwd>
+        <kwd>Regimes de crescimento</kwd>
+        <kwd>Mudança estrutural</kwd>
+      </kwd-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>Introduction</title>
+      <p>In 2022, due to the Zero Covid policy, China’s GDP growth was just 3%, and, in 2023, it was 5.2% (<xref ref-type="bibr" rid="B25">NBS</xref>, <xref ref-type="bibr" rid="B33">2024</xref>, <xref ref-type="bibr" rid="B34">2024a</xref>). The growth rate predicted by the World Bank for 2024 is 4.5% (<xref ref-type="bibr" rid="B49">World Bank, 2023c</xref>). Even though these rates are higher than that predicted for global economic growth in 2023, of just 2.1% (<xref ref-type="bibr" rid="B47">World Bank, 2023a</xref>), they would be signaling a slowdown concerning China’s historically high growth regime expressed on the recorded average of 8.8% between 1989 and 2022 (<xref ref-type="bibr" rid="B33">NBS, 2024</xref>). The reduction of China’s GDP growth, the high levels of debt (from the government, families and companies), youth unemployment (21.3%), the crisis in the real estate sector (and large companies such as Evergrande in 2021) and in segments of the financial sector – such as the shadow bank Zhongrong International Trust (<xref ref-type="bibr" rid="B24">Melin, 2023</xref>) – are pointed out as evidence of a deflationary crisis in the real estate bubble of large proportions<xref ref-type="fn" rid="fn1">1</xref>, signaling major structural problems.</p>
+      <p>Like everything that refers to China, the tone in the Western media (which consciously or unconsciously reflects the US geopolitical positioning concerning China)<xref ref-type="fn" rid="fn2">2</xref> is almost always exaggerated and is accompanied by somewhat definitive predictions about its evolution. For many, China would be heading toward Japanization, that is, toward a stagnant or low growth trajectory (e.g. <xref ref-type="bibr" rid="B10">Kihara, 2023</xref>; <xref ref-type="bibr" rid="B45">Wigglesworth, 2023</xref>). Different strands of explanations for the discontinuity of China’s economic growth rate co-exist. Some attribute it to underconsumption, in which unoccupied houses and apartments and excess capacity would be its greatest manifestation (as in <xref ref-type="bibr" rid="B46">Wolf, 2023</xref>), or, as in Paul <xref ref-type="bibr" rid="B13">Krugman’s formulation (2023)</xref>, to the “paradox of thrift” – driven by an increase in families with few children (which historically in China supported the elderly) and without a good pension system, spending little and saving a lot. Such excess savings would have been channeled in recent years into a speculative real estate boom. Other formulations emphasize high indebtedness (of families and especially of subnational governments) and financial speculation – as in the “balance sheet recession” formulation, originally developed by Richard Koo for Japan, and now with reservations used to explain the Chinese slowdown (<xref ref-type="bibr" rid="B11">Koo, 2023</xref>; <xref ref-type="bibr" rid="B42">The Economist, 2023</xref>). Some highlight a “profit squeeze” derived from wage increases above productivity growth – which occurred in the last decade – or the fall in the profit rate resulting from the increase in the capital/product ratio (<xref ref-type="bibr" rid="B4">Gaulard, 2018</xref>). Paul Krugmam (2023), echoing here an IMF analysis of the decline in total factor productivity that would have occurred after 2008, observes that productivity gains declined to the extent that the growth path based on the incorporation of imported technology would have been exhausted.</p>
+      <p>We argue that the slowdown in Chinese growth corresponds in part to a desired trajectory of structural change towards dynamics with greater protagonism of domestic consumption and a more balanced economy from a social and environmental<xref ref-type="fn" rid="fn3">3</xref> point of view focused on innovation. But it also responds to structural trends and distributive and institutional conflicts of an economy that, although administered and led by the State through its planning system and large state-owned companies (<xref ref-type="bibr" rid="B22">Medeiros, 2022</xref>), has the vast majority of wage labor and a preponderant portion of its GDP in the private sector (<xref ref-type="bibr" rid="B53">Zhang, 2019</xref>) and has undergone strong credit expansion, financial leverage, and speculative real estate investment in recent years (<xref ref-type="bibr" rid="B3">Cintra and Pinto, 2017</xref>).</p>
+    </sec>
+    <sec>
+      <title>Shifting growth drivers: end of the low road?</title>
+      <p>Let us briefly look at the different phases of Chinese growth from a demand-led growth perspective,<xref ref-type="fn" rid="fn4">4</xref> seeking to distinguish structural transformations, political and institutional decisions, and conjunctural issues.</p>
+      <p><xref ref-type="fig" rid="F1">Graph 1</xref> displays the evolution of GDP growth since 1978.</p>
+      <p>
+        <fig id="F1">
+          <label>Graph 1</label>
+          <caption>
+            <title>GDP growth rate (1978-2023)</title>
+          </caption>
+          <attrib>Source: <xref ref-type="bibr" rid="B33">NBS (2024)</xref>.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/ddbbf824e73409ddef5bab06579c2acff027afc7.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/e60cc1e58c88f2c2206d4a0b648b2144d863a4d3.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/8798ebb1fa1b4f2e54b0c6bb304503c79f534ae9.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>As can be seen from the graph, the great spurt in Chinese growth occurred at the beginning of the 1990s, remaining at very high rates until 2008 when a slowdown began. From the point of view of GDP components (<xref ref-type="fig" rid="F2">Graph 2</xref>), the main structural change was the substantial reduction in the share of exports.</p>
+      <p>
+        <fig id="F2">
+          <label>Graph 2</label>
+          <caption>
+            <title>Evolution of GDP components (1978-2022)</title>
+          </caption>
+          <attrib>Source: <xref ref-type="bibr" rid="B33">NBS (2024)</xref>. Note: Changes in inventories are not accounted for.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/655730e283d7ab195dbf0cccd497a9ed63c3f513.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/11d238cc18862f1a04540e6ca45d293ffd0889e6.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/b63d652152c91dd79f09f60bdd9bef41cc2c3486.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>In the years of high growth between 1991 and 2008, exports strongly increased their share of GDP, but after 2008 the share of exports in GDP fell substantially. Among the factors driving economic growth, this was the main structural change<xref ref-type="fn" rid="fn5">5</xref>, although other changes attracted attention. Imports also reduced their share (even if not at the same pace). Household consumption, after a downward trend since the 1980s, recovered between 2011 and 2016 and investment increased substantially. There was, however, a change in its composition. In effect, real estate investment expanded at a faster rate, as can be seen in <xref ref-type="fig" rid="F3">Graph 3</xref>.</p>
+      <p>
+        <fig id="F3">
+          <label>Graph 3</label>
+          <caption>
+            <title>Investment in real estate (% GDP)</title>
+          </caption>
+          <attrib>Source: Own calculations with data from <xref ref-type="bibr" rid="B33">NBS (2024)</xref>. Note: Investment in real estate as % of GDP was derived by calculating the proportion of real estate investment over “total investment in fixed assets” and then assuming this proportion to be the same for real estate investment over “gross fixed capital formation” as a component of the Gross Domestic Product by the expenditure approach. It should be noted that there are substantial discrepancies between the series “total investment in fixed assets” and “gross fixed capital formation”.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/fd64cb1e79f1a4222a7a64c085b8fa395db1ab11.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/710fd3a8e7451d86f15b3513bd78873e5e108dc0.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/b9f8006ed3e14ab62ccd3ea9866379b9c9698142.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>This evolution of the Chinese economy that took place from 2008 onwards had as its main components a strong growth in investment, mainly in the real estate sector, and an increase in the population’s consumption resulting from both the increase in real wages and social transfers. Both movements resulted from structural transformations of the Chinese economy and society and the government’s strategy of progressively increasing the domestic sources of economic growth. It should be noted, however, that even though real wages have grown in the last two decades – a significant structural change as discussed below – and household consumption has occupied a central role in the government’s rhetoric of rebalancing the economy, the increase in household consumption in GDP was restricted to the period 2011-2016, reflecting a wage growth superior to productivity growth between 2011 and 2015 and the consequent increase in the wage share during these years (<xref ref-type="fig" rid="F4">Graph 4</xref>). Since then, wages appear to have grown roughly in tandem with productivity, expressed in the stability of the share of wages and household consumption in GDP.</p>
+      <p>
+        <fig id="F4">
+          <label>Graph 4</label>
+          <caption>
+            <title>Labor share (1992–2021, % of GDP at current prices)</title>
+          </caption>
+          <attrib>Source: Own calculations based on the flow of funds accounts (<xref ref-type="bibr" rid="B33">NBS, 2024</xref>).</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/348882c6b94febc618bf7bc04879121b1fd5bdd5.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/33a61e0b2a9e2002f20c7664eb94404c0a435fb9.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/efbc31e1230b2848a08db7d6e54b41c8ae00da69.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>It is in this context that the social accumulation strategy<xref ref-type="fn" rid="fn6">6</xref> called “the new normal” was announced by Xi Jinping in 2013,<xref ref-type="fn" rid="fn7">7</xref> and the new technological direction focused on endogenous technology to be followed by the country, Made in China 2025, was presented in 2015 (<xref ref-type="bibr" rid="B22">Medeiros, 2022</xref>; <xref ref-type="bibr" rid="B19">Majerowicz, 2022a</xref>). In the same period of 2015/2016, the first financial crisis occurred with strong capital flight. Following in this direction, in 2020, the government announced in the Five-Year Plan (2021-5) the “dual circulation” strategy (<xref ref-type="bibr" rid="B39">Souza, 2023</xref>) referred to as a new strategy, but which reiterates a greater role for domestic demand, the strategic role of high technology exports, and the domestic supply of strategic inputs and technologies, especially given the current technological dispute with the US.</p>
+      <p>This new social accumulation strategy was already underway and aimed to resolve several tensions from the previous growth regime. These occurred in a context of structural changes that accompanied changes in the sources of growth, leading to a loss in the share of industrial products and especially the share of manufacturing employment, the relative expansion of the tertiary sector (<xref ref-type="bibr" rid="B7">Hou; Gelb; Calabrese, 2017</xref>) and the increase in real wages and labor costs. The rise in real wages (<xref ref-type="bibr" rid="B37">Rozelle et al., 2020</xref>) and the growth of labor conflicts were a prominent phenomenon in the 2000s and the first half of the 2010s. As Dic Lo (2022) noted, the formation of “Big Labor” in China occurred not only in the increase in real wages, but also in minimum wage policies, labor legislation, collective bargaining, unionization,<xref ref-type="fn" rid="fn8">8</xref> and the expansion of a welfare system<xref ref-type="fn" rid="fn9">9</xref>.</p>
+      <p><xref ref-type="bibr" rid="B15">Li et al. (2012)</xref> documented the evolution of Chinese wages between 1978 and 2010, highlighting that in 1978 Chinese wages were only 3% of wages in the United States and lower than those in the Philippines and Thailand. These wages have grown substantially since the end of the 1990s for the urban formal sector and, since the mid-2000s, also for rural migrant workers (<xref ref-type="bibr" rid="B20">Majerowicz, 2022b</xref>). Wage growth was asserted independently of productive sector, qualification, and region (<xref ref-type="bibr" rid="B15">Li et al. al., 2012</xref>). As a result, in 2010, Chinese wages were similar to those in the Philippines and Thailand and higher than those in India and Indonesia (<xref ref-type="bibr" rid="B15">Li et al., 2012</xref>),</p>
+      <p>Considering the manufacturing sector, in twenty years, hourly wages increased more than tenfold in the urban formal sector – reaching US$6.35 in 2022 (<xref ref-type="fig" rid="F5">Graph 5</xref>). Although in a slower growth trajectory, hourly wages for rural migrant workers almost quadrupled since the Global Financial Crisis, representing US$3.14 in 2022. Consequently, in 2022, Chinese hourly wages in manufacturing were not only higher than those in India and Indonesia, but also in the Philippines, Thailand, Vietnam, Mexico, and, in the case of Chinese urban formal workers, Brazil (<xref ref-type="fig" rid="F6">Graph 6</xref>).<xref ref-type="fn" rid="fn10">10</xref> Chinese manufacturing wages for urban formal workers and rural migrant workers represented 20.2% and 10.0% of US wages, respectively, in 2022. According to <xref ref-type="bibr" rid="B15">Li et al. (2012)</xref>, the rise in labor costs measured in current dollars signaled the end of cheap labor in China. Certainly, this perception reflects China’s changing position vis-à-vis the capitalist periphery, even though Chinese manufacturing wages remain low compared to central countries.</p>
+      <p>
+        <fig id="F5">
+          <label>Graph 5</label>
+          <caption>
+            <title>Manufacturing hourly wages, current dollars (2002-2022)</title>
+          </caption>
+          <attrib>Sources: Own calculations. <xref ref-type="bibr" rid="B26">NBS (2013</xref>, <xref ref-type="bibr" rid="B27">2014</xref>, <xref ref-type="bibr" rid="B28">2015</xref>, <xref ref-type="bibr" rid="B29">2017</xref>, <xref ref-type="bibr" rid="B30">2019</xref>, <xref ref-type="bibr" rid="B31">2021</xref>, <xref ref-type="bibr" rid="B32">2023</xref>, <xref ref-type="bibr" rid="B33">2024</xref>; China Labor Statistical Yearbook, several editions), <xref ref-type="bibr" rid="B14">laodongqushi.com (2022)</xref>, The <xref ref-type="bibr" rid="B50">World Bank (2024)</xref>. Notes: 1) Urban formal workers’ hourly wages in manufacturing were calculated by dividing annual average wages in manufacturing in urban units by estimated annual working hours, and then converting to current US dollars; 2) Estimated annual working hours in manufacturing in urban units were obtained by applying Lett and Banister (2009) proposed methodology for 2002-2016; for 2018-2022, estimates were produced as the average of all NBS’ monthly available weekly worked hours for the reference year provided in <xref ref-type="bibr" rid="B14">laodongqushi (2022)</xref> multiplied by 48; for 2017, the estimate was calculated as a mean between 2016 and 2018; 3) Rural migrant workers’ hourly wages in manufacturing were calculated by dividing monthly wages in manufacturing by estimates of monthly worked hours in manufacturing, and then converting to current US dollars; 4) Average monthly worked hours in manufacturing for rural migrant workers were obtained from published data for 2012, 2013, and 2014; for all the other years, monthly worked hours were assumed to be the average between 2012, 2013, and 2014 (i.e. 221,5 hours).</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/da13cd4cd272113cd66315edd2da89c636347bdf.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/1eaca216a0880cdd65aff2e9e2701e0b108bbdab.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/3ac2c40f29b489efc94bbb179ec6b05a099aad98.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>
+        <fig id="F6">
+          <label>Graph 6</label>
+          <caption>
+            <title>Manufacturing hourly wages in selected countries as a percentage of US manufacturing wages, 2022</title>
+          </caption>
+          <attrib>Source: Own calculations. <xref ref-type="bibr" rid="B26">NBS (2013</xref>, <xref ref-type="bibr" rid="B27">2014</xref>, <xref ref-type="bibr" rid="B28">2015</xref>, <xref ref-type="bibr" rid="B32">2023</xref>, <xref ref-type="bibr" rid="B33">2024</xref>) for Chinese data, <xref ref-type="bibr" rid="B1">BLS (2024)</xref> for US data; <xref ref-type="bibr" rid="B8">ILO (2024)</xref> for all others. Note: 1) Pakistan data refers to 2021; 2) US data refers to December 2022; 3) Estimates made based on ILO data were obtained by dividing monthly average manufacturing wages by mean weekly hours worked in manufacturing multiplied by four; 4) Chinese estimates are those provided in the previous graph.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/0a48bd151159a16dbc1a74ba9a65ba368fc1b716.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/ae43c6f79f8505ede4a1a3b6a94324329d1bb3a4.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/81c50f722f8624eac1b5cbb50b6f0ddec1356fe3.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The second structural transformation that began in the second decade was the reduction in world trade growth particularly the market share of Chinese exports in labor-intensive industries. Except for small private enterprises and the self-employed, this process occurred simultaneously with the absolute reduction in manufacturing employment from 2012-2013: by 2022 there was a decrease of 15.2 million jobs among urban formal workers and 12.8 million among rural migrant workers (<xref ref-type="fig" rid="F7">Graph 7</xref>). It was clear that exports, which had been in sharp decline since 2010, would lose the role previously exercised over the rate of accumulation and that the path of accumulation based on low wages in activities with low technological density (“low road”, <xref ref-type="bibr" rid="B35">Nogueira and Qi, 2022</xref>) was exhausted.<xref ref-type="fn" rid="fn11">11</xref></p>
+      <p>
+        <fig id="F7">
+          <label>Graph 7</label>
+          <caption>
+            <title>Manufacturing employment (in million persons)</title>
+          </caption>
+          <attrib>Source: <xref ref-type="bibr" rid="B26">NBS (2013</xref>, <xref ref-type="bibr" rid="B27">2014</xref>, <xref ref-type="bibr" rid="B28">2015</xref>, <xref ref-type="bibr" rid="B29">2017</xref>, <xref ref-type="bibr" rid="B30">2019</xref>, <xref ref-type="bibr" rid="B31">2021</xref>, <xref ref-type="bibr" rid="B32">2023</xref>, <xref ref-type="bibr" rid="B33">2024</xref>). Notes: 1) “Urban formal” refers to the Chinese statistical category of urban units; 2) “Informal” refers to the Chinese statistical categories of private enterprises and self-employed individuals in both urban and rural areas; 3) The series “rural migrant workers” likely overlaps with the other series.</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/29c4339ef293d3d3cc0efbf198ed199eb11f9d5c.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/2a4c599e865f2bba1e68e90d9a1b9aae6b8d1a6e.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1982-3533/zdjm6ybt7nMSBKXTxVq7PYn/092c3e3d914968868521965d880582c541385a0b.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>The path to be followed (as widely highlighted in government documents) sought a pattern of growth with higher quality in technological, social, and environmental terms, with a focus on innovation and new digital technologies, a greater share of wages and household consumption, and with strong investments in renewable energy sources<xref ref-type="fn" rid="fn12">12</xref>. With the “tariff war” imposed by Donald Trump in 2018 and the expanded technological sanctions under the Biden administration, this direction was strengthened and particularly increased the priority of industrial policy in semiconductors and other information and communication technology products (<xref ref-type="bibr" rid="B19">Majerowicz, 2022a</xref>).</p>
+    </sec>
+    <sec>
+      <title>Excess capacity and real estate crisis</title>
+      <p>The issue of excess capacity in several industries was being discussed within the government by the National Development and Reform Commission (<xref ref-type="bibr" rid="B52">Xu and Liu, 2018</xref>). With the real estate and infrastructure boom, substantial excess capacity was created in almost every industry supplying the construction industry, such as steel, iron, aluminum, cement, and glass, both among state-owned and private companies. Likewise, excess capacity was created in the coal industry, the essential energy basis in China. The real estate boom took place in a context of progressive financial liberalization, such as the one that led to substantial capital outflows in 2015/6,<xref ref-type="fn" rid="fn13">13</xref> and high credit expansion from both public and “shadow” banks. As the growth rate was much lower in the following decade due to the slowdown in the growth of exports and non-residential investments, the issue of excess capacity worsened. The “tariff war” imposed by Donald Trump and subsequently the zero Covid policy in 2021 reinforced this movement. The lower growth rate alongside the multiplication of financial instruments in speculative activities, especially real estate, increased the debt problems of families, companies, and subnational governments.<xref ref-type="fn" rid="fn14">14</xref></p>
+      <p>From an institutional point of view, the maintenance of excess capacity for a longer period (than what normally occurs in the economic cycle) was due to initiatives by local governments, which have real estate investments (through land rental and taxes) their essential bases for collecting taxes and issuing debt.<xref ref-type="fn" rid="fn15">15</xref> China’s peculiar power structure between the central government and subnational governments is a two-way street, leading to tensions, especially when the decision at the national level is to contain investments whose revenues form the collection base of subnational states.<xref ref-type="fn" rid="fn16">16</xref></p>
+      <p>As a reaction to enterprise indebtedness and the speculative financial movement generated largely by “shadow banks”, in 2020, the Government established a strong financial regulation of the real estate sector with the so-called “three red lines”, intending to institute a ceiling on debt-to-equity, debt-to-asset and debt-to-cash ratios of companies.<xref ref-type="fn" rid="fn17">17</xref> Due to the substantial participation of the real estate sector and its related industries in GDP, its contraction, particularly acute with the Evergrande crisis in 2021 and the stock elimination policies, has had an important impact on the GDP growth rate.<xref ref-type="fn" rid="fn18">18</xref> Thus, the combination of events such as Covid 19, the prolonged lockdown, and the regulatory shock on the real estate sector<xref ref-type="fn" rid="fn19">19</xref> explain the contraction that occurred. Other regulatory policies, such as more pronounced decarbonization targets, led, in turn, to a sharp reduction in investments in the coal industry, with impacts on energy availability.<xref ref-type="fn" rid="fn20">20</xref></p>
+    </sec>
+    <sec>
+      <title>Towards a new pattern of economic development</title>
+      <p>Although these issues signal a complex situation and lower growth trajectory, they could hardly justify a stagnationist forecast for the Chinese economy. In general, the analyses that depart from the increase in financial leverage in China end up reproducing the diagnosis of the “balance sheet recession” discussed by Richard Koo regarding Japan in the 1990s. However, despite the similarity concerning segments of the real estate sector, there are striking differences between China and Japan pointed out by <xref ref-type="bibr" rid="B11">Koo (2023)</xref> himself. From our point of view, the main difference is that in China the share of public banks in real estate financing is much greater<xref ref-type="fn" rid="fn21">21</xref>, the balance of payments financial account is still regulated and, despite the excess capacity in the heavy industry associated with the real estate sector, the fact that the main companies are state-owned allows for greater sustainability of activities even though with a lower profit rate.</p>
+      <p>Concerning the ongoing changes in the Chinese accumulation regime induced mainly by the domestic components of effective demand<xref ref-type="fn" rid="fn22">22</xref> and new technological priorities, it must be considered that although the urbanization process has slowed down, it is still underway<xref ref-type="fn" rid="fn23">23</xref>: the urban population in 2020 was 63.9% (<xref ref-type="bibr" rid="B33">NBS, 2024</xref>) and it is estimated that in 2030 it will be 70%<xref ref-type="fn" rid="fn24">24</xref> and it will have almost 400 million more inhabitants compared to 2015 (<xref ref-type="bibr" rid="B40">Sun et al., 2017</xref>). Therefore, urbanization continues to be an essential mechanism for Chinese growth, exerting great demand on the heavy industry and also on the sector of durable consumer goods (<xref ref-type="bibr" rid="B39">Souza, 2023</xref>). It is this process that explains the substantial participation of the real estate sector in GDP. In addition to new urban housing<xref ref-type="fn" rid="fn25">25</xref>, the demand to be met is for health services, transport, and education for expanding urban families and especially for “semi-urbanized” migrant workers. Population aging has been accentuating this movement in demand. These service activities require more and more manufacturing investments associated with digitalization and decarbonization.<xref ref-type="fn" rid="fn26">26</xref> Activities such as the Internet of Things and the replacement of vehicles with combustion engines by electric motors create strong demands on manufacturing and integrated services.</p>
+      <p>In fact, as a result of a strategy initiated in 2010, New Energy Vehicles (electric and hybrid) were considered a “strategic emerging industry” (<xref ref-type="bibr" rid="B5">Gomes, Pauls and ten Brink, 2023</xref>). In just a few years, China has become the world’s largest producer and largest market for electric vehicles especially the largest international producer and supplier of lithium batteries. Its main automakers have been conquering a growing share of the world market at the expense of Western automakers. As the country has particular prominence in green industries – with special emphasis on solar panels, batteries, and wind turbines, whose national and global markets are growing -, the expansion of a diversified energy structure and the renewal of vehicles and equipment in family homes, including new generations of intelligent equipment (internet of things), constitute paths already underway to meet both internal and external demand.</p>
+      <p>Despite the tariffs imposed by the US and their high initial impact and the technological sanctions inflicted by the Biden administration, there was no “decoupling” between the two countries. In recent years, China’s exports to the US have recovered their pre-Covid absolute values in current dollars due to the expansion of non-tariffed exports.<xref ref-type="fn" rid="fn27">27</xref> However, the share of American imports from China declined with the Government’s efforts to divert the US economy’s suppliers to other countries. In response, China is diversifying its foreign markets while maintaining its position as a global manufacturing center.</p>
+      <p>China’s internationalization must be considered in this context. Since 2008, investment flows abroad have increased substantially and the country has now established itself as a major capital exporter, surpassing Japan as an international investor. Its extensive investments in the Belt and Road initiative (launched in 2012) are focused on infrastructure (<xref ref-type="bibr" rid="B36">Ribeiro, 2022</xref>; <xref ref-type="bibr" rid="B3">Cintra and Pinto, 2017</xref>), attempting to address the issue of excess capacity, and constitute a strong stimulus for investments in its heavy and ICT industries, especially in telecommunications infrastructure, thereby opening up a great stimulus for its foreign markets.</p>
+      <p>Alongside these industries, China has an expanding sector that never took hold in Japan and Korea: the military-industrial complex. Despite its military budget being 2% of GDP (lower, for example, than that of France), total military expenditure expressed in current dollars is only exceeded by that of the US. Historically, the Chinese military-industrial complex has established itself as an important magnet for GDP growth and above all for sophisticated technologies (Trebat; Medeiros, 2014; <xref ref-type="bibr" rid="B41">Syed, 2021</xref>). Both effects are expanding given the challenges raised by the technological dispute with the US.</p>
+      <p>Given the transformations brought about on the one hand by the rise in labor costs and on the other hand by tariffs on its industrial exports, China has been investing heavily in the robotization of factories (robots in use in China already exceed half of the world market), including domestic production replacing imports. This mechanization contradicts the central objective of job creation given the facts that, in the last decade, as previously shown, there has been a relative decline in industrial employment and, in recent years, an absolute decline in industrial employment (manufacturing and construction) driven by the reduction in formal employment, even though informal employment kept growing (<xref ref-type="bibr" rid="B37">Rozelle et al., 2020</xref>). However, in contemporary China, as in economies that rapidly industrialize, the expansion of employment occurs increasingly in service activities, both in those that require qualified work and work with a lower degree of schooling – which in China accounts for the great growth of the informal sector – and, among the latter, in the so-called “platform economies”.<xref ref-type="fn" rid="fn28">28</xref></p>
+      <p>Concerning household consumption, the decisive issue is the expansion of the social security system and popular housing programs aimed at low-income populations.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>Conclusion</title>
+      <p>It was argued in this essay that the recent slowdown in the growth rate of the Chinese economy is due to a set of circumstances associated both with the characteristics of the growth regime that began in 2008 and with external and internal structural changes. Among them, the slowdown in the growth rate of exports and the increase in the wage rate stood out, which, beyond being a cyclical phenomenon, corresponds to a significant structural and institutional change, ending or reducing the growth path based on low wages.</p>
+      <p>It was briefly discussed that in this transition process, China still has a broad urbanization process that is ongoing, and a large number of “semi-urbanized” migrant workers generate a wide demand for public and private investments and services. At the same time, thanks to its technological policy, China has gained prominence in new technologies, particularly in green technologies and digitalization.</p>
+      <p>This new structure of accumulation prioritized in the “new normal” will possibly lead to a moderate growth rate for the Chinese historical experience, but higher than that of the OECD, and possibly more socially and environmentally balanced than what was affirmed in recent years.</p>
+      <p>These transformations in China’s structure of accumulation also have important economic ramifications for the global economy. In advanced economies, particularly the US and the EU, China’s prominence in green technologies and digitalization has been seen as a central challenge to their cutting-edge technologies and industrial systems. If, initially, the Chinese challenge was met by a technological and trade war launched by the US, now the response of advanced economies has evolved to encompass a political agenda that seeks to restore planning, particularly through industrial policies.</p>
+      <p>In as much as peripheral economies are concerned, the structural change affecting the Chinese wage rate may have important impacts. While the offshoring of manufacturing from the high-wage economies to China essentially reduced the wage rate in the manufacturing sector, this movement had a double impact on peripheral economies. On the other hand, it benefited the primary exporting economies through a valorization of their terms of trade; on the other hand, it displaced the manufacturing production in those economies that possessed a less competitive manufacturing sector than China. Consequently, if wages remain experiencing a sustained growth trend in China, these effects may cease to occur, increasing the relative competitiveness of peripheral economies with some manufacturing production, at least in those subsectors and stages of production that are unskilled labor intensive. However, other manufacturing subsectors in those economies may continue to be under significant competitive threat from China’s industrial system, particularly those subsectors that were not the focus of advanced economies’ offshoring based on labor arbitrage and that relied more on other historical processes for their development and export performance in China. This is the case, for instance, of those manufacturing subsectors that currently suffer from excess capacity associated with the real estate sector boom, such as steel, and those related to green industries, which many peripheral countries are attempting to nourish.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="other" id="fn1">
+        <label>(1)</label>
+        <p>A representative synthesis is provided in the 2023 Trade Development Report: “[...] persistent weaknesses in the real estate sector pose challenges, including potential financial stress, reduced job creation, constrained consumer spending and delayed investments. Additionally, escalating geopolitical tensions are disrupting how China dominates key global value chains, clouding prospects in some of its frontier technology sectors, at least in the short-term. Authorities in China have responded to slower-than-expected growth with a mix of monetary expansion, supply-side incentives and regulatory tightening. The overall impact of these measures as well as their spillover effects, particularly on neighbouring economies, remains uncertain” (<xref ref-type="bibr" rid="B43">Unctad, 2023, p. 7</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn2">
+        <label>(2)</label>
+        <p>As <xref ref-type="bibr" rid="B24">Melin (2023)</xref> observed, articles about the “wounded dragon” and a “zombie economy” had a boom in the Western press.</p>
+      </fn>
+      <fn fn-type="other" id="fn3">
+        <label>(3)</label>
+        <p>It should be emphasized, however, that this environmental perspective, until now, has been expressed in terms of reducing the “intensity of pollution, or the amount of CO2 released per unit of production” (<xref ref-type="bibr" rid="B18">Malm, 2016, p. 453</xref>). According to <xref ref-type="bibr" rid="B2">Chen et al. (2022, p. 1)</xref>, “in 2019, China’s carbon emission intensity decreased by 48.1% compared with that in 2005”. However, as stressed by <xref ref-type="bibr" rid="B18">Malm (2016)</xref>, “what counts for climate is, of course, total emissions” (p. 453), and these kept rising in China during the same period.</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>(4)</label>
+        <p>For a discussion on this theoretical perspective in development economics, see <xref ref-type="bibr" rid="B38">Serrano (2001)</xref>.</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>(5)</label>
+        <p>There is a wide range of analyzes that interpret China’s growth since its opening, but especially in the 1990s, as an “exportled” economy. It is out of the scope of this short note to include an examination of this literature and its main problems. From our point of view, as discussed in <xref ref-type="bibr" rid="B23">Medeiros (2006)</xref>, China has a “state-led growth” regime in which the urbanization process and the large industry associated with it, formed largely by state-owned companies, constitute an essential and persistent magnet of its growth trajectory. What is stressed here is that, although China is not a typically export-led economy, the slowdown in the rate of export growth, as occurs in any demand-led economy, has an important impact on growth, leading to changes in growth strategies and policies.</p>
+      </fn>
+      <fn fn-type="other" id="fn6">
+        <label>(6)</label>
+        <p>Along the perspective developed by <xref ref-type="bibr" rid="B12">Kotz et al. (1994)</xref> and <xref ref-type="bibr" rid="B21">McDonough et al. (2010)</xref>, inspired on Marxian and Keynesian analyses, periods of sustained economic growth require “social structures of accumulation”, including all economic, political and institutional strategies that seek in a particular economy to sustain a viable trajectory of capital accumulation. We consider here these strategies followed in China as a social accumulation strategy.</p>
+      </fn>
+      <fn fn-type="other" id="fn7">
+        <label>(7)</label>
+        <p>See <xref ref-type="bibr" rid="B7">Hou, Gelb, and Calabrese (2017)</xref>.</p>
+      </fn>
+      <fn fn-type="other" id="fn8">
+        <label>(8)</label>
+        <p>In 1982, the right to strike was excluded from the Constitution, but strikes are not prohibited. However, due to trade unions’ subordination to the only trade union federation (All-China Federation of Trade Unions), which is subordinated to the Chinese Communist Party, strikes tend to be wild cat strikes and conflicts occur outside the unions. Even though demands for independent trade unions arose in workers’ clashes, these struggles have not materialized into organizational gains, tending to be ephemeral and generally not articulated among themselves.</p>
+      </fn>
+      <fn fn-type="other" id="fn9">
+        <label>(9)</label>
+        <p>In 2008, the Labor Contract Law was established, regulating the employment contract, but left out a substantial portion of workers, especially rural migrant workers. In 2013, reforms were included to extend its application. In 2011, the Social Insurance Law was established.</p>
+      </fn>
+      <fn fn-type="other" id="fn10">
+        <label>(10)</label>
+        <p>These estimates are made based on <xref ref-type="bibr" rid="B8">ILO (2024)</xref> data for countries other than China. It should be noted that manufacturing hourly wages obtained through this database might be substantially different from other available estimates. For instance, in the case of Mexico, the calculated figure with ILO data was $2,32, while several sources provide much higher figures that would place manufacturing hourly wage rates in the country above Chinese rural migrant workers but below urban formal employees.</p>
+      </fn>
+      <fn fn-type="other" id="fn11">
+        <label>(11)</label>
+        <p>As <xref ref-type="bibr" rid="B37">Rozelle et al. (2020, p. 557)</xref> discuss, since 2010 there have been several business movements to shift the production of labor-intensive activities to other countries: “A new trend of outward foreign direct investment by China’s firms also began to emerge in this same period [...] Such trends were, in part, responsible for the prominent rise of new electronic production bases in Vietnam [...] the rapid expansion of textiles in Bangladesh [...] and the relocation of many shoe manufacturers to Ethiopia, among other examples.”</p>
+      </fn>
+      <fn fn-type="other" id="fn12">
+        <label>(12)</label>
+        <p>“A distinctive characteristic of economic development during the 13th Five-year Plan period (2016-2020) is that it has entered a new normal. Under this new normal, the economy is shifting from a high to a medium-high rate of growth, from a growth model that emphasized scale and rate to one that emphasizes quality and efficiency, from an economic structure in which economic growth was mainly fueled by the increment and increased industrial capacity to one in which the existing capacity is adjusted and the increment is put to best use, and from being driven by production factors such as resources and low-cost labor to being driven by innovation. Such changes are essential for China’s economy to upgrade to a more advanced level, with better division of labor and a more rational structure. Realizing these extensive and profound changes is no easy job; it presents us with a new and significant challenge.” (<xref ref-type="bibr" rid="B51">Xi, 2016, n.p.</xref>)</p>
+      </fn>
+      <fn fn-type="other" id="fn13">
+        <label>(13)</label>
+        <p>The process of regulated or partial internationalization of the yuan has been implemented since 2014 by the Central Bank. In 2015, speculative movements in relation to the exchange rate fluctuation policy led to a sharp drop in reserves: “In the face of a greater degree of financial openness, uncertainties about currency devaluation resulted in a capital account deficit of US$504 billion which, added US$132 billion in ‘errors and omissions’, totaled US$636 billion, despite a trade balance surplus of US$595 billion and in the current account of US$293 billion, according to preliminary data from the 2015 balance of payments. As a result, international reserves fell by US$343 billion. A significant part of this movement was associated with the payment of external debt by Chinese companies” (<xref ref-type="bibr" rid="B3">Cintra; Pinto, 2017, p. 381</xref>, our translation).</p>
+      </fn>
+      <fn fn-type="other" id="fn14">
+        <label>(14)</label>
+        <p>“China’s past growth, largely driven by investment in infrastructure and property, has left firms and local governments burdened by debt – as saturated infrastructure yields diminishing returns and an oversupply of housing reduces property prices” (<xref ref-type="bibr" rid="B48">World Bank, 2023b, p. xx</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn15">
+        <label>(15)</label>
+        <p>In the more centralized sectors and controlled by state-owned enterprises, this problem is less serious, but it tends to be higher in activities in which the market has a more significant presence.</p>
+      </fn>
+      <fn fn-type="other" id="fn16">
+        <label>(16)</label>
+        <p>In fact, as several documents attest, despite the NRDC’s decision not to approve new investments in industries with excess capacity, several projects were approved in the steel and cement industry (<xref ref-type="bibr" rid="B52">Xu; Liu, 2018</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn17">
+        <label>(17)</label>
+        <p>“[...] the three red lines” policy, initiated in August 2020 and intensified this year, sets ceilings on property developers’ debt-to-asset ratio, debt-to-equity ratio, and debt-to-cash ratio. Because many of these firms could not meet one or more of the red lines, and banks and capital markets are reluctant to provide new financing, they must sell assets, scale down operations, or both” (Wei, 2023, n.p.). “This liquidity crisis was triggered by the “Three Red Lines” regulatory requirements introduced in August 2020. They stipulated that real estate companies must have: A liability to asset ratio of less than 70%; A net gearing ratio (debt-equity divided by shareholders’ equity) of less than 100% A cash to short-term borrowing ratio of at least 1” (<xref ref-type="bibr" rid="B16">Liu, 2022, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn18">
+        <label>(18)</label>
+        <p>“[...] the all-important property market, which has accounted for as much as 30% of the economy, fell into crisis more than two years ago after a government-led clampdown on developers’ borrowing. Investment in real estate fell last year for the first time in a decade, and with no bailout from Beijing in sight, the property downturn is likely to drag on, posing a major threat to China’s growth prospects over the next three to five years. [...] The government has already introduced a ‘destocking’ policy nationwide to reduce oversupply, including slowing the pace of land sales in cities and encouraging developers to lower housing prices to spur demand. Absorbing this ‘excess capacity’ in the property sector will inevitably hurt China’s economic growth, according to Garcia-Herrero” (<xref ref-type="bibr" rid="B6">He, 2023</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn19">
+        <label>(19)</label>
+        <p>Alongside the regulation of the real estate sector, the Chinese government implemented important regulatory changes in platform companies: “Beijing’s regulatory crackdown on Chinese tech sector began in late 2020, wiping off more than a combined $1 trillion from the country’s biggest companies. There are now signs that the central government is softening its stance towards internet titans like Alibaba, in a move that could prove positive for Chinese tech stocks” (<xref ref-type="bibr" rid="B9">Kharpal, 2023, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn20">
+        <label>(20)</label>
+        <p>“The government’s green industrial policy, tighter regulation of the property sector, and blacklists of online platforms also have collectively curtailed growth. Following its pledge to halt the rise in China’s carbon-dioxide emissions before 2030 and achieve net zero by 2060, the government has forcefully and often abruptly reduced electricity generation in coal-fired power plants, sometimes by 20%. The resulting power outages disrupted production at affected factories” (<xref ref-type="bibr" rid="B44">Wei, 2021, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn21">
+        <label>(21)</label>
+        <p>As acknowledged by <xref ref-type="bibr" rid="B42">The Economist (2023, n.p.)</xref>, “Much of the debt incurred by China’s corporations is owed by state-owned enterprises that will continue to borrow and spend, with the support of state-owned banks, if required by China’s policymakers. Among private enterprises, debt is concentrated on the books of property developers. They are reducing their liabilities and cutting back on investment in new housing proj ects. But in the face of falling property prices and weak housing sales, even developers with robust balance-sheets would be doing the same.”</p>
+      </fn>
+      <fn fn-type="other" id="fn22">
+        <label>(22)</label>
+        <p>“In China, government net demand has remained the main driver of economic growth, while the external sector has exercised a drag on demand, contrary to frequent portrayals of the world’s largest developing economy as purely export-driven” (<xref ref-type="bibr" rid="B43">Unctad, 2023, p. 11</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn23">
+        <label>(23)</label>
+        <p>“By 2030, the Chinese population will reach approximately 1.445 billion and its urbanization rate will reach 70%. By that time, the population living in cities and towns will be over 1 billion. (UNDP, 2013; Yang, 2014) This means that China’s rural population will have been reduced by more than one-third, as more than 300 million people move to cities (towns) from the countryside. In theory, 70% is an important threshold in the development of the urbanization rate and urbanization will then also undergo a transformation from the stage of rapid advancement to that of stable development” (<xref ref-type="bibr" rid="B40">Sun et al., 2017, p. 945</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn24">
+        <label>(24)</label>
+        <p>Note that “The rate of urbanization in China increased from 29% to 65% from 1995 to 2021. In comparison, it took 70 years for the United States to increase its urbanization rate from 28.6% to 64%, 73 years for France’s to rise from 26% to 65% and 60 years for Germany’s to increase from 28% to 68%” (<xref ref-type="bibr" rid="B16">Liu, 2022, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn25">
+        <label>(25)</label>
+        <p>“For decades, the property boom fueled spending by China’s growing middle class, who kept a great portion of their wealth in real estate and felt confident when their homes increased” (<xref ref-type="bibr" rid="B6">He, 2023, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn26">
+        <label>(26)</label>
+        <p>“Last month, President Xi Jinping stressed the need to promote “a new type of industrialization,” in which sectors like green technology could take the place of property. But that goal may be impossible in the near term, analysts from Capital Economics said. ‘Many of these sectors have been growing rapidly for years, but they are too small to make up for property’s gargantuan role,’ Mark Williams, Sheana Yue and Zichuan Huang wrote in a research note last week. Sectors already defined as ‘strategic emerging industries,’ including advanced materials and tools and green energy products like electric vehicles, generated a little over 13% of GDP in 2022” (<xref ref-type="bibr" rid="B6">He, 2023, n.p.</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn27">
+        <label>(27)</label>
+        <p>“A paradox of the current trade dispute between the world’s two largest economies is that total imports of goods to the United States from China have returned to their pre-COVID-19 peak. This is due to the sharp increase in products not subject to tariffs. Bilateral imports of both goods and services from China to the United States reached the highest level ever recorded, at $564 billion in 2022, as services continue to expand. The United States remains by far the main destination for exports of merchandise from China; followed by Japan, Republic of Korea, Viet Nam and India” (<xref ref-type="bibr" rid="B43">Unctad, 2023, p. 41</xref>).</p>
+      </fn>
+      <fn fn-type="other" id="fn28">
+        <label>(28)</label>
+        <p>“To cater to the needs of this growing share of the market, service-industry firms in China, such as the ridesharing company Didi, have emerged. Due to the rapid growth of the demand for such services, since 2012, Didi has raised US $21 billion in 18 rounds of funding as of March 2020 (Ciaccia 2020). Another example of the rise of the service industry is the growth of another domestic firm, an in-home food delivery service known as Meituan Dianping. Even though it has many competitors, the rise in the demand for Meituan’s services since the early 2010s has resulted in the creation of nearly 20 million job opportunities (Lee 2019). Despite the fact that a large share of GDP is going toward investment and government services, China’s growth has been high enough to spur a sharp rise in the demand for labor in the service industry” (<xref ref-type="bibr" rid="B37">Rozelle et al., 2020, p. 574</xref>).</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>References</title>
+      <ref id="B1">
+        <mixed-citation>BLS – US Bureau of Labor Statistics. <italic>The employment situation.</italic> Washington, D.C.: Bureau of Labor Statistics, Dec. 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.bls.gov/news.release/pdf/empsit.pdf">https://www.bls.gov/news.release/pdf/empsit.pdf</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>BLS – US Bureau of Labor Statistics</collab>
+          </person-group>
+          <source>The employment situation</source>
+          <publisher-loc>Washington, D.C.</publisher-loc>
+          <publisher-name>Bureau of Labor Statistics</publisher-name>
+          <month>12</month>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.bls.gov/news.release/pdf/empsit.pdf">https://www.bls.gov/news.release/pdf/empsit.pdf</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>CHEN, J. et al. Carbon peak and its mitigation implications for China in the post-pandemic era. <italic>Sci Rep,</italic> v. 12, n. 3473, 2022. Available at: <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1038/s41598-022-07283-4">https://doi.org/10.1038/s41598-022-07283-4</ext-link>.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CHEN</surname>
+              <given-names>J.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Carbon peak and its mitigation implications for China in the post-pandemic era</article-title>
+          <source>Sci Rep</source>
+          <volume>12</volume>
+          <issue>3473</issue>
+          <year>2022</year>
+          <pub-id pub-id-type="doi">10.1038/s41598-022-07283-4</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>CINTRA, M. A. M.; PINTO, E. C. China em transformação: transição e estratégias de desenvolvimento. <italic>Revista de Economia Política,</italic> v. 37, n. 2, p. 381-400, abr./jun. 2017.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>CINTRA</surname>
+              <given-names>M. A. M.</given-names>
+            </name>
+            <name>
+              <surname>PINTO</surname>
+              <given-names>E. C.</given-names>
+            </name>
+          </person-group>
+          <article-title>China em transformação: transição e estratégias de desenvolvimento</article-title>
+          <source>Revista de Economia Política</source>
+          <volume>37</volume>
+          <issue>2</issue>
+          <fpage>381</fpage>
+          <lpage>400</lpage>
+          <season>abr./jun.</season>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>GAULARD, M. The Chinese economic crisis: a Marxist approach. In: CARCHEDI, G.; ROBERTS, M. (Ed.). <italic>World in crisis:</italic> a global analysis of Marx’s law of profitability. Chicago: Haymarket Books, 2018.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GAULARD</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>The Chinese economic crisis: a Marxist approach</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>CARCHEDI</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>ROBERTS</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source><italic>World in crisis:</italic> a global analysis of Marx’s law of profitability</source>
+          <publisher-loc>Chicago</publisher-loc>
+          <publisher-name>Haymarket Books</publisher-name>
+          <year>2018</year>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>GOMES, A. P.; PAULS, R.; TEN BRINK, T. Industrial policy and the creation of the electric vehicles market in China: demand structure, sectoral complementarities, and policy coordination. <italic>Cambridge Journal of Economics,</italic> v. 47, n. 1, p. 45-66, 2023.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>GOMES</surname>
+              <given-names>A. P.</given-names>
+            </name>
+            <name>
+              <surname>PAULS</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>TEN BRINK</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <article-title>Industrial policy and the creation of the electric vehicles market in China: demand structure, sectoral complementarities, and policy coordination</article-title>
+          <source>Cambridge Journal of Economics</source>
+          <volume>47</volume>
+          <issue>1</issue>
+          <fpage>45</fpage>
+          <lpage>66</lpage>
+          <year>2023</year>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>HE, L. China’s economy will be hobbled for years by the real estate crisis. <italic>CNN,</italic> Oct. 6, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://edition.cnn.com/2023/10/06/economy/china-economy-real-estate-crisis-intlhnk/index.html">https://edition.cnn.com/2023/10/06/economy/china-economy-real-estate-crisis-intlhnk/index.html</ext-link>. Last accessed: Jan. 13, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HE</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <article-title>China’s economy will be hobbled for years by the real estate crisis</article-title>
+          <source>CNN</source>
+          <month>10</month>
+          <day>6</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 13, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://edition.cnn.com/2023/10/06/economy/china-economy-real-estate-crisis-intlhnk/index.html">https://edition.cnn.com/2023/10/06/economy/china-economy-real-estate-crisis-intlhnk/index.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>HOU, J.; GELB, S.; CALABRESE, L. <italic>The shift in manufacturing employment in China.</italic> Background Paper. The Overseas Development Institute, Aug. 2017. Available at: <ext-link ext-link-type="uri" xlink:href="https://set.odi.org/wpcontent/uploads/2017/08/SET-China_Shift-of-Manufacturing-Employment-1.pdf">https://set.odi.org/wpcontent/uploads/2017/08/SET-China_Shift-of-Manufacturing-Employment-1.pdf</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>HOU</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>GELB</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>CALABRESE</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <source><italic>The shift in manufacturing employment in China.</italic> Background Paper</source>
+          <publisher-name>The Overseas Development Institute</publisher-name>
+          <month>08</month>
+          <year>2017</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://set.odi.org/wpcontent/uploads/2017/08/SET-China_Shift-of-Manufacturing-Employment-1.pdf">https://set.odi.org/wpcontent/uploads/2017/08/SET-China_Shift-of-Manufacturing-Employment-1.pdf</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>ILO – International Labour Organization. <italic>ILO modeled database,</italic> ILOSTAT. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ilo.org/shinyapps/bulkexplorer0/?lang=en">https://www.ilo.org/shinyapps/bulkexplorer0/?lang=en</ext-link>. Last accessed: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>ILO – International Labour Organization</collab>
+          </person-group>
+          <source>ILO modeled database</source>
+          <publisher-name>ILOSTAT</publisher-name>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ilo.org/shinyapps/bulkexplorer0/?lang=en">https://www.ilo.org/shinyapps/bulkexplorer0/?lang=en</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>KHARPAL, A. <italic>After a more than $1 trillion rout, Beijing appears to be warming to Chinese tech giants.</italic> CNBC, Mar. 29, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.cnbc.com/2023/03/30/china-tech-beijing-appears-to-relax-scrutiny-of-giants-like-alibaba.html">https://www.cnbc.com/2023/03/30/china-tech-beijing-appears-to-relax-scrutiny-of-giants-like-alibaba.html</ext-link>. Last accessed: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KHARPAL</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>After a more than $1 trillion rout, Beijing appears to be warming to Chinese tech giants</source>
+          <publisher-name>CNBC</publisher-name>
+          <month>03</month>
+          <day>29</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.cnbc.com/2023/03/30/china-tech-beijing-appears-to-relax-scrutiny-of-giants-like-alibaba.html">https://www.cnbc.com/2023/03/30/china-tech-beijing-appears-to-relax-scrutiny-of-giants-like-alibaba.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>KIHARA, L. IMF warning on China puts ‘Japanization’ risk in spotlight. <italic>Reuters,</italic> Marrakech, Oct. 13, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.reuters.com/markets/rpt-analysis-imf-warning-china-putsjapanization-risk-spotlight-2023-10-16/">https://www.reuters.com/markets/rpt-analysis-imf-warning-china-putsjapanization-risk-spotlight-2023-10-16/</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KIHARA</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <article-title>IMF warning on China puts ‘Japanization’ risk in spotlight</article-title>
+          <source>Reuters</source>
+          <publisher-loc>Marrakech</publisher-loc>
+          <month>10</month>
+          <day>13</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.reuters.com/markets/rpt-analysis-imf-warning-china-putsjapanization-risk-spotlight-2023-10-16/">https://www.reuters.com/markets/rpt-analysis-imf-warning-china-putsjapanization-risk-spotlight-2023-10-16/</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>KOO, R. Chinese economic challenges today versus Japanese economic challenges 30 years ago. In: HAS China entered a balance sheet recession? [S.l.]: Peterson Institute for International Economics, 2023. 1 video (61 min). Available at: <ext-link ext-link-type="uri" xlink:href="http://en.iiss.pku.edu.cn/info/1064/3395.htm">http://en.iiss.pku.edu.cn/info/1064/3395.htm</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KOO</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Chinese economic challenges today versus Japanese economic challenges 30 years ago</chapter-title>
+          <source>HAS China entered a balance sheet recession?</source>
+          <publisher-name>Peterson Institute for International Economics</publisher-name>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>[S.l.]: 1 video (61 min). Available at: <ext-link ext-link-type="uri" xlink:href="http://en.iiss.pku.edu.cn/info/1064/3395.htm">http://en.iiss.pku.edu.cn/info/1064/3395.htm</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>KOTZ, D. M.; MCDONOUGH, T.; REICH, M. <italic>Social structures of accumulation:</italic> the political economy of growth and crisis. Cambridge: Cambridge University Press, 1994.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KOTZ</surname>
+              <given-names>D. M.</given-names>
+            </name>
+            <name>
+              <surname>MCDONOUGH</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>REICH</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <source><italic>Social structures of accumulation:</italic> the political economy of growth and crisis</source>
+          <publisher-loc>Cambridge</publisher-loc>
+          <publisher-name>Cambridge University Press</publisher-name>
+          <year>1994</year>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>KRUGMAN, P. Why is China in so much Trouble? <italic>The New York Times,</italic> Aug. 31, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.nytimes.com/2023/08/31/opinion/china-xi-jinping-policy-thrift.html">https://www.nytimes.com/2023/08/31/opinion/china-xi-jinping-policy-thrift.html</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>KRUGMAN</surname>
+              <given-names>P.</given-names>
+            </name>
+          </person-group>
+          <article-title>Why is China in so much Trouble?</article-title>
+          <source>The New York Times</source>
+          <month>08</month>
+          <day>31</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.nytimes.com/2023/08/31/opinion/china-xi-jinping-policy-thrift.html">https://www.nytimes.com/2023/08/31/opinion/china-xi-jinping-policy-thrift.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>LAODONGQUSHI. 年平均工时达到历史新高，我们为何这么忙碌？ [Average working hours will reach a record high in 2022. Why are we so busy?]. <italic>Laodongqushi</italic>, Oct. 3, 2022. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.laodongqushi.com/labor-time/">https://www.laodongqushi.com/labor-time/</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>LAODONGQUSHI</collab>
+          </person-group>
+          <article-title>年平均工时达到历史新高，我们为何这么忙碌？ [Average working hours will reach a record high in 2022. Why are we so busy?]</article-title>
+          <source>Laodongqushi</source>
+          <month>10</month>
+          <day>3</day>
+          <year>2022</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.laodongqushi.com/labor-time/">https://www.laodongqushi.com/labor-time/</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>LI, H. et al. The end of cheap Chinese labor. <italic>Journal of Economic Perspectives,</italic> v. 26, n. 4, p. 57-74, Fall, 2012.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LI</surname>
+              <given-names>H.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>The end of cheap Chinese labor</article-title>
+          <source>Journal of Economic Perspectives</source>
+          <volume>26</volume>
+          <issue>4</issue>
+          <fpage>57</fpage>
+          <lpage>74</lpage>
+          <season>Fall</season>
+          <year>2012</year>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>LIU, J. <italic>China’s real estate problem I.</italic> The “Three Red Lines”. CKGSB, July 5, 2022. Available at: <ext-link ext-link-type="uri" xlink:href="https://english.ckgsb.edu.cn/knowledge/professor_analysis/series-chinas-real-estate-problem-1-the-three-red-lines/">https://english.ckgsb.edu.cn/knowledge/professor_analysis/series-chinas-real-estate-problem-1-the-three-red-lines/</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LIU</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <source><italic>China’s real estate problem I.</italic> The “Three Red Lines”</source>
+          <publisher-name>CKGSB</publisher-name>
+          <month>07</month>
+          <day>5</day>
+          <year>2022</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://english.ckgsb.edu.cn/knowledge/professor_analysis/series-chinas-real-estate-problem-1-the-three-red-lines/">https://english.ckgsb.edu.cn/knowledge/professor_analysis/series-chinas-real-estate-problem-1-the-three-red-lines/</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation>LO, D. <italic>The political economy of China’s “new normal”.</italic> Presentation at the IIPPE Annual Conference 2023, Madrid, Sept. 6-8, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://thenextrecession.files.wordpress.com/2023/09/dlo-e28093-iippe-2023-09-normal-1.pdf">https://thenextrecession.files.wordpress.com/2023/09/dlo-e28093-iippe-2023-09-normal-1.pdf</ext-link>. Last access: Jan. 23, 2024.</mixed-citation>
+        <element-citation publication-type="confproc">
+          <person-group person-group-type="author">
+            <name>
+              <surname>LO</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>The political economy of China’s “new normal”</source>
+          <conf-name>Presentation at the IIPPE Annual Conference 2023</conf-name>
+          <conf-loc>Madrid</conf-loc>
+          <conf-date>Sept. 6-8, 2023</conf-date>
+          <date-in-citation content-type="access-date">Jan. 23, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://thenextrecession.files.wordpress.com/2023/09/dlo-e28093-iippe-2023-09-normal-1.pdf">https://thenextrecession.files.wordpress.com/2023/09/dlo-e28093-iippe-2023-09-normal-1.pdf</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>MALM, A. <italic>Fossil capital:</italic> the rise of steam power and the roots of global warming. New York, London: Verso, 2016.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MALM</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source><italic>Fossil capital:</italic> the rise of steam power and the roots of global warming</source>
+          <publisher-loc>New York, London</publisher-loc>
+          <publisher-name>Verso</publisher-name>
+          <year>2016</year>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>MAJEROWICZ, E. A disputa sino-estadunidense nas tecnologias da informação e comunicação. In: MAJEROWICZ, E.; PARANÁ, E. (Ed.). <italic>A China no capitalismo contemporâneo.</italic> São Paulo: Expressão Popular, 2022a.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A disputa sino-estadunidense nas tecnologias da informação e comunicação</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>PARANÁ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>A China no capitalismo contemporâneo</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Expressão Popular</publisher-name>
+          <year>2022a</year>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation>MAJEROWICZ, E. The industrial reserve army and wage setting in China. <italic>Bulletin of Political Economy,</italic> v. 16, n. 1, p. 21-56, Jun. 2022b.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <article-title>The industrial reserve army and wage setting in China</article-title>
+          <source>Bulletin of Political Economy</source>
+          <volume>16</volume>
+          <issue>1</issue>
+          <fpage>21</fpage>
+          <lpage>56</lpage>
+          <month>06</month>
+          <year>2022b</year>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>MCDONOUGH, T.; REICH, M.; KOTZ, D. <italic>Contemporary capitalism and its crises.</italic> Cambridge: Cambridge University Press, 2010.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MCDONOUGH</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>REICH</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>KOTZ</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <source>Contemporary capitalism and its crises</source>
+          <publisher-loc>Cambridge</publisher-loc>
+          <publisher-name>Cambridge University Press</publisher-name>
+          <year>2010</year>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>MEDEIROS, C. A. Desenvolvimentismo com características chinesas. In: MAJEROWICZ, E.; PARANÁ, E. (Ed.). <italic>A China no capitalismo contemporâneo.</italic> São Paulo: Expressão Popular, 2022.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MEDEIROS</surname>
+              <given-names>C. A.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Desenvolvimentismo com características chinesas</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>PARANÁ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>A China no capitalismo contemporâneo</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Expressão Popular</publisher-name>
+          <year>2022</year>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>MEDEIROS, C. A. A China como um duplo pólo na economia mundial e a recentralização da economia asiática. <italic>Brazil J. Polit. Econ.,</italic> v. 6, n. 3, Sept. 2006. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/j/rep/a/ckBJZnLqVSRYc8wSShkFqCh/?lang=pt">https://www.scielo.br/j/rep/a/ckBJZnLqVSRYc8wSShkFqCh/?lang=pt</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MEDEIROS</surname>
+              <given-names>C. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>A China como um duplo pólo na economia mundial e a recentralização da economia asiática</article-title>
+          <source>Brazil J. Polit. Econ.</source>
+          <volume>6</volume>
+          <issue>3</issue>
+          <month>09</month>
+          <year>2006</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.scielo.br/j/rep/a/ckBJZnLqVSRYc8wSShkFqCh/?lang=pt">https://www.scielo.br/j/rep/a/ckBJZnLqVSRYc8wSShkFqCh/?lang=pt</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>MELIN, L. E. <italic>Rising debt and falling assets in China’s key markets.</italic> 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.academia.edu/106020121/Rising Debt and Falling Assets in Chinas Key Markets">https://www.academia.edu/106020121/Rising Debt and Falling Assets in Chinas Key Markets</ext-link>. Last access: Jan. 23, 2024.</mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>MELIN</surname>
+              <given-names>L. E.</given-names>
+            </name>
+          </person-group>
+          <source>Rising debt and falling assets in China’s key markets</source>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">: Jan. 23, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.academia.edu/106020121/Rising Debt and Falling Assets in Chinas Key Markets">https://www.academia.edu/106020121/Rising Debt and Falling Assets in Chinas Key Markets</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>NBS – National Bureau of Statistics of China. <italic>China Labour Statistical Yearbook,</italic> several editions.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source><italic>China Labour Statistical Yearbook,</italic> several editions</source>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2012. <italic>Annual report on rural migrant workers monitoring survey.</italic> May 27, 2013. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/gzdt/2013-05/27/content 2411923.htm">https://www.gov.cn/gzdt/2013-05/27/content 2411923.htm</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2012. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>05</month>
+          <day>27</day>
+          <year>2013</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/gzdt/2013-05/27/content 2411923.htm">https://www.gov.cn/gzdt/2013-05/27/content 2411923.htm</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2013. <italic>Annual report on rural migrant workers monitoring survey.</italic> May 12, 2014. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2014-05/12/content_2677889.htm">https://www.gov.cn/xinwen/2014-05/12/content_2677889.htm</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2013. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>05</month>
+          <day>12</day>
+          <year>2014</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2014-05/12/content_2677889.htm">https://www.gov.cn/xinwen/2014-05/12/content_2677889.htm</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2014. <italic>Annual report on rural migrant workers monitoring survey.</italic> Apr. 29, 2015. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2015-04/29/content_2854930.htm">https://www.gov.cn/xinwen/2015-04/29/content_2854930.htm</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2014. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>04</month>
+          <day>29</day>
+          <year>2015</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2015-04/29/content_2854930.htm">https://www.gov.cn/xinwen/2015-04/29/content_2854930.htm</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2016. <italic>Annual report on rural migrant workers monitoring survey.</italic> Apr. 28, 2017. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2017-04/28/content 5189509.htm#1">https://www.gov.cn/xinwen/2017-04/28/content 5189509.htm#1</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2016. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>04</month>
+          <day>28</day>
+          <year>2017</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.gov.cn/xinwen/2017-04/28/content 5189509.htm#1">https://www.gov.cn/xinwen/2017-04/28/content 5189509.htm#1</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2018. <italic>Annual report on rural migrant workers monitoring survey.</italic> Apr. 29, 2019. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202302/t20230203 1900299.html">https://www.stats.gov.cn/si/zxfb/202302/t20230203 1900299.html</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2018. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>04</month>
+          <day>29</day>
+          <year>2019</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202302/t20230203 1900299.html">https://www.stats.gov.cn/si/zxfb/202302/t20230203 1900299.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2020. <italic>Annual report on rural migrant workers monitoring survey.</italic> Apr. 30, 2021. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202302/t20230203 1901074.html">https://www.stats.gov.cn/si/zxfb/202302/t20230203 1901074.html</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2020. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>04</month>
+          <day>30</day>
+          <year>2021</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202302/t20230203 1901074.html">https://www.stats.gov.cn/si/zxfb/202302/t20230203 1901074.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>NBS – National Bureau of Statistics of China. 年全国农民工监测调查报告. 2022. <italic>Annual report on rural migrant workers monitoring survey.</italic> Apr. 28, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202304/t20230427 1939124.html">https://www.stats.gov.cn/si/zxfb/202304/t20230427 1939124.html</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>年全国农民工监测调查报告. 2022. <italic>Annual report on rural migrant workers monitoring survey</italic></source>
+          <month>04</month>
+          <day>28</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/si/zxfb/202304/t20230427 1939124.html">https://www.stats.gov.cn/si/zxfb/202304/t20230427 1939124.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>NBS – National Bureau of Statistics of China. <italic>National data.</italic> Beijing: NBS, 2024. Available at: <ext-link ext-link-type="uri" xlink:href="https://data.stats.gov.cn/english/easyquery.htm?cn=C01">https://data.stats.gov.cn/english/easyquery.htm?cn=C01</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>National data</source>
+          <publisher-loc>Beijing</publisher-loc>
+          <publisher-name>NBS</publisher-name>
+          <year>2024</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://data.stats.gov.cn/english/easyquery.htm?cn=C01">https://data.stats.gov.cn/english/easyquery.htm?cn=C01</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>NBS – National Bureau of Statistics of China. <italic>National economy witnessed momentum of recovery with solid progress in high-quality development in 2023.</italic> Beijing: NBS, 2024a. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/english/PressRelease/202401/t20240117_1946605.html">https://www.stats.gov.cn/english/PressRelease/202401/t20240117_1946605.html</ext-link>. Last access: Jan. 23, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>NBS – National Bureau of Statistics of China</collab>
+          </person-group>
+          <source>National economy witnessed momentum of recovery with solid progress in high-quality development in 2023</source>
+          <publisher-loc>Beijing</publisher-loc>
+          <publisher-name>NBS</publisher-name>
+          <year>2024a</year>
+          <date-in-citation content-type="access-date">Jan. 23, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.stats.gov.cn/english/PressRelease/202401/t20240117_1946605.html">https://www.stats.gov.cn/english/PressRelease/202401/t20240117_1946605.html</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>NOGUEIRA, I.; QI, H. Estado e burguesia nacional na China. In: MAJEROWICZ, E.; PARANÁ, E. (Ed.). <italic>A China no capitalismo contemporâneo.</italic> São Paulo: Expressão Popular, 2022.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>NOGUEIRA</surname>
+              <given-names>I.</given-names>
+            </name>
+            <name>
+              <surname>QI</surname>
+              <given-names>H.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Estado e burguesia nacional na China</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>PARANÁ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>A China no capitalismo contemporâneo</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Expressão Popular</publisher-name>
+          <year>2022</year>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>RIBEIRO, V. L. A expansão Chinesa recente: estado, capital e acumulação em escala global. In: MAJEROWICZ, E.; PARANÁ, E. (Ed.). <italic>A China no capitalismo contemporâneo.</italic> São Paulo: Expressão Popular, 2022.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>RIBEIRO</surname>
+              <given-names>V. L.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A expansão Chinesa recente: estado, capital e acumulação em escala global</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>MAJEROWICZ</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>PARANÁ</surname>
+              <given-names>E.</given-names>
+            </name>
+          </person-group>
+          <source>A China no capitalismo contemporâneo</source>
+          <publisher-loc>São Paulo</publisher-loc>
+          <publisher-name>Expressão Popular</publisher-name>
+          <year>2022</year>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>ROZELLE, S. et al. Moving beyond Lewis: employment and wage trends in China’s high- and low-skilled industries and the emergence of an era of polarization. <italic>Comp. Econ. Stud.,</italic> v. 62, p. 555-589, 2020.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ROZELLE</surname>
+              <given-names>S.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>Moving beyond Lewis: employment and wage trends in China’s high- and low-skilled industries and the emergence of an era of polarization</article-title>
+          <source>Comp. Econ. Stud.</source>
+          <volume>62</volume>
+          <fpage>555</fpage>
+          <lpage>589</lpage>
+          <year>2020</year>
+        </element-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation>SERRANO, F. A acumulação e o gasto improdutivo na economia do desenvolvimento. In: FIORI, J. L.; MEDEIROS, C. A. (Ed.). <italic>Polarização mundial e crescimento.</italic> Petrópolis: Vozes, 2001.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SERRANO</surname>
+              <given-names>F.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>A acumulação e o gasto improdutivo na economia do desenvolvimento</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>FIORI</surname>
+              <given-names>J. L.</given-names>
+            </name>
+            <name>
+              <surname>MEDEIROS</surname>
+              <given-names>C. A.</given-names>
+            </name>
+          </person-group>
+          <source>Polarização mundial e crescimento</source>
+          <publisher-loc>Petrópolis</publisher-loc>
+          <publisher-name>Vozes</publisher-name>
+          <year>2001</year>
+        </element-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation>SOUZA, R. <italic>A China de Mao a Xi Jinping:</italic> transformações e limites. Salvador: EDUFBA, 2023.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SOUZA</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <source><italic>A China de Mao a Xi Jinping:</italic> transformações e limites</source>
+          <publisher-loc>Salvador</publisher-loc>
+          <publisher-name>EDUFBA</publisher-name>
+          <year>2023</year>
+        </element-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation>SUN, D. et al. New-type urbanization in China: predicted trends and investment demand for 2015-2030. <italic>Journal of Geographical Sciences,</italic> 27, p. 943-966, 2017.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SUN</surname>
+              <given-names>D.</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <article-title>New-type urbanization in China: predicted trends and investment demand for 2015-2030</article-title>
+          <source>Journal of Geographical Sciences</source>
+          <volume>27</volume>
+          <fpage>943</fpage>
+          <lpage>966</lpage>
+          <year>2017</year>
+        </element-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation>SYED, A. A. The asymmetric relationship between military expenditure, economic growth and industrial productivity: an empirical analysis of India, China and Pakistan Via the NARDL Approach. <italic>Revista Finanzas y Politica Económica,</italic> v. 13, n. 1, p. 77-97, 2021.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>SYED</surname>
+              <given-names>A. A.</given-names>
+            </name>
+          </person-group>
+          <article-title>The asymmetric relationship between military expenditure, economic growth and industrial productivity: an empirical analysis of India, China and Pakistan Via the NARDL Approach</article-title>
+          <source>Revista Finanzas y Politica Económica</source>
+          <volume>13</volume>
+          <issue>1</issue>
+          <fpage>77</fpage>
+          <lpage>97</lpage>
+          <year>2021</year>
+        </element-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation>THE ECONOMIST. Does China face a lost decade? <italic>The Economist,</italic> Sept. 10, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.economist.com/finance-and-economics/2023/09/10/does-china-face-a-lost-decade">https://www.economist.com/finance-and-economics/2023/09/10/does-china-face-a-lost-decade</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>THE ECONOMIST</collab>
+          </person-group>
+          <article-title>Does China face a lost decade?</article-title>
+          <source>The Economist</source>
+          <month>09</month>
+          <day>10</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.economist.com/finance-and-economics/2023/09/10/does-china-face-a-lost-decade">https://www.economist.com/finance-and-economics/2023/09/10/does-china-face-a-lost-decade</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation>UNCTAD – United Nations Conference for Trade and Development. <italic>Trade and Development Report 2023.</italic> New York: United Nations, 2023.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>UNCTAD – United Nations Conference for Trade and Development</collab>
+          </person-group>
+          <source>Trade and Development Report 2023</source>
+          <publisher-loc>New York</publisher-loc>
+          <publisher-name>United Nations</publisher-name>
+          <year>2023</year>
+        </element-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation>WEI, S. Why is China’s growth rate falling so fast? <italic>Project Syndicate,</italic> Nov. 17, 2021. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.project-syndicate.org/commentary/why-is-china-gdp-growth-rate-falling-so-fast-by-shang-jin-wei-2021-11">https://www.project-syndicate.org/commentary/why-is-china-gdp-growth-rate-falling-so-fast-by-shang-jin-wei-2021-11</ext-link>. Last accessed: Jan. 13, 2024.</mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WEI</surname>
+              <given-names>S.</given-names>
+            </name>
+          </person-group>
+          <article-title>Why is China’s growth rate falling so fast?</article-title>
+          <source>Project Syndicate</source>
+          <month>11</month>
+          <day>17</day>
+          <year>2021</year>
+          <date-in-citation content-type="access-date">Jan. 13, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.project-syndicate.org/commentary/why-is-china-gdp-growth-rate-falling-so-fast-by-shang-jin-wei-2021-11">https://www.project-syndicate.org/commentary/why-is-china-gdp-growth-rate-falling-so-fast-by-shang-jin-wei-2021-11</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B45">
+        <mixed-citation>WIGGLESWORTH, R. China’s japanification. <italic>Financial Times,</italic> Aug. 21, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ft.com/content/52c805d5-c759-46cc-a0fe-2de2f2d71850">https://www.ft.com/content/52c805d5-c759-46cc-a0fe-2de2f2d71850</ext-link>. Last access: Jan. 7, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WIGGLESWORTH</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <article-title>China’s japanification</article-title>
+          <source>Financial Times</source>
+          <month>08</month>
+          <day>21</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 7, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ft.com/content/52c805d5-c759-46cc-a0fe-2de2f2d71850">https://www.ft.com/content/52c805d5-c759-46cc-a0fe-2de2f2d71850</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation>WOLF, M. How China can avoid the Japan trap. <italic>Financial Times,</italic> Sep. 26, 2023. Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ft.com/content/156c092a-4313-48cc-8103-79bb26c0faaa">https://www.ft.com/content/156c092a-4313-48cc-8103-79bb26c0faaa</ext-link>. Last access: Jan. 23, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>WOLF</surname>
+              <given-names>M.</given-names>
+            </name>
+          </person-group>
+          <article-title>How China can avoid the Japan trap</article-title>
+          <source>Financial Times</source>
+          <month>09</month>
+          <day>26</day>
+          <year>2023</year>
+          <date-in-citation content-type="access-date">Jan. 23, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://www.ft.com/content/156c092a-4313-48cc-8103-79bb26c0faaa">https://www.ft.com/content/156c092a-4313-48cc-8103-79bb26c0faaa</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation>WORLD BANK. <italic>Global economic prospects.</italic> Washington, DC: World Bank, Jun. 2023a. Available at: <ext-link ext-link-type="uri" xlink:href="https://openknowledge.worldbank.org/server/api/core/bitstreams/6e892b75-2594-4901-a036-46d0dec1e753/content">https://openknowledge.worldbank.org/server/api/core/bitstreams/6e892b75-2594-4901-a036-46d0dec1e753/content</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>WORLD BANK</collab>
+          </person-group>
+          <source>Global economic prospects</source>
+          <publisher-loc>Washington, DC</publisher-loc>
+          <publisher-name>World Bank</publisher-name>
+          <month>06</month>
+          <year>2023a</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://openknowledge.worldbank.org/server/api/core/bitstreams/6e892b75-2594-4901-a036-46d0dec1e753/content">https://openknowledge.worldbank.org/server/api/core/bitstreams/6e892b75-2594-4901-a036-46d0dec1e753/content</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation>WORLD BANK. <italic>Services for development.</italic> World Bank East Asia and Pacific Economic Update (October). Washington, D.C.: World Bank, 2023b.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>WORLD BANK</collab>
+          </person-group>
+          <source><italic>Services for development.</italic> World Bank East Asia and Pacific Economic Update (October)</source>
+          <publisher-loc>Washington, D.C.</publisher-loc>
+          <publisher-name>World Bank</publisher-name>
+          <year>2023b</year>
+        </element-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation>WORLD BANK. <italic>Which way forward?:</italic> navigating China’s post-pandemic growth path. Washington, DC: The World Bank, 2023c. Available at: <ext-link ext-link-type="uri" xlink:href="https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf">https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>WORLD BANK</collab>
+          </person-group>
+          <source><italic>Which way forward?:</italic> navigating China’s post-pandemic growth path</source>
+          <publisher-loc>Washington, DC</publisher-loc>
+          <publisher-name>The World Bank</publisher-name>
+          <year>2023c</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf">https://thedocs.worldbank.org/en/doc/cf2c1298e77c50bf1f1e7954ff560bc6-0070012023/original/China-Economic-Update-Dec23-EN.pdf</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation>WORLD BANK. <italic>World Development Indicators.</italic> Washington, D.C.: World Bank. Available at: <ext-link ext-link-type="uri" xlink:href="https://data.worldbank.org/indicator/PA.NUS.FCRF?locations=CN">https://data.worldbank.org/indicator/PA.NUS.FCRF?locations=CN</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>WORLD BANK</collab>
+          </person-group>
+          <source>World Development Indicators</source>
+          <publisher-loc>Washington, D.C.</publisher-loc>
+          <publisher-name>World Bank</publisher-name>
+          <date-in-citation content-type="access-date">Jan. 14</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://data.worldbank.org/indicator/PA.NUS.FCRF?locations=CN">https://data.worldbank.org/indicator/PA.NUS.FCRF?locations=CN</ext-link>.</comment>
+          <year>2024</year>
+        </element-citation>
+      </ref>
+      <ref id="B51">
+        <mixed-citation>XI, J. What is the new normal in China’s economic development? <italic>China Daily,</italic> Jan. 18, 2016. Available at: <ext-link ext-link-type="uri" xlink:href="https://subsites.chinadaily.com.cn/npc/2021-12/24/c 693839.htm">https://subsites.chinadaily.com.cn/npc/2021-12/24/c 693839.htm</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>XI</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <article-title>What is the new normal in China’s economic development?</article-title>
+          <source>China Daily</source>
+          <month>01</month>
+          <day>18</day>
+          <year>2016</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://subsites.chinadaily.com.cn/npc/2021-12/24/c 693839.htm">https://subsites.chinadaily.com.cn/npc/2021-12/24/c 693839.htm</ext-link>.</comment>
+        </element-citation>
+      </ref>
+      <ref id="B52">
+        <mixed-citation>XU, D.; LIU, Y. <italic>Understanding China’s overcapacity.</italic> Peking University Press and Springer, 2018.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>XU</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>LIU</surname>
+              <given-names>Y.</given-names>
+            </name>
+          </person-group>
+          <source>Understanding China’s overcapacity</source>
+          <publisher-name>Peking University Press and Springer</publisher-name>
+          <year>2018</year>
+        </element-citation>
+      </ref>
+      <ref id="B53">
+        <mixed-citation>ZHANG, C. <italic>How much do state-owned enterprises contribute to China’s GDP and employment?</italic> Washington, DC: World Bank, 2019. Available at: <ext-link ext-link-type="uri" xlink:href="https://documents1.worldbank.org/curated/en/449701565248091726/pdf/How-Much-Do-State-Owned-Enterprises-Contribute-to-China-s-GDP-and-Employment.pdf">https://documents1.worldbank.org/curated/en/449701565248091726/pdf/How-Much-Do-State-Owned-Enterprises-Contribute-to-China-s-GDP-and-Employment.pdf</ext-link>. Last access: Jan. 14, 2024.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>ZHANG</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <source>How much do state-owned enterprises contribute to China’s GDP and employment?</source>
+          <publisher-loc>Washington, DC</publisher-loc>
+          <publisher-name>World Bank</publisher-name>
+          <year>2019</year>
+          <date-in-citation content-type="access-date">Jan. 14, 2024</date-in-citation>
+          <comment>Available at: <ext-link ext-link-type="uri" xlink:href="https://documents1.worldbank.org/curated/en/449701565248091726/pdf/How-Much-Do-State-Owned-Enterprises-Contribute-to-China-s-GDP-and-Employment.pdf">https://documents1.worldbank.org/curated/en/449701565248091726/pdf/How-Much-Do-State-Owned-Enterprises-Contribute-to-China-s-GDP-and-Employment.pdf</ext-link>.</comment>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+</article>
