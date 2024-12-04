@@ -28,8 +28,8 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'title element lang attribute',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
+                'parent': None,
+                'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'pt',
                 'item': 'title',
@@ -39,15 +39,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'title in pt',
                 'got_value': None,
                 'message': 'Got None, expected title in pt',
-                'advice': 'Provide title in the pt language for article',
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'lang': 'pt',
-                    'line_number': 3,
-                    'parent_name': 'article',
-                    'subject': None
-                },
+                'advice': 'Provide title in the pt language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -86,9 +79,9 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'title element lang attribute',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 'TRen',
+                'parent': None,
+                'parent_article_type': None,
+                'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'title',
                 'sub_item': None,
@@ -97,15 +90,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'title in en',
                 'got_value': None,
                 'message': 'Got None, expected title in en',
-                'advice': 'Provide title in the en language for sub-article',
-                'data': {
-                    'article_id': 'TRen',
-                    'article_type': 'translation',
-                    'lang': 'en',
-                    'line_number': 10,
-                    'parent_name': 'sub-article',
-                    'subject': None
-                },
+                'advice': 'Provide title in the en language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -116,7 +102,7 @@ class ArticleLangTest(unittest.TestCase):
     def test_validate_article_lang_without_abstract(self):
         self.maxDiff = None
         xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
             specific-use="sps-1.9" xml:lang="pt">
             <front>
                 <article-meta>
@@ -138,8 +124,8 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'abstract element lang attribute',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
+                'parent': None,
+                'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'pt',
                 'item': 'abstract',
@@ -149,15 +135,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract in pt',
                 'got_value': None,
                 'message': 'Got None, expected abstract in pt',
-                'advice': 'Provide abstract in the pt language for article',
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'lang': 'pt',
-                    'line_number': 3,
-                    'parent_name': 'article',
-                    'subject': None
-                },
+                'advice': 'Provide abstract in the pt language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -196,9 +175,9 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'abstract element lang attribute',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 'TRen',
+                'parent': None,
+                'parent_article_type': None,
+                'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'abstract',
                 'sub_item': None,
@@ -207,15 +186,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'abstract in en',
                 'got_value': None,
                 'message': 'Got None, expected abstract in en',
-                'advice': 'Provide abstract in the en language for sub-article',
-                'data': {
-                    'article_id': 'TRen',
-                    'article_type': 'translation',
-                    'lang': 'en',
-                    'line_number': 10,
-                    'parent_name': 'sub-article',
-                    'subject': None
-                },
+                'advice': 'Provide abstract in the en language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -226,7 +198,7 @@ class ArticleLangTest(unittest.TestCase):
     def test_validate_article_lang_without_kwd_group(self):
         self.maxDiff = None
         xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
             specific-use="sps-1.9" xml:lang="pt">
             <front>
                 <article-meta>
@@ -245,8 +217,8 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'kwd-group element lang attribute',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
+                'parent': None,
+                'parent_article_type': None,
                 'parent_id': None,
                 'parent_lang': 'pt',
                 'item': 'kwd-group',
@@ -256,15 +228,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'kwd-group in pt',
                 'got_value': None,
                 'message': 'Got None, expected kwd-group in pt',
-                'advice': 'Provide kwd-group in the pt language for article',
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'lang': 'pt',
-                    'line_number': 3,
-                    'parent_name': 'article',
-                    'subject': None
-                },
+                'advice': 'Provide kwd-group in the pt language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -302,9 +267,9 @@ class ArticleLangTest(unittest.TestCase):
         expected = [
             {
                 'title': 'kwd-group element lang attribute',
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 'TRen',
+                'parent': None,
+                'parent_article_type': None,
+                'parent_id': None,
                 'parent_lang': 'en',
                 'item': 'kwd-group',
                 'sub_item': None,
@@ -313,15 +278,8 @@ class ArticleLangTest(unittest.TestCase):
                 'expected_value': 'kwd-group in en',
                 'got_value': None,
                 'message': 'Got None, expected kwd-group in en',
-                'advice': 'Provide kwd-group in the en language for sub-article',
-                'data': {
-                    'article_id': 'TRen',
-                    'article_type': 'translation',
-                    'lang': 'en',
-                    'line_number': 10,
-                    'parent_name': 'sub-article',
-                    'subject': None
-                },
+                'advice': 'Provide kwd-group in the en language',
+                'data': None
             }
         ]
         self.assertEqual(len(obtained), 1)
@@ -332,7 +290,7 @@ class ArticleLangTest(unittest.TestCase):
     def test_validate_article_lang_with_title_only(self):
         self.maxDiff = None
         xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
             specific-use="sps-1.9" xml:lang="pt">
             <front>
                 <article-meta>
@@ -357,7 +315,7 @@ class ArticleLangTest(unittest.TestCase):
         xml_str = """
         <article  xml:lang="pt">
             <front>
-                
+
             </front>
             <sub-article article-type="translation" id="TRen" xml:lang="en">
                 <front-stub>
@@ -370,9 +328,30 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_article_lang()
+        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
 
-        self.assertEqual(list(obtained), [])
+        expected = [
+            {
+                'title': 'title element lang attribute',
+                'parent': None,
+                'parent_article_type': None,
+                'parent_id': None,
+                'parent_lang': 'pt',
+                'item': 'title',
+                'sub_item': None,
+                'validation_type': 'match',
+                'response': 'ERROR',
+                'expected_value': 'title in pt',
+                'got_value': None,
+                'message': 'Got None, expected title in pt',
+                'advice': 'Provide title in the pt language',
+                'data': None
+            }
+        ]
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(obtained):
+            with self.subTest(i):
+                self.assertDictEqual(expected[i], item)
 
     def test_issue_712(self):
         self.maxDiff = None
