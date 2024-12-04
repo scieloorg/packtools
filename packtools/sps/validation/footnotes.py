@@ -83,22 +83,22 @@ class FnValidation:
             list[dict]: A list of validation responses (excluding None responses).
         """
         validations = [
-            self._validate_label,
-            self._validate_title,
-            self._validate_bold,
-            self._validate_type,
-            self._validate_dtd_version,
+            self.validate_label,
+            self.validate_title,
+            self.validate_bold,
+            self.validate_type,
+            self.validate_dtd_version,
         ]
         return [response for validate in validations if (response := validate())]
 
     # Individual validation methods
-    def _validate_label(self):
+    def validate_label(self):
         """
         Validate the presence of the 'label' in the footnote.
         """
         return self._validate(not self.fn_data.get("fn_label"), name="label")
 
-    def _validate_title(self):
+    def validate_title(self):
         """
         Validate the presence of 'title' when 'label' is expected.
         """
@@ -110,7 +110,7 @@ class FnValidation:
             advice="Replace title by label",
         )
 
-    def _validate_bold(self):
+    def validate_bold(self):
         """
         Validate the presence of 'bold' when 'label' is expected.
         """
@@ -122,13 +122,13 @@ class FnValidation:
             advice="Replace bold by label",
         )
 
-    def _validate_type(self):
+    def validate_type(self):
         """
         Validate the presence of 'type' in the footnote.
         """
         return self._validate(not self.fn_data.get("fn_type"), name="type")
 
-    def _validate_dtd_version(self):
+    def validate_dtd_version(self):
         """
         Validate the 'dtd_version' of the footnote for compatibility with its type.
         """
@@ -172,10 +172,7 @@ class FnGroupValidation:
         self.xml_tree = xml_tree
         self.rules = rules
         self.article_fn_groups = list(ArticleNotes(xml_tree).article_fn_groups_notes())
-        self.sub_article_fn_groups = list(
-            ArticleNotes(xml_tree).sub_article_fn_groups_notes()
-        )
-        self.all_fn_groups = [*self.article_fn_groups, *self.sub_article_fn_groups]
+        self.sub_article_fn_groups = list(ArticleNotes(xml_tree).sub_article_fn_groups_notes())
 
     @property
     def _dtd_version(self):
@@ -202,9 +199,10 @@ class FnGroupValidation:
         Yields:
             dict: Validation results for each footnote.
         """
-        for fn_group in self.all_fn_groups:
+        for fn_group in [*self.article_fn_groups, *self.sub_article_fn_groups]:
             context = self._build_context(fn_group)
-            yield from self._process_fn_group(fn_group, context)
+            for fn in fn_group.get("fns", []):
+                yield from self.validate_fn(fn, context)
 
     def _build_context(self, fn_group):
         """
@@ -223,21 +221,8 @@ class FnGroupValidation:
             "parent_lang": fn_group.get("parent_lang"),
         }
 
-    def _process_fn_group(self, fn_group, context):
-        """
-        Process all footnotes in a group.
 
-        Args:
-            fn_group (dict): A group of footnotes.
-            context (dict): Context metadata for the group.
-
-        Yields:
-            dict: Validation results for each footnote.
-        """
-        for fn in fn_group.get("fns", []):
-            yield from self._validate_fn(fn, context)
-
-    def _validate_fn(self, fn, context):
+    def validate_fn(self, fn, context):
         """
         Validate an individual footnote and update the response with context.
 
