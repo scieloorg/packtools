@@ -26,6 +26,11 @@
             "review-article",
             "reviewer-report",
             "other"
+        ],
+        "article_types_requires": [
+            "case-report",
+            "research-article",
+            "review-article"
         ]
     }
 }

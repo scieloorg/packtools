@@ -1,5 +1,11 @@
 {
     "fig_rules": {
-        "error_level": "WARNING"
+        "error_level": "WARNING",
+        "required_error_level": "CRITICAL",
+        "absent_error_level": "WARNING",
+        "id_error_level": "CRITICAL",
+        "label_error_level": "CRITICAL",
+        "caption_error_level": "CRITICAL",
+        "content_error_level": "CRITICAL",
     }
 }
