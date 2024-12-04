@@ -66,6 +66,7 @@ class ArticleLangValidation:
         self.article_title = article_titles.ArticleTitles(xml_tree)
         self.article_abstract = article_abstract.ArticleAbstract(xml_tree)
         self.article_kwd = kwd_group.ArticleKeywords(xml_tree)
+        self.xml_tree = xml_tree
 
     def validate_article_lang(self, error_level="ERROR"):
         """
@@ -94,10 +95,15 @@ class ArticleLangValidation:
         self.article_kwd.configure()
         keywords_by_lang = self.article_kwd.items_by_lang
 
-        # Verifica a existência dos elementos no XML
-        for item in self.article_and_subarticles.data:
-            lang = item.get("lang")
+        # Idiomas do xml
+        XML_NS = "{http://www.w3.org/XML/1998/namespace}lang"
+        languages = {self.xml_tree.attrib.get(XML_NS)} if self.xml_tree.attrib.get(XML_NS) else set()
+        languages.update(
+            elem.attrib.get(XML_NS) for elem in self.xml_tree.findall(f".//*[@{XML_NS}]") if elem.attrib.get(XML_NS)
+        )
 
+        # Verifica a existência dos elementos no XML
+        for lang in list(languages):
             title = titles_by_lang.get(lang)
             abstract = abstracts_by_lang.get(lang)
             keyword = keywords_by_lang.get(lang)
@@ -108,9 +114,9 @@ class ArticleLangValidation:
                 # Resposta para a verificação de ausência de elementos
                 yield format_response(
                     title=f'{missing_element_name} element lang attribute',
-                    parent=item.get("parent_name"),
-                    parent_id=item.get("article_id"),
-                    parent_article_type=item.get("article_type"),
+                    parent=None,
+                    parent_id=None,
+                    parent_article_type=None,
                     parent_lang=lang,
                     item=missing_element_name,
                     sub_item=None,
@@ -118,7 +124,7 @@ class ArticleLangValidation:
                     is_valid=False,
                     expected=f"{missing_element_name} in {lang}",
                     obtained=None,
-                    advice=f'Provide {missing_element_name} in the {lang} language for {item.get("parent_name")}',
-                    data=item,
+                    advice=f'Provide {missing_element_name} in the {lang} language',
+                    data=None,
                     error_level=error_level,
                 )
