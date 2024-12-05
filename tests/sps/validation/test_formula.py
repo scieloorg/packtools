@@ -1,13 +1,13 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.validation.formula import FormulaValidation
+from packtools.sps.validation.formula import ArticleFormulaValidation
 
 
-class FormulaValidationTest(unittest.TestCase):
-    def test_formula_validation_no_formula_elements(self):
+class ArticleFormulaValidationTest(unittest.TestCase):
+    def test_validate_absent(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
@@ -15,11 +15,15 @@ class FormulaValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FormulaValidation(xmltree).validate_formula_existence())
+        obtained = list(
+            ArticleFormulaValidation(
+                xml_tree=xml_tree, rules={"absent_error_level": "WARNING"}
+            ).validate()
+        )
 
         expected = [
             {
-                "title": "validation of <formula> elements",
+                "title": "formula",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -28,10 +32,10 @@ class FormulaValidationTest(unittest.TestCase):
                 "sub_item": None,
                 "validation_type": "exist",
                 "response": "WARNING",
-                "expected_value": "<formula> element",
+                "expected_value": "formula",
                 "got_value": None,
-                "message": "Got None, expected <formula> element",
-                "advice": "Include <formula> elements to properly represent mathematical expressions in the content.",
+                "message": "Got None, expected formula",
+                "advice": "Add <formula> elements to properly represent mathematical expressions in the content.",
                 "data": None,
             }
         ]
@@ -40,13 +44,13 @@ class FormulaValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_formula_validation_with_disp_formula_elements(self):
+    def test_validate_without_id_in_disp_formula(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            '<disp-formula id="d01">'
+            "<disp-formula>"
             "<label>Formula 1</label>"
             "<alternatives>"
             '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
@@ -56,26 +60,30 @@ class FormulaValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FormulaValidation(xmltree).validate_formula_existence())
+        obtained = list(
+            ArticleFormulaValidation(
+                xml_tree=xml_tree, rules={"id_error_level": "CRITICAL"}
+            ).validate()
+        )
 
         expected = [
             {
-                "title": "validation of <formula> elements",
+                "title": "@id",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "disp-formula",
+                "item": "@id",
                 "sub_item": None,
                 "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "d01",
-                "got_value": "d01",
-                "message": "Got d01, expected d01",
-                "advice": None,
+                "response": "CRITICAL",
+                "expected_value": "@id",
+                "got_value": None,
+                "message": "Got None, expected @id",
+                "advice": "Identify the @id",
                 "data": {
                     "alternative_parent": "disp-formula",
-                    "formula_id": "d01",
+                    "formula_id": None,
                     "formula_label": "Formula 1",
                     "alternative_elements": ["graphic", "graphic"],
                     "parent": "article",
@@ -90,13 +98,13 @@ class FormulaValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_formula_validation_with_inline_formula_elements(self):
+    def test_validate_without_id_in_inline_formula(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            '<inline-formula id="i01">'
+            "<inline-formula>"
             "<label>Formula 1</label>"
             "<alternatives>"
             '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
@@ -106,26 +114,30 @@ class FormulaValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FormulaValidation(xmltree).validate_formula_existence())
+        obtained = list(
+            ArticleFormulaValidation(
+                xml_tree=xml_tree, rules={"id_error_level": "CRITICAL"}
+            ).validate()
+        )
 
         expected = [
             {
-                "title": "validation of <formula> elements",
+                "title": "@id",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "inline-formula",
+                "item": "@id",
                 "sub_item": None,
                 "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "i01",
-                "got_value": "i01",
-                "message": "Got i01, expected i01",
-                "advice": None,
+                "response": "CRITICAL",
+                "expected_value": "@id",
+                "got_value": None,
+                "message": "Got None, expected @id",
+                "advice": "Identify the @id",
                 "data": {
                     "alternative_parent": "inline-formula",
-                    "formula_id": "i01",
+                    "formula_id": None,
                     "formula_label": "Formula 1",
                     "alternative_elements": ["graphic", "graphic"],
                     "parent": "article",
