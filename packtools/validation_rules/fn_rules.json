@@ -1,0 +1,9 @@
+{
+    "fn_rules": {
+        "fn_label_error_level": "WARNING",
+        "fn_title_error_level": "WARNING",
+        "fn_bold_error_level": "WARNING",
+        "fn_type_error_level": "ERROR",
+        "fn_dtd_version_error_level": "ERROR",
+    }
+}
