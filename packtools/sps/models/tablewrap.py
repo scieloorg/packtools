@@ -86,7 +86,9 @@ class TableWrap:
             "footnote": self.footnote,
             "footnote_id": self.footnote_id,
             "footnote_label": self.footnote_label,
-            "alternative_elements": self.alternative_elements
+            "alternative_elements": self.alternative_elements,
+            "table": self.table,
+            "graphic": self.graphic,
         }
 
 
