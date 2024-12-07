@@ -81,31 +81,149 @@ class TableWrapValidation:
         ]
         return [response for validate in validations if (response := validate())]
 
-    def _validate_item(self, name, title):
+    def validate_id(self):
         """
-        Validates the presence of an attribute in the <table-wrap>.
-
-        Args:
-            name: Name of the attribute to validate.
+        Validates the presence of ID in the <table-wrap>.
 
         Returns:
             The validation result in the expected format.
         """
-        if not self.data.get(name):
-            key_error_level = f"{title}_error_level"
+        if not self.data.get("table_wrap_id"):
             return format_response(
-                title=title,
+                title="id",
                 parent=self.data.get("parent"),
                 parent_id=self.data.get("parent_id"),
                 parent_article_type=self.data.get("parent_article_type"),
                 parent_lang=self.data.get("parent_lang"),
                 item="table-wrap",
-                sub_item=title,
+                sub_item="id",
                 validation_type="exist",
                 is_valid=False,
-                expected=title,
+                expected="id",
                 obtained=None,
-                advice=f"Identify the {title}",
+                advice="Identify the id",
                 data=self.data,
-                error_level=self.rules[key_error_level],
+                error_level=self.rules["id_error_level"],
             )
+
+    def validate_label(self):
+        """
+        Validates the presence of label in the <table-wrap>.
+
+        Returns:
+            The validation result in the expected format.
+        """
+        if not self.data.get("label"):
+            return format_response(
+                title="label",
+                parent=self.data.get("parent"),
+                parent_id=self.data.get("parent_id"),
+                parent_article_type=self.data.get("parent_article_type"),
+                parent_lang=self.data.get("parent_lang"),
+                item="table-wrap",
+                sub_item="label",
+                validation_type="exist",
+                is_valid=False,
+                expected="label",
+                obtained=None,
+                advice="Identify the label",
+                data=self.data,
+                error_level=self.rules["label_error_level"],
+            )
+
+    def validate_caption(self):
+        """
+        Validates the presence of caption in the <table-wrap>.
+
+        Returns:
+            The validation result in the expected format.
+        """
+        if not self.data.get("caption"):
+            return format_response(
+                title="caption",
+                parent=self.data.get("parent"),
+                parent_id=self.data.get("parent_id"),
+                parent_article_type=self.data.get("parent_article_type"),
+                parent_lang=self.data.get("parent_lang"),
+                item="table-wrap",
+                sub_item="caption",
+                validation_type="exist",
+                is_valid=False,
+                expected="caption",
+                obtained=None,
+                advice="Identify the caption",
+                data=self.data,
+                error_level=self.rules["caption_error_level"],
+            )
+
+    def validate_table(self):
+        """
+        Validates the presence of table in the <table-wrap>.
+
+        Returns:
+            The validation result in the expected format.
+        """
+        if not self.data.get("table"):
+            return format_response(
+                title="table",
+                parent=self.data.get("parent"),
+                parent_id=self.data.get("parent_id"),
+                parent_article_type=self.data.get("parent_article_type"),
+                parent_lang=self.data.get("parent_lang"),
+                item="table-wrap",
+                sub_item="table",
+                validation_type="exist",
+                is_valid=False,
+                expected="table",
+                obtained=None,
+                advice="Identify the table",
+                data=self.data,
+                error_level=self.rules["table_error_level"],
+            )
+
+    def validate_alternatives(self):
+        """
+        Validates the presence of alternatives in the <table-wrap>.
+
+        Returns:
+            The validation result in the expected format.
+        """
+        graphic = self.data.get("graphic")
+        alternatives = self.data.get("alternative_elements")
+
+        # Define validation scenarios
+        validation_cases = [
+            {
+                "condition": graphic is not None and alternatives == [],
+                "expected": "alternatives",
+                "obtained": None,
+                "advice": "Identify the alternatives",
+            },
+            {
+                "condition": graphic is None and alternatives != [],
+                "expected": None,
+                "obtained": "alternatives",
+                "advice": "Remove the alternatives",
+            },
+        ]
+
+        # Evaluate conditions and return formatted response if any validation fails
+        for case in validation_cases:
+            if case["condition"]:
+                return format_response(
+                    title="alternatives",
+                    parent=self.data.get("parent"),
+                    parent_id=self.data.get("parent_id"),
+                    parent_article_type=self.data.get("parent_article_type"),
+                    parent_lang=self.data.get("parent_lang"),
+                    item="table-wrap",
+                    sub_item="alternatives",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected=case["expected"],
+                    obtained=case["obtained"],
+                    advice=case["advice"],
+                    data=self.data,
+                    error_level=self.rules["alternatives_error_level"],
+                )
+
