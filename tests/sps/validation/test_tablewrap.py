@@ -53,6 +53,7 @@ class TableWrapValidationTest(unittest.TestCase):
             "<table-wrap>"
             "<label>Table 1</label>"
             "<caption>Table caption</caption>"
+            "<table>Table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -87,6 +88,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
+                    'table': 'Table codification',
+                    'graphic': None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -107,6 +110,7 @@ class TableWrapValidationTest(unittest.TestCase):
             "<body>"
             '<table-wrap id="t01">'
             "<caption>Table caption</caption>"
+            "<table>Table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -144,6 +148,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
+                    'table': 'Table codification',
+                    'graphic': None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -164,6 +170,7 @@ class TableWrapValidationTest(unittest.TestCase):
             "<body>"
             '<table-wrap id="t01">'
             "<label>Table 1</label>"
+            "<table>Table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -201,6 +208,193 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
+                    'table': 'Table codification',
+                    'graphic': None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_table(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "table_error_level": "CRITICAL"
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "table",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "table",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "table",
+                "got_value": None,
+                "message": "Got None, expected table",
+                "advice": "Identify the table",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    "footnote": "",
+                    "footnote_id": None,
+                    "footnote_label": None,
+                    "alternative_elements": [],
+                    'graphic': None,
+                    'table': None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_required_alternatives(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            '<table>table codification</table>'
+            '<graphic xlink:href="1980-5381-neco-28-02-579-gt05.svg"/>'
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "alternatives_error_level": "CRITICAL"
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "alternatives",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "alternatives",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "alternatives",
+                "got_value": None,
+                "message": "Got None, expected alternatives",
+                "advice": "Identify the alternatives",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    "footnote": "",
+                    "footnote_id": None,
+                    "footnote_label": None,
+                    "alternative_elements": [],
+                    'graphic': "1980-5381-neco-28-02-579-gt05.svg",
+                    'table': "table codification",
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_not_required_alternatives(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            "<alternatives>"
+            '<table>table codification</table>'
+            "</alternatives>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "alternatives_error_level": "CRITICAL"
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "alternatives",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "alternatives",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": None,
+                "got_value": "alternatives",
+                "message": "Got alternatives, expected None",
+                "advice": "Remove the alternatives",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    "footnote": "",
+                    "footnote_id": None,
+                    "footnote_label": None,
+                    "alternative_elements": ['table'],
+                    'graphic': None,
+                    'table': "table codification",
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
