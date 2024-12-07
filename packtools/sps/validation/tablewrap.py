@@ -72,9 +72,14 @@ class TableWrapValidation:
         Validates the attributes of the <table-wrap>.
         Returns a generator with validation results.
         """
-        for name, title in (("table_wrap_id", "id"), ("label", "label"), ("caption", "caption")):
-            if resp := self._validate_item(name, title):
-                yield resp
+        validations = [
+            self.validate_id,
+            self.validate_label,
+            self.validate_caption,
+            self.validate_table,
+            self.validate_alternatives
+        ]
+        return [response for validate in validations if (response := validate())]
 
     def _validate_item(self, name, title):
         """
