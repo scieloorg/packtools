@@ -1,4 +1,5 @@
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
+
 from packtools.sps.utils.xml_utils import put_parent_context, node_plain_text, tostring
 
 
