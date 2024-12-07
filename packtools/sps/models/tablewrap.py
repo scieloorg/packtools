@@ -62,6 +62,21 @@ class TableWrap:
         return []
 
     @property
+    def table(self):
+        table = self.element.find('.//table')
+        if table is not None:
+            return ET.tostring(table, encoding='unicode', method='text').strip()
+        return None
+
+    @property
+    def graphic(self):
+        graphic = self.element.find('.//graphic')
+        if graphic is not None:
+            return graphic.get("{http://www.w3.org/1999/xlink}href")
+        return None
+
+
+    @property
     def data(self):
         return {
             "alternative_parent": "table-wrap",
