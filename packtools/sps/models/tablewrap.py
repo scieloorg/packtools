@@ -14,7 +14,12 @@ class TableWrap:
         return tostring(self.element, xml_declaration=False)
 
     def xml(self, pretty_print=True):
-        return tostring(node=self.element, doctype=None, pretty_print=pretty_print, xml_declaration=False)
+        return tostring(
+            node=self.element,
+            doctype=None,
+            pretty_print=pretty_print,
+            xml_declaration=False,
+        )
 
     @property
     def table_wrap_id(self):
@@ -28,53 +33,54 @@ class TableWrap:
     def caption(self):
         caption_element = self.element.find(".//caption")
         if caption_element is not None:
-            return ET.tostring(caption_element, encoding='unicode', method='text').strip()
+            return ET.tostring(
+                caption_element, encoding="unicode", method="text"
+            ).strip()
         return ""
 
     @property
     def footnote(self):
-        footnote_element = self.element.find('.//table-wrap-foot')
+        footnote_element = self.element.find(".//table-wrap-foot")
         if footnote_element is not None:
             return node_plain_text(footnote_element)
         return ""
 
     @property
     def footnote_id(self):
-        footnote_element = self.element.find('.//table-wrap-foot')
+        footnote_element = self.element.find(".//table-wrap-foot")
         if footnote_element is not None:
-            fn_element = footnote_element.find('.//fn')
+            fn_element = footnote_element.find(".//fn")
             if fn_element is not None:
                 return fn_element.get("id")
         return None
 
     @property
     def footnote_label(self):
-        footnote_element = self.element.find('.//table-wrap-foot')
+        footnote_element = self.element.find(".//table-wrap-foot")
         if footnote_element is not None:
-            return footnote_element.findtext('.//fn//label')
+            return footnote_element.findtext(".//fn//label")
         return None
 
     @property
     def alternative_elements(self):
-        alternative_elements = self.element.find('.//alternatives')
+        alternative_elements = self.element.find(".//alternatives")
         if alternative_elements is not None:
             return [child.tag for child in alternative_elements]
         return []
 
     @property
     def table(self):
-        table = self.element.find('.//table')
+        table = self.element.find(".//table")
         if table is not None:
-            return ET.tostring(table, encoding='unicode', method='text').strip()
+            return ET.tostring(table, encoding="unicode", method="text").strip()
         return None
 
     @property
     def graphic(self):
-        graphic = self.element.find('.//graphic')
+        graphic = self.element.find(".//graphic")
         if graphic is not None:
             return graphic.get("{http://www.w3.org/1999/xlink}href")
         return None
-
 
     @property
     def data(self):
@@ -116,7 +122,9 @@ class TableWrappers:
 
         for table in self.node.xpath(path):
             data = TableWrap(table).data
-            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+            yield put_parent_context(
+                data, self.lang, self.article_type, self.parent, self.parent_id
+            )
 
 
 class ArticleTableWrappers:

@@ -77,7 +77,7 @@ class TableWrapValidation:
             self.validate_label,
             self.validate_caption,
             self.validate_table,
-            self.validate_alternatives
+            self.validate_alternatives,
         ]
         return [response for validate in validations if (response := validate())]
 
@@ -226,4 +226,3 @@ class TableWrapValidation:
                     data=self.data,
                     error_level=self.rules["alternatives_error_level"],
                 )
-

@@ -88,8 +88,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
-                    'table': 'Table codification',
-                    'graphic': None,
+                    "table": "Table codification",
+                    "graphic": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -148,8 +148,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
-                    'table': 'Table codification',
-                    'graphic': None,
+                    "table": "Table codification",
+                    "graphic": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -208,8 +208,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
-                    'table': 'Table codification',
-                    'graphic': None,
+                    "table": "Table codification",
+                    "graphic": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -238,9 +238,7 @@ class TableWrapValidationTest(unittest.TestCase):
         obtained = list(
             ArticleTableWrapValidation(
                 xml_tree=xml_tree,
-                rules={
-                    "table_error_level": "CRITICAL"
-                },
+                rules={"table_error_level": "CRITICAL"},
             ).validate()
         )
 
@@ -268,8 +266,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
-                    'graphic': None,
-                    'table': None,
+                    "graphic": None,
+                    "table": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -291,7 +289,7 @@ class TableWrapValidationTest(unittest.TestCase):
             '<table-wrap id="t01">'
             "<label>Table 1</label>"
             "<caption>Table caption</caption>"
-            '<table>table codification</table>'
+            "<table>table codification</table>"
             '<graphic xlink:href="1980-5381-neco-28-02-579-gt05.svg"/>'
             "</table-wrap>"
             "</body>"
@@ -300,9 +298,7 @@ class TableWrapValidationTest(unittest.TestCase):
         obtained = list(
             ArticleTableWrapValidation(
                 xml_tree=xml_tree,
-                rules={
-                    "alternatives_error_level": "CRITICAL"
-                },
+                rules={"alternatives_error_level": "CRITICAL"},
             ).validate()
         )
 
@@ -330,8 +326,8 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote_id": None,
                     "footnote_label": None,
                     "alternative_elements": [],
-                    'graphic': "1980-5381-neco-28-02-579-gt05.svg",
-                    'table': "table codification",
+                    "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                    "table": "table codification",
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -354,7 +350,7 @@ class TableWrapValidationTest(unittest.TestCase):
             "<label>Table 1</label>"
             "<caption>Table caption</caption>"
             "<alternatives>"
-            '<table>table codification</table>'
+            "<table>table codification</table>"
             "</alternatives>"
             "</table-wrap>"
             "</body>"
@@ -363,9 +359,7 @@ class TableWrapValidationTest(unittest.TestCase):
         obtained = list(
             ArticleTableWrapValidation(
                 xml_tree=xml_tree,
-                rules={
-                    "alternatives_error_level": "CRITICAL"
-                },
+                rules={"alternatives_error_level": "CRITICAL"},
             ).validate()
         )
 
@@ -392,9 +386,9 @@ class TableWrapValidationTest(unittest.TestCase):
                     "footnote": "",
                     "footnote_id": None,
                     "footnote_label": None,
-                    "alternative_elements": ['table'],
-                    'graphic': None,
-                    'table': "table codification",
+                    "alternative_elements": ["table"],
+                    "graphic": None,
+                    "table": "table codification",
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
