@@ -39,3 +39,8 @@ class AM(TestCase):
             am._citation_title(self.citation_data, dict()),
         )
 
+    def test_citation_volume(self):
+        self.assertDictEqual(
+            {"v31": [{"_": "150"}]}, am._citation_volume(self.citation_data, dict())
+        )
+

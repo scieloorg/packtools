@@ -49,3 +49,9 @@ def _citation_title(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_volume(citation_data, citation_dict):
+    citation_volume = citation_data.get("volume")
+    citation_dict.update({"v31": [{"_": citation_volume}]})
+    return citation_dict
+
+
