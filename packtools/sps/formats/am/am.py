@@ -36,3 +36,9 @@ def _citation_code(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_date(citation_data, citation_dict):
+    citation_date = citation_data.get("year") + "0000"
+    citation_dict.update({"v865": [{"_": citation_date}]})
+    return citation_dict
+
+

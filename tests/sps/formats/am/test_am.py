@@ -22,3 +22,8 @@ class AM(TestCase):
             {"v700": [{"_": "B1"}]}, am._citation_id(self.citation_data, dict())
         )
 
+    def test_citation_date(self):
+        self.assertDictEqual(
+            {"v865": [{"_": "20150000"}]}, am._citation_date(self.citation_data, dict())
+        )
+
