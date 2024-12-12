@@ -14,3 +14,14 @@ def collection(xml_tree, am_dict):
     return am_dict
 
 
+def processing_date(xml_tree, am_dict):
+    date = (
+        datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[
+            :-3
+        ]
+        + "Z"
+    )
+    am_dict.update({"processing_date": date})
+    return am_dict
+
+
