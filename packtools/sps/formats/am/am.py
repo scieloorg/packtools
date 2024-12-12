@@ -31,3 +31,8 @@ def _citation_id(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_code(citation_data, citation_dict):
+    # TODO: adicionar a lógica de obtenção do código da citação, eg.: "code": "S1519-6984202400010016500001"
+    return citation_dict
+
+
