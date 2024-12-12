@@ -42,3 +42,10 @@ def _citation_date(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_title(citation_data, citation_dict):
+    # TODO: adicionar a lógica de obtenção do idioma da citação
+    citation_title = citation_data.get("article_title")
+    citation_dict.update({"v12": [{"_": citation_title}]})
+    return citation_dict
+
+

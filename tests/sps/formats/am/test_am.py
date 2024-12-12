@@ -27,3 +27,15 @@ class AM(TestCase):
             {"v865": [{"_": "20150000"}]}, am._citation_date(self.citation_data, dict())
         )
 
+    def test_citation_title(self):
+        self.assertDictEqual(
+            {
+                "v12": [
+                    {
+                        "_": "Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages"
+                    }
+                ]
+            },
+            am._citation_title(self.citation_data, dict()),
+        )
+
