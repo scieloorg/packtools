@@ -44,3 +44,7 @@ class AM(TestCase):
             {"v31": [{"_": "150"}]}, am._citation_volume(self.citation_data, dict())
         )
 
+    def test_citation_literature_type(self):
+        self.assertDictEqual(
+            {"v705": [{"_": "S"}]}, am._literature_type(self.citation_data, dict())
+        )

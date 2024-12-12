@@ -55,3 +55,31 @@ def _citation_volume(citation_data, citation_dict):
     return citation_dict
 
 
+def _translate_publication_type_to_literature_type(publication_type):
+    """
+    Translates a publication type from the SciELO XML standard to the v705 classification.
+
+    Args:
+        publication_type (str): The 'publication-type' value from SciELO XML.
+
+    Returns:
+        str: The corresponding v705 classification. Defaults to 'D' (Document of work) if the type is not recognized.
+    """
+    publication_type_to_v705 = {
+        "journal": "S",  # Serial (journals, periodicals)
+        "book": "M",  # Monograph (books)
+        "chapter": "C",  # Component (book chapters)
+        "conference": "A",  # Analytical (conference proceedings)
+        "thesis": "M",  # Monograph (theses and dissertations)
+        "report": "M",  # Monograph (technical reports)
+        "web": "G",  # Collection (digital material)
+        "other": "D",  # Document of work (undefined or others)
+    }
+    return publication_type_to_v705.get(publication_type, "D")
+
+
+def _literature_type(citation_data, citation_dict):
+    citation_type = citation_data.get("publication_type")
+    literature_type = _translate_publication_type_to_literature_type(citation_type)
+    citation_dict.update({"v705": [{"_": literature_type}]})
+    return citation_dict
