@@ -17,3 +17,8 @@ class AM(TestCase):
             {"code": "S0080-62342022000100445"}, am.code(self.xml_tree, dict())
         )
 
+    def test_citation_id(self):
+        self.assertDictEqual(
+            {"v700": [{"_": "B1"}]}, am._citation_id(self.citation_data, dict())
+        )
+

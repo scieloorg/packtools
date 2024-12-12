@@ -25,3 +25,9 @@ def processing_date(xml_tree, am_dict):
     return am_dict
 
 
+def _citation_id(citation_data, citation_dict):
+    citation_id = citation_data.get("ref_id")
+    citation_dict.update({"v700": [{"_": citation_id}]})
+    return citation_dict
+
+
