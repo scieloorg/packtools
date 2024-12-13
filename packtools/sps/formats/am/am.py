@@ -83,3 +83,14 @@ def _literature_type(citation_data, citation_dict):
     literature_type = _translate_publication_type_to_literature_type(citation_type)
     citation_dict.update({"v705": [{"_": literature_type}]})
     return citation_dict
+
+def _citation_page_info(citation_data, citation_dict):
+    lpage = citation_data.get("lpage") or ""
+    fpage = citation_data.get("fpage") or ""
+    try:
+        range_page = str(int(lpage) - int(fpage))
+    except ValueError:
+        range_page = ""
+    elocation = citation_data.get("elocation_id") or ""
+    citation_dict.update({"v514": [{"_": "", "l": lpage, "f": fpage, "r": range_page, "e": elocation}]})
+    return citation_dict
