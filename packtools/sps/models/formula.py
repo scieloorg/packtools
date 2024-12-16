@@ -140,7 +140,7 @@ class ArticleFormulas:
         self.xml_tree = xml_tree
 
     @property
-    def items(self):
+    def disp_formula_items(self):
         """
         Generator that yields formulas with their respective parent context.
 
@@ -149,14 +149,14 @@ class ArticleFormulas:
                   including language and article type details.
         """
         for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
-            for item in node.xpath(".//disp-formula | .//inline-formula"):
+            for item in node.xpath(".//disp-formula"):
                 formula = Formula(item)
                 data = formula.data
                 parent_data = put_parent_context(data, lang, article_type, parent, parent_id)
                 yield parent_data
 
     @property
-    def items_by_lang(self):
+    def inline_formula_items(self):
         """
         Generator that yields formulas with their respective parent context.
 
@@ -164,10 +164,15 @@ class ArticleFormulas:
             dict: A dictionary containing the formula data along with its parent context,
                   including language and article type details.
         """
+        for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
+            for item in node.xpath(".//inline-formula"):
+                formula = Formula(item)
+                data = formula.data
+                parent_data = put_parent_context(data, lang, article_type, parent, parent_id)
+                yield parent_data
 
-        Iterates through parent contexts (article or sub-article elements) in the XML document
-        and creates `Parent` objects. For each parent context, it yields data for associated formulas
-        using the `parent.items` generator.
+    @property
+    def disp_formula_items_by_lang(self):
         """
         Returns a dictionary of formulas grouped by language.
 
@@ -175,6 +180,14 @@ class ArticleFormulas:
             dict: A dictionary where keys are language codes (str) and values are
                   dictionaries with formula data within that language context.
         """
+        langs = {}
+        for item in self.disp_formula_items:
+            lang = item.get("parent_lang")
+            langs[lang] = item
+        return langs
+
+    @property
+    def inline_formula_items_by_lang(self):
         """
         Returns a dictionary of inline formulas grouped by language.
 
@@ -183,7 +196,7 @@ class ArticleFormulas:
                   dictionaries with formula data within that language context.
         """
         langs = {}
-        for item in self.items:
+        for item in self.inline_formula_items:
             lang = item.get("parent_lang")
             langs[lang] = item
         return langs
