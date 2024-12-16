@@ -7,10 +7,7 @@ class Formula:
     """
     Represents a formula element within an XML document.
 
-    **Attributes:**
-        element (xml.etree.ElementTree.Element): The XML element representing the formula.
-
-    **Parameters:**
+    Parameters:
         element (xml.etree.ElementTree.Element): The XML element representing the formula.
     """
 
@@ -46,7 +43,7 @@ class Formula:
     @property
     def alternative_elements(self):
         """
-        Returns a list of tags within the alternatives element.
+        Returns a list of element names within the alternatives element.
 
         Returns:
             list: A list of tag names of the elements within the <alternatives> element,
@@ -60,10 +57,10 @@ class Formula:
     @property
     def mml_math(self):
         """
-        Returns a list of MathML representations of the formula.
+        Returns the MathML representation of the formula, if available.
 
         Returns:
-            list: A list of MathML content as strings, or an empty list if no MathML elements are found.
+            str or None: The MathML content as a string, or None if no MathML elements are found.
         """
         namespace = "{http://www.w3.org/1998/Math/MathML}"
         return [
@@ -75,10 +72,10 @@ class Formula:
     @property
     def tex_math(self):
         """
-        Returns a list of TeX math representations of the formula.
+        Returns the TeX math representation of the formula, if available.
 
         Returns:
-            list: A list of TeX math content as strings, or an empty list if no TeX math elements are found.
+            str or None: The TeX math content as a string, or None if no TeX math elements are found.
         """
         return [
             ET.tostring(formula, encoding="unicode", method="text").strip()
@@ -107,8 +104,14 @@ class Formula:
         Returns a dictionary containing the formula's data.
 
         Returns:
-            dict: A dictionary with keys 'formula_id', 'formula_label', 'alternative_parent', and 'alternative_elements',
-                  containing the respective data of the formula.
+            dict: A dictionary with the following keys:
+                - 'alternative_parent' (str): The tag name of the parent formula element.
+                - 'id' (str or None): The formula ID.
+                - 'label' (str or None): The formula label.
+                - 'alternative_elements' (list): A list of alternative element names.
+                - 'mml_math' (str or None): The MathML content, if available.
+                - 'tex_math' (str or None): The TeX math content, if available.
+                - 'graphic' (list): A list of hrefs from graphic elements.
         """
         alternative_parent = self.element.tag  # 'disp-formula' or 'inline-formula'
         return {
@@ -126,11 +129,8 @@ class ArticleFormulas:
     """
     Represents an article with its associated formulas, grouped by language.
 
-    **Parameters:**
+    Parameters:
         xml_tree (xml.etree.ElementTree.ElementTree): The parsed XML document representing the article.
-
-    **Attributes:**
-        xml_tree (xml.etree.ElementTree.ElementTree): The internal representation of the parsed XML document.
     """
 
     def __init__(self, xml_tree):
@@ -148,7 +148,8 @@ class ArticleFormulas:
         Generator that yields formulas with their respective parent context.
 
         Yields:
-            dict: A dictionary with formula data and parent context details.
+            dict: A dictionary containing the formula data along with its parent context,
+                  including language and article type details.
         """
         for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
             for item in node.xpath(".//disp-formula | .//inline-formula"):
@@ -160,15 +161,29 @@ class ArticleFormulas:
     @property
     def items_by_lang(self):
         """
-        Returns a dictionary containing information about formulas grouped by language.
+        Generator that yields formulas with their respective parent context.
+
+        Yields:
+            dict: A dictionary containing the formula data along with its parent context,
+                  including language and article type details.
+        """
 
         Iterates through parent contexts (article or sub-article elements) in the XML document
         and creates `Parent` objects. For each parent context, it yields data for associated formulas
         using the `parent.items` generator.
+        """
+        Returns a dictionary of formulas grouped by language.
 
         Returns:
-            dict: A dictionary where keys are languages and values are dictionaries
-                  containing information about formulas within that language context.
+            dict: A dictionary where keys are language codes (str) and values are
+                  dictionaries with formula data within that language context.
+        """
+        """
+        Returns a dictionary of inline formulas grouped by language.
+
+        Returns:
+            dict: A dictionary where keys are language codes (str) and values are
+                  dictionaries with formula data within that language context.
         """
         langs = {}
         for item in self.items:
