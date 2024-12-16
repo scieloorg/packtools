@@ -111,3 +111,15 @@ def _citation_authors(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_institutional_author(author_data):
+    return {"_": author_data.get("collab")}
+
+def _citation_institutional_authors(citation_data, citation_dict):
+    institutional_authors = []
+    for institutional_author_data in citation_data.get("all_authors"):
+        institutional_author_dict = _citation_institutional_author(institutional_author_data)
+        institutional_authors.append(institutional_author_dict)
+    citation_dict.update({"v17": institutional_authors})
+    return citation_dict
+
+

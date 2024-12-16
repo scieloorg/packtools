@@ -70,3 +70,13 @@ class AM(TestCase):
             am._citation_authors(self.citation_data, dict())
         )
 
+    def test_institutional_authors(self):
+        self.assertDictEqual(
+            {
+                "v17": [
+                    {'_': ['Instituto Nacional de Câncer José Alencar Gomes da Silva']}
+                ]
+            },
+            am._citation_institutional_authors(self.citation_data_collab, dict())
+        )
+
