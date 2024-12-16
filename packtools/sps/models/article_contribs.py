@@ -40,7 +40,7 @@ class Contrib:
     def contrib_name(self):
         name = self.node.find("name")
         if name is not None:
-            return {item.tag: item.text for item in name}
+            return {item.tag: item.text for item in name if item.text}
 
     @property
     def contrib_full_name(self):

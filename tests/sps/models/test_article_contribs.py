@@ -754,6 +754,7 @@ class ArticleContribTest(TestCase):
                     {
                         'city': None,
                         'country_name': None,
+                        'country_code': None,
                         'email': None,
                         'id': 'aff4',
                         'label': 'a',
@@ -769,7 +770,6 @@ class ArticleContribTest(TestCase):
                     }
                 ]
             }
-
         ]
 
         for i, item in enumerate(expected):
