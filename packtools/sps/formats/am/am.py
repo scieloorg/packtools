@@ -123,3 +123,8 @@ def _citation_institutional_authors(citation_data, citation_dict):
     return citation_dict
 
 
+def _citation_publication_type(citation_data, citation_dict):
+    citation_type = citation_data.get("publication_type")
+    citation_dict.update({"v71": [{"_": citation_type}],})
+    return citation_dict
+

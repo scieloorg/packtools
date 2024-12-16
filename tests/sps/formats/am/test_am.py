@@ -80,3 +80,10 @@ class AM(TestCase):
             am._citation_institutional_authors(self.citation_data_collab, dict())
         )
 
+    def test_citation_type(self):
+        self.assertDictEqual(
+            {"v71": [{"_": "journal"}]},
+            am._citation_publication_type(self.citation_data, dict())
+        )
+
+
