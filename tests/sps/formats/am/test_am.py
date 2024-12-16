@@ -11,6 +11,7 @@ class AM(TestCase):
             "tests/sps/fixtures/standard_scielo_xml/S0080-62342022000100445_JATS.xml"
         )
         self.citation_data = list(ArticleCitations(self.xml_tree).article_citations)[0]
+        self.citation_data_collab = list(ArticleCitations(self.xml_tree).article_citations)[26]
 
     def test_code(self):
         self.assertDictEqual(
