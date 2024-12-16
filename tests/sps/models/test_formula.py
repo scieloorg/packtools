@@ -58,8 +58,8 @@ class DispFormulaTest(unittest.TestCase):
             "id": "e10",
             "label": "(1)",
             "alternative_elements": ["tex-math", "graphic"],
-            "mml_math": [],
-            "tex_math": ['\\documentclass {article}'
+            "mml_math": None,
+            "tex_math": '\\documentclass {article}'
                         '\\usepackage{wasysym}'
                         '\\usepackage[substack]{amsmath}'
                         '\\usepackage{amsfonts}'
@@ -74,7 +74,7 @@ class DispFormulaTest(unittest.TestCase):
                         '\\begin{document}'
                         '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                         '\\]'
-                        '\\end{document}'],
+                        '\\end{document}',
             "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.disp_formula_obj.data, expected_data)
@@ -126,8 +126,8 @@ class InLineFormulaTest(unittest.TestCase):
                 "{http://www.w3.org/1998/Math/MathML}math",
                 "graphic",
             ],
-            "mml_math": ["σˆ2"],
-            "tex_math": [],
+            "mml_math": "σˆ2",
+            "tex_math": None,
             "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.inline_formula_obj.data, expected_data)
@@ -166,22 +166,22 @@ class ArticleFormulasTest(unittest.TestCase):
         )
         self.xmltree = etree.fromstring(xml)
 
-    def test_items(self):
+    def test_disp_formula_items(self):
         self.maxDiff = None
-        obtained =list(ArticleFormulas(self.xmltree).items)
+        obtained =list(ArticleFormulas(self.xmltree).disp_formula_items)
 
         expected = [
             {
                 "alternative_parent": "disp-formula",
                 "id": "e10",
                 "label": "(1)",
-                "mml_math": [],
+                "mml_math": None,
                 "alternative_elements": ["tex-math", "graphic"],
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
-                "tex_math": ['\\documentclass {article}'
+                "tex_math": '\\documentclass {article}'
                             '\\usepackage{wasysym}'
                             '\\usepackage[substack]{amsmath}'
                             '\\usepackage{amsfonts}'
@@ -196,7 +196,7 @@ class ArticleFormulasTest(unittest.TestCase):
                             '\\begin{document}'
                             '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                             '\\]'
-                            '\\end{document}'],
+                            '\\end{document}',
                 "graphic": ["nomedaimagemdatabela.svg"],
             },
         ]
@@ -205,22 +205,22 @@ class ArticleFormulasTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_items_by_lang(self):
+    def test_disp_formula_items_by_lang(self):
         self.maxDiff = None
-        obtained = ArticleFormulas(self.xmltree).items_by_lang
+        obtained = ArticleFormulas(self.xmltree).disp_formula_items_by_lang
 
         expected = {
             "pt": {
                 "alternative_parent": "disp-formula",
                 "id": "e10",
                 "label": "(1)",
-                "mml_math": [],
+                "mml_math": None,
                 "alternative_elements": ["tex-math", "graphic"],
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
-                "tex_math": ['\\documentclass {article}'
+                "tex_math": '\\documentclass {article}'
                             '\\usepackage{wasysym}'
                             '\\usepackage[substack]{amsmath}'
                             '\\usepackage{amsfonts}'
@@ -235,7 +235,7 @@ class ArticleFormulasTest(unittest.TestCase):
                             '\\begin{document}'
                             '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                             '\\]'
-                            '\\end{document}'],
+                            '\\end{document}',
                 "graphic": ["nomedaimagemdatabela.svg"],
             },
         }
