@@ -47,7 +47,7 @@ class AM(TestCase):
 
     def test_citation_literature_type(self):
         self.assertDictEqual(
-            {"v705": [{"_": "S"}]}, am._literature_type(self.citation_data, dict())
+            {"v705": [{"_": "S"}]}, am._citation_literature_type(self.citation_data, dict())
         )
 
     def test_citation_page_info(self):
