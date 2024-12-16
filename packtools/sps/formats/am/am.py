@@ -78,7 +78,7 @@ def _translate_publication_type_to_literature_type(publication_type):
     return publication_type_to_v705.get(publication_type, "D")
 
 
-def _literature_type(citation_data, citation_dict):
+def _citation_literature_type(citation_data, citation_dict):
     citation_type = citation_data.get("publication_type")
     literature_type = _translate_publication_type_to_literature_type(citation_type)
     citation_dict.update({"v705": [{"_": literature_type}]})
