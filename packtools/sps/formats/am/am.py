@@ -84,6 +84,7 @@ def _citation_literature_type(citation_data, citation_dict):
     citation_dict.update({"v705": [{"_": literature_type}]})
     return citation_dict
 
+
 def _citation_page_info(citation_data, citation_dict):
     lpage = citation_data.get("lpage") or ""
     fpage = citation_data.get("fpage") or ""
@@ -94,3 +95,19 @@ def _citation_page_info(citation_data, citation_dict):
     elocation = citation_data.get("elocation_id") or ""
     citation_dict.update({"v514": [{"_": "", "l": lpage, "f": fpage, "r": range_page, "e": elocation}]})
     return citation_dict
+
+
+def _citation_author(author_data):
+    # TODO adicionar a lógica de obtenção de "role" ("r")
+    return {"n": author_data.get("given-names"), "r": "ND", "s": author_data.get("surname"), "_": ""}
+
+
+def _citation_authors(citation_data, citation_dict):
+    authors = []
+    for author_data in citation_data.get("all_authors"):
+        author_dict = _citation_author(author_data)
+        authors.append(author_dict)
+    citation_dict.update({"v10": authors})
+    return citation_dict
+
+

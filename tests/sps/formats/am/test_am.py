@@ -54,3 +54,19 @@ class AM(TestCase):
             {"v514": [{"_": "", "l": "91", "f": "85", "r": "6", "e": ""}]},
             am._citation_page_info(self.citation_data, dict())
         )
+
+    def test_citation_authors(self):
+        self.maxDiff = None
+        self.assertDictEqual(
+            {
+                "v10": [
+                    {'_': '', 'n': 'B', 'r': 'ND', 's': 'Tran'},
+                    {'_': '', 'n': 'MO', 'r': 'ND', 's': 'Falster'},
+                    {'_': '', 'n': 'K', 'r': 'ND', 's': 'Douglas'},
+                    {'_': '', 'n': 'F', 'r': 'ND', 's': 'Blyth'},
+                    {'_': '', 'n': 'LR', 'r': 'ND', 's': 'Jorm'}
+                ]
+            },
+            am._citation_authors(self.citation_data, dict())
+        )
+
