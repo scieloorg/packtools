@@ -63,11 +63,10 @@ class Formula:
             str or None: The MathML content as a string, or None if no MathML elements are found.
         """
         namespace = "{http://www.w3.org/1998/Math/MathML}"
-        return [
-            ET.tostring(formula, encoding="unicode", method="text").strip()
-            for formula in self.element.findall(f".//{namespace}math")
-            if formula is not None and ET.tostring(formula, encoding="unicode", method="text").strip()
-        ]
+        formula = self.element.find(f".//{namespace}math")
+        if formula is not None:
+            return ET.tostring(formula, encoding="unicode", method="text").strip()
+
 
     @property
     def tex_math(self):
@@ -77,11 +76,9 @@ class Formula:
         Returns:
             str or None: The TeX math content as a string, or None if no TeX math elements are found.
         """
-        return [
-            ET.tostring(formula, encoding="unicode", method="text").strip()
-            for formula in self.element.findall(".//tex-math")
-            if formula is not None and ET.tostring(formula, encoding="unicode", method="text").strip()
-        ]
+        formula = self.element.find(".//tex-math")
+        if formula is not None:
+            return ET.tostring(formula, encoding="unicode", method="text").strip()
 
     @property
     def graphic(self):
