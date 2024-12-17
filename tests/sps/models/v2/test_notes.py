@@ -54,7 +54,8 @@ class FnTest(TestCase):
                 "fn_type": "conflict",
                 "fn_label": "1",
                 "fn_text": "*1Os autores declaram não haver conflito de interesses.",
-                "fn_bold": "*"
+                "fn_bold": "*",
+                'fn_title': None,
             }
         )
 
@@ -91,7 +92,8 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_bold': None
+                'fn_bold': None,
+                'fn_title': None,
             },
             {
                 'fn_id': 'fn3',
@@ -100,7 +102,8 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_bold': None
+                'fn_bold': None,
+                'fn_title': None,
             },
             {
                 'fn_id': 'fn4',
@@ -109,7 +112,8 @@ class FnGroupTest(TestCase):
                 'fn_label': None,
                 'fn_type': 'other',
                 'fn_parent': 'fn-group',
-                'fn_bold': None
+                'fn_bold': None,
+                'fn_title': None,
             }
         ]
         for i, item in enumerate(obtained):
@@ -158,7 +162,8 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     },
                     {
                         'fn_id': 'fn3',
@@ -167,7 +172,8 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     },
                     {
                         'fn_id': 'fn4',
@@ -176,7 +182,8 @@ class FnGroupsTest(TestCase):
                         'fn_label': None,
                         'fn_type': 'other',
                         'fn_parent': 'fn-group',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     }
                 ]
             }
@@ -219,7 +226,8 @@ class AuthorNoteTest(TestCase):
                 'fn_parent': 'author-notes',
                 'fn_text': '1Os autores declaram não haver conflito de interesses.',
                 'fn_type': 'conflict',
-                'fn_bold': None
+                'fn_bold': None,
+                'fn_title': None,
             }
         ]
         for i, item in enumerate(obtained):
@@ -278,6 +286,8 @@ class AuthorNotesTest(TestCase):
                            'Recanto Real Rua 4, 440 15021-450 São José do Rio Preto, SP, '
                            'Brasil E-mail: roseanap@gmail.com',
                 'corresp_label': 'Correspondência',
+                "corresp_title": None,
+                "corresp_bold": None,
                 'fns': [
                     {
                         'fn_id': 'fn_01',
@@ -285,7 +295,8 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': '1Os autores declaram não haver conflito de interesses.',
                         'fn_type': 'conflict',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     },
                 ]
             },
@@ -297,6 +308,8 @@ class AuthorNotesTest(TestCase):
                 'corresp': '*Correspondence: Dr. Edmundo Figueira Departamento de '
                            'Fisioterapia,Universidade FISP - Hogwarts,',
                 'corresp_label': '*',
+                "corresp_title": None,
+                "corresp_bold": 'Correspondence',
                 'fns': [
                     {
                         'fn_id': None,
@@ -304,7 +317,8 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Não há conflito de interesse entre os autores do artigo.',
                         'fn_type': 'coi-statement',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     },
                     {
                         'fn_id': None,
@@ -312,7 +326,8 @@ class AuthorNotesTest(TestCase):
                         'fn_parent': 'author-notes',
                         'fn_text': 'Todos os autores tiveram contribuição igualitária na criação do artigo.',
                         'fn_type': 'equal',
-                        'fn_bold': None
+                        'fn_bold': None,
+                        'fn_title': None,
                     }
                 ]
             }
@@ -370,6 +385,20 @@ class ArticleNotesTest(TestCase):
             '</fn>'
             '</fn-group>'
             '</back>'
+            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
+            '<front-stub>'
+            '<author-notes>'
+            '<corresp>'
+            '<label>Correspondence</label>: John Doe, Example Institution, 123 Example Street, Example City, Country.' 
+            'Email: <email>johndoe@example.com</email>'
+            '</corresp>'
+            '<fn fn-type="conflict">'
+            '<label>2</label>'
+            '<p>The authors declare there is no conflict of interest.</p>'
+            '</fn>'
+            '</author-notes>'
+            '</front-stub>'
+            '</sub-article>'
             '</article>'
         )
         self.xml_tree = etree.fromstring(xml)
@@ -379,90 +408,128 @@ class ArticleNotesTest(TestCase):
         obtained = list(ArticleNotes(self.xml_tree).all_notes())
         expected = [
             {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'pt',
-                'label': None,
-                'title': 'Highlights: ',
-                'fns': [
+                "fns": [
                     {
-                        'fn_id': 'fn2',
-                        'fn_text': 'A)Study presents design and production of an LED lamp for photovoltaic light traps.',
-                        'fn_label': None,
-                        'fn_type': 'other',
-                        'fn_parent': 'fn-group',
-                        'fn_bold': "A)"
+                        "fn_bold": "A)",
+                        "fn_id": "fn2",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "A)Study presents design and production of an LED lamp "
+                                   "for photovoltaic light traps.",
+                        "fn_title": None,
+                        "fn_type": "other",
                     },
                     {
-                        'fn_id': 'fn3',
-                        'fn_text': 'The LED lamp switches on and off automatically, controls the battery charge and indicates '
-                                   'the operating status of the system.',
-                        'fn_label': None,
-                        'fn_type': 'other',
-                        'fn_parent': 'fn-group',
-                        'fn_bold': None
+                        "fn_bold": None,
+                        "fn_id": "fn3",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "The LED lamp switches on and off automatically, controls "
+                                   "the battery charge and indicates the operating status of "
+                                   "the system.",
+                        "fn_title": None,
+                        "fn_type": "other",
                     },
                     {
-                        'fn_id': 'fn4',
-                        'fn_text': 'The LED lamp is a superior substitute for the standard fluorescent lamps used in '
-                                   'conventional light traps.',
-                        'fn_label': None,
-                        'fn_type': 'other',
-                        'fn_parent': 'fn-group',
-                        'fn_bold': None
-                    }
-                ]
-            },
-            {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'pt',
-                'corresp': 'Correspondência: Roseana Mara Aredes Priuli Av. Juscelino '
-                           'Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio '
-                           'Recanto Real Rua 4, 440 15021-450 São José do Rio Preto, SP, '
-                           'Brasil E-mail: roseanap@gmail.com',
-                'corresp_label': 'Correspondência',
-                'fns': [
-                    {
-                        'fn_id': 'fn_01',
-                        'fn_label': '1',
-                        'fn_parent': 'author-notes',
-                        'fn_text': '1Os autores declaram não haver conflito de interesses.',
-                        'fn_type': 'conflict',
-                        'fn_bold': None
+                        "fn_bold": None,
+                        "fn_id": "fn4",
+                        "fn_label": None,
+                        "fn_parent": "fn-group",
+                        "fn_text": "The LED lamp is a superior substitute for the standard "
+                                   "fluorescent lamps used in conventional light traps.",
+                        "fn_title": None,
+                        "fn_type": "other",
                     },
-                ]
-            },
-            {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'pt',
-                'corresp': '*Correspondence: Dr. Edmundo Figueira Departamento de '
-                           'Fisioterapia,Universidade FISP - Hogwarts,',
-                'corresp_label': '*',
-                'fns': [
-                    {
-                        'fn_id': None,
-                        'fn_label': None,
-                        'fn_parent': 'author-notes',
-                        'fn_text': 'Não há conflito de interesse entre os autores do artigo.',
-                        'fn_type': 'coi-statement',
-                        'fn_bold': None
-                    },
-                    {
-                        'fn_id': None,
-                        'fn_label': None,
-                        'fn_parent': 'author-notes',
-                        'fn_text': 'Todos os autores tiveram contribuição igualitária na criação do artigo.',
-                        'fn_type': 'equal',
-                        'fn_bold': None
-                    }
-                ]
+                ],
+                "label": None,
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "title": "Highlights: ",
             }
+            ,
+            {
+                "corresp": "Correspondência: Roseana Mara Aredes Priuli Av. Juscelino "
+                           "Kubistcheck de Oliveira, 1220, Jardim Panorama, Condomínio "
+                           "Recanto Real Rua 4, 440 15021-450 São José do Rio Preto, SP, "
+                           "Brasil E-mail: roseanap@gmail.com",
+                "corresp_label": "Correspondência",
+                "corresp_title": None,
+                "corresp_bold": None,
+                "fns": [
+                    {
+                        "fn_bold": None,
+                        "fn_id": "fn_01",
+                        "fn_label": "1",
+                        "fn_parent": "author-notes",
+                        "fn_text": "1Os autores declaram não haver conflito de interesses.",
+                        "fn_type": "conflict",
+                        'fn_title': None,
+                    }
+                ],
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+            },
+            {
+                "corresp": "*Correspondence: Dr. Edmundo Figueira Departamento de "
+                           "Fisioterapia,Universidade FISP - Hogwarts,",
+                "corresp_label": "*",
+                "corresp_title": None,
+                "corresp_bold": "Correspondence",
+                "fns": [
+                    {
+                        "fn_bold": None,
+                        "fn_id": None,
+                        "fn_label": None,
+                        "fn_parent": "author-notes",
+                        "fn_text": "Não há conflito de interesse entre os autores do artigo.",
+                        "fn_type": "coi-statement",
+                        'fn_title': None,
+                    },
+                    {
+                        "fn_bold": None,
+                        "fn_id": None,
+                        "fn_label": None,
+                        "fn_parent": "author-notes",
+                        "fn_text": "Todos os autores tiveram contribuição igualitária na "
+                                   "criação do artigo.",
+                        "fn_type": "equal",
+                        'fn_title': None,
+                    },
+                ],
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+            },
+            {
+                "corresp": "Correspondence: John Doe, Example Institution, 123 Example "
+                           "Street, Example City, Country.Email: johndoe@example.com",
+                "corresp_label": "Correspondence",
+                "corresp_title": None,
+                "corresp_bold": None,
+                "fns": [
+                    {
+                        "fn_bold": None,
+                        "fn_id": None,
+                        "fn_label": "2",
+                        "fn_parent": "author-notes",
+                        "fn_text": "2The authors declare there is no conflict of interest.",
+                        "fn_type": "conflict",
+                        'fn_title': None,
+                    }
+                ],
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "TRen",
+                "parent_lang": "en",
+            }
+
         ]
+        self.assertEqual(len(obtained), 4)
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertDictEqual(item, expected[i])
