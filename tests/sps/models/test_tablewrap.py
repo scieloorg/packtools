@@ -62,7 +62,13 @@ class TableWrapTest(unittest.TestCase):
   </caption>
   <alternatives>
     <graphic xlink:href="1980-5381-neco-28-02-579-gt02.svg"/>
-    <table>table codification</table>
+    <table>
+      <thead>
+        <tr>
+          <th>Posição</th>
+        </tr>
+      </thead>
+    </table>
   </alternatives>
   <table-wrap-foot>
     <fn id="TFN3">
