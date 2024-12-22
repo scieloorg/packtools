@@ -39,27 +39,7 @@ class TableWrap:
         return ""
 
     @property
-    def footnote(self):
-        footnote_element = self.element.find(".//table-wrap-foot")
-        if footnote_element is not None:
-            return node_plain_text(footnote_element)
-        return ""
 
-    @property
-    def footnote_id(self):
-        footnote_element = self.element.find(".//table-wrap-foot")
-        if footnote_element is not None:
-            fn_element = footnote_element.find(".//fn")
-            if fn_element is not None:
-                return fn_element.get("id")
-        return None
-
-    @property
-    def footnote_label(self):
-        footnote_element = self.element.find(".//table-wrap-foot")
-        if footnote_element is not None:
-            return footnote_element.findtext(".//fn//label")
-        return None
 
     @property
     def alternative_elements(self):
