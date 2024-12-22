@@ -47,8 +47,8 @@ class TableWrapTest(unittest.TestCase):
     def test_str(self):
         self.maxDiff = None
         self.assertEqual(
-            str(self.tablewrap_obj),
-            """<table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" id="t2"><label>Tabela 2:</label><caption><title>Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do restante do Brasil, 1918-1930 - em milhões de metros</title></caption><alternatives><graphic xlink:href="1980-5381-neco-28-02-579-gt02.svg"/><table>table codification</table></alternatives><table-wrap-foot><fn id="TFN3"><label>*</label><p>Fonte: Cano (1981, p. 293); SÃO PAULO. <italic>Diário Oficial do Estado de São Paulo</italic>, 30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.</p></fn></table-wrap-foot></table-wrap>""",
+            str(self.table_wrap_obj),
+            """<table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" id="t2"><label>Tabela 2:</label><caption><title>Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do restante do Brasil, 1918-1930 - em milhões de metros</title></caption><alternatives><graphic xlink:href="1980-5381-neco-28-02-579-gt02.svg"/><table><thead><tr><th>Posição</th></tr></thead></table></alternatives><table-wrap-foot><fn id="TFN3"><label>*</label><p>Fonte: Cano (1981, p. 293); SÃO PAULO. <italic>Diário Oficial do Estado de São Paulo</italic>, 30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.</p></fn></table-wrap-foot></table-wrap>""",
         )
 
     def test_xml(self):
