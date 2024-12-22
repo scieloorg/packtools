@@ -188,19 +188,20 @@ class TableWrapValidation:
         Returns:
             The validation result in the expected format.
         """
-        graphic = self.data.get("graphic")
-        alternatives = self.data.get("alternative_elements")
+        graphic = 1 if self.data.get("graphic") else 0
+        table = 1 if self.data.get("table") else 0
+        alternatives = len(self.data.get("alternative_elements"))
 
         # Define validation scenarios
         validation_cases = [
             {
-                "condition": graphic is not None and alternatives == [],
+                "condition": graphic + table == 2 and alternatives == 0,
                 "expected": "alternatives",
                 "obtained": None,
                 "advice": "Identify the alternatives",
             },
             {
-                "condition": graphic is None and alternatives != [],
+                "condition": graphic + table == 1 and alternatives > 0,
                 "expected": None,
                 "obtained": "alternatives",
                 "advice": "Remove the alternatives",
