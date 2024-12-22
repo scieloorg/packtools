@@ -52,8 +52,8 @@ class TableWrapValidationTest(unittest.TestCase):
             "<body>"
             "<table-wrap>"
             "<label>Table 1</label>"
-            "<caption>Table caption</caption>"
-            "<table>Table codification</table>"
+            "<caption>table caption</caption>"
+            "<table>table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -83,12 +83,13 @@ class TableWrapValidationTest(unittest.TestCase):
                     "alternative_parent": "table-wrap",
                     "table_wrap_id": None,
                     "label": "Table 1",
-                    "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    "caption": "table caption",
+                    "footnotes": [],
                     "alternative_elements": [],
-                    "table": "Table codification",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
                     "graphic": None,
                     "parent": "article",
                     "parent_id": None,
@@ -109,8 +110,8 @@ class TableWrapValidationTest(unittest.TestCase):
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
             '<table-wrap id="t01">'
-            "<caption>Table caption</caption>"
-            "<table>Table codification</table>"
+            "<caption>table caption</caption>"
+            "<table>table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -143,12 +144,13 @@ class TableWrapValidationTest(unittest.TestCase):
                     "alternative_parent": "table-wrap",
                     "table_wrap_id": "t01",
                     "label": None,
-                    "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    "caption": "table caption",
+                    "footnotes": [],
                     "alternative_elements": [],
-                    "table": "Table codification",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
                     "graphic": None,
                     "parent": "article",
                     "parent_id": None,
@@ -170,7 +172,7 @@ class TableWrapValidationTest(unittest.TestCase):
             "<body>"
             '<table-wrap id="t01">'
             "<label>Table 1</label>"
-            "<table>Table codification</table>"
+            "<table>table codification</table>"
             "</table-wrap>"
             "</body>"
             "</article>"
@@ -204,11 +206,12 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": "t01",
                     "label": "Table 1",
                     "caption": "",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    "footnotes": [],
                     "alternative_elements": [],
-                    "table": "Table codification",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
                     "graphic": None,
                     "parent": "article",
                     "parent_id": None,
@@ -262,9 +265,7 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": "t01",
                     "label": "Table 1",
                     "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    'footnotes': [],
                     "alternative_elements": [],
                     "graphic": None,
                     "table": None,
@@ -322,12 +323,13 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": "t01",
                     "label": "Table 1",
                     "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    "footnotes": [],
                     "alternative_elements": [],
                     "graphic": "1980-5381-neco-28-02-579-gt05.svg",
-                    "table": "table codification",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -383,12 +385,11 @@ class TableWrapValidationTest(unittest.TestCase):
                     "table_wrap_id": "t01",
                     "label": "Table 1",
                     "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
+                    "footnotes": [],
                     "alternative_elements": ["table"],
                     "graphic": None,
-                    "table": "table codification",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">table codification</table>',
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
