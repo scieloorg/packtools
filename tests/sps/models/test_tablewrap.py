@@ -54,7 +54,7 @@ class TableWrapTest(unittest.TestCase):
     def test_xml(self):
         self.maxDiff = None
         self.assertEqual(
-            self.tablewrap_obj.xml(),
+            self.table_wrap_obj.xml(),
             """<table-wrap xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" id="t2">
   <label>Tabela 2:</label>
   <caption>
