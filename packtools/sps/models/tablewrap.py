@@ -39,7 +39,21 @@ class TableWrap:
         return ""
 
     @property
+    def table_wrap_foot(self):
+        table_wrap_foot_elem = self.element.find(".//table-wrap-foot")
+        if table_wrap_foot_elem is None:
+            return []
 
+        fns = []
+        for fn_elem in table_wrap_foot_elem.findall(".//fn"):
+            fns.append(
+                {
+                    "text": node_plain_text(fn_elem),
+                    "id": fn_elem.get("id"),
+                    "label": fn_elem.findtext(".//label"),
+                }
+            )
+        return fns
 
     @property
     def alternative_elements(self):
