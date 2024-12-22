@@ -37,9 +37,9 @@ class TableWrapTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        self.xmltree = etree.fromstring(xml)
-        self.tablewrap_element = self.xmltree.xpath("//table-wrap")[0]
-        self.tablewrap_obj = TableWrap(self.tablewrap_element)
+        self.xml_tree = etree.fromstring(xml)
+        self.table_wrap_element = self.xml_tree.xpath("//table-wrap")[0]
+        self.table_wrap_obj = TableWrap(self.table_wrap_element)
 
     def test_str_main_tag(self):
         self.assertEqual(self.tablewrap_obj.str_main_tag(), '<table-wrap id="t2">')
