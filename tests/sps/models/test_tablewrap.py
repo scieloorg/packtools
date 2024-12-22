@@ -77,18 +77,18 @@ class TableWrapTest(unittest.TestCase):
     </fn>
   </table-wrap-foot>
 </table-wrap>
-""",
+"""
         )
 
     def test_table_wrap_id(self):
-        self.assertEqual(self.tablewrap_obj.table_wrap_id, "t2")
+        self.assertEqual(self.table_wrap_obj.table_wrap_id, "t2")
 
     def test_label(self):
-        self.assertEqual(self.tablewrap_obj.label, "Tabela 2:")
+        self.assertEqual(self.table_wrap_obj.label, "Tabela 2:")
 
     def test_caption(self):
         self.assertEqual(
-            self.tablewrap_obj.caption,
+            self.table_wrap_obj.caption,
             "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do restante do Brasil, "
             "1918-1930 - em milhões de metros",
         )
