@@ -66,7 +66,7 @@ class TableWrap:
     def table(self):
         table = self.element.find(".//table")
         if table is not None:
-            return ET.tostring(table, encoding="unicode", method="text").strip()
+            return tostring(table, xml_declaration=False)
         return None
 
     @property
