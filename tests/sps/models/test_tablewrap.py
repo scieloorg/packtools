@@ -93,22 +93,22 @@ class TableWrapTest(unittest.TestCase):
             "1918-1930 - em milhões de metros",
         )
 
-    def test_footnote(self):
+    def test_footnote_text(self):
         self.assertEqual(
-            self.tablewrap_obj.footnote,
+            self.table_wrap_obj.table_wrap_foot[0].get("text"),
             "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
             "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
         )
 
     def test_footnote_id(self):
-        self.assertEqual(self.tablewrap_obj.footnote_id, "TFN3")
+        self.assertEqual(self.table_wrap_obj.table_wrap_foot[0].get("id"), "TFN3")
 
     def test_footnote_label(self):
-        self.assertEqual(self.tablewrap_obj.footnote_label, "*")
+        self.assertEqual(self.table_wrap_obj.table_wrap_foot[0].get("label"), "*")
 
     def test_alternative_elements(self):
         self.assertListEqual(
-            self.tablewrap_obj.alternative_elements, ["graphic", "table"]
+            self.table_wrap_obj.alternative_elements, ["graphic", "table"]
         )
 
     def test_data(self):
@@ -118,16 +118,25 @@ class TableWrapTest(unittest.TestCase):
             "table_wrap_id": "t2",
             "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
             "restante do Brasil, 1918-1930 - em milhões de metros",
-            "footnote": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
-            "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
             "label": "Tabela 2:",
-            "footnote_id": "TFN3",
-            "footnote_label": "*",
+            "footnotes": [{
+                "text": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
+                        "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
+                "id": "TFN3",
+                "label": "*",
+            }],
             "alternative_elements": ["graphic", "table"],
-            "table": "table codification",
+            "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                     'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                     '<thead>'
+                     '<tr>'
+                     '<th>Posição</th>'
+                     '</tr>'
+                     '</thead>'
+                     '</table>',
             "graphic": "1980-5381-neco-28-02-579-gt02.svg",
         }
-        self.assertDictEqual(self.tablewrap_obj.data, expected_data)
+        self.assertDictEqual(self.table_wrap_obj.data, expected_data)
 
 
 class ArticleTableWrappersTest(unittest.TestCase):
@@ -226,17 +235,22 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "table_wrap_id": "t2",
                 "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
                 "restante do Brasil, 1918-1930 - em milhões de metros",
-                "footnote": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
-                "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
                 "label": "Tabela 2:",
-                "footnote_id": "TFN3",
-                "footnote_label": "*",
+                "footnotes": [{
+                   "text":  "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
+                            "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
+                    "id": "TFN3",
+                    "label": "*",
+                }],
                 "alternative_elements": ["graphic", "table"],
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
             },
             {
@@ -244,19 +258,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Produção de tecidos de algodão da Fábrica XYZ, do estado de Minas "
                 "Gerais e do restante do Brasil, 1931-1940 - em milhões de metros",
-                "footnote": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
-                "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
-                "1933; 25/05/1934, p. 1333; 30/06/1935, p. 1343; 15/07/1936 p. "
-                "1437.",
-                "footnote_id": "TFN4",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
+                           "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
+                           "1933; 25/05/1934, p. 1333; 30/06/1935, p. 1343; 15/07/1936 p. "
+                           "1437.",
+                    "id": "TFN4",
+                    "label": "*",
+                }],
                 "label": "Tabela 3:",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
                 "table_wrap_id": "t3",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
             },
         ]
@@ -280,19 +299,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by XYZ Factory, state of Minas "
                 "Gerais and the rest of Brazil, 1941-1950 - in millions of meters",
-                "footnote": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
-                "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
-                "p. 1943; 25/05/1944, p. 1433; 30/06/1945, p. 1443; 15/07/1946 p. "
-                "1537.",
-                "footnote_id": "TFN5",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
+                            "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
+                            "p. 1943; 25/05/1944, p. 1433; 30/06/1945, p. 1443; 15/07/1946 p. "
+                            "1537.",
+                    "id": "TFN5",
+                    "label": "*",
+                }],
                 "label": "Table 4:",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": None,
                 "parent_lang": "en",
                 "table_wrap_id": "t4",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
             },
             {
@@ -300,19 +324,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by ABC Factory, state of Rio de "
                 "Janeiro and the rest of Brazil, 1951-1960 - in millions of meters",
-                "footnote": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
-                "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
-                "20/03/1953, p. 1953; 25/05/1954, p. 1533; 30/06/1955, p. 1543; "
-                "15/07/1956 p. 1637.",
-                "footnote_id": "TFN6",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
+                            "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
+                            "20/03/1953, p. 1953; 25/05/1954, p. 1533; 30/06/1955, p. 1543; "
+                            "15/07/1956 p. 1637.",
+                    "id": "TFN6",
+                    "label": "*",
+                }],
                 "label": "Table 5:",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": None,
                 "parent_lang": "en",
                 "table_wrap_id": "t5",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
             },
         ]
@@ -342,17 +371,22 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "table_wrap_id": "t2",
                 "caption": "Produção de tecidos de algodão da Fábrica Votorantim, do estado de São Paulo e do "
                 "restante do Brasil, 1918-1930 - em milhões de metros",
-                "footnote": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
-                "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
+                "footnotes": [{
+                    "text": "*Fonte: Cano (1981, p. 293); SÃO PAULO. Diário Oficial do Estado de São Paulo, "
+                            "30/06/1922, p. 1922; 15/02/1923, p. 1923; 14/02/1925, p. 1233; 12/02/1926, p. 1243; 22/03/1931 p. 2327.",
+                    "id": "TFN3",
+                    "label": "*",
+                }],
                 "label": "Tabela 2:",
-                "footnote_id": "TFN3",
-                "footnote_label": "*",
                 "alternative_elements": ["graphic", "table"],
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
             },
             {
@@ -360,19 +394,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Produção de tecidos de algodão da Fábrica XYZ, do estado de Minas "
                 "Gerais e do restante do Brasil, 1931-1940 - em milhões de metros",
-                "footnote": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
-                "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
-                "1933; 25/05/1934, p. 1333; 30/06/1935, p. 1343; 15/07/1936 p. "
-                "1437.",
-                "footnote_id": "TFN4",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Fonte: Autor (2023, p. 123); MINAS GERAIS. Diário Oficial do "
+                            "Estado de Minas Gerais, 10/01/1932, p. 1932; 20/03/1933, p. "
+                            "1933; 25/05/1934, p. 1333; 30/06/1935, p. 1343; 15/07/1936 p. "
+                            "1437.",
+                    "id": "TFN4",
+                    "label": "*",
+                }],
                 "label": "Tabela 3:",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
                 "table_wrap_id": "t3",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
             },
             {
@@ -380,19 +419,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by XYZ Factory, state of Minas "
                 "Gerais and the rest of Brazil, 1941-1950 - in millions of meters",
-                "footnote": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
-                "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
-                "p. 1943; 25/05/1944, p. 1433; 30/06/1945, p. 1443; 15/07/1946 p. "
-                "1537.",
-                "footnote_id": "TFN5",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Source: Author (2023, p. 123); MINAS GERAIS. Official Journal "
+                            "of the State of Minas Gerais, 10/01/1942, p. 1942; 20/03/1943, "
+                            "p. 1943; 25/05/1944, p. 1433; 30/06/1945, p. 1443; 15/07/1946 p. "
+                            "1537.",
+                    "id": "TFN5",
+                    "label": "*",
+                }],
                 "label": "Table 4:",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": None,
                 "parent_lang": "en",
                 "table_wrap_id": "t4",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
             },
             {
@@ -400,19 +444,24 @@ class ArticleTableWrappersTest(unittest.TestCase):
                 "alternative_parent": "table-wrap",
                 "caption": "Production of cotton fabrics by ABC Factory, state of Rio de "
                 "Janeiro and the rest of Brazil, 1951-1960 - in millions of meters",
-                "footnote": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
-                "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
-                "20/03/1953, p. 1953; 25/05/1954, p. 1533; 30/06/1955, p. 1543; "
-                "15/07/1956 p. 1637.",
-                "footnote_id": "TFN6",
-                "footnote_label": "*",
+                "footnotes": [{
+                    "text": "*Source: Author (2023, p. 123); RIO DE JANEIRO. Official "
+                            "Journal of the State of Rio de Janeiro, 10/01/1952, p. 1952; "
+                            "20/03/1953, p. 1953; 25/05/1954, p. 1533; 30/06/1955, p. 1543; "
+                            "15/07/1956 p. 1637.",
+                    "id": "TFN6",
+                    "label": "*",
+                }],
                 "label": "Table 5:",
                 "parent": "sub-article",
                 "parent_article_type": "translation",
                 "parent_id": None,
                 "parent_lang": "en",
                 "table_wrap_id": "t5",
-                "table": "table codification",
+                "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                         'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                         'table codification'
+                         '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
             },
         ]
