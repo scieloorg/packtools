@@ -18,7 +18,11 @@ class TableWrapTest(unittest.TestCase):
             "<alternatives>"
             '<graphic xlink:href="1980-5381-neco-28-02-579-gt02.svg"/>'
             "<table>"
-            "table codification"
+            "<thead>"
+            "<tr>"
+            "<th>Posição</th>"
+            "</tr>"
+            "</thead>"
             "</table>"
             "</alternatives>"
             "<table-wrap-foot>"
