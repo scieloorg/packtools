@@ -42,7 +42,7 @@ class TableWrapTest(unittest.TestCase):
         self.table_wrap_obj = TableWrap(self.table_wrap_element)
 
     def test_str_main_tag(self):
-        self.assertEqual(self.tablewrap_obj.str_main_tag(), '<table-wrap id="t2">')
+        self.assertEqual(self.table_wrap_obj.str_main_tag(), '<table-wrap id="t2">')
 
     def test_str(self):
         self.maxDiff = None
