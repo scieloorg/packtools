@@ -200,30 +200,20 @@ def validate_article_ids(xmltree, params):
 def validate_references(xmltree, params):
     references_rules = params["references_rules"]
 
-    article_dates = ArticleDates(xmltree)
-    try:
-        end_year = (
-            int((article_dates.collection_date or article_dates.article_date)["year"])
-            + 1
-        )
-    except (ValueError, TypeError, AttributeError, KeyError):
-        end_year = None
     allowed_tags = references_rules["allowed_tags"] or []
 
     # TODO corrigir os parâmetros das classes e métodos de article_citations.py
 
     validator = ArticleCitationsValidation(xmltree)
-    # FIXME
-    #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/article_citations.py", line 482, in validate_mixed_citation_tags
-    # remaining_tags = list(set(self.citation.get("mixed_citation_sub_tags")) - set(allowed_tags))
-    # TypeError: 'NoneType' object is not iterable
-    # 'NoneType' object is not iterable
-    # yield from validator.validate_article_citations(
-    #     xmltree,
-    #     publication_type_list=references_rules["publication_type_list"],
-    #     end_year=end_year,
-    #     allowed_tags=allowed_tags,
-    # )
+    yield from validator.validate(
+        year_error_level=references_rules["year_error_level"],
+        source_error_level=references_rules["source_error_level"],
+        article_title_error_level=references_rules["article_title_error_level"],
+        authors_error_level=references_rules["authors_error_level"],
+        publication_type_error_level=references_rules["publication_type_error_level"],
+        comment_error_level=references_rules["comment_error_level"],
+        mixed_citation_error_level=references_rules["mixed_citation_error_level"],
+    )
 
 
 def validate_article_contribs(xmltree, params):
