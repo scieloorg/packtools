@@ -17,7 +17,7 @@ from packtools.sps.validation.article_toc_sections import \
     ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import ArticleDatesValidation
-from packtools.sps.validation.fig import FigValidation
+from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
 from packtools.sps.validation.journal_meta import (JournalIdValidation,
@@ -315,16 +315,10 @@ def validate_article_dates(xmltree, params):
 
 
 def validate_figs(xmltree, params):
-    fig_rules = params["fig_rules"]
-
-    # FIXME Criar FigsValidation para N figuras. Corrigir FigValidation para validar 1 figura
-    validator = FigValidation(xmltree)
-
-    # FIXME o nome validate_fig_existence. O método já está no FigValidation, logo deveria ser validate_existence
-    # os nomes dos métodos deveriam ser mais genéricos de modo a ser possível herança, ou reuso
-    yield from validator.validate_fig_existence(error_level=fig_rules["error_level"])
-
-    # TODO acrescentar em FigValidation a validação de @id, label, caption, graphic, alternatives, etc
+    rules = params["fig_rules"]
+    rules.update(params["article_type_rules"])
+    validator = ArticleFigValidation(xmltree, rules)
+    yield from validator.validate()
 
 
 def validate_bibliographic_strip(xmltree, params):
