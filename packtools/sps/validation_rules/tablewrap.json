@@ -1,0 +1,10 @@
+{
+    "table_wrap_rules": {
+        "absent_error_level": "WARNING",
+        "id_error_level": "CRITICAL",
+        "label_error_level": "CRITICAL",
+        "caption_error_level": "CRITICAL",
+        "table_error_level": "CRITICAL",
+        "alternatives_error_level": "CRITICAL"
+    }
+}

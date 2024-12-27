@@ -1,14 +1,13 @@
 import unittest
 from lxml import etree
-from packtools.sps.utils import xml_utils
 
-from packtools.sps.validation.tablewrap import TableWrapValidation
+from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
 
 class TableWrapValidationTest(unittest.TestCase):
-    def test_tablewrap_validation_no_tablewrap_elements(self):
+    def test_validate_absent(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
@@ -16,7 +15,11 @@ class TableWrapValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(TableWrapValidation(xmltree).validate_tablewrap_existence())
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree, rules={"absent_error_level": "WARNING"}
+            ).validate()
+        )
 
         expected = [
             {
@@ -41,61 +44,53 @@ class TableWrapValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_tablewrap_validation_with_tablewrap_elements(self):
+    def test_validate_id(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            '<table-wrap id="t01">'
+            "<table-wrap>"
             "<label>Table 1</label>"
-            '<caption>Table caption</caption>'
-            "<alternatives>"
-            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
+            "<caption>table caption</caption>"
+            "<table>table codification</table>"
             "</table-wrap>"
             "</body>"
-            '<sub-article article-type="translation" xml:lang="en">'
-            "<body>"
-            '<table-wrap id="t01">'
-            "<label>Table 1:</label>"
-            "<caption>Table caption</caption>"
-            "<alternatives>"
-            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
-            "</table-wrap>"
-            "</body>"
-            "</sub-article>"
             "</article>"
         )
-        obtained = list(TableWrapValidation(xmltree).validate_tablewrap_existence())
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree, rules={"id_error_level": "CRITICAL"}
+            ).validate()
+        )
 
         expected = [
             {
-                "title": "table-wrap presence",
+                "title": "id",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
                 "item": "table-wrap",
-                "sub_item": None,
+                "sub_item": "id",
                 "validation_type": "exist",
-                "response": "OK",
-                'expected_value': '<table-wrap> element',
-                'got_value': '<table-wrap id="t01">',
-                'message': 'Got <table-wrap id="t01">, expected <table-wrap> element',
-                "advice": None,
+                "response": "CRITICAL",
+                "expected_value": "id",
+                "got_value": None,
+                "message": "Got None, expected id",
+                "advice": "Identify the id",
                 "data": {
                     "alternative_parent": "table-wrap",
-                    "table_wrap_id": "t01",
+                    "table_wrap_id": None,
                     "label": "Table 1",
-                    "caption": "Table caption",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
-                    "alternative_elements": ["graphic", "graphic"],
+                    "caption": "table caption",
+                    "footnotes": [],
+                    "alternative_elements": [],
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
+                    "graphic": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -108,143 +103,298 @@ class TableWrapValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_tablewrap_validation_with_tablewrap_elements_fix_bug(self):
+    def test_validate_label(self):
         self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree(
-            "tests/fixtures/htmlgenerator/table_wrap_group_and_fig_group/2236-8906"
-            "-hoehnea-49-e1082020/2236-8906-hoehnea-49-e1082020.xml"
-        )
-        obtained = list(TableWrapValidation(xml_tree).validate_tablewrap_existence())
-
-        expected = [
-            {
-                "advice": None,
-                "data": {
-                    "alternative_elements": [],
-                    "alternative_parent": "table-wrap",
-                    "caption": "Classificação Sucessional adotada por alguns autores ao "
-                               "longo dos anos.",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
-                    "label": "Tabela 1",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "table_wrap_id": None,
-                },
-                "expected_value": "<table-wrap> element",
-                'got_value': '<table-wrap id="None">',
-                "item": "table-wrap",
-                "message": 'Got <table-wrap id="None">, expected <table-wrap> element',
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": None,
-                "title": "table-wrap presence",
-                "validation_type": "exist",
-            },
-            {
-                "advice": None,
-                "data": {
-                    "alternative_elements": [],
-                    "alternative_parent": "table-wrap",
-                    "caption": "List of threatened species and their classification in "
-                               "the lists of São Paulo, 2016, Brazil, 2019c and IUCN, "
-                               "2019. VU categories: Vulnerable, EN: Endangered and EX: "
-                               "Extinct.",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
-                    "label": "Table 4",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "table_wrap_id": None,
-                },
-                "expected_value": "<table-wrap> element",
-                'got_value': '<table-wrap id="None">',
-                "item": "table-wrap",
-                'message': 'Got <table-wrap id="None">, expected <table-wrap> element',
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "response": "OK",
-                "sub_item": None,
-                "title": "table-wrap presence",
-                "validation_type": "exist",
-            }
-
-        ]
-
-        self.assertEqual(len(obtained), 8)
-        # showing only the first and last record for the table
-        self.assertDictEqual(expected[0], obtained[0])
-        self.assertDictEqual(expected[1], obtained[7])
-
-    def test_validate_tablewrap_elements(self):
-        self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            '<table-wrap>'
-            "<alternatives>"
-            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
-            "</table-wrap>"
-            "</body>"
-            '<sub-article article-type="translation" xml:lang="en">'
-            "<body>"
             '<table-wrap id="t01">'
-            "<label>Table 1:</label>"
-            "<caption>Table caption</caption>"
-            "<alternatives>"
-            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
+            "<caption>table caption</caption>"
+            "<table>table codification</table>"
             "</table-wrap>"
             "</body>"
-            "</sub-article>"
             "</article>"
         )
-        obtained = list(TableWrapValidation(xmltree).validate_tablewrap_elements())
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "label_error_level": "CRITICAL",
+                },
+            ).validate()
+        )
 
         expected = [
             {
-                "advice": "provide table-wrap/@id or label or caption for table-wrap",
-                "data": {
-                    "alternative_elements": ["graphic", "graphic"],
-                    "alternative_parent": "table-wrap",
-                    "caption": "",
-                    "footnote": "",
-                    "footnote_id": None,
-                    "footnote_label": None,
-                    "label": None,
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "table_wrap_id": None,
-                },
-                "expected_value": "table-wrap/@id or label or caption elements",
-                "got_value": [],
-                "item": "table-wrap",
-                "message": "Got [], expected table-wrap/@id or label or caption elements",
+                "title": "label",
                 "parent": "article",
-                "parent_article_type": "research-article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "response": "ERROR",
-                "sub_item": "table-wrap/@id or label or caption",
-                "title": "table-wrap elements",
+                "item": "table-wrap",
+                "sub_item": "label",
                 "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "label",
+                "got_value": None,
+                "message": "Got None, expected label",
+                "advice": "Identify the label",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": None,
+                    "caption": "table caption",
+                    "footnotes": [],
+                    "alternative_elements": [],
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
+                    "graphic": None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_caption(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<table>table codification</table>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "caption_error_level": "CRITICAL",
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "caption",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "caption",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "caption",
+                "got_value": None,
+                "message": "Got None, expected caption",
+                "advice": "Identify the caption",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "",
+                    "footnotes": [],
+                    "alternative_elements": [],
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
+                    "graphic": None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_table(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={"table_error_level": "CRITICAL"},
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "table",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "table",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "table",
+                "got_value": None,
+                "message": "Got None, expected table",
+                "advice": "Identify the table",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    'footnotes': [],
+                    "alternative_elements": [],
+                    "graphic": None,
+                    "table": None,
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_required_alternatives(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            "<table>table codification</table>"
+            '<graphic xlink:href="1980-5381-neco-28-02-579-gt05.svg"/>'
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={"alternatives_error_level": "CRITICAL"},
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "alternatives",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "alternatives",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": "alternatives",
+                "got_value": None,
+                "message": "Got None, expected alternatives",
+                "advice": "Identify the alternatives",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    "footnotes": [],
+                    "alternative_elements": [],
+                    "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">'
+                             'table codification'
+                             '</table>',
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_validate_not_required_alternatives(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<table-wrap id="t01">'
+            "<label>Table 1</label>"
+            "<caption>Table caption</caption>"
+            "<alternatives>"
+            "<table>table codification</table>"
+            "</alternatives>"
+            "</table-wrap>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleTableWrapValidation(
+                xml_tree=xml_tree,
+                rules={"alternatives_error_level": "CRITICAL"},
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "alternatives",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "table-wrap",
+                "sub_item": "alternatives",
+                "validation_type": "exist",
+                "response": "CRITICAL",
+                "expected_value": None,
+                "got_value": "alternatives",
+                "message": "Got alternatives, expected None",
+                "advice": "Remove the alternatives",
+                "data": {
+                    "alternative_parent": "table-wrap",
+                    "table_wrap_id": "t01",
+                    "label": "Table 1",
+                    "caption": "Table caption",
+                    "footnotes": [],
+                    "alternative_elements": ["table"],
+                    "graphic": None,
+                    "table": '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML">table codification</table>',
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
             }
         ]
 
