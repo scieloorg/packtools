@@ -1,15 +1,17 @@
 {
     "article_contribs_rules": {
-        "role_error_level": "CRITICAL",
+        "credit_taxonomy_terms_and_urls_error_level": "CRITICAL",
         "orcid_format_error_level": "CRITICAL",
         "orcid_is_registered_error_level": "ERROR",
         "collab_list_error_level": "CRITICAL",
+        "name_error_level": "CRITICAL",
+        "collab_error_level": "CRITICAL",
+        "name_or_collab_error_level": "CRITICAL",
         "affiliations_error_level": "CRITICAL",
         "orcid_is_unique_error_level": "CRITICAL",
         "contrib_type_list": [
             "author"
         ],
-        "orcid_api_get": null,
         "credit_taxonomy_terms_and_urls": [
             {
                 "term": "Conceptualization",

@@ -217,17 +217,9 @@ def validate_references(xmltree, params):
 
 
 def validate_article_contribs(xmltree, params):
-    # FIXME
-    def f(arg):
-        ...
-
+    is_orcid_registered = params.get("is_orcid_registered")
     article_contribs_rules = params["article_contribs_rules"]
-
-    params_ = {}
-    params_["callable_get_data"] = article_contribs_rules["orcid_api_get"] or f
-    params_.update(article_contribs_rules)
-
-    validator = ArticleContribsValidation(xmltree, params_)
+    validator = ArticleContribsValidation(xmltree, article_contribs_rules, is_orcid_registered)
     yield from validator.validate()
 
 
