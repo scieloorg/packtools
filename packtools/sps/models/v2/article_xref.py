@@ -3,6 +3,19 @@ import itertools
 from packtools.sps.utils.xml_utils import put_parent_context, tostring
 
 
+# https://jats.nlm.nih.gov/publishing/tag-library/1.4/attribute/ref-type.html
+ELEMENT_NAME = {
+    "table": "table-wrap",
+    "bibr": "ref",
+}
+
+def get_element_name(ref_type):
+    try:
+        return ELEMENT_NAME[ref_type]
+    except KeyError:
+        return ref_type
+
+
 class Xref:
     """<xref ref-type="aff" rid="aff1">1</xref>"""
 
@@ -18,6 +31,7 @@ class Xref:
             "ref-type": self.xref_type,
             "rid": self.xref_rid,
             "text": self.xref_text,
+            "element_name": get_element_name(self.xref_type)
         }
 
 
@@ -31,7 +45,12 @@ class Id:
         self.str_main_tag = f'<{self.node_tag} id="{self.node_id}">'
 
     def xml(self, doctype=None, pretty_print=True, xml_declaration=True):
-        return tostring(node=self.node, doctype=doctype, pretty_print=pretty_print, xml_declaration=xml_declaration)
+        return tostring(
+            node=self.node,
+            doctype=doctype,
+            pretty_print=pretty_print,
+            xml_declaration=xml_declaration,
+        )
 
     def __str__(self):
         return tostring(self.node)
@@ -80,7 +99,7 @@ class ArticleXref:
         for item in itertools.chain(
             self.article_ids(element_name),
             self.sub_article_translation_ids(element_name),
-            self.sub_article_non_translation_ids(element_name)
+            self.sub_article_non_translation_ids(element_name),
         ):
             id = item.get("id")
             response.setdefault(id, [])
@@ -106,4 +125,3 @@ class ArticleXref:
     def sub_article_non_translation_ids(self, element_name):
         for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
             yield from Ids(node).ids(element_name)
-

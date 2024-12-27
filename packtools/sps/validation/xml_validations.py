@@ -258,18 +258,15 @@ def validate_id_and_rid_match(xmltree, params):
     id_and_rid_match_rules = params["id_and_rid_match_rules"]
 
     validator = ArticleXrefValidation(xmltree)
-    yield from validator.validate_rid(
+    yield from validator.validate_xref_rid_has_corresponding_element_id(
         error_level=id_and_rid_match_rules["required_id_error_level"]
     )
-    yield from validator.validate_id(
+
+    yield from validator.validate_element_id_has_corresponding_xref_rid(
+        id_and_rid_match_rules["elements_required_rid"],
         error_level=id_and_rid_match_rules["required_rid_error_level"]
     )
-
-    # for element_name in id_and_rid_match_rules["required_rid_elements"]:
-    #     yield from validator.validate_id(
-    #         element_name=element_name,
-    #         error_level=id_and_rid_match_rules["required_rid_error_level"]
-    #     )
+    
 
 
 def validate_article_dates(xmltree, params):
