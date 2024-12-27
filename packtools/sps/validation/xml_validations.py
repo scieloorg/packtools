@@ -19,6 +19,7 @@ from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import ArticleDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
+from packtools.sps.validation.formula import ArticleDispFormulaValidation, ArticleInlineFormulaValidation
 from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
 from packtools.sps.validation.journal_meta import (JournalIdValidation,
@@ -328,6 +329,19 @@ def validate_tablewraps(xmltree, params):
     validator = ArticleTableWrapValidation(xmltree, rules)
     yield from validator.validate()
 
+
+def validate_equations(xmltree, params):
+    rules = params["disp_formula_rules"]
+    rules.update(params["article_type_rules"])
+    validator = ArticleDispFormulaValidation(xmltree, rules)
+    yield from validator.validate()
+
+
+def validate_inline_equations(xmltree, params):
+    rules = params["inline_formula_rules"]
+    rules.update(params["article_type_rules"])
+    validator = ArticleInlineFormulaValidation(xmltree, rules)
+    yield from validator.validate()
 
 
 def validate_bibliographic_strip(xmltree, params):

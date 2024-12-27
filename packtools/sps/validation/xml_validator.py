@@ -61,6 +61,18 @@ def validate_xml_content(xmltree, rules):
     }
     yield {"group": "figs", "items": xml_validations.validate_figs(xmltree, params)}
     yield {
+        "group": "table-wrap",
+        "items": xml_validations.validate_tablewraps(xmltree, params),
+    }
+    yield {
+        "group": "disp-formula",
+        "items": xml_validations.validate_equations(xmltree, params),
+    }
+    yield {
+        "group": "inline-formula",
+        "items": xml_validations.validate_inline_equations(xmltree, params),
+    }
+    yield {
         "group": "article_references",
         "items": xml_validations.validate_references(xmltree, params),
     }
