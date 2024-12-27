@@ -1,5 +1,5 @@
 from packtools.sps.models.article_dates import ArticleDates
-from packtools.sps.validation.aff import AffiliationsListValidation
+from packtools.sps.validation.aff import AffiliationsValidation
 from packtools.sps.validation.article_abstract import (
     ArticleAbstractsValidation, HighlightsValidation,
     VisualAbstractsValidation)
@@ -51,16 +51,12 @@ from packtools.sps.validation.journal_meta import (JournalIdValidation,
 def validate_affiliations(xmltree, params):
     country_codes_list = params["country_codes_list"]
 
-    # FIXME acesso a country_codes_list dentro das classes e métodos
-    validator = AffiliationsListValidation(xmltree, country_codes_list)
+    validator = AffiliationsValidation(xmltree, country_codes_list)
 
     aff_rules = params["aff_rules"]
-    aff_rules["country_codes_list"] = country_codes_list
-
     yield from validator.validate_main_affiliations(**aff_rules)
 
     translated_aff_rules = params["translated_aff_rules"]
-    translated_aff_rules["country_codes_list"] = country_codes_list
     yield from validator.validate_translated_affiliations(**translated_aff_rules)
 
 
@@ -73,12 +69,16 @@ def validate_abstracts(xmltree, params):
         expected_abstract_type_list=abstract_rules["abstract_type_list"],
     )
 
-    # FIXME
-    # yield from validator.validate_exists(
-    #     error_level=abstract_rules["abstract_presence_error_level"],
-    # )
+    validator = AbstractsValidation(xmltree)
+    yield from validator.validate_exists(
+        article_type_requires=abstract_rules["article_type_requires"],
+        article_type_unexpects=abstract_rules["article_type_unexpects"],
+        article_type_neutral=abstract_rules["article_type_neutral"],
+        article_type_accepts=[]
+    )
 
     highlight_rules = params["highlight_rules"]
+
     validator = HighlightsValidation(xmltree)
     yield from validator.validate(
         kwd_error_level=highlight_rules["kwd_error_level"],
@@ -86,13 +86,26 @@ def validate_abstracts(xmltree, params):
         p_error_level=highlight_rules["p_error_level"],
         list_error_level=highlight_rules["list_error_level"],
     )
+    yield validator.validate_exists(
+        article_type_requires=[],
+        article_type_unexpects=highlight_rules["article_type_unexpects"],
+        article_type_neutral=highlight_rules["article_type_neutral"],
+        article_type_accepts=highlight_rules["article_type_accepts"]
+    )
 
     graphical_abstract_rules = params["graphical_abstract_rules"]
+
     validator = VisualAbstractsValidation(xmltree)
     yield from validator.validate(
         kwd_error_level=graphical_abstract_rules["kwd_error_level"],
         title_error_level=graphical_abstract_rules["title_error_level"],
         graphic_error_level=graphical_abstract_rules["graphic_error_level"],
+    )
+    yield validator.validate_exists(
+        article_type_requires=[],
+        article_type_unexpects=graphical_abstract_rules["article_type_unexpects"],
+        article_type_neutral=graphical_abstract_rules["article_type_neutral"],
+        article_type_accepts=graphical_abstract_rules["article_type_accepts"]
     )
 
 
@@ -176,43 +189,26 @@ def validate_article_ids(xmltree, params):
 def validate_references(xmltree, params):
     references_rules = params["references_rules"]
 
-    article_dates = ArticleDates(xmltree)
-    try:
-        end_year = (
-            int((article_dates.collection_date or article_dates.article_date)["year"])
-            + 1
-        )
-    except (ValueError, TypeError, AttributeError, KeyError):
-        end_year = None
     allowed_tags = references_rules["allowed_tags"] or []
 
     # TODO corrigir os parâmetros das classes e métodos de article_citations.py
 
     validator = ArticleCitationsValidation(xmltree)
-    # FIXME
-    #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/article_citations.py", line 482, in validate_mixed_citation_tags
-    # remaining_tags = list(set(self.citation.get("mixed_citation_sub_tags")) - set(allowed_tags))
-    # TypeError: 'NoneType' object is not iterable
-    # 'NoneType' object is not iterable
-    # yield from validator.validate_article_citations(
-    #     xmltree,
-    #     publication_type_list=references_rules["publication_type_list"],
-    #     end_year=end_year,
-    #     allowed_tags=allowed_tags,
-    # )
+    yield from validator.validate(
+        year_error_level=references_rules["year_error_level"],
+        source_error_level=references_rules["source_error_level"],
+        article_title_error_level=references_rules["article_title_error_level"],
+        authors_error_level=references_rules["authors_error_level"],
+        publication_type_error_level=references_rules["publication_type_error_level"],
+        comment_error_level=references_rules["comment_error_level"],
+        mixed_citation_error_level=references_rules["mixed_citation_error_level"],
+    )
 
 
 def validate_article_contribs(xmltree, params):
-    # FIXME
-    def f(arg): ...
-
+    is_orcid_registered = params.get("is_orcid_registered")
     article_contribs_rules = params["article_contribs_rules"]
-
-    params_ = {}
-    params_["callable_get_data"] = article_contribs_rules["orcid_api_get"] or f
-    params_.update(article_contribs_rules)
-
-    validator = ArticleContribsValidation(xmltree, params_)
+    validator = ArticleContribsValidation(xmltree, article_contribs_rules, is_orcid_registered)
     yield from validator.validate()
 
 

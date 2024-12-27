@@ -21,6 +21,8 @@ def format_response(
     data,
     error_level,
 ):
+    if validation_type == "value in list" and 'one of ' not in expected:
+        expected = f'one of {expected}'
     return {
         "title": title,
         "parent": parent,
@@ -31,7 +33,7 @@ def format_response(
         "sub_item": sub_item,
         "validation_type": validation_type,
         "response": "OK" if is_valid else error_level,
-        "expected_value": expected,
+        "expected_value": obtained if is_valid else expected,
         "got_value": obtained,
         "message": f"Got {obtained}, expected {expected}",
         "advice": None if is_valid else advice,

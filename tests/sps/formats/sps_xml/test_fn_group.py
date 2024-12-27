@@ -1,5 +1,5 @@
 import unittest
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 from packtools.sps.formats.sps_xml.fn_group import build_fn_group, build_fn
 
 
@@ -9,7 +9,7 @@ class TestBuildFnGroup(unittest.TestCase):
             "title": None
         }
         expected_xml_str = (
-            '<fn-group />'
+            '<fn-group/>'
         )
         fn_group_elem = build_fn_group(data)
         generated_xml_str = ET.tostring(fn_group_elem, encoding="unicode", method="xml")
@@ -60,7 +60,7 @@ class TestBuildFnType(unittest.TestCase):
             "fn_type": "supported-by",
         }
         expected_xml_str = (
-            '<fn fn-type="supported-by" />'
+            '<fn fn-type="supported-by"/>'
         )
         fn_elem = build_fn(data)
         generated_xml_str = ET.tostring(fn_elem, encoding="unicode", method="xml")
@@ -82,7 +82,7 @@ class TestBuildFnId(unittest.TestCase):
             "fn_id": "fn01",
         }
         expected_xml_str = (
-            '<fn fn-type="supported-by" id="fn01" />'
+            '<fn fn-type="supported-by" id="fn01"/>'
         )
         fn_elem = build_fn(data)
         generated_xml_str = ET.tostring(fn_elem, encoding="unicode", method="xml")
@@ -94,7 +94,7 @@ class TestBuildFnId(unittest.TestCase):
             "fn_id": None
         }
         expected_xml_str = (
-            '<fn fn-type="supported-by" />'
+            '<fn fn-type="supported-by"/>'
         )
         fn_elem = build_fn(data)
         generated_xml_str = ET.tostring(fn_elem, encoding="unicode", method="xml")
@@ -124,7 +124,7 @@ class TestBuildFnLabel(unittest.TestCase):
             "fn_label": None,
         }
         expected_xml_str = (
-            '<fn fn-type="supported-by" id="fn01" />'
+            '<fn fn-type="supported-by" id="fn01"/>'
         )
         fn_elem = build_fn(data)
         generated_xml_str = ET.tostring(fn_elem, encoding="unicode", method="xml")
@@ -154,7 +154,7 @@ class TestBuildFnP(unittest.TestCase):
             "fn_p": None
         }
         expected_xml_str = (
-            '<fn fn-type="supported-by" id="fn01" />'
+            '<fn fn-type="supported-by" id="fn01"/>'
         )
         fn_elem = build_fn(data)
         generated_xml_str = ET.tostring(fn_elem, encoding="unicode", method="xml")

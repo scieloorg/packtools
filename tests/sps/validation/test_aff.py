@@ -3,10 +3,10 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.models.aff import Affiliation
+from packtools.sps.models.v2.aff import ArticleAffiliations
 from packtools.sps.validation.aff import (
     AffiliationValidation,
-    AffiliationsListValidation,
+    AffiliationsValidation,
 )
 from packtools.sps.utils import xml_utils
 
@@ -46,7 +46,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         obtained = list(
-            AffiliationsListValidation(xml_tree, ["BR"]).validate_affiliations_list()
+            AffiliationsValidation(xml_tree, ["BR"]).validate_main_affiliations()
         )
         self.assertEqual(0, len(obtained))
         for i, item in enumerate(obtained):
@@ -75,8 +75,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_original())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_original())
 
         expected = {
                 "title": "original",
@@ -132,8 +132,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_orgname())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_orgname())
 
         expected = {
                 "title": "orgname",
@@ -192,8 +192,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_country())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country())
 
         expected = {
                 "title": "country name",
@@ -253,7 +253,7 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
         obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code())
 
         expected = {
@@ -266,9 +266,9 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "@country",
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["BR"],
+                "expected_value": 'one of ["BR"]',
                 "got_value": None,
-                "message": "Got None, expected ['BR']",
+                "message": "Got None, expected one of ['BR']",
                 "advice": "provide a valid @country",
                 "data": {
                     "city": "Belo Horizonte",
@@ -313,8 +313,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_state())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_state())
 
         expected = {
                 "title": "state",
@@ -372,8 +372,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_city())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_city())
 
         expected = {
                 "title": "city",
@@ -431,8 +431,8 @@ class AffiliationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        affiliations_list = list(Affiliation(xml_tree).affiliation_list)
-        obtained = list(AffiliationValidation(affiliations_list[0]).validate_id())
+        affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
+        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_id())
 
         expected = {
                 "title": "id",
@@ -503,7 +503,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_main_affiliations(data))
         self.assertEqual(0, len(obtained))
 
     def test_validate_affiliation_sub_article_original_only(self):
@@ -538,7 +538,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_translated_affiliations(data))
         expected = [
             "orgname", "country name", "country code", "state", "city",
             "orgname", "country name", "country code", "state", "city"
@@ -548,13 +548,13 @@ class AffiliationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertEqual(expected[i], item["title"])
 
-    def test_validate_affiliation_count_article_vs_sub_article(self):
+    def test_validate_affiliation_count(self):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
         obtained = list(
-            AffiliationsListValidation(
-                xml_tree
-            ).validate_affiliation_count_article_vs_sub_article()
+            AffiliationsValidation(
+                xml_tree, ["BR"]
+            ).validate_affiliation_count()
         )
         expected = [
             {
@@ -591,7 +591,7 @@ class AffiliationValidationTest(TestCase):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
         data = {"country_codes_list": ["BR"]}
-        validation = AffiliationsListValidation(xml_tree)
+        validation = AffiliationsValidation(xml_tree, ["BR"])
         obtained = list(validation.validate(data))
         expected = [
             "label", 
@@ -607,9 +607,9 @@ class AffiliationValidationTest(TestCase):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
         obtained = list(
-            AffiliationsListValidation(
-                xml_tree
-            ).validate_affiliation_count_article_vs_sub_article()
+            AffiliationsValidation(
+                xml_tree, ["BR"]
+            ).validate_affiliation_count()
         )
         expected = [
             {
@@ -643,7 +643,7 @@ class AffiliationValidationTest(TestCase):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsListValidation(xml_tree).validate(data))
+        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate(data))
         expected = [
             "label", 
             "label", "orgname", "country name", "country code", "state", "city",
@@ -657,9 +657,9 @@ class AffiliationValidationTest(TestCase):
         self.maxDiff = None
         xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
         obtained = list(
-            AffiliationsListValidation(
-                xml_tree
-            ).validate_affiliation_count_article_vs_sub_article()
+            AffiliationsValidation(
+                xml_tree, ["BR"]
+            ).validate_affiliation_count()
         )
         expected = [
             {

@@ -22,6 +22,8 @@ INSTALL_REQUIRES = [
     'langcodes>=3.3.0',
     'picles.plumber>=0.11',
     'Pillow',
+    'openpyxl>=3.1.5',
+    'python-docx>=1.1.2',
 ]
 
 
@@ -82,6 +84,7 @@ setup(
             "htmlgenerator=packtools.htmlgenerator:main",
             "package_optimiser=packtools.package_optimiser:main",
             "package_maker=packtools.package_maker:main",
+            "pdf_generator=packtools.sps.formats.pdf_generator:main",
         ]
     }
 )
