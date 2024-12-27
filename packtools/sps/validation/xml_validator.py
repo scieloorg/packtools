@@ -28,6 +28,10 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_article_languages(xmltree, params),
     }
     yield {
+        "group": "article_languages",
+        "items": xml_validations.validate_metadata_languages(xmltree, params),
+    }
+    yield {
         "group": "article_toc_sections",
         "items": xml_validations.validate_article_toc_sections(xmltree, params),
     }
