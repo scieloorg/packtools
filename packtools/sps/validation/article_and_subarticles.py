@@ -84,14 +84,17 @@ class ArticleLangValidation:
                 msg = "<article article-type={} xml:lang={}>".format(
                     article_type, article_lang
                 )
+                parent__id = parent
             else:
                 parent = "sub-article"
                 msg = "<sub-article article-type={} id={} xml:lang={}>".format(
                     article_type, article_id, article_lang
                 )
+                parent__id = f'{parent}[@id="{article_id}"]'
 
+            advice = None if validated else f'Provide for {parent__id}/@xml:lang one of {language_codes_list}'
             yield format_response(
-                    title="Article element lang attribute validation",
+                    title="text language",
                     parent=parent,
                     parent_id=article_id,
                     parent_article_type=article_type,
@@ -102,9 +105,7 @@ class ArticleLangValidation:
                     is_valid=validated,
                     expected=language_codes_list,
                     obtained=article_lang,
-                    advice="{} has {} as language, expected one item of this list: {}".format(
-                        msg, article_lang, " | ".join(language_codes_list)
-                    ),
+                    advice=advice,
                     data=article,
                     error_level=error_level
             )
@@ -168,7 +169,7 @@ class ArticleAttribsValidation:
         specific_use_list = specific_use_list or self.specific_use_list
         if not specific_use_list:
             raise ValidationArticleAndSubArticlesSpecificUseException(
-                "Function requires list of specific uses"
+                "ArticleAttribsValidation.validate_specific_use requires specific_use_list"
             )
 
         validated = self.articles.main_specific_use in specific_use_list
@@ -179,8 +180,9 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
+        advice = None if validated else f"Provide for article/@specific-use one of {specific_use_list}"
         yield format_response(
-            title="Article element specific-use attribute validation",
+            title="article/@specific-use",
             parent="article",
             parent_id=None,
             parent_article_type=self.articles.main_article_type,
@@ -191,11 +193,7 @@ class ArticleAttribsValidation:
             is_valid=validated,
             expected=specific_use_list,
             obtained=self.articles.main_specific_use,
-            advice="XML {} has {} as specific-use, expected one item of this list: {}".format(
-                    self.articles.main_article_type,
-                    self.articles.main_specific_use,
-                    " | ".join(specific_use_list),
-                ),
+            advice=advice,
             data=data,
             error_level=error_level,
         )
@@ -252,7 +250,7 @@ class ArticleAttribsValidation:
         dtd_version_list = dtd_version_list or self.dtd_version_list
         if not dtd_version_list:
             raise ValidationArticleAndSubArticlesDtdVersionException(
-                "Function requires list of dtd versions"
+                "ArticleAttribsValidation.validate_dtd_version requires dtd_version_list"
             )
 
         validated = self.articles.main_dtd_version in dtd_version_list
@@ -263,8 +261,9 @@ class ArticleAttribsValidation:
             "dtd_version": self.articles.main_dtd_version
         })
 
+        advice = None if validated else f"Provide for article/@dtd-version one of {dtd_version_list}"
         yield format_response(
-            title="Article element dtd-version attribute validation",
+            title="article/@dtd-version",
             parent="article",
             parent_id=None,
             parent_article_type=self.articles.main_article_type,
@@ -275,11 +274,7 @@ class ArticleAttribsValidation:
             is_valid=validated,
             expected=dtd_version_list,
             obtained=self.articles.main_dtd_version,
-            advice="XML {} has {} as dtd-version, expected one item of this list: {}".format(
-                    self.articles.main_article_type,
-                    self.articles.main_dtd_version,
-                    " | ".join(dtd_version_list),
-            ),
+            advice=advice,
             data=data,
             error_level=error_level
         )
@@ -351,7 +346,7 @@ class ArticleTypeValidation:
 
         if not article_type_list:
             raise ValidationArticleAndSubArticlesArticleTypeException(
-                "Function requires list of article types"
+                "ArticleTypeValidation.validate_article_type requires article_type_list"
             )
 
         validated = article_type in article_type_list
@@ -361,9 +356,9 @@ class ArticleTypeValidation:
             "specific_use": self.articles.main_specific_use,
             "dtd_version": self.articles.main_dtd_version
         })
-
+        advice = None if validated else f"Provide for article/@article-type one of {article_type_list}"
         yield format_response(
-            title="Article type validation",
+            title="article/@article-type",
             parent="article",
             parent_id=None,
             parent_article_type=self.articles.main_article_type,
@@ -374,9 +369,7 @@ class ArticleTypeValidation:
             is_valid=validated,
             expected=article_type_list,
             obtained=article_type,
-            advice="XML has {} as article-type, expected one item of this list: {}".format(
-                    article_type, " | ".join(article_type_list)
-            ),
+            advice=advice,
             data=data,
             error_level=error_level,
         )
@@ -598,13 +591,18 @@ class ArticleIdValidation:
                 },
             }
         """
-        is_valid = self.article_ids.other.isnumeric() and len(self.article_ids.other) <= 5
+        if not self.article_ids.other:
+            return
+
+        try:
+            is_valid = 0 < int(self.article_ids.other) <= 99999
+        except (TypeError, ValueError, AttributeError):
+            is_valid = False
+
         error_level = error_level or "ERROR"
-        expected_value = (
-            self.article_ids.other if is_valid else "a numeric value with up to five digits"
-        )
+        expected_value = "numerical value from 1 to 99999"
         yield format_response(
-            title="Article id other validation",
+            title='article-id (@pub-id-type="other")',
             parent="article",
             parent_id=None,
             parent_article_type=self.articles.main_article_type,
@@ -615,7 +613,7 @@ class ArticleIdValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.article_ids.other,
-            advice='Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+            advice='Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
             data=self.article_ids.data,
             error_level=error_level,
         )
