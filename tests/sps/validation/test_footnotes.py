@@ -1,89 +1,58 @@
-import unittest
+from unittest import TestCase
 from lxml import etree
 
-from packtools.sps.validation.footnotes import FootnoteValidation
+from packtools.sps.validation.footnotes import FnGroupValidation
 
 
-class MyTestCase(unittest.TestCase):
-    def test_fn_validation_coi_statement_expected(self):
+class FnGroupValidationValidationTest(TestCase):
+    def test_label(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.3" article-type="research-article" xml:lang="pt">'
-            '<front>'
-            '<article-meta>'
-            '<author-notes>'
-            '<corresp>'
-            '<label>Correspondência</label>:  Roseana Mara Aredes Priuli  Av. Juscelino Kubistcheck de Oliveira, 1220, '
-            'Jardim Panorama, Condomínio Recanto Real Rua 4, 440  15021-450 São José do Rio Preto, SP, Brasil  E-mail: '
-            '<email>roseanap@gmail.com</email>'
-            '</corresp>'
-            '<fn id="fn_01" fn-type="conflict">'
-            '<p>Os autores declaram não haver conflito de interesses.</p>'
-            '</fn>'
-            '</author-notes>'
-            '</article-meta>'
-            '</front>'
-            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
-            '<front-stub>'
-            '<author-notes>'
-            '<fn fn-type="conflict">'
-            '<p>The authors declare there is no conflict of interest.</p>'
-            '</fn>'
-            '</author-notes>'
-            '</front-stub>'
-            '</sub-article>'
-            '</article>'
+            "<back>"
+            "<fn-group>"
+            "<title>Notas</title>"
+            '<fn fn-type="supported-by" id="fn01">'
+            "<p>Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis</p>"
+            "</fn>"
+            "</fn-group>"
+            "</back>"
+            "</article>"
         )
-        obtained = list(FootnoteValidation(xmltree).fn_validation())
+
+        obtained = list(
+            FnGroupValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "fn_label_error_level": "WARNING",
+                },
+            ).validate()
+        )
 
         expected = [
             {
-                'title': 'Footnotes validation',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'pt',
-                'item': 'author-notes',
-                'sub_item': 'fn',
-                'validation_type': 'match',
-                'response': 'ERROR',
-                'expected_value': '<fn fn-type="coi-statement">',
-                'got_value': '<fn fn-type="conflict">',
-                'message': 'Got <fn fn-type="conflict">, expected <fn fn-type="coi-statement">',
-                'advice': 'replace conflict with coi-statement',
-                'data': {
-                    'fn_id': 'fn_01',
-                    'fn_parent': 'author-notes',
-                    'fn_type': 'conflict',
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'pt'
-                },
-            },
-            {
-                'title': 'Footnotes validation',
-                'parent': 'sub-article',
-                'parent_id': 'TRen',
-                'parent_article_type': 'translation',
-                'parent_lang': 'en',
-                'item': 'author-notes',
-                'sub_item': 'fn',
-                'validation_type': 'match',
-                'response': 'ERROR',
-                'expected_value': '<fn fn-type="coi-statement">',
-                'got_value': '<fn fn-type="conflict">',
-                'message': 'Got <fn fn-type="conflict">, expected <fn fn-type="coi-statement">',
-                'advice': 'replace conflict with coi-statement',
-                'data': {
-                    'fn_id': None,
-                    'fn_parent': 'author-notes',
-                    'fn_type': 'conflict',
-                    'parent': 'sub-article',
-                    'parent_id': 'TRen',
-                    'parent_article_type': 'translation',
-                    'parent_lang': 'en'
+                "title": "label",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "label",
+                "sub_item": None,
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "label",
+                "got_value": None,
+                "message": "Got None, expected label",
+                "advice": "Identify the label",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn01",
+                    "fn_label": None,
+                    "fn_parent": "fn-group",
+                    "fn_text": "Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis",
+                    "fn_title": None,
+                    "fn_type": "supported-by",
                 },
             }
         ]
@@ -92,85 +61,56 @@ class MyTestCase(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_fn_validation_conflit_expected(self):
+    def test_title(self):
         self.maxDiff = None
-        xmltree = etree.fromstring(
+        xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'dtd-version="1.2" article-type="research-article" xml:lang="pt">'
-            '<front>'
-            '<article-meta>'
-            '<author-notes>'
-            '<corresp>'
-            '<label>Correspondência</label>:  Roseana Mara Aredes Priuli  Av. Juscelino Kubistcheck de Oliveira, 1220, '
-            'Jardim Panorama, Condomínio Recanto Real Rua 4, 440  15021-450 São José do Rio Preto, SP, Brasil  E-mail: '
-            '<email>roseanap@gmail.com</email>'
-            '</corresp>'
-            '<fn id="fn_01" fn-type="coi-statement">'
-            '<p>Os autores declaram não haver conflito de interesses.</p>'
-            '</fn>'
-            '</author-notes>'
-            '</article-meta>'
-            '</front>'
-            '<sub-article article-type="translation" id="TRen" xml:lang="en">'
-            '<front-stub>'
-            '<author-notes>'
-            '<fn fn-type="coi-statement">'
-            '<p>The authors declare there is no conflict of interest.</p>'
-            '</fn>'
-            '</author-notes>'
-            '</front-stub>'
-            '</sub-article>'
-            '</article>'
+            'dtd-version="1.3" article-type="research-article" xml:lang="pt">'
+            "<back>"
+            "<fn-group>"
+            "<title>Notas</title>"
+            '<fn fn-type="supported-by" id="fn01">'
+            "<label>*</label>"
+            "<title>título</title>"
+            "<p>Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis</p>"
+            "</fn>"
+            "</fn-group>"
+            "</back>"
+            "</article>"
         )
-        obtained = list(FootnoteValidation(xmltree).fn_validation())
+
+        obtained = list(
+            FnGroupValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "fn_title_error_level": "WARNING",
+                },
+            ).validate()
+        )
 
         expected = [
             {
-                'title': 'Footnotes validation',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'pt',
-                'item': 'author-notes',
-                'sub_item': 'fn',
-                'validation_type': 'match',
-                'response': 'ERROR',
-                'expected_value': '<fn fn-type="conflict">',
-                'got_value': '<fn fn-type="coi-statement">',
-                'message': 'Got <fn fn-type="coi-statement">, expected <fn fn-type="conflict">',
-                'advice': 'replace coi-statement with conflict',
-                'data': {
-                    'fn_id': 'fn_01',
-                    'fn_parent': 'author-notes',
-                    'fn_type': 'coi-statement',
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'pt'
-                },
-            },
-            {
-                'title': 'Footnotes validation',
-                'parent': 'sub-article',
-                'parent_id': 'TRen',
-                'parent_article_type': 'translation',
-                'parent_lang': 'en',
-                'item': 'author-notes',
-                'sub_item': 'fn',
-                'validation_type': 'match',
-                'response': 'ERROR',
-                'expected_value': '<fn fn-type="conflict">',
-                'got_value': '<fn fn-type="coi-statement">',
-                'message': 'Got <fn fn-type="coi-statement">, expected <fn fn-type="conflict">',
-                'advice': 'replace coi-statement with conflict',
-                'data': {
-                    'fn_id': None,
-                    'fn_parent': 'author-notes',
-                    'fn_type': 'coi-statement',
-                    'parent': 'sub-article',
-                    'parent_id': 'TRen',
-                    'parent_article_type': 'translation',
-                    'parent_lang': 'en'
+                "title": "title",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "title",
+                "sub_item": None,
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "label",
+                "got_value": "title",
+                "message": "Got title, expected label",
+                "advice": "Replace title by label",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn01",
+                    "fn_label": "*",
+                    "fn_parent": "fn-group",
+                    "fn_text": "*títuloVivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis",
+                    "fn_title": "título",
+                    "fn_type": "supported-by",
                 },
             }
         ]
@@ -179,6 +119,174 @@ class MyTestCase(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
+    def test_bold(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.3" article-type="research-article" xml:lang="pt">'
+            "<back>"
+            "<fn-group>"
+            "<title>Notas</title>"
+            '<fn fn-type="supported-by" id="fn01">'
+            "<label>*</label>"
+            "<bold>negrito</bold>"
+            "<p>Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis</p>"
+            "</fn>"
+            "</fn-group>"
+            "</back>"
+            "</article>"
+        )
 
-if __name__ == '__main__':
-    unittest.main()
+        obtained = list(
+            FnGroupValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "fn_bold_error_level": "WARNING",
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "bold",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "bold",
+                "sub_item": None,
+                "validation_type": "exist",
+                "response": "WARNING",
+                "expected_value": "label",
+                "got_value": "bold",
+                "message": "Got bold, expected label",
+                "advice": "Replace bold by label",
+                "data": {
+                    "fn_bold": "negrito",
+                    "fn_id": "fn01",
+                    "fn_label": "*",
+                    "fn_parent": "fn-group",
+                    "fn_text": "*negritoVivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis",
+                    "fn_title": None,
+                    "fn_type": "supported-by",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_type(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.3" article-type="research-article" xml:lang="pt">'
+            "<back>"
+            "<fn-group>"
+            "<title>Notas</title>"
+            '<fn id="fn01">'
+            "<label>*</label>"
+            "<p>Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis</p>"
+            "</fn>"
+            "</fn-group>"
+            "</back>"
+            "</article>"
+        )
+
+        obtained = list(
+            FnGroupValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "fn_type_error_level": "ERROR",
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "type",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "type",
+                "sub_item": None,
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "type",
+                "got_value": None,
+                "message": "Got None, expected type",
+                "advice": "Identify the type",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn01",
+                    "fn_label": "*",
+                    "fn_parent": "fn-group",
+                    "fn_text": "*Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis",
+                    "fn_title": None,
+                    "fn_type": None,
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_dtd_version(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.3" article-type="research-article" xml:lang="pt">'
+            "<back>"
+            "<fn-group>"
+            "<title>Notas</title>"
+            '<fn fn-type="conflict" id="fn01">'
+            "<label>*</label>"
+            "<p>Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis</p>"
+            "</fn>"
+            "</fn-group>"
+            "</back>"
+            "</article>"
+        )
+
+        obtained = list(
+            FnGroupValidation(
+                xml_tree=xml_tree,
+                rules={
+                    "fn_dtd_version_error_level": "ERROR",
+                },
+            ).validate()
+        )
+
+        expected = [
+            {
+                "title": "dtd_version",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "dtd_version",
+                "sub_item": None,
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": '<fn fn-type="coi-statement">',
+                "got_value": '<fn fn-type="conflict">',
+                "message": 'Got <fn fn-type="conflict">, expected <fn fn-type="coi-statement">',
+                "advice": "Replace conflict with coi-statement",
+                "data": {
+                    "fn_bold": None,
+                    "fn_id": "fn01",
+                    "fn_label": "*",
+                    "fn_parent": "fn-group",
+                    "fn_text": "*Vivamus sodales fermentum lorem, consectetur mollis lacus sollicitudin quis",
+                    "fn_title": None,
+                    "fn_type": "conflict",
+                },
+            }
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
