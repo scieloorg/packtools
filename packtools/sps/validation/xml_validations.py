@@ -35,7 +35,7 @@ from packtools.sps.validation.journal_meta import (JournalIdValidation,
 # from packtools.sps.validation.article_author_notes import xValidation
 # from packtools.sps.validation.footnotes import xValidation
 # -
-# from packtools.sps.validation.article_lang import xValidation
+from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 # -
 # from packtools.sps.validation.errata import xValidation
 # from packtools.sps.validation.erratum import xValidation
@@ -44,10 +44,8 @@ from packtools.sps.validation.journal_meta import (JournalIdValidation,
 # from packtools.sps.validation.related_articles import xValidation
 
 # completar
-# from packtools.sps.validation.formula import xValidation
 # from packtools.sps.validation.media import xValidation
 # from packtools.sps.validation.supplementary_material import xValidation
-# from packtools.sps.validation.tablewrap import xValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -402,3 +400,10 @@ def validate_journal_meta(xmltree, params):
         )
     except KeyError:
         pass
+
+
+def validate_metadata_languages(xmltree, params):
+    validator = MetadataLanguagesValidation(xmltree)
+    yield from validator.validate(params["metadata_languages_rules"]["error_level"])
+
+

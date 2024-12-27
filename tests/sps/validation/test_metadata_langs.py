@@ -1,11 +1,11 @@
 import unittest
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_lang import ArticleLangValidation
+from packtools.sps.validation.article_lang import MetadataLanguagesValidation
 
 
-class ArticleLangTest(unittest.TestCase):
-    def test_validate_article_lang_without_title(self):
+class MetadataLanguagesValidationTest(unittest.TestCase):
+    def test_validate_without_title(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" 
@@ -23,7 +23,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -74,7 +74,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -99,7 +99,7 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_lang_without_abstract(self):
+    def test_validate_without_abstract(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
@@ -119,7 +119,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -170,7 +170,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -195,7 +195,7 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_lang_without_kwd_group(self):
+    def test_validate_without_kwd_group(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
@@ -212,7 +212,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -262,7 +262,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -287,7 +287,7 @@ class ArticleLangTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(expected[i], item)
 
-    def test_validate_article_lang_with_title_only(self):
+    def test_validate_with_title_only(self):
         self.maxDiff = None
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
@@ -306,7 +306,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_article_lang()
+        obtained = MetadataLanguagesValidation(xml_tree).validate()
 
         self.assertEqual(list(obtained), [])
 
@@ -328,7 +328,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         expected = [
             {
@@ -438,7 +438,7 @@ class ArticleLangTest(unittest.TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = list(ArticleLangValidation(xml_tree).validate_article_lang())
+        obtained = list(MetadataLanguagesValidation(xml_tree).validate())
 
         self.assertEqual(len(obtained), 0)
 

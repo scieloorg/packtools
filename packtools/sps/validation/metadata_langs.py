@@ -35,7 +35,7 @@ def _elements_exist(title, abstract, keyword):
     return True, False, None
 
 
-class ArticleLangValidation:
+class MetadataLanguagesValidation:
     """
     Classe para validação de idiomas de artigos no XML. Verifica se os elementos
     de título, resumo e palavras-chave estão presentes no XML e se os respectivos
@@ -68,7 +68,7 @@ class ArticleLangValidation:
         self.article_kwd = kwd_group.ArticleKeywords(xml_tree)
         self.xml_tree = xml_tree
 
-    def validate_article_lang(self, error_level="ERROR"):
+    def validate(self, error_level="ERROR"):
         """
         Valida os idiomas dos elementos de título, resumo e palavras-chave no XML,
         e gera uma resposta de validação para cada verificação.
