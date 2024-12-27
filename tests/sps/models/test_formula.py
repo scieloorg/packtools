@@ -55,9 +55,27 @@ class DispFormulaTest(unittest.TestCase):
         self.maxDiff = None
         expected_data = {
             "alternative_parent": "disp-formula",
-            "formula_id": "e10",
-            "formula_label": "(1)",
+            "id": "e10",
+            "label": "(1)",
             "alternative_elements": ["tex-math", "graphic"],
+            "mml_math": None,
+            "tex_math": '\\documentclass {article}'
+                        '\\usepackage{wasysym}'
+                        '\\usepackage[substack]{amsmath}'
+                        '\\usepackage{amsfonts}'
+                        '\\usepackage{amssymb}'
+                        '\\usepackage{amsbsy}'
+                        '\\usepackage[mathscr]{eucal}'
+                        '\\usepackage{mathrsfs}'
+                        '\\usepackage{pmc}'
+                        '\\usepackage[Euler]{upgreek}'
+                        '\\pagestyle{empty}'
+                        '\\oddsidemargin -1.0in'
+                        '\\begin{document}'
+                        '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
+                        '\\]'
+                        '\\end{document}',
+            "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.disp_formula_obj.data, expected_data)
 
@@ -102,12 +120,15 @@ class InLineFormulaTest(unittest.TestCase):
         self.maxDiff = None
         expected_data = {
             "alternative_parent": "inline-formula",
-            "formula_id": None,
-            "formula_label": None,
+            "id": None,
+            "label": None,
             "alternative_elements": [
                 "{http://www.w3.org/1998/Math/MathML}math",
                 "graphic",
             ],
+            "mml_math": "σˆ2",
+            "tex_math": None,
+            "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.inline_formula_obj.data, expected_data)
 
@@ -145,20 +166,77 @@ class ArticleFormulasTest(unittest.TestCase):
         )
         self.xmltree = etree.fromstring(xml)
 
-    def test_items_by_lang(self):
+    def test_disp_formula_items(self):
         self.maxDiff = None
-        obtained = ArticleFormulas(self.xmltree).items_by_lang
+        obtained =list(ArticleFormulas(self.xmltree).disp_formula_items)
 
-        expected = {
-            "pt": {
+        expected = [
+            {
                 "alternative_parent": "disp-formula",
-                "formula_id": "e10",
-                "formula_label": "(1)",
+                "id": "e10",
+                "label": "(1)",
+                "mml_math": None,
                 "alternative_elements": ["tex-math", "graphic"],
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "pt",
+                "tex_math": '\\documentclass {article}'
+                            '\\usepackage{wasysym}'
+                            '\\usepackage[substack]{amsmath}'
+                            '\\usepackage{amsfonts}'
+                            '\\usepackage{amssymb}'
+                            '\\usepackage{amsbsy}'
+                            '\\usepackage[mathscr]{eucal}'
+                            '\\usepackage{mathrsfs}'
+                            '\\usepackage{pmc}'
+                            '\\usepackage[Euler]{upgreek}'
+                            '\\pagestyle{empty}'
+                            '\\oddsidemargin -1.0in'
+                            '\\begin{document}'
+                            '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
+                            '\\]'
+                            '\\end{document}',
+                "graphic": ["nomedaimagemdatabela.svg"],
+            },
+        ]
+
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_disp_formula_items_by_lang(self):
+        self.maxDiff = None
+        obtained = ArticleFormulas(self.xmltree).disp_formula_items_by_lang
+
+        expected = {
+            "pt": {
+                "alternative_parent": "disp-formula",
+                "id": "e10",
+                "label": "(1)",
+                "mml_math": None,
+                "alternative_elements": ["tex-math", "graphic"],
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "pt",
+                "tex_math": '\\documentclass {article}'
+                            '\\usepackage{wasysym}'
+                            '\\usepackage[substack]{amsmath}'
+                            '\\usepackage{amsfonts}'
+                            '\\usepackage{amssymb}'
+                            '\\usepackage{amsbsy}'
+                            '\\usepackage[mathscr]{eucal}'
+                            '\\usepackage{mathrsfs}'
+                            '\\usepackage{pmc}'
+                            '\\usepackage[Euler]{upgreek}'
+                            '\\pagestyle{empty}'
+                            '\\oddsidemargin -1.0in'
+                            '\\begin{document}'
+                            '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
+                            '\\]'
+                            '\\end{document}',
+                "graphic": ["nomedaimagemdatabela.svg"],
             },
         }
 
