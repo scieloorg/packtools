@@ -1,41 +1,33 @@
 from packtools.sps.models.article_dates import ArticleDates
-
 from packtools.sps.validation.aff import AffiliationsValidation
 from packtools.sps.validation.article_abstract import (
-    HighlightsValidation,
-    VisualAbstractsValidation,
-    ArticleAbstractsValidation,
-)
+    ArticleAbstractsValidation, HighlightsValidation,
+    VisualAbstractsValidation)
 from packtools.sps.validation.article_and_subarticles import (
-    ArticleAttribsValidation,
-    ArticleIdValidation,
-    ArticleLangValidation,
-    ArticleTypeValidation,
-)
-from packtools.sps.validation.article_citations import ArticleCitationsValidation
+    ArticleAttribsValidation, ArticleIdValidation, ArticleLangValidation,
+    ArticleTypeValidation)
+from packtools.sps.validation.article_citations import \
+    ArticleCitationsValidation
 from packtools.sps.validation.article_contribs import ArticleContribsValidation
-from packtools.sps.validation.article_data_availability import (
-    DataAvailabilityValidation,
-)
+from packtools.sps.validation.article_data_availability import \
+    DataAvailabilityValidation
 from packtools.sps.validation.article_doi import ArticleDoiValidation
-from packtools.sps.validation.article_ids import ArticleIdsValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
-from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
+from packtools.sps.validation.article_toc_sections import \
+    ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import ArticleDatesValidation
 from packtools.sps.validation.fig import FigValidation
 from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
+from packtools.sps.validation.journal_meta import (JournalIdValidation,
+                                                   PublisherNameValidation,
+                                                   TitleValidation)
 
 # remover journal
 # from packtools.sps.validation.journal import xValidation
 
 
-from packtools.sps.validation.journal_meta import (
-    TitleValidation,
-    PublisherNameValidation,
-    JournalIdValidation,
-)
 
 # PR pendente
 # from packtools.sps.validation.article_author_notes import xValidation
@@ -156,11 +148,15 @@ def validate_article_type(xmltree, params):
     try:
         yield from validator.validate_article_type_vs_subject_similarity(
             subjects_list=journal_data["subjects_list"],
-            expected_similarity=article_type_rules["article_type_vs_subject_expected_similarity"],
+            expected_similarity=article_type_rules[
+                "article_type_vs_subject_expected_similarity"
+            ],
             error_level=article_type_rules[
                 "article_type_vs_subject_expected_similarity_error_level"
             ],
-            target_article_types=article_type_rules["article_type_vs_subject_target_article_types"],
+            target_article_types=article_type_rules[
+                "article_type_vs_subject_target_article_types"
+            ],
         )
     except KeyError:
         pass
@@ -173,22 +169,15 @@ def validate_article_ids(xmltree, params):
     validator = ArticleIdValidation(xmltree)
     yield from validator.validate_article_id_other(article_ids_rules["error_level"])
 
-    validator = ArticleIdsValidation(xmltree)
-    # FIXME add article_ids_rules["error_level"]
-    yield from validator.pub_type_id_other_has_five_digits(
-        # error_level=article_ids_rules["error_level"]
-    )
-    yield from validator.pub_type_id_other_is_numeric(
-        # error_level=article_ids_rules["error_level"]
+    validator = ArticleDoiValidation(xmltree)
+    yield from validator.validate_doi_exists(
+        error_level=article_doi_rules["error_level"]
     )
 
-    validator = ArticleDoiValidation(xmltree)
-    yield from validator.validate_doi_exists(error_level=article_doi_rules["error_level"])
-    # TODO 
-    # yield from validator.validate_doi_registered(
-    #     callable_get_data=article_doi_rules["doi_api_get"],
-    #     error_level=article_doi_rules["check_deposit_error_level"],
-    # )
+    yield from validator.validate_doi_registered(
+        callable_get_data=params.get("doi_api_get"),
+        error_level=article_doi_rules["registered_doi_error_level"],
+    )
     yield from validator.validate_all_dois_are_unique(
         error_level=article_doi_rules["unique_error_level"]
     )
@@ -307,11 +296,9 @@ def validate_article_dates(xmltree, params):
     # TODO required_events depends on article_type
 
     required_events = [
-        item["type"]
-        for item in history_dates_rules["date_list"]
-        if item["required"]
+        item["type"] for item in history_dates_rules["date_list"] if item["required"]
     ]
-    
+
     # FIXME
     # try:
     #     for related_article in related_articles:
@@ -320,10 +307,7 @@ def validate_article_dates(xmltree, params):
     #         )
     # except KeyError:
     #     pass
-    order = [
-        item["type"]
-        for item in history_dates_rules["date_list"]
-    ]
+    order = [item["type"] for item in history_dates_rules["date_list"]]
     yield from validator.validate_history_dates(
         order=order,
         required_events=required_events,
@@ -350,7 +334,7 @@ def validate_bibliographic_strip(xmltree, params):
     pagination_rules = params["pagination_rules"]
 
     # TODO adicionar error_level, corrigir o nome da classe
-    # FIXME 
+    # FIXME
     #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/front_articlemeta_issue.py", line 391, in validation_pagination_attributes_exist
     # yield format_response(
     # TypeError: format_response() missing 3 required positional arguments: 'parent_article_type', 'parent_lang', and 'error_level'

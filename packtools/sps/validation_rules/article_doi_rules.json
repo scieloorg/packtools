@@ -1,8 +1,8 @@
 {
     "article_doi_rules": {
         "error_level": "ERROR",
-        "check_deposit_error_level": "ERROR",
+        "registered_doi_error_level": "ERROR",
         "unique_error_level": "ERROR",
-        "translation_doi_error_level": "ERROR"
+        "translation_doi_error_level": "ERROR",
     }
 }
