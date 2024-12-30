@@ -20,7 +20,7 @@ from packtools.sps.validation.dates import ArticleDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 from packtools.sps.validation.formula import ArticleDispFormulaValidation, ArticleInlineFormulaValidation
-from packtools.sps.validation.front_articlemeta_issue import Pagination
+from packtools.sps.validation.front_articlemeta_issue import PaginationValidation, IssueValidation
 from packtools.sps.validation.funding_group import FundingGroupValidation
 from packtools.sps.validation.journal_meta import (JournalIdValidation,
                                                    PublisherNameValidation,
@@ -343,18 +343,13 @@ def validate_inline_equations(xmltree, params):
 
 
 def validate_bibliographic_strip(xmltree, params):
-    pagination_rules = params["pagination_rules"]
+    validator = IssueValidation(xmltree, params)
+    yield from validator.validate()
 
-    # TODO adicionar error_level, corrigir o nome da classe
-    # FIXME
-    #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/front_articlemeta_issue.py", line 391, in validation_pagination_attributes_exist
-    # yield format_response(
-    # TypeError: format_response() missing 3 required positional arguments: 'parent_article_type', 'parent_lang', and 'error_level'
-
-    # validator = Pagination(xmltree)
-    # yield from validator.validation_pagination_attributes_exist(
-    #     # error_level=pagination_rules["error_level"],
-    # )
+    validator = PaginationValidation(xmltree)
+    yield validator.validate(
+        error_level=params["pagination_error_level"],
+    )
 
 
 def validate_funding_data(xmltree, params):
