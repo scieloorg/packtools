@@ -1,403 +1,218 @@
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.validation.exceptions import ValidationIssueMissingValue
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.exceptions import MissingJournalDataException
+from packtools.sps.validation.utils import build_response
 
 
-def _issue_identifier_is_valid(value):
-    if value.isnumeric():
-        return str(int(value)) == value
+def is_valid_value(value, zero_is_allowed):
+    if value.isdigit():
+        # Para isdigit, 1.1 é False, enquanto para isnumberic 1.1 é True
+        expected = str(int(value))
+        if not zero_is_allowed and expected == 0:
+            return {"got": value, "expected": "alphanumeric value, except 0", "is_valid": False}
+        else:
+            return {"got": value, "expected": expected, "is_valid": expected == value}
+    elif value.alnum():
+        return {"got": value, "expected": value, "is_valid": True}
     else:
-        return not('.' in value or ' ' in value)
-
-
-def _issue_special_number_is_valid(value):
-    """
-    a special number value cannot contain a space or dot
-    <issue>spe1</issue>
-    <issue>spe</issue>
-    """
-    anterior, posterior = value.split('spe')
-    return anterior == '' and (_issue_identifier_is_valid(posterior) or posterior == '')
-
-
-def _issue_supplement_is_valid(value):
-    """
-    supplement cannot have a dot
-    <issue>4 suppl 1</issue>
-    <issue>suppl 1</issue>
-    """
-    anterior, posterior = value.split('suppl')
-    if anterior:
-        return _issue_identifier_is_valid(anterior.strip()) and _issue_identifier_is_valid(posterior.strip())
-    else:
-        return _issue_identifier_is_valid(posterior.strip())
-
-
-def _validate_issue_identifier(obtained):
-    if obtained.isnumeric():
-        message = 'a numeric value that does not start with zero'
-        advice = 'Provide a valid numeric value'
-    else:
-        message = 'a alphanumeric value that does not contain space or dot'
-        advice = 'Provide a valid alphanumeric value'
-    if not _issue_identifier_is_valid(obtained):
-        return False, message, advice
-    else:
-        return True, obtained, None
-
-
-def _validate_special_number(obtained):
-    if not _issue_special_number_is_valid(obtained):
-        return False, 'speX where X is a valid alphanumeric value or None', 'Provide a valid value to special number'
-    else:
-        return True, obtained, None
-
-
-def _validate_supplement(obtained):
-    if not _issue_supplement_is_valid(obtained):
-        return False, 'X suppl Y where X and Y are alphanumeric value', 'Provide a valid value to supplement'
-    else:
-        return True, obtained, None
+        return {"got": value, "expected": "alphanumeric value", "is_valid": False}
 
 
 class IssueValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.article_issue = ArticleMetaIssue(xmltree)
 
-    def validate_volume(self, expected_value=None):
+    def validate_volume_format(self, error_level):
         """
-        Checks the correctness of a volume.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <volume>56</volume>
-                    <issue>4</issue>
-                </article-meta>
-            </front>
-        </article>
-
-        Parameters
-        ----------
-        expected_value : str or None
-            Correct value for volume, when a value for volume is not expected, this parameter should not be passed.
-
-        Returns
-        -------
-        dict
-            A dictionary as described in the example:
-            [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'parent': 'article-meta',
-                    'parent_id': None,
-                    'item': 'article-meta',
-                    'sub_item': 'volume',
-                    'validation_type': 'value',
-                    'response': 'OK',
-                    'expected_value': '56',
-                    'got_value': '56',
-                    'message': 'Got 56, expected 56',
-                    'advice': None,
-                    'data': {'number': '4', 'volume': '56'}
-                }
-            ]
         """
-        yield format_response(
-            title='Article-meta issue element validation',
-            is_valid=expected_value == self.article_issue.volume,
-            validation_type='value',
-            obtained=self.article_issue.volume,
-            expected=expected_value,
-            item='article-meta',
-            sub_item='volume',
-            parent='article-meta',
-            advice=f'provide {expected_value} as value for volume',
-            data=self.article_issue.data
-        )
-
-    def validate_article_issue(self, response_type_for_absent_issue):
-        """
-        Checks whether the format of a value for issue is valid.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <volume>56</volume>
-                    <issue>4</issue>
-                    <supplement>2</supplement>
-                </article-meta>
-            </front>
-        </article>
-
-        Parameters
-        ----------
-        response_type_for_absent_issue : str
-            Response type for absent value.
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'parent': 'article-meta',
-                    'parent_id': None,
-                    'item': 'article-meta',
-                    'sub_item': 'issue',
-                    'validation_type': 'format',
-                    'response': 'OK',
-                    'expected_value': '4',
-                    'got_value': '4',
-                    'message': 'Got 4, expected 4',
-                    'advice': None,
-                    'data': {'number': '4', 'volume': '56'},
-                }
-            ]
-        """
-        if not response_type_for_absent_issue:
-            raise ValidationIssueMissingValue("Function requires response type for absent value")
-
-        obtained = self.article_issue.issue
-
-        if obtained:
-            if 'spe' in obtained:
-                is_valid, expected, advice = _validate_special_number(obtained)
-            elif 'suppl' in obtained:
-                is_valid, expected, advice = _validate_supplement(obtained)
-            else:
-                is_valid, expected, advice = _validate_issue_identifier(obtained)
-
-            yield format_response(
-                title='Article-meta issue element validation',
-                is_valid=is_valid,
+        if self.article_issue.volume:
+            result = is_valid_value(self.article_issue.volume, zero_is_allowed=False)
+            return build_response(
+                title='volume',
+                parent={"parent": "article"},
+                item='volume',
+                sub_item=None,
                 validation_type='format',
-                obtained=obtained,
-                expected=expected,
-                item='article-meta',
-                sub_item='issue',
-                parent='article-meta',
-                advice=advice,
-                data=self.article_issue.data
-            )
-        else:
-            expected = 'an identifier for the publication issue'
-
-            response = format_response(
-                title='Article-meta issue element validation',
-                validation_type='exist',
-                obtained=obtained,
-                expected=expected,
-                item='article-meta',
-                sub_item='issue',
-                parent='article-meta',
-                advice='Provide an identifier for the publication issue',
-                data=self.article_issue.data
+                is_valid=result["is_valid"],
+                expected=result["expected"],
+                obtained=result["got"],
+                advice='Consulte SPS documentation to complete volume element',
+                data=self.issue.data,
+                error_level=error_level,
             )
 
-            response['response'] = response_type_for_absent_issue
-            yield response
-
-    def validate_supplement(self, expected_value=None):
+    def validate_number_format(self, error_level):
         """
-        Checks the correctness of a supplement.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <volume>56</volume>
-                    <issue>4</issue>
-                    <supplement>2</supplement>
-                </article-meta>
-            </front>
-        </article>
-
-        Parameters
-        ----------
-        expected_value : str or None
-            Correct value for supplement, when a value for supplement is not expected, this parameter should not be passed.
-
-        Returns
-        -------
-        dict
-            A dictionary as described in the example:
-            [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2',
-                'got_value': '2',
-                'message': 'Got 2, expected 2',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '2', 'volume': '56'},
-            }
-        ]
         """
-        yield format_response(
-            title='Article-meta issue element validation',
-            is_valid=expected_value == self.article_issue.suppl,
-            validation_type='format',
-            obtained=self.article_issue.suppl,
-            expected=expected_value,
-            item='article-meta',
-            sub_item='supplement',
-            parent='article-meta',
-            advice=f'provide {expected_value} as value for supplement',
-            data=self.article_issue.data
+        if self.article_issue.number:
+            result = is_valid_value(self.article_issue.number, zero_is_allowed=False)
+            return build_response(
+                title='number',
+                parent={"parent": "article"},
+                item='number',
+                sub_item=None,
+                validation_type='format',
+                is_valid=result["is_valid"],
+                expected=result["expected"],
+                obtained=result["got"],
+                advice='Consulte SPS documentation to complete issue element',
+                data=self.issue.data,
+                error_level=error_level,
+            )
+
+    def validate_supplement_format(self, error_level):
+        """
+        """
+        if self.article_issue.suppl:
+            result = is_valid_value(self.article_issue.suppl, zero_is_allowed=True)
+            return build_response(
+                title='supplement',
+                parent={"parent": "article"},
+                item='supplement',
+                sub_item=None,
+                validation_type='format',
+                is_valid=result["is_valid"],
+                expected=result["expected"],
+                obtained=result["got"],
+                advice='Consulte SPS documentation to complete issue or supplement elements',
+                data=self.issue.data,
+                error_level=error_level,
+            )
+
+    def validate_issue_format(self, error_level):
+        """
+        """
+        parsed_issue = self.article_issue.parsed_issue
+
+        got_number = parsed_issue.get("number")
+        got_type_value = parsed_issue.get("type_value")
+        got_type = parsed_issue.get("type")
+        got_valid_format = parsed_issue.get("valid_format")
+
+        if got_type:
+            if not got_valid_format:
+                if "spe" in got_type.lower():
+                    if got_number:
+                        expected = [f"{got_number} spe {got_type_value}"]
+                    else:
+                        expected = [f"spe {got_type_value}"]
+                elif "sup" in got_type.lower():
+                    if got_number:
+                        expected = [f"{got_number} suppl {got_type_value}"]
+                    else:
+                        expected = [f"suppl {got_type_value}"]
+                else:
+                    if got_number:
+                        expected = [f"{got_number} suppl {got_type_value}", f"{got_number} spe {got_type_value}"]
+                    else:
+                        expected = [f"suppl {got_type_value}", f"spe {got_type_value}"]
+
+                return build_response(
+                    title='special or supplement',
+                    parent={"parent": "article"},
+                    item='issue',
+                    sub_item='special or supplement',
+                    validation_type='format',
+                    is_valid=False,
+                    expected=expected,
+                    obtained=parsed_issue,
+                    advice='Consulte SPS documentation to complete issue element',
+                    data=self.issue.data,
+                    error_level=error_level,
+                )
+
+
+    def validate_expected_issues(self, expected_issues, error_level):
+        """
+        """
+        issue = {
+            "volume": self.article_issue.volume,
+            "number": self.article_issue.number,
+            "supplement": self.article_issue.suppl,
+        }
+        if not expected_issues:
+            return build_response(
+                title='registered issue',
+                parent={"parent": "article"},
+                item='volume, number, supplement',
+                sub_item=None,
+                validation_type='value in list',
+                is_valid=False,
+                expected="Journal issue list",
+                obtained=issue,
+                advice='Provide registered issues to check issue data in XML file',
+                data=self.issue.data,
+                error_level=error_level,
+            )
+
+        return build_response(
+            title='registered issue',
+            parent={"parent": "article"},
+            item='volume, number, supplement',
+            sub_item=None,
+            validation_type='value in list',
+            is_valid=issue in expected_issues,
+            expected=expected_issues,
+            obtained=issue,
+            advice='Consulte SPS documentation to complete volume, issue and supplement elements',
+            data=self.issue.data,
+            error_level=error_level,
         )
 
-    def validate(self, data):
+    def validate(self):
         """
-        Performs the validation functions of class IssueValidation.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <volume>56</volume>
-                    <issue>4</issue>
-                    <supplement>2</supplement>
-                </article-meta>
-            </front>
-        </article>
-
-        Parameters
-        ----------
-        data : dict
-            data={
-                'expected_value_volume': '56',
-                'response_type_for_absent_issue': 'WARNING',
-                'expected_value_supplement': '1'
-            }
-
-        Returns
-        -------
-        list
-            A list of dictionary as described in the example:
-            [
-                {
-                    'title': 'Article-meta issue element validation',
-                    'parent': 'article-meta',
-                    'parent_id': None,
-                    'item': 'article-meta',
-                    'sub_item': 'volume',
-                    'validation_type': 'value',
-                    'response': 'OK',
-                    'expected_value': '56',
-                    'got_value': '56',
-                    'message': 'Got 56, expected 56',
-                    'advice': None,
-                    'data': {'number': '4', 'suppl': '1', 'volume': '56'},
-                },...
-            ]
         """
-        yield from self.validate_volume(data['expected_value_volume'])
-        yield from self.validate_article_issue(data['response_type_for_absent_issue'])
-        yield from self.validate_supplement(data['expected_value_supplement'])
+        yield self.validate_volume_format(self.params['volume_format_error_level'])
+        yield self.validate_number_format(self.params['number_format_error_level'])
+        yield self.validate_supplement_format(self.params['supplement_format_error_level'])
+        yield self.validate_issue_format(self.params['issue_format_error_level'])
+
+        try:
+            journal_data = self.params["journal_data"]
+        except KeyError:
+            raise MissingJournalDataException(
+                "IssueValidation.validate requires journal_data['issues']")
+        else:
+            expected_issues = journal_data.get("issues")
+            yield self.validate_expected_issues(
+                expected_issues,
+                self.params['expected_issues_error_level'],
+            )
 
 
-class Pagination:
+
+class PaginationValidation:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
         self.issue = ArticleMetaIssue(xml_tree)
 
-    def validation_pagination_attributes_exist(self):
-        """
-        Checks for the existence of starting and ending page numbers that cannot coexist with the elocation-id.
+    def validate(self, error_level):
+        e_location = bool(self.issue.elocation_id)
+        fpage = bool(self.issue.fpage)
+        lpage = bool(self.issue.lpage)
+        volume = bool(self.issue.volume)
+        number = bool(self.issue.number)
 
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <lpage>240</lpage>
-                </article-meta>
-            </front>
-        </article>
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Pagination validation',
-                    'parent': None,
-                    'parent_id': None,
-                    'item': 'article-meta',
-                    'sub_item': 'elocation-id',
-                    'response': 'ERROR',
-                    'expected_value': 'no values for fpage and lpage OR no value for elocation-id',
-                    'got_value': 'elocation-id: e51467, fpage: 220, lpage: 240',
-                    'message': 'Got elocation-id: e51467, fpage: 220, lpage: 240, expected no values for fpage and lpage '
-                               'OR no value for elocation-id',
-                    'validation_type': 'exist',
-                    'advice': 'remove values for fpage and lpage OR remove value for elocation-id',
-                    'data': {'elocation_id': 'e51467', 'fpage': '220', 'lpage': '240'}
-                },...
-            ]
-        """
-        e_location = self.issue.elocation_id is not None
-        fpage = self.issue.fpage is not None
-        lpage = self.issue.lpage is not None
-        volume = self.issue.volume is not None
-        number = self.issue.number is not None
-
-        if e_location and fpage and lpage:
-            yield format_response(
-                title='Pagination validation',
-                parent='article',
-                parent_id=None,
-                item='article-meta',
-                sub_item='e-location, fpage, lpage',
-                validation_type='exist',
-                is_valid=False,
-                expected='e-location OR fpage + lpage',
+        is_valid = False
+        if e_location or (fpage and lpage):
+            is_valid = True
+        elif not e_location and not fpage and not lpage:
+            if volume or number:
+                is_valid = False
+            else:
+                # ahead of print
+                is_valid = True
+        if not is_valid:
+            return build_response(
+                title='Pagination',
+                parent={"parent": "article"},
+                item='elocation-id | fpage / lpage',
+                sub_item='elocation-id | fpage / lpage',
+                validation_type='match',
+                is_valid=is_valid,
+                expected='elocation-id or fpage + lpage',
                 obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
-                advice='it is necessary to provide e-location OR fpage + lpage',
-                data=self.issue.data
-            )
-
-        elif not e_location and not fpage and not lpage and volume and number:
-            yield format_response(
-                title='Pagination validation',
-                parent='article',
-                parent_id=None,
-                item='article-meta',
-                sub_item='e-location, fpage, lpage',
-                validation_type='exist',
-                is_valid=False,
-                expected='e-location OR fpage + lpage',
-                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
-                advice='it is necessary to provide e-location OR fpage + lpage',
-                data=self.issue.data
-            )
-
-        else:
-            yield format_response(
-                title='Pagination validation',
-                parent='article',
-                parent_id=None,
-                item='article-meta',
-                sub_item='e-location, fpage, lpage',
-                validation_type='exist',
-                is_valid=True,
-                expected='e-location OR fpage + lpage',
-                obtained=f'elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}',
-                advice=None,
-                data=self.issue.data
+                advice='Provide elocation-id or fpage + lpage',
+                data=self.issue.data,
+                error_level=error_level,
             )
