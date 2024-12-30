@@ -103,6 +103,24 @@ class ArticleMetaIssue:
         return self.xmltree.findtext(".//front/article-meta/issue")
 
     @property
+    def parsed_issue(self):
+        issue = self.issue
+        if not issue:
+            return {}
+        parts = issue.split()
+        if len(parts) == 1:
+            return {"number": parts[0]}
+        if len(parts) == 3:
+            return {"number": parts[0], "type_value": parts[-1], "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+        if len(parts) == 2:
+            if parts[0] in ("spe", "suppl"):
+                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+            elif parts[1] in ("spe", "suppl"):
+                return {"number": parts[0], "type_value": None, "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+            else:
+                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+
+    @property
     def number(self):
         _issue = self.issue
         if _issue:
