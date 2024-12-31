@@ -1,7 +1,7 @@
 from packtools.sps.models.basenotes import BaseNoteGroup, BaseNoteGroups
 
 
-class AuthorNote(BaseNoteGroup):
+class AuthorNotes(BaseNoteGroup):
 
     @property
     def corresp(self):
@@ -20,20 +20,35 @@ class AuthorNote(BaseNoteGroup):
         return process_subtags(self.fn_parent_node.find("corresp/bold"))
 
     @property
-    def data(self):
-        data = super().data
-        data.update({
+    def corresp_data(self):
+        return {
             "corresp": self.corresp,
             "corresp_label": self.corresp_label,
             "corresp_title": self.corresp_title,
             "corresp_bold": self.corresp_bold,
-         })
-        return data
+        }
 
 
-class AuthorNotes(BaseNoteGroups):
+class AuthorNotesNodes(BaseNoteGroups):
     def __init__(self, article_or_sub_article_node):
-        super().__init__(article_or_sub_article_node, "author-notes", AuthorNote)
+        super().__init__(article_or_sub_article_node, "author-notes", AuthorNotes)
+
+    @property
+    def corresp_data(self):
+        if self.parent == "article":
+            xpath = f".//front//{self.fn_parent_tag_name} | .//body//{self.fn_parent_tag_name} | .//back//{self.fn_parent_tag_name}"
+        else:
+            xpath = f".//{self.fn_parent_tag_name}"
+
+        for fn_parent_node in self.article_or_sub_article_node.xpath(xpath):
+            for data in self.NoteGroupClass(fn_parent_node).corresp_data:
+                yield put_parent_context(
+                    data,
+                    self.parent_lang,
+                    self.parent_article_type,
+                    self.parent,
+                    self.parent_id,
+                )
 
 
 class ArticleAuthorNotes:
@@ -41,8 +56,10 @@ class ArticleAuthorNotes:
         self.xml_tree = xml_tree
 
     def article_author_notes(self):
-        yield from AuthorNotes(self.xml_tree.find(".")).items
+        group = AuthorNotesNodes(self.xml_tree.find("."))
+        return {"corresp_data": group.corresp_data, "fns": group.items}
 
     def sub_article_author_notes(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from AuthorNotes(sub_article).items
+            group = AuthorNotesNodes(sub_article)
+            yield {"corresp_data": group.corresp_data, "fns": group.items}
