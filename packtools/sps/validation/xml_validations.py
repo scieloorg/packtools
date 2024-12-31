@@ -26,6 +26,7 @@ from packtools.sps.validation.journal_meta import (JournalIdValidation,
                                                    PublisherNameValidation,
                                                    TitleValidation)
 from packtools.sps.validation.fn import FnGroupValidation
+from packtools.sps.validation.author_notes import ArticleAuthorNotesValidation
 
 # remover journal
 # from packtools.sps.validation.journal import xValidation
@@ -33,7 +34,6 @@ from packtools.sps.validation.fn import FnGroupValidation
 
 
 # PR pendente
-# from packtools.sps.validation.article_author_notes import xValidation
 # -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 # -
@@ -409,6 +409,11 @@ def validate_metadata_languages(xmltree, params):
 
 def validate_fn(xmltree, params):
     validator = FnGroupValidation(xmltree, params["fn_rules"])
+    yield from validator.validate()
+
+
+def validate_author_notes(xmltree, params):
+    validator = ArticleAuthorNotesValidation(xmltree, params["author_notes_rules"])
     yield from validator.validate()
 
 
