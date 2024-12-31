@@ -6,18 +6,12 @@ class BaseNoteGroup:
         self.fn_parent_node = fn_parent_node
 
     @property
-    def fns(self):
+    def items(self):
         for fn_node in self.fn_parent_node.xpath(".//fn"):
             fn = Fn(fn_node)
             data = fn.data
             data["fn_parent"] = self.fn_parent_node.tag
             yield data
-
-    @property
-    def data(self):
-        return {
-            "fns": list(self.fns)
-        }
 
 
 class BaseNoteGroups:
@@ -38,8 +32,14 @@ class BaseNoteGroups:
             xpath = f".//{self.fn_parent_tag_name}"
 
         for fn_parent_node in self.article_or_sub_article_node.xpath(xpath):
-            data = self.NoteGroupClass(fn_parent_node).data
-            yield put_parent_context(data, self.parent_lang, self.parent_article_type, self.parent, self.parent_id)
+            for data in self.NoteGroupClass(fn_parent_node).items:
+                yield put_parent_context(
+                    data,
+                    self.parent_lang,
+                    self.parent_article_type,
+                    self.parent,
+                    self.parent_id,
+                )
 
 
 class Fn:
@@ -62,92 +62,3 @@ class Fn:
             "fn_bold": self.bold,
             "fn_title": self.title
         }
-
-
-class FnGroup(BaseNoteGroup):
-
-    @property
-    def label(self):
-        return self.fn_parent_node.findtext("label")
-
-    @property
-    def title(self):
-        return self.fn_parent_node.findtext("title")
-
-    @property
-    def data(self):
-        return {
-            **super().data,
-            "label": self.label,
-            "title": self.title
-        }
-
-
-class FnGroups(BaseNoteGroups):
-    def __init__(self, article_or_sub_article_node):
-        super().__init__(article_or_sub_article_node, "fn-group", FnGroup)
-
-
-class AuthorNote(BaseNoteGroup):
-
-    @property
-    def corresp(self):
-        return process_subtags(self.fn_parent_node.find("corresp"))
-
-    @property
-    def corresp_label(self):
-        return process_subtags(self.fn_parent_node.find("corresp/label"))
-
-    @property
-    def corresp_title(self):
-        return process_subtags(self.fn_parent_node.find("corresp/title"))
-
-    @property
-    def corresp_bold(self):
-        return process_subtags(self.fn_parent_node.find("corresp/bold"))
-
-    @property
-    def data(self):
-        return {
-            **super().data,
-            "corresp": self.corresp,
-            "corresp_label": self.corresp_label,
-            "corresp_title": self.corresp_title,
-            "corresp_bold": self.corresp_bold
-         }
-
-
-class AuthorNotes(BaseNoteGroups):
-    def __init__(self, article_or_sub_article_node):
-        super().__init__(article_or_sub_article_node, "author-notes", AuthorNote)
-
-
-class ArticleNotes:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
-
-    def article_author_notes(self):
-        yield from AuthorNotes(self.xml_tree.find(".")).items
-
-    def article_fn_groups_notes(self):
-        yield from FnGroups(self.xml_tree.find(".")).items
-
-    def article_notes(self):
-        yield from self.article_fn_groups_notes()
-        yield from self.article_author_notes()
-
-    def sub_article_author_notes(self):
-        for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from AuthorNotes(sub_article).items
-
-    def sub_article_fn_groups_notes(self):
-        for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from FnGroups(sub_article).items
-
-    def sub_article_notes(self):
-        yield from self.sub_article_fn_groups_notes()
-        yield from self.sub_article_author_notes()
-
-    def all_notes(self):
-        yield from self.article_notes()
-        yield from self.sub_article_notes()
