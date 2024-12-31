@@ -32,7 +32,7 @@ class BaseFnValidation:
         if not self.fn_data.get("label"):
             return build_response(
                 title="label",
-                parent=fn_data,
+                parent=self.fn_data,
                 item="fn",
                 sub_item="label",
                 validation_type="exist",
@@ -51,7 +51,7 @@ class BaseFnValidation:
         if self.fn_data.get("title"):
             return build_response(
                 title="unexpected title element",
-                parent=fn_data,
+                parent=self.fn_data,
                 item="fn",
                 sub_item="unexpected title",
                 validation_type="unexpected",
@@ -70,7 +70,7 @@ class BaseFnValidation:
         if self.fn_data.get("bold"):
             return build_response(
                 title="unexpected bold element",
-                parent=fn_data,
+                parent=self.fn_data,
                 item="fn",
                 sub_item="unexpected bold",
                 validation_type="unexpected",
@@ -90,7 +90,7 @@ class BaseFnValidation:
         if self.fn_data.get("fn_type") not in expected:
             return build_response(
                 title="fn-type value",
-                parent=fn_data,
+                parent=self.fn_data,
                 item="fn",
                 sub_item="@fn-type",
                 validation_type="value in list",
@@ -120,7 +120,7 @@ class BaseFnValidation:
             if fn_type != expected_fn_type:
                 return build_response(
                     title="conflict of interest declaration",
-                    parent=fn_data,
+                    parent=self.fn_data,
                     item="fn",
                     sub_item="@fn-type",
                     validation_type="value",
