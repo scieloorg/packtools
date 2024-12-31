@@ -1,310 +1,193 @@
-from packtools.sps.models.article_author_notes import ArticleAuthorNotes
-from packtools.sps.validation.utils import format_response
+from packtools.sps.models.author_notes import ArticleAuthorNotes
+from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.exceptions import ValidationFnTypeException
+from packtools.sps.validation.basefn import BaseFnValidation
 
 
-class AuthorNotesValidation:
-    def __init__(self, xmltree, fn_type_list=None):
-        self.xmltree = xmltree
-        self.author_notes = ArticleAuthorNotes(self.xmltree).author_notes
-        self.fn_type_list = fn_type_list
+class AuthorNotesFnValidation(BaseFnValidation):
 
-    def validate_corresp_tag_presence(self, author_note, error_level="ERROR"):
-        """
-            Checks the existence of the corresponding author identification.
-
-            XML input
-            ---------
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondência</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>Os autores declaram não haver conflito de interesses.</p>
-                            </fn>
-                        </author-notes>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="TRen" xml:lang="en">
-                    <front-stub>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondence</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>The authors declare that there is no conflict of interest.</p>
-                            </fn>
-                        </author-notes>
-                    </front-stub>
-                </sub-article>
-            </article>
-
-            Returns
-            -------
-            list of dict
-                A list of dictionaries, such as:
-                [
-                    {
-                        'title': 'Author notes validation',
-                        'parent': 'article',
-                        'parent_id': None,
-                        'item': 'author-notes',
-                        'sub_item': 'corresp',
-                        'validation_type': 'exist',
-                        'response': 'OK',
-                        'expected_value': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana '
-                                           '22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                        'got_value': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana '
-                                      '22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                        'message': "Got ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana "
-                                   "22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'], expected "
-                                   "['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana "
-                                   "22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com']",
-                        'advice': None,
-                        'data': {
-                            'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
-                                             ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                            'fn_count': 1,
-                            'fn_types': ['conflict'],
-                            'parent': 'article',
-                            'parent_id': None,
-                            'parent_article_type': 'research-article',
-                            'parent_lang': 'pt'
-                        }
-                    },,...
-                ]
-            """
-        corresp = author_note.get("corresp")
-        is_valid = bool(corresp)
-        yield format_response(
-            title="Author notes validation",
-            parent=author_note.get("parent"),
-            parent_id=author_note.get("parent_id"),
-            parent_article_type=author_note.get("parent_article_type"),
-            parent_lang=author_note.get("parent_lang"),
-            item="author-notes",
-            sub_item="corresp",
-            validation_type="exist",
-            is_valid=is_valid,
-            expected=corresp if is_valid else "corresponding author identification",
-            obtained=corresp,
-            advice="provide identification data of the corresponding author",
-            error_level=error_level,
-            data=author_note
-        )
-
-    def validate_fn_type_attribute_presence(self, author_note, error_level="ERROR"):
-        """
-            Checks if every fn tag has the fn-type attribute.
-
-            XML input
-            ---------
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondência</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>Os autores declaram não haver conflito de interesses.</p>
-                            </fn>
-                        </author-notes>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="TRen" xml:lang="en">
-                    <front-stub>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondence</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>The authors declare that there is no conflict of interest.</p>
-                            </fn>
-                        </author-notes>
-                    </front-stub>
-                </sub-article>
-            </article>
-
-            Returns
-            -------
-            list of dict
-                A list of dictionaries, such as:
-                [
-                    {
-                        'title': 'Author notes validation',
-                        'parent': 'article',
-                        'parent_id': None,
-                        'item': 'fn',
-                        'sub_item': '@fn-type',
-                        'validation_type': 'exist',
-                        'response': 'OK',
-                        'expected_value': '1 fn-types',
-                        'got_value': '1 fn-types',
-                        'message': "Got 1 fn-types, expected 1 fn-types",
-                        'advice': None,
-                        'data': {
-                            'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
-                                             ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                            'fn_count': 1,
-                            'fn_types': ['conflict'],
-                            'parent': 'article',
-                            'parent_id': None,
-                            'parent_article_type': 'research-article',
-                            'parent_lang': 'pt'
-                            }
-                    },...
-                ]
-            """
-        fn_types = author_note.get("fn_types")
-        fn_count = author_note.get("fn_count")
-        is_valid = len(fn_types) == fn_count
-        yield format_response(
-            title="Author notes validation",
-            parent=author_note.get("parent"),
-            parent_id=author_note.get("parent_id"),
-            parent_article_type=author_note.get("parent_article_type"),
-            parent_lang=author_note.get("parent_lang"),
-            item="fn",
-            sub_item="@fn-type",
-            validation_type="exist",
-            is_valid=is_valid,
-            expected=f"{fn_count} fn-types",
-            obtained=f"{len(fn_types)} fn-types",
-            advice="provide one @fn-type for each <fn> tag",
-            error_level=error_level,
-            data=author_note
-        )
-
-    def validate_fn_type_attribute_value(self, author_note, fn_type_list=None, error_level="ERROR"):
-        """
-            Checks whether the value of the fn-type tag complies with the list of expected values.
-
-            XML input
-            ---------
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondência</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>Os autores declaram não haver conflito de interesses.</p>
-                            </fn>
-                        </author-notes>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="TRen" xml:lang="en">
-                    <front-stub>
-                        <author-notes>
-                            <corresp>
-                                <label>Correspondence</label>:  Karine de Lima Sírio Boclin  Sousa Lima, 257 apto. 902 Copacabana  22081-010 Rio de Janeiro, RJ, Brasil  E-mail: <email>karine.boclin@gmail.com</email>
-                            </corresp>
-                            <fn fn-type="conflict">
-                                <p>The authors declare that there is no conflict of interest.</p>
-                            </fn>
-                        </author-notes>
-                    </front-stub>
-                </sub-article>
-            </article>
-
-            Returns
-            -------
-            list of dict
-                A list of dictionaries, such as:
-                [
-                    {
-                        'title': 'Author notes validation',
-                        'parent': 'article',
-                        'parent_id': None,
-                        'item': 'fn',
-                        'sub_item': '@fn-type',
-                        'validation_type': 'value in list',
-                        'response': 'OK',
-                        'expected_value': ['conflict'],
-                        'got_value': 'conflict',
-                        'message': "Got conflict, expected ['conflict']",
-                        'advice': None,
-                        'data': {
-                            'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
-                                             ' 22081-010 Rio de Janeiro, RJ, Brasil E-mail: karine.boclin@gmail.com'],
-                            'fn_count': 1,
-                            'fn_types': ['conflict'],
-                            'parent': 'article',
-                            'parent_id': None,
-                            'parent_article_type': 'research-article',
-                            'parent_lang': 'pt'
-                        }
-                    },...
-                ]
-            """
-        fn_type_list = fn_type_list or self.fn_type_list
-        if not fn_type_list:
-            raise ValidationFnTypeException("Function requires list of fn-types")
-        for fn_type in author_note.get("fn_types") or []:
-            yield format_response(
-                title="Author notes validation",
-                parent=author_note.get("parent"),
-                parent_id=author_note.get("parent_id"),
-                parent_article_type=author_note.get("parent_article_type"),
-                parent_lang=author_note.get("parent_lang"),
+    def validate_current_affiliation_attrib_type_deprecation(self):
+        if "current-aff" == self.fn_data.get("fn_type"):
+            return build_response(
+                title="unexpected current-aff",
+                parent=self.fn_data,
                 item="fn",
                 sub_item="@fn-type",
-                validation_type="value in list",
-                is_valid=fn_type in fn_type_list,
-                expected=fn_type_list,
-                obtained=fn_type,
-                advice=f"provide a value for @fn-type according according to the list: {fn_type_list}",
-                error_level=error_level,
-                data=author_note
+                validation_type="unexpected",
+                is_valid=False,
+                expected=expected,
+                obtained=self.fn_data.get("fn_type"),
+                advice=f"Use '<bio>' instead of @fn-type='current-aff'",
+                data=self.fn_data,
+                error_level=self.rules["current-aff_error_level"],
             )
 
-    def validate_current_affiliation_attrib_type_deprecation(self, author_note, error_level="ERROR"):
-        if "current-aff" in author_note.get("fn_types") or []:
-            yield format_response(
-                title="Author notes current aff deprecated validation",
-                parent=author_note.get("parent"),
-                parent_id=author_note.get("parent_id"),
-                parent_article_type=author_note.get("parent_article_type"),
-                parent_lang=author_note.get("parent_lang"),
+    def validate_contribution_attrib_type_deprecation(self):
+        if "con" == self.fn_data.get("fn_type"):
+            return build_response(
+                title="unexpected con",
+                parent=self.fn_data,
                 item="fn",
                 sub_item="@fn-type",
+                validation_type="unexpected",
+                is_valid=False,
+                expected=expected,
+                obtained=self.fn_data.get("fn_type"),
+                advice=f"Use '<role>' instead of @fn-type='con'",
+                data=self.fn_data,
+                error_level=self.rules["con_error_level"],
+            )
+
+    def validate(self):
+        """
+        Execute all registered validations for the footnote.
+
+        Returns:
+            list[dict]: A list of validation responses (excluding None responses).
+        """
+        validations = [
+            self.validate_label,
+            self.validate_title,
+            self.validate_bold,
+            self.validate_type,
+            self.validate_current_affiliation_attrib_type_deprecation,
+            self.validate_contribution_attrib_type_deprecation,
+        ]
+        return [response for validate in validations if (response := validate())]
+
+
+class ArticleAuthorNotesValidation:
+    """
+    Validates groups of footnotes in an XML document.
+
+    Attributes:
+        xml_tree (ElementTree): The XML tree representing the document.
+        rules (dict): Validation rules.
+    """
+
+    def __init__(self, xml_tree, rules):
+        """
+        Initialize the FnGroupValidation object.
+
+        Args:
+            xml_tree (ElementTree): The XML tree to validate.
+            rules (dict): Validation rules.
+        """
+        self.xml_tree = xml_tree
+        self.rules = rules
+
+        xml_article = ArticleAuthorNotes(xml_tree)
+        self.article_author_notes = xml_article.article_author_notes()
+        self.sub_article_author_notes = xml_article.sub_article_author_notes()
+
+    def validate(self):
+        """
+        Validate all footnote groups in the XML document.
+
+        Yields:
+            dict: Validation results for each footnote.
+        """
+        for fn_group in self.article_author_notes:
+            if corresp_data := fn_group.get("corresp_data"):
+                corresp_validator = CorrespValidation(corresp_data, self.rules)
+                yield corresp_validator.validate_title()
+                yield corresp_validator.validate_bold()
+                yield corresp_validator.validate_label()
+
+            for fn in fn_group.get("fns"):
+                yield from self.validate_fn(fn)
+
+        for fn_group in self.sub_article_author_notes:
+            if corresp_data := fn_group.get("corresp_data"):
+                corresp_validator = CorrespValidation(corresp_data, self.rules)
+                yield corresp_validator.validate_title()
+                yield corresp_validator.validate_bold()
+                yield corresp_validator.validate_label()
+
+            for fn in fn_group.get("fns"):
+                yield from self.validate_fn(fn)
+
+    def validate_fn(self, fn):
+        """
+        Validate an individual footnote and update the response with context.
+
+        Args:
+            fn (dict): The footnote to validate.
+            context (dict): Context metadata for the footnote.
+
+        Yields:
+            dict: Validation results for the footnote.
+        """
+        validator = AuthorNotesFnValidation(fn_data=fn, rules=self.rules)
+        yield from validator.validate()
+
+
+class CorrespValidation:
+
+    def __init__(self, corresp_data, rules):
+        """
+        Initialize the CorrespValidation object.
+
+        Args:
+            corresp_data (dict): Data related to the corresp.
+            rules (dict): Rules defining validation constraints and error levels.
+        """
+        self.corresp_data = corresp_data
+        self.rules = rules
+
+    def validate_label(self):
+        """
+        Validate the presence of the 'label' in the corresp.
+        """
+        if not self.corresp_data.get("corresp_label"):
+            return build_response(
+                title="label",
+                parent=self.corresp_data,
+                item="corresp",
+                sub_item="label",
                 validation_type="exist",
                 is_valid=False,
-                expected=None,
-                obtained="current-aff",
-                advice=f"Use to identify Author's mini CV and use to identify current affiliation",
-                error_level=error_level,
-                data=author_note
+                expected="corresp/label",
+                obtained=None,
+                advice=f"Check if corresp label is present and identify it with label element",
+                data=self.corresp_data,
+                error_level=self.rules["corresp_label_error_level"],
             )
 
-    def validate_contribution_attrib_type_deprecation(self, author_note, error_level="WARNING"):
-        if "con" in author_note.get("fn_types") or []:
-            yield format_response(
-                title="Author notes contribution deprecated validation",
-                parent=author_note.get("parent"),
-                parent_id=author_note.get("parent_id"),
-                parent_article_type=author_note.get("parent_article_type"),
-                parent_lang=author_note.get("parent_lang"),
-                item="fn",
-                sub_item="@fn-type",
-                validation_type="exist",
+    def validate_title(self):
+        """
+        Validate the presence of 'title' when 'label' is expected.
+        """
+        if self.corresp_data.get("corresp_title"):
+            return build_response(
+                title="unexpected title element",
+                parent=self.corresp_data,
+                item="corresp",
+                sub_item="unexpected title",
+                validation_type="unexpected",
                 is_valid=False,
-                expected=None,
-                obtained="con",
-                advice="Using @fn-type='con' for authorship contributions is discouraged; use <role> instead.",
-                error_level=error_level,
-                data=author_note
+                expected="corresp/label",
+                obtained="corresp/title",
+                advice=f"Replace corresp/title by corresp/label",
+                data=self.corresp_data,
+                error_level=self.rules["corresp_title_error_level"],
             )
 
-    def validate_author_note(self, fn_type_list=None):
-        for author_note in self.author_notes:
-            yield from self.validate_corresp_tag_presence(author_note)
-            yield from self.validate_fn_type_attribute_presence(author_note)
-            yield from self.validate_fn_type_attribute_value(author_note, fn_type_list)
-            yield from self.validate_current_affiliation_attrib_type_deprecation(author_note)
-            yield from self.validate_contribution_attrib_type_deprecation(author_note)
+    def validate_bold(self):
+        """
+        Validate the presence of 'bold' when 'label' is expected.
+        """
+        if self.corresp_data.get("corresp_bold"):
+            return build_response(
+                title="unexpected bold element",
+                parent=self.corresp_data,
+                item="corresp",
+                sub_item="unexpected bold",
+                validation_type="unexpected",
+                is_valid=False,
+                expected="corresp/label",
+                obtained="corresp/bold",
+                advice=f"Replace corresp/bold by corresp/label",
+                data=self.corresp_data,
+                error_level=self.rules["corresp_bold_error_level"],
+            )
