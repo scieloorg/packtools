@@ -1,8 +1,12 @@
 {
+	"corresp_bold_error_level": "CRITICAL",
+	"corresp_title_error_level": "CRITICAL",
+	"corresp_label_error_level": "WARNING",
 	"fn_bold_error_level": "CRITICAL",
 	"fn_title_error_level": "CRITICAL",
 	"fn_label_error_level": "WARNING",
-	"conflict_error_level": "CRITICAL",
+	"current-aff_error_level": "CRITICAL",
+	"con_error_level": "CRITICAL",
 	"fn_type_error_level": "CRITICAL",
 	"fn_type_expected_values": [
 	    "abbr",
