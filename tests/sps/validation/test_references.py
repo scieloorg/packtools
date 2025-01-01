@@ -2,14 +2,46 @@ from unittest import TestCase
 
 from lxml import etree
 
-from packtools.sps.models.article_citations import ArticleCitations
-from packtools.sps.validation.article_citations import (
-    ArticleCitationValidation,
-    ArticleCitationsValidation,
+from packtools.sps.models.references import ArticleReferences
+from packtools.sps.validation.references import (
+    ReferenceValidation,
+    ReferencesValidation,
 )
 
+params = {
+    "allowed_tags": [],
+    "year_error_level": "ERROR",
+    "source_error_level": "ERROR",
+    "article_title_error_level": "ERROR",
+    "authors_error_level": "ERROR",
+    "publication_type_error_level": "CRITICAL",
+    "comment_error_level": "ERROR",
+    "mixed_citation_error_level": "CRITICAL",
+    "mixed_citation_sub_tags_error_level": "ERROR",
+    "publication_type_list": [
+        "book",
+        "confproc",
+        "data",
+        "database",
+        "journal",
+        "legal-doc",
+        "letter",
+        "newspaper",
+        "patent",
+        "preprint",
+        "report",
+        "software",
+        "thesis",
+        "webpage",
+        "other"
+    ]
+}
 
-class ArticleCitationValidationTest(TestCase):
+class ReferenceValidationTest(TestCase):
+
+    def setUp(self):
+        params["end_year"] = None
+
     def test_validate_year_fail(self):
         self.maxDiff = None
         xml = """
@@ -84,8 +116,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_year("2014"))
+        params["end_year"] = "2014"
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_year())
 
         expected = [
             {
@@ -221,9 +254,10 @@ class ArticleCitationValidationTest(TestCase):
                """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        params["end_year"] = 2020
         obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
+            ReferenceValidation(reference, params).validate_year()
         )
         self.assertEqual(0, len(obtained))
 
@@ -285,9 +319,10 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        params["end_year"] = 2020
         obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
+            ReferenceValidation(reference, params).validate_year()
         )
 
         expected = [
@@ -423,9 +458,10 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        params["end_year"] = 2020
         obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
+            ReferenceValidation(reference, params).validate_year()
         )
 
         expected = [
@@ -561,8 +597,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_source())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_source())
         self.assertEqual(0, len(obtained))
 
     def test_validate_source_fail(self):
@@ -622,8 +658,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_source())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_source())
 
         expected = [
             {
@@ -758,8 +794,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_article_title())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_article_title())
         self.assertEqual(0, len(obtained))
 
     def test_validate_article_title_fail(self):
@@ -819,8 +855,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_article_title())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_article_title())
 
         expected = [
             {
@@ -955,8 +991,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_authors())
 
         self.assertEqual(0, len(obtained))
 
@@ -996,8 +1032,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_authors())
         self.assertEqual(0, len(obtained))
 
     def test_validate_authors_fail(self):
@@ -1034,8 +1070,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = list(ReferenceValidation(reference, params).validate_authors())
 
         expected = [
             {
@@ -1153,10 +1189,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = ArticleCitationValidation(citation).validate_publication_type(
-            publication_type_list=["journal", "book"]
-        )
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = ReferenceValidation(reference, params).validate_publication_type()
         self.assertEqual(0, len(list(obtained)))
 
     def test_validate_publication_type_fail(self):
@@ -1217,10 +1251,8 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = ArticleCitationValidation(citation).validate_publication_type(
-            publication_type_list=["other", "book"]
-        )
+        reference = list(ArticleReferences(xmltree).article_references)[0]
+        obtained = ReferenceValidation(reference, params).validate_publication_type()
 
         expected = [
             {
@@ -1358,10 +1390,9 @@ class ArticleCitationValidationTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleCitationsValidation(
+            ReferencesValidation(
                 xmltree,
-                publication_type_list=["journal", "book"],
-                allowed_tags=["bold", "italic", "p"],
+                params,
             ).validate()
         )
         self.assertEqual(1, len(obtained))
@@ -1383,9 +1414,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        reference = list(ArticleReferences(xml_tree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ReferenceValidation(reference, params).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1445,9 +1476,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        reference = list(ArticleReferences(xml_tree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ReferenceValidation(reference, params).validate_comment_is_required_or_not()
         )
 
         self.assertListEqual(obtained, [])
@@ -1469,9 +1500,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        reference = list(ArticleReferences(xml_tree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ReferenceValidation(reference, params).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1530,9 +1561,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        reference = list(ArticleReferences(xml_tree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ReferenceValidation(reference, params).validate_comment_is_required_or_not()
         )
 
         self.assertListEqual(obtained, [])
@@ -1554,9 +1585,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xml_tree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        reference = list(ArticleReferences(xml_tree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ReferenceValidation(reference, params).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1598,7 +1629,7 @@ class ArticleCitationValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_validate_mixed_citation_tags(self):
+    def test_validate_mixed_citation_sub_tags(self):
         self.maxDiff = None
         xml = """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -1619,11 +1650,9 @@ class ArticleCitationValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        reference = list(ArticleReferences(xmltree).article_references)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_mixed_citation_tags(
-                allowed_tags=["bold", "italic", "p"]
-            )
+            ReferenceValidation(reference, params).validate_mixed_citation_sub_tags()
         )
 
         expected = [
@@ -1646,17 +1675,17 @@ class ArticleCitationValidationTest(TestCase):
                     "publication_type": "journal",
                     "ref_id": "B1",
                 },
-                "expected_value": ["bold", "italic", "p"],
+                "expected_value": [],
                 "got_value": ["ext-link"],
-                "item": "element-citation",
-                "message": "Got ['ext-link'], expected ['bold', 'italic', 'p']",
+                "item": "mixed-citation",
+                "message": "Got ['ext-link'], expected []",
                 "parent": "article",
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
                 "response": "ERROR",
-                "sub_item": "mixed-citation",
-                "title": "mixed citation sub-tags",
+                "sub_item": None,
+                "title": "mixed-citation sub elements",
                 "validation_type": "exist",
             }
         ]
