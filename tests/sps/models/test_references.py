@@ -1,10 +1,10 @@
-from packtools.sps.models.article_citations import ArticleCitations
+from packtools.sps.models.references import ArticleReferences
 from unittest import TestCase
 
 from lxml import etree
 
 
-class AuthorsTest(TestCase):
+class ArticleReferencesTest(TestCase):
     def test_citations_many_authors(self):
         self.maxDiff = None
         xml = """
@@ -61,7 +61,7 @@ class AuthorsTest(TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = [
             {
                 "ref_id": "B1",
@@ -151,7 +151,7 @@ class AuthorsTest(TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = [
             {
                 "ref_id": "B2",
@@ -213,7 +213,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = [
             {
                 "ref_id": "B2",
@@ -264,7 +264,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = {
             'author_type': 'person',
             'comment_text': {
@@ -299,7 +299,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = {
             'author_type': 'person',
             'comment_text': {
@@ -333,7 +333,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = {
             'author_type': 'person',
             'comment_text': {
@@ -367,7 +367,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = {
             'author_type': 'person',
             'comment_text': {
@@ -401,7 +401,7 @@ class AuthorsTest(TestCase):
         </article>
         """
         xmltree = etree.fromstring(xml)
-        obtained = list(ArticleCitations(xmltree).article_citations)
+        obtained = list(ArticleReferences(xmltree).article_references)
         expected = {
             'author_type': 'person',
             'comment_text': {
