@@ -111,4 +111,4 @@ class AlternativesValidation:
             if expected_elements is None:
                 raise ValidationAlternativesException(f"The element '{parent_element}' is not configured to use 'alternatives'."
                                                       " Provide alternatives parent and children")
-            yield from AlternativeValidation(alternative, expected_elements).validate()
+            yield from AlternativeValidation(data, expected_elements).validate()
