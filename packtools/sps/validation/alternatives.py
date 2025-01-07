@@ -86,9 +86,9 @@ class AlternativesValidation:
         """
         self.xml_tree = xml_tree
         self.parent_to_children = parent_to_children
-        self.figures = fig.ArticleFigs(self.xml_tree).items_by_lang or {}
-        self.formulas = formula.ArticleFormulas(self.xml_tree).items_by_lang or {}
-        self.table_wraps = tablewrap.ArticleTableWraps(self.xml_tree).items_by_lang or {}
+        self.figures = fig.ArticleFigs(self.xml_tree).get_all_figs or {}
+        self.formulas = formula.ArticleFormulas(self.xml_tree).disp_formula_items or {}
+        self.table_wraps = tablewrap.ArticleTableWrappers(self.xml_tree).get_all_table_wrappers or {}
 
     def validate(self, parent_to_children=None):
         """
