@@ -5,7 +5,8 @@
             "data-available",
             "data-available-upon-request",
             "data-not-available",
-            "uninformed"
+            "uninformed",
+            "data-in-article"
         ]
     }
 }
