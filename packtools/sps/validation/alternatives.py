@@ -102,8 +102,8 @@ class AlternativesValidation:
         """
         parent_to_children = parent_to_children or self.parent_to_children
 
-        for lang, alternative in chain(self.figures.items(), self.formulas.items(), self.table_wraps.items()):
-            parent_element = alternative.get("alternative_parent")
+        for data in chain(self.figures, self.formulas, self.table_wraps):
+            parent_element = data.get("alternative_parent")
             if not parent_to_children:
                 raise ValidationAlternativesException(f"The element '{parent_element}' is not configured to use 'alternatives'."
                                                       " Provide alternatives parent and children")
