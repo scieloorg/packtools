@@ -64,10 +64,10 @@ class FigValidation:
         self.rules = rules
 
     def validate(self):
-        yield self._validate_item("id")
-        yield self._validate_item("label")
-        yield self._validate_item("caption")
-        yield self.validate_content()
+        yield from self._validate_item("id")
+        yield from self._validate_item("label")
+        yield from self._validate_item("caption")
+        yield from self.validate_content()
 
     def _validate_item(self, name):
         if not self.data.get(name):
