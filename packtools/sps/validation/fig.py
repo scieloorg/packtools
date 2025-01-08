@@ -87,7 +87,7 @@ class FigValidation:
             )
 
     def validate_content(self):
-        if not self.get("graphic") and not self.get("alternatives"):
+        if not self.data.get("graphic") and not self.data.get("alternatives"):
             name = "graphic or alternatives"
             yield build_response(
                 title=name,
