@@ -170,7 +170,7 @@ class ArticleTocSectionsValidation:
 
         for lang, sections in obtained_toc_sections.items():
             for section in sections:
-                article_title = article_titles.get(lang)
+                article_title = article_titles.get(lang).get("html_text")
                 section_title = section["section"].split(':')[0] if section["section"] else None
                 is_valid = article_title.upper() != section_title.upper()
 
