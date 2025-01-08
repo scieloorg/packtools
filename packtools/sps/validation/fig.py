@@ -12,8 +12,9 @@ class ArticleFigValidation:
         self.elements = list(ArticleFigs(xml_tree).get_all_figs)
 
     def validate(self):
-        for element in self.elements:
-            yield from FigValidation(element, self.rules).validate()
+        if self.elements:
+            for element in self.elements:
+                yield from FigValidation(element, self.rules).validate()
 
         else:
             # fig is absent
