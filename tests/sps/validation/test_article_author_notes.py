@@ -313,9 +313,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'sub_item': '@fn-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': ['conflict'],
+                'expected_value': 'conflict',
                 'got_value': 'conflict',
-                'message': "Got conflict, expected ['conflict']",
+                'message': "Got conflict, expected one of ['conflict']",
                 'advice': None,
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
@@ -379,9 +379,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'sub_item': '@fn-type',
                 'validation_type': 'value in list',
                 'response': 'ERROR',
-                'expected_value': ['coi-statement'],
+                'expected_value': "one of ['coi-statement']",
                 'got_value': 'conflict',
-                'message': "Got conflict, expected ['coi-statement']",
+                'message': "Got conflict, expected one of ['coi-statement']",
                 'advice': "provide a value for @fn-type according according to the list: ['coi-statement']",
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
@@ -499,9 +499,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'sub_item': '@fn-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': ['conflict'],
+                'expected_value': 'conflict',
                 'got_value': 'conflict',
-                'message': "Got conflict, expected ['conflict']",
+                'message': "Got conflict, expected one of ['conflict']",
                 'advice': None,
                 'data': {
                     'corresp': ['Correspondência: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
@@ -579,9 +579,9 @@ class ArticleAuthorNotesValidationTest(unittest.TestCase):
                 'sub_item': '@fn-type',
                 'validation_type': 'value in list',
                 'response': 'OK',
-                'expected_value': ['conflict'],
+                'expected_value': 'conflict',
                 'got_value': 'conflict',
-                'message': "Got conflict, expected ['conflict']",
+                'message': "Got conflict, expected one of ['conflict']",
                 'advice': None,
                 'data': {
                     'corresp': ['Correspondence: Karine de Lima Sírio Boclin Sousa Lima, 257 apto. 902 Copacabana'
