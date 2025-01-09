@@ -12,46 +12,41 @@ class Fulltext:
 
     @property
     def front(self):
-        if not hasattr(self, '_front') or not self._front:
+        if not hasattr(self, '_front'):
             if self.tag == "article":
-                self._front = node.find("front")
+                self._front = self.node.find("front")
             else:
-                self._front = node.find("front-stub")
+                self._front = self.node.find("front-stub")
         return self._front
 
     @property
     def body(self):
-        if not hasattr(self, '_body') or not self._body:
-            if self.tag == "article":
-                self._body = node.find("body")
+        if not hasattr(self, '_body'):
+            self._body = self.node.find("body")
         return self._body
 
     @property
     def back(self):
-        if not hasattr(self, '_back') or not self._back:
-            if self.tag == "article":
-                self._back = node.find("back")
+        if not hasattr(self, '_back'):
+            self._back = self.node.find("back")
         return self._back
 
     @property
     def sub_articles(self):
-        if not hasattr(self, '_sub_articles') or not self._sub_articles:
-            if self.tag == "article":
-                self._sub_articles = node.xpath("sub-article")
+        if not hasattr(self, '_sub_articles'):
+            self._sub_articles = self.node.xpath("sub-article")
         return self._sub_articles
 
     @property
     def translations(self):
-        if not hasattr(self, '_translations') or not self._translations:
-            if self.tag == "article":
-                self._translations = node.xpath("sub-article[@article-type='translation']")
+        if not hasattr(self, '_translations'):
+            self._translations = self.node.xpath("sub-article[@article-type='translation']")
         return self._translations
 
     @property
     def not_translations(self):
-        if not hasattr(self, '_not_translations') or not self._not_translations:
-            if self.tag == "article":
-                self._not_translations = node.xpath("sub-article[@article-type!='translation']")
+        if not hasattr(self, '_not_translations'):
+            self._not_translations = self.node.xpath("sub-article[@article-type!='translation']")
         return self._not_translations
 
     @property
