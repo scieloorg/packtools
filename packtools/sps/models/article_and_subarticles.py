@@ -1,3 +1,83 @@
+class Fulltext:
+
+    def __init__(self, node):
+        """
+        node : article or sub-article
+        """
+        self.node = node
+        self.tag = node.tag
+        self.lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.article_type = node.get("article-type")
+        self.id = node.get("id")
+
+    @property
+    def front(self):
+        if not hasattr(self, '_front'):
+            if self.tag == "article":
+                self._front = self.node.find("front")
+            else:
+                self._front = self.node.find("front-stub")
+        return self._front
+
+    @property
+    def body(self):
+        if not hasattr(self, '_body'):
+            self._body = self.node.find("body")
+        return self._body
+
+    @property
+    def back(self):
+        if not hasattr(self, '_back'):
+            self._back = self.node.find("back")
+        return self._back
+
+    @property
+    def sub_articles(self):
+        if not hasattr(self, '_sub_articles'):
+            self._sub_articles = self.node.xpath("sub-article")
+        return self._sub_articles
+
+    @property
+    def translations(self):
+        if not hasattr(self, '_translations'):
+            self._translations = self.node.xpath("sub-article[@article-type='translation']")
+        return self._translations
+
+    @property
+    def not_translations(self):
+        if not hasattr(self, '_not_translations'):
+            self._not_translations = self.node.xpath("sub-article[@article-type!='translation']")
+        return self._not_translations
+
+    @property
+    def attribs(self):
+        return {
+            "tag": self.tag,
+            "id": self.id,
+            "lang": self.lang,
+            "article_type": self.article_type,
+        }
+
+    @property
+    def attribs_parent_prefixed(self):
+        return {
+            "parent": self.tag,
+            "parent_id": self.id,
+            "parent_lang": self.lang,
+            "parent_article_type": self.article_type,
+        }
+
+    @property
+    def fulltexts(self):
+        data = {}
+        data["attribs"] = self.attribs
+        data["attribs_parent_prefixed"] = self.attribs_parent_prefixed
+        data["translations"] = [Fulltext(node) for node in self.translations]
+        data["not_translations"] = [Fulltext(node) for node in self.not_translations]
+        data["sub_articles"] = [Fulltext(node) for node in self.sub_articles]
+        return data
+
+
 class ArticleAndSubArticles:
     def __init__(self, xmltree):
         self.xmltree = xmltree
