@@ -390,7 +390,7 @@ class DateValidation:
 
     def validate_day_format(self):
         if len(self.date_data.get("day") or "") != 2:
-            return build_response(
+            yield build_response(
                 title="day format",
                 parent=self.params["parent"],
                 item=self.params["parent"].get("parent"),
@@ -406,7 +406,7 @@ class DateValidation:
 
     def validate_month_format(self):
         if len(self.date_data.get("month") or "") != 2:
-            return build_response(
+            yield build_response(
                 title="month format",
                 parent=self.params["parent"],
                 item=self.params["parent"].get("parent"),
@@ -422,7 +422,7 @@ class DateValidation:
 
     def validate_year_format(self):
         if len(self.date_data.get("year") or "") != 4:
-            return build_response(
+            yield build_response(
                 title="year format",
                 parent=self.params["parent"],
                 item=self.params["parent"].get("parent"),
@@ -444,14 +444,11 @@ class DateValidation:
                 int(self.date_data.get("day") or 1),
             )
             if self.date_data.get("year"):
-                if result := self.validate_year_format():
-                    yield result
+                yield from self.validate_year_format()
             if self.date_data.get("month"):
-                if result := self.validate_month_format():
-                    yield result
+                yield from self.validate_month_format()
             if self.date_data.get("day"):
-                if result := self.validate_day_format():
-                    yield result
+                yield from self.validate_day_format()
 
         except (ValueError, TypeError) as e:
             yield build_response(
@@ -513,3 +510,6 @@ class DateValidation:
                 data=self.date_data,
                 error_level=self.params["format_error_level"],
             )
+
+
+

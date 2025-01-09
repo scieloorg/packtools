@@ -2082,47 +2082,47 @@ class TestDateFormatValidation(TestCase):
     def test_year_format_validation(self):
         # Test valid year format
         validator = DateValidation(self.base_date_data, self.base_params)
-        result = validator.validate_year_format()
-        self.assertIsNone(result)
+        result = list(validator.validate_year_format())
+        self.assertEqual(result, [])
 
         # Test invalid year format
         invalid_year = self.base_date_data.copy()
         invalid_year["year"] = "24"
         validator = DateValidation(invalid_year, self.base_params)
-        result = validator.validate_year_format()
-        self.assertEqual(result["response"], "ERROR")
-        self.assertEqual(result["got_value"], "24")
-        self.assertEqual(result["expected_value"], "4-digits year")
+        result = list(validator.validate_year_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "24")
+        self.assertEqual(result[0]["expected_value"], "4-digits year")
 
     def test_month_format_validation(self):
         # Test valid month format
         validator = DateValidation(self.base_date_data, self.base_params)
-        result = validator.validate_month_format()
-        self.assertIsNone(result)
+        result = list(validator.validate_month_format())
+        self.assertEqual(result, [])
 
         # Test invalid month format
         invalid_month = self.base_date_data.copy()
         invalid_month["month"] = "1"
         validator = DateValidation(invalid_month, self.base_params)
-        result = validator.validate_month_format()
-        self.assertEqual(result["response"], "ERROR")
-        self.assertEqual(result["got_value"], "1")
-        self.assertEqual(result["expected_value"], "2-digits month")
+        result = list(validator.validate_month_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "1")
+        self.assertEqual(result[0]["expected_value"], "2-digits month")
 
     def test_day_format_validation(self):
         # Test valid day format
         validator = DateValidation(self.base_date_data, self.base_params)
-        result = validator.validate_day_format()
-        self.assertIsNone(result)
+        result = list(validator.validate_day_format())
+        self.assertEqual(result, [])
 
         # Test invalid day format
         invalid_day = self.base_date_data.copy()
         invalid_day["day"] = "5"
         validator = DateValidation(invalid_day, self.base_params)
-        result = validator.validate_day_format()
-        self.assertEqual(result["response"], "ERROR")
-        self.assertEqual(result["got_value"], "5")
-        self.assertEqual(result["expected_value"], "2-digits day")
+        result = list(validator.validate_day_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "5")
+        self.assertEqual(result[0]["expected_value"], "2-digits day")
 
 
 class TestDateValidation(TestCase):
@@ -2145,6 +2145,7 @@ class TestDateValidation(TestCase):
     def test_valid_date(self):
         validator = DateValidation(self.base_date_data, self.base_params)
         results = list(validator.validate_date())
+        print(results)
         self.assertEqual(len(results), 0)  # No validation errors
 
     def test_invalid_date_components(self):
