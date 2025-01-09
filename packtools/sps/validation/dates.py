@@ -120,27 +120,12 @@ class ArticleDatesValidation:
         self.history = HistoryDates(xmltree)
         self.article = ArticleAndSubArticles(xmltree)
         self.params = params or {
-            "order": ["received", "accepted"],
+            "order": ["received", "rev-request", "rev-recd", "accepted", "corrected"],
             "required_events": ["received", "accepted"],
             "error_level": "ERROR",
         }
 
-    def validate_history_dates(self):
-        """Validate both date formats and event order in history.
-
-        Combines the validation of date formats and event order into
-        a single validation process.
-
-        Yields:
-            dict: All validation responses for history dates
-        """
-        # Validate date formats
-        yield from self.validate_history_date_formats()
-
-        # Validate event order
-        yield from self.validate_history_events_order()
-
-    def validate_history_date_formats(self):
+    def validate_history_dates_format(self):
         """Validate the format of each date in the article history.
 
         Checks if each date in the history is complete and valid according to

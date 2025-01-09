@@ -116,10 +116,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -155,10 +152,10 @@ class HistoryDatesValidationTest(TestCase):
                 "sub_item": "date",
                 "validation_type": "value",
                 "response": "ERROR",
-                "expected_value": ["received", "rev-request", "corrected"],
+                "expected_value": ["received", "rev-request", "accepted"],
                 "got_value": ["rev-request"],
-                "message": "Got ['rev-request'], expected ['received', 'rev-request', 'corrected']",
-                "advice": "Provide: valid date for ['received', 'corrected'];",
+                "message": "Got ['rev-request'], expected ['received', 'rev-request', 'accepted']",
+                "advice": "Provide: valid date for ['received', 'accepted'];",
                 "data": {
                     "article_date": None,
                     "collection_date": None,
@@ -178,10 +175,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -200,7 +194,7 @@ class HistoryDatesValidationTest(TestCase):
                                 <month>01</month>
                                 <year>1998</year>
                             </date>
-                            <date date-type="corrected">
+                            <date date-type="accepted">
                                 <day>01</day>
                                 <month>06</month>
                                 <year>2012</year>
@@ -222,25 +216,25 @@ class HistoryDatesValidationTest(TestCase):
                 "sub_item": "date",
                 "validation_type": "value",
                 "response": "OK",
-                "expected_value": ["received", "corrected"],
-                "got_value": ["received", "corrected"],
-                "message": "Got ['received', 'corrected'], expected ['received', 'corrected']",
+                "expected_value": ["received", "accepted"],
+                "got_value": ["received", "accepted"],
+                "message": "Got ['received', 'accepted'], expected ['received', 'accepted']",
                 "advice": None,
                 "data": {
                     "article_date": None,
                     "collection_date": None,
                     "history": {
-                        "corrected": {
-                            "day": "01",
-                            "month": "06",
-                            "type": "corrected",
-                            "year": "2012",
-                        },
                         "received": {
                             "day": "05",
                             "month": "01",
                             "type": "received",
                             "year": "1998",
+                        },
+                        "accepted": {
+                            "day": "01",
+                            "month": "06",
+                            "type": "accepted",
+                            "year": "2012",
                         },
                     },
                     "parent": "article",
@@ -251,10 +245,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -283,11 +274,6 @@ class HistoryDatesValidationTest(TestCase):
                                 <month>05</month>
                                 <year>1998</year>
                             </date>
-                            <date date-type="accepted">
-                                <day>06</day>
-                                <month>06</month>
-                                <year>1998</year>
-                            </date>
                         </history>
                     </article-meta>
                 </front>
@@ -310,12 +296,11 @@ class HistoryDatesValidationTest(TestCase):
                     "rev-request",
                     "rev-recd",
                     "accepted",
-                    "corrected",
                 ],
-                "got_value": ["received", "rev-request", "rev-recd", "accepted"],
-                "message": "Got ['received', 'rev-request', 'rev-recd', 'accepted'], expected ['received', "
-                "'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                "advice": "Provide: valid date for ['corrected'];",
+                "got_value": ["received", "rev-request", "rev-recd"],
+                "message": "Got ['received', 'rev-request', 'rev-recd'], expected ['received', "
+                "'rev-request', 'rev-recd', 'accepted']",
+                "advice": "Provide: valid date for ['accepted'];",
                 "data": {
                     "article_date": None,
                     "collection_date": None,
@@ -337,13 +322,7 @@ class HistoryDatesValidationTest(TestCase):
                             "month": "05",
                             "type": "rev-recd",
                             "year": "1998",
-                        },
-                        "accepted": {
-                            "day": "06",
-                            "month": "06",
-                            "type": "accepted",
-                            "year": "1998",
-                        },
+                        }
                     },
                     "parent": "article",
                     "parent_article_type": "research-article",
@@ -353,10 +332,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -417,7 +393,6 @@ class HistoryDatesValidationTest(TestCase):
                     "rev-request",
                     "rev-recd",
                     "accepted",
-                    "corrected",
                 ],
                 "got_value": [
                     "received",
@@ -427,9 +402,9 @@ class HistoryDatesValidationTest(TestCase):
                     "unknown",
                 ],
                 "message": "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'unknown'], expected ["
-                "'received', 'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                "advice": "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'] in "
-                "chronological order; valid date for ['corrected']; removal of events ['unknown'];",
+                "'received', 'rev-request', 'rev-recd', 'accepted']",
+                "advice": "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted'] in "
+                "chronological order; removal of events ['unknown'];",
                 "data": {
                     "article_date": None,
                     "collection_date": None,
@@ -473,10 +448,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -650,57 +622,10 @@ class HistoryDatesValidationTest(TestCase):
                     "parent_id": None,
                     "parent_lang": "en",
                 },
-            },
-            {
-                "title": "History date validation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "item": "history",
-                "sub_item": "date",
-                "validation_type": "value",
-                "response": "ERROR",
-                "expected_value": ["received", "accepted", "corrected"],
-                "got_value": ["accepted", "corrected"],
-                "message": "Got ['accepted', 'corrected'], expected ['received', 'accepted', 'corrected']",
-                "advice": "Provide: valid date for ['received'];",
-                "data": {
-                    "article_date": None,
-                    "collection_date": None,
-                    "history": {
-                        "received": {"month": "01", "type": "received", "year": "1998"},
-                        "rev-request": {
-                            "day": "14",
-                            "type": "rev-request",
-                            "year": "1998",
-                        },
-                        "rev-recd": {"day": "24", "month": "05", "type": "rev-recd"},
-                        "accepted": {
-                            "day": "06",
-                            "month": "06",
-                            "type": "accepted",
-                            "year": "1998",
-                        },
-                        "corrected": {
-                            "day": "01",
-                            "month": "06",
-                            "type": "corrected",
-                            "year": "2012",
-                        },
-                    },
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "en",
-                },
-            },
+            }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_dates_format()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -856,67 +781,9 @@ class HistoryDatesValidationTest(TestCase):
                     "parent_lang": "en",
                 },
             },
-            {
-                "title": "History date validation",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "item": "history",
-                "sub_item": "date",
-                "validation_type": "value",
-                "response": "OK",
-                "expected_value": ["received", "accepted", "corrected"],
-                "got_value": ["received", "accepted", "corrected"],
-                "message": "Got ['received', 'accepted', 'corrected'], expected ['received', 'accepted', 'corrected']",
-                "advice": None,
-                "data": {
-                    "article_date": None,
-                    "collection_date": None,
-                    "history": {
-                        "received": {
-                            "day": "05",
-                            "month": "01",
-                            "type": "received",
-                            "year": "1998",
-                        },
-                        "rev-request": {
-                            "day": "40",
-                            "month": "03",
-                            "type": "rev-request",
-                            "year": "1998",
-                        },
-                        "rev-recd": {
-                            "day": "24",
-                            "month": "13",
-                            "year": "1998",
-                            "type": "rev-recd",
-                        },
-                        "accepted": {
-                            "day": "06",
-                            "month": "06",
-                            "type": "accepted",
-                            "year": "1998",
-                        },
-                        "corrected": {
-                            "day": "01",
-                            "month": "06",
-                            "type": "corrected",
-                            "year": "2012",
-                        },
-                    },
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "en",
-                },
-            },
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_dates_format()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1033,10 +900,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["received", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -1135,10 +999,7 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-                ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                ["accepted", "corrected"],
-            )
+            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
