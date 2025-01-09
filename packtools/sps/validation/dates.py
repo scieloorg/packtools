@@ -2,7 +2,7 @@ from datetime import datetime, date
 
 from packtools.sps.models.article_dates import HistoryDates
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import format_response, build_response
 
 
 def date_dict_to_date(date_dict):
@@ -381,3 +381,135 @@ class ArticleDatesValidation:
         }
         dates_req_order_events_results.update(dates_are_complete_results)
         return dates_req_order_events_results
+
+
+class DateValidation:
+    def __init__(self, date_data, params):
+        self.params = params
+        self.date_data = date_data
+
+    def validate_day_format(self):
+        if len(self.date_data.get("day") or "") != 2:
+            return build_response(
+                title="day format",
+                parent=self.params["parent"],
+                item=self.params["parent"].get("parent"),
+                sub_item=self.date_data["type"],
+                validation_type="format",
+                is_valid=False,
+                expected="2-digits day",
+                obtained=self.date_data.get("day"),
+                advice="Provide 2-digits day",
+                data=self.date_data,
+                error_level=self.params["day_format_error_level"],
+            )
+
+    def validate_month_format(self):
+        if len(self.date_data.get("month") or "") != 2:
+            return build_response(
+                title="month format",
+                parent=self.params["parent"],
+                item=self.params["parent"].get("parent"),
+                sub_item=self.date_data["type"],
+                validation_type="format",
+                is_valid=False,
+                expected="2-digits month",
+                obtained=self.date_data.get("month"),
+                advice="Provide 2-digits month",
+                data=self.date_data,
+                error_level=self.params["month_format_error_level"],
+            )
+
+    def validate_year_format(self):
+        if len(self.date_data.get("year") or "") != 4:
+            return build_response(
+                title="year format",
+                parent=self.params["parent"],
+                item=self.params["parent"].get("parent"),
+                sub_item=self.date_data["type"],
+                validation_type="format",
+                is_valid=False,
+                expected="4-digits year",
+                obtained=self.date_data.get("year"),
+                advice="Provide 4-digits year",
+                data=self.date_data,
+                error_level=self.params["year_format_error_level"],
+            )
+
+    def validate_date(self):
+        try:
+            _date = date(
+                int(self.date_data.get("year")),
+                int(self.date_data.get("month") or 1),
+                int(self.date_data.get("day") or 1),
+            )
+            if self.date_data.get("year"):
+                if result := self.validate_year_format():
+                    yield result
+            if self.date_data.get("month"):
+                if result := self.validate_month_format():
+                    yield result
+            if self.date_data.get("day"):
+                if result := self.validate_day_format():
+                    yield result
+
+        except (ValueError, TypeError) as e:
+            yield build_response(
+                title="valid date",
+                parent=self.params["parent"],
+                item=self.params["parent"].get("parent"),
+                sub_item=self.date_data["type"],
+                validation_type="value",
+                is_valid=False,
+                expected="valid date",
+                obtained=self.date_data,
+                advice="Provide valid date",
+                data=self.date_data,
+                error_level=self.params["value_error_level"],
+            )
+
+    def validate_complete_date(self):
+        if self.date_data["is_complete"]:
+            complete_date = self.date_data["display"]
+
+            if limit_date := self.params.get("limit_date"):
+                invalid = False
+                if self.date_data["type"] in self.params.get("pre_pub_ordered_events"):
+                    invalid = complete_date > limit_date
+                    advice = f"Provide date <= {limit_date}"
+                elif self.date_data["type"] in self.params.get(
+                    "pos_pub_ordered_events"
+                ):
+                    invalid = complete_date <= limit_date
+                    advice = f"Provide date > {limit_date}"
+                else:
+                    invalid = complete_date > limit_date
+                    advice = f"Provide date <= {limit_date}"
+                if invalid:
+                    yield build_response(
+                        title="valid date",
+                        parent=self.params["parent"],
+                        item=self.params["parent"].get("parent"),
+                        sub_item=self.date_data["type"],
+                        validation_type="value",
+                        is_valid=False,
+                        expected="valid date",
+                        obtained=self.date_data,
+                        advice=advice,
+                        data=self.date_data,
+                        error_level=self.params["limit_error_level"],
+                    )
+        else:
+            yield build_response(
+                title=f"{self.date_data['type']} date",
+                parent=self.params.get("parent"),
+                item=self.params.get("item"),
+                sub_item=self.date_data["type"],
+                validation_type="format",
+                is_valid=False,
+                expected="complete date",
+                obtained=self.date_data,
+                advice="Provide complete and valid date",
+                data=self.date_data,
+                error_level=self.params["format_error_level"],
+            )

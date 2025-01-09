@@ -3,6 +3,7 @@ from lxml import etree
 
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation import dates
+from packtools.sps.validation.dates import DateValidation
 
 
 class HistoryDatesValidationTest(TestCase):
@@ -116,7 +117,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -175,7 +178,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -245,7 +250,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -322,7 +329,7 @@ class HistoryDatesValidationTest(TestCase):
                             "month": "05",
                             "type": "rev-recd",
                             "year": "1998",
-                        }
+                        },
                     },
                     "parent": "article",
                     "parent_article_type": "research-article",
@@ -332,7 +339,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -448,7 +457,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -622,10 +633,12 @@ class HistoryDatesValidationTest(TestCase):
                     "parent_id": None,
                     "parent_lang": "en",
                 },
-            }
+            },
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates_format()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_dates_format()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -783,7 +796,9 @@ class HistoryDatesValidationTest(TestCase):
             },
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_dates_format()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_dates_format()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -900,7 +915,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -999,7 +1016,9 @@ class HistoryDatesValidationTest(TestCase):
             }
         ]
         obtained = list(
-            dates.ArticleDatesValidation(xml_history_date).validate_history_events_order()
+            dates.ArticleDatesValidation(
+                xml_history_date
+            ).validate_history_events_order()
         )
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -2040,3 +2059,184 @@ class ArticleDatesValidationTest(TestCase):
         }
 
         self.assertDictEqual(obtained, expected)
+
+
+class TestDateFormatValidation(TestCase):
+    """Test cases for date format validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "year_format_error_level": "ERROR",
+            "month_format_error_level": "ERROR",
+            "day_format_error_level": "ERROR",
+        }
+
+        self.base_date_data = {
+            "type": "pub",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+        }
+
+    def test_year_format_validation(self):
+        # Test valid year format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = validator.validate_year_format()
+        self.assertIsNone(result)
+
+        # Test invalid year format
+        invalid_year = self.base_date_data.copy()
+        invalid_year["year"] = "24"
+        validator = DateValidation(invalid_year, self.base_params)
+        result = validator.validate_year_format()
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "24")
+        self.assertEqual(result["expected_value"], "4-digits year")
+
+    def test_month_format_validation(self):
+        # Test valid month format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = validator.validate_month_format()
+        self.assertIsNone(result)
+
+        # Test invalid month format
+        invalid_month = self.base_date_data.copy()
+        invalid_month["month"] = "1"
+        validator = DateValidation(invalid_month, self.base_params)
+        result = validator.validate_month_format()
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "1")
+        self.assertEqual(result["expected_value"], "2-digits month")
+
+    def test_day_format_validation(self):
+        # Test valid day format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = validator.validate_day_format()
+        self.assertIsNone(result)
+
+        # Test invalid day format
+        invalid_day = self.base_date_data.copy()
+        invalid_day["day"] = "5"
+        validator = DateValidation(invalid_day, self.base_params)
+        result = validator.validate_day_format()
+        self.assertEqual(result["response"], "ERROR")
+        self.assertEqual(result["got_value"], "5")
+        self.assertEqual(result["expected_value"], "2-digits day")
+
+
+class TestDateValidation(TestCase):
+    """Test cases for general date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "value_error_level": "ERROR",
+            "year_format_error_level": "ERROR",
+            "month_format_error_level": "ERROR",
+        }
+
+        self.base_date_data = {
+            "type": "pub",
+            "year": "2024",
+            "month": "01",
+        }
+
+    def test_valid_date(self):
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 0)  # No validation errors
+
+    def test_invalid_date_components(self):
+        # Test invalid month
+        invalid_date = self.base_date_data.copy()
+        invalid_date["month"] = "13"
+        validator = DateValidation(invalid_date, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+
+        # Test invalid year
+        invalid_date["year"] = "abc"
+        validator = DateValidation(invalid_date, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+
+
+class TestCompleteDateValidation(TestCase):
+    """Test cases for complete date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "format_error_level": "ERROR",
+            "limit_error_level": "ERROR",
+            "limit_date": "2024-12-31",
+            "pre_pub_ordered_events": ["received", "accepted"],
+            "pos_pub_ordered_events": ["published", "corrected"],
+        }
+
+        self.base_date_data = {
+            "type": "received",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+            "display": "2024-01-15",
+            "is_complete": True,
+        }
+
+    def test_valid_complete_date(self):
+        """Test valid complete date within limit."""
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 0)  # No validation errors
+
+    def test_incomplete_date(self):
+        """Test date marked as incomplete."""
+        incomplete_date = self.base_date_data.copy()
+        incomplete_date["is_complete"] = False
+        validator = DateValidation(incomplete_date, self.base_params)
+        result = list(validator.validate_complete_date())
+        self.assertIsInstance(result[0], dict)  # Should return a single response dict
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["validation_type"], "format")
+        self.assertEqual(result[0]["expected_value"], "complete date")
+
+
+class TestPrePubDateValidation(TestCase):
+    """Test cases for pre-publication date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "limit_error_level": "ERROR",
+            "limit_date": "2024-12-31",
+            "pre_pub_ordered_events": ["received", "accepted"],
+            "pos_pub_ordered_events": ["published", "corrected"],
+        }
+
+        self.base_date_data = {
+            "type": "received",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+            "display": "2024-01-15",
+            "is_complete": True,
+        }
+
+    def test_valid_pre_pub_date(self):
+        """Test valid pre-publication date."""
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 0)
+
+    def test_future_pre_pub_date(self):
+        """Test pre-publication date after limit."""
+        future_date = self.base_date_data.copy()
+        future_date["display"] = "2025-01-01"
+        validator = DateValidation(future_date, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("<=", results[0]["advice"])
