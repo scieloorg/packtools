@@ -6,27 +6,40 @@ from packtools.sps.validation.utils import format_response
 
 
 def date_dict_to_date(date_dict):
-    return date(int(date_dict['year']), int(date_dict['month']), int(date_dict['day']))
+    return date(int(date_dict["year"]), int(date_dict["month"]), int(date_dict["day"]))
 
 
 def _date_is_complete(dict_date, date_element):
-    year, month, day = dict_date.get('year') or '', dict_date.get('month') or '', dict_date.get('day') or ''
+    year, month, day = (
+        dict_date.get("year") or "",
+        dict_date.get("month") or "",
+        dict_date.get("day") or "",
+    )
     try:
-        object_date = date(int(dict_date['year']), int(dict_date['month']), int(dict_date['day']))
+        object_date = date(
+            int(dict_date["year"]), int(dict_date["month"]), int(dict_date["day"])
+        )
     except (KeyError, TypeError) as e:
-        return False, \
-            f'a valid date for {date_element}', \
-            '-'.join([year, month, day]), \
-            f'{date_element} must be complete', \
-            f'Provide {e} of the date'
+        return (
+            False,
+            f"a valid date for {date_element}",
+            "-".join([year, month, day]),
+            f"{date_element} must be complete",
+            f"Provide {e} of the date",
+        )
 
     except ValueError as e:
-        return False, \
-            f'a valid date for {date_element}', \
-            '-'.join([year, month, day]), \
-            f'{date_element} must contain valid values, {e},' if 'invalid literal' in str(
-                e) else f'{date_element} must contain valid values', \
-            f'Provide valid values for day, month and year'
+        return (
+            False,
+            f"a valid date for {date_element}",
+            "-".join([year, month, day]),
+            (
+                f"{date_element} must contain valid values, {e},"
+                if "invalid literal" in str(e)
+                else f"{date_element} must contain valid values"
+            ),
+            f"Provide valid values for day, month and year",
+        )
     else:
         return True, str(object_date), str(object_date), None, None
 
@@ -80,7 +93,14 @@ def sort_by_reference_list(publication_events, standard_publication_order):
     """
 
     try:
-        return sorted(publication_events, key=lambda x: standard_publication_order.index(x) if x in standard_publication_order else float('inf'))
+        return sorted(
+            publication_events,
+            key=lambda x: (
+                standard_publication_order.index(x)
+                if x in standard_publication_order
+                else float("inf")
+            ),
+        )
     except ValueError:
         # In case an event in publication_events is not in standard_publication_order, it's placed at the end of the sorted list
         return publication_events
@@ -210,11 +230,13 @@ class ArticleDatesValidation:
         for item in self.history.history_dates():
             for event_type, event_date in item.get("history").items():
                 # verifica se a data é válida
-                is_valid, expected, obtained, message, advice = _date_is_complete(event_date, event_type)
+                is_valid, expected, obtained, message, advice = _date_is_complete(
+                    event_date, event_type
+                )
                 # resposta para data inválida
                 if not is_valid:
                     yield format_response(
-                        title='History date validation',
+                        title="History date validation",
                         parent=item.get("parent"),
                         parent_id=item.get("parent_id"),
                         parent_article_type=item.get("parent_article_type"),
@@ -240,7 +262,9 @@ class ArticleDatesValidation:
             ordered_by_event = [event[0] for event in ordered_by_date]
 
             # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
-            missing_events = sort_by_reference_list(list(set(required_events) - set(ordered_by_event)), order)
+            missing_events = sort_by_reference_list(
+                list(set(required_events) - set(ordered_by_event)), order
+            )
 
             # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
             unknown_events = sorted(list(set(ordered_by_event) - set(order)))
@@ -254,32 +278,36 @@ class ArticleDatesValidation:
             # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
             # ordenados pelo padrão
             expected = sort_by_reference_list(
-                list((set(ordered_by_event) | set(required_events)) - set(unknown_events)), order)
+                list(
+                    (set(ordered_by_event) | set(required_events)) - set(unknown_events)
+                ),
+                order,
+            )
 
             # prepara o conteúdo de advice
-            advice = 'Provide:'
+            advice = "Provide:"
             if not is_ordered:
-                advice += f' the dates of {expected} in chronological order;'
+                advice += f" the dates of {expected} in chronological order;"
             if not is_complete:
-                advice += f' valid date for {missing_events};'
+                advice += f" valid date for {missing_events};"
             if not are_all_known:
-                advice += f' removal of events {unknown_events};'
+                advice += f" removal of events {unknown_events};"
 
             yield format_response(
-                    title='History date validation',
-                    parent=item.get("parent"),
-                    parent_id=item.get("parent_id"),
-                    parent_article_type=item.get("parent_article_type"),
-                    parent_lang=item.get("parent_lang"),
-                    item="history",
-                    sub_item="date",
-                    validation_type="value",
-                    is_valid=is_valid,
-                    expected=expected,
-                    obtained=ordered_by_event,
-                    advice=advice,
-                    data=item,
-                    error_level=error_level,
+                title="History date validation",
+                parent=item.get("parent"),
+                parent_id=item.get("parent_id"),
+                parent_article_type=item.get("parent_article_type"),
+                parent_lang=item.get("parent_lang"),
+                item="history",
+                sub_item="date",
+                validation_type="value",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=ordered_by_event,
+                advice=advice,
+                data=item,
+                error_level=error_level,
             )
 
     def validate_number_of_digits_in_article_date(self, error_level=None):
@@ -334,17 +362,21 @@ class ArticleDatesValidation:
         """
         error_level = error_level or "ERROR"
 
-        for elem, expected in zip(('day', 'month', 'year'), (2, 2, 4)):
+        for elem, expected in zip(("day", "month", "year"), (2, 2, 4)):
             value = self.history.article_date.get(elem) or ""
             obtained = len(value)
             validated = obtained == expected
             if value.isdigit():
                 expected_value = value.zfill(expected)
             else:
-                expected_value = 'a numeric digit for {} represented with {} digits'.format(elem, expected)
+                expected_value = (
+                    "a numeric digit for {} represented with {} digits".format(
+                        elem, expected
+                    )
+                )
                 validated = False
             yield format_response(
-                title='Article pub-date {} validation'.format(elem),
+                title="Article pub-date {} validation".format(elem),
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.article.main_article_type,
@@ -355,7 +387,7 @@ class ArticleDatesValidation:
                 is_valid=validated,
                 expected=expected_value,
                 obtained=value,
-                advice='Provide a {}-digit numeric value for {}'.format(expected, elem),
+                advice="Provide a {}-digit numeric value for {}".format(expected, elem),
                 data=self.history.article_date,
                 error_level=error_level,
             )
@@ -415,7 +447,9 @@ class ArticleDatesValidation:
 
         error_level = error_level or "ERROR"
 
-        got_value = '-'.join([self.history.article_date.get(elem) for elem in ['year', 'month', 'day']])
+        got_value = "-".join(
+            [self.history.article_date.get(elem) for elem in ["year", "month", "day"]]
+        )
         try:
             date_dict_to_date(self.history.article_date)
             validated = got_value <= future_date
@@ -423,7 +457,7 @@ class ArticleDatesValidation:
             validated = False
 
         return format_response(
-            title='Article pub-date validation',
+            title="Article pub-date validation",
             parent="article",
             parent_id=None,
             parent_article_type=self.article.main_article_type,
@@ -432,9 +466,13 @@ class ArticleDatesValidation:
             sub_item="@date-type='pub'",
             validation_type="value",
             is_valid=validated,
-            expected='a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
+            expected="a date in the format: YYYY-MM-DD before or equal to {}".format(
+                future_date
+            ),
             obtained=got_value,
-            advice='Provide a date in the format: YYYY-MM-DD before or equal to {}'.format(future_date),
+            advice="Provide a date in the format: YYYY-MM-DD before or equal to {}".format(
+                future_date
+            ),
             data=self.history.article_date,
             error_level=error_level,
         )
@@ -497,29 +535,37 @@ class ArticleDatesValidation:
 
         future_date = future_date or datetime.now().year
 
-        obtained = self.history.collection_date.get("year") if self.history.collection_date else None
+        obtained = (
+            self.history.collection_date.get("year")
+            if self.history.collection_date
+            else None
+        )
 
         try:
             advice = None
             if not obtained.isdigit():
-                advice = 'Provide only numeric values for the collection year'
+                advice = "Provide only numeric values for the collection year"
             elif len(obtained) != 4:
-                advice = 'Provide a four-digit numeric value for the year of collection'
+                advice = "Provide a four-digit numeric value for the year of collection"
             elif int(obtained) > int(future_date):
-                advice = 'Provide a numeric value less than or equal to {}'.format(future_date)
+                advice = "Provide a numeric value less than or equal to {}".format(
+                    future_date
+                )
 
             is_valid = advice is None
-            expected = obtained if is_valid else "the publication date of the collection"
+            expected = (
+                obtained if is_valid else "the publication date of the collection"
+            )
 
             return format_response(
-                title='Collection pub-date validation',
+                title="Collection pub-date validation",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.article.main_article_type,
                 parent_lang=self.article.main_lang,
                 item="pub-date",
                 sub_item="@date-type='collection'",
-                validation_type='format',
+                validation_type="format",
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
@@ -529,18 +575,18 @@ class ArticleDatesValidation:
             )
         except AttributeError:
             return format_response(
-                title='Collection pub-date validation',
+                title="Collection pub-date validation",
                 parent="article",
                 parent_id=None,
                 parent_article_type=self.article.main_article_type,
                 parent_lang=self.article.main_lang,
                 item="pub-date",
                 sub_item="@date-type='collection'",
-                validation_type='exist',
+                validation_type="exist",
                 is_valid=False,
-                expected='the publication date of the collection',
+                expected="the publication date of the collection",
                 obtained=None,
-                advice='Provide the publication date of the collection',
+                advice="Provide the publication date of the collection",
                 data=self.history.collection_date,
                 error_level=error_level,
             )
@@ -554,12 +600,12 @@ class ArticleDatesValidation:
 
         """
         dates_req_order_events_results = {
-            'article_dates_required_order_events_validation': self.history_dates_are_sorted(
-                data['history_dates_required_order'],
-                data['required_events'])
+            "article_dates_required_order_events_validation": self.history_dates_are_sorted(
+                data["history_dates_required_order"], data["required_events"]
+            )
         }
         dates_are_complete_results = {
-            'article_dates_are_complete_validation': self.history_dates_are_complete()
+            "article_dates_are_complete_validation": self.history_dates_are_complete()
         }
         dates_req_order_events_results.update(dates_are_complete_results)
         return dates_req_order_events_results
