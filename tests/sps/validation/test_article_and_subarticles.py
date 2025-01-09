@@ -31,7 +31,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": "text language",
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -40,13 +40,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": None,
-                'message': "Got None, expected ['pt', 'en', 'es']",
-                "advice": "<article article-type=research-article xml:lang=None> has None as language, expected one item of this list: pt | en | es",
+                'message': "Got None, expected one of ['pt', 'en', 'es']",
+                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': None,
                     'line_number': 2,
                     'subject': None
@@ -78,7 +79,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": "text language",
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -87,11 +88,12 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "en",
                 "got_value": "en",
-                "message": "Got en, expected ['pt', 'en', 'es']",
+                "message": "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 "data": {
+                    "parent_name": "article",
                     "article_id": None,
                     'article_type': 'research-article',
                     'lang': 'en',
@@ -125,7 +127,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": "text language",
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -134,13 +136,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": "e",
-                'message': "Got e, expected ['pt', 'en', 'es']",
-                "advice": "<article article-type=research-article xml:lang=e> has e as language, expected one item of this list: pt | en | es",
+                'message': "Got e, expected one of ['pt', 'en', 'es']",
+                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'e',
                     'line_number': 2,
                     'subject': None
@@ -162,7 +165,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -171,20 +174,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": 'en',
                 "got_value": "en",
-                'message': "Got en, expected ['pt', 'en', 'es']",
+                'message': "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'en',
                     'line_number': 2,
                     'subject': 'Original Article'
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's1',
                 'parent_article_type': 'translation',
@@ -193,20 +197,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": 'pt',
                 "got_value": "pt",
-                'message': "Got pt, expected ['pt', 'en', 'es']",
+                'message': "Got pt, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's1',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'pt',
                     'line_number': 1307,
                     'subject': 'Artigo Original'
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's2',
                 'parent_article_type': 'translation',
@@ -215,13 +220,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": 'es',
                 "got_value": "es",
-                'message': "Got es, expected ['pt', 'en', 'es']",
+                'message': "Got es, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's2',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'es',
                     'line_number': 1527,
                     'subject': 'Artículo Original'
@@ -250,7 +256,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -259,20 +265,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "en",
                 "got_value": "en",
-                'message': "Got en, expected ['pt', 'en', 'es']",
+                'message': "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'en',
                     'line_number': 2,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's1',
                 'parent_article_type': 'translation',
@@ -281,20 +288,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "pt",
                 "got_value": "pt",
-                'message': "Got pt, expected ['pt', 'en', 'es']",
+                'message': "Got pt, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's1',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'pt',
                     'line_number': 3,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's2',
                 'parent_article_type': 'translation',
@@ -303,13 +311,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "es",
                 "got_value": "es",
-                'message': "Got es, expected ['pt', 'en', 'es']",
+                'message': "Got es, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's2',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'es',
                     'line_number': 5,
                     'subject': None
@@ -337,7 +346,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -346,20 +355,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": 'en',
                 "got_value": "en",
-                'message': "Got en, expected ['pt', 'en', 'es']",
+                'message': "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'en',
                     'line_number': 2,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's1',
                 'parent_article_type': 'translation',
@@ -368,20 +378,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "pt",
                 "got_value": "pt",
-                'message': "Got pt, expected ['pt', 'en', 'es']",
+                'message': "Got pt, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's1',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'pt',
                     'line_number': 3,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's2',
                 'parent_article_type': 'translation',
@@ -390,13 +401,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": "",
-                'message': "Got , expected ['pt', 'en', 'es']",
-                "advice": "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es",
+                'message': "Got , expected one of ['pt', 'en', 'es']",
+                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
                 'data': {
                     'article_id': 's2',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': '',
                     'line_number': 5,
                     'subject': None
@@ -424,7 +436,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -433,20 +445,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": 'en',
                 "got_value": "en",
-                'message': "Got en, expected ['pt', 'en', 'es']",
+                'message': "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'en',
                     'line_number': 2,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's1',
                 'parent_article_type': 'translation',
@@ -455,20 +468,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": None,
-                'message': "Got None, expected ['pt', 'en', 'es']",
-                "advice": "<sub-article article-type=translation id=s1 xml:lang=None> has None as language, expected one item of this list: pt | en | es",
+                'message': "Got None, expected one of ['pt', 'en', 'es']",
+                "advice": 'Provide for sub-article[@id="s1"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
                 'data': {
                     'article_id': 's1',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': None,
                     'line_number': 3,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's2',
                 'parent_article_type': 'translation',
@@ -477,13 +491,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": "",
-                'message': "Got , expected ['pt', 'en', 'es']",
-                "advice": "<sub-article article-type=translation id=s2 xml:lang=> has  as language, expected one item of this list: pt | en | es",
+                'message': "Got , expected one of ['pt', 'en', 'es']",
+                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
                 'data': {
                     'article_id': 's2',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': '',
                     'line_number': 5,
                     'subject': None
@@ -512,7 +527,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -521,20 +536,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": "portugol",
-                'message': "Got portugol, expected ['pt', 'en', 'es']",
-                "advice": "<article article-type=research-article xml:lang=portugol> has portugol as language, expected one item of this list: pt | en | es",
+                'message': "Got portugol, expected one of ['pt', 'en', 'es']",
+                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'lang': 'portugol',
                     'line_number': 2,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's1',
                 'parent_article_type': 'translation',
@@ -543,20 +559,21 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "en",
                 "got_value": "en",
-                'message': "Got en, expected ['pt', 'en', 'es']",
+                'message': "Got en, expected one of ['pt', 'en', 'es']",
                 "advice": None,
                 'data': {
                     'article_id': 's1',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'en',
                     'line_number': 3,
                     'subject': None
                 },
             },
             {
-                "title": "Article element lang attribute validation",
+                "title": 'text language',
                 'parent': 'sub-article',
                 'parent_id': 's2',
                 'parent_article_type': 'translation',
@@ -565,13 +582,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@xml:lang',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["pt", "en", "es"],
+                "expected_value": "one of ['pt', 'en', 'es']",
                 "got_value": "thisisaninvalidlanguagecode",
-                'message': "Got thisisaninvalidlanguagecode, expected ['pt', 'en', 'es']",
-                "advice": "<sub-article article-type=translation id=s2 xml:lang=thisisaninvalidlanguagecode> has thisisaninvalidlanguagecode as language, expected one item of this list: pt | en | es",
+                'message': "Got thisisaninvalidlanguagecode, expected one of ['pt', 'en', 'es']",
+                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
                 'data': {
                     'article_id': 's2',
                     'article_type': 'translation',
+                    'parent_name': 'sub-article',
                     'lang': 'thisisaninvalidlanguagecode',
                     'line_number': 5,
                     'subject': None
@@ -602,7 +620,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element specific-use attribute validation",
+                "title": 'article/@specific-use',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -611,13 +629,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@specific-use',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["sps-1.9", "preprint", "special-issue"],
+                "expected_value": 'sps-1.9',
                 "got_value": "sps-1.9",
-                'message': "Got sps-1.9, expected ['sps-1.9', 'preprint', 'special-issue']",
+                'message': "Got sps-1.9, expected one of ['sps-1.9', 'preprint', 'special-issue']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'portugol',
                     'line_number': 2,
@@ -649,7 +668,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element specific-use attribute validation",
+                "title": "article/@specific-use",
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -658,13 +677,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@specific-use',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["sps-1.9", "preprint", "special-issue"],
+                "expected_value": "one of ['sps-1.9', 'preprint', 'special-issue']",
                 "got_value": None,
-                'message': "Got None, expected ['sps-1.9', 'preprint', 'special-issue']",
-                "advice": "XML research-article has None as specific-use, expected one item of this list: sps-1.9 | preprint | special-issue",
+                'message': "Got None, expected one of ['sps-1.9', 'preprint', 'special-issue']",
+                "advice": "Provide for article/@specific-use one of ['sps-1.9', 'preprint', 'special-issue']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'portugol',
                     'line_number': 2,
@@ -696,7 +716,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element dtd-version attribute validation",
+                "title": 'article/@dtd-version',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -705,13 +725,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@dtd-version',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["1.1", "1.2", "1.3"],
+                "expected_value": '1.1',
                 "got_value": "1.1",
-                'message': "Got 1.1, expected ['1.1', '1.2', '1.3']",
+                'message': "Got 1.1, expected one of ['1.1', '1.2', '1.3']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'portugol',
                     'line_number': 2,
@@ -743,7 +764,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article type validation",
+                "title": 'article/@article-type',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -752,13 +773,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@article-type',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": ["research-article"],
+                "expected_value": "research-article",
                 "got_value": "research-article",
-                'message': "Got research-article, expected ['research-article']",
+                'message': "Got research-article, expected one of ['research-article']",
                 "advice": None,
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': None,
                     'lang': 'portugol',
                     'line_number': 2,
@@ -790,7 +812,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article type validation",
+                "title": 'article/@article-type',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'main',
@@ -799,13 +821,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@article-type',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["research-article"],
+                "expected_value": "one of ['research-article']",
                 "got_value": "main",
-                'message': "Got main, expected ['research-article']",
-                "advice": "XML has main as article-type, expected one item of this list: research-article",
+                'message': "Got main, expected one of ['research-article']",
+                "advice": "Provide for article/@article-type one of ['research-article']",
                 'data': {
                     'article_id': None,
                     'article_type': 'main',
+                    'parent_name': 'article',
                     'dtd_version': None,
                     'lang': 'portugol',
                     'line_number': 2,
@@ -877,6 +900,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'en',
                     'line_number': 3,
@@ -902,6 +926,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'en',
                     'line_number': 3,
@@ -927,6 +952,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': '1.1',
                     'lang': 'en',
                     'line_number': 3,
@@ -958,7 +984,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article id other validation",
+                "title": 'article-id (@pub-id-type="other")',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -969,7 +995,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "response": "OK",
                 "expected_value": "123",
                 "got_value": "123",
-                'message': 'Got 123, expected 123',
+                'message': 'Got 123, expected numerical value from 1 to 99999',
                 "advice": None,
                 'data': {
                     'other': '123',
@@ -999,7 +1025,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article id other validation",
+                "title": 'article-id (@pub-id-type="other")',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -1008,10 +1034,10 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@pub-id-type="other"',
                 "validation_type": "format",
                 "response": "ERROR",
-                'expected_value': 'a numeric value with up to five digits',
+                'expected_value': 'numerical value from 1 to 99999',
                 "got_value": "x23",
-                'message': 'Got x23, expected a numeric value with up to five digits',
-                "advice": 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+                'message': 'Got x23, expected numerical value from 1 to 99999',
+                "advice": 'Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
                 'data': {
                     'other': 'x23',
                     'v2': 'S0104-11692020000100303',
@@ -1040,7 +1066,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article id other validation",
+                "title": 'article-id (@pub-id-type="other")',
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -1049,10 +1075,10 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@pub-id-type="other"',
                 "validation_type": "format",
                 "response": "ERROR",
-                "expected_value": "a numeric value with up to five digits",
+                "expected_value": 'numerical value from 1 to 99999',
                 "got_value": "123456",
-                'message': 'Got 123456, expected a numeric value with up to five digits',
-                "advice": 'Provide a numeric value for <article-id pub-id-type="other"> with up to five digits',
+                'message': 'Got 123456, expected numerical value from 1 to 99999',
+                "advice": 'Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
                 'data': {
                     'other': '123456',
                     'v2': 'S0104-11692020000100303',
@@ -1082,7 +1108,7 @@ class ArticleAndSubarticlesTest(TestCase):
 
         expected = [
             {
-                "title": "Article element dtd-version attribute validation",
+                "title": "article/@dtd-version",
                 'parent': 'article',
                 'parent_id': None,
                 'parent_article_type': 'research-article',
@@ -1091,13 +1117,14 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@dtd-version',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": ["1.1", "1.2", "1.3"],
+                "expected_value": "one of ['1.1', '1.2', '1.3']",
                 "got_value": None,
-                'message': "Got None, expected ['1.1', '1.2', '1.3']",
-                'advice': 'XML research-article has None as dtd-version, expected one item of this list: 1.1 | 1.2 | 1.3',
+                'message': "Got None, expected one of ['1.1', '1.2', '1.3']",
+                'advice': "Provide for article/@dtd-version one of ['1.1', '1.2', '1.3']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
+                    'parent_name': 'article',
                     'dtd_version': None,
                     'lang': 'portugol',
                     'line_number': 2,
