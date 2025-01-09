@@ -1,8 +1,8 @@
 from unittest import TestCase
+from lxml import etree
 
 from packtools.sps.utils import xml_utils
-
-from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles, Fulltext
 
 
 class ArticleAndSubarticlesTest(TestCase):
@@ -142,3 +142,199 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertListEqual(expected, obtained)
 
+
+class TestFulltext(unittest.TestCase):
+    def setUp(self):
+        """
+        Configura o XML básico para os testes
+        """
+        self.xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:xml="http://www.w3.org/XML/1998/namespace"
+                article-type="research-article"
+                xml:lang="en"
+                id="123">
+            <front>
+                <article-meta/>
+            </front>
+            <body>
+                <sec/>
+            </body>
+            <back>
+                <ref-list/>
+            </back>
+        </article>'''
+        self.node = etree.fromstring(self.xml)
+        self.fulltext = Fulltext(self.node)
+
+    def test_init(self):
+        """Testa inicialização básica"""
+        self.assertEqual(self.fulltext.tag, "article")
+        self.assertEqual(self.fulltext.article_type, "research-article")
+        self.assertEqual(self.fulltext.lang, "en")
+        self.assertEqual(self.fulltext.id, "123")
+
+    def test_front_article(self):
+        """Testa propriedade front para article"""
+        self.assertIsNotNone(self.fulltext.front)
+        self.assertEqual(self.fulltext.front.tag, "front")
+
+    def test_front_sub_article(self):
+        """Testa propriedade front para sub-article"""
+        xml_sub = '''<?xml version='1.0' encoding='utf-8'?>
+        <sub-article article-type="translation" xml:lang="pt" id="s1">
+            <front-stub>
+                <article-meta/>
+            </front-stub>
+        </sub-article>'''
+        node_sub = etree.fromstring(xml_sub)
+        fulltext_sub = Fulltext(node_sub)
+        
+        self.assertIsNotNone(fulltext_sub.front)
+        self.assertEqual(fulltext_sub.front.tag, "front-stub")
+
+    def test_body(self):
+        """Testa propriedade body"""
+        self.assertIsNotNone(self.fulltext.body)
+        self.assertEqual(self.fulltext.body.tag, "body")
+
+    def test_back(self):
+        """Testa propriedade back"""
+        self.assertIsNotNone(self.fulltext.back)
+        self.assertEqual(self.fulltext.back.tag, "back")
+
+    def test_sub_articles(self):
+        """Testa propriedade sub_articles"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article>
+            <front/>
+            <sub-article article-type="translation" xml:lang="es" id="s1">
+                <front-stub/>
+            </sub-article>
+            <sub-article article-type="other" xml:lang="fr" id="s2">
+                <front-stub/>
+            </sub-article>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        
+        self.assertEqual(len(fulltext.sub_articles), 2)
+        self.assertEqual(fulltext.sub_articles[0].tag, "sub-article")
+        self.assertEqual(fulltext.sub_articles[1].tag, "sub-article")
+
+    def test_translations(self):
+        """Testa propriedade translations"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article>
+            <front/>
+            <sub-article article-type="translation" xml:lang="es" id="s1">
+                <front-stub/>
+            </sub-article>
+            <sub-article article-type="other" xml:lang="fr" id="s2">
+                <front-stub/>
+            </sub-article>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        
+        self.assertEqual(len(fulltext.translations), 1)
+        self.assertEqual(fulltext.translations[0].get("article-type"), "translation")
+        self.assertEqual(fulltext.translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "es")
+
+    def test_not_translations(self):
+        """Testa propriedade not_translations"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article>
+            <front/>
+            <sub-article article-type="translation" xml:lang="es" id="s1">
+                <front-stub/>
+            </sub-article>
+            <sub-article article-type="other" xml:lang="fr" id="s2">
+                <front-stub/>
+            </sub-article>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        
+        self.assertEqual(len(fulltext.not_translations), 1)
+        self.assertEqual(fulltext.not_translations[0].get("article-type"), "other")
+        self.assertEqual(fulltext.not_translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "fr")
+
+    def test_attribs(self):
+        """Testa propriedade attribs"""
+        expected = {
+            "tag": "article",
+            "id": "123",
+            "lang": "en",
+            "article_type": "research-article",
+        }
+        self.assertEqual(self.fulltext.attribs, expected)
+
+    def test_attribs_parent_prefixed(self):
+        """Testa propriedade attribs_parent_prefixed"""
+        expected = {
+            "parent": "article",
+            "parent_id": "123",
+            "parent_lang": "en",
+            "parent_article_type": "research-article",
+        }
+        self.assertEqual(self.fulltext.attribs_parent_prefixed, expected)
+
+    def test_fulltexts(self):
+        """Testa propriedade fulltexts"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article article-type="research-article" xml:lang="en" id="123">
+            <front/>
+            <sub-article article-type="translation" xml:lang="es" id="s1">
+                <front-stub/>
+            </sub-article>
+            <sub-article article-type="other" xml:lang="fr" id="s2">
+                <front-stub/>
+            </sub-article>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        data = fulltext.fulltexts
+        
+        # Verifica estrutura básica
+        self.assertIn("attribs", data)
+        self.assertIn("attribs_parent_prefixed", data)
+        self.assertIn("translations", data)
+        self.assertIn("not_translations", data)
+        self.assertIn("sub_articles", data)
+        
+        # Verifica conteúdo
+        self.assertEqual(len(data["translations"]), 1)
+        self.assertEqual(len(data["not_translations"]), 1)
+        self.assertEqual(len(data["sub_articles"]), 2)
+        
+        # Verifica se as traduções são instâncias de Fulltext
+        self.assertIsInstance(data["translations"][0], Fulltext)
+        self.assertIsInstance(data["not_translations"][0], Fulltext)
+        self.assertIsInstance(data["sub_articles"][0], Fulltext)
+
+    def test_missing_optional_attributes(self):
+        """Testa inicialização com atributos opcionais ausentes"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article>
+            <front/>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        
+        self.assertIsNone(fulltext.lang)
+        self.assertIsNone(fulltext.article_type)
+        self.assertIsNone(fulltext.id)
+
+    def test_empty_sections(self):
+        """Testa artigo sem seções body e back"""
+        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        <article>
+            <front/>
+        </article>'''
+        node = etree.fromstring(xml)
+        fulltext = Fulltext(node)
+        
+        self.assertIsNotNone(fulltext.front)
+        self.assertIsNone(fulltext.body)
+        self.assertIsNone(fulltext.back)
