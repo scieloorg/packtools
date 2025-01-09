@@ -107,22 +107,56 @@ def sort_by_reference_list(publication_events, standard_publication_order):
 
 
 class ArticleDatesValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, params=None):
+        """Initialize ArticleDatesValidation with XML tree and parameters.
+
+        Args:
+            xmltree: XML tree containing the article
+            params: Dictionary containing validation parameters:
+                - order: List defining standard event order
+                - required_events: List of required event types
+                - error_level: Error level for validation messages
+        """
         self.history = HistoryDates(xmltree)
         self.article = ArticleAndSubArticles(xmltree)
+        self.params = params or {
+            "order": ["received", "accepted"],
+            "required_events": ["received", "accepted"],
+            "error_level": "ERROR",
+        }
 
-    def validate_history_dates(self, order, required_events, error_level=None):
-        error_level = error_level or "ERROR"
-        obtained_events = []
+    def validate_history_dates(self):
+        """Validate both date formats and event order in history.
 
-        # obtem os nomes dos eventos e suas respectivas datas
+        Combines the validation of date formats and event order into
+        a single validation process.
+
+        Yields:
+            dict: All validation responses for history dates
+        """
+        # Validate date formats
+        yield from self.validate_history_date_formats()
+
+        # Validate event order
+        yield from self.validate_history_events_order()
+
+    def validate_history_date_formats(self):
+        """Validate the format of each date in the article history.
+
+        Checks if each date in the history is complete and valid according to
+        the expected format (year, month, day).
+
+        Yields:
+            dict: Validation response for each date's format
+        """
+        error_level = self.params["error_level"]
+
         for item in self.history.history_dates():
             for event_type, event_date in item.get("history").items():
-                # verifica se a data é válida
                 is_valid, expected, obtained, message, advice = _date_is_complete(
                     event_date, event_type
                 )
-                # resposta para data inválida
+
                 if not is_valid:
                     yield format_response(
                         title="History date validation",
@@ -140,32 +174,46 @@ class ArticleDatesValidation:
                         data=item,
                         error_level=error_level,
                     )
-                else:
-                    # as tuplas (nome do evento, data válida) são introduzidas na lista obtained_events
+
+    def validate_history_events_order(self):
+        """Validate the chronological order and completeness of history events.
+
+        Checks if history events are in the correct chronological order,
+        all required events are present, and no unknown events exist.
+
+        Yields:
+            dict: Validation response for event order and completeness
+        """
+        error_level = self.params["error_level"]
+        order = self.params["order"]
+        required_events = self.params["required_events"]
+
+        for item in self.history.history_dates():
+            obtained_events = []
+
+            # Collect valid events and their dates
+            for event_type, event_date in item.get("history").items():
+                is_valid, _, obtained, _, _ = _date_is_complete(event_date, event_type)
+                if is_valid:
                     obtained_events.append((event_type, obtained))
 
-            # ordena a lista de eventos de forma cronológica
+            # Sort events chronologically
             ordered_by_date = [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
-
-            # obtem uma lista com os nomes dos eventos ordenados
             ordered_by_event = [event[0] for event in ordered_by_date]
 
-            # obtem uma lista ordenada pelo padrão (order) de eventos requeridos que não foram identificados
+            # Check for missing and unknown events
             missing_events = sort_by_reference_list(
                 list(set(required_events) - set(ordered_by_event)), order
             )
-
-            # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
             unknown_events = sorted(list(set(ordered_by_event) - set(order)))
 
-            # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
+            # Validate order and completeness
             is_ordered = is_subsequence_in_order(ordered_by_event, order)
             is_complete = missing_events == []
             are_all_known = unknown_events == []
             is_valid = is_ordered and is_complete and are_all_known
 
-            # prepara o conteúdo de expected que é composto por uma lista com a união dos eventos obtidos e requeridos
-            # ordenados pelo padrão
+            # Prepare expected event list
             expected = sort_by_reference_list(
                 list(
                     (set(ordered_by_event) | set(required_events)) - set(unknown_events)
@@ -173,7 +221,7 @@ class ArticleDatesValidation:
                 order,
             )
 
-            # prepara o conteúdo de advice
+            # Prepare advice based on validation results
             advice = "Provide:"
             if not is_ordered:
                 advice += f" the dates of {expected} in chronological order;"
