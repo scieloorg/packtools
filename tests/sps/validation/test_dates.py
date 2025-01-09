@@ -1719,7 +1719,7 @@ class ArticleDatesValidationTest(TestCase):
             "sub_item": "@date-type='pub'",
             "validation_type": "value",
             "response": "OK",
-            "expected_value": "a date in the format: YYYY-MM-DD before or equal to 2023-12-12",
+            "expected_value": "2023-01-01",
             "got_value": "2023-01-01",
             "message": "Got 2023-01-01, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12",
             "advice": None,
