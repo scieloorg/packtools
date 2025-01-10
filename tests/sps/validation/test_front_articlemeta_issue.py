@@ -1,13 +1,16 @@
 from unittest import TestCase
 from lxml import etree
 
-from packtools.sps.validation.front_articlemeta_issue import IssueValidation, Pagination
+from packtools.sps.validation.front_articlemeta_issue import (
+    IssueValidation,
+    PaginationValidation,
+)
 
 
 class IssueTest(TestCase):
     def test_volume_matches(self):
-        xmltree = etree.fromstring(
-            '''
+        xml_tree = etree.fromstring(
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -16,33 +19,38 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'volume',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': '56',
-                'got_value': '56',
-                'message': 'Got 56, expected 56',
-                'advice': None,
-                'data': {'number': '4', 'volume': '56'}
-            }
-        ]
-        obtained = list(IssueValidation(xmltree).validate_volume('56'))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        expected = {
+            "title": "volume",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "volume",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "56",
+            "got_value": "56",
+            "advice": None,
+            "message": "Got 56, expected 56",
+            "data": {"volume": "56", "number": "4"},
+        }
+
+        validator = IssueValidation(
+            xml_tree, params={"volume_format_error_level": "INFO"}
+        )
+
+        obtained = validator.validate_volume_format("INFO")
+
+        self.assertDictEqual(obtained, expected)
 
     def test_volume_no_matches(self):
-        xmltree = etree.fromstring(
-            '''
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -51,33 +59,37 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'volume',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': '56',
-                'got_value': ' 56 ',
-                'message': 'Got  56 , expected 56',
-                'advice': 'provide 56 as value for volume',
-                'data': {'number': '4', 'volume': ' 56 '}
-            }
-        ]
-        obtained = list(IssueValidation(xmltree).validate_volume('56'))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        expected = {
+            "title": "volume",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "ERROR",
+            "item": "volume",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "alphanumeric value",
+            "got_value": " 56 ",
+            "advice": "Consulte SPS documentation to complete volume element",
+            "message": "Got  56 , expected alphanumeric value",
+            "data": {"volume": " 56 ", "number": "4"},
+        }
+
+        validator = IssueValidation(
+            xml_tree, params={"volume_format_error_level": "ERROR"}
+        )
+
+        obtained = validator.validate_volume_format("ERROR")
+
+        self.assertDictEqual(obtained, expected)
 
     def test_volume_there_is_tag_there_is_no_value(self):
-        xmltree = etree.fromstring(
-            '''
+        xml_tree = etree.fromstring(
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -86,33 +98,20 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'volume',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': None,
-                'got_value': '',
-                'message': 'Got , expected None',
-                'advice': 'provide None as value for volume',
-                'data': {'number': '4'}
-            }
-        ]
-        obtained = list(IssueValidation(xmltree).validate_volume())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"volume_format_error_level": "ERROR"}
+        )
+
+        obtained = validator.validate_volume_format("ERROR")
+
+        self.assertIsNone(obtained)
 
     def test_volume_there_is_no_tag_there_is_no_value(self):
-        xmltree = etree.fromstring(
-            '''
+        xml_tree = etree.fromstring(
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -120,29 +119,16 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'volume',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': None,
-                'got_value': None,
-                'message': 'Got None, expected None',
-                'advice': None,
-                'data': {'number': '4'}
-            }
-        ]
-        obtained = list(IssueValidation(xmltree).validate_volume())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"volume_format_error_level": "INFO"}
+        )
+
+        obtained = validator.validate_volume_format("INFO")
+
+        self.assertIsNone(obtained)
 
     def test_validate_article_issue_without_value(self):
         self.maxDiff = None
@@ -158,27 +144,13 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'an identifier for the publication issue',
-                'got_value': None,
-                'message': 'Got None, expected an identifier for the publication issue',
-                'advice': 'Provide an identifier for the publication issue',
-                'data': {'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        obtained = validator.validate_number_format("WARNING")
+
+        self.assertIsNone(obtained)
 
     def test_validate_article_issue_out_of_pattern_value(self):
         self.maxDiff = None
@@ -194,27 +166,30 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "number",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "number",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "vol4",
+            "got_value": "vol4",
+            "message": "Got vol4, expected vol4",
+            "advice": None,
+            "data": {"number": "vol4"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a alphanumeric value that does not contain space or dot',
-                'got_value': 'vol 4',
-                'message': 'Got vol 4, expected a alphanumeric value that does not contain space or dot',
-                'advice': 'Provide a valid alphanumeric value',
-                'data': {'number': 'vol4'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
+
+        obtained = validator.validate_number_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_validate_article_issue_number_success(self):
         self.maxDiff = None
@@ -231,27 +206,30 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "number",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "number",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "4",
+            "got_value": "4",
+            "message": "Got 4, expected 4",
+            "advice": None,
+            "data": {"number": "4", "volume": "56"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '4',
-                'got_value': '4',
-                'message': 'Got 4, expected 4',
-                'advice': None,
-                'data': {'number': '4', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
+
+        obtained = validator.validate_number_format("WARNING")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_validate_article_issue_number_there_is_tag_there_is_no_value(self):
         self.maxDiff = None
@@ -268,27 +246,13 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'an identifier for the publication issue',
-                'got_value': '',
-                'message': 'Got , expected an identifier for the publication issue',
-                'advice': 'Provide an identifier for the publication issue',
-                'data': {'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        obtained = validator.validate_number_format("WARNING")
+
+        self.assertIsNone(obtained)
 
     def test_validate_article_issue_number_there_is_no_tag_there_is_no_value(self):
         self.maxDiff = None
@@ -304,29 +268,15 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'exist',
-                'response': 'WARNING',
-                'expected_value': 'an identifier for the publication issue',
-                'got_value': None,
-                'message': 'Got None, expected an identifier for the publication issue',
-                'advice': 'Provide an identifier for the publication issue',
-                'data': {'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        obtained = validator.validate_number_format("WARNING")
 
-    def test_validate_article_issue_number_fail_start_with_zero(self):
+        self.assertIsNone(obtained)
+
+    def test_validate_article_issue_number_start_with_zero(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -341,29 +291,32 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "number",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "ERROR",
+            "item": "number",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "4",
+            "got_value": "04",
+            "message": "Got 04, expected 4",
+            "advice": "Consulte SPS documentation to complete issue element",
+            "data": {"number": "04", "volume": "56"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a numeric value that does not start with zero',
-                'got_value': '04',
-                'message': 'Got 04, expected a numeric value that does not start with zero',
-                'advice': 'Provide a valid numeric value',
-                'data': {'number': '04', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
 
-    def test_validate_article_issue_number_success_value_is_not_numeric(self):
+        obtained = validator.validate_number_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_number_value_is_not_numeric(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -378,29 +331,32 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "number",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "number",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "4a",
+            "got_value": "4a",
+            "message": "Got 4a, expected 4a",
+            "advice": None,
+            "data": {"number": "4a", "volume": "56"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '4a',
-                'got_value': '4a',
-                'message': 'Got 4a, expected 4a',
-                'advice': None,
-                'data': {'number': '4a', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-    def test_validate_article_issue_special_number_success(self):
+        obtained = validator.validate_number_format("WARNING")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_special_number(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -408,73 +364,39 @@ class IssueTest(TestCase):
                 <front>
                     <article-meta>
                         <volume>56</volume>
-                        <issue>spe1</issue>
+                        <issue>spa 1</issue>
                     </article-meta>
                 </front>
             </article>
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "WARNING",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["suppl 1", "spe 1"],
+            "got_value": {"type": "spa", "type_valid_format": False, "type_value": "1"},
+            "message": "Got {'type_value': '1', 'type': 'spa', 'type_valid_format': False}, expected ['suppl 1', 'spe 1']",
+            "advice": "Consulte SPS documentation to complete issue element",
+            "data": {"issue": "spa 1"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': 'spe1',
-                'got_value': 'spe1',
-                'message': 'Got spe1, expected spe1',
-                'advice': None,
-                'data': {'number': 'spe1', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_article_issue_special_number_success_without_value(self):
-        self.maxDiff = None
-        xml_tree = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <volume>56</volume>
-                        <issue>spe</issue>
-                    </article-meta>
-                </front>
-            </article>
-            """
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        obtained = validator.validate_issue_format("WARNING")
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': 'spe',
-                'got_value': 'spe',
-                'message': 'Got spe, expected spe',
-                'advice': None,
-                'data': {'number': 'spe', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        self.assertDictEqual(expected, obtained)
 
-    def test_validate_article_issue_special_number_fail_with_dot(self):
+    def test_validate_article_issue_special_number_with_dot(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -489,29 +411,15 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'speX where X is a valid alphanumeric value or None',
-                'got_value': 'spe.1',
-                'message': 'Got spe.1, expected speX where X is a valid alphanumeric value or None',
-                'advice': 'Provide a valid value to special number',
-                'data': {'number': 'spe1', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        obtained = validator.validate_issue_format("ERROR")
 
-    def test_validate_article_issue_special_number_fail_with_space(self):
+        self.assertIsNone(obtained)
+
+    def test_validate_article_issue_special_number_with_space(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -526,29 +434,32 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["spe 1"],
+            "got_value": {"type": "spe", "type_valid_format": True, "type_value": "1"},
+            "message": "Got {'type_value': '1', 'type': 'spe', 'type_valid_format': True}, expected ['spe 1']",
+            "advice": None,
+            "data": {"issue": " spe 1"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'speX where X is a valid alphanumeric value or None',
-                'got_value': ' spe 1',
-                'message': 'Got  spe 1, expected speX where X is a valid alphanumeric value or None',
-                'advice': 'Provide a valid value to special number',
-                'data': {'number': 'spe1', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
 
-    def test_validate_article_issue_volume_supplement_success(self):
+        obtained = validator.validate_issue_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_supplement(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -563,29 +474,36 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["suppl 1"],
+            "got_value": {
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "1",
+            },
+            "message": "Got {'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 1']",
+            "advice": None,
+            "data": {"issue": "suppl 1"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': 'suppl 1',
-                'got_value': 'suppl 1',
-                'message': 'Got suppl 1, expected suppl 1',
-                'advice': None,
-                'data': {'suppl': '1', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-    def test_validate_article_issue_volume_supplement_fail_with_dot(self):
+        obtained = validator.validate_issue_format("WARNING")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_supplement_with_dot(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -600,29 +518,36 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["suppl a."],
+            "got_value": {
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "a.",
+            },
+            "message": "Got {'type_value': 'a.', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl a.']",
+            "advice": None,
+            "data": {"issue": "suppl a."},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
-                'got_value': 'suppl a.',
-                'message': 'Got suppl a., expected X suppl Y where X and Y are alphanumeric value',
-                'advice': 'Provide a valid value to supplement',
-                'data': {'suppl': 'a', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
 
-    def test_validate_article_issue_volume_supplement_fail_number_starts_with_zero(self):
+        obtained = validator.validate_issue_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_supplement_number_starts_with_zero(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -637,29 +562,36 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["suppl 04"],
+            "got_value": {
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "04",
+            },
+            "message": "Got {'type_value': '04', 'type': 'suppl', 'type_valid_format': True}, expected ['suppl 04']",
+            "advice": None,
+            "data": {"issue": "suppl 04"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
-                'got_value': 'suppl 04',
-                'message': 'Got suppl 04, expected X suppl Y where X and Y are alphanumeric value',
-                'advice': 'Provide a valid value to supplement',
-                'data': {'suppl': '04', 'volume': '56'}
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
 
-    def test_validate_article_issue_number_supplement_success(self):
+        obtained = validator.validate_issue_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_number_supplement(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -674,29 +606,37 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["4 suppl 1"],
+            "got_value": {
+                "number": "4",
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "1",
+            },
+            "message": "Got {'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 1']",
+            "advice": None,
+            "data": {"issue": "4 suppl 1"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '4 suppl 1',
-                'got_value': '4 suppl 1',
-                'message': 'Got 4 suppl 1, expected 4 suppl 1',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '1', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "WARNING"}
+        )
 
-    def test_validate_article_issue_number_supplement_fail_with_dot_and_space(self):
+        obtained = validator.validate_issue_format("WARNING")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validate_article_issue_number_supplement_with_dot_and_space(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             """
@@ -711,32 +651,40 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_article_issue('WARNING'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["a suppl b."],
+            "got_value": {
+                "number": "a",
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "b.",
+            },
+            "message": "Got {'number': 'a', 'type_value': 'b.', 'type': 'suppl', 'type_valid_format': True}, expected ['a suppl b.']",
+            "advice": None,
+            "data": {"issue": " a suppl b."},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'X suppl Y where X and Y are alphanumeric value',
-                'got_value': ' a suppl b.',
-                'message': 'Got  a suppl b., expected X suppl Y where X and Y are alphanumeric value',
-                'advice': 'Provide a valid value to supplement',
-                'data': {'number': 'a', 'suppl': 'b', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"issue_format_error_level": "ERROR"}
+        )
+
+        obtained = validator.validate_issue_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_suppl_matches(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
-            '''
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -746,35 +694,38 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_supplement('2'))
+        expected = {
+            "title": "supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "supplement",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "2",
+            "got_value": "2",
+            "message": "Got 2, expected 2",
+            "advice": None,
+            "data": {"number": "4", "suppl": "2", "volume": "56"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2',
-                'got_value': '2',
-                'message': 'Got 2, expected 2',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '2', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"supplement_format_error_level": "INFO"}
+        )
+
+        obtained = validator.validate_supplement_format("INFO")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_suppl_no_matches(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
-            '''
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -784,35 +735,38 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_supplement('2'))
+        expected = {
+            "title": "supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "supplement",
+            "sub_item": None,
+            "validation_type": "format",
+            "expected_value": "2b",
+            "got_value": "2b",
+            "message": "Got 2b, expected 2b",
+            "advice": None,
+            "data": {"number": "4", "suppl": "2b", "volume": "56"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': '2',
-                'got_value': '2b',
-                'message': 'Got 2b, expected 2',
-                'advice': 'provide 2 as value for supplement',
-                'data': {'number': '4', 'suppl': '2b', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"supplement_format_error_level": "ERROR"}
+        )
+
+        obtained = validator.validate_supplement_format("ERROR")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_suppl_implicit(self):
-        self.maxDiff = None
+        self.maxDiff = None  # Permite exibir diferenças detalhadas em caso de falha
         xml_tree = etree.fromstring(
-            '''
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -821,35 +775,43 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_supplement('2'))
+        expected = {
+            "title": "special or supplement",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "response": "OK",
+            "item": "issue",
+            "sub_item": "special or supplement",
+            "validation_type": "format",
+            "expected_value": ["4 suppl 2"],
+            "got_value": {
+                "number": "4",
+                "type": "suppl",
+                "type_valid_format": True,
+                "type_value": "2",
+            },
+            "message": "Got {'number': '4', 'type_value': '2', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 2']",
+            "advice": None,
+            "data": {"issue": "4 suppl 2"},
+        }
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2',
-                'got_value': '2',
-                'message': 'Got 2, expected 2',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '2', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        validator = IssueValidation(
+            xml_tree, params={"supplement_format_error_level": "INFO"}
+        )
+
+        obtained = validator.validate_issue_format("INFO")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_suppl_without_suppl(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
-            '''
+            """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -858,30 +820,16 @@ class IssueTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
+            """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate_supplement())
+        validator = IssueValidation(
+            xml_tree, params={"supplement_format_error_level": "INFO"}
+        )
 
-        expected = [
-            {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': None,
-                'got_value': None,
-                'message': 'Got None, expected None',
-                'advice': None,
-                'data': {'number': '4', 'volume': '56'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        obtained = validator.validate_supplement_format("INFO")
+
+        self.assertIsNone(obtained)
 
     def test_validate_article_issue(self):
         self.maxDiff = None
@@ -898,140 +846,189 @@ class IssueTest(TestCase):
             """
         )
 
-        obtained = list(IssueValidation(xml_tree).validate(
-            data={
-                'expected_value_volume': '56',
-                'response_type_for_absent_issue': 'WARNING',
-                'expected_value_supplement': '1'
-            }
-        ))
-
         expected = [
             {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'volume',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': '56',
-                'got_value': '56',
-                'message': 'Got 56, expected 56',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '1', 'volume': '56'},
+                "title": "volume",
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "item": "volume",
+                "sub_item": None,
+                "validation_type": "format",
+                "expected_value": "56",
+                "got_value": "56",
+                "message": "Got 56, expected 56",
+                "advice": None,
+                "data": {"number": "4", "suppl": "1", "volume": "56"},
             },
             {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'issue',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '4 suppl 1',
-                'got_value': '4 suppl 1',
-                'message': 'Got 4 suppl 1, expected 4 suppl 1',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '1', 'volume': '56'},
+                "title": "number",
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "item": "number",
+                "sub_item": None,
+                "validation_type": "format",
+                "expected_value": "4",
+                "got_value": "4",
+                "message": "Got 4, expected 4",
+                "advice": None,
+                "data": {"number": "4", "suppl": "1", "volume": "56"},
             },
             {
-                'title': 'Article-meta issue element validation',
-                'parent': 'article-meta',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'supplement',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '1',
-                'got_value': '1',
-                'message': 'Got 1, expected 1',
-                'advice': None,
-                'data': {'number': '4', 'suppl': '1', 'volume': '56'},
-            }
+                "title": "supplement",
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "item": "supplement",
+                "sub_item": None,
+                "validation_type": "format",
+                "expected_value": "1",
+                "got_value": "1",
+                "message": "Got 1, expected 1",
+                "advice": None,
+                "data": {"number": "4", "suppl": "1", "volume": "56"},
+            },
+            {
+                "title": "special or supplement",
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "item": "issue",
+                "sub_item": "special or supplement",
+                "validation_type": "format",
+                "expected_value": ["4 suppl 1"],
+                "got_value": {
+                    "number": "4",
+                    "type": "suppl",
+                    "type_valid_format": True,
+                    "type_value": "1",
+                },
+                "message": "Got {'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 1']",
+                "advice": None,
+                "data": {"issue": "4 suppl 1"},
+            },
+            {
+                "title": "registered issue",
+                "parent": "article",
+                "parent_article_type": None,
+                "parent_id": None,
+                "parent_lang": None,
+                "response": "OK",
+                "item": "volume, number, supplement",
+                "sub_item": None,
+                "validation_type": "value in list",
+                "expected_value": [{"volume": "56", "number": "4", "supplement": "1"}],
+                "got_value": {"volume": "56", "number": "4", "supplement": "1"},
+                "message": "Got {'volume': '56', 'number': '4', 'supplement': '1'}, expected [{'volume': '56', 'number': '4', 'supplement': '1'}]",
+                "advice": None,
+                "data": {"issue": {"volume": "56", "number": "4", "supplement": "1"}},
+            },
         ]
+
+        validator = IssueValidation(
+            xml_tree,
+            params={
+                "volume_format_error_level": "INFO",
+                "issue_format_error_level": "INFO",
+                "supplement_format_error_level": "INFO",
+                "number_format_error_level": "INFO",
+                "expected_issues_error_level": "INFO",
+                "journal_data": {
+                    "issues": [{"volume": "56", "number": "4", "supplement": "1"}]
+                },
+            },
+        )
+
+        obtained = list(validator.validate())
+
+        self.assertEqual(len(obtained), len(expected))
+
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertDictEqual(obtained[i], item)
 
 
 class PaginationTest(TestCase):
-    def test_validation_pages_success(self):
+    def test_validation_pages(self):
         self.maxDiff = None
-        xml = (
-            '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
-                        <fpage>220</fpage>
-                        <lpage>240</lpage>
+                        <volume>56</volume>
                     </article-meta>
                 </front>
             </article>
-            '''
-        )
-        xmltree = etree.fromstring(xml)
+            """
+        xml_tree = etree.fromstring(xml)
 
-        expected = [
-            {
-                'title': 'Pagination validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'e-location, fpage, lpage',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'e-location OR fpage + lpage',
-                'got_value': 'elocation-id: None, fpage: 220, lpage: 240',
-                'message': 'Got elocation-id: None, fpage: 220, lpage: 240, expected e-location OR fpage + lpage',
-                'advice': None,
-                'data': {'fpage': '220', 'lpage': '240'},
-            }
-        ]
-        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        expected = {
+            "title": "Pagination",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "item": "elocation-id | fpage / lpage",
+            "sub_item": "elocation-id | fpage / lpage",
+            "validation_type": "match",
+            "response": "CRITICAL",
+            "expected_value": "elocation-id or fpage + lpage",
+            "got_value": "elocation-id: None, fpage: None, lpage: None",
+            "message": "Got elocation-id: None, fpage: None, lpage: None, expected elocation-id or fpage + lpage",
+            "advice": "Provide elocation-id or fpage + lpage",
+            "data": {"volume": "56"},
+        }
 
-    def test_validation_e_location_success(self):
+        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
+
+        self.assertDictEqual(expected, obtained)
+
+    def test_validation_e_location(self):
         self.maxDiff = None
-        xml = (
-            '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
-                        <elocation-id>e51467</elocation-id>
+                        <volume>56</volume>
                     </article-meta>
                 </front>
             </article>
-            '''
-        )
-        xmltree = etree.fromstring(xml)
-        expected = [
-            {
-                'title': 'Pagination validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'e-location, fpage, lpage',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': 'e-location OR fpage + lpage',
-                'got_value': 'elocation-id: e51467, fpage: None, lpage: None',
-                'message': 'Got elocation-id: e51467, fpage: None, lpage: None, expected e-location OR fpage + lpage',
-                'advice': None,
-                'data': {'elocation_id': 'e51467'},
-            }
-        ]
-        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+            """
+        xml_tree = etree.fromstring(xml)
+
+        expected = {
+            "title": "Pagination",
+            "parent": "article",
+            "parent_article_type": None,
+            "parent_id": None,
+            "parent_lang": None,
+            "item": "elocation-id | fpage / lpage",
+            "sub_item": "elocation-id | fpage / lpage",
+            "validation_type": "match",
+            "response": "CRITICAL",
+            "expected_value": "elocation-id or fpage + lpage",
+            "got_value": "elocation-id: None, fpage: None, lpage: None",
+            "message": "Got elocation-id: None, fpage: None, lpage: None, expected elocation-id or fpage + lpage",
+            "advice": "Provide elocation-id or fpage + lpage",
+            "data": {"volume": "56"},
+        }
+
+        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
+
+        self.assertDictEqual(expected, obtained)
 
     def test_validation_pages_and_e_location_exists_fail(self):
         self.maxDiff = None
-        xml = (
-            '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
                 <front>
                     <article-meta>
@@ -1041,64 +1038,10 @@ class PaginationTest(TestCase):
                     </article-meta>
                 </front>
             </article>
-            '''
-        )
+            """
 
-        xmltree = etree.fromstring(xml)
-        expected = [
-            {
-                'title': 'Pagination validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'e-location, fpage, lpage',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'e-location OR fpage + lpage',
-                'got_value': 'elocation-id: e51467, fpage: 220, lpage: 240',
-                'message': 'Got elocation-id: e51467, fpage: 220, lpage: 240, expected e-location OR fpage + lpage',
-                'advice': 'it is necessary to provide e-location OR fpage + lpage',
-                'data': {'elocation_id': 'e51467', 'fpage': '220', 'lpage': '240'},
-            }
-        ]
-        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        xml_tree = etree.fromstring(xml)
 
-    def test_validation_pages_and_e_location_not_exists_fail(self):
-        self.maxDiff = None
-        xml = (
-            '''
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <volume>4</volume>
-                        <issue>1</issue>
-                    </article-meta>
-                </front>
-            </article>
-            '''
-        )
+        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
 
-        xmltree = etree.fromstring(xml)
-        expected = [
-            {
-                'title': 'Pagination validation',
-                'parent': 'article',
-                'parent_id': None,
-                'item': 'article-meta',
-                'sub_item': 'e-location, fpage, lpage',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'e-location OR fpage + lpage',
-                'got_value': 'elocation-id: None, fpage: None, lpage: None',
-                'message': 'Got elocation-id: None, fpage: None, lpage: None, expected e-location OR fpage + lpage',
-                'advice': 'it is necessary to provide e-location OR fpage + lpage',
-                'data': {'number': '1', 'volume': '4'},
-            }
-        ]
-        obtained = list(Pagination(xmltree).validation_pagination_attributes_exist())
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertIsNone(obtained)
