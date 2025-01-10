@@ -16,7 +16,7 @@ from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.article_ids import ArticleIds
 
 
-def _extract_number_and_supplment_from_issue_element(issue):
+def extract_number_and_supplement_from_issue_element(issue):
     """
     Extrai do conteúdo de <issue>xxxx</issue>, os valores number e suppl.
     Valores possíveis
@@ -103,10 +103,28 @@ class ArticleMetaIssue:
         return self.xmltree.findtext(".//front/article-meta/issue")
 
     @property
+    def parsed_issue(self):
+        issue = self.issue
+        if not issue:
+            return {}
+        parts = issue.split()
+        if len(parts) == 1:
+            return {"number": parts[0]}
+        if len(parts) == 3:
+            return {"number": parts[0], "type_value": parts[-1], "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+        if len(parts) == 2:
+            if parts[0] in ("spe", "suppl"):
+                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+            elif parts[1] in ("spe", "suppl"):
+                return {"number": parts[0], "type_value": None, "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+            else:
+                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+
+    @property
     def number(self):
         _issue = self.issue
         if _issue:
-            n, s = _extract_number_and_supplment_from_issue_element(_issue)
+            n, s = extract_number_and_supplement_from_issue_element(_issue)
             return n
 
     @property
@@ -117,7 +135,7 @@ class ArticleMetaIssue:
             return _suppl.text
         _issue = self.issue
         if _issue:
-            n, s = _extract_number_and_supplment_from_issue_element(_issue)
+            n, s = extract_number_and_supplement_from_issue_element(_issue)
             return s
 
     @property
