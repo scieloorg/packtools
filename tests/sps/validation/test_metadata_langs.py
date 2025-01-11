@@ -1,7 +1,7 @@
 import unittest
 
 from packtools.sps.utils.xml_utils import get_xml_tree
-from packtools.sps.validation.article_lang import MetadataLanguagesValidation
+from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 
 
 class MetadataLanguagesValidationTest(unittest.TestCase):
