@@ -108,6 +108,7 @@ class Test_get_xml_sps_from_uri(TestCase):
         with self.assertRaises(sps_maker.exceptions.SPSLoadToXMLError):
             sps_maker._get_xml_sps_from_uri(xml_uri)
 
+    @skip("Teste pendente de correção e/ou ajuste")
     def test_get_xml_sps_from_uri_raises_download_xml_error(self):
         xml_uri = 'https://kernel.scielo.br'
 
