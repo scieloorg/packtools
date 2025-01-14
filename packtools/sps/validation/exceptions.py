@@ -1,3 +1,7 @@
+class MissingJournalDataException(Exception):
+    ...
+
+
 class ValidationArticleDataError(Exception):
     """ The root of Article data exceptions.
     """
