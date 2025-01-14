@@ -130,7 +130,7 @@ class ArticleAffiliations:
     def sub_article_translation_affs_by_lang(self):
         langs = {}
         for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = Affiliations(node).affiliations()
+            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = list(Affiliations(node).affiliations())
         return langs
 
     def sub_article_non_translation_affs(self):

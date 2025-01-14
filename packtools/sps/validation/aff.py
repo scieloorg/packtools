@@ -1,5 +1,3 @@
-import logging
-
 from packtools.sps.models.v2.aff import ArticleAffiliations
 from packtools.sps.validation.exceptions import (
     AffiliationCountryCodeListNotProvidedException,
@@ -89,7 +87,6 @@ class AffiliationsValidation:
         """
         if not self.translation_affs_by_lang:
             return
-
         article_list = self.main_affs
         article_count = len(article_list)
 
@@ -97,13 +94,12 @@ class AffiliationsValidation:
             sub_article_count = len(list(items))
             if article_count == sub_article_count:
                 continue
-
             affs = [
-                item.aff_id
+                item.get("id")
                 for item in self.main_affs
             ]
             trans_affs = [
-                item.aff_id
+                item.get("id")
                 for item in items
             ]
             yield format_response(

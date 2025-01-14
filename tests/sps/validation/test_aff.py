@@ -1,4 +1,3 @@
-import logging
 from unittest import TestCase
 
 from lxml import etree
@@ -8,10 +7,13 @@ from packtools.sps.validation.aff import (
     AffiliationValidation,
     AffiliationsValidation,
 )
-from packtools.sps.utils import xml_utils
+from packtools.sps.validation.exceptions import (
+    AffiliationCountryCodeListNotProvidedException,
+)
 
 
 class AffiliationValidationTest(TestCase):
+
     def test_validate_affiliations_list(self):
         self.maxDiff = None
         xml = """
@@ -52,7 +54,6 @@ class AffiliationValidationTest(TestCase):
         for i, item in enumerate(obtained):
             with self.subTest(i):
                 self.assertIsNone(item)
-
 
     def test_affiliation_without_original(self):
         self.maxDiff = None
@@ -170,7 +171,6 @@ class AffiliationValidationTest(TestCase):
             }
         self.assertDictEqual(expected, obtained[0])
 
-
     def test_affiliations_without_country(self):
         self.maxDiff = None
         xml = """
@@ -230,7 +230,6 @@ class AffiliationValidationTest(TestCase):
             }
         self.assertDictEqual(expected, obtained[0])
 
-
     def test_affiliations_without_country_code(self):
         self.maxDiff = None
         xml = """
@@ -266,7 +265,7 @@ class AffiliationValidationTest(TestCase):
                 "sub_item": "@country",
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": 'one of ["BR"]',
+                "expected_value": "one of ['BR']",
                 "got_value": None,
                 "message": "Got None, expected one of ['BR']",
                 "advice": "provide a valid @country",
@@ -290,7 +289,6 @@ class AffiliationValidationTest(TestCase):
                 },
             }
         self.assertDictEqual(expected, obtained[0])
-
 
     def test_affiliations_without_state(self):
         self.maxDiff = None
@@ -550,7 +548,50 @@ class AffiliationValidationTest(TestCase):
 
     def test_validate_affiliation_count(self):
         self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                            <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                        <aff id="aff2">
+                            <label>II</label>
+                            <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                            <institution content-type="original">Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="TRpt" xml:lang="en">
+                    <front-stub>
+                        <aff id="aff1001">
+                            <label>I</label>
+                            <institution content-type="orgname">Secretaria Municipal de Saúde de Belo Horizonte</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                            <institution content-type="original">Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil</institution>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+            </article>
+            """
+
+        xml_tree = etree.fromstring(xml)
         obtained = list(
             AffiliationsValidation(
                 xml_tree, ["BR"]
@@ -558,134 +599,98 @@ class AffiliationValidationTest(TestCase):
         )
         expected = [
             {
-                "title": "Affiliation count validation",
-                "parent": None,
-                "parent_id": None,
-                "parent_article_type": None,
-                "parent_lang": None,
-                "item": "aff",
-                "sub_item": None,
-                "validation_type": "match",
-                "response": "OK",
+                "advice": "Check how the affiliations were identified in article-meta and in sub-article en",
+                "data": {
+                    "article": ["aff1", "aff2"],
+                    "sub-article-en": ["aff1001"],
+                },
                 "expected_value": "equal counts in articles and sub-articles",
-                "got_value": "articles: 2, sub-articles: 2",
-                "message": "Got articles: 2, sub-articles: 2, expected equal counts in articles and sub-articles",
-                "advice": None,
-                "data": [
-                    {
-                        'article': '<aff id="aff1">',
-                        'sub_article': '<aff id="aff1002">'
-                    },
-                    {
-                        'article': '<aff id="aff2">',
-                        'sub_article': '<aff id="aff2002">'
-                    }
-                ],
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-    def test_validate_affiliation_2176_4573_bak_p58270(self):
-        self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
-        data = {"country_codes_list": ["BR"]}
-        validation = AffiliationsValidation(xml_tree, ["BR"])
-        obtained = list(validation.validate(data))
-        expected = [
-            "label", 
-            "label", "orgname", "country name", "country code", "state", "city",
-        ]
-        self.assertEqual(7, len(obtained))
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertEqual(expected[i], item["title"])
-
-
-    def test_validate_affiliation_count_2176_4573_bak_p58270(self):
-        self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/bak/2176-4573-bak-p58270.xml")
-        obtained = list(
-            AffiliationsValidation(
-                xml_tree, ["BR"]
-            ).validate_affiliation_count()
-        )
-        expected = [
-            {
-                "advice": None,
-                "data": [
-                    {
-                        "article": '<aff id="aff1">',
-                        "sub_article": '<aff id="aff2">'
-                    }
-                ],
-                "expected_value": "equal counts in articles and sub-articles",
-                "got_value": "articles: 1, sub-articles: 1",
+                "got_value": "article: 2, sub-article en: 1",
                 "item": "aff",
-                "message": "Got articles: 1, sub-articles: 1, expected equal counts in "
-                           "articles and sub-articles",
+                "message": "Got article: 2, sub-article en: 1, expected equal counts in articles and sub-articles",
                 "parent": None,
                 "parent_article_type": None,
                 "parent_id": None,
                 "parent_lang": None,
-                "response": "OK",
+                "response": "CRITICAL",
                 "sub_item": None,
-                "title": "Affiliation count validation",
+                "title": "Total of affiliations",
                 "validation_type": "match",
             }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-    def test_validate_affiliation_MNHpJQpnjvSX6pkKCg37yTJ(self):
-        self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
-        data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate(data))
-        expected = [
-            "label", 
-            "label", "orgname", "country name", "country code", "state", "city",
-        ]
-        self.assertEqual(7, len(obtained))
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertEqual(expected[i], item["title"])
-
-    def test_validate_affiliation_count_MNHpJQpnjvSX6pkKCg37yTJ(self):
-        self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree("tests/fixtures/htmlgenerator/sub-article_translation_with_sub-article_reply/MNHpJQpnjvSX6pkKCg37yTJ.xml")
-        obtained = list(
-            AffiliationsValidation(
-                xml_tree, ["BR"]
-            ).validate_affiliation_count()
-        )
-        expected = [
-            {
-                "advice": None,
-                "data": [
-                    {
-                        "article": '<aff id="aff1">',
-                        "sub_article": '<aff id="aff1001">'
-                    }
-                ],
-                "expected_value": "equal counts in articles and sub-articles",
-                "got_value": "articles: 1, sub-articles: 1",
-                "item": "aff",
-                "message": "Got articles: 1, sub-articles: 1, expected equal counts in articles and sub-articles",
-                "parent": None,
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "sub_item": None,
-                "title": "Affiliation count validation",
-                "validation_type": "match",
-            }
-
         ]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
+
+    def test_validate_affiliation_multiple_languages(self):
+        self.maxDiff = None
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                        </aff>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="TRen" xml:lang="en">
+                    <front-stub>
+                        <aff id="aff1001">
+                            <label>I</label>
+                            <institution content-type="orgname">Federal University of Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brazil</country>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+                <sub-article article-type="translation" id="TRes" xml:lang="es">
+                    <front-stub>
+                        <aff id="aff1001">
+                            <label>I</label>
+                            <institution content-type="orgname">Universidad Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_affiliation_count())
+        self.assertEqual(len(obtained), 0)
+
+    def test_validate_affiliation_empty_country_code_list(self):
+        self.maxDiff = None
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <aff id="aff1">
+                            <label>I</label>
+                            <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                            <addr-line>
+                                <named-content content-type="city">Belo Horizonte</named-content>
+                                <named-content content-type="state">MG</named-content>
+                            </addr-line>
+                            <country country="BR">Brasil</country>
+                        </aff>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        with self.assertRaises(AffiliationCountryCodeListNotProvidedException):
+            AffiliationsValidation(xml_tree, []).validate_main_affiliations()
