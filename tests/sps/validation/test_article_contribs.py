@@ -103,12 +103,13 @@ class ArticleContribsValidationTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "expected_value": [
-                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                ],
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
+                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                    "curation</role>']",
                 "got_value": None,
-                "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -185,15 +186,13 @@ class ArticleContribsValidationTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "expected_value": [
-                    "<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    "<role "
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
                     'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>",
-                ],
+                    "curation</role>']",
                 "got_value": '<role content-type="None">None</role>',
-                "message": """Got <role content-type="None">None</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "message": """Got <role content-type="None">None</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -265,14 +264,12 @@ class ArticleContribsValidationTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "got_value": '<role content-type="None">Data curation</role>',
-                "expected_value": [
-                    "<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    "<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>",
-                ],
-                "message": """Got <role content-type="None">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "expected_value": "one of ['<role "
+                                  'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                                  "'<role "
+                                  'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                                  "curation</role>']",
+                "message": """Got <role content-type="None">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -357,14 +354,12 @@ class ArticleContribsValidationTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>',
-                "expected_value": [
-                    "<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    "<role "
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
                     'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>",
-                ],
-                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                    "curation</role>']",
+                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -455,14 +450,12 @@ class ArticleContribsValidationTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>',
-                "expected_value": [
-                    "<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    "<role "
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
                     'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>",
-                ],
-                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                    "curation</role>']",
+                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -552,12 +545,11 @@ class ArticleContribsValidationTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": [
-                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                ],
+                "expected_value": '<role '
+                                  'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                                  'curation</role>',
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": None,
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -880,7 +872,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
                 "response": "OK",
-                "expected_value": "Unique ORCID values",
+                "expected_value": {'0000-3333-1238-6873': ['Vanessa M. Higa'], '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
                 "got_value": {
                     '0000-3333-1238-6873': ['Vanessa M. Higa'],
                     '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
@@ -1015,7 +1007,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "OK",
-                "expected_value": 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                "expected_value": 'FRANCISCO VENEGAS MARTÍNEZ Nieto',
                 "got_value": 'FRANCISCO VENEGAS MARTÍNEZ Nieto',
                 "message": "Got FRANCISCO VENEGAS MARTÍNEZ Nieto, expected Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "advice": None,
@@ -1346,7 +1338,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
                 "response": "OK",
-                "expected_value": "Unique ORCID values",
+                "expected_value": {
+                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
+                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
                 "got_value": {
                     '0000-3333-1238-6873': ['Vanessa M. Higa'],
                     '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
@@ -1368,12 +1362,13 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "expected_value": [
-                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                ],
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
+                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                    "curation</role>']",
                 "got_value": None,
-                "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
@@ -1495,12 +1490,13 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "ERROR",
-                "expected_value": [
-                    '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                    '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                ],
+                "expected_value": "one of ['<role "
+                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                    "'<role "
+                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                    "curation</role>']",
                 "got_value": None,
-                "message": """Got None, expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
+                "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
                     'contrib_full_name': 'Vanessa M. Higa',
@@ -1604,7 +1600,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
                 "response": "OK",
-                "expected_value": "Unique ORCID values",
+                "expected_value": {'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
                 "got_value": {
                     '0990-0001-0058-4853': [
                         'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
