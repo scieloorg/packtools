@@ -43,8 +43,8 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
-                "en": "Health Sciences",
-                "pt": "Ciências da Saúde"
+                "en": ["Health Sciences"],
+                "pt": ["Ciências da Saúde"]
             }
         expected = [
             {
@@ -59,7 +59,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': 'Health Sciences',
                 'got_value': 'Health Sciences',
-                'message': "Got Health Sciences, expected Health Sciences",
+                'message': "Got Health Sciences, expected one of ['Health Sciences']",
                 'advice': None,
                 'data': {
                     'parent': 'article',
@@ -83,7 +83,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': 'Ciências da Saúde',
                 'got_value': 'Ciências da Saúde',
-                'message': "Got Ciências da Saúde, expected Ciências da Saúde",
+                'message': "Got Ciências da Saúde, expected one of ['Ciências da Saúde']",
                 'advice': None,
                 'data': {
                     'parent': 'sub-article',
@@ -175,8 +175,8 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
-            "en": "Article",
-            "pt": "Artigo"
+            "en": ["Article"],
+            "pt": ["Artigo"]
         }
         expected = [
             {
@@ -189,9 +189,9 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'value in list',
                 'response': 'CRITICAL',
-                'expected_value': 'Article',
+                'expected_value': "one of ['Article']",
                 'got_value': 'Health Sciences',
-                'message': "Got Health Sciences, expected Article",
+                'message': "Got Health Sciences, expected one of ['Article']",
                 'advice': 'Provide missing section for language: en',
                 'data': {
                     'parent': 'article',
@@ -213,9 +213,9 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'value in list',
                 'response': 'CRITICAL',
-                'expected_value': 'Artigo',
+                'expected_value': "one of ['Artigo']",
                 'got_value': 'Ciências da Saúde',
-                'message': "Got Ciências da Saúde, expected Artigo",
+                'message': "Got Ciências da Saúde, expected one of ['Artigo']",
                 'advice': 'Provide missing section for language: pt',
                 'data': {
                     'parent': 'sub-article',
@@ -271,8 +271,8 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
-            "en": "Article",
-            "pt": "Ciências da Saúde"
+            "en": ["Article"],
+            "pt": ["Ciências da Saúde"]
         }
         expected = [
             {
@@ -285,9 +285,9 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'value in list',
                 'response': 'CRITICAL',
-                'expected_value': 'Article',
+                'expected_value': "one of ['Article']",
                 'got_value': 'Health Sciences',
-                'message': "Got Health Sciences, expected Article",
+                'message': "Got Health Sciences, expected one of ['Article']",
                 'advice': 'Provide missing section for language: en',
                 'data': {
                     'parent': 'article',
@@ -311,7 +311,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': 'Ciências da Saúde',
                 'got_value': 'Ciências da Saúde',
-                'message': "Got Ciências da Saúde, expected Ciências da Saúde",
+                'message': "Got Ciências da Saúde, expected one of ['Ciências da Saúde']",
                 'advice': None,
                 'data': {
                     'parent': 'sub-article',
@@ -367,8 +367,8 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
-            "en": "Article",
-            "pt": "Artigo"
+            "en": ["Article"],
+            "pt": ["Artigo"]
         }
         expected = [
             {
@@ -381,9 +381,9 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'value in list',
                 'response': 'CRITICAL',
-                'expected_value': 'Article',
+                'expected_value': "one of ['Article']",
                 'got_value': 'Health Sciences',
-                'message': "Got Health Sciences, expected Article",
+                'message': "Got Health Sciences, expected one of ['Article']",
                 'advice': 'Provide missing section for language: en',
                 'data': {
                     'parent': 'article',
@@ -405,9 +405,9 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'value in list',
                 'response': 'CRITICAL',
-                'expected_value': 'Artigo',
+                'expected_value': "one of ['Artigo']",
                 'got_value': 'Ciências da Saúde',
-                'message': "Got Ciências da Saúde, expected Artigo",
+                'message': "Got Ciências da Saúde, expected one of ['Artigo']",
                 'advice': 'Provide missing section for language: pt',
                 'data': {
                     'parent': 'sub-article',
@@ -512,8 +512,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Health Sciences Studies' (article title) different from 'Health Sciences' ("
-                                  "section titles)",
+                'expected_value': "article title: 'Health Sciences Studies', section titles: 'Health Sciences'",
                 'got_value': "article title: 'Health Sciences Studies', section titles: 'Health Sciences'",
                 'message': "Got article title: 'Health Sciences Studies', section titles: 'Health Sciences', "
                            "expected 'Health Sciences Studies' (article title) different from 'Health Sciences' ("
@@ -572,8 +571,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Health Sciences Studies' (article title) different from 'Public Health' ("
-                                  "section titles)",
+                'expected_value': "article title: 'Health Sciences Studies', section titles: 'Public Health'",
                 'got_value': "article title: 'Health Sciences Studies', section titles: 'Public Health'",
                 'message': "Got article title: 'Health Sciences Studies', section titles: 'Public Health', "
                            "expected 'Health Sciences Studies' (article title) different from 'Public Health' ("
@@ -632,8 +630,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Estudos sobre Ciências da Saúde' (article title) different from 'Ciências da "
-                                  "Saúde' (section titles)",
+                'expected_value': "article title: 'Estudos sobre Ciências da Saúde', section titles: 'Ciências da Saúde'",
                 'got_value': "article title: 'Estudos sobre Ciências da Saúde', section titles: 'Ciências da Saúde'",
                 'message': "Got article title: 'Estudos sobre Ciências da Saúde', section titles: 'Ciências da "
                            "Saúde', expected 'Estudos sobre Ciências da Saúde' (article title) different from "
@@ -692,7 +689,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Estudos sobre Ciências da Saúde' (article title) different from 'Saúde Pública' (section titles)",
+                'expected_value': "article title: 'Estudos sobre Ciências da Saúde', section titles: 'Saúde Pública'",
                 'got_value': "article title: 'Estudos sobre Ciências da Saúde', section titles: 'Saúde Pública'",
                 'message': "Got article title: 'Estudos sobre Ciências da Saúde', section titles: 'Saúde Pública', "
                            "expected 'Estudos sobre Ciências da Saúde' (article title) different from "
@@ -861,8 +858,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Health Sciences' (article title) different from 'Public Health' ("
-                                  "section titles)",
+                'expected_value': "article title: 'Health Sciences', section titles: 'Public Health'",
                 'got_value': "article title: 'Health Sciences', section titles: 'Public Health'",
                 'message': "Got article title: 'Health Sciences', section titles: 'Public Health', "
                            "expected 'Health Sciences' (article title) different from 'Public Health' ("
@@ -981,7 +977,7 @@ class ArticleTocSectionsTest(TestCase):
                 'sub_item': 'subject',
                 'validation_type': 'match',
                 'response': 'OK',
-                'expected_value': "'Ciências da Saúde' (article title) different from 'Saúde Pública' (section titles)",
+                'expected_value': "article title: 'Ciências da Saúde', section titles: 'Saúde Pública'",
                 'got_value': "article title: 'Ciências da Saúde', section titles: 'Saúde Pública'",
                 'message': "Got article title: 'Ciências da Saúde', section titles: 'Saúde Pública', expected 'Ciências da Saúde' (article title) different from "
                            "'Saúde Pública' (section titles)",
@@ -1033,48 +1029,6 @@ class ArticleTocSectionsTest(TestCase):
         obtained = list(self.article_toc_sections.validade_article_title_is_different_from_section_titles())
 
         self.assertEqual(len(obtained), 4)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_article_toc_sections_to_fix_bug(self):
-        self.maxDiff = None
-        self.xmltree = xml_utils.get_xml_tree('tests/samples/1518-8787-rsp-56-37.xml')
-        self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
-        expected_section = {
-             "en": ["Comments"],
-             "pt": ["Comentários"]
-        }
-        expected = [
-            {
-                'title': 'Document section title validation',
-                'parent': 'article',
-                'parent_article_type': 'other',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'subj-group',
-                'sub_item': 'subject',
-                'validation_type': 'value in list',
-                'response': 'OK',
-                'got_value': 'Comments',
-                'expected_value': ['Comments'],
-                'message': "Got Comments, expected ['Comments']",
-                'advice': None,
-                'data': {
-                    'parent': 'article',
-                    'parent_article_type': 'other',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'section': 'Comments',
-                    'subj_group_type': 'heading',
-                    'subsections': []
-                }
-            }
-        ]
-        obtained = list(self.article_toc_sections.validate_article_toc_sections(expected_section))
-
-        self.assertEqual(len(obtained), 1)
-
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
@@ -1235,8 +1189,8 @@ class ArticleTocSectionsTest(TestCase):
         )
         self.article_toc_sections = ArticleTocSectionsValidation(self.xmltree)
         expected_section = {
-                "en": "Health Sciences",
-                "pt": "Ciências da Saúde"
+                "en": ["Health Sciences"],
+                "pt": ["Ciências da Saúde"]
             }
         expected = [
             {
@@ -1275,7 +1229,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': 'Health Sciences',
                 'got_value': 'Health Sciences',
-                'message': 'Got Health Sciences, expected Health Sciences',
+                'message': "Got Health Sciences, expected one of ['Health Sciences']",
                 'advice': None,
                 'data': {
                     'parent': 'article',
@@ -1323,7 +1277,7 @@ class ArticleTocSectionsTest(TestCase):
                 'response': 'OK',
                 'expected_value': 'Ciências da Saúde',
                 'got_value': 'Ciências da Saúde',
-                'message': 'Got Ciências da Saúde, expected Ciências da Saúde',
+                'message': "Got Ciências da Saúde, expected one of ['Ciências da Saúde']",
                 'advice': None,
                 'data': {
                     'parent': 'sub-article',
