@@ -191,6 +191,7 @@ class FulltextDates:
         data["not_translations_data"] = {
             k: v.data for k, v in self.not_translations.items()
         }
+        data["events_ordered_by_date"] = self.events_ordered_by_date
         return data
 
     @property
@@ -316,6 +317,19 @@ class FulltextDates:
         for event_date in self.history_dates_list:
             _dates[event_date["type"]] = event_date
         return _dates
+
+    @property
+    def ordered_events(self):
+        obtained_events = [
+            (k, item["display"]) for k, item in self.history_dates_dict.items()
+        ]
+        # ordena a lista de eventos de forma cronológica
+        return [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
+
+    @property
+    def date_types_ordered_by_date(self):
+        # obtem uma lista com os nomes dos eventos ordenados
+        return [event[0] for event in self.ordered_events]
 
     @property
     def translations(self):
