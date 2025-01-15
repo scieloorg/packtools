@@ -1,5 +1,6 @@
 from packtools.sps.models.article_citations import ArticleCitations
 from packtools.sps.models.dates import ArticleDates
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.validation.exceptions import ValidationArticleCitationsException
 from packtools.sps.validation.utils import format_response
 
@@ -466,6 +467,31 @@ class ArticleCitationValidation:
                 error_level=error_level,
             )
 
+    def validate_title_tag_by_dtd_version(self, dtd_version, error_level="ERROR"):
+        chapter_title = self.citation.get("chapter_title")
+        try:
+            dtd_version = float(dtd_version)
+        except ValueError:
+            raise ValueError("Invalid DTD version: expected a numeric value.")
+
+        if dtd_version >= 1.3 and bool(chapter_title):
+            yield format_response(
+                title="part-title",
+                parent=self.citation.get("parent"),
+                parent_id=self.citation.get("parent_id"),
+                parent_article_type=self.citation.get("parent_article_type"),
+                parent_lang=self.citation.get("parent_lang"),
+                item="element-citation",
+                sub_item="part-title",
+                is_valid=False,
+                validation_type="exist",
+                expected="<part-title>",
+                obtained="<chapter-title>",
+                advice="Replace <chapter-title> with <part-title> to meet the required standard.",
+                data=self.citation,
+                error_level=error_level,
+            )
+
 
 class ArticleCitationsValidation:
     def __init__(self, xml_tree, publication_type_list, allowed_tags=None):
@@ -485,6 +511,7 @@ class ArticleCitationsValidation:
             )
         except (ValueError, TypeError, AttributeError, KeyError):
             self.end_year = None
+        self.dtd_version = ArticleAndSubArticles(xml_tree).main_dtd_version
 
     def validate(
         self,
@@ -495,6 +522,7 @@ class ArticleCitationsValidation:
         publication_type_error_level=None,
         comment_error_level=None,
         mixed_citation_error_level=None,
+        chapter_or_part_title_error_level=None,
     ):
         for article_citation in self.article_citations:
             citation = ArticleCitationValidation(article_citation)
@@ -514,3 +542,5 @@ class ArticleCitationsValidation:
                 yield from citation.validate_mixed_citation_tags(
                     allowed_tags=self.allowed_tags
                 )
+
+            yield from citation.validate_title_tag_by_dtd_version(self.dtd_version, chapter_or_part_title_error_level)
