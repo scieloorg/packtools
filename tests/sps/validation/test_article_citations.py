@@ -83,9 +83,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_year("2014"))
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"end_year": 2014, "year_error_level": "CRITICAL"}).validate_year())
 
         expected = [
             {
@@ -97,7 +97,7 @@ class ArticleCitationValidationTest(TestCase):
                 "item": "element-citation",
                 "sub_item": "year",
                 "validation_type": "exist",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": "reference year, previous or equal to 2014",
                 "got_value": "2015",
                 "message": f"Got 2015, expected reference year, previous or equal to 2014",
@@ -220,11 +220,9 @@ class ArticleCitationValidationTest(TestCase):
                    </article>
                """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
-        )
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"end_year": 2020, "year_error_level": "CRITICAL"}).validate_year())
         self.assertEqual(0, len(obtained))
 
     def test_validate_year_fail_invalid(self):
@@ -284,11 +282,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
-        )
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"end_year": 2020, "year_error_level": "CRITICAL"}).validate_year())
 
         expected = [
             {
@@ -300,7 +296,7 @@ class ArticleCitationValidationTest(TestCase):
                 "item": "element-citation",
                 "sub_item": "year",
                 "validation_type": "exist",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": "reference year, previous or equal to 2020",
                 "got_value": "201a",
                 "message": f"Got 201a, expected reference year, previous or equal to 2020",
@@ -422,11 +418,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(
-            ArticleCitationValidation(citation).validate_year(end_year=2020)
-        )
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"end_year": 2020, "year_error_level": "CRITICAL"}).validate_year())
 
         expected = [
             {
@@ -438,7 +432,7 @@ class ArticleCitationValidationTest(TestCase):
                 "parent_article_type": "research-article",
                 "parent_lang": "en",
                 "validation_type": "exist",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": "reference year, previous or equal to 2020",
                 "got_value": None,
                 "message": f"Got None, expected reference year, previous or equal to 2020",
@@ -560,9 +554,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_source())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"source_error_level": "CRITICAL"}).validate_source())
         self.assertEqual(0, len(obtained))
 
     def test_validate_source_fail(self):
@@ -621,9 +615,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_source())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"source_error_level": "CRITICAL"}).validate_source())
 
         expected = [
             {
@@ -635,7 +629,7 @@ class ArticleCitationValidationTest(TestCase):
                 "item": "element-citation",
                 "sub_item": "source",
                 "validation_type": "exist",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": "reference source",
                 "got_value": None,
                 "message": "Got None, expected reference source",
@@ -757,9 +751,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_article_title())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"article_title_error_level": "ERROR"}).validate_article_title())
         self.assertEqual(0, len(obtained))
 
     def test_validate_article_title_fail(self):
@@ -818,9 +812,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_article_title())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"article_title_error_level": "ERROR"}).validate_article_title())
 
         expected = [
             {
@@ -954,9 +948,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"authors_error_level": "ERROR"}).validate_authors())
 
         self.assertEqual(0, len(obtained))
 
@@ -995,9 +989,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"authors_error_level": "ERROR"}).validate_authors())
         self.assertEqual(0, len(obtained))
 
     def test_validate_authors_fail(self):
@@ -1033,9 +1027,9 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_authors())
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = list(ArticleCitationValidation(citation, {"authors_error_level": "ERROR"}).validate_authors())
 
         expected = [
             {
@@ -1152,10 +1146,13 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = ArticleCitationValidation(citation).validate_publication_type(
-            publication_type_list=["journal", "book"]
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = ArticleCitationValidation(
+            citation,
+            {
+                "publication_type_list": ["journal", "book"],
+                "publication_type_error_level": "CRITICAL"}).validate_publication_type(
         )
         self.assertEqual(0, len(list(obtained)))
 
@@ -1216,10 +1213,13 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
-        obtained = ArticleCitationValidation(citation).validate_publication_type(
-            publication_type_list=["other", "book"]
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
+        obtained = ArticleCitationValidation(
+            citation,
+            {
+                "publication_type_list": ["journal", "book"],
+                "publication_type_error_level": "CRITICAL"}).validate_publication_type(
         )
 
         expected = [
@@ -1356,12 +1356,17 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
+        xml_tree = etree.fromstring(xml)
         obtained = list(
             ArticleCitationsValidation(
-                xmltree,
-                publication_type_list=["journal", "book"],
-                allowed_tags=["bold", "italic", "p"],
+                xml_tree,
+                {
+                    "end_year": 2020,
+                    "year_error_level": "CRITICAL",
+                    "dtd_version": 1.1,
+                    "publication_type_list": ["journal", "book"],
+                    "allowed_tags": ["bold", "italic", "p"],
+                }
             ).validate()
         )
         self.assertEqual(1, len(obtained))
@@ -1385,7 +1390,7 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ArticleCitationValidation(citation, {"comment_error_level": "ERROR",}).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1447,7 +1452,7 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ArticleCitationValidation(citation, {"comment_error_level": "ERROR",}).validate_comment_is_required_or_not()
         )
 
         self.assertListEqual(obtained, [])
@@ -1471,7 +1476,7 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ArticleCitationValidation(citation, {"comment_error_level": "ERROR",}).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1532,7 +1537,7 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ArticleCitationValidation(citation, {"comment_error_level": "ERROR",}).validate_comment_is_required_or_not()
         )
 
         self.assertListEqual(obtained, [])
@@ -1556,7 +1561,7 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_comment_is_required_or_not()
+            ArticleCitationValidation(citation, {"comment_error_level": "ERROR",}).validate_comment_is_required_or_not()
         )
 
         expected = [
@@ -1618,12 +1623,16 @@ class ArticleCitationValidationTest(TestCase):
             </article>
         """
 
-        xmltree = etree.fromstring(xml)
-        citation = list(ArticleCitations(xmltree).article_citations)[0]
+        xml_tree = etree.fromstring(xml)
+        citation = list(ArticleCitations(xml_tree).article_citations)[0]
         obtained = list(
-            ArticleCitationValidation(citation).validate_mixed_citation_tags(
-                allowed_tags=["bold", "italic", "p"]
-            )
+            ArticleCitationValidation(
+                citation,
+                {
+                    "mixed_citation_error_level": "CRITICAL",
+                    "allowed_tags": ["bold", "italic", "p"]
+                }
+            ).validate_mixed_citation_tags()
         )
 
         expected = [
@@ -1654,7 +1663,7 @@ class ArticleCitationValidationTest(TestCase):
                 "parent_article_type": "research-article",
                 "parent_id": None,
                 "parent_lang": "en",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "sub_item": "mixed-citation",
                 "title": "mixed citation sub-tags",
                 "validation_type": "exist",
@@ -1688,7 +1697,14 @@ class ArticleCitationValidationTest(TestCase):
         xml_tree = etree.fromstring(xml)
 
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
-        obtained = list(ArticleCitationValidation(citation).validate_title_tag_by_dtd_version("1.3", "ERROR"))
+        obtained = list(ArticleCitationValidation(
+            citation,
+            {
+                "dtd_version": 1.3,
+                "title_tag_by_dtd_version_error_level": "CRITICAL",
+            }
+        ).validate_title_tag_by_dtd_version()
+                        )
 
         expected = [
             {
@@ -1711,7 +1727,7 @@ class ArticleCitationValidationTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'sub_item': 'part-title',
                 'title': 'part-title',
                 'validation_type': 'exist'
@@ -1747,5 +1763,12 @@ class ArticleCitationValidationTest(TestCase):
         citation = list(ArticleCitations(xml_tree).article_citations)[0]
 
         with self.assertRaises(ValueError) as context:
-            obtained = list(ArticleCitationValidation(citation).validate_title_tag_by_dtd_version("a", "ERROR"))
+            list(ArticleCitationValidation(
+                citation,
+                {
+                    "dtd_version": "a",
+                    "title_tag_by_dtd_version_error_level": "CRITICAL",
+                }
+            ).validate_title_tag_by_dtd_version()
+                            )
         self.assertEqual(str(context.exception), "Invalid DTD version: expected a numeric value.")
