@@ -1,7 +1,7 @@
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text, process_subtags
 
 
-class ArticleReference:
+class Reference:
     def __init__(self, ref):
         self.ref = ref
 
@@ -137,17 +137,36 @@ def get_ext_link(node):
     return [node_plain_text(item) for item in node.xpath(".//element-citation//ext-link")]
 
 
-class ArticleCitations:
+class FullTextReferences:
+
+    def __init__(self, fulltext_node):
+        """
+        fulltext_node : article or sub-article node
+        """
+        self.fulltext_node = fulltext_node
+
+    @property
+    def items(self):
+        for node, lang, article_type, parent, parent_id in get_parent_context(
+                self.fulltext_node
+        ):
+            for item in node.xpath("ref-list/ref"):
+                ref = Reference(item)
+                data = ref.data()
+                yield put_parent_context(data, lang, article_type, parent, parent_id)
+
+
+class ArticleReferences:
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
-    def article_citations(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-                self.xmltree
-        ):
-            for item in node.xpath(".//ref-list/ref"):
-                ref = ArticleReference(item)
-                data = ref.data()
-                yield put_parent_context(data, lang, article_type, parent, parent_id)
+    def article_references(self):
+        yield from FullTextReferences(self.xmltree.find(".")).items
+
+    @property
+    def sub_article_references(self):
+        for node in self.xmltree.xpath(".//sub-article"):
+            yield from FullTextReferences(node).items
+

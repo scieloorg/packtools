@@ -76,7 +76,7 @@ class ValidationJournalMetaException(Exception):
     ...
 
 
-class ValidationArticleCitationsException(Exception):
+class ValidationReferencesException(Exception):
     ...
 
 

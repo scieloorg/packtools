@@ -6,8 +6,8 @@ from packtools.sps.validation.article_abstract import (
 from packtools.sps.validation.article_and_subarticles import (
     ArticleAttribsValidation, ArticleIdValidation, ArticleLangValidation,
     ArticleTypeValidation)
-from packtools.sps.validation.article_citations import \
-    ArticleCitationsValidation
+from packtools.sps.validation.references import \
+    ArticleReferencesValidation
 from packtools.sps.validation.article_contribs import ArticleContribsValidation
 from packtools.sps.validation.article_data_availability import \
     DataAvailabilityValidation
@@ -188,21 +188,8 @@ def validate_article_ids(xmltree, params):
 
 def validate_references(xmltree, params):
     references_rules = params["references_rules"]
-
-    allowed_tags = references_rules["allowed_tags"] or []
-
-    # TODO corrigir os parâmetros das classes e métodos de article_citations.py
-
-    validator = ArticleCitationsValidation(xmltree)
-    yield from validator.validate(
-        year_error_level=references_rules["year_error_level"],
-        source_error_level=references_rules["source_error_level"],
-        article_title_error_level=references_rules["article_title_error_level"],
-        authors_error_level=references_rules["authors_error_level"],
-        publication_type_error_level=references_rules["publication_type_error_level"],
-        comment_error_level=references_rules["comment_error_level"],
-        mixed_citation_error_level=references_rules["mixed_citation_error_level"],
-    )
+    validator = ArticleReferencesValidation(xmltree)
+    yield from validator.validate()
 
 
 def validate_article_contribs(xmltree, params):
