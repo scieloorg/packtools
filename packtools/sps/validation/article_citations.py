@@ -6,8 +6,9 @@ from packtools.sps.validation.utils import format_response
 
 
 class ArticleCitationValidation:
-    def __init__(self, citation):
+    def __init__(self, citation, params):
         self.citation = citation
+        self.params = params
 
     def _validate_item(
         self,
@@ -41,7 +42,7 @@ class ArticleCitationValidation:
                 error_level=error_level,
             )
 
-    def validate_year(self, end_year, error_level="ERROR"):
+    def validate_year(self):
         """
         Checks whether the year in an article citation exists and is valid.
 
@@ -97,6 +98,7 @@ class ArticleCitationValidation:
                 },...
             ]
         """
+        end_year = self.params.get("end_year")
         if not end_year:
             raise ValueError("ArticleCitationValidation.validate_year requires valid value for end_year")
         year = self.citation.get("year")
@@ -118,10 +120,10 @@ class ArticleCitationValidation:
                 valid=is_valid,
                 advice=advice,
                 expected=expected,
-                error_level=error_level,
+                error_level=self.params.get("year_error_level"),
             )
 
-    def validate_source(self, error_level="ERROR"):
+    def validate_source(self):
         """
         Checks whether the source in an article citation exists.
 
@@ -177,9 +179,9 @@ class ArticleCitationValidation:
                 },...
             ]
         """
-        yield from self._validate_item("source", error_level=error_level)
+        yield from self._validate_item("source", error_level=self.params.get("source_error_level"))
 
-    def validate_article_title(self, error_level="ERROR"):
+    def validate_article_title(self):
         """
         Checks whether the article title in an article citation exists.
 
@@ -242,9 +244,9 @@ class ArticleCitationValidation:
         publication_type = self.citation.get("publication_type")
         article_title = self.citation.get("article_title")
         if publication_type == "journal" and not article_title:
-            yield from self._validate_item("article_title", "article-title", error_level=error_level)
+            yield from self._validate_item("article_title", "article-title", error_level=self.params.get("article_title_error_level"))
 
-    def validate_authors(self, error_level="ERROR"):
+    def validate_authors(self):
         """
         Checks if there are authors for the article citation.
 
@@ -312,10 +314,10 @@ class ArticleCitationValidation:
                 element_name="person-group//name or person-group//collab",
                 valid=number_authors,
                 advice=advice,
-                error_level=error_level,
+                error_level=self.params.get("authors_error_level"),
             )
 
-    def validate_publication_type(self, publication_type_list, error_level="ERROR"):
+    def validate_publication_type(self):
         """
         Checks if the publication type is present in the list of default values.
 
@@ -371,6 +373,7 @@ class ArticleCitationValidation:
                 },...
             ]
         """
+        publication_type_list = self.params.get("publication_type_list")
         if publication_type_list is None:
             raise ValidationArticleCitationsException(
                 "Function requires list of publications type"
@@ -381,10 +384,10 @@ class ArticleCitationValidation:
                 f"Provide a value for @publication-type, one of {publication_type_list}"
             )
             yield from self._validate_item(
-                "publication_type", element_name="@publication-type", advice=advice, error_level=error_level, expected=publication_type_list, validation_type="value in list"
+                "publication_type", element_name="@publication-type", advice=advice, error_level=self.params.get("publication_type_error_level"), expected=publication_type_list, validation_type="value in list"
             )
 
-    def validate_comment_is_required_or_not(self, error_level="ERROR"):
+    def validate_comment_is_required_or_not(self):
         comment = self.citation.get("comment_text", {})
         text_before_extlink = self.citation.get("text_before_extlink")
 
@@ -438,10 +441,11 @@ class ArticleCitationValidation:
                     obtained=scenario["obtained"],
                     advice=scenario["advice"],
                     data=self.citation,
-                    error_level=error_level,
+                    error_level=self.params.get("comment_error_level"),
                 )
 
-    def validate_mixed_citation_tags(self, error_level="ERROR", allowed_tags=None):
+    def validate_mixed_citation_tags(self):
+        allowed_tags = self.params.get("allowed_tags")
         if allowed_tags is None:
             raise ValidationArticleCitationsException(
                 "Function requires list of allowed tags"
@@ -464,13 +468,13 @@ class ArticleCitationValidation:
                 obtained=self.citation.get("mixed_citation_sub_tags"),
                 advice=f"remove {remaining_tags} from mixed-citation",
                 data=self.citation,
-                error_level=error_level,
+                error_level=self.params.get("mixed_citation_error_level"),
             )
 
-    def validate_title_tag_by_dtd_version(self, dtd_version, error_level="ERROR"):
+    def validate_title_tag_by_dtd_version(self):
         chapter_title = self.citation.get("chapter_title")
         try:
-            dtd_version = float(dtd_version)
+            dtd_version = float(self.params.get("dtd_version"))
         except ValueError:
             raise ValueError("Invalid DTD version: expected a numeric value.")
 
@@ -489,16 +493,15 @@ class ArticleCitationValidation:
                 obtained="<chapter-title>",
                 advice="Replace <chapter-title> with <part-title> to meet the required standard.",
                 data=self.citation,
-                error_level=error_level,
+                error_level=self.params.get("title_tag_by_dtd_version_error_level"),
             )
 
 
 class ArticleCitationsValidation:
-    def __init__(self, xml_tree, publication_type_list, allowed_tags=None):
+    def __init__(self, xml_tree, params):
         self.xml_tree = xml_tree
         self.article_citations = ArticleCitations(self.xml_tree).article_citations
-        self.publication_type_list = publication_type_list
-        self.allowed_tags = allowed_tags
+        self.params = params
         article_dates = ArticleDates(xml_tree)
         try:
             self.end_year = (
@@ -513,34 +516,17 @@ class ArticleCitationsValidation:
             self.end_year = None
         self.dtd_version = ArticleAndSubArticles(xml_tree).main_dtd_version
 
-    def validate(
-        self,
-        year_error_level=None,
-        source_error_level=None,
-        article_title_error_level=None,
-        authors_error_level=None,
-        publication_type_error_level=None,
-        comment_error_level=None,
-        mixed_citation_error_level=None,
-        chapter_or_part_title_error_level=None,
-    ):
+    def validate(self):
         for article_citation in self.article_citations:
-            citation = ArticleCitationValidation(article_citation)
-            yield from citation.validate_year(
-                end_year=self.end_year,
-                error_level=year_error_level,
-            )
-            yield from citation.validate_source(source_error_level)
-            yield from citation.validate_publication_type(
-                self.publication_type_list, publication_type_error_level
-            )
-            yield from citation.validate_article_title(article_title_error_level)
-            yield from citation.validate_authors(authors_error_level)
-            yield from citation.validate_comment_is_required_or_not(comment_error_level)
+            citation = ArticleCitationValidation(article_citation, self.params)
+            yield from citation.validate_year()
+            yield from citation.validate_source()
+            yield from citation.validate_publication_type()
+            yield from citation.validate_article_title()
+            yield from citation.validate_authors()
+            yield from citation.validate_comment_is_required_or_not()
 
-            if self.allowed_tags:
-                yield from citation.validate_mixed_citation_tags(
-                    allowed_tags=self.allowed_tags
-                )
+            if self.params.get("allowed_tags"):
+                yield from citation.validate_mixed_citation_tags()
 
-            yield from citation.validate_title_tag_by_dtd_version(self.dtd_version, chapter_or_part_title_error_level)
+            yield from citation.validate_title_tag_by_dtd_version()
