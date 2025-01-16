@@ -24,6 +24,9 @@
             "thesis",
             "webpage",
             "other"
-        ]
+        ],
+        "dtd_version": "",
+        "title_tag_by_dtd_version_error_level": "CRITICAL",
+        "end_year": ""
     }
 }
