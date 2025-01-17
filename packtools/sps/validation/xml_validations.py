@@ -16,7 +16,7 @@ from packtools.sps.validation.article_license import ArticleLicenseValidation
 from packtools.sps.validation.article_toc_sections import \
     ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
-from packtools.sps.validation.dates import ArticleDatesValidation
+from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 from packtools.sps.validation.formula import ArticleDispFormulaValidation, ArticleInlineFormulaValidation
@@ -255,51 +255,10 @@ def validate_id_and_rid_match(xmltree, params):
     )
     
 
-
 def validate_article_dates(xmltree, params):
     article_dates_rules = params["article_dates_rules"]
-    history_dates_rules = params["history_dates_rules"]
-    related_article_rules = params["related_article_rules"]
-
-    validator = ArticleDatesValidation(xmltree)
-    yield from validator.validate_number_of_digits_in_article_date(
-        error_level=article_dates_rules["article_date_format_error_level"]
-    )
-    result = validator.validate_article_date(
-        error_level=article_dates_rules["article_date_value_error_level"]
-    )
-    if result:
-        yield result
-
-    result = validator.validate_collection_date(
-        error_level=article_dates_rules["collection_date_value_error_level"]
-    )
-    if result:
-        yield result
-
-    # TODO required_events depends on article_type
-
-    required_events = [
-        item["type"] for item in history_dates_rules["date_list"] if item["required"]
-    ]
-
-    # FIXME
-    # try:
-    #     for related_article in related_articles:
-    #         required_events.append(
-    #             related_article_rules["required_history_events"][related_article_type]
-    #         )
-    # except KeyError:
-    #     pass
-    order = [item["type"] for item in history_dates_rules["date_list"]]
-    yield from validator.validate_history_dates(
-        order=order,
-        required_events=required_events,
-        error_level=history_dates_rules["error_level"],
-    )
-
-    # FIXME remover validate() que usa métodos inexistentes
-
+    validator = FulltextDatesValidation(xmltree, params["article_dates_rules"])
+    yield from validator.validate()
 
 def validate_figs(xmltree, params):
     rules = params["fig_rules"]
