@@ -1,12 +1,12 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.validation.fig import FigValidation
+from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.utils import xml_utils
 
 
 class FigValidationTest(unittest.TestCase):
-    def test_fig_validation_no_fig_elements(self):
+    def test_fig_validation_no_fig(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -16,7 +16,19 @@ class FigValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FigValidation(xml_tree).validate_fig_existence())
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"]
+            }
+        ).validate())
 
         expected = [
             {
@@ -28,11 +40,11 @@ class FigValidationTest(unittest.TestCase):
                 "item": "fig",
                 "sub_item": None,
                 "validation_type": "exist",
-                "response": "WARNING",
-                "expected_value": "<fig> element",
+                "response": 'CRITICAL',
+                "expected_value": "<fig/>",
                 'got_value': None,
-                'message': 'Got None, expected <fig> element',
-                "advice": "Add <fig> element to illustrate the content.",
+                'message': 'Got None, expected <fig/>',
+                "advice": 'article-type=research-article requires <fig/>. Found 0. Identify the fig or check if article-type is correct',
                 "data": None,
             }
         ]
@@ -41,15 +53,17 @@ class FigValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_fig_validation_with_fig_elements(self):
+    def test_fig_validation_fig_without_id(self):
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            '<fig id="f01">'
+            '<fig>'
             "<label>Figure 1</label>"
-            '<graphic xlink:href="image1.png"/>'
+            "<caption>"
+            "<title>título da imagem</title>"
+            "</caption>"
             "<alternatives>"
             '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
             '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
@@ -58,32 +72,44 @@ class FigValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(FigValidation(xml_tree).validate_fig_existence())
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"]
+            }
+        ).validate())
 
         expected = [
             {
-                "title": "fig presence",
+                "title": 'id',
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
                 "item": "fig",
-                "sub_item": None,
+                "sub_item": 'id',
                 "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "<fig> element",
-                'got_value': '<fig fig-type="None" id="f01">',
-                'message': 'Got <fig fig-type="None" id="f01">, expected <fig> element',
-                "advice": None,
+                "response": 'CRITICAL',
+                "expected_value": 'id',
+                'got_value': None,
+                'message': 'Got None, expected id',
+                "advice": 'Identify the id',
                 "data": {
                     "alternative_parent": "fig",
-                    "fig_id": "f01",
-                    "fig_type": None,
+                    "id": None,
+                    "type": None,
                     "label": "Figure 1",
-                    "graphic_href": "image1.png",
-                    "caption_text": "",
+                    "graphic": 'image1-lowres.png',
+                    "caption": 'título da imagem',
                     "source_attrib": None,
-                    "alternative_elements": ["graphic", "graphic"],
+                    "alternatives": ["graphic", "graphic"],
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
@@ -92,85 +118,213 @@ class FigValidationTest(unittest.TestCase):
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_fig_validation_with_fig_elements_fix_bug(self):
+    def test_fig_validation_fig_without_label(self):
         self.maxDiff = None
-        xml_tree = xml_utils.get_xml_tree(
-            "tests/fixtures/htmlgenerator/table_wrap_group_and_fig_group/2236-8906"
-            "-hoehnea-49-e1082020/2236-8906-hoehnea-49-e1082020.xml"
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<fig id="f01">'
+            "<caption>"
+            "<title>título da imagem</title>"
+            "</caption>"
+            "<alternatives>"
+            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
+            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
+            "</alternatives>"
+            "</fig>"
+            "</body>"
+            "</article>"
         )
-        obtained = list(FigValidation(xml_tree).validate_fig_existence())
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"]
+            }
+        ).validate())
 
         expected = [
             {
-                "title": "fig presence",
+                "title": 'label',
                 "parent": "article",
-                "parent_article_type": "research-article",
                 "parent_id": None,
+                "parent_article_type": "research-article",
                 "parent_lang": "pt",
                 "item": "fig",
-                "sub_item": None,
+                "sub_item": 'label',
                 "validation_type": "exist",
-                "expected_value": "<fig> element",
-                'got_value': '<fig fig-type="None" id="None">',
-                "response": "OK",
-                'message': 'Got <fig fig-type="None" id="None">, expected <fig> element',
-                "advice": None,
+                "response": 'CRITICAL',
+                "expected_value": 'label',
+                'got_value': None,
+                'message': 'Got None, expected label',
+                "advice": 'Identify the label',
                 "data": {
-                    "alternative_elements": [],
                     "alternative_parent": "fig",
-                    "caption_text": "Mapa com a localização das três áreas de estudo, Parque Estadual da Cantareira, "
-                    "São Paulo, SP, Brasil. Elaborado por Marina Kanashiro, 2019.",
-                    "fig_id": None,
-                    "fig_type": None,
-                    "graphic_href": None,
-                    "label": "Figura 1",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
+                    'id': 'f01',
+                    "type": None,
+                    "label": None,
+                    "graphic": 'image1-lowres.png',
+                    "caption": 'título da imagem',
                     "source_attrib": None,
+                    "alternatives": ["graphic", "graphic"],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
                 },
-            },
-            {
-                'title': 'fig presence',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'pt',
-                'item': 'fig',
-                'sub_item': None,
-                'validation_type': 'exist',
-                'expected_value': '<fig> element',
-                'got_value': '<fig fig-type="None" id="None">',
-                'response': 'OK',
-                'message': 'Got <fig fig-type="None" id="None">, expected <fig> element',
-                'advice': None,
-                'data': {
-                    'alternative_elements': [],
-                    'alternative_parent': 'fig',
-                    'caption_text': 'Axes 1 and 3 of the ordering analyses by the CA method of the three study areas, '
-                                    'Parque Estadual da Cantareira, São Paulo, São Paulo State, Brasil.',
-                    'fig_id': None,
-                    'fig_type': None,
-                    'graphic_href': '2236-8906-hoehnea-49-e1082020-gf14.tif',
-                    'label': 'Figure 14',
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'pt',
-                    'source_attrib': None
-                }
             }
         ]
 
-        self.assertEqual(len(obtained), 28)
-        # showing only the first and last record for the figure
-        self.assertDictEqual(expected[0], obtained[0])
-        self.assertDictEqual(expected[1], obtained[27])
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_fig_validation_fig_without_caption(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<fig id="f01">'
+            "<label>Figure 1</label>"
+            "<alternatives>"
+            '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
+            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
+            "</alternatives>"
+            "</fig>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"]
+            }
+        ).validate())
+
+        expected = [
+            {
+                "title": 'caption',
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "fig",
+                "sub_item": 'caption',
+                "validation_type": "exist",
+                "response": 'CRITICAL',
+                "expected_value": 'caption',
+                'got_value': None,
+                'message': 'Got None, expected caption',
+                "advice": 'Identify the caption',
+                "data": {
+                    "alternative_parent": "fig",
+                    'id': 'f01',
+                    "type": None,
+                    "label": 'Figure 1',
+                    "graphic": 'image1-lowres.png',
+                    "caption": '',
+                    "source_attrib": None,
+                    "alternatives": ["graphic", "graphic"],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_fig_validation_fig_without_graphic_and_alternatives(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<fig id="f01">'
+            "<label>Figure 1</label>"
+            "<caption>"
+            "<title>título da imagem</title>"
+            "</caption>"
+            "</fig>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"]
+            }
+        ).validate())
+
+        expected = [
+            {
+                "title": 'graphic or alternatives',
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "fig",
+                "sub_item": 'graphic or alternatives',
+                "validation_type": "exist",
+                "response": 'CRITICAL',
+                "expected_value": 'graphic or alternatives',
+                'got_value': None,
+                'message': 'Got None, expected graphic or alternatives',
+                "advice": 'Identify the graphic or alternatives',
+                "data": {
+                    "alternative_parent": "fig",
+                    'id': 'f01',
+                    "type": None,
+                    "label": 'Figure 1',
+                    "graphic": None,
+                    "caption": 'título da imagem',
+                    "source_attrib": None,
+                    "alternatives": [],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                },
+            }
+        ]
+
+        self.assertEqual(len(obtained), 1)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
 
 
 if __name__ == "__main__":
