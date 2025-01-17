@@ -26,7 +26,7 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": "research-article"
+                "article_types_requires": ["research-article"]
             }
         ).validate())
 
@@ -82,7 +82,7 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": "research-article"
+                "article_types_requires": ["research-article"]
             }
         ).validate())
 
@@ -151,7 +151,7 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": "research-article"
+                "article_types_requires": ["research-article"]
             }
         ).validate())
 
@@ -218,7 +218,7 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": "research-article"
+                "article_types_requires": ["research-article"]
             }
         ).validate())
 
@@ -284,7 +284,7 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": "research-article"
+                "article_types_requires": ["research-article"]
             }
         ).validate())
 
