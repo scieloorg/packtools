@@ -316,6 +316,7 @@ class TestArticleTypeParamsOverride(TestCase):
         self.mock_fulltext_dates.translations = {}
         self.mock_fulltext_dates.not_translations = {}
         self.mock_fulltext_dates.date_types_ordered_by_date = []
+        self.mock_fulltext_dates.related_articles = []
 
     def test_article_type_params_override_defaults(self):
         """Test that article-type specific parameters override default values."""
@@ -459,3 +460,176 @@ class TestArticleTypeParamsOverride(TestCase):
         self.assertEqual(missing_event_result["response"], "ERROR")
         self.assertIn("accepted", missing_event_result["advice"])
 
+
+class TestFulltextDatesValidation(TestCase):
+    def create_mock_fulltext_dates(self, related_articles=None):
+        """Helper method to create a mock FulltextDates object"""
+        mock_fulltext = Mock()
+        mock_fulltext_dates = Mock()
+        mock_fulltext_dates.fulltext = mock_fulltext
+        mock_fulltext_dates.related_articles = related_articles or []
+        mock_fulltext_dates.date_types_ordered_by_date = []
+        return mock_fulltext_dates
+
+    def test_init_with_no_related_articles(self):
+        """Test initialization without any related articles"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
+        }
+        
+        mock_fulltext_dates = self.create_mock_fulltext_dates()
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(validator.params["required_events"], ["received", "accepted"])
+
+    def test_init_with_single_related_article(self):
+        """Test initialization with a single related article that should add an event"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
+        }
+        
+        related_articles = [{"related-article-type": "correction"}]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertIn("corrected", validator.params["required_events"])
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_with_multiple_related_articles(self):
+        """Test initialization with multiple related articles"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "correction"},
+            {"related-article-type": "retraction"},
+            {"related-article-type": "addendum"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        expected_events = {"received", "accepted", "corrected", "retracted", "addended"}
+        self.assertEqual(set(validator.params["required_events"]), expected_events)
+
+    def test_init_with_null_related_article_type(self):
+        """Test initialization with related article types that map to None"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "letter": None,
+                "response": None,
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "letter"},
+            {"related-article-type": "response"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_with_unknown_related_article_type(self):
+        """Test initialization with unknown related article type"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "unknown_type"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_with_duplicate_related_articles(self):
+        """Test initialization with duplicate related article types"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "correction"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        # Should only add "corrected" once
+        self.assertEqual(validator.params["required_events"].count("corrected"), 2)
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_preserves_original_required_events(self):
+        """Test that original required events are preserved when adding related article events"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [{"related-article-type": "correction"}]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        for event in ["received", "accepted"]:
+            self.assertIn(event, validator.params["required_events"])
