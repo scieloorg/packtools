@@ -312,7 +312,7 @@ class ArticleDoiValidation:
         for doi_data in self.doi.data:
             lang = doi_data.get("lang")
             xml_doi = doi_data.get("value")
-            xml_title = self.titles.get(lang)
+            xml_title = self.titles.get(lang).get("html_text")
             xml_authors = []
             for author in self.authors:
                 try:

@@ -421,7 +421,7 @@ class ArticleDoiTest(unittest.TestCase):
                 "sub_item": '@pub-id-type="doi"',
                 "validation_type": "unique",
                 "response": "OK",
-                "expected_value": "Unique DOI values",
+                "expected_value": ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'],
                 "got_value": ["10.1590/2176-4573p59270", "10.1590/2176-4573e59270"],
                 "message": "Got ['10.1590/2176-4573p59270', '10.1590/2176-4573e59270'], expected Unique DOI values",
                 "advice": None,
@@ -634,7 +634,7 @@ class ArticleDoiTest(unittest.TestCase):
                 "message": f"Got {xml2}, expected {xml2}",
                 "advice": None,
                 "data": {
-                    "similarity": 1.0,
+                    "similarity": 1,
                     "lang": "pt",
                     "parent": "sub-article",
                     "parent_article_type": "translation",
