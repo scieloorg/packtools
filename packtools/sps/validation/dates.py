@@ -512,4 +512,181 @@ class DateValidation:
             )
 
 
+class FulltextDatesValidation:
+    """Validates all dates in a Fulltext document according to specific rules.
 
+    This class handles validation of article dates, history dates, and their relationships,
+    applying different validation rules for different date types.
+
+    Attributes:
+        fulltext_dates: FulltextDates instance containing all document dates
+        params: Dictionary containing validation parameters and rules
+    """
+
+    def __init__(self, fulltext_dates, params=None):
+        """Initialize a FulltextDatesValidation instance.
+
+        Args:
+            fulltext_dates: FulltextDates instance to validate
+            params: Optional dictionary of validation parameters
+        """
+        self.fulltext_dates = fulltext_dates
+        self.params = params or {}
+        self._set_default_params()
+        self.params.update(self.params.get(fulltext_dates.fulltext.article_type) or {})
+        self.date_types_ordered_by_date = fulltext_dates.date_types_ordered_by_date
+        self.date_type_list = (
+            self.params["pre_pub_ordered_events"]
+            + self.params["pos_pub_ordered_events"]
+        )
+
+    def _set_default_params(self):
+        """Set default validation parameters if not provided."""
+        self.params.setdefault("day_format_error_level", "CRITICAL")
+        self.params.setdefault("month_format_error_level", "CRITICAL")
+        self.params.setdefault("year_format_error_level", "CRITICAL")
+        self.params.setdefault("format_error_level", "CRITICAL")
+        self.params.setdefault("value_error_level", "CRITICAL")
+        self.params.setdefault("limit_error_level", "CRITICAL")
+        self.params.setdefault("required_events", ["received", "accepted"])
+        self.params.setdefault(
+            "pre_pub_ordered_events", ["received", "revised", "accepted"]
+        )
+        self.params.setdefault(
+            "pos_pub_ordered_events", ["pub", "corrected", "retracted"]
+        )
+        self.params.setdefault("parent", {})
+
+    def validate(self):
+        """Perform all date validations.
+
+        Yields:
+            Generator of validation results for all date checks
+        """
+        yield from self.validate_article_date()
+        yield from self.validate_collection_date()
+        yield from self.validate_history_dates()
+        yield from self.validate_history_order()
+        yield from self.validate_history_events()
+        yield from self.validate_translations()
+        yield from self.validate_not_translations()
+
+    def validate_translations(self):
+        for lang, fulltext_dates in self.fulltext_dates.translations.items():
+            validator = FulltextDatesValidation(fulltext_dates, self.params)
+            yield from validator.validate()
+
+    def validate_not_translations(self):
+        for lang, fulltext_dates in self.fulltext_dates.not_translations.items():
+            validator = FulltextDatesValidation(fulltext_dates, self.params)
+            yield from validator.validate()
+
+    def validate_article_date(self):
+        """Validate the main article date."""
+        if article_date := self.fulltext_dates.article_date:
+            params = self.params.copy()
+            params["limit_date"] = datetime.now().isoformat()[:10]
+            validator = DateValidation(article_date, params)
+            yield from validator.validate_date()
+            yield from validator.validate_complete_date()
+
+    def validate_collection_date(self):
+        """Validate the collection date (only basic validation, not completeness)."""
+        params = self.params.copy()
+        if collection_date := self.fulltext_dates.collection_date:
+            validator = DateValidation(collection_date, params)
+            yield from validator.validate_date()
+            # Note: We don't validate completeness for collection dates
+
+    def validate_history_dates(self):
+        """Validate each history date."""
+        params = self.params.copy()
+        params["limit_date"] = date.now().isoformat()[:10]
+        for history_date in self.fulltext_dates.history_dates_list:
+            validator = DateValidation(history_date, params)
+            yield from validator.validate_date()
+            yield from validator.validate_complete_date()
+
+    def get_events_ordered_by_date(self, unordered_events):
+        try:
+            return sorted(
+                unordered_events,
+                key=lambda x: (
+                    self.date_type_list.index(x)
+                    if x in self.date_type_list
+                    else float("inf")
+                ),
+            )
+        except ValueError:
+            # In case an event in unordered_events is not in self.date_type_list, it's placed at the end of the sorted list
+            return unordered_events
+
+    @property
+    def missing_events(self):
+        return self.get_events_ordered_by_date(
+            set(self.params["required_events"]) - set(self.date_types_ordered_by_date),
+        )
+
+    @property
+    def unexpected_events(self):
+        # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
+        return sorted(set(self.date_types_ordered_by_date) - set(self.date_type_list))
+
+    @property
+    def is_ordered_history(self):
+        # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
+        return is_subsequence_in_order(
+            self.date_types_ordered_by_date, self.date_type_list
+        )
+
+    def validate_history_events(self):
+        if self.unexpected_events:
+            yield build_response(
+                title="unexpected events",
+                parent=self.params["parent"],
+                item="history",
+                sub_item=None,
+                validation_type="value",
+                is_valid=False,
+                expected=self.date_type_list,
+                obtained=self.date_types_ordered_by_date,
+                advice=f"Fix date-type or exclude unexpected dates: {self.unexpected_events}",
+                data=self.fulltext_dates.history_dates,
+                error_level=self.params["unexpected_events_error_level"],
+            )
+
+        if self.missing_events:
+            yield build_response(
+                title="missing events",
+                parent=self.params["parent"],
+                item="history",
+                sub_item=None,
+                validation_type="value",
+                is_valid=False,
+                expected=self.date_type_list,
+                obtained=self.date_types_ordered_by_date,
+                advice=f"Fix date-type or including missing dates: {self.missing_events}",
+                data=self.fulltext_dates.history_dates,
+                error_level=self.params["missing_events_error_level"],
+            )
+
+    def validate_history_order(self):
+        """Validate the chronological order of history events."""
+        if not self.is_ordered_history:
+            expected = self.get_events_ordered_by_date(
+                set(self.date_types_ordered_by_date + self.date_type_list)
+                - set(self.unexpected_events),
+            )
+            yield build_response(
+                title="ordered events",
+                parent=self.params["parent"],
+                item="history",
+                sub_item=None,
+                validation_type="match",
+                is_valid=False,
+                expected=self.date_type_list,
+                obtained=self.date_types_ordered_by_date,
+                advice=f"Check and fix date and date-type: {self.date_types_ordered_by_date}",
+                data=self.fulltext_dates.history_dates,
+                error_level=self.params["history_order_error_level"],
+            )
