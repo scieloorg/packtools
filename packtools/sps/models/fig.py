@@ -55,13 +55,13 @@ class Fig:
     def data(self):
         return {
             "alternative_parent": "fig",
-            "fig_id": self.fig_id,
-            "fig_type": self.fig_type,
+            "id": self.fig_id,
+            "type": self.fig_type,
             "label": self.label,
-            "graphic_href": self.graphic_href,
-            "caption_text": self.caption_text,
+            "graphic": self.graphic_href,
+            "caption": self.caption_text,
             "source_attrib": self.source_attrib,
-            "alternative_elements": self.alternative_elements,
+            "alternatives": self.alternative_elements,
         }
 
 

@@ -12,8 +12,9 @@ class ArticleFigValidation:
         self.elements = list(ArticleFigs(xml_tree).get_all_figs)
 
     def validate(self):
-        for element in self.elements:
-            yield from FigValidation(element, self.rules).validate()
+        if self.elements:
+            for element in self.elements:
+                yield from FigValidation(element, self.rules).validate()
 
         else:
             # fig is absent
@@ -63,10 +64,10 @@ class FigValidation:
         self.rules = rules
 
     def validate(self):
-        yield self._validate_item("id")
-        yield self._validate_item("label")
-        yield self._validate_item("caption")
-        yield self.validate_content()
+        yield from self._validate_item("id")
+        yield from self._validate_item("label")
+        yield from self._validate_item("caption")
+        yield from self.validate_content()
 
     def _validate_item(self, name):
         if not self.data.get(name):
@@ -86,7 +87,7 @@ class FigValidation:
             )
 
     def validate_content(self):
-        if not self.get("graphic") and not self.get("alternatives"):
+        if not self.data.get("graphic") and not self.data.get("alternatives"):
             name = "graphic or alternatives"
             yield build_response(
                 title=name,
