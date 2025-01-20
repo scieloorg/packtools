@@ -1,5 +1,5 @@
 from packtools.sps.models.funding_group import FundingGroup
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 
 
 def _callable_extern_validate_default(award_id):
@@ -7,31 +7,65 @@ def _callable_extern_validate_default(award_id):
 
 
 class FundingGroupValidation:
-    def __init__(self, xml_tree, special_chars_funding=None, special_chars_award_id=None):
+    """
+    Validation class for funding information in XML documents.
+    
+    Parameters
+    ----------
+    xml_tree : lxml.etree.Element
+        XML tree to validate
+    params : dict
+        Dictionary containing parameters for validation:
+        - special_chars_award_id: List of special characters allowed in award IDs
+        - callable_validation: Function to validate award IDs format
+        - error_level: Error level for validation messages ("ERROR" or "WARNING")
+    """
+    def __init__(self, xml_tree, params=None):
         self.xml_tree = xml_tree
-        self.funding_group_object = FundingGroup(xml_tree)
-        self.funding_group = self.funding_group_object.award_groups
-        self.funding_fn = self.funding_group_object.fn_financial_information(special_chars_funding, special_chars_award_id)
-        self.special_chars_funding = special_chars_funding
-        self.special_chars_award_id = special_chars_award_id
+        self.params = {
+            'special_chars_award_id': ['/', '.', '-'],
+            'callable_validation': _callable_extern_validate_default,
+            'error_level': "ERROR"
+        }
+        self.params.update(params or {})
+        self.funding = FundingGroup(xml_tree, self.params)
 
-    def funding_sources_exist_validation(self, error_level="ERROR"):
+    def funding_sources_exist_validation(self):
+        """
+        Validates the existence of funding sources and award IDs.
+        
+        Yields
+        ------
+        dict
+            Validation results for each funding source and award ID.
+        """
         title = 'Funding source element validation'
         validation_type = 'exist'
-        for funding in self.funding_group + self.funding_fn:
+        funding_data = self.funding.data
+        
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+
+        # Combina os resultados de award_groups e notas financeiras
+        financial_items = self.funding.financial_disclosure + self.funding.supported_by
+        for funding in self.funding.award_groups + financial_items:
             fn_type = funding.get('fn-type')
             is_valid = False
             advice = None
-            funding_list = funding.get("funding-source") or funding.get("look-like-funding-source") or []
+            
+            # Lista de fontes de financiamento
+            funding_list = funding.get("funding-source") or []
+            # Lista de IDs de financiamento
             award_list = funding.get("award-id") or funding.get("look-like-award-id") or []
+            
             has_funding = len(funding_list) > 0
             has_award = len(award_list) > 0
-            obtained = '{} values {} and {} values {}'.format(
-                len(funding_list),
-                'that look like funding source' if fn_type else 'for funding source',
-                len(award_list),
-                'that look like award id' if fn_type else 'for award id'
-            )
+            
+            obtained = f"{len(funding_list)} values for funding source and {len(award_list)} values for award id"
 
             if fn_type:
                 item = "fn"
@@ -56,13 +90,10 @@ class FundingGroupValidation:
                     advice = 'Provide value for funding source'
                 else:
                     is_valid = True
-            data = self.funding_group_object.extract_funding_data(self.special_chars_funding, self.special_chars_award_id)
-            yield format_response(
+
+            yield build_response(
                 title=title,
-                parent="article",
-                parent_id=None,
-                parent_article_type=data.get("article_type"),
-                parent_lang=data.get("article_lang"),
+                parent=parent,
                 item=item,
                 sub_item=sub_item,
                 validation_type=validation_type,
@@ -70,22 +101,36 @@ class FundingGroupValidation:
                 expected=expected,
                 obtained=obtained,
                 advice=advice,
-                data=data,
-                error_level=error_level,
+                data=funding_data,
+                error_level=self.params.get('error_level', "ERROR")
             )
 
-    def award_id_format_validation(self, callable_validation=None, error_level="ERROR"):
-        callable_validation = callable_validation or _callable_extern_validate_default
-        data = self.funding_group_object.extract_funding_data(self.special_chars_funding, self.special_chars_award_id)
-        for funding in self.funding_group:
-            for award_id in funding.get("award-id"):
+    def award_id_format_validation(self):
+        """
+        Validates the format of award IDs using the provided validation function.
+        
+        Yields
+        ------
+        dict
+            Validation results for each award ID.
+        """
+        callable_validation = self.params.get('callable_validation', _callable_extern_validate_default)
+        data = self.funding.data
+        
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": data.get("article_type"),
+            "parent_lang": data.get("article_lang"),
+        }
+
+        # Valida IDs em award_groups
+        for funding in self.funding.award_groups:
+            for award_id in funding.get("award-id", []):
                 is_valid = callable_validation(award_id)
-                yield format_response(
+                yield build_response(
                     title="Funding source element validation",
-                    parent="article",
-                    parent_id=None,
-                    parent_article_type=data.get("article_type"),
-                    parent_lang=data.get("article_lang"),
+                    parent=parent,
                     item="award-group",
                     sub_item="award-id",
                     validation_type="format",
@@ -94,5 +139,5 @@ class FundingGroupValidation:
                     obtained=award_id,
                     advice='Provide a valid value for award id',
                     data=data,
-                    error_level=error_level,
+                    error_level=self.params.get('error_level', "ERROR")
                 )
