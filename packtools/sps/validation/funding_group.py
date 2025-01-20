@@ -17,7 +17,6 @@ class FundingGroupValidation:
     params : dict
         Dictionary containing parameters for validation:
         - special_chars_award_id: List of special characters allowed in award IDs
-        - callable_validation: Function to validate award IDs format
         - error_level: Error level for validation messages ("ERROR" or "WARNING")
     """
 
@@ -25,7 +24,6 @@ class FundingGroupValidation:
         self.xml_tree = xml_tree
         self.params = {
             "special_chars_award_id": ["/", ".", "-"],
-            "callable_validation": _callable_extern_validate_default,
             "error_level": "ERROR",
         }
         self.params.update(params or {})
