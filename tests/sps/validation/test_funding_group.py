@@ -1,1185 +1,252 @@
 import unittest
+from lxml import etree
 
-from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.funding_group import FundingGroupValidation
 
 
-def callable_validation_success(award_id):
-    return True
+class TestFundingValidationBase(unittest.TestCase):
+    """Classe base para testes de FundingGroupValidation"""
+
+    params = {
+        "special_chars_award_id": ["/", ".", "-"],
+        "callable_validation": lambda x: True,
+        "error_level": "ERROR",
+    }
 
 
-def callable_validation_fail(award_id):
-    return False
+class TestEmptyXML(TestFundingValidationBase):
+    """Testa casos com XML vazio ou sem informações de funding"""
 
-
-class FundingGroupValidationTest(unittest.TestCase):
-    def test_funding_sources_validation_success_without_funding_information(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        
-                    </article-meta>
-                </front>
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front><article-meta></article-meta></front>
+                <back></back>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(xml_tree, special_chars_funding=['.', ','],
-                                               special_chars_award_id=['/', '.',
-                                                                       '-']).funding_sources_exist_validation())
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-        self.assertListEqual([], obtained)
+    def test_no_award_ids(self):
+        results = list(self.validator.validate_required_award_ids())
+        self.assertEqual(len(results), 0)
 
-    def test_funding_sources_validation_success_2_funding_1_award_in_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+
+class TestProperAwardGroup(TestFundingValidationBase):
+    """Testa casos com award-id corretamente em award-group"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
                             <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
-                                <award-id>2019JJ40269</award-id>
+                                <funding-source>CNPq</funding-source>
+                                <award-id>123.456-7</award-id>
                             </award-group>
                         </funding-group>
                     </article-meta>
                 </front>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'funding-source',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '2 values for funding source and 1 values for award id',
-                'got_value': '2 values for funding source and 1 values for award id',
-                'message': 'Got 2 values for funding source and 1 values for award id, expected at least 1 value for '
-                           'funding source and at least 1 value for award id',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': [
-                                'Natural Science Foundation of Hunan Province',
-                                'Hubei Provincial Natural Science Foundation of China'
-                            ]
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [
-                        'Natural Science Foundation of Hunan Province',
-                        'Hubei Provincial Natural Science Foundation of China'
-                    ],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-    def test_funding_sources_validation_success_2_funding_1_award_in_fn_group_financial_disclosure(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+    def test_proper_award_group(self):
+        results = list(self.validator.validate_required_award_ids())
+        self.assertEqual(len(results), 0)
+
+
+class TestAwardInAck(TestFundingValidationBase):
+    """Testa casos com award ID em acknowledgments"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <back>
+                    <ack>
+                        <title>Acknowledgments</title>
+                        <p>Project funded by grant 123.456-7</p>
+                    </ack>
+                </back>
+            </article>
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
+
+    def test_award_in_ack(self):
+        results = list(self.validator.validate_required_award_ids())
+        print(results)
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["data"]["context"], "ack")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
+
+
+class TestAwardInFinancialDisclosure(TestFundingValidationBase):
+    """Testa casos com award ID em financial disclosure"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                            <p>Grant No: 303625/2019-8</p>
-                            <p>Fundação de Amparo à Pesquisa do Estado de São Paulo</p>
-                            <p>Grant No: 2016/17640-0</p>
+                            <p>Grant: 123.456-7</p>
                         </fn>
                     </fn-group>
                 </back>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='financial-disclosure'",
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '2 values that look like funding source and 2 values that look like award id',
-                'got_value': '2 values that look like funding source and 2 values that look like award id',
-                'message': 'Got 2 values that look like funding source and 2 values that look like award id, '
-                           'expected at least 1 value for funding source and at least 1 value for award id',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'financial-disclosure',
-                            'look-like-award-id': [
-                                '303625/2019-8',
-                                '2016/17640-0'
-                            ],
-                            'look-like-funding-source': [
-                                'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
-                                'Fundação de Amparo à Pesquisa do Estado de São Paulo'
-                            ]
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-    def test_funding_sources_validation_success_2_funding_1_award_in_fn_group_supported_by(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+    def test_award_in_financial_disclosure(self):
+        results = list(self.validator.validate_required_award_ids())
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(
+            result["data"]["context"], "fn[@fn-type='financial-disclosure']"
+        )
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
+
+
+class TestAwardInSupportedBy(TestFundingValidationBase):
+    """Testa casos com award ID em supported-by"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
                 <back>
                     <fn-group>
                         <fn fn-type="supported-by">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                            <p>Grant No: 303625/2019-8</p>
-                            <p>Fundação de Amparo à Pesquisa do Estado de São Paulo</p>
-                            <p>Grant No: 2016/17640-0</p>
+                            <p>Support: 123.456-7</p>
                         </fn>
                     </fn-group>
                 </back>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='supported-by'",
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '2 values that look like funding source and 2 values that look like award id',
-                'got_value': '2 values that look like funding source and 2 values that look like award id',
-                'message': 'Got 2 values that look like funding source and 2 values that look like award id, '
-                           'expected at least 1 value for funding source',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'supported-by',
-                            'look-like-award-id': [
-                                '303625/2019-8',
-                                '2016/17640-0'
-                            ],
-                            'look-like-funding-source': [
-                                'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
-                                'Fundação de Amparo à Pesquisa do Estado de São Paulo'
-                            ]
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-    def test_funding_sources_validation_success_1_funding_2_award_in_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+    def test_award_in_supported_by(self):
+        results = list(self.validator.validate_required_award_ids())
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["data"]["context"], "fn[@fn-type='supported-by']")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
+
+
+class TestAwardInFundingStatement(TestFundingValidationBase):
+    """Testa casos com award ID em funding-statement"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
                 <front>
                     <article-meta>
                         <funding-group>
-                            <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                                <award-id>2019JJ40269</award-id>
-                                <award-id>2020CFB547</award-id>
-                            </award-group>
+                            <funding-statement>Project 123.456-7</funding-statement>
                         </funding-group>
                     </article-meta>
                 </front>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'funding-source',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1 values for funding source and 2 values for award id',
-                'got_value': '1 values for funding source and 2 values for award id',
-                'message': 'Got 1 values for funding source and 2 values for award id, expected at least 1 value for '
-                           'funding source and at least 1 value for award id',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269', '2020CFB547'],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': ['Natural Science Foundation of Hunan Province'],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-    def test_funding_sources_validation_success_1_funding_2_award_in_fn_group_financial_disclosure(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+    def test_award_in_funding_statement(self):
+        results = list(self.validator.validate_required_award_ids())
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["data"]["context"], "funding-group/funding-statement")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
+
+
+class TestAwardInAllLocations(TestFundingValidationBase):
+    """Testa casos com award IDs em todos os locais possíveis"""
+
+    def setUp(self):
+        xml = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>Project 123.456-7</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
                 <back>
+                    <ack>
+                        <p>Project 234.567-8</p>
+                    </ack>
                     <fn-group>
                         <fn fn-type="financial-disclosure">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                            <p>Grant No: 303625/2019-8</p>
-                            <p>Grant No: 2016/17640-0</p>
+                            <p>Grant: 345.678-9</p>
                         </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='financial-disclosure'",
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1 values that look like funding source and 2 values that look like award id',
-                'got_value': '1 values that look like funding source and 2 values that look like award id',
-                'message': 'Got 1 values that look like funding source and 2 values that look like award id, '
-                           'expected at least 1 value for funding source and at least 1 value for award id',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'financial-disclosure',
-                            'look-like-award-id': ['303625/2019-8', '2016/17640-0'],
-                            'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico']
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_funding_sources_validation_success_1_funding_2_award_in_fn_group_supported_by(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
                         <fn fn-type="supported-by">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                            <p>Grant No: 303625/2019-8</p>
-                            <p>Grant No: 2016/17640-0</p>
+                            <p>Support: 456.789-0</p>
                         </fn>
                     </fn-group>
                 </back>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='supported-by'",
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1 values that look like funding source and 2 values that look like award id',
-                'got_value': '1 values that look like funding source and 2 values that look like award id',
-                'message': 'Got 1 values that look like funding source and 2 values that look like award id, '
-                           'expected at least 1 value for funding source',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'supported-by',
-                            'look-like-award-id': ['303625/2019-8', '2016/17640-0'],
-                            'look-like-funding-source': [
-                                'Conselho Nacional de Desenvolvimento Científico e Tecnológico'
-                            ]
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(xml)
+        self.validator = FundingGroupValidation(self.xml_tree, self.params)
 
-    def test_funding_sources_validation_fail_0_funding_0_award_in_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
+    def test_awards_in_all_locations(self):
+        results = list(self.validator.validate_required_award_ids())
 
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'funding-source',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '0 values for funding source and 0 values for award id',
-                'message': 'Got 0 values for funding source and 0 values for award id, expected at least 1 value for '
-                           'funding source and at least 1 value for award id',
-                'advice': 'Provide values for award id and funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': [],
-                            'funding-source': []
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        # Verifica número total de resultados
+        self.assertEqual(len(results), 4)
 
-    def test_funding_sources_validation_fail_0_funding_0_award_in_fn_group_financial_disclosure(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
+        # Verifica se encontrou award IDs em todos os contextos
+        contexts = {r["data"]["context"] for r in results}
+        self.assertEqual(len(contexts), 4)
+
+        # Verifica cada contexto específico
+        self.assertIn("funding-group/funding-statement", contexts)
+        self.assertIn("ack", contexts)
+        self.assertIn("fn[@fn-type='financial-disclosure']", contexts)
+        self.assertIn("fn[@fn-type='supported-by']", contexts)
+
+        # Verifica os award IDs encontrados
+        award_ids = set()
+        for r in results:
+            award_ids.update(r["data"]["look-like-award-id"])
+
+        expected_ids = {"123.456-7", "234.567-8", "345.678-9", "456.789-0"}
+        self.assertEqual(award_ids, expected_ids)
+
+
+class TestErrorLevels(TestFundingValidationBase):
+    """Testa diferentes níveis de erro"""
+
+    def setUp(self):
+        self.xml = """
+            <article article-type="research-article" xml:lang="pt">
                 <back>
-                    <fn-group>
-                        <fn fn-type="financial-disclosure">
-
-                        </fn>
-                    </fn-group>
+                    <ack><p>Project 123.456-7</p></ack>
                 </back>
             </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='financial-disclosure'",
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '0 values that look like funding source and 0 values that look like award id',
-                'message': 'Got 0 values that look like funding source and 0 values that look like award id, '
-                           'expected at least 1 value for funding source and at least 1 value for award id',
-                'advice': 'Provide values for award id and funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'financial-disclosure',
-                            'look-like-award-id': [],
-                            'look-like-funding-source': []
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        """
+        self.xml_tree = etree.fromstring(self.xml)
 
-    def test_funding_sources_validation_fail_0_funding_0_award_in_fn_group_supported_by(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
-                        <fn fn-type="supported-by">
+    def test_warning_level(self):
+        params = dict(self.params)
+        params["error_level"] = "WARNING"
+        validator = FundingGroupValidation(self.xml_tree, params)
+        results = list(validator.validate_required_award_ids())
+        self.assertEqual(results[0]["response"], "WARNING")
 
-                        </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='supported-by'",
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source',
-                'got_value': '0 values that look like funding source and 0 values that look like award id',
-                'message': 'Got 0 values that look like funding source and 0 values that look like award id, '
-                           'expected at least 1 value for funding source',
-                'advice': 'Provide value for funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'supported-by',
-                            'look-like-award-id': [],
-                            'look-like-funding-source': []
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+    def test_info_level(self):
+        params = dict(self.params)
+        params["error_level"] = "INFO"
+        validator = FundingGroupValidation(self.xml_tree, params)
+        results = list(validator.validate_required_award_ids())
+        self.assertEqual(results[0]["response"], "INFO")
 
-    def test_funding_sources_validation_fail_1_funding_0_award_in_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'funding-source',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '1 values for funding source and 0 values for award id',
-                'message': 'Got 1 values for funding source and 0 values for award id, expected at least 1 value for '
-                           'funding source and at least 1 value for award id',
-                'advice': 'Provide value for award id or move funding source to <fn fn-type="supported-by">',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': [],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': ['Natural Science Foundation of Hunan Province'],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
 
-    def test_funding_sources_validation_fail_1_funding_0_award_in_fn_group_financial_disclosure(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
-                        <fn fn-type="financial-disclosure">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                        </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='financial-disclosure'",
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '1 values that look like funding source and 0 values that look like award id',
-                'message': 'Got 1 values that look like funding source and 0 values that look like award id, '
-                           'expected at least 1 value for funding source and at least 1 value for award id',
-                'advice': 'Provide value for award id or move funding source to <fn fn-type="supported-by">',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'financial-disclosure',
-                            'look-like-award-id': [],
-                            'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico']
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_funding_sources_validation_fail_1_funding_0_award_in_fn_group_supported_by(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
-                        <fn fn-type="supported-by">
-                            <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-                        </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='supported-by'",
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': '1 values that look like funding source and 0 values that look like award id',
-                'got_value': '1 values that look like funding source and 0 values that look like award id',
-                'message': 'Got 1 values that look like funding source and 0 values that look like award id, '
-                           'expected at least 1 value for funding source',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'supported-by',
-                            'look-like-award-id': [],
-                            'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico']
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_funding_sources_validation_fail_0_funding_1_award_in_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
-                                <award-id>2019JJ40269</award-id>
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'funding-source',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '0 values for funding source and 1 values for award id',
-                'message': 'Got 0 values for funding source and 1 values for award id, expected at least 1 value for '
-                           'funding source and at least 1 value for award id',
-                'advice': 'Provide value for funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': []
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_funding_sources_validation_fail_0_funding_1_award_in_fn_group_financial_disclosure(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
-                        <fn fn-type="financial-disclosure">
-                            <p>Grant No: 2016/17640-0</p>
-                        </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='financial-disclosure'",
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source and at least 1 value for award id',
-                'got_value': '0 values that look like funding source and 1 values that look like award id',
-                'message': 'Got 0 values that look like funding source and 1 values that look like award id, '
-                           'expected at least 1 value for funding source and at least 1 value for award id',
-                'advice': 'Provide value for funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'financial-disclosure',
-                            'look-like-award-id': ['2016/17640-0'],
-                            'look-like-funding-source': []
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_funding_sources_validation_fail_0_funding_1_award_in_fn_group_supported_by(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <back>
-                    <fn-group>
-                        <fn fn-type="supported-by">
-                            <p>Grant No: 2016/17640-0</p>
-                        </fn>
-                    </fn-group>
-                </back>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(
-            xml_tree,
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        ).funding_sources_exist_validation())
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'fn',
-                'sub_item': "@fn-type='supported-by'",
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'at least 1 value for funding source',
-                'got_value': '0 values that look like funding source and 1 values that look like award id',
-                'message': 'Got 0 values that look like funding source and 1 values that look like award id, '
-                           'expected at least 1 value for funding source',
-                'advice': 'Provide value for funding source',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [],
-                    'fn_financial_information': [
-                        {
-                            'fn-type': 'supported-by',
-                            'look-like-award-id': ['2016/17640-0'],
-                            'look-like-funding-source': []
-                        }
-                    ],
-                    'funding_sources': [],
-                    'funding_statement': None,
-                    'principal_award_recipients': []},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_award_id_format_validation_success(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                                <award-id>2019JJ40269</award-id>
-                            </award-group>
-                            <award-group>
-                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
-                                <award-id>2020CFB547</award-id>
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_success))
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'award-id',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2019JJ40269',
-                'got_value': '2019JJ40269',
-                'message': 'Got 2019JJ40269, expected 2019JJ40269',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        },
-                        {
-                            'award-id': ['2020CFB547'],
-                            'funding-source': ['Hubei Provincial Natural Science Foundation of China']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [
-                        'Natural Science Foundation of Hunan Province',
-                        'Hubei Provincial Natural Science Foundation of China'
-                    ],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            },
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'award-id',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2020CFB547',
-                'got_value': '2020CFB547',
-                'message': 'Got 2020CFB547, expected 2020CFB547',
-                'advice': None,
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        },
-                        {
-                            'award-id': ['2020CFB547'],
-                            'funding-source': ['Hubei Provincial Natural Science Foundation of China']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [
-                        'Natural Science Foundation of Hunan Province',
-                        'Hubei Provincial Natural Science Foundation of China'
-                    ],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_award_id_format_validation_fail(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                                <award-id>2019JJ40269</award-id>
-                            </award-group>
-                            <award-group>
-                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
-                                <award-id>2020CFB547</award-id>
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_fail))
-        expected = [
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'award-id',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid value for award id',
-                'got_value': '2019JJ40269',
-                'message': 'Got 2019JJ40269, expected a valid value for award id',
-                'advice': 'Provide a valid value for award id',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        },
-                        {
-                            'award-id': ['2020CFB547'],
-                            'funding-source': ['Hubei Provincial Natural Science Foundation of China']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [
-                        'Natural Science Foundation of Hunan Province',
-                        'Hubei Provincial Natural Science Foundation of China'
-                    ],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            },
-            {
-                'title': 'Funding source element validation',
-                'parent': 'article',
-                'parent_article_type': "research-article",
-                'parent_id': None,
-                'parent_lang': "pt",
-                'item': 'award-group',
-                'sub_item': 'award-id',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid value for award id',
-                'got_value': '2020CFB547',
-                'message': 'Got 2020CFB547, expected a valid value for award id',
-                'advice': 'Provide a valid value for award id',
-                'data': {
-                    'ack': [],
-                    'article_lang': "pt",
-                    'article_type': "research-article",
-                    'award_groups': [
-                        {
-                            'award-id': ['2019JJ40269'],
-                            'funding-source': ['Natural Science Foundation of Hunan Province']
-                        },
-                        {
-                            'award-id': ['2020CFB547'],
-                            'funding-source': ['Hubei Provincial Natural Science Foundation of China']
-                        }
-                    ],
-                    'fn_financial_information': [],
-                    'funding_sources': [
-                        'Natural Science Foundation of Hunan Province',
-                        'Hubei Provincial Natural Science Foundation of China'
-                    ],
-                    'funding_statement': None,
-                    'principal_award_recipients': []
-                },
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_award_id_format_validation_fail_without_funding_group(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_fail))
-        self.assertEqual([], obtained)
-
-    def test_award_id_format_validation_fail_without_award_id(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-            dtd-version="1.0" article-type="research-article" xml:lang="pt">
-                <front>
-                    <article-meta>
-                        <funding-group>
-                            <award-group>
-                                <funding-source>Natural Science Foundation of Hunan Province</funding-source>
-                            </award-group>
-                            <award-group>
-                                <funding-source>Hubei Provincial Natural Science Foundation of China</funding-source>
-                            </award-group>
-                        </funding-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(FundingGroupValidation(xml_tree).award_id_format_validation(callable_validation_fail))
-        self.assertEqual([], obtained)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

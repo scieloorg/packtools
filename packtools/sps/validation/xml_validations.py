@@ -305,13 +305,8 @@ def validate_bibliographic_strip(xmltree, params):
 
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
-
-    # FIXME o nome do método não está condizendo com o que está fazendo, que é validar source + award-id; usar verbo para o método
-    # TODO a classe deve ter um método que identifique se nos elementos fn e ack há algum número que possa ser do número do contrato e que não esteja identificado como award-id
     validator = FundingGroupValidation(xmltree)
-    yield from validator.funding_sources_exist_validation(
-        error_level=funding_data_rules["error_level"],
-    )
+    yield from validator.validate_required_award_ids()
 
 
 def validate_journal_meta(xmltree, params):
