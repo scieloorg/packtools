@@ -22,7 +22,9 @@ def _looks_like_institution_name(text, special_chars):
 
 def _looks_like_award_id(text):
     # TODO outros casos podem ser considerados, além do DOI
-    invalid_patterns = ['doi.org', ]
+    invalid_patterns = [
+        "doi.org",
+    ]
     for pattern in invalid_patterns:
         if pattern in text:
             return False
@@ -78,14 +80,14 @@ class FundingGroup:
     def __init__(self, xmltree, params=None):
         self._xmltree = xmltree
         self.params = params or {
-            "special_chars_funding": ['.', ','],
-            "special_chars_award_id": ['/', '.', '-']
+            "special_chars_funding": [".", ","],
+            "special_chars_award_id": ["/", ".", "-"],
         }
 
     def _process_paragraph_node(self, node):
         """
         Process a single paragraph node to extract funding sources and award IDs.
-        
+
         Parameters
         ----------
         node : lxml.etree.Element
@@ -98,27 +100,23 @@ class FundingGroup:
         text = xml_utils.node_plain_text(node)
         funding_sources = []
         award_ids = []
-        
+
         if has_digit(text):
             number = _get_first_number_sequence(
-                text, 
-                self.params['special_chars_award_id']
+                text, self.params["special_chars_award_id"]
             )
             if _looks_like_award_id(text) and number is not None:
                 award_ids.append(number)
-        
-        return {
-            "look-like-award-id": award_ids,
-            "text": text
-        }
-        
+
+        return {"look-like-award-id": award_ids, "text": text}
+
     def fn_financial_information(self):
         items = []
-        for fn_type in ('financial-disclosure', 'supported-by'):
+        for fn_type in ("financial-disclosure", "supported-by"):
             for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
-                for node in nodes.xpath('p'):
+                for node in nodes.xpath("p"):
                     node_data = self._process_paragraph_node(node)
-                    node_data['fn-type'] = fn_type
+                    node_data["fn-type"] = fn_type
                     items.append(node_data)
         return items
 
@@ -127,9 +125,14 @@ class FundingGroup:
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group"):
             d = {
-                "funding-source": [xml_utils.get_node_without_subtag(source) for source in
-                                   node.xpath("funding-source")],
-                "award-id": [xml_utils.get_node_without_subtag(id) for id in node.xpath("award-id")]
+                "funding-source": [
+                    xml_utils.get_node_without_subtag(source)
+                    for source in node.xpath("funding-source")
+                ],
+                "award-id": [
+                    xml_utils.get_node_without_subtag(id)
+                    for id in node.xpath("award-id")
+                ],
             }
             items.append(d)
         return items
@@ -152,17 +155,21 @@ class FundingGroup:
     @property
     def principal_award_recipients(self):
         items = []
-        for node in self._xmltree.xpath(".//funding-group/award-group/principal-award-recipient"):
+        for node in self._xmltree.xpath(
+            ".//funding-group/award-group/principal-award-recipient"
+        ):
             items.append(xml_utils.get_node_without_subtag(node))
         return items
 
     @property
     def principal_investigators(self):
         items = []
-        for node in self._xmltree.xpath(".//funding-group/award-group/principal-investigator/string-name"):
+        for node in self._xmltree.xpath(
+            ".//funding-group/award-group/principal-investigator/string-name"
+        ):
             d = {
                 "given-names": node.findtext("given-names"),
-                "surname": node.findtext("surname")
+                "surname": node.findtext("surname"),
             }
             items.append(d)
         return items
@@ -171,11 +178,8 @@ class FundingGroup:
     def ack(self):
         items = []
         for ack in self._xmltree.xpath(".//back//ack"):
-            item = {
-                "title": ack.findtext("title"),
-                "p": []
-            }
-            for node in nodes.xpath('p'):
+            item = {"title": ack.findtext("title"), "p": []}
+            for node in nodes.xpath("p"):
                 node_data = self._process_paragraph_node(node)
                 item["p"].append(node_data)
             items.append(item)
@@ -187,7 +191,9 @@ class FundingGroup:
 
     @property
     def article_lang(self):
-        return self._xmltree.xpath(".")[0].get("{http://www.w3.org/XML/1998/namespace}lang")
+        return self._xmltree.xpath(".")[0].get(
+            "{http://www.w3.org/XML/1998/namespace}lang"
+        )
 
     def extract_funding_data(self):
         """
@@ -229,7 +235,7 @@ class FundingGroup:
             # Principal award recipients obtained in "principal-award-recipient".
             "principal_award_recipients": self.principal_award_recipients,
             # Funding information obtained in "ack".
-            "ack": self.ack
+            "ack": self.ack,
         }
 
     @property
@@ -242,9 +248,6 @@ class FundingGroup:
                 if award_id and funding_source:
                     for aid in award_id:
                         _data.append(
-                            {
-                                "award-id": aid,
-                                "funding-source": funding_source
-                            }
+                            {"award-id": aid, "funding-source": funding_source}
                         )
             return _data
