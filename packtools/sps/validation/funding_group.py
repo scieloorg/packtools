@@ -28,9 +28,10 @@ class FundingGroupValidation:
             'error_level': "ERROR"
         }
         self.params.update(params or {})
-        self.funding = FundingGroup(xml_tree, self.params)
 
-    def funding_sources_exist_validation(self):
+        self.funding = FundingGroup(xml_tree, self.params)
+        
+    def validate_required_award_ids(self):
         """
         Validates the existence of funding sources and award IDs.
         
@@ -39,10 +40,7 @@ class FundingGroupValidation:
         dict
             Validation results for each funding source and award ID.
         """
-        title = 'Funding source element validation'
-        validation_type = 'exist'
         funding_data = self.funding.data
-        
         parent = {
             "parent": "article",
             "parent_id": None,
@@ -50,94 +48,41 @@ class FundingGroupValidation:
             "parent_lang": funding_data.get("article_lang"),
         }
 
-        # Combina os resultados de award_groups e notas financeiras
-        financial_items = self.funding.financial_disclosure + self.funding.supported_by
-        for funding in self.funding.award_groups + financial_items:
-            fn_type = funding.get('fn-type')
-            is_valid = False
-            advice = None
-            
-            # Lista de fontes de financiamento
-            funding_list = funding.get("funding-source") or []
-            # Lista de IDs de financiamento
-            award_list = funding.get("award-id") or funding.get("look-like-award-id") or []
-            
-            has_funding = len(funding_list) > 0
-            has_award = len(award_list) > 0
-            
-            obtained = f"{len(funding_list)} values for funding source and {len(award_list)} values for award id"
+        if not self.funding.award_ids:
+            errors = []
+            if items := self.funding.ack:
+                for ack in items:
+                    for item in ack.get("p") or []:
+                        if item.get("look-like-award-id"):
+                            item["context"] = "ack"
+                            errors.append(item)
+            if items := self.funding.financial_disclosure:
+                for item in items or []:
+                    if item.get("look-like-award-id"):
+                        item["context"] = "fn[@fn-type='financial-disclosure']"
+                        errors.append(item)
+            if items := self.funding.supported_by:
+                for item in items or []:
+                    if item.get("look-like-award-id"):
+                        item["context"] = "fn[@fn-type='supported-by']"
+                        errors.append(item)
+            if funding_statement_data := self.funding.funding_statement_data:
+                if funding_statement_data.get("look-like-award-id"):
+                    funding_statement_data["context"] = "funding-group/funding-statement"
+                    errors.append(funding_statement_data)
 
-            if fn_type:
-                item = "fn"
-                sub_item = f"@fn-type='{fn_type}'"
-            else:
-                item = "award-group"
-                sub_item = "funding-source"
-
-            if fn_type == 'supported-by':
-                expected = 'at least 1 value for funding source'
-                if not has_funding:
-                    advice = 'Provide value for funding source'
-                else:
-                    is_valid = True
-            else:
-                expected = 'at least 1 value for funding source and at least 1 value for award id'
-                if not has_award and not has_funding:
-                    advice = 'Provide values for award id and funding source'
-                elif not has_award and has_funding:
-                    advice = 'Provide value for award id or move funding source to <fn fn-type="supported-by">'
-                elif has_award and not has_funding:
-                    advice = 'Provide value for funding source'
-                else:
-                    is_valid = True
-
-            yield build_response(
-                title=title,
-                parent=parent,
-                item=item,
-                sub_item=sub_item,
-                validation_type=validation_type,
-                is_valid=is_valid,
-                expected=expected,
-                obtained=obtained,
-                advice=advice,
-                data=funding_data,
-                error_level=self.params.get('error_level', "ERROR")
-            )
-
-    def award_id_format_validation(self):
-        """
-        Validates the format of award IDs using the provided validation function.
-        
-        Yields
-        ------
-        dict
-            Validation results for each award ID.
-        """
-        callable_validation = self.params.get('callable_validation', _callable_extern_validate_default)
-        data = self.funding.data
-        
-        parent = {
-            "parent": "article",
-            "parent_id": None,
-            "parent_article_type": data.get("article_type"),
-            "parent_lang": data.get("article_lang"),
-        }
-
-        # Valida IDs em award_groups
-        for funding in self.funding.award_groups:
-            for award_id in funding.get("award-id", []):
-                is_valid = callable_validation(award_id)
+            for error in errors:
                 yield build_response(
-                    title="Funding source element validation",
+                    title="Required funding-group/award-group with award-id and funding-source",
                     parent=parent,
                     item="award-group",
                     sub_item="award-id",
-                    validation_type="format",
-                    is_valid=is_valid,
-                    expected=award_id if is_valid else 'a valid value for award id',
-                    obtained=award_id,
-                    advice='Provide a valid value for award id',
-                    data=data,
-                    error_level=self.params.get('error_level', "ERROR")
+                    validation_type="exist",
+                    is_valid=False,
+                    expected='award-id and funding-source in award-group',
+                    obtained=None,
+                    advice='Found `{}` in `{}` ({}). Check it is a project contract. Add award-id ({}) in funding-group/award-group with respectives funding-source'.format(
+                        error['look-like-award-id'], error['text'], error['context'], error['look-like-award-id']),
+                    data=error,
+                    error_level=self.params['error_level'],
                 )
