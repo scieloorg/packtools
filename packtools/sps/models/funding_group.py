@@ -64,6 +64,10 @@ class FundingGroup:
     ----------
     xml
         XML file that contains the attributes of interest.
+    params : dict
+        Dictionary containing special characters configuration:
+        - special_chars_funding: List of special characters allowed in funding source names
+        - special_chars_award_id: List of special characters allowed in award IDs
 
     Returns
     -------
@@ -71,14 +75,14 @@ class FundingGroup:
         Arrangement containing a dictionary that correlates funding-source and award-id or values of one of the attributes.
     """
 
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, params=None):
         self._xmltree = xmltree
+        self.params = params or {
+            'special_chars_funding': ['.', ',', '-'],
+            'special_chars_award_id': ['-', '/']
+        }
 
-    def fn_financial_information(self, special_chars_funding=None, special_chars_award_id=None):
-        if special_chars_award_id is None:
-            special_chars_award_id = []
-        if special_chars_funding is None:
-            special_chars_funding = []
+    def fn_financial_information(self):
         items = []
         for fn_type in ('financial-disclosure', 'supported-by'):
             funding_sources = []
@@ -87,11 +91,17 @@ class FundingGroup:
                 for node in nodes.xpath('p'):
                     text = xml_utils.node_plain_text(node)
                     if has_digit(text):
-                        number = _get_first_number_sequence(text, special_chars_award_id)
+                        number = _get_first_number_sequence(
+                            text, 
+                            self.params['special_chars_award_id']
+                        )
                         if _looks_like_award_id(text) and number is not None:
                             award_ids.append(number)
                     else:
-                        if _looks_like_institution_name(text, special_chars_funding):
+                        if _looks_like_institution_name(
+                            text, 
+                            self.params['special_chars_funding']
+                        ):
                             funding_sources.append(text)
 
                 items.append(
@@ -168,7 +178,7 @@ class FundingGroup:
     def article_lang(self):
         return self._xmltree.xpath(".")[0].get("{http://www.w3.org/XML/1998/namespace}lang")
 
-    def extract_funding_data(self, funding_special_chars=None, award_id_special_chars=None):
+    def extract_funding_data(self):
         """
         Extracts various financial and funding-related information from the XML for validation purposes.
 
@@ -198,7 +208,7 @@ class FundingGroup:
             # Language of the article, obtained from the "lang" attribute in the XML namespace.
             "article_lang": self.article_lang,
             # Possible financial information extracted from the financial footnote group.
-            "fn_financial_information": self.fn_financial_information(funding_special_chars, award_id_special_chars),
+            "fn_financial_information": self.fn_financial_information(),
             # Award groups, containing funding sources and award IDs.
             "award_groups": self.award_groups,
             # Funding sources listed in "award-groups".
