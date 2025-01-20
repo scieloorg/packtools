@@ -77,13 +77,12 @@ class FundingTest(TestCase):
         """
         xml_tree = etree.fromstring(xml)
         params = {
-            'special_chars_funding': ['.', ','],
             'special_chars_award_id': ['/', '.', '-']
         }
         self.funding = funding_group.FundingGroup(xml_tree, params)
         self.funding_no_params = funding_group.FundingGroup(xml_tree)
 
-    def test_fn_financial_information(self):
+    def test_financial_disclosure(self):
         self.maxDiff = None
         expected = [
             {
@@ -130,7 +129,14 @@ class FundingTest(TestCase):
                 'fn-type': 'financial-disclosure',
                 'look-like-award-id': ['0001.'],
                 'text': 'Finance code 0001.'
-            },
+            }
+        ]
+        obtained = self.funding.financial_disclosure
+        self.assertEqual(expected, obtained)
+
+    def test_supported_by(self):
+        self.maxDiff = None
+        expected = [
             {
                 'fn-type': 'supported-by',
                 'look-like-award-id': [],
@@ -142,7 +148,7 @@ class FundingTest(TestCase):
                 'text': 'Número 123.456-7'
             }
         ]
-        obtained = self.funding.fn_financial_information()
+        obtained = self.funding.supported_by
         self.assertEqual(expected, obtained)
 
     def test_award_groups(self):
@@ -219,51 +225,12 @@ class FundingTest(TestCase):
         obtained = self.funding.ack
         self.assertEqual(expected, obtained)
 
-    def test_extract_funding_data(self):
-        self.maxDiff = None
-        obtained = self.funding.extract_funding_data()
-        
-        # Verify the structure exists
-        self.assertIn('article_type', obtained)
-        self.assertIn('article_lang', obtained)
-        self.assertIn('fn_financial_information', obtained)
-        self.assertIn('award_groups', obtained)
-        self.assertIn('funding_sources', obtained)
-        self.assertIn('funding_statement', obtained)
-        self.assertIn('principal_award_recipients', obtained)
-        self.assertIn('ack', obtained)
-        
-        # Verify some key values
-        self.assertEqual('research-article', obtained['article_type'])
-        self.assertEqual('en', obtained['article_lang'])
-        
-    def test_data(self):
-        self.maxDiff = None
-        expected = [
-            {"award-id": "2019JJ40269", "funding-source": ["Natural Science Foundation of Hunan Province"]},
-            {"award-id": "2020CFB547", "funding-source": ["Hubei Provincial Natural Science Foundation of China"]}
-        ]
-        obtained = self.funding.data
-        self.assertListEqual(expected, obtained)
-
-    def test__looks_like_institution_name_success(self):
-        self.assertTrue(funding_group._looks_like_institution_name(
-            "Natural Science, Foundation of-Hunan Province.",
-            ['.', ',', '-']
-        ))
-
-    def test__looks_like_institution_name_fail(self):
-        self.assertFalse(funding_group._looks_like_institution_name(
-            "Natural Science Foundation 1 of Hunan Province",
-            ['.', ',', '-']
-        ))
-
-    def test__looks_like_award_id_success(self):
+    def test_looks_like_award_id_success(self):
         self.assertTrue(funding_group._looks_like_award_id(
             "123.456.789-0"
         ))
 
-    def test__looks_like_award_id_fail(self):
+    def test_looks_like_award_id_fail(self):
         self.assertFalse(funding_group._looks_like_award_id(
             "doi.org.//123.456.789-0"
         ))
@@ -279,3 +246,22 @@ class FundingTest(TestCase):
             'text': 'Grant No: 303625/2019-8'
         }
         self.assertEqual(expected, result)
+
+    def test_extract_funding_data(self):
+        self.maxDiff = None
+        obtained = self.funding.extract_funding_data()
+        
+        # Verify the structure exists
+        self.assertIn('article_type', obtained)
+        self.assertIn('article_lang', obtained)
+        self.assertIn('financial_disclosure', obtained)
+        self.assertIn('supported_by', obtained)
+        self.assertIn('award_groups', obtained)
+        self.assertIn('funding_sources', obtained)
+        self.assertIn('funding_statement', obtained)
+        self.assertIn('principal_award_recipients', obtained)
+        self.assertIn('ack', obtained)
+        
+        # Verify some key values
+        self.assertEqual('research-article', obtained['article_type'])
+        self.assertEqual('en', obtained['article_lang'])

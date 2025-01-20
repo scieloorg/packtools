@@ -1,23 +1,7 @@
 import logging
-
 from packtools.sps.utils import xml_utils
 
 logger = logging.getLogger(__name__)
-
-
-def _looks_like_institution_name(text, special_chars):
-    """
-    Checks whether all characters in text are alphanumeric, spaces or belong to the list of characters considered valid
-     in composing the name of the funding source.
-
-    Example: special_chars = ['.', ',', '-']
-
-    In other words, it checks whether a text is, potentially, the name of a funding source.
-    """
-    for char in text:
-        if not (char.isalpha() or char.isspace() or char in special_chars):
-            return False
-    return True
 
 
 def _looks_like_award_id(text):
@@ -79,26 +63,23 @@ class FundingGroup:
 
     def __init__(self, xmltree, params=None):
         self._xmltree = xmltree
-        self.params = params or {
-            "special_chars_funding": [".", ","],
-            "special_chars_award_id": ["/", ".", "-"],
-        }
+        self.params = params or {"special_chars_award_id": ["/", ".", "-"]}
 
     def _process_paragraph_node(self, node):
         """
-        Process a single paragraph node to extract funding sources and award IDs.
+        Process a single paragraph node to extract award IDs.
 
         Parameters
         ----------
         node : lxml.etree.Element
             The paragraph node to process
+
         Returns
         -------
         dict
-            Dictionary containing fn-type, extracted funding sources, award IDs and original text
+            Dictionary containing extracted award IDs and original text
         """
         text = xml_utils.node_plain_text(node)
-        funding_sources = []
         award_ids = []
 
         if has_digit(text):
@@ -110,18 +91,42 @@ class FundingGroup:
 
         return {"look-like-award-id": award_ids, "text": text}
 
-    def fn_financial_information(self):
+    @property
+    def financial_disclosure(self):
+        """
+        Extract financial disclosure information from fn nodes.
+        Returns a list of dictionaries containing award IDs and text found in financial-disclosure notes.
+        """
         items = []
-        for fn_type in ("financial-disclosure", "supported-by"):
-            for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
-                for node in nodes.xpath("p"):
-                    node_data = self._process_paragraph_node(node)
-                    node_data["fn-type"] = fn_type
-                    items.append(node_data)
+        for nodes in self._xmltree.xpath(
+            ".//fn-group/fn[@fn-type='financial-disclosure']"
+        ):
+            for node in nodes.xpath("p"):
+                node_data = self._process_paragraph_node(node)
+                node_data["fn-type"] = "financial-disclosure"
+                items.append(node_data)
+        return items
+
+    @property
+    def supported_by(self):
+        """
+        Extract supported-by information from fn nodes.
+        Returns a list of dictionaries containing award IDs and text found in supported-by notes.
+        """
+        items = []
+        for nodes in self._xmltree.xpath(".//fn-group/fn[@fn-type='supported-by']"):
+            for node in nodes.xpath("p"):
+                node_data = self._process_paragraph_node(node)
+                node_data["fn-type"] = "supported-by"
+                items.append(node_data)
         return items
 
     @property
     def award_groups(self):
+        """
+        Extract award groups information from funding-group.
+        Returns a list of dictionaries containing funding sources and award IDs.
+        """
         items = []
         for node in self._xmltree.xpath(".//funding-group/award-group"):
             d = {
@@ -199,55 +204,19 @@ class FundingGroup:
         """
         Extracts various financial and funding-related information from the XML for validation purposes.
 
-        This function processes the XML to retrieve information about the article type, language,
-        and financial details, which are essential for validating the completeness and correctness
-        of funding information in scientific articles.
-
-        Parameters
-        ----------
-        funding_special_chars : list, optional
-            List of special characters considered valid in the names of funding sources.
-        award_id_special_chars : list, optional
-            List of special characters considered valid in award IDs.
-
         Returns
         -------
         dict
-            A dictionary containing various pieces of extracted information for validation purposes,
-            such as article type, language, financial information, award groups, funding sources,
-            funding statement, principal award recipients, and acknowledgments. This data is used
-            to ensure that the article's funding information meets required standards and includes
-            all necessary details.
+            A dictionary containing various pieces of extracted information for validation purposes.
         """
         return {
-            # Type of the article, obtained from the "article-type" attribute in the XML root element.
             "article_type": self.article_type,
-            # Language of the article, obtained from the "lang" attribute in the XML namespace.
             "article_lang": self.article_lang,
-            # Possible financial information extracted from the financial footnote group.
-            "fn_financial_information": self.fn_financial_information(),
-            # Award groups, containing funding sources and award IDs.
+            "financial_disclosure": self.financial_disclosure,
+            "supported_by": self.supported_by,
             "award_groups": self.award_groups,
-            # Funding sources listed in "award-groups".
             "funding_sources": self.funding_sources,
-            # Funding information obtained in "funding-statement".
             "funding_statement": self.funding_statement,
-            # Principal award recipients obtained in "principal-award-recipient".
             "principal_award_recipients": self.principal_award_recipients,
-            # Funding information obtained in "ack".
             "ack": self.ack,
         }
-
-    @property
-    def data(self):
-        if self.award_groups:
-            _data = []
-            for item in self.award_groups:
-                award_id = item.get("award-id")
-                funding_source = item.get("funding-source")
-                if award_id and funding_source:
-                    for aid in award_id:
-                        _data.append(
-                            {"award-id": aid, "funding-source": funding_source}
-                        )
-            return _data
