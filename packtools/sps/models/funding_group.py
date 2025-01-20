@@ -150,12 +150,26 @@ class FundingGroup:
         return items
 
     @property
+    def award_ids(self):
+        items = []
+        for node in self._xmltree.xpath(".//funding-group/award-group/award-id"):
+            if node.text:
+                items.append(node.text)
+        return items
+
+    @property
     def funding_statement(self):
         """
         De acordo com https://scielo.readthedocs.io/projects/scielo-publishing-schema/pt-br/latest/tagset/elemento-funding-statement.html?highlight=funding-statement
         <funding-statement> ocorre zero ou uma vez.
         """
         return self._xmltree.findtext(".//funding-group/funding-statement")
+
+    @property
+    def funding_statement_data(self):
+        node = self._xmltree.find(".//funding-group/funding-statement")
+        if node is not None:
+            return self._process_paragraph_node(node)
 
     @property
     def principal_award_recipients(self):
