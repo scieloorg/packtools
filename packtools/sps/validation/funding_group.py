@@ -9,7 +9,7 @@ def _callable_extern_validate_default(award_id):
 class FundingGroupValidation:
     """
     Validation class for funding information in XML documents.
-    
+
     Parameters
     ----------
     xml_tree : lxml.etree.Element
@@ -20,21 +20,22 @@ class FundingGroupValidation:
         - callable_validation: Function to validate award IDs format
         - error_level: Error level for validation messages ("ERROR" or "WARNING")
     """
+
     def __init__(self, xml_tree, params=None):
         self.xml_tree = xml_tree
         self.params = {
-            'special_chars_award_id': ['/', '.', '-'],
-            'callable_validation': _callable_extern_validate_default,
-            'error_level': "ERROR"
+            "special_chars_award_id": ["/", ".", "-"],
+            "callable_validation": _callable_extern_validate_default,
+            "error_level": "ERROR",
         }
         self.params.update(params or {})
 
         self.funding = FundingGroup(xml_tree, self.params)
-        
+
     def validate_required_award_ids(self):
         """
         Validates the existence of funding sources and award IDs.
-        
+
         Yields
         ------
         dict
@@ -68,7 +69,9 @@ class FundingGroupValidation:
                         errors.append(item)
             if funding_statement_data := self.funding.funding_statement_data:
                 if funding_statement_data.get("look-like-award-id"):
-                    funding_statement_data["context"] = "funding-group/funding-statement"
+                    funding_statement_data["context"] = (
+                        "funding-group/funding-statement"
+                    )
                     errors.append(funding_statement_data)
 
             for error in errors:
@@ -79,10 +82,14 @@ class FundingGroupValidation:
                     sub_item="award-id",
                     validation_type="exist",
                     is_valid=False,
-                    expected='award-id and funding-source in award-group',
+                    expected="award-id and funding-source in award-group",
                     obtained=None,
-                    advice='Found `{}` in `{}` ({}). Check it is a project contract. Add award-id ({}) in funding-group/award-group with respectives funding-source'.format(
-                        error['look-like-award-id'], error['text'], error['context'], error['look-like-award-id']),
+                    advice="Found `{}` in `{}` ({}). Check it is a project contract. Add award-id ({}) in funding-group/award-group with respectives funding-source".format(
+                        error["look-like-award-id"],
+                        error["text"],
+                        error["context"],
+                        error["look-like-award-id"],
+                    ),
                     data=error,
-                    error_level=self.params['error_level'],
+                    error_level=self.params["error_level"],
                 )

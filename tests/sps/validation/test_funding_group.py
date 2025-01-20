@@ -6,15 +6,17 @@ from packtools.sps.validation.funding_group import FundingGroupValidation
 
 class TestFundingValidationBase(unittest.TestCase):
     """Classe base para testes de FundingGroupValidation"""
+
     params = {
-        'special_chars_award_id': ['/', '.', '-'],
-        'callable_validation': lambda x: True,
-        'error_level': "ERROR"
+        "special_chars_award_id": ["/", ".", "-"],
+        "callable_validation": lambda x: True,
+        "error_level": "ERROR",
     }
 
 
 class TestEmptyXML(TestFundingValidationBase):
     """Testa casos com XML vazio ou sem informações de funding"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -32,6 +34,7 @@ class TestEmptyXML(TestFundingValidationBase):
 
 class TestProperAwardGroup(TestFundingValidationBase):
     """Testa casos com award-id corretamente em award-group"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -57,6 +60,7 @@ class TestProperAwardGroup(TestFundingValidationBase):
 
 class TestAwardInAck(TestFundingValidationBase):
     """Testa casos com award ID em acknowledgments"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -76,12 +80,13 @@ class TestAwardInAck(TestFundingValidationBase):
         print(results)
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result['data']['context'], 'ack')
-        self.assertIn('123.456-7', str(result['data']['look-like-award-id']))
+        self.assertEqual(result["data"]["context"], "ack")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
 class TestAwardInFinancialDisclosure(TestFundingValidationBase):
     """Testa casos com award ID em financial disclosure"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -101,12 +106,15 @@ class TestAwardInFinancialDisclosure(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result['data']['context'], "fn[@fn-type='financial-disclosure']")
-        self.assertIn('123.456-7', str(result['data']['look-like-award-id']))
+        self.assertEqual(
+            result["data"]["context"], "fn[@fn-type='financial-disclosure']"
+        )
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
 class TestAwardInSupportedBy(TestFundingValidationBase):
     """Testa casos com award ID em supported-by"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -126,12 +134,13 @@ class TestAwardInSupportedBy(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result['data']['context'], "fn[@fn-type='supported-by']")
-        self.assertIn('123.456-7', str(result['data']['look-like-award-id']))
+        self.assertEqual(result["data"]["context"], "fn[@fn-type='supported-by']")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
 class TestAwardInFundingStatement(TestFundingValidationBase):
     """Testa casos com award ID em funding-statement"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -151,12 +160,13 @@ class TestAwardInFundingStatement(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result['data']['context'], "funding-group/funding-statement")
-        self.assertIn('123.456-7', str(result['data']['look-like-award-id']))
+        self.assertEqual(result["data"]["context"], "funding-group/funding-statement")
+        self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
 class TestAwardInAllLocations(TestFundingValidationBase):
     """Testa casos com award IDs em todos os locais possíveis"""
+
     def setUp(self):
         xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -187,31 +197,32 @@ class TestAwardInAllLocations(TestFundingValidationBase):
 
     def test_awards_in_all_locations(self):
         results = list(self.validator.validate_required_award_ids())
-        
+
         # Verifica número total de resultados
         self.assertEqual(len(results), 4)
-        
+
         # Verifica se encontrou award IDs em todos os contextos
-        contexts = {r['data']['context'] for r in results}
+        contexts = {r["data"]["context"] for r in results}
         self.assertEqual(len(contexts), 4)
-        
+
         # Verifica cada contexto específico
-        self.assertIn('funding-group/funding-statement', contexts)
-        self.assertIn('ack', contexts)
+        self.assertIn("funding-group/funding-statement", contexts)
+        self.assertIn("ack", contexts)
         self.assertIn("fn[@fn-type='financial-disclosure']", contexts)
         self.assertIn("fn[@fn-type='supported-by']", contexts)
-        
+
         # Verifica os award IDs encontrados
         award_ids = set()
         for r in results:
-            award_ids.update(r['data']['look-like-award-id'])
-        
-        expected_ids = {'123.456-7', '234.567-8', '345.678-9', '456.789-0'}
+            award_ids.update(r["data"]["look-like-award-id"])
+
+        expected_ids = {"123.456-7", "234.567-8", "345.678-9", "456.789-0"}
         self.assertEqual(award_ids, expected_ids)
 
 
 class TestErrorLevels(TestFundingValidationBase):
     """Testa diferentes níveis de erro"""
+
     def setUp(self):
         self.xml = """
             <article article-type="research-article" xml:lang="pt">
@@ -224,18 +235,18 @@ class TestErrorLevels(TestFundingValidationBase):
 
     def test_warning_level(self):
         params = dict(self.params)
-        params['error_level'] = 'WARNING'
+        params["error_level"] = "WARNING"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
-        self.assertEqual(results[0]['response'], 'WARNING')
+        self.assertEqual(results[0]["response"], "WARNING")
 
     def test_info_level(self):
         params = dict(self.params)
-        params['error_level'] = 'INFO'
+        params["error_level"] = "INFO"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
-        self.assertEqual(results[0]['response'], 'INFO')
+        self.assertEqual(results[0]["response"], "INFO")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
