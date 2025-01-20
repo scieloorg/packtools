@@ -93,7 +93,12 @@ class FundingTest(TestCase):
         </article>
         """
         xml_tree = etree.fromstring(xml)
-        self.funding = funding_group.FundingGroup(xml_tree)
+        params = {
+            'special_chars_funding': ['.', ','],
+            'special_chars_award_id': ['/', '.', '-']
+        }
+        self.funding = funding_group.FundingGroup(xml_tree, params)
+        self.funding_no_params = funding_group.FundingGroup(xml_tree)
 
     def test_fn_financial_information(self):
         self.maxDiff = None
@@ -118,10 +123,7 @@ class FundingTest(TestCase):
             }
         ]
 
-        obtained = self.funding.fn_financial_information(
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        )
+        obtained = self.funding.fn_financial_information()
         self.assertEqual(expected, obtained)
 
     def test_award_groups(self):
@@ -269,10 +271,7 @@ class FundingTest(TestCase):
                 }
             ]
         }
-        obtained = self.funding.extract_funding_data(
-            funding_special_chars=['.', ','],
-            award_id_special_chars=['/', '.', '-']
-        )
+        obtained = self.funding.extract_funding_data()
         self.assertEqual(expected, obtained)
 
     def test_data(self):
