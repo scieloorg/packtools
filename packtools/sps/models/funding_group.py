@@ -78,39 +78,48 @@ class FundingGroup:
     def __init__(self, xmltree, params=None):
         self._xmltree = xmltree
         self.params = params or {
-            'special_chars_funding': ['.', ',', '-'],
-            'special_chars_award_id': ['-', '/']
+            "special_chars_funding": ['.', ','],
+            "special_chars_award_id": ['/', '.', '-']
         }
 
+    def _process_paragraph_node(self, node):
+        """
+        Process a single paragraph node to extract funding sources and award IDs.
+        
+        Parameters
+        ----------
+        node : lxml.etree.Element
+            The paragraph node to process
+        Returns
+        -------
+        dict
+            Dictionary containing fn-type, extracted funding sources, award IDs and original text
+        """
+        text = xml_utils.node_plain_text(node)
+        funding_sources = []
+        award_ids = []
+        
+        if has_digit(text):
+            number = _get_first_number_sequence(
+                text, 
+                self.params['special_chars_award_id']
+            )
+            if _looks_like_award_id(text) and number is not None:
+                award_ids.append(number)
+        
+        return {
+            "look-like-award-id": award_ids,
+            "text": text
+        }
+        
     def fn_financial_information(self):
         items = []
         for fn_type in ('financial-disclosure', 'supported-by'):
-            funding_sources = []
-            award_ids = []
             for nodes in self._xmltree.xpath(f".//fn-group/fn[@fn-type='{fn_type}']"):
                 for node in nodes.xpath('p'):
-                    text = xml_utils.node_plain_text(node)
-                    if has_digit(text):
-                        number = _get_first_number_sequence(
-                            text, 
-                            self.params['special_chars_award_id']
-                        )
-                        if _looks_like_award_id(text) and number is not None:
-                            award_ids.append(number)
-                    else:
-                        if _looks_like_institution_name(
-                            text, 
-                            self.params['special_chars_funding']
-                        ):
-                            funding_sources.append(text)
-
-                items.append(
-                    {
-                        "fn-type": fn_type,
-                        "look-like-funding-source": funding_sources,
-                        "look-like-award-id": award_ids
-                    }
-                )
+                    node_data = self._process_paragraph_node(node)
+                    node_data['fn-type'] = fn_type
+                    items.append(node_data)
         return items
 
     @property
@@ -161,13 +170,15 @@ class FundingGroup:
     @property
     def ack(self):
         items = []
-        for node in self._xmltree.xpath(".//back//ack"):
-            items.append(
-                {
-                    "title": node.findtext("title"),
-                    "text": " ".join([xml_utils.get_node_without_subtag(paragraph) for paragraph in node.xpath("p")])
-                }
-            )
+        for ack in self._xmltree.xpath(".//back//ack"):
+            item = {
+                "title": ack.findtext("title"),
+                "p": []
+            }
+            for node in nodes.xpath('p'):
+                node_data = self._process_paragraph_node(node)
+                item["p"].append(node_data)
+            items.append(item)
         return items
 
     @property
