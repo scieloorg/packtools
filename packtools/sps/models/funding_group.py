@@ -179,7 +179,7 @@ class FundingGroup:
         items = []
         for ack in self._xmltree.xpath(".//back//ack"):
             item = {"title": ack.findtext("title"), "p": []}
-            for node in nodes.xpath("p"):
+            for node in ack.xpath("p"):
                 node_data = self._process_paragraph_node(node)
                 item["p"].append(node_data)
             items.append(item)
