@@ -52,7 +52,7 @@ class AlternativesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['graphic', 'media'],
                 'got_value': ['graphic', 'media'],
-                'message': "Got ['graphic', 'media'], expected ['graphic', 'media']",
+                'message': "Got ['graphic', 'media'], expected one of ['graphic', 'media']",
                 'advice': None,
                 'data': {
                     'alternative_elements': ['graphic', 'media'],
@@ -81,14 +81,16 @@ class AlternativesValidationTest(TestCase):
                 'response': 'OK',
                 'expected_value': ['graphic', 'table'],
                 'got_value': ['graphic', 'table'],
-                'message': "Got ['graphic', 'table'], expected ['graphic', 'table']",
+                'message': "Got ['graphic', 'table'], expected one of ['graphic', 'table']",
                 'advice': None,
                 'data': {
                     'caption': '',
-                    'footnote': '',
-                    'footnote_id': None,
-                    'footnote_label': None,
+                    'footnotes': [],
+                    'graphic': 'nomedaimagemdatabela.svg',
                     'label': None,
+                    'table': '<table xmlns:xlink="http://www.w3.org/1999/xlink" '
+                             'xmlns:mml="http://www.w3.org/1998/Math/MathML"/>\n'
+                             '                        ',
                     'alternative_elements': ['graphic', 'table'],
                     'alternative_parent': 'table-wrap',
                     'table_wrap_id': None,
@@ -145,10 +147,10 @@ class AlternativesValidationTest(TestCase):
                 'item': 'fig',
                 'sub_item': 'alternatives',
                 'validation_type': 'value in list',
-                'expected_value': ['graphic', 'media'],
+                'expected_value': "one of ['graphic', 'media']",
                 'got_value': ['title', 'abstract'],
                 'response': 'CRITICAL',
-                'message': "Got ['title', 'abstract'], expected ['graphic', 'media']",
+                'message': "Got ['title', 'abstract'], expected one of ['graphic', 'media']",
                 'advice': "Add ['graphic', 'media'] as sub-elements of fig/alternatives",
                 'data': {
                     'caption_text': '',
@@ -174,18 +176,18 @@ class AlternativesValidationTest(TestCase):
                 'item': 'table-wrap',
                 'sub_item': 'alternatives',
                 'validation_type': 'value in list',
-                'expected_value': ['graphic', 'table'],
+                'expected_value': "one of ['graphic', 'table']",
                 'got_value': ['p'],
                 'response': 'CRITICAL',
-                'message': "Got ['p'], expected ['graphic', 'table']",
+                'message': "Got ['p'], expected one of ['graphic', 'table']",
                 'advice': "Add ['graphic', 'table'] as sub-elements of table-wrap/alternatives",
                 'data': {
                     'table_wrap_id': None,
                     'caption': '',
-                    'footnote': '',
-                    'footnote_id': None,
-                    'footnote_label': None,
+                    'footnotes': [],
                     'label': None,
+                    'graphic': None,
+                    'table': None,
                     'alternative_elements': ['p'],
                     'alternative_parent': 'table-wrap',
                     'parent': 'article',
@@ -207,12 +209,12 @@ class AlternativesValidationTest(TestCase):
                 <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
                 dtd-version="1.0" article-type="research-article" xml:lang="pt">
                     <body>
-                        <inline-formula>
+                        <disp-formula>
                             <alternatives>
                                 <mml:math />
                                 <tex-math />
                             </alternatives>
-                        </inline-formula>
+                        </disp-formula>
                     </body>
                 </article>
                 """
@@ -224,5 +226,5 @@ class AlternativesValidationTest(TestCase):
         obtained = AlternativesValidation(self.xml_tree, params)
         with self.assertRaises(ValidationAlternativesException) as context:
             next(obtained.validate())
-        self.assertEqual("The element 'inline-formula' is not configured to use 'alternatives'. Provide alternatives "
+        self.assertEqual("The element 'disp-formula' is not configured to use 'alternatives'. Provide alternatives "
                          "parent and children", str(context.exception))
