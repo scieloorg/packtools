@@ -249,7 +249,7 @@ class FundingTest(TestCase):
 
     def test_extract_funding_data(self):
         self.maxDiff = None
-        obtained = self.funding.extract_funding_data()
+        obtained = self.funding.data
         
         # Verify the structure exists
         self.assertIn('article_type', obtained)

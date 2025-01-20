@@ -200,7 +200,8 @@ class FundingGroup:
             "{http://www.w3.org/XML/1998/namespace}lang"
         )
 
-    def extract_funding_data(self):
+    @property
+    def data(self):
         """
         Extracts various financial and funding-related information from the XML for validation purposes.
 
