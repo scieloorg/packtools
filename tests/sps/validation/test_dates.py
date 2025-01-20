@@ -1,2055 +1,635 @@
-from unittest import TestCase, skip
-from lxml import etree
+from datetime import date
+from unittest import TestCase
+from unittest.mock import Mock, patch
 
+from lxml import etree
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation import dates
+from packtools.sps.validation.dates import DateValidation, FulltextDatesValidation
 
 
-class HistoryDatesValidationTest(TestCase):
-    def test_validate_history_dates_success(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <history>
-                            <date date-type="received">
-                                <day>05</day>
-                                <month>01</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-request">
-                                <day>14</day>
-                                <month>03</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-recd">
-                                <day>24</day>
-                                <month>05</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="accepted">
-                                <day>06</day>
-                                <month>06</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="corrected">
-                                <day>01</day>
-                                <month>06</month>
-                                <year>2012</year>
-                            </date>
-                        </history>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
-                'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'], expected ["
-                           "'received', 'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                'advice': None,
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd',
-                            'year': '1998'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+class TestDateFormatValidation(TestCase):
+    """Test cases for date format validation."""
 
-    def test_validate_history_dates_fail_one_valid_date_not_required(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <history>
-                            <date date-type="rev-request">
-                                <day>14</day>
-                                <month>03</month>
-                                <year>1998</year>
-                            </date>
-                        </history>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'corrected'],
-                'got_value': ['rev-request'],
-                'message': "Got ['rev-request'], expected ['received', 'rev-request', 'corrected']",
-                'advice': "Provide: valid date for ['received', 'corrected'];",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'rev-request': {
-                            'day': '14',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_success_required_date_only(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <history>
-                            <date date-type="received">
-                                <day>05</day>
-                                <month>01</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="corrected">
-                                <day>01</day>
-                                <month>06</month>
-                                <year>2012</year>
-                            </date>
-                        </history>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': ['received', 'corrected'],
-                'got_value': ['received', 'corrected'],
-                'message': "Got ['received', 'corrected'], expected ['received', 'corrected']",
-                'advice': None,
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        },
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_required_date_missing(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <history>
-                            <date date-type="received">
-                                <day>05</day>
-                                <month>01</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-request">
-                                <day>14</day>
-                                <month>03</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-recd">
-                                <day>24</day>
-                                <month>05</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="accepted">
-                                <day>06</day>
-                                <month>06</month>
-                                <year>1998</year>
-                            </date>
-                        </history>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                'got_value': ['received', 'rev-request', 'rev-recd', 'accepted'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted'], expected ['received', "
-                           "'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                'advice': "Provide: valid date for ['corrected'];",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd',
-                            'year': '1998'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_unknown_event(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <history>
-                            <date date-type="received">
-                                <day>05</day>
-                                <month>01</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-request">
-                                <day>14</day>
-                                <month>03</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="rev-recd">
-                                <day>24</day>
-                                <month>05</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="accepted">
-                                <day>06</day>
-                                <month>06</month>
-                                <year>1998</year>
-                            </date>
-                            <date date-type="unknown">
-                                <day>01</day>
-                                <month>06</month>
-                                <year>2012</year>
-                            </date>
-                        </history>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
-                'got_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'unknown'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'accepted', 'unknown'], expected ["
-                           "'received', 'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                'advice': "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'] in "
-                          "chronological order; valid date for ['corrected']; removal of events ['unknown'];",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd',
-                            'year': '1998'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'unknown': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'unknown',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_one_date_element_is_missing(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                    <front>
-                        <article-meta>
-                            <history>
-                                <date date-type="received">
-                                    <month>01</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-request">
-                                    <day>14</day>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-recd">
-                                    <day>24</day>
-                                    <month>05</month>
-                                </date>
-                                <date date-type="accepted">
-                                    <day>06</day>
-                                    <month>06</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="corrected">
-                                    <day>01</day>
-                                    <month>06</month>
-                                    <year>2012</year>
-                                </date>
-                            </history>
-                        </article-meta>
-                    </front>
-                </article>
-                """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid date for received',
-                'got_value': '1998-01-',
-                'message': 'Got 1998-01-, expected a valid date for received',
-                'advice': "Provide 'day' of the date",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid date for rev-request',
-                'got_value': '1998--14',
-                'message': 'Got 1998--14, expected a valid date for rev-request',
-                'advice': "Provide 'month' of the date",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid date for rev-recd',
-                'got_value': '-05-24',
-                'message': 'Got -05-24, expected a valid date for rev-recd',
-                'advice': "Provide 'year' of the date",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'accepted', 'corrected'],
-                'got_value': ['accepted', 'corrected'],
-                'message': "Got ['accepted', 'corrected'], expected ['received', 'accepted', 'corrected']",
-                'advice': "Provide: valid date for ['received'];",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_one_date_element_is_invalid(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                    <front>
-                        <article-meta>
-                            <history>
-                                <date date-type="received">
-                                    <day>05</day>
-                                    <month>01</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-request">
-                                    <day>40</day>
-                                    <month>03</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-recd">
-                                    <day>24</day>
-                                    <month>13</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="accepted">
-                                    <day>06</day>
-                                    <month>06</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="corrected">
-                                    <day>01</day>
-                                    <month>06</month>
-                                    <year>2012</year>
-                                </date>
-                            </history>
-                        </article-meta>
-                    </front>
-                </article>
-                """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid date for rev-request',
-                'got_value': '1998-03-40',
-                'message': 'Got 1998-03-40, expected a valid date for rev-request',
-                'advice': 'Provide valid values for day, month and year',
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '40',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '13',
-                            'year': '1998',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a valid date for rev-recd',
-                'got_value': '1998-13-24',
-                'message': 'Got 1998-13-24, expected a valid date for rev-recd',
-                'advice': 'Provide valid values for day, month and year',
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '40',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '13',
-                            'year': '1998',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'OK',
-                'expected_value': ['received', 'accepted', 'corrected'],
-                'got_value': ['received', 'accepted', 'corrected'],
-                'message': "Got ['received', 'accepted', 'corrected'], expected ['received', 'accepted', 'corrected']",
-                'advice': None,
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '40',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '13',
-                            'year': '1998',
-                            'type': 'rev-recd'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            },
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_order_is_invalid(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                    <front>
-                        <article-meta>
-                            <history>
-                                <date date-type="received">
-                                    <day>05</day>
-                                    <month>01</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-request">
-                                    <day>04</day>
-                                    <month>01</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-recd">
-                                    <day>24</day>
-                                    <month>05</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="accepted">
-                                    <day>06</day>
-                                    <month>06</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="corrected">
-                                    <day>01</day>
-                                    <month>06</month>
-                                    <year>2012</year>
-                                </date>
-                            </history>
-                        </article-meta>
-                    </front>
-                </article>
-                """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ["received", "rev-request", "rev-recd", "accepted", "corrected"],
-                'got_value': ['rev-request', 'received', 'rev-recd', 'accepted', 'corrected'],
-                'message': "Got ['rev-request', 'received', 'rev-recd', 'accepted', 'corrected'], expected ["
-                           "'received', 'rev-request', 'rev-recd', 'accepted', 'corrected']",
-                'advice': "Provide: the dates of ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'] in "
-                          "chronological order;",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '04',
-                            'month': '01',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd',
-                            'year': '1998'
-                        },
-                        'accepted': {
-                            'day': '06',
-                            'month': '06',
-                            'type': 'accepted',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["received", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_history_dates_fail_event_required_is_missing(self):
-        self.maxDiff = None
-        xml_history_date = etree.fromstring(
-            """
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
-                    <front>
-                        <article-meta>
-                            <history>
-                                <date date-type="received">
-                                    <day>05</day>
-                                    <month>01</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-request">
-                                    <day>14</day>
-                                    <month>03</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="rev-recd">
-                                    <day>24</day>
-                                    <month>05</month>
-                                    <year>1998</year>
-                                </date>
-                                <date date-type="corrected">
-                                    <day>01</day>
-                                    <month>06</month>
-                                    <year>2012</year>
-                                </date>
-                            </history>
-                        </article-meta>
-                    </front>
-                </article>
-                """
-        )
-        expected = [
-            {
-                'title': 'History date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'history',
-                'sub_item': 'date',
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': ['received', 'rev-request', 'rev-recd', 'accepted', 'corrected'],
-                'got_value': ['received', 'rev-request', 'rev-recd', 'corrected'],
-                'message': "Got ['received', 'rev-request', 'rev-recd', 'corrected'], expected ['received', "
-                           "'rev-request', 'rev-recd', 'accepted', 'corrected']",
-
-                'advice': "Provide: valid date for ['accepted'];",
-                'data': {
-                    'article_date': None,
-                    'collection_date': None,
-                    'history': {
-                        'received': {
-                            'day': '05',
-                            'month': '01',
-                            'type': 'received',
-                            'year': '1998'
-                        },
-                        'rev-request': {
-                            'day': '14',
-                            'month': '03',
-                            'type': 'rev-request',
-                            'year': '1998'
-                        },
-                        'rev-recd': {
-                            'day': '24',
-                            'month': '05',
-                            'type': 'rev-recd',
-                            'year': '1998'
-                        },
-                        'corrected': {
-                            'day': '01',
-                            'month': '06',
-                            'type': 'corrected',
-                            'year': '2012'
-                        }
-                    },
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en'
-                },
-            }
-        ]
-        obtained = list(dates.ArticleDatesValidation(xml_history_date).validate_history_dates(
-            ["received", "rev-request", "rev-recd", "accepted", "corrected"], ["accepted", "corrected"]
-        ))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_date_is_complete_a_date_with_missing_year(self):
-        _date = dict(month='02', day='05')
-        expected = (False, 'a valid date for pub-date', '-02-05', 'pub-date must be complete', "Provide 'year' of the date")
-        obtained = dates._date_is_complete(_date, 'pub-date')
-
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_missing_month(self):
-        _date = dict(year='2023', day='5')
-        expected = (False, 'a valid date for pub-date', '2023--5', 'pub-date must be complete', "Provide 'month' of the date")
-        obtained = dates._date_is_complete(_date, 'pub-date')
-
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_missing_day(self):
-        _date = dict(year='2023', month='2')
-        expected = (False, 'a valid date for pub-date', '2023-2-', 'pub-date must be complete', "Provide 'day' of the date")
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_year(self):
-        _date = dict(year='', month='2', day='5')
-        expected = (False, 'a valid date for pub-date', '-2-5',
-                    'pub-date must contain valid values, invalid literal for int() with base 10: \'\',',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_month(self):
-        _date = dict(year='2023', month='o3', day='5')
-        expected = (False, 'a valid date for pub-date', '2023-o3-5',
-                    'pub-date must contain valid values, invalid literal for int() with base 10: \'o3\',',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_day(self):
-        _date = dict(year='2023', month='3', day='1o')
-        expected = (False, 'a valid date for pub-date', '2023-3-1o',
-                    'pub-date must contain valid values, invalid literal for int() with base 10: \'1o\',',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_day_number(self):
-        _date = dict(year='2023', month='3', day='45')
-        expected = (False, 'a valid date for pub-date', '2023-3-45',
-                    'pub-date must contain valid values',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_month_number(self):
-        _date = dict(year='2023', month='13', day='15')
-        expected = (False, 'a valid date for pub-date', '2023-13-15',
-                    'pub-date must contain valid values',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_date_with_invalid_year_number(self):
-        _date = dict(year='-10', month='10', day='15')
-        expected = (False, 'a valid date for pub-date', '-10-10-15',
-                    'pub-date must contain valid values',
-                    'Provide valid values for day, month and year')
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_date_is_complete_a_correct_date(self):
-        _date = dict(year='2023', month='10', day='15')
-        expected = (True, '2023-10-15', '2023-10-15', None, None)
-        obtained = dates._date_is_complete(_date, 'pub-date')
-        self.assertEqual(expected, obtained)
-
-    def test_check_order(self):
-        expected = [True, True, True, False, False]
-        obtained = []
-
-        order = ["received", "rev-request", "rev-recd", "accepted", "corrected"]
-        for seq in [
-            ["received", "corrected"],
-            ["received", "rev-recd", "accepted"],
-            ["rev-request", "rev-recd", "corrected"],
-            ["rev-request", "rev-recd", "received", "accepted", "corrected"],
-            ["accepted", "received"]
-        ]:
-            obtained.append(dates.is_subsequence_in_order(seq, order))
-
-        self.assertEqual(expected, obtained)
-
-
-class ArticleDatesValidationTest(TestCase):
-    def test_validate_number_of_digits_in_article_date_is_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>03</day>
-                        <month>02</month>
-                        <year>2024</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date())
-        expected = [
-            {
-                'title': 'Article pub-date day validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'day',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '03',
-                'got_value': '03',
-                'message': 'Got 03, expected 03',
-                'advice': None,
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date month validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'month',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '02',
-                'got_value': '02',
-                'message': 'Got 02, expected 02',
-                'advice': None,
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date year validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'year',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2024',
-                'got_value': '2024',
-                'message': 'Got 2024, expected 2024',
-                'advice': None,
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '2024'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_number_of_digits_in_article_date_year_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>03</day>
-                        <month>02</month>
-                        <year>202</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date())
-        expected = [
-            {
-                'title': 'Article pub-date day validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'day',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '03',
-                'got_value': '03',
-                'message': 'Got 03, expected 03',
-                'advice': None,
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '202'},
-            },
-            {
-                'title': 'Article pub-date month validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'month',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '02',
-                'got_value': '02',
-                'message': 'Got 02, expected 02',
-                'advice': None,
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '202'},
-            },
-            {
-                'title': 'Article pub-date year validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'year',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': '0202',
-                'got_value': '202',
-                'message': 'Got 202, expected 0202',
-                'advice': 'Provide a 4-digit numeric value for year',
-                'data': {'day': '03', 'month': '02', 'type': 'pub', 'year': '202'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_number_of_digits_in_article_date_month_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>03</day>
-                        <month>2</month>
-                        <year>2024</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date())
-        expected = [
-            {
-                'title': 'Article pub-date day validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'day',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '03',
-                'got_value': '03',
-                'message': 'Got 03, expected 03',
-                'advice': None,
-                'data': {'day': '03', 'month': '2', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date month validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'month',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': '02',
-                'got_value': '2',
-                'message': 'Got 2, expected 02',
-                'advice': 'Provide a 2-digit numeric value for month',
-                'data': {'day': '03', 'month': '2', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date year validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'year',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2024',
-                'got_value': '2024',
-                'message': 'Got 2024, expected 2024',
-                'advice': None,
-                'data': {'day': '03', 'month': '2', 'type': 'pub', 'year': '2024'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_number_of_digits_in_article_date_day_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>3</day>
-                        <month>02</month>
-                        <year>2024</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date())
-        expected = [
-            {
-                'title': 'Article pub-date day validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'day',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': '03',
-                'got_value': '3',
-                'message': 'Got 3, expected 03',
-                'advice': 'Provide a 2-digit numeric value for day',
-                'data': {'day': '3', 'month': '02', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date month validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'month',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '02',
-                'got_value': '02',
-                'message': 'Got 02, expected 02',
-                'advice': None,
-                'data': {'day': '3', 'month': '02', 'type': 'pub', 'year': '2024'},
-            },
-            {
-                'title': 'Article pub-date year validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'year',
-                'validation_type': 'format',
-                'response': 'OK',
-                'expected_value': '2024',
-                'got_value': '2024',
-                'message': 'Got 2024, expected 2024',
-                'advice': None,
-                'data': {'day': '3', 'month': '02', 'type': 'pub', 'year': '2024'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    def test_validate_number_of_digits_in_article_non_numeric_digits(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>dd</day>
-                        <month>mm</month>
-                        <year>yyyy</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(dates.ArticleDatesValidation(xml_tree).validate_number_of_digits_in_article_date())
-        expected = [
-            {
-                'title': 'Article pub-date day validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'day',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a numeric digit for day represented with 2 digits',
-                'got_value': 'dd',
-                'message': 'Got dd, expected a numeric digit for day represented with 2 digits',
-                'advice': 'Provide a 2-digit numeric value for day',
-                'data': {'day': 'dd', 'month': 'mm', 'type': 'pub', 'year': 'yyyy'},
-            },
-            {
-                'title': 'Article pub-date month validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'month',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a numeric digit for month represented with 2 digits',
-                'got_value': 'mm',
-                'message': 'Got mm, expected a numeric digit for month represented with 2 digits',
-                'advice': 'Provide a 2-digit numeric value for month',
-                'data': {'day': 'dd', 'month': 'mm', 'type': 'pub', 'year': 'yyyy'},
-            },
-            {
-                'title': 'Article pub-date year validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': 'year',
-                'validation_type': 'format',
-                'response': 'ERROR',
-                'expected_value': 'a numeric digit for year represented with 4 digits',
-                'got_value': 'yyyy',
-                'message': 'Got yyyy, expected a numeric digit for year represented with 4 digits',
-                'advice': 'Provide a 4-digit numeric value for year',
-                'data': {'day': 'dd', 'month': 'mm', 'type': 'pub', 'year': 'yyyy'},
-            }
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
-
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_validate_article_date_is_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
-        expected = {
-            'title': 'Article pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='pub'",
-            'validation_type': 'value',
-            'response': 'OK',
-            'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-            'got_value': '2023-01-01',
-            'message': 'Got 2023-01-01, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-            'advice': None,
-            'data': {'day': '01', 'month': '01', 'type': 'pub', 'year': '2023'},
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "year_format_error_level": "ERROR",
+            "month_format_error_level": "ERROR",
+            "day_format_error_level": "ERROR",
         }
 
-        self.assertDictEqual(obtained, expected)
+        self.base_date_data = {
+            "type": "pub",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+        }
 
-    def test_validate_article_date_year_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>0</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+    def test_year_format_validation(self):
+        # Test valid year format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = list(validator.validate_year_format())
+        self.assertEqual(result, [])
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
-        expected = {
-                'title': 'Article pub-date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': "@date-type='pub'",
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'got_value': '0-01-01',
-                'message': 'Got 0-01-01, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'data': {'day': '01', 'month': '01', 'type': 'pub', 'year': '0'},
+        # Test invalid year format
+        invalid_year = self.base_date_data.copy()
+        invalid_year["year"] = "24"
+        validator = DateValidation(invalid_year, self.base_params)
+        result = list(validator.validate_year_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "24")
+        self.assertEqual(result[0]["expected_value"], "4-digits year")
+
+    def test_month_format_validation(self):
+        # Test valid month format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = list(validator.validate_month_format())
+        self.assertEqual(result, [])
+
+        # Test invalid month format
+        invalid_month = self.base_date_data.copy()
+        invalid_month["month"] = "1"
+        validator = DateValidation(invalid_month, self.base_params)
+        result = list(validator.validate_month_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "1")
+        self.assertEqual(result[0]["expected_value"], "2-digits month")
+
+    def test_day_format_validation(self):
+        # Test valid day format
+        validator = DateValidation(self.base_date_data, self.base_params)
+        result = list(validator.validate_day_format())
+        self.assertEqual(result, [])
+
+        # Test invalid day format
+        invalid_day = self.base_date_data.copy()
+        invalid_day["day"] = "5"
+        validator = DateValidation(invalid_day, self.base_params)
+        result = list(validator.validate_day_format())
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["got_value"], "5")
+        self.assertEqual(result[0]["expected_value"], "2-digits day")
+
+
+class TestDateValidation(TestCase):
+    """Test cases for general date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "value_error_level": "ERROR",
+            "year_format_error_level": "ERROR",
+            "month_format_error_level": "ERROR",
+        }
+
+        self.base_date_data = {
+            "type": "pub",
+            "year": "2024",
+            "month": "01",
+        }
+
+    def test_valid_date(self):
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 0)  # No validation errors
+
+    def test_invalid_date_components(self):
+        # Test invalid month
+        invalid_date = self.base_date_data.copy()
+        invalid_date["month"] = "13"
+        validator = DateValidation(invalid_date, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+
+        # Test invalid year
+        invalid_date["year"] = "abc"
+        validator = DateValidation(invalid_date, self.base_params)
+        results = list(validator.validate_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+
+
+class TestCompleteDateValidation(TestCase):
+    """Test cases for complete date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "format_error_level": "ERROR",
+            "limit_error_level": "ERROR",
+            "limit_date": "2024-12-31",
+            "pre_pub_ordered_events": ["received", "accepted"],
+            "pos_pub_ordered_events": ["published", "corrected"],
+        }
+
+        self.base_date_data = {
+            "type": "received",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+            "display": "2024-01-15",
+            "is_complete": True,
+        }
+
+    def test_valid_complete_date(self):
+        """Test valid complete date within limit."""
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 0)  # No validation errors
+
+    def test_incomplete_date(self):
+        """Test date marked as incomplete."""
+        incomplete_date = self.base_date_data.copy()
+        incomplete_date["is_complete"] = False
+        validator = DateValidation(incomplete_date, self.base_params)
+        result = list(validator.validate_complete_date())
+        self.assertIsInstance(result[0], dict)  # Should return a single response dict
+        self.assertEqual(result[0]["response"], "ERROR")
+        self.assertEqual(result[0]["validation_type"], "format")
+        self.assertEqual(result[0]["expected_value"], "complete date")
+
+
+class TestPrePubDateValidation(TestCase):
+    """Test cases for pre-publication date validation."""
+
+    def setUp(self):
+        self.base_params = {
+            "parent": {"parent": "article", "parent_id": "1234"},
+            "limit_error_level": "ERROR",
+            "limit_date": "2024-12-31",
+            "pre_pub_ordered_events": ["received", "accepted"],
+            "pos_pub_ordered_events": ["published", "corrected"],
+        }
+
+        self.base_date_data = {
+            "type": "received",
+            "year": "2024",
+            "month": "01",
+            "day": "15",
+            "display": "2024-01-15",
+            "is_complete": True,
+        }
+
+    def test_valid_pre_pub_date(self):
+        """Test valid pre-publication date."""
+        validator = DateValidation(self.base_date_data, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 0)
+
+    def test_future_pre_pub_date(self):
+        """Test pre-publication date after limit."""
+        future_date = self.base_date_data.copy()
+        future_date["display"] = "2025-01-01"
+        validator = DateValidation(future_date, self.base_params)
+        results = list(validator.validate_complete_date())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("<=", results[0]["advice"])
+
+
+class TestFulltextDatesValidation(TestCase):
+    def setUp(self):
+        """Set up test fixtures before each test method."""
+        self.mock_fulltext_dates = Mock()
+        self.mock_fulltext_dates.fulltext = Mock()
+        self.mock_fulltext_dates.fulltext.article_type = "research-article"
+        self.mock_fulltext_dates.translations = {}
+        self.mock_fulltext_dates.not_translations = {}
+        
+        self.base_params = {
+            "parent": {
+                "parent": "test_parent",
+                "parent_id": "123",
+                "parent_article_type": "research-article",
+                "parent_lang": "en"
+            },
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "unexpected_events_error_level": "ERROR",
+            "missing_events_error_level": "ERROR",
+            "history_order_error_level": "ERROR"
+        }
+
+    def test_validate_history_events_with_unexpected_events(self):
+        """Test validation when there are unexpected events in history."""
+        self.mock_fulltext_dates.date_types_ordered_by_date = ["received", "unknown_event", "accepted"]
+        self.mock_fulltext_dates.history_dates = {
+            "received": "2023-01-01",
+            "unknown_event": "2023-02-01",
+            "accepted": "2023-03-01"
+        }
+        
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
+        results = list(validator.validate_history_events())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["title"], "unexpected events")
+        self.assertEqual(result["got_value"], ["received", "unknown_event", "accepted"])
+        self.assertEqual(result["expected_value"], 
+                        ["received", "revised", "accepted", "pub", "corrected", "retracted"])
+        self.assertIn("Fix date-type or exclude unexpected dates", result["advice"])
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_validate_history_events_with_missing_events(self):
+        """Test validation when required events are missing."""
+        self.mock_fulltext_dates.date_types_ordered_by_date = ["received"]
+        self.mock_fulltext_dates.history_dates = {
+            "received": "2023-01-01"
+        }
+        
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
+        results = list(validator.validate_history_events())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["title"], "missing events")
+        self.assertEqual(result["got_value"], ["received"])
+        self.assertEqual(result["expected_value"], 
+                        ["received", "revised", "accepted", "pub", "corrected", "retracted"])
+        self.assertIn("Fix date-type or including missing dates", result["advice"])
+        self.assertEqual(result["response"], "ERROR")
+
+    def test_validate_history_order_with_incorrect_order(self):
+        """Test validation when history events are in incorrect order."""
+        self.mock_fulltext_dates.date_types_ordered_by_date = ["accepted", "received"]
+        self.mock_fulltext_dates.history_dates = {
+            "accepted": "2023-01-01",
+            "received": "2023-02-01"
+        }
+        
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
+        results = list(validator.validate_history_order())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result["title"], "ordered events")
+        self.assertEqual(result["got_value"], ["accepted", "received"])
+        self.assertEqual(result["expected_value"], 
+                        ["received", "revised", "accepted", "pub", "corrected", "retracted"])
+        self.assertIn("Check and fix date and date-type", result["advice"])
+        self.assertEqual(result["response"], "ERROR")
+
+    @patch("packtools.sps.validation.dates.date", return_value=date(2024, 1, 1))
+    def test_validate_article_date(self, mock_date):
+        """Test validation of article date."""
+        self.mock_fulltext_dates.article_date = {
+            "is_complete": False,            
+            "year": None, "month": None, "day": None, "type": "pub"
+        }
+        
+        with patch('packtools.sps.validation.dates.DateValidation') as MockDateValidation:
+            
+            mock_date_validation = MockDateValidation()
+            validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
+            list(validator.validate_article_date())  # Consume the generator
+            # Verify that DateValidation was called with correct parameters
+        self.assertEqual(mock_date_validation.validate_date.call_count, 1)
+        self.assertEqual(mock_date_validation.validate_complete_date.call_count, 1)
+
+    def test_validate_collection_date(self):
+        """Test validation of collection date."""
+        self.mock_fulltext_dates.collection_date = {
+            "is_complete": False,            
+            "year": None, "month": None, "day": None, "type": "collection"
+        }
+        
+        with patch('packtools.sps.validation.dates.DateValidation') as MockDateValidation:
+            mock_date_validation = MockDateValidation()
+            validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
+            list(validator.validate_collection_date())  # Consume the generator
+        
+        # Verify that only basic validation was called, not completeness
+        self.assertEqual(mock_date_validation.validate_date.call_count, 1)
+        self.assertEqual(mock_date_validation.validate_complete_date.call_count, 0)
+
+
+class TestArticleTypeParamsOverride(TestCase):
+    def setUp(self):
+        """Set up test fixtures."""
+        self.mock_fulltext = Mock()
+        self.mock_fulltext_dates = Mock()
+        self.mock_fulltext_dates.fulltext = self.mock_fulltext
+        self.mock_fulltext_dates.translations = {}
+        self.mock_fulltext_dates.not_translations = {}
+        self.mock_fulltext_dates.date_types_ordered_by_date = []
+        self.mock_fulltext_dates.related_articles = []
+
+    def test_article_type_params_override_defaults(self):
+        """Test that article-type specific parameters override default values."""
+        # Arrange
+        self.mock_fulltext.article_type = "research-article"
+        
+        params = {
+            # Default values
+            "day_format_error_level": "CRITICAL",
+            "month_format_error_level": "CRITICAL",
+            "required_events": ["received"],
+            
+            # Article type specific params
+            "research-article": {
+                "day_format_error_level": "WARNING",
+                "required_events": ["received", "accepted", "published"],
+                "history_order_error_level": "ERROR"
             }
+        }
 
-        self.assertDictEqual(obtained, expected)
+        # Act
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
 
-    def test_validate_article_date_month_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>13</month>
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+        # Assert
+        self.assertEqual(validator.params["day_format_error_level"], "WARNING")
+        self.assertEqual(validator.params["month_format_error_level"], "CRITICAL")
+        self.assertEqual(validator.params["required_events"], ["received", "accepted", "published"])
+        self.assertEqual(validator.params["history_order_error_level"], "ERROR")
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
-        expected = {
-                'title': 'Article pub-date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': "@date-type='pub'",
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'got_value': '2023-13-01',
-                'message': 'Got 2023-13-01, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'data': {'day': '01', 'month': '13', 'type': 'pub', 'year': '2023'},
+    def test_multiple_article_types_params(self):
+        """Test that correct article type parameters are used for different article types."""
+        # Arrange
+        params = {
+            # Default values
+            "day_format_error_level": "CRITICAL",
+            "required_events": ["received"],
+            
+            # Article type specific params
+            "research-article": {
+                "day_format_error_level": "WARNING",
+                "required_events": ["received", "accepted", "published"]
+            },
+            "review-article": {
+                "day_format_error_level": "ERROR",
+                "required_events": ["received", "reviewed"]
             }
-        self.assertDictEqual(expected, obtained)
+        }
 
-    def test_validate_article_date_day_is_not_ok(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>32</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+        # Test research-article
+        self.mock_fulltext.article_type = "research-article"
+        validator_research = FulltextDatesValidation(self.mock_fulltext_dates, params)
+        
+        self.assertEqual(validator_research.params["day_format_error_level"], "WARNING")
+        self.assertEqual(validator_research.params["required_events"], 
+                        ["received", "accepted", "published"])
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2023-12-12')
-        expected = {
-                'title': 'Article pub-date validation',
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'item': 'pub-date',
-                'sub_item': "@date-type='pub'",
-                'validation_type': 'value',
-                'response': 'ERROR',
-                'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'got_value': '2023-01-32',
-                'message': 'Got 2023-01-32, expected a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2023-12-12',
-                'data': {'day': '32', 'month': '01', 'type': 'pub', 'year': '2023'},
+        # Test review-article
+        self.mock_fulltext.article_type = "review-article"
+        validator_review = FulltextDatesValidation(self.mock_fulltext_dates, params)
+        
+        self.assertEqual(validator_review.params["day_format_error_level"], "ERROR")
+        self.assertEqual(validator_review.params["required_events"], 
+                        ["received", "reviewed"])
+
+    def test_undefined_article_type_uses_defaults(self):
+        """Test that undefined article type falls back to default values."""
+        # Arrange
+        self.mock_fulltext.article_type = "undefined-type"
+        
+        params = {
+            # Default values
+            "day_format_error_level": "CRITICAL",
+            "required_events": ["received"],
+            
+            "research-article": {
+                "day_format_error_level": "WARNING",
+                "required_events": ["received", "accepted"]
             }
-        self.assertDictEqual(expected, obtained)
-
-    def test_validate_article_date_is_a_future_date(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_article_date('2020-12-12')
-        expected = {
-            'title': 'Article pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='pub'",
-            'validation_type': 'value',
-            'response': 'ERROR',
-            'expected_value': 'a date in the format: YYYY-MM-DD before or equal to 2020-12-12',
-            'got_value': '2023-01-01',
-            'message': 'Got 2023-01-01, expected a date in the format: YYYY-MM-DD before or equal to 2020-12-12',
-            'advice': 'Provide a date in the format: YYYY-MM-DD before or equal to 2020-12-12',
-            'data': {'day': '01', 'month': '01', 'type': 'pub', 'year': '2023'},
-        }
-        self.assertDictEqual(expected, obtained)
-
-    def test_validate_collection_date_success(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                    <pub-date date-type="collection" publication-format="electronic">
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'format',
-            'response': 'OK',
-            'expected_value': '2023',
-            'got_value': '2023',
-            'message': 'Got 2023, expected 2023',
-            'advice': None,
-            'data': {'type': 'collection', 'year': '2023'},
         }
 
-        self.assertDictEqual(obtained, expected)
+        # Act
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
 
-    def test_validate_collection_date_fail_type_digit(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                    <pub-date date-type="collection" publication-format="electronic">
-                        <year>202a</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+        # Assert
+        self.assertEqual(validator.params["day_format_error_level"], "CRITICAL")
+        self.assertEqual(validator.params["required_events"], ["received"])
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'format',
-            'response': 'ERROR',
-            'expected_value': 'the publication date of the collection',
-            'got_value': '202a',
-            'message': 'Got 202a, expected the publication date of the collection',
-            'advice': 'Provide only numeric values for the collection year',
-            'data': {'type': 'collection', 'year': '202a'},
+    def test_partial_article_type_params_override(self):
+        """Test that partial article-type params only override specified values."""
+        # Arrange
+        self.mock_fulltext.article_type = "research-article"
+        
+        params = {
+            # Default values
+            "day_format_error_level": "CRITICAL",
+            "month_format_error_level": "CRITICAL",
+            "required_events": ["received"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            
+            # Partial override for research-article
+            "research-article": {
+                "day_format_error_level": "WARNING",
+                "required_events": ["received", "accepted"]
+            }
         }
 
-        self.assertDictEqual(obtained, expected)
+        # Act
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
 
-    def test_validate_collection_date_fail_number_of_digit(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                    <pub-date date-type="collection" publication-format="electronic">
-                        <year>23</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+        # Assert
+        # These should be overridden
+        self.assertEqual(validator.params["day_format_error_level"], "WARNING")
+        self.assertEqual(validator.params["required_events"], ["received", "accepted"])
+        
+        # These should maintain default values
+        self.assertEqual(validator.params["month_format_error_level"], "CRITICAL")
+        self.assertEqual(validator.params["pre_pub_ordered_events"], 
+                        ["received", "revised", "accepted"])
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'format',
-            'response': 'ERROR',
-            'expected_value': 'the publication date of the collection',
-            'got_value': '23',
-            'message': 'Got 23, expected the publication date of the collection',
-            'advice': 'Provide a four-digit numeric value for the year of collection',
-            'data': {'type': 'collection', 'year': '23'},
+    def test_validate_with_article_type_params(self):
+        """Test that validation uses article-type specific parameters."""
+        # Arrange
+        self.mock_fulltext.article_type = "research-article"
+        self.mock_fulltext_dates.date_types_ordered_by_date = ["received"]
+        self.mock_fulltext_dates.history_dates = {"received": "2023-01-01"}
+        
+        params = {
+            "required_events": ["received"],
+            "research-article": {
+                "required_events": ["received", "accepted"],
+                "missing_events_error_level": "ERROR"
+            }
         }
 
-        self.assertDictEqual(obtained, expected)
+        # Act
+        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
+        results = list(validator.validate_history_events())
 
-    def test_validate_collection_date_fail_out_of_range(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                    <pub-date date-type="collection" publication-format="electronic">
-                        <year>2024</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
+        # Assert
+        missing_event_result = next(r for r in results if r["title"] == "missing events")
+        self.assertEqual(missing_event_result["response"], "ERROR")
+        self.assertIn("accepted", missing_event_result["advice"])
 
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'format',
-            'response': 'ERROR',
-            'expected_value': 'the publication date of the collection',
-            'got_value': '2024',
-            'message': 'Got 2024, expected the publication date of the collection',
-            'advice': 'Provide a numeric value less than or equal to 2023',
-            'data': {'type': 'collection', 'year': '2024'},
+
+class TestFulltextDatesValidation(TestCase):
+    def create_mock_fulltext_dates(self, related_articles=None):
+        """Helper method to create a mock FulltextDates object"""
+        mock_fulltext = Mock()
+        mock_fulltext_dates = Mock()
+        mock_fulltext_dates.fulltext = mock_fulltext
+        mock_fulltext_dates.related_articles = related_articles or []
+        mock_fulltext_dates.date_types_ordered_by_date = []
+        return mock_fulltext_dates
+
+    def test_init_with_no_related_articles(self):
+        """Test initialization without any related articles"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
         }
+        
+        mock_fulltext_dates = self.create_mock_fulltext_dates()
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(validator.params["required_events"], ["received", "accepted"])
 
-        self.assertDictEqual(obtained, expected)
-
-    def test_validate_collection_date_fail_without_date(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date('2023')
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'exist',
-            'response': 'ERROR',
-            'expected_value': 'the publication date of the collection',
-            'got_value': None,
-            'message': 'Got None, expected the publication date of the collection',
-            'advice': 'Provide the publication date of the collection',
-            'data': None,
+    def test_init_with_single_related_article(self):
+        """Test initialization with a single related article that should add an event"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
         }
+        
+        related_articles = [{"related-article-type": "correction"}]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertIn("corrected", validator.params["required_events"])
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
 
-        self.assertDictEqual(obtained, expected)
-
-    def test_validate_collection_date_without_future_date(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>
-                    <article-id pub-id-type="other">00303</article-id>
-                    <pub-date date-type="pub" publication-format="electronic">
-                        <day>01</day>
-                        <month>01</month>
-                        <year>2023</year>
-                    </pub-date>
-                    <pub-date date-type="collection" publication-format="electronic">
-                        <year>2023</year>
-                    </pub-date>
-                </article-meta>
-            </front>
-        </article>
-        """
-
-        xml_tree = get_xml_tree(xml_str)
-        obtained = dates.ArticleDatesValidation(xml_tree).validate_collection_date(future_date=None)
-        expected = {
-            'title': 'Collection pub-date validation',
-            'parent': 'article',
-            'parent_article_type': 'research-article',
-            'parent_id': None,
-            'parent_lang': 'en',
-            'item': 'pub-date',
-            'sub_item': "@date-type='collection'",
-            'validation_type': 'format',
-            'response': 'OK',
-            'expected_value': '2023',
-            'got_value': '2023',
-            'message': 'Got 2023, expected 2023',
-            'advice': None,
-            'data': {'type': 'collection', 'year': '2023'},
+    def test_init_with_multiple_related_articles(self):
+        """Test initialization with multiple related articles"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "addendum": "addended",
+                "correction": "corrected",
+                "retraction": "retracted"
+            }
         }
+        
+        related_articles = [
+            {"related-article-type": "correction"},
+            {"related-article-type": "retraction"},
+            {"related-article-type": "addendum"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        expected_events = {"received", "accepted", "corrected", "retracted", "addended"}
+        self.assertEqual(set(validator.params["required_events"]), expected_events)
 
-        self.assertDictEqual(obtained, expected)
+    def test_init_with_null_related_article_type(self):
+        """Test initialization with related article types that map to None"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "letter": None,
+                "response": None,
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "letter"},
+            {"related-article-type": "response"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_with_unknown_related_article_type(self):
+        """Test initialization with unknown related article type"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "unknown_type"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_with_duplicate_related_articles(self):
+        """Test initialization with duplicate related article types"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [
+            {"related-article-type": "correction"},
+            {"related-article-type": "correction"}
+        ]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        # Should only add "corrected" once
+        self.assertEqual(validator.params["required_events"].count("corrected"), 2)
+        self.assertEqual(
+            set(validator.params["required_events"]), 
+            {"received", "accepted", "corrected"}
+        )
+
+    def test_init_preserves_original_required_events(self):
+        """Test that original required events are preserved when adding related article events"""
+        params = {
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            "related-article-type": {
+                "correction": "corrected"
+            }
+        }
+        
+        related_articles = [{"related-article-type": "correction"}]
+        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        
+        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        
+        for event in ["received", "accepted"]:
+            self.assertIn(event, validator.params["required_events"])

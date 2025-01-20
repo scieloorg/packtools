@@ -1,8 +1,47 @@
 {
-    "article_dates_rules": {
-        "error_level": "CRITICAL",
-        "article_date_format_error_level": "CRITICAL",
-        "article_date_value_error_level": "ERROR",
-        "collection_date_value_error_level": "ERROR"
+    "article_dates_rules":{
+        "day_format_error_level":"CRITICAL",
+        "month_format_error_level":"CRITICAL",
+        "year_format_error_level":"CRITICAL",
+        "format_error_level":"CRITICAL",
+        "value_error_level":"CRITICAL",
+        "limit_error_level":"CRITICAL",
+        "unexpected_events_error_level":"CRITICAL",
+        "missing_events_error_level":"CRITICAL",
+        "history_order_error_level":"CRITICAL",
+        "required_events":[
+            "received",
+            "accepted"
+        ],
+        "pre_pub_ordered_events":[
+            "received",
+            "revised",
+            "accepted"
+        ],
+        "pos_pub_ordered_events":[
+            "pub",
+            "corrected",
+            "retracted"
+        ],
+        "parent":{
+            "parent":null
+        },
+        "related-article-type":{
+            "addendum":"addended",
+            "commentary-article":"commented",
+            "correction":"corrected",
+            "letter":null,
+            "partial-retraction":"retracted",
+            "retraction":"retracted",
+            "response":null,
+            "peer-reviewed-article":null,
+            "preprint": "preprint",
+            "updated-article":"updated",
+            "companion":null,
+            "republished-article":"republished",
+            "corrected-article":"corrected",
+            "expression-of-concern":null
+        },
+        "limit_date":null
     }
 }
