@@ -1,4 +1,4 @@
-from packtools.sps.models.related_articles import RelatedItems
+from packtools.sps.models.related_articles import RelatedItems, Fulltext
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.validation.exceptions import ValidationRelatedArticleException
 from packtools.sps.validation.utils import (
@@ -66,7 +66,7 @@ class RelatedArticlesValidation:
                 is_valid = obtained_type in expected_values
 
                 yield build_response(
-                    title="Related article type validation",
+                    title="Related article type",
                     parent=related_article,
                     item="related-article",
                     sub_item="related-article-type",
@@ -97,7 +97,7 @@ class RelatedArticlesValidation:
             )
 
             yield build_response(
-                title="Related article doi validation",
+                title="Related article doi",
                 parent=related_article,
                 item="related-article",
                 sub_item="xlink:href",
@@ -183,7 +183,7 @@ class RelatedArticleValidation:
 
         if not expected_values:
             return build_response(
-                title="Related article type validation",
+                title="Related article type",
                 parent=self.related_article,
                 item="related-article",
                 sub_item="related-article-type",
@@ -198,40 +198,41 @@ class RelatedArticleValidation:
             )
 
         is_valid = obtained_type in expected_values
-
-        return build_response(
-            title="Related article type validation",
-            parent=self.related_article,
-            item="related-article",
-            sub_item="related-article-type",
-            validation_type="match",
-            is_valid=is_valid,
-            expected=expected_values,
-            obtained=obtained_type,
-            advice=f"The article-type: {self.article_type} does not match the related-article-type: "
-            f"{obtained_type}, provide one of the following items: {expected_values}",
-            data=self.related_article,
-            error_level=self._get_error_level("type"),
-        )
+        if not is_valid:
+            return build_response(
+                title="Related article type",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="related-article-type",
+                validation_type="match",
+                is_valid=is_valid,
+                expected=expected_values,
+                obtained=obtained_type,
+                advice=f"The article-type: {self.article_type} does not match the related-article-type: "
+                f"{obtained_type}, provide one of the following items: {expected_values}",
+                data=self.related_article,
+                error_level=self._get_error_level("type"),
+            )
 
     def validate_ext_link_type(self):
         """Validate if related article has valid ext-link-type"""
         ext_link_type = self.related_article.get("ext-link-type")
         is_valid = ext_link_type in self.valid_ext_link_types
 
-        return build_response(
-            title="Related article ext-link-type validation",
-            parent=self.related_article,
-            item="related-article",
-            sub_item="ext-link-type",
-            validation_type="match",
-            is_valid=is_valid,
-            expected=self.valid_ext_link_types,
-            obtained=ext_link_type,
-            advice=f'The ext-link-type should be one of {self.valid_ext_link_types} for related article with id="{self.related_article.get("id")}"',
-            data=self.related_article,
-            error_level=self._get_error_level("ext_link_type"),
-        )
+        if not is_valid:
+            return build_response(
+                title="Related article ext-link-type",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="ext-link-type",
+                validation_type="match",
+                is_valid=is_valid,
+                expected=self.valid_ext_link_types,
+                obtained=ext_link_type,
+                advice=f'The ext-link-type should be one of {self.valid_ext_link_types} for related article with id="{self.related_article.get("id")}"',
+                data=self.related_article,
+                error_level=self._get_error_level("ext_link_type"),
+            )
 
     def validate_uri(self):
         """Validate if related article has valid link (URI)"""
@@ -242,7 +243,7 @@ class RelatedArticleValidation:
         link = self.related_article.get("href")
         if not link:
             return build_response(
-                title="Related article link validation",
+                title="Related article link",
                 parent=self.related_article,
                 item="related-article",
                 sub_item="xlink:href",
@@ -259,23 +260,24 @@ class RelatedArticleValidation:
         is_valid = is_valid_url_format(link)
         expected = "A valid URI format (e.g., http://example.com)"
 
-        return build_response(
-            title="Related article link validation",
-            parent=self.related_article,
-            item="related-article",
-            sub_item="xlink:href",
-            validation_type="format",
-            is_valid=is_valid,
-            expected=expected,
-            obtained=link,
-            advice=(
-                None
-                if is_valid
-                else f"Invalid {ext_link_type.upper()} format for link: {link}"
-            ),
-            data=self.related_article,
-            error_level=self._get_error_level("uri_format"),
-        )
+        if not is_valid:
+            return build_response(
+                title="Related article link",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="xlink:href",
+                validation_type="format",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=link,
+                advice=(
+                    None
+                    if is_valid
+                    else f"Invalid {ext_link_type.upper()} format for link: {link}"
+                ),
+                data=self.related_article,
+                error_level=self._get_error_level("uri_format"),
+            )
 
     def validate_doi(self):
         """Validate if related article has valid DOI"""
@@ -286,7 +288,7 @@ class RelatedArticleValidation:
         link = self.related_article.get("href")
         if not link:
             return build_response(
-                title="Related article doi validation",
+                title="Related article doi",
                 parent=self.related_article,
                 item="related-article",
                 sub_item="xlink:href",
@@ -304,23 +306,24 @@ class RelatedArticleValidation:
         is_valid = valid and valid.get("valido")
         expected = "A valid DOI"
 
-        return build_response(
-            title="Related article doi validation",
-            parent=self.related_article,
-            item="related-article",
-            sub_item="xlink:href",
-            validation_type="format",
-            is_valid=is_valid,
-            expected=expected,
-            obtained=link,
-            advice=(
-                None
-                if is_valid
-                else f"Invalid {ext_link_type.upper()} format for link: {link}"
-            ),
-            data=self.related_article,
-            error_level=self.params.get("doi_format_error_level"),
-        )
+        if not is_valid:
+            return build_response(
+                title="Related article doi",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="xlink:href",
+                validation_type="format",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=link,
+                advice=(
+                    None
+                    if is_valid
+                    else f"Invalid {ext_link_type.upper()} format for link: {link}"
+                ),
+                data=self.related_article,
+                error_level=self.params.get("doi_format_error_level"),
+            )
 
     def validate_id_presence(self):
         """Validate if related article has an ID"""
@@ -328,19 +331,20 @@ class RelatedArticleValidation:
         is_valid = related_id is not None and related_id.strip() != ""
         expected = "A non-empty ID"
 
-        return build_response(
-            title="Related article id validation",
-            parent=self.related_article,
-            item="related-article",
-            sub_item="id",
-            validation_type="exist",
-            is_valid=is_valid,
-            expected=expected,
-            obtained=related_id,
-            advice="Each related-article element must have a unique id attribute",
-            data=self.related_article,
-            error_level=self._get_error_level("id"),
-        )
+        if not is_valid:
+            return build_response(
+                title="Related article id",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="id",
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=related_id,
+                advice="Each related-article element must have a unique id attribute",
+                data=self.related_article,
+                error_level=self._get_error_level("id"),
+            )
 
     def validate(self):
         """Run all validations"""
@@ -351,3 +355,105 @@ class RelatedArticleValidation:
             self.validate_id_presence(),
         ]
         return [v for v in validations if v is not None]
+
+
+class FulltextValidation:
+    """Validates related articles in a Fulltext instance"""
+
+    def __init__(self, fulltext, params=None):
+        """
+        Initialize with a Fulltext instance and validation parameters
+
+        Parameters
+        ----------
+        fulltext : Fulltext
+            Fulltext instance to validate
+        params : dict, optional
+            Dictionary with validation parameters
+        """
+        self.fulltext = fulltext
+        self.params = params or {}
+        self._set_article_rules()
+
+    def _set_article_rules(self):
+        """Set article rules from params"""
+        article_rules = self.params.get("article-types-and-related-article-types", {})
+        article_config = article_rules.get(
+            self.fulltext.parent_data["parent_article_type"], {}
+        )
+        self.required_types = article_config.get("required_related_article_types", [])
+        self.acceptable_types = article_config.get(
+            "acceptable_related_article_types", []
+        )
+
+    def _get_error_level(self, validation_type):
+        """Get error level for specific validation type"""
+        error_level_key = f"{validation_type}_error_level"
+        return self.params.get(error_level_key, "CRITICAL")
+
+    def validate_presence_of_required_related_articles(self):
+        """
+        Validate if required related articles are present
+
+        Returns
+        -------
+        dict or None
+            Validation result if article type requires related articles,
+            None otherwise
+        """
+        if not self.required_types:
+            return None
+
+        # Get all related-article-types present in the document
+        found_types = {
+            related.get("related-article-type")
+            for related in self.fulltext.related_articles
+        }
+
+        # Check if any required type is missing
+        missing_types = set(self.required_types) - found_types
+
+        if missing_types:
+            error_level = self._get_error_level("requirement")
+            return build_response(
+                title="Required related articles",
+                parent=self.fulltext.parent_data,
+                item="related-article",
+                sub_item=None,
+                validation_type="match",
+                is_valid=False,
+                expected=self.required_types,
+                obtained=list(found_types),
+                advice=f'Article type "{self.fulltext.parent_data["parent_article_type"]}" '
+                f"requires related articles of types: {list(missing_types)}",
+                data={
+                    "article_type": self.fulltext.parent_data["parent_article_type"],
+                    "missing_types": list(missing_types),
+                },
+                error_level=error_level,
+            )
+
+        return None
+
+    def validate(self):
+        """
+        Validate each related article
+
+        Returns
+        -------
+        list
+            List of validation results
+        """
+        # First check if required related articles are present
+        if presence_result := self.validate_presence_of_required_related_articles():
+            yield presence_result
+
+        # Then validate each related article
+        for related in self.fulltext.related_articles:
+            validator = RelatedArticleValidation(related, self.params)
+            yield from validator.validate()
+
+        # Validate each sub-article
+        for subtext in self.fulltext.fulltexts:
+            validator = FulltextValidation(subtext, self.params)
+            yield from validator.validate()
