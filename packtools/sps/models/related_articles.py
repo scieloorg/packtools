@@ -44,6 +44,7 @@ class RelatedItems:
                         d["href"] = item.attrib.get(k)
                     else:
                         d[k] = item.attrib.get(k)
+
                 d["text"] = node_plain_text(item)
                 d["xml"] = " ".join(
                     remove_namespaces(tostring(item, xml_declaration=False)).split()
@@ -54,3 +55,73 @@ class RelatedItems:
     def related_objects(self):
         # TODO
         pass
+
+
+class Fulltext:
+    """
+    Processes article or sub-article node and provides methods to extract information
+    """
+
+    def __init__(self, node, original_article_type=None):
+        """
+        Initialize with an article or sub-article node
+
+        Parameters
+        ----------
+        node : etree._Element
+            XML node representing an article or sub-article
+        """
+        self.node = node
+        self.original_article_type = original_article_type
+        self._parent_data = {
+            "parent": self.node.tag,
+            "parent_id": self.node.get("id"),
+            "parent_article_type": self.node.get("article-type"),
+            "parent_lang": self.node.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            "original_article_type": original_article_type,
+        }
+
+    @property
+    def parent_data(self):
+        return self._parent_data
+
+    @property
+    def related_articles(self):
+        """
+        Extract all related articles information
+
+        Returns
+        -------
+        list
+            List of dictionaries containing related article information and parent data
+        """
+        nodes = self.node.xpath("./front | ./front-stub | ./body | ./back")
+        for node in nodes:
+            for related in node.xpath(".//related-article"):
+                # Get all attributes from related-article
+                related_data = dict(related.attrib)
+
+                # Handle namespace prefixes in attributes
+                for key, value in related.attrib.items():
+                    if "}" in key:
+                        clean_key = key.split("}")[-1]
+                        related_data[clean_key] = value
+                        del related_data[key]
+
+                related_data["text"] = node_plain_text(related)
+                related_data["xml"] = " ".join(
+                    remove_namespaces(tostring(related, xml_declaration=False)).split()
+                )
+
+                # Add parent information
+                related_data.update(self.parent_data)
+                yield related_data
+
+    @property
+    def fulltexts(self):
+        for node in self.node.xpath("sub-article"):
+            if node.get("article-type") == "translation":
+                original_article_type = self.node.get("article-type")
+            else:
+                original_article_type = None
+            yield Fulltext(node, original_article_type=original_article_type)
