@@ -1,29 +1,22 @@
-import unittest
-from unittest import skip
-
+from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.validation.related_articles import RelatedArticlesValidation
 
 
-class RelatedArticlesValidationTest(unittest.TestCase):
-
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_related_articles_matches_article_type_validation_match(self):
+class RelatedArticlesValidationTest(TestCase):
+    def test_validate_related_article_types_match(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            '''<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
             </front>
-            </article>
-
-            """
+            </article>'''
         )
-        obtained = list(RelatedArticlesValidation(xmltree).related_articles_matches_article_type_validation(
-            [
+        params = {
+            'correspondence_list': [
                 {
                     'article-type': 'correction',
                     'related-article-types': ['corrected-article']
@@ -32,8 +25,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'article-type': 'retraction',
                     'related-article-types': ['retracted-article']
                 }
-            ]
-        ))
+            ],
+            'error_level': 'ERROR'
+        }
+        validator = RelatedArticlesValidation(xmltree, params)
+        obtained = list(validator.validate_related_article_types())
 
         expected = [
             {
@@ -67,21 +63,18 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_related_articles_matches_article_type_validation_not_match(self):
+    def test_validate_related_article_types_not_match(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            '''<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="retraction" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="retraction-forward" xlink:href="10.1590/1808-057x202090350"/>
             </front>
-            </article>
-
-            """
+            </article>'''
         )
-        obtained = list(RelatedArticlesValidation(xmltree).related_articles_matches_article_type_validation(
-            [
+        params = {
+            'correspondence_list': [
                 {
                     'article-type': 'correction',
                     'related-article-types': ['corrected-article']
@@ -90,8 +83,11 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                     'article-type': 'retraction',
                     'related-article-types': ['retracted-article', 'article-retracted']
                 }
-            ]
-        ))
+            ],
+            'error_level': 'ERROR'
+        }
+        validator = RelatedArticlesValidation(xmltree, params)
+        obtained = list(validator.validate_related_article_types())
 
         expected = [
             {
@@ -108,7 +104,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'got_value': 'retraction-forward',
                 'message': "Got retraction-forward, expected ['retracted-article', 'article-retracted']",
                 'advice': "The article-type: retraction does not match the related-article-type: retraction-forward, "
-                          "provide one of the following items: ['retracted-article', 'article-retracted']",
+                         "provide one of the following items: ['retracted-article', 'article-retracted']",
                 'data': {
                     'parent': 'article',
                     'parent_article_type': 'retraction',
@@ -126,20 +122,18 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_related_articles_has_doi(self):
+    def test_validate_related_article_doi_exists(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            '''<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" xlink:href="10.1590/1808-057x202090350"/>
             </front>
-            </article>
-
-            """
+            </article>'''
         )
-        obtained = list(RelatedArticlesValidation(xmltree).related_articles_doi())
+        validator = RelatedArticlesValidation(xmltree, {'error_level': 'ERROR'})
+        obtained = list(validator.validate_related_article_doi())
 
         expected = [
             {
@@ -173,20 +167,18 @@ class RelatedArticlesValidationTest(unittest.TestCase):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
 
-    def test_related_articles_does_not_have_doi(self):
+    def test_validate_related_article_doi_not_exists(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
-            """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            '''<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
             article-type="correction-forward" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
             <front>
             <related-article ext-link-type="doi" id="ra1" related-article-type="corrected-article" />
             </front>
-            </article>
-
-            """
+            </article>'''
         )
-        obtained = list(RelatedArticlesValidation(xmltree).related_articles_doi())
+        validator = RelatedArticlesValidation(xmltree, {'error_level': 'ERROR'})
+        obtained = list(validator.validate_related_article_doi())
 
         expected = [
             {
@@ -203,7 +195,7 @@ class RelatedArticlesValidationTest(unittest.TestCase):
                 'got_value': None,
                 'message': 'Got None, expected A valid DOI or URI for related-article/@xlink:href',
                 'advice': 'Provide a valid DOI for <related-article ext-link-type="doi" id="ra1" '
-                          'related-article-type="corrected-article" /> ',
+                         'related-article-type="corrected-article" />',
                 'data': {
                     'parent': 'article',
                     'parent_article_type': 'correction-forward',
