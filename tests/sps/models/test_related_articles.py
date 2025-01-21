@@ -135,9 +135,9 @@ class TestNoRelatedItems(TestCase):
 
 class TestFulltextMainArticle(TestCase):
     """Tests for basic article with related-articles and sub-articles"""
-    
+
     def setUp(self):
-        xml = '''
+        xml = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="a1">
             <front>
                 <article-meta>
@@ -161,54 +161,58 @@ class TestFulltextMainArticle(TestCase):
                                    id="ra3">Text related</related-article>
                 </front-stub>
             </sub-article>
-        </article>'''
+        </article>"""
         self.fulltext = Fulltext(etree.fromstring(xml).find("."))
 
     def test_parent_data(self):
         expected = {
-            'parent': 'article',
-            'parent_id': 'a1',
-            'parent_article_type': 'research-article',
-            'parent_lang': 'en',
-            'original_article_type': None
+            "parent": "article",
+            "parent_id": "a1",
+            "parent_article_type": "research-article",
+            "parent_lang": "en",
+            "original_article_type": None,
         }
         self.assertEqual(self.fulltext.parent_data, expected)
 
     def test_related_articles(self):
         related = list(self.fulltext.related_articles)
         self.assertEqual(len(related), 1)
-        
+
         article = related[0]
-        self.assertEqual(article['related-article-type'], 'correction-forward')
-        self.assertEqual(article['ext-link-type'], 'doi')
-        self.assertEqual(article['href'], '10.1590/123456789')
-        self.assertEqual(article['id'], 'ra1')
-        self.assertEqual(article['text'], 'Some text')
-        self.assertIn('xml', article)
-        self.assertIsNone(article['original_article_type'])
+        self.assertEqual(article["related-article-type"], "correction-forward")
+        self.assertEqual(article["ext-link-type"], "doi")
+        self.assertEqual(article["href"], "10.1590/123456789")
+        self.assertEqual(article["id"], "ra1")
+        self.assertEqual(article["text"], "Some text")
+        self.assertIn("xml", article)
+        self.assertIsNone(article["original_article_type"])
 
     def test_fulltexts(self):
         sub_articles = list(self.fulltext.fulltexts)
         self.assertEqual(len(sub_articles), 2)
-        
+
         # Test translation sub-article
         translation = sub_articles[0]
-        self.assertEqual(translation.parent_data['parent_article_type'], 'translation')
-        self.assertEqual(translation.parent_data['parent_lang'], 'pt')
-        self.assertEqual(translation.parent_data['original_article_type'], 'research-article')
-        
+        self.assertEqual(translation.parent_data["parent_article_type"], "translation")
+        self.assertEqual(translation.parent_data["parent_lang"], "pt")
+        self.assertEqual(
+            translation.parent_data["original_article_type"], "research-article"
+        )
+
         # Test reviewer-report sub-article
         reviewer_report = sub_articles[1]
-        self.assertEqual(reviewer_report.parent_data['parent_article_type'], 'reviewer-report')
-        self.assertEqual(reviewer_report.parent_data['parent_lang'], 'es')
-        self.assertIsNone(reviewer_report.parent_data['original_article_type'])
+        self.assertEqual(
+            reviewer_report.parent_data["parent_article_type"], "reviewer-report"
+        )
+        self.assertEqual(reviewer_report.parent_data["parent_lang"], "es")
+        self.assertIsNone(reviewer_report.parent_data["original_article_type"])
 
 
 class TestFulltextTranslation(TestCase):
     """Tests for translation sub-article with original_article_type parameter"""
-    
+
     def setUp(self):
-        xml = '''
+        xml = """
         <sub-article article-type="translation" xml:lang="es" id="s1">
             <front-stub>
                 <related-article related-article-type="translation-of" 
@@ -220,44 +224,46 @@ class TestFulltextTranslation(TestCase):
                                ext-link-type="doi"
                                id="ra2">Body related</related-article>
             </body>
-        </sub-article>'''
-        self.fulltext = Fulltext(etree.fromstring(xml), original_article_type="research-article")
+        </sub-article>"""
+        self.fulltext = Fulltext(
+            etree.fromstring(xml), original_article_type="research-article"
+        )
 
     def test_parent_data_with_translation(self):
         expected = {
-            'parent': 'sub-article',
-            'parent_id': 's1',
-            'parent_article_type': 'translation',
-            'parent_lang': 'es',
-            'original_article_type': 'research-article'
+            "parent": "sub-article",
+            "parent_id": "s1",
+            "parent_article_type": "translation",
+            "parent_lang": "es",
+            "original_article_type": "research-article",
         }
         self.assertEqual(self.fulltext.parent_data, expected)
 
     def test_related_articles_in_translation(self):
         related = list(self.fulltext.related_articles)
         self.assertEqual(len(related), 2)
-        
+
         # Map related articles by id
-        articles = {r['id']: r for r in related}
-        
+        articles = {r["id"]: r for r in related}
+
         # Check front-stub related article
-        front = articles['ra1']
-        self.assertEqual(front['related-article-type'], 'translation-of')
-        self.assertEqual(front['text'], 'Translation note')
-        self.assertEqual(front['original_article_type'], 'research-article')
-        
+        front = articles["ra1"]
+        self.assertEqual(front["related-article-type"], "translation-of")
+        self.assertEqual(front["text"], "Translation note")
+        self.assertEqual(front["original_article_type"], "research-article")
+
         # Check body related article
-        body = articles['ra2']
-        self.assertEqual(body['related-article-type'], 'corrected-article')
-        self.assertEqual(body['text'], 'Body related')
-        self.assertEqual(body['original_article_type'], 'research-article')
+        body = articles["ra2"]
+        self.assertEqual(body["related-article-type"], "corrected-article")
+        self.assertEqual(body["text"], "Body related")
+        self.assertEqual(body["original_article_type"], "research-article")
 
 
 class TestFulltextNestedStructure(TestCase):
     """Tests for complex nested structure with multiple sub-articles"""
-    
+
     def setUp(self):
-        xml = '''
+        xml = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en" id="main">
             <front>
                 <related-article id="ra1">Main article</related-article>
@@ -272,37 +278,41 @@ class TestFulltextNestedStructure(TestCase):
                     </front-stub>
                 </sub-article>
             </sub-article>
-        </article>'''
+        </article>"""
         self.fulltext = Fulltext(etree.fromstring(xml))
 
     def test_nested_structure(self):
         # Test main article
         main_related = list(self.fulltext.related_articles)
         self.assertEqual(len(main_related), 1)
-        self.assertEqual(main_related[0]['text'], 'Main article')
-        
+        self.assertEqual(main_related[0]["text"], "Main article")
+
         # Test first level sub-articles
         level1_articles = list(self.fulltext.fulltexts)
         self.assertEqual(len(level1_articles), 1)
-        
+
         translation = level1_articles[0]
-        self.assertEqual(translation.parent_data['parent_article_type'], 'translation')
-        self.assertEqual(translation.parent_data['original_article_type'], 'research-article')
-        
+        self.assertEqual(translation.parent_data["parent_article_type"], "translation")
+        self.assertEqual(
+            translation.parent_data["original_article_type"], "research-article"
+        )
+
         # Test translation related articles
         trans_related = list(translation.related_articles)
         self.assertEqual(len(trans_related), 1)
-        self.assertEqual(trans_related[0]['text'], 'Translation 1')
-        
+        self.assertEqual(trans_related[0]["text"], "Translation 1")
+
         # Test nested reviewer-report
         nested_articles = list(translation.fulltexts)
         self.assertEqual(len(nested_articles), 1)
-        
+
         reviewer_report = nested_articles[0]
-        self.assertEqual(reviewer_report.parent_data['parent_article_type'], 'reviewer-report')
-        self.assertIsNone(reviewer_report.parent_data['original_article_type'])
-        
+        self.assertEqual(
+            reviewer_report.parent_data["parent_article_type"], "reviewer-report"
+        )
+        self.assertIsNone(reviewer_report.parent_data["original_article_type"])
+
         # Test reviewer-report related articles
         abs_related = list(reviewer_report.related_articles)
         self.assertEqual(len(abs_related), 1)
-        self.assertEqual(abs_related[0]['text'], 'Nested reviewer-report')
+        self.assertEqual(abs_related[0]["text"], "Nested reviewer-report")
