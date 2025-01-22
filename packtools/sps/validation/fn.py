@@ -75,12 +75,10 @@ class FnGroupValidation:
             dict: Validation results for each footnote.
         """
         for fn_group in self.article_fn_groups:
-            for fn in fn_group.items:
-                yield from self.validate_fn(fn)
+            yield from self.validate_fn(fn_group)
 
         for fn_group in self.sub_article_fn_groups:
-            for fn in fn_group.items:
-                yield from self.validate_fn(fn)
+            yield from self.validate_fn(fn_group)
 
     def validate_fn(self, fn):
         """
