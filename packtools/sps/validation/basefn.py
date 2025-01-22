@@ -29,7 +29,7 @@ class BaseFnValidation:
         """
         Validate the presence of the 'label' in the footnote.
         """
-        if not self.fn_data.get("label"):
+        if not self.fn_data.get("fn_label"):
             return build_response(
                 title="label",
                 parent=self.fn_data,
@@ -48,7 +48,7 @@ class BaseFnValidation:
         """
         Validate the presence of 'title' when 'label' is expected.
         """
-        if self.fn_data.get("title"):
+        if self.fn_data.get("fn_title"):
             return build_response(
                 title="unexpected title element",
                 parent=self.fn_data,
@@ -67,7 +67,7 @@ class BaseFnValidation:
         """
         Validate the presence of 'bold' when 'label' is expected.
         """
-        if self.fn_data.get("bold"):
+        if self.fn_data.get("fn_bold"):
             return build_response(
                 title="unexpected bold element",
                 parent=self.fn_data,
