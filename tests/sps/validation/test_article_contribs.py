@@ -856,9 +856,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {}
         data["orcid_is_unique_error_level"] = "ERROR"
+        data["is_orcid_registered"] = callable_get_matched_data
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -923,9 +924,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {}
         data["orcid_is_unique_error_level"] = "ERROR"
+        data["is_orcid_registered"] = callable_get_matched_data
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -990,10 +992,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         data = {
-            "orcid_is_registered_error_level": "ERROR"
+            "orcid_is_registered_error_level": "ERROR",
+            "is_orcid_registered": callable_get_matched_data
         }
         obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_matched_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered()
         )
 
         expected = [
@@ -1069,10 +1072,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         data = {
-            "orcid_is_registered_error_level": "ERROR"
+            "orcid_is_registered_error_level": "ERROR",
+            "is_orcid_registered": callable_get_not_found_data,
         }
         obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_not_found_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered()
         )
 
         expected = [
@@ -1148,10 +1152,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         data = {
-            "orcid_is_registered_error_level": "ERROR"
+            "orcid_is_registered_error_level": "ERROR",
+            "is_orcid_registered": callable_get_not_found_data
         }
         obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered(callable_get_not_found_data)
+            ContribValidation(contrib, data).validate_orcid_is_registered()
         )
 
         expected = [
@@ -1323,9 +1328,10 @@ class ArticleContribsValidationOrcidTest(TestCase):
             "collab_error_level": "ERROR",
             "name_or_collab_error_level": "ERROR",
             "orcid_is_unique_error_level": "ERROR",
-            "collab_list_error_level": "ERROR"
+            "collab_list_error_level": "ERROR",
+            "is_orcid_registered": callable_get_unmatched_data,
         }
-        obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data, is_orcid_registered=callable_get_unmatched_data).validate())
+        obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data).validate())
 
         expected = [
             {
@@ -1583,10 +1589,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {
             "orcid_is_unique_error_level": "ERROR",
+            "is_orcid_registered": callable_get_matched_data
         }
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data).validate_orcid_is_unique()
         )
 
         expected = [
@@ -1658,10 +1665,11 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {
             "orcid_is_unique_error_level": "ERROR",
+            "is_orcid_registered": callable_get_matched_data
         }
         xmltree = etree.fromstring(xml)
         obtained = list(
-            ArticleContribsValidation(xmltree, data, callable_get_matched_data).validate_orcid_is_unique()
+            ArticleContribsValidation(xmltree, data).validate_orcid_is_unique()
         )
 
         expected = [

@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import Mock
 
 from lxml import etree
 
@@ -883,3 +884,79 @@ class ArticleContribTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
+
+
+class TestContribAnonymous(TestCase):
+    def setUp(self):
+        self.contrib_class = Contrib
+
+    def test_contrib_anonymous_when_present(self):
+        # Create XML with anonymous node
+        xml = """
+        <contrib>
+            <anonymous/>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = self.contrib_class(node)
+        
+        # Test that contrib_anonymous returns "anonymous"
+        self.assertEqual(contrib.contrib_anonymous, "anonymous")
+
+    def test_contrib_anonymous_when_absent(self):
+        # Create XML without anonymous node
+        xml = """
+        <contrib>
+            <name>
+                <surname>Smith</surname>
+            </name>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = self.contrib_class(node)
+        
+        # Test that contrib_anonymous returns None
+        self.assertIsNone(contrib.contrib_anonymous)
+
+    def test_contrib_anonymous_with_empty_node(self):
+        # Create XML with empty contrib node
+        xml = """
+        <contrib>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = self.contrib_class(node)
+        
+        # Test that contrib_anonymous returns None
+        self.assertIsNone(contrib.contrib_anonymous)
+
+    def test_contrib_anonymous_present_in_data(self):
+        # Create XML with anonymous node
+        xml = """
+        <contrib>
+            <anonymous/>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = self.contrib_class(node)
+        
+        # Test that contrib_anonymous is present in data
+        data = contrib.data
+        self.assertIn('contrib_anonymous', data)
+        self.assertEqual(data['contrib_anonymous'], 'anonymous')
+
+    def test_contrib_anonymous_absent_in_data(self):
+        # Create XML without anonymous node
+        xml = """
+        <contrib>
+            <name>
+                <surname>Smith</surname>
+            </name>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = self.contrib_class(node)
+        
+        # Test that contrib_anonymous is not present in data
+        data = contrib.data
+        self.assertNotIn('contrib_anonymous', data)
