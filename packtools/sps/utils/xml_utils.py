@@ -10,6 +10,16 @@ from packtools.lib import file_utils
 logger = logging.getLogger(__name__)
 
 
+def remove_namespaces(xml_string):
+    namespaces_to_remove = [
+        'xmlns:xlink="http://www.w3.org/1999/xlink"',
+        'xmlns:mml="http://www.w3.org/1998/Math/MathML"',
+    ]
+    for ns in namespaces_to_remove:
+        xml_string = xml_string.replace(ns, "")
+    return xml_string
+
+
 def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     _items = []
     for node in xmltree.xpath(lang_xpath):

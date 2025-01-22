@@ -1,41 +1,128 @@
 {
     "related_article_rules": {
+        "required_related_articles_error_level": "CRITICAL",
+        "type_error_level": "CRITICAL",
+        "ext_link_type_error_level": "CRITICAL",
+        "uri_error_level": "CRITICAL",
+        "uri_format_error_level": "CRITICAL",
+        "doi_error_level": "CRITICAL",
+        "doi_format_error_level": "CRITICAL",
+        "id_error_level": "CRITICAL",
         "ext_link_type_list": [
             "doi",
             "uri"
         ],
-        "related_article_type_list": [
-            "corrected-article",
-            "correction-forward",
-            "retracted-article",
-            "retraction-forward",
-            "retracted-article",
-            "partial-retraction",
-            "article",
-            "addendum",
-            "commentary-article",
-            "commentary",
-            "article",
-            "letter",
-            "peer-reviewed-material",
-            "reviewer-report",
-            "preprint"
-        ],
-        "article_type_correspondence_list": [
-            {"article-type": "addendum", "related_article_type_list": ["article"]},
-            {"article-type": "article-commentary", "related_article_type_list": ["commentary"]},
-            {"article-type": "correction", "related_article_type_list": ["corrected-article"]},
-            {"article-type": "partial-retraction", "related_article_type_list": ["retracted-article"]},
-            {"article-type": "retraction", "related_article_type_list": ["retracted-article"]},
-            {"article-type": "reviewer-report", "related_article_type_list": ["peer-reviewed-material"]}
-        ],
         "required_history_events": {
             "preprint": "preprint",
             "correction-forward": "corrected"
+        },
+        "article-types-and-related-article-types": {
+            "correction": {
+                "required_related_article_types": ["corrected-article"],
+                "acceptable_related_article_types": []
+            },
+            "research-article": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "review-article": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "case-report": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "brief-report": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "data-article": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary",
+                    "reviewer-report",
+                    "preprint"
+                ]
+            },
+            "retraction": {
+                "required_related_article_types": ["retracted-article"],
+                "acceptable_related_article_types": []
+            },
+            "partial-retraction": {
+                "required_related_article_types": ["retracted-article"],
+                "acceptable_related_article_types": []
+            },
+            "addendum": {
+                "required_related_article_types": ["article"],
+                "acceptable_related_article_types": []
+            },
+            "article-commentary": {
+                "required_related_article_types": ["commentary-article"],
+                "acceptable_related_article_types": []
+            },
+            "letter": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": ["article", "letter"]
+            },
+            "reply": {
+                "required_related_article_types": ["letter"],
+                "acceptable_related_article_types": []
+            },
+            "editorial": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": [
+                    "correction-forward",
+                    "retraction-forward",
+                    "partial-retraction",
+                    "addendum",
+                    "commentary"
+                ]
+            },
+            "reviewer-report": {
+                "required_related_article_types": ["peer-reviewed-material"],
+                "acceptable_related_article_types": []
+            },
+            "preprint": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": ["article"]
+            }
         }
-
     }
-
 }
-
-            

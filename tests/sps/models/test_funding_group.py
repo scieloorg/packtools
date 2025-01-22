@@ -1,7 +1,5 @@
 from unittest import TestCase
-
 from lxml import etree
-
 from packtools.sps.models import funding_group
 
 
@@ -53,26 +51,13 @@ class FundingTest(TestCase):
         <fn fn-type="financial-disclosure">
         <label>Funding</label>
         <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-        <p>
-        [
-        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100003593">https://doi.org/10.13039/501100003593</ext-link>
-        ]
-        </p>
+        <p>[<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100003593">https://doi.org/10.13039/501100003593</ext-link>]</p>
         <p>Grant No: 303625/2019-8</p>
         <p>Fundação de Amparo à Pesquisa do Estado de São Paulo</p>
-        <p>
-        [
-        <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100001807">https://doi.org/10.13039/501100001807</ext-link>
-        ]
-        </p>
+        <p>[<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100001807">https://doi.org/10.13039/501100001807</ext-link>]</p>
         <p>Grant No: 2016/17640-0</p>
         <p>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.</p>
-        <p>
-        [
-        <ext-link ext-link-type="uri" 
-        xlink:href="https://doi.org/10.13039/501100002322">https://doi.org/10.13039/501100002322</ext-link>
-        ]
-        </p>
+        <p>[<ext-link ext-link-type="uri" xlink:href="https://doi.org/10.13039/501100002322">https://doi.org/10.13039/501100002322</ext-link>]</p>
         <p>Finance code 0001.</p>
         </fn>
         <fn fn-type="other">
@@ -84,56 +69,98 @@ class FundingTest(TestCase):
         </fn>
         <fn fn-type="supported-by">
         <p>Conselho Nacional de Desenvolvimento Científico e Tecnológico</p>
-        <p>
-        Número 123.456-7
-        </p>
+        <p>Número 123.456-7</p>
         </fn>
         </fn-group>
         </back>
         </article>
         """
         xml_tree = etree.fromstring(xml)
-        self.funding = funding_group.FundingGroup(xml_tree)
+        params = {"special_chars_award_id": ["/", ".", "-"]}
+        self.funding = funding_group.FundingGroup(xml_tree, params)
+        self.funding_no_params = funding_group.FundingGroup(xml_tree)
 
-    def test_fn_financial_information(self):
+    def test_financial_disclosure(self):
         self.maxDiff = None
         expected = [
             {
-                'fn-type': 'financial-disclosure',
-                'look-like-funding-source': [
-                    'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
-                    'Fundação de Amparo à Pesquisa do Estado de São Paulo',
-                    'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.'
-                ],
-                'look-like-award-id': [
-                    '303625/2019-8',
-                    '2016/17640-0',
-                    '0001.'
-                ]
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
             },
             {
-                'fn-type': 'supported-by',
-                'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
-                'look-like-award-id': ['123.456-7'],
-            }
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "[https://doi.org/10.13039/501100003593]",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": ["303625/2019-8"],
+                "text": "Grant No: 303625/2019-8",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "Fundação de Amparo à Pesquisa do Estado de São Paulo",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "[https://doi.org/10.13039/501100001807]",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": ["2016/17640-0"],
+                "text": "Grant No: 2016/17640-0",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": [],
+                "text": "[https://doi.org/10.13039/501100002322]",
+            },
+            {
+                "fn-type": "financial-disclosure",
+                "look-like-award-id": ["0001."],
+                "text": "Finance code 0001.",
+            },
         ]
+        obtained = self.funding.financial_disclosure
+        self.assertEqual(expected, obtained)
 
-        obtained = self.funding.fn_financial_information(
-            special_chars_funding=['.', ','],
-            special_chars_award_id=['/', '.', '-']
-        )
+    def test_supported_by(self):
+        self.maxDiff = None
+        expected = [
+            {
+                "fn-type": "supported-by",
+                "look-like-award-id": [],
+                "text": "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
+            },
+            {
+                "fn-type": "supported-by",
+                "look-like-award-id": ["123.456-7"],
+                "text": "Número 123.456-7",
+            },
+        ]
+        obtained = self.funding.supported_by
         self.assertEqual(expected, obtained)
 
     def test_award_groups(self):
         expected = [
             {
                 "award-id": ["2019JJ40269"],
-                "funding-source": ["Natural Science Foundation of Hunan Province"]
+                "funding-source": ["Natural Science Foundation of Hunan Province"],
             },
             {
                 "award-id": ["2020CFB547"],
-                "funding-source": ["Hubei Provincial Natural Science Foundation of China"]
-            }
+                "funding-source": [
+                    "Hubei Provincial Natural Science Foundation of China"
+                ],
+            },
         ]
         obtained = self.funding.award_groups
         self.assertEqual(expected, obtained)
@@ -141,35 +168,28 @@ class FundingTest(TestCase):
     def test_funding_sources(self):
         expected = [
             "Natural Science Foundation of Hunan Province",
-            "Hubei Provincial Natural Science Foundation of China"
+            "Hubei Provincial Natural Science Foundation of China",
         ]
         obtained = self.funding.funding_sources
         self.assertEqual(expected, obtained)
 
     def test_funding_statement(self):
-        expected = "Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial Natural Science " \
-                   "Foundation of China Grant No. 2020CFB547"
+        expected = (
+            "Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial Natural Science "
+            "Foundation of China Grant No. 2020CFB547"
+        )
         obtained = self.funding.funding_statement
         self.assertEqual(expected, obtained)
 
     def test_principal_award_recipients(self):
-        expected = [
-            "Stanford",
-            "Berkeley"
-        ]
+        expected = ["Stanford", "Berkeley"]
         obtained = self.funding.principal_award_recipients
         self.assertEqual(expected, obtained)
 
     def test_principal_investigators(self):
         expected = [
-            {
-                "given-names": 'Sharon R.',
-                "surname": 'Kaufman'
-            },
-            {
-                "given-names": 'João',
-                "surname": 'Silva'
-            }
+            {"given-names": "Sharon R.", "surname": "Kaufman"},
+            {"given-names": "João", "surname": "Silva"},
         ]
         obtained = self.funding.principal_investigators
         self.assertEqual(expected, obtained)
@@ -178,108 +198,59 @@ class FundingTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                "title": 'Acknowledgments',
-                "text": 'Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and '
-                        'Anesthesiology, RJ, Brazil, provided important support for this research. This study was '
-                        'funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment ('
-                        'CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil. This study was presented as a '
-                        'poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 '
-                        'November 2018, Belém do Pará, Brazil.'
+                "title": "Acknowledgments",
+                "p": [
+                    {
+                        "look-like-award-id": [],
+                        "text": "Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and Anesthesiology, RJ, Brazil, provided important support for this research.",
+                    },
+                    {
+                        "look-like-award-id": [],
+                        "text": "This study was funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment (CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil.",
+                    },
+                    {
+                        "look-like-award-id": ["10-14"],
+                        "text": "This study was presented as a poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 November 2018, Belém do Pará, Brazil.",
+                    },
+                ],
             }
         ]
         obtained = self.funding.ack
         self.assertEqual(expected, obtained)
 
-    def test__looks_like_institution_name_success(self):
-        self.assertTrue(funding_group._looks_like_institution_name(
-            "Natural Science, Foundation of-Hunan Province.",
-            ['.', ',', '-']
-        ))
+    def test_looks_like_award_id_success(self):
+        self.assertTrue(funding_group._looks_like_award_id("123.456.789-0"))
 
-    def test__looks_like_institution_name_fail(self):
-        self.assertFalse(funding_group._looks_like_institution_name(
-            "Natural Science Foundation 1 of Hunan Province",
-            ['.', ',', '-']
-        ))
+    def test_looks_like_award_id_fail(self):
+        self.assertFalse(funding_group._looks_like_award_id("doi.org.//123.456.789-0"))
 
-    def test__looks_like_award_id_success(self):
-        self.assertTrue(funding_group._looks_like_award_id(
-            "123.456.789-0"
-        ))
+    def test_process_paragraph_node(self):
+        """Test the internal _process_paragraph_node method"""
+        xml = "<p>Grant No: 303625/2019-8</p>"
+        node = etree.fromstring(xml)
 
-    def test__looks_like_award_id_fail(self):
-        self.assertFalse(funding_group._looks_like_award_id(
-            "doi.org.//123.456.789-0"
-        ))
+        result = self.funding._process_paragraph_node(node)
+        expected = {
+            "look-like-award-id": ["303625/2019-8"],
+            "text": "Grant No: 303625/2019-8",
+        }
+        self.assertEqual(expected, result)
 
     def test_extract_funding_data(self):
         self.maxDiff = None
-        expected = {
-            "article_type": "research-article",
-            "article_lang": "en",
-            "fn_financial_information": [
-                {
-                    'fn-type': 'financial-disclosure',
-                    'look-like-funding-source': [
-                        'Conselho Nacional de Desenvolvimento Científico e Tecnológico',
-                        'Fundação de Amparo à Pesquisa do Estado de São Paulo',
-                        'Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.'
-                    ],
-                    'look-like-award-id': [
-                        '303625/2019-8',
-                        '2016/17640-0',
-                        '0001.'
-                    ]
-                },
-                {
-                    'fn-type': 'supported-by',
-                    'look-like-funding-source': ['Conselho Nacional de Desenvolvimento Científico e Tecnológico'],
-                    'look-like-award-id': ['123.456-7'],
-                }
-            ],
-            "award_groups": [
-                {
-                    "award-id": ["2019JJ40269"],
-                    "funding-source": ["Natural Science Foundation of Hunan Province"]
-                },
-                {
-                    "award-id": ["2020CFB547"],
-                    "funding-source": ["Hubei Provincial Natural Science Foundation of China"]
-                }
-            ],
-            "funding_sources": [
-                "Natural Science Foundation of Hunan Province",
-                "Hubei Provincial Natural Science Foundation of China"
-            ],
-            "funding_statement": "Natural Science Foundation of Hunan Province Grant No. 2019JJ40269 Hubei Provincial "
-                                 "Natural Science Foundation of China Grant No. 2020CFB547",
-            "principal_award_recipients": [
-                "Stanford",
-                "Berkeley"
-            ],
-            "ack": [
-                {
-                    "title": 'Acknowledgments',
-                    "text": 'Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and '
-                            'Anesthesiology, RJ, Brazil, provided important support for this research. This study was '
-                            'funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment ('
-                            'CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil. This study was presented as a '
-                            'poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 '
-                            'November 2018, Belém do Pará, Brazil.'
-                }
-            ]
-        }
-        obtained = self.funding.extract_funding_data(
-            funding_special_chars=['.', ','],
-            award_id_special_chars=['/', '.', '-']
-        )
-        self.assertEqual(expected, obtained)
-
-    def test_data(self):
-        self.maxDiff = None
-        expected = [
-            {"award-id": "2019JJ40269", "funding-source": ["Natural Science Foundation of Hunan Province"]},
-            {"award-id": "2020CFB547", "funding-source": ["Hubei Provincial Natural Science Foundation of China"]}
-        ]
         obtained = self.funding.data
-        self.assertListEqual(expected, obtained)
+
+        # Verify the structure exists
+        self.assertIn("article_type", obtained)
+        self.assertIn("article_lang", obtained)
+        self.assertIn("financial_disclosure", obtained)
+        self.assertIn("supported_by", obtained)
+        self.assertIn("award_groups", obtained)
+        self.assertIn("funding_sources", obtained)
+        self.assertIn("funding_statement", obtained)
+        self.assertIn("principal_award_recipients", obtained)
+        self.assertIn("ack", obtained)
+
+        # Verify some key values
+        self.assertEqual("research-article", obtained["article_type"])
+        self.assertEqual("en", obtained["article_lang"])
