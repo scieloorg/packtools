@@ -5,6 +5,7 @@ from packtools.sps.utils.xml_utils import node_plain_text, get_parent_context, p
 <contrib contrib-type="author">
     <contrib-id contrib-id-type="orcid">0000-0001-8528-2091</contrib-id>
     <contrib-id contrib-id-type="scopus">24771926600</contrib-id>
+    <anonymous/>
     <collab>The MARS Group</collab>
     <name>
         <surname>Einstein</surname>
@@ -35,6 +36,12 @@ class Contrib:
             item.get("contrib-id-type"): item.text
             for item in self.node.xpath(".//contrib-id")
         }
+
+    @property
+    def contrib_anonymous(self):
+        anonymous = self.node.find("anonymous")
+        if anonymous is not None:
+            return "anonymous"
 
     @property
     def contrib_name(self):
@@ -78,6 +85,7 @@ class Contrib:
             (
                 "contrib_type",
                 "contrib_ids",
+                "contrib_anonymous",
                 "contrib_name",
                 "contrib_full_name",
                 "collab",
@@ -87,6 +95,7 @@ class Contrib:
             (
                 self.contrib_type,
                 self.contrib_ids,
+                self.contrib_anonymous,
                 self.contrib_name,
                 self.contrib_full_name,
                 self.collab,
