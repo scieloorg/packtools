@@ -1,6 +1,7 @@
 from packtools.sps.models.author_notes import ArticleAuthorNotes
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+
 from packtools.sps.validation.utils import build_response
-from packtools.sps.validation.exceptions import ValidationFnTypeException
 from packtools.sps.validation.basefn import BaseFnValidation
 
 
@@ -15,7 +16,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 sub_item="@fn-type",
                 validation_type="unexpected",
                 is_valid=False,
-                expected=expected,
+                expected="bio",
                 obtained=self.fn_data.get("fn_type"),
                 advice=f"Use '<bio>' instead of @fn-type='current-aff'",
                 data=self.fn_data,
@@ -31,7 +32,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 sub_item="@fn-type",
                 validation_type="unexpected",
                 is_valid=False,
-                expected=expected,
+                expected="role",
                 obtained=self.fn_data.get("fn_type"),
                 advice=f"Use '<role>' instead of @fn-type='con'",
                 data=self.fn_data,
@@ -75,6 +76,7 @@ class ArticleAuthorNotesValidation:
         """
         self.xml_tree = xml_tree
         self.rules = rules
+        self.dtd_version = ArticleAndSubArticles(xml_tree).main_dtd_version
 
         xml_article = ArticleAuthorNotes(xml_tree)
         self.article_author_notes = xml_article.article_author_notes()
@@ -85,27 +87,39 @@ class ArticleAuthorNotesValidation:
         Validate all footnote groups in the XML document.
 
         Yields:
-            dict: Validation results for each footnote.
+            dict: Validation results for each footnote (excluding None).
         """
-        for fn_group in self.article_author_notes:
-            if corresp_data := fn_group.get("corresp_data"):
-                corresp_validator = CorrespValidation(corresp_data, self.rules)
-                yield corresp_validator.validate_title()
-                yield corresp_validator.validate_bold()
-                yield corresp_validator.validate_label()
+        fn_group = self.article_author_notes
+        for corresp_data in fn_group.get("corresp_data"):
+            corresp_validator = CorrespValidation(corresp_data, self.rules)
+            for result in [
+                corresp_validator.validate_title(),
+                corresp_validator.validate_bold(),
+                corresp_validator.validate_label()
+            ]:
+                if result is not None:
+                    yield result
 
-            for fn in fn_group.get("fns"):
-                yield from self.validate_fn(fn)
+        for fn in fn_group.get("fns"):
+            for result in self.validate_fn(fn):
+                if result is not None:
+                    yield result
 
         for fn_group in self.sub_article_author_notes:
-            if corresp_data := fn_group.get("corresp_data"):
+            for corresp_data in fn_group.get("corresp_data"):
                 corresp_validator = CorrespValidation(corresp_data, self.rules)
-                yield corresp_validator.validate_title()
-                yield corresp_validator.validate_bold()
-                yield corresp_validator.validate_label()
+                for result in [
+                    corresp_validator.validate_title(),
+                    corresp_validator.validate_bold(),
+                    corresp_validator.validate_label()
+                ]:
+                    if result is not None:
+                        yield result
 
             for fn in fn_group.get("fns"):
-                yield from self.validate_fn(fn)
+                for result in self.validate_fn(fn):
+                    if result is not None:
+                        yield result
 
     def validate_fn(self, fn):
         """
@@ -113,13 +127,14 @@ class ArticleAuthorNotesValidation:
 
         Args:
             fn (dict): The footnote to validate.
-            context (dict): Context metadata for the footnote.
 
         Yields:
-            dict: Validation results for the footnote.
+            dict: Validation results for the footnote (excluding None).
         """
-        validator = AuthorNotesFnValidation(fn_data=fn, rules=self.rules)
-        yield from validator.validate()
+        validator = AuthorNotesFnValidation(fn_data=fn, rules=self.rules, dtd_version=self.dtd_version)
+        for result in validator.validate():
+            if result is not None:
+                yield result
 
 
 class CorrespValidation:
