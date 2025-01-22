@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c90ed07e-a782-4f39-9c4d-91acc162ffd0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/packtools/sps/models/author_notes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/models/basenotes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/models/fn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/validation/author_notes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/validation/basefn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/validation/fn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/validation_rules/author_notes_rules.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packtools/sps/validation_rules/fn_rules.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sps/models/test_author_notes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sps/models/test_basenotes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sps/models/test_fn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sps/validation/test_author_notes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sps/validation/test_fn.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/models/article_author_notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/models/footnotes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/models/v2/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/validation/article_author_notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/validation/footnotes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/validation/xml_validations.py" beforeDir="false" afterPath="$PROJECT_DIR$/packtools/sps/validation/xml_validations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packtools/sps/validation/xml_validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/packtools/sps/validation/xml_validator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/sps/models/test_article_and_subarticles.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sps/models/test_article_and_subarticles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/sps/models/test_article_author_notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/sps/models/test_footnotes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/sps/validation/test_article_author_notes.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Unit Test" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Rossi-Luciano-robertatakenaka-xml_content_validation_footnotes" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;state&quot;: &quot;OPEN&quot;
+    }
+  ],
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Rossi-Luciano/packtools&quot;,
+    &quot;accountId&quot;: &quot;9a81aca1-045a-4d8a-8355-18fded4b8a56&quot;
+  }
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2gVR3IwsYCrQS3Cj28mfQ7SUHGL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "Python tests.Python tests in test_tablewrap.py.executor": "Debug",
+    "Python.test_permissions.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/luciano/projects/packtools/packtools/sps/formats/am",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packtools/sps/formats/am" />
+      <recent name="$PROJECT_DIR$/packtools/sps/sps_versions/sps-1.10" />
+      <recent name="$PROJECT_DIR$/packtools/sps/sps_versions/sps-1.9" />
+      <recent name="$PROJECT_DIR$/tests/sps/models/v2" />
+      <recent name="$PROJECT_DIR$/packtools/sps/models/v2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packtools/validation_rules" />
+      <recent name="$PROJECT_DIR$/tests/sps/fixtures/standard_scielo_xml" />
+      <recent name="$PROJECT_DIR$/packtools/sps/formats/sps_xml" />
+      <recent name="$PROJECT_DIR$/sps/formats/sps_xml" />
+      <recent name="$PROJECT_DIR$/packtools/sps/sps_versions/sps-1.10" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="test_permissions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/sps/formats/sps_xml" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/sps/formats/sps_xml/test_permissions.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test_permissions" />
+        <item itemvalue="Python.test_permissions" />
+        <item itemvalue="Python.test_permissions" />
+        <item itemvalue="Python.test_permissions" />
+        <item itemvalue="Python.test_permissions" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d7ad00fb9fc3-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23726.102" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c90ed07e-a782-4f39-9c4d-91acc162ffd0" name="Changes" comment="" />
+      <created>1715780557113</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715780557113</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
