@@ -1,4 +1,5 @@
 import urllib.parse
+import re
 
 import requests
 from langdetect import detect
@@ -106,3 +107,55 @@ def is_valid_url_format(text):
         return bool(parsed_url.scheme) and bool(parsed_url.netloc)
     except ValueError:
         return False
+
+
+def validate_doi_format(doi):
+    """
+    Valida o formato de um DOI (Digital Object Identifier)
+
+    Regras de validação:
+    1. Deve começar com "10."
+    2. Após o "10.", deve ter 4 ou 5 dígitos
+    3. Deve ter uma barra (/) após os dígitos
+    4. Deve ter caracteres alfanuméricos após a barra
+    5. Pode conter hífens e pontos após a barra
+    6. Não deve conter espaços
+
+    Args:
+        doi (str): O DOI a ser validado
+
+    Returns:
+        Dict[str, Union[bool, str]]: Dicionário contendo status de validação e mensagem
+    """
+    # Verifica se o input é uma string e não está vazio
+    if not isinstance(doi, str) or not doi:
+        return {
+            "valido": False,
+            "mensagem": "DOI deve ser uma string não vazia"
+        }
+
+    # Remove possíveis espaços em branco
+    doi = doi.strip()
+
+    # Regex para validar o formato do DOI
+    doi_regex = r'^10\.\d{4,5}\/[a-zA-Z0-9./-]+$'
+
+    # Testa o formato básico
+    if not re.match(doi_regex, doi):
+        return {
+            "valido": False,
+            "mensagem": "Formato de DOI inválido. Deve seguir o padrão: 10.XXXX/string-alfanumérica"
+        }
+
+    # Verifica se não há caracteres especiais inválidos após a barra
+    sufixo = doi.split('/')[1]
+    if not re.match(r'^[a-zA-Z0-9./-]+$', sufixo):
+        return {
+            "valido": False,
+            "mensagem": "O sufixo do DOI contém caracteres inválidos"
+        }
+
+    return {
+        "valido": True,
+        "mensagem": "DOI válido"
+    }
