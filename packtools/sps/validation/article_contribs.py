@@ -29,6 +29,8 @@ def _response(contrib, is_valid, expected, obtained, author, error_level="ERROR"
 
 
 class ContribValidation:
+    """Validates contributor information in scientific article XML."""
+    
     def __init__(self, contrib, data):
         self.data = data
         self.contrib = contrib
@@ -36,58 +38,14 @@ class ContribValidation:
 
     def validate_role(self):
         """
-        Checks contributor roles according to CRediT taxonomy.
-
-        XML input
-        ---------
-        <article>
-            <front>
-                <article-meta>
-                    <contrib-group>
-                        <contrib contrib-type="author">
-                            <name>
-                                <surname>VENEGAS-MARTÍNEZ</surname>
-                                <given-names>FRANCISCO</given-names>
-                                <prefix>Prof</prefix>
-                                <suffix>Nieto</suffix>
-                            </name>
-                            <xref ref-type="aff" rid="aff1"/>
-                            <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>
-                            <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
-                            </contrib>
-                            <contrib contrib-type="author">
-                            <contrib-id contrib-id-type="orcid">0000-0001-5518-4853</contrib-id>
-                            <name>
-                                <surname>Higa</surname>
-                                <given-names>Vanessa M.</given-names>
-                            </name>
-                            <xref ref-type="aff" rid="aff1">a</xref>
-                            <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
-                        </contrib>
-                    </contrib-group>
-                </article-meta>
-            </front>
-        </article>
+        Validates contributor roles against CRediT taxonomy.
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'CRediT taxonomy',
-                    'xpath': './contrib-group//contrib//role[@content-type="https://credit.niso.org/contributor-roles/*"]',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': [
-                        '<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>',
-                        '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>'
-                    ],
-                    'got_value': '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
-                    'message': '''Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role> expected ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']''',
-                    'advice': None
-                },...
-            ]
+        generator
+            Yields dicts with validation results containing:
+            title, xpath, validation_type, response, expected_value,
+            got_value, message, and advice fields.
         """
         error_level = self.data["credit_taxonomy_terms_and_urls_error_level"]
         credit_taxonomy_terms_and_urls = self.data["credit_taxonomy_terms_and_urls"]
@@ -124,57 +82,17 @@ class ContribValidation:
 
     def validate_orcid_format(self):
         """
-        Checks whether a contributor's ORCID is valid.
-
-        XML input
-        ---------
-        <article>
-            <front>
-                <article-meta>
-                    <contrib-group>
-                        <contrib contrib-type="author">
-                            <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
-                            <name>
-                                <surname>VENEGAS-MARTÍNEZ</surname>
-                                <given-names>FRANCISCO</given-names>
-                                <prefix>Prof</prefix>
-                                <suffix>Nieto</suffix>
-                            </name>
-                            <xref ref-type="aff" rid="aff1"/>
-                        </contrib>
-                        <contrib contrib-type="author">
-                            <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
-                            <name>
-                                <surname>Higa</surname>
-                                <given-names>Vanessa M.</given-names>
-                            </name>
-                            <xref ref-type="aff" rid="aff1">a</xref>
-                        </contrib>
-                    </contrib-group>
-                </article-meta>
-            </front>
-        </article>
+        Validates format of contributor ORCID identifiers.
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'ORCID format',
-                    'xpath': './/contrib-id[@contrib-id-type="orcid"]',
-                    'validation_type': 'format',
-                    'response': 'OK',
-                    'expected_value': '0990-0001-0058-4853',
-                    'got_value': '0990-0001-0058-4853',
-                    'message': f'Got 0990-0001-0058-4853 expected 0990-0001-0058-4853',
-                    'advice': None
-                },...
-            ]
+        generator
+            Yields dicts with validation results containing:
+            title, xpath, validation_type, response, expected_value,
+            got_value, message, and advice fields.
         """
         error_level = self.data["orcid_format_error_level"]
         if not self.contrib_name:
-            # não há contrib_name, logo não há orcid
             return
 
         _default_orcid = (
@@ -204,68 +122,20 @@ class ContribValidation:
             error_level=error_level
         )
 
-    def validate_orcid_is_registered(self, is_orcid_registered):
+    def validate_orcid_is_registered(self):
         """
-        Checks whether a contributor's ORCID is registered.
-
-        XML input
-        ---------
-        <article>
-        <front>
-            <article-meta>
-                <contrib-group>
-                    <contrib contrib-type="author">
-                        <contrib-id contrib-id-type="orcid">0990-0001-0058-4853</contrib-id>
-                            <name>
-                                <surname>VENEGAS-MARTÍNEZ</surname>
-                                <given-names>FRANCISCO</given-names>
-                                <prefix>Prof</prefix>
-                                <suffix>Nieto</suffix>
-                            </name>
-                        <xref ref-type="aff" rid="aff1"/>
-                    </contrib>
-                    <contrib contrib-type="author">
-                        <contrib-id contrib-id-type="orcid">0000-3333-1238-6873</contrib-id>
-                            <name>
-                                <surname>Higa</surname>
-                                <given-names>Vanessa M.</given-names>
-                            </name>
-                        <xref ref-type="aff" rid="aff1">a</xref>
-                    </contrib>
-                </contrib-group>
-            </article-meta>
-          </front>
-        </article>
-
-        Params
-        ------
-        callable_get_validation : function
-            A function that will be passed as an argument.
-            This function must have the signature 'def callable_get_validate(orcid):' and
-            returns the name of the author associated with ORCID
+        Validates if contributor's ORCID is registered in ORCID database.
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                'title': 'Registered ORCID',
-                'xpath': './/contrib-id[@contrib-id-type="orcid"]',
-                'validation_type': 'exist',
-                'response': 'OK',
-                'expected_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
-                'got_value': ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'],
-                'message': 'Got ['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ'] expected '
-                           '['0990-0001-0058-4853', 'FRANCISCO VENEGAS-MARTÍNEZ']',
-                'advice': None
-                },
-                ...
-            ]
+        generator
+            Yields dicts with validation results containing:
+            title, xpath, validation_type, response, expected_value,
+            got_value, message, and advice fields.
         """
+        is_orcid_registered = self.data["is_orcid_registered"]
         error_level = self.data["orcid_is_registered_error_level"]
         if not self.contrib_name:      
-            # não há contrib_name, logo não há orcid
             return
 
         orcid = self.contrib.get("contrib_ids", {}).get("orcid")
@@ -299,63 +169,14 @@ class ContribValidation:
 
     def validate_affiliations(self):
         """
-        Checks if an author has the corresponding affiliation data.
-
-        XML input
-        ---------
-        <article>
-            <front>
-                <article-meta>
-                    <contrib-group>
-                        <contrib contrib-type="author">
-                          <name>
-                            <surname>VENEGAS-MARTÍNEZ</surname>
-                            <given-names>FRANCISCO</given-names>
-                          </name>
-                          <xref ref-type="aff" rid="aff1"/>
-                        </contrib>
-                        <contrib contrib-type="author">
-                          <name>
-                            <surname>SILVA</surname>
-                            <given-names>JOSÉ</given-names>
-                          </name>
-                          <xref ref-type="aff" rid="aff2"/>
-                        </contrib>
-                    </contrib-group>
-                </article-meta>
-            </front>
-        </article>
-
+        Validates presence of contributor affiliations.
 
         Returns
         -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Author without affiliation',
-                    'item': 'contrib',
-                    'sub_item': 'aff',
-                    'parent': 'article',
-                    'parent_id': None,
-                    'validation_type': 'exist',
-                    'response': 'ERROR',
-                    'expected_value': 'affiliation',
-                    'got_value': None,
-                    'message': 'Got None, expected affiliation',
-                    'advice': 'provide affiliation for FRANCISCO VENEGAS-MARTÍNEZ',
-                    'data': {
-                        'aff_rids': ['aff1'],
-                        'contrib-type': 'author',
-                        'given_names': 'FRANCISCO',
-                        'parent': 'article',
-                        'parent_id': None,
-                        'rid': ['aff1'],
-                        'rid-aff': ['aff1'],
-                        'surname': 'VENEGAS-MARTÍNEZ'
-                    }
-                },...
-            ]
+        generator
+            Yields dicts with validation results containing:
+            title, item, sub_item, validation_type, response,
+            expected_value, got_value, message, and advice fields.
         """
         error_level = self.data["affiliations_error_level"]
         affs = self.contrib.get("affs")
@@ -378,6 +199,7 @@ class ContribValidation:
             )
 
     def validate_name(self):
+        """Validates presence of contributor name elements."""
         error_level = self.data["name_error_level"]
         item = self.contrib.get("contrib_name")
         if not item:
@@ -396,6 +218,7 @@ class ContribValidation:
             )
 
     def validate_collab(self):
+        """Validates presence of collaboration information."""
         error_level = self.data["collab_error_level"]
         item = self.contrib.get("collab")
         if not item:
@@ -414,36 +237,52 @@ class ContribValidation:
             )
 
     def validate_name_or_collab(self):
+        """
+        Validates that contributor has either name or collaboration info.
+        For reviewer reports, checks for name or anonymous elements instead.
+        """
         error_level = self.data["name_or_collab_error_level"]
-        item = self.contrib.get("contrib_name") or self.contrib.get("collab")
+
+        if self.contrib.get("parent_article_type") == "translation":
+            parent_article_type = self.contrib.get("original_article_type")
+        else:
+            parent_article_type = self.contrib.get("parent_article_type")
+
+        if parent_article_type == "reviewer-report":
+            title = "name or anonymous"
+            item = self.contrib.get("contrib_name") or self.contrib.get("contrib_anonymous")
+        else:
+            title = "name or collab"
+            item = self.contrib.get("contrib_name") or self.contrib.get("collab")
+
         if not item:
             yield build_response(
-                title='name or collab',
+                title=title,
                 parent=self.contrib,
                 item='contrib',
-                sub_item='name or collab',
+                sub_item=title,
                 validation_type='exist',
                 is_valid=False,
-                expected='name or collab',
+                expected=title,
                 obtained=None,
-                advice=f'provide name or collab',
+                advice=f'provide {title}',
                 data=self.contrib,
                 error_level=error_level
             )
 
-    def validate(self, is_orcid_registered):
+    def validate(self):
+        """Runs all validation checks on contributor metadata."""
         yield from self.validate_role()
         yield from self.validate_orcid_format()
-        yield from self.validate_orcid_is_registered(is_orcid_registered)
+        yield from self.validate_orcid_is_registered()
         yield from self.validate_affiliations()
         yield from self.validate_name_or_collab()
 
 
 class ArticleContribsValidation:
-    def __init__(self, xmltree, data, is_orcid_registered):
+    def __init__(self, xmltree, data):
         self.xmltree = xmltree
         self.data = data
-        self.is_orcid_registered = is_orcid_registered
         self.contribs = ArticleContribs(self.xmltree)
 
     @property
@@ -548,7 +387,7 @@ class ArticleContribsValidation:
         yield from self.validate_orcid_is_unique()
 
         for contrib in self.contribs.contribs:
-            yield from ContribValidation(contrib, self.data).validate(self.is_orcid_registered)
+            yield from ContribValidation(contrib, self.data).validate()
 
         validator = CollabListValidation(self.xmltree.find("."), self.data)
         yield from validator.validate()
