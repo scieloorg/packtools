@@ -1,4 +1,5 @@
 from packtools.sps.models.basenotes import BaseNoteGroup, BaseNoteGroups
+from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
 
 
 class AuthorNotes(BaseNoteGroup):
@@ -41,14 +42,14 @@ class AuthorNotesNodes(BaseNoteGroups):
             xpath = f".//{self.fn_parent_tag_name}"
 
         for fn_parent_node in self.article_or_sub_article_node.xpath(xpath):
-            for data in self.NoteGroupClass(fn_parent_node).corresp_data:
-                yield put_parent_context(
-                    data,
-                    self.parent_lang,
-                    self.parent_article_type,
-                    self.parent,
-                    self.parent_id,
-                )
+            data = self.NoteGroupClass(fn_parent_node).corresp_data
+            yield put_parent_context(
+                data,
+                self.parent_lang,
+                self.parent_article_type,
+                self.parent,
+                self.parent_id,
+            )
 
 
 class ArticleAuthorNotes:
@@ -57,9 +58,9 @@ class ArticleAuthorNotes:
 
     def article_author_notes(self):
         group = AuthorNotesNodes(self.xml_tree.find("."))
-        return {"corresp_data": group.corresp_data, "fns": group.items}
+        return {"corresp_data": list(group.corresp_data), "fns": list(group.items)}
 
     def sub_article_author_notes(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
             group = AuthorNotesNodes(sub_article)
-            yield {"corresp_data": group.corresp_data, "fns": group.items}
+            yield {"corresp_data": list(group.corresp_data), "fns": list(group.items)}
