@@ -18,6 +18,10 @@ class AuthorNotesTest(TestCase):
         '<label>1</label>'
         '<p>This author contributed equally to the work.</p>'
         '</fn>'
+        '<fn id="fn3">'
+        '<label>3</label>'
+        '<p>This author received funding for the project.</p>'
+        '</fn>'
         '</author-notes>'
         '</front>'
         '<sub-article article-type="translation" xml:lang="en">'
@@ -32,12 +36,15 @@ class AuthorNotesTest(TestCase):
         '<label>2</label>'
         '<p>This author is the principal investigator.</p>'
         '</fn>'
+        '<fn id="fn4">'
+        '<label>4</label>'
+        '<p>This author provided critical revisions to the manuscript.</p>'
+        '</fn>'
         '</author-notes>'
         '</front-stub>'
         '</sub-article>'
         '</article>'
     )
-
 
     def setUp(self):
         self.xml_tree = etree.fromstring(self.XML)
@@ -65,18 +72,29 @@ class AuthorNotesTest(TestCase):
         self.assertEqual(corresp["corresp_title"], "Corresponding Author")
         self.assertEqual(corresp["corresp_bold"], "John Doe")
 
-        # Verifica conteúdo de fn
+        # Verifica conteúdo de fns
         fns = list(data["fns"])
-        self.assertEqual(len(fns), 1)
+        self.assertEqual(len(fns), 2)
 
-        fn = fns[0]
-        self.assertIn("fn_id", fn)
-        self.assertIn("fn_label", fn)
-        self.assertIn("fn_text", fn)
+        # Verifica primeiro fn
+        fn1 = fns[0]
+        self.assertIn("fn_id", fn1)
+        self.assertIn("fn_label", fn1)
+        self.assertIn("fn_text", fn1)
 
-        self.assertEqual(fn["fn_id"], "fn1")
-        self.assertEqual(fn["fn_label"], "1")
-        self.assertEqual(fn["fn_text"], "1This author contributed equally to the work.")
+        self.assertEqual(fn1["fn_id"], "fn1")
+        self.assertEqual(fn1["fn_label"], "1")
+        self.assertEqual(fn1["fn_text"], "1This author contributed equally to the work.")
+
+        # Verifica segundo fn
+        fn2 = fns[1]
+        self.assertIn("fn_id", fn2)
+        self.assertIn("fn_label", fn2)
+        self.assertIn("fn_text", fn2)
+
+        self.assertEqual(fn2["fn_id"], "fn3")
+        self.assertEqual(fn2["fn_label"], "3")
+        self.assertEqual(fn2["fn_text"], "3This author received funding for the project.")
 
     def test_sub_article_author_notes(self):
         # Verifica estrutura básica do retorno
@@ -102,15 +120,26 @@ class AuthorNotesTest(TestCase):
         self.assertEqual(corresp["corresp_title"], "Corresponding Author")
         self.assertEqual(corresp["corresp_bold"], "Jane Doe")
 
-        # Verifica conteúdo de fn no sub-artigo
+        # Verifica conteúdo de fns no sub-artigo
         fns = list(sub_article["fns"])
-        self.assertEqual(len(fns), 1)
+        self.assertEqual(len(fns), 2)
 
-        fn = fns[0]
-        self.assertIn("fn_id", fn)
-        self.assertIn("fn_label", fn)
-        self.assertIn("fn_text", fn)
+        # Verifica primeiro fn
+        fn1 = fns[0]
+        self.assertIn("fn_id", fn1)
+        self.assertIn("fn_label", fn1)
+        self.assertIn("fn_text", fn1)
 
-        self.assertEqual(fn["fn_id"], "fn2")
-        self.assertEqual(fn["fn_label"], "2")
-        self.assertEqual(fn["fn_text"], "2This author is the principal investigator.")
+        self.assertEqual(fn1["fn_id"], "fn2")
+        self.assertEqual(fn1["fn_label"], "2")
+        self.assertEqual(fn1["fn_text"], "2This author is the principal investigator.")
+
+        # Verifica segundo fn
+        fn2 = fns[1]
+        self.assertIn("fn_id", fn2)
+        self.assertIn("fn_label", fn2)
+        self.assertIn("fn_text", fn2)
+
+        self.assertEqual(fn2["fn_id"], "fn4")
+        self.assertEqual(fn2["fn_label"], "4")
+        self.assertEqual(fn2["fn_text"], "4This author provided critical revisions to the manuscript.")
