@@ -41,7 +41,7 @@ from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 # from packtools.sps.validation.erratum import xValidation
 # from packtools.sps.validation.peer_review import xValidation
 # from packtools.sps.validation.preprint import xValidation
-# from packtools.sps.validation.related_articles import xValidation
+from packtools.sps.validation.related_articles import RelatedArticlesValidation
 
 # completar
 # from packtools.sps.validation.media import xValidation
@@ -305,7 +305,7 @@ def validate_bibliographic_strip(xmltree, params):
 
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
-    validator = FundingGroupValidation(xmltree)
+    validator = FundingGroupValidation(xmltree, funding_data_rules)
     yield from validator.validate_required_award_ids()
 
 
@@ -347,4 +347,8 @@ def validate_metadata_languages(xmltree, params):
     validator = MetadataLanguagesValidation(xmltree)
     yield from validator.validate(params["metadata_languages_rules"]["error_level"])
 
+
+def validate_related_articles(xmltree, params):
+    validator = RelatedArticlesValidation(xmltree, params["related_articles_rules"])
+    yield from validator.validate(["error_level"])
 
