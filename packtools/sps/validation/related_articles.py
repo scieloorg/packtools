@@ -360,3 +360,7 @@ class FulltextValidation:
         for subtext in self.fulltext.fulltexts:
             validator = FulltextValidation(subtext, self.params)
             yield from validator.validate()
+
+
+class RelatedArticlesFulltextValidation(FulltextValidation):
+    ...
