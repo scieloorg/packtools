@@ -1,6 +1,4 @@
-from packtools.sps.models.related_articles import RelatedItems, Fulltext
-from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.validation.exceptions import ValidationRelatedArticleException
+from packtools.sps.models.related_articles import Fulltext
 from packtools.sps.validation.utils import (
     build_response,
     is_valid_url_format,
@@ -10,28 +8,6 @@ from packtools.sps.validation.utils import (
 
 class RelatedArticlesValidation:
     def __init__(self, xmltree, params=None):
-        """Initialize with xmltree and validation parameters
-
-        Parameters
-        ----------
-        xmltree : etree
-            XML tree to be validated
-        params : dict, optional
-            Dictionary containing validation parameters:
-            {
-                'correspondence_list': [
-                    {
-                        'article-type': 'correction',
-                        'related-article-types': ['corrected-article']
-                    },
-                    {
-                        'article-type': 'retraction',
-                        'related-article-types': ['retracted-article']
-                    }
-                ],
-                'error_level': 'ERROR'  # Default error level for validations
-            }
-        """
         self.validator = FulltextValidation(Fulltext(xmltree.find(".")), params)
         self.params = params or {}
         self.error_level = self.params.get("error_level", "ERROR")
