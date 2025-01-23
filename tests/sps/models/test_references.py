@@ -419,3 +419,45 @@ class ArticleReferencesTest(TestCase):
             'ref_id': 'B5'
         }
         self.assertDictEqual(expected, obtained[0])
+
+    def test_chapter_title(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <element-citation publication-type="book">
+            <chapter-title>Tópicos especiais em piscicultura de água doce tropical intensiva</chapter-title>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+            """
+        xml_tree = etree.fromstring(xml)
+        obtained = list(ArticleReferences(xml_tree).article_references)[0].get("chapter_title")
+        expected = "Tópicos especiais em piscicultura de água doce tropical intensiva"
+        self.assertEqual(obtained, expected)
+
+    def test_part_title(self):
+        self.maxDiff = None
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <back>
+            <ref-list>
+            <title>REFERENCES</title>
+            <ref id="B1">
+            <element-citation publication-type="book">
+            <part-title>Tópicos especiais em piscicultura de água doce tropical intensiva</part-title>
+            </element-citation>
+            </ref>
+            </ref-list>
+            </back>
+            </article>
+            """
+        xml_tree = etree.fromstring(xml)
+        obtained = list(ArticleReferences(xml_tree).article_references)[0].get("part_title")
+        expected = "Tópicos especiais em piscicultura de água doce tropical intensiva"
+        self.assertEqual(obtained, expected)
