@@ -48,6 +48,10 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_affiliations(xmltree, params),
     }
     yield {
+        "group": "author-notes",
+        "items": xml_validations.validate_author_notes(xmltree, params)
+    }
+    yield {
         "group": "abstract",
         "items": xml_validations.validate_abstracts(xmltree, params),
     }
@@ -81,6 +85,6 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_references(xmltree, params),
     }
     yield {
-        "group": "related_articles",
-        "items": xml_validations.validate_related_articles(xmltree, params),
+        "group": "fn",
+        "items": xml_validations.validate_fn(xmltree, params),
     }
