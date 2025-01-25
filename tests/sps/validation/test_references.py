@@ -18,6 +18,7 @@ params = {
     "comment_error_level": "ERROR",
     "mixed_citation_error_level": "CRITICAL",
     "mixed_citation_sub_tags_error_level": "ERROR",
+    "title_tag_by_dtd_version_error_level": "CRITICAL",
     "publication_type_list": [
         "book",
         "confproc",
@@ -1389,6 +1390,8 @@ class ReferenceValidationTest(TestCase):
         """
 
         xmltree = etree.fromstring(xml)
+        params["end_year"] = 2020
+        params["dtd_version"] = 1.3
         obtained = list(
             ReferencesValidation(
                 xmltree,
@@ -1693,3 +1696,112 @@ class ReferenceValidationTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
+
+    def test_validate_title_tag_by_dtd_version(self):
+        self.maxDiff = None
+
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" 
+            dtd-version="1.3" specific-use="sps-1.9" xml:lang="en">
+                <back>
+                    <ref-list>
+                        <title>REFERENCES</title>
+                        <ref id="B1">
+                            <element-citation publication-type="book">
+                                <chapter-title>Chapter Title</chapter-title>
+                            </element-citation>
+                        </ref>
+                    </ref-list>
+                </back>
+            </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+
+        # Completa os parâmetros existentes
+        params["dtd_version"] = "1.3"
+        params["end_year"] = 2010
+
+        # Executa a validação completa
+        all_obtained = list(ReferencesValidation(xml_tree, params).validate())
+
+        # Filtra apenas os resultados relevantes para `validate_title_tag_by_dtd_version`
+        obtained = [
+            item
+            for item in all_obtained
+            if item["title"] == "part-title"
+        ]
+
+        # Resultado esperado
+        expected = [
+            {
+                'advice': 'Replace <chapter-title> with <part-title> to meet the required standard.',
+                'data': {
+                    'author_type': 'person',
+                    'chapter_title': 'Chapter Title',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'en',
+                    'publication_type': 'book',
+                    'ref_id': 'B1'
+                },
+                'expected_value': '<part-title>',
+                'got_value': '<chapter-title>',
+                'item': 'element-citation',
+                'message': 'Got <chapter-title>, expected <part-title>',
+                'parent': 'article',
+                'parent_article_type': 'research-article',
+                'parent_id': None,
+                'parent_lang': 'en',
+                'response': 'CRITICAL',
+                'sub_item': 'part-title',
+                'title': 'part-title',
+                'validation_type': 'exist'
+            }
+        ]
+
+        # Verificação
+        self.assertEqual(len(obtained), len(expected))
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(obtained[i], item)
+
+    def test_validate_title_tag_by_dtd_version_invalid_dtd_version(self):
+        self.maxDiff = None
+
+        xml = """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+            xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" 
+            dtd-version="a" specific-use="sps-1.9" xml:lang="en">
+                <back>
+                    <ref-list>
+                        <title>REFERENCES</title>
+                        <ref id="B1">
+                            <element-citation publication-type="book">
+                                <chapter-title>Chapter Title</chapter-title>
+                            </element-citation>
+                        </ref>
+                    </ref-list>
+                </back>
+            </article>
+        """
+
+        xml_tree = etree.fromstring(xml)
+
+        # Completa os parâmetros existentes
+        params["dtd_version"] = "a"
+        params["end_year"] = 2010
+
+        # Verifica se a exceção ValueError é levantada com a mensagem esperada
+        with self.assertRaises(ValueError) as context:
+            list(ReferencesValidation(xml_tree, params).validate())
+
+        # Valida a mensagem de erro
+        self.assertEqual(
+            str(context.exception),
+            "Invalid DTD version: expected a numeric value."
+        )
