@@ -95,7 +95,7 @@ class ArticleAndSubArticles:
         return self.xmltree.find(".").sourceline
 
     @property
-    def main_specific_use(self):
+    def specific_use(self):
         return self.xmltree.find(".").get("specific-use")
 
     @property
