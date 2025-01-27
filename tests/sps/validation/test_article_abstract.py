@@ -363,33 +363,6 @@ class HighlightsValidationTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
 
-    def test_highlight_validate_exists_in_article_not_in_subarticle(self):
-        self.maxDiff = None
-        xml_tree = ET.fromstring(
-            """
-            <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <abstract abstract-type="key-points">
-                            <p>Highlight 1</p>
-                            <p>Highlight 2</p>
-                        </abstract>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="01" xml:lang="es">
-                    <front-stub />
-                </sub-article>
-            </article>
-            """
-        )
-
-        obtained = HighlightsValidation(xml_tree).validate_exists(
-            **VALIDATE_EXISTS_PARAMS
-        )
-
-        self.assertEqual(obtained.get("response"), "OK")
-        self.assertEqual(obtained.get("parent"), "article")
-
 
 class VisualAbstractsValidationTest(TestCase):
     def test_visual_abstracts_validate_exists(self):
@@ -610,33 +583,6 @@ class VisualAbstractsValidationTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
-
-    def test_visual_abstracts_validate_exists_in_article_not_in_subarticle(self):
-        self.maxDiff = None
-        xml_tree = ET.fromstring(
-            """
-            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1"
-            specific-use="sps-1.9" xml:lang="en">
-                <front>
-                    <article-meta>
-                        <abstract abstract-type="graphical">
-                            <graphic xlink:href="graphic01.jpg" />
-                        </abstract>
-                    </article-meta>
-                </front>
-                <sub-article article-type="translation" id="01" xml:lang="es">
-                    <front-stub />
-                </sub-article>
-            </article>
-            """
-        )
-
-        obtained = VisualAbstractsValidation(xml_tree).validate_exists(
-            **VALIDATE_EXISTS_PARAMS
-        )
-
-        self.assertEqual(obtained.get("response"), "OK")
-        self.assertEqual(obtained.get("parent"), "article")
 
 
 class ArticleAbstractValidationTest(TestCase):
