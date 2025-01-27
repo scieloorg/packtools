@@ -162,7 +162,7 @@ class ArticleAttribsValidation:
             ]
         """
         try:
-            specific_use_list = self.params["specific_use_list"]
+            specific_use_list = [item for item in self.params["specific_use_list"].keys()]
         except KeyError:
             raise ValidationArticleAndSubArticlesSpecificUseException(
                 "ArticleAttribsValidation.validate_specific_use requires specific_use_list"
