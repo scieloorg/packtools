@@ -598,35 +598,33 @@ class ArticleIdValidation:
 class JATSAndDTDVersionValidation:
 
     def __init__(self, xml_tree, params):
-        if not isinstance(xml_tree, etree._ElementTree):
-            xml_tree = etree.ElementTree(xml_tree)
         self.xml_tree = xml_tree
         self.article_and_sub_articles = ArticleAndSubArticles(self.xml_tree)
         self.dtd_version = self.article_and_sub_articles.main_dtd_version
-        self.jats_version = self.article_and_sub_articles.jats_version
+        self.specific_use = self.article_and_sub_articles.main_specific_use
         self.params = params
 
     def validate(self):
-        sps_version = self.dtd_version
-        jats_version = self.jats_version
+        sps_version = self.specific_use
+        jats_version = self.dtd_version
 
         if not sps_version:
             raise ValidationArticleAndSubArticlesArticleTypeException(
-                "Attribute 'dtd-version' missing in the <article> element"
+                "Could not determine the SPS version."
             )
         if not jats_version:
             raise ValidationArticleAndSubArticlesArticleTypeException(
                 "Could not determine the JATS version."
             )
 
-        expected_jats = self.SPS_TO_JATS.get(sps_version)
+        expected_jats = self.params.get("specific_use_list")
 
         advise = None
 
         if not expected_jats:
             advise = f"SPS version '{sps_version}' not supported.",
 
-        elif jats_version not in expected_jats:
+        elif jats_version not in (expected_jats.get(sps_version) or []):
             advise = f"Incompatibility: SPS {sps_version} is not compatible with JATS {jats_version}."
 
         if advise:
@@ -640,8 +638,8 @@ class JATSAndDTDVersionValidation:
                 sub_item=None,
                 validation_type="match",
                 is_valid=False,
-                expected=[sps for sps in self.SPS_TO_JATS],
-                obtained=sps_version,
+                expected=self.params["specific_use_list"][sps_version],
+                obtained=jats_version,
                 advice=advise,
                 data=self.article_and_sub_articles.data,
                 error_level=self.params["jats_and_dtd_version_error_level"],
