@@ -181,20 +181,15 @@ class FulltextDatesValidation:
         """
         self.fulltext_dates = fulltext_dates
         self.params = params or {}
+
         self._set_default_params()
-        self.params.update(self.params.get(fulltext_dates.fulltext.article_type) or {})
+        self._add_required_events()
+
         self.date_types_ordered_by_date = fulltext_dates.date_types_ordered_by_date
         self.date_type_list = (
             self.params["pre_pub_ordered_events"]
             + self.params["pos_pub_ordered_events"]
         )
-        if self.params["required_events"]:
-            for related_article in self.fulltext_dates.related_articles:
-                related_article_type = related_article["related-article-type"]
-                if event := self.params["related-article-type"].get(
-                    related_article_type
-                ):
-                    self.params["required_events"].append(event)
 
     def _set_default_params(self):
         """Set default validation parameters if not provided."""
@@ -211,7 +206,21 @@ class FulltextDatesValidation:
         self.params.setdefault(
             "pos_pub_ordered_events", ["pub", "corrected", "retracted"]
         )
-        self.params.setdefault("parent", {})
+
+    def _add_required_events(self):
+        self.params.setdefault("required_events", [])
+        key = self.fulltext_dates.attribs_parent_prefixed.get("original_article_type")
+        if event := self.params["required_history_events_for_related_article_type"].get(
+            key
+        ):
+            self.params["required_events"].append(event)
+
+        for item in self.fulltext_dates.related_articles:
+            key = item["related-article-type"]
+            if event := self.params[
+                "required_history_events_for_related_article_type"
+            ].get(key):
+                self.params["required_events"].append(event)
 
     def validate(self):
         """Perform all date validations.
