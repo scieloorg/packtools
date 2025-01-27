@@ -119,7 +119,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = '1.1'
-        obtained = ArticleAndSubArticles(xmltree).main_dtd_version
+        obtained = ArticleAndSubArticles(xmltree).dtd_version
 
         self.assertEqual(expected, obtained)
 

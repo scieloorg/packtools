@@ -177,7 +177,7 @@ class ArticleAttribsValidation:
         data = self.articles.data[0]
         data.update({
             "specific_use": self.articles.main_specific_use,
-            "dtd_version": self.articles.main_dtd_version
+            "dtd_version": self.articles.dtd_version
         })
 
         advice = None if validated else f"Provide for article/@specific-use one of {specific_use_list}"
@@ -253,12 +253,12 @@ class ArticleAttribsValidation:
                 "ArticleAttribsValidation.validate_dtd_version requires dtd_version_list"
             )
 
-        validated = self.articles.main_dtd_version in dtd_version_list
+        validated = self.articles.dtd_version in dtd_version_list
 
         data = self.articles.data[0]
         data.update({
             "specific_use": self.articles.main_specific_use,
-            "dtd_version": self.articles.main_dtd_version
+            "dtd_version": self.articles.dtd_version
         })
 
         advice = None if validated else f"Provide for article/@dtd-version one of {dtd_version_list}"
@@ -273,7 +273,7 @@ class ArticleAttribsValidation:
             validation_type="value in list",
             is_valid=validated,
             expected=dtd_version_list,
-            obtained=self.articles.main_dtd_version,
+            obtained=self.articles.dtd_version,
             advice=advice,
             data=data,
             error_level=error_level
@@ -354,7 +354,7 @@ class ArticleTypeValidation:
         data = self.articles.data[0]
         data.update({
             "specific_use": self.articles.main_specific_use,
-            "dtd_version": self.articles.main_dtd_version
+            "dtd_version": self.articles.dtd_version
         })
         advice = None if validated else f"Provide for article/@article-type one of {article_type_list}"
         yield format_response(
@@ -504,7 +504,7 @@ class ArticleTypeValidation:
             data = self.articles.data[0]
             data.update({
                 "specific_use": self.articles.main_specific_use,
-                "dtd_version": self.articles.main_dtd_version
+                "dtd_version": self.articles.dtd_version
             })
 
             yield format_response(
