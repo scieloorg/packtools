@@ -85,6 +85,10 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_references(xmltree, params),
     }
     yield {
+        "group": "related_articles",
+        "items": xml_validations.validate_related_articles(xmltree, params),
+    }
+    yield {
         "group": "fn",
         "items": xml_validations.validate_fn(xmltree, params),
     }
