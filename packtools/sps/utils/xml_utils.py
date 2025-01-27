@@ -34,35 +34,48 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
-def node_plain_text(node, remove_xref=True):
+from lxml import etree
+from copy import deepcopy
+
+def node_plain_text(node):
     """
-    Função que retorna texto de nó, sem subtags e com espaços padronizados
+    Função que retorna texto de nó, sem subtags e com espaços padronizados.
 
-    Entrada:
-    ```
-    <node>
-        <italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref>
-    </node>
-    ```
+    Para elementos <xref>, verifica o valor de @ref-type:
+    - Se @ref-type é 'fn' e o conteúdo não é alfanumérico, remove o elemento.
+    - Caso contrário, remove apenas a tag <xref> mantendo o conteúdo interno.
 
-    Saída:
-    Duguetia leucotricha (Annonaceae)
+    Ajusta o comportamento de preservação do texto em caso de `tail`.
     """
     if node is None:
         return ""
 
-    if remove_xref:
-        # Remove o conteúdo de todos os nós <xref>
-        for xref in node.findall(".//xref"):
-            if xref.tail:
-                _next = xref.getnext()
-                if _next is None or _next.tag != "xref":
-                    e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                    xref.addnext(e)
-        for xref in node.findall(".//xref"):
-            parent = xref.getparent()
-            parent.remove(xref)
-        etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+    node = deepcopy(node)
+
+    # Processa os nós <xref>
+    for xref in node.findall(".//xref"):
+        if xref.tail:
+            _next = xref.getnext()
+            if _next is None or _next.tag != "xref":
+                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                xref.addnext(e)
+
+    for xref in node.findall(".//xref"):
+        ref_type = xref.get("ref-type")
+        content = (xref.text or "").strip()
+
+        parent = xref.getparent()
+
+        if ref_type == "fn" and not content.isalpha():
+            # Remove o <xref> completamente se @ref-type é 'fn' e o conteúdo não é alfanumérico
+            if parent is not None:
+                parent.remove(xref)
+        else:
+            # Remove apenas a tag <xref>, mantendo o conteúdo interno
+            etree.strip_tags(xref, "xref")
+
+    # Remove os elementos temporários e ajusta o texto
+    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
 
     # Extrai todo o texto dos nós, removendo subtags
     text_content = "".join(node.xpath(".//text()"))
@@ -71,6 +84,7 @@ def node_plain_text(node, remove_xref=True):
     text_content = ' '.join(text_content.split())
 
     return text_content
+
 
 
 def node_text_without_xref(node, remove_xref=True):
@@ -416,6 +430,8 @@ def process_subtags(
 
     if node is None:
         return
+
+    node = deepcopy(node)
 
     std_to_keep = ["sup", "sub"]
     std_to_keep_with_content = [
