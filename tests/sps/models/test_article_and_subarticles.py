@@ -108,7 +108,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = 'sps-1.9'
-        obtained = ArticleAndSubArticles(xmltree).main_specific_use
+        obtained = ArticleAndSubArticles(xmltree).specific_use
 
         self.assertEqual(expected, obtained)
 
