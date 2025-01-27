@@ -1,4 +1,4 @@
-from packtools.sps.models.related_articles import Fulltext
+from packtools.sps.models.related_articles import FulltextRelatedArticles
 from packtools.sps.validation.utils import (
     build_response,
     is_valid_url_format,
@@ -6,11 +6,10 @@ from packtools.sps.validation.utils import (
 )
 
 
-class RelatedArticlesValidation:
+class XMLRelatedArticlesValidation:
     def __init__(self, xmltree, params=None):
-        self.validator = FulltextValidation(Fulltext(xmltree.find(".")), params)
+        self.validator = FulltextRelatedArticlesValidation(xmltree.find("."), params)
         self.params = params or {}
-        self.error_level = self.params.get("error_level", "ERROR")
 
     def validate(self):
         yield from self.validator.validate()
@@ -42,15 +41,13 @@ class RelatedArticleValidation:
             }
         """
         self.related_article = related_article
-        self.article_type = related_article.get(
-            "original_article_type"
-        ) or related_article.get("parent_article_type")
+        self.original_article_type = related_article["original_article_type"]
         self.related_article_type = related_article.get("related-article-type")
 
         self.params = params or {}
         self.valid_ext_link_types = self.params.get("ext_link_types", ["doi", "uri"])
         _related = self.params.get("article-types-and-related-article-types", {}).get(
-            self.article_type, {}
+            self.original_article_type, {}
         )
         self.required_related_article_types = (
             _related.get("required_related_article_types") or []
@@ -94,7 +91,7 @@ class RelatedArticleValidation:
                 is_valid=False,
                 expected=expected_values,
                 obtained=obtained_type,
-                advice=f"The article-type: {self.article_type} does not match the related-article-type: "
+                advice=f"The article-type: {self.original_article_type} does not match the related-article-type: "
                 f"{obtained_type}, provide one of the following items: {expected_values}",
                 data=self.related_article,
                 error_level=self._get_error_level("type"),
@@ -111,7 +108,7 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=expected_values,
                 obtained=obtained_type,
-                advice=f"The article-type: {self.article_type} does not match the related-article-type: "
+                advice=f"The article-type: {self.original_article_type} does not match the related-article-type: "
                 f"{obtained_type}, provide one of the following items: {expected_values}",
                 data=self.related_article,
                 error_level=self._get_error_level("type"),
@@ -244,14 +241,37 @@ class RelatedArticleValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=related_id,
-                advice="Each related-article element must have a unique id attribute",
+                advice="Add id attribute to related-article",
                 data=self.related_article,
                 error_level=self._get_error_level("id"),
+            )
+
+    def validate_attrib_order(self):
+        # FIXME
+        expected_order = self.params["attrib_order"]
+        if not expected_order:
+            return
+
+        order = self.related_article.get("attribs")
+        if order != expected_order:
+            return build_response(
+                title="Related article attribute order",
+                parent=self.related_article,
+                item="related-article",
+                sub_item="attributes",
+                validation_type="value",
+                is_valid=False,
+                expected=expected_order,
+                obtained=order,
+                advice=f"Set related-article attributes in this order {expected_order}",
+                data=self.related_article,
+                error_level=self.params.get("attrib_order_error_level"),
             )
 
     def validate(self):
         """Run all validations"""
         validations = [
+            self.validate_attrib_order(),
             self.validate_type(),
             self.validate_ext_link_type(),
             self.validate_doi() or self.validate_uri(),
@@ -260,30 +280,29 @@ class RelatedArticleValidation:
         return [v for v in validations if v is not None]
 
 
-class FulltextValidation:
-    """Validates related articles in a Fulltext instance"""
+class FulltextRelatedArticlesValidation:
+    """Validates related articles in a FulltextRelatedArticles instance"""
 
-    def __init__(self, fulltext, params=None):
+    def __init__(self, node, params=None):
         """
-        Initialize with a Fulltext instance and validation parameters
+        Initialize with a FulltextRelatedArticles instance and validation parameters
 
         Parameters
         ----------
-        fulltext : Fulltext
-            Fulltext instance to validate
+        fulltext : FulltextRelatedArticles
+            FulltextRelatedArticles instance to validate
         params : dict, optional
             Dictionary with validation parameters
         """
-        self.fulltext = fulltext
+        self.obj = FulltextRelatedArticles(node)
         self.params = params or {}
         self._set_article_rules()
 
     def _set_article_rules(self):
         """Set article rules from params"""
         article_rules = self.params.get("article-types-and-related-article-types", {})
-        article_config = article_rules.get(
-            self.fulltext.parent_data["parent_article_type"], {}
-        )
+        original_article_type = self.obj.original_article_type
+        article_config = article_rules.get(original_article_type) or {}
         self.required_types = article_config.get("required_related_article_types", [])
         self.acceptable_types = article_config.get(
             "acceptable_related_article_types", []
@@ -310,7 +329,7 @@ class FulltextValidation:
         # Get all related-article-types present in the document
         found_types = {
             related.get("related-article-type")
-            for related in self.fulltext.related_articles
+            for related in self.obj.related_articles
         }
 
         # Check if any required type is missing
@@ -320,17 +339,17 @@ class FulltextValidation:
             error_level = self._get_error_level("requirement")
             return build_response(
                 title="Required related articles",
-                parent=self.fulltext.parent_data,
+                parent=self.obj.parent_data,
                 item="related-article",
                 sub_item=None,
                 validation_type="match",
                 is_valid=False,
                 expected=self.required_types,
                 obtained=list(found_types),
-                advice=f'Article type "{self.fulltext.parent_data["parent_article_type"]}" '
+                advice=f'Article type "{self.obj.original_article_type}" '
                 f"requires related articles of types: {list(missing_types)}",
                 data={
-                    "article_type": self.fulltext.parent_data["parent_article_type"],
+                    "article_type": self.obj.original_article_type,
                     "missing_types": list(missing_types),
                 },
                 error_level=error_level,
@@ -352,14 +371,11 @@ class FulltextValidation:
             yield presence_result
 
         # Then validate each related article
-        for related in self.fulltext.related_articles:
+        for related in self.obj.related_articles:
             validator = RelatedArticleValidation(related, self.params)
             yield from validator.validate()
 
         # Validate each sub-article
-        for subtext in self.fulltext.fulltexts:
-            validator = FulltextValidation(subtext, self.params)
+        for subtext in self.obj.fulltexts:
+            validator = FulltextRelatedArticlesValidation(subtext.node, self.params)
             yield from validator.validate()
-
-
-class RelatedArticlesFulltextValidation(FulltextValidation): ...
