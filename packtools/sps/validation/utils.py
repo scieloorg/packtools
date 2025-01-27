@@ -55,6 +55,8 @@ def build_response(
     data,
     error_level,
 ):
+    if validation_type == "value in list" and "one of " not in expected:
+        expected = f"one of {expected}"
     return {
         "title": title,
         "parent": parent.get("parent"),
