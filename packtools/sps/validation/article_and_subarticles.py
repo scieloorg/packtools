@@ -162,17 +162,17 @@ class ArticleAttribsValidation:
             ]
         """
         try:
-            specific_use_list = [item for item in self.params["specific_use_list"].keys()]
+            specific_use_list = list(self.params["specific_use_list"].keys())
         except KeyError:
             raise ValidationArticleAndSubArticlesSpecificUseException(
                 "ArticleAttribsValidation.validate_specific_use requires specific_use_list"
             )
 
-        validated = self.articles.main_specific_use in specific_use_list
+        validated = self.articles.specific_use in specific_use_list
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.main_dtd_version
         })
 
@@ -188,7 +188,7 @@ class ArticleAttribsValidation:
             validation_type="value in list",
             is_valid=validated,
             expected=specific_use_list,
-            obtained=self.articles.main_specific_use,
+            obtained=self.articles.specific_use,
             advice=advice,
             data=data,
             error_level=self.params["specific_use_error_level"],
@@ -254,7 +254,7 @@ class ArticleAttribsValidation:
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.main_dtd_version
         })
 
@@ -347,7 +347,7 @@ class ArticleTypeValidation:
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.main_dtd_version
         })
         advice = None if validated else f"Provide for article/@article-type one of {article_type_list}"
@@ -496,7 +496,7 @@ class ArticleTypeValidation:
 
             data = self.articles.data[0]
             data.update({
-                "specific_use": self.articles.main_specific_use,
+                "specific_use": self.articles.specific_use,
                 "dtd_version": self.articles.main_dtd_version
             })
 
@@ -601,7 +601,7 @@ class JATSAndDTDVersionValidation:
         self.xml_tree = xml_tree
         self.article_and_sub_articles = ArticleAndSubArticles(self.xml_tree)
         self.dtd_version = self.article_and_sub_articles.main_dtd_version
-        self.specific_use = self.article_and_sub_articles.main_specific_use
+        self.specific_use = self.article_and_sub_articles.specific_use
         self.params = params
 
     def validate(self):
