@@ -137,24 +137,24 @@ class BaseRelatedArticleTest(TestCase):
 class TestRelatedArticlesValidation(BaseRelatedArticleTest):
     def setUp(self):
         super().setUp()
-        
-        self.xml = '''
+
+        self.xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction">
                 <front>
                     <related-article related-article-type="corrected-article"/>
                 </front>
-            </article>'''
-        
+            </article>"""
+
         self.xmltree = etree.fromstring(self.xml)
 
-    @patch('packtools.sps.validation.related_articles.FulltextValidation')
-    @patch('packtools.sps.validation.related_articles.Fulltext')
+    @patch("packtools.sps.validation.related_articles.FulltextValidation")
+    @patch("packtools.sps.validation.related_articles.Fulltext")
     def test_initialization(self, mock_fulltext, mock_validation):
         """Test if classes are properly initialized"""
         # Arrange
         mock_fulltext_instance = Mock()
         mock_fulltext.return_value = mock_fulltext_instance
-        
+
         mock_validation_instance = Mock()
         mock_validation.return_value = mock_validation_instance
 
@@ -165,10 +165,10 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
         mock_fulltext.assert_called_once_with(self.xmltree.find("."))
         mock_validation.assert_called_once_with(mock_fulltext_instance, self.params)
         self.assertEqual(validator.params, self.params)
-        self.assertEqual(validator.error_level, 'ERROR')
+        self.assertEqual(validator.error_level, "ERROR")
 
-    @patch('packtools.sps.validation.related_articles.FulltextValidation')
-    @patch('packtools.sps.validation.related_articles.Fulltext')
+    @patch("packtools.sps.validation.related_articles.FulltextValidation")
+    @patch("packtools.sps.validation.related_articles.Fulltext")
     def test_initialization_default_params(self, mock_fulltext, mock_validation):
         """Test initialization with default parameters"""
         # Act
@@ -176,17 +176,17 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
 
         # Assert
         self.assertEqual(validator.params, {})
-        self.assertEqual(validator.error_level, 'ERROR')
+        self.assertEqual(validator.error_level, "ERROR")
 
-    @patch('packtools.sps.validation.related_articles.FulltextValidation')
-    @patch('packtools.sps.validation.related_articles.Fulltext')
+    @patch("packtools.sps.validation.related_articles.FulltextValidation")
+    @patch("packtools.sps.validation.related_articles.Fulltext")
     def test_validate_method_calls(self, mock_fulltext, mock_validation):
         """Test if validate method properly calls FulltextValidation.validate"""
         # Arrange
         mock_validation_instance = Mock()
         mock_validation.return_value = mock_validation_instance
-        
-        expected_results = [{'result': 1}, {'result': 2}]
+
+        expected_results = [{"result": 1}, {"result": 2}]
         mock_validation_instance.validate.return_value = iter(expected_results)
 
         # Act
@@ -200,14 +200,14 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
     def test_integration_with_real_xml(self):
         """Test integration with real XML document"""
         # Arrange
-        xml = '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction">
                 <front>
                     <related-article related-article-type="corrected-article" 
                                    ext-link-type="doi" 
                                    xlink:href="10.1000/xyz123"/>
                 </front>
-            </article>'''
+            </article>"""
         xmltree = etree.fromstring(xml)
 
         # Act
@@ -217,19 +217,19 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
         # Assert
         self.assertTrue(len(results) > 0)
         for result in results:
-            self.assertIn('response', result)
-            self.assertIn('validation_type', result)
+            self.assertIn("response", result)
+            self.assertIn("validation_type", result)
 
     def test_multiple_related_articles(self):
         """Test validation with multiple related articles"""
         # Arrange
-        xml = '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction">
                 <front>
                     <related-article related-article-type="corrected-article" id="ra1"/>
                     <related-article related-article-type="corrected-article" id="ra2"/>
                 </front>
-            </article>'''
+            </article>"""
         xmltree = etree.fromstring(xml)
 
         # Act
@@ -238,28 +238,28 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
 
         # Assert
         self.assertTrue(len(results) > 0)
-        ids = [r.get('data', {}).get('id') for r in results if 'data' in r]
+        ids = [r.get("data", {}).get("id") for r in results if "data" in r]
         self.assertTrue(len(set(ids)) > 1)  # Should have multiple unique IDs
 
     def test_error_level_inheritance(self):
         """Test if error_level is properly inherited from params"""
         # Test with custom error level
         params = self.params.copy()
-        params['error_level'] = 'CUSTOM_ERROR'
+        params["error_level"] = "CUSTOM_ERROR"
         validator = RelatedArticlesValidation(self.xmltree, params)
-        self.assertEqual(validator.error_level, 'CUSTOM_ERROR')
+        self.assertEqual(validator.error_level, "CUSTOM_ERROR")
 
         # Test with default error level
         validator = RelatedArticlesValidation(self.xmltree, {})
-        self.assertEqual(validator.error_level, 'ERROR')
+        self.assertEqual(validator.error_level, "ERROR")
 
     def test_empty_document(self):
         """Test validation with empty document"""
         # Arrange
-        xml = '''
+        xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="correction">
                 <front></front>
-            </article>'''
+            </article>"""
         xmltree = etree.fromstring(xml)
 
         # Act
@@ -268,7 +268,7 @@ class TestRelatedArticlesValidation(BaseRelatedArticleTest):
 
         # Assert
         self.assertTrue(len(results) > 0)
-        error_results = [r for r in results if r['response'] != 'OK']
+        error_results = [r for r in results if r["response"] != "OK"]
         self.assertTrue(len(error_results) > 0)
 
 
@@ -682,9 +682,7 @@ class TestMultipleSubArticles(BaseFulltextValidationTest):
 
         # Second sub-article should have error
         portuguese_errors = [
-            r
-            for r in results
-            if r["parent_id"] == "s2" and r["response"] == "CRITICAL"
+            r for r in results if r["parent_id"] == "s2" and r["response"] == "CRITICAL"
         ]
         self.assertEqual(len(portuguese_errors), 1)
 

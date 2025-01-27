@@ -3,7 +3,11 @@ from unittest import TestCase
 from lxml import etree
 
 from packtools.sps.models.article_contribs import ArticleContribs
-from packtools.sps.validation.article_contribs import ContribValidation, ArticleContribsValidation, CollabListValidation
+from packtools.sps.validation.article_contribs import (
+    ContribValidation,
+    ArticleContribsValidation,
+    CollabListValidation,
+)
 
 credit_taxonomy_terms_and_urls = [
     {
@@ -23,7 +27,6 @@ def callable_get_unmatched_data(orcid, contrib):
             "data": "Autor registrado com orcid = 0990-0001-0058-4853",
             "is_valid": False,
         },
-
         "0000-3333-1238-6873": {
             "data": "Vanessa M. Higa",
             "is_valid": True,
@@ -38,7 +41,6 @@ def callable_get_matched_data(orcid, contrib):
             "data": "FRANCISCO VENEGAS MARTÍNEZ Nieto",
             "is_valid": True,
         },
-
         "0000-3333-1238-6873": {
             "data": "Vanessa M. Higa",
             "is_valid": True,
@@ -88,9 +90,7 @@ class ArticleContribsValidationTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         expected = [
             {
@@ -104,15 +104,15 @@ class ArticleContribsValidationTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "got_value": None,
                 "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -171,9 +171,7 @@ class ArticleContribsValidationTest(TestCase):
         data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         expected = [
             {
@@ -187,15 +185,15 @@ class ArticleContribsValidationTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "got_value": '<role content-type="None">None</role>',
                 "message": """Got <role content-type="None">None</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -265,14 +263,14 @@ class ArticleContribsValidationTest(TestCase):
                 "response": "ERROR",
                 "got_value": '<role content-type="None">Data curation</role>',
                 "expected_value": "one of ['<role "
-                                  'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                                  "'<role "
-                                  'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                                  "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "message": """Got <role content-type="None">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -300,9 +298,7 @@ class ArticleContribsValidationTest(TestCase):
         data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -355,14 +351,14 @@ class ArticleContribsValidationTest(TestCase):
                 "response": "ERROR",
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>',
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">None</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -396,9 +392,7 @@ class ArticleContribsValidationTest(TestCase):
         data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -451,14 +445,14 @@ class ArticleContribsValidationTest(TestCase):
                 "response": "ERROR",
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>',
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curan/">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -492,9 +486,7 @@ class ArticleContribsValidationTest(TestCase):
         data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -545,14 +537,14 @@ class ArticleContribsValidationTest(TestCase):
                 "sub_item": '@content-type="https://credit.niso.org/contributor-roles/*',
                 "validation_type": "value in list",
                 "response": "OK",
-                "expected_value": '<role '
-                                  'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                                  'curation</role>',
+                "expected_value": "<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>",
                 "got_value": '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>',
                 "message": """Got <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": None,
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -586,9 +578,7 @@ class ArticleContribsValidationTest(TestCase):
         data["credit_taxonomy_terms_and_urls_error_level"] = "ERROR"
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        obtained = list(
-            ContribValidation(contrib, data).validate_role()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_role())
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -629,11 +619,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        data = {
-            "orcid_format_error_level": "ERROR"
-        }
-        obtained = list(
-            ContribValidation(contrib, data).validate_orcid_format())
+        data = {"orcid_format_error_level": "ERROR"}
+        obtained = list(ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
             {
@@ -651,7 +638,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0990-01-58-4853, expected valid ORCID",
                 "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-01-58-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -703,9 +690,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        data = {
-            "orcid_format_error_level": "ERROR"
-        }
+        data = {"orcid_format_error_level": "ERROR"}
         obtained = list(ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
@@ -724,7 +709,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got None, expected valid ORCID",
                 "advice": "Provide a valid ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_name": {
                         "given-names": "FRANCISCO",
                         "prefix": "Prof",
@@ -779,11 +764,8 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        data = {
-            "orcid_format_error_level": "ERROR"
-        }
-        obtained = list(
-            ContribValidation(contrib, data).validate_orcid_format())
+        data = {"orcid_format_error_level": "ERROR"}
+        obtained = list(ContribValidation(contrib, data).validate_orcid_format())
 
         expected = [
             {
@@ -801,7 +783,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0990-0001-0058-4853, expected 0990-0001-0058-4853",
                 "advice": None,
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -873,15 +855,18 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
                 "response": "OK",
-                "expected_value": {'0000-3333-1238-6873': ['Vanessa M. Higa'], '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
+                "expected_value": {
+                    "0000-3333-1238-6873": ["Vanessa M. Higa"],
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
+                },
                 "got_value": {
-                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
-                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
+                    "0000-3333-1238-6873": ["Vanessa M. Higa"],
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
                 },
                 "message": "Got {"
-                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
-                           "'0000-3333-1238-6873': ['Vanessa M. Higa']"
-                           "}, expected Unique ORCID values",
+                "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
+                "'0000-3333-1238-6873': ['Vanessa M. Higa']"
+                "}, expected Unique ORCID values",
                 "advice": None,
                 "data": None,
             }
@@ -943,11 +928,14 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "response": "ERROR",
                 "expected_value": "Unique ORCID values",
                 "got_value": {
-                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', 'Vanessa M. Higa']
+                    "0990-0001-0058-4853": [
+                        "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                        "Vanessa M. Higa",
+                    ]
                 },
                 "message": "Got {"
-                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', 'Vanessa M. Higa']"
-                           "}, expected Unique ORCID values",
+                "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto', 'Vanessa M. Higa']"
+                "}, expected Unique ORCID values",
                 "advice": "Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853",
                 "data": None,
             }
@@ -993,11 +981,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         data = {
             "orcid_is_registered_error_level": "ERROR",
-            "is_orcid_registered": callable_get_matched_data
+            "is_orcid_registered": callable_get_matched_data,
         }
-        obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_orcid_is_registered())
 
         expected = [
             {
@@ -1010,12 +996,12 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "registered",
                 "response": "OK",
-                "expected_value": 'FRANCISCO VENEGAS MARTÍNEZ Nieto',
-                "got_value": 'FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                "expected_value": "FRANCISCO VENEGAS MARTÍNEZ Nieto",
+                "got_value": "FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "message": "Got FRANCISCO VENEGAS MARTÍNEZ Nieto, expected Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "advice": None,
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1075,9 +1061,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
             "orcid_is_registered_error_level": "ERROR",
             "is_orcid_registered": callable_get_not_found_data,
         }
-        obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_orcid_is_registered())
 
         expected = [
             {
@@ -1095,7 +1079,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got None, expected Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1153,11 +1137,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
         contrib = list(ArticleContribs(xmltree).contribs)[0]
         data = {
             "orcid_is_registered_error_level": "ERROR",
-            "is_orcid_registered": callable_get_not_found_data
+            "is_orcid_registered": callable_get_not_found_data,
         }
-        obtained = list(
-            ContribValidation(contrib, data).validate_orcid_is_registered()
-        )
+        obtained = list(ContribValidation(contrib, data).validate_orcid_is_registered())
 
         expected = [
             {
@@ -1175,7 +1157,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got None, expected Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1262,23 +1244,25 @@ class ArticleContribsValidationOrcidTest(TestCase):
 
         expected = [
             {
-                'title': 'contrib-group/contrib/name',
+                "title": "contrib-group/contrib/name",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                'item': 'contrib-group',
-                'sub_item': 'collab-list',
-                'validation_type': 'match',
-                'response': 'ERROR',
-                'expected_value': "contrib-group[@content-type='collab-list']",
-                'got_value': None,
-                'message': "Got None, expected contrib-group[@content-type='collab-list']",
-                'advice': "Add content-type='collab-list' to contrib-group must have contrib/name",
-                'data': [{
-                    'collab': 'The MARS Group',
-                    'contrib_type': 'author',
-                }]
+                "item": "contrib-group",
+                "sub_item": "collab-list",
+                "validation_type": "match",
+                "response": "ERROR",
+                "expected_value": "contrib-group[@content-type='collab-list']",
+                "got_value": None,
+                "message": "Got None, expected contrib-group[@content-type='collab-list']",
+                "advice": "Add content-type='collab-list' to contrib-group must have contrib/name",
+                "data": [
+                    {
+                        "collab": "The MARS Group",
+                        "contrib_type": "author",
+                    }
+                ],
             }
         ]
         for i, item in enumerate(expected):
@@ -1331,7 +1315,9 @@ class ArticleContribsValidationOrcidTest(TestCase):
             "collab_list_error_level": "ERROR",
             "is_orcid_registered": callable_get_unmatched_data,
         }
-        obtained = list(ArticleContribsValidation(xmltree=xmltree, data=data).validate())
+        obtained = list(
+            ArticleContribsValidation(xmltree=xmltree, data=data).validate()
+        )
 
         expected = [
             {
@@ -1345,16 +1331,17 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "uniqueness",
                 "response": "OK",
                 "expected_value": {
-                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
-                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
+                    "0000-3333-1238-6873": ["Vanessa M. Higa"],
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
+                },
                 "got_value": {
-                    '0000-3333-1238-6873': ['Vanessa M. Higa'],
-                    '0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']
+                    "0000-3333-1238-6873": ["Vanessa M. Higa"],
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"],
                 },
                 "message": "Got {"
-                           "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
-                           "'0000-3333-1238-6873': ['Vanessa M. Higa']"
-                           "}, expected Unique ORCID values",
+                "'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'], "
+                "'0000-3333-1238-6873': ['Vanessa M. Higa']"
+                "}, expected Unique ORCID values",
                 "advice": None,
                 "data": None,
             },
@@ -1369,15 +1356,15 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "got_value": None,
                 "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1408,7 +1395,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0990-0001-0058-4853, expected 0990-0001-0058-4853",
                 "advice": None,
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1439,7 +1426,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got Autor registrado com orcid = 0990-0001-0058-4853, expected Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "advice": "Identify the correct ORCID for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                 "data": {
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     "contrib_ids": {"orcid": "0990-0001-0058-4853"},
                     "contrib_name": {
                         "given-names": "FRANCISCO",
@@ -1456,35 +1443,35 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 },
             },
             {
-                'title': 'Author without affiliation',
+                "title": "Author without affiliation",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                'item': 'contrib',
-                'sub_item': 'aff',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'affiliation',
-                'got_value': None,
-                'message': 'Got None, expected affiliation',
-                'advice': 'provide affiliation for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
-                'data': {
-                    'contrib_name': {
-                        'given-names': 'FRANCISCO',
-                        'surname': 'VENEGAS-MARTÍNEZ',
-                        'prefix': 'Prof',
-                        'suffix': 'Nieto',
+                "item": "contrib",
+                "sub_item": "aff",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "affiliation",
+                "got_value": None,
+                "message": "Got None, expected affiliation",
+                "advice": "provide affiliation for Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "data": {
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "surname": "VENEGAS-MARTÍNEZ",
+                        "prefix": "Prof",
+                        "suffix": "Nieto",
                     },
-                    'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
-                    'contrib_ids': {'orcid': '0990-0001-0058-4853'},
-                    'contrib_type': 'author',
-                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
+                    "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                    "contrib_ids": {"orcid": "0990-0001-0058-4853"},
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
-                }
+                },
             },
             {
                 "title": "CRediT taxonomy",
@@ -1497,15 +1484,15 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "validation_type": "value in list",
                 "response": "ERROR",
                 "expected_value": "one of ['<role "
-                    'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
-                    "'<role "
-                    'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
-                    "curation</role>']",
+                'content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>\', '
+                "'<role "
+                'content-type="https://credit.niso.org/contributor-roles/data-curation/">Data '
+                "curation</role>']",
                 "got_value": None,
                 "message": """Got None, expected one of ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "advice": """Provide the correct CRediT taxonomy: ['<role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>', '<role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>']""",
                 "data": {
-                    'contrib_full_name': 'Vanessa M. Higa',
+                    "contrib_full_name": "Vanessa M. Higa",
                     "contrib_ids": {"orcid": "0000-3333-1238-6873"},
                     "contrib_name": {"given-names": "Vanessa M.", "surname": "Higa"},
                     "contrib_type": "author",
@@ -1531,7 +1518,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "message": "Got 0000-3333-1238-6873, expected 0000-3333-1238-6873",
                 "advice": None,
                 "data": {
-                    'contrib_full_name': 'Vanessa M. Higa',
+                    "contrib_full_name": "Vanessa M. Higa",
                     "contrib_ids": {"orcid": "0000-3333-1238-6873"},
                     "contrib_name": {"given-names": "Vanessa M.", "surname": "Higa"},
                     "contrib_type": "author",
@@ -1589,7 +1576,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {
             "orcid_is_unique_error_level": "ERROR",
-            "is_orcid_registered": callable_get_matched_data
+            "is_orcid_registered": callable_get_matched_data,
         }
         xmltree = etree.fromstring(xml)
         obtained = list(
@@ -1607,16 +1594,16 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "sub_item": '@contrib-id-type="orcid"',
                 "validation_type": "uniqueness",
                 "response": "OK",
-                "expected_value": {'0990-0001-0058-4853': ['Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto']},
+                "expected_value": {
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"]
+                },
                 "got_value": {
-                    '0990-0001-0058-4853': [
-                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
-                    ]
+                    "0990-0001-0058-4853": ["Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto"]
                 },
                 "message": "Got {"
-                           "'0990-0001-0058-4853': ["
-                           "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'"
-                           "]}, expected Unique ORCID values",
+                "'0990-0001-0058-4853': ["
+                "'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'"
+                "]}, expected Unique ORCID values",
                 "advice": None,
                 "data": None,
             }
@@ -1665,7 +1652,7 @@ class ArticleContribsValidationOrcidTest(TestCase):
         """
         data = {
             "orcid_is_unique_error_level": "ERROR",
-            "is_orcid_registered": callable_get_matched_data
+            "is_orcid_registered": callable_get_matched_data,
         }
         xmltree = etree.fromstring(xml)
         obtained = list(
@@ -1685,14 +1672,14 @@ class ArticleContribsValidationOrcidTest(TestCase):
                 "response": "ERROR",
                 "expected_value": "Unique ORCID values",
                 "got_value": {
-                    '0990-0001-0058-4853': [
-                        'FRANCISCO VENEGAS-MARTÍNEZ',
-                        'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto'
+                    "0990-0001-0058-4853": [
+                        "FRANCISCO VENEGAS-MARTÍNEZ",
+                        "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
                     ]
                 },
                 "message": "Got {'0990-0001-0058-4853': ['FRANCISCO VENEGAS-MARTÍNEZ', 'Prof "
-                           "FRANCISCO VENEGAS-MARTÍNEZ Nieto']}, expected Unique ORCID values",
-                "advice": 'Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853',
+                "FRANCISCO VENEGAS-MARTÍNEZ Nieto']}, expected Unique ORCID values",
+                "advice": "Consider replacing the following ORCIDs that are not unique: 0990-0001-0058-4853",
                 "data": None,
             }
         ]
@@ -1754,9 +1741,7 @@ class ArticleAuthorsValidationAff(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        data = {
-            "affiliations_error_level": "ERROR"
-        }
+        data = {"affiliations_error_level": "ERROR"}
         obtained = list(ContribValidation(contrib, data).validate_affiliations())
         self.assertListEqual(obtained, [])
 
@@ -1790,38 +1775,36 @@ class ArticleAuthorsValidationAff(TestCase):
 
         xmltree = etree.fromstring(xml)
         contrib = list(ArticleContribs(xmltree).contribs)[0]
-        data = {
-            "affiliations_error_level": "ERROR"
-        }
+        data = {"affiliations_error_level": "ERROR"}
         obtained = list(ContribValidation(contrib, data).validate_affiliations())
         expected = [
             {
-                'title': 'Author without affiliation',
+                "title": "Author without affiliation",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                'item': 'contrib',
-                'sub_item': 'aff',
-                'validation_type': 'exist',
-                'response': 'ERROR',
-                'expected_value': 'affiliation',
-                'got_value': None,
-                'message': 'Got None, expected affiliation',
-                'advice': 'provide affiliation for FRANCISCO VENEGAS-MARTÍNEZ',
-                'data': {
-                    'contrib_full_name': 'FRANCISCO VENEGAS-MARTÍNEZ',
-                    'contrib_name': {
-                        'given-names': 'FRANCISCO',
-                        'surname': 'VENEGAS-MARTÍNEZ'
+                "item": "contrib",
+                "sub_item": "aff",
+                "validation_type": "exist",
+                "response": "ERROR",
+                "expected_value": "affiliation",
+                "got_value": None,
+                "message": "Got None, expected affiliation",
+                "advice": "provide affiliation for FRANCISCO VENEGAS-MARTÍNEZ",
+                "data": {
+                    "contrib_full_name": "FRANCISCO VENEGAS-MARTÍNEZ",
+                    "contrib_name": {
+                        "given-names": "FRANCISCO",
+                        "surname": "VENEGAS-MARTÍNEZ",
                     },
-                    'contrib_type': 'author',
-                    'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}],
+                    "contrib_type": "author",
+                    "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
-                }
+                },
             }
         ]
         for i, item in enumerate(expected):

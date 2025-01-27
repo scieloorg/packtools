@@ -362,5 +362,4 @@ class FulltextValidation:
             yield from validator.validate()
 
 
-class RelatedArticlesFulltextValidation(FulltextValidation):
-    ...
+class RelatedArticlesFulltextValidation(FulltextValidation): ...

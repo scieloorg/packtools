@@ -191,7 +191,9 @@ class FulltextDatesValidation:
         if self.params["required_events"]:
             for related_article in self.fulltext_dates.related_articles:
                 related_article_type = related_article["related-article-type"]
-                if event := self.params["related-article-type"].get(related_article_type):
+                if event := self.params["related-article-type"].get(
+                    related_article_type
+                ):
                     self.params["required_events"].append(event)
 
     def _set_default_params(self):

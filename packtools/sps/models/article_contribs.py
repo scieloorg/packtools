@@ -1,5 +1,9 @@
 from packtools.sps.models.aff import Affiliation
-from packtools.sps.utils.xml_utils import node_plain_text, get_parent_context, put_parent_context
+from packtools.sps.utils.xml_utils import (
+    node_plain_text,
+    get_parent_context,
+    put_parent_context,
+)
 
 """
 <contrib contrib-type="author">
@@ -51,10 +55,12 @@ class Contrib:
 
     @property
     def contrib_full_name(self):
-        name_parts = ['prefix', 'given-names', 'surname', 'suffix']
+        name_parts = ["prefix", "given-names", "surname", "suffix"]
         name = self.contrib_name
         if name is not None:
-            return ' '.join(name.get(part, '') for part in name_parts if name.get(part)).strip()
+            return " ".join(
+                name.get(part, "") for part in name_parts if name.get(part)
+            ).strip()
 
     @property
     def collab(self):
@@ -141,13 +147,17 @@ class ArticleContribs:
     def contribs_in_sub_article(self):
         # FIXME: Em sub-article, podem existir contribs duplicados.
         # Para evitar duplicidade, é necessário verificar se o contrib já foi adicionado ao conjunto de dados.
-        # Solução sugerida: Utilize uma estrutura como um conjunto (set) ou uma lógica de verificação 
+        # Solução sugerida: Utilize uma estrutura como um conjunto (set) ou uma lógica de verificação
         # para garantir que cada contrib seja adicionado apenas uma vez ao data.
-        return self._extract_contrib_group(xpath_contrib=".//sub-article//contrib-group")
+        return self._extract_contrib_group(
+            xpath_contrib=".//sub-article//contrib-group"
+        )
 
     @property
     def contribs_in_article_meta(self):
-        return self._extract_contrib_group(xpath_contrib=".//article-meta//contrib-group")
+        return self._extract_contrib_group(
+            xpath_contrib=".//article-meta//contrib-group"
+        )
 
     @property
     def contribs(self):

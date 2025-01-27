@@ -24,13 +24,13 @@ def _response(contrib, is_valid, expected, obtained, author, error_level="ERROR"
         obtained=obtained,
         advice=f"Provide the correct CRediT taxonomy: {expected}",
         data=contrib,
-        error_level=error_level
+        error_level=error_level,
     )
 
 
 class ContribValidation:
     """Validates contributor information in scientific article XML."""
-    
+
     def __init__(self, contrib, data):
         self.data = data
         self.contrib = contrib
@@ -68,7 +68,7 @@ class ContribValidation:
                     expected=expected_value,
                     obtained=role,
                     author=self.contrib_name,
-                    error_level=error_level
+                    error_level=error_level,
                 )
         else:
             yield _response(
@@ -77,7 +77,7 @@ class ContribValidation:
                 expected=expected_value,
                 obtained=None,
                 author=self.contrib_name,
-                error_level=error_level
+                error_level=error_level,
             )
 
     def validate_orcid_format(self):
@@ -101,9 +101,7 @@ class ContribValidation:
 
         _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
-        expected_value = (
-            _orcid if is_valid else "valid ORCID"
-        )
+        expected_value = _orcid if is_valid else "valid ORCID"
 
         yield format_response(
             title="ORCID format",
@@ -117,9 +115,11 @@ class ContribValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=_orcid,
-            advice=None if is_valid else f"Provide a valid ORCID for {self.contrib_name}",
+            advice=(
+                None if is_valid else f"Provide a valid ORCID for {self.contrib_name}"
+            ),
             data=self.contrib,
-            error_level=error_level
+            error_level=error_level,
         )
 
     def validate_orcid_is_registered(self):
@@ -135,16 +135,14 @@ class ContribValidation:
         """
         is_orcid_registered = self.data["is_orcid_registered"]
         error_level = self.data["orcid_is_registered_error_level"]
-        if not self.contrib_name:      
+        if not self.contrib_name:
             return
 
         orcid = self.contrib.get("contrib_ids", {}).get("orcid")
         if not orcid:
             return
 
-        is_orcid_registered = (
-            is_orcid_registered or _callable_extern_validate_default
-        )
+        is_orcid_registered = is_orcid_registered or _callable_extern_validate_default
         if not is_orcid_registered:
             return
 
@@ -159,12 +157,16 @@ class ContribValidation:
             item="contrib-id",
             sub_item='@contrib-id-type="orcid"',
             validation_type="registered",
-            is_valid=result['is_valid'],
+            is_valid=result["is_valid"],
             expected=self.contrib_name,
             obtained=result["data"],
-            advice=None if result['is_valid'] else f"Identify the correct ORCID for {self.contrib_name}",
+            advice=(
+                None
+                if result["is_valid"]
+                else f"Identify the correct ORCID for {self.contrib_name}"
+            ),
             data=self.contrib,
-            error_level=error_level
+            error_level=error_level,
         )
 
     def validate_affiliations(self):
@@ -182,20 +184,20 @@ class ContribValidation:
         affs = self.contrib.get("affs")
         if not affs:
             yield format_response(
-                title='Author without affiliation',
+                title="Author without affiliation",
                 parent=self.contrib.get("parent"),
                 parent_id=self.contrib.get("parent_id"),
                 parent_article_type=self.contrib.get("parent_article_type"),
                 parent_lang=self.contrib.get("parent_lang"),
-                item='contrib',
-                sub_item='aff',
-                validation_type='exist',
+                item="contrib",
+                sub_item="aff",
+                validation_type="exist",
                 is_valid=False,
-                expected='affiliation',
+                expected="affiliation",
                 obtained=None,
-                advice=f'provide affiliation for {self.contrib_name}',
+                advice=f"provide affiliation for {self.contrib_name}",
                 data=self.contrib,
-                error_level=error_level
+                error_level=error_level,
             )
 
     def validate_name(self):
@@ -204,17 +206,17 @@ class ContribValidation:
         item = self.contrib.get("contrib_name")
         if not item:
             yield build_response(
-                title='name',
+                title="name",
                 parent=self.contrib,
-                item='contrib',
-                sub_item='name',
-                validation_type='exist',
+                item="contrib",
+                sub_item="name",
+                validation_type="exist",
                 is_valid=False,
-                expected='name',
+                expected="name",
                 obtained=None,
-                advice=f'provide name',
+                advice=f"provide name",
                 data=self.contrib,
-                error_level=error_level
+                error_level=error_level,
             )
 
     def validate_collab(self):
@@ -223,17 +225,17 @@ class ContribValidation:
         item = self.contrib.get("collab")
         if not item:
             yield build_response(
-                title='collab',
+                title="collab",
                 parent=self.contrib,
-                item='contrib',
-                sub_item='collab',
-                validation_type='exist',
+                item="contrib",
+                sub_item="collab",
+                validation_type="exist",
                 is_valid=False,
-                expected='collab',
+                expected="collab",
                 obtained=None,
-                advice=f'provide collab',
+                advice=f"provide collab",
                 data=self.contrib,
-                error_level=error_level
+                error_level=error_level,
             )
 
     def validate_name_or_collab(self):
@@ -250,7 +252,9 @@ class ContribValidation:
 
         if parent_article_type == "reviewer-report":
             title = "name or anonymous"
-            item = self.contrib.get("contrib_name") or self.contrib.get("contrib_anonymous")
+            item = self.contrib.get("contrib_name") or self.contrib.get(
+                "contrib_anonymous"
+            )
         else:
             title = "name or collab"
             item = self.contrib.get("contrib_name") or self.contrib.get("collab")
@@ -259,15 +263,15 @@ class ContribValidation:
             yield build_response(
                 title=title,
                 parent=self.contrib,
-                item='contrib',
+                item="contrib",
                 sub_item=title,
-                validation_type='exist',
+                validation_type="exist",
                 is_valid=False,
                 expected=title,
                 obtained=None,
-                advice=f'provide {title}',
+                advice=f"provide {title}",
                 data=self.contrib,
-                error_level=error_level
+                error_level=error_level,
             )
 
     def validate(self):
@@ -288,8 +292,8 @@ class ArticleContribsValidation:
     @property
     def content_types(self):
         return [
-            contrib_group.get('content-type')
-            for contrib_group in self.xmltree.xpath('.//contrib-group')
+            contrib_group.get("content-type")
+            for contrib_group in self.xmltree.xpath(".//contrib-group")
         ]
 
     def validate_orcid_is_unique(self):
@@ -358,10 +362,7 @@ class ArticleContribsValidation:
                 diff.append(orcid)
 
         # Para a realização dos testes é necessária uma ordem estável para os nomes
-        obtained = {
-            orcid: sorted(list(names))
-            for orcid, names in orcid_dict.items()
-        }
+        obtained = {orcid: sorted(list(names)) for orcid, names in orcid_dict.items()}
 
         yield format_response(
             title="Unique ORCID",
@@ -379,7 +380,7 @@ class ArticleContribsValidation:
                 " | ".join(diff)
             ),
             data=None,
-            error_level=error_level
+            error_level=error_level,
         )
 
     def validate(self):
@@ -438,17 +439,19 @@ class CollabListValidation:
 
         }
         """
-        if not hasattr(self, '_contrib_groups') or not self._contrib_groups:
+        if not hasattr(self, "_contrib_groups") or not self._contrib_groups:
             data = get_parent_data(self.parent_node)
             self._contrib_groups = {}
             for node in self.parent_node.xpath(data["xpath"]):
                 for contrib_group in node.xpath(".//contrib-group"):
-                    self._contrib_groups[contrib_group.get("content-type")] = ContribGroup(contrib_group)
+                    self._contrib_groups[contrib_group.get("content-type")] = (
+                        ContribGroup(contrib_group)
+                    )
         return self._contrib_groups
 
     def validate(self):
         if self.parent_node.xpath(".//contrib//collab"):
-            yield from self.validate_contrib_group__collab()            
+            yield from self.validate_contrib_group__collab()
             yield from self.validate_contrib_group__name()
 
     def validate_contrib_group__collab(self):
@@ -459,14 +462,14 @@ class CollabListValidation:
                 title="contrib-group/contrib/collab",
                 parent=self.parent_data,
                 item="contrib-group",
-                sub_item='',
+                sub_item="",
                 validation_type="match",
                 is_valid=False,
                 expected="contrib-group",
                 obtained=None,
                 advice="Add contrib-group which has contrib/name",
                 data=self.data,
-                error_level=self.args["collab_list_error_level"]
+                error_level=self.args["collab_list_error_level"],
             )
         else:
             for contrib in contrib_group.contribs:
@@ -482,18 +485,17 @@ class CollabListValidation:
                 title="contrib-group/contrib/name",
                 parent=self.parent_data,
                 item="contrib-group",
-                sub_item='collab-list',
+                sub_item="collab-list",
                 validation_type="match",
                 is_valid=False,
                 expected="contrib-group[@content-type='collab-list']",
                 obtained=None,
                 advice="Add content-type='collab-list' to contrib-group must have contrib/name",
                 data=self.data,
-                error_level=self.args["collab_list_error_level"]
+                error_level=self.args["collab_list_error_level"],
             )
         else:
             for contrib in contrib_group.contribs:
                 contrib.update(self.parent_data)
                 validator = ContribValidation(contrib, self.args)
                 yield from validator.validate_name()
-

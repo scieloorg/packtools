@@ -7,7 +7,7 @@ from packtools.sps.models.peer_review import PeerReview
 
 class BasePeerReviewTestCase(unittest.TestCase):
     """Base test case with helper methods"""
-    
+
     def create_peer_review_xml(self, is_article=True):
         """Helper method to create test XML"""
         xml = """<?xml version="1.0" encoding="utf-8"?>
@@ -57,14 +57,14 @@ class BasePeerReviewTestCase(unittest.TestCase):
         </{root_tag}>
         """.format(
             root_tag="article" if is_article else "sub-article",
-            front_suffix="" if is_article else "-stub"
+            front_suffix="" if is_article else "-stub",
         )
         return etree.fromstring(xml)
 
 
 class TestPeerReviewArticle(BasePeerReviewTestCase):
     """Test PeerReview class with article-type peer reviews"""
-    
+
     def setUp(self):
         """Set up article-type peer review for testing"""
         self.peer_review = PeerReview(self.create_peer_review_xml(is_article=True))
@@ -73,61 +73,61 @@ class TestPeerReviewArticle(BasePeerReviewTestCase):
         """Test related_articles property"""
         related = list(self.peer_review.related_articles)
         self.assertEqual(len(related), 1)
-        self.assertEqual(related[0]['related-article-type'], 'peer-reviewed-material')
-        self.assertEqual(related[0]['href'], '10.1590/123456789')
-        self.assertEqual(related[0]['ext-link-type'], 'doi')
+        self.assertEqual(related[0]["related-article-type"], "peer-reviewed-material")
+        self.assertEqual(related[0]["href"], "10.1590/123456789")
+        self.assertEqual(related[0]["ext-link-type"], "doi")
 
     def test_contribs(self):
         """Test contribs property"""
         contribs = self.peer_review.contribs
         self.assertEqual(len(contribs), 1)
-        self.assertEqual(contribs[0].get('contrib-type'), 'author')
-        self.assertIsNotNone(contribs[0].find('.//anonymous'))
-        self.assertEqual(contribs[0].find('.//role').get('specific-use'), 'reviewer')
+        self.assertEqual(contribs[0].get("contrib-type"), "author")
+        self.assertIsNotNone(contribs[0].find(".//anonymous"))
+        self.assertEqual(contribs[0].find(".//role").get("specific-use"), "reviewer")
 
     def test_history(self):
         """Test history property"""
         history = self.peer_review.history
-        self.assertIn('received', history)
-        self.assertIn('accepted', history)
-        received = history['received']
-        self.assertEqual(received['year'], '2024')
-        self.assertEqual(received['month'], '01')
-        self.assertEqual(received['day'], '15')
+        self.assertIn("received", history)
+        self.assertIn("accepted", history)
+        received = history["received"]
+        self.assertEqual(received["year"], "2024")
+        self.assertEqual(received["month"], "01")
+        self.assertEqual(received["day"], "15")
 
     def test_license_code(self):
         """Test license_code property"""
-        self.assertEqual(self.peer_review.license_code, 'by')
+        self.assertEqual(self.peer_review.license_code, "by")
 
     def test_custom_meta_items(self):
         """Test custom_meta_items property"""
         items = self.peer_review.custom_meta_items
         self.assertEqual(len(items), 1)
-        self.assertEqual(items[0].meta_name, 'Review recommendation')
-        self.assertEqual(items[0].meta_value, 'accept')
-        self.assertEqual(items[0].data, {
-            'meta_name': 'Review recommendation',
-            'meta_value': 'accept'
-        })
+        self.assertEqual(items[0].meta_name, "Review recommendation")
+        self.assertEqual(items[0].meta_value, "accept")
+        self.assertEqual(
+            items[0].data,
+            {"meta_name": "Review recommendation", "meta_value": "accept"},
+        )
 
 
 class TestPeerReviewSubArticle(BasePeerReviewTestCase):
     """Test PeerReview class with sub-article-type peer reviews"""
-    
+
     def setUp(self):
         """Set up sub-article-type peer review for testing"""
         self.peer_review = PeerReview(self.create_peer_review_xml(is_article=False))
 
     def test_structure(self):
         """Test subarticle structure"""
-        self.assertEqual(self.peer_review.tag, 'sub-article')
-        self.assertEqual(self.peer_review.article_type, 'reviewer-report')
-        self.assertEqual(self.peer_review.front.tag, 'front-stub')
+        self.assertEqual(self.peer_review.tag, "sub-article")
+        self.assertEqual(self.peer_review.article_type, "reviewer-report")
+        self.assertEqual(self.peer_review.front.tag, "front-stub")
 
 
 class TestEmptyPeerReview(unittest.TestCase):
     """Test PeerReview class with minimal content"""
-    
+
     def setUp(self):
         """Set up peer review with minimal content"""
         xml = """
@@ -149,7 +149,7 @@ class TestEmptyPeerReview(unittest.TestCase):
 
 class TestMultipleMetadata(unittest.TestCase):
     """Test PeerReview class with multiple metadata items"""
-    
+
     def setUp(self):
         """Set up peer review with multiple metadata"""
         xml = """
@@ -178,13 +178,13 @@ class TestMultipleMetadata(unittest.TestCase):
         self.assertEqual(len(items), 2)
         meta_names = {item.meta_name for item in items}
         meta_values = {item.meta_value for item in items}
-        self.assertEqual(meta_names, {'Review recommendation', 'Review confidence'})
-        self.assertEqual(meta_values, {'accept', 'high'})
+        self.assertEqual(meta_names, {"Review recommendation", "Review confidence"})
+        self.assertEqual(meta_values, {"accept", "high"})
 
 
 class TestMultipleHistoryDates(unittest.TestCase):
     """Test PeerReview class with multiple history dates"""
-    
+
     def setUp(self):
         """Set up peer review with multiple history dates"""
         xml = """
@@ -218,17 +218,19 @@ class TestMultipleHistoryDates(unittest.TestCase):
         """Test multiple history dates"""
         history = self.review.history
         self.assertEqual(len(history), 3)
-        date_types = {'received', 'accepted', 'rev-recd'}
+        date_types = {"received", "accepted", "rev-recd"}
         self.assertTrue(all(key in history for key in date_types))
-        self.assertTrue(all(
-            all(field in date for field in ['day', 'month', 'year'])
-            for date in history.values()
-        ))
+        self.assertTrue(
+            all(
+                all(field in date for field in ["day", "month", "year"])
+                for date in history.values()
+            )
+        )
 
 
 class TestPeerReviewInheritance(unittest.TestCase):
     """Test PeerReview class inheritance from Fulltext"""
-    
+
     def setUp(self):
         """Set up peer review for testing inheritance"""
         xml = """
@@ -242,17 +244,20 @@ class TestPeerReviewInheritance(unittest.TestCase):
 
     def test_inheritance(self):
         """Test inheritance from Fulltext"""
-        self.assertEqual(self.review.tag, 'article')
-        self.assertEqual(self.review.lang, 'en')
-        self.assertEqual(self.review.id, 'pr1')
-        self.assertEqual(self.review.article_type, 'reviewer-report')
-        self.assertEqual(self.review.attribs, {
-            'tag': 'article',
-            'id': 'pr1',
-            'lang': 'en',
-            'article_type': 'reviewer-report'
-        })
+        self.assertEqual(self.review.tag, "article")
+        self.assertEqual(self.review.lang, "en")
+        self.assertEqual(self.review.id, "pr1")
+        self.assertEqual(self.review.article_type, "reviewer-report")
+        self.assertEqual(
+            self.review.attribs,
+            {
+                "tag": "article",
+                "id": "pr1",
+                "lang": "en",
+                "article_type": "reviewer-report",
+            },
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
