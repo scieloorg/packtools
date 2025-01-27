@@ -1,3 +1,5 @@
+from lxml import etree
+
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_ids import ArticleIds
 from packtools.sps.validation.exceptions import (
@@ -12,12 +14,12 @@ from packtools.sps.validation.utils import format_response
 
 
 class ArticleLangValidation:
-    def __init__(self, xmltree, language_codes_list=None):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.language_codes_list = language_codes_list
+        self.params = params
 
-    def validate_language(self, language_codes_list=None, error_level=None):
+    def validate_language(self):
         """
         Check whether the article language matches the options provided in a standard list.
 
@@ -67,12 +69,13 @@ class ArticleLangValidation:
                 },...
             ]
         """
-        language_codes_list = language_codes_list or self.language_codes_list
-        if not language_codes_list:
+        try:
+            language_codes_list = self.params["language_codes_list"]
+        except KeyError:
             raise ValidationArticleAndSubArticlesLanguageCodeException(
                 "Function requires list of language codes"
             )
-        error_level = error_level or 'CRITICAL'
+
         for article in self.articles.data:
             article_lang = article.get("lang")
             article_type = article.get("article_type")
@@ -81,18 +84,12 @@ class ArticleLangValidation:
 
             if article_id is None:
                 parent = "article"
-                msg = "<article article-type={} xml:lang={}>".format(
-                    article_type, article_lang
-                )
-                parent__id = parent
+                parent_id = parent
             else:
                 parent = "sub-article"
-                msg = "<sub-article article-type={} id={} xml:lang={}>".format(
-                    article_type, article_id, article_lang
-                )
-                parent__id = f'{parent}[@id="{article_id}"]'
+                parent_id = f'{parent}[@id="{article_id}"]'
 
-            advice = None if validated else f'Provide for {parent__id}/@xml:lang one of {language_codes_list}'
+            advice = None if validated else f'Provide for {parent_id}/@xml:lang one of {language_codes_list}'
             yield format_response(
                     title="text language",
                     parent=parent,
@@ -107,18 +104,17 @@ class ArticleLangValidation:
                     obtained=article_lang,
                     advice=advice,
                     data=article,
-                    error_level=error_level
+                    error_level=self.params["language_error_level"]
             )
 
 
 class ArticleAttribsValidation:
-    def __init__(self, xmltree, specific_use_list=None, dtd_version_list=None):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.specific_use_list = specific_use_list
-        self.dtd_version_list = dtd_version_list
+        self.params = params
 
-    def validate_specific_use(self, specific_use_list=None, error_level=None):
+    def validate_specific_use(self):
         """
         Check whether the specific use attribute of the article matches the options provided in a standard list.
 
@@ -165,18 +161,18 @@ class ArticleAttribsValidation:
                 },...
             ]
         """
-        error_level = error_level or "CRITICAL"
-        specific_use_list = specific_use_list or self.specific_use_list
-        if not specific_use_list:
+        try:
+            specific_use_list = list(self.params["specific_use_list"].keys())
+        except KeyError:
             raise ValidationArticleAndSubArticlesSpecificUseException(
                 "ArticleAttribsValidation.validate_specific_use requires specific_use_list"
             )
 
-        validated = self.articles.main_specific_use in specific_use_list
+        validated = self.articles.specific_use in specific_use_list
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.dtd_version
         })
 
@@ -192,13 +188,13 @@ class ArticleAttribsValidation:
             validation_type="value in list",
             is_valid=validated,
             expected=specific_use_list,
-            obtained=self.articles.main_specific_use,
+            obtained=self.articles.specific_use,
             advice=advice,
             data=data,
-            error_level=error_level,
+            error_level=self.params["specific_use_error_level"],
         )
 
-    def validate_dtd_version(self, dtd_version_list=None, error_level=None):
+    def validate_dtd_version(self):
         """
         Check whether the dtd version attribute of the article matches the options provided in a standard list.
 
@@ -246,9 +242,10 @@ class ArticleAttribsValidation:
                 }
             ]
         """
-        error_level = error_level or "CRITICAL"
-        dtd_version_list = dtd_version_list or self.dtd_version_list
-        if not dtd_version_list:
+
+        try:
+            dtd_version_list = self.params["dtd_version_list"]
+        except KeyError:
             raise ValidationArticleAndSubArticlesDtdVersionException(
                 "ArticleAttribsValidation.validate_dtd_version requires dtd_version_list"
             )
@@ -257,7 +254,7 @@ class ArticleAttribsValidation:
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.dtd_version
         })
 
@@ -276,19 +273,17 @@ class ArticleAttribsValidation:
             obtained=self.articles.dtd_version,
             advice=advice,
             data=data,
-            error_level=error_level
+            error_level=self.params["dtd_version_error_level"]
         )
 
 
 class ArticleTypeValidation:
-    def __init__(self, xmltree, article_type_list=None, subjects_list=None, apply_to_article_types=None):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.article_type_list = article_type_list
-        self.subjects_list = subjects_list
-        self.apply_to_article_types = apply_to_article_types
+        self.params = params
 
-    def validate_article_type(self, article_type_list=None, error_level=None):
+    def validate_article_type(self):
         """
         Check whether the article type attribute of the article matches the options provided in a standard list.
 
@@ -341,10 +336,9 @@ class ArticleTypeValidation:
             ]
         """
         article_type = self.articles.main_article_type
-        article_type_list = article_type_list or self.article_type_list
-        error_level = error_level or "CRITICAL"
-
-        if not article_type_list:
+        try:
+            article_type_list = self.params["article_type_list"]
+        except KeyError:
             raise ValidationArticleAndSubArticlesArticleTypeException(
                 "ArticleTypeValidation.validate_article_type requires article_type_list"
             )
@@ -353,7 +347,7 @@ class ArticleTypeValidation:
 
         data = self.articles.data[0]
         data.update({
-            "specific_use": self.articles.main_specific_use,
+            "specific_use": self.articles.specific_use,
             "dtd_version": self.articles.dtd_version
         })
         advice = None if validated else f"Provide for article/@article-type one of {article_type_list}"
@@ -371,12 +365,10 @@ class ArticleTypeValidation:
             obtained=article_type,
             advice=advice,
             data=data,
-            error_level=error_level,
+            error_level=self.params["article_type_list_error_level"],
         )
 
-    def validate_article_type_vs_subject_similarity(
-        self, subjects_list=None, expected_similarity=1, error_level=None, target_article_types=None
-    ):
+    def validate_article_type_vs_subject_similarity(self):
         """
         Check how similar the type of article and its respective subjects are.
 
@@ -471,9 +463,9 @@ class ArticleTypeValidation:
             ]
         """
 
-        subjects_list = subjects_list or self.subjects_list
-
-        if not subjects_list:
+        try:
+            subjects_list = self.params["subjects_list"]
+        except KeyError:
             raise ValidationArticleAndSubArticlesSubjectsException(
                 "Function requires list of subjects"
             )
@@ -482,14 +474,12 @@ class ArticleTypeValidation:
             f"{item['subject']} ({item['lang']})" for item in subjects_list
         ]
 
-        target_article_types = target_article_types or self.apply_to_article_types
-
-        if not target_article_types:
+        try:
+            target_article_types = self.params["target_article_types"]
+        except KeyError:
             raise ValidationArticleAndSubArticlesSubjectsException(
                 "Function requires list of article types to check the similarity with subjects"
             )
-
-        error_level = error_level or "ERROR"
 
         articles = [article for article in self.articles.data if article.get("article_type") in target_article_types]
 
@@ -499,11 +489,14 @@ class ArticleTypeValidation:
             calculated_similarity, subject = most_similar(
                 similarity(subjects_list, article_subject)
             )
+
+            expected_similarity = float(self.params.get("expected_similarity")) or 1
+
             validated = calculated_similarity >= expected_similarity
 
             data = self.articles.data[0]
             data.update({
-                "specific_use": self.articles.main_specific_use,
+                "specific_use": self.articles.specific_use,
                 "dtd_version": self.articles.dtd_version
             })
 
@@ -523,34 +516,18 @@ class ArticleTypeValidation:
                         article_subject, " | ".join(subjects_list)
                     ),
                 data=data,
-                error_level=error_level
+                error_level=self.params["expected_similarity_error_level"]
             )
-
-    # def validate(self, data):
-    #     """
-    #     Função que executa as validações da classe ArticleValidation.
-    #
-    #     Returns:
-    #         dict: Um dicionário contendo os resultados das validações realizadas.
-    #
-    #     """
-    #     yield {
-    #         "article_lang_validation": self.validate_language(
-    #             data["language_codes_list"]
-    #         ),
-    #         "article_specific_use_validation": self.validate_specific_use(
-    #             data["specific_use_list"]
-    #         ),
-    #     }
 
 
 class ArticleIdValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.article_ids = ArticleIds(self.xmltree)
+        self.params = params
 
-    def validate_article_id_other(self, error_level=None):
+    def validate_article_id_other(self):
         """
         Check whether an article that shouldn't have a subject actually doesn't.
 
@@ -599,7 +576,6 @@ class ArticleIdValidation:
         except (TypeError, ValueError, AttributeError):
             is_valid = False
 
-        error_level = error_level or "ERROR"
         expected_value = "numerical value from 1 to 99999"
         yield format_response(
             title='article-id (@pub-id-type="other")',
@@ -615,5 +591,56 @@ class ArticleIdValidation:
             obtained=self.article_ids.other,
             advice='Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
             data=self.article_ids.data,
-            error_level=error_level,
+            error_level=self.params["id_other_error_level"],
         )
+
+
+class JATSAndDTDVersionValidation:
+
+    def __init__(self, xml_tree, params):
+        self.xml_tree = xml_tree
+        self.article_and_sub_articles = ArticleAndSubArticles(self.xml_tree)
+        self.dtd_version = self.article_and_sub_articles.main_dtd_version
+        self.specific_use = self.article_and_sub_articles.specific_use
+        self.params = params
+
+    def validate(self):
+        sps_version = self.specific_use
+        jats_version = self.dtd_version
+
+        if not sps_version:
+            raise ValidationArticleAndSubArticlesArticleTypeException(
+                "Could not determine the SPS version."
+            )
+        if not jats_version:
+            raise ValidationArticleAndSubArticlesArticleTypeException(
+                "Could not determine the JATS version."
+            )
+
+        expected_jats = self.params.get("specific_use_list")
+
+        advise = None
+
+        if not expected_jats:
+            advise = f"SPS version '{sps_version}' not supported.",
+
+        elif jats_version not in (expected_jats.get(sps_version) or []):
+            advise = f"Incompatibility: SPS {sps_version} is not compatible with JATS {jats_version}."
+
+        if advise:
+            yield format_response(
+                title='article-id (@pub-id-type="other")',
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.article_and_sub_articles.main_article_type,
+                parent_lang=self.article_and_sub_articles.main_lang,
+                item="dtd-version",
+                sub_item=None,
+                validation_type="match",
+                is_valid=False,
+                expected=self.params["specific_use_list"][sps_version],
+                obtained=jats_version,
+                advice=advise,
+                data=self.article_and_sub_articles.data,
+                error_level=self.params["jats_and_dtd_version_error_level"],
+            )
