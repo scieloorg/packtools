@@ -34,7 +34,7 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
-def node_plain_text(node):
+def node_plain_text(node, remove_xref=True):
     """
     Função que retorna texto de nó, sem subtags e com espaços padronizados
 
@@ -51,10 +51,18 @@ def node_plain_text(node):
     if node is None:
         return ""
 
-    # Remove o conteúdo de todos os nós <xref>
-    for xref in node.findall(".//xref"):
-        # Limpa todo o conteúdo do nó <xref>
-        xref.clear()
+    if remove_xref:
+        # Remove o conteúdo de todos os nós <xref>
+        for xref in node.findall(".//xref"):
+            if xref.tail:
+                _next = xref.getnext()
+                if _next is None or _next.tag != "xref":
+                    e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                    xref.addnext(e)
+        for xref in node.findall(".//xref"):
+            parent = xref.getparent()
+            parent.remove(xref)
+        etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
 
     # Extrai todo o texto dos nós, removendo subtags
     text_content = "".join(node.xpath(".//text()"))
@@ -65,7 +73,7 @@ def node_plain_text(node):
     return text_content
 
 
-def node_text_without_xref(node):
+def node_text_without_xref(node, remove_xref=True):
     """
     Retorna text com subtags, exceto `xref`
     """
@@ -74,16 +82,17 @@ def node_text_without_xref(node):
 
     node = deepcopy(node)
 
-    for xref in node.findall(".//xref"):
-        if xref.tail:
-            _next = xref.getnext()
-            if _next is None or _next.tag != "xref":
-                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                xref.addnext(e)
-    for xref in node.findall(".//xref"):
-        parent = xref.getparent()
-        parent.remove(xref)
-    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+    if remove_xref:
+        for xref in node.findall(".//xref"):
+            if xref.tail:
+                _next = xref.getnext()
+                if _next is None or _next.tag != "xref":
+                    e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                    xref.addnext(e)
+        for xref in node.findall(".//xref"):
+            parent = xref.getparent()
+            parent.remove(xref)
+        etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
     return node_text(node)
 
 
@@ -397,12 +406,13 @@ def remove_subtags(
 
 
 def process_subtags(
-    node,
-    tags_to_keep=None,
-    tags_to_keep_with_content=None,
-    tags_to_remove_with_content=None,
-    tags_to_convert_to_html=None,
-):
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+        remove_xref=True
+    ):
 
     if node is None:
         return
@@ -413,7 +423,7 @@ def process_subtags(
         "{http://www.w3.org/1998/Math/MathML}math",
         "math",
     ]
-    std_to_remove_content = ["xref"]
+    std_to_remove_content = ["xref"] if remove_xref else []
     std_to_convert = {"italic": "i"}
 
     # garante que as tags em std_to_keep serão mantidas
