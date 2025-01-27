@@ -150,24 +150,3 @@ class ArticleAndSubArticles:
                 "parent_name": "sub-article",
             })
         return _data
-
-    @property
-    def jats_version(self):
-        """
-        Obtém a versão do JATS com base no DTD referenciado no XML.
-        Retorna uma string com a versão do JATS ou None se não puder ser determinada.
-        """
-        dtd_info = self.xmltree.docinfo.doctype
-        if not dtd_info:
-            return None  # O documento não possui informações de DTD
-
-        if "JATS" in dtd_info:
-            if "v1.4" in dtd_info:
-                return "1.4"
-            elif "v1.3" in dtd_info:
-                return "1.3"
-            elif "v1.1" in dtd_info:
-                return "1.1"
-            elif "v1.0" in dtd_info:
-                return "1.0"
-        return None  # Não foi possível determinar a versão

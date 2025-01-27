@@ -142,19 +142,6 @@ class ArticleAndSubarticlesTest(TestCase):
 
         self.assertListEqual(expected, obtained)
 
-    def test_jats_version(self):
-        data = """<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.3 20210610//EN" "JATS-journalpublishing1-3.dtd">
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.3"></article>"""
-
-        # Usa um parser para obter o ElementTree
-        parser = etree.XMLParser(load_dtd=True)
-        xml_tree = etree.ElementTree(etree.fromstring(data, parser))
-
-        expected = '1.3'
-        obtained = ArticleAndSubArticles(xml_tree).jats_version
-
-        self.assertEqual(expected, obtained)
-
 
 class TestFulltext(TestCase):
     def setUp(self):
