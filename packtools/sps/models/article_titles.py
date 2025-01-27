@@ -50,25 +50,15 @@ class ArticleTitles:
                 return {
                     "parent_name": "article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(deepcopy(node)),
-                    "text_with_xref": xml_utils.node_text_without_xref(deepcopy(node), remove_xref=False),
-                    "plain_text": xml_utils.node_plain_text(deepcopy(node)),
-                    "plain_text_with_xref": xml_utils.node_plain_text(deepcopy(node), remove_xref=False),
+                    "text": xml_utils.node_text_without_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        deepcopy(node),
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,
                         tags_to_convert_to_html=self.tags_to_convert_to_html
                     ),
-                    "html_text_with_xref": xml_utils.process_subtags(
-                        deepcopy(node),
-                        tags_to_keep=self.tags_to_keep,
-                        tags_to_keep_with_content=self.tags_to_keep_with_content,
-                        tags_to_remove_with_content=self.tags_to_remove_with_content,
-                        tags_to_convert_to_html=self.tags_to_convert_to_html,
-                        remove_xref=False
-                    )
                 }
 
     @property
@@ -83,25 +73,15 @@ class ArticleTitles:
                 _title = {
                     "parent_name": "article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(deepcopy(node)),
-                    "text_with_xref": xml_utils.node_text_without_xref(deepcopy(node), remove_xref=False),
-                    "plain_text": xml_utils.node_plain_text(deepcopy(node)),
-                    "plain_text_with_xref": xml_utils.node_plain_text(deepcopy(node), remove_xref=False),
+                    "text": xml_utils.node_text_without_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        deepcopy(node),
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,
                         tags_to_convert_to_html=self.tags_to_convert_to_html
                     ),
-                    "html_text_with_xref": xml_utils.process_subtags(
-                        deepcopy(node),
-                        tags_to_keep=self.tags_to_keep,
-                        tags_to_keep_with_content=self.tags_to_keep_with_content,
-                        tags_to_remove_with_content=self.tags_to_remove_with_content,
-                        tags_to_convert_to_html=self.tags_to_convert_to_html,
-                        remove_xref=False
-                    )
                 }
                 _titles.append(_title)
         return _titles
@@ -119,24 +99,14 @@ class ArticleTitles:
                 _title = {
                     "parent_name": "sub-article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(deepcopy(node)),
-                    "text_with_xref": xml_utils.node_text_without_xref(deepcopy(node), remove_xref=False),
-                    "plain_text": xml_utils.node_plain_text(deepcopy(node)),
-                    "plain_text_with_xref": xml_utils.node_plain_text(deepcopy(node), remove_xref=False),
+                    "text": xml_utils.node_text_without_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        deepcopy(node),
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,
                         tags_to_convert_to_html=self.tags_to_convert_to_html
-                    ),
-                    "html_text_with_xref": xml_utils.process_subtags(
-                        deepcopy(node),
-                        tags_to_keep=self.tags_to_keep,
-                        tags_to_keep_with_content=self.tags_to_keep_with_content,
-                        tags_to_remove_with_content=self.tags_to_remove_with_content,
-                        tags_to_convert_to_html=self.tags_to_convert_to_html,
-                        remove_xref=False
                     ),
                     "id": node_with_lang["id"]
                 }
