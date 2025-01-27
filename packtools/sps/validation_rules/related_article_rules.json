@@ -1,5 +1,6 @@
 {
     "related_article_rules": {
+        "attrib_order_error_level": "CRITICAL",
         "required_related_articles_error_level": "CRITICAL",
         "type_error_level": "CRITICAL",
         "ext_link_type_error_level": "CRITICAL",
@@ -12,6 +13,7 @@
             "doi",
             "uri"
         ],
+        "attrib_order": ["related-article-type", "id", "{http://www.w3.org/1999/xlink}href", "ext-link-type"],
         "required_history_events": {
             "preprint": "preprint",
             "correction-forward": "corrected"
