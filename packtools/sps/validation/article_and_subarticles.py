@@ -597,21 +597,6 @@ class ArticleIdValidation:
 
 class JATSAndDTDVersionValidation:
 
-    # Mapeamento de versões SPS para JATS
-    SPS_TO_JATS = {
-        "1.1": ["1.0"],
-        "1.2": ["1.0", "1.1"],
-        "1.3": ["1.0", "1.1"],
-        "1.4": ["1.0", "1.1"],
-        "1.5": ["1.0", "1.1"],
-        "1.6": ["1.0", "1.1"],
-        "1.7": ["1.0", "1.1"],
-        "1.8": ["1.0", "1.1"],
-        "1.9": ["1.1"],
-        "1.10": ["1.3"],
-        "1.11": ["1.4"],
-    }
-
     def __init__(self, xml_tree, params):
         if not isinstance(xml_tree, etree._ElementTree):
             xml_tree = etree.ElementTree(xml_tree)
