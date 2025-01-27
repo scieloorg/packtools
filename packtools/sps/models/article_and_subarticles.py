@@ -1,14 +1,24 @@
 class Fulltext:
 
-    def __init__(self, node):
+    def __init__(self, node, original_article_type=None):
         """
         node : article or sub-article
         """
+        self._original_article_type = original_article_type
         self.node = node
         self.tag = node.tag
         self.lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
         self.article_type = node.get("article-type")
         self.id = node.get("id")
+
+    @property
+    def original_article_type(self):
+        if not self._original_article_type:
+            if self.article_type == "translation":
+                self._original_article_type = self.node.getparent().get("article-type")
+            else:
+                self._original_article_type = self.node.get("article-type")
+        return self._original_article_type
 
     @property
     def front(self):
@@ -69,6 +79,7 @@ class Fulltext:
             "parent_id": self.id,
             "parent_lang": self.lang,
             "parent_article_type": self.article_type,
+            "original_article_type": self.original_article_type,
         }
 
     @property

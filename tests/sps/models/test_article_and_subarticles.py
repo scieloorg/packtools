@@ -295,6 +295,7 @@ class TestFulltext(TestCase):
             "parent_id": "123",
             "parent_lang": "en",
             "parent_article_type": "research-article",
+            "original_article_type": "research-article",
         }
         self.assertEqual(self.fulltext.attribs_parent_prefixed, expected)
 
