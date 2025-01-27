@@ -100,6 +100,12 @@ class Reference:
             if previous is not None:
                 return previous.tail
 
+    def get_chapter_title(self):
+        return node_plain_text(self.ref.find("./element-citation/chapter-title"))
+
+    def get_part_title(self):
+        return node_plain_text(self.ref.find("./element-citation/part-title"))
+
     def data(self):
         tags = [
             ("ref_id", self.get_ref_id()),
@@ -119,7 +125,9 @@ class Reference:
             ("mixed_citation", self.get_mixed_citation()),
             ("mixed_citation_sub_tags", self.get_mixed_citation_sub_tags()),
             ("comment_text", self.get_extlink_and_comment_content()),
-            ("text_before_extlink", self.get_text_before_extlink())
+            ("text_before_extlink", self.get_text_before_extlink()),
+            ("chapter_title", self.get_chapter_title()),
+            ("part_title", self.get_part_title())
         ]
         d = dict()
         for name, value in tags:
@@ -169,4 +177,3 @@ class ArticleReferences:
     def sub_article_references(self):
         for node in self.xmltree.xpath(".//sub-article"):
             yield from FullTextReferences(node).items
-

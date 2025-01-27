@@ -1,0 +1,33 @@
+{
+	"corresp_bold_error_level": "CRITICAL",
+	"corresp_title_error_level": "CRITICAL",
+	"corresp_label_error_level": "WARNING",
+	"fn_bold_error_level": "CRITICAL",
+	"fn_title_error_level": "CRITICAL",
+	"fn_label_error_level": "WARNING",
+	"current-aff_error_level": "CRITICAL",
+	"con_error_level": "CRITICAL",
+	"fn_type_error_level": "CRITICAL",
+	"fn_type_expected_values": [
+	    "abbr",
+	    "com",
+	    "coi-statement",
+	    "conflict",
+	    "corresp",
+	    "custom",
+	    "deceased",
+	    "edited-by",
+	    "equal",
+	    "financial-disclosure",
+	    "on-leave",
+	    "other",
+	    "participating-researchers",
+	    "present-address",
+	    "presented-at",
+	    "presented-by",
+	    "previously-at",
+	    "study-group-members",
+	    "supplementary-material",
+	    "supported-by"
+	]
+}

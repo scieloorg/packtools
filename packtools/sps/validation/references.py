@@ -196,6 +196,28 @@ class ReferenceValidation:
                 error_level=self.params["mixed_citation_error_level"],
             )
 
+    def validate_title_tag_by_dtd_version(self):
+        chapter_title = self.reference_data.get("chapter_title")
+        try:
+            dtd_version = float(self.params.get("dtd_version"))
+        except ValueError:
+            raise ValueError("Invalid DTD version: expected a numeric value.")
+
+        if dtd_version >= 1.3 and bool(chapter_title):
+            yield build_response(
+                title="part-title",
+                parent=self.reference_data,
+                item="element-citation",
+                sub_item="part-title",
+                is_valid=False,
+                validation_type="exist",
+                expected="<part-title>",
+                obtained="<chapter-title>",
+                advice="Replace <chapter-title> with <part-title> to meet the required standard.",
+                data=self.reference_data,
+                error_level=self.params.get("title_tag_by_dtd_version_error_level"),
+            )
+
     def validate(self):
         yield from self.validate_year()
         yield from self.validate_source()
@@ -204,33 +226,14 @@ class ReferenceValidation:
         yield from self.validate_authors()
         yield from self.validate_comment_is_required_or_not()
         yield from self.validate_mixed_citation_sub_tags()
+        yield from self.validate_mixed_citation()
+        yield from self.validate_title_tag_by_dtd_version()
 
 
 class ReferencesValidation:
     def __init__(self, xml_tree, params):
         self.xml_tree = xml_tree
-        self.end_year = xml_tree
         self.params = params
-        self.params["end_year"] = self.end_year
-
-    @property
-    def end_year(self):
-        return self._end_year
-
-    @end_year.setter
-    def end_year(self, value):
-        article_dates = ArticleDates(value)
-        try:
-            self._end_year = (
-                int(
-                    (article_dates.collection_date or article_dates.article_date)[
-                        "year"
-                    ]
-                )
-                + 1
-            )
-        except (ValueError, TypeError, AttributeError, KeyError):
-            self._end_year = None
 
     def validate(self):
         xml_article_references = ArticleReferences(self.xml_tree)

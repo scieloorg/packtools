@@ -9,6 +9,7 @@
         "comment_error_level": "ERROR",
         "mixed_citation_error_level": "CRITICAL",
         "mixed_citation_sub_tags_error_level": "CRITICAL",
+        "title_tag_by_dtd_version_error_level": "CRITICAL",
         "publication_type_list": [
             "book",
             "confproc",
