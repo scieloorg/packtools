@@ -34,9 +34,6 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
-from lxml import etree
-from copy import deepcopy
-
 def node_plain_text(node):
     """
     Função que retorna texto de nó, sem subtags e com espaços padronizados.
@@ -62,16 +59,20 @@ def node_plain_text(node):
 
     for xref in node.findall(".//xref"):
         ref_type = xref.get("ref-type")
-        content = (xref.text or "").strip()
+        text = xref.text
 
         parent = xref.getparent()
 
-        if ref_type == "fn" and not content.isalpha():
-            # Remove o <xref> completamente se @ref-type é 'fn' e o conteúdo não é alfanumérico
-            if parent is not None:
-                parent.remove(xref)
+        is_fn_ref = ref_type == "fn"
+        is_punctuation = text in string.punctuation if text else False
+        is_numeric = text.isdigit() if text else False
+        has_parent = parent is not None
+
+        # Verifica se o <xref> deve ser completamente removido
+        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
+            parent.remove(xref)
         else:
-            # Remove apenas a tag <xref>, mantendo o conteúdo interno
+            # Remove apenas a tag <xref>, preservando o conteúdo interno
             etree.strip_tags(xref, "xref")
 
     # Remove os elementos temporários e ajusta o texto
@@ -86,8 +87,7 @@ def node_plain_text(node):
     return text_content
 
 
-
-def node_text_without_xref(node, remove_xref=True):
+def node_text_without_xref(node):
     """
     Retorna text com subtags, exceto `xref`
     """
@@ -96,17 +96,30 @@ def node_text_without_xref(node, remove_xref=True):
 
     node = deepcopy(node)
 
-    if remove_xref:
-        for xref in node.findall(".//xref"):
-            if xref.tail:
-                _next = xref.getnext()
-                if _next is None or _next.tag != "xref":
-                    e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                    xref.addnext(e)
-        for xref in node.findall(".//xref"):
-            parent = xref.getparent()
+    for xref in node.findall(".//xref"):
+        if xref.tail:
+            _next = xref.getnext()
+            if _next is None or _next.tag != "xref":
+                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                xref.addnext(e)
+    for xref in node.findall(".//xref"):
+        ref_type = xref.get("ref-type")
+        text = xref.text
+        parent = xref.getparent()
+
+        is_fn_ref = ref_type == "fn"
+        is_punctuation = text in string.punctuation if text else False
+        is_numeric = text.isdigit() if text else False
+        has_parent = parent is not None
+
+        # Verifica se o <xref> deve ser completamente removido
+        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
             parent.remove(xref)
-        etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+        else:
+            # Remove apenas a tag <xref>, preservando o conteúdo interno
+            etree.strip_tags(xref, "xref")
+
+    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
     return node_text(node)
 
 
@@ -386,6 +399,19 @@ def remove_subtags(
     tag = node.tag
     text = node.text if node.text is not None else ""
 
+    is_xref = tag == "xref"
+    has_text = bool(text)
+    is_fn_ref = node.get("ref-type") == "fn"
+    is_punctuation = text in string.punctuation if text else False
+    is_numeric = text.isdigit() if text else False
+
+    # Verifica se a tag <xref> deve ser removida completamente
+    if is_xref and has_text and (is_fn_ref or is_punctuation or is_numeric):
+
+        if not tags_to_remove_with_content:
+            tags_to_remove_with_content = []
+        tags_to_remove_with_content.append("xref")
+
     # verifica se é o caso de manutenção da tag e seu conteúdo
     if tag in (tags_to_keep_with_content or []):
         return tostring(node, xml_declaration=False)
@@ -424,8 +450,7 @@ def process_subtags(
         tags_to_keep=None,
         tags_to_keep_with_content=None,
         tags_to_remove_with_content=None,
-        tags_to_convert_to_html=None,
-        remove_xref=True
+        tags_to_convert_to_html=None
     ):
 
     if node is None:
@@ -439,7 +464,6 @@ def process_subtags(
         "{http://www.w3.org/1998/Math/MathML}math",
         "math",
     ]
-    std_to_remove_content = ["xref"] if remove_xref else []
     std_to_convert = {"italic": "i"}
 
     # garante que as tags em std_to_keep serão mantidas
@@ -460,12 +484,6 @@ def process_subtags(
     tag = node.tag
     if tag in tags_to_keep_with_content:
         return tostring(node)
-
-    # garante que as tags em std_to_remove_content serão removidas
-    tags_to_remove_with_content = std_to_remove_content + (
-        tags_to_remove_with_content or []
-    )
-    tags_to_remove_with_content = list(set(tags_to_remove_with_content))
 
     # garante que as tags em std_to_convert serão convertidas em html
     std_to_convert.update(tags_to_convert_to_html or {})
