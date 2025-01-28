@@ -116,7 +116,8 @@ class ArticleTitlesTest(TestCase):
 
     def test_data(self):
         self.maxDiff = None
-        expected = [{
+        expected = [
+            {
             "lang": "es",
             "parent_name": "article",
             "text": (
@@ -126,7 +127,7 @@ class ArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés*: un Análisis de Duración y"
+                "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
             "html_text": (
@@ -134,26 +135,26 @@ class ArticleTitlesTest(TestCase):
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
-        },
-        {
-            "lang": "en",
-            "parent_name": "article",
-            "text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "plain_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "html_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-        },
+            },
+            {
+                "lang": "en",
+                "parent_name": "article",
+                "text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "plain_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "html_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+            },
         ]
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -183,25 +184,25 @@ class ArticleTitlesTest(TestCase):
 
         expected = [
             {
-                "html_text": "De espaços abandonados, de : o dialogismo e a narração multipessoal",
+                "html_text": "De espaços abandonados, de Luísa Geisler (2018): o dialogismo e a narração multipessoal",
                 "lang": "es",
                 "parent_name": "article",
                 "plain_text": "De espaços abandonados, de Luísa Geisler (2018): o dialogismo e a narração multipessoal",
-                "text": "De espaços abandonados, de : o dialogismo e a narração multipessoal",
+                "text": 'De espaços abandonados, de <xref ref-type="bibr" rid="B8">Luísa Geisler (2018)</xref>: o dialogismo e a narração multipessoal',
             },
             {
-                "html_text": "De espaços abandonados, <i>by</i> : <i>dialogism and multiperson narration</i>",
+                "html_text": "De espaços abandonados, <i>by</i> <i>Luísa Geisler (2018)</i>: <i>dialogism and multiperson narration</i>",
                 "lang": "en",
                 "parent_name": "article",
                 "plain_text": "De espaços abandonados, by Luísa Geisler (2018): dialogism and multiperson narration",
-                "text": "De espaços abandonados, <italic>by</italic> : <italic>dialogism and multiperson narration</italic> ",
+                "text": 'De espaços abandonados, <italic>by</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>dialogism and multiperson narration</italic> ',
             },
             {
-                "html_text": "De espaços abandonados, <i>de</i> : <i>el dialogismo y la narración multipersonal</i>",
+                "html_text": "De espaços abandonados, <i>de</i> <i>Luísa Geisler (2018)</i>: <i>el dialogismo y la narración multipersonal</i>",
                 "lang": "es",
                 "parent_name": "article",
                 "plain_text": "De espaços abandonados, de Luísa Geisler (2018): el dialogismo y la narración multipersonal",
-                "text": "De espaços abandonados, <italic>de</italic> : <italic>el dialogismo y la narración multipersonal</italic> ",
+                "text": 'De espaços abandonados, <italic>de</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>el dialogismo y la narración multipersonal</italic> ',
             }
 
         ]
@@ -280,7 +281,7 @@ class SubArticleTitlesTest(TestCase):
                 ),
                 "plain_text": (
                     "Inmunización de Flujos Financieros con Futuros "
-                    "de Tasas de Interés*: un Análisis de Duración y"
+                    "de Tasas de Interés: un Análisis de Duración y"
                     " Convexidad con el Modelo de Nelson y Siegel"
                 ),
                 "html_text": (
