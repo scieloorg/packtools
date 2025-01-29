@@ -379,7 +379,7 @@ def remove_subtags(
     is_xref = tag == "xref"
     has_text = bool(text)
     is_fn_ref = node.get("ref-type") == "fn"
-    is_punctuation = text in string.punctuation if text else False
+    is_punctuation = text in PUNCTUATION if text else False
     is_numeric = text.isdigit() if text else False
 
     # Verifica se a tag <xref> deve ser removida completamente
