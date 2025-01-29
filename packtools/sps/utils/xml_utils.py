@@ -1,6 +1,5 @@
 import logging
 import re
-import string
 
 from copy import deepcopy
 from lxml import etree
@@ -9,6 +8,7 @@ from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
+PUNCTUATION = [".", "*", "-"]
 
 def remove_namespaces(xml_string):
     namespaces_to_remove = [
