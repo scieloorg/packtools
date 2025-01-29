@@ -77,36 +77,7 @@ def node_plain_text(node):
     if node is None:
         return ""
 
-    node = deepcopy(node)
-
-    # Processa os nós <xref>
-    for xref in node.findall(".//xref"):
-        if xref.tail:
-            _next = xref.getnext()
-            if _next is None or _next.tag != "xref":
-                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                xref.addnext(e)
-
-    for xref in node.findall(".//xref"):
-        ref_type = xref.get("ref-type")
-        text = xref.text
-
-        parent = xref.getparent()
-
-        is_fn_ref = ref_type == "fn"
-        is_punctuation = text in string.punctuation if text else False
-        is_numeric = text.isdigit() if text else False
-        has_parent = parent is not None
-
-        # Verifica se o <xref> deve ser completamente removido
-        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
-            parent.remove(xref)
-        else:
-            # Remove apenas a tag <xref>, preservando o conteúdo interno
-            etree.strip_tags(xref, "xref")
-
-    # Remove os elementos temporários e ajusta o texto
-    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+    node = process_xref(node)
 
     # Extrai todo o texto dos nós, removendo subtags
     text_content = "".join(node.xpath(".//text()"))
@@ -124,32 +95,8 @@ def node_text_without_xref(node):
     if node is None:
         return
 
-    node = deepcopy(node)
+    node = process_xref(node)
 
-    for xref in node.findall(".//xref"):
-        if xref.tail:
-            _next = xref.getnext()
-            if _next is None or _next.tag != "xref":
-                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                xref.addnext(e)
-    for xref in node.findall(".//xref"):
-        ref_type = xref.get("ref-type")
-        text = xref.text
-        parent = xref.getparent()
-
-        is_fn_ref = ref_type == "fn"
-        is_punctuation = text in string.punctuation if text else False
-        is_numeric = text.isdigit() if text else False
-        has_parent = parent is not None
-
-        # Verifica se o <xref> deve ser completamente removido
-        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
-            parent.remove(xref)
-        else:
-            # Remove apenas a tag <xref>, preservando o conteúdo interno
-            etree.strip_tags(xref, "xref")
-
-    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
     return node_text(node)
 
 
