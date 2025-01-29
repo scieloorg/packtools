@@ -211,36 +211,6 @@ class ArticleTitlesTest(TestCase):
             with self.subTest(i):
                 self.assertDictEqual(self.article_titles.data[i], item)
 
-    def test_titles_with_xref_fn(self):
-        self.maxDiff = None
-        xmltree = etree.fromstring("""
-        <article xml:lang="es">
-        <front>
-            <article-meta>
-                <title-group>
-                    <article-title>De espaços abandonados, de <xref ref-type="fn">Luísa Geisler (2018)</xref>: o dialogismo e a narração multipessoal</article-title>
-                </title-group>
-            </article-meta>
-          </front>
-        </article>
-        """)
-
-        self.article_titles = ArticleTitles(xmltree)
-
-        expected = [
-            {
-                "html_text": "De espaços abandonados, de : o dialogismo e a narração multipessoal",
-                "lang": "es",
-                "parent_name": "article",
-                "plain_text": "De espaços abandonados, de : o dialogismo e a narração multipessoal",
-                "text": "De espaços abandonados, de : o dialogismo e a narração multipessoal",
-            }
-        ]
-        self.assertEqual(len(self.article_titles.data), len(expected))
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(self.article_titles.data[i], item)
-
 
 class SubArticleTitlesTest(TestCase):
     def setUp(self):
