@@ -34,6 +34,36 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
+def process_xref(node):
+    node = deepcopy(node)
+
+    for xref in node.findall(".//xref"):
+        if xref.tail:
+            _next = xref.getnext()
+            if _next is None or _next.tag != "xref":
+                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                xref.addnext(e)
+
+    for xref in node.findall(".//xref"):
+        ref_type = xref.get("ref-type")
+        text = xref.text
+        parent = xref.getparent()
+
+        is_fn_ref = ref_type == "fn"
+        is_punctuation = text in PUNCTUATION if text else False
+        is_numeric = text.isdigit() if text else False
+        has_parent = parent is not None
+
+        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
+            parent.remove(xref)
+        else:
+            etree.strip_tags(xref, "xref")
+
+    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+
+    return node
+
+
 def node_plain_text(node):
     """
     Função que retorna texto de nó, sem subtags e com espaços padronizados.
