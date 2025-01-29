@@ -356,12 +356,12 @@ def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
 
 
 def remove_subtags(
-    node,
-    tags_to_keep=None,
-    tags_to_keep_with_content=None,
-    tags_to_remove_with_content=None,
-    tags_to_convert_to_html=None,
-):
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+    ):
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
 
