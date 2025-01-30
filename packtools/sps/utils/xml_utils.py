@@ -8,7 +8,6 @@ from packtools.lib import file_utils
 
 logger = logging.getLogger(__name__)
 
-PUNCTUATION = [".", "*", "-"]
 
 def remove_namespaces(xml_string):
     namespaces_to_remove = [
@@ -34,7 +33,9 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
-def process_xref(node):
+def process_xref(node, footnote_markers=None):
+    if footnote_markers is None:
+        footnote_markers = ["*"]
     node = deepcopy(node)
 
     for xref in node.findall(".//xref"):
@@ -50,7 +51,7 @@ def process_xref(node):
         parent = xref.getparent()
 
         is_fn_ref = ref_type == "fn"
-        is_punctuation = text in PUNCTUATION if text else False
+        is_punctuation = text in footnote_markers if text else False
         is_numeric = text.isdigit() if text else False
         has_parent = parent is not None
 
@@ -361,6 +362,7 @@ def remove_subtags(
         tags_to_keep_with_content=None,
         tags_to_remove_with_content=None,
         tags_to_convert_to_html=None,
+        footnote_markers=None,
     ):
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
@@ -372,7 +374,9 @@ def remove_subtags(
     Outros exemplos nos testes.
     """
 
-    # obtem a tag, seu conteúdo e seus atributos
+    if footnote_markers is None:
+        footnote_markers = ["*"]
+
     tag = node.tag
     text = node.text if node.text is not None else ""
 
@@ -427,11 +431,15 @@ def process_subtags(
         tags_to_keep=None,
         tags_to_keep_with_content=None,
         tags_to_remove_with_content=None,
-        tags_to_convert_to_html=None
+        tags_to_convert_to_html=None,
+        footnote_markers=None
     ):
 
     if node is None:
         return
+
+    if footnote_markers is None:
+        footnote_markers = ["*"]
 
     node = deepcopy(node)
 
@@ -471,7 +479,7 @@ def process_subtags(
         tags_to_keep_with_content=tags_to_keep_with_content,
         tags_to_remove_with_content=tags_to_remove_with_content,
         tags_to_convert_to_html=std_to_convert,
-        # namespace_map=std_namespace_map
+        footnote_markers=footnote_markers
     )
 
     for xml_tag, html_tag in std_to_convert.items():
