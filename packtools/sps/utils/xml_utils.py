@@ -65,7 +65,7 @@ def node_plain_text(node):
     return text_content
 
 
-def node_text_without_xref(node):
+def node_text_without_fn_xref(node):
     """
     Retorna text com subtags, exceto `xref`
     """
@@ -88,9 +88,9 @@ def node_text_without_xref(node):
 
 
 def formatted_text(title_node):
-    # FIXME substituir `formatted_text` por `node_text_without_xref`
+    # FIXME substituir `formatted_text` por `node_text_without_fn_xref`
     # por ser mais explícito
-    return node_text_without_xref(title_node)
+    return node_text_without_fn_xref(title_node)
 
 
 def fix_xml(xml_str):
