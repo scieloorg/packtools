@@ -49,7 +49,7 @@ def process_xref(node, footnote_markers=None):
         for sup in xref.findall(".//sup"):
             xref.remove(sup)
         ref_type = xref.get("ref-type")
-        text = xref.text
+        text = xref.text.strip() if xref.text else None
         parent = xref.getparent()
 
         is_fn_ref = ref_type == "fn"
