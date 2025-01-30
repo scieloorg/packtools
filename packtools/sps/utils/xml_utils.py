@@ -57,7 +57,7 @@ def process_xref(node, footnote_markers=None):
         is_numeric = text.isdigit() if text else False
         has_parent = parent is not None
 
-        if text is not None and (is_fn_ref or is_punctuation or is_numeric) and has_parent:
+        if (text and has_parent and (is_fn_ref or is_punctuation or is_numeric)) or (not text and len(xref) == 0):
             parent.remove(xref)
         else:
             etree.strip_tags(xref, "xref")
