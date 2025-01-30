@@ -1,7 +1,7 @@
 import logging
 
 from packtools.sps.utils.xml_utils import (
-    node_text_without_xref,
+    node_text_without_fn_xref,
     get_parent_context,
     put_parent_context,
 )

@@ -327,7 +327,7 @@ class NodeTextWithoutXrefTest(TestCase):
             """
         )
         expected = "<bold><italic>São</italic> Paulo</bold> <i>Paulo</i>"
-        result = xml_utils.node_text_without_xref(xmltree.find(".//city"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//city"))
         self.assertEqual(expected, result)
 
     def test_node_text_without_xref_with_sublevels_keeps_xref_tail(self):
@@ -339,5 +339,5 @@ class NodeTextWithoutXrefTest(TestCase):
             """
         )
         expected = "<bold><italic>São</italic> Paulo</bold> <i>Paulo</i> texto para manter"
-        result = xml_utils.node_text_without_xref(xmltree.find(".//city"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//city"))
         self.assertEqual(expected, result)

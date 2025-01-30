@@ -50,7 +50,7 @@ class ArticleLicense:
                             'link': _license.attrib.get('{http://www.w3.org/1999/xlink}href'),
                             'license_p': {
                                 'plain_text': xml_utils.node_plain_text(_license_p),
-                                'text': xml_utils.node_text_without_xref(_license_p),
+                                'text': xml_utils.node_text_without_fn_xref(_license_p),
                                 'html_text': xml_utils.process_subtags(
                                     _license_p,
                                     tags_to_keep=self.tags_to_keep,
