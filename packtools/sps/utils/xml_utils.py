@@ -377,21 +377,12 @@ def remove_subtags(
     if footnote_markers is None:
         footnote_markers = ["*"]
 
+    # processa as subtags xref
+    node = process_xref(node, footnote_markers)
+
+    # obtem a tag e seu conteúdo
     tag = node.tag
     text = node.text if node.text is not None else ""
-
-    is_xref = tag == "xref"
-    has_text = bool(text)
-    is_fn_ref = node.get("ref-type") == "fn"
-    is_punctuation = text in PUNCTUATION if text else False
-    is_numeric = text.isdigit() if text else False
-
-    # Verifica se a tag <xref> deve ser removida completamente
-    if is_xref and has_text and (is_fn_ref or is_punctuation or is_numeric):
-
-        if not tags_to_remove_with_content:
-            tags_to_remove_with_content = []
-        tags_to_remove_with_content.append("xref")
 
     # verifica se é o caso de manutenção da tag e seu conteúdo
     if tag in (tags_to_keep_with_content or []):
