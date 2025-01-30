@@ -50,7 +50,7 @@ class ArticleTitles:
                 return {
                     "parent_name": "article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(node),
+                    "text": xml_utils.node_text_without_fn_xref(node),
                     "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
                         node,
@@ -73,7 +73,7 @@ class ArticleTitles:
                 _title = {
                     "parent_name": "article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(node),
+                    "text": xml_utils.node_text_without_fn_xref(node),
                     "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
                         node,
@@ -99,7 +99,7 @@ class ArticleTitles:
                 _title = {
                     "parent_name": "sub-article",
                     "lang": lang,
-                    "text": xml_utils.node_text_without_xref(node),
+                    "text": xml_utils.node_text_without_fn_xref(node),
                     "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
                         node,

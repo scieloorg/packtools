@@ -28,6 +28,6 @@ class XMLUtilsTest(unittest.TestCase):
         )
         expected = "Texto 1    <italic>italico</italic> TExto 2 Texto 3"
         node = xml.find(".//title")
-        result = xml_utils.node_text_without_xref(node)
+        result = xml_utils.node_text_without_fn_xref(node)
         self.assertEqual(expected, result)
 

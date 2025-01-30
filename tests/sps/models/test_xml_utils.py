@@ -327,7 +327,7 @@ class NodeTextWithoutXrefTest(TestCase):
             """
         )
         expected = "<bold><italic>São</italic> Paulo</bold> <i>Paulo</i>"
-        result = xml_utils.node_text_without_xref(xmltree.find(".//city"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//city"))
         self.assertEqual(expected, result)
 
     def test_node_text_without_xref_with_sublevels_keeps_xref_tail(self):
@@ -339,7 +339,7 @@ class NodeTextWithoutXrefTest(TestCase):
             """
         )
         expected = "<bold><italic>São</italic> Paulo</bold> <i>Paulo</i> texto para manter"
-        result = xml_utils.node_text_without_xref(xmltree.find(".//city"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//city"))
         self.assertEqual(expected, result)
 
 
@@ -387,7 +387,7 @@ class XrefRefTypeFn(TestCase):
             """
         )
         expected = 'De espaços abandonados, de <xref ref-type="bibr" rid="B8">Luísa Geisler (2018)</xref>: o dialogismo e a narração multipessoal'
-        result = xml_utils.node_text_without_xref(xmltree.find(".//article-title"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//article-title"))
         self.assertEqual(expected, result)
 
     def test_node_text_without_xref_xref_ref_type_bibr_with_italic_preserved(self):
@@ -401,7 +401,7 @@ class XrefRefTypeFn(TestCase):
             """
         )
         expected = 'De espaços abandonados, <italic>de</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>el dialogismo y la narración multipersonal</italic>'
-        result = xml_utils.node_text_without_xref(xmltree.find(".//trans-title"))
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//trans-title"))
         self.assertEqual(expected, result)
 
     def test_process_subtags_xref_ref_type_bibr_preserved(self):
@@ -431,5 +431,88 @@ class XrefRefTypeFn(TestCase):
         result = xml_utils.process_subtags(xmltree.find(".//trans-title"))
         self.assertEqual(expected, result)
 
+    def test_process_subtags_xref_ref_type_fn_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="fn"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.process_subtags(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
+
+    def test_process_subtags_xref_ref_type_bibr_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="bibr"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.process_subtags(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
+
+    def test_node_plain_text_xref_ref_type_fn_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="fn"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.node_plain_text(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
+
+    def test_node_plain_text_xref_ref_type_bibr_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="bibr"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.node_plain_text(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
+
+    def test_node_text_without_xref_ref_type_fn_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="fn"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
+
+    def test_node_text_without_xref_ref_type_bibr_subtag_sup_removed(self):
+
+        self.maxDiff = None
+        xmltree = etree.fromstring(
+            """
+            <title-group>
+            <article-title>Texto<xref ref-type="bibr"><sup>1</sup></xref> Texto 2</article-title>
+            </title-group>
+            """
+        )
+        expected = 'Texto Texto 2'
+        result = xml_utils.node_text_without_fn_xref(xmltree.find(".//article-title"))
+        self.assertEqual(expected, result)
 
 
