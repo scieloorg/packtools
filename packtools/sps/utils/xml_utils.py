@@ -46,6 +46,8 @@ def process_xref(node, footnote_markers=None):
                 xref.addnext(e)
 
     for xref in node.findall(".//xref"):
+        for sup in xref.findall(".//sup"):
+            xref.remove(sup)
         ref_type = xref.get("ref-type")
         text = xref.text
         parent = xref.getparent()
