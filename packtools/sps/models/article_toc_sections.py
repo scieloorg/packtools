@@ -16,7 +16,7 @@ class ArticleTocSections:
         ):
             _section = {
                 "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "text": xml_utils.node_text_without_fn_xref(node_with_lang["node"]),
             }
             _sections.append(_section)
         return _sections
@@ -40,7 +40,7 @@ class ArticleTocSections:
             _section = {
                 "id": node_with_lang["id"],
                 "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "text": xml_utils.node_text_without_fn_xref(node_with_lang["node"]),
             }
             _sections.append(_section)
         return _sections
@@ -66,7 +66,7 @@ class ArticleTocSections:
                 ".", ".//article-meta//subj-group[@subj-group-type='heading']/subj-group/subject"):
             _sub_section = {
                 "lang": node_with_lang["lang"],
-                "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
+                "text": xml_utils.node_text_without_fn_xref(node_with_lang["node"]),
             }
             _sub_sections.append(_sub_section)
         return _sub_sections

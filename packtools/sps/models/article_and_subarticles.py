@@ -95,11 +95,11 @@ class ArticleAndSubArticles:
         return self.xmltree.find(".").sourceline
 
     @property
-    def main_specific_use(self):
+    def specific_use(self):
         return self.xmltree.find(".").get("specific-use")
 
     @property
-    def main_dtd_version(self):
+    def dtd_version(self):
         return self.xmltree.find(".").get("dtd-version")
 
     @property

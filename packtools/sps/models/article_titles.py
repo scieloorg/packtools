@@ -1,3 +1,7 @@
+from copy import deepcopy
+
+from lxml import etree
+
 from packtools.sps.utils import xml_utils
 
 
@@ -40,19 +44,21 @@ class ArticleTitles:
         for node_with_lang in xml_utils.get_nodes_with_lang(
                 self.xmltree,
                 ".", ".//article-meta//article-title"):
-            if node_with_lang["node"] is not None:
+            node = node_with_lang["node"]
+            lang = node_with_lang["lang"]
+            if node is not None:
                 return {
                     "parent_name": "article",
-                    "lang": node_with_lang["lang"],
-                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "lang": lang,
+                    "text": xml_utils.node_text_without_fn_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        node_with_lang["node"],
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,
                         tags_to_convert_to_html=self.tags_to_convert_to_html
-                    )
+                    ),
                 }
 
     @property
@@ -61,19 +67,21 @@ class ArticleTitles:
         for node_with_lang in xml_utils.get_nodes_with_lang(
                 self.xmltree,
                 ".//article-meta//trans-title-group", "trans-title"):
-            if node_with_lang["node"] is not None:
+            node = node_with_lang["node"]
+            lang = node_with_lang["lang"]
+            if node is not None:
                 _title = {
                     "parent_name": "article",
-                    "lang": node_with_lang["lang"],
-                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "lang": lang,
+                    "text": xml_utils.node_text_without_fn_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        node_with_lang["node"],
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,
                         tags_to_convert_to_html=self.tags_to_convert_to_html
-                    )
+                    ),
                 }
                 _titles.append(_title)
         return _titles
@@ -85,14 +93,16 @@ class ArticleTitles:
                 self.xmltree,
                 ".//sub-article[@article-type='translation']",
                 ".//front-stub//article-title"):
-            if node_with_lang["node"] is not None:
+            node = node_with_lang["node"]
+            lang = node_with_lang["lang"]
+            if node is not None:
                 _title = {
                     "parent_name": "sub-article",
-                    "lang": node_with_lang["lang"],
-                    "text": xml_utils.node_text_without_xref(node_with_lang["node"]),
-                    "plain_text": xml_utils.node_plain_text(node_with_lang["node"]),
+                    "lang": lang,
+                    "text": xml_utils.node_text_without_fn_xref(node),
+                    "plain_text": xml_utils.node_plain_text(node),
                     "html_text": xml_utils.process_subtags(
-                        node_with_lang["node"],
+                        node,
                         tags_to_keep=self.tags_to_keep,
                         tags_to_keep_with_content=self.tags_to_keep_with_content,
                         tags_to_remove_with_content=self.tags_to_remove_with_content,

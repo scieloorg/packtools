@@ -114,10 +114,10 @@ class ArticleTitlesTest(TestCase):
         xmltree = etree.fromstring(xml)
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_data(self):
         self.maxDiff = None
-        expected = [{
+        expected = [
+            {
             "lang": "es",
             "parent_name": "article",
             "text": (
@@ -127,35 +127,86 @@ class ArticleTitlesTest(TestCase):
             ),
             "plain_text": (
                 "Inmunización de Flujos Financieros con Futuros "
-                "de Tasas de Interés : un Análisis de Duración y"
+                "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
             ),
             "html_text": (
                 "Inmunización de <b>Flujos Financieros</b> con Futuros "
                 "de Tasas de Interés: un Análisis de Duración y"
                 " Convexidad con el Modelo de Nelson y Siegel"
-            )
-        },
-        {
-            "lang": "en",
-            "parent_name": "article",
-            "text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
             ),
-            "plain_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-            "html_text": (
-                ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
-                "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
-                "THE NELSON & SIEGEL MODEL"
-            ),
-        },
+            },
+            {
+                "lang": "en",
+                "parent_name": "article",
+                "text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "plain_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+                "html_text": (
+                    ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
+                    "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
+                    "THE NELSON & SIEGEL MODEL"
+                ),
+            },
         ]
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(self.article_titles.data[i], item)
+
+    def test_titles_with_xref(self):
+        self.maxDiff = None
+        xmltree = etree.fromstring("""
+        <article xml:lang="es">
+        <front>
+            <article-meta>
+                <title-group>
+                    <article-title>De espaços abandonados, de <xref ref-type="bibr" rid="B8">Luísa Geisler (2018)</xref>: o dialogismo e a narração multipessoal</article-title>
+                    <trans-title-group xml:lang="en">
+                        <trans-title>De espaços abandonados, <italic>by</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>dialogism and multiperson narration</italic> </trans-title>
+                    </trans-title-group>
+                    <trans-title-group xml:lang="es">
+                        <trans-title>De espaços abandonados, <italic>de</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>el dialogismo y la narración multipersonal</italic> </trans-title>
+                    </trans-title-group>
+                </title-group>
+            </article-meta>
+          </front>
+        </article>
+        """)
+
+        self.article_titles = ArticleTitles(xmltree)
+
+        expected = [
+            {
+                "html_text": "De espaços abandonados, de Luísa Geisler (2018): o dialogismo e a narração multipessoal",
+                "lang": "es",
+                "parent_name": "article",
+                "plain_text": "De espaços abandonados, de Luísa Geisler (2018): o dialogismo e a narração multipessoal",
+                "text": 'De espaços abandonados, de <xref ref-type="bibr" rid="B8">Luísa Geisler (2018)</xref>: o dialogismo e a narração multipessoal',
+            },
+            {
+                "html_text": "De espaços abandonados, <i>by</i> <i>Luísa Geisler (2018)</i>: <i>dialogism and multiperson narration</i>",
+                "lang": "en",
+                "parent_name": "article",
+                "plain_text": "De espaços abandonados, by Luísa Geisler (2018): dialogism and multiperson narration",
+                "text": 'De espaços abandonados, <italic>by</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>dialogism and multiperson narration</italic> ',
+            },
+            {
+                "html_text": "De espaços abandonados, <i>de</i> <i>Luísa Geisler (2018)</i>: <i>el dialogismo y la narración multipersonal</i>",
+                "lang": "es",
+                "parent_name": "article",
+                "plain_text": "De espaços abandonados, de Luísa Geisler (2018): el dialogismo y la narración multipersonal",
+                "text": 'De espaços abandonados, <italic>de</italic> <xref ref-type="bibr" rid="B8"><italic>Luísa Geisler (2018)</italic></xref>: <italic>el dialogismo y la narración multipersonal</italic> ',
+            }
+
+        ]
+        self.assertEqual(len(self.article_titles.data), len(expected))
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(self.article_titles.data[i], item)
@@ -187,7 +238,6 @@ class SubArticleTitlesTest(TestCase):
         xmltree = etree.fromstring(xml)
         self.article_titles = ArticleTitles(xmltree, tags_to_convert_to_html={'bold': 'b'})
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_data(self):
         self.maxDiff = None
         expected = [
@@ -201,7 +251,7 @@ class SubArticleTitlesTest(TestCase):
                 ),
                 "plain_text": (
                     "Inmunización de Flujos Financieros con Futuros "
-                    "de Tasas de Interés : un Análisis de Duración y"
+                    "de Tasas de Interés: un Análisis de Duración y"
                     " Convexidad con el Modelo de Nelson y Siegel"
                 ),
                 "html_text": (
@@ -228,7 +278,7 @@ class SubArticleTitlesTest(TestCase):
                     ">HEDGING FUTURE CASH FLOWS WITH INTEREST-RATE "
                     "FUTURES CONTRACTS: A DURATION AND CONVEXITY ANALYSIS UNDER "
                     "THE NELSON & SIEGEL MODEL"
-                ),
+                )
             },
         ]
         for i, item in enumerate(expected):
@@ -325,8 +375,7 @@ class SubArticleTitlesWithStyleTest(TestCase):
             "text": '<bold>conteúdo de bold</bold> text text <bold>conteúdo de bold</bold> text text <bold>conteúdo de '
                     'bold</bold> text <bold>conteúdo <italic>de</italic> bold</bold>',
             "plain_text": 'conteúdo de bold text text conteúdo de bold text text conteúdo de bold text conteúdo de bold',
-            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de '
-                    'bold</b> text <b>conteúdo <i>de</i> bold</b>',
+            "html_text": '<b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text text <b>conteúdo de bold</b> text <b>conteúdo <i>de</i> bold</b>',
         },
         ]
         for i, item in enumerate(expected):

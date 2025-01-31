@@ -108,7 +108,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = 'sps-1.9'
-        obtained = ArticleAndSubArticles(xmltree).main_specific_use
+        obtained = ArticleAndSubArticles(xmltree).specific_use
 
         self.assertEqual(expected, obtained)
 
@@ -119,7 +119,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xmltree = xml_utils.get_xml_tree(data)
 
         expected = '1.1'
-        obtained = ArticleAndSubArticles(xmltree).main_dtd_version
+        obtained = ArticleAndSubArticles(xmltree).dtd_version
 
         self.assertEqual(expected, obtained)
 
@@ -143,12 +143,12 @@ class ArticleAndSubarticlesTest(TestCase):
         self.assertListEqual(expected, obtained)
 
 
-class TestFulltext(unittest.TestCase):
+class TestFulltext(TestCase):
     def setUp(self):
         """
         Configura o XML básico para os testes
         """
-        self.xml = '''<?xml version='1.0' encoding='utf-8'?>
+        self.xml = '''
         <article xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:xml="http://www.w3.org/XML/1998/namespace"
                 article-type="research-article"
@@ -181,7 +181,7 @@ class TestFulltext(unittest.TestCase):
 
     def test_front_sub_article(self):
         """Testa propriedade front para sub-article"""
-        xml_sub = '''<?xml version='1.0' encoding='utf-8'?>
+        xml_sub = '''
         <sub-article article-type="translation" xml:lang="pt" id="s1">
             <front-stub>
                 <article-meta/>
@@ -189,7 +189,7 @@ class TestFulltext(unittest.TestCase):
         </sub-article>'''
         node_sub = etree.fromstring(xml_sub)
         fulltext_sub = Fulltext(node_sub)
-        
+
         self.assertIsNotNone(fulltext_sub.front)
         self.assertEqual(fulltext_sub.front.tag, "front-stub")
 
@@ -205,7 +205,7 @@ class TestFulltext(unittest.TestCase):
 
     def test_sub_articles(self):
         """Testa propriedade sub_articles"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -217,14 +217,14 @@ class TestFulltext(unittest.TestCase):
         </article>'''
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
-        
+
         self.assertEqual(len(fulltext.sub_articles), 2)
         self.assertEqual(fulltext.sub_articles[0].tag, "sub-article")
         self.assertEqual(fulltext.sub_articles[1].tag, "sub-article")
 
     def test_translations(self):
         """Testa propriedade translations"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -236,14 +236,14 @@ class TestFulltext(unittest.TestCase):
         </article>'''
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
-        
+
         self.assertEqual(len(fulltext.translations), 1)
         self.assertEqual(fulltext.translations[0].get("article-type"), "translation")
         self.assertEqual(fulltext.translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "es")
 
     def test_not_translations(self):
         """Testa propriedade not_translations"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -255,7 +255,7 @@ class TestFulltext(unittest.TestCase):
         </article>'''
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
-        
+
         self.assertEqual(len(fulltext.not_translations), 1)
         self.assertEqual(fulltext.not_translations[0].get("article-type"), "other")
         self.assertEqual(fulltext.not_translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "fr")
@@ -282,7 +282,7 @@ class TestFulltext(unittest.TestCase):
 
     def test_fulltexts(self):
         """Testa propriedade fulltexts"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article article-type="research-article" xml:lang="en" id="123">
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -295,19 +295,19 @@ class TestFulltext(unittest.TestCase):
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
         data = fulltext.fulltexts
-        
+
         # Verifica estrutura básica
         self.assertIn("attribs", data)
         self.assertIn("attribs_parent_prefixed", data)
         self.assertIn("translations", data)
         self.assertIn("not_translations", data)
         self.assertIn("sub_articles", data)
-        
+
         # Verifica conteúdo
         self.assertEqual(len(data["translations"]), 1)
         self.assertEqual(len(data["not_translations"]), 1)
         self.assertEqual(len(data["sub_articles"]), 2)
-        
+
         # Verifica se as traduções são instâncias de Fulltext
         self.assertIsInstance(data["translations"][0], Fulltext)
         self.assertIsInstance(data["not_translations"][0], Fulltext)
@@ -315,26 +315,26 @@ class TestFulltext(unittest.TestCase):
 
     def test_missing_optional_attributes(self):
         """Testa inicialização com atributos opcionais ausentes"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article>
             <front/>
         </article>'''
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
-        
+
         self.assertIsNone(fulltext.lang)
         self.assertIsNone(fulltext.article_type)
         self.assertIsNone(fulltext.id)
 
     def test_empty_sections(self):
         """Testa artigo sem seções body e back"""
-        xml = '''<?xml version='1.0' encoding='utf-8'?>
+        xml = '''
         <article>
             <front/>
         </article>'''
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
-        
+
         self.assertIsNotNone(fulltext.front)
         self.assertIsNone(fulltext.body)
         self.assertIsNone(fulltext.back)

@@ -1,6 +1,5 @@
 import logging
 import re
-import string
 
 from copy import deepcopy
 from lxml import etree
@@ -34,27 +33,53 @@ def get_nodes_with_lang(xmltree, lang_xpath, node_xpath=None):
     return _items
 
 
+def process_xref(node, footnote_markers=None):
+    if footnote_markers is None:
+        footnote_markers = ["*"]
+    node = deepcopy(node)
+
+    for xref in node.findall(".//xref"):
+        if xref.tail:
+            _next = xref.getnext()
+            if _next is None or _next.tag != "xref":
+                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
+                xref.addnext(e)
+
+    for xref in node.findall(".//xref"):
+        ref_type = xref.get("ref-type")
+        texts = xref.xpath(".//text()")
+        text = ''.join(texts).strip()
+        parent = xref.getparent()
+
+        is_fn_ref = ref_type == "fn"
+        is_punctuation = text in footnote_markers if text else False
+        is_numeric = text.isdigit() if text else False
+        has_parent = parent is not None
+
+        if text and has_parent and (is_fn_ref or is_punctuation or is_numeric):
+            parent.remove(xref)
+        else:
+            etree.strip_tags(xref, "xref")
+
+    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
+
+    return node
+
+
 def node_plain_text(node):
     """
-    Função que retorna texto de nó, sem subtags e com espaços padronizados
+    Função que retorna texto de nó, sem subtags e com espaços padronizados.
 
-    Entrada:
-    ```
-    <node>
-        <italic>Duguetia leucotricha</italic> (Annonaceae)<xref>1</xref>
-    </node>
-    ```
+    Para elementos <xref>, verifica o valor de @ref-type:
+    - Se @ref-type é 'fn' e o conteúdo não é alfanumérico, remove o elemento.
+    - Caso contrário, remove apenas a tag <xref> mantendo o conteúdo interno.
 
-    Saída:
-    Duguetia leucotricha (Annonaceae)
+    Ajusta o comportamento de preservação do texto em caso de `tail`.
     """
     if node is None:
         return ""
 
-    # Remove o conteúdo de todos os nós <xref>
-    for xref in node.findall(".//xref"):
-        # Limpa todo o conteúdo do nó <xref>
-        xref.clear()
+    node = process_xref(node)
 
     # Extrai todo o texto dos nós, removendo subtags
     text_content = "".join(node.xpath(".//text()"))
@@ -65,32 +90,22 @@ def node_plain_text(node):
     return text_content
 
 
-def node_text_without_xref(node):
+def node_text_without_fn_xref(node):
     """
     Retorna text com subtags, exceto `xref`
     """
     if node is None:
         return
 
-    node = deepcopy(node)
+    node = process_xref(node)
 
-    for xref in node.findall(".//xref"):
-        if xref.tail:
-            _next = xref.getnext()
-            if _next is None or _next.tag != "xref":
-                e = etree.Element("EMPTYTAGTOKEEPXREFTAIL")
-                xref.addnext(e)
-    for xref in node.findall(".//xref"):
-        parent = xref.getparent()
-        parent.remove(xref)
-    etree.strip_tags(node, "EMPTYTAGTOKEEPXREFTAIL")
     return node_text(node)
 
 
 def formatted_text(title_node):
     # FIXME substituir `formatted_text` por `node_text_without_xref`
     # por ser mais explícito
-    return node_text_without_xref(title_node)
+    return node_text_without_fn_xref(title_node)
 
 
 def fix_xml(xml_str):
@@ -343,12 +358,13 @@ def _generate_tag_list(tags_to_keep, tags_to_convert_to_html):
 
 
 def remove_subtags(
-    node,
-    tags_to_keep=None,
-    tags_to_keep_with_content=None,
-    tags_to_remove_with_content=None,
-    tags_to_convert_to_html=None,
-):
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+        footnote_markers=None,
+    ):
     """
     Remove as subtags de node que não estiverem especificadas em allowed_tags.
 
@@ -359,7 +375,13 @@ def remove_subtags(
     Outros exemplos nos testes.
     """
 
-    # obtem a tag, seu conteúdo e seus atributos
+    if footnote_markers is None:
+        footnote_markers = ["*"]
+
+    # processa as subtags xref
+    node = process_xref(node, footnote_markers)
+
+    # obtem a tag e seu conteúdo
     tag = node.tag
     text = node.text if node.text is not None else ""
 
@@ -397,15 +419,21 @@ def remove_subtags(
 
 
 def process_subtags(
-    node,
-    tags_to_keep=None,
-    tags_to_keep_with_content=None,
-    tags_to_remove_with_content=None,
-    tags_to_convert_to_html=None,
-):
+        node,
+        tags_to_keep=None,
+        tags_to_keep_with_content=None,
+        tags_to_remove_with_content=None,
+        tags_to_convert_to_html=None,
+        footnote_markers=None
+    ):
 
     if node is None:
         return
+
+    if footnote_markers is None:
+        footnote_markers = ["*"]
+
+    node = deepcopy(node)
 
     std_to_keep = ["sup", "sub"]
     std_to_keep_with_content = [
@@ -413,7 +441,6 @@ def process_subtags(
         "{http://www.w3.org/1998/Math/MathML}math",
         "math",
     ]
-    std_to_remove_content = ["xref"]
     std_to_convert = {"italic": "i"}
 
     # garante que as tags em std_to_keep serão mantidas
@@ -435,12 +462,6 @@ def process_subtags(
     if tag in tags_to_keep_with_content:
         return tostring(node)
 
-    # garante que as tags em std_to_remove_content serão removidas
-    tags_to_remove_with_content = std_to_remove_content + (
-        tags_to_remove_with_content or []
-    )
-    tags_to_remove_with_content = list(set(tags_to_remove_with_content))
-
     # garante que as tags em std_to_convert serão convertidas em html
     std_to_convert.update(tags_to_convert_to_html or {})
 
@@ -450,7 +471,7 @@ def process_subtags(
         tags_to_keep_with_content=tags_to_keep_with_content,
         tags_to_remove_with_content=tags_to_remove_with_content,
         tags_to_convert_to_html=std_to_convert,
-        # namespace_map=std_namespace_map
+        footnote_markers=footnote_markers
     )
 
     for xml_tag, html_tag in std_to_convert.items():

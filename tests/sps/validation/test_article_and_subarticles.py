@@ -1,15 +1,52 @@
 from unittest import TestCase
 
+from lxml import etree
+
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.article_and_subarticles import (
     ArticleLangValidation,
     ArticleAttribsValidation,
     ArticleTypeValidation,
-    ArticleIdValidation,
+    ArticleIdValidation, JATSAndDTDVersionValidation,
 )
 
 
+
 class ArticleAndSubarticlesTest(TestCase):
+
+    def setUp(self):
+        self.params = {
+            "language_codes_list": ["pt", "en", "es"],
+            "language_error_level": "CRITICAL",
+            "specific_use_list": {
+                "sps-1.1": ["1.0"],
+                "sps-1.2": ["1.0"],
+                "sps-1.3": ["1.0"],
+                "sps-1.4": ["1.0"],
+                "sps-1.5": ["1.0"],
+                "sps-1.6": ["1.0"],
+                "sps-1.7": ["1.0", "1.1"],
+                "sps-1.8": ["1.0", "1.1"],
+                "sps-1.9": ["1.1"],
+                "sps-1.10": ["1.1", "1.2", "1.3"]
+            },
+            "specific_use_error_level": "CRITICAL",
+            "dtd_version_list": ["1.1", "1.2", "1.3"],
+            "dtd_version_error_level": "CRITICAL",
+            "article_type_list": ["research-article"],
+            "article_type_list_error_level": "CRITICAL",
+            "subjects_list": [
+                {"subject": "Original Article", "lang": "en"},
+                {"subject": "Artigo Original", "lang": "pt"},
+                {"subject": "Artículo Original", "lang": "es"},
+            ],
+            "target_article_types": ["research-article"],
+            "expected_similarity": 0.7,
+            "expected_similarity_error_level": "CRITICAL",
+            "id_other_error_level": "CRITICAL",
+            "jats_and_dtd_version_error_level": "CRITICAL"
+        }
+
     def test_article_has_no_language_attribute(self):
         self.maxDiff = None
         xml_str = """
@@ -25,9 +62,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -73,9 +108,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -121,9 +154,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -159,9 +190,7 @@ class ArticleAndSubarticlesTest(TestCase):
         with open("tests/samples/article-abstract-en-sub-articles-pt-es.xml") as data:
             xml_tree = get_xml_tree(data.read())
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -250,9 +279,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -340,9 +367,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -430,9 +455,7 @@ class ArticleAndSubarticlesTest(TestCase):
         </article>
         """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -521,9 +544,7 @@ class ArticleAndSubarticlesTest(TestCase):
         """
         xml_tree = get_xml_tree(xml_str)
 
-        obtained = ArticleLangValidation(xml_tree).validate_language(
-            language_codes_list=["pt", "en", "es"]
-        )
+        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
 
         expected = [
             {
@@ -613,9 +634,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleAttribsValidation(xml_tree).validate_specific_use(
-                specific_use_list=["sps-1.9", "preprint", "special-issue"]
-            )
+            ArticleAttribsValidation(xml_tree, self.params).validate_specific_use()
         )
 
         expected = [
@@ -631,7 +650,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "response": "OK",
                 "expected_value": 'sps-1.9',
                 "got_value": "sps-1.9",
-                'message': "Got sps-1.9, expected one of ['sps-1.9', 'preprint', 'special-issue']",
+                'message': "Got sps-1.9, expected one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
                 "advice": None,
                 'data': {
                     'article_id': None,
@@ -661,9 +680,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleAttribsValidation(xml_tree).validate_specific_use(
-                specific_use_list=["sps-1.9", "preprint", "special-issue"]
-            )
+            ArticleAttribsValidation(xml_tree, self.params).validate_specific_use()
         )
 
         expected = [
@@ -677,10 +694,10 @@ class ArticleAndSubarticlesTest(TestCase):
                 'sub_item': '@specific-use',
                 "validation_type": "value in list",
                 "response": "CRITICAL",
-                "expected_value": "one of ['sps-1.9', 'preprint', 'special-issue']",
+                "expected_value": "one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
                 "got_value": None,
-                'message': "Got None, expected one of ['sps-1.9', 'preprint', 'special-issue']",
-                "advice": "Provide for article/@specific-use one of ['sps-1.9', 'preprint', 'special-issue']",
+                'message': "Got None, expected one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
+                "advice": "Provide for article/@specific-use one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
                 'data': {
                     'article_id': None,
                     'article_type': 'research-article',
@@ -709,9 +726,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleAttribsValidation(xml_tree).validate_dtd_version(
-                dtd_version_list=["1.1", "1.2", "1.3"]
-            )
+            ArticleAttribsValidation(xml_tree, self.params).validate_dtd_version()
         )
 
         expected = [
@@ -757,9 +772,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleTypeValidation(xml_tree).validate_article_type(
-                article_type_list=["research-article"]
-            )
+            ArticleTypeValidation(xml_tree, self.params).validate_article_type()
         )
 
         expected = [
@@ -805,9 +818,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleTypeValidation(xml_tree).validate_article_type(
-                article_type_list=["research-article"]
-            )
+            ArticleTypeValidation(xml_tree, self.params).validate_article_type()
         )
 
         expected = [
@@ -869,17 +880,7 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleTypeValidation(
-            xml_tree
-        ).validate_article_type_vs_subject_similarity(
-            subjects_list=[
-                {"subject": "Original Article", "lang": "en"},
-                {"subject": "Artigo Original", "lang": "pt"},
-                {"subject": "Artículo Original", "lang": "es"},
-            ],
-            expected_similarity=0.7,
-            target_article_types=["research-article"]
-        )
+        obtained = ArticleTypeValidation(xml_tree, self.params).validate_article_type_vs_subject_similarity()
 
         expected = [
             {
@@ -891,7 +892,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'item': 'article',
                 'sub_item': '@article-type',
                 "validation_type": "similarity",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": 0.7,
                 "got_value": 0.6818181818181818,
                 'message': 'Got 0.6818181818181818, expected 0.7',
@@ -980,7 +981,7 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
+        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
 
         expected = [
             {
@@ -1021,7 +1022,7 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
+        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
 
         expected = [
             {
@@ -1033,7 +1034,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="other"',
                 "validation_type": "format",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 'expected_value': 'numerical value from 1 to 99999',
                 "got_value": "x23",
                 'message': 'Got x23, expected numerical value from 1 to 99999',
@@ -1062,7 +1063,7 @@ class ArticleAndSubarticlesTest(TestCase):
             </article>
             """
         xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree).validate_article_id_other())
+        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
 
         expected = [
             {
@@ -1074,7 +1075,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 'item': 'article-id',
                 'sub_item': '@pub-id-type="other"',
                 "validation_type": "format",
-                "response": "ERROR",
+                "response": "CRITICAL",
                 "expected_value": 'numerical value from 1 to 99999',
                 "got_value": "123456",
                 'message': 'Got 123456, expected numerical value from 1 to 99999',
@@ -1101,9 +1102,7 @@ class ArticleAndSubarticlesTest(TestCase):
         xml_tree = get_xml_tree(xml_str)
 
         obtained = list(
-            ArticleAttribsValidation(xml_tree).validate_dtd_version(
-                dtd_version_list=["1.1", "1.2", "1.3"]
-            )
+            ArticleAttribsValidation(xml_tree, self.params).validate_dtd_version()
         )
 
         expected = [
@@ -1134,4 +1133,75 @@ class ArticleAndSubarticlesTest(TestCase):
             }
         ]
 
+        self.assertEqual(obtained, expected)
+
+    def test_validate_jats_and_dtd_version(self):
+        xml_str = """
+        <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.3 20210610//EN" "JATS-journalpublishing1-3.dtd">
+        <article article-type="research-article" dtd-version="1.1" xml:lang="en" specific-use="sps-1.9"
+                 xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml_str)
+
+        # Instancia a classe de validação
+        validator = JATSAndDTDVersionValidation(xml_tree, self.params)
+
+        # Executa a validação
+        obtained = list(validator.validate())
+
+        # Resultado esperado
+        expected = []
+
+        # Verifica se a validação foi bem-sucedida
+        self.assertEqual(obtained, expected)
+
+    def test_validate_jats_and_dtd_version_incompatible(self):
+        self.maxDiff = None
+        xml_str = """
+        <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20210610//EN" "JATS-journalpublishing1-1.dtd">
+        <article article-type="research-article" dtd-version="1.0" xml:lang="en" specific-use="sps-1.9"
+                 xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+        </article>
+        """
+
+        xml_tree = etree.fromstring(xml_str)
+
+        # Instancia a classe de validação
+        validator = JATSAndDTDVersionValidation(xml_tree, self.params)
+
+        # Executa a validação
+        obtained = list(validator.validate())
+
+        # Resultado esperado
+        expected = [
+            {
+                "title": 'article-id (@pub-id-type="other")',
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "en",
+                "item": "dtd-version",
+                "sub_item": None,
+                "validation_type": "match",
+                'message': "Got 1.0, expected ['1.1']",
+                "advice": "Incompatibility: SPS sps-1.9 is not compatible with JATS 1.0.",
+                "response": "CRITICAL",
+                'data': [
+                    {
+                        'article_id': None,
+                        'article_type': 'research-article',
+                        'lang': 'en',
+                        'line_number': 4,
+                        'parent_name': 'article',
+                        'subject': None
+                    }
+                ],
+               'expected_value': ['1.1'],
+               'got_value': '1.0',
+            }
+        ]
+
+        # Verifica se o resultado obtido é igual ao esperado
         self.assertEqual(obtained, expected)
