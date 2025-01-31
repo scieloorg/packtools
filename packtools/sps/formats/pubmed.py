@@ -169,9 +169,10 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
     </ArticleTitle>
     """
     title = get_article_titles(xml_tree)
-    if title.get("en") is not None:
+    title_text = title.get("en", {}).get("text")
+    if title_text is not None:
         el = ET.Element("ArticleTitle")
-        el.text = title.get("en")
+        el.text = title_text
         xml_pubmed.append(el)
 
 
@@ -183,9 +184,10 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
     """
     main_lang = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_lang
     title = get_article_titles(xml_tree)
-    if title.get(main_lang) is not None:
+    title_text = title.get(main_lang, {}).get("text")
+    if title_text is not None:
         el = ET.Element("VernacularTitle")
-        el.text = title.get(main_lang)
+        el.text = title_text
         xml_pubmed.append(el)
 
 
