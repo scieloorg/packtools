@@ -46,10 +46,9 @@ def process_xref(node, footnote_markers=None):
                 xref.addnext(e)
 
     for xref in node.findall(".//xref"):
-        for sup in xref.findall(".//sup"):
-            xref.remove(sup)
         ref_type = xref.get("ref-type")
-        text = xref.text.strip() if xref.text else None
+        texts = xref.xpath(".//text()")
+        text = ''.join(texts).strip()
         parent = xref.getparent()
 
         is_fn_ref = ref_type == "fn"
@@ -57,7 +56,7 @@ def process_xref(node, footnote_markers=None):
         is_numeric = text.isdigit() if text else False
         has_parent = parent is not None
 
-        if (text and has_parent and (is_fn_ref or is_punctuation or is_numeric)) or (not text and len(xref) == 0):
+        if text and has_parent and (is_fn_ref or is_punctuation or is_numeric):
             parent.remove(xref)
         else:
             etree.strip_tags(xref, "xref")
