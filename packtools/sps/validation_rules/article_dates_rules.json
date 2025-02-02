@@ -3,6 +3,7 @@
         "day_format_error_level":"CRITICAL",
         "month_format_error_level":"CRITICAL",
         "year_format_error_level":"CRITICAL",
+        "year_value_error_level": "CRITICAL",
         "format_error_level":"CRITICAL",
         "value_error_level":"CRITICAL",
         "limit_error_level":"CRITICAL",
