@@ -11,7 +11,7 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleLangValidation,
     ArticleTypeValidation,
 )
-from packtools.sps.validation.article_contribs import ArticleContribsValidation
+from packtools.sps.validation.article_contribs import XMLContribsValidation
 from packtools.sps.validation.article_data_availability import (
     DataAvailabilityValidation,
 )
@@ -195,11 +195,12 @@ def validate_references(xmltree, params):
 
 
 def validate_article_contribs(xmltree, params):
-    is_orcid_registered = params.get("is_orcid_registered")
-    article_contribs_rules = params["article_contribs_rules"]
-    validator = ArticleContribsValidation(
-        xmltree, article_contribs_rules, is_orcid_registered
-    )
+    rules = {}
+    rules.update(params["article_contribs_rules"])
+
+    # callable (customized) which checks orcid is registered
+    rules["is_orcid_registered"] = params.get("is_orcid_registered")
+    validator = XMLContribsValidation(xmltree, rules)
     yield from validator.validate()
 
 
