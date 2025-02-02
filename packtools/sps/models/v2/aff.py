@@ -1,9 +1,11 @@
-from packtools.sps.utils.xml_utils import put_parent_context, tostring
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.utils.xml_utils import tostring
 
 
 class Affiliation:
-    def __init__(self, aff_node):
+    def __init__(self, aff_node, parent_data):
         self.aff_node = aff_node
+        self.parent_data = parent_data
 
     @property
     def str_main_tag(self):
@@ -69,7 +71,7 @@ class Affiliation:
 
     @property
     def data(self):
-        return {
+        data = {
             "id": self.aff_id,
             "label": self.label,
             "original": self.original,
@@ -82,9 +84,13 @@ class Affiliation:
             "city": self.city,
             "email": self.email,
         }
+        data.update(self.parent_data)
+        return data
 
     def _get_institution_info(self, inst_type):
-        return self.aff_node.findtext(f'institution[@content-type="{inst_type}"]')
+        return self.aff_node.findtext(
+            f'institution[@content-type="{inst_type}"]'
+        )
 
     def _get_loc_type_info(self, loc_type):
         location = self.aff_node.findtext(f"addr-line/{loc_type}")
@@ -95,60 +101,85 @@ class Affiliation:
         return location
 
 
-class Affiliations:
-    def __init__(self, node):
-        """
-        Initializes the Affiliations class with an XML node.
-
-        Parameters:
-        node : lxml.etree._Element
-            The XML node (element) that contains one or more <aff> elements.
-            This can be the root of an `xml_tree` or a node representing a `sub-article`.
-        """
-        self.node = node
-        self.parent = self.node.tag
-        self.parent_id = self.node.get("id")
-        self.lang = self.node.get("{http://www.w3.org/XML/1998/namespace}lang")
-        self.article_type = self.node.get("article-type")
+class FulltextAffiliations(Fulltext):
 
     def affiliations(self):
-        if self.parent == "article":
-            path = "./front/article-meta//aff"
-        else:
-            path = "./contrib-group//aff | ./front-stub//aff"
+        return [item.data for item in self.main_affs]
 
-        for aff_node in self.node.xpath(path):
-            data = Affiliation(aff_node).data
+    @property
+    def main_affs(self):
+        try:
+            for aff_node in self.front.xpath(".//aff"):
+                yield Affiliation(aff_node, self.attribs_parent_prefixed)
+        except AttributeError:
+            pass
 
-            yield put_parent_context(
-                data, self.lang, self.article_type, self.parent, self.parent_id
-            )
+    @property
+    def translations(self):
+        for node in super().translations:
+            yield FulltextAffiliations(node)
+
+    @property
+    def not_translations(self):
+        for node in super().not_translations:
+            yield FulltextAffiliations(node)
+
+    @property
+    def sub_articles(self):
+        for node in super().sub_articles:
+            yield FulltextAffiliations(node)
+
+    @property
+    def items(self):
+        yield from self.affiliations()
+        for fulltext in self.sub_articles:
+            yield from fulltext.items
+
+    @property
+    def data(self):
+        data = {}
+        data["main"] = self.affiliations()
+        if self.translations_data_by_lang:
+            data["translations"] = self.translations_data_by_lang
+        if self.not_translations_data_by_id:
+            data["not_translations"] = self.not_translations_data_by_id
+        return data
+
+    @property
+    def translations_data_by_lang(self):
+        data = {}
+        for item in self.translations:
+            data[item.lang] = item.affiliations()
+        return data
+
+    @property
+    def not_translations_data_by_id(self):
+        data = {}
+        for item in self.not_translations:
+            data[item.id] = item.data
+        return data
 
 
-class ArticleAffiliations:
+class XMLAffiliations:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
+        self.fulltext_affs = FulltextAffiliations(self.xml_tree.find("."))
 
+    @property
     def article_affs(self):
-        yield from Affiliations(self.xml_tree.find(".")).affiliations()
+        return self.fulltext_affs.affiliations()
 
-    def sub_article_translation_affs(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            yield from Affiliations(node).affiliations()
+    @property
+    def data(self):
+        return self.fulltext_affs.data
 
-    def sub_article_translation_affs_by_lang(self):
-        langs = {}
-        for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = list(
-                Affiliations(node).affiliations()
-            )
-        return langs
+    @property
+    def items(self):
+        return self.fulltext_affs.items
 
-    def sub_article_non_translation_affs(self):
-        for node in self.xml_tree.xpath(".//sub-article[@article-type!='translation']"):
-            yield from Affiliations(node).affiliations()
-
-    def all_affs(self):
-        yield from self.article_affs()
-        yield from self.sub_article_translation_affs()
-        yield from self.sub_article_non_translation_affs()
+    @property
+    def by_ids(self):
+        data = {}
+        for item in self.fulltext_affs.items:
+            data[item["id"]] = item
+        return data
