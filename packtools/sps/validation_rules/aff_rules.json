@@ -7,16 +7,18 @@
         "country_error_level": "CRITICAL",
         "country_code_error_level": "CRITICAL",
         "state_error_level": "WARNING",
-        "city_error_level": "WARNING"
-    },
-    "translated_aff_rules": {
-        "id_error_level": "CRITICAL",
-        "label_error_level": "ERROR",
-        "original_error_level": "CRITICAL",
-        "orgname_error_level": "INFO",
-        "country_error_level": "INFO",
-        "country_code_error_level": "INFO",
-        "state_error_level": "INFO",
-        "city_error_level": "INFO"
+        "city_error_level": "WARNING",
+        "translation_aff_rules": {
+            "id_error_level": "CRITICAL",
+            "label_error_level": "ERROR",
+            "original_error_level": "CRITICAL",
+            "orgname_error_level": "INFO",
+            "country_error_level": "INFO",
+            "country_code_error_level": "INFO",
+            "state_error_level": "INFO",
+            "city_error_level": "INFO"
+        },
+        "translation_qty_error_level": "CRITICAL",
+        "translation_similarity_error_level": "WARNING"
     }
 }
