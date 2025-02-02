@@ -10,8 +10,8 @@ class BasePeerReviewTestCase(unittest.TestCase):
 
     def create_peer_review_xml(self, is_article=True):
         """Helper method to create test XML"""
-        xml = """<?xml version="1.0" encoding="utf-8"?>
-        <{root_tag} article-type="reviewer-report" xml:lang="en" id="pr1">
+        xml = """
+        <{root_tag} xmlns:xlink="http://www.w3.org/1999/xlink" article-type="reviewer-report" xml:lang="en" id="pr1">
             <front{front_suffix}>
                 <article-meta>
                     <contrib-group>
@@ -67,13 +67,17 @@ class TestPeerReviewArticle(BasePeerReviewTestCase):
 
     def setUp(self):
         """Set up article-type peer review for testing"""
-        self.peer_review = PeerReview(self.create_peer_review_xml(is_article=True))
+        self.peer_review = PeerReview(
+            self.create_peer_review_xml(is_article=True)
+        )
 
     def test_related_articles(self):
         """Test related_articles property"""
         related = list(self.peer_review.related_articles)
         self.assertEqual(len(related), 1)
-        self.assertEqual(related[0]["related-article-type"], "peer-reviewed-material")
+        self.assertEqual(
+            related[0]["related-article-type"], "peer-reviewed-material"
+        )
         self.assertEqual(related[0]["href"], "10.1590/123456789")
         self.assertEqual(related[0]["ext-link-type"], "doi")
 
@@ -81,13 +85,15 @@ class TestPeerReviewArticle(BasePeerReviewTestCase):
         """Test contribs property"""
         contribs = self.peer_review.contribs
         self.assertEqual(len(contribs), 1)
-        self.assertEqual(contribs[0].get("contrib-type"), "author")
-        self.assertIsNotNone(contribs[0].find(".//anonymous"))
-        self.assertEqual(contribs[0].find(".//role").get("specific-use"), "reviewer")
+        self.assertEqual(contribs[0].contrib_type, "author")
+        self.assertIsNotNone(contribs[0].anonymous)
+        self.assertEqual(
+            list(contribs[0].contrib_role)[0]["specific-use"], "reviewer"
+        )
 
     def test_history(self):
         """Test history property"""
-        history = self.peer_review.history
+        history = self.peer_review.history_dates
         self.assertIn("received", history)
         self.assertIn("accepted", history)
         received = history["received"]
@@ -116,7 +122,9 @@ class TestPeerReviewSubArticle(BasePeerReviewTestCase):
 
     def setUp(self):
         """Set up sub-article-type peer review for testing"""
-        self.peer_review = PeerReview(self.create_peer_review_xml(is_article=False))
+        self.peer_review = PeerReview(
+            self.create_peer_review_xml(is_article=False)
+        )
 
     def test_structure(self):
         """Test subarticle structure"""
@@ -131,7 +139,7 @@ class TestEmptyPeerReview(unittest.TestCase):
     def setUp(self):
         """Set up peer review with minimal content"""
         xml = """
-        <article article-type="reviewer-report">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="reviewer-report">
             <front>
                 <article-meta/>
             </front>
@@ -142,7 +150,7 @@ class TestEmptyPeerReview(unittest.TestCase):
     def test_empty_content(self):
         """Test behavior with minimal content"""
         self.assertIsNone(self.review.license_code)
-        self.assertEqual(self.review.history, {})
+        self.assertEqual(self.review.history_dates, {})
         self.assertEqual(list(self.review.custom_meta_items), [])
         self.assertEqual(list(self.review.related_articles), [])
 
@@ -153,7 +161,7 @@ class TestMultipleMetadata(unittest.TestCase):
     def setUp(self):
         """Set up peer review with multiple metadata"""
         xml = """
-        <article article-type="reviewer-report">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="reviewer-report">
             <front>
                 <article-meta>
                     <custom-meta-group>
@@ -178,7 +186,9 @@ class TestMultipleMetadata(unittest.TestCase):
         self.assertEqual(len(items), 2)
         meta_names = {item.meta_name for item in items}
         meta_values = {item.meta_value for item in items}
-        self.assertEqual(meta_names, {"Review recommendation", "Review confidence"})
+        self.assertEqual(
+            meta_names, {"Review recommendation", "Review confidence"}
+        )
         self.assertEqual(meta_values, {"accept", "high"})
 
 
@@ -188,7 +198,7 @@ class TestMultipleHistoryDates(unittest.TestCase):
     def setUp(self):
         """Set up peer review with multiple history dates"""
         xml = """
-        <article article-type="reviewer-report">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="reviewer-report">
             <front>
                 <article-meta>
                     <history>
@@ -216,7 +226,7 @@ class TestMultipleHistoryDates(unittest.TestCase):
 
     def test_multiple_dates(self):
         """Test multiple history dates"""
-        history = self.review.history
+        history = self.review.history_dates
         self.assertEqual(len(history), 3)
         date_types = {"received", "accepted", "rev-recd"}
         self.assertTrue(all(key in history for key in date_types))
@@ -234,7 +244,7 @@ class TestPeerReviewInheritance(unittest.TestCase):
     def setUp(self):
         """Set up peer review for testing inheritance"""
         xml = """
-        <article article-type="reviewer-report" xml:lang="en" id="pr1">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="reviewer-report" xml:lang="en" id="pr1">
             <front>
                 <article-meta/>
             </front>
