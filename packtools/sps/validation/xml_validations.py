@@ -37,14 +37,14 @@ from packtools.sps.validation.journal_meta import (
 # from packtools.sps.validation.footnotes import xValidation
 # -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
+from packtools.sps.validation.peer_review import XMLPeerReviewValidation
 from packtools.sps.validation.references import ReferencesValidation
 
 # -
 # from packtools.sps.validation.errata import xValidation
 # from packtools.sps.validation.erratum import xValidation
-# from packtools.sps.validation.peer_review import xValidation
 # from packtools.sps.validation.preprint import xValidation
-from packtools.sps.validation.related_articles import RelatedArticlesValidation
+from packtools.sps.validation.related_articles import XMLRelatedArticlesValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
 # remover journal
@@ -355,5 +355,10 @@ def validate_metadata_languages(xmltree, params):
 
 
 def validate_related_articles(xmltree, params):
-    validator = RelatedArticlesValidation(xmltree, params["related_articles_rules"])
-    yield from validator.validate(["error_level"])
+    validator = XMLRelatedArticlesValidation(xmltree, params["related_articles_rules"])
+    yield from validator.validate()
+
+
+def validate_peer_reviews(xmltree, params):
+    validator = XMLPeerReviewValidation(xmltree, params["peer_review_rules"])
+    yield from validator.validate()
