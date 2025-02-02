@@ -1,394 +1,233 @@
 from packtools.sps.models.article_contribs import ContribGroup
 from packtools.sps.models.article_dates import HistoryDates
-from packtools.sps.models.peer_review import PeerReview, CustomMeta
+from packtools.sps.models.peer_review import CustomMeta, PeerReview
 from packtools.sps.models.v2.related_articles import RelatedArticles
 from packtools.sps.utils.xml_utils import put_parent_context
+from packtools.sps.validation.article_contribs import ContribValidation
 from packtools.sps.validation.exceptions import ValidationPeerReviewException
-from packtools.sps.validation.utils import format_response
 
-
-class RelatedArticleValidation:
-    def __init__(
-        self, related_article, related_article_type_list=None, link_type_list=None
-    ):
-        self.related_article = related_article
-        self.related_article_type_list = related_article_type_list
-        self.link_type_list = link_type_list
-
-    @property
-    def related_article_type_validation(
-        self, related_article_type_list=None, error_level="ERROR"
-    ):
-        # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
-        # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
-        # @related-article-type com valor "peer-reviewed-material";
-        related_article_type_list = (
-            related_article_type_list or self.related_article_type_list
-        )
-        if related_article_type_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of related articles"
-            )
-        related_article_type = self.related_article.get("related-article-type")
-        is_valid = related_article_type in self.related_article_type_list
-        yield format_response(
-            title="Peer review validation",
-            parent=self.related_article.get("parent"),
-            parent_id=self.related_article.get("parent_id"),
-            parent_article_type=self.related_article.get("parent_article_type"),
-            parent_lang=self.related_article.get("parent_lang"),
-            item="related-article",
-            sub_item="@related-article-type",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.related_article_type_list,
-            obtained=related_article_type,
-            advice=f"provide one item of this list: {self.related_article_type_list}",
-            data=self.related_article,
-            error_level=error_level,
-        )
-
-    @property
-    def related_article_href_validation(self, error_level="ERROR"):
-        # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
-        # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
-        # @xlink:href com número DOI do artigo revisado;
-        href = self.related_article.get("href")
-        is_valid = bool(href)
-        yield format_response(
-            title="Peer review validation",
-            parent=self.related_article.get("parent"),
-            parent_id=self.related_article.get("parent_id"),
-            parent_article_type=self.related_article.get("parent_article_type"),
-            parent_lang=self.related_article.get("parent_lang"),
-            item="related-article",
-            sub_item="@xlink:href",
-            validation_type="exist",
-            is_valid=is_valid,
-            expected=href if is_valid else "a value for <related-article @xlink:href>",
-            obtained=href,
-            advice="provide a value for <related-article @xlink:href>",
-            data=self.related_article,
-            error_level=error_level,
-        )
-
-    @property
-    def related_article_ext_link_type_validation(
-        self, link_type_list=None, error_level="ERROR"
-    ):
-        # Para parecer como <article> além dos elementos mencionados anteriormente, adiciona-se a tag
-        # de <related-article> referenciando o artigo que sofreu o parecer. Neste caso utiliza-se:
-        # @ext-link-type com valor "doi".
-        link_type_list = link_type_list or self.link_type_list
-        if link_type_list is None:
-            raise ValidationPeerReviewException("Function requires list of link types")
-        link_type = self.related_article.get("ext-link-type")
-        is_valid = link_type in self.link_type_list
-        yield format_response(
-            title="Peer review validation",
-            parent=self.related_article.get("parent"),
-            parent_id=self.related_article.get("parent_id"),
-            parent_article_type=self.related_article.get("parent_article_type"),
-            parent_lang=self.related_article.get("parent_lang"),
-            item="related-article",
-            sub_item="@ext-link-type",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.link_type_list,
-            obtained=link_type,
-            advice=f"provide one item of this list: {self.link_type_list}",
-            data=self.related_article,
-            error_level=error_level,
-        )
+# from packtools.sps.validation.dates import FulltextDatesValidation
+from packtools.sps.validation.related_articles import (
+    FulltextRelatedArticlesValidation,
+)
+from packtools.sps.validation.utils import build_response, format_response
 
 
 class CustomMetaPeerReviewValidation:
-    def __init__(self, custom_meta, meta_value_list=None):
+    def __init__(self, custom_meta, params):
         self.custom_meta = custom_meta
-        self.meta_value_list = meta_value_list
-
-    @property
-    def custom_meta_name_validation(self, error_level="ERROR"):
-        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
-        # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
-        obtained = self.custom_meta.get("meta_name")
-        is_valid = obtained is not None
-        yield format_response(
-            title="Peer review validation",
-            parent=self.custom_meta.get("parent"),
-            parent_id=self.custom_meta.get("parent_id"),
-            parent_article_type=self.custom_meta.get("parent_article_type"),
-            parent_lang=self.custom_meta.get("parent_lang"),
-            item="custom-meta",
-            sub_item="meta-name",
-            validation_type="exist",
-            is_valid=is_valid,
-            expected=obtained if is_valid else "a value for <custom-meta>",
-            obtained=obtained,
-            advice="provide a value for <custom-meta>",
-            data=self.custom_meta,
-            error_level=error_level,
-        )
-
-    @property
-    def custom_meta_value_validation(self, meta_value_list=None, error_level="ERROR"):
-        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir os elementos
-        # <custom-meta-group> + <custom-meta> + <meta-name> e <meta-value>
-        # Os termos possíveis para <meta-value> são:
-        # revision, major-revision, minor-revision, reject, reject-with-resubmit, accept, formal-accept,
-        # accept-in-principle
-        meta_value_list = meta_value_list or self.meta_value_list
-        if not meta_value_list:
-            raise ValidationPeerReviewException("Function requires list of meta values")
-        obtained = self.custom_meta.get("meta_value")
-        is_valid = obtained in self.meta_value_list
-        yield format_response(
-            title="Peer review validation",
-            parent=self.custom_meta.get("parent"),
-            parent_id=self.custom_meta.get("parent_id"),
-            parent_article_type=self.custom_meta.get("parent_article_type"),
-            parent_lang=self.custom_meta.get("parent_lang"),
-            item="custom-meta",
-            sub_item="meta-value",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.meta_value_list,
-            obtained=obtained,
-            advice=f"provide one item of this list: {self.meta_value_list}",
-            data=self.custom_meta,
-            error_level=error_level,
-        )
-
-
-class AuthorPeerReviewValidation:
-    def __init__(self, contrib, contrib_type_list=None, specific_use_list=None):
-        self.contrib = contrib
-        self.contrib_type_list = contrib_type_list
-        self.specific_use_list = specific_use_list
-
-    @property
-    def specific_use(self):
-        return [item.get("specific-use") for item in self.contrib.get("contrib_role")]
-
-    @property
-    def contrib_type_validation(self, contrib_type_list=None, error_level="ERROR"):
-        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
-        # @contrib-type com valor "author"
-        contrib_type_list = contrib_type_list or self.contrib_type_list
-        if contrib_type_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of contrib types"
-            )
-        is_valid = self.contrib.get("contrib_type") in self.contrib_type_list
-        yield format_response(
-            title="Peer review validation",
-            parent=self.contrib.get("parent"),
-            parent_id=self.contrib.get("parent_id"),
-            parent_article_type=self.contrib.get("parent_article_type"),
-            parent_lang=self.contrib.get("parent_lang"),
-            item="contrib",
-            sub_item="@contrib-type",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.contrib_type_list,
-            obtained=self.contrib.get("contrib_type"),
-            advice=f"provide one item of this list: {self.contrib_type_list}",
-            data=self.contrib,
-            error_level=error_level,
-        )
-
-    @property
-    def role_specific_use_validation(self, specific_use_list=None, error_level="ERROR"):
-        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
-        # <role> com @specific-use com valores "reviewer" ou "editor"
-        specific_use_list = specific_use_list or self.specific_use_list
-        if specific_use_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of specific uses"
-            )
-        is_valid = False
-        obtained = self.specific_use
-        for item in self.specific_use:
-            if item in self.specific_use_list:
-                is_valid = True
-                break
-        yield format_response(
-            title="Peer review validation",
-            parent=self.contrib.get("parent"),
-            parent_id=self.contrib.get("parent_id"),
-            parent_article_type=self.contrib.get("parent_article_type"),
-            parent_lang=self.contrib.get("parent_lang"),
-            item="role",
-            sub_item="@specific-use",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.specific_use_list,
-            obtained=obtained,
-            advice=f"provide one item of this list: {self.specific_use_list}",
-            data=self.contrib,
-            error_level=error_level,
-        )
-
-
-class DatePeerReviewValidation:
-    def __init__(self, date, date_type, date_type_list=None):
-        self.date = date
-        self.date_type = date_type
-        self.date_type_list = date_type_list
-
-    @property
-    def date_type_validation(self, date_type_list=None, error_level="ERROR"):
-        # Os pareceres marcados como <article> ou <sub-article> devem obrigatoriamente possuir o elemento
-        # @date-type em <history> com valor "reviewer-report-received"
-        date_type_list = date_type_list or self.date_type_list
-        if date_type_list is None:
-            raise ValidationPeerReviewException("Function requires list of date types")
-        is_valid = self.date_type in self.date_type_list
-        yield format_response(
-            title="Peer review validation",
-            parent=self.date.get("parent"),
-            parent_id=self.date.get("parent_id"),
-            parent_article_type=self.date.get("parent_article_type"),
-            parent_lang=self.date.get("parent_lang"),
-            item="date",
-            sub_item="@date-type",
-            validation_type="value in list",
-            is_valid=is_valid,
-            expected=self.date_type_list,
-            obtained=self.date_type,
-            advice=f"provide one item of this list: {self.date_type_list}",
-            data=self.date,
-            error_level=error_level,
-        )
-
-
-class PeerReviewsValidation:
-    def __init__(
-        self,
-        xml_tree,
-        contrib_type_list=None,
-        specific_use_list=None,
-        date_type_list=None,
-        meta_value_list=None,
-        related_article_type_list=None,
-        link_type_list=None,
-    ):
-        self.xml_tree = xml_tree
-        self.contrib_type_list = contrib_type_list
-        self.specific_use_list = specific_use_list
-        self.date_type_list = date_type_list
-        self.meta_value_list = meta_value_list
-        self.related_article_type_list = related_article_type_list
-        self.link_type_list = link_type_list
-
-    def article(self):
-        if self.xml_tree.attrib.get("article-type") == "reviewer-report":
-            node = self.xml_tree.find(".//article-meta")
-            node_tag = "article"
-            if node is not None:
-                node_id = self.xml_tree.attrib.get("id")
-                node_lang = self.xml_tree.get(
-                    "{http://www.w3.org/XML/1998/namespace}lang"
-                )
-                yield node, node_tag, node_id, node_lang
-
-    def sub_articles(self):
-        nodes = self.xml_tree.xpath(".//sub-article")
-        node_tag = "sub-article"
-        for node in nodes:
-            if node.get("article-type") == "reviewer-report":
-                node_id = node.get("id")
-                node_lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
-                yield node, node_tag, node_id, node_lang
-
-    def nodes(self):
-        yield from self.article()
-        yield from self.sub_articles()
+        self.params = params
 
     def validate(self):
-        article_type = self.xml_tree.get("article-type")
-        for node, node_tag, node_id, node_lang in self.nodes():
-            for item in self.node_validation(node):
-                yield put_parent_context(
-                    item, node_lang, article_type, node_tag, node_id
-                )
-        for node, node_tag, node_id, node_lang in self.article():
-            for item in self.specific_validation():
-                yield put_parent_context(
-                    item, node_lang, article_type, node_tag, node_id
-                )
+        yield from self.validate_custom_meta_name()
+        yield from self.validate_custom_meta_value()
 
-    def node_validation(self, node):
-        yield from self.author_validation(node)
-        yield from self.date_validation()
-        yield from self.custom_meta_validation(node)
-
-    def specific_validation(self):
-        yield from self.related_article_validation()
-
-    def author_validation(self, node, contrib_type_list=None, specific_use_list=None):
-        contrib_type_list = contrib_type_list or self.contrib_type_list
-        specific_use_list = specific_use_list or self.specific_use_list
-        if contrib_type_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of contrib type"
+    def validate_custom_meta_name(self):
+        """Validate custom metadata for peer review recommendations"""
+        if not self.custom_meta["meta_name"]:
+            yield build_response(
+                title="Review recommendation name",
+                parent=self.custom_meta,
+                item="custom-meta",
+                sub_item="meta-name",
+                validation_type="exist",
+                is_valid=False,
+                expected="meta-name",
+                obtained=None,
+                advice=f"Peer review must include a recommendation (custom-meta/meta-name).",
+                data=self.custom_meta,
+                error_level=self.params.get("meta_name_error_level"),
             )
-        if specific_use_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of specific use"
-            )
-        authors = ContribGroup(node)
-        for contrib in authors.contribs:
-            validation = AuthorPeerReviewValidation(
-                contrib=contrib,
-                contrib_type_list=contrib_type_list,
-                specific_use_list=specific_use_list,
-            )
-            yield from validation.contrib_type_validation
-            yield from validation.role_specific_use_validation
 
-    def date_validation(self, date_type_list=None):
-        date_type_list = date_type_list or self.date_type_list
-        if date_type_list is None:
-            raise ValidationPeerReviewException("Function requires list of date types")
-        for date in HistoryDates(self.xml_tree).history_dates():
-            for date_type in date.get("history"):
-                validation = DatePeerReviewValidation(
-                    date=date, date_type=date_type, date_type_list=self.date_type_list
-                )
-                yield from validation.date_type_validation
+    def validate_custom_meta_value(self):
+        """Validate custom metadata for peer review recommendations"""
+        # Não validar os termos possíveis em <meta-value> podem haver termos diferentes então são termos opcionais
+        if not self.custom_meta["meta_value"]:
+            yield build_response(
+                title="Review recommendation value",
+                parent=self.custom_meta,
+                item="custom-meta",
+                sub_item="meta-value",
+                validation_type="exist",
+                is_valid=False,
+                expected="meta-value",
+                obtained=None,
+                advice=f"Peer review must include a recommendation (custom-meta/meta-value).",
+                data=self.custom_meta,
+                error_level=self.params.get("meta_value_error_level"),
+            )
 
-    def custom_meta_validation(self, node, meta_value_list=None):
-        meta_value_list = meta_value_list or self.meta_value_list
-        if meta_value_list is None:
-            raise ValidationPeerReviewException("Function requires list of meta values")
-        peer_review = CustomMeta(node)
-        validation = CustomMetaPeerReviewValidation(
-            custom_meta=peer_review.data, meta_value_list=self.meta_value_list
+
+class XMLPeerReviewValidation:
+    """
+    Validates a peer review document according to SciELO and JATS rules.
+
+    This class orchestrates the validation of all aspects of a peer review,
+    including contributors, dates, related articles, and specific peer review rules.
+    """
+
+    def __init__(self, xml_tree, params):
+        """
+        Initialize peer review validation.
+
+        Parameters
+        ----------
+        peer_review : PeerReview
+            Instance of PeerReview containing the document to validate
+        params : dict, optional
+            Configuration parameters for validation rules
+        """
+        self.xml_tree = xml_tree
+        self.params = params or {}
+        self._set_default_params()
+
+    def _set_default_params(self):
+        """Set default validation parameters"""
+        self.params.setdefault("article_type_error_level", "CRITICAL")
+        self.params.setdefault(
+            "credit_taxonomy_terms_and_urls_error_level", "CRITICAL"
         )
-        yield from validation.custom_meta_name_validation
-        yield from validation.custom_meta_value_validation
+        self.params.setdefault("orcid_format_error_level", "CRITICAL")
+        self.params.setdefault("orcid_is_registered_error_level", "CRITICAL")
+        self.params.setdefault("affiliations_error_level", "CRITICAL")
+        self.params.setdefault("name_error_level", "CRITICAL")
+        self.params.setdefault("collab_error_level", "CRITICAL")
+        self.params.setdefault("name_or_collab_error_level", "CRITICAL")
+        self.params.setdefault("missing_events_error_level", "CRITICAL")
+        self.params.setdefault("meta_error_level", "CRITICAL")
 
-    def related_article_validation(
-        self, related_article_type_list=None, link_type_list=None
-    ):
-        related_article_type_list = (
-            related_article_type_list or self.related_article_type_list
+        self.params.setdefault("required_events", ["reviewer-report-received"])
+        self.params.setdefault("history_order_error_level", "CRITICAL")
+        self.params.setdefault("ext_link_types", ["doi", "uri"])
+
+        # Specific peer review parameters
+        self.params.setdefault("article_type_list", ["reviewer-report"])
+        self.params.setdefault("acceptable_article_types", ["reviewer-report"])
+        self.params.setdefault("contrib_type_list", ["author"])
+        self.params.setdefault("contrib_role_type_list", ["reviewer", "editor"])
+        self.params["credit_taxonomy_terms_and_urls"] = []
+
+    def validate(self):
+        article = self.xml_tree.find(".")
+
+        if article.get("article-type") == "reviewer-report":
+            validator = PeerReviewValidation(article, self.params)
+            yield from validator.validate()
+        else:
+            for node in article.xpath(
+                "sub-article[@article-type='reviewer-report']"
+            ):
+                validator = PeerReviewValidation(node, self.params)
+                yield from validator.validate()
+
+
+
+class PeerReviewValidation:
+    """
+    Validates a peer review document according to SciELO and JATS rules.
+
+    This class orchestrates the validation of all aspects of a peer review,
+    including contributors, dates, related articles, and specific peer review rules.
+    """
+
+    def __init__(self, node, params):
+        """
+        Initialize peer review validation.
+
+        Parameters
+        ----------
+        peer_review : PeerReview
+            Instance of PeerReview containing the document to validate
+        params : dict, optional
+            Configuration parameters for validation rules
+        """
+        self.node = node
+        self.peer_review = PeerReview(node)
+        self.params = params or {}
+
+    def validate_article_type(self):
+        """Validate if the article type is correct for peer review"""
+        # esta validação está propositalmente redundante
+        # isso terá sido validado ao validar article_type genericamente
+        article_type = self.peer_review.article_type
+        is_valid = article_type in self.params["article_type_list"]
+
+        if not is_valid:
+            yield build_response(
+                title="Article Type",
+                parent=self.peer_review.attribs_parent_prefixed,
+                item="article",
+                sub_item="article-type",
+                validation_type="value in list",
+                is_valid=False,
+                expected=self.params["article_type_list"],
+                obtained=article_type,
+                advice=f"Article type must be one of {self.params['article_type_list']}",
+                data=self.peer_review.attribs,
+                error_level=self.params["article_type_error_level"],
+            )
+
+    def validate_contribs(self):
+        """Validate all contributors in the peer review"""
+        # esta validação está propositalmente redundante
+        # isso terá sido validado ao validar contrib genericamente
+        for contrib in self.peer_review.contribs:
+            validator = ContribValidation(contrib.data, self.params)
+            yield from validator.validate()
+
+    def validate_history_dates(self):
+        """Validate dates in the peer review"""
+        # esta validação está propositalmente redundante
+        # isso terá sido validado ao validar contrib genericamente
+        for item in self.params["required_events"]:
+            if not self.peer_review.history_dates.get(item):
+                yield build_response(
+                    title="Required history date",
+                    parent=self.peer_review.attribs_parent_prefixed,
+                    item="history",
+                    sub_item="date",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected=item,
+                    obtained=list(self.peer_review.history_dates.keys()),
+                    advice=f"history must have date which date-type is: {item}",
+                    data=self.peer_review.history_dates,
+                    error_level=self.params["missing_events_error_level"],
+                )
+
+    def validate_related_articles(self):
+        """Validate related articles"""
+        validator = FulltextRelatedArticlesValidation(
+            self.node, params=self.params
         )
-        link_type_list = link_type_list or self.link_type_list
-        if related_article_type_list is None:
-            raise ValidationPeerReviewException(
-                "Function requires list of related article types"
-            )
-        if link_type_list is None:
-            raise ValidationPeerReviewException("Function requires list of link types")
-        related_items = RelatedArticles(self.xml_tree)
-        for item in related_items.related_articles():
-            validation = RelatedArticleValidation(
-                related_article=item,
-                related_article_type_list=self.related_article_type_list,
-                link_type_list=self.link_type_list,
-            )
-            yield from validation.related_article_type_validation
-            yield from validation.related_article_href_validation
-            yield from validation.related_article_ext_link_type_validation
+        yield from validator.validate()
+
+    def validate_custom_meta(self):
+        """Validate custom metadata for peer review recommendations"""
+        for meta in self.peer_review.custom_meta_items:
+
+            item = {}
+            item.update(meta.data)
+            item.update(self.peer_review.attribs_parent_prefixed)
+            validator = CustomMetaPeerReviewValidation(item, self.params)
+            yield from validator.validate()
+
+    def validate(self):
+        """
+        Run all validations for the peer review.
+
+        Returns
+        -------
+        list
+            List of validation results
+        """
+        if self.node.get("article-type") == "reviewer-report":
+            yield from self.validate_article_type()
+            yield from self.validate_contribs()
+            yield from self.validate_history_dates()
+            yield from self.validate_related_articles()
+            yield from self.validate_custom_meta()
+
+            for node in self.peer_review.translations:
+                validator = PeerReviewValidation(node)
+                yield from validator.validate()
