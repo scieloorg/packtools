@@ -33,25 +33,15 @@ from packtools.sps.validation.journal_meta import (
     PublisherNameValidation,
     TitleValidation,
 )
-
-# PR pendente
-# -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 from packtools.sps.validation.peer_review import XMLPeerReviewValidation
 from packtools.sps.validation.references import ReferencesValidation
-
-# -
-# from packtools.sps.validation.errata import xValidation
-# from packtools.sps.validation.erratum import xValidation
-# from packtools.sps.validation.preprint import xValidation
 from packtools.sps.validation.related_articles import XMLRelatedArticlesValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
-# remover journal
+# TODO remover journal
 # from packtools.sps.validation.journal import xValidation
-
-
-# completar
+# TODO completar
 # from packtools.sps.validation.media import xValidation
 # from packtools.sps.validation.supplementary_material import xValidation
 
