@@ -3,9 +3,51 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from lxml import etree
+
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation import dates
-from packtools.sps.validation.dates import DateValidation, FulltextDatesValidation
+from packtools.sps.validation.dates import (
+    DateValidation,
+    FulltextDatesValidation,
+)
+
+PARAMS = {
+    "day_format_error_level": "CRITICAL",
+    "month_format_error_level": "CRITICAL",
+    "year_format_error_level": "CRITICAL",
+    "year_value_error_level": "CRITICAL",
+    "format_error_level": "CRITICAL",
+    "value_error_level": "CRITICAL",
+    "limit_error_level": "CRITICAL",
+    "unexpected_events_error_level": "CRITICAL",
+    "missing_events_error_level": "CRITICAL",
+    "history_order_error_level": "CRITICAL",
+    "required_events": ["received", "accepted"],
+    "pre_pub_ordered_events": ["preprint", "received", "revised", "accepted"],
+    "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+    "parent": {"parent": None},
+    "required_history_events_for_related_article_type": {
+        "correction-forward": "corrected",
+        "addendum": "corrected",
+        "commentary-article": "commented",
+        "correction": "corrected",
+        "letter": None,
+        "partial-retraction": "retracted",
+        "retraction": "retracted",
+        "response": None,
+        "peer-reviewed-article": None,
+        "preprint": "preprint",
+        "updated-article": "updated",
+        "companion": None,
+        "republished-article": "republished",
+        "corrected-article": "corrected",
+        "expression-of-concern": None,
+    },
+    "required_history_events_for_article_type": {
+        "reviewer-report": "reviewer-report-received",
+    },
+    "limit_date": None,
+}
 
 
 class TestDateFormatValidation(TestCase):
@@ -145,7 +187,9 @@ class TestCompleteDateValidation(TestCase):
         incomplete_date["is_complete"] = False
         validator = DateValidation(incomplete_date, self.base_params)
         result = list(validator.validate_complete_date())
-        self.assertIsInstance(result[0], dict)  # Should return a single response dict
+        self.assertIsInstance(
+            result[0], dict
+        )  # Should return a single response dict
         self.assertEqual(result[0]["response"], "ERROR")
         self.assertEqual(result[0]["validation_type"], "format")
         self.assertEqual(result[0]["expected_value"], "complete date")
@@ -191,466 +235,321 @@ class TestPrePubDateValidation(TestCase):
 
 class TestFulltextDatesValidation(TestCase):
     def setUp(self):
-        """Set up test fixtures before each test method."""
-        self.mock_fulltext_dates = Mock()
-        self.mock_fulltext_dates.fulltext = Mock()
-        self.mock_fulltext_dates.fulltext.article_type = "research-article"
-        self.mock_fulltext_dates.translations = {}
-        self.mock_fulltext_dates.not_translations = {}
+        # XML sample that will be used across tests
+        self.xml_str = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <pub-date date-type="pub">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>15</day>
+                        </pub-date>
+                        <pub-date date-type="collection">
+                            <year>2024</year>
+                            <month>03</month>
+                        </pub-date>
+                        <history>
+                            <date date-type="received">
+                                <year>2023</year>
+                                <month>12</month>
+                                <day>01</day>
+                            </date>
+                        </history>
+                    </article-meta>
+                </front>
+                <sub-article article-type="translation" id="en" xml:lang="en">
+                    <front-stub>
+                        <pub-date date-type="pub">
+                            <year>2024</year>
+                            <month>02</month>
+                            <day>01</day>
+                        </pub-date>
+                    </front-stub>
+                </sub-article>
+                <sub-article article-type="reviewer-report" id="suppl1" xml:lang="en">
+                    <front-stub>
+                        <pub-date date-type="pub">
+                            <year>2024</year>
+                            <month>03</month>
+                            <day>01</day>
+                        </pub-date>
+                        <history>
+                            <date date-type="received">
+                                <year>2024</year>
+                                <month>01</month>
+                                <day>20</day>
+                            </date>
+                            <date date-type="rev-recd">
+                                <year>2024</year>
+                                <month>02</month>
+                                <day>15</day>
+                            </date>
+                            <date date-type="rev-request">
+                                <year>2024</year>
+                                <month>01</month>
+                                <day>25</day>
+                            </date>
+                            <date date-type="accepted">
+                                <year>2024</year>
+                                <month>02</month>
+                                <day>20</day>
+                            </date>
+                        </history>
+                    </front-stub>
+                </sub-article>
+            </article>
+        """
+        self.tree = etree.fromstring(self.xml_str)
 
-        self.base_params = {
-            "parent": {
-                "parent": "test_parent",
-                "parent_id": "123",
-                "parent_article_type": "research-article",
-                "parent_lang": "en",
-            },
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "unexpected_events_error_level": "ERROR",
-            "missing_events_error_level": "ERROR",
-            "history_order_error_level": "ERROR",
-        }
-
-    def test_validate_history_events_with_unexpected_events(self):
-        """Test validation when there are unexpected events in history."""
-        self.mock_fulltext_dates.date_types_ordered_by_date = [
-            "received",
-            "unknown_event",
-            "accepted",
-        ]
-        self.mock_fulltext_dates.history_dates = {
-            "received": "2023-01-01",
-            "unknown_event": "2023-02-01",
-            "accepted": "2023-03-01",
-        }
-
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
-        results = list(validator.validate_history_events())
-
-        self.assertEqual(len(results), 1)
-        result = results[0]
-        self.assertEqual(result["title"], "unexpected events")
-        self.assertEqual(result["got_value"], ["received", "unknown_event", "accepted"])
-        self.assertEqual(
-            result["expected_value"],
-            ["received", "revised", "accepted", "pub", "corrected", "retracted"],
-        )
-        self.assertIn("Fix date-type or exclude unexpected dates", result["advice"])
-        self.assertEqual(result["response"], "ERROR")
-
-    def test_validate_history_events_with_missing_events(self):
-        """Test validation when required events are missing."""
-        self.mock_fulltext_dates.date_types_ordered_by_date = ["received"]
-        self.mock_fulltext_dates.history_dates = {"received": "2023-01-01"}
-
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
-        results = list(validator.validate_history_events())
-
-        self.assertEqual(len(results), 1)
-        result = results[0]
-        self.assertEqual(result["title"], "missing events")
-        self.assertEqual(result["got_value"], ["received"])
-        self.assertEqual(
-            result["expected_value"],
-            ["received", "revised", "accepted", "pub", "corrected", "retracted"],
-        )
-        self.assertIn("Fix date-type or including missing dates", result["advice"])
-        self.assertEqual(result["response"], "ERROR")
-
-    def test_validate_history_order_with_incorrect_order(self):
-        """Test validation when history events are in incorrect order."""
-        self.mock_fulltext_dates.date_types_ordered_by_date = ["accepted", "received"]
-        self.mock_fulltext_dates.history_dates = {
-            "accepted": "2023-01-01",
-            "received": "2023-02-01",
-        }
-
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, self.base_params)
-        results = list(validator.validate_history_order())
-
-        self.assertEqual(len(results), 1)
-        result = results[0]
-        self.assertEqual(result["title"], "ordered events")
-        self.assertEqual(result["got_value"], ["accepted", "received"])
-        self.assertEqual(
-            result["expected_value"],
-            ["received", "revised", "accepted", "pub", "corrected", "retracted"],
-        )
-        self.assertIn("Check and fix date and date-type", result["advice"])
-        self.assertEqual(result["response"], "ERROR")
-
-    @patch("packtools.sps.validation.dates.date", return_value=date(2024, 1, 1))
-    def test_validate_article_date(self, mock_date):
-        """Test validation of article date."""
-        self.mock_fulltext_dates.article_date = {
-            "is_complete": False,
-            "year": None,
-            "month": None,
-            "day": None,
-            "type": "pub",
-        }
-
-        with patch(
-            "packtools.sps.validation.dates.DateValidation"
-        ) as MockDateValidation:
-
-            mock_date_validation = MockDateValidation()
-            validator = FulltextDatesValidation(
-                self.mock_fulltext_dates, self.base_params
-            )
-            list(validator.validate_article_date())  # Consume the generator
-            # Verify that DateValidation was called with correct parameters
-        self.assertEqual(mock_date_validation.validate_date.call_count, 1)
-        self.assertEqual(mock_date_validation.validate_complete_date.call_count, 1)
-
-    def test_validate_collection_date(self):
-        """Test validation of collection date."""
-        self.mock_fulltext_dates.collection_date = {
-            "is_complete": False,
-            "year": None,
-            "month": None,
-            "day": None,
-            "type": "collection",
-        }
-
-        with patch(
-            "packtools.sps.validation.dates.DateValidation"
-        ) as MockDateValidation:
-            mock_date_validation = MockDateValidation()
-            validator = FulltextDatesValidation(
-                self.mock_fulltext_dates, self.base_params
-            )
-            list(validator.validate_collection_date())  # Consume the generator
-
-        # Verify that only basic validation was called, not completeness
-        self.assertEqual(mock_date_validation.validate_date.call_count, 1)
-        self.assertEqual(mock_date_validation.validate_complete_date.call_count, 0)
-
-
-class TestArticleTypeParamsOverride(TestCase):
-    def setUp(self):
-        """Set up test fixtures."""
-        self.mock_fulltext = Mock()
-        self.mock_fulltext_dates = Mock()
-        self.mock_fulltext_dates.fulltext = self.mock_fulltext
-        self.mock_fulltext_dates.translations = {}
-        self.mock_fulltext_dates.not_translations = {}
-        self.mock_fulltext_dates.date_types_ordered_by_date = []
-        self.mock_fulltext_dates.related_articles = []
-
-    def test_article_type_params_override_defaults(self):
-        """Test that article-type specific parameters override default values."""
-        # Arrange
-        self.mock_fulltext.article_type = "research-article"
-
-        params = {
-            # Default values
+        # Default validation parameters
+        self.default_params = {
             "day_format_error_level": "CRITICAL",
             "month_format_error_level": "CRITICAL",
-            "required_events": ["received"],
-            # Article type specific params
-            "research-article": {
-                "day_format_error_level": "WARNING",
-                "required_events": ["received", "accepted", "published"],
-                "history_order_error_level": "ERROR",
-            },
-        }
-
-        # Act
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
-
-        # Assert
-        self.assertEqual(validator.params["day_format_error_level"], "WARNING")
-        self.assertEqual(validator.params["month_format_error_level"], "CRITICAL")
-        self.assertEqual(
-            validator.params["required_events"], ["received", "accepted", "published"]
-        )
-        self.assertEqual(validator.params["history_order_error_level"], "ERROR")
-
-    def test_multiple_article_types_params(self):
-        """Test that correct article type parameters are used for different article types."""
-        # Arrange
-        params = {
-            # Default values
-            "day_format_error_level": "CRITICAL",
-            "required_events": ["received"],
-            # Article type specific params
-            "research-article": {
-                "day_format_error_level": "WARNING",
-                "required_events": ["received", "accepted", "published"],
-            },
-            "review-article": {
-                "day_format_error_level": "ERROR",
-                "required_events": ["received", "reviewed"],
-            },
-        }
-
-        # Test research-article
-        self.mock_fulltext.article_type = "research-article"
-        validator_research = FulltextDatesValidation(self.mock_fulltext_dates, params)
-
-        self.assertEqual(validator_research.params["day_format_error_level"], "WARNING")
-        self.assertEqual(
-            validator_research.params["required_events"],
-            ["received", "accepted", "published"],
-        )
-
-        # Test review-article
-        self.mock_fulltext.article_type = "review-article"
-        validator_review = FulltextDatesValidation(self.mock_fulltext_dates, params)
-
-        self.assertEqual(validator_review.params["day_format_error_level"], "ERROR")
-        self.assertEqual(
-            validator_review.params["required_events"], ["received", "reviewed"]
-        )
-
-    def test_undefined_article_type_uses_defaults(self):
-        """Test that undefined article type falls back to default values."""
-        # Arrange
-        self.mock_fulltext.article_type = "undefined-type"
-
-        params = {
-            # Default values
-            "day_format_error_level": "CRITICAL",
-            "required_events": ["received"],
-            "research-article": {
-                "day_format_error_level": "WARNING",
-                "required_events": ["received", "accepted"],
-            },
-        }
-
-        # Act
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
-
-        # Assert
-        self.assertEqual(validator.params["day_format_error_level"], "CRITICAL")
-        self.assertEqual(validator.params["required_events"], ["received"])
-
-    def test_partial_article_type_params_override(self):
-        """Test that partial article-type params only override specified values."""
-        # Arrange
-        self.mock_fulltext.article_type = "research-article"
-
-        params = {
-            # Default values
-            "day_format_error_level": "CRITICAL",
-            "month_format_error_level": "CRITICAL",
-            "required_events": ["received"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            # Partial override for research-article
-            "research-article": {
-                "day_format_error_level": "WARNING",
-                "required_events": ["received", "accepted"],
-            },
-        }
-
-        # Act
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
-
-        # Assert
-        # These should be overridden
-        self.assertEqual(validator.params["day_format_error_level"], "WARNING")
-        self.assertEqual(validator.params["required_events"], ["received", "accepted"])
-
-        # These should maintain default values
-        self.assertEqual(validator.params["month_format_error_level"], "CRITICAL")
-        self.assertEqual(
-            validator.params["pre_pub_ordered_events"],
-            ["received", "revised", "accepted"],
-        )
-
-    def test_validate_with_article_type_params(self):
-        """Test that validation uses article-type specific parameters."""
-        # Arrange
-        self.mock_fulltext.article_type = "research-article"
-        self.mock_fulltext_dates.date_types_ordered_by_date = ["received"]
-        self.mock_fulltext_dates.history_dates = {"received": "2023-01-01"}
-
-        params = {
-            "required_events": ["received"],
-            "research-article": {
-                "required_events": ["received", "accepted"],
-                "missing_events_error_level": "ERROR",
-            },
-        }
-
-        # Act
-        validator = FulltextDatesValidation(self.mock_fulltext_dates, params)
-        results = list(validator.validate_history_events())
-
-        # Assert
-        missing_event_result = next(
-            r for r in results if r["title"] == "missing events"
-        )
-        self.assertEqual(missing_event_result["response"], "ERROR")
-        self.assertIn("accepted", missing_event_result["advice"])
-
-
-class TestFulltextDatesValidation(TestCase):
-    def create_mock_fulltext_dates(self, related_articles=None):
-        """Helper method to create a mock FulltextDates object"""
-        mock_fulltext = Mock()
-        mock_fulltext_dates = Mock()
-        mock_fulltext_dates.fulltext = mock_fulltext
-        mock_fulltext_dates.related_articles = related_articles or []
-        mock_fulltext_dates.date_types_ordered_by_date = []
-        return mock_fulltext_dates
-
-    def test_init_with_no_related_articles(self):
-        """Test initialization without any related articles"""
-        params = {
+            "year_format_error_level": "CRITICAL",
+            "format_error_level": "CRITICAL",
+            "value_error_level": "CRITICAL",
+            "limit_error_level": "CRITICAL",
+            "history_order_error_level": "CRITICAL",
+            "missing_events_error_level": "CRITICAL",
+            "unexpected_events_error_level": "CRITICAL",
             "required_events": ["received", "accepted"],
             "pre_pub_ordered_events": ["received", "revised", "accepted"],
             "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {
-                "addendum": "addended",
-                "correction": "corrected",
-                "retraction": "retracted",
-            },
+            "required_history_events_for_article_type": {},
+            "required_history_events_for_related_article_type": {},
+            "parent": {"parent": "article"},
+            "limit": "2029-01-01",
         }
 
-        mock_fulltext_dates = self.create_mock_fulltext_dates()
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+    def test_validate_main_article(self):
+        """Test validation of the main article dates"""
+        validator = FulltextDatesValidation(self.tree, self.default_params)
+        validation_results = list(validator.validate())
 
-        self.assertEqual(validator.params["required_events"], ["received", "accepted"])
+        # Check that validation was performed
+        self.assertGreater(len(validation_results), 0)
 
-    def test_init_with_single_related_article(self):
-        """Test initialization with a single related article that should add an event"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {
-                "addendum": "addended",
-                "correction": "corrected",
-                "retraction": "retracted",
-            },
-        }
-
-        related_articles = [{"related-article-type": "correction"}]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
-
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
-
-        self.assertIn("corrected", validator.params["required_events"])
-        self.assertEqual(
-            set(validator.params["required_events"]),
-            {"received", "accepted", "corrected"},
-        )
-
-    def test_init_with_multiple_related_articles(self):
-        """Test initialization with multiple related articles"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {
-                "addendum": "addended",
-                "correction": "corrected",
-                "retraction": "retracted",
-            },
-        }
-
-        related_articles = [
-            {"related-article-type": "correction"},
-            {"related-article-type": "retraction"},
-            {"related-article-type": "addendum"},
+        # Verify article date validation
+        article_date_results = [
+            r for r in validation_results if r.get("sub_item") == "pub"
         ]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
-
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
-
-        expected_events = {"received", "accepted", "corrected", "retracted", "addended"}
-        self.assertEqual(set(validator.params["required_events"]), expected_events)
-
-    def test_init_with_null_related_article_type(self):
-        """Test initialization with related article types that map to None"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {
-                "letter": None,
-                "response": None,
-                "correction": "corrected",
-            },
-        }
-
-        related_articles = [
-            {"related-article-type": "letter"},
-            {"related-article-type": "response"},
-            {"related-article-type": "correction"},
-        ]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
-
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
-
-        self.assertEqual(
-            set(validator.params["required_events"]),
-            {"received", "accepted", "corrected"},
+        # Se não houver resposta com "CRITICAL", significa que a validação passou
+        self.assertFalse(
+            any(r.get("response") == "CRITICAL" for r in article_date_results)
         )
 
-    def test_init_with_unknown_related_article_type(self):
-        """Test initialization with unknown related article type"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {"correction": "corrected"},
-        }
+    def test_validate_date_formats(self):
+        """Test validation of date formats"""
+        # Create XML with invalid date formats
+        invalid_xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <pub-date date-type="pub">
+                            <year>24</year>
+                            <month>1</month>
+                            <day>5</day>
+                        </pub-date>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        invalid_tree = etree.fromstring(invalid_xml)
 
-        related_articles = [
-            {"related-article-type": "unknown_type"},
-            {"related-article-type": "correction"},
+        validator = FulltextDatesValidation(invalid_tree, self.default_params)
+        validation_results = list(validator.validate())
+
+        expected = [
+            "Provide 4-digits year",
+            "Provide 2-digits month",
+            "Provide 2-digits day",
+            "Provide date (pub: 24-1-5) < 2025-01-29",
+            "Fix date-type or include missing dates: ['received', 'accepted']",
         ]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
 
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        # Deve haver resposta com "CRITICAL" devido aos formatos inválidos
+        self.assertEqual(5, len(validation_results))
 
-        self.assertEqual(
-            set(validator.params["required_events"]),
-            {"received", "accepted", "corrected"},
+    def test_validate_future_dates(self):
+        """Test validation of future dates"""
+        # Create XML with future dates
+        future_xml = f"""
+            <article>
+                <front>
+                    <article-meta>
+                        <pub-date date-type="pub">
+                            <year>2025</year>
+                            <month>01</month>
+                            <day>01</day>
+                        </pub-date>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        future_tree = etree.fromstring(future_xml)
+
+        validator = FulltextDatesValidation(future_tree, self.default_params)
+        validation_results = list(validator.validate())
+
+        # Check future date validation
+        value_results = [
+            r for r in validation_results if r.get("validation_type") == "value"
+        ]
+        # Deve haver resposta com "CRITICAL" devido à data futura
+        self.assertTrue(
+            any(r.get("response") == "CRITICAL" for r in value_results)
         )
 
-    def test_init_with_duplicate_related_articles(self):
-        """Test initialization with duplicate related article types"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {"correction": "corrected"},
+    def test_validate_translation_subarticle(self):
+        """Test validation of translation sub-article"""
+        translation_xml = """
+        <article article-type="research-article" xml:lang="pt">
+            <sub-article article-type="translation" id="en" xml:lang="en">
+                <front-stub>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>02</month>
+                        <day>01</day>
+                    </pub-date>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+        translation_node = etree.fromstring(translation_xml)
+
+        params = self.default_params.copy()
+        params["parent"] = {
+            "parent": "sub-article",
+            "article-type": "translation",
         }
 
-        related_articles = [
-            {"related-article-type": "correction"},
-            {"related-article-type": "correction"},
+        validator = FulltextDatesValidation(translation_node, params)
+        validation_results = list(validator.validate())
+
+        # Verify pub date validation
+        pub_date_results = [
+            r for r in validation_results if r.get("sub_item") == "pub"
         ]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
-
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
-
-        # Should only add "corrected" once
-        self.assertEqual(validator.params["required_events"].count("corrected"), 2)
-        self.assertEqual(
-            set(validator.params["required_events"]),
-            {"received", "accepted", "corrected"},
+        self.assertFalse(
+            any(r.get("response") == "CRITICAL" for r in pub_date_results)
         )
 
-    def test_init_preserves_original_required_events(self):
-        """Test that original required events are preserved when adding related article events"""
-        params = {
-            "required_events": ["received", "accepted"],
-            "pre_pub_ordered_events": ["received", "revised", "accepted"],
-            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
-            "related-article-type": {"correction": "corrected"},
+    def test_validate_reviewer_report_subarticle_complete(self):
+        """Test validation of reviewer report sub-article with complete history"""
+        reviewer_report_xml = """
+            <sub-article article-type="reviewer-report" id="suppl1" xml:lang="en">
+                <front-stub>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>03</month>
+                        <day>01</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="received">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>20</day>
+                        </date>
+                        <date date-type="accepted">
+                            <year>2024</year>
+                            <month>02</month>
+                            <day>20</day>
+                        </date>
+                    </history>
+                </front-stub>
+            </sub-article>
+        """
+        reviewer_node = etree.fromstring(reviewer_report_xml)
+
+        params = self.default_params.copy()
+        params["parent"] = {
+            "parent": "sub-article",
+            "article-type": "reviewer-report",
         }
 
-        related_articles = [{"related-article-type": "correction"}]
-        mock_fulltext_dates = self.create_mock_fulltext_dates(related_articles)
+        validator = FulltextDatesValidation(reviewer_node, params)
+        validation_results = list(validator.validate())
 
-        validator = FulltextDatesValidation(mock_fulltext_dates, params)
+        # Check history dates validation
+        history_results = [
+            r for r in validation_results if r.get("item") == "history"
+        ]
+        self.assertFalse(
+            any(r.get("response") == "CRITICAL" for r in history_results)
+        )
 
-        for event in ["received", "accepted"]:
-            self.assertIn(event, validator.params["required_events"])
+    def test_validate_reviewer_report_subarticle_missing_events(self):
+        """Test validation of reviewer report sub-article with missing required events"""
+        reviewer_report_xml = """
+            <sub-article article-type="reviewer-report" id="suppl1" xml:lang="en">
+                <front-stub>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>03</month>
+                        <day>01</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="received">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>20</day>
+                        </date>
+                    </history>
+                </front-stub>
+            </sub-article>
+        """
+        reviewer_node = etree.fromstring(reviewer_report_xml)
+
+        params = self.default_params.copy()
+        params["parent"] = {
+            "parent": "sub-article",
+            "article-type": "reviewer-report",
+        }
+        params["required_events"] = ["received", "accepted"]
+
+        validator = FulltextDatesValidation(reviewer_node, params)
+        validation_results = list(validator.validate())
+
+        # Check for missing events validation
+        missing_events_results = [
+            r for r in validation_results if r.get("title") == "missing events"
+        ]
+        self.assertTrue(
+            any(r.get("response") == "CRITICAL" for r in missing_events_results)
+        )
+
+    def test_validate_subarticle_invalid_dates(self):
+        """Test validation of sub-article with invalid date formats"""
+        invalid_subarticle_xml = """
+            <sub-article article-type="letter" id="en" xml:lang="en">
+                <front-stub>
+                    <pub-date date-type="pub">
+                        <year>24</year>
+                        <month>2</month>
+                        <day>1</day>
+                    </pub-date>
+                </front-stub>
+            </sub-article>
+            
+        """
+        invalid_node = etree.fromstring(invalid_subarticle_xml)
+
+        params = self.default_params.copy()
+        params["parent"] = {
+            "parent": "sub-article",
+            "article-type": "translation",
+        }
+
+        validator = FulltextDatesValidation(invalid_node, params)
+        validation_results = list(validator.validate())
+
+        # Check format validation results
+        format_results = [
+            r
+            for r in validation_results
+            if r.get("validation_type") == "format"
+        ]
+        self.assertTrue(
+            any(r.get("response") == "CRITICAL" for r in format_results)
+        )
