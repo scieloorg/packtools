@@ -19,8 +19,10 @@ from packtools.sps.validation.article_doi import ArticleDoiValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
 from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
+from packtools.sps.validation.author_notes import XMLAuthorNotesValidation
 from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
+from packtools.sps.validation.fn import XMLFnGroupValidation
 from packtools.sps.validation.formula import (
     ArticleDispFormulaValidation,
     ArticleInlineFormulaValidation,
@@ -33,8 +35,6 @@ from packtools.sps.validation.journal_meta import (
 )
 
 # PR pendente
-# from packtools.sps.validation.article_author_notes import xValidation
-# from packtools.sps.validation.footnotes import xValidation
 # -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 from packtools.sps.validation.peer_review import XMLPeerReviewValidation
@@ -356,6 +356,16 @@ def validate_metadata_languages(xmltree, params):
 
 def validate_related_articles(xmltree, params):
     validator = XMLRelatedArticlesValidation(xmltree, params["related_articles_rules"])
+    yield from validator.validate()
+
+
+def validate_fns(xmltree, params):
+    validator = XMLFnGroupValidation(xmltree, params["fn_rules"])
+    yield from validator.validate()
+
+
+def validate_author_notes(xmltree, params):
+    validator = XMLAuthorNotesValidation(xmltree, params["author_notes_rules"])
     yield from validator.validate()
 
 
