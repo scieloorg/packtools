@@ -1,8 +1,8 @@
 from packtools.sps.models.article_and_subarticles import Fulltext
-from packtools.sps.models.related_articles import Fulltext as FulltextRelatedArticles
-from packtools.sps.models.dates import FulltextDates
 from packtools.sps.models.article_contribs import Contrib
 from packtools.sps.models.article_license import License
+from packtools.sps.models.dates import FulltextDates
+from packtools.sps.models.related_articles import FulltextRelatedArticles
 
 
 class CustomMeta:
@@ -41,11 +41,13 @@ class PeerReview(Fulltext):
         if not hasattr(self, "_contribs"):
             self._contribs = []
             for contrib in self.front.xpath(".//contrib"):
-                self._contribs.append(contrib)
+                self._contribs.append(
+                    Contrib(contrib, self.attribs_parent_prefixed)
+                )
         return self._contribs
 
     @property
-    def history(self):
+    def history_dates(self):
         if not hasattr(self, "_history"):
             fulltext_dates = FulltextDates(self.node)
             self._history = fulltext_dates.history_dates_dict
@@ -55,10 +57,9 @@ class PeerReview(Fulltext):
     def license_code(self):
         if not hasattr(self, "_license_code"):
             self._license_code = None
-            node = self.node.find(".//permission//license")
+            node = self.node.find(".//permissions//license")
             if node is not None:
-                fulltext_dates = License(self.node)
-                self._license_code = License(self.node).code
+                self._license_code = License(node).code
         return self._license_code
 
     @property
