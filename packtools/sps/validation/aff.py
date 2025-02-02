@@ -1,157 +1,116 @@
-from packtools.sps.models.v2.aff import ArticleAffiliations
-from packtools.sps.validation.exceptions import (
-    AffiliationCountryCodeListNotProvidedException,
-)
-from packtools.sps.validation.utils import format_response, build_response
-from packtools.translator import _
+from copy import deepcopy
+from difflib import SequenceMatcher
+
+from packtools.sps.models.v2.aff import FulltextAffiliations
+from packtools.sps.validation.utils import build_response
 
 
-class AffiliationsValidation:
-    """
-    Class for validating a list of affiliations within an XML document.
-
-    Parameters
-    ----------
-    xml_tree : lxml.etree._ElementTree
-        The parsed XML document representing the article.
-    country_codes_list : list, optional
-        List of valid country codes for validation.
-    """
-
-    def __init__(self, xml_tree, country_codes_list):
+class FulltextAffiliationsValidation:
+    def __init__(self, node, params):
         """
-        Initialize the AffiliationsValidation object.
+        Initialize validation for FulltextAffiliations.
 
         Parameters
         ----------
-        xml_tree : lxml.etree._ElementTree
-            The parsed XML document representing the article.
-        country_codes_list : list, optional
-            List of valid country codes for validation.
+        node : etree.Element
+            XML node representing article or sub-article
+        params : dict
+            Validation parameters including country codes and error levels
         """
-        if not country_codes_list:
-            raise AffiliationCountryCodeListNotProvidedException(
-                "AffiliationValidation.__init__ requires list of country codes"
-            )
-
-        self.xml_tree = xml_tree
-        self.affiliations = ArticleAffiliations(xml_tree)
-        self.main_affs = list(self.affiliations.article_affs())
-        self.translation_affs = list(self.affiliations.sub_article_translation_affs())
-        self.translation_affs_by_lang = (
-            self.affiliations.sub_article_translation_affs_by_lang()
+        self.node = node
+        self.params = deepcopy(params or {})
+        self.fulltext_affs = FulltextAffiliations(node)
+        self.translation_params = deepcopy(self.params)
+        self.translation_params.update(
+            params.get("translation_aff_rules") or {}
         )
-        self.country_codes_list = country_codes_list
 
-    def validate_main_affiliations(
-        self,
-        id_error_level=None,
-        label_error_level=None,
-        original_error_level=None,
-        orgname_error_level=None,
-        country_error_level=None,
-        country_code_error_level=None,
-        state_error_level=None,
-        city_error_level=None,
-    ):
-        items = self.main_affs
-        total = len(items)
-        if total == 1:
-            label_error_level = "INFO"
-        for affiliation in items:
-            yield from AffiliationValidation(
-                affiliation, self.country_codes_list
-            ).validate(
-                id_error_level,
-                label_error_level,
-                original_error_level,
-                orgname_error_level,
-                country_error_level,
-                country_code_error_level,
-                state_error_level,
-                city_error_level,
-            )
-
-    def validate_translated_affiliations(
-        self,
-        id_error_level=None,
-        label_error_level=None,
-        original_error_level=None,
-        orgname_error_level=None,
-        country_error_level=None,
-        country_code_error_level=None,
-        state_error_level=None,
-        city_error_level=None,
-    ):
-        orgname_error_level = orgname_error_level or "INFO"
-        country_error_level = country_error_level or "INFO"
-        country_code_error_level = country_code_error_level or "INFO"
-        state_error_level = state_error_level or "INFO"
-        city_error_level = city_error_level or "INFO"
-
-        items = self.translation_affs
-        total = len(items)
-        if total == 1:
-            label_error_level = "INFO"
-        for affiliation in items:
-            yield from AffiliationValidation(
-                affiliation, self.country_codes_list
-            ).validate(
-                id_error_level,
-                label_error_level,
-                original_error_level,
-                orgname_error_level,
-                country_error_level,
-                country_code_error_level,
-                state_error_level,
-                city_error_level,
-            )
-
-    def validate_affiliation_count(self, error_level="CRITICAL"):
+    def validate_main_affiliations(self):
         """
-        Validate that the number of affiliations in articles matches the number in sub-articles.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported in case of mismatch. Default is "CRITICAL".
+        Validate all affiliations and their translations using AffiliationValidation.
 
         Yields
         ------
         dict
-            A dictionary containing the validation result comparing the number of affiliations.
+            Validation results for each affiliation and translation
         """
-        if not self.translation_affs_by_lang:
-            return
-        article_list = self.main_affs
-        article_count = len(article_list)
+        # Validate main affiliations
+        for aff in self.fulltext_affs.affiliations():
+            validator = AffiliationValidation(aff, self.params)
+            yield from validator.validate()
 
-        for lang, items in self.translation_affs_by_lang.items():
-            sub_article_count = len(list(items))
-            if article_count == sub_article_count:
-                continue
-            affs = [item.get("id") for item in self.main_affs]
-            trans_affs = [item.get("id") for item in items]
-            yield format_response(
-                title="Total of affiliations",
-                parent=None,
-                parent_id=None,
-                parent_article_type=None,
-                parent_lang=None,
-                item="aff",
-                sub_item=None,
-                validation_type="match",
-                is_valid=False,
-                expected=f"equal counts in articles and sub-articles",
-                obtained=f"article: {article_count}, sub-article {lang}: {sub_article_count}",
-                advice=f"Check how the affiliations were identified in article-meta and in sub-article {lang}",
-                data={"article": affs, f"sub-article-{lang}": trans_affs},
-                error_level=error_level,
+    def validate_translated_affiliations(self):
+        for item in self.fulltext_affs.translations:
+            validator = FulltextAffiliationsValidation(
+                item.node, self.translation_params
             )
+            yield from validator.validate()
+
+    def validate_translations_consistency(self):
+        main_affs = list(self.fulltext_affs.affiliations())
+        for (
+            lang,
+            trans_affs,
+        ) in self.fulltext_affs.translations_data_by_lang.items():
+            # Check count match
+            if len(main_affs) == len(trans_affs):
+                # Compare content similarity for matched pairs
+                for idx, (main_aff, trans_aff) in enumerate(
+                    zip(main_affs, trans_affs)
+                ):
+                    validator = AffiliationValidation(
+                        trans_aff, self.translation_params
+                    )
+                    yield from validator.validate_comparison(main_aff)
+            else:
+                yield build_response(
+                    title="translation count mismatch",
+                    parent=self.fulltext_affs.attribs_parent_prefixed,
+                    item="aff",
+                    sub_item="quantity",
+                    validation_type="match",
+                    is_valid=False,
+                    expected=f"{len(main_affs)} affiliations",
+                    obtained=f"{len(trans_affs)} affiliations",
+                    advice="Ensure translation has same number of affiliations as main text",
+                    error_level=self.params["translation_qty_error_level"],
+                    data={
+                        "main_count": len(main_affs),
+                        "translation_count": len(trans_affs),
+                        "language": lang,
+                    },
+                )
+
+    def validate_not_translation_affiliations(self):
+        """
+        Validate affiliations of sub-article which are not translation
+
+        Yields
+        ------
+        dict
+            Validation results for each affiliation and translation
+        """
+        for item in self.fulltext_affs.not_translations:
+            validator = FulltextAffiliationsValidation(item.node, self.params)
+            yield from validator.validate()
+
+    def validate(self):
+        """
+        Validate all affiliations and their translations
+
+        Yields
+        ------
+        dict
+            Validation results for each affiliation and translation
+        """
+        yield from self.validate_main_affiliations()
+        yield from self.validate_translations_consistency()
+        yield from self.validate_translated_affiliations()
+        yield from self.validate_not_translation_affiliations()
 
 
 class AffiliationValidation:
-    def __init__(self, affiliation, country_codes_list):
+    def __init__(self, affiliation: dict, params: dict):
         """
         Initialize the AffiliationValidation object.
 
@@ -159,32 +118,37 @@ class AffiliationValidation:
         ----------
         affiliation : dict
             A dictionary containing the affiliation data.
-        country_codes_list : list, optional
-            List of valid country codes for validation.
+        params: dict
+            Dictionary containing validation parameters including:
+            - country_codes_list: List of valid country codes
+            - error_levels: Dict with error levels for each validation type
         """
-        if not country_codes_list:
-            raise AffiliationCountryCodeListNotProvidedException(
-                "AffiliationValidation.__init__ requires list of country codes"
+        if not params.get("country_codes_list"):
+            raise ValueError(
+                "AffiliationValidation requires list of country codes"
             )
+
         self.affiliation = affiliation
-        self.country_codes_list = country_codes_list
+        self.params = params
 
-    def validate_original(self, error_level=None):
-        """
-        Validate the presence of the original affiliation content.
+        default_min_similarity = {
+            "original": 0.5,
+            "orgname": 1,
+            "orgdiv1": 0.6,
+            "orgdiv2": 0.6,
+            "city": 0.6,
+            "state": 0.6,
+            "country": 0.6,
+            "country_code": 1,
+        }
+        self.params.setdefault(
+            "min_expected_similarity", default_min_similarity
+        )
 
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "ERROR".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the original affiliation.
-        """
+    def validate_original(self):
         original = self.affiliation.get("original")
-        error_level = error_level or "ERROR"
+        error_level = self.params["original_error_level"]
+
         if not original or error_level == "INFO":
             yield build_response(
                 title="original",
@@ -193,29 +157,17 @@ class AffiliationValidation:
                 sub_item='@content-type="original"',
                 validation_type="exist",
                 is_valid=bool(original),
-                expected=_("original affiliation"),
+                expected="original affiliation",
                 obtained=original,
-                advice=_("provide the original affiliation"),
+                advice="provide the original affiliation",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_orgname(self, error_level=None):
-        """
-        Validate the presence of the orgname affiliation content.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "CRITICAL".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the orgname affiliation.
-        """
+    def validate_orgname(self):
         orgname = self.affiliation.get("orgname")
-        error_level = error_level or "CRITICAL"
+        error_level = self.params["orgname_error_level"]
+
         if not orgname or error_level == "INFO":
             yield build_response(
                 title="orgname",
@@ -224,29 +176,55 @@ class AffiliationValidation:
                 sub_item='@content-type="orgname"',
                 validation_type="exist",
                 is_valid=bool(orgname),
-                expected=_("orgname"),
+                expected="orgname",
                 obtained=orgname,
-                advice=_("provide the orgname"),
+                advice="provide the orgname",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_label(self, error_level=None):
-        """
-        Validate the presence of the label affiliation content.
+    def validate_orgdiv1(self):
+        orgdiv1 = self.affiliation.get("orgdiv1")
+        error_level = self.params["orgdiv1_error_level"]
 
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "CRITICAL".
+        if not orgdiv1 or error_level == "INFO":
+            yield build_response(
+                title="orgdiv1",
+                parent=self.affiliation,
+                item="institution",
+                sub_item='@content-type="orgdiv1"',
+                validation_type="exist",
+                is_valid=bool(orgdiv1),
+                expected="orgdiv1 affiliation",
+                obtained=orgdiv1,
+                advice="provide the orgdiv1 affiliation",
+                data=self.affiliation,
+                error_level=error_level,
+            )
 
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the orgname affiliation.
-        """
+    def validate_orgdiv2(self):
+        orgdiv2 = self.affiliation.get("orgdiv2")
+        error_level = self.params["orgdiv2_error_level"]
+
+        if not orgdiv2 or error_level == "INFO":
+            yield build_response(
+                title="orgdiv2",
+                parent=self.affiliation,
+                item="institution",
+                sub_item='@content-type="orgdiv2"',
+                validation_type="exist",
+                is_valid=bool(orgdiv2),
+                expected="orgdiv2 affiliation",
+                obtained=orgdiv2,
+                advice="provide the orgdiv2 affiliation",
+                data=self.affiliation,
+                error_level=error_level,
+            )
+
+    def validate_label(self):
         label = self.affiliation.get("label")
-        error_level = error_level or "CRITICAL"
+        error_level = self.params["label_error_level"]
+
         if not label or error_level == "INFO":
             yield build_response(
                 title="label",
@@ -255,29 +233,17 @@ class AffiliationValidation:
                 sub_item="label",
                 validation_type="exist",
                 is_valid=bool(label),
-                expected=_("label"),
+                expected="label",
                 obtained=label,
-                advice=_("provide the label"),
+                advice="provide the label",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_country(self, error_level=None):
-        """
-        Validate the presence of the country affiliation content.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "CRITICAL".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the country affiliation.
-        """
+    def validate_country(self):
         country = self.affiliation.get("country_name")
-        error_level = error_level or "CRITICAL"
+        error_level = self.params["country_error_level"]
+
         if not country or error_level == "INFO":
             yield build_response(
                 title="country name",
@@ -286,37 +252,20 @@ class AffiliationValidation:
                 sub_item="country",
                 validation_type="exist",
                 is_valid=bool(country),
-                expected=_("country name"),
+                expected="country name",
                 obtained=country,
-                advice=_("provide the country name"),
+                advice="provide the country name",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_country_code(self, error_level=None):
-        """
-        Validate the country code against a list of valid country codes.
-
-        Parameters
-        ----------
-        country_codes_list : list, optional
-            List of valid country codes for validation. If not provided, uses the instance's country_codes_list.
-        error_level : str, optional
-            The level of error to be reported. Default is "CRITICAL".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the country code.
-        """
-        country_codes_list = self.country_codes_list
+    def validate_country_code(self):
         country_code = self.affiliation.get("country_code")
-        error_level = error_level or "CRITICAL"
+        error_level = self.params["country_code_error_level"]
+        country_codes_list = self.params["country_codes_list"]
 
-        if (not country_code in country_codes_list) or (error_level == "INFO"):
-
+        if country_code not in country_codes_list or error_level == "INFO":
             is_valid = country_code in country_codes_list
-
             yield build_response(
                 title="country code",
                 parent=self.affiliation,
@@ -325,30 +274,18 @@ class AffiliationValidation:
                 validation_type="value in list",
                 is_valid=is_valid,
                 expected=(
-                    country_code if is_valid else f"one of {self.country_codes_list}"
+                    country_code if is_valid else f"one of {country_codes_list}"
                 ),
                 obtained=country_code,
-                advice=_("provide a valid @country"),
+                advice="provide a valid @country",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_state(self, error_level=None):
-        """
-        Validate the presence of the state affiliation content.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "ERROR".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the state affiliation.
-        """
+    def validate_state(self):
         state = self.affiliation.get("state")
-        error_level = error_level or "ERROR"
+        error_level = self.params["state_error_level"]
+
         if not state or error_level == "INFO":
             yield build_response(
                 title="state",
@@ -357,29 +294,17 @@ class AffiliationValidation:
                 sub_item="state",
                 validation_type="exist",
                 is_valid=bool(state),
-                expected=_("state"),
+                expected="state",
                 obtained=state,
-                advice=_("provide the state"),
+                advice="provide the state",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_city(self, error_level=None):
-        """
-        Validate the presence of the city affiliation content.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "ERROR".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the city affiliation.
-        """
+    def validate_city(self):
         city = self.affiliation.get("city")
-        error_level = error_level or "ERROR"
+        error_level = self.params["city_error_level"]
+
         if not city or error_level == "INFO":
             yield build_response(
                 title="city",
@@ -388,29 +313,17 @@ class AffiliationValidation:
                 sub_item="city",
                 validation_type="exist",
                 is_valid=bool(city),
-                expected=_("city"),
+                expected="city",
                 obtained=city,
-                advice=_("provide the city"),
+                advice="provide the city",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate_id(self, error_level=None):
-        """
-        Validate the presence of the affiliation ID.
-
-        Parameters
-        ----------
-        error_level : str, optional
-            The level of error to be reported. Default is "CRITICAL".
-
-        Yields
-        ------
-        dict
-            A dictionary containing the validation result for the affiliation ID.
-        """
+    def validate_id(self):
         aff_id = self.affiliation.get("id")
-        error_level = error_level or "CRITICAL"
+        error_level = self.params["id_error_level"]
+
         if not aff_id or error_level == "INFO":
             yield build_response(
                 title="id",
@@ -419,37 +332,118 @@ class AffiliationValidation:
                 sub_item="@id",
                 validation_type="exist",
                 is_valid=bool(aff_id),
-                expected=_("affiliation ID"),
+                expected="affiliation ID",
                 obtained=aff_id,
-                advice=_("provide the affiliation ID"),
+                advice="provide the affiliation ID",
                 data=self.affiliation,
                 error_level=error_level,
             )
 
-    def validate(
-        self,
-        id_error_level=None,
-        label_error_level=None,
-        original_error_level=None,
-        orgname_error_level=None,
-        country_error_level=None,
-        country_code_error_level=None,
-        state_error_level=None,
-        city_error_level=None,
-    ):
+    def compare(self, main_aff: dict):
         """
-        Validate the affiliation
+        Compare similarity between two self.affiliations.
+
+        Parameters
+        ----------
+        main_aff : dict
+            Affiliation dictionaries to compare
+
+        """
+        config = self.params["min_expected_similarity"]
+
+        correct = 0
+        items = []
+        got = {}
+        for field, min_expected_sim in config.items():
+            main_value = main_aff.get(field) or ""
+            translation = self.affiliation.get(field) or ""
+
+            main_words = [
+                w.strip() for w in main_value.upper().split() if w.strip()
+            ]
+            tran_words = [
+                w.strip() for w in translation.upper().split() if w.strip()
+            ]
+
+            _main_value = sorted(main_words)
+            _translation = sorted(tran_words)
+            score1 = SequenceMatcher(None, _main_value, _translation).ratio()
+
+            _main_value = " ".join(main_words)
+            _translation = " ".join(tran_words)
+            score2 = SequenceMatcher(None, _main_value, _translation).ratio()
+
+            got[field] = max([score1, score2])
+
+            valid = got[field] >= min_expected_sim
+            items.append(
+                {
+                    "field": field,
+                    "main": main_value,
+                    "translation": translation,
+                    "got": got[field],
+                    "expected": min_expected_sim,
+                    "valid": valid,
+                }
+            )
+            if valid or (_main_value and not _translation):
+                correct += 1
+        return {
+            "valid": correct,
+            "invalid": len(items) - correct,
+            "items": items,
+            "got": got,
+        }
+
+    def validate_comparison(self, main_aff: dict):
+        """
+        Compare similarity between main_aff and self.affiliations.
+
+        Parameters
+        ----------
+        main_aff : dict
+            Affiliation dictionaries to compare
+
+        """
+        result = self.compare(main_aff)
+        invalid = result["invalid"]
+        if invalid:
+            got = result["got"]
+            items = result["items"]
+            if self.affiliation.get("id"):
+                advice = f"Review affiliation ({self.affiliation.get('id')})"
+            else:
+                advice = f"Review affiliation ({self.affiliation})"
+            yield build_response(
+                title=f"low similarity",
+                parent=self.affiliation,
+                item="aff",
+                sub_item="translation",
+                validation_type="similarity",
+                is_valid=False,
+                expected=f"Similarity expected: {self.params['min_expected_similarity']}",
+                obtained=f"Similarity got: {got}",
+                advice=advice,
+                error_level=self.params["translation_similarity_error_level"],
+                data=items,
+            )
+
+    def validate(self):
+        """
+        Validate all aspects of the affiliation.
 
         Yields
         ------
         dict
-            A dictionary containing the validation results for the affiliation.
+            Validation results for each aspect of the affiliation.
         """
-        yield from self.validate_id(id_error_level)
-        yield from self.validate_label(label_error_level)
-        yield from self.validate_original(original_error_level)
-        yield from self.validate_orgname(orgname_error_level)
-        yield from self.validate_country(country_error_level)
-        yield from self.validate_country_code(country_code_error_level)
-        yield from self.validate_state(state_error_level)
-        yield from self.validate_city(city_error_level)
+        yield from self.validate_id()
+        yield from self.validate_label()
+        yield from self.validate_original()
+        yield from self.validate_orgname()
+        yield from self.validate_orgdiv1()
+        yield from self.validate_orgdiv2()
+        yield from self.validate_country()
+        yield from self.validate_country_code()
+        yield from self.validate_state()
+        yield from self.validate_city()
