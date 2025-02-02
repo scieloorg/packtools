@@ -1,9 +1,6 @@
-from packtools.sps.models.aff import Affiliation
-from packtools.sps.utils.xml_utils import (
-    node_plain_text,
-    get_parent_context,
-    put_parent_context,
-)
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.models.v2.aff import XMLAffiliations
+from packtools.sps.utils.xml_utils import node_plain_text
 
 """
 <contrib contrib-type="author">
@@ -26,8 +23,9 @@ from packtools.sps.utils.xml_utils import (
 
 
 class Contrib:
-    def __init__(self, node):
+    def __init__(self, node, parent_data=None):
         self.node = node
+        self.parent_data = parent_data
 
     @property
     def contrib_type(self):
@@ -42,7 +40,7 @@ class Contrib:
         }
 
     @property
-    def contrib_anonymous(self):
+    def anonymous(self):
         anonymous = self.node.find("anonymous")
         if anonymous is not None:
             return "anonymous"
@@ -91,7 +89,7 @@ class Contrib:
             (
                 "contrib_type",
                 "contrib_ids",
-                "contrib_anonymous",
+                "anonymous",
                 "contrib_name",
                 "contrib_full_name",
                 "collab",
@@ -101,7 +99,7 @@ class Contrib:
             (
                 self.contrib_type,
                 self.contrib_ids,
-                self.contrib_anonymous,
+                self.anonymous,
                 self.contrib_name,
                 self.contrib_full_name,
                 self.collab,
@@ -111,6 +109,8 @@ class Contrib:
         ):
             if value:
                 data[key] = value
+        if self.parent_data:
+            data.update(self.parent_data)
         return data
 
 
@@ -119,54 +119,97 @@ class ContribGroup:
         self.node = node
 
     @property
+    def type(self):
+        return self.node.get("content-type")
+
+    @property
     def contribs(self):
         for contribs in self.node.xpath(".//contrib"):
-            contrib = Contrib(contribs)
-            yield contrib.data
+            yield Contrib(contribs)
+
+    @property
+    def data(self):
+        return {
+            "type": self.type,
+            "contribs": list([item.data for item in self.contribs]),
+        }
 
 
-class ArticleContribs:
+class XMLContribs:
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.aff = Affiliation(xmltree).affiliation_by_id
-
-    def _extract_contrib_group(self, xpath_contrib):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xmltree
-        ):
-            for contrib_group in node.xpath(xpath_contrib):
-                for contrib in ContribGroup(contrib_group).contribs:
-                    affs = list(_get_affs(self.aff, contrib))
-                    if affs:
-                        contrib["affs"] = affs
-                    yield put_parent_context(
-                        contrib, lang, article_type, parent, parent_id
-                    )
-
-    @property
-    def contribs_in_sub_article(self):
-        # FIXME: Em sub-article, podem existir contribs duplicados.
-        # Para evitar duplicidade, é necessário verificar se o contrib já foi adicionado ao conjunto de dados.
-        # Solução sugerida: Utilize uma estrutura como um conjunto (set) ou uma lógica de verificação
-        # para garantir que cada contrib seja adicionado apenas uma vez ao data.
-        return self._extract_contrib_group(
-            xpath_contrib=".//sub-article//contrib-group"
-        )
-
-    @property
-    def contribs_in_article_meta(self):
-        return self._extract_contrib_group(
-            xpath_contrib=".//article-meta//contrib-group"
-        )
+        self.aff = XMLAffiliations(xmltree).by_ids
+        self.text_contribs = TextContribs(self.xmltree.find("."))
 
     @property
     def contribs(self):
-        return self._extract_contrib_group(xpath_contrib=".//contrib-group")
+        # main contribs
+        if self.aff:
+            for item in self.text_contribs.main_contribs:
+                yield self._add_affs(item)
+        else:
+            yield from self.text_contribs.main_contribs
+
+    @property
+    def all_contribs(self):
+        if self.aff:
+            for item in self.text_contribs.items:
+                yield self._add_affs(item)
+        else:
+            yield from self.text_contribs.items
+
+    def _add_affs(self, contrib):
+        if self.aff and contrib and (xrefs := contrib.get("contrib_xref")):
+            affs = []
+            for xref in xrefs:
+                if aff := self.aff.get(xref.get("rid")):
+                    affs.append(aff)
+            if affs:
+                contrib["affs"] = affs
+        return contrib
+
+    @property
+    def contrib_full_name_by_orcid(self):
+        orcid_dict = {}
+        for contrib in self.all_contribs:
+            if orcid := contrib.get("contrib_ids", {}).get("orcid"):
+                orcid_dict.setdefault(orcid, set())
+                orcid_dict[orcid].add(contrib.get("contrib_full_name"))
+        return orcid_dict
 
 
-def _get_affs(affs, contrib):
-    if affs and contrib:
-        for xref in contrib.get("contrib_xref") or []:
-            aff = affs.get(xref.get("rid"))
-            if aff:
-                yield aff
+class TextContribs(Fulltext):
+
+    @property
+    def contrib_groups(self):
+        for contrib_group in self.front.xpath(".//contrib-group"):
+            yield ContribGroup(contrib_group)
+
+    @property
+    def data(self):
+        data = {"parent": self.attribs_parent_prefixed}
+        data["contrib-groups"] = []
+        for group in self.contrib_groups:
+            data["contrib-groups"].append(group.data)
+        return data
+
+    @property
+    def main_contribs(self):
+        for group in self.contrib_groups:
+            for item in group.contribs:
+                data = {}
+                data["contrib-group-type"] = group.type
+                data.update(self.attribs_parent_prefixed)
+                data.update(item.data)
+                yield data
+
+    @property
+    def items(self):
+        yield from self.main_contribs
+        for node in self.sub_articles:
+            fulltext = TextContribs(node)
+            yield from fulltext.items
+
+
+class ArticleContribs(XMLContribs):
+    ...
