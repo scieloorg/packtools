@@ -1,6 +1,6 @@
 import unittest
 from lxml import etree
-from packtools.sps.validation.fn import FnGroupValidation, FnValidation
+from packtools.sps.validation.fn import XMLFnGroupValidation, FnValidation
 
 
 class TestFnValidation(unittest.TestCase):
@@ -52,7 +52,7 @@ class TestFnValidation(unittest.TestCase):
                 </front>
             </article>
         ''')
-        validator = FnGroupValidation(xml_tree, self.rules)
+        validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
 
         self.assertEqual(len(results), 1)  # Apenas fn2 deve gerar erro
@@ -72,7 +72,7 @@ class TestFnValidation(unittest.TestCase):
                 </sub-article>
             </article>
         ''')
-        validator = FnGroupValidation(xml_tree, self.rules)
+        validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
 
         self.assertEqual(len(results), 0)  # Nenhum erro esperado

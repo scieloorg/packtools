@@ -1,6 +1,6 @@
 from unittest import TestCase
 from lxml import etree
-from packtools.sps.models.fn import ArticleFns
+from packtools.sps.models.fn import XMLFns
 
 
 class FnGroupsTest(TestCase):
@@ -40,7 +40,7 @@ class FnGroupsTest(TestCase):
 
     def setUp(self):
         self.xml_tree = etree.fromstring(self.XML)
-        self.fns = ArticleFns(self.xml_tree)
+        self.fns = XMLFns(self.xml_tree)
 
     def test_article_fn_groups_notes(self):
         obtained = list(self.fns.article_fn_groups_notes())
