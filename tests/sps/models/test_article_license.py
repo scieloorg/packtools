@@ -42,6 +42,7 @@ class ArticleLicenseTest(TestCase):
             {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
                     'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
@@ -50,11 +51,13 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': "open-access"
             },
             {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
                     'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
@@ -63,11 +66,13 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': "open-access"
             },
             {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
                     'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
@@ -76,7 +81,8 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': "open-access"
             }
         ]
 
@@ -91,6 +97,7 @@ class ArticleLicenseTest(TestCase):
             'en': {
                 'lang': 'en',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'This is an article published in open access under a Creative Commons license.',
                     'text': '<bold>This is an article</bold> published in open access under a Creative Commons license.',
@@ -99,11 +106,13 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': 'open-access'
             },
             'pt': {
                 'lang': 'pt',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'Este é um artigo publicado em acesso aberto sob uma licença Creative Commons.',
                     'text': 'Este é um artigo publicado <bold>em acesso aberto sob uma licença</bold> Creative Commons.',
@@ -112,11 +121,13 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': 'open-access'
             },
             'es': {
                 'lang': 'es',
                 'link': 'http://creativecommons.org/licenses/by/4.0/',
+                'code': 'by',
                 'license_p': {
                     'plain_text': 'Este es un artículo publicado en acceso abierto bajo una licencia Creative Commons.',
                     'text': 'Este es un artículo publicado en acceso abierto bajo <bold>una <italic>licencia</italic> Creative</bold> Commons.',
@@ -125,7 +136,8 @@ class ArticleLicenseTest(TestCase):
                 'parent': 'article',
                 'parent_article_type': None,
                 'parent_id': None,
-                'parent_lang': None
+                'parent_lang': None,
+                'type': 'open-access'
             }
         }
 
