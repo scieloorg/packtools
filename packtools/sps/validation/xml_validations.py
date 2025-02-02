@@ -1,34 +1,42 @@
 from packtools.sps.models.article_dates import ArticleDates
 from packtools.sps.validation.aff import AffiliationsValidation
 from packtools.sps.validation.article_abstract import (
-    ArticleAbstractsValidation, HighlightsValidation,
-    VisualAbstractsValidation)
+    ArticleAbstractsValidation,
+    HighlightsValidation,
+    VisualAbstractsValidation,
+)
 from packtools.sps.validation.article_and_subarticles import (
-    ArticleAttribsValidation, ArticleIdValidation, ArticleLangValidation,
-    ArticleTypeValidation)
-from packtools.sps.validation.references import \
-    ArticleReferencesValidation
+    ArticleAttribsValidation,
+    ArticleIdValidation,
+    ArticleLangValidation,
+    ArticleTypeValidation,
+)
+from packtools.sps.validation.references import ArticleReferencesValidation
 from packtools.sps.validation.article_contribs import ArticleContribsValidation
-from packtools.sps.validation.article_data_availability import \
-    DataAvailabilityValidation
+from packtools.sps.validation.article_data_availability import (
+    DataAvailabilityValidation,
+)
 from packtools.sps.validation.article_doi import ArticleDoiValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
-from packtools.sps.validation.article_toc_sections import \
-    ArticleTocSectionsValidation
+from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
-from packtools.sps.validation.formula import ArticleDispFormulaValidation, ArticleInlineFormulaValidation
+from packtools.sps.validation.formula import (
+    ArticleDispFormulaValidation,
+    ArticleInlineFormulaValidation,
+)
 from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
-from packtools.sps.validation.journal_meta import (JournalIdValidation,
-                                                   PublisherNameValidation,
-                                                   TitleValidation)
+from packtools.sps.validation.journal_meta import (
+    JournalIdValidation,
+    PublisherNameValidation,
+    TitleValidation,
+)
 
 # remover journal
 # from packtools.sps.validation.journal import xValidation
-
 
 
 # PR pendente
@@ -36,6 +44,7 @@ from packtools.sps.validation.journal_meta import (JournalIdValidation,
 # from packtools.sps.validation.footnotes import xValidation
 # -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
+
 # -
 # from packtools.sps.validation.errata import xValidation
 # from packtools.sps.validation.erratum import xValidation
@@ -74,7 +83,7 @@ def validate_abstracts(xmltree, params):
         article_type_requires=abstract_rules["article_type_requires"],
         article_type_unexpects=abstract_rules["article_type_unexpects"],
         article_type_neutral=abstract_rules["article_type_neutral"],
-        article_type_accepts=[]
+        article_type_accepts=[],
     )
 
     highlight_rules = params["highlight_rules"]
@@ -90,7 +99,7 @@ def validate_abstracts(xmltree, params):
         article_type_requires=[],
         article_type_unexpects=highlight_rules["article_type_unexpects"],
         article_type_neutral=highlight_rules["article_type_neutral"],
-        article_type_accepts=highlight_rules["article_type_accepts"]
+        article_type_accepts=highlight_rules["article_type_accepts"],
     )
 
     graphical_abstract_rules = params["graphical_abstract_rules"]
@@ -105,7 +114,7 @@ def validate_abstracts(xmltree, params):
         article_type_requires=[],
         article_type_unexpects=graphical_abstract_rules["article_type_unexpects"],
         article_type_neutral=graphical_abstract_rules["article_type_neutral"],
-        article_type_accepts=graphical_abstract_rules["article_type_accepts"]
+        article_type_accepts=graphical_abstract_rules["article_type_accepts"],
     )
 
 
@@ -195,7 +204,9 @@ def validate_references(xmltree, params):
 def validate_article_contribs(xmltree, params):
     is_orcid_registered = params.get("is_orcid_registered")
     article_contribs_rules = params["article_contribs_rules"]
-    validator = ArticleContribsValidation(xmltree, article_contribs_rules, is_orcid_registered)
+    validator = ArticleContribsValidation(
+        xmltree, article_contribs_rules, is_orcid_registered
+    )
     yield from validator.validate()
 
 
@@ -251,14 +262,15 @@ def validate_id_and_rid_match(xmltree, params):
 
     yield from validator.validate_element_id_has_corresponding_xref_rid(
         id_and_rid_match_rules["elements_required_rid"],
-        error_level=id_and_rid_match_rules["required_rid_error_level"]
+        error_level=id_and_rid_match_rules["required_rid_error_level"],
     )
-    
+
 
 def validate_article_dates(xmltree, params):
     article_dates_rules = params["article_dates_rules"]
     validator = FulltextDatesValidation(xmltree, params["article_dates_rules"])
     yield from validator.validate()
+
 
 def validate_figs(xmltree, params):
     rules = params["fig_rules"]
@@ -351,4 +363,3 @@ def validate_metadata_languages(xmltree, params):
 def validate_related_articles(xmltree, params):
     validator = RelatedArticlesValidation(xmltree, params["related_articles_rules"])
     yield from validator.validate(["error_level"])
-

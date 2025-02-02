@@ -38,10 +38,22 @@ class AffiliationsValidation:
         self.affiliations = ArticleAffiliations(xml_tree)
         self.main_affs = list(self.affiliations.article_affs())
         self.translation_affs = list(self.affiliations.sub_article_translation_affs())
-        self.translation_affs_by_lang = self.affiliations.sub_article_translation_affs_by_lang()
+        self.translation_affs_by_lang = (
+            self.affiliations.sub_article_translation_affs_by_lang()
+        )
         self.country_codes_list = country_codes_list
 
-    def validate_main_affiliations(self, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
+    def validate_main_affiliations(
+        self,
+        id_error_level=None,
+        label_error_level=None,
+        original_error_level=None,
+        orgname_error_level=None,
+        country_error_level=None,
+        country_code_error_level=None,
+        state_error_level=None,
+        city_error_level=None,
+    ):
         items = self.main_affs
         total = len(items)
         if total == 1:
@@ -50,10 +62,27 @@ class AffiliationsValidation:
             yield from AffiliationValidation(
                 affiliation, self.country_codes_list
             ).validate(
-                id_error_level, label_error_level, original_error_level, orgname_error_level, country_error_level, country_code_error_level, state_error_level, city_error_level
+                id_error_level,
+                label_error_level,
+                original_error_level,
+                orgname_error_level,
+                country_error_level,
+                country_code_error_level,
+                state_error_level,
+                city_error_level,
             )
 
-    def validate_translated_affiliations(self, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
+    def validate_translated_affiliations(
+        self,
+        id_error_level=None,
+        label_error_level=None,
+        original_error_level=None,
+        orgname_error_level=None,
+        country_error_level=None,
+        country_code_error_level=None,
+        state_error_level=None,
+        city_error_level=None,
+    ):
         orgname_error_level = orgname_error_level or "INFO"
         country_error_level = country_error_level or "INFO"
         country_code_error_level = country_code_error_level or "INFO"
@@ -68,7 +97,14 @@ class AffiliationsValidation:
             yield from AffiliationValidation(
                 affiliation, self.country_codes_list
             ).validate(
-                id_error_level, label_error_level, original_error_level, orgname_error_level, country_error_level, country_code_error_level, state_error_level, city_error_level
+                id_error_level,
+                label_error_level,
+                original_error_level,
+                orgname_error_level,
+                country_error_level,
+                country_code_error_level,
+                state_error_level,
+                city_error_level,
             )
 
     def validate_affiliation_count(self, error_level="CRITICAL"):
@@ -94,14 +130,8 @@ class AffiliationsValidation:
             sub_article_count = len(list(items))
             if article_count == sub_article_count:
                 continue
-            affs = [
-                item.get("id")
-                for item in self.main_affs
-            ]
-            trans_affs = [
-                item.get("id")
-                for item in items
-            ]
+            affs = [item.get("id") for item in self.main_affs]
+            trans_affs = [item.get("id") for item in items]
             yield format_response(
                 title="Total of affiliations",
                 parent=None,
@@ -294,7 +324,9 @@ class AffiliationValidation:
                 sub_item="@country",
                 validation_type="value in list",
                 is_valid=is_valid,
-                expected=country_code if is_valid else f"one of {self.country_codes_list}",
+                expected=(
+                    country_code if is_valid else f"one of {self.country_codes_list}"
+                ),
                 obtained=country_code,
                 advice=_("provide a valid @country"),
                 data=self.affiliation,
@@ -394,7 +426,17 @@ class AffiliationValidation:
                 error_level=error_level,
             )
 
-    def validate(self, id_error_level=None, label_error_level=None, original_error_level=None, orgname_error_level=None, country_error_level=None, country_code_error_level=None, state_error_level=None, city_error_level=None):
+    def validate(
+        self,
+        id_error_level=None,
+        label_error_level=None,
+        original_error_level=None,
+        orgname_error_level=None,
+        country_error_level=None,
+        country_code_error_level=None,
+        state_error_level=None,
+        city_error_level=None,
+    ):
         """
         Validate the affiliation
 

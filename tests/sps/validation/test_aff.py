@@ -77,40 +77,42 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_original())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_original()
+        )
 
         expected = {
-                "title": "original",
+            "title": "original",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "institution",
+            "sub_item": '@content-type="original"',
+            "validation_type": "exist",
+            "response": "ERROR",
+            "expected_value": "original affiliation",
+            "got_value": None,
+            "message": "Got None, expected original affiliation",
+            "advice": "provide the original affiliation",
+            "data": {
+                "city": "Belo Horizonte",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": None,
                 "parent": "article",
-                "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="original"',
-                "validation_type": "exist",
-                "response": "ERROR",
-                "expected_value": "original affiliation",
-                "got_value": None,
-                "message": "Got None, expected original affiliation",
-                "advice": "provide the original affiliation",
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": None,
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "parent_id": None,
-                    "state": "MG",
-                },
-            }
+                "parent_id": None,
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_orgname(self):
@@ -134,41 +136,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_orgname())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_orgname()
+        )
 
         expected = {
-                "title": "orgname",
+            "title": "orgname",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "institution",
+            "sub_item": '@content-type="orgname"',
+            "validation_type": "exist",
+            "response": "CRITICAL",
+            "expected_value": "orgname",
+            "got_value": None,
+            "message": "Got None, expected orgname",
+            "advice": "provide the orgname",
+            "data": {
+                "city": "Belo Horizonte",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": None,
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
-                "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "institution",
-                "sub_item": '@content-type="orgname"',
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "orgname",
-                "got_value": None,
-                "message": "Got None, expected orgname",
-                "advice": "provide the orgname",
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": None,
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "parent_id": None,
-                    "state": "MG",
-                },
-            }
+                "parent_id": None,
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_country(self):
@@ -193,41 +197,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_country()
+        )
 
         expected = {
-                "title": "country name",
+            "title": "country name",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "aff",
+            "sub_item": "country",
+            "validation_type": "exist",
+            "response": "CRITICAL",
+            "expected_value": "country name",
+            "got_value": None,
+            "message": "Got None, expected country name",
+            "advice": "provide the country name",
+            "data": {
+                "city": "Belo Horizonte",
+                "country_code": None,
+                "country_name": None,
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "country",
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "country name",
-                "got_value": None,
-                "message": "Got None, expected country name",
-                "advice": "provide the country name",
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": None,
-                    "country_name": None,
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            }
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_country_code(self):
@@ -253,41 +259,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_country_code()
+        )
 
         expected = {
-                "title": "country code",
+            "title": "country code",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "country",
+            "sub_item": "@country",
+            "validation_type": "value in list",
+            "response": "CRITICAL",
+            "expected_value": "one of ['BR']",
+            "got_value": None,
+            "message": "Got None, expected one of ['BR']",
+            "advice": "provide a valid @country",
+            "data": {
+                "city": "Belo Horizonte",
+                "country_code": None,
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "country",
-                "sub_item": "@country",
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['BR']",
-                "got_value": None,
-                "message": "Got None, expected one of ['BR']",
-                "advice": "provide a valid @country",
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": None,
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            }
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_state(self):
@@ -312,41 +320,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_state())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_state()
+        )
 
         expected = {
-                "title": "state",
+            "title": "state",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "addr-line",
+            "sub_item": "state",
+            "validation_type": "exist",
+            "response": "ERROR",
+            "expected_value": "state",
+            "got_value": None,
+            "message": "Got None, expected state",
+            "advice": "provide the state",
+            "data": {
+                "city": "Belo Horizonte",
+                "country_code": "BR",
+                "country_name": "Brasil",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "state",
-                "validation_type": "exist",
-                "response": "ERROR",
-                "expected_value": "state",
-                "got_value": None,
-                "message": "Got None, expected state",
-                "advice": "provide the state",
-                "data": {
-                    "city": "Belo Horizonte",
-                    "country_code": "BR",
-                    "country_name": "Brasil",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": None,
-                },
-            }
+                "state": None,
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_city(self):
@@ -371,41 +381,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_city())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_city()
+        )
 
         expected = {
-                "title": "city",
+            "title": "city",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "addr-line",
+            "sub_item": "city",
+            "validation_type": "exist",
+            "response": "ERROR",
+            "expected_value": "city",
+            "got_value": None,
+            "message": "Got None, expected city",
+            "advice": "provide the city",
+            "data": {
+                "city": None,
+                "country_name": "Brasil",
+                "country_code": "BR",
+                "email": None,
+                "id": "aff1",
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "addr-line",
-                "sub_item": "city",
-                "validation_type": "exist",
-                "response": "ERROR",
-                "expected_value": "city",
-                "got_value": None,
-                "message": "Got None, expected city",
-                "advice": "provide the city",
-                "data": {
-                    "city": None,
-                    "country_name": "Brasil",
-                    "country_code": "BR",
-                    "email": None,
-                    "id": "aff1",
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            }
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_affiliations_without_id(self):
@@ -430,41 +442,43 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         affiliations_list = list(ArticleAffiliations(xml_tree).article_affs())
-        obtained = list(AffiliationValidation(affiliations_list[0], ["BR"]).validate_id())
+        obtained = list(
+            AffiliationValidation(affiliations_list[0], ["BR"]).validate_id()
+        )
 
         expected = {
-                "title": "id",
+            "title": "id",
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": "research-article",
+            "parent_lang": "pt",
+            "item": "aff",
+            "sub_item": "@id",
+            "validation_type": "exist",
+            "response": "CRITICAL",
+            "expected_value": "affiliation ID",
+            "got_value": None,
+            "message": "Got None, expected affiliation ID",
+            "advice": "provide the affiliation ID",
+            "data": {
+                "city": None,
+                "country_name": "Brasil",
+                "country_code": "BR",
+                "email": None,
+                "id": None,
+                "label": "I",
+                "orgdiv1": None,
+                "orgdiv2": None,
+                "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
+                "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
+                "Horizonte, MG, Brasil",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
                 "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "@id",
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "affiliation ID",
-                "got_value": None,
-                "message": "Got None, expected affiliation ID",
-                "advice": "provide the affiliation ID",
-                "data": {
-                    "city": None,
-                    "country_name": "Brasil",
-                    "country_code": "BR",
-                    "email": None,
-                    "id": None,
-                    "label": "I",
-                    "orgdiv1": None,
-                    "orgdiv2": None,
-                    "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
-                    "original": "Secretaria Municipal de Saúde de Belo Horizonte. Belo "
-                    "Horizonte, MG, Brasil",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                    "state": "MG",
-                },
-            }
+                "state": "MG",
+            },
+        }
         self.assertDictEqual(expected, obtained[0])
 
     def test_validate(self):
@@ -501,7 +515,9 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_main_affiliations(data))
+        obtained = list(
+            AffiliationsValidation(xml_tree, ["BR"]).validate_main_affiliations(data)
+        )
         self.assertEqual(0, len(obtained))
 
     def test_validate_affiliation_sub_article_original_only(self):
@@ -536,10 +552,22 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         data = {"country_codes_list": ["BR"]}
-        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_translated_affiliations(data))
+        obtained = list(
+            AffiliationsValidation(xml_tree, ["BR"]).validate_translated_affiliations(
+                data
+            )
+        )
         expected = [
-            "orgname", "country name", "country code", "state", "city",
-            "orgname", "country name", "country code", "state", "city"
+            "orgname",
+            "country name",
+            "country code",
+            "state",
+            "city",
+            "orgname",
+            "country name",
+            "country code",
+            "state",
+            "city",
         ]
         self.assertEqual(10, len(obtained))
         for i, item in enumerate(obtained):
@@ -593,9 +621,7 @@ class AffiliationValidationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
         obtained = list(
-            AffiliationsValidation(
-                xml_tree, ["BR"]
-            ).validate_affiliation_count()
+            AffiliationsValidation(xml_tree, ["BR"]).validate_affiliation_count()
         )
         expected = [
             {
@@ -669,7 +695,9 @@ class AffiliationValidationTest(TestCase):
             </article>
         """
         xml_tree = etree.fromstring(xml)
-        obtained = list(AffiliationsValidation(xml_tree, ["BR"]).validate_affiliation_count())
+        obtained = list(
+            AffiliationsValidation(xml_tree, ["BR"]).validate_affiliation_count()
+        )
         self.assertEqual(len(obtained), 0)
 
     def test_validate_affiliation_empty_country_code_list(self):

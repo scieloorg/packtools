@@ -13,7 +13,12 @@ class Affiliation:
         return tostring(self.aff_node, xml_declaration=False)
 
     def xml(self, pretty_print=True):
-        return tostring(node=self.aff_node, doctype=None, pretty_print=pretty_print, xml_declaration=False)
+        return tostring(
+            node=self.aff_node,
+            doctype=None,
+            pretty_print=pretty_print,
+            xml_declaration=False,
+        )
 
     @property
     def aff_id(self):
@@ -84,7 +89,9 @@ class Affiliation:
     def _get_loc_type_info(self, loc_type):
         location = self.aff_node.findtext(f"addr-line/{loc_type}")
         if not location:
-            location = self.aff_node.findtext(f'addr-line/named-content[@content-type="{loc_type}"]')
+            location = self.aff_node.findtext(
+                f'addr-line/named-content[@content-type="{loc_type}"]'
+            )
         return location
 
 
@@ -113,7 +120,9 @@ class Affiliations:
         for aff_node in self.node.xpath(path):
             data = Affiliation(aff_node).data
 
-            yield put_parent_context(data, self.lang, self.article_type, self.parent, self.parent_id)
+            yield put_parent_context(
+                data, self.lang, self.article_type, self.parent, self.parent_id
+            )
 
 
 class ArticleAffiliations:
@@ -130,7 +139,9 @@ class ArticleAffiliations:
     def sub_article_translation_affs_by_lang(self):
         langs = {}
         for node in self.xml_tree.xpath(".//sub-article[@article-type='translation']"):
-            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = list(Affiliations(node).affiliations())
+            langs[node.get("{http://www.w3.org/XML/1998/namespace}lang")] = list(
+                Affiliations(node).affiliations()
+            )
         return langs
 
     def sub_article_non_translation_affs(self):
