@@ -1,4 +1,4 @@
-from datetime import datetime, date
+from datetime import date, datetime
 
 from packtools.sps.models.article_and_subarticles import Fulltext
 
@@ -82,7 +82,7 @@ class Date:
         return date(int(self.year), int(self.month), int(self.day))
 
 
-class ArticleDates:
+class XMLDates:
     """High-level interface to access article dates.
 
     Provides a convenient interface to access all date information from an article
@@ -130,7 +130,10 @@ class ArticleDates:
             yield FulltextDates(sub_article_node)
 
 
-class FulltextDates:
+class ArticleDates(XMLDates): ...
+
+
+class FulltextDates(Fulltext):
     """Processes and provides access to all date-related data from articles and sub-articles.
 
     This class handles extraction and organization of dates from SPS XML documents,
@@ -140,23 +143,16 @@ class FulltextDates:
         fulltext_node: Root XML node for date extraction
     """
 
-    def __init__(self, fulltext_node):
-        """Initialize a FulltextDates instance.
-
-        Args:
-            fulltext_node: XML node (article or sub-article) to process dates from
-        """
-        self.fulltext = Fulltext(fulltext_node)
-
     @property
     def dates(self):
-        """ """
-        data = {
-            "history": self.history_dates_dict,
-            "article_date": self.article_date,
-            "collection_date": self.collection_date,
-        }
-        data["parent"] = self.fulltext.attribs_parent_prefixed
+        data = {}
+        data["parent"] = self.attribs_parent_prefixed
+        data["pub"] = self.epub_date
+        data["article_date"] = self.article_date
+        data["collection_date"] = self.collection_date
+        data["history_dates"] = self.history_dates_list
+        data["events_ordered_by_date"] = self.ordered_events
+        data["history_dates_by_event"] = self.history_dates_dict
         return data
 
     @property
@@ -169,7 +165,9 @@ class FulltextDates:
             xlink:href="10.1590/0101-3173.2022.v45n1.p139"
         >Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. <bold>Trans/form/ação</bold>: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</related-article>
         """
-        for node in self.fulltext.node.xpath("related-article"):
+        for node in self.node.xpath(
+            "front//related-article | front-stub//related-article | body//related-article | back//related-article"
+        ):
             yield {
                 "related-article-type": node.get("related-article-type"),
                 "xlink_href": node.get("{http://www.w3.org/1999/xlink}href"),
@@ -178,37 +176,18 @@ class FulltextDates:
 
     @property
     def data(self):
-        """Get all date information in a hierarchical structure.
-
-        Returns a dictionary containing all date information maintaining the document's
-        hierarchical structure, including parent metadata and related documents.
-
-        Returns:
-            dict: Complete hierarchical date information
-
-        Example:
-            {
-                'parent': {...},
-                'pub': {...},
-                'article_date': {...},
-                'collection_date': {...},
-                'history_dates': [...],
-                'translations_data': {...},
-                'not_translations_data': {...}
-            }
-        """
         data = {}
-        data["parent"] = self.fulltext.attribs_parent_prefixed
-        data["pub"] = self.epub_date
-        data["article_date"] = self.article_date
-        data["collection_date"] = self.collection_date
-        data["history_dates"] = self.history_dates_list
-        data.update(self.history_dates_dict)
-        data["translations_data"] = {k: v.data for k, v in self.translations.items()}
-        data["not_translations_data"] = {
-            k: v.data for k, v in self.not_translations.items()
-        }
-        data["events_ordered_by_date"] = self.events_ordered_by_date
+        data.update(self.dates)
+
+        data["translations_data"] = {}
+        for node in self.translations:
+            fulltext = FulltextDates(node)
+            data["translations_data"][fulltext.lang] = fulltext.data
+
+        data["not_translations_data"] = {}
+        for node in self.not_translations:
+            fulltext = FulltextDates(node)
+            data["not_translations_data"][fulltext.id] = fulltext.data
         return data
 
     @property
@@ -227,7 +206,7 @@ class FulltextDates:
                 print(f"Pub date: {item['pub']}")
         """
         data = {}
-        data["parent"] = self.fulltext.attribs_parent_prefixed
+        data["parent"] = self.attribs_parent_prefixed
         data["pub"] = self.epub_date
         data["article_date"] = self.article_date
         data["collection_date"] = self.collection_date
@@ -235,20 +214,23 @@ class FulltextDates:
         data.update(self.history_dates_dict)
         yield data
 
-        for k, item in self.translations.items():
-            yield from item.items
-        for k, item in self.not_translations.items():
-            yield from item.items
+        for node in self.translations:
+            fulltext = FulltextDates(node)
+            yield from fulltext.items
+
+        for node in self.not_translations:
+            fulltext = FulltextDates(node)
+            yield from fulltext.items
 
     @property
     def epub_date_model(self):
         if not hasattr(self, "_epub_date_model"):
             try:
-                node = self.fulltext.front.xpath(
+                node = self.front.xpath(
                     ".//pub-date[@date-type='pub'] | .//pub-date[@pub-type='epub']"
                 )[0]
                 self._epub_date_model = Date(node)
-            except IndexError:
+            except (IndexError, AttributeError):
                 self._epub_date_model = None
         return self._epub_date_model
 
@@ -267,11 +249,11 @@ class FulltextDates:
     def collection_date_model(self):
         if not hasattr(self, "_collection_model"):
             try:
-                node = self.fulltext.front.xpath(
+                node = self.front.xpath(
                     ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub']"
                 )[0]
                 self._collection_model = Date(node)
-            except IndexError:
+            except (IndexError, AttributeError):
                 self._collection_model = None
         return self._collection_model
 
@@ -293,8 +275,11 @@ class FulltextDates:
 
     @property
     def history_dates(self):
-        for node in self.fulltext.front.xpath(".//history//date"):
-            yield Date(node).data
+        try:
+            for node in self.front.xpath(".//history//date"):
+                yield Date(node).data
+        except AttributeError:
+            return
 
     @property
     def history_dates_list(self):
@@ -347,39 +332,3 @@ class FulltextDates:
     def date_types_ordered_by_date(self):
         # obtem uma lista com os nomes dos eventos ordenados
         return [event[0] for event in self.ordered_events]
-
-    @property
-    def translations(self):
-        """Get article translations with their dates.
-
-        Returns a dictionary of FulltextDates instances for each translation
-        sub-article, indexed by translation ID.
-
-        Returns:
-            dict: Translation FulltextDates instances by ID
-
-        Example:
-            {'en': FulltextDates(...), 'es': FulltextDates(...)}
-        """
-        translations = {}
-        for item in self.fulltext.translations:
-            translations[item.get("id")] = FulltextDates(item)
-        return translations
-
-    @property
-    def not_translations(self):
-        """Get supplementary documents with their dates.
-
-        Returns a dictionary of FulltextDates instances for each non-translation
-        sub-article, indexed by document ID.
-
-        Returns:
-            dict: Supplementary document FulltextDates instances by ID
-
-        Example:
-            {'suppl1': FulltextDates(...), 'suppl2': FulltextDates(...)}
-        """
-        not_translations = {}
-        for item in self.fulltext.not_translations:
-            not_translations[item.get("id")] = FulltextDates(item)
-        return not_translations
