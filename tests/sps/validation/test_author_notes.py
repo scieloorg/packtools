@@ -1,6 +1,6 @@
 import unittest
 from lxml import etree
-from packtools.sps.validation.author_notes import ArticleAuthorNotesValidation
+from packtools.sps.validation.author_notes import XMLAuthorNotesValidation
 
 
 class TestAuthorNotesFnValidation(unittest.TestCase):
@@ -58,7 +58,7 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
             </article>
         ''')
         obtained = list(
-            ArticleAuthorNotesValidation(xml_tree, self.rules).validate()
+            XMLAuthorNotesValidation(xml_tree, self.rules).validate()
         )
 
         self.assertEqual(len(obtained), 2)
@@ -95,7 +95,7 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
             </article>
         ''')
         obtained = list(
-            ArticleAuthorNotesValidation(xml_tree, self.rules).validate()
+            XMLAuthorNotesValidation(xml_tree, self.rules).validate()
         )
         self.assertEqual(len(obtained), 2)
 
@@ -126,7 +126,7 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
                 </front>
             </article>
         ''')
-        obtained = list(ArticleAuthorNotesValidation(xml_tree, self.rules).validate())
+        obtained = list(XMLAuthorNotesValidation(xml_tree, self.rules).validate())
 
         # Filtrar somente as validações relacionadas a corresp/label
         obtained = [item for item in obtained if item["item"] == "corresp" and item["sub_item"] == "label"]
@@ -149,7 +149,7 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
                     </front>
                 </article>
             ''')
-            obtained = list(ArticleAuthorNotesValidation(xml_tree, self.rules).validate())
+            obtained = list(XMLAuthorNotesValidation(xml_tree, self.rules).validate())
 
             # Filtrar somente as validações relacionadas a corresp/title
             obtained = [item for item in obtained if
@@ -177,7 +177,7 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
             </article>
         ''')
         obtained = list(
-            ArticleAuthorNotesValidation(xml_tree, self.rules).validate()
+            XMLAuthorNotesValidation(xml_tree, self.rules).validate()
         )
         self.assertEqual(len(obtained), 0)  # No errors expected
 
