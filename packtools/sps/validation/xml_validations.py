@@ -1,6 +1,6 @@
-from packtools.sps.models.article_dates import ArticleDates
-from packtools.sps.validation.aff import AffiliationsValidation
+from packtools.sps.validation.aff import FulltextAffiliationsValidation
 from packtools.sps.validation.article_abstract import (
+    AbstractsValidation,
     ArticleAbstractsValidation,
     HighlightsValidation,
     VisualAbstractsValidation,
@@ -11,7 +11,6 @@ from packtools.sps.validation.article_and_subarticles import (
     ArticleLangValidation,
     ArticleTypeValidation,
 )
-from packtools.sps.validation.references import ArticleReferencesValidation
 from packtools.sps.validation.article_contribs import ArticleContribsValidation
 from packtools.sps.validation.article_data_availability import (
     DataAvailabilityValidation,
@@ -22,12 +21,10 @@ from packtools.sps.validation.article_toc_sections import ArticleTocSectionsVali
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
-from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 from packtools.sps.validation.formula import (
     ArticleDispFormulaValidation,
     ArticleInlineFormulaValidation,
 )
-from packtools.sps.validation.front_articlemeta_issue import Pagination
 from packtools.sps.validation.funding_group import FundingGroupValidation
 from packtools.sps.validation.journal_meta import (
     JournalIdValidation,
@@ -35,15 +32,12 @@ from packtools.sps.validation.journal_meta import (
     TitleValidation,
 )
 
-# remover journal
-# from packtools.sps.validation.journal import xValidation
-
-
 # PR pendente
 # from packtools.sps.validation.article_author_notes import xValidation
 # from packtools.sps.validation.footnotes import xValidation
 # -
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
+from packtools.sps.validation.references import ReferencesValidation
 
 # -
 # from packtools.sps.validation.errata import xValidation
@@ -51,6 +45,11 @@ from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
 # from packtools.sps.validation.peer_review import xValidation
 # from packtools.sps.validation.preprint import xValidation
 from packtools.sps.validation.related_articles import RelatedArticlesValidation
+from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
+
+# remover journal
+# from packtools.sps.validation.journal import xValidation
+
 
 # completar
 # from packtools.sps.validation.media import xValidation
@@ -58,15 +57,9 @@ from packtools.sps.validation.related_articles import RelatedArticlesValidation
 
 
 def validate_affiliations(xmltree, params):
-    country_codes_list = params["country_codes_list"]
-
-    validator = AffiliationsValidation(xmltree, country_codes_list)
-
     aff_rules = params["aff_rules"]
-    yield from validator.validate_main_affiliations(**aff_rules)
-
-    translated_aff_rules = params["translated_aff_rules"]
-    yield from validator.validate_translated_affiliations(**translated_aff_rules)
+    validator = FulltextAffiliationsValidation(xmltree, aff_rules)
+    yield from validator.validate()
 
 
 def validate_abstracts(xmltree, params):
@@ -197,7 +190,7 @@ def validate_article_ids(xmltree, params):
 
 def validate_references(xmltree, params):
     references_rules = params["references_rules"]
-    validator = ArticleReferencesValidation(xmltree)
+    validator = ReferencesValidation(xmltree, references_rules)
     yield from validator.validate()
 
 
@@ -268,7 +261,7 @@ def validate_id_and_rid_match(xmltree, params):
 
 def validate_article_dates(xmltree, params):
     article_dates_rules = params["article_dates_rules"]
-    validator = FulltextDatesValidation(xmltree, params["article_dates_rules"])
+    validator = FulltextDatesValidation(xmltree, article_dates_rules)
     yield from validator.validate()
 
 
