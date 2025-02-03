@@ -44,3 +44,20 @@ class HRecord(TestCase):
             {"sent_wos": False, "validated_wos": False}, h_record.wos_status(dict())
         )
 
+    def test_code_issue(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <article-meta>
+            <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1414-98932020000100118</article-id>
+            </article-meta>
+            </front>
+            </article>
+            """
+        )
+        self.assertDictEqual(
+            {"code_issue": "1414-989320200001"}, h_record.code_issue(self.xml_tree, dict())
+        )
+

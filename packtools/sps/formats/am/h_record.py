@@ -30,3 +30,13 @@ def wos_status(h_record_dict, sent_wos=False, validated_wos=False):
     h_record_dict.update({"sent_wos": sent_wos, "validated_wos": validated_wos})
     return h_record_dict
 
+def code_issue(xml_tree, h_record_dict):
+    # TODO: validar se o valor para cod_issue é uma sub-cadeia de article-id (v2)
+    # article-id = S1414-98932020000100118  cod_issue = 1414-989320200001
+    article_id_v2 = ArticleIds(xml_tree).v2
+    match = None
+    if article_id_v2:
+        match = re.match(r"S(\d{4}-\d{4}\d{8})\d{5}$", article_id_v2)
+    if match:
+        h_record_dict.update({"code_issue": match.group(1)})
+    return h_record_dict
