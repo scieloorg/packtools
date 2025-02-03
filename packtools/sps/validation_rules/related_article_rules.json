@@ -122,6 +122,22 @@
             "preprint": {
                 "required_related_article_types": [],
                 "acceptable_related_article_types": ["article"]
+            },
+            "clinical-instruction": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": []
+            },
+            "oration": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": []
+            },
+            "discussion": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": []
+            },
+            "product-review": {
+                "required_related_article_types": [],
+                "acceptable_related_article_types": []
             }
         }
     }

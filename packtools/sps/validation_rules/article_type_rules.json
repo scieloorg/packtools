@@ -12,9 +12,11 @@
             "book-review",
             "brief-report",
             "case-report",
+            "clinical-instruction",
             "correction",
             "editorial",
             "data-article",
+            "discussion",
             "letter",
             "obituary",
             "partial-retraction",
@@ -25,6 +27,7 @@
             "retraction",
             "review-article",
             "reviewer-report",
+            "oration",
             "other"
         ],
         "article_types_requires": [

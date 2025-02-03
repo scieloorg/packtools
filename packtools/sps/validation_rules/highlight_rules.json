@@ -15,7 +15,9 @@
             "article-commentary",
             "book-review",
             "brief-report",
+            "clinical-instruction",
             "correction",
+            "discussion",
             "editorial",
             "letter",
             "obituary",
@@ -24,6 +26,7 @@
             "rapid-communication",
             "reply",
             "retraction",
+            "oration",
             "other"            
         ],
         "article_type_neutral": [
