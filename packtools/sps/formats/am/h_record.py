@@ -25,3 +25,8 @@ def processing_date(h_record_dict):
     h_record_dict.update({"processing_date": date})
     return h_record_dict
 
+def wos_status(h_record_dict, sent_wos=False, validated_wos=False):
+    # TODO: adicionar a lógica de obtenção do status referente a WOS
+    h_record_dict.update({"sent_wos": sent_wos, "validated_wos": validated_wos})
+    return h_record_dict
+

@@ -39,3 +39,8 @@ class HRecord(TestCase):
 
         self.assertEqual(result["processing_date"], expected_date)
 
+    def test_wos_status(self):
+        self.assertDictEqual(
+            {"sent_wos": False, "validated_wos": False}, h_record.wos_status(dict())
+        )
+
