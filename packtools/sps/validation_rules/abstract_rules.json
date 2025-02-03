@@ -20,23 +20,23 @@
             "article-commentary",
             "book-review",
             "brief-report",
-            "clinical-instruction",
             "correction",
             "discussion",
             "editorial",
             "letter",
             "obituary",
             "partial-retraction",
-            "product-review",
             "rapid-communication",
             "reply",
             "retraction",
-            "oration",
             "other"            
         ],
         "article_type_neutral": [
-            "reviewer-report",
-            "data-article"
+            "clinical-instruction",
+            "data-article",
+            "oration",
+            "product-review",
+            "reviewer-report"
         ]
     }
 }
