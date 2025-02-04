@@ -34,14 +34,14 @@ class HRecord(TestCase):
 
         h_record_dict = {}
 
-        result = h_record.processing_date(h_record_dict)
+        result = h_record.processing_dates(h_record_dict)
         expected_date = "2023-05-17T12:30:45.123Z"
 
         self.assertEqual(result["processing_date"], expected_date)
 
     def test_wos_status(self):
         self.assertDictEqual(
-            {"sent_wos": False, "validated_wos": False}, h_record.wos_status(dict())
+            {"sent_wos": False, "validated_wos": False}, h_record.wos_status(xml_tree=None, h_record_dict=dict())
         )
 
     def test_code_issue(self):
@@ -60,6 +60,20 @@ class HRecord(TestCase):
         self.assertDictEqual(
             {"code_issue": "1414-989320200001"}, h_record.code_issue(self.xml_tree, dict())
         )
+
+    @patch("packtools.sps.formats.am.h_record.datetime")
+    def test_created_at(self, mock_datetime):
+        fixed_time = datetime.datetime(2023, 5, 17, 12, 30, 45, 123456, tzinfo=datetime.timezone.utc)
+
+        mock_datetime.datetime.now.return_value = fixed_time
+        mock_datetime.timezone.utc = datetime.timezone.utc
+
+        h_record_dict = {}
+
+        result = h_record.processing_dates(h_record_dict)
+        expected_date = {"$date": "2023-05-17T12:30:45.123Z"}
+
+        self.assertDictEqual(result["created_at"], expected_date)
 
     def test_code_title(self):
         self.xml_tree = etree.fromstring(
