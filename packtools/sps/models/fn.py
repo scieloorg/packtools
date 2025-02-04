@@ -20,18 +20,18 @@ class FnGroup(BaseNoteGroup):
         }
 
 
-class FnGroups(BaseNoteGroups):
-    def __init__(self, article_or_sub_article_node):
-        super().__init__(article_or_sub_article_node, "fn-group", FnGroup)
+class FulltextFnGroups(BaseNoteGroups):
+    def __init__(self, node):
+        super().__init__(node, "fn-group", FnGroup)
 
 
-class ArticleFns:
+class XMLFns:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
 
     def article_fn_groups_notes(self):
-        yield from FnGroups(self.xml_tree.find(".")).items
+        yield from FulltextFnGroups(self.xml_tree.find(".")).items
 
     def sub_article_fn_groups_notes(self):
         for sub_article in self.xml_tree.xpath(".//sub-article"):
-            yield from FnGroups(sub_article).items
+            yield from FulltextFnGroups(sub_article).items

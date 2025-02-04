@@ -12,6 +12,9 @@
         "contrib_type_list": [
             "author"
         ],
+        "contrib_role_error_level": "CRITICAL",
+        "contrib_role_specific_use_list": [],
+        "contrib_role_specific_use_error_level": "CRITICAL",
         "credit_taxonomy_terms_and_urls": [
             {
                 "term": "Conceptualization",

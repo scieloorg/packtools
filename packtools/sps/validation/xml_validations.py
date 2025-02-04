@@ -1,63 +1,58 @@
-from packtools.sps.models.article_dates import ArticleDates
-from packtools.sps.validation.aff import AffiliationsValidation
+from packtools.sps.validation.aff import FulltextAffiliationsValidation
 from packtools.sps.validation.article_abstract import (
-    ArticleAbstractsValidation, HighlightsValidation,
-    VisualAbstractsValidation)
+    AbstractsValidation,
+    ArticleAbstractsValidation,
+    HighlightsValidation,
+    VisualAbstractsValidation,
+)
 from packtools.sps.validation.article_and_subarticles import (
-    ArticleAttribsValidation, ArticleIdValidation, ArticleLangValidation,
-    ArticleTypeValidation)
-from packtools.sps.validation.references import \
-    ArticleReferencesValidation
-from packtools.sps.validation.article_contribs import ArticleContribsValidation
-from packtools.sps.validation.article_data_availability import \
-    DataAvailabilityValidation
+    ArticleAttribsValidation,
+    ArticleIdValidation,
+    ArticleLangValidation,
+    ArticleTypeValidation,
+)
+from packtools.sps.validation.article_contribs import XMLContribsValidation
+from packtools.sps.validation.article_data_availability import (
+    DataAvailabilityValidation,
+)
 from packtools.sps.validation.article_doi import ArticleDoiValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
-from packtools.sps.validation.article_toc_sections import \
-    ArticleTocSectionsValidation
+from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
+from packtools.sps.validation.author_notes import XMLAuthorNotesValidation
 from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.fig import ArticleFigValidation
-from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
-from packtools.sps.validation.formula import ArticleDispFormulaValidation, ArticleInlineFormulaValidation
-from packtools.sps.validation.front_articlemeta_issue import Pagination
+from packtools.sps.validation.fn import XMLFnGroupValidation
+from packtools.sps.validation.formula import (
+    ArticleDispFormulaValidation,
+    ArticleInlineFormulaValidation,
+)
+from packtools.sps.validation.front_articlemeta_issue import PaginationValidation, IssueValidation
 from packtools.sps.validation.funding_group import FundingGroupValidation
-from packtools.sps.validation.journal_meta import (JournalIdValidation,
-                                                   PublisherNameValidation,
-                                                   TitleValidation)
-
-# remover journal
-# from packtools.sps.validation.journal import xValidation
-
-
-
-# PR pendente
-# from packtools.sps.validation.article_author_notes import xValidation
-# from packtools.sps.validation.footnotes import xValidation
-# -
+from packtools.sps.validation.journal_meta import (
+    JournalIdValidation,
+    PublisherNameValidation,
+    TitleValidation,
+)
 from packtools.sps.validation.metadata_langs import MetadataLanguagesValidation
-# -
-# from packtools.sps.validation.errata import xValidation
-# from packtools.sps.validation.erratum import xValidation
-# from packtools.sps.validation.peer_review import xValidation
-# from packtools.sps.validation.preprint import xValidation
-from packtools.sps.validation.related_articles import RelatedArticlesValidation
+from packtools.sps.validation.peer_review import XMLPeerReviewValidation
+from packtools.sps.validation.references import ReferencesValidation
+from packtools.sps.validation.related_articles import XMLRelatedArticlesValidation
+from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
-# completar
+# TODO remover journal
+# from packtools.sps.validation.journal import xValidation
+# TODO completar
 # from packtools.sps.validation.media import xValidation
 # from packtools.sps.validation.supplementary_material import xValidation
 
 
 def validate_affiliations(xmltree, params):
-    country_codes_list = params["country_codes_list"]
-
-    validator = AffiliationsValidation(xmltree, country_codes_list)
-
-    aff_rules = params["aff_rules"]
-    yield from validator.validate_main_affiliations(**aff_rules)
-
-    translated_aff_rules = params["translated_aff_rules"]
-    yield from validator.validate_translated_affiliations(**translated_aff_rules)
+    aff_rules = {}
+    aff_rules.update(params["aff_rules"])
+    aff_rules["country_codes_list"] = params["country_codes_list"]
+    validator = FulltextAffiliationsValidation(xmltree, aff_rules)
+    yield from validator.validate()
 
 
 def validate_abstracts(xmltree, params):
@@ -70,11 +65,11 @@ def validate_abstracts(xmltree, params):
     )
 
     validator = AbstractsValidation(xmltree)
-    yield from validator.validate_exists(
+    yield validator.validate_exists(
         article_type_requires=abstract_rules["article_type_requires"],
         article_type_unexpects=abstract_rules["article_type_unexpects"],
         article_type_neutral=abstract_rules["article_type_neutral"],
-        article_type_accepts=[]
+        article_type_accepts=[],
     )
 
     highlight_rules = params["highlight_rules"]
@@ -90,7 +85,7 @@ def validate_abstracts(xmltree, params):
         article_type_requires=[],
         article_type_unexpects=highlight_rules["article_type_unexpects"],
         article_type_neutral=highlight_rules["article_type_neutral"],
-        article_type_accepts=highlight_rules["article_type_accepts"]
+        article_type_accepts=highlight_rules["article_type_accepts"],
     )
 
     graphical_abstract_rules = params["graphical_abstract_rules"]
@@ -105,70 +100,43 @@ def validate_abstracts(xmltree, params):
         article_type_requires=[],
         article_type_unexpects=graphical_abstract_rules["article_type_unexpects"],
         article_type_neutral=graphical_abstract_rules["article_type_neutral"],
-        article_type_accepts=graphical_abstract_rules["article_type_accepts"]
+        article_type_accepts=graphical_abstract_rules["article_type_accepts"],
     )
 
 
 def validate_article(xmltree, params):
-    article_rules = params["article_rules"]
-    specific_use_list = list(article_rules["specific_use_list"].keys())
-    sps_version = xmltree.find(".").get("specific-use")
-    dtd_version_list = article_rules["specific_use_list"].get(sps_version)
-
-    validator = ArticleAttribsValidation(xmltree)
-    yield from validator.validate_specific_use(
-        specific_use_list=specific_use_list,
-        error_level=article_rules["specific_use_error_level"],
-    )
-    yield from validator.validate_dtd_version(
-        dtd_version_list=dtd_version_list,
-        error_level=article_rules["dtd_version_error_level"],
-    )
+    validator = ArticleAttribsValidation(xmltree, params["article_rules"])
+    yield from validator.validate_specific_use()
+    yield from validator.validate_dtd_version()
 
 
 def validate_article_languages(xmltree, params):
-    article_languages_rules = params["article_languages_rules"]
-    validator = ArticleLangValidation(xmltree)
-    yield from validator.validate_language(
-        language_codes_list=params["language_codes_list"],
-        error_level=article_languages_rules["error_level"],
-    )
+    rules = {}
+    rules.update(params["article_languages_rules"])
+    rules["language_codes_list"] = params["language_codes_list"]
+    validator = ArticleLangValidation(xmltree, rules)
+    yield from validator.validate_language()
 
 
 def validate_article_type(xmltree, params):
     article_type_rules = params["article_type_rules"]
     journal_data = params["journal_data"]
 
-    validator = ArticleTypeValidation(xmltree)
-    yield from validator.validate_article_type(
-        article_type_list=article_type_rules["article_type_list"],
-        error_level=article_type_rules["article_type_error_level"],
-    )
+    rules = {}
+    rules.update(article_type_rules)
+    rules.update(journal_data)
 
-    try:
-        yield from validator.validate_article_type_vs_subject_similarity(
-            subjects_list=journal_data["subjects_list"],
-            expected_similarity=article_type_rules[
-                "article_type_vs_subject_expected_similarity"
-            ],
-            error_level=article_type_rules[
-                "article_type_vs_subject_expected_similarity_error_level"
-            ],
-            target_article_types=article_type_rules[
-                "article_type_vs_subject_target_article_types"
-            ],
-        )
-    except KeyError:
-        pass
+    validator = ArticleTypeValidation(xmltree, rules)
+    yield from validator.validate_article_type()
+    yield from validator.validate_article_type_vs_subject_similarity()
 
 
 def validate_article_ids(xmltree, params):
-    article_ids_rules = params["article_ids_rules"]
+
+    validator = ArticleIdValidation(xmltree, params["article_ids_rules"])
+    yield from validator.validate_article_id_other()
+
     article_doi_rules = params["article_doi_rules"]
-
-    validator = ArticleIdValidation(xmltree)
-    yield from validator.validate_article_id_other(article_ids_rules["error_level"])
-
     validator = ArticleDoiValidation(xmltree)
     yield from validator.validate_doi_exists(
         error_level=article_doi_rules["error_level"]
@@ -188,14 +156,17 @@ def validate_article_ids(xmltree, params):
 
 def validate_references(xmltree, params):
     references_rules = params["references_rules"]
-    validator = ArticleReferencesValidation(xmltree)
+    validator = ReferencesValidation(xmltree, references_rules)
     yield from validator.validate()
 
 
 def validate_article_contribs(xmltree, params):
-    is_orcid_registered = params.get("is_orcid_registered")
-    article_contribs_rules = params["article_contribs_rules"]
-    validator = ArticleContribsValidation(xmltree, article_contribs_rules, is_orcid_registered)
+    rules = {}
+    rules.update(params["article_contribs_rules"])
+
+    # callable (customized) which checks orcid is registered
+    rules["is_orcid_registered"] = params.get("is_orcid_registered")
+    validator = XMLContribsValidation(xmltree, rules)
     yield from validator.validate()
 
 
@@ -251,14 +222,15 @@ def validate_id_and_rid_match(xmltree, params):
 
     yield from validator.validate_element_id_has_corresponding_xref_rid(
         id_and_rid_match_rules["elements_required_rid"],
-        error_level=id_and_rid_match_rules["required_rid_error_level"]
+        error_level=id_and_rid_match_rules["required_rid_error_level"],
     )
-    
+
 
 def validate_article_dates(xmltree, params):
     article_dates_rules = params["article_dates_rules"]
-    validator = FulltextDatesValidation(xmltree, params["article_dates_rules"])
+    validator = FulltextDatesValidation(xmltree, article_dates_rules)
     yield from validator.validate()
+
 
 def validate_figs(xmltree, params):
     rules = params["fig_rules"]
@@ -289,19 +261,16 @@ def validate_inline_equations(xmltree, params):
 
 
 def validate_bibliographic_strip(xmltree, params):
-    pagination_rules = params["pagination_rules"]
+    rules = {}
+    rules.update(params)
 
-    # TODO adicionar error_level, corrigir o nome da classe
-    # FIXME
-    #   File "/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/sps/validation/front_articlemeta_issue.py", line 391, in validation_pagination_attributes_exist
-    # yield format_response(
-    # TypeError: format_response() missing 3 required positional arguments: 'parent_article_type', 'parent_lang', and 'error_level'
+    validator = IssueValidation(xmltree, rules)
+    yield from validator.validate()
 
-    # validator = Pagination(xmltree)
-    # yield from validator.validation_pagination_attributes_exist(
-    #     # error_level=pagination_rules["error_level"],
-    # )
-
+    validator = PaginationValidation(xmltree)
+    yield validator.validate(
+        error_level=rules["pagination_error_level"],
+    )
 
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
@@ -349,6 +318,20 @@ def validate_metadata_languages(xmltree, params):
 
 
 def validate_related_articles(xmltree, params):
-    validator = RelatedArticlesValidation(xmltree, params["related_articles_rules"])
-    yield from validator.validate(["error_level"])
+    validator = XMLRelatedArticlesValidation(xmltree, params["related_article_rules"])
+    yield from validator.validate()
 
+
+def validate_fns(xmltree, params):
+    validator = XMLFnGroupValidation(xmltree, params["fn_rules"])
+    yield from validator.validate()
+
+
+def validate_author_notes(xmltree, params):
+    validator = XMLAuthorNotesValidation(xmltree, params["author_notes_rules"])
+    yield from validator.validate()
+
+
+def validate_peer_reviews(xmltree, params):
+    validator = XMLPeerReviewValidation(xmltree, params["peer_review_rules"])
+    yield from validator.validate()

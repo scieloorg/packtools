@@ -1,9 +1,10 @@
 class Fulltext:
 
-    def __init__(self, node):
+    def __init__(self, node, original_article_type=None):
         """
         node : article or sub-article
         """
+        self._original_article_type = original_article_type
         self.node = node
         self.tag = node.tag
         self.lang = node.get("{http://www.w3.org/XML/1998/namespace}lang")
@@ -11,8 +12,17 @@ class Fulltext:
         self.id = node.get("id")
 
     @property
+    def original_article_type(self):
+        if not self._original_article_type:
+            if self.article_type == "translation":
+                self._original_article_type = self.node.getparent().get("article-type")
+            else:
+                self._original_article_type = self.node.get("article-type")
+        return self._original_article_type
+
+    @property
     def front(self):
-        if not hasattr(self, '_front'):
+        if not hasattr(self, "_front"):
             if self.tag == "article":
                 self._front = self.node.find("front")
             else:
@@ -21,32 +31,36 @@ class Fulltext:
 
     @property
     def body(self):
-        if not hasattr(self, '_body'):
+        if not hasattr(self, "_body"):
             self._body = self.node.find("body")
         return self._body
 
     @property
     def back(self):
-        if not hasattr(self, '_back'):
+        if not hasattr(self, "_back"):
             self._back = self.node.find("back")
         return self._back
 
     @property
     def sub_articles(self):
-        if not hasattr(self, '_sub_articles'):
+        if not hasattr(self, "_sub_articles"):
             self._sub_articles = self.node.xpath("sub-article")
         return self._sub_articles
 
     @property
     def translations(self):
-        if not hasattr(self, '_translations'):
-            self._translations = self.node.xpath("sub-article[@article-type='translation']")
+        if not hasattr(self, "_translations"):
+            self._translations = self.node.xpath(
+                "sub-article[@article-type='translation']"
+            )
         return self._translations
 
     @property
     def not_translations(self):
-        if not hasattr(self, '_not_translations'):
-            self._not_translations = self.node.xpath("sub-article[@article-type!='translation']")
+        if not hasattr(self, "_not_translations"):
+            self._not_translations = self.node.xpath(
+                "sub-article[@article-type!='translation']"
+            )
         return self._not_translations
 
     @property
@@ -65,6 +79,7 @@ class Fulltext:
             "parent_id": self.id,
             "parent_lang": self.lang,
             "parent_article_type": self.article_type,
+            "original_article_type": self.original_article_type,
         }
 
     @property
@@ -104,7 +119,7 @@ class ArticleAndSubArticles:
 
     @property
     def main_subject(self):
-        return self.xmltree.findtext('.//subject')
+        return self.xmltree.findtext(".//subject")
 
     @property
     def article(self):
@@ -127,26 +142,30 @@ class ArticleAndSubArticles:
     def data(self):
         _data = []
         if self.main_article_type:
-            _data.append({
-                "lang": self.main_lang,
-                "article_type": self.main_article_type,
-                "article_id": None,
-                "line_number": self.main_line_number,
-                "subject": self.main_subject,
-                "parent_name": "article",
-            })
+            _data.append(
+                {
+                    "lang": self.main_lang,
+                    "article_type": self.main_article_type,
+                    "article_id": None,
+                    "line_number": self.main_line_number,
+                    "subject": self.main_subject,
+                    "parent_name": "article",
+                }
+            )
 
         for sub_article in self.xmltree.xpath(".//sub-article"):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
 
-            subject = sub_article.find('.//subject')
+            subject = sub_article.find(".//subject")
 
-            _data.append({
-                "lang": lang,
-                "article_type": sub_article.get('article-type'),
-                "article_id": sub_article.get('id'),
-                "line_number": sub_article.sourceline,
-                "subject": subject.text if subject is not None else None,
-                "parent_name": "sub-article",
-            })
+            _data.append(
+                {
+                    "lang": lang,
+                    "article_type": sub_article.get("article-type"),
+                    "article_id": sub_article.get("id"),
+                    "line_number": sub_article.sourceline,
+                    "subject": subject.text if subject is not None else None,
+                    "parent_name": "sub-article",
+                }
+            )
         return _data

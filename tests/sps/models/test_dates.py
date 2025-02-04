@@ -1,9 +1,9 @@
-from unittest import TestCase, skip
 from datetime import date
+from unittest import TestCase, skip
 
 from lxml import etree
 
-from packtools.sps.models.dates import Date, ArticleDates, FulltextDates
+from packtools.sps.models.dates import ArticleDates, Date, FulltextDates
 
 
 class TestDate(TestCase):
@@ -183,7 +183,9 @@ class TestArticleDates(TestCase):
 
     def test_fulltext_dates_iteration(self):
         dates = list(self.article_dates.fulltext_dates)
-        self.assertEqual(len(dates), 3)  # Main article + translation + supplementary
+        self.assertEqual(
+            len(dates), 3
+        )  # Main article + translation + supplementary
 
         # Test main article dates
         main_dates = dates[0]
@@ -263,12 +265,12 @@ class TestFulltextDates(TestCase):
         self.fulltext_dates = FulltextDates(self.xmltree.find("."))
 
     def test_translations_property(self):
-        translations = self.fulltext_dates.translations
+        translations = self.fulltext_dates.data["translations_data"]
         self.assertEqual(len(translations), 2)
         self.assertIn("en", translations)
         self.assertIn("es", translations)
 
-        en_dates = translations["en"].dates
+        en_dates = translations["en"]
         self.assertEqual(en_dates["article_date"]["year"], "2024")
         self.assertEqual(en_dates["article_date"]["month"], "02")
         self.assertEqual(en_dates["article_date"]["day"], "01")
@@ -279,12 +281,12 @@ class TestFulltextDates(TestCase):
         self.assertEqual(parent_data["parent_id"], "en")
 
     def test_not_translations_property(self):
-        not_translations = self.fulltext_dates.not_translations
+        not_translations = self.fulltext_dates.data["not_translations_data"]
         self.assertEqual(len(not_translations), 1)
         self.assertIn("s01pt", not_translations)
 
         # Test reviewer report dates
-        report_dates = not_translations["s01pt"].dates
+        report_dates = not_translations["s01pt"]
 
         # Test publication date
         self.assertEqual(report_dates["article_date"]["year"], "2024")
@@ -298,13 +300,13 @@ class TestFulltextDates(TestCase):
         self.assertEqual(parent_data["parent_lang"], "pt")
 
         # Test history dates
-        history = report_dates["history"]
+        history = self.fulltext_dates.data["history_dates_by_event"]
 
         # Test received date
         self.assertIn("received", history)
-        self.assertEqual(history["received"]["year"], "2024")
-        self.assertEqual(history["received"]["month"], "11")
-        self.assertEqual(history["received"]["day"], "20")
+        self.assertEqual(history["received"]["year"], "2023")
+        self.assertEqual(history["received"]["month"], "12")
+        self.assertEqual(history["received"]["day"], "01")
 
         # Test review received date
         self.assertNotIn("rev-recd", history)
@@ -344,7 +346,9 @@ class TestFulltextDates(TestCase):
 
     def test_items_property(self):
         items = list(self.fulltext_dates.items)
-        self.assertEqual(len(items), 4)  # Main + 2 translations + 1 supplementary
+        self.assertEqual(
+            len(items), 4
+        )  # Main + 2 translations + 1 supplementary
 
         # Test main article data
         main_item = items[0]

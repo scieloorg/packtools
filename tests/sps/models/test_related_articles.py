@@ -2,7 +2,7 @@ from unittest import TestCase
 from io import BytesIO
 
 from lxml import etree
-from packtools.sps.models.related_articles import RelatedItems, Fulltext
+from packtools.sps.models.related_articles import RelatedItems, FulltextRelatedArticles
 
 
 def create_xml_tree(xml_content):
@@ -133,7 +133,7 @@ class TestNoRelatedItems(TestCase):
         self.assertEqual(len(items), 0)
 
 
-class TestFulltextMainArticle(TestCase):
+class TestFulltextRelatedArticlesMainArticle(TestCase):
     """Tests for basic article with related-articles and sub-articles"""
 
     def setUp(self):
@@ -162,7 +162,7 @@ class TestFulltextMainArticle(TestCase):
                 </front-stub>
             </sub-article>
         </article>"""
-        self.fulltext = Fulltext(etree.fromstring(xml).find("."))
+        self.fulltext = FulltextRelatedArticles(etree.fromstring(xml).find("."))
 
     def test_parent_data(self):
         expected = {
@@ -170,7 +170,7 @@ class TestFulltextMainArticle(TestCase):
             "parent_id": "a1",
             "parent_article_type": "research-article",
             "parent_lang": "en",
-            "original_article_type": None,
+            "original_article_type": "research-article",
         }
         self.assertEqual(self.fulltext.parent_data, expected)
 
@@ -185,7 +185,7 @@ class TestFulltextMainArticle(TestCase):
         self.assertEqual(article["id"], "ra1")
         self.assertEqual(article["text"], "Some text")
         self.assertIn("xml", article)
-        self.assertIsNone(article["original_article_type"])
+        self.assertEqual(article["original_article_type"], "research-article")
 
     def test_fulltexts(self):
         sub_articles = list(self.fulltext.fulltexts)
@@ -205,10 +205,12 @@ class TestFulltextMainArticle(TestCase):
             reviewer_report.parent_data["parent_article_type"], "reviewer-report"
         )
         self.assertEqual(reviewer_report.parent_data["parent_lang"], "es")
-        self.assertIsNone(reviewer_report.parent_data["original_article_type"])
+        self.assertEqual(
+            reviewer_report.parent_data["original_article_type"], "reviewer-report"
+        )
 
 
-class TestFulltextTranslation(TestCase):
+class TestFulltextRelatedArticlesTranslation(TestCase):
     """Tests for translation sub-article with original_article_type parameter"""
 
     def setUp(self):
@@ -225,7 +227,7 @@ class TestFulltextTranslation(TestCase):
                                id="ra2">Body related</related-article>
             </body>
         </sub-article>"""
-        self.fulltext = Fulltext(
+        self.fulltext = FulltextRelatedArticles(
             etree.fromstring(xml), original_article_type="research-article"
         )
 
@@ -259,7 +261,7 @@ class TestFulltextTranslation(TestCase):
         self.assertEqual(body["original_article_type"], "research-article")
 
 
-class TestFulltextNestedStructure(TestCase):
+class TestFulltextRelatedArticlesNestedStructure(TestCase):
     """Tests for complex nested structure with multiple sub-articles"""
 
     def setUp(self):
@@ -279,7 +281,7 @@ class TestFulltextNestedStructure(TestCase):
                 </sub-article>
             </sub-article>
         </article>"""
-        self.fulltext = Fulltext(etree.fromstring(xml))
+        self.fulltext = FulltextRelatedArticles(etree.fromstring(xml))
 
     def test_nested_structure(self):
         # Test main article
@@ -310,7 +312,9 @@ class TestFulltextNestedStructure(TestCase):
         self.assertEqual(
             reviewer_report.parent_data["parent_article_type"], "reviewer-report"
         )
-        self.assertIsNone(reviewer_report.parent_data["original_article_type"])
+        self.assertEqual(
+            reviewer_report.parent_data["original_article_type"], "reviewer-report"
+        )
 
         # Test reviewer-report related articles
         abs_related = list(reviewer_report.related_articles)

@@ -1,6 +1,7 @@
 from lxml import etree
 
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.models.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_ids import ArticleIds
 from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesLanguageCodeException,
@@ -242,14 +243,10 @@ class ArticleAttribsValidation:
                 }
             ]
         """
-
-        try:
-            dtd_version_list = self.params["dtd_version_list"]
-        except KeyError:
-            raise ValidationArticleAndSubArticlesDtdVersionException(
-                "ArticleAttribsValidation.validate_dtd_version requires dtd_version_list"
-            )
-
+        dtd_version_list = []
+        for sps_version, dtd_version in self.params["specific_use_list"].items():
+            dtd_version_list.extend(dtd_version)
+        
         validated = self.articles.dtd_version in dtd_version_list
 
         data = self.articles.data[0]
@@ -279,9 +276,10 @@ class ArticleAttribsValidation:
 
 class ArticleTypeValidation:
     def __init__(self, xmltree, params):
+        self.params = params
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.params = params
+        self.toc_sections = ArticleTocSections(self.xmltree).article_section_dict.get("en")
 
     def validate_article_type(self):
         """
@@ -365,7 +363,7 @@ class ArticleTypeValidation:
             obtained=article_type,
             advice=advice,
             data=data,
-            error_level=self.params["article_type_list_error_level"],
+            error_level=self.params["article_type_error_level"],
         )
 
     def validate_article_type_vs_subject_similarity(self):
@@ -425,7 +423,7 @@ class ArticleTypeValidation:
         error_level : str, optional
             The level of error to report if the validation fails. Default is "ERROR".
 
-        target_article_types : list of str, optional
+        article_type_list : list of str, optional
             A list of article types that should be checked for similarity against the subjects.
             Only articles of these types will be validated. For example: ['research-article', 'review-article'].
             If not provided, defaults to `self.apply_to_article_types`.
@@ -463,61 +461,63 @@ class ArticleTypeValidation:
             ]
         """
 
+        if not self.toc_sections:
+            return
         try:
-            subjects_list = self.params["subjects_list"]
-        except KeyError:
-            raise ValidationArticleAndSubArticlesSubjectsException(
-                "Function requires list of subjects"
-            )
-
-        subjects_list = [
-            f"{item['subject']} ({item['lang']})" for item in subjects_list
-        ]
-
-        try:
-            target_article_types = self.params["target_article_types"]
+            article_type_list = self.params["article_type_list"]
         except KeyError:
             raise ValidationArticleAndSubArticlesSubjectsException(
                 "Function requires list of article types to check the similarity with subjects"
             )
 
-        articles = [article for article in self.articles.data if article.get("article_type") in target_article_types]
+        article_type = None
+        for article in self.articles.data:
+            article_type = article_type or article["article_type"]
 
-        for article in articles:
-            article_subject = f"{article['subject']} ({article['lang']})"
+            if article["lang"] == "en":
 
-            calculated_similarity, subject = most_similar(
-                similarity(subjects_list, article_subject)
-            )
+                article_subject = article["subject"]
 
-            expected_similarity = float(self.params.get("expected_similarity")) or 1
+                # compara subject com todos os valores possíveis de article_type
+                calculated_similarity, most_similar_article_type = most_similar(
+                    similarity(article_type_list, article_subject)
+                )
 
-            validated = calculated_similarity >= expected_similarity
+                if most_similar_article_type == article_type:
+                    calculated_similarity = 1
+                
+                expected_similarity = float(self.params.get("article_type_similar_to_subject_expected_similarity")) or 0.7
 
-            data = self.articles.data[0]
-            data.update({
-                "specific_use": self.articles.specific_use,
-                "dtd_version": self.articles.dtd_version
-            })
+                if calculated_similarity >= expected_similarity:
+                    # o mais similar deve ser igual ao article_type do artigo
+                    valid = True
 
-            yield format_response(
-                title="Article type vs subjects validation",
-                parent="article",
-                parent_id=None,
-                parent_article_type=article.get("article_type"),
-                parent_lang=article.get("lang"),
-                item="article",
-                sub_item="@article-type",
-                validation_type="similarity",
-                is_valid=validated,
-                expected=expected_similarity,
-                obtained=calculated_similarity,
-                advice="The subject {} does not match the items provided in the list: {}".format(
-                        article_subject, " | ".join(subjects_list)
-                    ),
-                data=data,
-                error_level=self.params["expected_similarity_error_level"]
-            )
+                    data = {
+                        "subject": article_subject,
+                        "article_type": article_type,
+                        "article_type_list": article_type_list,
+                        "most_similar_article_type": most_similar_article_type,
+                        "similarity": calculated_similarity,
+                        "expected similarity": expected_similarity
+                    }
+
+                    yield format_response(
+                        title="article-type similar to subject",
+                        parent="article",
+                        parent_id=article["article_id"],
+                        parent_article_type=article.get("article_type"),
+                        parent_lang=article.get("lang"),
+                        item="article",
+                        sub_item="@article-type",
+                        validation_type="similarity",
+                        is_valid=valid,
+                        expected=most_similar_article_type,
+                        obtained=article_type,
+                        advice=f"Check @article-type",
+                        data=data,
+                        error_level=self.params["article_type_similar_to_subject_expected_similarity_error_level"]
+                    )
+                break
 
 
 class ArticleIdValidation:

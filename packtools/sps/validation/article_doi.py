@@ -310,8 +310,8 @@ class ArticleDoiValidation:
             return
 
         for doi_data in self.doi.data:
-            lang = doi_data.get("lang")
             xml_doi = doi_data.get("value")
+            lang = doi_data.get("lang")
             xml_title = self.titles.get(lang).get("html_text")
             xml_authors = []
             for author in self.authors:
@@ -327,10 +327,8 @@ class ArticleDoiValidation:
                 "title": xml_title,
                 "authors": xml_authors,
             }
-
             registered = callable_get_data(xml_doi)
-            # verifica se houve resposta da aplicação
-            if registered:
+            if not registered.get("exception_msg"):
                 registered_title = registered.get(lang).get("title")
                 registered_authors = registered.get("authors") or []
                 expected = {
@@ -383,7 +381,7 @@ class ArticleDoiValidation:
                 and doi["value"] == article_doi
             ):
                 yield format_response(
-                    title="Different DOIs for tranaltions",
+                    title="Different DOIs for translation",
                     parent=doi.get("parent"),
                     parent_id=doi.get("parent_id"),
                     parent_article_type=doi.get("parent_article_type"),

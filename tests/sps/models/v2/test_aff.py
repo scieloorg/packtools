@@ -1,9 +1,12 @@
-from unittest import TestCase, skip
-
-from packtools.sps.models.v2.aff import Affiliation, Affiliations, ArticleAffiliations
-from packtools.sps.utils import xml_utils
+from unittest import TestCase
 
 from lxml import etree
+
+from packtools.sps.models.v2.aff import (
+    Affiliation,
+    FulltextAffiliations,
+    XMLAffiliations,
+)
 
 
 class AffiliationTest(TestCase):
@@ -24,7 +27,7 @@ class AffiliationTest(TestCase):
         </aff>
         """
         self.aff_node = etree.fromstring(xml)
-        self.aff = Affiliation(self.aff_node)
+        self.aff = Affiliation(self.aff_node, {})
 
     def test_aff_id(self):
         obtained = self.aff.aff_id
@@ -93,10 +96,7 @@ class AffiliationTest(TestCase):
         self.assertDictEqual(obtained, expected)
 
     def test_str_main_tag(self):
-        self.assertEqual(
-            self.aff.str_main_tag,
-            '<aff id="aff1">'
-        )
+        self.assertEqual(self.aff.str_main_tag, '<aff id="aff1">')
 
     def test_str(self):
         self.maxDiff = None
@@ -114,7 +114,7 @@ class AffiliationTest(TestCase):
             <country country="BR">Brasil</country>
             <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
             <email>exemplo@ufpel.edu.br</email>
-        </aff>"""
+        </aff>""",
         )
 
     def test_xml(self):
@@ -134,273 +134,115 @@ class AffiliationTest(TestCase):
             <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
             <email>exemplo@ufpel.edu.br</email>
         </aff>
-"""
+""",
         )
 
 
-class AffiliationsTest(TestCase):
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_affiliations(self):
+class TestXMLAffiliations(TestCase):
+    def setUp(self):
+        self.xml_sample = """
+        <article xml:lang="pt" article-type="research-article">
+            <front>
+                <aff id="aff1">
+                    <label>I</label>
+                    <institution content-type="orgname">Universidade Federal de Pelotas</institution>
+                    <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+                    <institution content-type="orgdiv2">Programa de Pós-Graduação em Epidemiologia</institution>
+                    <addr-line>
+                        <named-content content-type="city">Pelotas</named-content>
+                        <named-content content-type="state">RS</named-content>
+                    </addr-line>
+                    <country country="BR">Brasil</country>
+                    <institution content-type="original">Universidade Federal de Pelotas. Faculdade de Medicina. Programa de Pós-Graduação em Epidemiologia. Pelotas, RS, Brasil</institution>
+                    <email>exemplo@ufpel.edu.br</email>
+                </aff>
+            </front>
+            <sub-article article-type="translation" xml:lang="en" id="s1">
+                <front-stub>
+                    <aff id="aff2">
+                        <institution content-type="orgname">Institution 2</institution>
+                        <country country="BR">Brazil</country>
+                    </aff>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="reviewer-report" xml:lang="pt" id="s2">
+                <front-stub>
+                    <aff id="aff3">
+                        <institution content-type="orgname">Institution 3</institution>
+                        <country country="BR">Brasil</country>
+                    </aff>
+                </front-stub>
+                <sub-article article-type="translation" xml:lang="en" id="s3">
+                    <front-stub>
+                        <aff id="aff4">
+                            <institution content-type="orgname">Institution 3</institution>
+                            <country country="BR">Brazil</country>
+                        </aff>
+                    </front-stub>
+                </sub-article>
+            </sub-article>
+        </article>
+        """
+        self.xml_tree = etree.fromstring(self.xml_sample)
+        self.xml_affs = XMLAffiliations(self.xml_tree)
+        self.fulltext_affs = FulltextAffiliations(self.xml_tree.find("."))
 
-        self.xml_tree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
-        obtained = list(Affiliations(self.xml_tree).affiliations())
-        expected = [
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff1",
-                "label": "I",
-                "orgdiv1": "Faculdade de Medicina",
-                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
-                            "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff2",
-                "label": "II",
-                "orgdiv1": "Escola Superior de Educação Física",
-                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Escola\n"
-                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
-                            "em Educação Física.\n"
-                            "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-        ]
-
-        self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-
-class ArticleAffiliationsTest(TestCase):
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_article_affs(self):
-        self.maxDiff = None
-        self.xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
-        obtained = list(ArticleAffiliations(self.xmltree).article_affs())
-        expected = [
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff1",
-                "label": "I",
-                "orgdiv1": "Faculdade de Medicina",
-                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Faculdade de\n\t\t\t\t\tMedicina. Programa de "
-                "Pós-Graduação em Epidemiologia. Pelotas, RS,\n\t\t\t\t\tBrasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff2",
-                "label": "II",
-                "orgdiv1": "Escola Superior de Educação Física",
-                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Escola\n"
-                "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
-                "em Educação Física.\n"
-                "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-        ]
+        """Test main article affiliations"""
+        affs = self.xml_affs.article_affs
+        self.assertEqual(len(affs), 1)
+        self.assertEqual(affs[0]["id"], "aff1")
 
-        self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+    def test_items_property(self):
+        """Test retrieval of all affiliations through items property"""
+        all_affs = list(self.xml_affs.items)
+        self.assertEqual(len(all_affs), 4)  # Should get all 4 affiliations
 
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_sub_article_translation_affs(self):
-        self.maxDiff = None
-        self.xmltree = xml_utils.get_xml_tree("tests/samples/1518-8787-rsp-56-79.xml")
-        obtained = list(
-            ArticleAffiliations(self.xmltree).sub_article_translation_affs()
-        )
-        expected = [
-            {
-                "city": None,
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff1002",
-                "label": "I",
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": None,
-                "original": "Universidade Federal de Pelotas. Faculdade de\n"
-                "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
-                "Pelotas, RS,\n"
-                "\t\t\t\t\tBrasil",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "TRpt",
-                "parent_lang": "pt",
-                "state": None,
-            },
-            {
-                "city": None,
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff2002",
-                "label": "II",
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": None,
-                "original": "Universidade Federal de Pelotas. Escola\n"
-                "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
-                "em Educação Física.\n"
-                "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "TRpt",
-                "parent_lang": "pt",
-                "state": None,
-            },
-        ]
+    def test_by_ids_property(self):
+        """Test the by_ids property returns all affiliation IDs correctly"""
+        by_ids = self.xml_affs.by_ids
+        expected_ids = ["aff1", "aff2", "aff3", "aff4"]
+        self.assertSetEqual(set(by_ids.keys()), set(expected_ids))
 
-        self.assertEqual(len(obtained), 2)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_sub_article_non_translation_affs(self):
-        self.maxDiff = None
-        self.xmltree = xml_utils.get_xml_tree(
-            "tests/samples/1518-8787-rsp-56-79.xml"
-        )
-        obtained = list(
-            ArticleAffiliations(self.xmltree).sub_article_non_translation_affs()
+    def test_data_structure(self):
+        """Test the structure of the data property"""
+        data = self.xml_affs.data
+        self.assertEqual(
+            ["main", "translations", "not_translations"], list(data.keys())
         )
 
-        self.assertEqual(len(obtained), 0)
+        # Check main affiliations
+        self.assertEqual(len(data["main"]), 1)
 
-    @skip("Teste pendente de correção e/ou ajuste")
-    def test_all_affs(self):
-        self.maxDiff = None
-        self.xmltree = xml_utils.get_xml_tree(
-            "tests/samples/1518-8787-rsp-56-79.xml"
-        )
-        obtained = list(ArticleAffiliations(self.xmltree).all_affs())
-        expected = [
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff1",
-                "label": "I",
-                "orgdiv1": "Faculdade de Medicina",
-                "orgdiv2": "Programa de Pós-Graduação em\n\t\t\t\t\tEpidemiologia",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Faculdade de\n"
-                            "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
-                            "Pelotas, RS,\n"
-                            "\t\t\t\t\tBrasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-            {
-                "city": "Pelotas",
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff2",
-                "label": "II",
-                "orgdiv1": "Escola Superior de Educação Física",
-                "orgdiv2": "Programa de Pós-Graduação em Educação\n\t\t\t\t\tFísica",
-                "orgname": "Universidade Federal de Pelotas",
-                "original": " Universidade Federal de Pelotas. Escola\n"
-                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
-                            "em Educação Física.\n"
-                            "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "en",
-                "state": "RS",
-            },
-            {
-                "city": None,
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff1002",
-                "label": "I",
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": None,
-                "original": "Universidade Federal de Pelotas. Faculdade de\n"
-                            "\t\t\t\t\tMedicina. Programa de Pós-Graduação em Epidemiologia. "
-                            "Pelotas, RS,\n"
-                            "\t\t\t\t\tBrasil",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "TRpt",
-                "parent_lang": "pt",
-                "state": None,
-            },
-            {
-                "city": None,
-                "country_code": "BR",
-                "country_name": "Brasil",
-                "email": None,
-                "id": "aff2002",
-                "label": "II",
-                "orgdiv1": None,
-                "orgdiv2": None,
-                "orgname": None,
-                "original": "Universidade Federal de Pelotas. Escola\n"
-                            "\t\t\t\t\tSuperior de Educação Física. Programa de Pós-Graduação "
-                            "em Educação Física.\n"
-                            "\t\t\t\t\tPelotas, RS, Brasil",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": "TRpt",
-                "parent_lang": "pt",
-                "state": None,
-            }
-        ]
+        # Check translations
+        self.assertEqual(len(data["translations"]), 1)
+        self.assertIn("en", data["translations"])
+        self.assertEqual(len(data["translations"]["en"]), 1)
 
-        self.assertEqual(len(obtained), 4)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        # Check non-translations
+        self.assertEqual(len(data["not_translations"]), 1)
+        self.assertIn("s2", data["not_translations"])
+        self.assertIn("main", data["not_translations"]["s2"])
+        self.assertIn("translations", data["not_translations"]["s2"])
+        self.assertNotIn("not_translations", data["not_translations"]["s2"])
+
+    def test_by_ids_property_empty_xml(self):
+        """Test by_ids property with XML containing no affiliations"""
+        xml_tree = etree.fromstring("<article/>")
+        xml_affs = XMLAffiliations(xml_tree)
+        self.assertEqual(list(xml_affs.by_ids.keys()), [])
+
+    def test_by_ids_property_single_aff(self):
+        """Test by_ids property with XML containing single affiliation"""
+        single_aff_xml = """
+        <article xml:lang="pt">
+            <front>
+                <aff id="aff1">
+                    <institution content-type="orgname">Institution 1</institution>
+                </aff>
+            </front>
+        </article>
+        """
+        xml_tree = xml_tree = etree.fromstring(single_aff_xml)
+        xml_affs = XMLAffiliations(xml_tree)
+        self.assertEqual(list(xml_affs.by_ids.keys()), ["aff1"])

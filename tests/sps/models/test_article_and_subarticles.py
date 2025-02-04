@@ -10,17 +10,19 @@ class ArticleAndSubarticlesTest(TestCase):
         data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en"></article>"""
         xmltree = xml_utils.get_xml_tree(data)
 
-        expected = 'en'
+        expected = "en"
         obtained = ArticleAndSubArticles(xmltree).main_lang
 
         self.assertEqual(expected, obtained)
 
     def test_all_lang(self):
-        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+        with open(
+            "tests/samples/article-abstract-en-sub-articles-pt-es.xml", "r"
+        ) as data:
             xmltree = xml_utils.get_xml_tree(data.read())
 
-        expected = ['en', 'pt', 'es']
-        obtained = [d['lang'] for d in ArticleAndSubArticles(xmltree).data]
+        expected = ["en", "pt", "es"]
+        obtained = [d["lang"] for d in ArticleAndSubArticles(xmltree).data]
 
         self.assertListEqual(expected, obtained)
 
@@ -28,74 +30,78 @@ class ArticleAndSubarticlesTest(TestCase):
         data = """<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en"></article>"""
         xmltree = xml_utils.get_xml_tree(data)
 
-        expected = 'research-article'
+        expected = "research-article"
         obtained = ArticleAndSubArticles(xmltree).main_article_type
 
         self.assertEqual(expected, obtained)
 
     def test_all_article_type(self):
-        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+        with open(
+            "tests/samples/article-abstract-en-sub-articles-pt-es.xml", "r"
+        ) as data:
             xmltree = xml_utils.get_xml_tree(data.read())
 
-        expected = ['research-article', 'translation', 'translation']
-        obtained = [d['article_type'] for d in ArticleAndSubArticles(xmltree).data]
+        expected = ["research-article", "translation", "translation"]
+        obtained = [d["article_type"] for d in ArticleAndSubArticles(xmltree).data]
 
         self.assertListEqual(expected, obtained)
 
     def test_elements_order(self):
         self.maxDiff = None
-        with open('tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml', 'r') as data:
+        with open(
+            "tests/samples/artigo-com-traducao-e-pareceres-traduzidos.xml", "r"
+        ) as data:
             xmltree = xml_utils.get_xml_tree(data.read())
 
         expected = [
             {
-                'article_id': None,
-                'article_type': 'research-article',
-                'lang': 'pt',
-                'line_number': 2,
-                'subject': 'ARTIGOS',
-                'parent_name': 'article',
+                "article_id": None,
+                "article_type": "research-article",
+                "lang": "pt",
+                "line_number": 2,
+                "subject": "ARTIGOS",
+                "parent_name": "article",
             },
             {
-                'article_id': 's2',
-                'article_type': 'reviewer-report',
-                'lang': 'pt',
-                'line_number': 93,
-                'subject': 'Pareceres',
-                'parent_name': 'sub-article',
+                "article_id": "s2",
+                "article_type": "reviewer-report",
+                "lang": "pt",
+                "line_number": 93,
+                "subject": "Pareceres",
+                "parent_name": "sub-article",
             },
             {
-                'article_id': 's3',
-                'article_type': 'reviewer-report',
-                'lang': 'pt',
-                'line_number': 141,
-                'subject': 'Pareceres',
-                'parent_name': 'sub-article',
+                "article_id": "s3",
+                "article_type": "reviewer-report",
+                "lang": "pt",
+                "line_number": 141,
+                "subject": "Pareceres",
+                "parent_name": "sub-article",
             },
             {
-                'article_id': 's1',
-                'article_type': 'translation',
-                'lang': 'en',
-                'line_number': 189,
-                'subject': 'ARTICLES',
-                'parent_name': 'sub-article',
+                "article_id": "s1",
+                "article_type": "translation",
+                "lang": "en",
+                "line_number": 189,
+                "subject": "ARTICLES",
+                "parent_name": "sub-article",
             },
             {
-                'article_id': 's5',
-                'article_type': 'reviewer-report',
-                'lang': 'en',
-                'line_number': 233,
-                'subject': 'Reviews',
-                'parent_name': 'sub-article',
+                "article_id": "s5",
+                "article_type": "reviewer-report",
+                "lang": "en",
+                "line_number": 233,
+                "subject": "Reviews",
+                "parent_name": "sub-article",
             },
             {
-                'article_id': 's6',
-                'article_type': 'reviewer-report',
-                'lang': 'en',
-                'line_number': 271,
-                'subject': 'Reviews',
-                'parent_name': 'sub-article',
-            }
+                "article_id": "s6",
+                "article_type": "reviewer-report",
+                "lang": "en",
+                "line_number": 271,
+                "subject": "Reviews",
+                "parent_name": "sub-article",
+            },
         ]
         obtained = [d for d in ArticleAndSubArticles(xmltree).data]
 
@@ -124,21 +130,25 @@ class ArticleAndSubarticlesTest(TestCase):
         self.assertEqual(expected, obtained)
 
     def test_main_article_subject(self):
-        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+        with open(
+            "tests/samples/article-abstract-en-sub-articles-pt-es.xml", "r"
+        ) as data:
             xmltree = xml_utils.get_xml_tree(data.read())
 
-        expected = 'Original Article'
+        expected = "Original Article"
         obtained = ArticleAndSubArticles(xmltree).main_subject
 
         self.assertEqual(expected, obtained)
 
     def test_all_article_subject(self):
         self.maxDiff = None
-        with open('tests/samples/article-abstract-en-sub-articles-pt-es.xml', 'r') as data:
+        with open(
+            "tests/samples/article-abstract-en-sub-articles-pt-es.xml", "r"
+        ) as data:
             xmltree = xml_utils.get_xml_tree(data.read())
 
-        expected = ['Original Article', 'Artigo Original', 'Artículo Original']
-        obtained = [d['subject'] for d in ArticleAndSubArticles(xmltree).data]
+        expected = ["Original Article", "Artigo Original", "Artículo Original"]
+        obtained = [d["subject"] for d in ArticleAndSubArticles(xmltree).data]
 
         self.assertListEqual(expected, obtained)
 
@@ -148,7 +158,7 @@ class TestFulltext(TestCase):
         """
         Configura o XML básico para os testes
         """
-        self.xml = '''
+        self.xml = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns:xml="http://www.w3.org/XML/1998/namespace"
                 article-type="research-article"
@@ -163,7 +173,7 @@ class TestFulltext(TestCase):
             <back>
                 <ref-list/>
             </back>
-        </article>'''
+        </article>"""
         self.node = etree.fromstring(self.xml)
         self.fulltext = Fulltext(self.node)
 
@@ -181,12 +191,12 @@ class TestFulltext(TestCase):
 
     def test_front_sub_article(self):
         """Testa propriedade front para sub-article"""
-        xml_sub = '''
+        xml_sub = """
         <sub-article article-type="translation" xml:lang="pt" id="s1">
             <front-stub>
                 <article-meta/>
             </front-stub>
-        </sub-article>'''
+        </sub-article>"""
         node_sub = etree.fromstring(xml_sub)
         fulltext_sub = Fulltext(node_sub)
 
@@ -205,7 +215,7 @@ class TestFulltext(TestCase):
 
     def test_sub_articles(self):
         """Testa propriedade sub_articles"""
-        xml = '''
+        xml = """
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -214,7 +224,7 @@ class TestFulltext(TestCase):
             <sub-article article-type="other" xml:lang="fr" id="s2">
                 <front-stub/>
             </sub-article>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
 
@@ -224,7 +234,7 @@ class TestFulltext(TestCase):
 
     def test_translations(self):
         """Testa propriedade translations"""
-        xml = '''
+        xml = """
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -233,17 +243,20 @@ class TestFulltext(TestCase):
             <sub-article article-type="other" xml:lang="fr" id="s2">
                 <front-stub/>
             </sub-article>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
 
         self.assertEqual(len(fulltext.translations), 1)
         self.assertEqual(fulltext.translations[0].get("article-type"), "translation")
-        self.assertEqual(fulltext.translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "es")
+        self.assertEqual(
+            fulltext.translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"),
+            "es",
+        )
 
     def test_not_translations(self):
         """Testa propriedade not_translations"""
-        xml = '''
+        xml = """
         <article>
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -252,13 +265,18 @@ class TestFulltext(TestCase):
             <sub-article article-type="other" xml:lang="fr" id="s2">
                 <front-stub/>
             </sub-article>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
 
         self.assertEqual(len(fulltext.not_translations), 1)
         self.assertEqual(fulltext.not_translations[0].get("article-type"), "other")
-        self.assertEqual(fulltext.not_translations[0].get("{http://www.w3.org/XML/1998/namespace}lang"), "fr")
+        self.assertEqual(
+            fulltext.not_translations[0].get(
+                "{http://www.w3.org/XML/1998/namespace}lang"
+            ),
+            "fr",
+        )
 
     def test_attribs(self):
         """Testa propriedade attribs"""
@@ -277,12 +295,13 @@ class TestFulltext(TestCase):
             "parent_id": "123",
             "parent_lang": "en",
             "parent_article_type": "research-article",
+            "original_article_type": "research-article",
         }
         self.assertEqual(self.fulltext.attribs_parent_prefixed, expected)
 
     def test_fulltexts(self):
         """Testa propriedade fulltexts"""
-        xml = '''
+        xml = """
         <article article-type="research-article" xml:lang="en" id="123">
             <front/>
             <sub-article article-type="translation" xml:lang="es" id="s1">
@@ -291,7 +310,7 @@ class TestFulltext(TestCase):
             <sub-article article-type="other" xml:lang="fr" id="s2">
                 <front-stub/>
             </sub-article>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
         data = fulltext.fulltexts
@@ -315,10 +334,10 @@ class TestFulltext(TestCase):
 
     def test_missing_optional_attributes(self):
         """Testa inicialização com atributos opcionais ausentes"""
-        xml = '''
+        xml = """
         <article>
             <front/>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
 
@@ -328,10 +347,10 @@ class TestFulltext(TestCase):
 
     def test_empty_sections(self):
         """Testa artigo sem seções body e back"""
-        xml = '''
+        xml = """
         <article>
             <front/>
-        </article>'''
+        </article>"""
         node = etree.fromstring(xml)
         fulltext = Fulltext(node)
 

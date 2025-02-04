@@ -1,4 +1,5 @@
-from packtools.sps.utils.xml_utils import process_subtags, put_parent_context
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.utils.xml_utils import process_subtags
 
 
 class BaseNoteGroup:
@@ -14,32 +15,21 @@ class BaseNoteGroup:
             yield data
 
 
-class BaseNoteGroups:
-    def __init__(self, article_or_sub_article_node, fn_parent_tag_name, NoteGroupClass):
-        self.article_or_sub_article_node = article_or_sub_article_node
+class BaseNoteGroups(Fulltext):
+    def __init__(self, node, fn_parent_tag_name, NoteGroupClass):
+        super().__init__(node)
+        self.node = node
         self.fn_parent_tag_name = fn_parent_tag_name
-        self.parent = article_or_sub_article_node.tag
-        self.parent_id = article_or_sub_article_node.get("id")
-        self.parent_lang = article_or_sub_article_node.get("{http://www.w3.org/XML/1998/namespace}lang")
-        self.parent_article_type = article_or_sub_article_node.get("article-type")
         self.NoteGroupClass = NoteGroupClass
 
     @property
     def items(self):
-        if self.parent == "article":
-            xpath = f".//front//{self.fn_parent_tag_name} | .//body//{self.fn_parent_tag_name} | .//back//{self.fn_parent_tag_name}"
-        else:
-            xpath = f".//{self.fn_parent_tag_name}"
+        xpath = f"front-stub//{self.fn_parent_tag_name} | front//{self.fn_parent_tag_name} | body//{self.fn_parent_tag_name} | back//{self.fn_parent_tag_name}"
 
-        for fn_parent_node in self.article_or_sub_article_node.xpath(xpath):
+        for fn_parent_node in self.node.xpath(xpath):
             for data in self.NoteGroupClass(fn_parent_node).items:
-                yield put_parent_context(
-                    data,
-                    self.parent_lang,
-                    self.parent_article_type,
-                    self.parent,
-                    self.parent_id,
-                )
+                data.update(self.attribs_parent_prefixed)
+                yield data
 
 
 class Fn:

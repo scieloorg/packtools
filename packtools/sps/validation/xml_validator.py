@@ -90,5 +90,9 @@ def validate_xml_content(xmltree, rules):
     }
     yield {
         "group": "fn",
-        "items": xml_validations.validate_fn(xmltree, params),
+        "items": xml_validations.validate_fns(xmltree, params),
+    }
+    yield {
+        "group": "peer-reviews",
+        "items": xml_validations.validate_peer_reviews(xmltree, params),    
     }

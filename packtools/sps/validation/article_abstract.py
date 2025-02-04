@@ -130,6 +130,7 @@ class AbstractsValidationBase:
         obtained = self.abstracts
         error_level = "INFO"
         is_valid = True
+        advice = None
 
         if self.article_type in article_type_requires:
             expected = f"{self.abstract_title} is required"

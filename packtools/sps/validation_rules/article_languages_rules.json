@@ -1,6 +1,6 @@
 {
     "article_languages_rules": {
-        "error_level": "CRITICAL"
+        "language_error_level": "CRITICAL"
     },
     "metadata_languages_rules": {
         "error_level": "CRITICAL"

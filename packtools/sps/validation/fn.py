@@ -1,4 +1,4 @@
-from packtools.sps.models.fn import ArticleFns
+from packtools.sps.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
 
 
@@ -21,7 +21,7 @@ class FnValidation(BaseFnValidation):
         return [response for validate in validations if (response := validate())]
 
 
-class FnGroupValidation:
+class XMLFnGroupValidation:
     """
     Validates groups of footnotes in an XML document.
 
@@ -42,7 +42,7 @@ class FnGroupValidation:
         self.rules = rules
         self.dtd_version = xml_tree
 
-        xml_article = ArticleFns(xml_tree)
+        xml_article = XMLFns(xml_tree)
 
         self.article_fn_groups = list(xml_article.article_fn_groups_notes())
         self.sub_article_fn_groups = list(xml_article.sub_article_fn_groups_notes())

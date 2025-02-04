@@ -16,9 +16,7 @@ from packtools.sps.validation.xml_validator_rules import XMLContentValidatorRule
 class XMLContentValidator:
     def __init__(self, xml_content_validator_rules):
         self.xml_content_validator_rules = xml_content_validator_rules
-
-    def write_report(self, report_file_path, rows):
-        headers = (
+        self.STANDARD_HEADER = (
             "response",
             "message",
             "advice",
@@ -35,10 +33,48 @@ class XMLContentValidator:
             "expected_value",
             "got_value",
         )
+        self.less_cols = (
+            "response",
+            "message",
+            "advice",
+            "title",
+            "context",
+            "data",
+            "group",
+        )
+
+    def format_context(self, row):
+        parent_id = row["parent_id"] or ''
+        parent = row["parent"] or row["parent"]
+        
+        parent = f"{parent} {parent_id}"
+        title = []
+        for k in ("item", "sub_item", "title"):
+            if row[k] not in title:
+                if row[k]:
+                    title.append(row[k])
+        return {"context": parent, "title": " / ".join(title)}
+
+    def get_less_cols(self, rows, headers=None):
+        cols = (
+            "response",
+            "message",
+            "advice",
+            "data",
+            "group",
+        )
+        for row in rows:
+            row_ = self.format_context(row)
+            for k in cols:
+                row_[k] = row[k]
+            yield row_
+
+    def write_report(self, fieldnames, rows, report_file_path):
         with open(report_file_path, "w", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=headers)
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
+        print(f"Report created: {report_file_path}")
 
     def validate(self, xmltree):
         sps_version = xmltree.find(".").get("specific-use")
@@ -47,15 +83,16 @@ class XMLContentValidator:
         for result in validate_xml_content(xmltree, self.xml_content_validator_rules):
             group = result["group"]
             items = result["items"] or {}
-            try:
-                for item in items:
-                    item["group"] = group
-                    yield item
-            except Exception as e:
-                logging.exception(e)
-                print(e)
-                print(result)
-                print("")
+            for item in items:
+                try:
+                    if item:
+                        item["group"] = group
+                        yield item
+                except Exception as e:
+                    logging.exception(e)
+                    print(result)
+                    print(item)
+                    print("")
 
     def get_xml_tree(self, xml_file_path):
         for xml_with_pre in XMLWithPre.create(path=xml_file_path):
@@ -84,6 +121,7 @@ def check_paths(xml_path, report_path):
     elif os.path.isfile(xml_path):
         if not report_path:
             report_path = os.path.dirname(xml_path)
+        f = os.path.basename(xml_path)
         yield {
             "xml_path": xml_path,
             "report_path": os.path.join(report_path, f + ".csv"),
@@ -109,5 +147,6 @@ if __name__ == "__main__":
     for item in paths:
         xmltree = validator.get_xml_tree(item["xml_path"])
         rows = validator.validate(xmltree)
-        validator.write_report(item["report_path"], rows)
+        rows_with_less_columns = validator.get_less_cols(rows)
+        validator.write_report(validator.less_cols, rows_with_less_columns, item["report_path"])
         print(f'{item["xml_path"]} - report created: {item["report_path"]}')

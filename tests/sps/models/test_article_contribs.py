@@ -1,9 +1,13 @@
-from unittest import TestCase
+from unittest import TestCase, skip
 
 from lxml import etree
 
-from packtools.sps.models.article_contribs import Contrib, ContribGroup, ArticleContribs
-from packtools.sps.utils import xml_utils
+from packtools.sps.models.article_contribs import (
+    Contrib,
+    ContribGroup,
+    TextContribs,
+    XMLContribs,
+)
 
 
 class ContribTest(TestCase):
@@ -44,10 +48,7 @@ class ContribTest(TestCase):
     def test_contrib_ids(self):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).contrib_ids
-        expected = {
-            'orcid': '0000-0001-8528-2091',
-            'scopus': '24771926600'
-        }
+        expected = {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"}
 
         self.assertDictEqual(obtained, expected)
 
@@ -55,10 +56,10 @@ class ContribTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).contrib_name
         expected = {
-            'given-names': 'Albert',
-            'surname': 'Einstein',
-            'prefix': 'Prof',
-            'suffix': 'Nieto',
+            "given-names": "Albert",
+            "surname": "Einstein",
+            "prefix": "Prof",
+            "suffix": "Nieto",
         }
 
         self.assertDictEqual(obtained, expected)
@@ -72,13 +73,7 @@ class ContribTest(TestCase):
     def test_contrib_xref(self):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = list(Contrib(contrib).contrib_xref)
-        expected = [
-            {
-                'rid': 'aff1',
-                'ref_type': 'aff',
-                'text': '1'
-            }
-        ]
+        expected = [{"rid": "aff1", "ref_type": "aff", "text": "1"}]
 
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -89,12 +84,12 @@ class ContribTest(TestCase):
         obtained = list(Contrib(contrib).contrib_role)
         expected = [
             {
-                "text": 'Data curation',
+                "text": "Data curation",
                 "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
                 "specific-use": None,
             },
             {
-                "text": 'Conceptualization',
+                "text": "Conceptualization",
                 "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
                 "specific-use": None,
             },
@@ -114,42 +109,36 @@ class ContribTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'collab': 'The MARS Group',
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "collab": "The MARS Group",
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_xref': [
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
+            "contrib_role": [
                 {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ],
-            'contrib_role': [
-                {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -190,41 +179,35 @@ class ContribWithoutContribTypeTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'collab': 'The MARS Group',
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "collab": "The MARS Group",
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_xref': [
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
+            "contrib_role": [
                 {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ],
-            'contrib_role': [
-                {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -263,38 +246,32 @@ class ContribWithoutContribIdTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'collab': 'The MARS Group',
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "contrib_type": "author",
+            "collab": "The MARS Group",
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_xref': [
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
+            "contrib_role": [
                 {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ],
-            'contrib_role': [
-                {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -334,41 +311,35 @@ class ContribWithoutCollabTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_xref': [
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
+            "contrib_role": [
                 {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ],
-            'contrib_role': [
-                {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -403,35 +374,29 @@ class ContribWithoutNameTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'collab': 'The MARS Group',
-            'contrib_xref': [
+            "collab": "The MARS Group",
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
+            "contrib_role": [
                 {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ],
-            'contrib_role': [
-                {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -471,35 +436,35 @@ class ContribWithoutXrefTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'collab': 'The MARS Group',
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "collab": "The MARS Group",
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_role': [
+            "contrib_role": [
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/data-curation/',
-                    'specific-use': None,
-                    'text': 'Data curation'
+                    "content-type": "https://credit.niso.org/contributor-roles/data-curation/",
+                    "specific-use": None,
+                    "text": "Data curation",
                 },
                 {
-                    'content-type': 'https://credit.niso.org/contributor-roles/conceptualization/',
-                    'specific-use': None,
-                    'text': 'Conceptualization'
+                    "content-type": "https://credit.niso.org/contributor-roles/conceptualization/",
+                    "specific-use": None,
+                    "text": "Conceptualization",
                 },
                 {
-                    'content-type': None,
-                    'specific-use': 'reviewer',
-                    'text': 'Reviewer'
-                }
+                    "content-type": None,
+                    "specific-use": "reviewer",
+                    "text": "Reviewer",
+                },
             ],
         }
 
@@ -537,26 +502,20 @@ class ContribWithoutRoleTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            'contrib_type': 'author',
-            'contrib_ids': {
-                'orcid': '0000-0001-8528-2091',
-                'scopus': '24771926600'
+            "contrib_type": "author",
+            "contrib_ids": {
+                "orcid": "0000-0001-8528-2091",
+                "scopus": "24771926600",
             },
-            'collab': 'The MARS Group',
-            'contrib_full_name': 'Prof Albert Einstein Nieto',
-            'contrib_name': {
-                'given-names': 'Albert',
-                'surname': 'Einstein',
-                'prefix': 'Prof',
-                'suffix': 'Nieto'
+            "collab": "The MARS Group",
+            "contrib_full_name": "Prof Albert Einstein Nieto",
+            "contrib_name": {
+                "given-names": "Albert",
+                "surname": "Einstein",
+                "prefix": "Prof",
+                "suffix": "Nieto",
             },
-            'contrib_xref': [
-                {
-                    'ref_type': 'aff',
-                    'rid': 'aff1',
-                    'text': '1'
-                }
-            ]
+            "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
         }
 
         self.assertDictEqual(obtained, expected)
@@ -609,37 +568,41 @@ class ContribGroupTest(TestCase):
     def test_data(self):
         self.maxDiff = None
         contrib_group = self.xmltree.xpath(".//contrib-group")[0]
-        obtained = list(ContribGroup(contrib_group).contribs)
+        obtained = list(
+            [item.data for item in ContribGroup(contrib_group).contribs]
+        )
         expected = [
             {
-                'collab': 'Technical Committee ISO/TC 108, Subcommittee SC 2',
-                'contrib_type': 'author',
-                'contrib_xref': [{'ref_type': 'aff', 'rid': 'aff1', 'text': None}]
+                "collab": "Technical Committee ISO/TC 108, Subcommittee SC 2",
+                "contrib_type": "author",
+                "contrib_xref": [
+                    {"ref_type": "aff", "rid": "aff1", "text": None}
+                ],
             },
             {
-                'collab': 'Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, '
-                          'Switzerland',
-                'contrib_type': 'author'
+                "collab": "Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, "
+                "Switzerland",
+                "contrib_type": "author",
             },
             {
-                'collab': 'Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island '
-                          'Department of Health, Providence, Rhode Island',
-                'contrib_type': 'author'
+                "collab": "Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island "
+                "Department of Health, Providence, Rhode Island",
+                "contrib_type": "author",
             },
             {
-                'contrib_full_name': 'Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto',
-                'contrib_name': {
-                    'given-names': 'FRANCISCO',
-                    'prefix': 'Prof',
-                    'suffix': 'Nieto',
-                    'surname': 'VENEGAS-MARTÍNEZ'
+                "contrib_full_name": "Prof FRANCISCO VENEGAS-MARTÍNEZ Nieto",
+                "contrib_name": {
+                    "given-names": "FRANCISCO",
+                    "prefix": "Prof",
+                    "suffix": "Nieto",
+                    "surname": "VENEGAS-MARTÍNEZ",
                 },
-                'contrib_type': 'author',
-                'contrib_xref': [
-                    {'ref_type': 'aff', 'rid': 'aff1', 'text': None},
-                    {'ref_type': 'aff', 'rid': 'aff2', 'text': None}
-                ]
-            }
+                "contrib_type": "author",
+                "contrib_xref": [
+                    {"ref_type": "aff", "rid": "aff1", "text": None},
+                    {"ref_type": "aff", "rid": "aff2", "text": None},
+                ],
+            },
         ]
 
         for i, item in enumerate(expected):
@@ -702,74 +665,86 @@ class ArticleContribTest(TestCase):
 
     def test_data(self):
         self.maxDiff = None
-        obtained = list(ArticleContribs(self.xmltree).contribs)
+        obtained = list(XMLContribs(self.xmltree).all_contribs)
         expected = [
             {
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'en',
-                'contrib_ids': {'orcid': '0000-0003-2243-0821'},
-                'contrib_full_name': 'Silvana de Castro',
-                'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
-                'contrib_type': 'author',
-                'contrib_xref': [
-                    {'ref_type': 'aff', 'rid': 'aff1', 'text': 'a'},
-                    {'ref_type': 'corresp', 'rid': 'c1', 'text': '*'}
+                "original_article_type": "research-article",
+                "parent": "article",
+                "parent_article_type": "research-article",
+                "parent_id": None,
+                "parent_lang": "en",
+                "contrib_ids": {"orcid": "0000-0003-2243-0821"},
+                "contrib-group-type": None,
+                "contrib_full_name": "Silvana de Castro",
+                "contrib_name": {
+                    "given-names": "Silvana de",
+                    "surname": "Castro",
+                },
+                "contrib_type": "author",
+                "contrib_xref": [
+                    {"ref_type": "aff", "rid": "aff1", "text": "a"},
+                    {"ref_type": "corresp", "rid": "c1", "text": "*"},
                 ],
-                'affs': [
+                "affs": [
                     {
-                        'city': 'Rio de Janeiro',
-                        'country_code': 'BR',
-                        'country_name': 'Brazil',
-                        'email': None,
-                        'id': 'aff1',
-                        'label': 'a',
-                        'orgdiv1': None,
-                        'orgdiv2': None,
-                        'orgname': 'Universidade Federal do Rio de Janeiro (UFRJ)',
-                        'original': 'Universidade Federal do Rio de Janeiro (UFRJ)',
-                        'state': 'RJ',
-                        'parent': 'article',
-                        'parent_article_type': 'research-article',
-                        'parent_id': None,
-                        'parent_lang': 'en',
+                        "city": "Rio de Janeiro",
+                        "country_code": "BR",
+                        "country_name": "Brazil",
+                        "email": None,
+                        "id": "aff1",
+                        "label": "a",
+                        "orgdiv1": None,
+                        "orgdiv2": None,
+                        "orgname": "Universidade Federal do Rio de Janeiro (UFRJ)",
+                        "original": "Universidade Federal do Rio de Janeiro (UFRJ)",
+                        "state": "RJ",
+                        "parent": "article",
+                        "parent_article_type": "research-article",
+                        "original_article_type": "research-article",
+                        "parent_id": None,
+                        "parent_lang": "en",
                     }
-                ]
+                ],
             },
             {
-                'parent': 'sub-article',
-                'parent_article_type': 'translation',
-                'parent_id': 'SA1',
-                'parent_lang': 'pt',
-                'contrib_ids': {'orcid': '0000-0003-2243-0821'},
-                'contrib_full_name': 'Silvana de Castro',
-                'contrib_name': {'given-names': 'Silvana de', 'surname': 'Castro'},
-                'contrib_type': 'author',
-                'contrib_xref': [
-                    {'ref_type': 'aff', 'rid': 'aff4', 'text': 'a'},
-                    {'ref_type': 'corresp', 'rid': 'c2', 'text': '*'}
+                "original_article_type": "research-article",
+                "parent": "sub-article",
+                "parent_article_type": "translation",
+                "parent_id": "SA1",
+                "parent_lang": "pt",
+                "contrib_ids": {"orcid": "0000-0003-2243-0821"},
+                "contrib-group-type": None,
+                "contrib_full_name": "Silvana de Castro",
+                "contrib_name": {
+                    "given-names": "Silvana de",
+                    "surname": "Castro",
+                },
+                "contrib_type": "author",
+                "contrib_xref": [
+                    {"ref_type": "aff", "rid": "aff4", "text": "a"},
+                    {"ref_type": "corresp", "rid": "c2", "text": "*"},
                 ],
-                'affs': [
+                "affs": [
                     {
-                        'city': None,
-                        'country_name': None,
-                        'country_code': None,
-                        'email': None,
-                        'id': 'aff4',
-                        'label': 'a',
-                        'orgdiv1': None,
-                        'orgdiv2': None,
-                        'orgname': None,
-                        'original': 'Universidade Federal do Rio de Janeiro (UFRJ)',
-                        'state': None,
-                        'parent': 'sub-article',
-                        'parent_article_type': 'translation',
-                        'parent_id': 'SA1',
-                        'parent_lang': 'pt',
+                        "city": None,
+                        "country_name": None,
+                        "country_code": None,
+                        "email": None,
+                        "id": "aff4",
+                        "label": "a",
+                        "orgdiv1": None,
+                        "orgdiv2": None,
+                        "orgname": None,
+                        "original": "Universidade Federal do Rio de Janeiro (UFRJ)",
+                        "state": None,
+                        "parent": "sub-article",
+                        "parent_article_type": "translation",
+                        "original_article_type": "research-article",
+                        "parent_id": "SA1",
+                        "parent_lang": "pt",
                     }
-                ]
-            }
+                ],
+            },
         ]
 
         for i, item in enumerate(expected):
@@ -778,7 +753,8 @@ class ArticleContribTest(TestCase):
 
     def test_fix_bug_without_prefix(self):
         self.maxDiff = None
-        xml_tree = etree.fromstring("""
+        xml_tree = etree.fromstring(
+            """
         <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
         article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
             <front>
@@ -793,11 +769,10 @@ class ArticleContribTest(TestCase):
                 </contrib-group>
             </front>
         </article>
-        """)
-        obtained = list(ArticleContribs(xml_tree).contribs)
-        expected = [
-            'JEFFERSON C. SIMÕES Nieto'
-        ]
+        """
+        )
+        obtained = list(XMLContribs(xml_tree).contribs)
+        expected = ["JEFFERSON C. SIMÕES Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -805,7 +780,8 @@ class ArticleContribTest(TestCase):
 
     def test_fix_bug_without_suffix(self):
         self.maxDiff = None
-        xml_tree = etree.fromstring("""
+        xml_tree = etree.fromstring(
+            """
         <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
         article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
             <front>
@@ -820,11 +796,10 @@ class ArticleContribTest(TestCase):
                 </contrib-group>
             </front>
         </article>
-        """)
-        obtained = list(ArticleContribs(xml_tree).contribs)
-        expected = [
-            'Prof JEFFERSON C. SIMÕES'
-        ]
+        """
+        )
+        obtained = list(XMLContribs(xml_tree).contribs)
+        expected = ["Prof JEFFERSON C. SIMÕES"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -832,7 +807,8 @@ class ArticleContribTest(TestCase):
 
     def test_fix_bug_without_given_name(self):
         self.maxDiff = None
-        xml_tree = etree.fromstring("""
+        xml_tree = etree.fromstring(
+            """
         <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
         article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
             <front>
@@ -847,11 +823,10 @@ class ArticleContribTest(TestCase):
                 </contrib-group>
             </front>
         </article>
-        """)
-        obtained = list(ArticleContribs(xml_tree).contribs)
-        expected = [
-            'Prof SIMÕES Nieto'
-        ]
+        """
+        )
+        obtained = list(XMLContribs(xml_tree).contribs)
+        expected = ["Prof SIMÕES Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
@@ -859,7 +834,8 @@ class ArticleContribTest(TestCase):
 
     def test_fix_bug_without_surname(self):
         self.maxDiff = None
-        xml_tree = etree.fromstring("""
+        xml_tree = etree.fromstring(
+            """
         <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
         article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
             <front>
@@ -874,12 +850,212 @@ class ArticleContribTest(TestCase):
                 </contrib-group>
             </front>
         </article>
-        """)
-        obtained = list(ArticleContribs(xml_tree).contribs)
-        expected = [
-            'Prof JEFFERSON C. Nieto'
-        ]
+        """
+        )
+        obtained = list(XMLContribs(xml_tree).contribs)
+        expected = ["Prof JEFFERSON C. Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
+
+
+class TestContribAnonymous(TestCase):
+
+    def test_anonymous_when_present(self):
+        # Create XML with anonymous node
+        xml = """
+        <contrib>
+            <anonymous/>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = Contrib(node)
+
+        # Test that anonymous returns "anonymous"
+        self.assertEqual(contrib.anonymous, "anonymous")
+
+    def test_anonymous_when_absent(self):
+        # Create XML without anonymous node
+        xml = """
+        <contrib>
+            <name>
+                <surname>Smith</surname>
+            </name>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = Contrib(node)
+
+        # Test that anonymous returns None
+        self.assertIsNone(contrib.anonymous)
+
+    def test_anonymous_with_empty_node(self):
+        # Create XML with empty contrib node
+        xml = """
+        <contrib>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = Contrib(node)
+
+        # Test that anonymous returns None
+        self.assertIsNone(contrib.anonymous)
+
+    def test_anonymous_present_in_data(self):
+        # Create XML with anonymous node
+        xml = """
+        <contrib>
+            <anonymous/>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = Contrib(node)
+
+        # Test that anonymous is present in data
+        data = contrib.data
+        self.assertIn("anonymous", data)
+        self.assertEqual(data["anonymous"], "anonymous")
+
+    def test_anonymous_absent_in_data(self):
+        # Create XML without anonymous node
+        xml = """
+        <contrib>
+            <name>
+                <surname>Smith</surname>
+            </name>
+        </contrib>
+        """
+        node = etree.fromstring(xml)
+        contrib = Contrib(node)
+
+        # Test that anonymous is not present in data
+        data = contrib.data
+        self.assertNotIn("anonymous", data)
+
+
+def create_test_xml():
+    xml = """
+    <article article-type="research-article" xml:lang="en" id="article1">
+        <front>
+            <contrib-group>
+                <contrib contrib-type="author">
+                    <name>
+                        <surname>Smith</surname>
+                        <given-names>John</given-names>
+                    </name>
+                    <xref ref-type="aff" rid="aff1"/>
+                    <contrib-id contrib-id-type="orcid">0000-0001-2345-6789</contrib-id>
+                </contrib>
+            </contrib-group>
+            <aff id="aff1">
+                <institution content-type="orgname">Test University</institution>
+                <addr-line>
+                    <city>Test City</city>
+                    <state>Test State</state>
+                </addr-line>
+                <country country="US">United States</country>
+            </aff>
+        </front>
+        <sub-article article-type="translation" xml:lang="es" id="S1">
+            <front-stub>
+                <contrib-group>
+                    <contrib contrib-type="translator">
+                        <name>
+                            <surname>García</surname>
+                            <given-names>Ana</given-names>
+                        </name>
+                        <contrib-id contrib-id-type="orcid">9999-0001-2345-6789</contrib-id>
+                    </contrib>
+                </contrib-group>
+            </front-stub>
+        </sub-article>
+    </article>
+    """
+    return etree.fromstring(xml)
+
+
+class TestTextContribs(TestCase):
+    def setUp(self):
+        self.xml = create_test_xml()
+        self.text_contribs = TextContribs(self.xml.find("."))
+
+    def test_contrib_groups(self):
+        groups = list(self.text_contribs.contrib_groups)
+        self.assertEqual(len(groups), 1)
+        self.assertIsInstance(groups[0], ContribGroup)
+
+    def test_data(self):
+        data = self.text_contribs.data
+        self.assertIn("parent", data)
+        self.assertIn("contrib-groups", data)
+        self.assertIsInstance(data["contrib-groups"], list)
+        self.assertEqual(len(data["contrib-groups"]), 1)
+
+    def test_items(self):
+        items = list(self.text_contribs.items)
+        self.assertEqual(len(items), 2)
+        self.assertIn("contrib-group-type", items[0])
+        self.assertEqual(items[0]["parent"], "article")
+        self.assertEqual(items[0]["parent_lang"], "en")
+
+    @skip("fixme Teste de translation de TextContribs")
+    def test_translations(self):
+        translations = list(self.text_contribs.translations)
+        self.assertEqual(len(translations), 1)
+        self.assertIsInstance(translations[0], TextContribs)
+
+    @skip("fixme Teste de not_translation de TextContribs")
+    def test_not_translations(self):
+        not_translations = list(self.text_contribs.not_translations)
+        self.assertEqual(len(not_translations), 0)
+
+
+class TestXMLContribs(TestCase):
+    def setUp(self):
+        self.xml = create_test_xml()
+        self.xml_contribs = XMLContribs(self.xml)
+
+    def test_contribs(self):
+        contribs = list(self.xml_contribs.contribs)
+        self.assertEqual(len(contribs), 1)
+        self.assertIn("contrib_full_name", contribs[0])
+        self.assertEqual(contribs[0]["contrib_full_name"], "John Smith")
+
+    @skip("fixme Teste de translation de TextContribs")
+    def test_translation_contribs(self):
+        translation_contribs = list(self.xml_contribs.translation_contribs)
+        self.assertEqual(len(translation_contribs), 1)
+        self.assertEqual(
+            translation_contribs[0]["contrib_full_name"], "Ana García"
+        )
+        self.assertEqual(
+            translation_contribs[0]["contrib-group-type"], "translator"
+        )
+
+    @skip("fixme Teste de not_translation de TextContribs")
+    def test_not_translation_contribs(self):
+        not_translation_contribs = list(
+            self.xml_contribs.not_translation_contribs
+        )
+        self.assertEqual(len(not_translation_contribs), 0)
+
+    def test_all_contribs(self):
+        all_contribs = list(self.xml_contribs.all_contribs)
+        self.assertEqual(
+            len(all_contribs), 2
+        )  # One main contrib + one translator
+
+    def test_contrib_full_name_by_orcid(self):
+        orcid_dict = self.xml_contribs.contrib_full_name_by_orcid
+        self.assertIn("0000-0001-2345-6789", orcid_dict)
+        self.assertIn("John Smith", orcid_dict["0000-0001-2345-6789"])
+        self.assertEqual(2, len(orcid_dict))
+
+    def test_add_affs(self):
+        results = list(self.xml_contribs.contribs)
+        result = results[0]
+        self.assertIn("affs", result)
+        self.assertEqual(len(result["affs"]), 1)
+        self.assertEqual(result["affs"][0]["orgname"], "Test University")
+        self.assertEqual(result["affs"][0]["country_code"], "US")

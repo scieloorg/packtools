@@ -1,4 +1,4 @@
-from packtools.sps.models.author_notes import ArticleAuthorNotes
+from packtools.sps.models.author_notes import XMLAuthorNotes
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 from packtools.sps.validation.utils import build_response
@@ -57,7 +57,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
         return [response for validate in validations if (response := validate())]
 
 
-class ArticleAuthorNotesValidation:
+class XMLAuthorNotesValidation:
     """
     Validates groups of footnotes in an XML document.
 
@@ -76,9 +76,9 @@ class ArticleAuthorNotesValidation:
         """
         self.xml_tree = xml_tree
         self.rules = rules
-        self.dtd_version = ArticleAndSubArticles(xml_tree).main_dtd_version
+        self.dtd_version = ArticleAndSubArticles(xml_tree).dtd_version
 
-        xml_article = ArticleAuthorNotes(xml_tree)
+        xml_article = XMLAuthorNotes(xml_tree)
         self.article_author_notes = xml_article.article_author_notes()
         self.sub_article_author_notes = xml_article.sub_article_author_notes()
 
@@ -90,6 +90,12 @@ class ArticleAuthorNotesValidation:
             dict: Validation results for each footnote (excluding None).
         """
         fn_group = self.article_author_notes
+        yield from self.validate_fn_group(fn_group)
+
+        for fn_group in self.sub_article_author_notes:
+            yield from self.validate_fn_group(fn_group)
+
+    def validate_fn_group(self, fn_group):
         for corresp_data in fn_group.get("corresp_data"):
             corresp_validator = CorrespValidation(corresp_data, self.rules)
             for result in [
@@ -105,21 +111,6 @@ class ArticleAuthorNotesValidation:
                 if result is not None:
                     yield result
 
-        for fn_group in self.sub_article_author_notes:
-            for corresp_data in fn_group.get("corresp_data"):
-                corresp_validator = CorrespValidation(corresp_data, self.rules)
-                for result in [
-                    corresp_validator.validate_title(),
-                    corresp_validator.validate_bold(),
-                    corresp_validator.validate_label()
-                ]:
-                    if result is not None:
-                        yield result
-
-            for fn in fn_group.get("fns"):
-                for result in self.validate_fn(fn):
-                    if result is not None:
-                        yield result
 
     def validate_fn(self, fn):
         """

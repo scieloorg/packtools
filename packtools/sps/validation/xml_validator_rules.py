@@ -2,16 +2,24 @@ import os
 import json
 import logging
 
+
+def fix_json(content):
+    temp = " ".join(content.split())
+    return temp.replace(", ]", "]").replace(", }", "}")
+
+
 def get_rules():
     rules = {}
     dirname = "packtools/sps/validation_rules"
     for filename in os.listdir(dirname):
         if filename.endswith(".json"):
             path = os.path.join(dirname, filename)
-            logging.info(path)
-            with open(path, "r") as fp:
-                content_file = fp.read()
-            rules.update(json.loads(content_file))
+            try:
+                with open(path, "r") as fp:
+                    content_file = fix_json(fp.read())
+                rules.update(json.loads(content_file))
+            except Exception as e:
+                logging.exception(f"{filename}: {e}")
     return rules
 
 
@@ -24,10 +32,8 @@ def get_default_lists():
     )
     for filename in filenames:
         with open(f"packtools/sps/sps_versions/default/{filename}.json") as fp:
-            content_file = fp.read()
-        temp = " ".join(content_file.split())
-        fixed = temp.replace(", ]", "]").replace(", }", "}")
-        data = json.loads(fixed)
+            content_file = fix_json(fp.read())
+        data = json.loads(content_file)
         lists.update(data)
     return lists
 

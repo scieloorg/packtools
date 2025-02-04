@@ -1,6 +1,6 @@
 from unittest import TestCase
 from lxml import etree
-from packtools.sps.models.author_notes import ArticleAuthorNotes
+from packtools.sps.models.author_notes import XMLAuthorNotes
 
 
 class AuthorNotesTest(TestCase):
@@ -48,7 +48,7 @@ class AuthorNotesTest(TestCase):
 
     def setUp(self):
         self.xml_tree = etree.fromstring(self.XML)
-        self.author_notes = ArticleAuthorNotes(self.xml_tree)
+        self.author_notes = XMLAuthorNotes(self.xml_tree)
 
     def test_article_author_notes(self):
         # Verifica estrutura básica do retorno

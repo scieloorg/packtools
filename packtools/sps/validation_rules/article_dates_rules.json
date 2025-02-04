@@ -3,6 +3,7 @@
         "day_format_error_level":"CRITICAL",
         "month_format_error_level":"CRITICAL",
         "year_format_error_level":"CRITICAL",
+        "year_value_error_level": "CRITICAL",
         "format_error_level":"CRITICAL",
         "value_error_level":"CRITICAL",
         "limit_error_level":"CRITICAL",
@@ -14,6 +15,7 @@
             "accepted"
         ],
         "pre_pub_ordered_events":[
+            "preprint",
             "received",
             "revised",
             "accepted"
@@ -26,8 +28,9 @@
         "parent":{
             "parent":null
         },
-        "related-article-type":{
-            "addendum":"addended",
+        "required_history_events_for_related_article_type": {
+            "correction-forward": "corrected",
+            "addendum":"corrected",
             "commentary-article":"commented",
             "correction":"corrected",
             "letter":null,
@@ -41,6 +44,9 @@
             "republished-article":"republished",
             "corrected-article":"corrected",
             "expression-of-concern":null
+        },
+        "required_history_events_for_article_type": {
+            "reviewer-report": "reviewer-report-received",
         },
         "limit_date":null
     }
