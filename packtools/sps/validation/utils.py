@@ -77,7 +77,11 @@ def build_response(
 
 def get_doi_information(doi):
     url = f"https://api.crossref.org/works/{doi}"
-    response = fetch_data(url=url, json=True)
+    try:
+        response = fetch_data(url=url, json=True)
+    except Exception as e:
+        return {"doi": doi, "exception_msg": str(e), "exception_type": str(type(e))}
+
     item = response["message"]
 
     result = {}
@@ -95,10 +99,15 @@ def get_doi_information(doi):
         result[lang] = {"title": title, "doi": doi}
 
     # Adicionar autores ao resultado
-    result["authors"] = [
-        f"{author['family']}, {author['given']}" for author in item.get("author") or []
-    ]
-
+    result["authors"] = []
+    for item in item.get("author") or []:
+        try:
+            result["authors"].append(
+                f"{item['family']}, {item['given']}"
+            )
+        except KeyError:
+            pass
+    
     return result
 
 
