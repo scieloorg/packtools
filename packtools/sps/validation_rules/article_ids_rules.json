@@ -1,5 +1,6 @@
 {
     "article_ids_rules": {
+        "id_other_error_level": "CRITICAL",
         "error_level": "CRITICAL",
         "doi_api_get": null
     }
