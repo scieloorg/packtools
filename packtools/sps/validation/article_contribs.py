@@ -298,9 +298,9 @@ class TextContribsValidation:
         validator = CollabListValidation(self.node, self.params)
         yield from validator.validate()
 
-        for text_contribs in self.text_contribs.sub_articles:
-            validator = TextContribsValidation(text_contribs.node)
-            yield from text_contribs.validate()
+        for node in self.text_contribs.sub_articles:
+            validator = TextContribsValidation(node, self.params)
+            yield from validator.validate()
 
 
 class CollabListValidation:
