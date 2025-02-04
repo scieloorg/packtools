@@ -2,6 +2,9 @@ import datetime
 import re
 
 from packtools.sps.models.article_ids import ArticleIds
+from packtools.sps.models.journal_meta import ISSN
+from packtools.sps.models.article_doi_with_lang import DoiWithLang
+from packtools.sps.models.article_dates import ArticleDates
 
 
 def code(xml_tree, h_record_dict):
