@@ -17,15 +17,17 @@ def collection(xml_tree, h_record_dict):
     # TODO: adicionar a lógica de obtenção do código da coleção
     return h_record_dict
 
-
-def processing_date(h_record_dict):
+def processing_dates(h_record_dict):
     date = (
         datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f")[
             :-3
         ]
         + "Z"
     )
-    h_record_dict.update({"processing_date": date})
+    h_record_dict.update({
+        "processing_date": date,
+        "created_at": {"$date": date},
+    })
     return h_record_dict
 
 def wos_status(h_record_dict, sent_wos=False, validated_wos=False):
