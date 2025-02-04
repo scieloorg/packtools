@@ -7,7 +7,7 @@
         "article_type_accepts": [
             "case-report",
             "research-article",
-            "review-article",
+            "review-article"
         ],
         "article_type_unexpects": [
             "addendum",
@@ -30,7 +30,7 @@
         ],
         "article_type_neutral": [
             "reviewer-report",
-            "data-article",
+            "data-article"
         ]
     }
 }
