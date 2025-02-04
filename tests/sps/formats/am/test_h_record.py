@@ -61,3 +61,19 @@ class HRecord(TestCase):
             {"code_issue": "1414-989320200001"}, h_record.code_issue(self.xml_tree, dict())
         )
 
+    def test_code_title(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <journal-meta>
+            <issn pub-type="ppub">1679-4974</issn>
+            <issn pub-type="epub">2237-9622</issn>
+            </journal-meta>
+            </article>
+            """
+        )
+        self.assertDictEqual(
+            {"code_title": ["1679-4974", "2237-9622"]}, h_record.code_title(self.xml_tree, dict())
+        )
+

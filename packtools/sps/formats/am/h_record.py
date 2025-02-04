@@ -45,3 +45,13 @@ def code_issue(xml_tree, h_record_dict):
     if match:
         h_record_dict.update({"code_issue": match.group(1)})
     return h_record_dict
+
+def code_title(xml_tree, h_record_dict):
+    issns = ISSN(xml_tree).data
+    resp = []
+    for issn in issns:
+        resp.append(issn.get("value"))
+    if resp:
+        h_record_dict.update({"code_title": resp})
+    return h_record_dict
+
