@@ -65,3 +65,17 @@ def applicable(xml_tree, h_record_dict, value=False):
     h_record_dict.update({"applicable": value})
     return h_record_dict
 
+def publication_dates(xml_tree, h_record_dict):
+    # TODO: foi assumido que o valor de "publication_date" é a data completa (ISO) ou somente o ano, necessita confirmação
+    pub_date = ArticleDates(xml_tree).article_date
+    pub_year = pub_date.get("year")
+    if pub_year:
+        h_record_dict.update({"publication_year": pub_date.get("year")})
+
+        if all(key in pub_date for key in ['year', 'month', 'day']):
+            iso_date = f"{pub_date['year']}-{pub_date['month']}-{pub_date['day']}"
+        else:
+            iso_date = pub_year
+
+        h_record_dict.update({"publication_date": iso_date})
+    return h_record_dict

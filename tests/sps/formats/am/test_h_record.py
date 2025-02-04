@@ -99,3 +99,43 @@ class HRecord(TestCase):
             {"applicable": False}, h_record.applicable(xml_tree=None, h_record_dict={})
         )
 
+    def test_publication_year(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <article-meta>
+            <pub-date date-type="pub" publication-format="electronic">
+            <day>18</day>
+            <month>08</month>
+            <year>2023</year>
+            </pub-date>
+            </article-meta>
+            </front>
+            </article>
+            """
+        )
+        obtained = h_record.publication_dates(xml_tree=self.xml_tree, h_record_dict={})
+        self.assertEqual("2023", obtained["publication_year"])
+
+    def test_publication_date(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <article-meta>
+            <pub-date date-type="pub" publication-format="electronic">
+            <day>18</day>
+            <month>08</month>
+            <year>2023</year>
+            </pub-date>
+            </article-meta>
+            </front>
+            </article>
+            """
+        )
+        obtained = h_record.publication_dates(xml_tree=self.xml_tree, h_record_dict={})
+        self.assertEqual("2023-08-18", obtained["publication_date"])
+
