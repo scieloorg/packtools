@@ -30,7 +30,7 @@ def processing_dates(h_record_dict):
     })
     return h_record_dict
 
-def wos_status(h_record_dict, sent_wos=False, validated_wos=False):
+def wos_status(xml_tree, h_record_dict, sent_wos=False, validated_wos=False):
     # TODO: adicionar a lógica de obtenção do status referente a WOS
     h_record_dict.update({"sent_wos": sent_wos, "validated_wos": validated_wos})
     return h_record_dict
