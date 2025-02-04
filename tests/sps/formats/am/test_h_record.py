@@ -94,3 +94,8 @@ class HRecord(TestCase):
             {"doi": "10.1590/S2237-96222023000200017"}, h_record.doi(self.xml_tree, dict())
         )
 
+    def test_applicable(self):
+        self.assertDictEqual(
+            {"applicable": False}, h_record.applicable(xml_tree=None, h_record_dict={})
+        )
+

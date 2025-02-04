@@ -61,3 +61,7 @@ def doi(xml_tree, h_record_dict):
         h_record_dict.update({"doi": doi_value})
     return h_record_dict
 
+def applicable(xml_tree, h_record_dict, value=False):
+    h_record_dict.update({"applicable": value})
+    return h_record_dict
+
