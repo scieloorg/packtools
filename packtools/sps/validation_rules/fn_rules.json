@@ -1,29 +1,31 @@
 {
-	"fn_bold_error_level": "CRITICAL",
-	"fn_title_error_level": "CRITICAL",
-	"fn_label_error_level": "WARNING",
-	"conflict_error_level": "CRITICAL",
-	"fn_type_error_level": "CRITICAL",
-	"fn_type_expected_values": [
-	    "abbr",
-	    "com",
-	    "coi-statement",
-	    "conflict",
-	    "corresp",
-	    "custom",
-	    "deceased",
-	    "edited-by",
-	    "equal",
-	    "financial-disclosure",
-	    "on-leave",
-	    "other",
-	    "participating-researchers",
-	    "present-address",
-	    "presented-at",
-	    "presented-by",
-	    "previously-at",
-	    "study-group-members",
-	    "supplementary-material",
-	    "supported-by"
-	]
+	"fn_rules": {
+		"fn_bold_error_level": "CRITICAL",
+		"fn_title_error_level": "CRITICAL",
+		"fn_label_error_level": "WARNING",
+		"conflict_error_level": "CRITICAL",
+		"fn_type_error_level": "CRITICAL",
+		"fn_type_expected_values": [
+		    "abbr",
+		    "com",
+		    "coi-statement",
+		    "conflict",
+		    "corresp",
+		    "custom",
+		    "deceased",
+		    "edited-by",
+		    "equal",
+		    "financial-disclosure",
+		    "on-leave",
+		    "other",
+		    "participating-researchers",
+		    "present-address",
+		    "presented-at",
+		    "presented-by",
+		    "previously-at",
+		    "study-group-members",
+		    "supplementary-material",
+		    "supported-by"
+		]
+	}
 }
