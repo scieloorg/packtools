@@ -4,6 +4,8 @@
         "label_error_level": "ERROR",
         "original_error_level": "CRITICAL",
         "orgname_error_level": "CRITICAL",
+        "orgdiv1_error_level": "ERROR",
+        "orgdiv2_error_level": "WARNING",
         "country_error_level": "CRITICAL",
         "country_code_error_level": "CRITICAL",
         "state_error_level": "WARNING",
