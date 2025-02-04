@@ -55,3 +55,9 @@ def code_title(xml_tree, h_record_dict):
         h_record_dict.update({"code_title": resp})
     return h_record_dict
 
+def doi(xml_tree, h_record_dict):
+    doi_value = DoiWithLang(xml_tree).main_doi
+    if doi_value:
+        h_record_dict.update({"doi": doi_value})
+    return h_record_dict
+
