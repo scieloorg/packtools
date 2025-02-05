@@ -68,6 +68,7 @@ class FigValidation:
         yield from self._validate_item("label")
         yield from self._validate_item("caption")
         yield from self.validate_content()
+        yield from self.validate_file_extension()
 
     def _validate_item(self, name):
         if not self.data.get(name):
@@ -101,4 +102,22 @@ class FigValidation:
                 advice=f"Identify the {name}",
                 data=self.data,
                 error_level=self.rules["content_error_level"],
+            )
+
+    def validate_file_extension(self):
+        file_extension = self.data.get("file_extension")
+        allowed_file_extensions = self.rules["allowed file extensions"]
+        if file_extension not in allowed_file_extensions:
+            yield build_response(
+                title="file extension",
+                parent=self.data,
+                item="fig",
+                sub_item="file extension",
+                validation_type="value in list",
+                is_valid=False,
+                expected=allowed_file_extensions,
+                obtained=file_extension,
+                advice=f"provide a file with one of the following extensions {allowed_file_extensions}",
+                data=self.data,
+                error_level=self.rules["file_extension_error_level"],
             )
