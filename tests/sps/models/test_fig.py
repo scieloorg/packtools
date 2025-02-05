@@ -118,6 +118,7 @@ class FigTest(unittest.TestCase):
                 "textual-alternative",
                 "media",
             ],
+            "file_extension": "tif",
         }
         self.assertDictEqual(self.fig_obj.data, expected_data)
 
@@ -236,6 +237,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": None,
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
+                "file_extension": "tif",
             },
             {
                 "alternative_parent": "fig",
@@ -255,6 +257,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": None,
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
+                "file_extension": "tif",
             },
             {
                 "alternative_parent": "fig",
@@ -269,6 +272,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
+                "file_extension": "tif",
             },
             {
                 "alternative_parent": "fig",
@@ -283,6 +287,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
+                "file_extension": "tif",
             },
             {
                 'alternatives': [],
@@ -296,7 +301,8 @@ class ArticleFigsTest(unittest.TestCase):
                 'parent_article_type': 'supplementary-material',
                 'parent_id': 'SM1',
                 'parent_lang': 'en',
-                'source_attrib': 'Data Source: Experimental Data 2020'
+                'source_attrib': 'Data Source: Experimental Data 2020',
+                "file_extension": "tif",
             }
 
         ]
@@ -329,6 +335,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": None,
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
+                "file_extension": "tif",
             },
             {
                 "alternative_parent": "fig",
@@ -348,6 +355,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": None,
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
+                "file_extension": "tif",
             }
         ]
 
@@ -374,6 +382,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
+                "file_extension": "tif",
             },
             {
                 "alternative_parent": "fig",
@@ -388,6 +397,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
+                "file_extension": "tif",
             }
         ]
 
@@ -413,7 +423,8 @@ class ArticleFigsTest(unittest.TestCase):
                 'parent_article_type': 'supplementary-material',
                 'parent_id': 'SM1',
                 'parent_lang': 'en',
-                'source_attrib': 'Data Source: Experimental Data 2020'
+                'source_attrib': 'Data Source: Experimental Data 2020',
+                "file_extension": "tif",
             }
         ]
 
