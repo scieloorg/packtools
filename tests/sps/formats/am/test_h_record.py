@@ -186,3 +186,22 @@ class HRecord(TestCase):
             h_record.journal_title(xml_tree=self.xml_tree, h_record_dict={})
         )
 
+    def test_ref_count(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <article-meta>
+            <counts>
+            <ref-count count="21"/>
+            </counts>
+            </article-meta>
+            </front>
+            </article>
+            """
+        )
+        self.assertDictEqual(
+            {'article': {'v72': [{'_': '21'}]}},
+            h_record.ref_count(xml_tree=self.xml_tree, h_record_dict={})
+        )

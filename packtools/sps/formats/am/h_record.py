@@ -100,3 +100,13 @@ def journal_title(xml_tree, h_record_dict):
 
 
 
+def ref_count(xml_tree, h_record_dict):
+    ref_count = xml_tree.find(".//front/article-meta/counts/ref-count")
+
+    if ref_count is not None:
+        count_value = ref_count.get("count")
+        if count_value:
+            h_record_dict.setdefault("article", {}).setdefault("v72", []).append({"_": count_value})
+
+    return h_record_dict
+
