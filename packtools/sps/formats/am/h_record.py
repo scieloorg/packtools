@@ -90,3 +90,13 @@ def document_type(xml_tree, h_record_dict):
     return h_record_dict
 
 
+def journal_title(xml_tree, h_record_dict):
+    journal_title_value = Title(xml_tree).journal_title
+
+    if journal_title_value:
+        h_record_dict.setdefault("article", {}).setdefault("v100", []).append({"_": journal_title_value})
+
+    return h_record_dict
+
+
+

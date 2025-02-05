@@ -165,3 +165,24 @@ class HRecord(TestCase):
             h_record.document_type(xml_tree=self.xml_tree, h_record_dict={})
         )
 
+    def test_journal_title(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+            <front>
+            <journal-meta>
+            <journal-title-group>
+            <journal-title>Epidemiologia e Serviços de Saúde</journal-title>
+            <abbrev-journal-title abbrev-type="publisher">Epidemiol. Serv. Saúde</abbrev-journal-title>
+            </journal-title-group>
+            </journal-meta>
+            </front>
+            </article>
+            """
+        )
+        self.assertDictEqual(
+            {'article': {'v100': [{'_': 'Epidemiologia e Serviços de Saúde'}]}},
+            h_record.journal_title(xml_tree=self.xml_tree, h_record_dict={})
+        )
+
