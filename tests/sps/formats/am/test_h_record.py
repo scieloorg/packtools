@@ -153,3 +153,15 @@ class HRecord(TestCase):
         obtained = h_record.publication_dates(xml_tree=self.xml_tree, h_record_dict={})
         self.assertEqual("2023-08-18", obtained["publication_date"])
 
+    def test_document_type(self):
+        self.xml_tree = etree.fromstring(
+            """
+            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt" />
+            """
+        )
+        self.assertDictEqual(
+            {'document_type': 'research-article'},
+            h_record.document_type(xml_tree=self.xml_tree, h_record_dict={})
+        )
+

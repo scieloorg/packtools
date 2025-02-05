@@ -2,9 +2,10 @@ import datetime
 import re
 
 from packtools.sps.models.article_ids import ArticleIds
-from packtools.sps.models.journal_meta import ISSN
+from packtools.sps.models.journal_meta import ISSN, Title
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.models.article_dates import ArticleDates
+from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 
 
 def code(xml_tree, h_record_dict):
@@ -79,3 +80,13 @@ def publication_dates(xml_tree, h_record_dict):
 
         h_record_dict.update({"publication_date": iso_date})
     return h_record_dict
+
+def document_type(xml_tree, h_record_dict):
+    document_type_value = ArticleAndSubArticles(xml_tree).main_article_type
+
+    if document_type_value:
+        h_record_dict["document_type"] = document_type_value
+
+    return h_record_dict
+
+
