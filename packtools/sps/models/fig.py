@@ -52,6 +52,15 @@ class Fig:
         return []
 
     @property
+    def file_extension(self):
+        file_name = self.graphic_href
+
+        if file_name and "." in file_name:
+            return file_name.split(".")[-1]
+        return None
+
+
+    @property
     def data(self):
         return {
             "alternative_parent": "fig",
@@ -62,6 +71,7 @@ class Fig:
             "caption": self.caption_text,
             "source_attrib": self.source_attrib,
             "alternatives": self.alternative_elements,
+            "file_extension": self.file_extension
         }
 
 

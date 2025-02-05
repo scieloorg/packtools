@@ -82,7 +82,9 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": ["research-article"]
+                "article_types_requires": ["research-article"],
+                "file_extension_error_level": "CRITICAL",
+                "allowed file extensions": ["tif", "jpg", "png", "svg"]
             }
         ).validate())
 
@@ -114,6 +116,7 @@ class FigValidationTest(unittest.TestCase):
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
+                    'file_extension': 'png',
                 },
             }
         ]
@@ -151,7 +154,9 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": ["research-article"]
+                "article_types_requires": ["research-article"],
+                "file_extension_error_level": "CRITICAL",
+                "allowed file extensions": ["tif", "jpg", "png", "svg"]
             }
         ).validate())
 
@@ -183,6 +188,7 @@ class FigValidationTest(unittest.TestCase):
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
+                    'file_extension': 'png',
                 },
             }
         ]
@@ -218,7 +224,9 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": ["research-article"]
+                "article_types_requires": ["research-article"],
+                "file_extension_error_level": "CRITICAL",
+                "allowed file extensions": ["tif", "jpg", "png", "svg"]
             }
         ).validate())
 
@@ -250,6 +258,7 @@ class FigValidationTest(unittest.TestCase):
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
+                    'file_extension': 'png',
                 },
             }
         ]
@@ -284,7 +293,9 @@ class FigValidationTest(unittest.TestCase):
                 "label_error_level": "CRITICAL",
                 "caption_error_level": "CRITICAL",
                 "content_error_level": "CRITICAL",
-                "article_types_requires": ["research-article"]
+                "article_types_requires": ["research-article"],
+                "file_extension_error_level": "CRITICAL",
+                "allowed file extensions": ["tif", "jpg", "png", "svg"]
             }
         ).validate())
 
@@ -316,11 +327,116 @@ class FigValidationTest(unittest.TestCase):
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
+                    'file_extension': None,
+                },
+            },
+            {
+                "title": "file extension",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "fig",
+                "sub_item": "file extension",
+                "validation_type": "value in list",
+                "response": "CRITICAL",
+                "expected_value": "one of ['tif', 'jpg', 'png', 'svg']",
+                "got_value": None,
+                "message": "Got None, expected one of ['tif', 'jpg', 'png', 'svg']",
+                "advice": "provide a file with one of the following extensions ['tif', 'jpg', 'png', 'svg']",
+                "data": {
+                    "alternative_parent": "fig",
+                    "id": "f01",
+                    "type": None,
+                    "label": "Figure 1",
+                    "graphic": None,
+                    "caption": "título da imagem",
+                    "source_attrib": None,
+                    "alternatives": [],
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": "research-article",
+                    "parent_lang": "pt",
+                    "file_extension": None
+                }
+            }
+        ]
+
+        self.assertEqual(len(obtained), 2)
+        for i, item in enumerate(expected):
+            with self.subTest(i):
+                self.assertDictEqual(item, obtained[i])
+
+    def test_fig_validation_file_extension(self):
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
+                     dtd-version="1.0" article-type="research-article" xml:lang="pt">
+                <body>
+                    <p>
+                        <fig fig-type="map" id="f02">
+                            <label>FIGURE 2</label>
+                            <caption>
+                                <title>Título da figura 1 em Português</title>
+                            </caption>
+                            <graphic xlink:href="1234-5678-zwy-12-04-0123-gf02.bmp"/>
+                            <attrib>Fonte: IBGE (2018)</attrib>
+                        </fig>
+                    </p>
+                </body>
+            </article>
+            """
+        )
+        obtained = list(ArticleFigValidation(
+            xml_tree,
+            {
+                "error_level": "WARNING",
+                "required_error_level": "CRITICAL",
+                "absent_error_level": "WARNING",
+                "id_error_level": "CRITICAL",
+                "label_error_level": "CRITICAL",
+                "caption_error_level": "CRITICAL",
+                "content_error_level": "CRITICAL",
+                "article_types_requires": ["research-article"],
+                "file_extension_error_level": "CRITICAL",
+                "allowed file extensions": ["tif", "jpg", "png", "svg"]
+            }
+        ).validate())
+
+        expected = [
+            {
+                "title": "file extension",
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": "research-article",
+                "parent_lang": "pt",
+                "item": "fig",
+                "sub_item": "file extension",
+                "validation_type": "value in list",
+                "response": 'CRITICAL',
+                "expected_value": "one of ['tif', 'jpg', 'png', 'svg']",
+                'got_value': "bmp",
+                'message': "Got bmp, expected one of ['tif', 'jpg', 'png', 'svg']",
+                "advice": "provide a file with one of the following extensions ['tif', 'jpg', 'png', 'svg']",
+                "data": {
+                    'alternative_parent': 'fig',
+                    'alternatives': [],
+                    'caption': 'Título da figura 1 em Português',
+                    'file_extension': 'bmp',
+                    'graphic': '1234-5678-zwy-12-04-0123-gf02.bmp',
+                    'id': 'f02',
+                    'label': 'FIGURE 2',
+                    'parent': 'article',
+                    'parent_article_type': 'research-article',
+                    'parent_id': None,
+                    'parent_lang': 'pt',
+                    'source_attrib': 'Fonte: IBGE (2018)',
+                    'type': 'map'
                 },
             }
         ]
 
-        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
