@@ -7,5 +7,7 @@
         "label_error_level": "CRITICAL",
         "caption_error_level": "CRITICAL",
         "content_error_level": "CRITICAL",
+        "file_extension_error_level": "CRITICAL",
+        "allowed file extensions": ["tif", "jpg", "png", "svg"]
     }
 }
