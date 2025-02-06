@@ -59,16 +59,31 @@ class Date:
             if value:
                 _date[name] = value
         _date["type"] = self.type
-        _date["display"] = str(self)
+        _date["display"] = self.display
         _date["is_complete"] = bool(self.date)
         return _date
 
     def __str__(self):
+        return self.display or str({"year": self.year, "month": self.month, "day": self.day})
+    
+    @property
+    def display(self):
         if self.season:
             return "/".join([item for item in (self.season, self.year) if item])
 
-        parts = (self.year or "", self.month or "", self.day)
-        return "-".join([item for item in parts if item is not None])
+        try:
+            date(int(self.year), int(self.month or 1), int(self.day or 1))
+        except (ValueError, TypeError):
+            return None
+
+        parts = []
+        if self.year and len(self.year) == 4:
+            parts.append(self.year)
+            if self.month:
+                parts.append(self.month.zfill(2))
+                if self.day:
+                    parts.append(self.day.zfill(2))
+        return "-".join(parts)
 
     @property
     def date(self):
@@ -76,10 +91,6 @@ class Date:
             return date(int(self.year), int(self.month), int(self.day))
         except (ValueError, TypeError):
             return None
-
-    @property
-    def complete_date(self):
-        return date(int(self.year), int(self.month), int(self.day))
 
 
 class XMLDates:
