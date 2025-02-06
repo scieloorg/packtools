@@ -83,7 +83,7 @@ class Reference:
             full_comment = None
             text_between = None
             if comment is not None:
-                text_between = comment.text
+                text_between = (comment.text or "").strip()
                 full_comment = process_subtags(comment) or None
             return {
                 'full_comment': full_comment,
