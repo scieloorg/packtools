@@ -13,5 +13,5 @@ langcodes==3.3.0
 -e git+https://github.com/scieloorg/scielo_scholarly_data#egg=scielo_scholarly_data
 ipdb==0.13.13
 langdetect~=1.0.9
-python-docx=1.1.2
-openpyxl=3.1.5
+python-docx==1.1.2
+openpyxl==3.1.5
