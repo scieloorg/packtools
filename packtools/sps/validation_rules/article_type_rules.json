@@ -1,8 +1,8 @@
 {
     "article_type_rules": {
         "article_type_error_level": "CRITICAL",
-        "article_type_similar_to_subject_expected_similarity": 0.7,
-        "article_type_similar_to_subject_expected_similarity_error_level": "WARNING",
+        "article_type_and_subject_expected_similarity": 0.6,
+        "article_type_and_subject_expected_similarity_error_level": "WARNING",
         "article_type_list": [
             "addendum",
             "article-commentary",

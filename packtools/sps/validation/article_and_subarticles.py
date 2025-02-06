@@ -1,7 +1,7 @@
 from lxml import etree
 
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.models.article_toc_sections import ArticleTocSections
+from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_ids import ArticleIds
 from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesLanguageCodeException,
@@ -11,7 +11,7 @@ from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesSubjectsException,
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import format_response, build_response
 
 
 class ArticleLangValidation:
@@ -81,18 +81,15 @@ class ArticleLangValidation:
             article_lang = article.get("lang")
             article_type = article.get("article_type")
             article_id = article.get("article_id")
-            validated = article_lang in language_codes_list
+            parent = article.get("parent_name")
 
-            if article_id is None:
-                parent = "article"
-                parent_id = parent
-            else:
-                parent = "sub-article"
-                parent_id = f'{parent}[@id="{article_id}"]'
+            valid = article_lang in language_codes_list
 
-            advice = None if validated else f'Provide for {parent_id}/@xml:lang one of {language_codes_list}'
+            name = article_id or parent
+            xml = f'<{parent} xml:lang=""/>'
+            advice = None if valid else f'Complete {name} xml:lang {xml} with valid value {language_codes_list}'
             yield format_response(
-                    title="text language",
+                    title=f"{name} language",
                     parent=parent,
                     parent_id=article_id,
                     parent_article_type=article_type,
@@ -100,178 +97,13 @@ class ArticleLangValidation:
                     item=parent,
                     sub_item="@xml:lang",
                     validation_type="value in list",
-                    is_valid=validated,
+                    is_valid=valid,
                     expected=language_codes_list,
                     obtained=article_lang,
                     advice=advice,
                     data=article,
-                    error_level=self.params["language_error_level"]
+                    error_level=self.params["language_error_level"],
             )
-
-
-class ArticleAttribsValidation:
-    def __init__(self, xmltree, params):
-        self.xmltree = xmltree
-        self.articles = ArticleAndSubArticles(self.xmltree)
-        self.params = params
-
-    def validate_specific_use(self):
-        """
-        Check whether the specific use attribute of the article matches the options provided in a standard list.
-
-        XML input
-        ---------
-        <article article-type="research-article" dtd-version="1.1"
-        specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-        </article>
-
-        Params
-        ------
-        specific_use_list : list
-            A list of specific uses to validate against.
-
-        error_level : str, optional
-            The level of error to report if the validation fails. Default is "CRITICAL".
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Article element specific-use attribute validation',
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'portugol',
-                    'item': 'article',
-                    'sub_item': '@specific-use',
-                    'validation_type': 'value in list',
-                    'response': 'OK',
-                    'expected_value': ['sps-1.9', 'preprint', 'special-issue'],
-                    'got_value': 'sps-1.9',
-                    'message': 'Got sps-1.9, expected one item of this list: sps-1.9 | preprint | special-issue',
-                    'advice': None,
-                    'data': {
-                        'specific_use': 'sps-1.9',
-                        'dtd_version': '1.1'
-                    }
-                },...
-            ]
-        """
-        try:
-            specific_use_list = list(self.params["specific_use_list"].keys())
-        except KeyError:
-            raise ValidationArticleAndSubArticlesSpecificUseException(
-                "ArticleAttribsValidation.validate_specific_use requires specific_use_list"
-            )
-
-        validated = self.articles.specific_use in specific_use_list
-
-        data = self.articles.data[0]
-        data.update({
-            "specific_use": self.articles.specific_use,
-            "dtd_version": self.articles.dtd_version
-        })
-
-        advice = None if validated else f"Provide for article/@specific-use one of {specific_use_list}"
-        yield format_response(
-            title="article/@specific-use",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
-            item="article",
-            sub_item="@specific-use",
-            validation_type="value in list",
-            is_valid=validated,
-            expected=specific_use_list,
-            obtained=self.articles.specific_use,
-            advice=advice,
-            data=data,
-            error_level=self.params["specific_use_error_level"],
-        )
-
-    def validate_dtd_version(self):
-        """
-        Check whether the dtd version attribute of the article matches the options provided in a standard list.
-
-        XML input
-        ---------
-        <article article-type="research-article" dtd-version="1.1"
-        specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-        </article>
-
-        Params
-        ------
-        dtd_version_list : list
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    "title": "Article element dtd-version attribute validation",
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'portugol',
-                    'item': 'article',
-                    'sub_item': '@dtd-version',
-                    "validation_type": "value in list",
-                    "response": "CRITICAL",
-                    "expected_value": ["1.1", "1.2", "1.3"],
-                    "got_value": None,
-                    'message': "Got None, expected ['1.1', '1.2', '1.3']",
-                    'advice': 'XML research-article has None as dtd-version, expected one item of this list: 1.1 | 1.2 | 1.3',
-                    'data': {
-                        'article_id': None,
-                        'article_type': 'research-article',
-                        'dtd_version': None,
-                        'lang': 'portugol',
-                        'line_number': 2,
-                        'specific_use': 'sps-1.9',
-                        'subject': None
-                    },
-                }
-            ]
-        """
-        dtd_version_list = []
-        for sps_version, dtd_version in self.params["specific_use_list"].items():
-            dtd_version_list.extend(dtd_version)
-        
-        validated = self.articles.dtd_version in dtd_version_list
-
-        data = self.articles.data[0]
-        data.update({
-            "specific_use": self.articles.specific_use,
-            "dtd_version": self.articles.dtd_version
-        })
-
-        advice = None if validated else f"Provide for article/@dtd-version one of {dtd_version_list}"
-        yield format_response(
-            title="article/@dtd-version",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
-            item="article",
-            sub_item="@dtd-version",
-            validation_type="value in list",
-            is_valid=validated,
-            expected=dtd_version_list,
-            obtained=self.articles.dtd_version,
-            advice=advice,
-            data=data,
-            error_level=self.params["dtd_version_error_level"]
-        )
 
 
 class ArticleTypeValidation:
@@ -279,7 +111,7 @@ class ArticleTypeValidation:
         self.params = params
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.toc_sections = ArticleTocSections(self.xmltree).article_section_dict.get("en")
+        self.subject_english_version = ArticleTocSections(self.xmltree).sections_dict.get("en")
 
     def validate_article_type(self):
         """
@@ -343,28 +175,33 @@ class ArticleTypeValidation:
 
         validated = article_type in article_type_list
 
-        data = self.articles.data[0]
-        data.update({
-            "specific_use": self.articles.specific_use,
-            "dtd_version": self.articles.dtd_version
-        })
-        advice = None if validated else f"Provide for article/@article-type one of {article_type_list}"
-        yield format_response(
-            title="article/@article-type",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
-            item="article",
-            sub_item="@article-type",
-            validation_type="value in list",
-            is_valid=validated,
-            expected=article_type_list,
-            obtained=article_type,
-            advice=advice,
-            data=data,
-            error_level=self.params["article_type_error_level"],
-        )
+        for article in self.articles.data:
+            article_lang = article.get("lang")
+            article_type = article.get("article_type")
+            article_id = article.get("article_id")
+            parent = article.get("parent_name")
+
+            valid = article_type in article_type_list
+
+            name = article_id or parent
+            xml = f'<{parent} article-type=""/>'
+            advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
+            yield format_response(
+                    title=f"{name} article-type",
+                    parent=parent,
+                    parent_id=article_id,
+                    parent_article_type=article_type,
+                    parent_lang=article_type,
+                    item=parent,
+                    sub_item="article-type",
+                    validation_type="value in list",
+                    is_valid=valid,
+                    expected=article_type_list,
+                    obtained=article_type,
+                    advice=advice,
+                    data=article,
+                    error_level=self.params["article_type_error_level"],
+            )
 
     def validate_article_type_vs_subject_similarity(self):
         """
@@ -461,7 +298,8 @@ class ArticleTypeValidation:
             ]
         """
 
-        if not self.toc_sections:
+        if not self.subject_english_version:
+            # nao ha section em ingles
             return
         try:
             article_type_list = self.params["article_type_list"]
@@ -470,54 +308,63 @@ class ArticleTypeValidation:
                 "Function requires list of article types to check the similarity with subjects"
             )
 
-        article_type = None
-        for article in self.articles.data:
-            article_type = article_type or article["article_type"]
+        subject = self.subject_english_version and self.subject_english_version[0]
+        article_type = self.articles.main_article_type
+        
+        article_subject = subject["section"]
 
-            if article["lang"] == "en":
+        # compara subject com todos os valores possíveis de article_type
+        calculated_similarity, most_similar_article_type = most_similar(
+            similarity(article_type_list, article_subject)
+        )
 
-                article_subject = article["subject"]
+        expected_similarity = float(self.params.get("article_type_and_subject_expected_similarity")) or 0.6
 
-                # compara subject com todos os valores possíveis de article_type
-                calculated_similarity, most_similar_article_type = most_similar(
-                    similarity(article_type_list, article_subject)
+        # a similaridade pode ser baixa mas o tipo pode estar correto
+        if calculated_similarity >= expected_similarity:
+            # continua a verificar a validade
+            # article-type deve ser similar ao título da seção do sumário (inglês)
+            valid = article_type in most_similar_article_type
+        
+            xml_article_type = f'<article article-type="{article_type}"/>'
+            xml_subject = f'<subject-group subj-group-type="heading"><subject>{article_subject}</subject></subject-group>'
+            
+            data = {
+                "subject": article_subject,
+                "article_type": article_type,
+                "article_type_list": article_type_list,
+                "most_similar_article_type": most_similar_article_type,
+                "similarity": calculated_similarity,
+                "expected similarity": expected_similarity
+            }
+            data.update({
+                "specific_use": self.articles.specific_use,
+                "dtd_version": self.articles.dtd_version
+            })
+
+            title = f"article type and table of contents section"
+            choices = " | ".join(most_similar_article_type)
+            advice = None
+            if not valid:
+                advice = (
+                    f"Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
                 )
-
-                if most_similar_article_type == article_type:
-                    calculated_similarity = 1
-                
-                expected_similarity = float(self.params.get("article_type_similar_to_subject_expected_similarity")) or 0.7
-
-                if calculated_similarity >= expected_similarity:
-                    # o mais similar deve ser igual ao article_type do artigo
-                    valid = True
-
-                    data = {
-                        "subject": article_subject,
-                        "article_type": article_type,
-                        "article_type_list": article_type_list,
-                        "most_similar_article_type": most_similar_article_type,
-                        "similarity": calculated_similarity,
-                        "expected similarity": expected_similarity
-                    }
-
-                    yield format_response(
-                        title="article-type similar to subject",
-                        parent="article",
-                        parent_id=article["article_id"],
-                        parent_article_type=article.get("article_type"),
-                        parent_lang=article.get("lang"),
-                        item="article",
-                        sub_item="@article-type",
-                        validation_type="similarity",
-                        is_valid=valid,
-                        expected=most_similar_article_type,
-                        obtained=article_type,
-                        advice=f"Check @article-type",
-                        data=data,
-                        error_level=self.params["article_type_similar_to_subject_expected_similarity_error_level"]
-                    )
-                break
+            yield format_response(
+                title=title,
+                parent="article",
+                parent_article_type=self.articles.main_article_type,
+                parent_lang=self.articles.main_lang,
+                parent_id=None,
+                item="article",
+                sub_item="@article-type",
+                validation_type="similarity",
+                is_valid=valid,
+                expected=article_type_list,
+                obtained=article_type,
+                advice=advice,
+                data=data,
+                error_level=self.params["article_type_and_subject_expected_similarity_error_level"],
+            )
 
 
 class ArticleIdValidation:
@@ -568,28 +415,38 @@ class ArticleIdValidation:
                 },
             }
         """
-        if not self.article_ids.other:
+        order = self.article_ids.other
+        if not order:
             return
 
+        expected = []
+        valid = False
         try:
-            is_valid = 0 < int(self.article_ids.other) <= 99999
-        except (TypeError, ValueError, AttributeError):
-            is_valid = False
+            valid = 0 < int(order) <= 99999
+            if not valid:
+                expected.append("a numerical value from 1 to 99999")
+        except (TypeError, ValueError):
+            expected.append("a numerical value from 1 to 99999")
 
-        expected_value = "numerical value from 1 to 99999"
-        yield format_response(
-            title='article-id (@pub-id-type="other")',
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
+        try:
+            n = len(order)
+            valid = 0 < n <= 5
+            if not valid:
+                expected.append(f"must have maximum 5 characters. Found {n}")
+        except (TypeError, ValueError):
+            expected.append(f"must have maximum 5 characters. Found {n}")
+
+        expected_value = " and ".join(expected)
+        yield build_response(
+            title='table of contents article order',
+            parent=self.article_ids.data,
             item="article-id",
             sub_item='@pub-id-type="other"',
             validation_type="format",
-            is_valid=is_valid,
+            is_valid=valid,
             expected=expected_value,
-            obtained=self.article_ids.other,
-            advice='Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
+            obtained=order,
+            advice=f'Fix the table of contents article order {order} in <article-id pub-id-type="other">{order}</article-id>. It must be {expected_value}',
             data=self.article_ids.data,
             error_level=self.params["id_other_error_level"],
         )
@@ -600,7 +457,7 @@ class JATSAndDTDVersionValidation:
     def __init__(self, xml_tree, params):
         self.xml_tree = xml_tree
         self.article_and_sub_articles = ArticleAndSubArticles(self.xml_tree)
-        self.dtd_version = self.article_and_sub_articles.main_dtd_version
+        self.dtd_version = self.article_and_sub_articles.dtd_version
         self.specific_use = self.article_and_sub_articles.specific_use
         self.params = params
 
@@ -608,39 +465,41 @@ class JATSAndDTDVersionValidation:
         sps_version = self.specific_use
         jats_version = self.dtd_version
 
-        if not sps_version:
-            raise ValidationArticleAndSubArticlesArticleTypeException(
-                "Could not determine the SPS version."
-            )
-        if not jats_version:
-            raise ValidationArticleAndSubArticlesArticleTypeException(
-                "Could not determine the JATS version."
-            )
+        versions = self.params["specific_use_list"]
 
-        expected_jats = self.params.get("specific_use_list")
+        expected_jats_versions = versions.get(sps_version) or []
 
-        advise = None
+        advice = None
+        if not versions:
+            advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}',
 
-        if not expected_jats:
-            advise = f"SPS version '{sps_version}' not supported.",
+        elif jats_version not in expected_jats_versions:
+            xml = f'<article specific-use="" dtd-version=""/>'
+            advice = f"Complete respectively SPS and JATS versions {xml} with compatible values: {versions}"
 
-        elif jats_version not in (expected_jats.get(sps_version) or []):
-            advise = f"Incompatibility: SPS {sps_version} is not compatible with JATS {jats_version}."
-
-        if advise:
-            yield format_response(
-                title='article-id (@pub-id-type="other")',
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.article_and_sub_articles.main_article_type,
-                parent_lang=self.article_and_sub_articles.main_lang,
-                item="dtd-version",
-                sub_item=None,
-                validation_type="match",
-                is_valid=False,
-                expected=self.params["specific_use_list"][sps_version],
-                obtained=jats_version,
-                advice=advise,
-                data=self.article_and_sub_articles.data,
-                error_level=self.params["jats_and_dtd_version_error_level"],
-            )
+        expected = expected_jats_versions or versions
+        got = {
+            "specific-use": sps_version,
+            "dtd-version": jats_version,
+        }
+        data = {
+            "specific-use": sps_version,
+            "dtd-version": jats_version,
+            "expected values": expected,
+        }
+        yield format_response(
+            title='SPS and JATS versions',
+            parent="article",
+            parent_id=None,
+            parent_article_type=self.article_and_sub_articles.main_article_type,
+            parent_lang=self.article_and_sub_articles.main_lang,
+            item="specific-use and dtd-version",
+            sub_item=None,
+            validation_type="match",
+            is_valid=not advice,
+            expected=expected,
+            obtained=got,
+            advice=advice,
+            data=data,
+            error_level=self.params["jats_and_dtd_version_error_level"],
+        )
