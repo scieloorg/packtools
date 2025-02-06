@@ -1,8 +1,7 @@
 from packtools.sps.validation import xml_validations
 
 
-def validate_xml_content(xmltree, rules):
-    params = rules.params
+def validate_xml_content(xmltree, params):
     yield {
         "group": "journal_meta",
         "items": xml_validations.validate_journal_meta(xmltree, params),
