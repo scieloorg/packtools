@@ -120,11 +120,10 @@ def validate_article_languages(xmltree, params):
 
 def validate_article_type(xmltree, params):
     article_type_rules = params["article_type_rules"]
-    journal_data = params["journal_data"]
 
     rules = {}
     rules.update(article_type_rules)
-    rules.update(journal_data)
+    rules["journal_data"] = params["journal_data"]
 
     validator = ArticleTypeValidation(xmltree, rules)
     yield from validator.validate_article_type()
@@ -180,7 +179,7 @@ def validate_open_science_actions(xmltree, params):
             expected_code=params["journal_data"]["license_code"],
             error_level=license_rules["error_level"],
         )
-    except KeyError:
+    except (TypeError, KeyError):
         pass
 
     validator = DataAvailabilityValidation(xmltree)
@@ -200,7 +199,7 @@ def validate_article_toc_sections(xmltree, params):
             expected_toc_sections=params["journal_data"]["subjects_list"],
             error_level=article_toc_section_rules["error_level"],
         )
-    except KeyError:
+    except (TypeError, KeyError):
         pass
 
     yield from validator.validade_article_title_is_different_from_section_titles(
@@ -286,7 +285,7 @@ def validate_journal_meta(xmltree, params):
         if not journal_data:
             return
     except KeyError:
-        pass
+        return
 
     journal_rules = params["journal_rules"]
     validator = TitleValidation(xmltree)
@@ -308,7 +307,7 @@ def validate_journal_meta(xmltree, params):
             expected_value=journal_data["nlm_journal_title"],
             error_level=journal_rules["nlm_journal_title_error_level"],
         )
-    except KeyError:
+    except (TypeError, KeyError):
         pass
 
 
