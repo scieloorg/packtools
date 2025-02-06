@@ -21,9 +21,29 @@ def format_response(
     advice,
     data,
     error_level,
+    element_name=None,
+    sub_element_name=None,
+    attribute_name=None,
+    xml=None,
 ):
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
+    
+    advice = format_advice(
+        title,
+        validation_type,
+        is_valid,
+        expected,
+        obtained,
+        advice,
+        data,
+        element_name,
+        sub_element_name,
+        attribute_name,
+        xml,
+        item,
+        sub_item,
+    )
     return {
         "title": title,
         "parent": parent,
@@ -54,9 +74,35 @@ def build_response(
     advice,
     data,
     error_level,
+    element_name=None,
+    sub_element_name=None,
+    attribute_name=None,
+    xml=None,
 ):
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
+
+    if not attribute_name:
+        if sub_item and '@' == sub_item[0]:
+            attribute_name = sub_item[1:]
+    if not element_name:
+        element_name = item
+
+    advice = format_advice(
+        title,
+        validation_type,
+        is_valid,
+        expected,
+        obtained,
+        advice,
+        data,
+        element_name,
+        sub_element_name,
+        attribute_name,
+        xml,
+        item,
+        sub_item
+    )
     return {
         "title": title,
         "parent": parent.get("parent"),
@@ -164,3 +210,70 @@ def validate_doi_format(doi):
         }
 
     return {"valido": True, "mensagem": "DOI válido"}
+
+
+def format_advice(
+    title,
+    validation_type,
+    is_valid,
+    expected,
+    obtained,
+    advice,
+    data,
+    element_name,
+    sub_element_name,
+    attribute_name,
+    xml,
+    item,
+    sub_item,
+):
+    if is_valid:
+        return ''
+
+    # if not attribute_name:
+    #     if sub_item:
+    #         if '@' == sub_item[0]:
+    #             attribute_name = sub_item[1:]
+    #         else:
+    #             sub_element_name = sub_item
+    # if not element_name:
+    #     element_name = item
+
+    if element_name or sub_element_name or attribute_name or xml:
+        if validation_type == "value in list" and "one of " not in expected:
+            expected = f"one of {expected}"
+
+        if validation_type == "exist":
+            marked = ""
+            verb = "Mark"
+            if attribute_name:
+                verb = "Add "
+                marked = f' {attribute_name}="VALUE"'
+            if sub_element_name:
+                marked = f"<{sub_element_name}{marked}>"
+            if element_name:
+                marked = f"<{element_name}{marked}>"
+            advice = f"{verb} {title} with {marked}"
+
+        elif validation_type == "value in list":
+
+            if obtained:
+                if attribute_name:
+                    incorrect = f' {attribute_name}="{obtained}"'
+                if sub_element_name:
+                    incorrect = f"<{sub_element_name}{incorrect}>"
+                if element_name:
+                    incorrect = f"<{element_name}{incorrect}>"
+                advice = f"Replace {obtained} in {incorrect} with {expected}"
+            else:
+                incomplete = ""
+                if attribute_name:
+                    attribute = f' {attribute_name}="VALUE"'
+                if sub_element_name:
+                    incomplete = f"<{sub_element_name}{incomplete}>"
+                if element_name:
+                    incomplete = f"<{element_name}{incomplete}>"
+                advice = f"Add {attribute} in {incomplete} and replace VALUE with {expected}"
+
+    return advice
+    
