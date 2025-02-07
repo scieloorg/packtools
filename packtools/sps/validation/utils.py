@@ -4,6 +4,7 @@ import re
 import requests
 from langdetect import detect
 from packtools.sps.libs.requester import fetch_data
+from packtools.sps.validation.similarity_utils import most_similar, similarity, how_similar
 
 
 def format_response(
@@ -124,25 +125,18 @@ def build_response(
 def get_doi_information(doi):
     url = f"https://api.crossref.org/works/{doi}"
     try:
-        response = fetch_data(url=url, json=True)
+        return fetch_data(url=url, json=True)
     except Exception as e:
-        return {"doi": doi, "exception_msg": str(e), "exception_type": str(type(e))}
+        return {"exception_msg": str(e), "exception_type": str(type(e))}
 
-    item = response["message"]
 
+def handle_doi_response(item):
     result = {}
 
     # Extrair títulos e detectar idioma
-    titles = item.get("title") or []
-    original_titles = item.get("original-title") or []
-    all_titles = titles + original_titles
-
-    for title in all_titles:
-        try:
-            lang = detect(title)  # Detecta o idioma do título
-        except:
-            lang = "unknown"
-        result[lang] = {"title": title, "doi": doi}
+    result["titles"] = item.get("title") or []
+    result["original_titles"] = item.get("original-title") or []
+    result["all_titles"] = result["titles"] + result["original_titles"]
 
     # Adicionar autores ao resultado
     result["authors"] = []
@@ -155,6 +149,27 @@ def get_doi_information(doi):
             pass
     
     return result
+
+
+def check_doi_is_registered(article_data):
+    doi = article_data["value"]
+    response = get_doi_information(doi)
+    try:
+        message = response["message"]
+    except KeyError:
+        response["doi"] = doi
+        return response
+    else:
+        registered = handle_doi_response(message)
+        title_similarity, most_similar_titles = most_similar(
+            similarity(registered["all_titles"], article_data["article_title"])
+        )
+        authors_similarity = how_similar(str(registered["authors"]), str(article_data["authors"]))
+        return {
+            "doi": doi,
+            "valid": ((title_similarity + authors_similarity) / 2) > 0.9
+            "registered": registered,
+        }
 
 
 def is_valid_url_format(text):
