@@ -1,0 +1,13 @@
+{
+    "front_articlemeta_issue_rules": {
+        "volume_format_error_level": "CRITICAL",
+        "number_format_error_level": "CRITICAL",
+        "supplement_format_error_level": "CRITICAL",
+        "issue_format_error_level": "CRITICAL",
+        "expected_issues_error_level": "CRITICAL",
+        "pagination_error_level": "CRITICAL",
+        "journal_data": {
+            "issues": []
+        }
+    }
+}
