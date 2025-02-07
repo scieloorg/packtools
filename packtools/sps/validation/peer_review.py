@@ -24,38 +24,44 @@ class CustomMetaPeerReviewValidation:
 
     def validate_custom_meta_name(self):
         """Validate custom metadata for peer review recommendations"""
-        if not self.custom_meta["meta_name"]:
-            yield build_response(
-                title="Review recommendation name",
-                parent=self.custom_meta,
-                item="custom-meta",
-                sub_item="meta-name",
-                validation_type="exist",
-                is_valid=False,
-                expected="meta-name",
-                obtained=None,
-                advice=f"Peer review must include a recommendation (custom-meta/meta-name).",
-                data=self.custom_meta,
-                error_level=self.params.get("meta_name_error_level"),
-            )
+        meta_name = self.custom_meta["meta_name"]
+        is_valid = bool(meta_name)
+        yield build_response(
+            title="Review recommendation name",
+            parent=self.custom_meta,
+            item="custom-meta",
+            sub_item="meta-name",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="meta-name",
+            obtained=meta_name,
+            advice=f"Mark peer review name with <custom-meta><meta-name>.",
+            data=self.custom_meta,
+            error_level=self.params.get("meta_name_error_level"),
+            element_name="custom-meta",
+            sub_element_name="meta-name",
+        )
 
     def validate_custom_meta_value(self):
         """Validate custom metadata for peer review recommendations"""
         # Não validar os termos possíveis em <meta-value> podem haver termos diferentes então são termos opcionais
-        if not self.custom_meta["meta_value"]:
-            yield build_response(
-                title="Review recommendation value",
-                parent=self.custom_meta,
-                item="custom-meta",
-                sub_item="meta-value",
-                validation_type="exist",
-                is_valid=False,
-                expected="meta-value",
-                obtained=None,
-                advice=f"Peer review must include a recommendation (custom-meta/meta-value).",
-                data=self.custom_meta,
-                error_level=self.params.get("meta_value_error_level"),
-            )
+        meta_value = self.custom_meta["meta_value"]
+        is_valid = bool(meta_value)
+        yield build_response(
+            title="Review recommendation value",
+            parent=self.custom_meta,
+            item="custom-meta",
+            sub_item="meta-value",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="meta-value",
+            obtained=meta_value,
+            advice=f"Mark peer review recommendation with <custom-meta><meta-value>.",
+            data=self.custom_meta,
+            error_level=self.params.get("meta_value_error_level"),
+            element_name="custom-meta",
+            sub_element_name="meta-value",
+        )
 
 
 class XMLPeerReviewValidation:
@@ -152,20 +158,21 @@ class PeerReviewValidation:
         article_type = self.peer_review.article_type
         is_valid = article_type in self.params["article_type_list"]
 
-        if not is_valid:
-            yield build_response(
-                title="Article Type",
-                parent=self.peer_review.attribs_parent_prefixed,
-                item="article",
-                sub_item="article-type",
-                validation_type="value in list",
-                is_valid=False,
-                expected=self.params["article_type_list"],
-                obtained=article_type,
-                advice=f"Article type must be one of {self.params['article_type_list']}",
-                data=self.peer_review.attribs,
-                error_level=self.params["article_type_error_level"],
-            )
+        yield build_response(
+            title="Article Type",
+            parent=self.peer_review.attribs_parent_prefixed,
+            item="article",
+            sub_item="article-type",
+            validation_type="value in list",
+            is_valid=is_valid,
+            expected=self.params["article_type_list"],
+            obtained=article_type,
+            advice=f"Add article_type in <article article-type='VALUE'> and replace VALUE with {self.params['article_type_list']}",
+            data=self.peer_review.attribs,
+            error_level=self.params["article_type_error_level"],
+            element_name="article",
+            attribute_name="article-type",
+        )
 
     def validate_contribs(self):
         """Validate all contributors in the peer review"""
@@ -180,20 +187,23 @@ class PeerReviewValidation:
         # esta validação está propositalmente redundante
         # isso terá sido validado ao validar contrib genericamente
         for item in self.params["required_events"]:
-            if not self.peer_review.history_dates.get(item):
-                yield build_response(
-                    title="Required history date",
-                    parent=self.peer_review.attribs_parent_prefixed,
-                    item="history",
-                    sub_item="date",
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=item,
-                    obtained=list(self.peer_review.history_dates.keys()),
-                    advice=f"history must have date which date-type is: {item}",
-                    data=self.peer_review.history_dates,
-                    error_level=self.params["missing_events_error_level"],
-                )
+            is_valid = bool(self.peer_review.history_dates.get(item))
+            yield build_response(
+                title="Required history date",
+                parent=self.peer_review.attribs_parent_prefixed,
+                item="history",
+                sub_item="date",
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=item,
+                obtained=list(self.peer_review.history_dates.keys()),
+                advice=f"Add date-type in <history><date date-type='VALUE'> and replace VALUE with : {item}",
+                data=self.peer_review.history_dates,
+                error_level=self.params["missing_events_error_level"],
+                element_name="history",
+                sub_element_name="date",
+                attribute_name=item
+            )
 
     def validate_related_articles(self):
         """Validate related articles"""
