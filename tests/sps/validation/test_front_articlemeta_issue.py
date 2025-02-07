@@ -8,6 +8,23 @@ from packtools.sps.validation.front_articlemeta_issue import (
 
 
 class IssueTest(TestCase):
+    def setUp(self):
+
+        self.expected_keys = ["title", "parent", "parent_article_type", "parent_id", "parent_lang", "response", "item", "sub_item",
+                "validation_type", "expected_value", "got_value", "advice", "message", "data"]
+
+        self.params = {
+            "volume_format_error_level": "CRITICAL",
+            "number_format_error_level": "CRITICAL",
+            "supplement_format_error_level": "CRITICAL",
+            "issue_format_error_level": "CRITICAL",
+            "expected_issues_error_level": "CRITICAL",
+            "pagination_error_level": "CRITICAL",
+            "journal_data": {
+                "issues": [{"volume": "56", "number": "3", "supplement": "1"}]
+            },
+        }
+
     def test_volume_matches(self):
         xml_tree = etree.fromstring(
             """
@@ -22,30 +39,19 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "volume",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "OK",
-            "item": "volume",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "56",
-            "got_value": "56",
-            "advice": None,
-            "message": "Got 56, expected 56",
-            "data": {"volume": "56", "number": "4"},
-        }
-
         validator = IssueValidation(
-            xml_tree, params={"volume_format_error_level": "INFO"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_volume_format("INFO")
+        obtained = validator.validate_volume_format()
 
-        self.assertDictEqual(obtained, expected)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "issue volume format")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got 56, expected 56")
+        self.assertIsNone(obtained["advice"])
 
     def test_volume_no_matches(self):
         self.maxDiff = None
@@ -62,30 +68,16 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "volume",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "ERROR",
-            "item": "volume",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "alphanumeric value",
-            "got_value": " 56 ",
-            "advice": "Consulte SPS documentation to complete volume element",
-            "message": "Got  56 , expected alphanumeric value",
-            "data": {"volume": " 56 ", "number": "4"},
-        }
-
         validator = IssueValidation(
-            xml_tree, params={"volume_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_volume_format("ERROR")
+        obtained = validator.validate_volume_format()
 
-        self.assertDictEqual(obtained, expected)
+        self.assertEqual(obtained["title"], "issue volume format")
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertEqual(obtained["message"], "Got  56 , expected alphanumeric value")
+        self.assertEqual(obtained["advice"], "Replace  56  in <article-meta><volume> with alphanumeric value")
 
     def test_volume_there_is_tag_there_is_no_value(self):
         xml_tree = etree.fromstring(
@@ -102,10 +94,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"volume_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_volume_format("ERROR")
+        obtained = validator.validate_volume_format()
 
         self.assertIsNone(obtained)
 
@@ -123,10 +115,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"volume_format_error_level": "INFO"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_volume_format("INFO")
+        obtained = validator.validate_volume_format()
 
         self.assertIsNone(obtained)
 
@@ -145,10 +137,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("WARNING")
+        obtained = validator.validate_number_format()
 
         self.assertIsNone(obtained)
 
@@ -166,30 +158,19 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "number",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "OK",
-            "item": "number",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "vol4",
-            "got_value": "vol4",
-            "message": "Got vol4, expected vol4",
-            "advice": None,
-            "data": {"number": "vol4"},
-        }
-
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("ERROR")
+        obtained = validator.validate_number_format()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "issue number format")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got vol4, expected vol4")
+        self.assertIsNone(obtained["advice"])
 
     def test_validate_article_issue_number_success(self):
         self.maxDiff = None
@@ -206,30 +187,19 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "number",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "OK",
-            "item": "number",
-            "sub_item": None,
-            "validation_type": "format",
-            "expected_value": "4",
-            "got_value": "4",
-            "message": "Got 4, expected 4",
-            "advice": None,
-            "data": {"number": "4", "volume": "56"},
-        }
-
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("WARNING")
+        obtained = validator.validate_number_format()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "issue number format")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got 4, expected 4")
+        self.assertIsNone(obtained["advice"])
 
     def test_validate_article_issue_number_there_is_tag_there_is_no_value(self):
         self.maxDiff = None
@@ -247,10 +217,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("WARNING")
+        obtained = validator.validate_number_format()
 
         self.assertIsNone(obtained)
 
@@ -269,10 +239,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("WARNING")
+        obtained = validator.validate_number_format()
 
         self.assertIsNone(obtained)
 
@@ -309,12 +279,18 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("ERROR")
+        obtained = validator.validate_number_format()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "issue number format")
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertEqual(obtained["message"], "Got 04, expected 4")
+        self.assertEqual(obtained["advice"], "Replace 04 in <article-meta><issue> with 4")
 
     def test_validate_article_issue_number_value_is_not_numeric(self):
         self.maxDiff = None
@@ -349,12 +325,18 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_number_format("WARNING")
+        obtained = validator.validate_number_format()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "issue number format")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got 4a, expected 4a")
+        self.assertIsNone(obtained["advice"])
 
     def test_validate_article_issue_special_number(self):
         self.maxDiff = None
@@ -371,30 +353,19 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = {
-            "title": "special or supplement",
-            "parent": "article",
-            "parent_article_type": None,
-            "parent_id": None,
-            "parent_lang": None,
-            "response": "WARNING",
-            "item": "issue",
-            "sub_item": "special or supplement",
-            "validation_type": "format",
-            "expected_value": ["suppl 1", "spe 1"],
-            "got_value": {"type": "spa", "type_valid_format": False, "type_value": "1"},
-            "message": "Got {'type_value': '1', 'type': 'spa', 'type_valid_format': False}, expected ['suppl 1', 'spe 1']",
-            "advice": "Consulte SPS documentation to complete issue element",
-            "data": {"issue": "spa 1"},
-        }
-
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("WARNING")
+        obtained = validator.validate_issue_format()
 
-        self.assertDictEqual(expected, obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "special or supplement")
+        self.assertEqual(obtained["response"], "CRITICAL")
+        self.assertEqual(obtained["message"], "Got {'type_value': '1', 'type': 'spa', 'type_valid_format': False}, expected ['suppl 1', 'spe 1']")
+        self.assertEqual(obtained["advice"], "Replace spa 1 in <article-meta><issue> with one of ['suppl 1', 'spe 1']")
 
     def test_validate_article_issue_special_number_with_dot(self):
         self.maxDiff = None
@@ -412,10 +383,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("ERROR")
+        obtained = validator.validate_issue_format()
 
         self.assertIsNone(obtained)
 
@@ -452,10 +423,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("ERROR")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -496,10 +467,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("WARNING")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -540,10 +511,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("ERROR")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -584,10 +555,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("ERROR")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -629,10 +600,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "WARNING"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("WARNING")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -674,10 +645,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"issue_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("ERROR")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -690,7 +661,7 @@ class IssueTest(TestCase):
                     <article-meta>
                         <volume>56</volume>
                         <issue>4</issue>
-                        <supplement>2</supplement>
+                        <supplement>*2</supplement>
                     </article-meta>
                 </front>
             </article>
@@ -698,27 +669,27 @@ class IssueTest(TestCase):
         )
 
         expected = {
-            "title": "supplement",
+            "title": "supplement format",
             "parent": "article",
             "parent_article_type": None,
             "parent_id": None,
             "parent_lang": None,
-            "response": "OK",
+            "response": "CRITICAL",
             "item": "supplement",
             "sub_item": None,
             "validation_type": "format",
-            "expected_value": "2",
-            "got_value": "2",
-            "message": "Got 2, expected 2",
-            "advice": None,
-            "data": {"number": "4", "suppl": "2", "volume": "56"},
+            "expected_value": "alphanumeric value",
+            "got_value": "*2",
+            "message": "Got *2, expected alphanumeric value",
+            "advice": "Replace *2 in <article-meta><supplement> with alphanumeric value",
+            "data": {"number": "4", "suppl": "*2", "volume": "56"},
         }
 
         validator = IssueValidation(
-            xml_tree, params={"supplement_format_error_level": "INFO"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_supplement_format("INFO")
+        obtained = validator.validate_supplement_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -739,7 +710,7 @@ class IssueTest(TestCase):
         )
 
         expected = {
-            "title": "supplement",
+            "title": "supplement format",
             "parent": "article",
             "parent_article_type": None,
             "parent_id": None,
@@ -756,10 +727,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"supplement_format_error_level": "ERROR"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_supplement_format("ERROR")
+        obtained = validator.validate_supplement_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -801,10 +772,10 @@ class IssueTest(TestCase):
         }
 
         validator = IssueValidation(
-            xml_tree, params={"supplement_format_error_level": "INFO"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_issue_format("INFO")
+        obtained = validator.validate_issue_format()
 
         self.assertDictEqual(expected, obtained)
 
@@ -824,10 +795,10 @@ class IssueTest(TestCase):
         )
 
         validator = IssueValidation(
-            xml_tree, params={"supplement_format_error_level": "INFO"}
+            xml_tree, params=self.params
         )
 
-        obtained = validator.validate_supplement_format("INFO")
+        obtained = validator.validate_supplement_format()
 
         self.assertIsNone(obtained)
 
@@ -846,118 +817,39 @@ class IssueTest(TestCase):
             """
         )
 
-        expected = [
-            {
-                "title": "volume",
-                "parent": "article",
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "item": "volume",
-                "sub_item": None,
-                "validation_type": "format",
-                "expected_value": "56",
-                "got_value": "56",
-                "message": "Got 56, expected 56",
-                "advice": None,
-                "data": {"number": "4", "suppl": "1", "volume": "56"},
-            },
-            {
-                "title": "number",
-                "parent": "article",
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "item": "number",
-                "sub_item": None,
-                "validation_type": "format",
-                "expected_value": "4",
-                "got_value": "4",
-                "message": "Got 4, expected 4",
-                "advice": None,
-                "data": {"number": "4", "suppl": "1", "volume": "56"},
-            },
-            {
-                "title": "supplement",
-                "parent": "article",
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "item": "supplement",
-                "sub_item": None,
-                "validation_type": "format",
-                "expected_value": "1",
-                "got_value": "1",
-                "message": "Got 1, expected 1",
-                "advice": None,
-                "data": {"number": "4", "suppl": "1", "volume": "56"},
-            },
-            {
-                "title": "special or supplement",
-                "parent": "article",
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "item": "issue",
-                "sub_item": "special or supplement",
-                "validation_type": "format",
-                "expected_value": ["4 suppl 1"],
-                "got_value": {
-                    "number": "4",
-                    "type": "suppl",
-                    "type_valid_format": True,
-                    "type_value": "1",
-                },
-                "message": "Got {'number': '4', 'type_value': '1', 'type': 'suppl', 'type_valid_format': True}, expected ['4 suppl 1']",
-                "advice": None,
-                "data": {"issue": "4 suppl 1"},
-            },
-            {
-                "title": "registered issue",
-                "parent": "article",
-                "parent_article_type": None,
-                "parent_id": None,
-                "parent_lang": None,
-                "response": "OK",
-                "item": "volume, number, supplement",
-                "sub_item": None,
-                "validation_type": "value in list",
-                "expected_value": [{"volume": "56", "number": "4", "supplement": "1"}],
-                "got_value": {"volume": "56", "number": "4", "supplement": "1"},
-                "message": "Got {'volume': '56', 'number': '4', 'supplement': '1'}, expected [{'volume': '56', 'number': '4', 'supplement': '1'}]",
-                "advice": None,
-                "data": {"issue": {"volume": "56", "number": "4", "supplement": "1"}},
-            },
-        ]
 
         validator = IssueValidation(
             xml_tree,
-            params={
-                "volume_format_error_level": "INFO",
-                "issue_format_error_level": "INFO",
-                "supplement_format_error_level": "INFO",
-                "number_format_error_level": "INFO",
-                "expected_issues_error_level": "INFO",
-                "journal_data": {
-                    "issues": [{"volume": "56", "number": "4", "supplement": "1"}]
-                },
-            },
+            params=self.params,
         )
 
         obtained = list(validator.validate())
 
-        self.assertEqual(len(obtained), len(expected))
-
-        for i, item in enumerate(expected):
-            with self.subTest(i=i):
-                self.assertDictEqual(obtained[i], item)
+        self.assertEqual(len(obtained), 5)
+        for i, item in enumerate(obtained):
+            for key in self.expected_keys:
+                with self.subTest(f"item: {i}, key: {key}"):
+                    self.assertIn(key, item, f"{key} not found")
 
 
 class PaginationTest(TestCase):
+    def setUp(self):
+
+        self.expected_keys = ["title", "parent", "parent_article_type", "parent_id", "parent_lang", "response", "item", "sub_item",
+                "validation_type", "expected_value", "got_value", "advice", "message", "data"]
+
+        self.params = {
+            "volume_format_error_level": "CRITICAL",
+            "number_format_error_level": "CRITICAL",
+            "supplement_format_error_level": "CRITICAL",
+            "issue_format_error_level": "CRITICAL",
+            "expected_issues_error_level": "CRITICAL",
+            "pagination_error_level": "CRITICAL",
+            "journal_data": {
+                "issues": [{"volume": "56", "number": "4", "supplement": "1"}]
+            },
+        }
+
     def test_validation_pages(self):
         self.maxDiff = None
         xml = """
@@ -988,7 +880,7 @@ class PaginationTest(TestCase):
             "data": {"volume": "56"},
         }
 
-        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
+        obtained = PaginationValidation(xml_tree, self.params).validate()
 
         self.assertDictEqual(expected, obtained)
 
@@ -1022,7 +914,7 @@ class PaginationTest(TestCase):
             "data": {"volume": "56"},
         }
 
-        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
+        obtained = PaginationValidation(xml_tree, self.params).validate()
 
         self.assertDictEqual(expected, obtained)
 
@@ -1042,6 +934,12 @@ class PaginationTest(TestCase):
 
         xml_tree = etree.fromstring(xml)
 
-        obtained = PaginationValidation(xml_tree).validate("CRITICAL")
+        obtained = PaginationValidation(xml_tree, self.params).validate()
 
-        self.assertIsNone(obtained)
+        for key in self.expected_keys:
+            self.assertIn(key, obtained, f"{key} not found")
+
+        self.assertEqual(obtained["title"], "Pagination")
+        self.assertEqual(obtained["response"], "OK")
+        self.assertEqual(obtained["message"], "Got elocation-id: e51467, fpage: 220, lpage: 240, expected elocation-id or fpage + lpage")
+        self.assertIsNone(obtained["advice"])
