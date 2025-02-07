@@ -4,5 +4,7 @@
         "registered_doi_error_level": "ERROR",
         "unique_error_level": "ERROR",
         "translation_doi_error_level": "ERROR",
+        "doi_api_get": null,
+        "skip_doi_check": true
     }
 }
