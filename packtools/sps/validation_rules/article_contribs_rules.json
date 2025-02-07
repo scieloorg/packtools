@@ -1,12 +1,13 @@
 {
     "article_contribs_rules": {
-        "credit_taxonomy_terms_and_urls_error_level": "CRITICAL",
+        "credit_taxonomy_uri_error_level": "CRITICAL",
+        "credit_taxonomy_term_error_level": "CRITICAL",
         "orcid_format_error_level": "CRITICAL",
         "orcid_is_registered_error_level": "ERROR",
         "collab_list_error_level": "CRITICAL",
         "name_error_level": "CRITICAL",
         "collab_error_level": "CRITICAL",
-        "name_or_collab_error_level": "CRITICAL",
+        "contrib_error_level": "CRITICAL",
         "affiliations_error_level": "CRITICAL",
         "orcid_is_unique_error_level": "CRITICAL",
         "contrib_type_list": [
