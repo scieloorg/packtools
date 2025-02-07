@@ -49,7 +49,7 @@ class IssueValidation:
         self.article_issue = ArticleMetaIssue(xml_tree)
         self.params = params
 
-    def validate_volume_format(self, error_level):
+    def validate_volume_format(self):
         """
         Validates the format of the volume number.
         Checks if the volume number is a valid non-zero alphanumeric value.
@@ -73,10 +73,10 @@ class IssueValidation:
                 obtained=result["got"],
                 advice="Consulte SPS documentation to complete volume element",
                 data=self.article_issue.data,
-                error_level=error_level,
+                error_level=self.params["volume_format_error_level"],
             )
 
-    def validate_number_format(self, error_level):
+    def validate_number_format(self):
         """
         Validates the format of the issue number.
         Checks if the issue number is a valid non-zero alphanumeric value.
@@ -100,10 +100,10 @@ class IssueValidation:
                 obtained=result["got"],
                 advice="Consulte SPS documentation to complete issue element",
                 data=self.article_issue.data,
-                error_level=error_level,
+                error_level=self.params["number_format_error_level"],
             )
 
-    def validate_supplement_format(self, error_level):
+    def validate_supplement_format(self):
         """
         Validates the format of the supplement number.
         Unlike volume and issue, supplement can be zero.
@@ -127,10 +127,10 @@ class IssueValidation:
                 obtained=result["got"],
                 advice="Consulte SPS documentation to complete issue or supplement elements",
                 data=self.article_issue.data,
-                error_level=error_level,
+                error_level=self.params["supplement_format_error_level"],
             )
 
-    def validate_issue_format(self, error_level):
+    def validate_issue_format(self):
         """
         Validates special issue or supplement format.
         Handles different formats like 'spe' (special) and 'sup' (supplement).
@@ -184,10 +184,10 @@ class IssueValidation:
                     else None
                 ),
                 data={"issue": self.article_issue.issue},
-                error_level=error_level,
+                error_level=self.params["issue_format_error_level"],
             )
 
-    def validate_expected_issues(self, expected_issues, error_level):
+    def validate_expected_issues(self, expected_issues):
         """
         Validates if the issue exists in the list of expected issues.
 
@@ -215,7 +215,7 @@ class IssueValidation:
                 obtained=issue,
                 advice="Provide registered issues to check issue data in XML file",
                 data={"issue": issue},
-                error_level=error_level,
+                error_level=self.params["expected_issues_error_level"],
             )
 
         return build_response(
@@ -229,7 +229,7 @@ class IssueValidation:
             obtained=issue,
             advice="Consulte SPS documentation to complete volume, issue and supplement elements",
             data={"issue": issue},
-            error_level=error_level,
+            error_level=self.params["expected_issues_error_level"],
         )
 
     def validate(self):
@@ -241,12 +241,10 @@ class IssueValidation:
         Raises:
             MissingJournalDataException: If journal_data is missing from params
         """
-        yield self.validate_volume_format(self.params["volume_format_error_level"])
-        yield self.validate_number_format(self.params["number_format_error_level"])
-        yield self.validate_supplement_format(
-            self.params["supplement_format_error_level"]
-        )
-        yield self.validate_issue_format(self.params["issue_format_error_level"])
+        yield self.validate_volume_format()
+        yield self.validate_number_format()
+        yield self.validate_supplement_format()
+        yield self.validate_issue_format()
 
         try:
             journal_data = self.params["journal_data"]
@@ -257,8 +255,7 @@ class IssueValidation:
         else:
             expected_issues = journal_data.get("issues")
             yield self.validate_expected_issues(
-                expected_issues,
-                self.params["expected_issues_error_level"],
+                expected_issues
             )
 
 
@@ -268,7 +265,7 @@ class PaginationValidation:
     Checks for proper page numbering or electronic location ID.
     """
 
-    def __init__(self, xml_tree):
+    def __init__(self, xml_tree, params):
         """
         Initialize with XML tree containing pagination data.
 
@@ -277,8 +274,9 @@ class PaginationValidation:
         """
         self.xml_tree = xml_tree
         self.issue = ArticleMetaIssue(xml_tree)
+        self.params = params
 
-    def validate(self, error_level):
+    def validate(self):
         """
         Validates pagination format according to SPS rules.
         Article must have either:
