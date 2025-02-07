@@ -63,7 +63,7 @@ class IssueValidation:
         if self.article_issue.volume:
             result = is_valid_value(self.article_issue.volume, zero_is_allowed=False)
             return build_response(
-                title="volume",
+                title="issue volume format",
                 parent={"parent": "article"},
                 item="volume",
                 sub_item=None,
@@ -71,9 +71,11 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice="Consulte SPS documentation to complete volume element",
+                advice=f"Replace {result["got"]} in <article-meta><volume> with {result["expected"]}",
                 data=self.article_issue.data,
                 error_level=self.params["volume_format_error_level"],
+                element_name="article-meta",
+                sub_element_name="volume"
             )
 
     def validate_number_format(self):
@@ -90,7 +92,7 @@ class IssueValidation:
         if self.article_issue.number:
             result = is_valid_value(self.article_issue.number, zero_is_allowed=False)
             return build_response(
-                title="number",
+                title="issue number format",
                 parent={"parent": "article"},
                 item="number",
                 sub_item=None,
@@ -98,9 +100,11 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice="Consulte SPS documentation to complete issue element",
+                advice=f"Replace {result["got"]} in <article-meta><issue> with {result["expected"]}",
                 data=self.article_issue.data,
                 error_level=self.params["number_format_error_level"],
+                element_name="article-meta",
+                sub_element_name="issue"
             )
 
     def validate_supplement_format(self):
@@ -117,7 +121,7 @@ class IssueValidation:
         if self.article_issue.suppl:
             result = is_valid_value(self.article_issue.suppl, zero_is_allowed=True)
             return build_response(
-                title="supplement",
+                title="supplement format",
                 parent={"parent": "article"},
                 item="supplement",
                 sub_item=None,
@@ -125,9 +129,11 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice="Consulte SPS documentation to complete issue or supplement elements",
+                advice=f"Replace {result["got"]} in <article-meta><supplement> with {result["expected"]}",
                 data=self.article_issue.data,
                 error_level=self.params["supplement_format_error_level"],
+                element_name="article-meta",
+                sub_element_name="supplement"
             )
 
     def validate_issue_format(self):
@@ -179,12 +185,14 @@ class IssueValidation:
                 expected=expected,
                 obtained=parsed_issue,
                 advice=(
-                    "Consulte SPS documentation to complete issue element"
+                    f"Replace {parsed_issue["type"]} {parsed_issue["type_value"]} in <article-meta><issue> with one of {expected}"
                     if not got_valid_format
                     else None
                 ),
                 data={"issue": self.article_issue.issue},
                 error_level=self.params["issue_format_error_level"],
+                element_name="article-meta",
+                sub_element_name="issue"
             )
 
     def validate_expected_issues(self, expected_issues):
@@ -216,6 +224,8 @@ class IssueValidation:
                 advice="Provide registered issues to check issue data in XML file",
                 data={"issue": issue},
                 error_level=self.params["expected_issues_error_level"],
+                element_name="article-meta",
+                sub_element_name="issue"
             )
 
         return build_response(
@@ -227,9 +237,11 @@ class IssueValidation:
             is_valid=issue in expected_issues,
             expected=expected_issues,
             obtained=issue,
-            advice="Consulte SPS documentation to complete volume, issue and supplement elements",
+            advice=f"Replace {issue} in <article-meta><issue> with one of {expected_issues}",
             data={"issue": issue},
             error_level=self.params["expected_issues_error_level"],
+            element_name="article-meta",
+            sub_element_name="issue"
         )
 
     def validate(self):
@@ -306,17 +318,18 @@ class PaginationValidation:
                 # ahead of print article - no pagination needed
                 is_valid = True
 
-        if not is_valid:
-            return build_response(
-                title="Pagination",
-                parent={"parent": "article"},
-                item="elocation-id | fpage / lpage",
-                sub_item="elocation-id | fpage / lpage",
-                validation_type="match",
-                is_valid=is_valid,
-                expected="elocation-id or fpage + lpage",
-                obtained=f"elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}",
-                advice="Provide elocation-id or fpage + lpage",
-                data=self.issue.data,
-                error_level=error_level,
-            )
+        return build_response(
+            title="Pagination",
+            parent={"parent": "article"},
+            item="elocation-id | fpage / lpage",
+            sub_item="elocation-id | fpage / lpage",
+            validation_type="match",
+            is_valid=is_valid,
+            expected="elocation-id or fpage + lpage",
+            obtained=f"elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}",
+            advice="Provide elocation-id or fpage + lpage",
+            data=self.issue.data,
+            error_level=self.params["pagination_error_level"],
+            element_name="article-meta",
+            sub_element_name="issue"
+        )
