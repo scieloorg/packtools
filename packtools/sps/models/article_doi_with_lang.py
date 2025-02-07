@@ -1,3 +1,7 @@
+from packtools.sps.models.article_titles import ArticleTitles
+from packtools.sps.models.article_contribs import XMLContribs
+
+
 class DoiWithLang:
 
     """
@@ -13,6 +17,8 @@ class DoiWithLang:
 
     def __init__(self, xmltree):
         self._xmltree = xmltree
+        self.titles = ArticleTitles(self.xmltree).article_title_dict
+        self.authors = XMLContribs(self.xmltree).contribs
 
     def _get_node(self, xpath, node=None):
         if node is None:
@@ -40,11 +46,24 @@ class DoiWithLang:
 
     @property
     def data(self):
+        xml_authors = []
+        for author in self.authors:
+            try:
+                contrib_name = author["contrib_name"]
+                fullname = (
+                    f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
+                )
+                xml_authors.append(fullname)
+            except KeyError:
+                pass
+
         _data = [{
             "lang": self.main_lang,
             "value": self.main_doi,
             "parent": "article",
-            "parent_article_type": self._xmltree.get("article-type")
+            "parent_article_type": self._xmltree.get("article-type"),
+            "article_title": self.titles.get(self.main_lang).get("plain_text"),
+            "authors": xml_authors,
         }]
 
         for sub_article in self._xmltree.xpath(".//sub-article[@article-type='translation']"):
@@ -59,6 +78,8 @@ class DoiWithLang:
                     "parent": "sub-article",
                     "parent_article_type": "translation",
                     "parent_id": sub_article.get("id")
+                    "article_title": self.titles.get(lang).get("plain_text"),
+                    "authors": xml_authors,
                 }
             )
         return _data
