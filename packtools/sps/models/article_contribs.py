@@ -132,7 +132,7 @@ class ContribGroup:
         return {
             "type": self.type,
             "contribs": list([item.data for item in self.contribs]),
-            "collab": bool(self.node.find(".//collab"))
+            "collab": bool(self.node.find(".//collab")),
             "name": bool(self.node.find(".//name"))
         }
 
