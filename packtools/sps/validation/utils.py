@@ -258,6 +258,7 @@ def format_advice(
         elif validation_type == "value in list":
 
             if obtained:
+                incorrect = ""
                 if attribute_name:
                     incorrect = f' {attribute_name}="{obtained}"'
                 if sub_element_name:
