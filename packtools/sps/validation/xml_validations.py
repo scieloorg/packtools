@@ -182,11 +182,8 @@ def validate_open_science_actions(xmltree, params):
     except (TypeError, KeyError):
         pass
 
-    validator = DataAvailabilityValidation(xmltree)
-    yield from validator.validate_data_availability(
-        specific_use_list=data_availability_rules["specific_use_list"],
-        error_level=data_availability_rules["error_level"],
-    )
+    validator = DataAvailabilityValidation(xmltree, data_availability_rules)
+    yield from validator.validate_data_availability()
 
 
 def validate_article_toc_sections(xmltree, params):
