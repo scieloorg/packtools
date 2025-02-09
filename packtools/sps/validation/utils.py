@@ -83,11 +83,11 @@ def build_response(
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
 
-    if not attribute_name:
-        if sub_item and '@' == sub_item[0]:
-            attribute_name = sub_item[1:]
-    if not element_name:
-        element_name = item
+    # if not attribute_name:
+    #     if sub_item and '@' == sub_item[0]:
+    #         attribute_name = sub_item[1:]
+    # if not element_name:
+    #     element_name = item
 
     advice = format_advice(
         title,
@@ -167,7 +167,7 @@ def check_doi_is_registered(article_data):
         authors_similarity = how_similar(str(registered["authors"]), str(article_data["authors"]))
         return {
             "doi": doi,
-            "valid": ((title_similarity + authors_similarity) / 2) > 0.9
+            "valid": ((title_similarity + authors_similarity) / 2) > 0.9,
             "registered": registered,
         }
 
