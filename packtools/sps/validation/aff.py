@@ -149,195 +149,185 @@ class AffiliationValidation:
         original = self.affiliation.get("original")
         error_level = self.params["original_error_level"]
 
-        if not original or error_level == "INFO":
-            yield build_response(
-                title="original",
-                parent=self.affiliation,
-                item="institution",
-                sub_item='@content-type="original"',
-                validation_type="exist",
-                is_valid=bool(original),
-                expected="original affiliation",
-                obtained=original,
-                advice="provide the original affiliation",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=bool(original),
+            expected="original affiliation",
+            obtained=original,
+            advice='mark complete institutional affiliation with <aff><institution content-type="original">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_orgname(self):
         orgname = self.affiliation.get("orgname")
         error_level = self.params["orgname_error_level"]
 
-        if not orgname or error_level == "INFO":
-            yield build_response(
-                title="orgname",
-                parent=self.affiliation,
-                item="institution",
-                sub_item='@content-type="orgname"',
-                validation_type="exist",
-                is_valid=bool(orgname),
-                expected="orgname",
-                obtained=orgname,
-                advice="provide the orgname",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="orgname",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="orgname"',
+            validation_type="exist",
+            is_valid=bool(orgname),
+            expected="orgname",
+            obtained=orgname,
+            advice='mark institutional affiliation name with <aff><institution content-type="orgname">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_orgdiv1(self):
         orgdiv1 = self.affiliation.get("orgdiv1")
         error_level = self.params["orgdiv1_error_level"]
 
-        if not orgdiv1 or error_level == "INFO":
-            yield build_response(
-                title="orgdiv1",
-                parent=self.affiliation,
-                item="institution",
-                sub_item='@content-type="orgdiv1"',
-                validation_type="exist",
-                is_valid=bool(orgdiv1),
-                expected="orgdiv1 affiliation",
-                obtained=orgdiv1,
-                advice="provide the orgdiv1 affiliation",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="orgdiv1",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="orgdiv1"',
+            validation_type="exist",
+            is_valid=bool(orgdiv1),
+            expected="orgdiv1 affiliation",
+            obtained=orgdiv1,
+            advice='mark primary institutional affiliation division with <aff><institution content-type="orgdiv1">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_orgdiv2(self):
         orgdiv2 = self.affiliation.get("orgdiv2")
         error_level = self.params["orgdiv2_error_level"]
 
-        if not orgdiv2 or error_level == "INFO":
-            yield build_response(
-                title="orgdiv2",
-                parent=self.affiliation,
-                item="institution",
-                sub_item='@content-type="orgdiv2"',
-                validation_type="exist",
-                is_valid=bool(orgdiv2),
-                expected="orgdiv2 affiliation",
-                obtained=orgdiv2,
-                advice="provide the orgdiv2 affiliation",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="orgdiv2",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="orgdiv2"',
+            validation_type="exist",
+            is_valid=bool(orgdiv2),
+            expected="orgdiv2 affiliation",
+            obtained=orgdiv2,
+            advice='mark secondary institutional affiliation division with <aff><institution content-type="orgdiv2">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_label(self):
         label = self.affiliation.get("label")
         error_level = self.params["label_error_level"]
 
-        if not label or error_level == "INFO":
-            yield build_response(
-                title="label",
-                parent=self.affiliation,
-                item="aff",
-                sub_item="label",
-                validation_type="exist",
-                is_valid=bool(label),
-                expected="label",
-                obtained=label,
-                advice="provide the label",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="label",
+            parent=self.affiliation,
+            item="aff",
+            sub_item="label",
+            validation_type="exist",
+            is_valid=bool(label),
+            expected="label",
+            obtained=label,
+            advice='mark affiliation label with <aff><label>',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_country(self):
         country = self.affiliation.get("country_name")
         error_level = self.params["country_error_level"]
 
-        if not country or error_level == "INFO":
-            yield build_response(
-                title="country name",
-                parent=self.affiliation,
-                item="aff",
-                sub_item="country",
-                validation_type="exist",
-                is_valid=bool(country),
-                expected="country name",
-                obtained=country,
-                advice="provide the country name",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="country name",
+            parent=self.affiliation,
+            item="aff",
+            sub_item="country",
+            validation_type="exist",
+            is_valid=bool(country),
+            expected="country name",
+            obtained=country,
+            advice='mark affiliation country with <aff><country>',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_country_code(self):
         country_code = self.affiliation.get("country_code")
         error_level = self.params["country_code_error_level"]
         country_codes_list = self.params["country_codes_list"]
 
-        if country_code not in country_codes_list or error_level == "INFO":
-            is_valid = country_code in country_codes_list
-            yield build_response(
-                title="country code",
-                parent=self.affiliation,
-                item="country",
-                sub_item="@country",
-                validation_type="value in list",
-                is_valid=is_valid,
-                expected=(
-                    country_code if is_valid else f"one of {country_codes_list}"
-                ),
-                obtained=country_code,
-                advice="provide a valid @country",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        is_valid = country_code in country_codes_list
+        yield build_response(
+            title="country code",
+            parent=self.affiliation,
+            item="country",
+            sub_item="@country",
+            validation_type="value in list",
+            is_valid=is_valid,
+            expected=(
+                country_code if is_valid else f"one of {country_codes_list}"
+            ),
+            obtained=country_code,
+            advice=f"add @country in <aff><country country=VALUE> and replace VALUE with one of {country_codes_list}",
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_state(self):
         state = self.affiliation.get("state")
         error_level = self.params["state_error_level"]
 
-        if not state or error_level == "INFO":
-            yield build_response(
-                title="state",
-                parent=self.affiliation,
-                item="addr-line",
-                sub_item="state",
-                validation_type="exist",
-                is_valid=bool(state),
-                expected="state",
-                obtained=state,
-                advice="provide the state",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="state",
+            parent=self.affiliation,
+            item="addr-line",
+            sub_item="state",
+            validation_type="exist",
+            is_valid=bool(state),
+            expected="state",
+            obtained=state,
+            advice='mark affiliation state with <aff><addr-line><named-content content-type="state">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_city(self):
         city = self.affiliation.get("city")
         error_level = self.params["city_error_level"]
 
-        if not city or error_level == "INFO":
-            yield build_response(
-                title="city",
-                parent=self.affiliation,
-                item="addr-line",
-                sub_item="city",
-                validation_type="exist",
-                is_valid=bool(city),
-                expected="city",
-                obtained=city,
-                advice="provide the city",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="city",
+            parent=self.affiliation,
+            item="addr-line",
+            sub_item="city",
+            validation_type="exist",
+            is_valid=bool(city),
+            expected="city",
+            obtained=city,
+            advice='mark affiliation city with <aff><addr-line><named-content content-type="city">',
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def validate_id(self):
         aff_id = self.affiliation.get("id")
         error_level = self.params["id_error_level"]
 
-        if not aff_id or error_level == "INFO":
-            yield build_response(
-                title="id",
-                parent=self.affiliation,
-                item="aff",
-                sub_item="@id",
-                validation_type="exist",
-                is_valid=bool(aff_id),
-                expected="affiliation ID",
-                obtained=aff_id,
-                advice="provide the affiliation ID",
-                data=self.affiliation,
-                error_level=error_level,
-            )
+        yield build_response(
+            title="id",
+            parent=self.affiliation,
+            item="aff",
+            sub_item="@id",
+            validation_type="exist",
+            is_valid=bool(aff_id),
+            expected="affiliation ID",
+            obtained=aff_id,
+            advice="add @id in <aff id=VALUE> and replace VALUE with affiliation identifier",
+            data=self.affiliation,
+            error_level=error_level,
+        )
 
     def compare(self, main_aff: dict):
         """
@@ -411,9 +401,9 @@ class AffiliationValidation:
             got = result["got"]
             items = result["items"]
             if self.affiliation.get("id"):
-                advice = f"Review affiliation ({self.affiliation.get('id')})"
+                advice = f"Low similarity detected. Review and adjust affiliation ({self.affiliation.get('id')}) to better match the main text."
             else:
-                advice = f"Review affiliation ({self.affiliation})"
+                advice = f"Low similarity detected. Review and adjust affiliation ({self.affiliation}) to better match the main text."
             yield build_response(
                 title=f"low similarity",
                 parent=self.affiliation,
