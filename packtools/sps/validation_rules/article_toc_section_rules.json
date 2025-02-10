@@ -1,7 +1,10 @@
 {
     "article_toc_section_rules": {
-        "error_level": "CRITICAL",
-        "similar_to_article_title_error_level": "ERROR",
-        "unexpected_subsection_error_level": "CRITICAL"
+        "subj_group_type_error_level": "CRITICAL",
+        "unexpected_subj_group_error_level": "CRITICAL",
+        "subsection_error_level": "CRITICAL",
+        "value_error_level": "CRITICAL",
+        "article_title_and_toc_section_are_similar_error_level": "ERROR",
+        "article_title_and_toc_section_max_similarity": 0.7,
     }
 }

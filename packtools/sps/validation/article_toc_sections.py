@@ -1,252 +1,238 @@
 from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
-from packtools.sps.models.article_titles import ArticleTitles
-from packtools.sps.validation.utils import format_response
-from packtools.sps.validation.exceptions import ValidationExpectedTocSectionsException
+from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.similarity_utils import how_similar
 
 
-class ArticleTocSectionsValidation:
-    def __init__(self, xmltree, expected_toc_sections=None):
-        self.xmltree = xmltree
-        self.article_toc_sections = ArticleTocSections(xmltree)
-        self.article_titles = ArticleTitles(xmltree)
-        self.expected_toc_sections = expected_toc_sections
+class XMLTocSectionsValidation:
+    def __init__(self, xmltree, params=None):
+        """
+        Initialize the XMLTocSectionsValidation class with parameters.
 
-    def validate_article_toc_sections(self, expected_toc_sections=None, error_level="CRITICAL"):
+        Args:
+            xmltree: XML tree object
+            params (dict): Dictionary containing validation parameters
+                {
+                    'expected_toc_sections': dict with expected TOC sections,
+                    'subj_group_type_error_level': str for TOC validation error level,
+                    'error_level_title': str for title validation error level,
+                    'error_level_section': str for section validation error level
+                }
+        """
+        self.params = params or {}
+        self.xml_toc_sections = ArticleTocSections(xmltree)
+
+    def validate(self):
         """
         Check whether the TOC sections match the options provided in a standard list.
-
-        Params
-        ------
-        expected_toc_sections : dict, such as:
-            {
-                "en": ["Health Sciences"],
-                "pt": ["Ciências da Saúde"]
-            }
-        error_level : str
 
         Returns
         -------
         generator of dict
             A generator that yields dictionaries with validation results.
         """
-        expected_toc_sections = expected_toc_sections or self.expected_toc_sections
-        if not expected_toc_sections:
-            raise ValidationExpectedTocSectionsException("Function requires a dict of expected toc sections.")
+        for lang, subjects in self.xml_toc_sections.sections_by_lang.items():
+            for i, subject in enumerate(subjects):
 
-        for lang, sections_list in self.article_toc_sections.sections_dict.items():
-            for obtained in sections_list:
-                # Valida o valor do atributo subj-group-type
-                if (subject_type := obtained["subj_group_type"]) != "heading":
-                    yield format_response(
-                        title="Attribute '@subj-group-type' validation",
-                        parent=obtained["parent"],
-                        parent_id=obtained["parent_id"],
-                        parent_article_type=obtained["parent_article_type"],
-                        parent_lang=obtained["parent_lang"],
-                        item="subj-group",
-                        sub_item="@subj-group-type",
-                        is_valid=False,
-                        validation_type="match",
-                        expected="heading",
-                        obtained=subject_type,
-                        advice="the value for '@subj-group-type' must be heading",
-                        data=obtained,
-                        error_level=error_level,
-                    )
+                validator = SubjectValidation(subject, self.params)
+                
+                if i > 0:
+                    # cada idioma deve ter somente 1 subject-group (heading)
+                    # mas por engano, pode haver mais, valida o excedente
+                    yield validator.validate_unexpected_item()
+                    continue
 
-                # Valida o título
-                is_valid = False
-                expected = expected_toc_sections.get(lang)
-                obtained_subject = obtained['section']
-                validation_type = 'exist'
-                if obtained_subject:
-                    # verifica se o título de seção está presente na lista esperada
-                    is_valid = obtained_subject.split(":")[0] in expected
-                    validation_type = 'value in list'
-                yield format_response(
-                    title='Document section title validation',
-                    parent=obtained["parent"],
-                    parent_id=obtained["parent_id"],
-                    parent_article_type=obtained["parent_article_type"],
-                    parent_lang=obtained["parent_lang"],
-                    item="subj-group",
-                    sub_item="subject",
-                    is_valid=is_valid,
-                    validation_type=validation_type,
-                    expected=expected or "subject value",
-                    obtained=obtained_subject,
-                    advice='Provide missing section for language: {}'.format(lang),
-                    data=obtained,
-                    error_level=error_level,
+                yield validator.validate_subj_group_type()
+                yield validator.validate_subsection()
+                yield validator.validate_section()
+                yield validator.validade_article_title_is_different_from_section_title()
+
+
+class SubjectValidation:
+
+    def __init__(self, data, params):
+        self.data = data
+        self.lang = data["parent_lang"]
+
+        self.params = {}
+        self.params.update(params)
+
+        # Set default values from params or use class defaults
+        self.expected_toc_sections = (
+            self.params.get("toc_sections")
+            or (self.params.get("journal_data") or {}).get("toc_sections")
+            or {}
+        )
+        self.subj_group_type_error_level = self.params.get(
+            "subj_group_type_error_level", "CRITICAL"
+        )
+        self.subsection_error_level = self.params.get(
+            "subsection_error_level", "CRITICAL"
+        )
+        self.value_error_level = self.params.get("value_error_level", "CRITICAL")
+        self.article_title_and_toc_section_are_similar_error_level = self.params.get(
+            "article_title_and_toc_section_are_similar_error_level", "ERROR"
+        )
+        self.params.setdefault("article_title_and_toc_section_max_similarity", 0.7)
+        self.params.setdefault("unexpected_subj_group_error_level", "CRITICAL")
+
+    def validate_unexpected_item(self):
+        subj_group_type = self.data.get("subj_group_type")
+        subject = self.data.get("subject") or ""
+        subsections = self.data.get("subsections")
+        section_title = self.data.get("section") or ""
+        article_title = self.data.get("article_title") or ""
+
+        valid = False
+        # Há seções excedentes (heading)
+        if subj_group_type:
+            advice = f'Remove <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
+        else:
+            advice = f'Remove <subject-group><subject>{subject}</subject></subject-group> because it is unexpected, only one subject-group is acceptable'
+        return build_response(
+            title="unexpected subject-group",
+            parent=self.data,
+            item="subj-group",
+            sub_item="@subj-group-type",
+            is_valid=valid,
+            validation_type="match",
+            expected=None,
+            obtained=self.data,
+            advice=advice,
+            data=self.data,
+            error_level=self.params["unexpected_subj_group_error_level"],
+        )
+
+    def validate_subj_group_type(self):
+        subj_group_type = self.data.get("subj_group_type")
+        subject = self.data.get("subject") or ""
+        subsections = self.data.get("subsections")
+        section_title = self.data.get("section") or ""
+        article_title = self.data.get("article_title") or ""
+
+        valid = subj_group_type == "heading"
+        if subj_group_type and subject:
+            advice = f'Replace <subject-group subj-group-type="{subj_group_type}"><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
+        elif subject:
+            advice = f'Replace <subject-group><subject>{subject}</subject></subject-group> by <subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>'
+        else:
+            advice = f'Mark table of contents section with  <subject-group subj-group-type="heading"><subject>table of contents section</subject></subject-group>'
+        return build_response(
+            title="table of contents section",
+            parent=self.data,
+            item="subj-group",
+            sub_item="@subj-group-type",
+            is_valid=valid,
+            validation_type="match",
+            expected="heading",
+            obtained=subj_group_type,
+            advice=advice,
+            data=self.data,
+            error_level=self.subj_group_type_error_level,
+        )
+
+    def validate_subsection(self):
+        subj_group_type = self.data.get("subj_group_type")
+        subject = self.data.get("subject") or ""
+        subsections = self.data.get("subsections")
+        section_title = self.data.get("section") or ""
+        article_title = self.data.get("article_title") or ""
+        subsection_text = " ".join(subsections or "")
+
+        # Há a recomendação de marcar a subseção junto com a seção 'seção: subseção'
+        # É desincentivado a usar subject-group/subject-group
+        valid = not subsections
+        advice = f'Write section and subsection in one subject: <subject-group subj-group-type="heading"><subject>{subject}: {subsection_text}</subject></subject-group>. Remove <subject-group><subject>{subsection_text}</subject></subject-group>'
+        return build_response(
+            title="table of contents section with subsection",
+            parent=self.data,
+            item="subj-group",
+            sub_item="@subj-group-type",
+            is_valid=valid,
+            validation_type="match",
+            expected=[],
+            obtained=subsections,
+            advice=advice,
+            data=self.data,
+            error_level=self.subsection_error_level,
+        )
+
+    def validate_section(self):
+        subj_group_type = self.data.get("subj_group_type")
+        subject = self.data.get("subject") or ""
+        subsections = self.data.get("subsections")
+        section_title = self.data.get("section") or ""
+        article_title = self.data.get("article_title") or ""
+        subsection_text = " ".join(subsections or "")
+        journal = self.data.get("journal") or ""
+
+        if subsection_text:
+            subject = f"{section_title}: {subsection_text}"
+
+        valid = False
+        expected = "table of contents section"
+        if subject:
+            validation_type = "value in list"
+            expected_toc_sections = self.expected_toc_sections.get(self.lang) or []
+            expected = expected_toc_sections or self.expected_toc_sections
+
+            if self.expected_toc_sections:
+                valid = (
+                    expected_toc_sections and subject in expected_toc_sections
                 )
-
-    def validade_article_title_is_different_from_section_titles(self, error_level="ERROR"):
-        """
-        Checks if the titles provided for article and sections are different from each other.
-
-        XML input
-        ---------
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML"
-            dtd-version="1.0" article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <title-group>
-                        <article-title>Health Sciences Studies</article-title>
-                    </title-group>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Health Sciences</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Public Health</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
-                </article-meta>
-            </front>
-            <sub-article article-type="translation" id="01" xml:lang="pt">
-                <front-stub>
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                            <subject>Ciências da Saúde</subject>
-                            <subj-group subj-group-type="sub-heading">
-                                <subject>Saúde Pública</subject>
-                            </subj-group>
-                        </subj-group>
-                    </article-categories>
-                    <title-group>
-                        <article-title>Estudos sobre Ciências da Saúde</article-title>
-                    </title-group>
-                </front-stub>
-            </sub-article>
-        </article>
-
-        Params
-        ------
-        level_error : str
-
-        Returns
-        -------
-        list of dict
-            A list of dictionaries, such as:
-            [
-                {
-                    'title': 'Article or sub-article section title validation',
-                    'parent': 'article',
-                    'parent_article_type': 'research-article',
-                    'parent_id': None,
-                    'parent_lang': 'en',
-                    'item': 'subj-group',
-                    'sub_item': 'subject',
-                    'validation_type': 'match',
-                    'response': 'OK',
-                    'expected_value': "'Health Sciences Studies' (article title) different from 'Health Sciences' ("
-                                      "section titles)",
-                    'got_value': "article title: 'Health Sciences Studies', section titles: 'Health Sciences'",
-                    'message': "Got article title: 'Health Sciences Studies', section titles: 'Health Sciences', "
-                               "expected 'Health Sciences Studies' (article title) different from 'Health Sciences' ("
-                               "section titles)",
-                    'advice': None,
-                    'data': {
-                        'en': {
-                            'parent': 'article',
-                            'parent_article_type': 'research-article',
-                            'parent_id': None,
-                            'parent_lang': 'en',
-                            'text': 'Health Sciences'
-                        },
-                        'pt': {
-                            'parent': 'sub-article',
-                            'parent_article_type': 'translation',
-                            'parent_id': '01',
-                            'parent_lang': 'pt',
-                            'text': 'Ciências da Saúde'
-                        }
-                    },
-                },...
-            ]
-        """
-        obtained_toc_sections = self.article_toc_sections.sections_dict
-        article_titles = self.article_titles.article_title_dict
-
-        for lang, sections in obtained_toc_sections.items():
-            for section in sections:
-                article_title = article_titles.get(lang).get("html_text")
-                section_title = section["section"].split(':')[0] if section["section"] else None
-                is_valid = article_title.upper() != section_title.upper()
-
-                yield format_response(
-                    title="Document title must not be similar to section title",
-                    parent=section["parent"],
-                    parent_id=section["parent_id"],
-                    parent_article_type=section["parent_article_type"],
-                    parent_lang=section["parent_lang"],
-                    item="subj-group",
-                    sub_item="subject",
-                    is_valid=is_valid,
-                    validation_type="match",
-                    expected='\'{}\' (article title) different from \'{}\' (section titles)'.format(article_title, section_title),
-                    obtained='article title: \'{}\', section titles: \'{}\''.format(article_title, section_title),
-                    advice="Provide different titles for article and section (subj-group[@subj-group-type='heading']/subject)",
-                    data=obtained_toc_sections,
-                    error_level=error_level,
+                expected_items = (
+                    expected_toc_sections or self.expected_toc_sections
                 )
+                advice = f"{subject} is not registered as a table of contents section. Valid values: {self.expected_toc_sections}"
+            else:
+                advice = f'Unable to check if {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because the journal ({journal}) sections were not informed'
+        else:
+            validation_type = "exist"
+            advice = 'Mark table of contents section with <subject-group subj-group-type="heading"><subject></subject></subject-group>'
 
-    def validate_article_section_and_subsection_number(self, error_level="CRITICAL"):
-        for lang, subject in self.article_toc_sections.sections_dict.items():
-            _subjects = [item["section"] for item in subject]
-            has_multiple_subjects = len(subject) > 1
-            has_subsections = len(subject[0].get("subsections", [])) > 0 if not has_multiple_subjects else False
+        return build_response(
+            title="table of contents section",
+            parent=self.data,
+            item="subj-group",
+            sub_item="subject",
+            is_valid=valid,
+            validation_type=validation_type,
+            expected=expected,
+            obtained=subject,
+            advice=advice,
+            data=self.data,
+            error_level=self.value_error_level,
+        )
 
-            if has_multiple_subjects:
-                yield format_response(
-                    title="Exceding subject-group/subject",
-                    parent=subject[0]["parent"],
-                    parent_id=subject[0]["parent_id"],
-                    parent_article_type=subject[0]["parent_article_type"],
-                    parent_lang=subject[0]["parent_lang"],
-                    item="subj-group",
-                    sub_item="subject",
-                    is_valid=False,
-                    validation_type="exist",
-                    expected="only one subject per language",
-                    obtained=" | ".join(_subjects),
-                    advice=f"One subject per language. Current subjects ({subject[0]['parent_lang']}): {_subjects}.",
-                    data=subject,
-                    error_level=error_level,
-                )
-            if has_subsections:
-                yield format_response(
-                    title="Unexpected XML structure: article-categories/subject-group/subject-group/subject",
-                    parent=subject[0]["parent"],
-                    parent_id=subject[0]["parent_id"],
-                    parent_article_type=subject[0]["parent_article_type"],
-                    parent_lang=subject[0]["parent_lang"],
-                    item="subj-group",
-                    sub_item="subsection",
-                    is_valid=False,
-                    validation_type="exist",
-                    expected="Subsections should follow the appropriate structure.",
-                    obtained=f"Found subsections in subject: {_subjects[0]}.",
-                    advice="Review the subsection structure under each subject.",
-                    data=subject,
-                    error_level=error_level,
-                )
+    def validade_article_title_is_different_from_section_title(self):
+        subj_group_type = self.data.get("subj_group_type")
+        subject = self.data.get("subject") or ""
+        subsections = self.data.get("subsections")
+        section_title = self.data.get("section") or ""
+        article_title = self.data.get("article_title") or ""
+        subsection_text = " ".join(subsections or "")
 
-    def validate(self, data):
-        """
-        Função que executa as validações da classe ArticleTocSectionsValidation.
+        score = how_similar(article_title, section_title)
+        valid = (
+            article_title and section_title and
+            score
+            < self.params["article_title_and_toc_section_max_similarity"]
+        )
+        data = {}
+        data["lang"] = self.lang
+        data["article-title"] = article_title
+        data["section_title"] = section_title
 
-        Returns:
-            dict: Um dicionário contendo os resultados das validações realizadas.
-        
-        """
-        toc_sections_results = {
-            'article_toc_sections_validation': 
-                self.validate_article_toc_sections(data['expected_toc_sections'])
-            }
-        title_results = {
-            'article_title_validation': self.validade_article_title_is_different_from_section_titles()
-            }
-        
-        toc_sections_results.update(title_results)
-        return toc_sections_results
+        msg = f"The article title ({article_title}) must represent its contents and must be different from the section title ({section_title}) to get a better ranking in search results"
+        return build_response(
+            title="document title must be meaningful",
+            parent=self.data,
+            item="subj-group",
+            sub_item="subject",
+            is_valid=valid,
+            validation_type="match",
+            expected=msg,
+            obtained=article_title,
+            advice=msg,
+            data=data,
+            error_level=self.article_title_and_toc_section_are_similar_error_level,
+        )
