@@ -54,9 +54,9 @@ class CustomMetaPeerReviewValidation:
             sub_item="meta-value",
             validation_type="exist",
             is_valid=is_valid,
-            expected="meta-value",
+            expected="peer review recommendation",
             obtained=meta_value,
-            advice=f"Mark peer review recommendation with <custom-meta><meta-value>.",
+            advice="Mark peer review recommendation value with <custom-meta><meta-value>.",
             data=self.custom_meta,
             error_level=self.params.get("meta_value_error_level"),
             element_name="custom-meta",
@@ -159,7 +159,7 @@ class PeerReviewValidation:
         is_valid = article_type in self.params["article_type_list"]
 
         yield build_response(
-            title="Article Type",
+            title="article type",
             parent=self.peer_review.attribs_parent_prefixed,
             item="article",
             sub_item="article-type",
@@ -187,7 +187,9 @@ class PeerReviewValidation:
         # esta validação está propositalmente redundante
         # isso terá sido validado ao validar contrib genericamente
         for item in self.params["required_events"]:
-            is_valid = bool(self.peer_review.history_dates.get(item))
+            obtained = self.peer_review.history_dates.get(item)
+            is_valid = bool(obtained)
+
             yield build_response(
                 title="Required history date",
                 parent=self.peer_review.attribs_parent_prefixed,
@@ -196,13 +198,13 @@ class PeerReviewValidation:
                 validation_type="exist",
                 is_valid=is_valid,
                 expected=item,
-                obtained=list(self.peer_review.history_dates.keys()),
-                advice=f"Add date-type in <history><date date-type='VALUE'> and replace VALUE with : {item}",
+                obtained=obtained,
+                advice=f'Add date-type in <history><date date-type="VALUE"> and replace VALUE with : {item}',
                 data=self.peer_review.history_dates,
                 error_level=self.params["missing_events_error_level"],
                 element_name="history",
                 sub_element_name="date",
-                attribute_name=item
+                attribute_name="date-type"
             )
 
     def validate_related_articles(self):
