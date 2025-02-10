@@ -49,16 +49,16 @@ class AbstractValidationBase:
         Returns:
             dict: Formatted validation response if the title is missing.
         """
-        if not self.abstract.get("title"):
-            return self._format_response(
-                title="title",
-                sub_item="title",
-                validation_type="exist",
-                is_valid=False,
-                expected="title",
-                advice="Provide title",
-                error_level=error_level,
-            )
+        title = self.abstract.get("title")
+        return self._format_response(
+            title="title",
+            sub_item="title",
+            validation_type="exist",
+            is_valid=bool(title),
+            expected="title",
+            advice="mark abstract title with <abstract><title>",
+            error_level=error_level,
+        )
 
     def _format_response(
         self,
@@ -195,7 +195,7 @@ class HighlightValidation(AbstractValidationBase):
                 validation_type="exist",
                 is_valid=False,
                 obtained=self.abstract.get("list"),
-                advice="Remove <list> and add <p>",
+                advice='Remove <list> from <abstract abstract-type="key-points"> and replace with <p>',
                 error_level=error_level,
             )
 
@@ -217,7 +217,7 @@ class HighlightValidation(AbstractValidationBase):
                 is_valid=False,
                 expected="p",
                 obtained=self.abstract.get("highlights"),
-                advice="Provide more than one p",
+                advice='<abstract abstract-type="key-points"> require multiple <p> tags, add more or adjust the format.',
                 error_level=error_level,
             )
 
@@ -275,16 +275,16 @@ class VisualAbstractValidation(AbstractValidationBase):
         Returns:
             dict: Formatted validation response if the <graphic> tag is missing.
         """
-        if not self.abstract.get("graphic"):
-            return self._format_response(
-                title="graphic",
-                sub_item="graphic",
-                validation_type="exist",
-                is_valid=False,
-                expected="graphic",
-                advice="Provide graphic",
-                error_level=error_level,
-            )
+        graphic = self.abstract.get("graphic")
+        return self._format_response(
+            title="graphic",
+            sub_item="graphic",
+            validation_type="exist",
+            is_valid=bool(graphic),
+            expected="graphic",
+            advice='mark visual abstract with <abstract abstract-type="graphical"><p><fig><graphic xlink:href=VALUE /> and replace VALUE with figure path',
+            error_level=error_level,
+        )
 
 
 class VisualAbstractsValidation(AbstractsValidationBase):
@@ -365,20 +365,20 @@ class ArticleAbstractsValidation:
             dict: Formatted validation responses for each abstract with unexpected type.
         """
         for abstract in self.abstracts:
-            if abstract.get("abstract_type") not in (expected_abstract_type_list or []):
-                yield format_response(
-                    title="@abstract-type",
-                    parent=abstract.get("parent"),
-                    parent_id=abstract.get("parent_id"),
-                    parent_article_type=abstract.get("parent_article_type"),
-                    parent_lang=abstract.get("parent_lang"),
-                    item="abstract",
-                    sub_item="@abstract-type",
-                    validation_type="value in list",
-                    is_valid=False,
-                    expected=expected_abstract_type_list,
-                    obtained=abstract.get("abstract_type"),
-                    advice=f"Use one of {expected_abstract_type_list} as abstract-type",
-                    data=abstract,
-                    error_level=error_level,
-                )
+            is_valid = abstract.get("abstract_type") not in (expected_abstract_type_list or [])
+            yield format_response(
+                title="@abstract-type",
+                parent=abstract.get("parent"),
+                parent_id=abstract.get("parent_id"),
+                parent_article_type=abstract.get("parent_article_type"),
+                parent_lang=abstract.get("parent_lang"),
+                item="abstract",
+                sub_item="@abstract-type",
+                validation_type="value in list",
+                is_valid=is_valid,
+                expected=expected_abstract_type_list,
+                obtained=abstract.get("abstract_type"),
+                advice=f"add <abstract abstract-type=VALUE> and replace VALUE with one of {expected_abstract_type_list}",
+                data=abstract,
+                error_level=error_level,
+            )
