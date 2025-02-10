@@ -1,4 +1,5 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_text_without_fn_xref
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.utils.xml_utils import node_text_without_fn_xref
 
 
 class ArticleTocSections:
@@ -8,33 +9,55 @@ class ArticleTocSections:
 
     @property
     def sections(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
-            for item in node.xpath(".//subj-group"):
-                _section = self.get_data(item.find("./subject"))
-                subsections = []
-                for subsection in item.xpath("./subj-group//subject"):
-                    subsections.append(node_text_without_fn_xref(subsection) or None)
-                _section["subsections"] = subsections
-                yield put_parent_context(_section, lang, article_type, parent, parent_id)
+        for node in self.xmltree.xpath(
+            ". | ./sub-article[@article-type='translation']"
+        ):
+            fulltext = Fulltext(node)
+            parent_data = fulltext.attribs_parent_prefixed
+            journal = None
+            try:
+                subj_groups = fulltext.front.xpath(".//subj-group")
+                journal = fulltext.front.findtext(".//journal-title")
+            except AttributeError:
+                yield parent_data
+            else:
+                parent_data["article_title"] = node_text_without_fn_xref(fulltext.front.find(".//article-title"))
+                for subj_group in subj_groups:
+                    _section = {}
+                    _section.update(parent_data)
+                    _section.update(
+                        self.get_data(
+                            subj_group.find("./subject"), subj_group.get("subj-group-type")
+                        )
+                    )
+                    subsections = []
+                    for subsection in subj_group.xpath("./subj-group//subject"):
+                        subsections.append(node_text_without_fn_xref(subsection) or None)
+                    _section["subsections"] = subsections
+                    _section["journal"] = journal
+                    yield _section
 
     @property
     def sections_dict(self):
+        return self.sections_by_lang
+
+    @property
+    def sections_by_lang(self):
         response = {}
         for item in self.sections:
             response.setdefault(item["parent_lang"], [])
             response[item["parent_lang"]].append(item)
         return response
 
-    def get_data(self, subject_node):
+    def get_data(self, subject_node, subject_group_type):
         subject = node_text_without_fn_xref(subject_node) or ""
-        subject_parts = subject.split(':')
+        subject_parts = subject.split(":")
         section = subject_parts[0]
         data = {
             "subject": subject,
-            "subj_group_type": item.get("subj-group-type"),
+            "subj_group_type": subject_group_type,
             "section": section,
         }
         if len(subject_parts) == 2:
             data["subsec"] = subject_parts[-1]
         return data
-

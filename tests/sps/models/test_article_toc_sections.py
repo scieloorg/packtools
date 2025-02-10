@@ -44,20 +44,28 @@ class ArticleTocSectionsTest(TestCase):
             {
                 'parent': 'article',
                 'parent_article_type': 'research-article',
+                'original_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'subject': 'Health Sciences',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
+                'original_article_type': 'research-article',
                 'parent_id': '01',
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'subject': 'Ciências da Saúde',
+                'article_title': 'Article title',
+                'journal': None,
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -109,7 +117,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': None,
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': 'Health Sciences',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
@@ -118,7 +130,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': None,
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': 'Ciências da Saúde',
+                'article_title': 'Article title',
+                'journal': None,
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -173,7 +189,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences',
                     'subj_group_type': 'heading',
-                    'subsections': []
+                    'subsections': [],
+                    'original_article_type': 'research-article',
+                    'subject': 'Health Sciences',
+                    'article_title': 'Título del artículo',
+                    'journal': None,
                 }
             ],
             'pt': [
@@ -184,7 +204,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': []
+                    'subsections': [],
+                    'original_article_type': 'research-article',
+                    'subject': 'Ciências da Saúde',
+                    'article_title': 'Article title',
+                    'journal': None,
                 }
             ]
         }
@@ -232,18 +256,26 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
-                'section': None,
+                'section': '',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': '',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
                 'parent_lang': 'pt',
-                'section': None,
+                'section': '',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': '',
+                'article_title': 'Article title',
+                'journal': None,
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -293,18 +325,26 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_article_type': 'research-article',
                 'parent_id': None,
                 'parent_lang': 'en',
-                'section': None,
+                'section': '',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': '',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
                 'parent_article_type': 'translation',
                 'parent_id': '01',
                 'parent_lang': 'pt',
-                'section': None,
+                'section': '',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': '',
+                'article_title': 'Article title',
+                'journal': None,
             }
         ]
 
@@ -314,7 +354,7 @@ class ArticleTocSectionsTest(TestCase):
 
         for i, item in enumerate(expected):
             with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+                self.assertDictEqual(item, obtained[i])
 
     def test_article_section_with_subsection(self):
         self.maxDiff = None
@@ -363,7 +403,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences',
                 'subj_group_type': 'heading',
-                'subsections': ['Health Sciences Subsection']
+                'subsections': ['Health Sciences Subsection'],
+                'original_article_type': 'research-article',
+                'subject': 'Health Sciences',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'article',
@@ -372,7 +416,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'en',
                 'section': 'Health Sciences Subsection',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': 'Health Sciences Subsection',
+                'article_title': 'Título del artículo',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
@@ -381,7 +429,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': ['Subseção Ciências da Saúde']
+                'subsections': ['Subseção Ciências da Saúde'],
+                'original_article_type': 'research-article',
+                'subject': 'Ciências da Saúde',
+                'article_title': 'Article title',
+                'journal': None,
             },
             {
                 'parent': 'sub-article',
@@ -390,7 +442,11 @@ class ArticleTocSectionsTest(TestCase):
                 'parent_lang': 'pt',
                 'section': 'Subseção Ciências da Saúde',
                 'subj_group_type': 'heading',
-                'subsections': []
+                'subsections': [],
+                'original_article_type': 'research-article',
+                'subject': 'Subseção Ciências da Saúde',
+                'article_title': 'Article title',
+                'journal': None,
             }
         ]
         obtained = list(self.article_toc_sections.sections)
@@ -449,7 +505,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences',
                     'subj_group_type': 'heading',
-                    'subsections': ['Health Sciences Subsection']
+                    'subsections': ['Health Sciences Subsection'],
+                    'original_article_type': 'research-article',
+                    'subject': 'Health Sciences',
+                    'article_title': 'Título del artículo',
+                    'journal': None,
                 },
                 {
                     'parent': 'article',
@@ -458,7 +518,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'en',
                     'section': 'Health Sciences Subsection',
                     'subj_group_type': 'heading',
-                    'subsections': []
+                    'subsections': [],
+                    'original_article_type': 'research-article',
+                    'subject': 'Health Sciences Subsection',
+                    'article_title': 'Título del artículo',
+                    'journal': None,
                 }
             ],
             "pt": [
@@ -469,7 +533,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': ['Subseção Ciências da Saúde']
+                    'subsections': ['Subseção Ciências da Saúde'],
+                    'original_article_type': 'research-article',
+                    'subject': 'Ciências da Saúde',
+                    'article_title': 'Article title',
+                    'journal': None,
                 },
                 {
                     'parent': 'sub-article',
@@ -478,7 +546,11 @@ class ArticleTocSectionsTest(TestCase):
                     'parent_lang': 'pt',
                     'section': 'Subseção Ciências da Saúde',
                     'subj_group_type': 'heading',
-                    'subsections': []
+                    'subsections': [],
+                    'original_article_type': 'research-article',
+                    'subject': 'Subseção Ciências da Saúde',
+                    'article_title': 'Article title',
+                    'journal': None,
                 }
             ]
         }
