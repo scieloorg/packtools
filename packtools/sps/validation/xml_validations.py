@@ -17,7 +17,7 @@ from packtools.sps.validation.article_data_availability import (
 )
 from packtools.sps.validation.article_doi import ArticleDoiValidation
 from packtools.sps.validation.article_license import ArticleLicenseValidation
-from packtools.sps.validation.article_toc_sections import ArticleTocSectionsValidation
+from packtools.sps.validation.article_toc_sections import XMLTocSectionsValidation
 from packtools.sps.validation.article_xref import ArticleXrefValidation
 from packtools.sps.validation.author_notes import XMLAuthorNotesValidation
 from packtools.sps.validation.dates import FulltextDatesValidation
@@ -187,25 +187,12 @@ def validate_open_science_actions(xmltree, params):
 
 
 def validate_article_toc_sections(xmltree, params):
-    article_toc_section_rules = params["article_toc_section_rules"]
+    params = {}
+    params["journal_data"] = params.get("journal_data")
+    params.update(params["article_toc_section_rules"])
 
-    validator = ArticleTocSectionsValidation(xmltree)
-
-    try:
-        yield from validator.validate_article_toc_sections(
-            expected_toc_sections=params["journal_data"]["subjects_list"],
-            error_level=article_toc_section_rules["error_level"],
-        )
-    except (TypeError, KeyError):
-        pass
-
-    yield from validator.validade_article_title_is_different_from_section_titles(
-        error_level=article_toc_section_rules["similar_to_article_title_error_level"]
-    )
-
-    yield from validator.validate_article_section_and_subsection_number(
-        error_level=article_toc_section_rules["unexpected_subsection_error_level"]
-    )
+    validator = XMLTocSectionsValidation(xmltree, params)
+    yield from validator.validate()
 
 
 def validate_id_and_rid_match(xmltree, params):
