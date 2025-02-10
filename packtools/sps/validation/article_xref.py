@@ -60,7 +60,9 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=rid,
                     obtained=rid if is_valid else None,
-                    advice=f'Check if xref[@rid="{rid}"] is correct or insert the missing {element_name}[@id="{rid}"]',
+                    advice=f'mark the information correctly in: <xref rid="{rid}" />. '
+                           f'No matching <{element_name} id="{rid}" /> found. '
+                           f'Fix <xref rid="{rid}" /> or insert <{element_name} id="{rid}" />.',
                     data=xref,
                     error_level=error_level,
                 )
@@ -123,7 +125,9 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=id,
                     obtained=id if is_valid else None,
-                    advice=f'Check if {tag}[@id="{id}"] is correct or insert the missing xref[@rid="{id}"]',
+                    advice=f'Mark the information correctly in: <{tag} id="{id}" />. '
+                           f'No matching <xref rid="{id}" /> found. '
+                           f'Fix <{tag} id="{id}" /> or insert <xref rid="{id}" />.',
                     data=id_data,
                     error_level=error_level,
                 )
