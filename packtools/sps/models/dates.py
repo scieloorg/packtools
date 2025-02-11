@@ -61,10 +61,15 @@ class Date:
         _date["type"] = self.type
         _date["display"] = self.display
         _date["is_complete"] = bool(self.date)
+        _date["parts"] = self.parts
         return _date
 
     def __str__(self):
         return self.display or str({"year": self.year, "month": self.month, "day": self.day})
+
+    @property
+    def parts(self):
+        return {"year": self.year, "season": self.season, "month": self.month, "day": self.day}
     
     @property
     def display(self):
