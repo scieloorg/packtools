@@ -158,7 +158,7 @@ class AffiliationValidation:
             is_valid=bool(original),
             expected="original affiliation",
             obtained=original,
-            advice='mark complete institutional affiliation with <aff><institution content-type="original">',
+            advice='Mark the complete original affiliation text with <aff><institution content-type="original">',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -176,7 +176,7 @@ class AffiliationValidation:
             is_valid=bool(orgname),
             expected="orgname",
             obtained=orgname,
-            advice='mark institutional affiliation name with <aff><institution content-type="orgname">',
+            advice='Mark the main institution with <aff><institution content-type="orgname">',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -194,7 +194,7 @@ class AffiliationValidation:
             is_valid=bool(orgdiv1),
             expected="orgdiv1 affiliation",
             obtained=orgdiv1,
-            advice='mark primary institutional affiliation division with <aff><institution content-type="orgdiv1">',
+            advice='Mark the first hierarchical subdivision with <aff><institution content-type="orgdiv1">',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -212,7 +212,7 @@ class AffiliationValidation:
             is_valid=bool(orgdiv2),
             expected="orgdiv2 affiliation",
             obtained=orgdiv2,
-            advice='mark secondary institutional affiliation division with <aff><institution content-type="orgdiv2">',
+            advice='Mark the second hierarchical subdivision with <aff><institution content-type="orgdiv2">',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -270,7 +270,7 @@ class AffiliationValidation:
                 country_code if is_valid else f"one of {country_codes_list}"
             ),
             obtained=country_code,
-            advice=f"add @country in <aff><country country=VALUE> and replace VALUE with one of {country_codes_list}",
+            advice=f'Complete country="" in <aff><country country=""> with a valid value: {country_codes_list}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -288,7 +288,7 @@ class AffiliationValidation:
             is_valid=bool(state),
             expected="state",
             obtained=state,
-            advice='mark affiliation state with <aff><addr-line><named-content content-type="state">',
+            advice='Mark affiliation state with <aff><addr-line><state>',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -306,7 +306,7 @@ class AffiliationValidation:
             is_valid=bool(city),
             expected="city",
             obtained=city,
-            advice='mark affiliation city with <aff><addr-line><named-content content-type="city">',
+            advice='mark affiliation city with <aff><addr-line><city>',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -324,7 +324,7 @@ class AffiliationValidation:
             is_valid=bool(aff_id),
             expected="affiliation ID",
             obtained=aff_id,
-            advice="add @id in <aff id=VALUE> and replace VALUE with affiliation identifier",
+            advice='Complete id="" in <aff id=""> with affiliation identifier. Consult the documentation of SPS of the current version',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -401,9 +401,9 @@ class AffiliationValidation:
             got = result["got"]
             items = result["items"]
             if self.affiliation.get("id"):
-                advice = f"Low similarity detected. Review and adjust affiliation ({self.affiliation.get('id')}) to better match the main text."
+                advice = f"The affiliation {self.affiliation.get("id")} is inconsistent with {main_aff}. Check if {self.affiliation.get("id")} is translation of {main_aff}"
             else:
-                advice = f"Low similarity detected. Review and adjust affiliation ({self.affiliation}) to better match the main text."
+                advice = f"The affiliation {self.affiliation} is inconsistent with {main_aff}. Check if {self.affiliation} is translation of {main_aff}"
             yield build_response(
                 title=f"low similarity",
                 parent=self.affiliation,
