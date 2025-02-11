@@ -195,7 +195,7 @@ class HighlightValidation(AbstractValidationBase):
                 validation_type="exist",
                 is_valid=False,
                 obtained=self.abstract.get("list"),
-                advice='Remove <list> from <abstract abstract-type="key-points"> and replace with <p>',
+                advice='Replace <list> from <abstract abstract-type="key-points"> by <p>' ,
                 error_level=error_level,
             )
 
@@ -217,7 +217,7 @@ class HighlightValidation(AbstractValidationBase):
                 is_valid=False,
                 expected="p",
                 obtained=self.abstract.get("highlights"),
-                advice='<abstract abstract-type="key-points"> require multiple <p> tags, add more or adjust the format.',
+                advice='Mark each key-point with <p> in <abstract abstract-type="key-points">',
                 error_level=error_level,
             )
 
@@ -282,7 +282,7 @@ class VisualAbstractValidation(AbstractValidationBase):
             validation_type="exist",
             is_valid=bool(graphic),
             expected="graphic",
-            advice='mark visual abstract with <abstract abstract-type="graphical"><p><fig><graphic xlink:href=VALUE /> and replace VALUE with figure path',
+            advice='Mark visual abstract with <abstract abstract-type="graphical"><p><fig><graphic xlink:href="VALUE"/> and replace VALUE with graphic path',
             error_level=error_level,
         )
 
@@ -365,7 +365,10 @@ class ArticleAbstractsValidation:
             dict: Formatted validation responses for each abstract with unexpected type.
         """
         for abstract in self.abstracts:
-            is_valid = abstract.get("abstract_type") not in (expected_abstract_type_list or [])
+            advice = None
+            if abstract_type := abstract.get("abstract_type"):
+                advice = f'Replace {abstract_type} in <abstract abstract-type="{abstract_type}"> by a valid value: {expected_abstract_type_list}'
+            is_valid = abstract_type not in (expected_abstract_type_list or [])
             yield format_response(
                 title="@abstract-type",
                 parent=abstract.get("parent"),
@@ -377,8 +380,8 @@ class ArticleAbstractsValidation:
                 validation_type="value in list",
                 is_valid=is_valid,
                 expected=expected_abstract_type_list,
-                obtained=abstract.get("abstract_type"),
-                advice=f"add <abstract abstract-type=VALUE> and replace VALUE with one of {expected_abstract_type_list}",
+                obtained=abstract_type,
+                advice=advice,
                 data=abstract,
                 error_level=error_level,
             )
