@@ -18,7 +18,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 is_valid=False,
                 expected="bio",
                 obtained=self.fn_data.get("fn_type"),
-                advice=f"Use '<bio>' instead of @fn-type='current-aff'",
+                advice='<fn fn-type="current-aff"> is deprecated. Use <fn fn-type="bio"> instead.',
                 data=self.fn_data,
                 error_level=self.rules["current-aff_error_level"],
             )
@@ -34,7 +34,9 @@ class AuthorNotesFnValidation(BaseFnValidation):
                 is_valid=False,
                 expected="role",
                 obtained=self.fn_data.get("fn_type"),
-                advice=f"Use '<role>' instead of @fn-type='con'",
+                advice='<fn fn-type="con"> is deprecated. '
+                       'Use <role content-type="http://credit.niso.org/contributor-roles/CONTRIBUTION/"> '
+                       'inside <contrib> instead. Replace CONTRIBUTION with the author\'s contribution type.',
                 data=self.fn_data,
                 error_level=self.rules["con_error_level"],
             )
@@ -145,55 +147,58 @@ class CorrespValidation:
         """
         Validate the presence of the 'label' in the corresp.
         """
-        if not self.corresp_data.get("corresp_label"):
-            return build_response(
-                title="label",
-                parent=self.corresp_data,
-                item="corresp",
-                sub_item="label",
-                validation_type="exist",
-                is_valid=False,
-                expected="corresp/label",
-                obtained=None,
-                advice=f"Check if corresp label is present and identify it with label element",
-                data=self.corresp_data,
-                error_level=self.rules["corresp_label_error_level"],
-            )
+        corresp_label = self.corresp_data.get("corresp_label")
+        is_valid = bool(corresp_label)
+        return build_response(
+            title="label",
+            parent=self.corresp_data,
+            item="corresp",
+            sub_item="label",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="corresp/label",
+            obtained="corresp/label" if is_valid else None,
+            advice=f"Mark corresp label with <corresp><label>",
+            data=self.corresp_data,
+            error_level=self.rules["corresp_label_error_level"],
+        )
 
     def validate_title(self):
         """
         Validate the presence of 'title' when 'label' is expected.
         """
-        if self.corresp_data.get("corresp_title"):
-            return build_response(
-                title="unexpected title element",
-                parent=self.corresp_data,
-                item="corresp",
-                sub_item="unexpected title",
-                validation_type="unexpected",
-                is_valid=False,
-                expected="corresp/label",
-                obtained="corresp/title",
-                advice=f"Replace corresp/title by corresp/label",
-                data=self.corresp_data,
-                error_level=self.rules["corresp_title_error_level"],
-            )
+        corresp_title = self.corresp_data.get("corresp_title")
+        is_valid = not bool(corresp_title)
+        return build_response(
+            title="unexpected title element",
+            parent=self.corresp_data,
+            item="corresp",
+            sub_item="unexpected title",
+            validation_type="unexpected",
+            is_valid=is_valid,
+            expected="corresp/label" if not is_valid else None,
+            obtained="corresp/title" if not is_valid else None,
+            advice=f"Replace <corresp><title> with <corresp><label>",
+            data=self.corresp_data,
+            error_level=self.rules["corresp_title_error_level"],
+        )
 
     def validate_bold(self):
         """
         Validate the presence of 'bold' when 'label' is expected.
         """
-        if self.corresp_data.get("corresp_bold"):
-            return build_response(
-                title="unexpected bold element",
-                parent=self.corresp_data,
-                item="corresp",
-                sub_item="unexpected bold",
-                validation_type="unexpected",
-                is_valid=False,
-                expected="corresp/label",
-                obtained="corresp/bold",
-                advice=f"Replace corresp/bold by corresp/label",
-                data=self.corresp_data,
-                error_level=self.rules["corresp_bold_error_level"],
-            )
+        corresp_bold = self.corresp_data.get("corresp_bold")
+        is_valid = not bool(corresp_bold)
+        return build_response(
+            title="unexpected bold element",
+            parent=self.corresp_data,
+            item="corresp",
+            sub_item="unexpected bold",
+            validation_type="unexpected",
+            is_valid=is_valid,
+            expected="corresp/label" if not is_valid else None,
+            obtained="corresp/bold" if not is_valid else None,
+            advice=f"Replace <corresp><bold> with <corresp><label>",
+            data=self.corresp_data,
+            error_level=self.rules["corresp_bold_error_level"],
+        )
