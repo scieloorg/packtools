@@ -72,7 +72,27 @@ class TestDateFormatValidation(TestCase):
         # Test valid year format
         validator = DateValidation(self.base_date_data, self.base_params)
         result = list(validator.validate_year_format())
-        self.assertEqual(result, [])
+        self.assertEqual(
+            result,
+            [
+                {
+                    "advice": None,
+                    "data": {"day": "15", "month": "01", "type": "pub", "year": "2024"},
+                    "expected_value": "4-digits year",
+                    "got_value": "2024",
+                    "item": "article",
+                    "message": "Got 2024, expected 4-digits year",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": "1234",
+                    "parent_lang": None,
+                    "response": "OK",
+                    "sub_item": "pub",
+                    "title": "year format",
+                    "validation_type": "format",
+                }
+            ],
+        )
 
         # Test invalid year format
         invalid_year = self.base_date_data.copy()
@@ -87,7 +107,27 @@ class TestDateFormatValidation(TestCase):
         # Test valid month format
         validator = DateValidation(self.base_date_data, self.base_params)
         result = list(validator.validate_month_format())
-        self.assertEqual(result, [])
+        self.assertEqual(
+            result,
+            [
+                {
+                    "advice": None,
+                    "data": {"day": "15", "month": "01", "type": "pub", "year": "2024"},
+                    "expected_value": "2-digits month",
+                    "got_value": "01",
+                    "item": "article",
+                    "message": "Got 01, expected 2-digits month",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": "1234",
+                    "parent_lang": None,
+                    "response": "OK",
+                    "sub_item": "pub",
+                    "title": "month format",
+                    "validation_type": "format",
+                }
+            ],
+        )
 
         # Test invalid month format
         invalid_month = self.base_date_data.copy()
@@ -102,7 +142,27 @@ class TestDateFormatValidation(TestCase):
         # Test valid day format
         validator = DateValidation(self.base_date_data, self.base_params)
         result = list(validator.validate_day_format())
-        self.assertEqual(result, [])
+        self.assertEqual(
+            result,
+            [
+                {
+                    "advice": None,
+                    "data": {"day": "15", "month": "01", "type": "pub", "year": "2024"},
+                    "expected_value": "2-digits day",
+                    "got_value": "15",
+                    "item": "article",
+                    "message": "Got 15, expected 2-digits day",
+                    "parent": "article",
+                    "parent_article_type": None,
+                    "parent_id": "1234",
+                    "parent_lang": None,
+                    "response": "OK",
+                    "sub_item": "pub",
+                    "title": "day format",
+                    "validation_type": "format",
+                }
+            ],
+        )
 
         # Test invalid day format
         invalid_day = self.base_date_data.copy()
@@ -134,7 +194,11 @@ class TestDateValidation(TestCase):
     def test_valid_date(self):
         validator = DateValidation(self.base_date_data, self.base_params)
         results = list(validator.validate_date())
-        self.assertEqual(len(results), 0)  # No validation errors
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["OK", "OK", "OK"], responses)
+        self.assertEqual([None, None, None], advices)
+        self.assertEqual(len(results), 3)  # No validation errors
 
     def test_invalid_date_components(self):
         # Test invalid month
@@ -142,15 +206,29 @@ class TestDateValidation(TestCase):
         invalid_date["month"] = "13"
         validator = DateValidation(invalid_date, self.base_params)
         results = list(validator.validate_date())
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["ERROR"], responses)
+        self.assertEqual(
+            ['<date date-type="pub"> (None) is invalid: month must be in 1..12'],
+            advices,
+        )
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "ERROR")
 
         # Test invalid year
         invalid_date["year"] = "abc"
         validator = DateValidation(invalid_date, self.base_params)
         results = list(validator.validate_date())
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["ERROR"], responses)
+        self.assertEqual(
+            [
+                "<date date-type=\"pub\"> (None) is invalid: invalid literal for int() with base 10: 'abc'"
+            ],
+            advices,
+        )
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "ERROR")
 
 
 class TestCompleteDateValidation(TestCase):
@@ -179,7 +257,11 @@ class TestCompleteDateValidation(TestCase):
         """Test valid complete date within limit."""
         validator = DateValidation(self.base_date_data, self.base_params)
         results = list(validator.validate_complete_date())
-        self.assertEqual(len(results), 0)  # No validation errors
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["OK"], responses)
+        self.assertEqual([None], advices)
+        self.assertEqual(len(results), 1)  # No validation errors
 
     def test_incomplete_date(self):
         """Test date marked as incomplete."""
@@ -187,12 +269,13 @@ class TestCompleteDateValidation(TestCase):
         incomplete_date["is_complete"] = False
         validator = DateValidation(incomplete_date, self.base_params)
         result = list(validator.validate_complete_date())
-        self.assertIsInstance(
-            result[0], dict
-        )  # Should return a single response dict
+        self.assertIsInstance(result[0], dict)  # Should return a single response dict
         self.assertEqual(result[0]["response"], "ERROR")
         self.assertEqual(result[0]["validation_type"], "format")
-        self.assertEqual(result[0]["expected_value"], "complete date")
+        self.assertEqual(
+            result[0]["expected_value"],
+            "a date with year, month (2-digits) and day (2-digits)",
+        )
 
 
 class TestPrePubDateValidation(TestCase):
@@ -220,7 +303,11 @@ class TestPrePubDateValidation(TestCase):
         """Test valid pre-publication date."""
         validator = DateValidation(self.base_date_data, self.base_params)
         results = list(validator.validate_complete_date())
-        self.assertEqual(len(results), 0)
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["OK"], responses)
+        self.assertEqual([None], advices)
+        self.assertEqual(len(results), 1)
 
     def test_future_pre_pub_date(self):
         """Test pre-publication date after limit."""
@@ -228,9 +315,17 @@ class TestPrePubDateValidation(TestCase):
         future_date["display"] = "2025-01-01"
         validator = DateValidation(future_date, self.base_params)
         results = list(validator.validate_complete_date())
+        responses = [item["response"] for item in results]
+        advices = [item["advice"] for item in results]
+        self.assertEqual(["ERROR"], responses)
+        self.assertEqual(
+            [
+                '<date date-type="received"> (2025-01-01) must be previous to limit date (2024-12-31)'
+            ],
+            advices,
+        )
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "ERROR")
-        self.assertIn("<=", results[0]["advice"])
 
 
 class TestFulltextDatesValidation(TestCase):
@@ -326,18 +421,27 @@ class TestFulltextDatesValidation(TestCase):
         """Test validation of the main article dates"""
         validator = FulltextDatesValidation(self.tree, self.default_params)
         validation_results = list(validator.validate())
-
-        # Check that validation was performed
-        self.assertGreater(len(validation_results), 0)
-
-        # Verify article date validation
-        article_date_results = [
-            r for r in validation_results if r.get("sub_item") == "pub"
+        responses = [item["response"] for item in validation_results]
+        advices = [
+            item["advice"]
+            for item in validation_results
+            if item["response"] == "CRITICAL"
         ]
-        # Se não houver resposta com "CRITICAL", significa que a validação passou
-        self.assertFalse(
-            any(r.get("response") == "CRITICAL" for r in article_date_results)
+        self.assertEqual(4, responses.count("CRITICAL"))
+        self.assertEqual(
+            [
+                "History dates found: ['received']. Add missing dates: ['accepted']",
+                "History dates found: []. Add missing dates: ['received', 'accepted']",
+                "History dates (['received', 'rev-request', 'rev-recd', 'accepted']) must be "
+                "in chronological order: ['received', 'revised', 'accepted', 'pub', "
+                "'corrected', 'retracted']",
+                "History dates found: ['received', 'rev-request', 'rev-recd', 'accepted']. "
+                "Exclude unexpected dates: ['rev-recd', 'rev-request']",
+            ],
+            advices,
         )
+        # Check that validation was performed
+        self.assertEqual(len(validation_results), 52)
 
     def test_validate_date_formats(self):
         """Test validation of date formats"""
@@ -359,7 +463,23 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(invalid_tree, self.default_params)
         validation_results = list(validator.validate())
-
+        responses = [item["response"] for item in validation_results]
+        advices = [
+            item["advice"] for item in validation_results if item["response"] != "OK"
+        ]
+        self.assertEqual(
+            ["CRITICAL", "OK", "CRITICAL", "CRITICAL", "OK", "OK", "OK", "CRITICAL"],
+            responses,
+        )
+        self.assertEqual(
+            [
+                'Complete <pub-date date-type="pub"><year> with 4-digits',
+                'Complete <pub-date date-type="pub"><month> with 2-digits',
+                'Complete <pub-date date-type="pub"><day> with 2-digits',
+                "History dates found: []. Add missing dates: ['received', 'accepted']",
+            ],
+            advices,
+        )
         expected = [
             "Provide 4-digits year",
             "Provide 2-digits month",
@@ -369,7 +489,8 @@ class TestFulltextDatesValidation(TestCase):
         ]
 
         # Deve haver resposta com "CRITICAL" devido aos formatos inválidos
-        self.assertEqual(5, len(validation_results))
+
+        self.assertEqual(8, len(validation_results))
 
     def test_validate_future_dates(self):
         """Test validation of future dates"""
@@ -391,15 +512,23 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(future_tree, self.default_params)
         validation_results = list(validator.validate())
+        responses = [item["response"] for item in validation_results]
+        advices = [
+            item["advice"] for item in validation_results if item["response"] != "OK"
+        ]
+        self.assertEqual(1, responses.count("CRITICAL"))
+        self.assertEqual(8, len(validation_results))
+        self.assertEqual(
+            ["History dates found: []. Add missing dates: ['received', 'accepted']"],
+            advices,
+        )
 
         # Check future date validation
         value_results = [
             r for r in validation_results if r.get("validation_type") == "value"
         ]
         # Deve haver resposta com "CRITICAL" devido à data futura
-        self.assertTrue(
-            any(r.get("response") == "CRITICAL" for r in value_results)
-        )
+        self.assertTrue(any(r.get("response") == "CRITICAL" for r in value_results))
 
     def test_validate_translation_subarticle(self):
         """Test validation of translation sub-article"""
@@ -426,14 +555,43 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(translation_node, params)
         validation_results = list(validator.validate())
-
-        # Verify pub date validation
-        pub_date_results = [
-            r for r in validation_results if r.get("sub_item") == "pub"
-        ]
-        self.assertFalse(
-            any(r.get("response") == "CRITICAL" for r in pub_date_results)
+        responses = [item["response"] for item in validation_results]
+        advices = [item["advice"] for item in validation_results]
+        self.assertEqual(
+            [
+                "OK",
+                "OK",
+                "CRITICAL",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "CRITICAL",
+            ],
+            responses,
         )
+        self.assertEqual(
+            [
+                None,
+                None,
+                "History dates found: []. Add missing dates: ['received', 'accepted']",
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                "History dates found: []. Add missing dates: ['received', 'accepted']",
+            ],
+            advices,
+        )
+        # Verify pub date validation
+        pub_date_results = [r for r in validation_results if r.get("sub_item") == "pub"]
+        self.assertFalse(any(r.get("response") == "CRITICAL" for r in pub_date_results))
 
     def test_validate_reviewer_report_subarticle_complete(self):
         """Test validation of reviewer report sub-article with complete history"""
@@ -470,14 +628,10 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(reviewer_node, params)
         validation_results = list(validator.validate())
-
-        # Check history dates validation
-        history_results = [
-            r for r in validation_results if r.get("item") == "history"
-        ]
-        self.assertFalse(
-            any(r.get("response") == "CRITICAL" for r in history_results)
-        )
+        responses = [item["response"] for item in validation_results]
+        advices = [item["advice"] for item in validation_results]
+        self.assertEqual(18, responses.count("OK"))
+        self.assertEqual(18, advices.count(None))
 
     def test_validate_reviewer_report_subarticle_missing_events(self):
         """Test validation of reviewer report sub-article with missing required events"""
@@ -510,13 +664,12 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(reviewer_node, params)
         validation_results = list(validator.validate())
-
-        # Check for missing events validation
-        missing_events_results = [
-            r for r in validation_results if r.get("title") == "missing events"
-        ]
-        self.assertTrue(
-            any(r.get("response") == "CRITICAL" for r in missing_events_results)
+        responses = [item["response"] for item in validation_results]
+        advices = [item["advice"] for item in validation_results]
+        self.assertEqual(["OK"] * 12 + ["CRITICAL"], responses)
+        self.assertEqual(
+            "History dates found: ['received']. Add missing dates: ['accepted']",
+            advices[-1],
         )
 
     def test_validate_subarticle_invalid_dates(self):
@@ -543,13 +696,22 @@ class TestFulltextDatesValidation(TestCase):
 
         validator = FulltextDatesValidation(invalid_node, params)
         validation_results = list(validator.validate())
-
-        # Check format validation results
-        format_results = [
-            r
-            for r in validation_results
-            if r.get("validation_type") == "format"
-        ]
-        self.assertTrue(
-            any(r.get("response") == "CRITICAL" for r in format_results)
+        responses = [item["response"] for item in validation_results]
+        advices = [item["advice"] for item in validation_results]
+        self.assertEqual(
+            ["CRITICAL", "OK", "CRITICAL", "CRITICAL", "OK", "OK", "OK", "CRITICAL"],
+            responses,
+        )
+        self.assertEqual(
+            [
+                'Complete <pub-date date-type="pub"><year> with 4-digits',
+                None,
+                'Complete <pub-date date-type="pub"><month> with 2-digits',
+                'Complete <pub-date date-type="pub"><day> with 2-digits',
+                None,
+                None,
+                None,
+                "History dates found: []. Add missing dates: ['received', 'accepted']",
+            ],
+            advices,
         )

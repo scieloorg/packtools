@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 from packtools.sps.models.dates import FulltextDates
 from packtools.sps.validation.utils import build_response
@@ -33,77 +33,90 @@ def is_subsequence_in_order(subsequence, main_sequence):
     return all(item in iterator_main_sequence for item in subsequence)
 
 
+def get_future_date(from_date, days):
+    if isinstance(from_date, str):
+        d = date.fromisoformat(from_date)
+        future = d + timedelta(days)
+        return future.isoformat()[:10]
+    return from_date + timedelta(days)
+
+
 class DateValidation:
     def __init__(self, date_data, params):
-        self.params = params
         self.date_data = date_data
+        self.date_type = self.date_data["type"]
+        self.tag = "pub-date" if self.date_type in ("pub", "collection") else "date"
+
+        # Initialize default params and update with provided params
+        self.params = self._get_default_params()
+        if params:
+            self.params.update(params)
+
+    def _get_default_params(self):
+        """Return default parameters for date validation."""
+        return {
+            # Error levels for format validation
+            "day_format_error_level": "CRITICAL",
+            "month_format_error_level": "CRITICAL",
+            "year_format_error_level": "CRITICAL",
+            "year_value_error_level": "CRITICAL",
+            "value_error_level": "CRITICAL",
+            "format_error_level": "CRITICAL",
+            "limit_error_level": "CRITICAL",
+            # Event ordering configuration
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            # Parent reference for validation responses
+            "parent": None,
+            # Date limits
+            "limit_date": get_future_date(datetime.now().isoformat()[:10], 60),
+            "pub_date": None,
+        }
+
+    def _validate_format(self, label, number):
+        valid = len(self.date_data.get(label) or "") == number
+        return build_response(
+            title=f"{label} format",
+            parent=self.params["parent"],
+            item=self.params["parent"].get("parent"),
+            sub_item=self.date_type,
+            validation_type="format",
+            is_valid=valid,
+            expected=f"{number}-digits {label}",
+            obtained=self.date_data.get(label),
+            advice=f'Complete <{self.tag} date-type="{self.date_type}"><{label}> with {number}-digits',
+            data=self.date_data,
+            error_level=self.params[f"{label}_format_error_level"],
+        )
 
     def validate_day_format(self):
-        if len(self.date_data.get("day") or "") != 2:
-            yield build_response(
-                title="day format",
-                parent=self.params["parent"],
-                item=self.params["parent"].get("parent"),
-                sub_item=self.date_data["type"],
-                validation_type="format",
-                is_valid=False,
-                expected="2-digits day",
-                obtained=self.date_data.get("day"),
-                advice="Provide 2-digits day",
-                data=self.date_data,
-                error_level=self.params["day_format_error_level"],
-            )
+        yield self._validate_format("day", 2)
 
     def validate_month_format(self):
-        if len(self.date_data.get("month") or "") != 2:
-            yield build_response(
-                title="month format",
-                parent=self.params["parent"],
-                item=self.params["parent"].get("parent"),
-                sub_item=self.date_data["type"],
-                validation_type="format",
-                is_valid=False,
-                expected="2-digits month",
-                obtained=self.date_data.get("month"),
-                advice="Provide 2-digits month",
-                data=self.date_data,
-                error_level=self.params["month_format_error_level"],
-            )
+        yield self._validate_format("month", 2)
 
     def validate_year_format(self):
-        year = self.date_data.get("year") or ""
-        if len(year) != 4:
-            yield build_response(
-                title="year format",
-                parent=self.params["parent"],
-                item=self.params["parent"].get("parent"),
-                sub_item=self.date_data["type"],
-                validation_type="format",
-                is_valid=False,
-                expected="4-digits year",
-                obtained=self.date_data.get("year"),
-                advice="Provide 4-digits year",
-                data=self.date_data,
-                error_level=self.params["year_format_error_level"],
-            )
+        yield self._validate_format("year", 4)
 
     def validate_year_value(self):
         limit_year = datetime.now().year + 1
         year = self.date_data.get("year") or 0
-        if 0 <= int(year) > limit_year:
-            yield build_response(
-                title="year value",
-                parent=self.params["parent"],
-                item=self.params["parent"].get("parent"),
-                sub_item=self.date_data["type"],
-                validation_type="value",
-                is_valid=False,
-                expected="max one year in the future",
-                obtained=year,
-                advice=f"Provide year {year} < {limit_year}",
-                data=self.date_data,
-                error_level=self.params["year_value_error_level"],
-            )
+        is_valid = 0 < int(year) <= limit_year
+
+        advice = f'Complete <{self.tag} date-type="{self.date_type}"><year> with an year previous or equal to {limit_year}'
+        yield build_response(
+            title="year value",
+            parent=self.params["parent"],
+            item=self.params["parent"].get("parent"),
+            sub_item=self.date_type,
+            validation_type="value",
+            is_valid=is_valid,
+            expected="max one year in the future",
+            obtained=year,
+            advice=advice,
+            data=self.date_data,
+            error_level=self.params["year_value_error_level"],
+        )
 
     def validate_date(self):
         try:
@@ -121,69 +134,72 @@ class DateValidation:
                 yield from self.validate_day_format()
 
         except (ValueError, TypeError) as e:
+            parts = self.date_data.get("parts")
             yield build_response(
                 title="valid date",
                 parent=self.params["parent"],
                 item=self.params["parent"].get("parent"),
-                sub_item=self.date_data["type"],
+                sub_item=self.date_type,
                 validation_type="value",
                 is_valid=False,
                 expected="valid date",
                 obtained=self.date_data,
-                advice="Provide valid date",
+                advice=f'<date date-type="{self.date_type}"> ({parts}) is invalid: {e}',
                 data=self.date_data,
                 error_level=self.params["value_error_level"],
             )
 
     def validate_complete_date(self):
+        formatted_date = self.date_data["display"]
+        parts = self.date_data.get("parts")
+        date_type = self.date_type
+
         if self.date_data["is_complete"]:
-            complete_date = self.date_data["display"]
-            date_type = self.date_data["type"]
             limit_date = self.params["limit_date"]
             pub_date = self.params.get("pub_date")
 
-            invalid = False
+            error = None
             if pub_date:
+                max_date_label = "publication date"
                 if date_type in self.params["pre_pub_ordered_events"]:
-                    invalid = complete_date >= pub_date or limit_date
-                    advice = f"Provide date ({date_type}: {complete_date}) <= {pub_date or limit_date}"
+                    max_date = pub_date or limit_date
+                elif date_type == "pub":
+                    max_date = limit_date
                 elif date_type in self.params["pos_pub_ordered_events"]:
-                    invalid = (
-                        complete_date < pub_date or complete_date > limit_date
-                    )
-                    if date_type == "pub":
-                        advice = f"Provide date ({date_type}: {complete_date}) < {limit_date}"
-                    else:
-                        advice = f"Provide date ({date_type}: {complete_date}) > {pub_date}"
+                    max_date = pub_date
+                else:
+                    max_date = limit_date
             else:
-                invalid = complete_date > limit_date
-                advice = f"Provide date ({date_type}: {complete_date}) <= {limit_date}"
+                max_date_label = "limit date"
+                max_date = limit_date
 
-            if invalid:
-                yield build_response(
-                    title="valid date",
-                    parent=self.params["parent"],
-                    item=self.params["parent"].get("parent"),
-                    sub_item=self.date_data["type"],
-                    validation_type="value",
-                    is_valid=False,
-                    expected="valid date",
-                    obtained=self.date_data,
-                    advice=advice,
-                    data=self.date_data,
-                    error_level=self.params["limit_error_level"],
-                )
-        else:
+            valid = formatted_date < max_date
+            advice = f'<date date-type="{date_type}"> ({formatted_date}) must be previous to {max_date_label} ({max_date})'
             yield build_response(
-                title=f"{self.date_data['type']} date",
+                title="valid date",
+                parent=self.params["parent"],
+                item=self.params["parent"].get("parent"),
+                sub_item=self.date_type,
+                validation_type="value",
+                is_valid=valid,
+                expected="valid date",
+                obtained=formatted_date,
+                advice=advice,
+                data=self.date_data,
+                error_level=self.params["limit_error_level"],
+            )
+        else:
+            advice = f'<date date-type="{date_type}"> ({parts}) must be a date with year, month (2-digits) and day (2-digits)'
+            yield build_response(
+                title=f"{date_type} date",
                 parent=self.params.get("parent"),
-                item=self.params.get("item"),
-                sub_item=self.date_data["type"],
+                item="date",
+                sub_item=date_type,
                 validation_type="format",
                 is_valid=False,
-                expected="complete date",
+                expected="a date with year, month (2-digits) and day (2-digits)",
                 obtained=self.date_data,
-                advice="Provide complete and valid date",
+                advice=advice,
                 data=self.date_data,
                 error_level=self.params["format_error_level"],
             )
@@ -208,45 +224,87 @@ class FulltextDatesValidation:
             params: Optional dictionary of validation parameters
         """
         self.fulltext = FulltextDates(node)
+        self.history_dates = list(self.fulltext.history_dates)
         self.params = params or {}
 
         self._set_default_params()
         self._add_required_events()
 
-        self.date_types_ordered_by_date = (
-            self.fulltext.date_types_ordered_by_date
-        )
-        self.date_type_list = (
+        self.date_types_ordered_by_date = self.fulltext.date_types_ordered_by_date
+        self.expected_date_type_list = (
             self.params["pre_pub_ordered_events"]
             + self.params["pos_pub_ordered_events"]
         )
+        self.required_date_types = self.params["required_events"]
         self.params["limit_date"] = datetime.now().isoformat()[:10]
         self.params["pub_date"] = (
             self.fulltext.article_date and self.fulltext.article_date["display"]
         )
 
-    def _set_default_params(self):
-        """Set default validation parameters if not provided."""
-        self.params.setdefault("day_format_error_level", "CRITICAL")
-        self.params.setdefault("month_format_error_level", "CRITICAL")
-        self.params.setdefault("year_format_error_level", "CRITICAL")
-        self.params.setdefault("format_error_level", "CRITICAL")
-        self.params.setdefault("value_error_level", "CRITICAL")
-        self.params.setdefault("limit_error_level", "CRITICAL")
-        self.params.setdefault("required_events", ["received", "accepted"])
-        self.params.setdefault(
-            "pre_pub_ordered_events", ["received", "revised", "accepted"]
+
+class FulltextDatesValidation:
+    def __init__(self, node, params=None):
+        """Initialize a FulltextDatesValidation instance.
+
+        Args:
+            node: FulltextDates instance to validate
+            params: Optional dictionary of validation parameters
+        """
+        self.fulltext = FulltextDates(node)
+        self.history_dates = list(self.fulltext.history_dates)
+
+        # Initialize default params and update with provided params
+        self.params = self._get_default_params()
+        if params:
+            self.params.update(params)
+
+        self._add_required_events()
+
+        self.date_types_ordered_by_date = self.fulltext.date_types_ordered_by_date
+        self.expected_date_type_list = (
+            self.params["pre_pub_ordered_events"]
+            + self.params["pos_pub_ordered_events"]
         )
-        self.params.setdefault(
-            "pos_pub_ordered_events", ["pub", "corrected", "retracted"]
+        self.required_date_types = self.params["required_events"]
+        self.params["pub_date"] = (
+            self.fulltext.article_date and self.fulltext.article_date["display"]
         )
+
+    def _get_default_params(self):
+        """Return default parameters for fulltext dates validation.
+
+        Returns:
+            dict: Dictionary containing all default parameter values
+        """
+        return {
+            # Error levels
+            "day_format_error_level": "CRITICAL",
+            "month_format_error_level": "CRITICAL",
+            "year_format_error_level": "CRITICAL",
+            "format_error_level": "CRITICAL",
+            "value_error_level": "CRITICAL",
+            "limit_error_level": "CRITICAL",
+            "unexpected_events_error_level": "CRITICAL",
+            "missing_events_error_level": "CRITICAL",
+            "history_order_error_level": "CRITICAL",
+            # Event lists
+            "required_events": ["received", "accepted"],
+            "pre_pub_ordered_events": ["received", "revised", "accepted"],
+            "pos_pub_ordered_events": ["pub", "corrected", "retracted"],
+            # Required events mappings
+            "required_history_events_for_article_type": {},
+            "required_history_events_for_related_article_type": {},
+            # Parent reference
+            "parent": None,
+            # Date limits - will be set after initialization
+            "limit_date": datetime.now().isoformat()[:10],
+            "pub_date": None,
+        }
 
     def _add_required_events(self):
         self.params.setdefault("required_events", [])
         key = self.fulltext.attribs_parent_prefixed["original_article_type"]
-        if event := self.params["required_history_events_for_article_type"].get(
-            key
-        ):
+        if event := self.params["required_history_events_for_article_type"].get(key):
             self.params["required_events"].append(event)
 
         for item in self.fulltext.related_articles:
@@ -306,84 +364,90 @@ class FulltextDatesValidation:
             return sorted(
                 unordered_events,
                 key=lambda x: (
-                    self.date_type_list.index(x)
-                    if x in self.date_type_list
+                    self.expected_date_type_list.index(x)
+                    if x in self.expected_date_type_list
                     else float("inf")
                 ),
             )
         except ValueError:
-            # In case an event in unordered_events is not in self.date_type_list, it's placed at the end of the sorted list
+            # In case an event in unordered_events is not in self.expected_date_type_list, it's placed at the end of the sorted list
             return unordered_events
 
     @property
     def missing_events(self):
         return self.get_events_ordered_by_date(
-            set(self.params["required_events"])
-            - set(self.date_types_ordered_by_date),
+            set(self.params["required_events"]) - set(self.date_types_ordered_by_date),
         )
 
     @property
     def unexpected_events(self):
         # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
         return sorted(
-            set(self.date_types_ordered_by_date) - set(self.date_type_list)
+            set(self.date_types_ordered_by_date) - set(self.expected_date_type_list)
         )
+
+    @property
+    def expected_events(self):
+        # obtem uma lista em ordem alfabética dos eventos identificados que não são reconhecidos
+        s = set(self.date_types_ordered_by_date) - set(self.unexpected_events)
+        s.union(self.required_date_types)
+        return self.get_events_ordered_by_date(s)
 
     @property
     def is_ordered_history(self):
         # o histórico é válido se os eventos estão ordenados pelo padrão e não há eventos faltantes nem desconhecidos
         return is_subsequence_in_order(
-            self.date_types_ordered_by_date, self.date_type_list
+            self.date_types_ordered_by_date, self.expected_date_type_list
         )
 
     def validate_history_events(self):
-        if self.unexpected_events:
-            yield build_response(
-                title="unexpected events",
-                parent=self.params["parent"],
-                item="history",
-                sub_item=None,
-                validation_type="value",
-                is_valid=False,
-                expected=self.date_type_list,
-                obtained=self.date_types_ordered_by_date,
-                advice=f"Fix date-type or exclude unexpected dates: {self.unexpected_events}",
-                data=self.fulltext.history_dates,
-                error_level=self.params["unexpected_events_error_level"],
-            )
+        history_dates = self.history_dates
 
-        if self.missing_events:
-            yield build_response(
-                title="missing events",
-                parent=self.params["parent"],
-                item="history",
-                sub_item=None,
-                validation_type="value",
-                is_valid=False,
-                expected=self.date_type_list,
-                obtained=self.date_types_ordered_by_date,
-                advice=f"Fix date-type or include missing dates: {self.missing_events}",
-                data=self.fulltext.history_dates,
-                error_level=self.params["missing_events_error_level"],
-            )
+        yield build_response(
+            title="unexpected events",
+            parent=self.params["parent"],
+            item="history",
+            sub_item=None,
+            validation_type="value",
+            is_valid=not self.unexpected_events,
+            expected=self.expected_events,
+            obtained=self.date_types_ordered_by_date,
+            advice=f"History dates found: {self.date_types_ordered_by_date}. Exclude unexpected dates: {self.unexpected_events}",
+            data=history_dates,
+            error_level=self.params["unexpected_events_error_level"],
+        )
+
+        yield build_response(
+            title="missing events",
+            parent=self.params["parent"],
+            item="history",
+            sub_item=None,
+            validation_type="value",
+            is_valid=not self.missing_events,
+            expected=self.expected_events,
+            obtained=self.date_types_ordered_by_date,
+            advice=f"History dates found: {self.date_types_ordered_by_date}. Add missing dates: {self.missing_events}",
+            data=history_dates,
+            error_level=self.params["missing_events_error_level"],
+        )
 
     def validate_history_order(self):
         """Validate the chronological order of history events."""
-        if not self.is_ordered_history:
-            expected = self.get_events_ordered_by_date(
-                set(self.date_types_ordered_by_date + self.date_type_list)
-                - set(self.unexpected_events),
-            )
-            yield build_response(
-                title="ordered events",
-                parent=self.params["parent"],
-                item="history",
-                sub_item=None,
-                validation_type="match",
-                is_valid=False,
-                expected=self.date_type_list,
-                obtained=self.date_types_ordered_by_date,
-                advice=f"Provide history/dates in chronological order. Fix date and/or date-type",
-                data=self.fulltext.history_dates,
-                error_level=self.params["history_order_error_level"],
-            )
+        is_valid = self.is_ordered_history
+        expected = self.get_events_ordered_by_date(
+            set(self.date_types_ordered_by_date + self.expected_date_type_list)
+            - set(self.unexpected_events),
+        )
+        yield build_response(
+            title="ordered events",
+            parent=self.params["parent"],
+            item="history",
+            sub_item=None,
+            validation_type="match",
+            is_valid=is_valid,
+            expected=expected,
+            obtained=self.date_types_ordered_by_date,
+            advice=f"History dates ({self.date_types_ordered_by_date}) must be in chronological order: {expected}",
+            data=self.history_dates,
+            error_level=self.params["history_order_error_level"],
+        )
