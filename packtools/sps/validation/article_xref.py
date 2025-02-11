@@ -45,7 +45,8 @@ class ArticleXrefValidation:
         for rid, rid_list in self.article_xref.all_xref_rids().items():
             for xref in rid_list:
                 is_valid = rid in ids
-                element_name = xref.get("element_name") 
+                element_name = xref.get("element_name")
+                ref_type = xref.get("ref-type")
                 yield format_response(
                     title="xref[@rid] -> *[@id]",
                     parent="article",
@@ -60,9 +61,9 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=rid,
                     obtained=rid if is_valid else None,
-                    advice=f'mark the information correctly in: <xref rid="{rid}" />. '
-                           f'No matching <{element_name} id="{rid}" /> found. '
-                           f'Fix <xref rid="{rid}" /> or insert <{element_name} id="{rid}" />.',
+                    advice=f'Found <xref rid="{rid}" ref-type="{ref_type}">...</xref>, but not found the corresponding '
+                           f'<{element_name} id="{rid}">. Check if the value rid="" and ref-type="" are correct and '
+                           f'check if <{element_name}> have correct id=""',
                     data=xref,
                     error_level=error_level,
                 )
@@ -125,9 +126,9 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=id,
                     obtained=id if is_valid else None,
-                    advice=f'Mark the information correctly in: <{tag} id="{id}" />. '
-                           f'No matching <xref rid="{id}" /> found. '
-                           f'Fix <{tag} id="{id}" /> or insert <xref rid="{id}" />.',
+                    advice=f'Found <{tag} id="{id}">...</{tag}>, but no corresponding <xref rid="{id}"> found. '
+                           f'Check if the values id="{id}" and rid="{id}" are correct, and if the <xref> element '
+                           f'properly references <{tag} id="{id}">.',
                     data=id_data,
                     error_level=error_level,
                 )
