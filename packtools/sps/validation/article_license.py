@@ -135,10 +135,10 @@ class ArticleLicenseValidation:
                 is_valid=is_valid,
                 expected=expected_value_msg,
                 obtained=obtained_license_p,
-                advice=f'mark license information with '
-                       f'<license license-type=VALUE xlink:href={expected_license_p["link"]} '
+                advice=f'Mark license information with '
+                       f'<license license-type="open-access" xlink:href={expected_license_p["link"]} '
                        f'xml:lang={expected_license_p["lang"]}>'
-                       f'<license-p>{expected_license_p["license_p"]}</license-p> and replace VALUE with lincense type',
+                       f'<license-p>{expected_license_p["license_p"]}</license-p></license>',
                 data=obtained_license_p,
                 error_level=error_level,
             )
@@ -214,7 +214,7 @@ class ArticleLicenseValidation:
                 is_valid=is_valid,
                 expected=expected_code,
                 obtained=obtained_code,
-                advice=f'add <permissions><license xlink:href=VALUE> and replace VALUE with {expected_code}',
+                advice=f'add <permissions><license xlink:href="VALUE"> and replace VALUE with {expected_code}',
                 data=licenses,
                 error_level=error_level,
             )
