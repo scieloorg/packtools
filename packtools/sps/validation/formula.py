@@ -45,7 +45,7 @@ class ArticleDispFormulaValidation:
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice="Add <disp-formula> elements to properly represent mathematical expressions in the content.",
+                advice="Add <disp-formula> inside <article><body> to properly format mathematical expressions.",
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -92,23 +92,24 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        if not self.data.get("id"):
-            return format_response(
-                title="@id",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="@id",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="@id",
-                obtained=None,
-                advice="Identify the @id",
-                data=self.data,
-                error_level=self.rules["id_error_level"],
-            )
+        formula_id = self.data.get("id")
+        is_valid = bool(formula_id)
+        return format_response(
+            title="@id",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="@id",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="@id",
+            obtained=formula_id,
+            advice='Mark formulas with <article><body><disp-formula id="VALUE"> and replace VALUE with formula ID.',
+            data=self.data,
+            error_level=self.rules["id_error_level"],
+        )
 
     def validate_label(self):
         """
@@ -118,23 +119,25 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        if not self.data.get("label"):
-            return format_response(
-                title="label",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="label",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="label",
-                obtained=None,
-                advice="Identify the label",
-                data=self.data,
-                error_level=self.rules["label_error_level"],
-            )
+        label = self.data.get("label")
+        is_valid = bool(label)
+
+        return format_response(
+            title="label",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="label",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="label",
+            obtained=label,
+            advice='Mark formula labels with <article><body><disp-formula><label>',
+            data=self.data,
+            error_level=self.rules["label_error_level"],
+        )
 
     def validate_codification(self):
         """
@@ -146,23 +149,24 @@ class DispFormulaValidation:
 
         mml = self.data.get("mml_math") or []
         tex = self.data.get("tex_math") or []
-        if len(mml) + len(tex) == 0:
-            return format_response(
-                title="mml:math or tex-math",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="mml:math or tex-math",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="mml:math or tex-math",
-                obtained=None,
-                advice="Identify the mml:math or tex-math",
-                data=self.data,
-                error_level=self.rules["codification_error_level"],
-            )
+        obtained = mml + tex
+        is_valid = len(obtained) == 0
+        return format_response(
+            title="mml:math or tex-math",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="mml:math or tex-math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="mml:math or tex-math",
+            obtained=obtained,
+            advice='Mark formula codification with <article><body><disp-formula><mml:math> or <article><body><disp-formula><tex-math>',
+            data=self.data,
+            error_level=self.rules["codification_error_level"],
+        )
 
     def validate_alternatives(self):
         """
@@ -181,35 +185,35 @@ class DispFormulaValidation:
                 "condition": graphic != [] and alternatives == [],
                 "expected": "alternatives",
                 "obtained": None,
-                "advice": "Identify the alternatives",
+                "advice": "Use <disp-formula><alternatives> to provide alternative representations for the formula.",
             },
             {
                 "condition": graphic == [] and alternatives != [],
                 "expected": None,
                 "obtained": "alternatives",
-                "advice": "Remove the alternatives",
+                "advice": "Remove the <alternatives> tag and its content from <disp-formula><alternatives>.",
             },
         ]
 
         # Evaluate conditions and return formatted response if any validation fails
         for case in validation_cases:
-            if case["condition"]:
-                return format_response(
-                    title="alternatives",
-                    parent=self.data.get("parent"),
-                    parent_id=self.data.get("parent_id"),
-                    parent_article_type=self.data.get("parent_article_type"),
-                    parent_lang=self.data.get("parent_lang"),
-                    item="alternatives",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=case["expected"],
-                    obtained=case["obtained"],
-                    advice=case["advice"],
-                    data=self.data,
-                    error_level=self.rules["alternatives_error_level"],
-                )
+            is_valid = not (case["condition"])
+            return format_response(
+                title="alternatives",
+                parent=self.data.get("parent"),
+                parent_id=self.data.get("parent_id"),
+                parent_article_type=self.data.get("parent_article_type"),
+                parent_lang=self.data.get("parent_lang"),
+                item="alternatives",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=case["expected"],
+                obtained=case["obtained"],
+                advice=case["advice"],
+                data=self.data,
+                error_level=self.rules["alternatives_error_level"],
+            )
 
 
 class ArticleInlineFormulaValidation:
@@ -304,23 +308,24 @@ class InlineFormulaValidation:
 
         mml = self.data.get("mml_math") or []
         tex = self.data.get("tex_math") or []
-        if len(mml) + len(tex) == 0:
-            return format_response(
-                title="mml:math or tex-math",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="mml:math or tex-math",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="mml:math or tex-math",
-                obtained=None,
-                advice="Identify the mml:math or tex-math",
-                data=self.data,
-                error_level=self.rules["codification_error_level"],
-            )
+        obtained = mml + tex
+        is_valid = len(obtained) == 0
+        return format_response(
+            title="mml:math or tex-math",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="mml:math or tex-math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="mml:math or tex-math",
+            obtained=obtained,
+            advice='Mark formula codification with <article><body><inline-formula><mml:math> or <article><body><inline-formula><tex-math>',
+            data=self.data,
+            error_level=self.rules["codification_error_level"],
+        )
 
     def validate_alternatives(self):
         """
@@ -339,32 +344,32 @@ class InlineFormulaValidation:
                 "condition": graphic != [] and alternatives == [],
                 "expected": "alternatives",
                 "obtained": None,
-                "advice": "Identify the alternatives",
+                "advice": "Use <disp-formula><alternatives> to provide alternative representations for the formula.",
             },
             {
                 "condition": graphic == [] and alternatives != [],
                 "expected": None,
                 "obtained": "alternatives",
-                "advice": "Remove the alternatives",
+                "advice": "Remove the <alternatives> tag and its content from <disp-formula><alternatives>.",
             },
         ]
 
         # Evaluate conditions and return formatted response if any validation fails
         for case in validation_cases:
-            if case["condition"]:
-                return format_response(
-                    title="alternatives",
-                    parent=self.data.get("parent"),
-                    parent_id=self.data.get("parent_id"),
-                    parent_article_type=self.data.get("parent_article_type"),
-                    parent_lang=self.data.get("parent_lang"),
-                    item="alternatives",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=case["expected"],
-                    obtained=case["obtained"],
-                    advice=case["advice"],
-                    data=self.data,
-                    error_level=self.rules["alternatives_error_level"],
-                )
+            is_valid = not (case["condition"])
+            return format_response(
+                title="alternatives",
+                parent=self.data.get("parent"),
+                parent_id=self.data.get("parent_id"),
+                parent_article_type=self.data.get("parent_article_type"),
+                parent_lang=self.data.get("parent_lang"),
+                item="alternatives",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=case["expected"],
+                obtained=case["obtained"],
+                advice=case["advice"],
+                data=self.data,
+                error_level=self.rules["alternatives_error_level"],
+            )
