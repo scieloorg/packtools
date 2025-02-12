@@ -33,7 +33,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected="<fig/>",
                     obtained=None,
-                    advice=f"article-type={self.article_type} requires <fig/>. Found 0. Identify the fig or check if article-type is correct",
+                    advice=f'Mark figures with <article article-type="{self.article_type}"><body><fig> or check if article-type="{self.article_type}" is correct',
                     data=None,
                     error_level=self.rules["required_error_level"],
                 )
@@ -52,7 +52,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected=None,
                     obtained=None,
-                    advice=f"article-type={self.article_type}, found 0 figures",
+                    advice=f'Mark figures with <article article-type="{self.article_type}"><body><fig> if this article should include figures',
                     data=None,
                     error_level=self.rules["absent_error_level"],
                 )
@@ -71,53 +71,59 @@ class FigValidation:
         yield from self.validate_file_extension()
 
     def _validate_item(self, name):
-        if not self.data.get(name):
-            key_error_level = f"{name}_error_level"
-            yield build_response(
-                title=name,
-                parent=self.data,
-                item="fig",
-                sub_item=name,
-                validation_type="exist",
-                is_valid=False,
-                expected=name,
-                obtained=None,
-                advice=f"Identify the {name}",
-                data=self.data,
-                error_level=self.rules[key_error_level],
-            )
+        obtained = self.data.get(name)
+        is_valid = bool(obtained)
+        key_error_level = f"{name}_error_level"
+        if name == "id":
+            advice = 'Mark figures with <article><body><fig id="VALUE"> and replace VALUE with figure ID.'
+        else:
+            advice = f'Mark figure {name}s with <article><body><fig><{name}>'
+        yield build_response(
+            title=name,
+            parent=self.data,
+            item="fig",
+            sub_item=name,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=name,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules[key_error_level],
+        )
 
     def validate_content(self):
-        if not self.data.get("graphic") and not self.data.get("alternatives"):
-            name = "graphic or alternatives"
-            yield build_response(
-                title=name,
-                parent=self.data,
-                item="fig",
-                sub_item=name,
-                validation_type="exist",
-                is_valid=False,
-                expected=name,
-                obtained=None,
-                advice=f"Identify the {name}",
-                data=self.data,
-                error_level=self.rules["content_error_level"],
-            )
+        is_valid = bool(self.data.get("graphic") or self.data.get("alternatives"))
+        name = "graphic or alternatives"
+        yield build_response(
+            title=name,
+            parent=self.data,
+            item="fig",
+            sub_item=name,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=name,
+            obtained=None,
+            advice='Ensure that the figure contains either <article><body><fig><graphic> or <article><body><fig><alternatives>. '
+                   'Add one of these elements to correctly define the figure content.',
+            data=self.data,
+            error_level=self.rules["content_error_level"],
+        )
 
     def validate_file_extension(self):
         file_extension = self.data.get("file_extension")
         allowed_file_extensions = self.rules["allowed file extensions"]
-        if file_extension not in allowed_file_extensions:
-            yield build_response(
-                title="file extension",
-                parent=self.data,
-                item="fig",
-                sub_item="file extension",
-                validation_type="value in list",
-                is_valid=False,
-                expected=allowed_file_extensions,
-                obtained=file_extension,
-                advice=f"provide a file with one of the following extensions {allowed_file_extensions}",
-                data=self.data,
-                error_level=self.rules["file_extension_error_level"],
-            )
+        is_valid = file_extension in allowed_file_extensions
+        yield build_response(
+            title="file extension",
+            parent=self.data,
+            item="fig",
+            sub_item="file extension",
+            validation_type="value in list",
+            is_valid=is_valid,
+            expected=allowed_file_extensions,
+            obtained=file_extension,
+            advice=f'In <article><body><fig><graphic xlink:href="{self.data.get('graphic')}"/> replace {file_extension} with one of {allowed_file_extensions}',
+            data=self.data,
+            error_level=self.rules["file_extension_error_level"],
+        )
