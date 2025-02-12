@@ -214,7 +214,7 @@ class ArticleLicenseValidation:
                 is_valid=is_valid,
                 expected=expected_code,
                 obtained=obtained_code,
-                advice=f'add <permissions><license xlink:href="VALUE"> and replace VALUE with {expected_code}',
+                advice=f'add <permissions><license xlink:href=http://creativecommons.org/licenses/VALUE/4.0/> and replace VALUE with {expected_code}',
                 data=licenses,
                 error_level=error_level,
             )
