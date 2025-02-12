@@ -401,9 +401,9 @@ class AffiliationValidation:
             got = result["got"]
             items = result["items"]
             if self.affiliation.get("id"):
-                advice = f"The affiliation {self.affiliation.get("id")} is inconsistent with {main_aff}. Check if {self.affiliation.get("id")} is translation of {main_aff}"
+                advice = f'The affiliation {self.affiliation.get("id")} is inconsistent with {main_aff}. Check if {self.affiliation.get("id")} is translation of {main_aff}'
             else:
-                advice = f"The affiliation {self.affiliation} is inconsistent with {main_aff}. Check if {self.affiliation} is translation of {main_aff}"
+                advice = f'The affiliation {self.affiliation} is inconsistent with {main_aff}. Check if {self.affiliation} is translation of {main_aff}'
             yield build_response(
                 title=f"low similarity",
                 parent=self.affiliation,
