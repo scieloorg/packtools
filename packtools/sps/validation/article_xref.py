@@ -114,6 +114,7 @@ class ArticleXrefValidation:
                     error_level = default_error_level
                     expectation = "can"
                 is_valid = id in rids
+                ref_type = rids.get(id)
                 yield format_response(
                     title="*[@id] -> xref[@rid]",
                     parent=id_data.get("parent"),
@@ -127,8 +128,7 @@ class ArticleXrefValidation:
                     expected=id,
                     obtained=id if is_valid else None,
                     advice=f'Found <{tag} id="{id}">...</{tag}>, but no corresponding <xref rid="{id}"> found. '
-                           f'Check if the values id="{id}" and rid="{id}" are correct, and if the <xref> element '
-                           f'properly references <{tag} id="{id}">.',
+                           f'Check if it is missing to mark the cross-reference (<xref rid="{id}" ref-type="{ref_type}">) to <{tag} id="{id}">',
                     data=id_data,
                     error_level=error_level,
                 )
