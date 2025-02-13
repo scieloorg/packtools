@@ -88,9 +88,14 @@ class ContribValidation:
             r"^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$"
         )
 
-        _orcid = self.contrib.get("contrib_ids", {}).get("orcid")
+        _orcid = self.contrib.get("contrib_ids", {}).get("orcid") or ""
         is_valid = bool(_orcid and re.match(_default_orcid, _orcid))
         expected_value = _orcid if is_valid else "valid ORCID"
+        if _orcid:
+            advice = f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>'
+        else:
+            advice = f'Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib> of {self.contrib_name}'            
+
         yield build_response(
             title="ORCID format",
             parent=self.contrib,
@@ -100,7 +105,7 @@ class ContribValidation:
             is_valid=is_valid,
             expected="valid ORCID",
             obtained=_orcid,
-            advice=f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>',
+            advice=advice,
             data=self.contrib,
             error_level=error_level,
         )
@@ -223,11 +228,11 @@ class ContribValidation:
         if self.contrib.get("original_article_type") == "reviewer-report":
             expected = ["name", "anonymous"]
             value = self.contrib.get("contrib_name") or self.contrib.get("anonymous")
-            advice = f"Mark contributor with <name></name> and anonymous contributor with <anonymous/> in <contrib></contrib>",
+            advice = f"Mark contributor with <name></name> and anonymous contributor with <anonymous/> in <contrib></contrib>"
         else:
             expected = ["name", "collab"]
             value = self.contrib.get("contrib_name") or self.contrib.get("collab")
-            advice = f"Mark contributor with <name></name> and institutional contributor with <collab></collab> in <contrib></contrib>",
+            advice = f"Mark contributor with <name></name> and institutional contributor with <collab></collab> in <contrib></contrib>"
 
         yield build_response(
             title="contributor",
