@@ -8,9 +8,18 @@ class DataAvailabilityValidation:
     def __init__(self, xmltree, params=None):
         self.xmltree = xmltree
         self.data_availability = DataAvailability(self.xmltree)
-        self.params = params or {}
+        self.params = self.get_default_params()
+        self.params.update(params or {})
         self.specific_use_list = self.params.get("data_availability_specific_use")
 
+    def get_default_params(self):
+        return {
+            "data_availability_specific_use": [
+                "data-available",
+                "data-available-upon-request"
+            ],
+            "data_availability_error_level": "ERROR"
+        }
     def validate_data_availability(self):
         yield from self.validate_data_availability_exist()
         yield from self.validate_data_availability_mode()

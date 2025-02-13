@@ -1,13 +1,53 @@
-from packtools.sps.models.references import ArticleReferences
+from packtools.sps.models.references import XMLReferences
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.validation.exceptions import ValidationReferencesException
-from packtools.sps.validation.utils import build_response
+from packtools.sps.validation.utils import build_response, get_future_date
 
 
 class ReferenceValidation:
     def __init__(self, reference_data, params):
         self.reference_data = reference_data
-        self.params = params
+        self.params = self.get_default_params()
+        self.params.update(params or {})
+
+    def get_default_params(self):
+        return {
+            # Error levels for different validations
+            "year_error_level": "ERROR",
+            "source_error_level": "ERROR",
+            "article_title_error_level": "ERROR",
+            "authors_error_level": "ERROR",
+            "publication_type_error_level": "ERROR",
+            "comment_error_level": "ERROR",
+            "mixed_citation_sub_tags_error_level": "ERROR",
+            "mixed_citation_error_level": "ERROR",
+            "title_tag_by_dtd_version_error_level": "ERROR",
+            
+            # List of valid publication types
+            "publication_type_list": [
+                "journal", 
+                "book", 
+                "thesis", 
+                "conference-proceedings",
+                "report",
+                "webpage",
+                "database",
+                "software",
+                "preprint"
+            ],
+            
+            # Allowed tags in mixed citations
+            "allowed_tags": [
+                "bold",
+                "italic",
+                "sup",
+                "sub",
+                "ext-link",
+                "named-content"
+            ],
+            
+            "dtd_version": "1.1"  # Default DTD version
+        }
 
     def _validate_item(
         self,
@@ -39,7 +79,8 @@ class ReferenceValidation:
             )
 
     def validate_year(self):
-        end_year = self.params.get("end_year")
+        # data do artigo que cita a referência
+        end_year = self.reference_data["citing_pub_year"]
         if not end_year:
             raise ValueError("ReferenceValidation.validate_year requires valid value for end_year")
         year = self.reference_data.get("year")
@@ -236,12 +277,8 @@ class ReferencesValidation:
         self.params = params
 
     def validate(self):
-        xml_article_references = ArticleReferences(self.xml_tree)
+        xml_references = XMLReferences(self.xml_tree)
 
-        for reference_data in xml_article_references.article_references:
-            validator = ReferenceValidation(reference_data, self.params)
-            yield from validator.validate()
-
-        for reference_data in xml_article_references.sub_article_references:
+        for reference_data in xml_references.items:
             validator = ReferenceValidation(reference_data, self.params)
             yield from validator.validate()

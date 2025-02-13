@@ -160,7 +160,7 @@ class FulltextDates(Fulltext):
     """
 
     @property
-    def dates(self):
+    def main_data(self):
         data = {}
         data["parent"] = self.attribs_parent_prefixed
         data["pub"] = self.epub_date
@@ -169,6 +169,7 @@ class FulltextDates(Fulltext):
         data["history_dates"] = self.history_dates_list
         data["events_ordered_by_date"] = self.ordered_events
         data["history_dates_by_event"] = self.history_dates_dict
+        data.update(self.history_dates_dict)
         return data
 
     @property
@@ -193,18 +194,24 @@ class FulltextDates(Fulltext):
     @property
     def data(self):
         data = {}
-        data.update(self.dates)
-
-        data["translations_data"] = {}
-        for node in self.translations:
-            fulltext = FulltextDates(node)
-            data["translations_data"][fulltext.lang] = fulltext.data
-
-        data["not_translations_data"] = {}
-        for node in self.not_translations:
-            fulltext = FulltextDates(node)
-            data["not_translations_data"][fulltext.id] = fulltext.data
+        data.update(self.main_data)
+        data["translations"] = {}
+        for item in self.translations:
+            data["translations"][item.lang] = item.data
+        data["not_translations"] = {}
+        for item in self.not_translations:
+            data["not_translations"][item.id] = item.data
         return data
+
+    @property
+    def translations(self):
+        for node in super().translations:
+            yield FulltextDates(node)
+            
+    @property
+    def not_translations(self):
+        for node in super().not_translations:
+            yield FulltextDates(node)
 
     @property
     def items(self):
@@ -221,22 +228,13 @@ class FulltextDates(Fulltext):
                 print(f"Document ID: {item['parent']['parent_id']}")
                 print(f"Pub date: {item['pub']}")
         """
-        data = {}
-        data["parent"] = self.attribs_parent_prefixed
-        data["pub"] = self.epub_date
-        data["article_date"] = self.article_date
-        data["collection_date"] = self.collection_date
-        data["history_dates"] = self.history_dates_list
-        data.update(self.history_dates_dict)
-        yield data
+        yield self.main_data
 
-        for node in self.translations:
-            fulltext = FulltextDates(node)
-            yield from fulltext.items
+        for item in self.translations:
+            yield from item.items
 
-        for node in self.not_translations:
-            fulltext = FulltextDates(node)
-            yield from fulltext.items
+        for item in self.not_translations:
+            yield from item.items
 
     @property
     def epub_date_model(self):
@@ -245,9 +243,10 @@ class FulltextDates(Fulltext):
                 node = self.front.xpath(
                     ".//pub-date[@date-type='pub'] | .//pub-date[@pub-type='epub']"
                 )[0]
-                self._epub_date_model = Date(node)
             except (IndexError, AttributeError):
                 self._epub_date_model = None
+            else:
+                self._epub_date_model = Date(node)
         return self._epub_date_model
 
     @property
@@ -268,9 +267,10 @@ class FulltextDates(Fulltext):
                 node = self.front.xpath(
                     ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub']"
                 )[0]
-                self._collection_model = Date(node)
             except (IndexError, AttributeError):
                 self._collection_model = None
+            else:
+                self._collection_model = Date(node)
         return self._collection_model
 
     @property

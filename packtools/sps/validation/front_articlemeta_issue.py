@@ -71,7 +71,7 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice=f"Replace {result["got"]} in <article-meta><volume> with {result["expected"]}",
+                advice=f'Replace {result["got"]} in <article-meta><volume> with {result["expected"]}',
                 data=self.article_issue.data,
                 error_level=self.params["volume_format_error_level"],
                 element_name="article-meta",
@@ -100,7 +100,7 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice=f"Replace {result["got"]} in <article-meta><issue> with {result["expected"]}",
+                advice=f'Replace {result["got"]} in <article-meta><issue> with {result["expected"]}',
                 data=self.article_issue.data,
                 error_level=self.params["number_format_error_level"],
                 element_name="article-meta",
@@ -129,7 +129,7 @@ class IssueValidation:
                 is_valid=result["is_valid"],
                 expected=result["expected"],
                 obtained=result["got"],
-                advice=f"Replace {result["got"]} in <article-meta><supplement> with {result["expected"]}",
+                advice=f'Replace {result["got"]} in <article-meta><supplement> with {result["expected"]}',
                 data=self.article_issue.data,
                 error_level=self.params["supplement_format_error_level"],
                 element_name="article-meta",
@@ -185,17 +185,15 @@ class IssueValidation:
                 expected=expected,
                 obtained=parsed_issue,
                 advice=(
-                    f"Replace {parsed_issue["type"]} {parsed_issue["type_value"]} in <article-meta><issue> with one of {expected}"
+                    f"""Replace {self.article_issue} in <article-meta><issue>{self.article_issue}</issue> by with one of {expected}"""
                     if not got_valid_format
                     else None
                 ),
                 data={"issue": self.article_issue.issue},
                 error_level=self.params["issue_format_error_level"],
-                element_name="article-meta",
-                sub_element_name="issue"
             )
 
-    def validate_expected_issues(self, expected_issues):
+    def validate_expected_issues(self):
         """
         Validates if the issue exists in the list of expected issues.
 
@@ -211,6 +209,11 @@ class IssueValidation:
             "number": self.article_issue.number,
             "supplement": self.article_issue.suppl,
         }
+        try:
+            expected_issues = self.params["journal_data"]["issues"]
+        except (KeyError, TypeError) as e:
+            expected_issues = None 
+
         if not expected_issues:
             return build_response(
                 title="registered issue",
@@ -219,13 +222,11 @@ class IssueValidation:
                 sub_item=None,
                 validation_type="value in list",
                 is_valid=False,
-                expected="Journal issue list",
+                expected="Journal issue registered in title manager or scielo manager or core",
                 obtained=issue,
-                advice="Provide registered issues to check issue data in XML file",
-                data={"issue": issue},
+                advice="Unable to check if issue is registered",
+                data=issue,
                 error_level=self.params["expected_issues_error_level"],
-                element_name="article-meta",
-                sub_element_name="issue"
             )
 
         return build_response(
@@ -237,11 +238,9 @@ class IssueValidation:
             is_valid=issue in expected_issues,
             expected=expected_issues,
             obtained=issue,
-            advice=f"Replace {issue} in <article-meta><issue> with one of {expected_issues}",
-            data={"issue": issue},
+            advice=f'Replace {issue} in <article-meta> with one of {expected_issues}',
+            data=issue,
             error_level=self.params["expected_issues_error_level"],
-            element_name="article-meta",
-            sub_element_name="issue"
         )
 
     def validate(self):
@@ -257,18 +256,7 @@ class IssueValidation:
         yield self.validate_number_format()
         yield self.validate_supplement_format()
         yield self.validate_issue_format()
-
-        try:
-            journal_data = self.params["journal_data"]
-        except KeyError:
-            raise MissingJournalDataException(
-                "IssueValidation.validate requires journal_data['issues']"
-            )
-        else:
-            expected_issues = journal_data.get("issues")
-            yield self.validate_expected_issues(
-                expected_issues
-            )
+        yield self.validate_expected_issues()        
 
 
 class PaginationValidation:
@@ -325,11 +313,9 @@ class PaginationValidation:
             sub_item="elocation-id | fpage / lpage",
             validation_type="match",
             is_valid=is_valid,
-            expected="elocation-id or fpage + lpage",
+            expected="elocation id or first and last pages",
             obtained=f"elocation-id: {self.issue.elocation_id}, fpage: {self.issue.fpage}, lpage: {self.issue.lpage}",
-            advice="Provide elocation-id or fpage + lpage",
+            advice="Mark elocation id with <elocation-id> or first page with <fpage> and last page with <lpage>",
             data=self.issue.data,
             error_level=self.params["pagination_error_level"],
-            element_name="article-meta",
-            sub_element_name="issue"
         )
