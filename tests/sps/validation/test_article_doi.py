@@ -52,7 +52,7 @@ class TestArticleDoiValidation(unittest.TestCase):
             </sub-article>
         </article>
         """
-        self.xmltree = etree.fromstring(self.sample_xml.encode('utf-8'))
+        self.xmltree = etree.fromstring(self.sample_xml.encode("utf-8"))
         self.validator = ArticleDoiValidation(self.xmltree)
 
     def test_initialization(self):
@@ -65,7 +65,7 @@ class TestArticleDoiValidation(unittest.TestCase):
     def test_validate_doi_exists(self):
         """Test validation of DOI existence"""
         results = list(self.validator.validate_doi_exists())
-        errors = [r for r in results if r['response'] != 'OK']
+        errors = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(errors), 0)
 
     def test_validate_doi_exists_missing_doi(self):
@@ -77,27 +77,29 @@ class TestArticleDoiValidation(unittest.TestCase):
             </front>
         </article>
         """
-        xmltree = etree.fromstring(xml_without_doi.encode('utf-8'))
+        xmltree = etree.fromstring(xml_without_doi.encode("utf-8"))
         validator = ArticleDoiValidation(xmltree)
-        
+
         results = list(validator.validate_doi_exists())
-        errors = [r for r in results if r['response'] != 'OK']
-        
+        errors = [r for r in results if r["response"] != "OK"]
+
         self.assertEqual(len(errors), 1)
-        
-        responses = [error['response'] for error in errors]
-        advices = [error['advice'] for error in errors]
-        
-        expected_responses = ['CRITICAL']
-        expected_advices = ['Mark DOI for <article> with<article-id pub-id-type="doi"></article-id>']
-        
+
+        responses = [error["response"] for error in errors]
+        advices = [error["advice"] for error in errors]
+
+        expected_responses = ["CRITICAL"]
+        expected_advices = [
+            'Mark DOI for <article> with<article-id pub-id-type="doi"></article-id>'
+        ]
+
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
 
     def test_validate_all_dois_are_unique(self):
         """Test validation of DOI uniqueness"""
         results = list(self.validator.validate_all_dois_are_unique())
-        errors = [r for r in results if r['response'] != 'OK']
+        errors = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(errors), 0)
 
     def test_validate_all_dois_are_unique_with_duplicates(self):
@@ -114,24 +116,26 @@ class TestArticleDoiValidation(unittest.TestCase):
             </sub-article>
         </article>
         """
-        xmltree = etree.fromstring(xml_with_duplicate_doi.encode('utf-8'))
+        xmltree = etree.fromstring(xml_with_duplicate_doi.encode("utf-8"))
         validator = ArticleDoiValidation(xmltree)
-        
+
         results = list(validator.validate_all_dois_are_unique())
-        errors = [r for r in results if r['response'] != 'OK']
-        
+        errors = [r for r in results if r["response"] != "OK"]
+
         self.assertEqual(len(errors), 1)
-        
-        responses = [error['response'] for error in errors]
-        advices = [error['advice'] for error in errors]
-        
-        expected_responses = ['CRITICAL']
-        expected_advices = ["Fix doi to be unique. Found repetition: ['10.1590/same-doi']"]
-        
+
+        responses = [error["response"] for error in errors]
+        advices = [error["advice"] for error in errors]
+
+        expected_responses = ["CRITICAL"]
+        expected_advices = [
+            "Fix doi to be unique. Found repetition: ['10.1590/same-doi']"
+        ]
+
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
 
-    @patch('packtools.sps.validation.utils.check_doi_is_registered')
+    @patch("packtools.sps.validation.utils.check_doi_is_registered")
     def test_validate_doi_registered(self, mock_check_doi):
         """Test validation of DOI registration"""
         # Configure the mock to return an error
@@ -139,27 +143,29 @@ class TestArticleDoiValidation(unittest.TestCase):
             "valid": False,
             "registered": {
                 "article title": "Different Title",
-                "authors": ["Different Author"]
-            }
+                "authors": ["Different Author"],
+            },
         }
-        
+
         # Set skip_doi_check to True to enable validation
         self.validator.params["skip_doi_check"] = True
-        
+
         results = list(self.validator.validate_doi_registered(mock_check_doi))
-        errors = [r for r in results if r['response'] != 'OK']
-        
-        self.assertEqual(len(errors), 2)  # Should have errors for both main article and translation
-        
-        responses = [error['response'] for error in errors]
-        advices = [error['advice'] for error in errors]
-        
-        expected_responses = ['CRITICAL', 'CRITICAL']
+        errors = [r for r in results if r["response"] != "OK"]
+
+        self.assertEqual(
+            len(errors), 2
+        )  # Should have errors for both main article and translation
+
+        responses = [error["response"] for error in errors]
+        advices = [error["advice"] for error in errors]
+
+        expected_responses = ["CRITICAL", "CRITICAL"]
         expected_advices = [
-            '''Check doi (<article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>) is not registered for {"article title": "Main article title", "authors": ["Smith, John", "Johnson, Mary"]}. It is registered for {"article title": "Different Title", "authors": ["Different Author"]}''',
-            '''Check doi (<article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>) is not registered for {"article title": "Título do artigo em português", "authors": ["Smith, John", "Johnson, Mary"]}. It is registered for {"article title": "Different Title", "authors": ["Different Author"]}'''
+            """Check doi (<article-id pub-id-type="doi">10.1590/1518-8345.2927.3231</article-id>) is not registered for {"article title": "Main article title", "authors": ["Smith, John", "Johnson, Mary"]}. It is registered for {"article title": "Different Title", "authors": ["Different Author"]}""",
+            """Check doi (<article-id pub-id-type="doi">10.1590/2176-4573e59270</article-id>) is not registered for {"article title": "Título do artigo em português", "authors": ["Smith, John", "Johnson, Mary"]}. It is registered for {"article title": "Different Title", "authors": ["Different Author"]}""",
         ]
-        
+
         for i, got in enumerate(expected_responses):
             with self.subTest(i):
                 self.assertEqual(responses[i], got)
@@ -172,7 +178,7 @@ class TestArticleDoiValidation(unittest.TestCase):
     def test_validate_different_doi_in_translation(self):
         """Test validation of different DOIs in translations"""
         results = list(self.validator.validate_different_doi_in_translation())
-        errors = [r for r in results if r['response'] != 'OK']
+        errors = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(errors), 0)
 
     def test_validate_different_doi_in_translation_with_duplicate(self):
@@ -189,24 +195,26 @@ class TestArticleDoiValidation(unittest.TestCase):
             </sub-article>
         </article>
         """
-        xmltree = etree.fromstring(xml_with_duplicate.encode('utf-8'))
+        xmltree = etree.fromstring(xml_with_duplicate.encode("utf-8"))
         validator = ArticleDoiValidation(xmltree)
-        
+
         results = list(validator.validate_different_doi_in_translation())
         print(results)
-        errors = [r for r in results if r['response'] != 'OK']
-        
+        errors = [r for r in results if r["response"] != "OK"]
+
         self.assertEqual(len(errors), 1)
-        
-        responses = [error['response'] for error in errors]
-        advices = [error['advice'] for error in errors]
-        
-        expected_responses = ['WARNING']
-        expected_advices = ['Change 10.1590/same-doi in <sub-article id="s1"><article-id pub-id-type="doi">10.1590/same-doi</article-id> for a DOI different from ["10.1590/same-doi"]']
-        
+
+        responses = [error["response"] for error in errors]
+        advices = [error["advice"] for error in errors]
+
+        expected_responses = ["WARNING"]
+        expected_advices = [
+            'Change 10.1590/same-doi in <sub-article id="s1"><article-id pub-id-type="doi">10.1590/same-doi</article-id> for a DOI different from ["10.1590/same-doi"]'
+        ]
+
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

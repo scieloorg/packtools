@@ -1,6 +1,10 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
-from packtools.sps.validation.utils import format_response, check_doi_is_registered, build_response
+from packtools.sps.validation.utils import (
+    format_response,
+    check_doi_is_registered,
+    build_response,
+)
 
 
 def _callable_extern_validate_default(doi):
@@ -82,7 +86,7 @@ class ArticleDoiValidation:
             if text_id := doi.get("parent_id"):
                 text = f'<sub-article id="{text_id}">'
             else:
-                text = f'<article>'
+                text = f"<article>"
             advice = (
                 f'Mark DOI for {text} with<article-id pub-id-type="doi"></article-id>'
             )
@@ -174,7 +178,7 @@ class ArticleDoiValidation:
             if k:
                 dois.setdefault(k, 0)
                 dois[k] += 1
-        
+
         diff = [doi for doi, freq in dois.items() if freq > 1]
 
         yield format_response(
@@ -207,7 +211,7 @@ class ArticleDoiValidation:
             result = check_doi_is_registered(doi_data)
             expected = {
                 "article title": doi_data.get("article_title"),
-                "authors": doi_data.get("authors")
+                "authors": doi_data.get("authors"),
             }
 
             advice = None
@@ -215,7 +219,9 @@ class ArticleDoiValidation:
                 if registered := result.get("registered"):
                     advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
                 else:
-                    advice = f'Unable to check if {xml_doi} is registered for {expected}'
+                    advice = (
+                        f"Unable to check if {xml_doi} is registered for {expected}"
+                    )
 
             yield format_response(
                 title="Registered DOI",
