@@ -45,7 +45,8 @@ class ArticleXrefValidation:
         for rid, rid_list in self.article_xref.all_xref_rids().items():
             for xref in rid_list:
                 is_valid = rid in ids
-                element_name = xref.get("element_name") 
+                element_name = xref.get("element_name")
+                ref_type = xref.get("ref-type")
                 yield format_response(
                     title="xref[@rid] -> *[@id]",
                     parent="article",
@@ -60,7 +61,9 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=rid,
                     obtained=rid if is_valid else None,
-                    advice=f'Check if xref[@rid="{rid}"] is correct or insert the missing {element_name}[@id="{rid}"]',
+                    advice=f'Found <xref rid="{rid}" ref-type="{ref_type}">...</xref>, but not found the corresponding '
+                           f'<{element_name} id="{rid}">. Check if the value rid="" and ref-type="" are correct and '
+                           f'check if <{element_name}> have correct id=""',
                     data=xref,
                     error_level=error_level,
                 )
@@ -111,6 +114,7 @@ class ArticleXrefValidation:
                     error_level = default_error_level
                     expectation = "can"
                 is_valid = id in rids
+                ref_type = rids.get(id)
                 yield format_response(
                     title="*[@id] -> xref[@rid]",
                     parent=id_data.get("parent"),
@@ -123,7 +127,8 @@ class ArticleXrefValidation:
                     is_valid=is_valid,
                     expected=id,
                     obtained=id if is_valid else None,
-                    advice=f'Check if {tag}[@id="{id}"] is correct or insert the missing xref[@rid="{id}"]',
+                    advice=f'Found <{tag} id="{id}">...</{tag}>, but no corresponding <xref rid="{id}"> found. '
+                           f'Check if it is missing to mark the cross-reference (<xref rid="{id}" ref-type="{ref_type}">) to <{tag} id="{id}">',
                     data=id_data,
                     error_level=error_level,
                 )
