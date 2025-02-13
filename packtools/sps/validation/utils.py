@@ -1,5 +1,6 @@
 import urllib.parse
 import re
+from datetime import date, datetime, timedelta
 
 import requests
 from langdetect import detect
@@ -293,3 +294,10 @@ def format_advice(
 
     return advice
     
+
+def get_future_date(from_date, days):
+    if isinstance(from_date, str):
+        d = date.fromisoformat(from_date)
+        future = d + timedelta(days)
+        return future.isoformat()[:10]
+    return from_date + timedelta(days)

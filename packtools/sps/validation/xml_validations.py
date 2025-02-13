@@ -6,10 +6,10 @@ from packtools.sps.validation.article_abstract import (
     VisualAbstractsValidation,
 )
 from packtools.sps.validation.article_and_subarticles import (
-    ArticleAttribsValidation,
     ArticleIdValidation,
     ArticleLangValidation,
     ArticleTypeValidation,
+    JATSAndDTDVersionValidation,
 )
 from packtools.sps.validation.article_contribs import XMLContribsValidation
 from packtools.sps.validation.article_data_availability import (
@@ -105,9 +105,8 @@ def validate_abstracts(xmltree, params):
 
 
 def validate_article(xmltree, params):
-    validator = ArticleAttribsValidation(xmltree, params["article_rules"])
-    yield from validator.validate_specific_use()
-    yield from validator.validate_dtd_version()
+    validator = JATSAndDTDVersionValidation(xmltree, params["article_rules"])
+    yield from validator.validate()
 
 
 def validate_article_languages(xmltree, params):
@@ -187,11 +186,11 @@ def validate_open_science_actions(xmltree, params):
 
 
 def validate_article_toc_sections(xmltree, params):
-    params = {}
-    params["journal_data"] = params.get("journal_data")
-    params.update(params["article_toc_section_rules"])
+    rules = {}
+    rules["journal_data"] = params.get("journal_data")
+    rules.update(params["article_toc_section_rules"])
 
-    validator = XMLTocSectionsValidation(xmltree, params)
+    validator = XMLTocSectionsValidation(xmltree, rules)
     yield from validator.validate()
 
 
@@ -250,10 +249,8 @@ def validate_bibliographic_strip(xmltree, params):
     validator = IssueValidation(xmltree, rules)
     yield from validator.validate()
 
-    validator = PaginationValidation(xmltree)
-    yield validator.validate(
-        error_level=rules["pagination_error_level"],
-    )
+    validator = PaginationValidation(xmltree, rules)
+    yield validator.validate()
 
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]

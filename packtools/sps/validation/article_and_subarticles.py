@@ -18,7 +18,14 @@ class ArticleLangValidation:
     def __init__(self, xmltree, params):
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
-        self.params = params
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        return {
+            "language_codes_list": ["pt", "en", "es"],  # Common languages in scientific publications
+            "language_error_level": "CRITICAL"
+        }
 
     def validate_language(self):
         """
@@ -108,10 +115,28 @@ class ArticleLangValidation:
 
 class ArticleTypeValidation:
     def __init__(self, xmltree, params):
-        self.params = params
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.subject_english_version = ArticleTocSections(self.xmltree).sections_dict.get("en")
+
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        return {
+            "article_type_list": [
+                "research-article",
+                "review-article",
+                "editorial",
+                "letter",
+                "case-report",
+                "brief-report",
+                "rapid-communication"
+            ],
+            "article_type_error_level": "CRITICAL",
+            "article_type_and_subject_expected_similarity": 0.6,
+            "article_type_and_subject_expected_similarity_error_level": "ERROR"
+        }
 
     def validate_article_type(self):
         """
@@ -372,7 +397,13 @@ class ArticleIdValidation:
         self.xmltree = xmltree
         self.articles = ArticleAndSubArticles(self.xmltree)
         self.article_ids = ArticleIds(self.xmltree)
-        self.params = params
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        return {
+            "id_other_error_level": "ERROR"
+        }
 
     def validate_article_id_other(self):
         """
@@ -459,7 +490,25 @@ class JATSAndDTDVersionValidation:
         self.article_and_sub_articles = ArticleAndSubArticles(self.xml_tree)
         self.dtd_version = self.article_and_sub_articles.dtd_version
         self.specific_use = self.article_and_sub_articles.specific_use
-        self.params = params
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        return {
+            "specific_use_list": {
+                "sps-1.1": ["1.0"],
+                "sps-1.2": ["1.0"],
+                "sps-1.3": ["1.0"],
+                "sps-1.4": ["1.0"],
+                "sps-1.5": ["1.0"],
+                "sps-1.6": ["1.0"],
+                "sps-1.7": ["1.0", "1.1"],
+                "sps-1.8": ["1.0", "1.1"],
+                "sps-1.9": ["1.1"],
+                "sps-1.10": ["1.1", "1.2", "1.3"]
+            },
+            "jats_and_dtd_version_error_level": "CRITICAL"
+        }
 
     def validate(self):
         sps_version = self.specific_use
@@ -475,7 +524,7 @@ class JATSAndDTDVersionValidation:
 
         elif jats_version not in expected_jats_versions:
             xml = f'<article specific-use="" dtd-version=""/>'
-            advice = f"Complete respectively SPS and JATS versions {xml} with compatible values: {versions}"
+            advice = f"Complete SPS (specific-use="") and JATS (dtd-version="") versions {xml} with compatible values: {versions}"
 
         expected = expected_jats_versions or versions
         got = {

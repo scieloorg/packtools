@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 
 from packtools.sps.models.dates import FulltextDates
-from packtools.sps.validation.utils import build_response
+from packtools.sps.validation.utils import build_response, get_future_date
 
 
 def is_subsequence_in_order(subsequence, main_sequence):
@@ -33,14 +33,6 @@ def is_subsequence_in_order(subsequence, main_sequence):
     return all(item in iterator_main_sequence for item in subsequence)
 
 
-def get_future_date(from_date, days):
-    if isinstance(from_date, str):
-        d = date.fromisoformat(from_date)
-        future = d + timedelta(days)
-        return future.isoformat()[:10]
-    return from_date + timedelta(days)
-
-
 class DateValidation:
     def __init__(self, date_data, params):
         self.date_data = date_data
@@ -49,8 +41,8 @@ class DateValidation:
 
         # Initialize default params and update with provided params
         self.params = self._get_default_params()
-        if params:
-            self.params.update(params)
+        self.params.update(params or {})
+        self.params["limit_date"] = self.params["limit_date"] or get_future_date(datetime.now().isoformat()[:10], 60)
 
     def _get_default_params(self):
         """Return default parameters for date validation."""
@@ -158,20 +150,15 @@ class DateValidation:
             limit_date = self.params["limit_date"]
             pub_date = self.params.get("pub_date")
 
-            error = None
-            if pub_date:
-                max_date_label = "publication date"
+            max_date_label = "limit date"
+            if pub_date:                
                 if date_type in self.params["pre_pub_ordered_events"]:
-                    max_date = pub_date or limit_date
-                elif date_type == "pub":
-                    max_date = limit_date
-                elif date_type in self.params["pos_pub_ordered_events"]:
-                    max_date = pub_date
-                else:
-                    max_date = limit_date
-            else:
-                max_date_label = "limit date"
+                    max_date_label = "publication date"
+
+            if max_date_label == "limit date":
                 max_date = limit_date
+            else:
+                max_date = pub_date
 
             valid = formatted_date < max_date
             advice = f'<date date-type="{date_type}"> ({formatted_date}) must be previous to {max_date_label} ({max_date})'
@@ -206,43 +193,6 @@ class DateValidation:
 
 
 class FulltextDatesValidation:
-    """Validates all dates in a Fulltext document according to specific rules.
-
-    This class handles validation of article dates, history dates, and their relationships,
-    applying different validation rules for different date types.
-
-    Attributes:
-        node: FulltextDates instance containing all document dates
-        params: Dictionary containing validation parameters and rules
-    """
-
-    def __init__(self, node, params=None):
-        """Initialize a FulltextDatesValidation instance.
-
-        Args:
-            node: FulltextDates instance to validate
-            params: Optional dictionary of validation parameters
-        """
-        self.fulltext = FulltextDates(node)
-        self.history_dates = list(self.fulltext.history_dates)
-        self.params = params or {}
-
-        self._set_default_params()
-        self._add_required_events()
-
-        self.date_types_ordered_by_date = self.fulltext.date_types_ordered_by_date
-        self.expected_date_type_list = (
-            self.params["pre_pub_ordered_events"]
-            + self.params["pos_pub_ordered_events"]
-        )
-        self.required_date_types = self.params["required_events"]
-        self.params["limit_date"] = datetime.now().isoformat()[:10]
-        self.params["pub_date"] = (
-            self.fulltext.article_date and self.fulltext.article_date["display"]
-        )
-
-
-class FulltextDatesValidation:
     def __init__(self, node, params=None):
         """Initialize a FulltextDatesValidation instance.
 
@@ -255,8 +205,7 @@ class FulltextDatesValidation:
 
         # Initialize default params and update with provided params
         self.params = self._get_default_params()
-        if params:
-            self.params.update(params)
+        self.params.update(params or {})
 
         self._add_required_events()
 
@@ -329,13 +278,13 @@ class FulltextDatesValidation:
         yield from self.validate_not_translations()
 
     def validate_translations(self):
-        for node in self.fulltext.translations:
-            validator = FulltextDatesValidation(node, self.params)
+        for item in self.fulltext.translations:
+            validator = FulltextDatesValidation(item.node, self.params)
             yield from validator.validate()
 
     def validate_not_translations(self):
-        for node in self.fulltext.not_translations:
-            validator = FulltextDatesValidation(node, self.params)
+        for item in self.fulltext.not_translations:
+            validator = FulltextDatesValidation(item.node, self.params)
             yield from validator.validate()
 
     def validate_article_date(self):

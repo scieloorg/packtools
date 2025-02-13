@@ -1,4 +1,6 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context, node_plain_text, process_subtags
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.models.dates import FulltextDates
+from packtools.sps.utils.xml_utils import tostring, get_parent_context, put_parent_context, node_plain_text, process_subtags
 
 
 class Reference:
@@ -145,35 +147,84 @@ def get_ext_link(node):
     return [node_plain_text(item) for item in node.xpath(".//element-citation//ext-link")]
 
 
-class FullTextReferences:
+class FullTextReferences(Fulltext):
 
-    def __init__(self, fulltext_node):
-        """
-        fulltext_node : article or sub-article node
-        """
-        self.fulltext_node = fulltext_node
+    def __init__(self, node, citing_pub_year=None):
+        super().__init__(node)
+        self._citing_pub_year = citing_pub_year
+
+    @property
+    def citing_pub_year(self):
+        if not self._citing_pub_year:
+            fulltext = FulltextDates(self.node)
+            self._citing_pub_year = (
+                fulltext.collection_date or fulltext.article_date
+            ).get("year")
+        return self._citing_pub_year
+
+    @property
+    def common_data(self):
+        common = {}
+        common.update(self.attribs_parent_prefixed)
+        common["citing_pub_year"] = self.citing_pub_year
+        return common
+
+    @property
+    def main_references(self):
+        try:
+            refs = self.back.xpath("ref-list/ref")
+        except AttributeError:
+            return
+
+        if not refs:
+            return
+
+        for item in refs:
+            ref = Reference(item)
+            data = ref.data()
+            data.update(self.common_data)
+            yield data
+
+    @property
+    def subarticle_references(self):
+        d = {}
+        for node in self.node.xpath("sub-article[@article-type!='translation']"):
+            if node.find("back/ref-list") is not None:
+                fulltext = FullTextReferences(node, self.citing_pub_year)
+                d[fulltext.id] = fulltext.data
+        return d
+
+    @property
+    def data(self):
+        d = {}
+        if refs := list(self.main_references):
+            d["main_references"] = refs
+            d.update(self.subarticle_references)
+        return d
 
     @property
     def items(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-                self.fulltext_node
-        ):
-            for item in node.xpath("ref-list/ref"):
-                ref = Reference(item)
-                data = ref.data()
-                yield put_parent_context(data, lang, article_type, parent, parent_id)
+        yield from self.main_references
+        for id_, refs in self.subarticle_references.items():
+            yield from refs
 
 
-class ArticleReferences:
+class XMLReferences:
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
+        self.fulltext = FullTextReferences(self.xmltree.find("."))
 
     @property
-    def article_references(self):
-        yield from FullTextReferences(self.xmltree.find(".")).items
+    def main_references(self):
+        yield from self.fulltext.main_references
 
     @property
-    def sub_article_references(self):
-        for node in self.xmltree.xpath(".//sub-article"):
-            yield from FullTextReferences(node).items
+    def subarticle_references(self):
+        return self.fulltext.subarticle_references
+
+    @property
+    def items(self):
+        yield from self.main_references
+        for refs in self.subarticle_references.values():
+            yield from refs
