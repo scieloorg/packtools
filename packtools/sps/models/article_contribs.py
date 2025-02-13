@@ -132,8 +132,8 @@ class ContribGroup:
         return {
             "type": self.type,
             "contribs": list([item.data for item in self.contribs]),
-            "collab": bool(self.node.find(".//collab")),
-            "name": bool(self.node.find(".//name"))
+            "has_collab": self.node.find(".//collab") is not None,
+            "has_name": self.node.find(".//name") is not None
         }
 
 
@@ -181,6 +181,10 @@ class XMLContribs:
 
 
 class TextContribs(Fulltext):
+
+    @property
+    def collab(self):
+        return self.front.findtext(".//contrib-group//collab")
 
     @property
     def contrib_groups(self):

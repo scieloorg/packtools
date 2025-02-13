@@ -16,10 +16,25 @@ class ContribValidation:
     """Validates contributor information in scientific article XML."""
 
     def __init__(self, contrib, data):
-        self.data = data
+        self.data = self._get_default_params()
+        self.data.update(data or {})
         self.contrib = contrib
         self.contrib_name = self.contrib.get("contrib_full_name")
 
+    def _get_default_params(self):
+        return {
+            # Error levels
+            "contrib_role_error_level": "ERROR",
+            "orcid_format_error_level": "ERROR",
+            "orcid_is_registered_error_level": "ERROR",
+            "affiliations_error_level": "ERROR",
+            "name_error_level": "ERROR",
+            "collab_error_level": "ERROR",
+            "contrib_error_level": "ERROR",
+            
+            # ORCID validation function
+            "is_orcid_registered": _callable_extern_validate_default
+        }
     def validate_role(self):
         try:
             roles = self.contrib["contrib_role"]
@@ -146,7 +161,7 @@ class ContribValidation:
             expected_value, got_value, message, and advice fields.
         """
         error_level = self.data["affiliations_error_level"]
-        affs = [item["id"] for item in self.contrib.get("affs")]
+        affs = [item["id"] for item in self.contrib.get("affs") or []]
         yield build_response(
             title="affiliation",
             parent=self.contrib,
@@ -207,22 +222,23 @@ class ContribValidation:
         expected = []
         if self.contrib.get("original_article_type") == "reviewer-report":
             expected = ["name", "anonymous"]
-            value =self.contrib.get("contrib_name") or self.contrib.get("anonymous")
+            value = self.contrib.get("contrib_name") or self.contrib.get("anonymous")
+            advice = f"Mark contributor with <name></name> and anonymous contributor with <anonymous/> in <contrib></contrib>",
         else:
             expected = ["name", "collab"]
-            value =self.contrib.get("contrib_name") or self.contrib.get("collab")
+            value = self.contrib.get("contrib_name") or self.contrib.get("collab")
+            advice = f"Mark contributor with <name></name> and institutional contributor with <collab></collab> in <contrib></contrib>",
 
-        xml = " or ".joind(("<name></name>", "<collab></collab>"))
         yield build_response(
-            title=title,
+            title="contributor",
             parent=self.contrib,
             item="contrib",
-            sub_item=title,
+            sub_item=None,
             validation_type="exist",
             is_valid=not value,
             expected=expected,
             obtained=value,
-            advice=f"Mark contributor {' or '.join(expected)} with {xml} in <contrib></contrib>",
+            advice=advice,
             data=self.contrib,
             error_level=error_level,
         )
@@ -239,8 +255,15 @@ class ContribValidation:
 class XMLContribsValidation:
     def __init__(self, xmltree, params):
         self.xmltree = xmltree
-        self.params = params
         self.xml_contribs = XMLContribs(self.xmltree)
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        # Include all params from ContribValidation plus its own
+        return {
+            "orcid_is_unique_error_level": "ERROR"
+        }
 
     def validate_orcid_is_unique(self):
         error_level = self.params["orcid_is_unique_error_level"]
@@ -248,7 +271,7 @@ class XMLContribsValidation:
 
         repeated_orcid = {
             k: sorted(v) for k, v in orcid_dict.items() if len(v) > 1
-        } or None
+        }
 
         parent = self.xml_contribs.text_contribs.attribs_parent_prefixed
 
@@ -301,32 +324,37 @@ class TextContribsValidation:
 class CollabListValidation:
     def __init__(self, node, params):
         # node (article ou sub-article)
-        self.params = params
+        self.params = self._get_default_params()
+        self.params.update(params or {})
         self.node = node
         self.text_contribs = TextContribs(node)
-        self.collab = node.find(".//contrib/collab")
-        self.name = node.find(".//contrib/name")
+
+    def _get_default_params(self):
+        return {
+            "collab_list_error_level": "ERROR"
+        }
 
     def validate(self):
+        for contrib_group in self.text_contribs.contrib_groups:
+            contrib_group_data = contrib_group.data
 
-        for item in self.text_contribs.contrib_groups:
             expected_type = None
-            if item["collab"]:
+            if contrib_group_data["has_collab"]:
                 title = "institutional"
-            elif item["name"]:
+            elif contrib_group_data["has_name"]:
                 title = "person"
-                if self.collab:
+                if self.text_contribs.collab:
                     expected_type = "collab-list"
             else:
                 title = "anonymous"                
 
-            valid = expected_type == item["type"]
+            valid = expected_type == contrib_group_data["type"]
 
             advice = ""
             if expected_type == "collab-list":
-                advice = f'Add person authors, members of {self.collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
+                advice = f'Add person authors, members of {self.text_contribs.collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
             else:
-                type = item["type"]
+                type = contrib_group_data["type"]
                 advice = f'Remove content-type="{type}" from <contrib-group content-type="{type}">'
 
             yield build_response(
@@ -337,9 +365,9 @@ class CollabListValidation:
                 validation_type="value",
                 is_valid=valid,
                 expected=expected_type,
-                obtained=item["type"],
+                obtained=contrib_group_data["type"],
                 advice=advice,
-                data=item,
+                data=contrib_group_data,
                 error_level=self.params["collab_list_error_level"],
             )
 
@@ -351,6 +379,43 @@ class ContribRoleValidation:
         self.params = params
         self.contrib = contrib
         self.contrib_role = contrib_role
+
+        self.params = self._get_default_params()
+        self.params.update(params or {})
+
+    def _get_default_params(self):
+        return {
+            # Error levels
+            "credit_taxonomy_uri_error_level": "ERROR",
+            "credit_taxonomy_term_error_level": "ERROR",
+            "contrib_role_specific_use_error_level": "ERROR",
+
+            # CRediT taxonomy terms and their URIs
+            "credit_taxonomy_terms_and_urls": [
+                {"term": "Conceptualization", "uri": "http://credit.niso.org/contributor-roles/conceptualization/"},
+                {"term": "Data curation", "uri": "http://credit.niso.org/contributor-roles/data-curation/"},
+                {"term": "Formal analysis", "uri": "http://credit.niso.org/contributor-roles/formal-analysis/"},
+                {"term": "Funding acquisition", "uri": "http://credit.niso.org/contributor-roles/funding-acquisition/"},
+                {"term": "Investigation", "uri": "http://credit.niso.org/contributor-roles/investigation/"},
+                {"term": "Methodology", "uri": "http://credit.niso.org/contributor-roles/methodology/"},
+                {"term": "Project administration", "uri": "http://credit.niso.org/contributor-roles/project-administration/"},
+                {"term": "Resources", "uri": "http://credit.niso.org/contributor-roles/resources/"},
+                {"term": "Software", "uri": "http://credit.niso.org/contributor-roles/software/"},
+                {"term": "Supervision", "uri": "http://credit.niso.org/contributor-roles/supervision/"},
+                {"term": "Validation", "uri": "http://credit.niso.org/contributor-roles/validation/"},
+                {"term": "Visualization", "uri": "http://credit.niso.org/contributor-roles/visualization/"},
+                {"term": "Writing – original draft", "uri": "http://credit.niso.org/contributor-roles/writing-original-draft/"},
+                {"term": "Writing – review & editing", "uri": "http://credit.niso.org/contributor-roles/writing-review-editing/"}
+            ],
+
+            # List of valid contributor role types
+            "contrib_role_specific_use_list": [
+                "author",
+                "editor",
+                "reviewer",
+                "translator"
+            ]
+        }
 
     def validate_credit(self):
         """
@@ -411,14 +476,14 @@ class ContribRoleValidation:
             obtained=uri,
             advice=advice,
             data=self.contrib,
-            error_level=error_level,
+            error_level=uri_error_level,
         )
 
         expected_terms = list(expected_by_term.keys())
         if text:
-            advice = f'Fix <role content-type="{expected_uri or ''}">{text}</role>, replace {text} by valid values: {expected_terms}'
+            advice = f'''Fix <role content-type="{expected_uri or ''}">{text}</role>, replace {text} by valid values: {expected_terms}'''
         else:
-            advice = f'Mark CRediT taxonomy term with <role content-type="{expected_uri or ''}">{text}</role> and valid values: {expected_terms}'
+            advice = f'''Mark CRediT taxonomy term with <role content-type="{expected_uri or ''}">{text}</role> and valid values: {expected_terms}'''
         yield build_response(
             title="CRediT taxonomy term",
             parent=self.contrib,
