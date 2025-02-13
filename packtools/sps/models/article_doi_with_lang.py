@@ -3,7 +3,6 @@ from packtools.sps.models.article_contribs import XMLContribs
 
 
 class DoiWithLang:
-
     """
     Torna acessível os dados representados pelos elementos `article-id`
     Permite a atualização ou criação apenas dos `previous-pid` e `scielo-v3`
@@ -17,8 +16,8 @@ class DoiWithLang:
 
     def __init__(self, xmltree):
         self._xmltree = xmltree
-        self.titles = ArticleTitles(self.xmltree).article_title_dict
-        self.authors = XMLContribs(self.xmltree).contribs
+        self.titles = ArticleTitles(xmltree).article_title_dict
+        self.authors = XMLContribs(xmltree).contribs
 
     def _get_node(self, xpath, node=None):
         if node is None:
@@ -50,35 +49,50 @@ class DoiWithLang:
         for author in self.authors:
             try:
                 contrib_name = author["contrib_name"]
-                fullname = (
-                    f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
-                )
+                fullname = f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
                 xml_authors.append(fullname)
             except KeyError:
                 pass
 
-        _data = [{
-            "lang": self.main_lang,
-            "value": self.main_doi,
-            "parent": "article",
-            "parent_article_type": self._xmltree.get("article-type"),
-            "article_title": self.titles.get(self.main_lang).get("plain_text"),
-            "authors": xml_authors,
-        }]
+        try:
+            article_titles = self.titles.get(self.main_lang).get("plain_text")
+        except AttributeError:
+            article_titles = None
 
-        for sub_article in self._xmltree.xpath(".//sub-article[@article-type='translation']"):
+        _data = [
+            {
+                "lang": self.main_lang,
+                "value": self.main_doi,
+                "parent": "article",
+                "parent_article_type": self._xmltree.get("article-type"),
+                "article_title": article_titles,
+                "authors": xml_authors,
+            }
+        ]
+
+        for sub_article in self._xmltree.xpath(
+            ".//sub-article[@article-type='translation']"
+        ):
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
-            value = self._get_node_text('.//article-id[@pub-id-type="doi"]', sub_article)
+            value = self._get_node_text(
+                './/article-id[@pub-id-type="doi"]', sub_article
+            )
             # Obs.: este módulo foi mantido por não haver modificação na resposta
             # houve apenas adição de valores no dicionário que não compromete outras utilizações
+
+            try:
+                article_titles = self.titles.get(lang).get("plain_text")
+            except AttributeError:
+                article_titles = None
+
             _data.append(
                 {
                     "lang": lang,
                     "value": value,
                     "parent": "sub-article",
                     "parent_article_type": "translation",
-                    "parent_id": sub_article.get("id")
-                    "article_title": self.titles.get(lang).get("plain_text"),
+                    "parent_id": sub_article.get("id"),
+                    "article_title": article_titles,
                     "authors": xml_authors,
                 }
             )
