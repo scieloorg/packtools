@@ -17,8 +17,8 @@ class DoiWithLang:
 
     def __init__(self, xmltree):
         self._xmltree = xmltree
-        self.titles = ArticleTitles(self.xmltree).article_title_dict
-        self.authors = XMLContribs(self.xmltree).contribs
+        self.titles = ArticleTitles(xmltree).article_title_dict
+        self.authors = XMLContribs(xmltree).contribs
 
     def _get_node(self, xpath, node=None):
         if node is None:
@@ -57,12 +57,17 @@ class DoiWithLang:
             except KeyError:
                 pass
 
+        try:
+            article_titles = self.titles.get(self.main_lang).get("plain_text")
+        except AttributeError:
+            article_titles = None
+
         _data = [{
             "lang": self.main_lang,
             "value": self.main_doi,
             "parent": "article",
             "parent_article_type": self._xmltree.get("article-type"),
-            "article_title": self.titles.get(self.main_lang).get("plain_text"),
+            "article_title": article_titles,
             "authors": xml_authors,
         }]
 
@@ -71,14 +76,20 @@ class DoiWithLang:
             value = self._get_node_text('.//article-id[@pub-id-type="doi"]', sub_article)
             # Obs.: este módulo foi mantido por não haver modificação na resposta
             # houve apenas adição de valores no dicionário que não compromete outras utilizações
+            
+            try:
+                article_titles = self.titles.get(lang).get("plain_text")
+            except AttributeError:
+                article_titles = None
+
             _data.append(
                 {
                     "lang": lang,
                     "value": value,
                     "parent": "sub-article",
                     "parent_article_type": "translation",
-                    "parent_id": sub_article.get("id")
-                    "article_title": self.titles.get(lang).get("plain_text"),
+                    "parent_id": sub_article.get("id"),
+                    "article_title": article_titles,
                     "authors": xml_authors,
                 }
             )
