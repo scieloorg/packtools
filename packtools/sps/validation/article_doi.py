@@ -1,6 +1,6 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
-from packtools.sps.validation.utils import format_response, check_doi_is_registered
+from packtools.sps.validation.utils import format_response, check_doi_is_registered, build_response
 
 
 def _callable_extern_validate_default(doi):
@@ -213,7 +213,7 @@ class ArticleDoiValidation:
             advice = None
             if not result.get("valid"):
                 if registered := result.get("registered"):
-                    advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>") is not registered for {expected}. It is registered for {registered}'
+                    advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
                 else:
                     advice = f'Unable to check if {xml_doi} is registered for {expected}'
 
@@ -238,18 +238,17 @@ class ArticleDoiValidation:
         doi_list = [self.doi.main_doi]
 
         for item in self.doi.data:
-            if doi := item["value"] and item["parent_article_type"] == "translation":
+            doi = item["value"]
+            if item["parent_article_type"] == "translation" and doi:
                 valid = doi not in doi_list
-
-                doi_list.append(doi)
+                if valid:
+                    doi_list.append(doi)
                 parent_id = item.get("parent_id")
-                xml = f'<{item.get("parent")} id="{parent_id}"><article-id pub-id-type="doi">{doi}</article-id>'
-                yield format_response(
+                parent_tag = item.get("parent")
+                xml = f'<{parent_tag} id="{parent_id}"><article-id pub-id-type="doi">{doi}</article-id>'
+                yield build_response(
                     title="unique DOI",
-                    parent=doi.get("parent"),
-                    parent_id=doi.get("parent_id"),
-                    parent_article_type=doi.get("parent_article_type"),
-                    parent_lang=doi.get("lang"),
+                    parent=item,
                     item="article-id",
                     sub_item='@pub-id-type="doi"',
                     validation_type="uniqueness",
