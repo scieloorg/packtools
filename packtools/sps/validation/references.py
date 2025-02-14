@@ -23,20 +23,20 @@ class ReferenceValidation:
         element_name = element_name or item_name
         advice = advice or f"Identify the reference {element_name}"
         expected = expected or f"reference {element_name}"
-        if not value or valid is False:
-            yield build_response(
-                title=f"reference {element_name}",
-                parent=self.reference_data,
-                item="element-citation",
-                sub_item=element_name,
-                is_valid=valid,
-                validation_type=validation_type or "exist",
-                expected=expected,
-                obtained=value,
-                advice=advice,
-                data=self.reference_data,
-                error_level=error_level,
-            )
+
+        yield build_response(
+            title=f"reference {element_name}",
+            parent=self.reference_data,
+            item="element-citation",
+            sub_item=element_name,
+            is_valid=valid,
+            validation_type=validation_type or "exist",
+            expected=expected,
+            obtained=value,
+            advice=advice,
+            data=self.reference_data,
+            error_level=error_level,
+        )
 
     def validate_year(self):
         end_year = self.params.get("end_year")
@@ -47,32 +47,47 @@ class ReferenceValidation:
             is_valid = int(year) <= end_year
         except (TypeError, ValueError):
             is_valid = False
-        advice = (
-            None
-            if is_valid
-            else f"Identify the reference year, previous or equal to {end_year}"
-        )
+        advice = f"Mark reference publication year with <ref-list><ref><element-citation><year>, ensure that year is previous or equal to {end_year}"
         expected = (
-            year if is_valid else f"reference year, previous or equal to {end_year}"
+            year if is_valid else f"reference publication year, previous or equal to {end_year}"
         )
-        if not is_valid:
-            yield from self._validate_item(
-                "year",
-                valid=is_valid,
-                advice=advice,
-                expected=expected,
-                error_level=self.params["year_error_level"],
-            )
+
+        yield from self._validate_item(
+            "year",
+            valid=is_valid,
+            advice=advice,
+            expected=expected,
+            error_level=self.params["year_error_level"],
+        )
 
     def validate_source(self):
-        yield from self._validate_item("source", error_level=self.params["source_error_level"])
+        source = self.reference_data.get("source")
+        is_valid = bool(source)
+        advice = "Mark main source title of a reference with <ref-list><ref><element-citation><source>"
+        expected = source if is_valid else "Main source title of a reference"
+
+        yield from self._validate_item(
+            "source",
+            valid=is_valid,
+            advice=advice,
+            expected=expected,
+            error_level=self.params["source_error_level"]
+        )
 
     def validate_article_title(self):
         publication_type = self.reference_data.get("publication_type")
         article_title = self.reference_data.get("article_title")
-        if publication_type == "journal" and not article_title:
-            yield from self._validate_item(
-                "article_title", "article-title", error_level=self.params["article_title_error_level"])
+        is_valid = publication_type != "journal" or bool(article_title)
+        advice = f"A title is required for '{publication_type}'. Please add one."
+        expected = article_title if is_valid else "Article title"
+
+        yield from self._validate_item(
+            "article_title",
+            valid=is_valid,
+            advice=advice,
+            expected=expected,
+            error_level=self.params["article_title_error_level"]
+        )
 
     def validate_authors(self):
         number_authors = (
@@ -80,15 +95,17 @@ class ReferenceValidation:
             if self.reference_data.get("all_authors")
             else 0
         )
-        if not number_authors:
-            advice = "Identify the reference authors"
-            yield from self._validate_item(
-                "all_authors",
-                element_name="person-group//name or person-group//collab",
-                valid=number_authors,
-                advice=advice,
-                error_level=self.params["authors_error_level"],
-            )
+        is_valid = number_authors > 0
+        advice = "The reference must include at least one author or collaboration group."
+        expected = "At least one author or collaboration group."
+        yield from self._validate_item(
+            "all_authors",
+            element_name="person-group//name or person-group//collab",
+            valid=is_valid,
+            advice=advice,
+            error_level=self.params["authors_error_level"],
+            expected=expected
+        )
 
     def validate_publication_type(self):
         publication_type_list = self.params["publication_type_list"]
@@ -98,55 +115,62 @@ class ReferenceValidation:
                 "Function requires list of publications type"
             )
         publication_type = self.reference_data.get("publication_type")
-        if publication_type not in publication_type_list:
-            advice = (
-                f"Provide a value for @publication-type, one of {publication_type_list}"
-            )
-            yield from self._validate_item(
-                "publication_type", element_name="@publication-type", advice=advice,
-                error_level=error_level, expected=publication_type_list, validation_type="value in list"
-            )
+        is_valid = publication_type in publication_type_list
+        advice = (
+            f'Specify a valid publication type in <element-citation publication-type="VALUE">. '
+            f'Replace VALUE with one of: {publication_type_list}'
+        )
+        yield from self._validate_item(
+            "publication_type",
+            element_name="@publication-type",
+            advice=advice,
+            error_level=error_level,
+            expected=publication_type_list,
+            validation_type="value in list",
+            valid=is_valid,
+        )
 
     def validate_comment_is_required_or_not(self):
-        comment = self.reference_data.get("comment_text", {})
+        comment = self.reference_data.get("comment_text") or {}
         text_before_extlink = self.reference_data.get("text_before_extlink")
-
         ext_link_text = comment.get("ext_link_text")
         full_comment = comment.get("full_comment")
         text_between = comment.get("text_between")
         has_comment = comment.get("has_comment")
+
+        parent_tag = "element-citation"
 
         scenarios = [
             {
                 "condition": has_comment and not full_comment and text_before_extlink,
                 "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
                 "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
-                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag",
+                "advice": f"Inside <{parent_tag}>, wrap the <ext-link> tag and its content within the <comment> tag.",
             },
             {
-                "condition": has_comment
-                and not full_comment
-                and not text_before_extlink,
+                "condition": has_comment and not full_comment and not text_before_extlink,
                 "expected": f"<ext-link>{ext_link_text}</ext-link>",
                 "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
-                "advice": "Remove the <comment> tag that has no content",
+                "advice": f"Inside <{parent_tag}>, remove the empty <comment> tag to clean up the structure.",
             },
             {
                 "condition": not has_comment and text_before_extlink,
                 "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
                 "obtained": f"{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
-                "advice": "Wrap the <ext-link> tag and its content within the <comment> tag",
+                "advice": f"Inside <{parent_tag}>, wrap the <ext-link> tag and its content within the <comment> tag.",
             },
             {
                 "condition": full_comment and not text_between,
                 "expected": f"<ext-link>{ext_link_text}</ext-link>",
                 "obtained": f"<comment><ext-link>{ext_link_text}</ext-link></comment>",
-                "advice": "Remove the <comment> tag that has no content",
+                "advice": f"Inside <{parent_tag}>, remove the <comment> tag if it has no additional content.",
             },
         ]
 
+        found_issue = False
         for scenario in scenarios:
             if scenario["condition"]:
+                found_issue = True
                 yield build_response(
                     title="comment is required or not",
                     parent=self.reference_data,
@@ -161,49 +185,75 @@ class ReferenceValidation:
                     error_level=self.params["comment_error_level"],
                 )
 
+        if not found_issue:
+            yield build_response(
+                title="comment is required or not",
+                parent=self.reference_data,
+                item="element-citation",
+                sub_item="comment",
+                is_valid=True,
+                validation_type="exist",
+                expected="Valid structure",
+                obtained="Valid structure",
+                advice=None,
+                data=self.reference_data,
+                error_level="INFO",
+            )
+
     def validate_mixed_citation_sub_tags(self):
         allowed_tags = self.params["allowed_tags"]
         if found_sub_tags := self.reference_data.get("mixed_citation_sub_tags"):
             remaining_tags = list(set(found_sub_tags) - set(allowed_tags))
-            if remaining_tags:
-                yield build_response(
-                    title="mixed-citation sub elements",
-                    parent=self.reference_data,
-                    item="mixed-citation",
-                    sub_item=None,
-                    is_valid=False,
-                    validation_type="exist",
-                    expected=allowed_tags,
-                    obtained=self.reference_data.get("mixed_citation_sub_tags"),
-                    advice=f"remove {remaining_tags} from mixed-citation",
-                    data=self.reference_data,
-                    error_level=self.params["mixed_citation_sub_tags_error_level"],
-                )
-
-    def validate_mixed_citation(self):
-        if not self.reference_data.get("mixed_citation"):
+            is_valid = not bool(remaining_tags)
             yield build_response(
-                title="mixed-citation",
+                title="mixed-citation sub elements",
                 parent=self.reference_data,
                 item="mixed-citation",
                 sub_item=None,
-                is_valid=False,
+                is_valid=is_valid,
                 validation_type="exist",
-                expected="mixed-citation",
-                obtained=None,
-                advice=f"Add mixed-citation",
+                expected=allowed_tags,
+                obtained=self.reference_data.get("mixed_citation_sub_tags"),
+                advice=f"Remove the following invalid sub-tags from <mixed-citation>: {remaining_tags}.",
                 data=self.reference_data,
-                error_level=self.params["mixed_citation_error_level"],
+                error_level=self.params["mixed_citation_sub_tags_error_level"],
             )
+
+    def validate_mixed_citation(self):
+        mixed_citation = self.reference_data.get("mixed_citation")
+        is_valid = bool(mixed_citation)
+        if not mixed_citation:
+            advice = f"Add <mixed-citation> inside <element-citation>."
+        elif isinstance(mixed_citation, str) and not mixed_citation.strip():
+            advice = f"<mixed-citation> inside <element-citation> should not be empty."
+        else:
+            advice = None
+        yield build_response(
+            title="mixed-citation",
+            parent=self.reference_data,
+            item="mixed-citation",
+            sub_item=None,
+            is_valid=is_valid,
+            validation_type="exist",
+            expected="mixed-citation",
+            obtained=mixed_citation,
+            advice=advice,
+            data=self.reference_data,
+            error_level=self.params["mixed_citation_error_level"],
+        )
 
     def validate_title_tag_by_dtd_version(self):
         chapter_title = self.reference_data.get("chapter_title")
+        dtd_version = self.params.get("dtd_version")
+        if dtd_version is None:
+            raise ValueError("DTD version is missing.")
         try:
-            dtd_version = float(self.params.get("dtd_version"))
+            dtd_version = float(dtd_version)
         except ValueError:
-            raise ValueError("Invalid DTD version: expected a numeric value.")
+            raise ValueError(f"Invalid DTD version: '{dtd_version}' is not a numeric value.")
 
         if dtd_version >= 1.3 and bool(chapter_title):
+            advice = f"Use <part-title> instead of <chapter-title> in <element-citation> for compatibility with DTD {dtd_version}."
             yield build_response(
                 title="part-title",
                 parent=self.reference_data,
@@ -213,7 +263,7 @@ class ReferenceValidation:
                 validation_type="exist",
                 expected="<part-title>",
                 obtained="<chapter-title>",
-                advice="Replace <chapter-title> with <part-title> to meet the required standard.",
+                advice=advice,
                 data=self.reference_data,
                 error_level=self.params.get("title_tag_by_dtd_version_error_level"),
             )
