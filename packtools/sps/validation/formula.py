@@ -45,7 +45,7 @@ class ArticleDispFormulaValidation:
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice="Add <disp-formula> inside <article><body> to properly format mathematical expressions.",
+                advice='Mark each formula inside <body> using <disp-formula>. Consult SPS documentation for more detail.',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -106,7 +106,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="@id",
             obtained=formula_id,
-            advice='Mark formulas with <article><body><disp-formula id="VALUE"> and replace VALUE with formula ID.',
+            advice='Mark each formula ID with <id> inside <disp-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
         )
@@ -134,7 +134,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark formula labels with <article><body><disp-formula><label>',
+            advice='Mark each formula label with <label> inside <disp-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -163,7 +163,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice='Mark formula codification with <article><body><disp-formula><mml:math> or <article><body><disp-formula><tex-math>',
+            advice='Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
         )
@@ -322,7 +322,7 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice='Mark formula codification with <article><body><inline-formula><mml:math> or <article><body><inline-formula><tex-math>',
+            advice='Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
         )
