@@ -108,7 +108,7 @@ class AcronymValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_acronym.text,
-            advice='Mark journal acronym value with <journal-meta><journal-id journal-id-type="publisher-id">{}</journal-id>'.format(expected_value),
+            advice='Mark journal acronym value with <journal-id journal-id-type="publisher-id">{}</journal-id> in <journal-meta>'.format(expected_value),
             data={'acronym': self.journal_acronym.text},
             error_level=error_level,
         )
@@ -135,7 +135,7 @@ class TitleValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_titles.journal_title,
-            advice='Mark journal title value with <journal-meta><journal-title-group><journal-title>',
+            advice='Mark journal title value with <journal-title-group><journal-title> in <journal-meta>',
             data={
                 item.get("type"): item.get("value")
                 for item in self.journal_titles.data
@@ -159,7 +159,7 @@ class TitleValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_titles.abbreviated_journal_title,
-            advice='Mark abbreviated journal title value with <journal-meta><journal-title-group><abbrev-journal-title>',
+            advice='Mark abbreviated journal title value with <journal-title-group><abbrev-journal-title> in <journal-meta>',
             data={
                 item.get("type"): item.get("value")
                 for item in self.journal_titles.data
@@ -240,7 +240,7 @@ class PublisherNameValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
-                advice=f'Mark publisher name values with <journal-meta><publisher><publisher-name>{expected}</publisher-name></publisher></journal-meta>',
+                advice=f'Mark publisher name values with <publisher><publisher-name>{expected}</publisher-name></publisher> in <journal-meta>',
                 data=None,
                 error_level=error_level,
             )
@@ -340,7 +340,7 @@ class JournalIdValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.nlm_ta,
-            advice=f'Mark an nlm-ta value with <journal-meta><journal-id journal-id-type="nlm-ta">{expected_value}</journal-id></journal-meta>',
+            advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> in <journal-meta>',
             data=None,
             error_level=error_level,
         )
