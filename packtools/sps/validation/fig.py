@@ -33,7 +33,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected="<fig/>",
                     obtained=None,
-                    advice=f'Mark figures with <article article-type="{self.article_type}"><body><fig> or check if article-type="{self.article_type}" is correct',
+                    advice='Mark each figure inside <body> using <fig>. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["required_error_level"],
                 )
@@ -52,7 +52,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected=None,
                     obtained=None,
-                    advice=f'Mark figures with <article article-type="{self.article_type}"><body><fig> if this article should include figures',
+                    advice='Mark each figure inside <body> using <fig> if this article should include figures. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["absent_error_level"],
                 )
@@ -74,10 +74,7 @@ class FigValidation:
         obtained = self.data.get(name)
         is_valid = bool(obtained)
         key_error_level = f"{name}_error_level"
-        if name == "id":
-            advice = 'Mark figures with <article><body><fig id="VALUE"> and replace VALUE with figure ID.'
-        else:
-            advice = f'Mark figure {name}s with <article><body><fig><{name}>'
+        advice = f'Mark each figure {name} inside <body> using <fig><{name}>. Consult SPS documentation for more detail.'
         yield build_response(
             title=name,
             parent=self.data,
@@ -104,8 +101,7 @@ class FigValidation:
             is_valid=is_valid,
             expected=name,
             obtained=None,
-            advice='Ensure that the figure contains either <article><body><fig><graphic> or <article><body><fig><alternatives>. '
-                   'Add one of these elements to correctly define the figure content.',
+            advice='Ensure that the figure contains either <fig><graphic> or <fig><alternatives>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["content_error_level"],
         )
@@ -123,7 +119,7 @@ class FigValidation:
             is_valid=is_valid,
             expected=allowed_file_extensions,
             obtained=file_extension,
-            advice=f'In <article><body><fig><graphic xlink:href="{self.data.get('graphic')}"/> replace {file_extension} with one of {allowed_file_extensions}',
+            advice=f'In <fig><graphic xlink:href="{self.data.get('graphic')}"/> replace {file_extension} with one of {allowed_file_extensions}',
             data=self.data,
             error_level=self.rules["file_extension_error_level"],
         )
