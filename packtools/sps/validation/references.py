@@ -47,7 +47,7 @@ class ReferenceValidation:
             is_valid = int(year) <= end_year
         except (TypeError, ValueError):
             is_valid = False
-        advice = f"Mark reference publication year with <ref-list><ref><element-citation><year>, ensure that year is previous or equal to {end_year}"
+        advice = f"Mark reference publication year with <ref><element-citation><year> in <ref-list>, ensure that year is previous or equal to {end_year}"
         expected = (
             year if is_valid else f"reference publication year, previous or equal to {end_year}"
         )
@@ -63,7 +63,7 @@ class ReferenceValidation:
     def validate_source(self):
         source = self.reference_data.get("source")
         is_valid = bool(source)
-        advice = "Mark main source title of a reference with <ref-list><ref><element-citation><source>"
+        advice = "Mark main source title of a reference with <ref><element-citation><source> in <ref-list>"
         expected = source if is_valid else "Main source title of a reference"
 
         yield from self._validate_item(
@@ -223,9 +223,9 @@ class ReferenceValidation:
         mixed_citation = self.reference_data.get("mixed_citation")
         is_valid = bool(mixed_citation)
         if not mixed_citation:
-            advice = f"Add <mixed-citation> inside <element-citation>."
+            advice = f"Add <mixed-citation> in <element-citation>."
         elif isinstance(mixed_citation, str) and not mixed_citation.strip():
-            advice = f"<mixed-citation> inside <element-citation> should not be empty."
+            advice = f"<mixed-citation> in <element-citation> should not be empty."
         else:
             advice = None
         yield build_response(
