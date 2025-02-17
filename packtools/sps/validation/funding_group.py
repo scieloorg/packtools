@@ -96,13 +96,9 @@ class FundingGroupValidation:
                 is_valid=False,
                 expected="award-id and funding-source in award-group",
                 obtained=None,
-                advice="Found `{}` in `{}` ({}). Verify if this refers to a project contract. "
-                       "If so, add the award ID (`{}`) inside `<funding-group><award-group>`, "
-                       "ensuring it includes the corresponding `<funding-source>`.".format(
-                    error["look-like-award-id"],
-                    error["text"],
-                    error["context"],
-                    error["look-like-award-id"]),
+                advice="If {} is a project contract number, make it with <award-id> and the corresponding financial "
+                       "sponsors with <funding-source> in <funding-group>. Consult the SPS documentation "
+                       "for more detail".format(error["look-like-award-id"]),
                 data=error,
                 error_level=self.params["error_level"],
             )
