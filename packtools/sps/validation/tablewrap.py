@@ -43,7 +43,7 @@ class ArticleTableWrapValidation:
                 is_valid=False,
                 expected="<table-wrap> element",
                 obtained=None,
-                advice="Add <table-wrap> element to properly illustrate the content.",
+                advice='Mark each table-wrap inside <body> using <table-wrap>. Consult SPS documentation for more detail.',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -102,7 +102,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="id",
             obtained=table_id,
-            advice='Mark table wraps with <article><body><table-wrap id="VALUE"> and replace VALUE with table wrap ID.',
+            advice='Mark each table-wrap ID with <id> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
         )
@@ -128,7 +128,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark table wrap labels with <article><body><table-wrap><label>',
+            advice='Mark each table-wrap label with <label> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -154,7 +154,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="caption",
             obtained=caption,
-            advice='Mark table wrap captions with <article><body><table-wrap><caption>',
+            advice='Mark each table-wrap caption with <caption> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["caption_error_level"],
         )
@@ -180,7 +180,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="table",
             obtained=table,
-            advice='Mark table encoding with <article><body><table-wrap><table>.',
+            advice='Mark each table-wrap table encoding with <table> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
         )
