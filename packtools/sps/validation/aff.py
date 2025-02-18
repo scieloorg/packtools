@@ -454,6 +454,40 @@ class AffiliationValidation:
             error_level=self.params["original_error_level"]
         )
 
+    def validate_orgname_components_value(self):
+        original_component_words = list({
+            re.sub(r'[^\w\s]+$', '', word)
+            for value in self.original_components.values()
+            for word in value.split() if word
+        })
+        original_component_words.sort()
+
+        words_not_found = list({
+            re.sub(r'[^\w\s]+$', '', word)
+            for word in self.original.split()
+            if re.sub(r'[^\w\s]+$', '', word) not in original_component_words
+        })
+        words_not_found.sort()
+
+        is_valid = len(words_not_found) == 0
+
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="original affiliation",
+            obtained=self.original,
+            advice=f'Mark the complete original affiliation text with <institution content-type="original"> '
+                   f'in <aff> and add missing words in components: {words_not_found}.',
+            data=self.affiliation,
+            error_level=self.params["original_error_level"]
+        )
+
+
+
     def validate(self):
         """
         Validate all aspects of the affiliation.
@@ -473,3 +507,4 @@ class AffiliationValidation:
         yield from self.validate_country_code()
         yield from self.validate_state()
         yield from self.validate_city()
+        yield from self.validate_orgname_composition()
