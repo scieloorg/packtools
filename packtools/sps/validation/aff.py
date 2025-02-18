@@ -131,6 +131,15 @@ class AffiliationValidation:
 
         self.affiliation = affiliation
         self.params = params
+        self.original = self.affiliation.get("original")
+        self.original_components = {
+            "orgname": self.affiliation.get("orgname"),
+            "orgdiv1": self.affiliation.get("orgdiv1"),
+            "orgdiv2": self.affiliation.get("orgdiv2"),
+            "country_name": self.affiliation.get("country_name"),
+            "state": self.affiliation.get("state"),
+            "city": self.affiliation.get("city")
+        }
 
         default_min_similarity = {
             "original": 0.5,
