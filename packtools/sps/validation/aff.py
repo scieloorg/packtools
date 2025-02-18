@@ -428,6 +428,32 @@ class AffiliationValidation:
                 data=items,
             )
 
+    def validate_orgname_components(self):
+        if not self.original:
+            return
+
+        component_not_found = [
+            key for key, value in self.original_components.items()
+            if value and not any(word in self.original for word in value.split())
+        ]
+
+        is_valid = len(component_not_found) == 0
+
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="original affiliation",
+            obtained=self.original,
+            advice=f'Mark the complete original affiliation text with <institution content-type="original"> '
+                   f'in <aff> and add missing components: {component_not_found}.',
+            data=self.affiliation,
+            error_level=self.params["original_error_level"]
+        )
+
     def validate(self):
         """
         Validate all aspects of the affiliation.
