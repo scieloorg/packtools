@@ -106,7 +106,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="@id",
             obtained=formula_id,
-            advice='Mark each formula ID with <id> inside <disp-formula>. Consult SPS documentation for more detail.',
+            advice='Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
         )
@@ -134,7 +134,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark each formula label with <label> inside <disp-formula>. Consult SPS documentation for more detail.',
+            advice='Mark each label with <label> inside <disp-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -150,7 +150,7 @@ class DispFormulaValidation:
         mml = self.data.get("mml_math") or []
         tex = self.data.get("tex_math") or []
         obtained = mml + tex
-        is_valid = len(obtained) == 0
+        is_valid = len(obtained) > 0
         return format_response(
             title="mml:math or tex-math",
             parent=self.data.get("parent"),
@@ -185,13 +185,13 @@ class DispFormulaValidation:
                 "condition": graphic != [] and alternatives == [],
                 "expected": "alternatives",
                 "obtained": None,
-                "advice": "Use <disp-formula><alternatives> to provide alternative representations for the formula.",
+                "advice": "Use <alternatives> inside <disp-formula> to provide alternative representations for the formula.",
             },
             {
                 "condition": graphic == [] and alternatives != [],
                 "expected": None,
                 "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <disp-formula><alternatives>.",
+                "advice": "Remove the <alternatives> tag and its content from <disp-formula>.",
             },
         ]
 
@@ -344,13 +344,13 @@ class InlineFormulaValidation:
                 "condition": graphic != [] and alternatives == [],
                 "expected": "alternatives",
                 "obtained": None,
-                "advice": "Use <disp-formula><alternatives> to provide alternative representations for the formula.",
+                "advice": "Use <alternatives> inside <disp-formula> to provide alternative representations for the formula.",
             },
             {
                 "condition": graphic == [] and alternatives != [],
                 "expected": None,
                 "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <disp-formula><alternatives>.",
+                "advice": "Remove the <alternatives> tag and its content from <disp-formula>.",
             },
         ]
 
