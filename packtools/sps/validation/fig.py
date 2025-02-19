@@ -33,7 +33,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected="<fig/>",
                     obtained=None,
-                    advice='Mark each figure inside <body> using <fig>. Consult SPS documentation for more detail.',
+                    advice='Mark each figure with <fig> inside <body>. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["required_error_level"],
                 )
@@ -52,7 +52,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected=None,
                     obtained=None,
-                    advice='Mark each figure inside <body> using <fig> if this article should include figures. Consult SPS documentation for more detail.',
+                    advice='Mark each figure with <fig> inside <body> if this article should include figures. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["absent_error_level"],
                 )
@@ -101,15 +101,20 @@ class FigValidation:
             is_valid=is_valid,
             expected=name,
             obtained=None,
-            advice='Ensure that the figure contains either <fig><graphic> or <fig><alternatives>. Consult SPS documentation for more detail.',
+            advice='Ensure that the figure contains either <graphic> or <alternatives> inside <fig>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["content_error_level"],
         )
 
     def validate_file_extension(self):
         file_extension = self.data.get("file_extension")
+        file_path = self.data.get('graphic')
         allowed_file_extensions = self.rules["allowed file extensions"]
         is_valid = file_extension in allowed_file_extensions
+        if file_extension:
+            advice = f'In <fig><graphic xlink:href="{file_path}"/> replace {file_extension} with one of {allowed_file_extensions}'
+        else:
+            advice = f'In <fig><graphic xlink:href="{file_path}"/> specify a valid file extension from: {allowed_file_extensions}'
         yield build_response(
             title="file extension",
             parent=self.data,
@@ -119,7 +124,7 @@ class FigValidation:
             is_valid=is_valid,
             expected=allowed_file_extensions,
             obtained=file_extension,
-            advice=f'In <fig><graphic xlink:href="{self.data.get('graphic')}"/> replace {file_extension} with one of {allowed_file_extensions}',
+            advice=advice,
             data=self.data,
             error_level=self.rules["file_extension_error_level"],
         )
