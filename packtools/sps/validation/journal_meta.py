@@ -68,6 +68,7 @@ class ISSNValidation:
 
         for tp, issn_expected in issns_dict.items():
             issn_obtained = self.journal_issns.epub if tp == "epub" else self.journal_issns.ppub
+            name = "electronic" if tp == "epub" else "print"
             is_valid = issn_expected == issn_obtained
             yield format_response(
                 title='Journal ISSN',
@@ -81,7 +82,7 @@ class ISSNValidation:
                 is_valid=is_valid,
                 expected='<issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
                 obtained='<issn pub-type="{}">{}</issn>'.format(tp, issn_obtained),
-                advice='Mark ISSN value with <journal-meta><issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
+                advice='Mark {} ISSN with <journal-meta><issn pub-type="{}">{}</issn>'.format(name, tp, issn_expected),
                 data=self.journal_issns.data,
                 error_level=error_level,
             )
@@ -108,7 +109,7 @@ class AcronymValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_acronym.text,
-            advice='Mark journal acronym value with <journal-id journal-id-type="publisher-id">{}</journal-id> in <journal-meta>'.format(expected_value),
+            advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> in <journal-meta>'.format(expected_value),
             data={'acronym': self.journal_acronym.text},
             error_level=error_level,
         )
@@ -135,7 +136,7 @@ class TitleValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_titles.journal_title,
-            advice='Mark journal title value with <journal-title-group><journal-title> in <journal-meta>',
+            advice='Mark journal title with <journal-title> inside <journal-title-group>',
             data={
                 item.get("type"): item.get("value")
                 for item in self.journal_titles.data
@@ -159,7 +160,7 @@ class TitleValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_titles.abbreviated_journal_title,
-            advice='Mark abbreviated journal title value with <journal-title-group><abbrev-journal-title> in <journal-meta>',
+            advice='Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
             data={
                 item.get("type"): item.get("value")
                 for item in self.journal_titles.data
