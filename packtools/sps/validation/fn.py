@@ -1,5 +1,6 @@
 from packtools.sps.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
+from packtools.sps.validation.utils import build_response
 
 
 class FnValidation(BaseFnValidation):
@@ -74,11 +75,16 @@ class XMLFnGroupValidation:
         Yields:
             dict: Validation results for each footnote.
         """
+        fn_types = []
         for fn_group in self.article_fn_groups:
+            fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
 
         for fn_group in self.sub_article_fn_groups:
+            fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
+
+        yield self.validate_edited_by(fn_types)
 
     def validate_fn(self, fn):
         """
@@ -95,3 +101,20 @@ class XMLFnGroupValidation:
             fn_data=fn, rules=self.rules, dtd_version=self.dtd_version
         )
         yield from validator.validate()
+
+    def validate_edited_by(self, fn_types):
+        if "edited-by" not in fn_types:
+            return build_response(
+                title="edited-by",
+                parent={},
+                item="fn",
+                sub_item="@fn-type",
+                validation_type="value",
+                is_valid=False,
+                expected='<fn fn-type="edited-by">',
+                obtained=None,
+                advice='Add mandatory value for <fn fn-type="edited-by"> to indicate the responsible editor '
+                       'for the purpose of Open Science practice.',
+                data=None,
+                error_level=self.rules["fn_type_error_level"]
+            )
