@@ -43,7 +43,7 @@ class ArticleTableWrapValidation:
                 is_valid=False,
                 expected="<table-wrap> element",
                 obtained=None,
-                advice='Mark each table-wrap inside <body> using <table-wrap>. Consult SPS documentation for more detail.',
+                advice='Mark each table-wrap with <table-wrap> inside <body>. Consult SPS documentation for more detail.',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -102,7 +102,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="id",
             obtained=table_id,
-            advice='Mark each table-wrap ID with <id> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
         )
@@ -128,7 +128,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark each table-wrap label with <label> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice='Mark each label with <label> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -154,7 +154,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="caption",
             obtained=caption,
-            advice='Mark each table-wrap caption with <caption> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice='Mark each caption with <caption> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["caption_error_level"],
         )
@@ -180,7 +180,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="table",
             obtained=table,
-            advice='Mark each table-wrap table encoding with <table> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice='Mark each table with <table> inside <table-wrap>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
         )
@@ -202,13 +202,13 @@ class TableWrapValidation:
                 "condition": graphic + table == 2 and alternatives == 0,
                 "expected": "alternatives",
                 "obtained": None,
-                "advice": "Use <table-wrap><alternatives> to provide alternative representations for the formula.",
+                "advice": "Use <alternatives> inside <table-wrap> to provide alternative representations for the table.",
             },
             {
                 "condition": graphic + table == 1 and alternatives > 0,
                 "expected": None,
                 "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <table-wrap><alternatives>.",
+                "advice": "Remove the <alternatives> tag and its content from <table-wrap>.",
             },
         ]
 
