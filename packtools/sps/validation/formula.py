@@ -121,6 +121,7 @@ class DispFormulaValidation:
 
         label = self.data.get("label")
         is_valid = bool(label)
+        item_id = self.data.get("id")
 
         return format_response(
             title="label",
@@ -134,7 +135,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark each label with <label> inside <disp-formula>. Consult SPS documentation for more detail.',
+            advice=f'Mark each label with <label> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -146,11 +147,19 @@ class DispFormulaValidation:
         Returns:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
+        count = 0
+        found = []
+        if self.data.get("mml_math"):
+            count += 1
+            found.append("mml:math")
+        if self.data.get("tex_math"):
+            count += 1
+            found.append("tex-math")
 
-        mml = self.data.get("mml_math") or []
-        tex = self.data.get("tex_math") or []
-        obtained = mml + tex
-        is_valid = len(obtained) > 0
+        obtained = " and ".join(found) if found else "not found codification formula"
+
+        is_valid = count == 1
+        item_id = self.data.get("id")
         return format_response(
             title="mml:math or tex-math",
             parent=self.data.get("parent"),
@@ -163,7 +172,7 @@ class DispFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice='Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula>. Consult SPS documentation for more detail.',
+            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
         )
@@ -176,44 +185,54 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        graphic = self.data.get("graphic")
-        alternatives = self.data.get("alternative_elements")
+        mml = 1 if self.data.get("mml_math") else 0 # self.data.get("mml_math") retorna uma codificação mml:math se houver
+        tex = 1 if self.data.get("tex_math") else 0 # self.data.get("tex_math") retorna uma codificação tex-math se houver
+        graphic = self.data.get("graphic") or [] # self.data.get("graphic") retorna uma lista com variações de graphic se houverem
+        alternatives = self.data.get("alternative_elements") # uma lista com as tags internas à <alternatives>
 
-        # Define validation scenarios
-        validation_cases = [
-            {
-                "condition": graphic != [] and alternatives == [],
-                "expected": "alternatives",
-                "obtained": None,
-                "advice": "Use <alternatives> inside <disp-formula> to provide alternative representations for the formula.",
-            },
-            {
-                "condition": graphic == [] and alternatives != [],
-                "expected": None,
-                "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <disp-formula>.",
-            },
-        ]
+        found = "tex-math" if tex else "mml:math"
 
-        # Evaluate conditions and return formatted response if any validation fails
-        for case in validation_cases:
-            is_valid = not (case["condition"])
-            return format_response(
-                title="alternatives",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="alternatives",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=is_valid,
-                expected=case["expected"],
-                obtained=case["obtained"],
-                advice=case["advice"],
-                data=self.data,
-                error_level=self.rules["alternatives_error_level"],
-            )
+        # forma do usuario identificar qual disp-formula tem o problema
+        item_id = self.data.get("id")
+
+        if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
+            expected = "alternatives"
+            obtained = None
+            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula id="{item_id}">'
+            valid = False
+        elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            valid = False
+        elif len(alternatives) == 1:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            valid = False
+        else:
+            expected = "alternatives"
+            obtained = "alternatives"
+            advice = None
+            valid = True
+
+        return format_response(
+            title="alternatives",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="alternatives",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=valid,
+            expected=expected,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["alternatives_error_level"],
+        )
+
 
 
 class ArticleInlineFormulaValidation:
@@ -306,10 +325,19 @@ class InlineFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        mml = self.data.get("mml_math") or []
-        tex = self.data.get("tex_math") or []
-        obtained = mml + tex
-        is_valid = len(obtained) == 0
+        count = 0
+        found = []
+        if self.data.get("mml_math"):
+            count += 1
+            found.append("mml:math")
+        if self.data.get("tex_math"):
+            count += 1
+            found.append("tex-math")
+
+        obtained = " and ".join(found) if found else "not found codification formula"
+
+        is_valid = count == 1
+        item_id = self.data.get("id")
         return format_response(
             title="mml:math or tex-math",
             parent=self.data.get("parent"),
@@ -322,7 +350,7 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice='Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
+            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula id="{item_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
         )
@@ -335,41 +363,50 @@ class InlineFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        graphic = self.data.get("graphic")
-        alternatives = self.data.get("alternative_elements")
+        mml = 1 if self.data.get("mml_math") else 0  # self.data.get("mml_math") retorna uma codificação mml:math se houver
+        tex = 1 if self.data.get("tex_math") else 0  # self.data.get("tex_math") retorna uma codificação tex-math se houver
+        graphic = self.data.get("graphic") or []  # self.data.get("graphic") retorna uma lista com variações de graphic se houverem
+        alternatives = self.data.get("alternative_elements")  # uma lista com as tags internas à <alternatives>
 
-        # Define validation scenarios
-        validation_cases = [
-            {
-                "condition": graphic != [] and alternatives == [],
-                "expected": "alternatives",
-                "obtained": None,
-                "advice": "Use <alternatives> inside <disp-formula> to provide alternative representations for the formula.",
-            },
-            {
-                "condition": graphic == [] and alternatives != [],
-                "expected": None,
-                "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <disp-formula>.",
-            },
-        ]
+        found = "tex-math" if tex else "mml:math"
 
-        # Evaluate conditions and return formatted response if any validation fails
-        for case in validation_cases:
-            is_valid = not (case["condition"])
-            return format_response(
-                title="alternatives",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="alternatives",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=is_valid,
-                expected=case["expected"],
-                obtained=case["obtained"],
-                advice=case["advice"],
-                data=self.data,
-                error_level=self.rules["alternatives_error_level"],
-            )
+        # forma do usuario identificar qual inline-formula tem o problema
+        item_id = self.data.get("id")
+
+        if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
+            expected = "alternatives"
+            obtained = None
+            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula id="{item_id}">'
+            valid = False
+        elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <inline-formula id="{item_id}"> and keep <{found}> inside <inline-formula id="{item_id}">'
+            valid = False
+        elif len(alternatives) == 1:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <inline-formula id="{item_id}"> and keep <{found}> inside <inline-formula id="{item_id}">'
+            valid = False
+        else:
+            expected = "alternatives"
+            obtained = "alternatives"
+            advice = None
+            valid = True
+
+        return format_response(
+            title="alternatives",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="alternatives",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=valid,
+            expected=expected,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["alternatives_error_level"],
+        )
