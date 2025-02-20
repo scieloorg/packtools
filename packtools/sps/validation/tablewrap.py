@@ -43,7 +43,7 @@ class ArticleTableWrapValidation:
                 is_valid=False,
                 expected="<table-wrap> element",
                 obtained=None,
-                advice='Mark each table-wrap with <table-wrap> inside <body>. Consult SPS documentation for more detail.',
+                advice='<table-wrap> tag not found inside <body>, ensure all tables are properly wrapped in <table-wrap>. Consult SPS documentation for more detail.',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -116,6 +116,7 @@ class TableWrapValidation:
         """
         label = self.data.get("label")
         is_valid = bool(label)
+        table_id = self.data.get("table_wrap_id")
         return format_response(
             title="label",
             parent=self.data.get("parent"),
@@ -128,7 +129,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice='Mark each label with <label> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice=f'Wrap each label with <label> inside <table-wrap  id="{table_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -142,6 +143,7 @@ class TableWrapValidation:
         """
         caption = self.data.get("caption")
         is_valid = bool(caption)
+        table_id = self.data.get("table_wrap_id")
         return format_response(
             title="caption",
             parent=self.data.get("parent"),
@@ -154,7 +156,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="caption",
             obtained=caption,
-            advice='Mark each caption with <caption> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice=f'Wrap each caption with <caption> inside <table-wrap id="{table_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["caption_error_level"],
         )
@@ -168,6 +170,7 @@ class TableWrapValidation:
         """
         table = self.data.get("table")
         is_valid = bool(table)
+        table_id = self.data.get("table_wrap_id")
         return format_response(
             title="table",
             parent=self.data.get("parent"),
@@ -180,7 +183,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="table",
             obtained=table,
-            advice='Mark each table with <table> inside <table-wrap>. Consult SPS documentation for more detail.',
+            advice=f'Wrap each table with <table> inside <table-wrap id="{table_id}">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
         )
@@ -192,42 +195,41 @@ class TableWrapValidation:
         Returns:
             The validation result in the expected format.
         """
-        graphic = 1 if self.data.get("graphic") else 0
-        table = 1 if self.data.get("table") else 0
-        alternatives = len(self.data.get("alternative_elements"))
+        graphic = 1 if self.data.get("graphic") else 0 # self.data.get("graphic") retorna uma referência para uma representação da tabela, se houver
+        table = 1 if self.data.get("table") else 0 # self.data.get("table") retorna uma codificação de tabela, se houver
+        alternatives = self.data.get("alternative_elements") # uma lista com as tags internas à <alternatives>
 
-        # Define validation scenarios
-        validation_cases = [
-            {
-                "condition": graphic + table == 2 and alternatives == 0,
-                "expected": "alternatives",
-                "obtained": None,
-                "advice": "Use <alternatives> inside <table-wrap> to provide alternative representations for the table.",
-            },
-            {
-                "condition": graphic + table == 1 and alternatives > 0,
-                "expected": None,
-                "obtained": "alternatives",
-                "advice": "Remove the <alternatives> tag and its content from <table-wrap>.",
-            },
-        ]
+        table_id = self.data.get("table_wrap_id")
 
-        # Evaluate conditions and return formatted response if any validation fails
-        for case in validation_cases:
-            is_valid = not (case["condition"])
-            return format_response(
-                title="alternatives",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="table-wrap",
-                sub_item="alternatives",
-                validation_type="exist",
-                is_valid=is_valid,
-                expected=case["expected"],
-                obtained=case["obtained"],
-                advice=case["advice"],
-                data=self.data,
-                error_level=self.rules["alternatives_error_level"],
-            )
+        if graphic + table > 1 and len(alternatives) == 0:
+            expected = "alternatives"
+            obtained = None
+            advice = f'Use <alternatives> inside <table-wrap id="{table_id}"> to provide alternative representations for the table.'
+            valid = False
+        elif graphic + table == 1 and len(alternatives) > 0:
+            expected = None
+            obtained = "alternatives"
+            advice = f'Remove the <alternatives> tag and its content from <table-wrap id="{table_id}">.'
+            valid = False
+        else:
+            expected = "alternatives"
+            obtained = "alternatives"
+            advice = None
+            valid = True
+
+        return format_response(
+            title="alternatives",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="table-wrap",
+            sub_item="alternatives",
+            validation_type="exist",
+            is_valid=valid,
+            expected=expected,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["alternatives_error_level"],
+        )
