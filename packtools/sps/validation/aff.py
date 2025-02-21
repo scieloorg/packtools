@@ -428,48 +428,24 @@ class AffiliationValidation:
                 data=items,
             )
 
-    def validate_orgname_components(self):
+    def validate_original_aff_components(self):
         if not self.original:
             return
 
         component_not_found = [
-            key for key, value in self.original_components.items()
+            (key, value) for key, value in self.original_components.items()
             if value and not any(word in self.original for word in value.split())
         ]
 
         is_valid = len(component_not_found) == 0
 
-        yield build_response(
-            title="original",
-            parent=self.affiliation,
-            item="institution",
-            sub_item='@content-type="original"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="original affiliation",
-            obtained=self.original,
-            advice=f'Mark the complete original affiliation text with <institution content-type="original"> '
-                   f'in <aff> and add missing components: {component_not_found}.',
-            data=self.affiliation,
-            error_level=self.params["original_error_level"]
-        )
-
-    def validate_orgname_components_value(self):
-        original_component_words = list({
-            re.sub(r'[^\w\s]+$', '', word)
-            for value in self.original_components.values()
-            for word in value.split() if word
-        })
-        original_component_words.sort()
-
-        words_not_found = list({
-            re.sub(r'[^\w\s]+$', '', word)
-            for word in self.original.split()
-            if re.sub(r'[^\w\s]+$', '', word) not in original_component_words
-        })
-        words_not_found.sort()
-
-        is_valid = len(words_not_found) == 0
+        if not is_valid:
+            formatted_components = ", ".join(f"{value} ({key})" for key, value in component_not_found)
+            advice = (
+                'Mark the complete original affiliation with '
+                '<institution content-type="original"> in <aff> and add '
+                f'{formatted_components} in <institution content-type="original">'
+            )
 
         yield build_response(
             title="original",
@@ -480,13 +456,37 @@ class AffiliationValidation:
             is_valid=is_valid,
             expected="original affiliation",
             obtained=self.original,
-            advice=f'Mark the complete original affiliation text with <institution content-type="original"> '
-                   f'in <aff> and add missing words in components: {words_not_found}.',
+            advice=advice,
             data=self.affiliation,
             error_level=self.params["original_error_level"]
         )
 
+    def validate_original_aff_components_value(self):
+        original_words = re.findall(r'\b\w+\b', self.original)  # Tokeniza sem pontuação
 
+        component_words = [word for value in self.original_components.values()
+                           for word in re.findall(r'\b\w+\b', value)]
+
+        remaining_words = [word for word in original_words if word not in component_words]
+
+        is_valid = not remaining_words
+
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="original affiliation",
+            obtained=self.original,
+            advice=(
+                'Mark the complete original affiliation with <institution content-type="original"> '
+                f'in <aff> and add missing words: {remaining_words}.'
+            ),
+            data=self.affiliation,
+            error_level=self.params["original_error_level"]
+        )
 
     def validate(self):
         """
