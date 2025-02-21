@@ -337,7 +337,7 @@ class InlineFormulaValidation:
         obtained = " and ".join(found) if found else "not found codification formula"
 
         is_valid = count == 1
-        item_id = self.data.get("id")
+
         return format_response(
             title="mml:math or tex-math",
             parent=self.data.get("parent"),
@@ -350,7 +350,7 @@ class InlineFormulaValidation:
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula id="{item_id}">. Consult SPS documentation for more detail.',
+            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["codification_error_level"],
         )
@@ -370,23 +370,20 @@ class InlineFormulaValidation:
 
         found = "tex-math" if tex else "mml:math"
 
-        # forma do usuario identificar qual inline-formula tem o problema
-        item_id = self.data.get("id")
-
         if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
             expected = "alternatives"
             obtained = None
-            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula id="{item_id}">'
+            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>'
             valid = False
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
-            advice = f'{item_id}: Remove the <alternatives> from <inline-formula id="{item_id}"> and keep <{found}> inside <inline-formula id="{item_id}">'
+            advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
-            advice = f'{item_id}: Remove the <alternatives> from <inline-formula id="{item_id}"> and keep <{found}> inside <inline-formula id="{item_id}">'
+            advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
             valid = False
         else:
             expected = "alternatives"
