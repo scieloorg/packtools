@@ -33,7 +33,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected="<fig/>",
                     obtained=None,
-                    advice=f"article-type={self.article_type} requires <fig/>. Found 0. Identify the fig or check if article-type is correct",
+                    advice='Mark each figure with <fig> inside <body>. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["required_error_level"],
                 )
@@ -52,7 +52,7 @@ class ArticleFigValidation:
                     is_valid=False,
                     expected=None,
                     obtained=None,
-                    advice=f"article-type={self.article_type}, found 0 figures",
+                    advice='Mark each figure with <fig> inside <body> if this article should include figures. Consult SPS documentation for more detail.',
                     data=None,
                     error_level=self.rules["absent_error_level"],
                 )
@@ -71,53 +71,60 @@ class FigValidation:
         yield from self.validate_file_extension()
 
     def _validate_item(self, name):
-        if not self.data.get(name):
-            key_error_level = f"{name}_error_level"
-            yield build_response(
-                title=name,
-                parent=self.data,
-                item="fig",
-                sub_item=name,
-                validation_type="exist",
-                is_valid=False,
-                expected=name,
-                obtained=None,
-                advice=f"Identify the {name}",
-                data=self.data,
-                error_level=self.rules[key_error_level],
-            )
+        obtained = self.data.get(name)
+        is_valid = bool(obtained)
+        key_error_level = f"{name}_error_level"
+        advice = f'Mark each figure {name} inside <body> using <fig><{name}>. Consult SPS documentation for more detail.'
+        yield build_response(
+            title=name,
+            parent=self.data,
+            item="fig",
+            sub_item=name,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=name,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules[key_error_level],
+        )
 
     def validate_content(self):
-        if not self.data.get("graphic") and not self.data.get("alternatives"):
-            name = "graphic or alternatives"
-            yield build_response(
-                title=name,
-                parent=self.data,
-                item="fig",
-                sub_item=name,
-                validation_type="exist",
-                is_valid=False,
-                expected=name,
-                obtained=None,
-                advice=f"Identify the {name}",
-                data=self.data,
-                error_level=self.rules["content_error_level"],
-            )
+        is_valid = bool(self.data.get("graphic") or self.data.get("alternatives"))
+        name = "graphic or alternatives"
+        yield build_response(
+            title=name,
+            parent=self.data,
+            item="fig",
+            sub_item=name,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=name,
+            obtained=None,
+            advice='Ensure that the figure contains either <graphic> or <alternatives> inside <fig>. Consult SPS documentation for more detail.',
+            data=self.data,
+            error_level=self.rules["content_error_level"],
+        )
 
     def validate_file_extension(self):
         file_extension = self.data.get("file_extension")
+        file_path = self.data.get('graphic')
         allowed_file_extensions = self.rules["allowed file extensions"]
-        if file_extension not in allowed_file_extensions:
-            yield build_response(
-                title="file extension",
-                parent=self.data,
-                item="fig",
-                sub_item="file extension",
-                validation_type="value in list",
-                is_valid=False,
-                expected=allowed_file_extensions,
-                obtained=file_extension,
-                advice=f"provide a file with one of the following extensions {allowed_file_extensions}",
-                data=self.data,
-                error_level=self.rules["file_extension_error_level"],
-            )
+        is_valid = file_extension in allowed_file_extensions
+        if file_extension:
+            advice = f'In <fig><graphic xlink:href="{file_path}"/> replace {file_extension} with one of {allowed_file_extensions}'
+        else:
+            advice = f'In <fig><graphic xlink:href="{file_path}"/> specify a valid file extension from: {allowed_file_extensions}'
+        yield build_response(
+            title="file extension",
+            parent=self.data,
+            item="fig",
+            sub_item="file extension",
+            validation_type="value in list",
+            is_valid=is_valid,
+            expected=allowed_file_extensions,
+            obtained=file_extension,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["file_extension_error_level"],
+        )

@@ -45,7 +45,7 @@ class ArticleDispFormulaValidation:
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice="Add <disp-formula> elements to properly represent mathematical expressions in the content.",
+                advice='Mark each formula inside <body> using <disp-formula>. Consult SPS documentation for more detail.',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -92,23 +92,24 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        if not self.data.get("id"):
-            return format_response(
-                title="@id",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="@id",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="@id",
-                obtained=None,
-                advice="Identify the @id",
-                data=self.data,
-                error_level=self.rules["id_error_level"],
-            )
+        formula_id = self.data.get("id")
+        is_valid = bool(formula_id)
+        return format_response(
+            title="@id",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="@id",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="@id",
+            obtained=formula_id,
+            advice='Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
+            data=self.data,
+            error_level=self.rules["id_error_level"],
+        )
 
     def validate_label(self):
         """
@@ -118,23 +119,26 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        if not self.data.get("label"):
-            return format_response(
-                title="label",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="label",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="label",
-                obtained=None,
-                advice="Identify the label",
-                data=self.data,
-                error_level=self.rules["label_error_level"],
-            )
+        label = self.data.get("label")
+        is_valid = bool(label)
+        item_id = self.data.get("id")
+
+        return format_response(
+            title="label",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="label",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="label",
+            obtained=label,
+            advice=f'Mark each label with <label> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
+            data=self.data,
+            error_level=self.rules["label_error_level"],
+        )
 
     def validate_codification(self):
         """
@@ -143,26 +147,35 @@ class DispFormulaValidation:
         Returns:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
+        count = 0
+        found = []
+        if self.data.get("mml_math"):
+            count += 1
+            found.append("mml:math")
+        if self.data.get("tex_math"):
+            count += 1
+            found.append("tex-math")
 
-        mml = self.data.get("mml_math") or []
-        tex = self.data.get("tex_math") or []
-        if len(mml) + len(tex) == 0:
-            return format_response(
-                title="mml:math or tex-math",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="mml:math or tex-math",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="mml:math or tex-math",
-                obtained=None,
-                advice="Identify the mml:math or tex-math",
-                data=self.data,
-                error_level=self.rules["codification_error_level"],
-            )
+        obtained = " and ".join(found) if found else "not found codification formula"
+
+        is_valid = count == 1
+        item_id = self.data.get("id")
+        return format_response(
+            title="mml:math or tex-math",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="mml:math or tex-math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="mml:math or tex-math",
+            obtained=obtained,
+            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
+            data=self.data,
+            error_level=self.rules["codification_error_level"],
+        )
 
     def validate_alternatives(self):
         """
@@ -172,44 +185,54 @@ class DispFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        graphic = self.data.get("graphic")
-        alternatives = self.data.get("alternative_elements")
+        mml = 1 if self.data.get("mml_math") else 0 # self.data.get("mml_math") retorna uma codificação mml:math se houver
+        tex = 1 if self.data.get("tex_math") else 0 # self.data.get("tex_math") retorna uma codificação tex-math se houver
+        graphic = self.data.get("graphic") or [] # self.data.get("graphic") retorna uma lista com variações de graphic se houverem
+        alternatives = self.data.get("alternative_elements") # uma lista com as tags internas à <alternatives>
 
-        # Define validation scenarios
-        validation_cases = [
-            {
-                "condition": graphic != [] and alternatives == [],
-                "expected": "alternatives",
-                "obtained": None,
-                "advice": "Identify the alternatives",
-            },
-            {
-                "condition": graphic == [] and alternatives != [],
-                "expected": None,
-                "obtained": "alternatives",
-                "advice": "Remove the alternatives",
-            },
-        ]
+        found = "tex-math" if tex else "mml:math"
 
-        # Evaluate conditions and return formatted response if any validation fails
-        for case in validation_cases:
-            if case["condition"]:
-                return format_response(
-                    title="alternatives",
-                    parent=self.data.get("parent"),
-                    parent_id=self.data.get("parent_id"),
-                    parent_article_type=self.data.get("parent_article_type"),
-                    parent_lang=self.data.get("parent_lang"),
-                    item="alternatives",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=case["expected"],
-                    obtained=case["obtained"],
-                    advice=case["advice"],
-                    data=self.data,
-                    error_level=self.rules["alternatives_error_level"],
-                )
+        # forma do usuario identificar qual disp-formula tem o problema
+        item_id = self.data.get("id")
+
+        if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
+            expected = "alternatives"
+            obtained = None
+            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula id="{item_id}">'
+            valid = False
+        elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            valid = False
+        elif len(alternatives) == 1:
+            expected = None
+            obtained = "alternatives"
+            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            valid = False
+        else:
+            expected = "alternatives"
+            obtained = "alternatives"
+            advice = None
+            valid = True
+
+        return format_response(
+            title="alternatives",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="alternatives",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=valid,
+            expected=expected,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["alternatives_error_level"],
+        )
+
 
 
 class ArticleInlineFormulaValidation:
@@ -302,25 +325,35 @@ class InlineFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        mml = self.data.get("mml_math") or []
-        tex = self.data.get("tex_math") or []
-        if len(mml) + len(tex) == 0:
-            return format_response(
-                title="mml:math or tex-math",
-                parent=self.data.get("parent"),
-                parent_id=self.data.get("parent_id"),
-                parent_article_type=self.data.get("parent_article_type"),
-                parent_lang=self.data.get("parent_lang"),
-                item="mml:math or tex-math",
-                sub_item=None,
-                validation_type="exist",
-                is_valid=False,
-                expected="mml:math or tex-math",
-                obtained=None,
-                advice="Identify the mml:math or tex-math",
-                data=self.data,
-                error_level=self.rules["codification_error_level"],
-            )
+        count = 0
+        found = []
+        if self.data.get("mml_math"):
+            count += 1
+            found.append("mml:math")
+        if self.data.get("tex_math"):
+            count += 1
+            found.append("tex-math")
+
+        obtained = " and ".join(found) if found else "not found codification formula"
+
+        is_valid = count == 1
+
+        return format_response(
+            title="mml:math or tex-math",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="mml:math or tex-math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="mml:math or tex-math",
+            obtained=obtained,
+            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
+            data=self.data,
+            error_level=self.rules["codification_error_level"],
+        )
 
     def validate_alternatives(self):
         """
@@ -330,41 +363,47 @@ class InlineFormulaValidation:
             dict or None: A validation result dictionary if the validation fails; otherwise, None.
         """
 
-        graphic = self.data.get("graphic")
-        alternatives = self.data.get("alternative_elements")
+        mml = 1 if self.data.get("mml_math") else 0  # self.data.get("mml_math") retorna uma codificação mml:math se houver
+        tex = 1 if self.data.get("tex_math") else 0  # self.data.get("tex_math") retorna uma codificação tex-math se houver
+        graphic = self.data.get("graphic") or []  # self.data.get("graphic") retorna uma lista com variações de graphic se houverem
+        alternatives = self.data.get("alternative_elements")  # uma lista com as tags internas à <alternatives>
 
-        # Define validation scenarios
-        validation_cases = [
-            {
-                "condition": graphic != [] and alternatives == [],
-                "expected": "alternatives",
-                "obtained": None,
-                "advice": "Identify the alternatives",
-            },
-            {
-                "condition": graphic == [] and alternatives != [],
-                "expected": None,
-                "obtained": "alternatives",
-                "advice": "Remove the alternatives",
-            },
-        ]
+        found = "tex-math" if tex else "mml:math"
 
-        # Evaluate conditions and return formatted response if any validation fails
-        for case in validation_cases:
-            if case["condition"]:
-                return format_response(
-                    title="alternatives",
-                    parent=self.data.get("parent"),
-                    parent_id=self.data.get("parent_id"),
-                    parent_article_type=self.data.get("parent_article_type"),
-                    parent_lang=self.data.get("parent_lang"),
-                    item="alternatives",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=case["expected"],
-                    obtained=case["obtained"],
-                    advice=case["advice"],
-                    data=self.data,
-                    error_level=self.rules["alternatives_error_level"],
-                )
+        if mml + tex + len(graphic) > 1 and len(alternatives) == 0:
+            expected = "alternatives"
+            obtained = None
+            advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>'
+            valid = False
+        elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
+            expected = None
+            obtained = "alternatives"
+            advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
+            valid = False
+        elif len(alternatives) == 1:
+            expected = None
+            obtained = "alternatives"
+            advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
+            valid = False
+        else:
+            expected = "alternatives"
+            obtained = "alternatives"
+            advice = None
+            valid = True
+
+        return format_response(
+            title="alternatives",
+            parent=self.data.get("parent"),
+            parent_id=self.data.get("parent_id"),
+            parent_article_type=self.data.get("parent_article_type"),
+            parent_lang=self.data.get("parent_lang"),
+            item="alternatives",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=valid,
+            expected=expected,
+            obtained=obtained,
+            advice=advice,
+            data=self.data,
+            error_level=self.rules["alternatives_error_level"],
+        )
