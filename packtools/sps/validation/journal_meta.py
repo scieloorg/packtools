@@ -82,7 +82,7 @@ class ISSNValidation:
                 is_valid=is_valid,
                 expected='<issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
                 obtained='<issn pub-type="{}">{}</issn>'.format(tp, issn_obtained),
-                advice='Mark {} ISSN with <journal-meta><issn pub-type="{}">{}</issn>'.format(name, tp, issn_expected),
+                advice='Mark {} ISSN with <issn pub-type="{}">{}</issn> inside <journal-meta>'.format(name, tp, issn_expected),
                 data=self.journal_issns.data,
                 error_level=error_level,
             )
@@ -109,7 +109,7 @@ class AcronymValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_acronym.text,
-            advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> in <journal-meta>'.format(expected_value),
+            advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> inside <journal-meta>'.format(expected_value),
             data={'acronym': self.journal_acronym.text},
             error_level=error_level,
         )
@@ -241,7 +241,7 @@ class PublisherNameValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
-                advice=f'Mark publisher name values with <publisher><publisher-name>{expected}</publisher-name></publisher> in <journal-meta>',
+                advice=f'Mark publisher name with <publisher><publisher-name>{expected}</publisher-name></publisher> inside <journal-meta>',
                 data=None,
                 error_level=error_level,
             )
@@ -341,7 +341,7 @@ class JournalIdValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.nlm_ta,
-            advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> in <journal-meta>',
+            advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> inside <journal-meta>',
             data=None,
             error_level=error_level,
         )
