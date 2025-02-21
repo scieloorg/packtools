@@ -32,9 +32,27 @@ class TestFnValidation(unittest.TestCase):
         validator = FnValidation(fn, self.rules, 1.0)
         results = validator.validate()
 
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["validation_type"], "unexpected")
-        self.assertIn("Replace fn/title by fn/label", results[0]["advice"])
+        self.assertEqual(len(results), 5)
+
+        self.assertEqual(results[0]["title"], "label")
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertIsNone(results[0]["advice"])
+
+        self.assertEqual(results[1]["title"], "unexpected title element")
+        self.assertEqual(results[1]["response"], "CRITICAL")
+        self.assertEqual(results[1]["advice"], 'Replace <fn><title> with <fn><label>')
+
+        self.assertEqual(results[2]["title"], "unexpected bold element")
+        self.assertEqual(results[2]["response"], "OK")
+        self.assertIsNone(results[2]["advice"])
+
+        self.assertEqual(results[3]["title"], "fn-type value")
+        self.assertEqual(results[3]["response"], "OK")
+        self.assertIsNone(results[3]["advice"])
+
+        self.assertEqual(results[4]["title"], "conflict of interest declaration")
+        self.assertEqual(results[4]["response"], "OK")
+        self.assertIsNone(results[4]["advice"])
 
     def test_validate_group(self):
         xml_tree = etree.fromstring('''
@@ -55,9 +73,16 @@ class TestFnValidation(unittest.TestCase):
         validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
 
-        self.assertEqual(len(results), 1)  # Apenas fn2 deve gerar erro
-        self.assertEqual(results[0]["validation_type"], "exist")
-        self.assertIn("label", results[0]["advice"])
+        self.assertEqual(len(results), 9)
+
+        self.assertEqual(results[4]["title"], "label")
+        self.assertEqual(results[4]["response"], "WARNING")
+        self.assertEqual(results[4]["advice"], 'Mark footnote label with <fn><label>')
+
+        self.assertEqual(results[8]["title"], "edited-by")
+        self.assertEqual(results[8]["response"], "CRITICAL")
+        self.assertEqual(results[8]["advice"], 'Add mandatory value for <fn fn-type="edited-by"> to indicate the '
+                                               'responsible editor for the purpose of Open Science practice.')
 
     def test_validate_sub_article(self):
         xml_tree = etree.fromstring('''
@@ -75,7 +100,12 @@ class TestFnValidation(unittest.TestCase):
         validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
 
-        self.assertEqual(len(results), 0)  # Nenhum erro esperado
+        self.assertEqual(len(results), 1)
+
+        self.assertEqual(results[0]["title"], "edited-by")
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertEqual(results[0]["advice"], 'Add mandatory value for <fn fn-type="edited-by"> to indicate the '
+                                               'responsible editor for the purpose of Open Science practice.')
 
 
 if __name__ == "__main__":

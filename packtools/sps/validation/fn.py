@@ -1,5 +1,6 @@
 from packtools.sps.models.fn import XMLFns
 from packtools.sps.validation.basefn import BaseFnValidation
+from packtools.sps.validation.utils import build_response
 
 
 class FnValidation(BaseFnValidation):
@@ -74,11 +75,16 @@ class XMLFnGroupValidation:
         Yields:
             dict: Validation results for each footnote.
         """
+        fn_types = []
         for fn_group in self.article_fn_groups:
+            fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
 
         for fn_group in self.sub_article_fn_groups:
+            fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
+
+        yield self.validate_edited_by(fn_types)
 
     def validate_fn(self, fn):
         """
@@ -95,3 +101,21 @@ class XMLFnGroupValidation:
             fn_data=fn, rules=self.rules, dtd_version=self.dtd_version
         )
         yield from validator.validate()
+
+    def validate_edited_by(self, fn_types):
+        is_valid = "edited-by" in fn_types and "edited-by" in rules["fn_type_expected_values"]
+
+        return build_response(
+            title="edited-by",
+            parent={},
+            item="fn",
+            sub_item="@fn-type",
+            validation_type="value",
+            is_valid=is_valid,
+            expected='<fn fn-type="edited-by">',
+            obtained='<fn fn-type="edited-by">' if is_valid else None,
+            advice='Add mandatory <fn fn-type="edited-by"> to indicate the responsible editor for Open Science. '
+                   'Ensure "edited-by" is required in rules JSON.',
+            data=None,
+            error_level=self.rules["fn_type_error_level"]
+        )

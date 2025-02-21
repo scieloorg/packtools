@@ -135,28 +135,27 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertIn("Check if corresp label is present", obtained[0]["advice"])
 
     def test_validate_corresp_title_unexpected(self):
-        def test_validate_corresp_title_unexpected(self):
-            xml_tree = etree.fromstring('''
-                <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="pt">
-                    <front>
-                        <article-meta>
-                            <author-notes>
-                                <corresp>
-                                    <title>Correspondence</title>
-                                </corresp>
-                            </author-notes>
-                        </article-meta>
-                    </front>
-                </article>
-            ''')
-            obtained = list(XMLAuthorNotesValidation(xml_tree, self.rules).validate())
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <author-notes>
+                            <corresp>
+                                <title>Correspondence</title>
+                            </corresp>
+                        </author-notes>
+                    </article-meta>
+                </front>
+            </article>
+        ''')
+        obtained = list(XMLAuthorNotesValidation(xml_tree, self.rules).validate())
 
-            # Filtrar somente as validações relacionadas a corresp/title
-            obtained = [item for item in obtained if
-                        item["item"] == "corresp" and item["sub_item"] == "unexpected title"]
-            self.assertEqual(len(obtained), 1)
-            self.assertEqual(obtained[0]["response"], "ERROR")
-            self.assertIn("Replace corresp/title by corresp/label", obtained[0]["advice"])
+        # Filtrar somente as validações relacionadas a corresp/title
+        obtained = [item for item in obtained if
+                    item["item"] == "corresp" and item["sub_item"] == "unexpected title"]
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "ERROR")
+        self.assertIn("Replace corresp/title by corresp/label", obtained[0]["advice"])
 
     def test_validate_fn_type_attribute_expected_value(self):
         xml_tree = etree.fromstring('''
