@@ -119,17 +119,19 @@ class AffiliationValidationTest(TestCase):
         obtained = list(self.validator.validate_city())
         self.assertEqual(1, len(obtained))
 
-    def test_validate_orgname_components(self):
-        obtained = list(AffiliationValidation(self.complete_aff, PARAMS).validate_orgname_components())[0]
+    def test_validate_original_aff_components(self):
+        obtained = list(AffiliationValidation(self.complete_aff, PARAMS).validate_original_aff_components())[0]
         self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil")
-        self.assertEqual(obtained["advice"], 'Mark the complete original affiliation text with <institution content-type="original"> '
-                                             'in <aff> and add missing components: [\'orgdiv1\', \'orgdiv2\'].')
+        self.assertEqual(obtained["advice"], 'Mark the complete original affiliation with '
+                                             '<institution content-type="original"> in <aff> and '
+                                             'add Divisão 1 (orgdiv1), Divisão 2 (orgdiv2) in <institution content-type="original">')
 
-    def test_validate_orgname_components_value(self):
-        obtained = list(AffiliationValidation(self.complete_aff_modified, PARAMS).validate_orgname_components_value())[0]
+    def test_validate_original_aff_components_value(self):
+        self.maxDiff = None
+        obtained = list(AffiliationValidation(self.complete_aff_modified, PARAMS).validate_original_aff_components_value())[0]
         self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil")
-        self.assertEqual(obtained["advice"], 'Mark the complete original affiliation text with <institution content-type="original"> '
-                                             'in <aff> and add missing words in components: [\'Municipal\', \'Saúde\', \'Secretaria\', \'de\'].')
+        self.assertEqual(obtained["advice"], 'Mark the complete original affiliation with <institution content-type="original"> '
+                                             'in <aff> and add missing words: [\'Secretaria\', \'Municipal\', \'de\', \'Saúde\', \'de\'].')
 
 
 class TestAffiliationValidationCompare(TestCase):
