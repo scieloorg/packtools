@@ -13,7 +13,7 @@ class ISSNValidation:
         self.journal_issns = ISSN(xmltree)
         self.issns_dict = issns_dict
 
-    def validate_issn(self, issns_dict):
+    def validate_issn(self, issns_dict, error_level="CRITICAL"):
         """
         Checks whether the ISSN value is as expected.
 
@@ -68,20 +68,24 @@ class ISSNValidation:
 
         for tp, issn_expected in issns_dict.items():
             issn_obtained = self.journal_issns.epub if tp == "epub" else self.journal_issns.ppub
+            name = "electronic" if tp == "epub" else "print"
             is_valid = issn_expected == issn_obtained
-            yield {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="{}"]'.format(tp),
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': '<issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
-                'got_value': '<issn pub-type="{}">{}</issn>'.format(tp, issn_obtained),
-                'message': 'Got <issn pub-type="{}">{}</issn> expected <issn pub-type="{}">{}</issn>'.format(
-                    tp, issn_obtained, tp, issn_expected
-                ),
-                'advice': None if is_valid else 'Provide an ISSN value as expected: <issn pub-type="{}">{}</issn>'.format(
-                    tp, issn_expected),
-            }
+            yield format_response(
+                title='Journal ISSN',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item='issn',
+                sub_item='pub-type',
+                validation_type='value',
+                is_valid=is_valid,
+                expected='<issn pub-type="{}">{}</issn>'.format(tp, issn_expected),
+                obtained='<issn pub-type="{}">{}</issn>'.format(tp, issn_obtained),
+                advice='Mark {} ISSN with <issn pub-type="{}">{}</issn> inside <journal-meta>'.format(name, tp, issn_expected),
+                data=self.journal_issns.data,
+                error_level=error_level,
+            )
 
 
 class AcronymValidation:
@@ -89,22 +93,26 @@ class AcronymValidation:
         self.xmltree = xmltree
         self.journal_acronym = Acronym(xmltree)
 
-    def acronym_validation(self, expected_value):
+    def acronym_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to acronym')
         is_valid = self.journal_acronym.text == expected_value
-        return [
-            {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value,
-                'got_value': self.journal_acronym.text,
-                'message': 'Got {} expected {}'.format(self.journal_acronym.text, expected_value),
-                'advice': None if is_valid else 'Provide an acronym value as expected: {}'.format(expected_value)
-            }
-        ]
+        yield format_response(
+            title='Journal acronym',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-id',
+            sub_item='@journal-id-type="publisher-id"',
+            validation_type='value',
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.journal_acronym.text,
+            advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> inside <journal-meta>'.format(expected_value),
+            data={'acronym': self.journal_acronym.text},
+            error_level=error_level,
+        )
 
 
 class TitleValidation:
@@ -112,22 +120,29 @@ class TitleValidation:
         self.xmltree = xmltree
         self.journal_titles = Title(xmltree)
 
-    def journal_title_validation(self, expected_value):
+    def journal_title_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to journal title')
         is_valid = self.journal_titles.journal_title == expected_value
-        return [
-            {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
-                'validation_type': 'value',
-                'response': 'OK' if is_valid else 'ERROR',
-                'expected_value': expected_value,
-                'got_value': self.journal_titles.journal_title,
-                'message': 'Got {} expected {}'.format(self.journal_titles.journal_title, expected_value),
-                'advice': None if is_valid else 'Provide a journal title value as expected: {}'.format(expected_value)
-            }
-        ]
+        yield format_response(
+            title='Journal title',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-title-group',
+            sub_item='journal-title',
+            validation_type='value',
+            is_valid=is_valid,
+            expected=expected_value,
+            obtained=self.journal_titles.journal_title,
+            advice='Mark journal title with <journal-title> inside <journal-title-group>',
+            data={
+                item.get("type"): item.get("value")
+                for item in self.journal_titles.data
+            },
+            error_level=error_level,
+        )
 
     def abbreviated_journal_title_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
@@ -145,7 +160,7 @@ class TitleValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.journal_titles.abbreviated_journal_title,
-            advice='Provide a journal title value as expected: {}'.format(expected_value),
+            advice='Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
             data={
                 item.get("type"): item.get("value")
                 for item in self.journal_titles.data
@@ -215,7 +230,7 @@ class PublisherNameValidation:
         for expected, obtained in zip(expected_list, obtained_list):
             is_valid = expected == obtained
             yield format_response(
-                title='Publisher name element validation',
+                title='Publisher name',
                 parent='article',
                 parent_id=None,
                 parent_article_type=self.xmltree.get("article-type"),
@@ -226,7 +241,7 @@ class PublisherNameValidation:
                 is_valid=is_valid,
                 expected=expected,
                 obtained=obtained,
-                advice=f'Provide the expected publisher name: {expected}',
+                advice=f'Mark publisher name with <publisher><publisher-name>{expected}</publisher-name></publisher> inside <journal-meta>',
                 data=None,
                 error_level=error_level,
             )
@@ -246,7 +261,7 @@ class PublisherNameValidation:
             advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
             yield format_response(
-                title='Publisher name element validation',
+                title='Publisher name',
                 parent='article',
                 parent_id=None,
                 parent_article_type=self.xmltree.get("article-type"),
@@ -315,7 +330,7 @@ class JournalIdValidation:
         """
         is_valid = self.nlm_ta == expected_value
         yield format_response(
-            title='Journal ID element validation',
+            title='Journal ID',
             parent='article',
             parent_id=None,
             parent_article_type=self.xmltree.get("article-type"),
@@ -326,7 +341,7 @@ class JournalIdValidation:
             is_valid=is_valid,
             expected=expected_value,
             obtained=self.nlm_ta,
-            advice='Provide an nlm-ta value as expected: {}'.format(expected_value),
+            advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> inside <journal-meta>',
             data=None,
             error_level=error_level,
         )
@@ -359,8 +374,8 @@ class JournalMetaValidation:
         nlm_ta = JournalIdValidation(self.xmltree)
 
         resp_journal_meta = list(issn.validate_issn(expected_values['issns'])) + \
-                            acronym.acronym_validation(expected_values['acronym']) + \
-                            title.journal_title_validation(expected_values['journal-title']) + \
+                            list(acronym.acronym_validation(expected_values['acronym'])) + \
+                            list(title.journal_title_validation(expected_values['journal-title'])) + \
                             list(title.abbreviated_journal_title_validation(expected_values['abbrev-journal-title'])) + \
                             list(publisher.validate_publisher_names(expected_values['publisher-name'])) + \
                             list(nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta']))
