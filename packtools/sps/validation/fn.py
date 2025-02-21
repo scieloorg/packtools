@@ -103,18 +103,19 @@ class XMLFnGroupValidation:
         yield from validator.validate()
 
     def validate_edited_by(self, fn_types):
-        if "edited-by" not in fn_types:
-            return build_response(
-                title="edited-by",
-                parent={},
-                item="fn",
-                sub_item="@fn-type",
-                validation_type="value",
-                is_valid=False,
-                expected='<fn fn-type="edited-by">',
-                obtained=None,
-                advice='Add mandatory value for <fn fn-type="edited-by"> to indicate the responsible editor '
-                       'for the purpose of Open Science practice.',
-                data=None,
-                error_level=self.rules["fn_type_error_level"]
-            )
+        is_valid = "edited-by" in fn_types and "edited-by" in rules["fn_type_expected_values"]
+
+        return build_response(
+            title="edited-by",
+            parent={},
+            item="fn",
+            sub_item="@fn-type",
+            validation_type="value",
+            is_valid=is_valid,
+            expected='<fn fn-type="edited-by">',
+            obtained='<fn fn-type="edited-by">' if is_valid else None,
+            advice='Add mandatory <fn fn-type="edited-by"> to indicate the responsible editor for Open Science. '
+                   'Ensure "edited-by" is required in rules JSON.',
+            data=None,
+            error_level=self.rules["fn_type_error_level"]
+        )
