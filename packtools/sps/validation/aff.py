@@ -1,3 +1,4 @@
+import re
 from copy import deepcopy
 from difflib import SequenceMatcher
 
@@ -131,6 +132,15 @@ class AffiliationValidation:
         self.affiliation = affiliation
         self.params = params
         self.original = self.affiliation.get("original")
+
+        self.original_components = {
+            "orgname": self.affiliation.get("orgname"),
+            "orgdiv1": self.affiliation.get("orgdiv1"),
+            "orgdiv2": self.affiliation.get("orgdiv2"),
+            "country_name": self.affiliation.get("country_name"),
+            "state": self.affiliation.get("state"),
+            "city": self.affiliation.get("city")
+        }
 
         default_min_similarity = {
             "original": 0.5,
@@ -418,6 +428,66 @@ class AffiliationValidation:
                 data=items,
             )
 
+    def validate_original_aff_components(self):
+        if not self.original:
+            return
+
+        component_not_found = [
+            (key, value) for key, value in self.original_components.items()
+            if value and not any(word in self.original for word in value.split())
+        ]
+
+        is_valid = len(component_not_found) == 0
+
+        if not is_valid:
+            formatted_components = ", ".join(f"{value} ({key})" for key, value in component_not_found)
+            advice = (
+                'Mark the complete original affiliation with '
+                '<institution content-type="original"> in <aff> and add '
+                f'{formatted_components} in <institution content-type="original">'
+            )
+
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="original affiliation",
+            obtained=self.original,
+            advice=advice,
+            data=self.affiliation,
+            error_level=self.params["original_error_level"]
+        )
+
+    def validate_original_aff_components_value(self):
+        original_words = re.findall(r'\b\w+\b', self.original)  # Tokeniza sem pontuação
+
+        component_words = [word for value in self.original_components.values()
+                           for word in re.findall(r'\b\w+\b', value)]
+
+        remaining_words = [word for word in original_words if word not in component_words]
+
+        is_valid = not remaining_words
+
+        yield build_response(
+            title="original",
+            parent=self.affiliation,
+            item="institution",
+            sub_item='@content-type="original"',
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="original affiliation",
+            obtained=self.original,
+            advice=(
+                'Mark the complete original affiliation with <institution content-type="original"> '
+                f'in <aff> and add missing words: {remaining_words}.'
+            ),
+            data=self.affiliation,
+            error_level=self.params["original_error_level"]
+        )
+
     def validate(self):
         """
         Validate all aspects of the affiliation.
@@ -437,3 +507,4 @@ class AffiliationValidation:
         yield from self.validate_country_code()
         yield from self.validate_state()
         yield from self.validate_city()
+        yield from self.validate_orgname_composition()
