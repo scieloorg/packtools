@@ -132,6 +132,7 @@ class AffiliationValidation:
         self.affiliation = affiliation
         self.params = params
         self.original = self.affiliation.get("original")
+
         self.original_components = {
             "orgname": self.affiliation.get("orgname"),
             "orgdiv1": self.affiliation.get("orgdiv1"),
@@ -156,7 +157,6 @@ class AffiliationValidation:
         )
 
     def validate_original(self):
-        original = self.affiliation.get("original")
         error_level = self.params["original_error_level"]
 
         yield build_response(
@@ -165,10 +165,10 @@ class AffiliationValidation:
             item="institution",
             sub_item='@content-type="original"',
             validation_type="exist",
-            is_valid=bool(original),
+            is_valid=bool(self.original),
             expected="original affiliation",
-            obtained=original,
-            advice='Mark the complete original affiliation text with <aff><institution content-type="original">',
+            obtained=self.original,
+            advice=f'Mark the complete original affiliation text with <institution content-type="original"> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -186,7 +186,7 @@ class AffiliationValidation:
             is_valid=bool(orgname),
             expected="orgname",
             obtained=orgname,
-            advice='Mark the main institution with <aff><institution content-type="orgname">',
+            advice=f'Mark the main institution with <institution content-type="orgname"> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -204,7 +204,7 @@ class AffiliationValidation:
             is_valid=bool(orgdiv1),
             expected="orgdiv1 affiliation",
             obtained=orgdiv1,
-            advice='Mark the first hierarchical subdivision with <aff><institution content-type="orgdiv1">',
+            advice=f'Mark the first hierarchical subdivision with <institution content-type="orgdiv1"> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -222,7 +222,7 @@ class AffiliationValidation:
             is_valid=bool(orgdiv2),
             expected="orgdiv2 affiliation",
             obtained=orgdiv2,
-            advice='Mark the second hierarchical subdivision with <aff><institution content-type="orgdiv2">',
+            advice=f'Mark the second hierarchical subdivision with <institution content-type="orgdiv2"> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -240,7 +240,7 @@ class AffiliationValidation:
             is_valid=bool(label),
             expected="label",
             obtained=label,
-            advice='mark affiliation label with <aff><label>',
+            advice=f'Mark affiliation label with <label> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -258,7 +258,7 @@ class AffiliationValidation:
             is_valid=bool(country),
             expected="country name",
             obtained=country,
-            advice='mark affiliation country with <aff><country>',
+            advice=f'Mark affiliation country with <country> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -280,7 +280,7 @@ class AffiliationValidation:
                 country_code if is_valid else f"one of {country_codes_list}"
             ),
             obtained=country_code,
-            advice=f'Complete country="" in <aff><country country=""> with a valid value: {country_codes_list}',
+            advice=f'Complete <country country=""> in <aff> with a valid value: {country_codes_list} for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -298,7 +298,7 @@ class AffiliationValidation:
             is_valid=bool(state),
             expected="state",
             obtained=state,
-            advice='Mark affiliation state with <aff><addr-line><state>',
+            advice=f'Mark affiliation state with <addr-line><state> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -316,7 +316,7 @@ class AffiliationValidation:
             is_valid=bool(city),
             expected="city",
             obtained=city,
-            advice='mark affiliation city with <aff><addr-line><city>',
+            advice=f'Mark affiliation city with <addr-line><city> in <aff> for {self.original}',
             data=self.affiliation,
             error_level=error_level,
         )
@@ -334,7 +334,7 @@ class AffiliationValidation:
             is_valid=bool(aff_id),
             expected="affiliation ID",
             obtained=aff_id,
-            advice='Complete id="" in <aff id=""> with affiliation identifier. Consult the documentation of SPS of the current version',
+            advice='Complete <aff id=""> with affiliation identifier. Consult the documentation of SPS of the current version',
             data=self.affiliation,
             error_level=error_level,
         )

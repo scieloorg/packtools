@@ -119,24 +119,28 @@ class ArticleLicenseValidation:
                 'link': data.get('link'),
                 'license_p': data.get('license_p').get('plain_text')
             }
-            is_valid = expected_value.get(lang) == obtained_license_p
+            expected_license_p = expected_value.get(lang)
+            is_valid = expected_license_p == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
             yield format_response(
-                    title='Article license validation',
-                    parent=data.get("parent"),
-                    parent_id=data.get("parent_id"),
-                    parent_article_type=data.get("parent_article_type"),
-                    parent_lang=data.get("parent_lang"),
-                    item="permissions",
-                    sub_item="license",
-                    validation_type="value",
-                    is_valid=is_valid,
-                    expected=expected_value_msg,
-                    obtained=obtained_license_p,
-                    advice='Provide license data that is consistent with the language: {} and standard adopted by the journal'.format(lang),
-                    data=obtained_license_p,
-                    error_level=error_level,
+                title='Article license validation',
+                parent=data.get("parent"),
+                parent_id=data.get("parent_id"),
+                parent_article_type=data.get("parent_article_type"),
+                parent_lang=data.get("parent_lang"),
+                item="permissions",
+                sub_item="license",
+                validation_type="value",
+                is_valid=is_valid,
+                expected=expected_value_msg,
+                obtained=obtained_license_p,
+                advice=f'Mark license information with '
+                       f'<license license-type="open-access" xlink:href={expected_license_p["link"]} '
+                       f'xml:lang={expected_license_p["lang"]}>'
+                       f'<license-p>{expected_license_p["license_p"]}</license-p></license>',
+                data=obtained_license_p,
+                error_level=error_level,
             )
 
     def validate_license_code(self, expected_code, error_level="ERROR"):
@@ -210,7 +214,7 @@ class ArticleLicenseValidation:
                 is_valid=is_valid,
                 expected=expected_code,
                 obtained=obtained_code,
-                advice=f"Provide {expected_code} code license information",
+                advice=f'add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}',
                 data=licenses,
                 error_level=error_level,
             )
