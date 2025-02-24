@@ -102,3 +102,64 @@ class FundingGroupValidation:
                 data=error,
                 error_level=self.params["error_level"],
             )
+
+    def validate_funding_statement(self):
+        """
+        Validates if funding-related information from <ack>, <fn> (financial-disclosure or supported-by)
+        is properly replicated in <funding-statement>.
+        """
+        funding_statement_text = self.funding.funding_statement_data.get(
+            "text") if self.funding.funding_statement_data else ""
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": self.funding.data.get("article_type"),
+            "parent_lang": self.funding.data.get("article_lang"),
+        }
+
+        errors = []
+        sources = {
+            "ack": self.funding.ack,
+            "financial-disclosure": self.funding.financial_disclosure,
+            "supported-by": self.funding.supported_by,
+        }
+
+        for context, items in sources.items():
+            for item in items or []:
+                for award_id in item.get("p") or []:
+                    text = award_id.get("text").strip()
+                    if text and text not in funding_statement_text:
+                        errors.append({
+                            "context": context,
+                            "missing_text": text,
+                        })
+
+        if not errors:
+            yield build_response(
+                title="Funding statement validation",
+                parent=parent,
+                item="funding-statement",
+                sub_item="text",
+                validation_type="consistency",
+                is_valid=True,
+                expected="Text from <ack>, <fn> (financial-disclosure or supported-by) should be present in <funding-statement>",
+                obtained="Funding statement correctly includes all necessary information.",
+                advice=None,
+                data=None,
+                error_level="INFO",
+            )
+        else:
+            for error in errors:
+                yield build_response(
+                    title="Missing funding information in funding-statement",
+                    parent=parent,
+                    item="funding-statement",
+                    sub_item="text",
+                    validation_type="consistency",
+                    is_valid=False,
+                    expected=f"Text from {error["context"]} should be present in <funding-statement>",
+                    obtained=f"Missing text: '{error["missing_text"]}'",
+                    advice=f"Ensure that funding information '{error["missing_text"]}' from {error['context']} is replicated in <funding-statement>.",
+                    data=error,
+                    error_level=self.params["error_level"],
+                )
