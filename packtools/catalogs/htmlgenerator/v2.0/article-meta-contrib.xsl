@@ -45,7 +45,7 @@
 
     <xsl:template match="front | front-stub" mode="contrib-group">
         <xsl:variable name="id"><xsl:value-of select="../@id"/></xsl:variable>
-        <xsl:apply-templates select=".//contrib-group" mode="contrib-group">
+        <xsl:apply-templates select=".//contrib-group[1]" mode="contrib-group">
             <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
         </xsl:apply-templates>
         <xsl:apply-templates select="." mode="scimago-button">
