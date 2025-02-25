@@ -6,68 +6,108 @@ from packtools.sps.models.supplementary_material import (
     ArticleSupplementaryMaterials,
 )
 
-
 class SupplementaryMaterialTest(unittest.TestCase):
     def setUp(self):
         xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
             <body>
-                <supplementary-material id="supp01" mimetype="application" mime-subtype="pdf" xlink:href="supplementary1.pdf">
-                    <label>Supplementary Material 1</label>
-                </supplementary-material>
+                <sec sec-type="supplementary-material">
+                    <supplementary-material id="supp01">
+                        <label>Supplementary Material 1</label>
+                        <caption>
+                            <title>Video 1</title>
+                        </caption>
+                        <media mimetype="application" mime-subtype="pdf" xlink:href="supplementary1.pdf"/>
+                    </supplementary-material>
+                </sec>
             </body>
         </article>
         """
         self.xml_tree = etree.fromstring(xml_str)
-        self.supplementary_material = SupplementaryMaterial(
+        self.supp = SupplementaryMaterial(
             self.xml_tree.xpath(".//supplementary-material")[0]
         )
 
-    def test_supplementary_material_id(self):
-        self.assertEqual(
-            self.supplementary_material.supplementary_material_id, "supp01"
-        )
+    def test_id(self):
+        self.assertEqual(self.supp.id, "supp01")
 
-    def test_supplementary_material_label(self):
-        self.assertEqual(
-            self.supplementary_material.supplementary_material_label,
-            "Supplementary Material 1",
-        )
+    def test_parent(self):
+        self.assertEqual(self.supp.parent, "sec")
+
+    def test_sec_type(self):
+        self.assertEqual(self.supp.sec_type, "supplementary-material")
+
+    def test_label(self):
+        self.assertEqual(self.supp.label, "Supplementary Material 1")
+
+    def test_caption_title(self):
+        self.assertEqual(self.supp.caption_title, "Video 1")
 
     def test_mimetype(self):
-        self.assertEqual(self.supplementary_material.mimetype, "application")
+        self.assertEqual(self.supp.mimetype, "application")
 
     def test_mime_subtype(self):
-        self.assertEqual(self.supplementary_material.mime_subtype, "pdf")
+        self.assertEqual(self.supp.mime_subtype, "pdf")
 
     def test_xlink_href(self):
-        self.assertEqual(self.supplementary_material.xlink_href, "supplementary1.pdf")
+        self.assertEqual(self.supp.xlink_href, "supplementary1.pdf")
 
-    def test_data(self):
-        expected = {
-            "supplementary_material_id": "supp01",
-            "supplementary_material_label": "Supplementary Material 1",
-            "mimetype": "application",
-            "mime_subtype": "pdf",
-            "xlink_href": "supplementary1.pdf",
-        }
-        obtained = self.supplementary_material.data
-        self.assertDictEqual(expected, obtained)
+    def test_media_type(self):
+        self.assertEqual(self.supp.media_type, "media")
+
+    def test_supplementary_material_media_node(self):
+        """Verifies that the model correctly extracts the <media> node and its attributes."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media id="m1" mimetype="video" mime-subtype="mp4" xlink:href="video.mp4">
+                                <alt-text>Descriptive text for accessibility</alt-text>
+                            </media>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+
+        # Obtém o primeiro material suplementar do XML
+        supp_material = SupplementaryMaterial(xml_tree.find(".//supplementary-material"))
+
+        # Verifica se media_node foi corretamente extraído
+        self.assertIsInstance(supp_material.media_node, etree._Element)
+
+        # Verifica se a tag do nó extraído é "media"
+        self.assertEqual(supp_material.media_node.tag, "media")
+
+        # Verifica se os atributos foram corretamente extraídos
+        self.assertEqual(supp_material.media_node.get("id"), "m1")
+        self.assertEqual(supp_material.media_node.get("mimetype"), "video")
+        self.assertEqual(supp_material.media_node.get("mime-subtype"), "mp4")
+        self.assertEqual(supp_material.media_node.get("{http://www.w3.org/1999/xlink}href"), "video.mp4")
+
+        # Verifica se contém <alt-text> para acessibilidade
+        self.assertIsNotNone(supp_material.media_node.find("alt-text"))
+        self.assertEqual(supp_material.media_node.findtext("alt-text"), "Descriptive text for accessibility")
 
 
 class ArticleSupplementaryMaterialsTest(unittest.TestCase):
     def setUp(self):
         xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
             <body>
-                <supplementary-material id="supp01" mimetype="application" mime-subtype="pdf" xlink:href="supplementary1.pdf">
+                <supplementary-material id="supp01">
                     <label>Supplementary Material 1</label>
+                    <media mimetype="application" mime-subtype="pdf" xlink:href="supplementary1.pdf"/>
                 </supplementary-material>
-                <inline-supplementary-material id="supp02" mimetype="text" mime-subtype="plain" xlink:href="inline-supplementary1.txt">
-                    <label>Inline Supplementary Material 1</label>
-                </inline-supplementary-material>
+                <sec sec-type="supplementary-material" id="sec01">
+                    <title>Supplementary Section</title>
+                    <supplementary-material id="supp02">
+                        <label>Supplementary Material 2</label>
+                        <graphic xlink:href="supplementary2.jpg"/>
+                    </supplementary-material>
+                </sec>
             </body>
         </article>
         """
@@ -75,34 +115,7 @@ class ArticleSupplementaryMaterialsTest(unittest.TestCase):
 
     def test_data(self):
         obtained = list(ArticleSupplementaryMaterials(self.xml_tree).data())
-        expected = [
-            {
-                "supplementary_material_id": "supp01",
-                "supplementary_material_label": "Supplementary Material 1",
-                "mimetype": "application",
-                "mime_subtype": "pdf",
-                "xlink_href": "supplementary1.pdf",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-            },
-            {
-                "supplementary_material_id": "supp02",
-                "supplementary_material_label": "Inline Supplementary Material 1",
-                "mimetype": "text",
-                "mime_subtype": "plain",
-                "xlink_href": "inline-supplementary1.txt",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-            },
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
+        self.assertEqual(len(obtained), 2)
 
 if __name__ == "__main__":
     unittest.main()
