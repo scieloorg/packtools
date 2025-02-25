@@ -1,130 +1,228 @@
 import unittest
 from lxml import etree
-
-from packtools.sps.validation.supplementary_material import (
-    SupplementaryMaterialValidation,
-)
+from packtools.sps.validation.supplementary_material import SupplementaryMaterialValidation, ArticleSupplementaryMaterialValidation
+from packtools.sps.models.supplementary_material import ArticleSupplementaryMaterials
 
 
-class SupplementaryMaterialValidationTest(unittest.TestCase):
-    def test_supplementary_material_validation_no_elements(self):
-        self.maxDiff = None
-        xmltree = etree.fromstring(
-            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
-            "<body>"
-            "<p>Some text content without supplementary materials.</p>"
-            "</body>"
-            "</article>"
-        )
-        obtained = list(
-            SupplementaryMaterialValidation(
-                xmltree
-            ).validate_supplementary_material_existence()
-        )
+class TestSupplementaryMaterialValidation(unittest.TestCase):
+    def setUp(self):
+        self.params = {
+            "supplementary_material_structure_error_level": "CRITICAL",
+            "supplementary_material_attributes_error_level": "CRITICAL",
+            "supplementary_material_language_error_level": "CRITICAL",
+            "supplementary_material_position_error_level": "CRITICAL",
+            "supplementary_material_format_error_level": "CRITICAL",
+            "supplementary_material_in_app_group_error_level": "CRITICAL",
+            "inline_supplementary_material_error_level": "CRITICAL",
+            "supplementary_material_sec_attributes_error_level": "CRITICAL",
+            "supplementary_material_midia_attributes_error_level": "CRITICAL",
+            "supplementary_material_midia_accessibility_requirements_error_level": "CRITICAL"
+        }
 
-        expected = [
-            {
-                "title": "validation of <supplementary-material> elements",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "supplementary-material",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "WARNING",
-                "expected_value": "<supplementary-material> element",
-                "got_value": None,
-                "message": "Got None, expected <supplementary-material> element",
-                "advice": "Consider adding a <supplementary-material> element to provide additional data or materials related to the article.",
-                "data": None,
-            }
-        ]
+    def test_validate_supplementary_material_structure(self):
+        """Verifies if supplementary materials are inside <sec sec-type='supplementary-material'>."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec>
+                        <supplementary-material id="supp1" xlink:href="file.pdf">
+                            <label>Supplementary Material</label>
+                            <media mimetype="application" mime-subtype="pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_structure()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "Supplementary materials must be inside <sec sec-type='supplementary-material'>.")
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+    def test_validate_supplementary_material_id_attribute(self):
+        """Verifies if supplementary materials contain the ID attribute."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material>
+                            <p>Missing required attributes.</p>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_id()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], 'Add supplementary material with id="" in <supplementary-material>: '
+                                            '<supplementary-material id="">. Consult SPS documentation for more detail.')
 
-    def test_supplementary_material_validation_with_elements(self):
-        self.maxDiff = None
-        xmltree = etree.fromstring(
-            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
-            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
-            "<body>"
-            '<supplementary-material id="supp01" mimetype="application" mime-subtype="pdf" xlink:href="supplementary1.pdf">'
-            "<label>Supplementary Material 1</label>"
-            "</supplementary-material>"
-            '<inline-supplementary-material id="supp02" mimetype="text" mime-subtype="plain" xlink:href="inline-supplementary1.txt">'
-            "<label>Inline Supplementary Material 1</label>"
-            "</inline-supplementary-material>"
-            "</body>"
-            "</article>"
-        )
-        obtained = list(
-            SupplementaryMaterialValidation(
-                xmltree
-            ).validate_supplementary_material_existence()
-        )
+    def test_validate_supplementary_material_language(self):
+        """Verifies if the language of supplementary materials matches the article's language."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Esse rótulo está em português</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_language()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"],
+                         f'The language of the supplementary material (pt) differs from the language of the article (en).')
 
-        expected = [
-            {
-                "title": "validation of <supplementary-material> elements",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "supplementary-material",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "supp01",
-                "got_value": "supp01",
-                "message": "Got supp01, expected supp01",
-                "advice": None,
-                "data": {
-                    "supplementary_material_id": "supp01",
-                    "supplementary_material_label": "Supplementary Material 1",
-                    "mimetype": "application",
-                    "mime_subtype": "pdf",
-                    "xlink_href": "supplementary1.pdf",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            },
-            {
-                "title": "validation of <supplementary-material> elements",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "supplementary-material",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "supp02",
-                "got_value": "supp02",
-                "message": "Got supp02, expected supp02",
-                "advice": None,
-                "data": {
-                    "supplementary_material_id": "supp02",
-                    "supplementary_material_label": "Inline Supplementary Material 1",
-                    "mimetype": "text",
-                    "mime_subtype": "plain",
-                    "xlink_href": "inline-supplementary1.txt",
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            },
-        ]
+    def test_validate_supplementary_material_position(self):
+        """Verifica se a seção de materiais suplementares está na última posição do <body> ou dentro de <back>."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec>
+                        <title>Some Section</title>
+                    </sec>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1" xlink:href="file.pdf">
+                            <label>Supplementary Material</label>
+                        </supplementary-material>
+                    </sec>
+                    <sec>
+                        <title>Invalid Last Section</title>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_position()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "The supplementary materials section must be at the end of <body> or inside <back>.")
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+    def test_validate_supplementary_material_format(self):
+        """Verifies if the supplementary material type matches the correct markup."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <graphic mimetype="application/pdf" mime-subtype="pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_format()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "Incorrect format. Expected: media for application/pdf.")
+
+    def test_validate_supplementary_material_not_in_app_group(self):
+        """Verifies that <supplementary-material> does not occur inside <app-group> or <app>."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <app-group>
+                        <app>
+                            <supplementary-material id="supp1">
+                                <label>Invalid Supplementary Material</label>
+                            </supplementary-material>
+                        </app>
+                    </app-group>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_supplementary_material_not_in_app_group()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "Do not use <supplementary-material> inside <app-group> or <app>.")
+
+    def test_validate_prohibited_inline_supplementary_material(self):
+        """Verifies that <inline-supplementary-material> is not used."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <inline-supplementary-material id="supp1">
+                        <label>Invalid Inline Supplementary Material</label>
+                    </inline-supplementary-material>
+                </body>
+            </article>
+        ''')
+
+        validator = SupplementaryMaterialValidation({}, xml_tree, self.params)
+        results = validator.validate_prohibited_inline_supplementary_material()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "The use of <inline-supplementary-material> is prohibited.")
+
+    def test_validate_sec_type_supplementary_material(self):
+        """Verifies that all <sec> containing <supplementary-material> have @sec-type='supplementary-material'."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec>
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_sec_type_supplementary_material()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"],
+                         "Every section containing <supplementary-material> must have sec-type='supplementary-material'.")
+
+    def test_validate_media_attributes(self):
+        """Verifies that <media> contains the mandatory attributes @id, @mime-type, @mime-subtype, and @xlink:href."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media id="m1" mimetype="video" mime-subtype="mp4" xlink:href="video.mp4"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_media_attributes()
+        self.assertEqual(results["response"], "CRITICAL")
+        self.assertEqual(results["advice"], "Each <media> must contain the attributes id, mime-type, mime-subtype, and xlink:href.")
+
+    def test_validate_accessibility_requirements(self):
+        """Verifies that images and media contain a description in <alt-text> or <long-desc>."""
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1">
+                            <label>Supplementary Material</label>
+                            <media id="m1" mimetype="video" mime-subtype="mp4" xlink:href="video.mp4">
+                                <alt-text>Descriptive text for accessibility</alt-text>
+                            </media>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+        ''')
+        article_supps = list(ArticleSupplementaryMaterials(xml_tree).data())
+        validator = SupplementaryMaterialValidation(article_supps[0], xml_tree, self.params)
+        results = validator.validate_accessibility_requirements()
+        self.assertEqual(results["response"], "OK")
+        self.assertIsNone(results["advice"])
 
 
 if __name__ == "__main__":
