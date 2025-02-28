@@ -1,10 +1,7 @@
 import unittest
 from lxml import etree
 
-from packtools.sps.models.supplementary_material import (
-    SupplementaryMaterial,
-    ArticleSupplementaryMaterials,
-)
+from packtools.sps.models.supplementary_material import XmlSupplementaryMaterials, SupplementaryMaterial
 
 class SupplementaryMaterialTest(unittest.TestCase):
     def setUp(self):
@@ -32,7 +29,7 @@ class SupplementaryMaterialTest(unittest.TestCase):
         self.assertEqual(self.supp.id, "supp01")
 
     def test_parent(self):
-        self.assertEqual(self.supp.parent, "sec")
+        self.assertEqual(self.supp.parent_tag, "sec")
 
     def test_sec_type(self):
         self.assertEqual(self.supp.sec_type, "supplementary-material")
@@ -41,7 +38,7 @@ class SupplementaryMaterialTest(unittest.TestCase):
         self.assertEqual(self.supp.label, "Supplementary Material 1")
 
     def test_caption_title(self):
-        self.assertEqual(self.supp.caption_title, "Video 1")
+        self.assertEqual(self.supp.caption, "Video 1")
 
     def test_mimetype(self):
         self.assertEqual(self.supp.mimetype, "application")
@@ -54,6 +51,9 @@ class SupplementaryMaterialTest(unittest.TestCase):
 
     def test_media_type(self):
         self.assertEqual(self.supp.media_type, "media")
+
+    def test_xml(self):
+        self.assertEqual(self.supp.xml, '<supplementary-material id="supp01">')
 
     def test_supplementary_material_media_node(self):
         """Verifies that the model correctly extracts the <media> node and its attributes."""
@@ -92,7 +92,7 @@ class SupplementaryMaterialTest(unittest.TestCase):
         self.assertEqual(supp_material.media_node.findtext("alt-text"), "Descriptive text for accessibility")
 
 
-class ArticleSupplementaryMaterialsTest(unittest.TestCase):
+class XmlSupplementaryMaterialsTest(unittest.TestCase):
     def setUp(self):
         xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
@@ -113,8 +113,8 @@ class ArticleSupplementaryMaterialsTest(unittest.TestCase):
         """
         self.xml_tree = etree.fromstring(xml_str)
 
-    def test_data(self):
-        obtained = list(ArticleSupplementaryMaterials(self.xml_tree).data())
+    def test_items(self):
+        obtained = list(XmlSupplementaryMaterials(self.xml_tree).items)
         self.assertEqual(len(obtained), 2)
 
 if __name__ == "__main__":
