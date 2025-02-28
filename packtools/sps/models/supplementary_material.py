@@ -1,68 +1,50 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.models.label_and_caption import LabelAndCaption
+from packtools.sps.models.article_and_subarticles import Fulltext
+from packtools.sps.models.media import Media
 
-class SupplementaryMaterial:
+class SupplementaryMaterial(LabelAndCaption):
     def __init__(self, node):
-        self.node = node
+        super().__init__(node)
         self._parent_node = node.getparent()
+        self.media_node = node.find("media")
+        self.media = Media(self.media_node) if self.media_node is not None else None
+
+    def __getattr__(self, name):
+        if hasattr(self.media, name):
+            return getattr(self.media, name)
+
+        if hasattr(super(), name):
+            return getattr(super(), name)
+
+        raise AttributeError(f"SupplementaryMaterial has no attribute {name}")
 
     @property
-    def id(self):
-        return self.node.get("id")
-
-    @property
-    def parent(self):
+    def parent_tag(self):
         return self._parent_node.tag if self._parent_node is not None else None
 
     @property
     def sec_type(self):
-        return self._parent_node.get("sec-type")
+        return self._parent_node.get("sec-type") if self.parent_tag == "sec" else None
 
     @property
-    def label(self):
-        return self.node.findtext("label")
-
-    @property
-    def caption_title(self):
-        return self.node.findtext("caption/title")
-
-    @property
-    def media_node(self):
-        node = self.node.findall("media") or self.node.findall("graphic")
-        return node[0] if node else None
-
-    @property
-    def mimetype(self):
-        return self.media_node.get("mimetype") if self.media_node is not None else None
-
-    @property
-    def mime_subtype(self):
-        return self.media_node.get("mime-subtype") if self.media_node is not None else None
-
-    @property
-    def xlink_href(self):
-        return self.media_node.get("{http://www.w3.org/1999/xlink}href") if self.media_node is not None else None
-
-    @property
-    def media_type(self):
-        return self.media_node.tag if self.media_node is not None else None
+    def xml(self):
+        if self.id:
+            return f'<supplementary-material id="{self.id}">'
+        else:
+            return '<supplementary-material>'
 
     @property
     def data(self):
-        return {
-            "id": self.id,
-            "parent_tag": self.parent,
-            "parent_attrib_type": self.sec_type,
-            "label": self.label,
-            "caption_title": self.caption_title,
-            "mimetype": self.mimetype,
-            "mime_subtype": self.mime_subtype,
-            "xlink_href": self.xlink_href,
-            "media_type": self.media_type,
-            "media_node": self.media_node
-        }
+        base_data = super().data.copy()
+        base_data.update(self.media.data)
+        base_data.update({
+            "parent_suppl_mat": self.parent_tag,
+            "sec_type": self.sec_type,
+        })
+        return base_data
 
 
-class ArticleSupplementaryMaterials:
+class XmlSupplementaryMaterials:
     def __init__(self, xml_tree):
         """
         Extrai todos os <supplementary-material> e <sec sec-type="supplementary-material"> dentro do artigo.
@@ -72,9 +54,19 @@ class ArticleSupplementaryMaterials:
         """
         self.xml_tree = xml_tree
 
-    def data(self):
-        """Itera sobre os <supplementary-material> e retorna os dados extraídos."""
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xml_tree):
-            for supp_node in node.xpath(".//supplementary-material"):
+    @property
+    def items_by_id(self):
+        supp_dict = {}
+        for node in self.xml_tree.xpath(". | sub-article"):
+            supp_dict[node.get("id")] = []
+            full_text = Fulltext(node)
+            for supp_node in full_text.node.xpath(".//supplementary-material"):
                 supp_data = SupplementaryMaterial(supp_node).data
-                yield put_parent_context(supp_data, lang, article_type, parent, parent_id)
+                supp_data.update(full_text.attribs_parent_prefixed)
+                supp_dict[node.get("id")].append(supp_data)
+        return supp_dict
+
+    @property
+    def items(self):
+        for item in self.items_by_id.values():
+            yield from item
