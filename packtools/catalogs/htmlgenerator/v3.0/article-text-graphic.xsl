@@ -35,9 +35,26 @@
                 <img>
                     <xsl:attribute name="style">max-width:100%</xsl:attribute>
                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                    <xsl:apply-templates select="." mode="alt-text"/>
                 </img>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="*" mode="alt-text">
+        <xsl:attribute name="alt">
+            <xsl:choose>
+                <xsl:when test="alt-text">
+                    <xsl:value-of select="alt-text"/>
+                </xsl:when>
+                <xsl:when test="../alt-text">
+                    <xsl:value-of select="../alt-text"/>
+                </xsl:when>
+                <xsl:when test="../../alt-text">
+                    <xsl:value-of select="../../alt-text"/>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:attribute>
     </xsl:template>
 
     <xsl:template match="alternatives" mode="display-graphic">
