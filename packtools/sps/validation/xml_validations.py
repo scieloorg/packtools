@@ -184,6 +184,9 @@ def validate_open_science_actions(xmltree, params):
     validator = DataAvailabilityValidation(xmltree, data_availability_rules)
     yield from validator.validate_data_availability()
 
+    validator = XMLFnGroupValidation(xmltree, params["fn_rules"])
+    yield from validator.validate_edited_by()
+
 
 def validate_article_toc_sections(xmltree, params):
     rules = {}
@@ -196,16 +199,10 @@ def validate_article_toc_sections(xmltree, params):
 
 def validate_id_and_rid_match(xmltree, params):
     id_and_rid_match_rules = params["id_and_rid_match_rules"]
-
-    validator = ArticleXrefValidation(xmltree)
-    yield from validator.validate_xref_rid_has_corresponding_element_id(
-        error_level=id_and_rid_match_rules["required_id_error_level"]
-    )
-
-    yield from validator.validate_element_id_has_corresponding_xref_rid(
-        id_and_rid_match_rules["elements_required_rid"],
-        error_level=id_and_rid_match_rules["required_rid_error_level"],
-    )
+    validator = ArticleXrefValidation(xmltree, id_and_rid_match_rules)
+    yield from validator.validate_xref_rid_has_corresponding_element_id()
+    yield from validator.validate_element_id_has_corresponding_xref_rid()
+    yield from validator.validate_attrib_name_and_value_has_corresponding_xref()
 
 
 def validate_article_dates(xmltree, params):
@@ -256,6 +253,7 @@ def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
     validator = FundingGroupValidation(xmltree, funding_data_rules)
     yield from validator.validate_required_award_ids()
+    yield from validator.validate_funding_statement()
 
 
 def validate_journal_meta(xmltree, params):
