@@ -22,6 +22,7 @@ class ArticleDispFormulaValidation:
             raise RuntimeError(f"Error processing formula: {e}")
         self.xml_tree = xml_tree
         self.rules = rules
+        self.article_type = xml_tree.find(".").get("article-type")
 
     def validate(self):
         """
@@ -45,7 +46,7 @@ class ArticleDispFormulaValidation:
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice='Mark each formula inside <body> using <disp-formula>. Consult SPS documentation for more detail.',
+                advice=f'({self.article_type}) No <disp-formula> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -67,6 +68,9 @@ class DispFormulaValidation:
             raise ValueError("data must be a dictionary.")
         self.data = data
         self.rules = rules
+        self.eq_id = self.data.get("id")
+        self.article_type = self.data.get("article-type")
+        self.xml = f'<disp-formula id="{self.eq_id}">' if self.eq_id else '<disp-formula>'
 
     def validate(self):
         """
@@ -203,12 +207,12 @@ class DispFormulaValidation:
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
-            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            advice = f'{item_id}: Remove the <alternatives> from {self.xml} and keep <{found}> inside {self.xml}'
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
-            advice = f'{item_id}: Remove the <alternatives> from <disp-formula id="{item_id}"> and keep <{found}> inside <disp-formula id="{item_id}">'
+            advice = f'{item_id}: Remove the <alternatives> from {self.xml} and keep <{found}> inside {self.xml}'
             valid = False
         else:
             expected = "alternatives"
@@ -234,7 +238,6 @@ class DispFormulaValidation:
         )
 
 
-
 class ArticleInlineFormulaValidation:
     """
     Validates the presence and attributes of <inline-formula> elements in an XML tree.
@@ -256,6 +259,7 @@ class ArticleInlineFormulaValidation:
             raise RuntimeError(f"Error processing formula: {e}")
         self.xml_tree = xml_tree
         self.rules = rules
+        self.article_type = xml_tree.find(".").get("article-type")
 
     def validate(self):
         """
@@ -280,7 +284,7 @@ class ArticleInlineFormulaValidation:
                 is_valid=False,
                 expected="inline-formula",
                 obtained=None,
-                advice="Add <inline-formula> elements to properly represent mathematical expressions in the content.",
+                advice=f"({self.article_type}) No <inline-formula> found in XML",
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
