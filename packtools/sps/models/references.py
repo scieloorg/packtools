@@ -6,6 +6,49 @@ from packtools.sps.utils.xml_utils import tostring, get_parent_context, put_pare
 class Reference:
     def __init__(self, ref):
         self.ref = ref
+        self.check_marks()
+
+    def check_marks(self):
+        self.marked = []
+        self.unmatched = []
+        mixed_citation = (self.get_mixed_citation() or '').strip()
+        label = self.get_label()
+        if label and mixed_citation.startswith(label):
+            mixed_citation = mixed_citation[len(label):].strip()
+
+        marked = []
+        for node in self.ref.xpath('.//element-citation//*'):
+            for text in (node.text, node.tail):
+                text = (text or '').strip()
+                if text:
+                    marked.append({"tag": node.tag, "text": text})
+
+        for item in sorted(marked, key=lambda x: len(x["text"]), reverse=True):
+            text = item["text"]
+            if text in mixed_citation:
+                mixed_citation = mixed_citation.replace(text, "<tag/>", 1)
+                self.marked.append(item)
+            else:
+                self.unmatched.append(item)
+
+        self.not_marked = mixed_citation.split("<tag/>")
+        self.filtered_not_marked = list(self.exclude_separators(self.not_marked))
+
+    def exclude_separators(self, not_marked):
+        for item in not_marked:
+            item = item.strip()
+            for c in ",.;":
+                if not item:
+                    break
+                if item[-1] == c:
+                    item = item[:-1].strip()
+                if item and item[0] == c:
+                    item = item[1:].strip()
+            if item:
+                if item.isdigit():
+                    yield item
+                elif len(item) > 20:
+                    yield item
 
     def get_label(self):
         return node_plain_text(self.ref.find("./label"))
@@ -100,7 +143,7 @@ class Reference:
         if extlink_node is not None:
             previous = extlink_node.getprevious()
             if previous is not None:
-                return previous.tail
+                return (previous.tail or "").strip()
 
     def get_chapter_title(self):
         return node_plain_text(self.ref.find("./element-citation/chapter-title"))
@@ -140,6 +183,12 @@ class Reference:
                     d[name] = value
         d["author_type"] = "institutional" if self.get_collab() else "person"
 
+        d.update({
+            "filtered_not_marked": self.filtered_not_marked,
+            "not_marked": self.not_marked,
+            "marked": self.marked,
+            "unmatched": self.unmatched,
+        })
         return d
 
 
