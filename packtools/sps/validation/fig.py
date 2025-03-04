@@ -17,45 +17,24 @@ class ArticleFigValidation:
                 yield from FigValidation(element, self.rules).validate()
 
         else:
-            # fig is absent
-            if self.required:
-                yield format_response(
-                    title="fig presence",
-                    parent="article",
-                    parent_id=None,
-                    parent_article_type=self.xml_tree.get("article-type"),
-                    parent_lang=self.xml_tree.get(
-                        "{http://www.w3.org/XML/1998/namespace}lang"
-                    ),
-                    item="fig",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected="<fig/>",
-                    obtained=None,
-                    advice='Mark each figure with <fig> inside <body>. Consult SPS documentation for more detail.',
-                    data=None,
-                    error_level=self.rules["required_error_level"],
-                )
-            else:
-                yield format_response(
-                    title="fig presence",
-                    parent="article",
-                    parent_id=None,
-                    parent_article_type=self.xml_tree.get("article-type"),
-                    parent_lang=self.xml_tree.get(
-                        "{http://www.w3.org/XML/1998/namespace}lang"
-                    ),
-                    item="fig",
-                    sub_item=None,
-                    validation_type="exist",
-                    is_valid=False,
-                    expected=None,
-                    obtained=None,
-                    advice='Mark each figure with <fig> inside <body> if this article should include figures. Consult SPS documentation for more detail.',
-                    data=None,
-                    error_level=self.rules["absent_error_level"],
-                )
+            yield format_response(
+                title="fig presence",
+                parent="article",
+                parent_id=None,
+                parent_article_type=self.xml_tree.get("article-type"),
+                parent_lang=self.xml_tree.get(
+                    "{http://www.w3.org/XML/1998/namespace}lang"
+                ),
+                item="fig",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=False,
+                expected="<fig>",
+                obtained=None,
+                advice=f'({self.article_type}) No <fig> found in XML',
+                data=None,
+                error_level=self.rules["required_error_level"],
+            )
 
 
 class FigValidation:
