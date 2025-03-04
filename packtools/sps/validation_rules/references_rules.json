@@ -1,6 +1,12 @@
 {
     "references_rules": {
-        "allowed_tags": [],
+        "allowed_tags": [
+            "bold",
+            "italic",
+            "sup",
+            "sub",
+            "ext-link"
+        ],
         "year_error_level": "CRITICAL",
         "source_error_level": "CRITICAL",
         "article_title_error_level": "ERROR",
@@ -10,22 +16,24 @@
         "mixed_citation_error_level": "CRITICAL",
         "mixed_citation_sub_tags_error_level": "CRITICAL",
         "title_tag_by_dtd_version_error_level": "CRITICAL",
-        "publication_type_list": [
-            "book",
-            "confproc",
-            "data",
-            "database",
-            "journal",
-            "legal-doc",
-            "letter",
-            "newspaper",
-            "patent",
-            "preprint",
-            "report",
-            "software",
-            "thesis",
-            "webpage",
-            "other"
-        ]
+        "unmatched_data_error_level": "WARNING",
+        "not_marked_data_error_level": "WARNING",
+        "publication_type_requires": {
+            "book": ["year", "source", "person-group"],
+            "confproc": ["year", "source", "person-group"],
+            "data": ["year", "source", "person-group"],
+            "database": ["source"],
+            "journal": ["year", "source", "person-group", "article-title"],
+            "legal-doc": ["year", "source", "person-group"],
+            "letter": ["year", "source", "person-group"],
+            "newspaper": ["year", "source"],
+            "patent": ["year", "source", "person-group"],
+            "preprint": ["year", "source", "person-group"],
+            "report": ["year", "source", "person-group"],
+            "software": ["source"],
+            "thesis": ["year", "source", "person-group"],
+            "webpage": ["source"],
+            "other": []
+        }
     }
 }
