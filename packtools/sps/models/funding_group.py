@@ -1,5 +1,7 @@
 import logging
 from packtools.sps.utils import xml_utils
+from packtools.sps.models.article_and_subarticles import Fulltext
+
 
 logger = logging.getLogger(__name__)
 
@@ -15,22 +17,30 @@ def _looks_like_award_id(text):
     return True
 
 
-def _get_first_number_sequence(text, special_chars):
-    number = ""
-
-    # encontra o primeiro caracter numérico em text
-    for i, item in enumerate(text):
-        if item.isdigit():
-            text = text[i:]
-            break
-    # pega primeira sequência de caracteres numéricos ou permitidos na lista
-    for i, item in enumerate(text):
-        if item.isdigit() or item in special_chars:
-            number += item
-        else:
-            break
-
-    return number or None
+def looks_like_award_ids(text, special_chars_award_id):
+    items = []
+    if has_digit(text):
+        for word in text.split():
+            if word.isalpha():
+                continue
+            if len(word) < 5:
+                continue
+            if has_digit(word):
+                if _looks_like_award_id(word):
+                    contract_number = []
+                    for c in word:
+                        if c.isalnum():
+                            contract_number.append(c)
+                        elif c in special_chars_award_id:
+                            if len(contract_number) > 0:
+                                contract_number.append(c)
+                    while True:
+                        if contract_number[-1] in special_chars_award_id:
+                            contract_number = contract_number[:-1]
+                        else:
+                            break
+                    items.append("".join(contract_number))
+    return items
 
 
 def has_digit(text):
@@ -79,16 +89,8 @@ class FundingGroup:
         dict
             Dictionary containing extracted award IDs and original text
         """
-        text = xml_utils.node_plain_text(node)
-        award_ids = []
-
-        if has_digit(text):
-            number = _get_first_number_sequence(
-                text, self.params["special_chars_award_id"]
-            )
-            if _looks_like_award_id(text) and number is not None:
-                award_ids.append(number)
-
+        text = " ".join(node.xpath(".//text()"))
+        award_ids = list(looks_like_award_ids(text, self.params["special_chars_award_id"]))
         return {"look-like-award-id": award_ids, "text": text}
 
     @property
@@ -103,7 +105,7 @@ class FundingGroup:
         ):
             for node in nodes.xpath("p"):
                 node_data = self._process_paragraph_node(node)
-                node_data["fn-type"] = "financial-disclosure"
+                node_data["context"] = "financial-disclosure"
                 items.append(node_data)
         return items
 
@@ -117,7 +119,7 @@ class FundingGroup:
         for nodes in self._xmltree.xpath(".//fn-group/fn[@fn-type='supported-by']"):
             for node in nodes.xpath("p"):
                 node_data = self._process_paragraph_node(node)
-                node_data["fn-type"] = "supported-by"
+                node_data["context"] = "supported-by"
                 items.append(node_data)
         return items
 
@@ -168,8 +170,12 @@ class FundingGroup:
     @property
     def funding_statement_data(self):
         node = self._xmltree.find(".//funding-group/funding-statement")
+        items = []
         if node is not None:
-            return self._process_paragraph_node(node)
+            data = self._process_paragraph_node(node)
+            data["context"] = "funding-statement"
+            items.append(data)
+        return items
 
     @property
     def principal_award_recipients(self):
@@ -200,8 +206,17 @@ class FundingGroup:
             item = {"title": ack.findtext("title"), "p": []}
             for node in ack.xpath("p"):
                 node_data = self._process_paragraph_node(node)
-                item["p"].append(node_data)
+                item["p"].append(node_data["text"])
             items.append(item)
+        return items
+
+    @property
+    def funding_ack(self):
+        items = []        
+        for node in self._xmltree.xpath(".//back//ack//p"):
+            node_data = self._process_paragraph_node(node)
+            node_data["context"] = "ack"
+            items.append(node_data)
         return items
 
     @property
@@ -235,3 +250,45 @@ class FundingGroup:
             "principal_award_recipients": self.principal_award_recipients,
             "ack": self.ack,
         }
+
+    @property
+    def look_like_award_ids(self):
+        if not hasattr(self, "_look_like_award_ids"):
+            self._look_like_award_ids = []
+
+            for item in self.funding_ack:
+                if item.get("look-like-award-id"):
+                    self._look_like_award_ids.append(item)
+            for item in self.supported_by:
+                if item.get("look-like-award-id"):
+                    self._look_like_award_ids.append(item)
+            for item in self.financial_disclosure:
+                if item.get("look-like-award-id"):
+                    self._look_like_award_ids.append(item)
+            for item in self.funding_statement_data:
+                if item.get("look-like-award-id"):
+                    self._look_like_award_ids.append(item)
+
+        return self._look_like_award_ids
+
+    def get_text(self, fulltext, xpath):
+        texts = []
+        for node in fulltext.node.xpath(xpath):
+            texts.extend(node.xpath(".//text()"))
+        return " ".join(texts)
+    
+    @property
+    def statements_by_lang(self):
+        langs = {}
+        for node in self._xmltree.xpath(". | sub-article[@article-type='translation']"):
+            fulltext = Fulltext(node)
+            langs[fulltext.lang] = fulltext.attribs_parent_prefixed
+            langs[fulltext.lang].update({
+                "funding_statement": fulltext.front.findtext(".//funding-statement"),
+                "texts": {
+                    "ack": self.get_text(fulltext, "back/ack//p"),
+                    "supported_by": self.get_text(fulltext, 'body//fn[@fn-type="supported-by"] | back//fn[@fn-type="supported-by"]'),
+                    "financial_disclosure": self.get_text(fulltext, 'body//fn[@fn-type="financial-disclosure"] | back//fn[@fn-type="financial-disclosure"]'),                
+                }
+            })
+        return langs
