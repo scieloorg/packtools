@@ -11,7 +11,7 @@ from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesSubjectsException,
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response, format_response
 
 
 class ArticleLangValidation:
@@ -78,7 +78,7 @@ class ArticleLangValidation:
             ]
         """
         try:
-            language_codes_list = self.params["language_codes_list"]
+            language_codes_list = self.params["language_codes_list"] or []
         except KeyError:
             raise ValidationArticleAndSubArticlesLanguageCodeException(
                 "Function requires list of language codes"
@@ -93,8 +93,15 @@ class ArticleLangValidation:
             valid = article_lang in language_codes_list
 
             name = article_id or parent
-            xml = f'<{parent} xml:lang=""/>'
-            advice = None if valid else f'Complete {name} xml:lang {xml} with valid value {language_codes_list}'
+            parent_id = f' id="{article_id}"' if article_id else ''
+            if article_lang:
+                xml = f'<{parent}{parent_id} xml:lang="{article_lang}">'
+                advice = f'Replace {article_lang} in {xml} with one of {language_codes_list}'
+            else:
+                xml = f'<{parent}{parent_id}>'
+                xml2 = f'<{parent}{parent_id} xml:lang="VALUE">'
+
+                advice = f'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}'
             yield format_response(
                     title=f"{name} language",
                     parent=parent,
@@ -139,60 +146,9 @@ class ArticleTypeValidation:
         }
 
     def validate_article_type(self):
-        """
-        Check whether the article type attribute of the article matches the options provided in a standard list.
-
-        XML input
-        ---------
-        <article article-type="research-article" dtd-version="1.1"
-        specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-        </article>
-
-        Params
-        ------
-        article_type_list : list, optional
-            A list of valid article types that the article's type should match. If not provided, defaults to `self.article_type_list`.
-
-        error_level : str, optional
-            The level of error to report if the validation fails. Default is "CRITICAL".
-
-        Returns
-        -------
-        generator of dict
-            A generator that yields dictionaries with validation results, such as:
-            [
-                {
-                    "title": "Article type validation",
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'portugol',
-                    'item': 'article',
-                    'sub_item': '@article-type',
-                    "validation_type": "value in list",
-                    "response": "OK",
-                    "expected_value": ["research-article"],
-                    "got_value": "research-article",
-                    'message': "Got research-article, expected ['research-article']",
-                    "advice": None,
-                    'data': {
-                        'article_id': None,
-                        'article_type': 'research-article',
-                        'dtd_version': None,
-                        'lang': 'portugol',
-                        'line_number': 2,
-                        'specific_use': 'sps-1.9',
-                        'subject': None
-                    }
-                },...
-            ]
-        """
         article_type = self.articles.main_article_type
         try:
-            article_type_list = self.params["article_type_list"]
+            article_type_list = self.params["article_type_list"] or []
         except KeyError:
             raise ValidationArticleAndSubArticlesArticleTypeException(
                 "ArticleTypeValidation.validate_article_type requires article_type_list"
@@ -229,100 +185,6 @@ class ArticleTypeValidation:
             )
 
     def validate_article_type_vs_subject_similarity(self):
-        """
-        Check how similar the type of article and its respective subjects are.
-
-        XML input
-        ---------
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-categories>
-                <subj-group subj-group-type="heading">
-                    <subject>Scientific Article</subject>
-                </subj-group>
-            </article-categories>
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-                <article-categories>
-                    <subj-group subj-group-type="heading">
-                        <subject>Artigo Científico</subject>
-                    </subj-group>
-                </article-categories>
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="es">
-                <article-categories>
-                    <subj-group subj-group-type="heading">
-                        <subject>Artículo Científico</subject>
-                    </subj-group>
-                </article-categories>
-            </sub-article>
-        </article>
-
-        Params
-        ------
-        expected_similarity : float
-            The minimum similarity score required for the validation to pass.
-
-        subjects_list : list of dict, optional
-            A list of dictionaries where each dictionary contains a subject and its language, such as:
-            [
-                {
-                    'subject': 'original article',
-                    'lang': 'en'
-                },
-                {
-                    'subject': 'artigo original',
-                    'lang': 'pt'
-                },
-                {
-                    'subject': 'artículo original',
-                    'lang': 'es'
-                }
-            ]
-            If not provided, defaults to `self.subjects_list`.
-
-        error_level : str, optional
-            The level of error to report if the validation fails. Default is "ERROR".
-
-        article_type_list : list of str, optional
-            A list of article types that should be checked for similarity against the subjects.
-            Only articles of these types will be validated. For example: ['research-article', 'review-article'].
-            If not provided, defaults to `self.apply_to_article_types`.
-
-        Returns
-        -------
-        generator of dict
-            A generator that yields dictionaries with validation results, such as:
-            [
-                {
-                    "title": "Article type vs subjects validation",
-                    'parent': 'article',
-                    'parent_id': None,
-                    'parent_article_type': 'research-article',
-                    'parent_lang': 'en',
-                    'item': 'article',
-                    'sub_item': '@article-type',
-                    "validation_type": "similarity",
-                    "response": "ERROR",
-                    "expected_value": 0.7,
-                    "got_value": 0.6818181818181818,
-                    'message': 'Got 0.6818181818181818, expected 0.7',
-                    "advice": "The subject Scientific Article (en) does not match the items provided in the list: "
-                    "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
-                    'data': {
-                        'article_id': None,
-                        'article_type': 'research-article',
-                        'dtd_version': '1.1',
-                        'lang': 'en',
-                        'line_number': 3,
-                        'specific_use': 'sps-1.9',
-                        'subject': 'Scientific Article'
-                    },
-                },...
-            ]
-        """
-
         if not self.subject_english_version:
             # nao ha section em ingles
             return
@@ -339,14 +201,16 @@ class ArticleTypeValidation:
         article_subject = subject["section"]
 
         # compara subject com todos os valores possíveis de article_type
-        calculated_similarity, most_similar_article_type = most_similar(
-            similarity(article_type_list, article_subject)
-        )
+        similarity_by_rate = similarity(article_type_list, article_subject)
 
         expected_similarity = float(self.params.get("article_type_and_subject_expected_similarity")) or 0.6
+        most_similar_article_type = []
+        for k, items in similarity_by_rate.items():
+            if k > expected_similarity:
+                most_similar_article_type.extend(items)
 
         # a similaridade pode ser baixa mas o tipo pode estar correto
-        if calculated_similarity >= expected_similarity:
+        if most_similar_article_type:
             # continua a verificar a validade
             # article-type deve ser similar ao título da seção do sumário (inglês)
             valid = article_type in most_similar_article_type
@@ -359,7 +223,7 @@ class ArticleTypeValidation:
                 "article_type": article_type,
                 "article_type_list": article_type_list,
                 "most_similar_article_type": most_similar_article_type,
-                "similarity": calculated_similarity,
+                "similarity_by_rate": similarity_by_rate,
                 "expected similarity": expected_similarity
             }
             data.update({
@@ -406,46 +270,6 @@ class ArticleIdValidation:
         }
 
     def validate_article_id_other(self):
-        """
-        Check whether an article that shouldn't have a subject actually doesn't.
-
-        XML input
-        ---------
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-        article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-                    <article-id pub-id-type="other">123</article-id>
-                </article-meta>
-            </front>
-        </article>
-
-        Returns
-        -------
-        dict, such as:
-            {
-                "title": "Article id other validation",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="other"',
-                "validation_type": "format",
-                "response": "OK",
-                "expected_value": "123",
-                "got_value": "123",
-                'message': 'Got 123, expected 123',
-                "advice": None,
-                'data': {
-                    'other': '123',
-                    'v2': 'S0104-11692020000100303',
-                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
-                },
-            }
-        """
         order = self.article_ids.other
         if not order:
             return
@@ -474,7 +298,7 @@ class ArticleIdValidation:
             item="article-id",
             sub_item='@pub-id-type="other"',
             validation_type="format",
-            is_valid=valid,
+            is_valid=not expected,
             expected=expected_value,
             obtained=order,
             advice=f'Fix the table of contents article order {order} in <article-id pub-id-type="other">{order}</article-id>. It must be {expected_value}',
@@ -524,7 +348,7 @@ class JATSAndDTDVersionValidation:
 
         elif jats_version not in expected_jats_versions:
             xml = f'<article specific-use="" dtd-version=""/>'
-            advice = f"Complete SPS (specific-use="") and JATS (dtd-version="") versions {xml} with compatible values: {versions}"
+            advice = f'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
 
         expected = expected_jats_versions or versions
         got = {
