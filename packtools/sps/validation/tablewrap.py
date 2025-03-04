@@ -22,6 +22,7 @@ class ArticleTableWrapValidation:
             raise RuntimeError(f"Error processing table-wraps: {e}")
         self.xml_tree = xml_tree
         self.rules = rules
+        self.article_type = self.xml_tree.get("article-type")
 
     def validate(self):
         """
@@ -43,7 +44,7 @@ class ArticleTableWrapValidation:
                 is_valid=False,
                 expected="<table-wrap> element",
                 obtained=None,
-                advice='<table-wrap> tag not found inside <body>, ensure all tables are properly wrapped in <table-wrap>. Consult SPS documentation for more detail.',
+                advice=f'({self.article_type}) No <table-wrap> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
             )
@@ -66,6 +67,8 @@ class TableWrapValidation:
             raise ValueError("data must be a dictionary.")
         self.data = data
         self.rules = rules
+        self.table_id = self.data.get("table_wrap_id")
+        self.xml = f'<table-wrap id="{self.table_id}">' if self.table_id else '<table-wrap>'
 
     def validate(self):
         """
@@ -88,8 +91,7 @@ class TableWrapValidation:
         Returns:
             The validation result in the expected format.
         """
-        table_id = self.data.get("table_wrap_id")
-        is_valid = bool(table_id)
+        is_valid = bool(self.table_id)
         return format_response(
             title="id",
             parent=self.data.get("parent"),
@@ -101,7 +103,7 @@ class TableWrapValidation:
             validation_type="exist",
             is_valid=is_valid,
             expected="id",
-            obtained=table_id,
+            obtained=self.table_id,
             advice='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
@@ -117,6 +119,8 @@ class TableWrapValidation:
         label = self.data.get("label")
         is_valid = bool(label)
         table_id = self.data.get("table_wrap_id")
+        advice = f'Wrap each label with <label> inside {self.xml}. Consult SPS documentation for more detail.'
+
         return format_response(
             title="label",
             parent=self.data.get("parent"),
@@ -129,7 +133,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice=f'Wrap each label with <label> inside <table-wrap  id="{table_id}">. Consult SPS documentation for more detail.',
+            advice=advice,
             data=self.data,
             error_level=self.rules["label_error_level"],
         )
@@ -156,7 +160,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="caption",
             obtained=caption,
-            advice=f'Wrap each caption with <caption> inside <table-wrap id="{table_id}">. Consult SPS documentation for more detail.',
+            advice=f'Wrap each caption with <caption> inside {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["caption_error_level"],
         )
@@ -183,7 +187,7 @@ class TableWrapValidation:
             is_valid=is_valid,
             expected="table",
             obtained=table,
-            advice=f'Wrap each table with <table> inside <table-wrap id="{table_id}">. Consult SPS documentation for more detail.',
+            advice=f'Wrap each table with <table> inside {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
         )
@@ -204,12 +208,12 @@ class TableWrapValidation:
         if graphic + table > 1 and len(alternatives) == 0:
             expected = "alternatives"
             obtained = None
-            advice = f'Use <alternatives> inside <table-wrap id="{table_id}"> to provide alternative representations for the table.'
+            advice = f'Wrap <table> and <graphic> with <alternatives> inside {self.xml} '
             valid = False
         elif graphic + table == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
-            advice = f'Remove the <alternatives> tag and its content from <table-wrap id="{table_id}">.'
+            advice = f'Remove the <alternatives> from {self.xml}.'
             valid = False
         else:
             expected = "alternatives"
