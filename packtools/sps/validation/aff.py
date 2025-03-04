@@ -156,6 +156,12 @@ class AffiliationValidation:
             "min_expected_similarity", default_min_similarity
         )
 
+    @property
+    def info(self):
+        aff_id = self.affiliation.get("id") or self.affiliation.get("original")
+        parent = self.affiliation.get("parent_id") or self.affiliation.get("parent")
+        return f'({parent} - {aff_id})'
+        
     def validate_original(self):
         error_level = self.params["original_error_level"]
 
@@ -428,65 +434,59 @@ class AffiliationValidation:
                 data=items,
             )
 
-    def validate_original_aff_components(self):
+    def validate_aff_components(self):
         if not self.original:
             return
 
-        component_not_found = [
-            (key, value) for key, value in self.original_components.items()
-            if value and not any(word in self.original for word in value.split())
-        ]
+        original = self.original
+        found = {}
+        not_found = {}
+        for k, v in sorted(self.original_components.items(), key=lambda x: len(x[1] or ''), reverse=True):
+            if v and v in original:
+                original = original.replace(v, "", 1)
+                found.update({k: v})
+                is_valid = True
+                advice = None
 
-        is_valid = len(component_not_found) == 0
+                yield build_response(
+                    title="original",
+                    parent=self.affiliation,
+                    item="institution",
+                    sub_item='@content-type="original"',
+                    validation_type="exist",
+                    is_valid=is_valid,
+                    expected=f'{k} marked',
+                    obtained=v,
+                    advice=advice,
+                    data={k: v},
+                    error_level=self.params["aff_components_error_level"]
+                )
 
-        if not is_valid:
-            formatted_components = ", ".join(f"{value} ({key})" for key, value in component_not_found)
-            advice = (
-                'Mark the complete original affiliation with '
-                '<institution content-type="original"> in <aff> and add '
-                f'{formatted_components} in <institution content-type="original">'
-            )
+            else:
+                not_found.update({k: v})
 
-        yield build_response(
-            title="original",
-            parent=self.affiliation,
-            item="institution",
-            sub_item='@content-type="original"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="original affiliation",
-            obtained=self.original,
-            advice=advice,
-            data=self.affiliation,
-            error_level=self.params["original_error_level"]
-        )
-
-    def validate_original_aff_components_value(self):
-        original_words = re.findall(r'\b\w+\b', self.original)  # Tokeniza sem pontuação
-
-        component_words = [word for value in self.original_components.values()
-                           for word in re.findall(r'\b\w+\b', value)]
-
-        remaining_words = [word for word in original_words if word not in component_words]
-
-        is_valid = not remaining_words
-
-        yield build_response(
-            title="original",
-            parent=self.affiliation,
-            item="institution",
-            sub_item='@content-type="original"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="original affiliation",
-            obtained=self.original,
-            advice=(
-                'Mark the complete original affiliation with <institution content-type="original"> '
-                f'in <aff> and add missing words: {remaining_words}.'
-            ),
-            data=self.affiliation,
-            error_level=self.params["original_error_level"]
-        )
+        words = [word for word in original.split() if word.isalnum() and len(word) > 2]
+        if words:
+            for k, v in not_found.items():
+                if v:
+                    advice = f'{self.info}: {v} ({k}) not found in {self.original}'
+                else:
+                    advice = f'{self.info}: {k} was not marked. Check {k} is found in {self.original}'
+                
+                is_valid = False
+                yield build_response(
+                    title="original",
+                    parent=self.affiliation,
+                    item="institution",
+                    sub_item='@content-type="original"',
+                    validation_type="exist",
+                    is_valid=is_valid,
+                    expected=f'{k} marked',
+                    obtained=v,
+                    advice=advice,
+                    data={k: v, "original": self.original},
+                    error_level=self.params["aff_components_error_level"]
+                )
 
     def validate(self):
         """
@@ -507,4 +507,4 @@ class AffiliationValidation:
         yield from self.validate_country_code()
         yield from self.validate_state()
         yield from self.validate_city()
-        yield from self.validate_orgname_composition()
+        yield from self.validate_aff_components()
