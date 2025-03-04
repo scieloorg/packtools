@@ -17,21 +17,36 @@
     </back>
 </article>
 """
-
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
-
+from packtools.sps.models.article_and_subarticles import Fulltext
 
 class DataAvailability:
     def __init__(self, xmltree):
         self.xmltree = xmltree
 
     @property
-    def specific_use(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
+    def items(self):
+        nodes = [
+            self.xmltree.find(".")
+        ]
+        for node in self.xmltree.xpath("./sub-article[@article-type='translation']"):
+            nodes.append(node)
+
+        for node in nodes:
+            fulltext = Fulltext(node)
             xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
+            data = {}
             for item in self.xmltree.xpath(xpath_query):
-                response = {
+                data = {
                     'tag': item.tag,
-                    'specific_use': item.get('specific-use')
+                    'specific_use': item.get('specific-use'),
+                    'text': " ".join(item.xpath(".//text()"))
                 }
-                yield put_parent_context(response, lang, article_type, parent, parent_id)
+            data.update(fulltext.attribs_parent_prefixed)
+            yield data
+
+    @property
+    def items_by_lang(self):
+        d = {}
+        for item in self.items:
+            d.setdefault(item["parent_lang"], item)
+        return d
