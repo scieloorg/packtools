@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone.css">
+<link rel="stylesheet" href="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/catalogs/htmlgenerator/static/scielo-bundle-print.css" media="print">
+<link rel="alternate" type="application/rss+xml" title="SciELO" href="">
+</head>
+<body class="journal article">
+<a name="top"></a><div id="standalonearticle">
+<section class="articleCtt"><div class="container"><div class="articleTxt">
+<div class="articleBadge-editionMeta-doi-copyLink">
+<span class="_articleBadge">Original Article</span><span class="_separator"> • </span><span class="_editionMeta">einstein (São Paulo) 22 <span class="_separator"> • </span>2024</span><span class="_separator"> • </span><span class="group-doi"><a href="https://doi.org/10.31744/einstein_journal/2024AO0328" class="_doi" target="_blank">https://doi.org/10.31744/einstein_journal/2024AO0328</a>
+         
+        <a class="copyLink" data-clipboard-text="https://doi.org/10.31744/einstein_journal/2024AO0328"><span class="sci-ico-link"></span>copy</a></span>
+</div>
+<h1 class="article-title">
+<span class="sci-ico-openAccess showTooltip" data-toggle="tooltip" data-original-title="by 4.0 "></span>Is it possible to estimate the number of patients with COVID-19 admitted to intensive care units and general wards using clinical and telemedicine data?<a id="shorten" href="#" class="short-link"><span class="sci-ico-link"></span></a>
+</h1>
+<div class="articleMeta"></div>
+<div class="contribGroup">
+<a href="" class="outlineFadeLink" data-toggle="modal" data-target="#ModalTutors">Authorship</a><a href="" class="outlineFadeLink" data-toggle="modal" data-target="#ModalScimago">
+                SCIMAGO INSTITUTIONS RANKINGS
+            </a>
+</div>
+<div class="row">
+<ul class="col-md-2 hidden-sm articleMenu"></ul>
+<article id="articleText" class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0"><div class="articleSection" data-anchor="ABSTRACT">
+<h1 class="articleSectionTitle">ABSTRACT</h1>
+<h2>Objective:</h2>
+<p>To develop and validate predictive models to estimate the number of COVID-19 patients hospitalized in the intensive care units and general wards of a private not-for-profit hospital in São Paulo, Brazil.</p>
+<h2>Methods:</h2>
+<p>Two main models were developed. The first model calculated hospital occupation as the difference between predicted COVID-19 patient admissions, transfers between departments, and discharges, estimating admissions based on their weekly moving averages, segmented by general wards and intensive care units. Patient discharge predictions were based on a length of stay predictive model, assessing the clinical characteristics of patients hospitalized with COVID-19, including age group and usage of mechanical ventilation devices. The second model estimated hospital occupation based on the correlation with the number of telemedicine visits by patients diagnosed with COVID-19, utilizing correlational analysis to define the lag that maximized the correlation between the studied series. Both models were monitored for 365 days, from May 20<sup>th</sup>, 2021, to May 20<sup>th</sup>, 2022.</p>
+<h2>Results:</h2>
+<p>The first model predicted the number of hospitalized patients by department within an interval of up to 14 days. The second model estimated the total number of hospitalized patients for the following 8 days, considering calls attended by <i>Hospital Israelita Albert Einstein’s</i> telemedicine department. Considering the average daily predicted values for the intensive care unit and general ward across a forecast horizon of 8 days, as limited by the second model, the first and second models obtained R² values of 0.900 and 0.996, respectively and mean absolute errors of 8.885 and 2.524 beds, respectively. The performances of both models were monitored using the mean error, mean absolute error, and root mean squared error as a function of the forecast horizon in days.</p>
+<h2>Conclusion:</h2>
+<p>The model based on telemedicine use was the most accurate in the current analysis and was used to estimate COVID-19 hospital occupancy 8 days in advance, validating predictions of this nature in similar clinical contexts. The results encourage the expansion of this method to other pathologies, aiming to guarantee the standards of hospital care and conscious consumption of resources.</p>
+<p><strong>Keywords:</strong><br>COVID-19; Coronavirus infections; Pandemics; Forecasting; Telemedicine; Resource allocation; Decision support systems, clinical; Big Data</p>
+</div>
+<div class="articleSection" data-anchor="GRAPHICAL ABSTRACT">
+<h1 class="articleSectionTitle">GRAPHICAL ABSTRACT</h1>
+<p>
+          <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf1"><span class="sci-ico-fileFigure"></span></a>
+          <div class="row fig" id="f1">
+<a name="f1"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/814798aee2d79fb28454f8fb05c7a3f9a724868b.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8"><br></div>
+</div>
+        </p>
+</div>
+<div class="articleSection" data-anchor="Highlights">
+<h1 class="articleSectionTitle">Highlights</h1>
+<p>▪Developed models to forecast bed occupancy for up to 14 days and monitored errors for 365 days.</p>
+<p>▪Telemedicine calls from COVID-19 patients correlated with the number of patients hospitalized in the next 8 days.</p>
+</div>
+<div class="articleSection" data-anchor="Text">
+<h1 class="articleSectionTitle">INTRODUCTION</h1>
+<p>COVID-19 transmission rates in Brazil sustain a scenario that can be classified as a pandemic state, and the country faces waves of variable demands for physical and human resources to treat patients with COVID-19.(<span class="ref"><sup class="xref xrefblue">1</sup><span class="refCtt closed"><span>1 de Oliveira Andrade R. Covid-19 is causing the collapse of Brazil’s national health service. BMJ. 2020;370:m3032.</span></span></span>,<span class="ref"><sup class="xref xrefblue">2</sup><span class="refCtt closed"><span>2 Lemos DR, D’Angelo SM, Farias LA, Almeida MM, Gomes RG, Pinto GP, et al. Health system collapse 45 days after the detection of COVID-19 in Ceará, Northeast Brazil: a preliminary analysis. Rev Soc Bras Med Trop. 2020;53:e20200354.</span></span></span>) Meanwhile, the priority of health service managers and the government(<span class="ref"><sup class="xref xrefblue">3</sup><span class="refCtt closed"><span>3 Souza CD, Gois-Santos VT, Correia DS, Martins-Filho PR, Santos VS. The need to strengthen Primary Health Care in Brazil in the context of the COVID-19 pandemic. Braz Oral Res. 2020;34:e047.</span></span></span>) has been to provide proper sizing of its resources to guarantee the access of the population to appropriate care. It is necessary to ensure that patients, at all severity levels, who seek assistance during the pandemic have access to supplies, medicines, equipment, beds, and medical staff appropriate to their needs;(<span class="ref"><sup class="xref xrefblue">4</sup><span class="refCtt closed"><span>4 Kuo S, Ou HT, Wang CJ. Managing medication supply chains: Lessons learned from Taiwan during the COVID-19 pandemic and preparedness planning for the future. J Am Pharm Assoc (2003). 2021;61(1):e12-5.</span></span></span>) aiming to improve their outcomes and minimize the negative impacts of the pandemic.</p>
+<p>In this context, initiatives to support the decision-making process regarding demand predictability and resource sizing have become more relevant as Brazil emerged as the epicenter of the COVID-19 pandemic.(<span class="ref"><sup class="xref xrefblue">5</sup><span class="refCtt closed"><span>5 Neiva MB, Carvalho I, Costa Filho ED, Barbosa-Junior F, Bernardi FA, Sanches TL, et al. Brazil: the emerging epicenter of COVID-19 pandemic. Rev Soc Bras Med Trop. 2020;53:e20200550.</span></span></span>) Planning a volume-based resource allocation is an optimization alternative,(<span class="ref"><sup class="xref xrefblue">6</sup><span class="refCtt closed"><span>6 Farmer JC, Wax RS, Baldisseri MR. Preparing Your ICU for Disaster Response. Society of Critical Care Medicine; 2012.</span></span></span>) considering that the demand for experienced intensive care unit professionals, ventilation and monitoring devices, drugs used for tracheal intubation protocols, and hospital beds has varied significantly since the beginning of the pandemic, competing with other demands for hospital care.</p>
+<p>An increasing application of machine learning techniques has been observed in datasets containing patients’ clinical variables to predict the degradation of clinical conditions, mortality, and length of stay (LOS),(<span class="ref"><sup class="xref xrefblue">7</sup><span class="refCtt closed"><span>7 Thorsen-Meyer HC, Nielsen AB, Nielsen AP, Kaas-Hansen BS, Toft P, Schierbeck J, et al. Dynamic and explainable machine learning prediction of mortality in patients in the intensive care unit: a retrospective study of high-frequency data in electronic patient records. Lancet Digit Health. 2020;2(4):e179-91.</span><br><br><span>8 Assaf D, Gutman Y, Neuman Y, Segal G, Amit S, Gefen-Halevi S, et al. Utilization of machine-learning models to accurately predict the risk for critical COVID-19. Intern Emerg Med. 2020;15(8):1435-43.</span></span></span>-<span class="ref"><sup class="xref xrefblue">9</sup><span class="refCtt closed"><span>9 Naseem M, Akhund R, Arshad H, Ibrahim MT. Exploring the Potential of Artificial Intelligence and Machine Learning to Combat COVID-19 and Existing Opportunities for LMIC: A Scoping Review. J Prim Care Community Health. 2020;11:2150132720963634.</span></span></span>) as well as an approach utilizing time-series analysis to estimate hospitalizations and admissions in health institutions using the number of telemedicine visits(<span class="ref"><sup class="xref xrefblue">10</sup><span class="refCtt closed"><span>10 Kumar A, Hung N, Wu Y, Baek R, Gupta A. Predictive Modeling for Telemedicine Service Demand. Telehealth Med Today. 2020;5(2):1-14.</span></span></span>) or interest in terms related to pathology symptoms in web search engines (<i>e.g.</i>, Google Trends).(<span class="ref"><sup class="xref xrefblue">11</sup><span class="refCtt closed"><span>11 Mavragani A, Gkillas K. COVID-19 predictability in the United States using Google Trends time series. Sci Rep. 2020;10(1):20693.</span></span></span>)</p>
+<p>This context highlights the opportunity to develop statistical models to predict the number of patients hospitalized due to COVID-19 and help hospital managers plan for beds, human resources, and other input sizing and availabilities.</p>
+<h1 class="articleSectionTitle">OBJECTIVE</h1>
+<p>To develop, implement, and monitor a predictive model to estimate the number of patients hospitalized due to COVID-19, segmenting patients by department-intensive care units and general wards-whenever possible.</p>
+<h1 class="articleSectionTitle">METHODS</h1>
+<p>This retrospective study was conducted at <i>Hospital Israelita Albert Einstein</i> (HIAE), a private not-for-profit 624-bed hospital in São Paulo, Brazil, which earmarked 300 beds for COVID-19 patients in March 2021, at the peak of the pandemic.</p>
+<p>Two separate models were developed to achieve the study objectives:</p>
+<p>Model 1: Hospital occupancy was estimated by projecting the hospital admissions and discharges of COVID-19 patients separately.</p>
+<p>Hospital admissions were estimated separately for the general ward and intensive care unit (ICU), including semi-intensive care beds, and analyzed using a time-series approach, including the evaluation of seasonality, trends, and residues.</p>
+<p>To capture the internal transfer behavior that relocated patients between the general ward and the ICU, an estimation was also proposed considering the rate of patients transferred from the general ward to the ICU as a function of LOS, considering data from the previous 30 days.</p>
+<p>Discharges for the 14 subsequent days were estimated using an individual LOS predictive model. To build this model, the first stage consisted of a retrospective investigation of the existing correlations between clinical variables and patients’ LOS. Data were extracted from the medical charts of 4,741 patients admitted to the hospital with COVID-19 between March 2020 and July 2021.</p>
+<p>Patients with a total LOS &gt;45 days were excluded from the analysis because of the low representativeness of the group (&lt;5% of the study population), and the possibility of reallocating those patients to non-COVID beds during their hospitalization, considering the clinical assessment, testing, and criteria established by global health institutions.</p>
+<p>Additionally, for the estimation of LOS, patients who died during hospitalization, those who were transferred to another hospital, or whose discharge was requested by the patient were excluded from the analysis to isolate a pattern of behavior from observed hospitalizations and eliminate confounding factors. Firstly, feeding the model with patients who died, opted for home-care treatment, or transferred to another hospital may distort the expected impact for severity indicators such as the ventilation device use or ICU bed occupancy, resulting in an increase in the expected LOS in cases of regular discharge. Secondly, death, home care, and transfers to other hospitals represented &gt;5% of the total number of COVID-19 hospitalizations in HIAE.</p>
+<p>The clinical variables considered and analyzed for the LOS model included age group, sex, use of an extracorporeal membrane oxygenation (ECMO) device during the stay, use of non-invasive and invasive ventilation devices in the last 24 hours, occupancy of ICU or semi-ICU in the previous 24 hours, prescription of vasoactive drugs, and prescription of hemodialysis, with the considered criteria for inclusion detailed in the results section.</p>
+<p>To facilitate data comprehension, an initial exploratory univariate analysis was performed, calculating the median and mean LOS of discharged patients., Comparisons between groups were carried out using the Mann-Whitney U test(<span class="ref"><sup class="xref xrefblue">12</sup><span class="refCtt closed"><span>12 Suarez JI, Zaidat OO, Suri MF, Feen ES, Lynch G, Hickman J, et al. Length of stay and mortality in neurocritically ill patients: impact of a specialized neurocritical care team. Crit Care Med. 2004;32(11):2311-7.</span></span></span>) and the Kruskal-Wallis test.(<span class="ref"><sup class="xref xrefblue">13</sup><span class="refCtt closed"><span>13 Considine J, Berry D, Rasmussen B, Hutchinson AM, Rawson H, Jordan P, et al. Impact of emergency department length of stay on anxiety and comfort in older people. Int Emerg Nurs. 2021;56:100974.</span></span></span>) Additionally, as a multivariate approach, the impact of daily changes registered in the selected set of variables was evaluated using a random forest algorithm to dynamically predict the LOS for each individual, where the most important features were ranked and selected using the Gini importance index.(<span class="ref"><sup class="xref xrefblue">14</sup><span class="refCtt closed"><span>14 Cheng FY, Joshi H, Tandon P, Freeman R, Reich DL, Mazumdar M, et al. Using Machine Learning to Predict ICU Transfer in Hospitalized COVID-19 Patients. J Clin Med. 2020;9(6):1668.</span></span></span>)</p>
+<p>Model 2: The correlation between the number of telemedicine visits related to COVID-19 symptoms, the volume of web searches for terms associated with COVID-19 originating in São Paulo, Brazil, and the number of patients hospitalized with COVID-19 at HIAE were evaluated.</p>
+<p>The data used to build the second model were collected from three sources: i) the daily volume of searches in Google for the term "<i>sintomas</i> COVID-19" in São Paulo, Brazil, extracted from Google Trends-a public database containing a normalized interest score calculated based on the search volume for a given search term and location over a selected period; ii) A dataset containing the daily number of visits to the telemedicine department of HIAE, considering three distinct groupings: Group 1, patients assigned diagnosis codes related to COVID-19 (ICD-10-CM from chapter X: J00-J99, Diseases of the respiratory system; chapter XXI: Z00-Z99, Factors influencing health status and contact with health services; COVID-19’ specific ICD-10-CM code U07.1; and ICD-10-CM codes related to its symptoms: R05, R06, R07.0 and R50); Group 2: patients exclusively assigned the COVID-19-specific ICD-10-CM code U07.1; and, Group 3: the daily number of visits to the telemedicine department, without filtering ICD-10-CM codes; iii) A dataset containing the target variables: daily number of admissions and patients hospitalized due to COVID-19 at HIAE, considering only the coronavirus specific ICD-10-CM code B34.2.</p>
+<p>At the time of data collection, the telemedicine department still did not assign the COVID-19 specific ICD-10 CM code B34.2 to identify confirmed cases of COVID-19 in its calls; therefore, this specific code was not considered in the development of the model.</p>
+<p>The Pearson Correlation between telemedicine attendance volumes, Google Trends interest scores, and the daily normalized weekly moving averages of hospitalized patients was calculated to investigate the lag that maximized the correlation function between the number of hospitalized patients and the given series, using a regression model.(<span class="ref"><sup class="xref xrefblue">15</sup><span class="refCtt closed"><span>15 Hswen Y, Zhang A, Ventelou B. Estimation of Asthma Symptom Onset Using Internet Search Queries: Lag-Time Series Analysis. JMIR Public Health Surveill. 2021;7(5):e18593.</span></span></span>)</p>
+<p>Performance metrics: performance monitoring of the proposed models employed accuracy metrics of point forecasts-mean error (ME), mean absolute error (MAE), and root mean squared error (RMSE) as a function of the forecast horizon in days. Considering the average daily predicted values for the ICU and general ward across a forecast horizon, R² was also calculated to demonstrate the adherence of the projected values to the observed values.(<span class="ref"><sup class="xref xrefblue">16</sup><span class="refCtt closed"><span>16 García-Cremades S, Morales-García J, Hernández-Sanjaime R, Martínez-España R, Bueno-Crespo A, Hernández-Orallo E, et al. Improving prediction of COVID-19 evolution by fusing epidemiological and mobility data. Sci Rep. 2021;11(1):15173.</span></span></span>)</p>
+<h2>Confidentiality and ethical approval</h2>
+<p>This study was approved by the Ethics Committee of <i>Hospital Israelita Albert Einstein</i> (HIAE), CAAE: 51937121.6.0000.0071; # 5.136.309. Patient confidentiality was preserved by anonymizing the medical records. The requirement for informed consent was waived by the institutional review board prior to data collection and analysis.</p>
+<h1 class="articleSectionTitle">RESULTS</h1>
+<p>Model 1: between March 2020 and July 2021, 5,414 patients were admitted to HIAE due to COVID-19, considering all types of discharges (home care, external transfers, and deaths, which were excluded from LOS modeling) and patients who were hospitalized for more than 45 days.</p>
+<p>Admissions: by analyzing the behavior of the overall number of new hospitalizations during the specified period, segmentation of the number of new admissions by department (general ward and ICU) was proposed to minimize the error of the expected flow for each projected day, attempting to extract seasonal factors and decrease the order of magnitude of the residues.</p>
+<p>During the analyzed period, the average (± standard deviation) number of daily patient admissions in the general ward was 7.74 (± 4.66), while new hospitalizations in the ICU was 2.85 (± 2.08).</p>
+<p>Based on the decomposition of the time series of admissions, a seasonal component was identified for admissions in the general ward by day of the week, registering lower volumes during weekends (<a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTablet1"><span class="sci-ico-fileTable"></span>Table 1</a>) and, considering the presenting characteristics, the naïve estimation of the number of admissions in the general ward included the seasonal components and the moving average of hospitalizations in the seven previous days. No seasonal patterns were identified for ICU admissions; attaching this fact to the low magnitude of average daily hospitalizations, the study modeled the daily ICU hospitalizations exclusively with its weekly moving average.</p>
+<div class="row table" id="t1">
+<a name="t1"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTablet1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table 1</strong><br>Seasonal factors calculated after analyzing the behavior of admissions to general wards per day of the week<br>
+</div>
+</div>
+<p>Transfers: transfers between departments were estimated using a population model, considering the rate of patients transferred by the day of hospitalization since admission, calculated for 30 days prior to the projection date.</p>
+<p>Discharges: between March 2020 and July 2021, 4,741 COVID-19 patients were discharged from HIAE after applying the exclusion criteria detailed in the Methods section to reduce the confounding factors. The selected group presented an average LOS of 8.59 days with a standard deviation of 5.78 days. A Shapiro-Wilk normality test showed with 95% confidence that the data were not normally distributed, directing the modeling of the phenomenon of interest to nonlinear strategies.</p>
+<p>Variables that could impact LOS were discussed with ICU physicians, and their impact was evaluated by calculating the average LOS segmented by epidemiological characteristics (sex and age ranges) and severity, proxied by the use of supportive ventilation, prescription of ECMO, hemodialysis, vasoactive drugs, and ICU occupancy. For the ICU analysis, the separate impact of hospitalization in an ICU or semi-ICU on the previous day was evaluated.</p>
+<p>The significance of the difference in LOS between the groups was tested using the Mann-Whitney U test with a 95% confidence interval. For age group stratification, the Kruskal-Wallis test was applied, followed by the Dunn test, which compared the groups individually. The proposed univariate approximation estimated the predictive potential of the subsequent inclusion of variables in the model. The results are summarized in <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTablet2"><span class="sci-ico-fileTable"></span>table 2</a>.</p>
+<div class="row table" id="t2">
+<a name="t2"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTablet2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table 2</strong><br>Descriptive analysis of COVID-19 patients’ length of stay segmented by epidemiological characteristics, resource use, and predictors of severity<br>
+</div>
+</div>
+<p>Age, sex, use of ICU and semi-ICU, and use of non-invasive and invasive ventilation, including ECMO, were statistically correlated with patients’ LOS.</p>
+<p>The prescription of ECMO was discarded while training the model because, although it indicated hospitalizations of greater complexity and severity, it was a rare intervention, observed in only 0.34% of the sample, and the group of patients with an ECMO prescription showed the highest variability among the analyzed groups, represented by its interquartile range.</p>
+<p>A multivariate approach was proposed with a random forest regression algorithm intended to dynamically estimate the LOS for each patient on a daily basis, evaluating the impact of the class of bed occupied (ICU, semi-ICU, or general ward), adopted treatments, and specific medication prescription (mechanical ventilation devices, among others) in the last 24 hours alongside the personal characteristics of each patient, such as sex and age group.</p>
+<p>The final step regarding the selection of available variables was performed alongside the model training routine, setting a cutoff for the Gini Importance Index, also known as the Mean Decrease in Impurity, to evaluate the feature relevance in a multivariate context. The variables included in the LOS predictive model had Gini importance indices &gt;0.001, as presented in <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalTablet3"><span class="sci-ico-fileTable"></span>Table 3</a>.</p>
+<div class="row table" id="t3">
+<a name="t3"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTablet3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Table 3</strong><br>List of variables tested in the development of the random forest algorithm, along with their respective Gini importance indices<br>
+</div>
+</div>
+<p>The Random Forest Model, which was proposed to estimate the total daily LOS for all hospitalized patients, including the detailed criteria above, achieved the following metrics: R² = 0.69, MAE = 2.93 days, and RMSE = 4.09 days.</p>
+<p>To deliver outputs that the hospital managers could directly interpret, the results of the estimators were combined so that their composition established a predictive model capable of estimating the number of patients hospitalized in the ICU and general ward per day for the subsequent 14 days, with daily updates and performance monitoring.</p>
+<p>Model 2: in the second model, the historical series explored in the analysis were pre-processed following two main operations-the calculation of weekly moving averages to smooth their daily variations, and standardization of the model using the z-score to favor visualization and allow the intuition of an optimal correlation value for pairs of series.</p>
+<p>The three time series were plotted: i) Telemedicine: number of callers diagnosed with COVID-19 specific coding (ICD-10-CM U07.1); number of callers with COVID-19-related ICD-10-CM codes (specific coding, symptoms and chapters related to respiratory diseases); and ii) Google Trends: daily interest scores for the search term "sintomas COVID-19" in São Paulo. The time series of hospitalized patients lagged by 1–14 days, and for each combination of series, the Pearson Correlation Index was calculated iteratively. The results are presented in <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf2"><span class="sci-ico-fileFigure"></span>figure 1</a>.</p>
+<div class="row fig" id="f2">
+<a name="f2"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/57516afb6ba03871530ccd4a14d2d319c22cb198.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 1</strong><br>Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients<br>
+</div>
+</div>
+<p>The number of telemedicine visits by patients coded with a COVID-19 diagnosis (ICD-10-CM U07.1) was highlighted as the best predictor of hospitalized patients. Once peak values differed by &gt;0.001 for delays of seven and eight days, the delay that had the greatest anticipation power for the proposed model (8 days) was chosen.</p>
+<p>In a scenario in which telemedicine data were unavailable, Google Trends interest scores for the terms related to symptoms appeared as a predictor, resulting in a Pearson Correlation Index of 0.895 when lagging the hospitalized patients’ series by 9 days. The final model consisted of a time series linear regression comprising the predictors to estimate the number of hospitalized patients based on the telemedicine series.(<span class="ref"><sup class="xref xrefblue">17</sup><span class="refCtt closed"><span>17 Withanage GP, Viswakula SD, Nilmini Silva Gunawardena YI, Hapugoda MD. A forecasting model for dengue incidence in the District of Gampaha, Sri Lanka. Parasit Vectors. 2018;11(1):262.</span></span></span>)</p>
+<h2>Performance monitoring</h2>
+<p>The results of the two models were followed for 365 days (between May 20, 2021, and May 20, 2022), considering that the first model has predictions for hospitalized patients segmented by department (general ward and ICU) over a 14-day interval and that the second model using the number of telemedicine visits predicts the overall number of hospitalized patients over an 8-day interval.</p>
+<p>When comparing models, the evaluation of their performance indicators is limited by the lowest forecast horizon of 8 days. Computing the average error values, including different time windows, could benefit the model with the smallest forecast horizon, as larger residuals tend to be observed as we move away from the projection date.</p>
+<p>A comparison between the averages of the predicted and observed values by department is illustrated in <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf3"><span class="sci-ico-fileFigure"></span>figures 2</a>, <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf4"><span class="sci-ico-fileFigure"></span>3</a>, and <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf5"><span class="sci-ico-fileFigure"></span>4</a>.</p>
+<div class="row fig" id="f3">
+<a name="f3"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/2037bd8c6a1a8bc66436d415403150dd4761a8ee.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 2</strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models<br>
+</div>
+</div>
+<div class="row fig" id="f4">
+<a name="f4"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a8fe41421dca909e9b06d6fc4d8fff78b0e22c28.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 3</strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1<br>
+</div>
+</div>
+<div class="row fig" id="f5">
+<a name="f5"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/d835e852d20133171ee84b42e7a6d401deba38a1.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 4</strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1<br>
+</div>
+</div>
+<p>The adherence of the values predicted by the proposed models to the numbers observed during these 365 days can be reinforced by the performance indicators detailed in the Methods section, which also allowed the identification of the strengths and opportunities in both models. <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf6"><span class="sci-ico-fileFigure"></span>Figures 5</a>, <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf7"><span class="sci-ico-fileFigure"></span>6</a>, and <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalFigf8"><span class="sci-ico-fileFigure"></span>7</a> present the ME, MAE, and RMSE values as the forecast horizon increases (the illustrated indicators are accessible in <span class="ref footnote"><sup class="xref">table 1S</sup><span class="refCtt closed"><span class="refCttPadding">Table 1SPerformance metrics as a function of the forecast horizonMean ErrorMean absolute errorRoot mean squared errorForecast horizon (in days)Model 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall prediction10,7190,8651,584-0,3433,7582,7924,9613,8081,9391,6712,2271,95122,0781,9063,9840,1175,6054,0527,2884,7252,3682,0132,7002,17432,3843,3615,7450,5877,6425,7309,3875,7922,7642,3943,0642,40742,0394,9927,0310,9799,5197,35611,2866,6943,0852,7123,3592,58750,7716,8787,6491,39711,3849,22612,7877,2363,3743,0373,5762,6906-0,6528,5647,9121,77712,96910,92714,1258,0263,6013,3063,7582,8337-1,42610,3568,9302,18214,78712,93815,9018,5663,8453,5973,9882,92780,0609,6399,6992,56616,49113,12517,9849,6734,0613,6234,2413,11091,0609,61610,67518,58713,68320,1304,3113,6994,487102,0889,08811,17720,26513,84721,9514,5023,7214,685113,0837,89910,98221,75813,56123,7714,6653,6834,876123,9696,60810,57723,11713,66825,4964,8083,6975,049134,6575,2739,93024,41813,89127,2964,9413,7275,225145,1774,0629,23925,76914,10929,4105,0763,7565,423The results are expressed as the mean error, mean absolute error, and root mean squared error calculated for the predictions.</span></span></span> form in Supplementary Material).</p>
+<div class="row fig" id="f6">
+<a name="f6"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a43d5b4ea75a4c56a5f606c2e26501e3ab786011.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 5</strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)<br>
+</div>
+</div>
+<div class="row fig" id="f7">
+<a name="f7"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1758aba25e24a623e92974ae9bbffdbb5b729757.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 6</strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)<br>
+</div>
+</div>
+<div class="row fig" id="f8">
+<a name="f8"></a><div class="col-md-4 col-sm-4"><a href="" data-toggle="modal" data-target="#ModalFigf8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/c5df6e32bba5c0f3048078c071b73d3a059b3e3d.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">
+<strong>Figure 7</strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)<br>
+</div>
+</div>
+<p>The ME statistic allows the identification of possible biases in the proposed models. A positive value indicates that the predictions obtained using the referred model are consistently higher than the observed value; in this case, the number of hospitalized patients is overestimated. All predictions have a positive bias, and the model that processes clinical data overestimates the number of hospitalized patients the most, mainly because of error propagation involving the prediction of patient occupancy in the ICU.</p>
+<p>The MAE accuracy measure, which is a measure minimized by the median, allows the identification of the models that can most accurately estimate the daily number of hospitalized patients. Despite the ME values tending to zero for the predictions of hospitalizations in the general ward for the first model in 10-day forecast horizons, rejecting the presence of bias in the set of estimations, the result is obtained through predictions with greater residues. As a complementary approach, the RMSE highlights the model that provides the best estimates for the average number of cases in a given period.</p>
+<p>The analysis of all three statistics showed that the model built with telemedicine data outperformed the first model when considering the predictions made for the total number of hospitalized patients, also highlighting its capability of maintaining errors below 10 beds for the integrity of its forecast horizon, as evidenced by the MAE.</p>
+<p>The first model shows significant deterioration over a period &gt;3 days; however, its ability to distinguish between the classifications of occupied beds sets a gain for resource planning, even though higher reliability indices are limited to short-term predictions.</p>
+<h1 class="articleSectionTitle">DISCUSSION</h1>
+<p>The developed models resulted in reliable estimations of the expected number of COVID-19 hospitalizations at HIAE, which were updated daily and used by HIAE managers to define the allocation of beds to COVID-19 and non-COVID-19 patients, mainly by adjusting the volume of elective surgeries that the hospital would be able to perform in the subsequent 7 days, the hiring of qualified professionals to meet the expected demand, and the proper sizing of its supplies.</p>
+<p>Daily capacity adjustments were performed at HIAE during the worst days of the pandemic based on the proposed telemedicine model and were also used by the hospital to prepare for the Delta and Omicron phases of increase in the observed number of hospitalized patients.</p>
+<p>The development and implementation of a data-driven tool to support the decision-making process in a hospital management environment showed that at an atypical moment of great concern with the evolution of the COVID-19 pandemic, maturity in data management, quality, security, and analysis allows a health institution to benefit from the information generated during day-to-day operations.</p>
+<p>The detailed approach assessed the inclusion of clinical variables and hospital data aimed at delivering estimations that accurately capture the nuances of demand behavior, trends of increases and decreases in new cases and hospitalizations, and the epidemiological profile of hospitalized patients.(<span class="ref"><sup class="xref xrefblue">18</sup><span class="refCtt closed"><span>18 Bekker R, Uit Het Broek M, Koole G. Modeling COVID-19 hospital admissions and occupancy in the Netherlands. Eur J Oper Res. 2023;304(1):207-18.</span></span></span>) As an alternative to population models, which became popular throughout the COVID-19 pandemic, and aiming for estimates that comprise geographic regions in their entirety, models can be developed by applying algorithms oriented to the projection of time series, such as ARIMA(<span class="ref"><sup class="xref xrefblue">19</sup><span class="refCtt closed"><span>19 Rostami-Tabar B, Rendon-Sanchez JF. Forecasting COVID-19 daily cases using phone call data. Appl Soft Comput. 2021;100:106932.</span></span></span>) and Convolutional Neural Networks.</p>
+<p>The isolation of the hospital context and its variables implies a trade-off, given that the variables that can explain the remaining variance of the studied phenomenon may be unavailable as the pandemic context evolves dynamically. Among these caveats are the emergence of new variants, vaccines and vaccine coverage, effective medications, mask usage, isolation rates, and the guidelines adopted in care.</p>
+<p>The validation of predictions of this nature encourages the creation of new models for other pathologies, exploring correlations of events before hospitalizations, and studying patterns of care involving a diagnosed patient and their clinical evolution. It also highlights the importance of joining forces, between different areas of the same institution and between various institutions, sharing complementary data, and improving the use of data for decision-making.</p>
+<h1 class="articleSectionTitle">CONCLUSION</h1>
+<p>The model that estimates the number of COVID-19 hospitalizations in a private not-for-profit hospital based on telemedicine could accurately anticipate the increase and decrease in the volume of patients with a lag of 8 days, demonstrating its usefulness for the effectivemanagement of beds and general resources for caring for patients with COVID-19. The readiness to provide data regarding the volume of care, hospitalizations, patient characteristics, and clinical interventions can help identify patterns to understand the pathology better and provide more accurate decisions regarding the allocation of resources.</p>
+</div>
+<div class="articleSection" data-anchor="ACKNOWLEDGEMENTS">
+<h1 class="articleSectionTitle">ACKNOWLEDGEMENTS</h1>
+<p>We state that the only sponsor of the study in question was the <i>Hospital Israelita Albert Einstein</i>, where all authors are employed. Because the coordination and preparation of studies and articles was established as a core activity for the positions occupied by the participants in this study, prospecting for new sponsors and requesting additional funding was not necessary. The publication of this study was not contingent upon sponsor approval.</p>
+</div>
+<div class="articleSection" data-anchor="References">
+<h1 class="articleSectionTitle">REFERENCES</h1>
+<div class="ref-list"><ul class="refList">
+<li>
+<sup class="xref big">1</sup><div> de Oliveira Andrade R. Covid-19 is causing the collapse of Brazil’s national health service. BMJ. 2020;370:m3032.</div>
+</li>
+<li>
+<sup class="xref big">2</sup><div> Lemos DR, D’Angelo SM, Farias LA, Almeida MM, Gomes RG, Pinto GP, et al. Health system collapse 45 days after the detection of COVID-19 in Ceará, Northeast Brazil: a preliminary analysis. Rev Soc Bras Med Trop. 2020;53:e20200354.</div>
+</li>
+<li>
+<sup class="xref big">3</sup><div> Souza CD, Gois-Santos VT, Correia DS, Martins-Filho PR, Santos VS. The need to strengthen Primary Health Care in Brazil in the context of the COVID-19 pandemic. Braz Oral Res. 2020;34:e047.</div>
+</li>
+<li>
+<sup class="xref big">4</sup><div> Kuo S, Ou HT, Wang CJ. Managing medication supply chains: Lessons learned from Taiwan during the COVID-19 pandemic and preparedness planning for the future. J Am Pharm Assoc (2003). 2021;61(1):e12-5.</div>
+</li>
+<li>
+<sup class="xref big">5</sup><div> Neiva MB, Carvalho I, Costa Filho ED, Barbosa-Junior F, Bernardi FA, Sanches TL, et al. Brazil: the emerging epicenter of COVID-19 pandemic. Rev Soc Bras Med Trop. 2020;53:e20200550.</div>
+</li>
+<li>
+<sup class="xref big">6</sup><div> Farmer JC, Wax RS, Baldisseri MR. Preparing Your ICU for Disaster Response. Society of Critical Care Medicine; 2012.</div>
+</li>
+<li>
+<sup class="xref big">7</sup><div> Thorsen-Meyer HC, Nielsen AB, Nielsen AP, Kaas-Hansen BS, Toft P, Schierbeck J, et al. Dynamic and explainable machine learning prediction of mortality in patients in the intensive care unit: a retrospective study of high-frequency data in electronic patient records. Lancet Digit Health. 2020;2(4):e179-91.</div>
+</li>
+<li>
+<sup class="xref big">8</sup><div> Assaf D, Gutman Y, Neuman Y, Segal G, Amit S, Gefen-Halevi S, et al. Utilization of machine-learning models to accurately predict the risk for critical COVID-19. Intern Emerg Med. 2020;15(8):1435-43.</div>
+</li>
+<li>
+<sup class="xref big">9</sup><div> Naseem M, Akhund R, Arshad H, Ibrahim MT. Exploring the Potential of Artificial Intelligence and Machine Learning to Combat COVID-19 and Existing Opportunities for LMIC: A Scoping Review. J Prim Care Community Health. 2020;11:2150132720963634.</div>
+</li>
+<li>
+<sup class="xref big">10</sup><div> Kumar A, Hung N, Wu Y, Baek R, Gupta A. Predictive Modeling for Telemedicine Service Demand. Telehealth Med Today. 2020;5(2):1-14.</div>
+</li>
+<li>
+<sup class="xref big">11</sup><div> Mavragani A, Gkillas K. COVID-19 predictability in the United States using Google Trends time series. Sci Rep. 2020;10(1):20693.</div>
+</li>
+<li>
+<sup class="xref big">12</sup><div> Suarez JI, Zaidat OO, Suri MF, Feen ES, Lynch G, Hickman J, et al. Length of stay and mortality in neurocritically ill patients: impact of a specialized neurocritical care team. Crit Care Med. 2004;32(11):2311-7.</div>
+</li>
+<li>
+<sup class="xref big">13</sup><div> Considine J, Berry D, Rasmussen B, Hutchinson AM, Rawson H, Jordan P, et al. Impact of emergency department length of stay on anxiety and comfort in older people. Int Emerg Nurs. 2021;56:100974.</div>
+</li>
+<li>
+<sup class="xref big">14</sup><div> Cheng FY, Joshi H, Tandon P, Freeman R, Reich DL, Mazumdar M, et al. Using Machine Learning to Predict ICU Transfer in Hospitalized COVID-19 Patients. J Clin Med. 2020;9(6):1668.</div>
+</li>
+<li>
+<sup class="xref big">15</sup><div> Hswen Y, Zhang A, Ventelou B. Estimation of Asthma Symptom Onset Using Internet Search Queries: Lag-Time Series Analysis. JMIR Public Health Surveill. 2021;7(5):e18593.</div>
+</li>
+<li>
+<sup class="xref big">16</sup><div> García-Cremades S, Morales-García J, Hernández-Sanjaime R, Martínez-España R, Bueno-Crespo A, Hernández-Orallo E, et al. Improving prediction of COVID-19 evolution by fusing epidemiological and mobility data. Sci Rep. 2021;11(1):15173.</div>
+</li>
+<li>
+<sup class="xref big">17</sup><div> Withanage GP, Viswakula SD, Nilmini Silva Gunawardena YI, Hapugoda MD. A forecasting model for dengue incidence in the District of Gampaha, Sri Lanka. Parasit Vectors. 2018;11(1):262.</div>
+</li>
+<li>
+<sup class="xref big">18</sup><div> Bekker R, Uit Het Broek M, Koole G. Modeling COVID-19 hospital admissions and occupancy in the Netherlands. Eur J Oper Res. 2023;304(1):207-18.</div>
+</li>
+<li>
+<sup class="xref big">19</sup><div> Rostami-Tabar B, Rendon-Sanchez JF. Forecasting COVID-19 daily cases using phone call data. Appl Soft Comput. 2021;100:106932.</div>
+</li>
+</ul></div>
+</div>
+<div class="articleSection" data-anchor="Table 1S Performance metrics as a function of the forecast horizon">
+<h1 class="articleSectionTitle">Table 1S Performance metrics as a function of the forecast horizon</h1>
+<div class="row table" id="t4">
+<a name="t4"></a><div class="col-md-4 col-sm-4"><a data-toggle="modal" data-target="#ModalTablet4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8 col-sm-8">Mean ErrorMean absolute errorRoot mean squared errorForecast horizon (in days)Model 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall prediction10,7190,8651,584-0,3433,7582,7924,9613,8081,9391,6712,2271,95122,0781,9063,9840,1175,6054,0527,2884,7252,3682,0132,7002,17432,3843,3615,7450,5877,6425,7309,3875,7922,7642,3943,0642,40742,0394,9927,0310,9799,5197,35611,2866,6943,0852,7123,3592,58750,7716,8787,6491,39711,3849,22612,7877,2363,3743,0373,5762,6906-0,6528,5647,9121,77712,96910,92714,1258,0263,6013,3063,7582,8337-1,42610,3568,9302,18214,78712,93815,9018,5663,8453,5973,9882,92780,0609,6399,6992,56616,49113,12517,9849,6734,0613,6234,2413,11091,0609,61610,67518,58713,68320,1304,3113,6994,487102,0889,08811,17720,26513,84721,9514,5023,7214,685113,0837,89910,98221,75813,56123,7714,6653,6834,876123,9696,60810,57723,11713,66825,4964,8083,6975,049134,6575,2739,93024,41813,89127,2964,9413,7275,225145,1774,0629,23925,76914,10929,4105,0763,7565,423The results are expressed as the mean error, mean absolute error, and root mean squared error calculated for the predictions.<br>
+</div>
+</div>
+</div>
+<div class="articleSection" data-anchor="Publication Dates">
+<h1 class="articleSectionTitle">Publication Dates</h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Publication in this collection</strong><br>08 Mar 2024</li>
+<li>
+<strong>Date of issue</strong><br>2024</li>
+</ul></div></div>
+</div>
+<div class="articleSection" data-anchor="History">
+<h1 class="articleSectionTitle">History</h1>
+<div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
+<li>
+<strong>Received</strong><br>23 Sept 2022</li>
+<li>
+<strong>Accepted</strong><br>14 Nov 2023</li>
+</ul></div></div>
+</div>
+<section class="documentLicense"><div class="container-license"><div class="row">
+<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title=""><img src="https://licensebuttons.net/l/by/4.0//88x31.png" alt="Creative Common - by 4.0 "></a></div>
+<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="">This content is licensed under a Creative Commons Attribution 4.0 International License.</a></div>
+</div></div></section></article>
+</div>
+</div></div></section><div class="modal fade ModalDefault ModalTutors" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Authorship</h4>
+</div>
+<div class="modal-body">
+<div class="info">
+<div class="tutors">
+<strong> Caio Querino Gabaldi </strong><span class="ref footnote"><sup class="xref"></sup><span class="refCtt closed"><span class="refCttPadding">Associate Editor: Helder Takasgi Imoto Nakaya Hospital Israelita Albert Einstein, São Paulo, SP, Brazil ORCID: https://orcid.org/0000-0001-5297-9108</span></span></span><br><div>conceptualization</div>
+<div>data curation</div>
+<div>formal analysis</div>
+<div>investigation</div>
+<div>methodology</div>
+<div>resources</div>
+<div>software</div>
+<div>validation</div>
+<div>visualization</div>
+<div>writing – original draft</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8751-4340" class="btnContribLinks orcid">https://orcid.org/0000-0002-8751-4340</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Adriana Serra Cypriano </strong><br><div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0003-0396-211X" class="btnContribLinks orcid">https://orcid.org/0000-0003-0396-211X</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Carlos Henrique Sartorato Pedrotti </strong><br><div>data curation</div>
+<div>investigation</div>
+<div>software</div>
+<div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-0634-7086" class="btnContribLinks orcid">https://orcid.org/0000-0002-0634-7086</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Daniel Tavares Malheiro </strong><br><div>conceptualization</div>
+<div>data curation</div>
+<div>formal analysis</div>
+<div>investigation</div>
+<div>methodology</div>
+<div>software</div>
+<div>validation</div>
+<div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0003-4321-647X" class="btnContribLinks orcid">https://orcid.org/0000-0003-4321-647X</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Claudia Regina Laselva </strong><br><div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0001-8285-9633" class="btnContribLinks orcid">https://orcid.org/0000-0001-8285-9633</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Miguel Cendoroglo Neto</strong><br><div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8163-4392" class="btnContribLinks orcid">https://orcid.org/0000-0002-8163-4392</a></li></ul>
+<div class="clearfix"></div>
+</div>
+<div class="tutors">
+<strong> Vanessa Damazio Teich </strong><br><div>project administration</div>
+<div>supervision</div>
+<div>writing – review &amp; editing</div>
+<div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+</div>
+<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8539-6037" class="btnContribLinks orcid">https://orcid.org/0000-0002-8539-6037</a></li></ul>
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="ref-list"><ul class="refList footnote"><li>
+<b>Associate Editor:</b> Helder Takasgi Imoto Nakaya Hospital Israelita Albert Einstein, São Paulo, SP, Brazil ORCID: https://orcid.org/0000-0001-5297-9108</li></ul></div>
+<div class="ref-list"><ul class="refList footnote"><li>
+<b>Corresponding author:</b> Caio Querino Gabaldi Avenida Albert Einstein, 627/701 Zip code: 05652-900 – Morumbi Phone: (55 11) 98876-1784 E-mail: <a href="mailto:caio.gabaldi@einstein.br">caio.gabaldi@einstein.br</a>
+</li></ul></div>
+<div class="ref-list"><ul class="refList footnote"><li>
+<div>
+            <b>Conflict of interest:</b>
+          </div>
+<div>none.</div>
+</li></ul></div>
+</div>
+</div></div></div>
+<div class="modal fade ModalDefault ModalTutors" id="ModalScimago" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+                            SCIMAGO INSTITUTIONS RANKINGS
+                        </h4>
+</div>
+<div class="modal-body"><div class="info"><div>
+<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a><br>
+</div></div></div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalTablesFigures" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">Figures | Tables</h4>
+</div>
+<div class="modal-body">
+<ul class="nav nav-tabs md-tabs" role="tablist">
+<li role="presentation" class="col-md-4 col-sm-4 active"><a href="#figures" aria-controls="figures" role="tab" data-toggle="tab">Figures
+                    (8)
+                </a></li>
+<li role="presentation" class="col-md-4 col-sm-4 "><a href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tables
+                    (4)
+                </a></li>
+</ul>
+<div class="clearfix"></div>
+<div class="tab-content">
+<div role="tabpanel" class="tab-pane active" id="figures">
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf1"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/814798aee2d79fb28454f8fb05c7a3f9a724868b.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8"></div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf2"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/57516afb6ba03871530ccd4a14d2d319c22cb198.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 1</strong><br>Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/2037bd8c6a1a8bc66436d415403150dd4761a8ee.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 2</strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a8fe41421dca909e9b06d6fc4d8fff78b0e22c28.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 3</strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/d835e852d20133171ee84b42e7a6d401deba38a1.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 4</strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a43d5b4ea75a4c56a5f606c2e26501e3ab786011.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 5</strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1758aba25e24a623e92974ae9bbffdbb5b729757.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 6</strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/c5df6e32bba5c0f3048078c071b73d3a059b3e3d.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 7</strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf3"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/2037bd8c6a1a8bc66436d415403150dd4761a8ee.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 2</strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf4"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a8fe41421dca909e9b06d6fc4d8fff78b0e22c28.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 3</strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf5"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/d835e852d20133171ee84b42e7a6d401deba38a1.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 4</strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf6"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a43d5b4ea75a4c56a5f606c2e26501e3ab786011.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 5</strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf7"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1758aba25e24a623e92974ae9bbffdbb5b729757.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 6</strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</div>
+</div>
+<div class="row fig">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalFigf8"><div class="thumbImg">
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/c5df6e32bba5c0f3048078c071b73d3a059b3e3d.jpg">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Figure 7</strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</div>
+</div>
+</div>
+<div role="tabpanel" class="tab-pane " id="tables">
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTablet1"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table 1</strong><br>Seasonal factors calculated after analyzing the behavior of admissions to general wards per day of the week</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTablet2"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table 2</strong><br>Descriptive analysis of COVID-19 patients’ length of stay segmented by epidemiological characteristics, resource use, and predictors of severity</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTablet3"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">
+<strong>Table 3</strong><br>List of variables tested in the development of the random forest algorithm, along with their respective Gini importance indices</div>
+</div>
+<div class="row table">
+<div class="col-md-4"><a data-toggle="modal" data-target="#ModalTablet4"><div class="thumbOff">
+                        Thumbnail
+                        <div class="zoom"><span class="sci-ico-zoom"></span></div>
+</div></a></div>
+<div class="col-md-8">Mean ErrorMean absolute errorRoot mean squared errorForecast horizon (in days)Model 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall prediction10,7190,8651,584-0,3433,7582,7924,9613,8081,9391,6712,2271,95122,0781,9063,9840,1175,6054,0527,2884,7252,3682,0132,7002,17432,3843,3615,7450,5877,6425,7309,3875,7922,7642,3943,0642,40742,0394,9927,0310,9799,5197,35611,2866,6943,0852,7123,3592,58750,7716,8787,6491,39711,3849,22612,7877,2363,3743,0373,5762,6906-0,6528,5647,9121,77712,96910,92714,1258,0263,6013,3063,7582,8337-1,42610,3568,9302,18214,78712,93815,9018,5663,8453,5973,9882,92780,0609,6399,6992,56616,49113,12517,9849,6734,0613,6234,2413,11091,0609,61610,67518,58713,68320,1304,3113,6994,487102,0889,08811,17720,26513,84721,9514,5023,7214,685113,0837,89910,98221,75813,56123,7714,6653,6834,876123,9696,60810,57723,11713,66825,4964,8083,6975,049134,6575,2739,93024,41813,89127,2964,9413,7275,225145,1774,0629,23925,76914,10929,4105,0763,7565,423The results are expressed as the mean error, mean absolute error, and root mean squared error calculated for the predictions.</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/58cdddfd3c6ba631249b5e5eb2a498c1fb30accc.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span><br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/4ed40da5008f909f5801cab0bd9991ada9d2aded.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/73b2fde14f4f62f2f2daa3bd09dfa05dfff4a5ab.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 1   Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1cdc4a23090372907a723b458d78b563edf548da.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9068d725993a801c8a7b6a4a3faa0b2e2d30747f.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 2   Comparison between the daily number of hospitalized patients and the mean values predicted by the described models<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/3be2b57fe863768e9271cf4232762a4cf11fc03d.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/71e115120a56f9da2d0c4b496fb0550e2176582c.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 3   Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/244ecf20ce13a27af6c1749ef80ae7758f5f12e6.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/da5f1b4dcbd1d897e9f9e279cb93b3be625ec8ea.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 4   Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/cf4c11c608ea630a681a842b7e8439951fc5b7c0.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf6" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/f39c56c6a33e100e374ed7aff92756ebcec6a77a.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 5   Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9e5bf28d54739e34896dfafcb10faf031aa70ac3.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf7" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a22b5715f3108938455b47ae0b54c6d6b2e5e294.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 6   Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/8134384fb64cbd93e3e4330c5b9345ab0d7d8038.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf8" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9abf3075fd8cbcc4c14b098f91ac9e39ed3ca30a.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 7   Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/0469504d0b1aaa5e8576587b111ef70be33a5b66.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9068d725993a801c8a7b6a4a3faa0b2e2d30747f.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 2   Comparison between the daily number of hospitalized patients and the mean values predicted by the described models<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/3be2b57fe863768e9271cf4232762a4cf11fc03d.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/71e115120a56f9da2d0c4b496fb0550e2176582c.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 3   Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/244ecf20ce13a27af6c1749ef80ae7758f5f12e6.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf5" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/da5f1b4dcbd1d897e9f9e279cb93b3be625ec8ea.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 4   Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/cf4c11c608ea630a681a842b7e8439951fc5b7c0.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf6" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/f39c56c6a33e100e374ed7aff92756ebcec6a77a.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 5   Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9e5bf28d54739e34896dfafcb10faf031aa70ac3.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf7" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a22b5715f3108938455b47ae0b54c6d6b2e5e294.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 6   Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/8134384fb64cbd93e3e4330c5b9345ab0d7d8038.png"></div>
+</div></div></div>
+<div class="modal fade ModalFigs" id="ModalFigf8" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><a class="link-newWindow showTooltip" target="_blank" data-placement="left" title="Open new window" href="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/9abf3075fd8cbcc4c14b098f91ac9e39ed3ca30a.tif"><span class="sci-ico-newWindow"></span></a><h4 class="modal-title">
+<span class="sci-ico-fileFigure"></span>Figure 7   Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)<br>
+</h4>
+</div>
+<div class="modal-body"><img style="max-width:100%" src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/0469504d0b1aaa5e8576587b111ef70be33a5b66.png"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTablet1" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table 1</strong>    Seasonal factors calculated after analyzing the behavior of admissions to general wards per day of the week<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="hsides" rules="groups">
+<colgroup width="50%">
+<col>
+<col>
+</colgroup>
+<thead style="border-top: thin solid; border-bottom: thin solid; border-color: #000000"><tr style="background-color:#ACC9EA">
+<th align="left" valign="middle">Day of the week</th>
+<th align="center" valign="middle">Seasonality factor calculated for general ward admissions</th>
+</tr></thead>
+<tbody style="border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">Monday</td>
+<td align="center" valign="top">1.10</td>
+</tr>
+<tr>
+<td align="left" valign="top">Tuesday</td>
+<td align="center" valign="top">1.02</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">Wednesday</td>
+<td align="center" valign="top">1.00</td>
+</tr>
+<tr>
+<td align="left" valign="top">Thursday</td>
+<td align="center" valign="top">1.04</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">Friday</td>
+<td align="center" valign="top">1.05</td>
+</tr>
+<tr>
+<td align="left" valign="top">Saturday</td>
+<td align="center" valign="top">0.89</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">Sunday</td>
+<td align="center" valign="top">0.90</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTablet2" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table 2</strong>    Descriptive analysis of COVID-19 patients’ length of stay segmented by epidemiological characteristics, resource use, and predictors of severity<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="hsides" rules="groups">
+<colgroup width="11%">
+<col width="1%">
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead style="border-top: thin solid; border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#ACC9EA">
+<th align="left" valign="middle" colspan="2" rowspan="2"></th>
+<th align="center" valign="middle" colspan="6" style="border-bottom: thin solid; border-color: #000000">Length of stay</th>
+<th align="center" valign="middle" colspan="2" style="border-bottom: thin solid; border-color: #000000">Kruskal-Wallis Test</th>
+</tr>
+<tr style="background-color:#ACC9EA">
+<th align="center" valign="middle">Frequency</th>
+<th align="center" valign="middle">(%)</th>
+<th align="center" valign="middle">Mean</th>
+<th align="center" valign="middle">Standard Deviation</th>
+<th align="center" valign="middle">Median</th>
+<th align="center" valign="middle">Interquartile range</th>
+<th align="center" valign="middle">χ<sup>2</sup>
+</th>
+<th align="center" valign="middle">p value</th>
+</tr>
+</thead>
+<tbody style="border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top" colspan="2">Age group, years</td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">≤39</td>
+<td align="center" valign="top">833</td>
+<td align="center" valign="top">17.57</td>
+<td align="center" valign="top">6.46</td>
+<td align="center" valign="top">4.60</td>
+<td align="center" valign="top">5</td>
+<td align="center" valign="top">5</td>
+<td align="center" valign="top">446.52</td>
+<td align="center" valign="top">&lt;0.05</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">40-59</td>
+<td align="center" valign="top">2055</td>
+<td align="center" valign="top">43.35</td>
+<td align="center" valign="top">8.23</td>
+<td align="center" valign="top">5.31</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">6</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="center" valign="top"></td>
+<td align="left" valign="top">60-79</td>
+<td align="center" valign="top">1378</td>
+<td align="center" valign="top">29.07</td>
+<td align="center" valign="top">10.77</td>
+<td align="center" valign="top">6.63</td>
+<td align="center" valign="top">9</td>
+<td align="center" valign="top">8</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">≥80</td>
+<td align="center" valign="top">475</td>
+<td align="center" valign="top">10.02</td>
+<td align="center" valign="top">12.11</td>
+<td align="center" valign="top">7.18</td>
+<td align="center" valign="top">11</td>
+<td align="center" valign="top">10</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="center" valign="top" colspan="2">Mann-Whitney U Test</td>
+</tr>
+<tr>
+<td align="left" valign="top" colspan="2">Sex</td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="left" valign="top"></td>
+<td align="center" valign="top">W</td>
+<td align="center" valign="top">p value</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Female</td>
+<td align="left" valign="top">1707</td>
+<td align="left" valign="top">36.01</td>
+<td align="left" valign="top">8.85</td>
+<td align="left" valign="top">6.30</td>
+<td align="left" valign="top">7</td>
+<td align="left" valign="top">8</td>
+<td align="center" valign="top" rowspan="2">2743049</td>
+<td align="center" valign="top" rowspan="2">&lt;0.05</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Male</td>
+<td align="center" valign="top">3034</td>
+<td align="center" valign="top">63.99</td>
+<td align="center" valign="top">9.15</td>
+<td align="center" valign="top">5.97</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">7</td>
+</tr>
+<tr style="background-color:#E1ECF8"><td align="left" valign="top" colspan="10">ICU bed occupancy</td></tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">3700</td>
+<td align="center" valign="top">78.04</td>
+<td align="center" valign="top">7.36</td>
+<td align="center" valign="top">4.60</td>
+<td align="center" valign="top">6</td>
+<td align="center" valign="top">5</td>
+<td align="center" valign="top" rowspan="2">644273</td>
+<td align="center" valign="top" rowspan="2">&lt;0.05</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">1041</td>
+<td align="center" valign="top">21.96</td>
+<td align="center" valign="top">15.04</td>
+<td align="center" valign="top">6.91</td>
+<td align="center" valign="top">14</td>
+<td align="center" valign="top">10</td>
+</tr>
+<tr><td align="left" valign="top" colspan="10">Semi-ICU bed occupancy</td></tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">3203</td>
+<td align="center" valign="top">67.56</td>
+<td align="center" valign="top">7.01</td>
+<td align="center" valign="top">4.62</td>
+<td align="center" valign="top">6</td>
+<td align="center" valign="top">5</td>
+<td align="center" valign="top" rowspan="2">956309</td>
+<td align="center" valign="top" rowspan="2">&lt;0.05</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">1538</td>
+<td align="center" valign="top">32.44</td>
+<td align="center" valign="top">13.29</td>
+<td align="center" valign="top">6.59</td>
+<td align="center" valign="top">12</td>
+<td align="center" valign="top">9</td>
+</tr>
+<tr style="background-color:#E1ECF8"><td align="left" valign="top" colspan="10">Usage of invasive mechanical ventilation device</td></tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">4233</td>
+<td align="center" valign="top">89.28</td>
+<td align="center" valign="top">7.93</td>
+<td align="center" valign="top">5.00</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">6</td>
+<td align="center" valign="top" rowspan="2">222472</td>
+<td align="center" valign="top" rowspan="2">&lt;0.05</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">508</td>
+<td align="center" valign="top">10.72</td>
+<td align="center" valign="top">18.31</td>
+<td align="center" valign="top">6.51</td>
+<td align="center" valign="top">18</td>
+<td align="center" valign="top">10</td>
+</tr>
+<tr><td align="left" valign="top" colspan="10">Usage of non-invasive mechanical ventilation device</td></tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">2700</td>
+<td align="center" valign="top">56.95</td>
+<td align="center" valign="top">6.25</td>
+<td align="center" valign="top">4.02</td>
+<td align="center" valign="top">5</td>
+<td align="center" valign="top">4</td>
+<td align="center" valign="top">909496</td>
+<td align="center" valign="top">&lt;0.05</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">2041</td>
+<td align="center" valign="top">43.05</td>
+<td align="center" valign="top">12.75</td>
+<td align="center" valign="top">6.39</td>
+<td align="center" valign="top">11</td>
+<td align="center" valign="top">8</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8"><td align="left" valign="top" colspan="10">Prescription of vasoactive drugs</td></tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">4525</td>
+<td align="center" valign="top">95.44</td>
+<td align="center" valign="top">8.93</td>
+<td align="center" valign="top">5.89</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">6</td>
+<td align="center" valign="top" rowspan="2">461625</td>
+<td align="center" valign="top" rowspan="2">0.16</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">216</td>
+<td align="center" valign="top">4.56</td>
+<td align="center" valign="top">11.54</td>
+<td align="center" valign="top">9.09</td>
+<td align="center" valign="top">10</td>
+<td align="center" valign="top">8</td>
+</tr>
+<tr><td align="left" valign="top" colspan="10">Usage of ECMO therapy</td></tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">4725</td>
+<td align="center" valign="top">99.66</td>
+<td align="center" valign="top">9.01</td>
+<td align="center" valign="top">6.06</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top" rowspan="2">11450</td>
+<td align="center" valign="top" rowspan="2">&lt;0.05</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">16</td>
+<td align="center" valign="top">0.34</td>
+<td align="center" valign="top">18.88</td>
+<td align="center" valign="top">7.82</td>
+<td align="center" valign="top">19.5</td>
+<td align="center" valign="top">16</td>
+</tr>
+<tr style="background-color:#E1ECF8"><td align="left" valign="top" colspan="10">Prescription of hemodialysis</td></tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">No</td>
+<td align="center" valign="top">4621</td>
+<td align="center" valign="top">97.47</td>
+<td align="center" valign="top">8.80</td>
+<td align="center" valign="top">5.85</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">7</td>
+<td align="center" valign="top">83452</td>
+<td align="center" valign="top">&lt;0.05</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top"></td>
+<td align="left" valign="top">Yes</td>
+<td align="center" valign="top">120</td>
+<td align="center" valign="top">2.53</td>
+<td align="center" valign="top">18.63</td>
+<td align="center" valign="top">7.39</td>
+<td align="center" valign="top">18</td>
+<td align="center" valign="top">12</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top"></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN1"><div>ICU: intensive care unit; ECMO: extracorporeal membrane oxygenation.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTablet3" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong>Table 3</strong>    List of variables tested in the development of the random forest algorithm, along with their respective Gini importance indices<br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="hsides" rules="groups">
+<colgroup width="50%">
+<col>
+<col>
+</colgroup>
+<thead style="border-top: thin solid; border-bottom: thin solid; border-color: #000000"><tr style="background-color:#ACC9EA">
+<th align="left" valign="middle">Gini Index</th>
+<th align="left" valign="middle">Feature</th>
+</tr></thead>
+<tbody style="border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.6862433</td>
+<td align="left" valign="top">Length of stay (Total time spent in ICU and Emergency departments at the moment of prediction, in days)</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.1572006</td>
+<td align="left" valign="top">Occupied an ICU bed in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0691286</td>
+<td align="left" valign="top">Occupied a semi-ICU bed in the last 24 hours</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0274035</td>
+<td align="left" valign="top">Use of a mechanical ventilation device in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0177144</td>
+<td align="left" valign="top">Age group, 60-79 years</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0129082</td>
+<td align="left" valign="top">Age group, ≥80 years</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0101150</td>
+<td align="left" valign="top">Maximum axillary temperature ≥38.5 ºC in the last 24 hours</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0062037</td>
+<td align="left" valign="top">Use of a mechanical ventilation device or registered oxygen saturation below 93% in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0035883</td>
+<td align="left" valign="top">Age group, 40-59 years</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0032147</td>
+<td align="left" valign="top">Maximum respiratory rate higher than 24 irpm in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0012283</td>
+<td align="left" valign="top">Days after the removal of a non-invasive mechanical ventilation device</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0011445</td>
+<td align="left" valign="top">Use of a non-invasive mechanical ventilation device in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0011158</td>
+<td align="left" valign="top">Length of stay in ICU beds (days)</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0006577</td>
+<td align="left" valign="top">Age group, 1 to ≥40 years</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0001957</td>
+<td align="left" valign="top">Length of stay in semi-ICU beds (days)</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0000010</td>
+<td align="left" valign="top">Days after the removal of invasive mechanical ventilation device</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0000000</td>
+<td align="left" valign="top">Heart rate above 125 bpm in the last 24 hours</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0000000</td>
+<td align="left" valign="top">Registered oxygen saturation below 93% in the last 24 hours</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0000000</td>
+<td align="left" valign="top">Prescription of vasoactive drugs in the last 24 hours</td>
+</tr>
+<tr>
+<td align="left" valign="top">0.0000000</td>
+<td align="left" valign="top">Hemodialysis patient</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">0.0000000</td>
+<td align="left" valign="top">Prescription of vasoactive drugs or heart rate above 125 bpm in the last 24 hours</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN2"><div>ICU: intensive care unit.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalTables" id="ModalTablet4" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">
+<span class="sci-ico-fileTable"></span><strong></strong><br>
+</h4>
+</div>
+<div class="modal-body"><div class="table table-hover"><table frame="hsides" rules="groups">
+<colgroup width="7%">
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead style="border-top: thin solid; border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#ACC9EA">
+<th align="left" valign="middle"></th>
+<th align="center" valign="middle" colspan="4" style="border-bottom: thin solid; border-color: #000000">Mean Error</th>
+<th align="center" valign="middle" colspan="4" style="border-bottom: thin solid; border-color: #000000">Mean absolute error</th>
+<th align="center" valign="middle" colspan="4" style="border-bottom: thin solid; border-color: #000000">Root mean squared error</th>
+</tr>
+<tr style="background-color:#ACC9EA">
+<th align="left" valign="middle">Forecast horizon (in days)</th>
+<th align="center" valign="middle">Model 1:<br> General ward prediction</th>
+<th align="center" valign="middle">Model 1:<br> Intensive care unit prediction</th>
+<th align="center" valign="middle">Model 1:<br> Overall prediction</th>
+<th align="center" valign="middle">Model 2:<br> Overall prediction</th>
+<th align="center" valign="middle">Model 1:<br> General ward prediction</th>
+<th align="center" valign="middle">Model 1:<br> Intensive care unit prediction</th>
+<th align="center" valign="middle">Model 1:<br> Overall prediction</th>
+<th align="center" valign="middle">Model 2:<br> Overall prediction</th>
+<th align="center" valign="middle">Model 1:<br> General ward prediction</th>
+<th align="center" valign="middle">Model 1:<br> Intensive care unit prediction</th>
+<th align="center" valign="middle">Model 1:<br> Overall prediction</th>
+<th align="center" valign="middle">Model 2:<br> Overall prediction</th>
+</tr>
+</thead>
+<tbody style="border-bottom: thin solid; border-color: #000000">
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">1</td>
+<td align="center" valign="top">0,719</td>
+<td align="center" valign="top">0,865</td>
+<td align="center" valign="top">1,584</td>
+<td align="center" valign="top">-0,343</td>
+<td align="center" valign="top">3,758</td>
+<td align="center" valign="top">2,792</td>
+<td align="center" valign="top">4,961</td>
+<td align="center" valign="top">3,808</td>
+<td align="center" valign="top">1,939</td>
+<td align="center" valign="top">1,671</td>
+<td align="center" valign="top">2,227</td>
+<td align="center" valign="top">1,951</td>
+</tr>
+<tr>
+<td align="left" valign="top">2</td>
+<td align="center" valign="top">2,078</td>
+<td align="center" valign="top">1,906</td>
+<td align="center" valign="top">3,984</td>
+<td align="center" valign="top">0,117</td>
+<td align="center" valign="top">5,605</td>
+<td align="center" valign="top">4,052</td>
+<td align="center" valign="top">7,288</td>
+<td align="center" valign="top">4,725</td>
+<td align="center" valign="top">2,368</td>
+<td align="center" valign="top">2,013</td>
+<td align="center" valign="top">2,700</td>
+<td align="center" valign="top">2,174</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">3</td>
+<td align="center" valign="top">2,384</td>
+<td align="center" valign="top">3,361</td>
+<td align="center" valign="top">5,745</td>
+<td align="center" valign="top">0,587</td>
+<td align="center" valign="top">7,642</td>
+<td align="center" valign="top">5,730</td>
+<td align="center" valign="top">9,387</td>
+<td align="center" valign="top">5,792</td>
+<td align="center" valign="top">2,764</td>
+<td align="center" valign="top">2,394</td>
+<td align="center" valign="top">3,064</td>
+<td align="center" valign="top">2,407</td>
+</tr>
+<tr>
+<td align="left" valign="top">4</td>
+<td align="center" valign="top">2,039</td>
+<td align="center" valign="top">4,992</td>
+<td align="center" valign="top">7,031</td>
+<td align="center" valign="top">0,979</td>
+<td align="center" valign="top">9,519</td>
+<td align="center" valign="top">7,356</td>
+<td align="center" valign="top">11,286</td>
+<td align="center" valign="top">6,694</td>
+<td align="center" valign="top">3,085</td>
+<td align="center" valign="top">2,712</td>
+<td align="center" valign="top">3,359</td>
+<td align="center" valign="top">2,587</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">5</td>
+<td align="center" valign="top">0,771</td>
+<td align="center" valign="top">6,878</td>
+<td align="center" valign="top">7,649</td>
+<td align="center" valign="top">1,397</td>
+<td align="center" valign="top">11,384</td>
+<td align="center" valign="top">9,226</td>
+<td align="center" valign="top">12,787</td>
+<td align="center" valign="top">7,236</td>
+<td align="center" valign="top">3,374</td>
+<td align="center" valign="top">3,037</td>
+<td align="center" valign="top">3,576</td>
+<td align="center" valign="top">2,690</td>
+</tr>
+<tr>
+<td align="left" valign="top">6</td>
+<td align="center" valign="top">-0,652</td>
+<td align="center" valign="top">8,564</td>
+<td align="center" valign="top">7,912</td>
+<td align="center" valign="top">1,777</td>
+<td align="center" valign="top">12,969</td>
+<td align="center" valign="top">10,927</td>
+<td align="center" valign="top">14,125</td>
+<td align="center" valign="top">8,026</td>
+<td align="center" valign="top">3,601</td>
+<td align="center" valign="top">3,306</td>
+<td align="center" valign="top">3,758</td>
+<td align="center" valign="top">2,833</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">7</td>
+<td align="center" valign="top">-1,426</td>
+<td align="center" valign="top">10,356</td>
+<td align="center" valign="top">8,930</td>
+<td align="center" valign="top">2,182</td>
+<td align="center" valign="top">14,787</td>
+<td align="center" valign="top">12,938</td>
+<td align="center" valign="top">15,901</td>
+<td align="center" valign="top">8,566</td>
+<td align="center" valign="top">3,845</td>
+<td align="center" valign="top">3,597</td>
+<td align="center" valign="top">3,988</td>
+<td align="center" valign="top">2,927</td>
+</tr>
+<tr>
+<td align="left" valign="top">8</td>
+<td align="center" valign="top">0,060</td>
+<td align="center" valign="top">9,639</td>
+<td align="center" valign="top">9,699</td>
+<td align="center" valign="top">2,566</td>
+<td align="center" valign="top">16,491</td>
+<td align="center" valign="top">13,125</td>
+<td align="center" valign="top">17,984</td>
+<td align="center" valign="top">9,673</td>
+<td align="center" valign="top">4,061</td>
+<td align="center" valign="top">3,623</td>
+<td align="center" valign="top">4,241</td>
+<td align="center" valign="top">3,110</td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">9</td>
+<td align="center" valign="top">1,060</td>
+<td align="center" valign="top">9,616</td>
+<td align="center" valign="top">10,675</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">18,587</td>
+<td align="center" valign="top">13,683</td>
+<td align="center" valign="top">20,130</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">4,311</td>
+<td align="center" valign="top">3,699</td>
+<td align="center" valign="top">4,487</td>
+<td align="center" valign="top"></td>
+</tr>
+<tr>
+<td align="left" valign="top">10</td>
+<td align="center" valign="top">2,088</td>
+<td align="center" valign="top">9,088</td>
+<td align="center" valign="top">11,177</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">20,265</td>
+<td align="center" valign="top">13,847</td>
+<td align="center" valign="top">21,951</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">4,502</td>
+<td align="center" valign="top">3,721</td>
+<td align="center" valign="top">4,685</td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">11</td>
+<td align="center" valign="top">3,083</td>
+<td align="center" valign="top">7,899</td>
+<td align="center" valign="top">10,982</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">21,758</td>
+<td align="center" valign="top">13,561</td>
+<td align="center" valign="top">23,771</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">4,665</td>
+<td align="center" valign="top">3,683</td>
+<td align="center" valign="top">4,876</td>
+<td align="center" valign="top"></td>
+</tr>
+<tr>
+<td align="left" valign="top">12</td>
+<td align="center" valign="top">3,969</td>
+<td align="center" valign="top">6,608</td>
+<td align="center" valign="top">10,577</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">23,117</td>
+<td align="center" valign="top">13,668</td>
+<td align="center" valign="top">25,496</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">4,808</td>
+<td align="center" valign="top">3,697</td>
+<td align="center" valign="top">5,049</td>
+<td align="center" valign="top"></td>
+</tr>
+<tr style="background-color:#E1ECF8">
+<td align="left" valign="top">13</td>
+<td align="center" valign="top">4,657</td>
+<td align="center" valign="top">5,273</td>
+<td align="center" valign="top">9,930</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">24,418</td>
+<td align="center" valign="top">13,891</td>
+<td align="center" valign="top">27,296</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">4,941</td>
+<td align="center" valign="top">3,727</td>
+<td align="center" valign="top">5,225</td>
+<td align="center" valign="top"></td>
+</tr>
+<tr>
+<td align="left" valign="top">14</td>
+<td align="center" valign="top">5,177</td>
+<td align="center" valign="top">4,062</td>
+<td align="center" valign="top">9,239</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">25,769</td>
+<td align="center" valign="top">14,109</td>
+<td align="center" valign="top">29,410</td>
+<td align="center" valign="top"></td>
+<td align="center" valign="top">5,076</td>
+<td align="center" valign="top">3,756</td>
+<td align="center" valign="top">5,423</td>
+<td align="center" valign="top"></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="modal-footer"><div class="ref-list"><ul class="refList footnote"><li id="TFN3"><div>The results are expressed as the mean error, mean absolute error, and root mean squared error calculated for the predictions.</div></li></ul></div></div>
+</div></div></div>
+<div class="modal fade ModalDefault" id="ModalArticles" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button><h4 class="modal-title">How to cite</h4>
+</div>
+<div class="modal-body">
+<p id="citation"></p>
+<input id="citationCut" type="text" value=""><a class="copyLink" data-clipboard-target="#citationCut"><span class="glyphBtn copyIcon"></span>copy</a>
+</div>
+</div></div></div>
+<script type="text/javascript">
+            function currentDate() {
+            var today = new Date();
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            today.setTime(today.getTime());
+            return today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
+            }
+            var citation = 'Gabaldi, Caio Querino et al. Is it possible to estimate the number of patients with COVID-19 admitted to intensive care units and general wards using clinical and telemedicine data?. einstein (São Paulo) [online]. 2024, v. 22 [Accessed CURRENTDATE], eAO0328. Available from: &lt;https://doi.org/10.31744/einstein_journal/2024AO0328&gt;. Epub 08 Mar 2024. ISSN 2317-6385. https://doi.org/10.31744/einstein_journal/2024AO0328.'.replace('CURRENTDATE', currentDate());
+            document.getElementById('citation').innerHTML = citation;
+            document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
+        </script>
+</div>
+<ul class="floatingMenu fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
+<a href="javascript:;" class="fm-button-main"><span class="sci-ico-floatingMenuDefault glyphFloatMenu"></span><span class="sci-ico-floatingMenuClose glyphFloatMenu"></span></a><ul class="fm-list">
+<li><a class="fm-button-child" data-fm-label="Figures | Tables" data-toggle="modal" data-target="#ModalTablesFigures"><span class="sci-ico-figures glyphFloatMenu"></span></a></li>
+<li><a class="fm-button-child" data-toggle="modal" data-target="#ModalArticles" data-fm-label="How to
+                                          cite"><span class="sci-ico-citation glyphFloatMenu"></span></a></li>
+</ul>
+</li></ul>
+<script src="/Users/roberta.takenaka/github.com/scieloorg/packtools/packtools/packtools/catalogs/htmlgenerator/static/scielo-article-standalone-min.js"></script>
+</body>
+</html>
