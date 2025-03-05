@@ -32,4 +32,45 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="*" mode="modal-footer">
+        <!-- overwrite v2.0 -->
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-foot" mode="modal-footer">
+        <!-- overwrite v2.0 -->
+        <xsl:choose>
+            <xsl:when test="fn">
+                <div class="ref-list">
+                    <ul class="refList footnote">
+                        <xsl:apply-templates select="*" mode="modal-footer"/>
+                    </ul>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- attrib -->
+                <xsl:apply-templates select="*|@*|text()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-foot/*" mode="modal-footer">
+        <!-- overwrite v2.0 -->
+        <li>
+            <xsl:apply-templates select="@*| *|text()" mode="modal-footer"/>
+        </li>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-foot//label" mode="modal-footer">
+        <!-- overwrite v2.0 -->
+        <sup class="xref big"><xsl:value-of select="."/></sup>
+    </xsl:template>
+
+    <xsl:template match="table-wrap-foot//p" mode="modal-footer">
+        <!-- overwrite v2.0 -->
+        <div>
+            <xsl:apply-templates select="*|text()"  mode="modal-footer"/>
+        </div>
+    </xsl:template>
+
 </xsl:stylesheet>
