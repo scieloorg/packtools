@@ -24,26 +24,26 @@ class TestAccessibilityData(unittest.TestCase):
         self.xml_node = etree.fromstring(xml_content)
         self.accessibility_data = AccessibilityData(self.xml_node)
 
-    def test_get_alt_text(self):
+    def test_alt_text(self):
         """Testa a extração do <alt-text>."""
-        self.assertEqual(self.accessibility_data.get_alt_text(), "Breve descrição do vídeo")
+        self.assertEqual(self.accessibility_data.alt_text, "Breve descrição do vídeo")
 
-    def test_get_long_desc(self):
+    def test_long_desc(self):
         """Testa a extração do <long-desc>."""
         expected_text = ("Descrição detalhada do vídeo contendo mais de 120 caracteres. Isso garante que "
                          "a extração esteja correta e seja útil para acessibilidade.")
-        self.assertEqual(self.accessibility_data.get_long_desc(), expected_text)
+        self.assertEqual(self.accessibility_data.long_desc, expected_text)
 
-    def test_get_transcript(self):
+    def test_transcript(self):
         """Testa a extração da transcrição <sec sec-type="transcript">."""
-        transcript = self.accessibility_data.get_transcript()
+        transcript = self.accessibility_data.transcript
         self.assertIsNotNone(transcript)
         self.assertIn("Gabriel", transcript)
         self.assertIn("Denise", transcript)
 
     def test_get_content_type(self):
         """Testa a obtenção do atributo @content-type."""
-        self.assertEqual(self.accessibility_data.get_content_type(), "machine-generated")
+        self.assertEqual(self.accessibility_data.content_type, "machine-generated")
 
     def test_get_speaker_data(self):
         """Testa a extração de diálogos com <speaker> e <speech>."""
@@ -51,11 +51,11 @@ class TestAccessibilityData(unittest.TestCase):
             {"speaker": "Gabriel", "speech": "Olá, este é um vídeo demonstrativo."},
             {"speaker": "Denise", "speech": "Sim, estamos explicando como funciona."}
         ]
-        self.assertEqual(self.accessibility_data.get_speaker_data(), expected_data)
+        self.assertEqual(self.accessibility_data.speaker_data, expected_data)
 
     def test_extract_data(self):
         """Testa a extração completa dos dados de acessibilidade."""
-        extracted = self.accessibility_data.extract_data()
+        extracted = self.accessibility_data.data
 
         self.assertEqual(extracted["alt_text"], "Breve descrição do vídeo")
         self.assertIn("Descrição detalhada do vídeo", extracted["long_desc"])
