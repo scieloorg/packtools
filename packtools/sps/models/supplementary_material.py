@@ -1,3 +1,5 @@
+from lxml import etree
+
 from packtools.sps.models.label_and_caption import LabelAndCaption
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.media import Media
@@ -6,11 +8,12 @@ class SupplementaryMaterial(LabelAndCaption):
     def __init__(self, node):
         super().__init__(node)
         self._parent_node = node.getparent()
-        self.media_node = node.find("media")
+        media_nodes = node.xpath("./media | ./graphic")
+        self.media_node = media_nodes[0] if media_nodes else None
         self.media = Media(self.media_node) if self.media_node is not None else None
 
     def __getattr__(self, name):
-        if hasattr(self.media, name):
+        if self.media is not None and hasattr(self.media, name):
             return getattr(self.media, name)
 
         if hasattr(super(), name):
@@ -36,11 +39,12 @@ class SupplementaryMaterial(LabelAndCaption):
     @property
     def data(self):
         base_data = super().data.copy()
-        base_data.update(self.media.data)
+        base_data.update(self.media.data if self.media else {})
         base_data.update({
             "parent_suppl_mat": self.parent_tag,
             "sec_type": self.sec_type,
         })
+
         return base_data
 
 
