@@ -24,7 +24,8 @@ class FundingGroupValidation:
         self.xml_tree = xml_tree
         self.params = {
             "special_chars_award_id": ["/", ".", "-"],
-            "error_level": "ERROR",
+            "award_id_error_level": "CRITICAL",
+            "funding_statement_error_level": "CRITICAL"
         }
         self.params.update(params or {})
         self.funding = FundingGroup(xml_tree, self.params)
