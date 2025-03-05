@@ -25,28 +25,28 @@ class DataAvailability:
 
     @property
     def items(self):
-        nodes = [
-            self.xmltree.find(".")
-        ]
-        for node in self.xmltree.xpath("./sub-article[@article-type='translation']"):
-            nodes.append(node)
+        xpath_query = './body//sec[@sec-type="data-availability"] | ./body//fn[@fn-type="data-availability"] | ./back//sec[@sec-type="data-availability"] | ./back//fn[@fn-type="data-availability"]'
 
-        for node in nodes:
+        for node in self.xmltree.xpath(". | ./sub-article[@article-type='translation']"):
             fulltext = Fulltext(node)
-            xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
-            data = {}
-            for item in self.xmltree.xpath(xpath_query):
-                data = {
-                    'tag': item.tag,
-                    'specific_use': item.get('specific-use'),
-                    'text': " ".join(item.xpath(".//text()"))
-                }
-            data.update(fulltext.attribs_parent_prefixed)
-            yield data
+            items = fulltext.node.xpath(xpath_query)
+            if len(items) == 0:
+                yield fulltext.attribs_parent_prefixed
+            else:
+                for item in items:
+                    data = {
+                        'tag': item.tag,
+                        'specific_use': item.get('specific-use'),
+                        'label': item.findtext("label"),
+                        'text': " ".join(item.xpath("./p//text()"))
+                    }
+                    data.update(fulltext.attribs_parent_prefixed)
+                    yield data
 
     @property
     def items_by_lang(self):
         d = {}
         for item in self.items:
-            d.setdefault(item["parent_lang"], item)
+            d.setdefault(item["parent_lang"], [])
+            d[item['parent_lang']].append(item)
         return d
