@@ -46,31 +46,31 @@ class MediaTest(unittest.TestCase):
 
     def test_alt_text(self):
         """Testa a extração do <alt-text>."""
-        self.assertEqual(self.accessibility.get_alt_text(), "Breve descrição do vídeo")
+        self.assertEqual(self.accessibility.alt_text, "Breve descrição do vídeo")
 
     def test_long_desc(self):
         """Testa a extração do <long-desc>."""
         expected_text = ("Descrição detalhada do vídeo contendo mais de 120 caracteres. Isso garante que "
                          "a extração esteja correta e seja útil para acessibilidade.")
-        self.assertEqual(self.accessibility.get_long_desc(), expected_text)
+        self.assertEqual(self.accessibility.long_desc, expected_text)
 
     def test_transcript(self):
         """Testa a extração da transcrição <sec sec-type='transcript'>."""
-        transcript = self.accessibility.get_transcript()
+        transcript = self.accessibility.transcript
         self.assertIsNotNone(transcript)
         self.assertIn("Gabriel", transcript)
         self.assertIn("Olá, este é um vídeo demonstrativo.", transcript)
 
     def test_content_type(self):
         """Testa a extração do atributo @content-type."""
-        self.assertEqual(self.accessibility.get_content_type(), "machine-generated")
+        self.assertEqual(self.accessibility.content_type, "machine-generated")
 
     def test_speaker_data(self):
         """Testa a extração de falantes e discursos dentro de <sec sec-type='transcript'>."""
         expected_data = [
             {"speaker": "Gabriel", "speech": "Olá, este é um vídeo demonstrativo."}
         ]
-        self.assertEqual(self.accessibility.get_speaker_data(), expected_data)
+        self.assertEqual(self.accessibility.speaker_data, expected_data)
 
     def test_data(self):
         """Testa a extração combinada de todos os dados de mídia e acessibilidade."""
