@@ -1,6 +1,8 @@
 from lxml import etree
 from langdetect import detect
-from packtools.sps.models.supplementary_material import ArticleSupplementaryMaterials
+from packtools.sps.models.supplementary_material import XmlSupplementaryMaterials
+from packtools.sps.models.media import XmlMedias
+from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.utils import build_response
 
 
@@ -16,22 +18,23 @@ class SupplementaryMaterialValidation:
         self.article_lang = supp.get("parent_lang")
         self.xml_tree = xml_tree
         self.params = params
+        self.media_data = XmlMedias(xml_tree).items
 
     def validate(self):
         """
         Executa todas as validações definidas.
         """
-        yield self.validate_supplementary_material_structure()
-        yield self.validate_supplementary_material_id()
-        yield self.validate_supplementary_material_language()
-        yield self.validate_supplementary_material_position()
-        yield self.validate_supplementary_material_format()
-        yield self.validate_supplementary_material_not_in_app_group()
-        yield self.validate_sec_type_supplementary_material()
-        yield self.validate_media_attributes()
-        yield self.validate_accessibility_requirements()
+        yield self.validate_structure()
+        yield self.validate_id()
+        yield self.validate_language()
+        yield self.validate_position()
+        yield self.validate_format()
+        yield self.validate_not_in_app_group()
+        yield self.validate_sec_type()
+        for media in self.media_data:
+            yield from MediaValidation(media, self.xml_tree, self.params).validate()
 
-    def validate_supplementary_material_structure(self):
+    def validate_structure(self):
         """
         Ensures that supplementary materials are inside <sec sec-type="supplementary-material">.
         """
@@ -50,7 +53,7 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_supplementary_material_id(self):
+    def validate_id(self):
         """
         Verifies the presence of required attribute id in supplementary materials.
         """
@@ -69,7 +72,7 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_supplementary_material_language(self):
+    def validate_language(self):
         """
         Verifies if the language of the supplementary material is consistent with the article's language.
         """
@@ -90,7 +93,7 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_supplementary_material_position(self):
+    def validate_position(self):
         """
         Verifies if the supplementary materials section is in the last position of <body> or inside <back>.
         """
@@ -126,7 +129,7 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_supplementary_material_format(self):
+    def validate_format(self):
         """
         Ensures that the supplementary material type matches the correct markup.
         """
@@ -138,6 +141,7 @@ class SupplementaryMaterialValidation:
             "application/zip": "media",
         }
         valid = expected_format.get(self.supp.get("mimetype")) == self.supp.get("media_type")
+        print(expected_format.get(self.supp.get("mimetype")), self.supp.get("media_type"))
         return build_response(
             title="Correct format of supplementary material",
             parent=self.supp,
@@ -152,11 +156,11 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_supplementary_material_not_in_app_group(self):
+    def validate_not_in_app_group(self):
         """
         Ensures that <supplementary-material> does not occur inside <app-group> and <app>.
         """
-        valid = self.supp.get("parent_tag") not in ["app-group", "app"]
+        valid = self.supp.get("parent_suppl_mat") not in ["app-group", "app"]
         return build_response(
             title="Prohibition of <supplementary-material> inside <app-group> and <app>",
             parent=self.supp,
@@ -171,13 +175,15 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_prohibited_inline_supplementary_material(self):
+    def validate_prohibited_inline(self):
         """
         Ensures that <inline-supplementary-material> is not used.
         """
 
-        obtained = etree.tostring(self.xml_tree.xpath(".//inline-supplementary-material")[0])
-        valid = not bool(obtained)
+        nodes = self.xml_tree.xpath(".//inline-supplementary-material")
+        obtained = etree.tostring(nodes[0]) if nodes else "None"
+        valid = not bool(nodes)
+
         return build_response(
             title="Prohibition of inline-supplementary-material",
             parent=self.supp,
@@ -192,7 +198,7 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_sec_type_supplementary_material(self):
+    def validate_sec_type(self):
         """Checks if all <sec> elements containing <supplementary-material> have @sec-type='supplementary-material'."""
         valid = self.supp.get("parent_tag") == "sec" and self.supp.get("parent_type") == "supplementary-material"
         return build_response(
@@ -209,51 +215,10 @@ class SupplementaryMaterialValidation:
             data=self.supp
         )
 
-    def validate_media_attributes(self):
-        """Checks if <media> contains the mandatory attributes @id, @mime-type, @mime-subtype, @xlink:href."""
-        media_node = self.supp.get("media_node")
-        valid = media_node and all([
-            media_node.get("id"),
-            media_node.get("mimetype"),
-            media_node.get("mime-subtype"),
-            media_node.get("{http://www.w3.org/1999/xlink}href")
-        ])
-        return build_response(
-            title="Mandatory attributes in <media>",
-            parent=self.supp,
-            item="media",
-            sub_item="attributes",
-            is_valid=valid,
-            validation_type="exist",
-            expected="id, mime-type, mime-subtype, xlink:href",
-            obtained=None if not valid else "Present",
-            advice="Each <media> must contain the attributes id, mime-type, mime-subtype, and xlink:href.",
-            error_level=self.params["supplementary_material_midia_attributes_error_level"],
-            data=self.supp
-        )
-
-    def validate_accessibility_requirements(self):
-        """Checks if images and media contain a description in <alt-text> or <long-desc>."""
-        media_node = self.supp.get("media_node")
-        valid = media_node is not None and (media_node.find("alt-text") is not None or media_node.find("long-desc") is not None)
-        return build_response(
-            title="Accessibility requirements",
-            parent=self.supp,
-            item="supplementary-material",
-            sub_item="accessibility",
-            is_valid=valid,
-            validation_type="exist",
-            expected="alt-text or long-desc",
-            obtained="Missing" if not valid else "Present",
-            advice="Images, figures, videos, and audio files must contain <alt-text> or <long-desc> for accessibility.",
-            error_level=self.params["supplementary_material_midia_accessibility_requirements_error_level"],
-            data=self.supp
-        )
-
 
 class ArticleSupplementaryMaterialValidation:
     def __init__(self, xml_tree, params):
-        self.article_supp = list(ArticleSupplementaryMaterials(xml_tree).data())
+        self.article_supp = list(XmlSupplementaryMaterials(xml_tree).items)
         self.xml_tree = xml_tree
         self.params = params
 
@@ -261,4 +226,4 @@ class ArticleSupplementaryMaterialValidation:
         for supp in self.article_supp:
             yield from SupplementaryMaterialValidation(supp, self.xml_tree, self.params).validate()
 
-        SupplementaryMaterialValidation({}, self.xml_tree, self.params).validate_prohibited_inline_supplementary_material()
+        SupplementaryMaterialValidation({}, self.xml_tree, self.params).validate_prohibited_inline()
