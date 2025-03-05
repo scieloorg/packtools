@@ -251,7 +251,7 @@ class DataAvailabilityValidationTest(unittest.TestCase):
         self.maxDiff = None
         xml = """
                 <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-                dtd-version="1.0" article-type="editorial" xml:lang="pt">
+                dtd-version="1.0" article-type="correction" xml:lang="pt">
                     <back>
                         <sec sec-type="data-availability" specific-use="data-available-upon-request">
                             <label>Data availability statement</label>

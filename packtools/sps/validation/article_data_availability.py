@@ -14,18 +14,37 @@ class DataAvailabilityValidation:
 
     def get_default_params(self):
         return {
-            "specific_use_list": ["data-available", "data-available-upon-request"],
-            "error_level": "ERROR",
+            "error_level": "CRITICAL",
+            "specific_use_list": [
+                "data-available",
+                "data-available-upon-request",
+                "data-not-available",
+                "uninformed",
+                "data-in-article",
+            ],
             "article-types": {
+                "data-article": "required",
+                "brief-report": "required",
+                "rapid-communication": "required",
                 "research-article": "required",
                 "review-article": "required",
-                "brief-report": "required",
-                "case-report": "optional",
                 "letter": "optional",
-                "editorial": "unexpected",
+                "article-commentary": "optional",
+                "clinical-instruction": "optional",
+                "oration": "optional",
+                "discussion": "optional",
+                "editorial": "optional",
+                "obituary": "optional",
+                "reviewer-report": "optional",
+                "case-report": "optional",
+                "book-review": "optional",
+                "product-review": "optional",
+                "reply": "optional",
+                "other": "optional",
+                "addendum": "unexpected",
                 "correction": "unexpected",
                 "retraction": "unexpected",
-                "other": "optional",
+                "partial-retraction": "unexpected",
             },
         }
 
