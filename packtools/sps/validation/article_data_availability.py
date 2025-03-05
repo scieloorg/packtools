@@ -18,8 +18,20 @@ class DataAvailabilityValidation:
                 "data-available",
                 "data-available-upon-request"
             ],
-            "error_level": "ERROR"
+            "error_level": "ERROR",
+            "article-types": {
+                "research-article": "required",
+                "review-article": "required",
+                "brief-report": "required",
+                "case-report": "optional",
+                "letter": "optional",
+                "editorial": "unexpected",
+                "correction": "unexpected",
+                "retraction": "unexpected",
+                "other": "optional"
+            }
         }
+
     def validate_data_availability(self):
         yield from self.validate_data_availability_exist()
         yield from self.validate_data_availability_mode()
@@ -96,47 +108,71 @@ class DataAvailabilityValidation:
                 )
 
     def validate_data_availability_exist(self):
+        """
+        Validate the existence of a data availability statement based on article type requirements.
+        
+        For each language in the document, checks if data availability statements exist
+        when required, or don't exist when unexpected.
+        """
         error_level = self.params.get("error_level", "ERROR")
         valid_values = str(self.specific_use_list)
         data_availability_demand = self.params.get("article-types")
-
-        for lang, found in self.data_availability.items_by_lang.items():
-
-            if found["parent_id"]:
-                xml = f'''<{found["parent"]} id="{found['parent_id']}">'''
+        
+        # Get items grouped by language
+        items_by_lang = self.data_availability.items_by_lang
+        
+        # For each language
+        for lang, items in items_by_lang.items():
+            # Choose representative item for this language
+            if not items:
+                continue
+                
+            # Get article type and parent info from first item
+            # (all items for the same language should have the same parent info)
+            article_type = items[0].get("original_article_type", "other")
+            demand = data_availability_demand.get(article_type, "required")
+            
+            # Check if we have any data availability tags in this language
+            has_data_availability = any(item.get("tag") for item in items)
+            
+            # Use the first item as representative for XML formatting and parent details
+            representative_item = items[0]
+            
+            if representative_item.get("parent_id"):
+                xml = f'''<{representative_item["parent"]} id="{representative_item['parent_id']}">'''
             else:
-                xml = f'''<{found["parent"]}>'''
-
-            article_type = found["original_article_type"]
-            demand = data_availability_demand.get(article_type)
+                xml = f'''<{representative_item["parent"]}>'''
+                
+            # Validate based on the demand level
             if demand in ("required", None):
-                valid = bool(found.get("tag"))
-                expected = found
-                advice = (
-                    f'''Mark in {xml} the data availability statement in footnote with <fn fn-type="data-availability" specific-use=""> or in text with <sec sec-type="data_availability" specific-use="">. And complete specific-use="" with valid value: {valid_values}'''
+                valid = has_data_availability
+                expected = representative_item if has_data_availability else None
+                advice = None if valid else (
+                    f'''Mark in {xml} the data availability statement in footnote with <fn fn-type="data-availability" specific-use=""> or in text with <sec sec-type="data-availability" specific-use="">. And complete specific-use="" with valid value: {valid_values}'''
                 )
             elif demand == "optional":
                 valid = True
-                expected = found
+                expected = representative_item
                 advice = None
             elif demand == "unexpected":
-                valid = not bool(found.get("tag"))
+                valid = not has_data_availability
                 expected = None
-                tag = found.get("tag")
-                advice = (
+                # Get the first tag with data availability if it exists
+                tag = next((item.get("tag") for item in items if item.get("tag")), None)
+                advice = None if valid else (
                     f'''Remove from {xml} the data availability statement (<{tag} {tag}-type="data-availability">) because it is unexpected for {article_type}'''
                 )
-
+            
             yield build_response(
                 title="data availability statement",
-                parent=found,
+                parent=representative_item,
                 item="fn | sec",
                 sub_item="@specific-use",
                 validation_type="exist",
                 is_valid=valid,
                 expected=expected,
-                obtained=found,
+                obtained=representative_item,
                 advice=advice,
-                data=found,
+                data=representative_item,
                 error_level=error_level,
             )
