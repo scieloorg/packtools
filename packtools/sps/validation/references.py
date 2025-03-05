@@ -96,12 +96,12 @@ class ReferenceValidation:
             advice = (
                 f"Mark the reference year ({year}) with <year> and it must be previous or equal to {end_year}"
             )
-            expected = f"reference year ({year}) <= {end_year}"
+            expected = f"reference year ({year}) previous or equal to {end_year}"
         else:
             advice = (
                 f"Mark the reference year with <year> and it must be previous or equal to {end_year}"
             )
-            expected = f"reference year <= {end_year}"
+            expected = f"reference year previous or equal to {end_year}"
         yield from self._validate_item(
             "reference year",
             "year",
@@ -157,44 +157,48 @@ class ReferenceValidation:
         yield from self._validate_item(
             "reference type",
             "publication_type", advice=advice,
+            valid=valid,
             error_level=error_level, expected=publication_type_list, validation_type="value in list"
         )
 
     def validate_comment_is_required_or_not(self):
-        comment = self.data.get("comment_text", {})
         text_before_extlink = self.data.get("text_before_extlink")
 
-        ext_link_text = comment.get("ext_link_text")
-        full_comment = comment.get("full_comment")
-        text_between = comment.get("text_between")
-        has_comment = comment.get("has_comment")
+        ext_link_uri = self.data.get("ext_link_uri")
+        ext_link_text = self.data.get("ext_link_text")
+        full_comment = self.data.get("full_comment")
+        text_between = self.data.get("text_between")
+        has_comment = self.data.get("has_comment")
+
+        ext_link_xml = f'<ext-link xlink:href="{ext_link_uri}">{ext_link_text}</ext-link>'
+        ext_link_tag_with_attrib = f'<ext-link xlink:href="{ext_link_uri}">'
 
         scenarios = [
             {
                 "condition": has_comment and not full_comment and text_before_extlink,
-                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
-                "obtained": f"<comment></comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
-                "advice": f"Wrap {text_before_extlink}<ext-link>{ext_link_text}</ext-link> with <comment> tag",
+                "expected": f"<comment>{text_before_extlink}{ext_link_xml}</comment>",
+                "obtained": f"<comment></comment>{text_before_extlink}{ext_link_xml}",
+                "advice": f"Wrap {text_before_extlink}{ext_link_xml} with <comment> tag",
             },
             {
                 "condition": has_comment
                 and not full_comment
                 and not text_before_extlink,
-                "expected": f"<ext-link>{ext_link_text}</ext-link>",
-                "obtained": f"<comment></comment><ext-link>{ext_link_text}</ext-link>",
-                "advice": "Analyze and decide to remove <comment> or mark the text between <comment> and <ext-link>",
+                "expected": ext_link_xml,
+                "obtained": f"<comment></comment>{ext_link_xml}",
+                "advice": f"Analyze and decide to remove <comment> or mark the text between <comment> and {ext_link_tag_with_attrib}",
             },
             {
                 "condition": not has_comment and text_before_extlink,
-                "expected": f"<comment>{text_before_extlink}<ext-link>{ext_link_text}</ext-link></comment>",
-                "obtained": f"{text_before_extlink}<ext-link>{ext_link_text}</ext-link>",
-                "advice": f"Wrap the {text_before_extlink}<ext-link>{ext_link_text}</ext-link> with <comment> tag",
+                "expected": f"<comment>{text_before_extlink}{ext_link_xml}</comment>",
+                "obtained": f"{text_before_extlink}{ext_link_xml}",
+                "advice": f"Wrap the {text_before_extlink}{ext_link_xml} with <comment> tag",
             },
             {
                 "condition": full_comment and not text_between,
-                "expected": f"<ext-link>{ext_link_text}</ext-link>",
-                "obtained": f"<comment><ext-link>{ext_link_text}</ext-link></comment>",
-                "advice": "Analyze and decide to remove <comment> or mark the text between <comment> and <ext-link>",
+                "expected": ext_link_xml,
+                "obtained": f"<comment>{ext_link_xml}</comment>",
+                "advice": f"Analyze and decide to remove <comment> or mark the text between <comment> and {ext_link_tag_with_attrib}",
             },
         ]
 
