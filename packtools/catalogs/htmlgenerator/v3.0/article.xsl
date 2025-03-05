@@ -61,6 +61,8 @@
     <xsl:include href="html-modals-how2cite.xsl"/>
     <xsl:include href="html-head.xsl"/>
 
+    <xsl:include href="bottom-floating-menu.xsl"/>
+
     <xsl:variable name="ref" select="//ref"/>
     <xsl:variable name="fn" select="//*[name()!='table-wrap-foot']//fn"/>
 
@@ -123,49 +125,7 @@
         </div>
     </xsl:template>
     <xsl:template match="/" mode="graphic-elements-title">
-        <xsl:if test="$graphic_elements_title!=''">
-        <div class="scielo__floatingMenuCtt">
-            <ul class="scielo__floatingMenu fm-slidein" data-fm-toogle="hover">
-                <li class="fm-wrap">
-                    <a href="javascript:;" class="fm-button-main">
-                        <span class="material-icons-outlined material-icons-outlined-menu-default">more_horiz</span>
-                        <span class="material-icons-outlined material-icons-outlined-menu-close">close</span>
-                    </a>
-                    <ul class="fm-list d-none d-sm-block">
-                        <li>
-                            <a class="fm-button-child" 
-                                data-bs-toggle="modal" 
-                                title="" 
-                                data-mobile-tooltip="{$graphic_elements_title}" 
-                                data-bs-target="#ModalTablesFigures" data-bs-original-title="{$graphic_elements_title}">
-                                <span class="material-icons-outlined"> image </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="fm-button-child"
-                                title="">
-                                <xsl:attribute name="data-mobile-tooltip">
-                                    <xsl:apply-templates select="." mode="text-labels">
-                                        <xsl:with-param name="text">How to
-                                          cite</xsl:with-param>
-                                    </xsl:apply-templates>
-                                </xsl:attribute>
-                                <xsl:attribute name="data-bs-toggle">modal</xsl:attribute>
-                                <xsl:attribute name="data-bs-target">#ModalArticles</xsl:attribute>
-                                <xsl:attribute name="data-bs-original-title">
-                                    <xsl:apply-templates select="." mode="text-labels">
-                                        <xsl:with-param name="text">How to
-                                          cite</xsl:with-param>
-                                    </xsl:apply-templates>
-                                </xsl:attribute>
-                                <span class="material-icons-outlined"> link </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        </xsl:if>
+        <xsl:apply-templates select="." mode="bottom-floating-menu"/>
     </xsl:template>
 
     <xsl:template match="/" mode="css">
