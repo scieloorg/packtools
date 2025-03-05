@@ -1,0 +1,1906 @@
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "https://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">rbee</journal-id>
+      <journal-title-group>
+        <journal-title>Revista Brasileira de Educação Especial</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Rev. bras. educ. espec.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1413-6538</issn>
+      <issn pub-type="epub">1980-5470</issn>
+      <publisher>
+        <publisher-name>Associação Brasileira de Pesquisadores em Educação Especial - ABPEE</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">m83TGFWyPS6PFqxTBTCQD4J</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1413-65382024000101004</article-id>
+      <article-id pub-id-type="doi">10.1590/1980-54702024v30e143p</article-id>
+      <article-id pub-id-type="other">01004</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Dossiê / Relato de Pesquisa</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Cartografias da Educação Inclusiva na Educação Especial: Produção Científica, Políticas e Práticas</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5906-0487</contrib-id>
+          <name>
+            <surname>PLETSCH</surname>
+            <given-names>Márcia Denise</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">3</xref>
+          <bio>
+            <p>Doutora em Educação. Cientista da Fundação Carlos Chagas Filho de Amparo à Pesquisa do Estado do Rio de Janeiro (Faperj). Pesquisadora do CNPq - nível 1D. Coordenadora do Curso de Especialização em Educação Especial e Inovação Tecnológica (UFRRJ/CECIERJ). Coordenadora geral do Observatório de Educação Especial e Inclusão Educacional (ObEE) e do Centro de Inovação Tecnológica e Educação Inclusiva (CITEI).</p>
+          </bio>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-8848-7436</contrib-id>
+          <name>
+            <surname>MENDES</surname>
+            <given-names>Geovana Mendonça Lunardi</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">4</xref>
+          <bio>
+            <p>Professora Titular. Pesquisadora do CNPq - nível 1D. Vice-presidente da World Education Research Association. Membro do Conselho Técnico Científico da Educação Básica da Capes. Membro do Fórum Nacional de Educação. Conselheira da Área das Ciências Humanas na Sociedade Brasileira para o Progresso da Ciência (SBPC).</p>
+          </bio>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>3</label>
+        <institution content-type="orgname">Universidade Federal Rural do Rio de Janeiro</institution>
+        <institution content-type="orgdiv1">Departamento Educação e Sociedade</institution>
+        <institution content-type="orgdiv2">Programa de Pós-Graduação em Educação, Contextos Contemporâneos e Demandas Populares</institution>
+        <addr-line>
+          <city>Rio de Janeiro</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>marciadenisepletsch@gmail.com</email>
+        <institution content-type="original">Professora Associada do Departamento Educação e Sociedade e do Programa de Pós-Graduação em Educação, Contextos Contemporâneos e Demandas Populares (PPGEduc). Universidade Federal Rural do Rio de Janeiro (UFRRJ). Rio de Janeiro/Brasil. E-mail: marciadenisepletsch@gmail.com</institution>
+      </aff>
+      <aff id="aff2">
+        <label>4</label>
+        <institution content-type="orgname">Universidade do Estado de Santa Catarina</institution>
+        <institution content-type="orgdiv1">Centro de Ciências Humanas e da Educação</institution>
+        <institution content-type="orgdiv2">Departamento de Pedagogia</institution>
+        <addr-line>
+          <city>Florianópolis</city>
+          <state>Santa Catarina</state>
+        </addr-line>
+        <country country="BR">Brasil</country>
+        <email>geovana.mendes@udesc.br</email>
+        <institution content-type="original">Departamento de Pedagogia. Centro de Ciências Humanas e da Educação (FAED) e do Programa de Pós-Graduação em Educação da Universidade do Estado de Santa Catarina (Udesc). Florianópolis/Santa Catarina/Brasil. E-mail: geovana.mendes@udesc.br</institution>
+      </aff>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>07</day>
+        <month>10</month>
+        <year>2024</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2024</year>
+      </pub-date>
+      <volume>30</volume>
+      <elocation-id>e143p</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>13</day>
+          <month>06</month>
+          <year>2024</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>20</day>
+          <month>07</month>
+          <year>2024</year>
+        </date>
+        <date date-type="accepted">
+          <day>30</day>
+          <month>07</month>
+          <year>2024</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="pt">
+          <license-p>Este é um artigo publicado em acesso aberto (Open Access) sob a licença Creative Commons Attribution, que permite uso, distribuição e reprodução em qualquer meio, sem restrições desde que o trabalho original seja corretamente citado.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>RESUMO</title>
+        <p>Neste artigo, apresentamos um retrato sobre as políticas de Educação Inclusiva na Educação Especial. Analisamos a produção científica, políticas educacionais e a realidade educacional atual, considerando os 16 anos da Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva. Em termos metodológicos, analisamos documentos federais e o Censo Escolar produzidos pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep), assim como a produção científica da Revista Brasileira de Educação Especial (RBEE). Os achados foram cotejados com dados qualitativos produzidos em redes de ensino que integram o Fórum Permanente de Educação Especial na Perspectiva da Educação Inclusiva da Baixada e Sul Fluminense, Rio de Janeiro. Os resultados indicam um conjunto de desafios na garantia da Educação Inclusiva no âmbito da Educação Especial: percalços no oferecimento dos apoios educacionais, fragilidades de políticas/programas intersetoriais, iniquidade educacional e problemas teóricos e práticos da concepção de Educação Inclusiva na Educação Especial.</p>
+      </abstract>
+      <kwd-group xml:lang="pt">
+        <title>PALAVRAS-CHAVE:</title>
+        <kwd>Políticas de Educação Inclusiva</kwd>
+        <kwd>Deficiência</kwd>
+        <kwd>Educação Especial</kwd>
+        <kwd>Iniquidade</kwd>
+        <kwd>Produção científica</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>CNPq</funding-source>
+          <award-id>307492/2018-4</award-id>
+          <award-id>421993/2018-9</award-id>
+          <award-id>315530/2023-5</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>FAPERJ</funding-source>
+          <award-id>E-26/202.734/2018</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>Grupos Emergentes</funding-source>
+          <award-id>E-26/010.002186/2019</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>Cientista do Estado</funding-source>
+          <award-id>SEI-260003/003636/2022</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>CAPES</funding-source>
+          <award-id>N. 06/2023</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>CAPES</funding-source>
+          <award-id>2023tr000952</award-id>
+        </award-group>
+        <funding-statement>Financiamento: Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), Processos 307492/2018-4, 421993/2018-9,315530/2023-5, Fundação de Amparo à Pesquisa do Estado do Rio de Janeiro (Faperj) - Edital Jovem Cientista do Nosso Estado (Processo E-26/202.734/2018), Edital Grupos Emergentes (Processo E-26/010.002186/2019) e Edital Cientista do Estado (Processo SEI-260003/003636/2022). Fundação de Amparo à Pesquisa do Estado de Santa Catarina (Fapesc) - Edital de Chamada Pública Fapesc/Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) N. 06/2023 - Programa de Apoio ao Desenvolvimento da Pós-Graduação (PDPG) - Parcerias Estratégicas nos Estados III - Edital Capes N. 38/2022, Termo de Outorga N. 2023tr000952.</funding-statement>
+      </funding-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>1 Introdução</title>
+      <p>Passaram-se 16 anos desde a apresentação, no âmbito do Plano de Desenvolvimento da Educação (PDE), da Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (PNEEPEI) em janeiro de 2008, que, entre outras medidas, propôs “arranjos educativos específicos nos quais se promove o desenvolvimento humano de todos e de cada um” (<xref ref-type="bibr" rid="B36">Ministério da Educação, 2007</xref>, p. 37). O PDE previa diversas ações para intensificar a inclusão educacional e social de pessoas com deficiências, dentre as quais destacamos: o Programa Escola Acessível; a ampliação do número de contratação de profissionais de suporte educacional; aquisição de ônibus escolares acessíveis; a ampliação do Benefício de Prestação Continuada (BPC) na escola; a formação continuada de professores e gestores prioritariamente por meio da educação a distância (<xref ref-type="bibr" rid="B43">Pletsch, 2014</xref>).</p>
+      <p>Importante mencionar que a PNEEPEI de 2008 nunca foi regulamentada. Foi elaborada por um grupo de trabalho nomeado por meio da Portaria nº 555, de 5 de junho de 2007, entregue ao Ministro da Educação em 7 de janeiro de 2008. Apesar disso, o documento por meio de um movimento instituinte tem sido usado no território nacional como referência para a elaboração das políticas de inclusão educacional. Nele, o termo “educação inclusiva” é apresentado como “uma ação política, cultural, social e pedagógica, desencadeada em defesa do direito de todos os alunos de estarem juntos, aprendendo e participando, sem nenhum tipo de discriminação” (<xref ref-type="bibr" rid="B37">Ministério da Educação, 2008</xref>), entendendo-a no campo dos direitos humanos que compreende a deficiência na perspectiva social e “conjuga igualdade e diferença como valores indissociáveis, e que avança em relação à ideia de equidade formal ao contextualizar as circunstâncias históricas da produção da exclusão dentro e fora da escola” (<xref ref-type="bibr" rid="B37">Ministério da Educação, 2008</xref>, p. 1). A partir dessa perspectiva, compreendemos que a política de Educação Inclusiva deve garantir aos sujeitos do público da Educação Especial o acesso à educação, a participação nas atividades educativas e a aprendizagem. O que implica, em nosso entendimento, conforme já sinalizamos em outras publicações, a combinação de três elementos: 1) o reconhecimento da diferença como constitutiva do humano; b) as especificidades no desenvolvimento dos sujeitos; e 3) a convivência com a diversidade cultural em uma escola/universidade com todos e para todos (<xref ref-type="bibr" rid="B44">Pletsch, 2020</xref>; <xref ref-type="bibr" rid="B50">Pletsch &amp; Souza, 2021</xref>).</p>
+      <p>Outro aspecto central na PNEEPEI de 2008 é a transversalidade dada à Educação Especial que deve perpassar todos os níveis e etapas de educação, desde a Educação Infantil até o Ensino Superior, assumindo o caráter de modalidade e não mais como um serviço segregado de ensino para as pessoas com deficiência em escolas ou classes especiais como ocorria historicamente. Aqui, gostaríamos de fazer uma breve discussão, mas não menos importante, sobre a Educação Especial e a certa “crise de identidade” que se faz presente constantemente nas discussões políticas e científicas, inclusive de pesquisadores da área, sobre o que seria e qual a função da Educação Especial na contemporaneidade.</p>
+      <p>Nossa interpretação segue em duas direções. Uma é de que a Educação Especial, em concordância com a Política de 2008, é uma modalidade de ensino que perpassa todas as etapas e níveis educacionais. Contudo, além disso, temos defendido, em consonância com a literatura internacional, que ela precisa cada vez mais se estruturar como um sistema de suportes educacionais para a garantia da inclusão do público da Educação Especial e não mais como um serviço substitutivo ou segregado (<xref ref-type="bibr" rid="B44">Pletsch, 2020</xref>). A outra é a de que a Educação Especial é uma área de produção de conhecimento científico listada nos tópicos específicos da educação que integra a área da Educação, a qual, por sua vez, faz parte da grande área de Ciências Humanas (<xref ref-type="bibr" rid="B16">Conselho Nacional de Desenvolvimento Científico e Tecnológico [CNPq], 2024</xref>). Desse modo, assim como a Educação, a Educação Especial é interdisciplinar, ao propor um diálogo com diferentes campos de produção do conhecimento como Sociologia, Psicologia, História e outras.</p>
+      <p>Em outras palavras, reduzir o entendimento da Educação Especial como sinônimo de classe ou escola Especial, como comumente ainda ocorre no Brasil e em outros países da América Latina, ou somente como uma modalidade transversal ao ensino, não apenas limita e restringe o entendimento sobre a importância da Educação Especial como um sistema de suporte à educação das pessoas com deficiências, como também nega o aporte científico que a área historicamente vem oferecendo para o avanço nesse campo<sup><xref ref-type="fn" rid="fn2">5</xref></sup>.</p>
+      <p>Tomando essa perspectiva como pano de fundo, neste artigo, nosso objetivo é apresentar uma cartografia da produção científica, políticas e práticas de Educação Inclusiva, considerando os avanços, os desafios e as perspectivas após 16 anos da PNEEPEI de 2008. Para tal, percorremos dados da produção científica, do Censo Escolar e do campo da produção e tradução das políticas, com o intuito de apresentar sistematizações constituídas pelas autoras ao longo do percurso de investigação sobre essa temática.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>2 Aspectos metodológicos e éticos</title>
+      <p>Em termos metodológicos, analisamos documentos federais e estatísticas do Censo Escolar e da Educação Superior produzidos pelo Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep). Esses dados foram cotejados com resultados de estudos qualitativos realizados em redes de ensino que integram o Fórum Permanente de Educação Especial na Perspectiva da Educação Inclusiva da Baixada e Sul Fluminense, Rio de Janeiro (RJ)<sup><xref ref-type="fn" rid="fn3">6</xref></sup>. Apresentamos, também, os dados decorrentes da pesquisa realizada sobre a produção científica publicada na Revista Brasileira de Educação Especial (RBEE), no período de 2008 a 2023. Tais dados são decorrentes de dois projetos de pesquisa que têm como objetivo identificar como a produção científica na Educação Especial tem se apropriado da concepção de Educação Inclusiva.</p>
+      <p>Os documentos selecionados para a análise foram produzidos no período de 2008 a 2024, a saber: 1) PNEEPEI de 2008 (<xref ref-type="bibr" rid="B37">Ministério da Educação, 2008</xref>); 2) <xref ref-type="bibr" rid="B51">Resolução nº 4, de 2 de outubro de 2009</xref>, que instituiu as Diretrizes Operacionais para o Atendimento Educacional Especializado na Educação Básica, modalidade Educação Especial; 3) <xref ref-type="bibr" rid="B39">Nota Técnica nº 4, de 23 de janeiro de 2014</xref>, que traz orientações quanto a documentos comprobatórios de alunos da Educação Especial no Censo Escolar; 4) <xref ref-type="bibr" rid="B28">Lei Brasileira de Inclusão (LBI) - Lei n° 13.146, de 6 de julho de 2015</xref>; 5) Resumo técnico do Censo da Educação Superior de 2022 (<xref ref-type="bibr" rid="B24">Inep, 2024a</xref>); 6) Censo Escolar de 2023: resumo técnico (<xref ref-type="bibr" rid="B25">Inep, 2024b</xref>); 7) Atendimento Educacional Especializado (AEE) nas regiões Sul e Centro-Oeste, Sudeste, Norte e Nordeste do Brasil de 2021 (documento técnico) (<xref ref-type="bibr" rid="B19">D’Avila, 2022</xref>).</p>
+      <p>As análises apresentadas na sequência foram cotejadas com os referenciais teóricos com os quais as autoras têm dialogado em suas pesquisas e assumem um caráter cartográfico no sentido de apresentar um panorama, ainda que incorporando diferentes perspectivas e dados empíricos para alcançar uma compreensão alargada sobre os desafios e as perspectivas atuais da Educação Especial, considerando a produção científica na área e de políticas educacionais.</p>
+    </sec>
+    <sec>
+      <title>3 A educação como direito: perspectivas e desafios da educação especial na perspectiva da educação inclusiva</title>
+      <p>Conforme já sinalizado anteriormente, a PNEEPEI de 2008 tem sido usada para orientar os sistemas de ensino a transformarem-se em sistemas educacionais inclusivos, já em sintonia com os princípios dos Direitos Humanos da Convenção sobre os Direitos das Pessoas com Deficiência (CDPD). No Brasil, a CDPD e seu Protocolo Facultativo foram promulgados por meio do <xref ref-type="bibr" rid="B20">Decreto nº 6.949, de 25 agosto de 2009</xref>, passando a ter status de <xref ref-type="bibr" rid="B17">Emenda Constitucional por força do §3º do art. 5º da Constituição Federal de 1988</xref>. Foi em consonância com a CDPD que, em 2015, o governo brasileiro instituiu a LBI - ou Estatuto da Pessoa com Deficiência, como também é conhecida (<xref ref-type="bibr" rid="B28">Lei n° 13.146/2015</xref>).</p>
+      <p>Na LBI, são conceituados a acessibilidade, o desenho universal e a Tecnologia Assistiva, aspectos que consideramos importantes para a efetivação da inclusão educacional. Por exemplo, a acessibilidade e as suas diferentes dimensões (arquitetônica, comunicacional, instrumental, metodológica, curricular, atitudinal e digital) têm tido destaque, assim como a compreensão da deficiência a partir de sua funcionalidade humana, tendo como base o modelo biopsicossocial. A avaliação da deficiência nessa perspectiva considera: os impedimentos nas funções e nas estruturas do corpo; os fatores socioambientais, psicológicos e pessoais; a limitação no desempenho de atividades e a restrição de participação (<xref ref-type="bibr" rid="B28">Lei n° 13.146/2015</xref>). Essa mudança significou um considerável avanço conceitual, pois tirou o foco dos impedimentos do sujeito e centrou o debate no papel social e nas possibilidades dessas pessoas em detrimento da sua relação com as barreiras sociais ou educacionais às quais são expostas.</p>
+      <p>Os avanços no acesso à educação para o público da Educação Especial também podem ser identificados no Censo Escolar de 2023. A <xref ref-type="table" rid="t1">Tabela 1</xref> apresenta uma síntese desse público.</p>
+      <table-wrap id="t1">
+        <label>Tabela 1</label>
+        <caption>
+          <title>Matrículas do público da Educação Especial na Educação Básica</title>
+        </caption>
+        <table>
+          <thead>
+            <tr>
+              <th align="left" style="background-color:#8DB3E2;">Público</th>
+              <th align="center" style="background-color:#8DB3E2; ">Matrículas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">Deficiência Intelectual </td>
+              <td align="center">952.904 </td>
+            </tr>
+            <tr>
+              <td align="left">Transtorno do Espectro do Autismo (TEA)<sup><xref ref-type="fn" rid="fn4">7</xref></sup> </td>
+              <td align="center">636.202 </td>
+            </tr>
+            <tr>
+              <td align="left">Deficiência Física </td>
+              <td align="center">163.790</td>
+            </tr>
+            <tr>
+              <td align="left">Baixa Visão </td>
+              <td align="center">86.867</td>
+            </tr>
+            <tr>
+              <td align="left">Cegueira </td>
+              <td align="center">7.321</td>
+            </tr>
+            <tr>
+              <td align="left">Surdocegueira</td>
+              <td align="center">693</td>
+            </tr>
+            <tr>
+              <td align="left">Deficiência Auditiva </td>
+              <td align="center">41.491</td>
+            </tr>
+            <tr>
+              <td align="left">Surdez</td>
+              <td align="center">20.008</td>
+            </tr>
+            <tr>
+              <td align="left">Deficiência Múltipla</td>
+              <td align="center">88.885</td>
+            </tr>
+            <tr>
+              <td align="left">Altas Habilidades ou Superdotação </td>
+              <td align="center">38.019</td>
+            </tr>
+            <tr>
+              <td align="left">
+                <bold>Total</bold>
+              </td>
+              <td align="center">
+                <bold>1.771.430</bold>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table-wrap-foot>
+          <attrib><italic>Nota</italic>. Elaborado com base no Censo Escolar de 2023 (Inep, 2024).</attrib>
+        </table-wrap-foot>
+      </table-wrap>
+      <p>De acordo com o Censo Escolar de 2023 (Inep, 2024), o número de matrículas de pessoas com deficiência na Educação Básica aumentou em todas as etapas, da Educação Infantil ao Ensino Médio. Em cinco anos, houve um aumento de 41,6%, passando de 1,25 milhão, em 2019, para 1.771.430 matrículas, em 2023. Desse total, 95% das matrículas da população de 4 a 17 anos está em classes comuns do ensino regular, aproximando-nos da Meta 4 do Plano Nacional de Educação (PNE) de 2014, e somente 5% em classes especiais ou escolas segregadas. Não custa lembrar que, até o início dos anos 2000, 59% das pessoas com deficiências estavam matriculadas em escolas especiais, a maioria filantrópicas segregadas financiadas pelo estado (<xref ref-type="bibr" rid="B23">Inep, 2001</xref>).</p>
+      <p>Ainda sobre o Censo Escolar de 2023, chama atenção também a prevalência histórica das matrículas de alunos com deficiência intelectual com 952.904 (53%), seguida pelos alunos com TEA, com 636.202 (35,9%), totalizando 1.589.106 matrículas, o que equivale a 88,9% do total. Outro dado importante diz respeito à concentração das matrículas do público da Educação Especial no Ensino Fundamental com 1.114.230 matrículas, o que equivale a 62,90% do total. Os dados indicam, ainda, que, de 95% das matrículas em turmas comuns do ensino regular, somente 42% recebem suporte educacional em salas de recursos do AEE no contraturno (suplementar para alunos com altas habilidades ou superdotação e complementar para os demais) (Inep, 2024).</p>
+      <p>De acordo com a <xref ref-type="bibr" rid="B51">Resolução nº 4/2009</xref>, o AEE para a Educação Básica envolve um conjunto de atividades, recursos de acessibilidade e pedagógicos organizados institucionalmente a serem oferecidos em salas de recursos multifuncionais ou em Centros Especializados conveniados. Também chama atenção a taxa de reprovação e evasão, que, no caso dos alunos da Educação Especial, é superior à média geral. A taxa de repetência é de 2,8% no Ensino Fundamental e de 3,7% no Ensino Médio para alunos da Educação Especial, comparado a 2,3% e 3,9%, respectivamente, na média geral. Já a taxa de evasão é de 4,9% no Ensino Fundamental e 6,2% no Ensino Médio para o público da Educação Especial, enquanto a média geral foi de 3% e 5,9%, respectivamente.</p>
+      <p>A iniquidade educacional e social entre pessoas com e sem deficiência também foi evidenciada nos dados do Instituto Brasileiro de Geografia e Estatística (IBGE) (<xref ref-type="bibr" rid="B22">Gomes, 2023</xref>), que apontam que a estimativa é que, dos 18,6 milhões de pessoas com deficiência no Brasil, cerca de 19,5% estão na faixa do analfabetismo, contra 4,1% da população sem deficiência. Também indicam que 63,3% das pessoas com deficiência acima de 25 anos de idade não têm instrução ou apresentam o Ensino Fundamental incompleto. Já os que possuem Ensino Médio completo representam 25,6%, enquanto 57,3% das pessoas sem deficiência tinham esse nível de instrução.</p>
+      <p>A iniquidade de participação das pessoas com deficiência ocorre também em outros âmbitos da vida social, como, por exemplo, 55,0% das pessoas com deficiência trabalham na informalidade, enquanto esse dado cai para 38,7% para pessoas sem deficiência. A desigualdade ocorre também nos rendimentos salariais: a média real habitualmente recebida pelas pessoas ocupadas com deficiência em 2022, segundo dados do IBGE (<xref ref-type="bibr" rid="B22">Gomes, 2023</xref>), foi de R$ 1.860, enquanto o rendimento das pessoas ocupadas sem deficiência era de R$ 2.690.</p>
+      <p>Em relação ao acesso à Educação Superior, esses indicadores são ainda mais assustadores, pois, em que pesem os avanços com a <xref ref-type="bibr" rid="B29">Lei nº 13.409, de 28 de dezembro de 2016</xref>, que alterou a <xref ref-type="bibr" rid="B27">Lei n° 12.711, de 29 de agosto de 2012</xref>, para dispor sobre a reserva de vagas para pessoas com deficiência nos cursos técnicos de nível médio e superior das instituições federais de ensino, a conhecida “lei de cotas”, menos de 1% do total de matrículas é de estudantes do público da Educação Especial (<xref ref-type="bibr" rid="B24">Inep, 2024a</xref>).</p>
+      <p><xref ref-type="bibr" rid="B42">Paiva (2024)</xref>, com base em dados oficiais do IBGE, mostrou que a iniquidade se amplia ainda mais quando se leva em consideração marcadores como raça e gênero. Isso sugere, segundo a autora, que a deficiência é um fator que contribui muito para a exclusão dessa parcela da população dos direitos sociais no Brasil. A desigualdade entre pessoas com e sem deficiência também ficou evidenciada em estudo recente realizado em Chicago, nos Estados Unidos, por <xref ref-type="bibr" rid="B57">Waitoller e Lubienski (2024)</xref>. Os autores constataram que a deficiência associada a marcadores sociais como classe, raça e localização geográfica de seus familiares acaba restringindo as oportunidades dessas famílias em escolher uma escola para os seus filhos se comparado com crianças sem deficiência. A iniquidade entre oportunidades vivenciadas por alunos com e sem deficiência também foi relatada nas investigações de <xref ref-type="bibr" rid="B4">Artiles e Kozleski (2019)</xref>, que mostraram que a criança com deficiência na intersecção com grupos raciais e linguísticos minoritários, como os imigrantes, tem desempenho significativamente inferior em avaliações acadêmicas padronizadas, maior abandono e evasão escolar.</p>
+      <p>Conforme podemos evidenciar, os dados estatísticos mostram os avanços na garantia de acesso à educação, assim como as iniquidades enfrentadas pelas populações com deficiência e TEA, principalmente. Todavia, em que pesem tais avanços, nossas pesquisas têm mostrado, também, os enormes desafios a serem enfrentados para garantir o direito à aprendizagem e plena participação nas atividades educacionais dessa parcela da população. Esses desafios, em grande medida, não diferem daqueles colocados para a educação pública da maioria da população.</p>
+      <p>Apesar dos avanços legais e o acesso à educação, inúmeras investigações têm mostrado os desafios enfrentados pelas redes de ensino da Educação Básica para garantir a participação e a aprendizagem com desenvolvimento dessas pessoas. Dentre os desafios, citamos alguns: precariedade nas propostas político-pedagógicas de acessibilidade curricular; acesso a materiais didáticos acessíveis; número elevado de alunos por turma; falta de formação inicial e continuada para professores regentes e do AEE; garantia de suportes educacionais condizentes com as demandas dos diferentes alunos com deficiência; dificuldades em desenvolver avaliações diferenciadas e acessíveis; insuficiência no oferecimento do AEE; problemas de transporte acessível (<xref ref-type="bibr" rid="B40">Observatório de Educação Especial e Inclusão Educacional [ObEE], 2024</xref>).</p>
+      <p>Outro dado comumente destacado nas nossas pesquisas é a falta de conhecimentos dos professores sobre como operar o manejo de sala de aula considerando a diferença dos alunos. Importa dizer que pensar a inclusão exige reconhecer as especificidades em apropriar-se da cultura a partir de diferentes instrumentos sociais e psicológicos, como tão bem ilustra a teoria histórico-cultural de <xref ref-type="bibr" rid="B56">Vigotski (2021)</xref>. Isso demanda práticas educativas planejadas desde o princípio, considerando a individualidade dos alunos e a necessidade da diferenciação de estratégias, quando necessário, para atingir os objetivos gerais propostos para a aula. Por isso, instrumentos como o Planejamento Educacional Individualizado (PEI) são importantes (<xref ref-type="bibr" rid="B8">Campos, 2016</xref>; <xref ref-type="bibr" rid="B45">Pletsch, 2022</xref>). Aliás, reconhecer a individualidade deveria ser a diretriz prioritária para a inclusão e a execução de “práticas curriculares para qualquer aluno, pois uma educação que se quer humanista não pode ser realizada a partir de pressupostos curriculares fordistas homogêneos” (<xref ref-type="bibr" rid="B47">Pletsch, no prelo</xref>, p. 8).</p>
+      <p>Em outros termos, para garantir a participação da pessoa com deficiência nas relações de ensino o uso de recursos, estratégias e medidas diferenciadas, em muitos casos, é imprescindível, por exemplo, o uso da comunicação alternativa para alunos não verbais, como é o caso de parte significativa das crianças acometidas pela Síndrome Congênita do Zika Vírus. Sem o uso da comunicação alternativa, muitas vezes personalizada para cada criança, nega-se a elas a comunicação, a interação e a apropriação dos conhecimentos escolares (<xref ref-type="bibr" rid="B2">Antonioli, 2023</xref>; <xref ref-type="bibr" rid="B9">Campos, 2022</xref>). Aliás, a adoção de medidas individualizadas está prevista na própria LBI, Capítulo IV - Do direito à Educação. O art. 28, inciso V, da Lei assegura: “adoção de medidas individualizadas e coletivas em ambientes que maximizem o desenvolvimento acadêmico e social dos estudantes com deficiência, favorecendo o acesso, a permanência, a participação e a aprendizagem em instituições de ensino” (<xref ref-type="bibr" rid="B28">Lei n° 13.146/ 2015</xref>).</p>
+      <p>Outro aspecto constantemente indicado em nossas pesquisas é o uso do laudo para orientar práticas pedagógicas (<xref ref-type="bibr" rid="B41">Paiva, 2017</xref>) e a elaboração de Planos de AEE, os quais usam o estudo de caso focado no sujeito com deficiência como ocorre no modelo médico como parâmetro para a sua elaboração, diferentemente do PEI, que tem indicado para a sua elaboração o desenvolvimento de casos de ensino, os quais focam no processo educacional (<xref ref-type="bibr" rid="B47">Pletsch, no prelo</xref>). A orientação do estudo de caso está na <xref ref-type="bibr" rid="B39">Nota Técnica n° 4/2014</xref>, a qual indica que, para “o estudo de caso, primeira etapa da colaboração o Plano de AEE, se for necessário, o professor do AEE poderá articular-se com profissionais da saúde, tornando-se o laudo médico, neste caso, um documento anexo ao Plano de AEE” (p. 3).</p>
+      <p>Assim, apesar de a Nota Técnica reconhecer que o laudo não é obrigatório, ao sugerir o seu uso, acaba legitimando-o como referência para práticas nas escolas e universidades para planejar e estruturar os suportes educacionais, sejam eles humanos ou de Tecnologia Assistiva. A sobreposição do modelo médico sobre a intervenção educacional tem sido uma constante nos relatos dos gestores de Educação Especial das redes de ensino que integram o Fórum Permanente de Educação Especial na Perspectiva da Educação Inclusiva da Baixada e Sul Fluminense/RJ. Os laudos médicos chegam a indicar a necessidade ou não de profissionais como mediadores, agentes de apoio para a inclusão educacional e, agora, o acompanhante ou atendente terapêutico.</p>
+      <p>A LBI prevê profissionais tais quais: atendente pessoal, profissional de apoio escolar e acompanhante, mas eles ainda não foram regulamentados, e as suas atribuições não ficam claras no contexto da sala de aula, sobretudo quando não envolvem aspectos da higiene pessoal, locomoção e alimentação. Em relato de uma das gestoras da Baixada Fluminense/RJ, essa prática pode ser ilustrada:</p>
+      <disp-quote>
+        <p>Recebi um parecer de uma clínica que me foi entregue pela mãe dizendo que a partir dos próximos dias um acompanhante terapêutico ficará na sala de aula com o filho com autismo mesmo ele já tendo o mediador. Ela disse que é para desenvolver a ABA [Análise do Comportamento Aplicada]. (Gestora de Educação Especial, abril de 2024)</p>
+      </disp-quote>
+      <p>Ela acrescentou: “Serão três profissionais em sala de aula e esse novo profissional desenvolvendo uma metodologia contrária ao que tem sido desenvolvida pela escola. Isso prejudica a criança e temos clareza que existem outras possibilidades de intervenção além da ABA” (Gestora de Educação Especial, abril de 2024).</p>
+      <p>Essa prática do profissional ou atendente terapêutico para desenvolver metodologias específicas em sala de aula usando a ABA, em particular para crianças com autismo, sem qualquer trabalho colaborativo ou pedagógico articulado ao currículo escolar, é recente e tem se tornado um mercado bastante lucrativo para clínicas privadas, e até mesmo para empresas internacionais que vendem formações para profissionais da Educação com certificação de instituições privadas nacionais. A esse respeito, podemos destacar pelo menos três agravantes. O primeiro é que se toma como base uma única perspectiva que parte da intervenção terapêutica/clínica em sala de aula sem atender o que diz a LBI sobre a intersetorialidade para a promoção integral do desenvolvimento da pessoa com deficiência. O segundo é a entrada de profissionais da saúde oriundos da iniciativa privada na escola pública, cuja oferta é um dever do Estado, segundo a Constituição Federal de 1988. O terceiro refere-se à falta de clareza sobre a formação desse profissional, a não regulamentação da profissão e a falta de diretrizes claras sobre quem irá fiscalizar a sua atuação.</p>
+      <p>Claro que não temos pretensão de esgotar o debate e compreendemos que existem casos particulares que demandam suporte permanente, intervenções mais contínuas e até mesmo comportamentais que necessitam da articulação e colaboração entre saúde e educação. Igualmente, existem casos, como indicam as pesquisas realizadas, com crianças com a Síndrome Congênita do Zika Virus, que demandam, por exemplo, a atuação de profissionais da saúde na escola para alimentar as crianças por sonda (<xref ref-type="bibr" rid="B49">Pletsch et al., 2021</xref>). Todavia, segundo essas pesquisas empíricas, a Educação precisa ter um papel ativo. Aliás, os dados revelam a importância da Educação na orquestração de ações intersetoriais para essas crianças. Dessa maneira, a promoção da necessidade ou não de profissionais de apoio, sejam da educação ou da saúde, precisa ser planejada em colaboração entre os diferentes setores envolvidos. Não se justifica mais uma vez na nossa história a sobreposição do modelo médico na escola com a atuação desses profissionais (acompanhantes ou atendentes terapêuticos) de clínicas privadas e, em muitos casos, com anuência do Poder Judiciário, que acaba em nome do direito da pessoa com deficiência, seguindo o modelo médico para suas decisões sem diálogo com a Educação.</p>
+      <p>A tendência da judicialização da Educação Especial usando somente o laudo como documento comprobatório tem sido recorrente (<xref ref-type="bibr" rid="B6">Barros &amp; Dainez, 2023</xref>; <xref ref-type="bibr" rid="B10">Carvalho, 2022</xref>; <xref ref-type="bibr" rid="B11">Carvalho et al., 2023</xref>; <xref ref-type="bibr" rid="B15">Coimbra Neto, 2019</xref>; <xref ref-type="bibr" rid="B30">Melo &amp; Kassar, 2023</xref>; <xref ref-type="bibr" rid="B47">Pletsch, no prelo</xref>). Se, por um lado, a judicialização tem tido um papel determinante na garantia do direito à Educação (<xref ref-type="bibr" rid="B1">Agrelos et al., 2021</xref>), por outro, usar o laudo como único instrumento para decisões envolvendo suportes/apoios acaba fortalecendo a cultura biológica/médica de desenvolvimento humano, em detrimento de perspectivas sociais e culturais, amplamente conhecidas na literatura científica. Em outros termos, faz-se urgente refletir sobre o papel do Judiciário na educação e quais as implicações dessa judicialização na criação e na ampliação de “novos” sujeitos de direitos que não integram o público da Educação Especial na escola e na universidade.</p>
+      <p>O desafio dos suportes ou apoios em seus diferentes níveis para garantir a inclusão com participação e aprendizagem do público da Educação Especial tem sido histórico no Brasil, pois não adotamos, como em vários outros países, um PEI para estruturar tais suportes/apoios, entre outras ações, aos alunos com deficiência a partir de casos de ensino, conforme indicado pelo Comitê sobre os Direitos das Pessoas com Deficiência da Organização das Nações Unidas (ONU) (<xref ref-type="bibr" rid="B31">Mendes, 2023</xref>; <xref ref-type="bibr" rid="B47">Pletsch, no prelo</xref>; <xref ref-type="bibr" rid="B54">Tibyriçá &amp; Mendes, 2023</xref>; <xref ref-type="bibr" rid="B55">Valadão, 2010</xref>). Desde a PNEEPEI de 2008, o foco tem recaído sobre o AEE em salas de recursos multifuncionais como “modelo único” (<xref ref-type="bibr" rid="B32">Mendes et al., 2022</xref>).</p>
+      <p>Segundo <xref ref-type="bibr" rid="B32">Mendes et al. (2022)</xref>, as quais realizaram pesquisa nacional por meio do Observatório Nacional de Educação Especial (ONEESP), essa proposta não atende as reais necessidades do território nacional para garantir a plena participação e inclusão das pessoas com deficiência e TEA na escola. O estudo mostra as imprecisões da proposta quando trata de alunos com deficiência intelectual (que constitui 53% do total de matrículas em Educação Especial na Educação Básica), problemas na formação de professores para atuar no AEE, centralidade da responsabilidade do professor do AEE pelo aluno público da Educação Especial, falta de colaboração entre o professores de AEE com o professor regente, conforme orientado pela <xref ref-type="bibr" rid="B51">Resolução nº 4/2009</xref>, entre tantos outros problemas (<xref ref-type="bibr" rid="B33">Mendes et al., 2016</xref>; <xref ref-type="bibr" rid="B32">Mendes et al., 2022</xref>; <xref ref-type="bibr" rid="B52">Silva et al., 2016</xref>).</p>
+      <p>Tais problemas foram recentemente reafirmados em um documento técnico divulgado em 2022, elaborado em parceria com o Ministério da Educação (MEC) e a Organização das Nações Unidas para a Educação, a Ciência e a Cultura (Unesco), por meio da Diretoria de Educação Especial vinculado à Secretaria de Modalidades Especializadas de Educação (Semesp), extinta com a recriação pelo atual governo da Secretaria de Educação Continuada, Alfabetização de Jovens e Adultos, Diversidade e Inclusão (Secadi). Os resultados da pesquisa realizada em todas as regiões do Brasil reafirmam dados sobre o AEE amplamente sinalizados na produção científica nacional, em particular no que se refere à formação de professores (<xref ref-type="bibr" rid="B3">Araújo, 2024</xref>; <xref ref-type="bibr" rid="B26">Kassar, 2014</xref>; <xref ref-type="bibr" rid="B34">Mendes, 2024</xref>; <xref ref-type="bibr" rid="B46">Pletsch, 2023</xref>). Nesse sentido, destacamos: a) falta de formação/capacitação para todos os segmentos de profissionais da escola; b) demora na contratação dos profissionais de apoio e cuidadores para os estudantes; c) ausência e/ou pouco investimento financeiro do poder público; d) estudantes que não podem voltar no contraturno para receber o AEE; e) ausência ou insuficiência de recursos didático-pedagógicos acessíveis; f) elevado número de estudantes público da educação especial por sala.</p>
+      <p>Esses achados por si só justificam e reforçam a necessidade de revisão da PNEEPEI e não apenas o seu fortalecimento como previsto no Programa Nacional de Fortalecimento da Política de Educação Especial na Perspectiva da Educação Inclusiva (<xref ref-type="bibr" rid="B38">Ministério da Educação, 2023</xref>). Essa revisão é urgente para atender as demandas das redes de ensino no que diz respeito à garantia dos direitos educacionais das pessoas com deficiência nas escolas comuns do ensino regular, especialmente quando o tema se refere ao suporte e aos seus diferentes níveis.</p>
+      <p>Aqui, chamamos atenção para a nossa percepção de que o AEE tal qual como é apresentado na Constituição não pode ser reduzido à ideia de que ele é apenas oferecido na sala de recursos multifuncionais. Já se passaram 16 anos desde a versão inicial da PNEEPEI de 2008. Naquele momento, não havíamos enfrentado uma epidemia de Zika Vírus e nem uma pandemia de covid-19. O cenário social e educacional mudou profundamente nesses últimos anos e, com isso, surgiram novas demandas sociais e educacionais para garantir os direitos da população com deficiência, TEA e altas habilidades ou superdotação.</p>
+      <p>Além de todos esses aspectos que apontamos do ponto de vista da PNEEPEI e da realidade educacional, a partir dos dados do Censo Escolar de 2023, gostaríamos também de destacar alguns dos desafios científicos que temos no campo da Educação Especial. Assim como apontamos no início deste texto, entendemos a Educação Especial como uma importante área de produção científica da área da Educação. Esta é extremamente relevante dentro do mapa da produção científica do país. Conforme podemos ver nos números apresentados pelo Relatório da Coordenação da Área da Educação da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes), a produção bibliográfica da área foi superior a 156.000 produtos, durante o quadriênio de 2017 a 2020 (<xref ref-type="bibr" rid="B18">Capes, 2022</xref>).</p>
+      <p>Assim sendo, a situação da área é bastante diferente de outras, conforme o Relatório produzido pelo Centro de Gestão e Estudos Estratégicos (CGEE), considerando a produção de 2019-2022 na base <italic>Web of Science</italic> (WoS), pois, mesmo que a área de Educação não figure entre as dez maiores áreas de publicação do país, o tema é destaque em diferentes domínios de interesse, perpassando diferentes áreas da WoS. Por sua natureza interdisciplinar, são múltiplas as pesquisas que se empenham nessa fronteira, alocadas em áreas, por exemplo das Ciências exatas e da própria Economia. Nesse sentido, o agrupamento da área da Educação figura como segundo maior grupo temático identificado pela metodologia do Observatório de Ciência, Tecnologia e Inovação (OCTI) de 2022 (<xref ref-type="bibr" rid="B14">CGEE, 2023</xref>), perdendo apenas para o Agrupamento Biodiversidade.</p>
+      <p>Dentro desse campo, a Educação Especial tem sido uma área de grande relevância, seja pelo tamanho da produção, seja pelas temáticas e metodologias envolvidas. Em um dos nossos projetos de pesquisa nos interessa entender como o próprio campo da Educação Especial tem mobilizado e traduzido os conceitos de Educação Inclusiva e de equidade. Para tanto, no caso da produção científica, analisamos as publicações da RBEE no período de 2008 a 2023. Segundo os dados coletados, durante esse período, a revista contou com o número de produtos por ano apresentados na <xref ref-type="fig" rid="f1">Figura 1</xref>.</p>
+      <p>
+        <fig id="f1">
+          <label>Figura 1</label>
+          <caption>
+            <title>Total de publicações na RBEE por ano</title>
+            <p><bold>Nota de acessibilidade.</bold> Descrição do Gráfico: Gráfico com 16 colunas representadas por barras na vertical de cor azul, na ordem cronológica, descrevendo o número de publicações na RBEE por ano: 2008 com 29, 2009 com 30, 2010 com 30, 2011 com 40, 2012 com 40, 2013 com 37, 2014 com 23, 2015 com 40, 2016 com 40, 2017 com 40, 2018 com 41, 2019 com 44, 2020 com 44, 2021 com 61, 2022 com 36 e 2023 com 38 [Fim da descrição].</p>
+          </caption>
+          <alt-text>Nota de acessibilidade. Descrição do Gráfico: Gráfico com 16 colunas representadas por barras na vertical de cor azul, na ordem cronológica, descrevendo o número de publicações na RBEE por ano: 2008 com 29, 2009 com 30, 2010 com 30, 2011 com 40, 2012 com 40, 2013 com 37, 2014 com 23, 2015 com 40, 2016 com 40, 2017 com 40, 2018 com 41, 2019 com 44, 2020 com 44, 2021 com 61, 2022 com 36 e 2023 com 38 [Fim da descrição].</alt-text>
+          <attrib><italic>Nota.</italic> Extraída de <xref ref-type="bibr" rid="B34">Mendes (2024</xref>, p. 10).</attrib>
+          <alternatives>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/1ef86aeb5f90ce02b3319716d55bda9e7e593385.tif"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/0373d4f44dd2f17c31b2692fb3e5e588a00392a2.png" specific-use="scielo-web"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/c7697022a3e7c120728bc560f10615f94f1db36c.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <p>A pesquisa, ainda em fase de análise, apresenta dados sobre a questão dos temas, metodologias, referenciais teóricos e autores. No entanto, no âmbito deste artigo, a única análise que gostaríamos de apresentar diz respeito à questão temática da produção científica dentro da área da Educação Especial. Fizemos um levantamento de todas as palavras-chave presentes em todos os artigos durante o período estudado e apresentamos o conjunto das 20 palavras-chave mais citadas na <xref ref-type="table" rid="t2">Tabela 2</xref>.</p>
+      <table-wrap id="t2">
+        <label>Tabela 2</label>
+        <caption>
+          <title>Palavras-chave mais citadas nos artigos na RBEE</title>
+        </caption>
+        <table>
+          <thead>
+            <tr>
+              <th align="left" style="background-color:#8DB3E2;">20 palavras-chave mais citadas</th>
+              <th align="center" style="background-color:#8DB3E2; ">Quantitativo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td align="left">Educação Especial</td>
+              <td align="center">427</td>
+            </tr>
+            <tr>
+              <td align="left">Educação Inclusiva</td>
+              <td align="center">69</td>
+            </tr>
+            <tr>
+              <td align="left">Inclusão</td>
+              <td align="center">44</td>
+            </tr>
+            <tr>
+              <td align="left">Paralisia Cerebral</td>
+              <td align="center">35</td>
+            </tr>
+            <tr>
+              <td align="left">Deficiência Intelectual</td>
+              <td align="center">34</td>
+            </tr>
+            <tr>
+              <td align="left">Autismo</td>
+              <td align="center">33</td>
+            </tr>
+            <tr>
+              <td align="left">Formação de professoras/es</td>
+              <td align="center">25</td>
+            </tr>
+            <tr>
+              <td align="left">Inclusão Educacional</td>
+              <td align="center">25</td>
+            </tr>
+            <tr>
+              <td align="left">Inclusão Escolar</td>
+              <td align="center">25</td>
+            </tr>
+            <tr>
+              <td align="left">Surdez</td>
+              <td align="center">23</td>
+            </tr>
+            <tr>
+              <td align="left">Deficiência Visual</td>
+              <td align="center">20</td>
+            </tr>
+            <tr>
+              <td align="left">Família</td>
+              <td align="center">20</td>
+            </tr>
+            <tr>
+              <td align="left">Pessoa com deficiência</td>
+              <td align="center">20</td>
+            </tr>
+            <tr>
+              <td align="left">Síndrome de Down</td>
+              <td align="center">20</td>
+            </tr>
+            <tr>
+              <td align="left">Ensino Superior</td>
+              <td align="center">19</td>
+            </tr>
+            <tr>
+              <td align="left">Transtorno do Espectro do Autismo</td>
+              <td align="center">17</td>
+            </tr>
+            <tr>
+              <td align="left">Avaliação</td>
+              <td align="center">15</td>
+            </tr>
+            <tr>
+              <td align="left">Tecnologia Assistiva</td>
+              <td align="center">15</td>
+            </tr>
+            <tr>
+              <td align="left">Educação Física</td>
+              <td align="center">14</td>
+            </tr>
+            <tr>
+              <td align="left">Superdotação</td>
+              <td align="center">14</td>
+            </tr>
+          </tbody>
+        </table>
+        <table-wrap-foot>
+          <attrib><italic>Nota.</italic> Extraída de <xref ref-type="bibr" rid="B34">Mendes (2024</xref>, p. 12).</attrib>
+        </table-wrap-foot>
+      </table-wrap>
+      <p>Ao olharmos a <xref ref-type="table" rid="t2">Tabela 2</xref>, conseguimos identificar que a produção científica da RBEE utiliza Educação Especial, Educação Inclusiva, Inclusão, Inclusão Educacional e Inclusão Escolar como termos guarda-chuvas que ancoram suas pesquisas no campo. Tirando esses cinco termos, sobram 15 termos que estão distribuídos em: etapas ou áreas de ensino: Educação Física e Ensino Superior; Formação de Professores: que se destaca como uma área de pesquisa muito importante na Educação Especial; uma palavra-chave surpreendente é família, apontando como na área devem ser comuns os estudos colaborativos e preocupados com a participação familiar; ainda temos Avaliação e Tecnologia Assistiva como tópicos de grande destaque no campo; e, por fim, contabilizando nove palavras-chave contendo especificidades do público da Educação Especial: Paralisia Cerebral, Deficiência Intelectual, Autismo, Surdez, Deficiência Visual, Pessoa com Deficiência, Síndrome de Down, Transtorno do Espectro Autista, Superdotação. Tais achados se assemelham aos encontrados pela pesquisa realizada por <xref ref-type="bibr" rid="B35">Messiou (2017)</xref>, a qual analisou a produção da Revista Internacional de Educação Inclusiva. A autora nos provoca fazendo a pergunta: Se a inclusão diz respeito a todos, por que ainda nos concentramos principalmente em alguns? <sup><xref ref-type="fn" rid="fn5">8</xref></sup> (p. 152).</p>
+      <p>Na área da Educação Especial, a resposta a essa pergunta tem várias nuances. É obvio que é na área especializada que a produção específica precisa estar. No entanto, o que surpreende e importa na provocação feita pela autora e no que encontramos na produção científica da área, além do que as palavras-chave evocam, é o que elas silenciam. Há uma completa ausência das temáticas relativas a outros marcadores como classe, gênero, raça, sem contar temas como, pobreza, desigualdade e equidade. Desse modo, no espaço restrito da discussão que queremos provocar aqui, nos parece que nossas pesquisas também precisam avançar na forma como definem suas temáticas para que, de fato, consigamos complexificar, inclusive, nossa capacidade analítica sobre o fenômeno da desigualdade educacional e suas relações com o contexto da Educação Especial e os problemas gerais da Educação pública nacional.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>4 Algumas considerações</title>
+      <p>Como apontamos, no caso brasileiro, apesar dos avanços legais, continuamos enfrentando desafios que passam pelo reconhecimento da deficiência no campo dos direitos humanos com a necessária ressignificação conceitual e de práticas que decorrem de mudanças na realidade social, ligadas às lutas pela ampliação de direitos educacionais, pela justiça e pela participação dos próprios sujeitos em decisões que lhes afetam diretamente.</p>
+      <p>Além disso, os dados ilustram diferentes desafios na elaboração e na tradução de políticas e práticas educacionais, sobretudo no que se refere ao próprio suporte/apoio educacional para aqueles que deles precisam para terem o direito de estar e participar das relações educacionais. Esses desafios implicam, inclusive, uma série de mudanças na agenda de pesquisa em Educação Especial, alargando a compreensão sobre o caráter multifacetado da deficiência como experiência social que passa por mudanças metodológicas e epistemológicas.</p>
+      <p>Para tal, conceitos como classe, raça e gênero, entre outros, têm de ser levados em conta na construção do objeto de pesquisa e na elaboração de políticas públicas que envolvem o público da Educação Especial. Não se trata apenas de olhar para a diversidade humana, mas de compreender como as desigualdades sociais afetam os sujeitos com deficiência e as suas condições de desenvolvimento. Uma educação inclusiva com todos e para todos é parte da construção permanente e árdua de uma sociedade mais democrática e justa.</p>
+    </sec>
+  </body>
+  <back>
+    <fn-group>
+      <fn fn-type="other" id="fn2">
+        <label>5</label>
+        <p>Para aprofundar essa discussão sobre a constituição da Educação Especial como campo de produção científica, sugerimos a leitura de trabalhos nacionais como os de <xref ref-type="bibr" rid="B7">Bueno e Souza (2018)</xref>, <xref ref-type="bibr" rid="B12">Casagrande (2021)</xref>, <xref ref-type="bibr" rid="B13">Casagrande e Mainardes (2021)</xref>, <xref ref-type="bibr" rid="B44">Pletsch (2020)</xref>, <xref ref-type="bibr" rid="B48">Pletsch et al. (2023)</xref>. Em termos internacionais, destacamos <xref ref-type="bibr" rid="B5">Artiles et al. (2011)</xref>, <xref ref-type="bibr" rid="B21">Donoso et al. (2017)</xref>, <xref ref-type="bibr" rid="B35">Messiou (2017)</xref>, <xref ref-type="bibr" rid="B53">Slee (2016)</xref> e <xref ref-type="bibr" rid="B58">Yarza De los Ríos (2011)</xref>.</p>
+      </fn>
+      <fn fn-type="other" id="fn3">
+        <label>6</label>
+        <p>Protocolo de Ética 135/2021. O Fórum Permanente de Educação Especial na Perspectiva Inclusiva da Baixada Fluminense, criado em 2015, conta atualmente com a participação de 12 gestores municipais de Educação Especial e pesquisadores das duas universidades públicas da região: a Universidade Federal Rural do Rio de Janeiro (UFRRJ) e a Universidade do Estado do Rio de Janeiro (UERJ), <italic>campus</italic> Duque de Caxias.</p>
+      </fn>
+      <fn fn-type="other" id="fn4">
+        <label>7</label>
+        <p>Na PNEEPEI de 2008, o termo usado é “transtornos globais do desenvolvimento”. Neste artigo, assim como no Censo Escolar, usaremos o termo “transtorno do espectro autista” (TEA) em substituição ao termo “transtornos globais do desenvolvimento”.</p>
+      </fn>
+      <fn fn-type="other" id="fn5">
+        <label>8</label>
+        <p>“If inclusion is about all, why do we still mostly focus on some?” (<xref ref-type="bibr" rid="B35">Messiou, 2017</xref>, p. 152).</p>
+      </fn>
+      <fn fn-type="financial-disclosure">
+        <p>Financiamento: Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), Processos 307492/2018-4, 421993/2018-9,315530/2023-5, Fundação de Amparo à Pesquisa do Estado do Rio de Janeiro (Faperj) - Edital Jovem Cientista do Nosso Estado (Processo E-26/202.734/2018), Edital Grupos Emergentes (Processo E-26/010.002186/2019) e Edital Cientista do Estado (Processo SEI-260003/003636/2022). Fundação de Amparo à Pesquisa do Estado de Santa Catarina (Fapesc) - Edital de Chamada Pública Fapesc/Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (Capes) N. 06/2023 - Programa de Apoio ao Desenvolvimento da Pós-Graduação (PDPG) - Parcerias Estratégicas nos Estados III - Edital Capes N. 38/2022, Termo de Outorga N. 2023tr000952.</p>
+      </fn>
+    </fn-group>
+    <ref-list>
+      <title>Referências</title>
+      <ref id="B1">
+        <mixed-citation>Agrelos, C. da S. T., Carvalho, C. da C., &amp; Nozu, W. C. S. (2021). Direito Humano à inclusão escolar: da previsão à judicialização. In W. C. S. Nozu, &amp; G. de S. Preussler (Orgs.), <italic>Educação, Direitos Humanos e Inclusão</italic> (1ª ed., pp. 207-219). Íthala.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Agrelos</surname>
+              <given-names>C. da S. T.</given-names>
+            </name>
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>C. da C.</given-names>
+            </name>
+            <name>
+              <surname>Nozu</surname>
+              <given-names>W. C. S.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <chapter-title>Direito Humano à inclusão escolar: da previsão à judicialização</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Nozu</surname>
+              <given-names>W. C. S.</given-names>
+            </name>
+            <name>
+              <surname>Preussler</surname>
+              <given-names>G. de S.</given-names>
+            </name>
+          </person-group>
+          <source>Educação, Direitos Humanos e Inclusão</source>
+          <edition>1ª</edition>
+          <fpage>207</fpage>
+          <lpage>219</lpage>
+          <publisher-name>Íthala</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <mixed-citation>Antonioli, C. (2023). <italic>A autonomia da criança com deficiência múltipla: um estudo sobre as interdependências e as práticas escolares inclusivas</italic> [Tese de Doutorado, Pontifícia Universidade Católica do Rio de Janeiro]. ETDs @PUC-Rio. <ext-link ext-link-type="uri" xlink:href="https://www.maxwell.vrac.puc-rio.br/65843/65843.PDF">https://www.maxwell.vrac.puc-rio.br/65843/65843.PDF</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Antonioli</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <source>A autonomia da criança com deficiência múltipla: um estudo sobre as interdependências e as práticas escolares inclusivas</source>
+          <comment>Tese de Doutorado</comment>
+          <publisher-name>Pontifícia Universidade Católica do Rio de Janeiro</publisher-name>
+          <publisher-name>ETDs @PUC-Rio</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.maxwell.vrac.puc-rio.br/65843/65843.PDF">https://www.maxwell.vrac.puc-rio.br/65843/65843.PDF</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <mixed-citation>Araújo, D. F. de. (2024). <italic>Formação continuada de professores em Educação Especial na perspectiva da Educação Inclusiva no Estado do Rio de Janeiro</italic> [Tese de Doutorado não publicada]. Universidade Federal Rural do Rio de Janeiro.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Araújo</surname>
+              <given-names>D. F. de.</given-names>
+            </name>
+          </person-group>
+          <year>2024</year>
+          <source>Formação continuada de professores em Educação Especial na perspectiva da Educação Inclusiva no Estado do Rio de Janeiro</source>
+          <comment>[Tese de Doutorado não publicada]</comment>
+          <publisher-name>Universidade Federal Rural do Rio de Janeiro</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <mixed-citation>Artiles, A. J., &amp; Kozleski, E. B. (2019). Promessas e trajetórias da Educação Inclusiva: notas críticas sobre pesquisas futuras voltadas a uma ideia venerável. <italic>Práxis Educativa, 14</italic>(3), 804-831. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5212/PraxEduc.v.14n3.001">https://doi.org/10.5212/PraxEduc.v.14n3.001</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Artiles</surname>
+              <given-names>A. J.</given-names>
+            </name>
+            <name>
+              <surname>Kozleski</surname>
+              <given-names>E. B.</given-names>
+            </name>
+          </person-group>
+          <year>2019</year>
+          <article-title>Promessas e trajetórias da Educação Inclusiva: notas críticas sobre pesquisas futuras voltadas a uma ideia venerável</article-title>
+          <source>Práxis Educativa</source>
+          <volume>14</volume>
+          <issue>3</issue>
+          <fpage>804</fpage>
+          <lpage>831</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5212/PraxEduc.v.14n3.001">https://doi.org/10.5212/PraxEduc.v.14n3.001</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <mixed-citation>Artiles, A. J., Kozleski, E. B., &amp; Gonzalez, T. (2011). Para além da sedução da educação inclusiva nos Estados Unidos: confrontando o poder, construindo uma agenda histórico-cultural. <italic>Revista Teias, 12</italic>(24), 285-308.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Artiles</surname>
+              <given-names>A. J.</given-names>
+            </name>
+            <name>
+              <surname>Kozleski</surname>
+              <given-names>E. B.</given-names>
+            </name>
+            <name>
+              <surname>Gonzalez</surname>
+              <given-names>T.</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Para além da sedução da educação inclusiva nos Estados Unidos: confrontando o poder, construindo uma agenda histórico-cultural</article-title>
+          <source>Revista Teias</source>
+          <volume>12</volume>
+          <issue>24</issue>
+          <fpage>285</fpage>
+          <lpage>308</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <mixed-citation>Barros, S. L. de, &amp; Dainez, D. (2023). Tendências da judicialização na educação da pessoa com deficiência. <italic>Revista Diálogos e Perspectivas em Educação Especial, 10</italic>(2), 93-106. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.36311/2358-8845.2023.v10n2.p93-106">https://doi.org/10.36311/2358-8845.2023.v10n2.p93-106</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Barros</surname>
+              <given-names>S. L. de</given-names>
+            </name>
+            <name>
+              <surname>Dainez</surname>
+              <given-names>D.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <article-title>Tendências da judicialização na educação da pessoa com deficiência</article-title>
+          <source>Revista Diálogos e Perspectivas em Educação Especial</source>
+          <volume>10</volume>
+          <issue>2</issue>
+          <fpage>93</fpage>
+          <lpage>106</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.36311/2358-8845.2023.v10n2.p93-106">https://doi.org/10.36311/2358-8845.2023.v10n2.p93-106</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <mixed-citation>Bueno, J. G. S., &amp; Souza, S. B. (2018). A Constituição do Campo da Educação Especial Expressa na Revista Brasileira de Educação Especial - RBEE (1992-2017). <italic>Revista Brasileira de Educação Especial, 24</italic>(esp.), 33-50. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-65382418000400004">https://doi.org/10.1590/S1413-65382418000400004</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bueno</surname>
+              <given-names>J. G. S.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>S. B.</given-names>
+            </name>
+          </person-group>
+          <year>2018</year>
+          <article-title>A Constituição do Campo da Educação Especial Expressa na Revista Brasileira de Educação Especial - RBEE (1992-2017)</article-title>
+          <source>Revista Brasileira de Educação Especial</source>
+          <volume>24</volume>
+          <issue>esp</issue>
+          <fpage>33</fpage>
+          <lpage>50</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S1413-65382418000400004">https://doi.org/10.1590/S1413-65382418000400004</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <mixed-citation>Campos, É. C. V. Z. (2016). <italic>Diálogos entre o currículo e o planejamento educacional individualizado (PEI) na escolarização de alunos com deficiência intelectual</italic> [Dissertação de Mestrado, Universidade Federal Rural do Rio de Janeiro]. Repositório Institucional de Múltiplos Acervos da UFRRJ. <ext-link ext-link-type="uri" xlink:href="https://rima.ufrrj.br/jspui/handle/20.500.14407/13116">https://rima.ufrrj.br/jspui/handle/20.500.14407/13116</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Campos</surname>
+              <given-names>É. C. V. Z.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <source>Diálogos entre o currículo e o planejamento educacional individualizado (PEI) na escolarização de alunos com deficiência intelectual</source>
+          <comment>Dissertação de Mestrado</comment>
+          <publisher-name>Universidade Federal Rural do Rio de Janeiro</publisher-name>
+          <publisher-name>Repositório Institucional de Múltiplos Acervos da UFRRJ</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://rima.ufrrj.br/jspui/handle/20.500.14407/13116">https://rima.ufrrj.br/jspui/handle/20.500.14407/13116</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <mixed-citation>Campos, É. C. V. Z. (2022). <italic>Desenvolvimento do COMUNIKA: aplicativo para a comunicação de crianças com a Síndrome Congênita do Zika Vírus</italic> [Tese de Doutorado, Pontifícia Universidade Católica do Rio de Janeiro]. ETDs @PUC-Rio. <ext-link ext-link-type="uri" xlink:href="https://www.maxwell.vrac.puc-rio.br/61734/61734.PDF">https://www.maxwell.vrac.puc-rio.br/61734/61734.PDF</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Campos</surname>
+              <given-names>É. C. V. Z.</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <source>Desenvolvimento do COMUNIKA: aplicativo para a comunicação de crianças com a Síndrome Congênita do Zika Vírus</source>
+          <comment>Tese de Doutorado</comment>
+          <publisher-name>Pontifícia Universidade Católica do Rio de Janeiro</publisher-name>
+          <publisher-name>ETDs @PUC-Rio</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.maxwell.vrac.puc-rio.br/61734/61734.PDF">https://www.maxwell.vrac.puc-rio.br/61734/61734.PDF</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <mixed-citation>Carvalho, C. da C. (2022). <italic>Direito à acessibilidade de estudantes com deficiência em escolas públicas: decisões do Tribunal de Justiça de Mato Grosso do Sul</italic> [Dissertação de Mestrado, Universidade Federal da Grande Dourados]. Repositório da UFGD. <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufgd.edu.br/jspui/handle/prefix/5073">https://repositorio.ufgd.edu.br/jspui/handle/prefix/5073</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>C. da C.</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <source>Direito à acessibilidade de estudantes com deficiência em escolas públicas: decisões do Tribunal de Justiça de Mato Grosso do Sul</source>
+          <comment>Dissertação de Mestrado</comment>
+          <publisher-name>Universidade Federal da Grande Dourados</publisher-name>
+          <publisher-name>Repositório da UFGD</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufgd.edu.br/jspui/handle/prefix/5073">https://repositorio.ufgd.edu.br/jspui/handle/prefix/5073</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <mixed-citation>Carvalho, C. da C., Nozu, C. S., &amp; Rocha, A. C. dos S. (2023). Ações civis públicas sobre acessibilidade escolar de estudantes com deficiência no Mato Grosso do Sul. <italic>Revista Direito Público, 20</italic>(105), 319-344. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.11117/rdp.v20i105.6944">https://doi.org/10.11117/rdp.v20i105.6944</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Carvalho</surname>
+              <given-names>C. da C.</given-names>
+            </name>
+            <name>
+              <surname>Nozu</surname>
+              <given-names>C. S.</given-names>
+            </name>
+            <name>
+              <surname>Rocha</surname>
+              <given-names>A. C. dos S.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <article-title>Ações civis públicas sobre acessibilidade escolar de estudantes com deficiência no Mato Grosso do Sul</article-title>
+          <source>Revista Direito Público</source>
+          <volume>20</volume>
+          <issue>105</issue>
+          <fpage>319</fpage>
+          <lpage>344</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.11117/rdp.v20i105.6944">https://doi.org/10.11117/rdp.v20i105.6944</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <mixed-citation>Casagrande, R. de C. (2021). A Educação Especial como campo acadêmico no Brasil: fontes de pesquisa. <italic>Revista Práxis Educativa, 16</italic>, 1-29. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5212/PraxEduc.v.16.17352.027">https://doi.org/10.5212/PraxEduc.v.16.17352.027</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Casagrande</surname>
+              <given-names>R. de C.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <article-title>A Educação Especial como campo acadêmico no Brasil: fontes de pesquisa</article-title>
+          <source>Revista Práxis Educativa</source>
+          <volume>16</volume>
+          <fpage>1</fpage>
+          <lpage>29</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.5212/PraxEduc.v.16.17352.027">https://doi.org/10.5212/PraxEduc.v.16.17352.027</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <mixed-citation>Casagrande, R. de C., &amp; Mainardes, J. (2021). O campo acadêmico da Educação Especial no Brasil. <italic>Revista Brasileira de Educação Especial, 27</italic>, 119-138. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702021v27e0132">https://doi.org/10.1590/1980-54702021v27e0132</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Casagrande</surname>
+              <given-names>R. de C.</given-names>
+            </name>
+            <name>
+              <surname>Mainardes</surname>
+              <given-names>J.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <article-title>O campo acadêmico da Educação Especial no Brasil</article-title>
+          <source>Revista Brasileira de Educação Especial</source>
+          <volume>27</volume>
+          <fpage>119</fpage>
+          <lpage>138</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702021v27e0132">https://doi.org/10.1590/1980-54702021v27e0132</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <mixed-citation>Centro de Gestão e Estudos Estratégicos. (2023). <italic>Boletim Anual OCTI 2022</italic>. CGEE. <ext-link ext-link-type="uri" xlink:href="https://www.cgee.org.br/documents/10195/11009696/CGEE_OCTI_Boletim_Anual_do_OCTI_2022.pdf">https://www.cgee.org.br/documents/10195/11009696/CGEE_OCTI_Boletim_Anual_do_OCTI_2022.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Centro de Gestão e Estudos Estratégicos</collab>
+          </person-group>
+          <year>2023</year>
+          <source>Boletim Anual OCTI 2022</source>
+          <publisher-name>CGEE</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.cgee.org.br/documents/10195/11009696/CGEE_OCTI_Boletim_Anual_do_OCTI_2022.pdf">https://www.cgee.org.br/documents/10195/11009696/CGEE_OCTI_Boletim_Anual_do_OCTI_2022.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <mixed-citation>Coimbra Neto, J. P. C. (2019). <italic>Discurso jurídico da educação especial: decisões do Tribunal de Justiça de Mato Grosso do Sul</italic> [Dissertação de Mestrado, Universidade Federal da Grande Dourados]. Repositório da UFGD. <ext-link ext-link-type="uri" xlink:href="http://repositorio.ufgd.edu.br/jspui/handle/prefix/1068">http://repositorio.ufgd.edu.br/jspui/handle/prefix/1068</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Coimbra</surname>
+              <given-names>J. P. C.</given-names>
+              <suffix>Neto</suffix>
+            </name>
+          </person-group>
+          <year>2019</year>
+          <source>Discurso jurídico da educação especial: decisões do Tribunal de Justiça de Mato Grosso do Sul</source>
+          <comment>Dissertação de Mestrado</comment>
+          <publisher-name>Universidade Federal da Grande Dourados</publisher-name>
+          <publisher-name>Repositório da UFGD</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://repositorio.ufgd.edu.br/jspui/handle/prefix/1068">http://repositorio.ufgd.edu.br/jspui/handle/prefix/1068</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <mixed-citation>Conselho Nacional de Desenvolvimento Científico e Tecnológico. (2024). Tabela de Áreas do Conhecimento. <italic>CNPq</italic>. <ext-link ext-link-type="uri" xlink:href="https://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf">https://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Conselho Nacional de Desenvolvimento Científico e Tecnológico</collab>
+          </person-group>
+          <year>2024</year>
+          <source>Tabela de Áreas do Conhecimento</source>
+          <publisher-name>CNPq</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf">https://lattes.cnpq.br/documents/11871/24930/TabeladeAreasdoConhecimento.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <mixed-citation><italic>Constituição da República Federativa do Brasil.</italic> (1988). <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm">https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source>Constituição da República Federativa do Brasil</source>
+          <year>1988</year>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm">https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <mixed-citation>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior. (2022). Relatório de avaliação: educação. Avaliação quadrienal 2017-2022. CAPES, Ministério da Educação. <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/capes/pt-br/centrais-de-conteudo/documentos/avaliacao/19122022_RELATORIO_AVALIACAO_QUADRIENAL_comnotaEducao.pdf">https://www.gov.br/capes/pt-br/centrais-de-conteudo/documentos/avaliacao/19122022_RELATORIO_AVALIACAO_QUADRIENAL_comnotaEducao.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Coordenação de Aperfeiçoamento de Pessoal de Nível Superior</collab>
+          </person-group>
+          <year>2022</year>
+          <source>Relatório de avaliação: educação. Avaliação quadrienal 2017-2022</source>
+          <publisher-name>CAPES, Ministério da Educação</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/capes/pt-br/centrais-de-conteudo/documentos/avaliacao/19122022_RELATORIO_AVALIACAO_QUADRIENAL_comnotaEducao.pdf">https://www.gov.br/capes/pt-br/centrais-de-conteudo/documentos/avaliacao/19122022_RELATORIO_AVALIACAO_QUADRIENAL_comnotaEducao.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <mixed-citation>D’Avila, D. A. L. (2022). <italic>Documento técnico contendo as informações educacionais sobre o Atendimento Educacional Especializado - AEE das Regiões Sul e Centro-Oeste, Sudeste, Norte e Nordeste do Brasil</italic>. Produto II - Projeto Unesco 914BRZ1060 N 03/2021. UNESCO. <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/mec/pt-br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-especificos-singulares/secretaria-de-modalidades-especializadas-de-educacao/consultorias/aee-regiao-sul-e-centro-oeste-produto-2.pdf">https://www.gov.br/mec/pt-br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-especificos-singulares/secretaria-de-modalidades-especializadas-de-educacao/consultorias/aee-regiao-sul-e-centro-oeste-produto-2.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>D’Avila</surname>
+              <given-names>D. A. L.</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <source><italic>Documento técnico contendo as informações educacionais sobre o Atendimento Educacional Especializado - AEE das Regiões Sul e Centro-Oeste, Sudeste, Norte e Nordeste do Brasil</italic>. Produto II - Projeto Unesco 914BRZ1060 N 03/2021</source>
+          <publisher-name>UNESCO</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/mec/pt-br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-especificos-singulares/secretaria-de-modalidades-especializadas-de-educacao/consultorias/aee-regiao-sul-e-centro-oeste-produto-2.pdf">https://www.gov.br/mec/pt-br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-especificos-singulares/secretaria-de-modalidades-especializadas-de-educacao/consultorias/aee-regiao-sul-e-centro-oeste-produto-2.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <mixed-citation><italic>Decreto nº 6.949, de 25 agosto de 2009</italic>. Promulga a Convenção Internacional sobre os Direitos das Pessoas com Deficiência e seu Protocolo Facultativo, assinados em Nova York, em 30 de março de 2007. <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d6949.htm">https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d6949.htm</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Decreto nº 6.949, de 25 agosto de 2009</italic>. Promulga a Convenção Internacional sobre os Direitos das Pessoas com Deficiência e seu Protocolo Facultativo, assinados em Nova York, em 30 de março de 2007</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d6949.htm">https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d6949.htm</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <mixed-citation>Donoso, E. J. C., Conojeros, L., Manghi, D., &amp; Vega, V. (2017). ¿Es la Educación Especial una disciplina? reflexiones sobre su Objeto y Método de Estudio. In J. Garrido, V. Vega, &amp; A. Bustos (Eds.), <italic>De los fundamentos a las prácticas: algunos desafíos en la formación inicial docente</italic> (1ª ed., pp. 75-94). Ediciones Universitarias de Valparaíso.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Donoso</surname>
+              <given-names>E. J. C.</given-names>
+            </name>
+            <name>
+              <surname>Conojeros</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Manghi</surname>
+              <given-names>D.</given-names>
+            </name>
+            <name>
+              <surname>Vega</surname>
+              <given-names>V.</given-names>
+            </name>
+          </person-group>
+          <year>2017</year>
+          <chapter-title>¿Es la Educación Especial una disciplina? reflexiones sobre su Objeto y Método de Estudio</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Garrido</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Vega</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Bustos</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <source>De los fundamentos a las prácticas: algunos desafíos en la formación inicial docente</source>
+          <edition>1ª</edition>
+          <fpage>75</fpage>
+          <lpage>94</lpage>
+          <publisher-name>Ediciones Universitarias de Valparaíso</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <mixed-citation>Gomes, I. (2023, 7 de julho). Pessoas com deficiência têm menor acesso à educação, ao trabalho e à renda. <italic>Agência IBGE</italic>. <ext-link ext-link-type="uri" xlink:href="https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/37317-pessoas-com-deficiencia-tem-menor-acesso-a-educacao-ao-trabalho-e-a-renda">https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/37317-pessoas-com-deficiencia-tem-menor-acesso-a-educacao-ao-trabalho-e-a-renda</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gomes</surname>
+              <given-names>I.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <day>7</day>
+          <season>julho</season>
+          <source>Pessoas com deficiência têm menor acesso à educação, ao trabalho e à renda</source>
+          <publisher-name>Agência IBGE</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/37317-pessoas-com-deficiencia-tem-menor-acesso-a-educacao-ao-trabalho-e-a-renda">https://agenciadenoticias.ibge.gov.br/agencia-noticias/2012-agencia-de-noticias/noticias/37317-pessoas-com-deficiencia-tem-menor-acesso-a-educacao-ao-trabalho-e-a-renda</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <mixed-citation>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira. (2001). <italic>Sinopse Estatística da Educação Básica</italic>. INEP. <ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/download/censo/2001/sinopse/Sinopse_2001_26_05_02.zip">https://download.inep.gov.br/download/censo/2001/sinopse/Sinopse_2001_26_05_02.zip</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira</collab>
+          </person-group>
+          <year>2001</year>
+          <source>Sinopse Estatística da Educação Básica</source>
+          <publisher-name>INEP</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/download/censo/2001/sinopse/Sinopse_2001_26_05_02.zip">https://download.inep.gov.br/download/censo/2001/sinopse/Sinopse_2001_26_05_02.zip</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <mixed-citation>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira. (2024a). <italic>Resumo técnico do Censo da Educação Superior 2022</italic>. Inep. <ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_educacao_superior_2022.pdf">https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_educacao_superior_2022.pdf</ext-link>#</mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira</collab>
+          </person-group>
+          <year>2024a</year>
+          <source>Resumo técnico do Censo da Educação Superior 2022</source>
+          <publisher-name>Inep</publisher-name>
+          <comment><ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_educacao_superior_2022.pdf">https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_educacao_superior_2022.pdf</ext-link>#</comment>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <mixed-citation>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira. (2024b). <italic>Censo Escolar da Educação Básica 2023: resumo técnico</italic>. Inep. <ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_escolar_2023.pdf">https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_escolar_2023.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira</collab>
+          </person-group>
+          <year>2024b</year>
+          <source>Censo Escolar da Educação Básica 2023: resumo técnico</source>
+          <publisher-name>Inep</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_escolar_2023.pdf">https://download.inep.gov.br/publicacoes/institucionais/estatisticas_e_indicadores/resumo_tecnico_censo_escolar_2023.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <mixed-citation>Kassar, M. de. C. M. (2014). A formação de professores para a educação inclusiva e os possíveis impactos na escolarização de alunos com deficiência. <italic>Cadernos CEDES, 34</italic>, 207-224. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S0101-32622014000200005">https://doi.org/10.1590/S0101-32622014000200005</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kassar</surname>
+              <given-names>M. de. C. M.</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>A formação de professores para a educação inclusiva e os possíveis impactos na escolarização de alunos com deficiência</article-title>
+          <source>Cadernos CEDES</source>
+          <volume>34</volume>
+          <fpage>207</fpage>
+          <lpage>224</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/S0101-32622014000200005">https://doi.org/10.1590/S0101-32622014000200005</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <mixed-citation><italic>Lei n° 12.711, de 29 de agosto de 2012</italic>. Dispõe sobre o ingresso nas universidades federais e nas instituições federais de ensino técnico de nível médio e dá outras providências. <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm">https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Lei n° 12.711, de 29 de agosto de 2012</italic>. Dispõe sobre o ingresso nas universidades federais e nas instituições federais de ensino técnico de nível médio e dá outras providências</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm">https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12711.htm</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B28">
+        <mixed-citation><italic>Lei n° 13.146, de 6 de julho de 2015</italic>. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Lei n° 13.146, de 6 de julho de 2015</italic>. Institui a Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência)</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B29">
+        <mixed-citation><italic>Lei nº 13.409, de 28 de dezembro de 2016</italic>. Altera a Lei nº 12.711, de 29 de agosto de 2012, para dispor sobre a reserva de vagas para pessoas com deficiência nos cursos técnico de nível médio e superior das instituições federais de ensino. <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13409.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13409.htm</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Lei nº 13.409, de 28 de dezembro de 2016</italic>. Altera a Lei nº 12.711, de 29 de agosto de 2012, para dispor sobre a reserva de vagas para pessoas com deficiência nos cursos técnico de nível médio e superior das instituições federais de ensino</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13409.htm">https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13409.htm</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B30">
+        <mixed-citation>Melo, C. de H. V., &amp; Kassar, M. de C. M. (2023). Judicialização da Educação Especial: inclusão na rede regular de ensino em um Município do Mato Grosso do Sul. <italic>Revista Diálogos e Perspectivas em Educação Especial, 10</italic>(2), 79-92. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.36311/2358-8845.2023.v10n2.p79-92">https://doi.org/10.36311/2358-8845.2023.v10n2.p79-92</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Melo</surname>
+              <given-names>C. de H. V.</given-names>
+            </name>
+            <name>
+              <surname>Kassar</surname>
+              <given-names>M. de C. M.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <article-title>Judicialização da Educação Especial: inclusão na rede regular de ensino em um Município do Mato Grosso do Sul</article-title>
+          <source>Revista Diálogos e Perspectivas em Educação Especial</source>
+          <volume>10</volume>
+          <issue>2</issue>
+          <fpage>79</fpage>
+          <lpage>92</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.36311/2358-8845.2023.v10n2.p79-92">https://doi.org/10.36311/2358-8845.2023.v10n2.p79-92</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B31">
+        <mixed-citation>Mendes, E. G. (2023, 1º de setembro). <italic>O papel do profissional da Educação Especial no contexto da inclusão educacional. Aula magna proferida na UFRRJ</italic> [Vídeo]. YouTube. <ext-link ext-link-type="uri" xlink:href="https://www.youtube.com/watch?v=KImAnXmLE9I&amp;t=892s">https://www.youtube.com/watch?v=KImAnXmLE9I&amp;t=892s</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mendes</surname>
+              <given-names>E. G.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <day>1º</day>
+          <season>setembro</season>
+          <source>O papel do profissional da Educação Especial no contexto da inclusão educacional. Aula magna proferida na UFRRJ [Vídeo]</source>
+          <publisher-name>YouTube</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.youtube.com/watch?v=KImAnXmLE9I&amp;t=892s">https://www.youtube.com/watch?v=KImAnXmLE9I&amp;t=892s</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B32">
+        <mixed-citation>Mendes, E. G., Santos, V., &amp; Sebin, B. R. (2022). <italic>Política de Educação Especial no Brasil: análise da produção de textos de 2004 a 2019.</italic> Pedro &amp; João Editores.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mendes</surname>
+              <given-names>E. G.</given-names>
+            </name>
+            <name>
+              <surname>Santos</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Sebin</surname>
+              <given-names>B. R.</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <source>Política de Educação Especial no Brasil: análise da produção de textos de 2004 a 2019</source>
+          <publisher-name>Pedro &amp; João Editores</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B33">
+        <mixed-citation>Mendes, E. G., Tannús-Valadão, G., &amp; Milanesi, J. B. (2016). Atendimento educacional especializado para estudante com deficiência intelectual: os diferentes discursos dos professores especializados sobre o que e como ensinar. <italic>Revista Linhas, 17</italic>(35), 45-67, 2016. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.5965/1984723817352016045">http://dx.doi.org/10.5965/1984723817352016045</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mendes</surname>
+              <given-names>E. G.</given-names>
+            </name>
+            <name>
+              <surname>Tannús-Valadão</surname>
+              <given-names>G.</given-names>
+            </name>
+            <name>
+              <surname>Milanesi</surname>
+              <given-names>J. B.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>Atendimento educacional especializado para estudante com deficiência intelectual: os diferentes discursos dos professores especializados sobre o que e como ensinar</article-title>
+          <source>Revista Linhas</source>
+          <volume>17</volume>
+          <issue>35</issue>
+          <fpage>45</fpage>
+          <lpage>67</lpage>
+          <comment>2016</comment>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.5965/1984723817352016045">http://dx.doi.org/10.5965/1984723817352016045</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B34">
+        <mixed-citation>Mendes, G. M. L. (2024). <italic>Following the idea: políticas, discursos e produção científica sobre educação Inclusiva</italic> [Relatório de pesquisa não publicado]. Universidade do Estado de Santa Catarina.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Mendes</surname>
+              <given-names>G. M. L.</given-names>
+            </name>
+          </person-group>
+          <year>2024</year>
+          <source>Following the idea: políticas, discursos e produção científica sobre educação Inclusiva</source>
+          <comment>[Relatório de pesquisa não publicado]</comment>
+          <publisher-name>Universidade do Estado de Santa Catarina</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B35">
+        <mixed-citation>Messiou, K. (2017). Research in the field of inclusive education: time for a rethink?. <italic>International Journal of Inclusive Education, 21</italic>(2), 146-159. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1080/13603116.2016.1223184">https://doi.org/10.1080/13603116.2016.1223184</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Messiou</surname>
+              <given-names>K.</given-names>
+            </name>
+          </person-group>
+          <year>2017</year>
+          <article-title>Research in the field of inclusive education: time for a rethink?</article-title>
+          <source>International Journal of Inclusive Education</source>
+          <volume>21</volume>
+          <issue>2</issue>
+          <fpage>146</fpage>
+          <lpage>159</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1080/13603116.2016.1223184">https://doi.org/10.1080/13603116.2016.1223184</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B36">
+        <mixed-citation>Ministério da Educação. (2007). <italic>O Plano de Desenvolvimento da Educação: razões. princípios e programas</italic>. <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/arquivos/livro/livro.pdf">http://portal.mec.gov.br/arquivos/livro/livro.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Ministério da Educação</collab>
+          </person-group>
+          <year>2007</year>
+          <source>O Plano de Desenvolvimento da Educação: razões. princípios e programas</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/arquivos/livro/livro.pdf">http://portal.mec.gov.br/arquivos/livro/livro.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B37">
+        <mixed-citation>Ministério da Educação. (2008). <italic>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva</italic>. <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/arquivos/pdf/politicaeducespecial.pdf">http://portal.mec.gov.br/arquivos/pdf/politicaeducespecial.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Ministério da Educação</collab>
+          </person-group>
+          <year>2008</year>
+          <source>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/arquivos/pdf/politicaeducespecial.pdf">http://portal.mec.gov.br/arquivos/pdf/politicaeducespecial.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B38">
+        <mixed-citation>Ministério da Educação. (2023). <italic>Afirmação e fortalecimento da Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (PNEEPEI)</italic>. <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/mec/pt-br/pneepei/cartilha.pdf">https://www.gov.br/mec/pt-br/pneepei/cartilha.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Ministério da Educação</collab>
+          </person-group>
+          <year>2023</year>
+          <source>Afirmação e fortalecimento da Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva (PNEEPEI)</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/mec/pt-br/pneepei/cartilha.pdf">https://www.gov.br/mec/pt-br/pneepei/cartilha.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B39">
+        <mixed-citation><italic>Nota Técnica nº 4, de 23 de janeiro de 2014</italic>. Orientação quanto a documentos comprobatórios de alunos com deficiência, transtornos globais do desenvolvimento e altas habilidades/superdotação no Censo Escolar. <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/index.php?option=com_docman&amp;view=download&amp;alias=15898-nott04-secadi-dpee-23012014&amp;Itemid=30192">http://portal.mec.gov.br/index.php?option=com_docman&amp;view=download&amp;alias=15898-nott04-secadi-dpee-23012014&amp;Itemid=30192</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Nota Técnica nº 4, de 23 de janeiro de 2014</italic>. Orientação quanto a documentos comprobatórios de alunos com deficiência, transtornos globais do desenvolvimento e altas habilidades/superdotação no Censo Escolar</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/index.php?option=com_docman&amp;view=download&amp;alias=15898-nott04-secadi-dpee-23012014&amp;Itemid=30192">http://portal.mec.gov.br/index.php?option=com_docman&amp;view=download&amp;alias=15898-nott04-secadi-dpee-23012014&amp;Itemid=30192</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B40">
+        <mixed-citation>Observatório de Educação Especial e Inclusão Educacional. (2014). <italic>Banco de Dados. Registros de reuniões do Fórum Permanente de Educação Especial na perspectiva da Educação Inclusiva da Baixada e Sul Fluminense</italic>. ObEE, Nova Iguaçu.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Observatório de Educação Especial e Inclusão Educacional</collab>
+          </person-group>
+          <year>2014</year>
+          <source>Banco de Dados. Registros de reuniões do Fórum Permanente de Educação Especial na perspectiva da Educação Inclusiva da Baixada e Sul Fluminense</source>
+          <publisher-name>ObEE, Nova Iguaçu</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B41">
+        <mixed-citation>Paiva, C. de. (2017). <italic>O processo de avaliação e encaminhamento de alunos com deficiência intelectual para o atendimento educacional especializado</italic> [Dissertação de Mestrado, Universidade Federal Rural do Rio de Janeiro]. Biblioteca Digital de Teses e Dissertações. <ext-link ext-link-type="uri" xlink:href="https://tede.ufrrj.br/jspui/handle/jspui/2662">https://tede.ufrrj.br/jspui/handle/jspui/2662</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Paiva</surname>
+              <given-names>C. de.</given-names>
+            </name>
+          </person-group>
+          <year>2017</year>
+          <source>O processo de avaliação e encaminhamento de alunos com deficiência intelectual para o atendimento educacional especializado</source>
+          <comment>Dissertação de Mestrado</comment>
+          <publisher-name>Universidade Federal Rural do Rio de Janeiro</publisher-name>
+          <publisher-name>Biblioteca Digital de Teses e Dissertações</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://tede.ufrrj.br/jspui/handle/jspui/2662">https://tede.ufrrj.br/jspui/handle/jspui/2662</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B42">
+        <mixed-citation>Paiva, C. de. (2024). <italic>Concepções de gestores sobre a interseccionalidade nas políticas locais de educação inclusiva</italic> [Tese de Doutorado não publicada]. Universidade Federal Rural do Rio de Janeiro.</mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Paiva</surname>
+              <given-names>C. de.</given-names>
+            </name>
+          </person-group>
+          <year>2024</year>
+          <source>Concepções de gestores sobre a interseccionalidade nas políticas locais de educação inclusiva</source>
+          <comment>[Tese de Doutorado não publicada]</comment>
+          <publisher-name>Universidade Federal Rural do Rio de Janeiro</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B43">
+        <mixed-citation>Pletsch, M. D. (2014). A escolarização de pessoas com deficiência intelectual no Brasil: da institucionalização às políticas de inclusão (1973-2013). <italic>Education Policy Analysis Archives, 22</italic>(81),1-25. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14507/epaa.v22n81.2014">https://doi.org/10.14507/epaa.v22n81.2014</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <year>2014</year>
+          <article-title>A escolarização de pessoas com deficiência intelectual no Brasil: da institucionalização às políticas de inclusão (1973-2013)</article-title>
+          <source>Education Policy Analysis Archives</source>
+          <volume>22</volume>
+          <issue>81</issue>
+          <fpage>1</fpage>
+          <lpage>25</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14507/epaa.v22n81.2014">https://doi.org/10.14507/epaa.v22n81.2014</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B44">
+        <mixed-citation>Pletsch, M. D. (2020). O que há de especial na educação especial brasileira?. <italic>Momento: diálogos em educação, 29</italic>(1), 57-70. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14295/momento.v29i1.9357">https://doi.org/10.14295/momento.v29i1.9357</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <year>2020</year>
+          <article-title>O que há de especial na educação especial brasileira?</article-title>
+          <source>Momento: diálogos em educação</source>
+          <volume>29</volume>
+          <issue>1</issue>
+          <fpage>57</fpage>
+          <lpage>70</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14295/momento.v29i1.9357">https://doi.org/10.14295/momento.v29i1.9357</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B45">
+        <mixed-citation>Pletsch, M. D. (2022). O Planejamento Educacional Individualizado (PEI) como instrumento para o processo de escolarização de alunos com deficiência intelectual. In A. A. P. Borges, &amp; M. D. Pletsch (Orgs.), <italic>Toda Criança pode Aprender: O aluno com deficiência intelectual na escola</italic> (1ª ed., pp. 165-184). Mercado de Letras.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <year>2022</year>
+          <chapter-title>O Planejamento Educacional Individualizado (PEI) como instrumento para o processo de escolarização de alunos com deficiência intelectual</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Borges</surname>
+              <given-names>A. A. P.</given-names>
+            </name>
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <source>Toda Criança pode Aprender: O aluno com deficiência intelectual na escola</source>
+          <edition>1ª</edition>
+          <fpage>165</fpage>
+          <lpage>184</lpage>
+          <publisher-name>Mercado de Letras</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B46">
+        <mixed-citation>Pletsch, M. D. (2023, 17 de novembro). <italic>Formação de professores na contemporaneidade</italic> [Palestra Ministrada]. 10º Congresso Brasileiro de Educação Especial - CBEE. São Carlos, São Paulo, Brasil.</mixed-citation>
+        <element-citation publication-type="confproc">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <day>17</day>
+          <season>novembro</season>
+          <source>Formação de professores na contemporaneidade [Palestra Ministrada]</source>
+          <conf-name>10º Congresso Brasileiro de Educação Especial - CBEE</conf-name>
+          <publisher-loc>São Carlos, São Paulo, Brasil</publisher-loc>
+        </element-citation>
+      </ref>
+      <ref id="B47">
+        <mixed-citation>Pletsch, M. D. (no prelo). Plano de Atendimento Educacional Especializado (AEE) e Planejamento Educacional Individualizado (PEI): complementares ou excludentes? In A. A. P. Borges, S. P. H. Camargo, &amp; J. W. Valle (Orgs.), <italic>Plano Educacional Individualizado (PEI) para alunos com deficiência.</italic> Ampla Editora e Comércio LTDA.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+          </person-group>
+          <chapter-title>Plano de Atendimento Educacional Especializado (AEE) e Planejamento Educacional Individualizado (PEI): complementares ou excludentes?</chapter-title>
+          <person-group person-group-type="editor">
+            <name>
+              <surname>Borges</surname>
+              <given-names>A. A. P.</given-names>
+            </name>
+            <name>
+              <surname>Camargo</surname>
+              <given-names>S. P. H.</given-names>
+            </name>
+            <name>
+              <surname>Valle</surname>
+              <given-names>J. W.</given-names>
+            </name>
+          </person-group>
+          <source>Plano Educacional Individualizado (PEI) para alunos com deficiência</source>
+          <publisher-name>Ampla Editora e Comércio LTDA</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B48">
+        <mixed-citation>Pletsch, M. D., Batista, G. de F., &amp; Avila, L. L. (2023). Constituição da Educação Especial no Brasil: contribuições de Sarah Couto Cesar e Olívia da Silva Pereira. <italic>Cadernos de História da Educação, 22</italic>, 1-21. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14393/che-v22-2023-159">https://doi.org/10.14393/che-v22-2023-159</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+            <name>
+              <surname>Batista</surname>
+              <given-names>G. de F.</given-names>
+            </name>
+            <name>
+              <surname>Avila</surname>
+              <given-names>L. L.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <article-title>Constituição da Educação Especial no Brasil: contribuições de Sarah Couto Cesar e Olívia da Silva Pereira</article-title>
+          <source>Cadernos de História da Educação</source>
+          <volume>22</volume>
+          <fpage>1</fpage>
+          <lpage>21</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14393/che-v22-2023-159">https://doi.org/10.14393/che-v22-2023-159</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B49">
+        <mixed-citation>Pletsch, M. D., Calheiros de Sá, M. R., &amp; Mendes, L. G. M. (2021). A favor da escola pública: a intersetorialidade como premissa para a educação inclusiva. <italic>Revista Teias, 22</italic>(66), 11-26. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.12957/teias.2021.58619">https://doi.org/10.12957/teias.2021.58619</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+            <name>
+              <surname>Calheiros de Sá</surname>
+              <given-names>M. R.</given-names>
+            </name>
+            <name>
+              <surname>Mendes</surname>
+              <given-names>L. G. M.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <article-title>A favor da escola pública: a intersetorialidade como premissa para a educação inclusiva</article-title>
+          <source>Revista Teias</source>
+          <volume>22</volume>
+          <issue>66</issue>
+          <fpage>11</fpage>
+          <lpage>26</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.12957/teias.2021.58619">https://doi.org/10.12957/teias.2021.58619</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B50">
+        <mixed-citation>Pletsch, M. D., &amp; Souza, F. F. de. (2021). Educação comum ou especial? Análise das diretrizes políticas de educação especial brasileiras. <italic>Revista Ibero-Americana de Estudos em Educação, 16</italic>, 1286-1306. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.21723/riaee.v16iesp2.15126">https://doi.org/10.21723/riaee.v16iesp2.15126</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pletsch</surname>
+              <given-names>M. D.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>F. F. de.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <article-title>Educação comum ou especial? Análise das diretrizes políticas de educação especial brasileiras</article-title>
+          <source>Revista Ibero-Americana de Estudos em Educação</source>
+          <volume>16</volume>
+          <fpage>1286</fpage>
+          <lpage>1306</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.21723/riaee.v16iesp2.15126">https://doi.org/10.21723/riaee.v16iesp2.15126</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B51">
+        <mixed-citation><italic>Resolução nº 4, de 2 de outubro de 2009</italic>. Institui Diretrizes Operacionais para o Atendimento Educacional Especializado na Educação Básica, modalidade Educação Especial. <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/dmdocuments/rceb004_09.pdf">http://portal.mec.gov.br/dmdocuments/rceb004_09.pdf</ext-link> </mixed-citation>
+        <element-citation publication-type="legal-doc">
+          <source><italic>Resolução nº 4, de 2 de outubro de 2009</italic>. Institui Diretrizes Operacionais para o Atendimento Educacional Especializado na Educação Básica, modalidade Educação Especial</source>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://portal.mec.gov.br/dmdocuments/rceb004_09.pdf">http://portal.mec.gov.br/dmdocuments/rceb004_09.pdf</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B52">
+        <mixed-citation>Silva, C. da, Hostins, R. C. L., &amp; Mendes, R. da S. (2016). O lugar do Atendimento Educacional Especializado nas práticas culturais de escolarização em contextos de inclusão escolar. <italic>Revista Linhas, 17</italic>(35), 10-29. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.5965/1984723817352016010">http://dx.doi.org/10.5965/1984723817352016010</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silva</surname>
+              <given-names>C. da</given-names>
+            </name>
+            <name>
+              <surname>Hostins</surname>
+              <given-names>R. C. L.</given-names>
+            </name>
+            <name>
+              <surname>Mendes</surname>
+              <given-names>R. da S.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <article-title>O lugar do Atendimento Educacional Especializado nas práticas culturais de escolarização em contextos de inclusão escolar</article-title>
+          <source>Revista Linhas</source>
+          <volume>17</volume>
+          <issue>35</issue>
+          <fpage>10</fpage>
+          <lpage>29</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.5965/1984723817352016010">http://dx.doi.org/10.5965/1984723817352016010</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B53">
+        <mixed-citation>Slee, R. (2016). <italic>The irregular school: exclusion, schooling and inclusive education.</italic> Routledge.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Slee</surname>
+              <given-names>R.</given-names>
+            </name>
+          </person-group>
+          <year>2016</year>
+          <source>The irregular school: exclusion, schooling and inclusive education</source>
+          <publisher-name>Routledge</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B54">
+        <mixed-citation>Tibyriçá, R. F., &amp; Mendes, E. G. (2023). O modelo social da deficiência e as decisões do TJ/SP: análise a partir das demandas pros profissionais de apoio. <italic>Revista Brasileira de Educação Especial, 29</italic>, 1-20. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702023v29e0052">https://doi.org/10.1590/1980-54702023v29e0052</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Tibyriçá</surname>
+              <given-names>R. F.</given-names>
+            </name>
+            <name>
+              <surname>Mendes</surname>
+              <given-names>E. G.</given-names>
+            </name>
+          </person-group>
+          <year>2023</year>
+          <article-title>O modelo social da deficiência e as decisões do TJ/SP: análise a partir das demandas pros profissionais de apoio</article-title>
+          <source>Revista Brasileira de Educação Especial</source>
+          <volume>29</volume>
+          <fpage>1</fpage>
+          <lpage>20</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-54702023v29e0052">https://doi.org/10.1590/1980-54702023v29e0052</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B55">
+        <mixed-citation>Valadão, G. T. (2010). <italic>Planejamento educacional individualizado na Educação Especial: propostas oficiais da Itália, França, Estados Unidos e Espanha</italic> [Dissertação de Mestrado, Universidade Federal de São Carlos]. Repositório Institucional UFSCar. <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufscar.br/handle/ufscar/3070?show=full">https://repositorio.ufscar.br/handle/ufscar/3070?show=full</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Valadão</surname>
+              <given-names>G. T.</given-names>
+            </name>
+          </person-group>
+          <year>2010</year>
+          <source>Planejamento educacional individualizado na Educação Especial: propostas oficiais da Itália, França, Estados Unidos e Espanha</source>
+          <comment>Dissertação de Mestrado</comment>
+          <publisher-name>Universidade Federal de São Carlos</publisher-name>
+          <publisher-name>Repositório Institucional UFSCar</publisher-name>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://repositorio.ufscar.br/handle/ufscar/3070?show=full">https://repositorio.ufscar.br/handle/ufscar/3070?show=full</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B56">
+        <mixed-citation>Vigoski, L. S. (2021). <italic>A construção do pensamento e da linguagem.</italic> Martins Fontes.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Vigoski</surname>
+              <given-names>L. S.</given-names>
+            </name>
+          </person-group>
+          <year>2021</year>
+          <source>A construção do pensamento e da linguagem</source>
+          <publisher-name>Martins Fontes</publisher-name>
+        </element-citation>
+      </ref>
+      <ref id="B57">
+        <mixed-citation>Waitoller, G. T., &amp; Lubienski, C. (2024). School choice strategies at the intersections of disability, race, class, and geography. <italic>Education Policy Analysis Archives, 32</italic>(26), 1-24. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14507/epaa.32.8273">https://doi.org/10.14507/epaa.32.8273</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Waitoller</surname>
+              <given-names>G. T.</given-names>
+            </name>
+            <name>
+              <surname>Lubienski</surname>
+              <given-names>C.</given-names>
+            </name>
+          </person-group>
+          <year>2024</year>
+          <article-title>School choice strategies at the intersections of disability, race, class, and geography</article-title>
+          <source>Education Policy Analysis Archives</source>
+          <volume>32</volume>
+          <issue>26</issue>
+          <fpage>1</fpage>
+          <lpage>24</lpage>
+          <comment>
+            <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.14507/epaa.32.8273">https://doi.org/10.14507/epaa.32.8273</ext-link>
+          </comment>
+        </element-citation>
+      </ref>
+      <ref id="B58">
+        <mixed-citation>Yarza De los Ríos, A. (2011). Corrientes pedagógicas, tradiciones pedagógicas y Educación Especial: pensando historicamente la Educación Especial em América Latina. <italic>Revista RUEDES, Red Universitaria de Educación Especial, 1</italic>(1), 3-21, 2011.</mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Yarza De los Ríos</surname>
+              <given-names>A.</given-names>
+            </name>
+          </person-group>
+          <year>2011</year>
+          <article-title>Corrientes pedagógicas, tradiciones pedagógicas y Educación Especial: pensando historicamente la Educación Especial em América Latina</article-title>
+          <source>Revista RUEDES, Red Universitaria de Educación Especial</source>
+          <volume>1</volume>
+          <issue>1</issue>
+          <fpage>3</fpage>
+          <lpage>21</lpage>
+          <comment>2011</comment>
+        </element-citation>
+      </ref>
+    </ref-list>
+  </back>
+  <sub-article article-type="translation" id="s1" xml:lang="en">
+    <front-stub>
+      <article-id pub-id-type="doi">10.1590/1980-54702024v30e143i</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Dossiê / Research Report</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Cartographies of Inclusive Education in Special Education: Scientific Production, Policies and Practices</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-5906-0487</contrib-id>
+          <name>
+            <surname>PLETSCH</surname>
+            <given-names>Márcia Denise</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">3</xref>
+          <bio>
+            <p>PhD in Education. Scientist from the State of Rio de Janeiro at FAPERJ and researcher at CNPq - level 1D. Coordinator of the Specialization Course in Special Education and Technological Innovation (UFRRJ/CECIERJ). General coordinator of the Observatory Research Group on Special Education and Educational Inclusion (ObEE) and of the Center for Technological Innovation and Inclusive Education (CITEI).</p>
+          </bio>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-8848-7436</contrib-id>
+          <name>
+            <surname>MENDES</surname>
+            <given-names>Geovana Mendonça Lunardi</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff2">4</xref>
+          <bio>
+            <p>CNPq researcher - level 1D. Vice President of the World Education Research Association. Member of the CAPES Basic Education Scientific Technical Council. Member of the National Education Forum. Advisor for the Human Sciences Area at the Brazilian Society for the Progress of Science (SBPC)</p>
+          </bio>
+        </contrib>
+      </contrib-group>
+      <aff id="aff">
+        <label>3</label>
+        <institution content-type="original">Associate Professor at the Department of Education and Society and the Graduate Program in Education, Contemporary Contexts and Popular Demands (PPGEduc) at the Universidade Federal Rural do Rio de Janeiro (UFRRJ). E-mail: marciadenisepletsch@gmail.com</institution>
+      </aff>
+      <aff id="aff4">
+        <label>4</label>
+        <institution content-type="original">Full Professor at the Department of Pedagogy, of the Center for Human Sciences and Education (FAED) and the Graduate Program in Education at the State University of Santa Catarina (UDESC). E-mail: geovana.mendes@udesc.br</institution>
+      </aff>
+      <elocation-id>e143i</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>13</day>
+          <month>06</month>
+          <year>2024</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>20</day>
+          <month>07</month>
+          <year>2024</year>
+        </date>
+        <date date-type="accepted">
+          <day>30</day>
+          <month>06</month>
+          <year>2024</year>
+        </date>
+      </history>
+      <abstract>
+        <title>ABSTRACT</title>
+        <p>In this paper, we present a portrait of inclusive education policies in Special Education. We analyze the scientific production, education policies and the current educational reality, considering the 16 years of the National Special Education Policy from the Perspective of Inclusive Education. In methodological terms, we analyzed federal documents and the School Census produced by the National Institute of Educational Studies and Research Anísio Teixeira (INEP), as well as the scientific production of the <italic>Revista Brasileira de Educação Especial</italic> (RBEE). The findings were compared with qualitative data produced in education networks that are part of the Permanent Special Education Forum from the perspective of Inclusive Education in <italic>Baixada e Sul Fluminense</italic>, Rio de Janeiro, Brazil. The results indicate a set of challenges in guaranteeing Inclusive Education within the scope of Special Education: setbacks in offering educational support, weaknesses in intersectoral policies/programs, educational inequity and theoretical and practical problems in the conception of Inclusive Education in Special Education.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>KEYWORDS:</title>
+        <kwd>Inclusive Education policies</kwd>
+        <kwd>Disability</kwd>
+        <kwd>Special Education</kwd>
+        <kwd>Inequity</kwd>
+        <kwd>Scientific production</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>CNPq</funding-source>
+          <award-id>307492/2018-4</award-id>
+          <award-id>421993/2018-9</award-id>
+          <award-id>315530/2023-5</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>FAPERJ</funding-source>
+          <award-id>E-26/202.734/2018</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>Grupos Emergentes</funding-source>
+          <award-id>E-26/010.002186/2019</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>Cientista do Estado</funding-source>
+          <award-id>SEI-260003/003636/2022</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>CAPES</funding-source>
+          <award-id>N. 06/2023</award-id>
+        </award-group>
+        <award-group>
+          <funding-source>CAPES</funding-source>
+          <award-id>2023tr000952</award-id>
+        </award-group>
+        <funding-statement>Funding: National Council for Scientific and Technological Development (CNPq), Processes 307492/2018-4, 421993/2018-9,315530/2023-5, Rio de Janeiro State Research Support Foundation (FAPERJ) - <italic>Jovem Cientista do Nosso Estado</italic> Notice (Process E-26/202.734/2018), <italic>Grupos Emergentes</italic> Notice (Process E-26/010.002186/2019) and <italic>Cientista do Estado</italic> Notice (Process SEI-260003/003636/2022). Santa Catarina State Research Support Foundation (FAPESC) - Public Call Notice of Fapesc/Coordination for the Improvement of Higher Education Personnel (CAPES) N. 06/2023 - Graduate Development Support Program (PDPG) - Strategic Partnerships in the States III - CAPES Notice N. 38/2022, Grant Term N. 2023tr000952.</funding-statement>
+      </funding-group>
+    </front-stub>
+    <body>
+      <sec sec-type="intro">
+        <title>1 Introduction</title>
+        <p>Sixteen years have passed since the presentation, within the scope of the <italic>Plano de Desenvolvimento da Educação</italic> (PDE) [Education Development Plan], of the <italic>Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva</italic> (PNEEPEI) [National Policy of Special Education from the Perspective of Inclusive Education] in January 2008, which, among other measures, proposed “specific educational arrangements in which human development of each and every one is promoted” (<xref ref-type="bibr" rid="B36">Ministry of Education, 2007</xref>, p. 37). The PDE provided for several actions to intensify the educational and social inclusion of people with disabilities, among which we highlight: <italic>Programa Escola Acessível</italic> [Accessible School Program]; the expansion of the hiring number of educational support professionals; acquisition of affordable school buses; the expansion of the <italic>Benefício de Prestação Continuada</italic> (BPC) [a social assistance policy of Continuous Cash Benefit] at school; continuing training of teachers and managers primarily through distance education (<xref ref-type="bibr" rid="B43">Pletsch, 2014</xref>).</p>
+        <p>It is important to mention that PNEEPEI of 2008 has never been regulated. It was prepared by a working group designated through Ordinance no. 555 of June 5, 2007, delivered to the Minister of Education on January 7, 2008. Nevertheless, the document through an instituting movement has been used in the national territory as a reference for the elaboration of educational inclusion policies. In it, the term “inclusive education” is presented as “a political, cultural, social and pedagogical action, triggered in defense of the right of all students to be together, learning and participating, without any discrimination” (<xref ref-type="bibr" rid="B37">Ministry of Education, 2008</xref>), understanding it in the field of human rights that comprises disability in the social perspective and “conjugates equality and difference as inseparable values, and which advances in relation to the idea of formal equity in contextualizing the historical circumstances of the production of exclusion within and outside of the school” (<xref ref-type="bibr" rid="B37">Ministry of Education, 2008</xref>, p. 1). From this perspective, we understand that the policy of Inclusive Education must guarantee to the public of Special Education access to education, participation in educational activities and learning. This implies, in our understanding, as we have already signaled in other publications, the combination of three elements: 1) the recognition of difference as constitutive of the human; b) the specificities in the development of the subjects; and 3) the coexistence with cultural diversity in a school/university with and for all (<xref ref-type="bibr" rid="B44">Pletsch, 2020</xref>; <xref ref-type="bibr" rid="B50">Pletsch &amp; Souza, 2021</xref>).</p>
+        <p>Another central aspect in 2008 PNEEPEI is the transversality given to special education that must permeate all levels and stages of education, from Early Childhood Education to Higher Education, assuming the character of modality and no longer as a segregated teaching service for people with disabilities in schools or special classes as occurred historically. Here, we would like to make a brief but not less important discussion about Special Education and a certain “identity crisis” that is constantly present in political and scientific discussions, including researchers in the area, about what Special Education is and which would be its role in contemporary times.</p>
+        <p>Our interpretation follows two directions. One is that Special Education, in accordance with the 2008 policy, is a teaching modality that permeates all stages and educational levels. However, we have advocated, in line with international literature, that it increasingly needs to structure itself as an educational support system to ensure special education public inclusion and no longer as a substitute or segregated service (<xref ref-type="bibr" rid="B44">Pletsch, 2020</xref>). The other is that Special Education is an area of scientific knowledge production listed in the specific topics of Education that is part of the area of education, which, in turn, is part of the large area of Human Sciences (National Council for Scientific and Technological Development [CNPq], <xref ref-type="bibr" rid="B16">2024</xref>). Thus, as well as education, Special Education is interdisciplinary, proposing a dialogue with different fields of knowledge production such as Sociology, Psychology, History and others.</p>
+        <p>In other words, reducing the understanding of Special Education as synonymous with class or Special school, as commonly occurs in Brazil and other Latin American countries, or only as a cross-sectional modality to teaching, not only limits and restricts the understanding of the importance of Special Education as a system of support for the education of people with disabilities, as well as denies the scientific contribution that the area has historically been offering to advance in this field<sup><xref ref-type="fn" rid="fn6">5</xref></sup>.</p>
+        <p>Taking this perspective as a background, in this paper, our goal is to present a cartography of scientific production, policies and practices of Inclusive Education, considering the advances, challenges and perspectives after 16 years of the 2008 PNEEPEI. To do so, we went through scientific production data, School Census and the field of policy production and translation, in order to present systematizations constituted by the authors along the investigation course on this theme.</p>
+      </sec>
+      <sec sec-type="methods">
+        <title>2 Methodological and ethical aspects</title>
+        <p>In methodological terms, we analyzed federal documents and statistics of the School and Higher Education Census produced by the National Institute for Educational Studies and Research Anísio Teixeira (INEP). These data were compared with results of qualitative studies conducted in education networks that make up the Permanent Forum of Special Education from the Perspective of Inclusive Education of <italic>Baixada e Sul Fluminense</italic>, Rio de Janeiro (RJ)<sup><xref ref-type="fn" rid="fn7">6</xref></sup>. We also present the data resulting from the research conducted on scientific production published in the <italic>Revista Brasileira de Educação Especial</italic> (RBEE) [Brazilian Journal of Special Education] from 2008 to 2023. Such data are result of two research projects that aim to identify how scientific production in Special Education has adopted the conception of Inclusive Education.</p>
+        <p>The selected documents for the analysis were produced from 2008 to 2024, namely: 1) 2008 PNEEPEI (<xref ref-type="bibr" rid="B37">Ministry of Education, 2008</xref>); 2) Resolution no. 4, of October 2, <xref ref-type="bibr" rid="B51">2009</xref>, which established the Operational Guidelines for the Specialized Educational Service (SES) in Basic Education, Special Education modality; 3) Technical Note no. 4, of January 23, <xref ref-type="bibr" rid="B39">2014</xref>, which brings guidelines regarding supporting documents of Special Education students in the School Census; 4) <italic>Lei Brasileira de Inclusão</italic> (LBI) [Brazilian Inclusion Law] - Law no. 13,146, of July 6, 2015; 5) Technical Summary of the 2022 Higher Education Census (<xref ref-type="bibr" rid="B24">INEP, 2024a</xref>); 6) 2023 School Census: Technical Summary (<xref ref-type="bibr" rid="B25">INEP, 2024b</xref>); 7) Specialized Educational Service in the South and Midwest, Southeast, North and Northeast Brazil of 2021 (technical document) (<xref ref-type="bibr" rid="B19">D’Avila, 2022</xref>).</p>
+        <p>The analyzes that follow were compared with the theoretical references with which the authors have dialogued in their research and assume a cartographic character in order to present a panorama, although incorporating different perspectives and empirical data to achieve an extended understanding of challenges and the current perspectives of Special Education, considering scientific production in the area and education policies.</p>
+      </sec>
+      <sec>
+        <title>3 Education as a right: perspectives and challenges of special education from the perspective of inclusive education</title>
+        <p>As previously signaled, the 2008 PNEEPEI has been used to guide education systems to become <italic>inclusive educational systems</italic>, already in line with the Human Rights principles of the Convention on the Rights of Persons with Disabilities (CRPD). In Brazil, the CRPD and its optional protocol were promulgated through <xref ref-type="bibr" rid="B20">Decree no. 6,949, of August 25, 2009</xref>, having constitutional amendment status by virtue of §3 of article 5 of the 1988 Federal Constitution. It was in line with the CRPD that, in 2015, the Brazilian government instituted the LBI [Brazilian Inclusion Law] - or Statute of Persons with Disabilities, as it is also known (<xref ref-type="bibr" rid="B28">Law no. 13,146, 2015</xref>).</p>
+        <p>In the Brazilian Inclusion Law, accessibility, universal design and assistive technology are conceptualized, aspects that we consider important for the realization of educational inclusion. For example, <italic>accessibility</italic> and its different dimensions (architectural, communicational, instrumental, methodological, curriculum, attitudinal and digital) have been prominent, as well as the understanding of disability from its human functionality, based on biopsychosocial model. The evaluation of the disability in this perspective considers: the impediments in body functions and structures; social, environmental, psychological and personal factors; limitation on activity performance and restriction of participation (<xref ref-type="bibr" rid="B28">Law no. 13.146, 2015</xref>). This change meant a considerable conceptual advancement, as it took the focus away of the subject’s impediments and focused the debate in the social role and possibilities of these people to the detriment of their relationship with the social or educational barriers to which they are exposed.</p>
+        <p>Advances in access to education for the Special Education public can also be identified in the 2023 School Census. <xref ref-type="table" rid="t3">Table 1</xref> presents a synthesis of this public.</p>
+        <table-wrap id="t3">
+          <label>Table 1</label>
+          <caption>
+            <title>Enrollments of Special Education public in Basic Education</title>
+          </caption>
+          <table>
+            <thead>
+              <tr>
+                <th align="left" style="background-color:#8DB3E2;">Public</th>
+                <th align="center" style="background-color:#8DB3E2; ">Enrollments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">Intellectual Disability</td>
+                <td align="center">952.904 </td>
+              </tr>
+              <tr>
+                <td align="left">Autism Spectrum Disorder (ASD)<sup><xref ref-type="fn" rid="fn8">7</xref></sup> </td>
+                <td align="center">636.202 </td>
+              </tr>
+              <tr>
+                <td align="left">Physical Disability</td>
+                <td align="center">163.790</td>
+              </tr>
+              <tr>
+                <td align="left">Low Vision</td>
+                <td align="center">86.867</td>
+              </tr>
+              <tr>
+                <td align="left">Blindness</td>
+                <td align="center">7.321</td>
+              </tr>
+              <tr>
+                <td align="left">Deafblindness</td>
+                <td align="center">693</td>
+              </tr>
+              <tr>
+                <td align="left">Hearing deficiency</td>
+                <td align="center">41.491</td>
+              </tr>
+              <tr>
+                <td align="left">Deafness</td>
+                <td align="center">20.008</td>
+              </tr>
+              <tr>
+                <td align="left">Multiple Disability</td>
+                <td align="center">88.885</td>
+              </tr>
+              <tr>
+                <td align="left">Giftedness</td>
+                <td align="center">38.019</td>
+              </tr>
+              <tr>
+                <td align="left">Total </td>
+                <td align="center">1.771.430</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <attrib><italic>Note</italic>. Elaborated based on the 2023 School Census (<xref ref-type="bibr" rid="B25">INEP, 2024b</xref>).</attrib>
+          </table-wrap-foot>
+        </table-wrap>
+        <p>According to the 2023 School Census (<xref ref-type="bibr" rid="B25">INEP, 2024b</xref>), the number of enrollment of people with disabilities in Basic Education increased at all stages, from kindergarten to High School. In five years, there was an increase of 41.6%, from 1.25 million in 2019 to 1,771,430 enrollments in 2023. Of this total, 95% of 4-17 year-old population enrollment is in common classes of regular education, bringing us closer to the 2014 National Education Plan’s Goal 4, and only 5% in special classes or segregated schools. It is worth noting that by the early 2000s, 59% of people with disabilities were enrolled in special schools, mostly philanthropic segregated state - funded schools (<xref ref-type="bibr" rid="B23">INEP, 2001</xref>).</p>
+        <p>Still on the 2023 School Census, a fact that also draws attention is the historical prevalence of enrollments of students with intellectual disabilities with 952,904 (53%), followed by students with ASD, with 636,202 (35.9%), totaling 1,589,106 enrollments, which is equivalent to 88.9% of the total. Another important fact concerns the concentration of Special Education public enrollment in Elementary School with 1,114,230 enrollments, which is equivalent to 62.90% of the total. The data also indicate that, from 95% of enrollments in common classes of regular education, only 42% receive educational support in SES resource rooms (supplementary for students with giftednes and complementary to others) (<xref ref-type="bibr" rid="B25">INEP, 2024b</xref>).</p>
+        <p>According to <xref ref-type="bibr" rid="B51">Resolution no. 4/2009</xref>, the SES for Basic Education involves a set of activities, accessibility and educational resources organized institutionally to be offered in multifunctional resource rooms or in partner Specialized Centers. School failure also draws attention, as well as the dropout rate, which, in the case of Special Education students, is higher than the overall average. The repetition rate is 2.8% in Elementary School and 3.7% in High School for Special Education students, compared to 2.3% and 3.9%, respectively, in the overall average. The dropout rate is 4.9% in Elementary School and 6.2% in High School for the Special Education public, while the overall average was 3% and 5.9%, respectively.</p>
+        <p>The educational and social iniquity between people with and without disabilities was also evidenced in the data of the Brazilian Institute of Geography and Statistics (IBGE) (<xref ref-type="bibr" rid="B22">Gomes, 2023</xref>), which point out that the estimate is that of 18.6 million people with disabilities in Brazil, about 19.5%, are in the illiteracy range, against 4.1% of the population without disabilities. They also indicate that 63.3% of people with disabilities over 25 years of age have no instruction or present incomplete Elementary Education. Those who have complete High School represent 25.6%, while 57.3% of people without disabilities had this level of instruction.</p>
+        <p>The iniquity of participation of people with disabilities also occurs in other areas of social life, such as, for example, 55.0% of people with disabilities work in informality, while this data drops to 38.7% for people without disabilities. Inequality also occurs in salary income: the real average usually received by persons with disabilities in 2022, according to IBGE data (<xref ref-type="bibr" rid="B22">Gomes, 2023</xref>), was of 1,860 BRL, while the monthly income of people employed without disabilities was of 2,690 BRL.</p>
+        <p>Regarding access to Higher Education, these indicators are even scarier, because, in spite of advances with <xref ref-type="bibr" rid="B29">Law no. 13,409, of December 28, 2016</xref>, which amended <xref ref-type="bibr" rid="B27">Law no. 12,711, of August 29, 2012</xref>, to dispose of the reservation of vacancies for people with disabilities in the technical courses of High School and Higher Education of federal educational institutions, known as “<italic>lei das cotas</italic>” [quota law], less than 1% of total enrollments is of students from the Special Education public (<xref ref-type="bibr" rid="B24">INEP, 2024a</xref>).</p>
+        <p><xref ref-type="bibr" rid="B42">Paiva (2024)</xref>, based on official IBGE data, showed that iniquity expands even more when taking into account markers such as race and gender. This suggests, according to the author, that disability is a factor that contributes greatly to the exclusion of this population of the social rights in Brazil. Inequality between people with and without disabilities was also evidenced in a recent study conducted in Chicago, United States, by <xref ref-type="bibr" rid="B57">Waitoller and Lubienski (2024)</xref>. The authors found that the disability associated with social markers such as class, race and geographical location of their families ends up restricting the opportunities of these families in choosing a school for their children compared to children without disabilities. Iniquity between opportunities experienced by students with and without disabilities was also reported in the investigations of <xref ref-type="bibr" rid="B4">Artiles and Kozleski (2019)</xref>, which showed that children with disabilities in intersection with minority racial and linguistic groups, such as immigrants, perform significantly lower in academic standardized evaluations, present higher rates of abandonment and dropout.</p>
+        <p>As we can show, statistical data show advances in guaranteeing access to education, as well as the iniquities faced especially by populations with disabilities and ASD. However, despite such advances, our research has also shown the enormous challenges to be faced to ensure the right to learning and full participation in the educational activities of this portion of the population. These challenges, to a large extent, do not differ from those placed for the public education of the majority of the population.</p>
+        <p>Despite legal advances and access to education, numerous investigations have shown the challenges faced by Basic Education networks to ensure participation and learning with these people’s development. Among the challenges, we name some: precariousness in the political-pedagogical proposals for curriculum accessibility; access to affordable teaching materials; high number of students per class; lack of initial and continuing education for teachers and SES teachers; guarantee of educational supports consistent with the demands of different students with disabilities; difficulties in developing different and affordable evaluations; insufficiency in offering SES; accessible transport problems (Observatory Research Group on Special Education and Educational Inclusion [ObEE], 2024).</p>
+        <p>Another common data in our research is the lack of knowledge of teachers on how to operate classroom management considering the student’s difference. It is important to say that thinking about inclusion requires recognizing the specificities to appropriate culture from different social and psychological instruments, as <xref ref-type="bibr" rid="B56">Vygotsky’s (2021)</xref> historical-cultural theory illustrates well. This demands educational practices planned from the beginning, considering the individuality of students and the need for strategy differentiation, when necessary, to achieve the general objectives proposed for the class. Therefore, instruments such as the <italic>Planejamento Educacional Individualizado</italic> (PEI) [Individualized Educational Planning] are important (<xref ref-type="bibr" rid="B8">Campos, 2016</xref>; <xref ref-type="bibr" rid="B45">Pletsch, 2022</xref>). In fact, recognizing individuality should be the priority guideline for the inclusion and execution of “curriculum practices for any student, as a humanist education cannot be performed from homogeneous Fordist curriculum assumptions” (<xref ref-type="bibr" rid="B47">Pletsch, in press</xref>, p. 8).</p>
+        <p>In other words, to ensure the participation of people with disabilities in teaching relationships, the use of resources, strategies and differentiated measures, in many cases, it is essential, for example, the use of alternative communication for nonverbal students, as is the case of a significant part of children affected by Congenital Zika Virus Syndrome. Without the use of alternative communication, often personalized for each child, the communication, interaction and appropriation of school knowledge is denied to them (<xref ref-type="bibr" rid="B2">Antonioli, 2023</xref>; <xref ref-type="bibr" rid="B9">Campos, 2022</xref>). In fact, the adoption of individualized measures is foreseen in the Brazilian Inclusion Law itself, Chapter IV - of the right to education. Article 28, item V, of the law ensures: adoption of individualized and collective measures in environments that maximize the academic and social development of students with disabilities, favoring access, permanence, participation and learning in educational institutions (<xref ref-type="bibr" rid="B28">Law no. 13,146, 2015</xref>).</p>
+        <p>Another aspect constantly indicated in our research is the use of the report to guide pedagogical practices (<xref ref-type="bibr" rid="B41">Paiva, 2017</xref>) and the elaboration of SES plans, which use the case study focused on the subject with disabilities as occurs in the medical model as a parameter for its elaboration, unlike the Individualized Educational Planning, which has indicated the development of education cases for its elaboration, which focus on the educational process (<xref ref-type="bibr" rid="B47">Pletsch, in press</xref>). The guidance of the case study is mentioned in <xref ref-type="bibr" rid="B39">Technical Note no. 4/2014</xref>, which indicates that, for the case study, the first stage of the collaboration, the SES plan, if necessary, the SES teacher may articulate with health professionals, making the medical report, in this case, a document attached to the SES plan (p. 3).</p>
+        <p>Thus, although the Technical Note recognizes that the report is not mandatory, by suggesting its use, it ends up legitimizing it as a reference for practices in schools and universities to plan and structure educational supports, whether human or of Assistive Technology. The overlap of the medical model on educational intervention has been constant in the reports of Special Education managers of the education networks that make up the Permanent Forum of Special Education from the Perspective of Inclusive Education of <italic>Baixada e Sul Fluminense</italic>/RJ. Medical reports even indicate the need or not of professionals as mediators, support agents for educational inclusion and, currently, the companion or therapeutic assistant.</p>
+        <p>The Brazilian Inclusion Law provides for professionals such as: personal attendant, school support professional and companion, but they have not yet been regulated, and their attributions are not clear in the context of the classroom, especially when they do not involve aspects of personal hygiene, locomotion and food. In a report by one of the managers of <italic>Baixada Fluminense/</italic>RJ, this practice can be illustrated:</p>
+        <disp-quote>
+          <p>I received an opinion from a clinic, which was delivered to me by the mother, stating that starting in the next few days, a therapeutic companion will be in the classroom with the autistic son, even though he already has a mediator. She said it is for the elaboration of the ABA [Applied Behavior Analysis]. (Special Education Manager, April 2024)</p>
+        </disp-quote>
+        <p>She added: “There will be three professionals in the classroom and this new professional developing a methodology contrary to what has been developed by the school. This harms the child, and we are certain that there are other possibilities for intervention beyond ABA” (Special Education Manager, April 2024).</p>
+        <p>This practice of the professional or therapeutic assistant to develop specific methodologies in the classroom using ABA, particularly for children with autism, without any collaborative or pedagogical work articulated with the school curriculum, is recent and has become a very profitable market for private clinics, and even for international companies that sell training for education professionals with certification of national private institutions. Regarding this matter, we can highlight at least three aggravating factors. The first is that it relies solely on a perspective rooted in therapeutic/clinical intervention in the classroom, disregarding what the Brazilian Inclusion Law emphasizes about intersectoral collaboration for the integral promotion of the development of people with disabilities. The second is the introduction of healthcare professionals from the private sector into public schools, where the provision of services is a duty of the State, according to the <xref ref-type="bibr" rid="B17">1988</xref> Federal Constitution. The third refers to the lack of clarity on the formation of these professionals, the non-regulation of the profession and the lack of clear guidelines on who will supervise their performance.</p>
+        <p>Of course we do not intend to exhaust the debate, and we understand that there are particular cases that require permanent support, more continuous and even behavioral interventions that need articulation and collaboration between health and education. Likewise, there are cases, as indicated by research, with children with Congenital Zika Virus Syndrome, which require, for example, the action of healthcare professionals in schools for feeding these children via tube (<xref ref-type="bibr" rid="B49">Pletsch et al., 2021</xref>). However, according to these empirical research, education needs to play an active role. In fact, the data reveal the importance of education in the orchestration of intersectoral actions for these children. Thus, promoting the need or not of support professionals, whether education or health professionals, needs to be planned in collaboration between the different sectors involved. It is not justified once again in our history the overlap of the medical model at school with the performance of these professionals (companions or therapeutic assistants) of private clinics and, in many cases, with the consent of the Judiciary, under the guise of the rights of the person with disabilities, following the medical model for decisions without any dialogue with Education.</p>
+        <p>The tendency for the judicialization of Special Education using only the report as a supporting document has been recurrent (<xref ref-type="bibr" rid="B6">Barros &amp; Dainez, 2023</xref>; <xref ref-type="bibr" rid="B10">Carvalho, 2022</xref>; <xref ref-type="bibr" rid="B11">Carvalho et al., 2023</xref>; <xref ref-type="bibr" rid="B15">Coimbra Neto, 2019</xref>; <xref ref-type="bibr" rid="B30">Melo &amp; Kassar, 2023</xref>; <xref ref-type="bibr" rid="B47">Pletsch, in press</xref>). If, on the one hand, judicialization has played a determining role in guaranteeing the right to education (<xref ref-type="bibr" rid="B1">Agrelos et al., 2021</xref>), on the other hand, using the report as the only instrument for decisions involving supports/assistance ends up strengthening biological/medical culture of human development, to the detriment of social and cultural perspectives, widely known in the scientific literature. In other words, it is urgent to reflect on the role of the Judiciary in education and what the implications of this judicialization in the creation and expansion of “new” subjects of rights that do not integrate the public of Special Education at school and university are.</p>
+        <p>The challenge of supports or assistance at their different levels to ensure inclusion with Special Education public’s participation and learning has been historic in Brazil, as we do not adopt, as in many other countries, an Individualized Educational Planning to structure such supports/assistance, among others actions, for students with disabilities from teaching cases, as indicated by the Committee on the Rights of Persons with Disabilities of the United Nations (UN) (<xref ref-type="bibr" rid="B31">Mendes, 2023</xref>; <xref ref-type="bibr" rid="B47">Pletsch, in press</xref>; <xref ref-type="bibr" rid="B54">Tibyriçá &amp; Mendes, 2023</xref>; <xref ref-type="bibr" rid="B55">Valadão, 2010</xref>). Since the 2008 PNEEPEI, the focus has shifted towards the SES in multifunctional resource rooms as a “unique model” (<xref ref-type="bibr" rid="B32">Mendes et al., 2022</xref>).</p>
+        <p>According to <xref ref-type="bibr" rid="B32">Mendes et al. (2022)</xref>, which conducted national research through the <italic>Observatório Nacional de Educação Especial</italic> (ONEESP) [National Observatory of Special Education], this proposal does not meet the real needs of the national territory to ensure the full participation and inclusion of people with disabilities and ASD in school. The study shows the inaccuracies of the proposal when it deals with students with intellectual disabilities (which constitutes 53% of the total enrollments in Special Education in Basic Education), problems in the training of teachers to work in SES, the central role of the SES teacher’s responsibility for students in Special Education, lack of collaboration between SES teachers and regular teachers, as guided by <xref ref-type="bibr" rid="B51">Resolution no. 4/2009</xref>, among many other issues (<xref ref-type="bibr" rid="B33">Mendes et al., 2016</xref>; <xref ref-type="bibr" rid="B32">Mendes et al., 2022</xref>; <xref ref-type="bibr" rid="B52">Silva et al., 2016</xref>).</p>
+        <p>Such problems were recently reaffirmed in a technical document released in 2022, prepared in partnership with the Ministry of Education and the United Nations Educational, Scientific and Cultural Organization (UNESCO), through the Special Education Board of Directors linked to the <italic>Secretaria de Modalidades Especializadas de Educação</italic> (SEMESP) [Secretariat of Specialized Education Modalities], extinguished with the recreation by the current government of the <italic>Secretaria de Educação Continuada, Alfabetização de Jovens e Adultos, Diversidade e Inclusão</italic> (SECADI) [Secretariat of Continuing Education, Literacy of Youth and Adults, Diversity and Inclusion]. The results of the research conducted in all regions of Brazil reaffirm data on the SES widely signaled in national scientific production, particularly regarding teacher education (<xref ref-type="bibr" rid="B3">Araújo, 2024</xref>; <xref ref-type="bibr" rid="B26">Kassar, 2014</xref>; <xref ref-type="bibr" rid="B34">Mendes, 2024</xref>; <xref ref-type="bibr" rid="B46">Pletsch, 2023</xref>). In this sense, we highlight the following: a) lack of training/qualification for all segments of school professionals; b) delay in hiring support professionals and caregivers for students; c) absence and/or little financial investment of the government; d) students who cannot have extra hour classes to receive the SES; e) absence or insufficiency of accessible didactic-pedagogical resources; f) high number of Special Education students per classroom.</p>
+        <p>These findings alone justify and reinforce the need for PNEEPEI’s revision and not just its strengthening as provided for in the National Program for Strengthening Special Education Policy from the Perspective of Inclusive Education (<xref ref-type="bibr" rid="B38">Ministry of Education, 2023</xref>). This review is urgent to meet the demands of education networks regarding the guarantee of the educational rights of people with disabilities in common schools of regular education, especially when the subject refers to support and its different levels.</p>
+        <p>Here, we draw attention to our perception that the SES as presented in the Constitution cannot be reduced to the idea that it is only offered in the multifunctional resource room. It has been 16 years since the initial version of the 2008 PNEEPEI. At that time, we had not faced a Zika Virus epidemic nor a COVID-19 pandemic. The social and educational scenario has changed deeply in recent years and, as a result, new social and educational demands have emerged to guarantee the rights of the population with disabilities, ASD and giftedness.</p>
+        <p>In addition to all these aspects that we point out from the point of view of the PNEEPEI and the educational reality, from the 2023 School Census data, we would also like to highlight some of the scientific challenges we have in the field of Special Education. As we pointed out at the beginning of this text, we understand Special Education as an important area of scientific production in the area of Education. This is extremely relevant within the map of the country’s scientific production. As we can see in the figures presented by the Education Area Coordination report of the Coordination for the Improvement of Higher Education Personnel (CAPES), the area’s bibliographic production was greater than 156,000 products, during the quadrennium from 2017 to 2020 (<xref ref-type="bibr" rid="B18">CAPES, 2022</xref>).</p>
+        <p>Therefore, the situation of the area is quite different from others, according to the Report produced by the <italic>Centro de Gestão e Estudos Estratégicos</italic> (CGEE) [Center of Management and Strategic Studies], considering the 2019-2022 production at the Web of Science (WoS) base, because even if the area of Education does not appear among the ten largest publication areas in the country, the theme is featured in different domains of interest, pervading different areas of WoS. Due to its interdisciplinary nature, there are multiple research efforts dedicated to this frontier, located in areas such as the Exact Sciences and Economics itself. In this sense, the grouping of the Education area stands as the second largest thematic group identified by the methodology of the Observatory of Science, Technology, and Innovation (OCTI) of 2022 (<xref ref-type="bibr" rid="B14">CGEE, 2023</xref>), second only to the Biodiversity Group.</p>
+        <p>Within this field, Special Education has been an area of great relevance, either by the size of the production, the themes and methodologies involved. In one of our research projects we are interested in understanding how the Special Education field has mobilized and translated the concepts of Inclusive Education and equity. To this end, in the case of scientific production, we analyzed RBEE’s publications from 2008 to 2023. According to the data collected, during this period, the journal had a number of products per year as presented in <xref ref-type="fig" rid="f2">Figure 1</xref>.</p>
+        <p>
+          <fig id="f2">
+            <label>Figure 1</label>
+            <caption>
+              <title>RBEE total publications per year</title>
+              <p><italic>Note</italic>. Extracted from <xref ref-type="bibr" rid="B34">Mendes (2024, p. 10)</xref></p>
+              <p><italic>Accessibility note</italic>. Description of the Chart: Chart with 16 columns represented by vertical blue bars in chronological order, describing the number of publications in RBEE per year: 2008 with 29, 2009 with 30, 2010 with 30, 2011 with 40, 2012 with 40, 2013 with 37, 2014 with 23, 2015 with 40, 2016 with 40, 2017 with 40, 2018 with 41, 2019 with 44, 2020 with 44, 2021 with 61, 2022 with 36 and 2023 with 38 [End of description].</p>
+            </caption>
+            <alternatives>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/495626e72dd54e891fda9ac049fb3c01eae4dabe.tif"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/cb004f3e4b16dd4d937687df52e8ac3ebb39e0e0.png" specific-use="scielo-web"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1980-5470/m83TGFWyPS6PFqxTBTCQD4J/c710e061626614460873a7ca5a24931044cc376f.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>The research, still in the analysis phase, presents data on the issue of themes, methodologies, theoretical references and authors. However, within this paper, the only analysis we would like to present is related to the thematic issue of scientific production within the area of Special Education. We conducted a survey of all keywords present in all papers during the study period and present the set of the 20 most cited keywords in <xref ref-type="table" rid="t4">Table 2</xref>.</p>
+        <table-wrap id="t4">
+          <label>Table 2</label>
+          <caption>
+            <title>Most cited keywords in RBEE papers</title>
+          </caption>
+          <table>
+            <thead>
+              <tr>
+                <th align="left" style="background-color:#8DB3E2;">20 most cited keywords</th>
+                <th align="center" style="background-color:#8DB3E2; ">Quantitative</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">Special Education</td>
+                <td align="center">427</td>
+              </tr>
+              <tr>
+                <td align="left">Inclusive Education</td>
+                <td align="center">69</td>
+              </tr>
+              <tr>
+                <td align="left">Inclusion</td>
+                <td align="center">44</td>
+              </tr>
+              <tr>
+                <td align="left">Cerebral Palsy</td>
+                <td align="center">35</td>
+              </tr>
+              <tr>
+                <td align="left">Intellectual Disability</td>
+                <td align="center">34</td>
+              </tr>
+              <tr>
+                <td align="left">Autism</td>
+                <td align="center">33</td>
+              </tr>
+              <tr>
+                <td align="left">Teachers’ training</td>
+                <td align="center">25</td>
+              </tr>
+              <tr>
+                <td align="left">Educational Inclusion</td>
+                <td align="center">25</td>
+              </tr>
+              <tr>
+                <td align="left">School Inclusion</td>
+                <td align="center">25</td>
+              </tr>
+              <tr>
+                <td align="left">Deafness</td>
+                <td align="center">23</td>
+              </tr>
+              <tr>
+                <td align="left">Visual Impairment</td>
+                <td align="center">20</td>
+              </tr>
+              <tr>
+                <td align="left">Family</td>
+                <td align="center">20</td>
+              </tr>
+              <tr>
+                <td align="left">Person with disability</td>
+                <td align="center">20</td>
+              </tr>
+              <tr>
+                <td align="left">Down Syndrome</td>
+                <td align="center">20</td>
+              </tr>
+              <tr>
+                <td align="left">Higher Education</td>
+                <td align="center">19</td>
+              </tr>
+              <tr>
+                <td align="left">Autism Spectrum Disorder</td>
+                <td align="center">17</td>
+              </tr>
+              <tr>
+                <td align="left">Assessment</td>
+                <td align="center">15</td>
+              </tr>
+              <tr>
+                <td align="left">Assistive Technology</td>
+                <td align="center">15</td>
+              </tr>
+              <tr>
+                <td align="left">Physical Education</td>
+                <td align="center">14</td>
+              </tr>
+              <tr>
+                <td align="left">Giftedness</td>
+                <td align="center">14</td>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <attrib><italic>Note</italic>. Extracted from <xref ref-type="bibr" rid="B34">Mendes (2024, p. 12)</xref>.</attrib>
+          </table-wrap-foot>
+        </table-wrap>
+        <p>When we look at <xref ref-type="table" rid="t4">Table 2</xref>, we can identify that RBEE’s scientific production uses Special Education, Inclusive Education, Inclusion, Educational Inclusion and School Inclusion as umbrela terms that anchor their research in the field. Apart from these five terms, there are 15 terms that are distributed in stages or areas of education: Physical Education and Higher Education; Teacher Training: which stands out as a very important research area in Special Education; a surprising keyword is “family”, indicating that in this field, collaborative studies and concern for family involvement should be common; we still have Assessment and Assistive Technology as highly prominent topics in the field; and, finally, accounting for nine keywords containing Special Education public’s specificities: Cerebral Palsy, Intellectual Deficiency, Autism, Deafness, Visual Impairment, Person with Disabilities, Down Syndrome, Autistic Spectrum Disorder, Giftedness. Such findings resemble those found by the research conducted by <xref ref-type="bibr" rid="B35">Messiou (2017)</xref>, which analyzed the production of the International Journal of Inclusive Education. The author provokes us asking the question: “If inclusion is about all, why do we still mostly focus on some?” (p. 152).</p>
+        <p>In the area of Special Education, the answer to this question has several nuances. It is obvious that it is in the specialized area that specific production needs to be present. However, what surprises and matters in the provocation made by the author and what we find in the scientific production of the area, besides what the keywords evoke, is what they silence. There is a complete absence of the themes regarding other markers such as class, gender, race, as well as topics such as poverty, inequality and equity. Thus, in the restricted space of the discussion that we want to provoke here, it seems to us that our investigation also needs to advance in the way they define their themes so that we can, in fact, complete our analytical ability on the phenomenon of educational inequality and its relationships with the context of Special Education and the general issues of national public Education.</p>
+      </sec>
+      <sec sec-type="conclusions">
+        <title>4 Some considerations</title>
+        <p>As we pointed out, in the Brazilian case, despite legal advances, we continue to face challenges that go through the recognition of disability in the field of human rights with the necessary conceptual resignification and practices that result from changes in social reality, linked to struggles for the expansion of educational rights, through justice and the participation of the subjects themselves in decisions that directly affect them.</p>
+        <p>Moreover, the data illustrate different challenges in the elaboration and translation of education policies and practices, particularly concerning educational support and assistance for those who need it in order to have the right to be and participate in educational relationships. These challenges even imply a series of changes in the Special Education research agenda, broadening the understanding of the multifaceted character of disability as a social experience that undergoes methodological and epistemological changes.</p>
+        <p>To this end, concepts such as class, race and gender, among others, have to be taken into account in the construction of the research object and the elaboration of public policies involving the public of Special Education. It is not just about looking at human diversity, but also about understanding how social inequalities affect subjects with disabilities and their development conditions. An inclusive education with everyone and for all is part of the permanent and arduous construction of a more democratic and just society.</p>
+      </sec>
+    </body>
+    <back>
+      <fn-group>
+        <fn fn-type="other" id="fn6">
+          <label>5</label>
+          <p>To deepen this discussion about the constitution of Special Education as a field of scientific production, we suggest reading national works such as those by <xref ref-type="bibr" rid="B7">Bueno and Souza (2018)</xref>, <xref ref-type="bibr" rid="B12">Casagrande (2021)</xref>, <xref ref-type="bibr" rid="B13">Casagrande and Mainardes (2021)</xref>, <xref ref-type="bibr" rid="B44">Pletsch (2020)</xref>, <xref ref-type="bibr" rid="B48">Pletsch et al. (2023)</xref>. In international terms, we highlight <xref ref-type="bibr" rid="B5">Artiles et al. (2011)</xref>, <xref ref-type="bibr" rid="B21">Donoso et al. (2017)</xref>, <xref ref-type="bibr" rid="B35">Messiou (2017)</xref>, <xref ref-type="bibr" rid="B53">Slee (2016)</xref> and <xref ref-type="bibr" rid="B58">Yarza De los Ríos (2011)</xref>.</p>
+        </fn>
+        <fn fn-type="other" id="fn7">
+          <label>6</label>
+          <p>Ethics protocol 135/2021. The Permanent Forum of Special Education in the Inclusive Perspective of <italic>Baixada Fluminense</italic>, created in 2015, currently has the participation of 12 municipal managers of Special Education and researchers from the two public universities in the region: the <italic>Universidade Federal Rural do Rio de Janeiro</italic> (UFRRJ) and the <italic>Universidade do Estado do Rio de Janeiro</italic> (UERJ), Duque de Caxias <italic>campus</italic>.</p>
+        </fn>
+        <fn fn-type="other" id="fn8">
+          <label>7</label>
+          <p>In the 2008 PNEEPEI, the term used is “pervasive developmental disorders”. In this paper, as well as in the School Census, we will use the term “autism spectrum disorder” (ASD) replacing the term “pervasive developmental disorders”.</p>
+        </fn>
+        <fn fn-type="financial-disclosure">
+          <p>Funding: National Council for Scientific and Technological Development (CNPq), Processes 307492/2018-4, 421993/2018-9,315530/2023-5, Rio de Janeiro State Research Support Foundation (FAPERJ) - <italic>Jovem Cientista do Nosso Estado</italic> Notice (Process E-26/202.734/2018), <italic>Grupos Emergentes</italic> Notice (Process E-26/010.002186/2019) and <italic>Cientista do Estado</italic> Notice (Process SEI-260003/003636/2022). Santa Catarina State Research Support Foundation (FAPESC) - Public Call Notice of Fapesc/Coordination for the Improvement of Higher Education Personnel (CAPES) N. 06/2023 - Graduate Development Support Program (PDPG) - Strategic Partnerships in the States III - CAPES Notice N. 38/2022, Grant Term N. 2023tr000952.</p>
+        </fn>
+      </fn-group>
+    </back>
+  </sub-article>
+</article>
