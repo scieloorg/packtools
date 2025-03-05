@@ -32,7 +32,7 @@ class Media:
             "media_type": self.media_type,
             "xlink_href": self.xlink_href,
         }
-        data.update(self.accessibility.extract_data())  # Adiciona os dados de acessibilidade extraídos
+        data.update(self.accessibility.data)  # Adiciona os dados de acessibilidade extraídos
         return data
 
 
@@ -46,7 +46,7 @@ class XmlMedias:
         # TODO sub-article está sendo considerado em duplicidade
         for node in self.xml_tree.xpath(". | sub-article"):
             full_text = Fulltext(node)
-            for media_node in full_text.node.xpath(".//media"):
+            for media_node in full_text.node.xpath(".//media | .//graphic"):
                 media_data = Media(media_node).data
                 media_data.update(full_text.attribs_parent_prefixed)
                 media_list.append(media_data)
