@@ -41,19 +41,22 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - one exist validation + one mode validation
         self.assertEqual(2, len(validations))
-        
+
         # Check the mode validation (should be the second one)
         mode_validation = validations[1]
         self.assertEqual("data availability mode", mode_validation["title"])
         self.assertEqual("OK", mode_validation["response"])
         self.assertEqual("data-available", mode_validation["got_value"])
-        self.assertEqual(["data-available", "data-available-upon-request"], mode_validation["expected_value"])
+        self.assertEqual(
+            ["data-available", "data-available-upon-request"],
+            mode_validation["expected_value"],
+        )
         self.assertIsNone(mode_validation["advice"])
 
     def test_validate_data_availability_sec_ok(self):
@@ -77,19 +80,22 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - one exist validation + one mode validation
         self.assertEqual(2, len(validations))
-        
+
         # Check the mode validation (should be the second one)
         mode_validation = validations[1]
         self.assertEqual("data availability mode", mode_validation["title"])
         self.assertEqual("OK", mode_validation["response"])
         self.assertEqual("data-available-upon-request", mode_validation["got_value"])
-        self.assertEqual(["data-available", "data-available-upon-request"], mode_validation["expected_value"])
+        self.assertEqual(
+            ["data-available", "data-available-upon-request"],
+            mode_validation["expected_value"],
+        )
         self.assertIsNone(mode_validation["advice"])
 
     def test_validate_data_availability_both_sec_and_fn_ok(self):
@@ -120,23 +126,23 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - one exist validation + two mode validations (one for each item)
         self.assertEqual(3, len(validations))
-        
+
         # Check the first mode validation (should be for one of the items)
         first_mode_validation = validations[1]
         self.assertEqual("data availability mode", first_mode_validation["title"])
         self.assertEqual("OK", first_mode_validation["response"])
-        
+
         # Check the second mode validation (should be for the other item)
         second_mode_validation = validations[2]
         self.assertEqual("data availability mode", second_mode_validation["title"])
         self.assertEqual("OK", second_mode_validation["response"])
-        
+
         # Verify we have one validation for each type
         specific_uses = [validations[1]["got_value"], validations[2]["got_value"]]
         self.assertIn("data-available", specific_uses)
@@ -163,19 +169,21 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             "specific_use_list": ["data-not-available", "uninformed"],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - one exist validation + one mode validation
         self.assertEqual(2, len(validations))
-        
+
         # Check the mode validation (should be the second one)
         mode_validation = validations[1]
         self.assertEqual("data availability mode", mode_validation["title"])
         self.assertEqual("ERROR", mode_validation["response"])
         self.assertEqual("data-available", mode_validation["got_value"])
-        self.assertEqual(["data-not-available", "uninformed"], mode_validation["expected_value"])
+        self.assertEqual(
+            ["data-not-available", "uninformed"], mode_validation["expected_value"]
+        )
         self.assertIn("Complete  specific-use=", mode_validation["advice"])
 
     def test_validate_data_availability_without_data_availability(self):
@@ -195,13 +203,13 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - should be one exist validation (no mode validation since no items exist)
         self.assertEqual(1, len(validations))
-        
+
         # Check the existence validation
         exist_validation = validations[0]
         self.assertEqual("data availability statement", exist_validation["title"])
@@ -226,13 +234,13 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - should be one exist validation (which should pass because it's optional)
         self.assertEqual(1, len(validations))
-        
+
         # Check the existence validation
         exist_validation = validations[0]
         self.assertEqual("data availability statement", exist_validation["title"])
@@ -260,20 +268,20 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Should have one existence validation (which should fail because it's unexpected)
         # and one mode validation (which should pass because the format is correct)
         self.assertEqual(2, len(validations))
-        
+
         # Check the existence validation
         exist_validation = validations[0]
         self.assertEqual("data availability statement", exist_validation["title"])
         self.assertEqual("ERROR", exist_validation["response"])
         self.assertIn("Remove from <article>", exist_validation["advice"])
-        
+
         # Check the mode validation
         mode_validation = validations[1]
         self.assertEqual("data availability mode", mode_validation["title"])
@@ -309,22 +317,24 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Should have two existence validations (one for main article, one for sub-article)
         # and two mode validations (one for each item)
         self.assertEqual(4, len(validations))
-        
+
         # Check that we have validations for both languages
-        existence_validations = [v for v in validations if v["title"] == "data availability statement"]
+        existence_validations = [
+            v for v in validations if v["title"] == "data availability statement"
+        ]
         languages = set()
         for v in existence_validations:
             data = v.get("data", {})
             if "parent_lang" in data:
                 languages.add(data["parent_lang"])
-        
+
         self.assertEqual({"pt", "en"}, languages)
 
     def test_validate_data_availability_body_section(self):
@@ -348,13 +358,13 @@ class DataAvailabilityValidationTest(unittest.TestCase):
             ],
             "error_level": "ERROR",
         }
-        
+
         validation = DataAvailabilityValidation(xmltree, params)
         validations = list(validation.validate_data_availability())
-        
+
         # Check validation count - one exist validation + one mode validation
         self.assertEqual(2, len(validations))
-        
+
         # Check the mode validation (should be the second one)
         mode_validation = validations[1]
         self.assertEqual("data availability mode", mode_validation["title"])

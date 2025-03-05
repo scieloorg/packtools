@@ -17,7 +17,9 @@
     </back>
 </article>
 """
+
 from packtools.sps.models.article_and_subarticles import Fulltext
+
 
 class DataAvailability:
     def __init__(self, xmltree):
@@ -27,7 +29,9 @@ class DataAvailability:
     def items(self):
         xpath_query = './body//sec[@sec-type="data-availability"] | ./body//fn[@fn-type="data-availability"] | ./back//sec[@sec-type="data-availability"] | ./back//fn[@fn-type="data-availability"]'
 
-        for node in self.xmltree.xpath(". | ./sub-article[@article-type='translation']"):
+        for node in self.xmltree.xpath(
+            ". | ./sub-article[@article-type='translation']"
+        ):
             fulltext = Fulltext(node)
             items = fulltext.node.xpath(xpath_query)
             if len(items) == 0:
@@ -35,10 +39,10 @@ class DataAvailability:
             else:
                 for item in items:
                     data = {
-                        'tag': item.tag,
-                        'specific_use': item.get('specific-use'),
-                        'label': item.findtext("label"),
-                        'text': " ".join(item.xpath("./p//text()"))
+                        "tag": item.tag,
+                        "specific_use": item.get("specific-use"),
+                        "label": item.findtext("label"),
+                        "text": " ".join(item.xpath("./p//text()")),
                     }
                     data.update(fulltext.attribs_parent_prefixed)
                     yield data
@@ -48,5 +52,5 @@ class DataAvailability:
         d = {}
         for item in self.items:
             d.setdefault(item["parent_lang"], [])
-            d[item['parent_lang']].append(item)
+            d[item["parent_lang"]].append(item)
         return d
