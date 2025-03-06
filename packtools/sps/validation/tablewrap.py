@@ -1,5 +1,6 @@
 from packtools.sps.models.tablewrap import ArticleTableWrappers
 from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class ArticleTableWrapValidation:
@@ -66,9 +67,20 @@ class TableWrapValidation:
         if not isinstance(data, dict):
             raise ValueError("data must be a dictionary.")
         self.data = data
-        self.rules = rules
+        self.rules = self.get_default_params()
+        self.rules.update(rules or {})
         self.table_id = self.data.get("table_wrap_id")
         self.xml = f'<table-wrap id="{self.table_id}">' if self.table_id else '<table-wrap>'
+
+    def get_default_params(self):
+        return {
+            "absent_error_level": "WARNING",
+            "id_error_level": "CRITICAL",
+            "label_error_level": "CRITICAL",
+            "caption_error_level": "CRITICAL",
+            "table_error_level": "CRITICAL",
+            "alternatives_error_level": "CRITICAL"
+        }
 
     def validate(self):
         """

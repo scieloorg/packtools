@@ -40,7 +40,22 @@ class ArticleFigValidation:
 class FigValidation:
     def __init__(self, data, rules):
         self.data = data
-        self.rules = rules
+        self.rules = self.get_default_params()
+        self.rules.update(rules or {})
+
+    def get_default_params(self):
+        return {
+            "alternatives_error_level": "CRITICAL",
+            "error_level": "WARNING",
+            "required_error_level": "CRITICAL",
+            "absent_error_level": "WARNING",
+            "id_error_level": "CRITICAL",
+            "label_error_level": "CRITICAL",
+            "caption_error_level": "CRITICAL",
+            "content_error_level": "CRITICAL",
+            "file_extension_error_level": "CRITICAL",
+            "allowed file extensions": ["tif", "jpg", "png", "svg"]
+        }
 
     def validate(self):
         yield from self._validate_item("id")
