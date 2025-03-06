@@ -10,145 +10,209 @@ from importlib.resources import files
 from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
 
 from packtools.sps.validation.xml_validator import validate_xml_content
-from packtools.sps.validation.xml_validator_rules import get_default_rules
+from packtools.sps.validation.xml_validator_rules import read_json
 
 
-class XMLContentValidator:
-    def __init__(self, params):
-        self.params = params
-        self.STANDARD_HEADER = (
+
+class Report:
+    def __init__(self, report_file_path=None, error_file_path=None):
+        self.report_file_path = report_file_path
+        self.error_file_path = error_file_path
+
+        self.cols = (
+            "xml",
             "response",
-            "message",
-            "advice",
-            "data",
-            "group",
-            "item",
-            "sub_item",
-            "validation_type",
-            "title",
-            "parent",
-            "parent_id",
-            "parent_article_type",
-            "parent_lang",
-            "expected_value",
-            "got_value",
-        )
-        self.less_cols = (
-            "response",
-            "item",
-            "title",
             "context",
             "advice",
-            "got_value",
-            "expected_value",
-            "data",
+            "detail",
         )
+        self.write_header()
+        self.create_empty_file(self.error_file_path)
 
-    def format_context(self, row):
-        parent_id = row["parent_id"] or ''
-        parent = row["parent"]
-        
-        parent = f"{parent} {parent_id}"
-        title = []
-        for k in ("item", "sub_item"):
-            if row[k] not in title:
-                if row[k]:
-                    title.append(row[k])
-        return {"context": parent, "item": " / ".join(title)}
+    def create_empty_file(self, file_path):
+        with open(file_path, "w", newline="") as fp:
+            fp.write("")
 
-    def filter_rows(self, rows, headers=None):
-        for row in rows:
-            if not row:
-                continue
-            if row["response"] == "OK":
-                continue
-            row_ = {}
-            for k in self.less_cols:
-                try:
-                    row_[k] = row[k]
-                except KeyError:
-                    pass
-            row_.update(self.format_context(row))
-            yield row_
-
-    def write_report(self, fieldnames, rows, report_file_path):
+    def create_xml_report(self, report_file_path, fieldnames, rows):
         with open(report_file_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
-        print(f"Report created: {report_file_path}")
+        print(f"Created: {report_file_path}")
 
-    def validate(self, xmltree, errors):
-        for result in validate_xml_content(xmltree, self.params):
+    def write_header(self):
+        with open(self.report_file_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=self.cols)
+            writer.writeheader()
+
+    def write_rows(self, rows):
+        with open(self.report_file_path, "a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=self.cols)
+            writer.writerows(rows)
+
+    def register_exceptions(self, exceptions):
+        if exceptions:
+            with open(self.error_file_path, "a") as fp:
+                fp.write("\n".join([json.dumps(error) for error in exceptions]))
+            print(self.error_file_path)
+
+
+class XMLFile:
+    def __init__(self, xml_file_path, xml_report_path):
+        self.cols = (
+            "response",
+            "context",
+            "advice",
+            "detail",
+        )
+        self.xml_file_path = xml_file_path
+        self.xml_report_path = xml_report_path
+        self.exceptions = None
+        self.results = None
+
+    def validate(self, params):
+        xmltree = self.get_xml_tree()
+        self.exceptions = []
+        self.results = []
+        for result in validate_xml_content(xmltree, params):
+            group = result["group"]
             for item in result["items"]:
                 try:
+                    item = self.get_error(item)
                     if item:
-                        yield item
+                        item["context"] = group
+                        self.results.append(item)
                 except Exception as e:
-                    errors.append(str(e))
+                    self.exceptions.append(
+                        {"xml": self.xml_file_path, "error": str(e), "type": str(type(e))}
+                    )
 
-    def get_xml_tree(self, xml_file_path):
-        for xml_with_pre in XMLWithPre.create(path=xml_file_path):
+    def get_xml_tree(self):
+        for xml_with_pre in XMLWithPre.create(path=self.xml_file_path):
             return xml_with_pre.xmltree
 
+    # def fix_row(self, row):
+    #     parent_id = row["parent_id"] or ''
+    #     parent = row["parent"]
+    #     suffix = ""
+    #     if parent_id:
+    #         suffix = f"({parent} {parent_id})"
+        
+    #     parent = f"{parent} {parent_id}"
+    #     title = []
+    #     for k in ("item", "sub_item"):
+    #         if row[k] not in title:
+    #             if row[k]:
+    #                 title.append(row[k])
+    #     return {"item": " / ".join(title) + suffix, "detail": row["data"]}
 
-def check_paths(xml_path, report_path):
-    if report_path:
-        if not os.path.isdir(report_path):
-            try:
-                os.makedirs(report_path)
-            except Exception as error:
-                report_path = None
+    def get_error(self, row):
+        if not row:
+            return
+        if row["response"] == "OK":
+            return
+        if self.cols:
+            row_ = {}
+            for k in self.cols:
+                try:
+                    row_[k] = row[k]
+                except KeyError:
+                    pass
+            row_["detail"] = row["data"]
+            return row_
+        else:
+            return row
 
-    files = []
-    if os.path.isdir(xml_path):
-        if not report_path:
-            report_path = xml_path
-        files = [os.path(xml_path, f) for f in os.listdir(xml_path)]
-    elif os.path.isfile(xml_path):
-        if not report_path:
-            report_path = os.path.dirname(xml_path)
-        files = [xml_path]
+    def add_xml(self):
+        for row in self.results:
+            row["xml"] = self.xml_file_path
+            yield row
 
-    found = False
-    for file_path in files:
-        f = os.path.basename(file_path)
-        yield {
-            "xml_path": file_path,
-            "report_path": os.path.join(report_path, f + ".csv"),
-            "err_path": os.path.join(report_path, f + ".err"),
-        }
-        found = True
-    if not found:
-        raise FileNotFoundError(xml_path)
+
+class XMLDataChecker:
+    def __init__(self, report_file_path, error_file_path, xml_path, xml_report_path=None):
+        self.xml_report_path = xml_report_path
+        self.report_file_path = report_file_path
+        self.error_file_path = error_file_path
+        if self.xml_report_path:
+            if not os.path.isdir(self.xml_report_path):
+                try:
+                    os.makedirs(self.xml_report_path)
+                except Exception as error:
+                    pass
+
+        self.xmls = []
+        if os.path.isdir(xml_path):
+            if not self.xml_report_path:
+                self.xml_report_path = xml_path
+            self.xmls = self._get_xml_file_paths(xml_path)
+        elif os.path.isfile(xml_path):
+            if not self.xml_report_path:
+                self.xml_report_path = os.path.dirname(xml_path)
+            self.xmls = [xml_path]
+
+        if not self.xmls:
+            raise FileNotFoundError(f"Not found xmls in {xml_path}")
+
+    def _get_xml_file_paths(self, path):
+        """
+        Busca recursivamente todos os arquivos XML em um diretório e seus subdiretorios.
+        
+        Args:
+            path (str): Caminho do diretório raiz para iniciar a busca
+            
+        Returns:
+            list: Lista com os caminhos completos de todos os arquivos XML encontrados
+        """
+        xml_files = []
+        
+        # Percorre o diretório e subdiretorios
+        for root, dirs, files in os.walk(path):
+            # Filtra apenas arquivos com extensão .xml (case insensitive)
+            for file in files:
+                name, ext = os.path.splitext(file)
+                if ext == ".xml":
+                    # Constrói e adiciona o caminho completo do arquivo
+                    yield os.path.join(root, file)
+
+    def get_xml_files(self):
+        for file_path in self.xmls:
+            f = os.path.basename(file_path)
+            yield XMLFile(
+                file_path,
+                os.path.join(self.xml_report_path, f + ".csv")
+            )
+
+    def validate(self, params):
+        report = Report(self.report_file_path, self.error_file_path)
+        for xml_file in self.get_xml_files():
+            
+            xml_file.validate(params)
+            report.create_xml_report(xml_file.xml_report_path, xml_file.cols, xml_file.results)
+
+            report.write_rows(xml_file.add_xml())
+            report.register_exceptions(xml_file.exceptions)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Validate XML content")
+    parser = argparse.ArgumentParser(description="XML data checker")
     parser.add_argument("xml_path", type=str, help="XML path")
-    parser.add_argument("--report_path", type=str, help="CSV output file path.")
+    parser.add_argument("output_path", type=str, help="Ouput path")
+    parser.add_argument("--xml_report_path", type=str, help="CSV output folder path.")
+    parser.add_argument("--rules_file_path", type=str, help="Validation rules JSON file path.")
 
     args = parser.parse_args()
 
-    validator = XMLContentValidator(get_default_rules())
+    report_file_path = os.path.join(args.output_path, "errors.csv")
+    error_file_path = os.path.join(args.output_path, "exceptions.jsonl")
+    xml_path = args.xml_path
+    xml_report_path = args.xml_report_path
+
+    params = read_json(args.rules_file_path)
 
     try:
-        for item in check_paths(args.xml_path, args.report_path):
-            print()
-            print(item["xml_path"])
-
-            xmltree = validator.get_xml_tree(item["xml_path"])
-
-            errors = []
-            rows = validator.validate(xmltree, errors)
-            filtered_rows = validator.filter_rows(rows)
-            validator.write_report(validator.less_cols, filtered_rows, item["report_path"])
-
-            if errors:
-                with open(item["err_path"], "w") as err_file:
-                    err_file.write("\n".join(errors))
-                print(item["err_path"])
+        validator = XMLDataChecker(report_file_path, error_file_path, xml_path, xml_report_path)
+        validator.validate(params)
 
     except FileNotFoundError as e:
-        sys.exit(f"Unable to find XML files: {e}")
-
+        sys.exit(e)
