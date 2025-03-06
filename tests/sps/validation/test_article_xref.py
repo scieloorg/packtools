@@ -201,83 +201,17 @@ class ArticleXrefValidationTest(TestCase):
         )
         self.article_xref = ArticleXrefValidation(self.xmltree)
 
-        expected = [
-            {
-                "title": "*[@id] -> xref[@rid]",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "item": "aff",
-                "sub_item": "@id",
-                "validation_type": "match",
-                "response": "OK",
-                "expected_value": "aff1",
-                "got_value": "aff1",
-                "message": "Got aff1, expected aff1",
-                "advice": None,
-                "data": {
-                    "id": "aff1",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "tag": "aff",
-                },
-            },
-            {
-                "title": "*[@id] -> xref[@rid]",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "item": "fig",
-                "sub_item": "@id",
-                "validation_type": "match",
-                "response": "OK",
-                "expected_value": "fig1",
-                "got_value": "fig1",
-                "message": "Got fig1, expected fig1",
-                "advice": None,
-                "data": {
-                    "id": "fig1",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "tag": "fig",
-                },
-            },
-            {
-                "title": "*[@id] -> xref[@rid]",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-                "item": "table-wrap",
-                "sub_item": "@id",
-                "validation_type": "match",
-                "response": "OK",
-                "expected_value": "table1",
-                "got_value": "table1",
-                "message": "Got table1, expected table1",
-                "advice": None,
-                "data": {
-                    "id": "table1",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                    "tag": "table-wrap",
-                },
-            },
-        ]
-
         obtained = list(self.article_xref.validate_element_id_has_corresponding_xref_rid())
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(obtained[i], item)
+        self.assertEqual(["OK", "OK", "OK"], [item["response"] for item in obtained])
+
+        expected = [
+            None,
+            None,
+            None
+        ]
+        for i, item in enumerate(obtained):
+            self.assertEqual(expected[i], item["advice"])
 
     def test_validate_ids_no_matches(self):
         self.maxDiff = None

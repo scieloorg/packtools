@@ -20,7 +20,6 @@ class ArticleXrefValidation:
         self.missing_xrefs = list(ids - rids)
         self.missing_elems = list(rids - ids)
 
-
     @staticmethod
     def get_default_params():
         """
@@ -37,16 +36,17 @@ class ArticleXrefValidation:
                 "disp-formula",
                 "table-wrap",
                 "ref",
+                "aff",
+                "corresp"
             ),
             "attrib_name_and_value_requires_xref": [
-                "materials",
-                "methods",
-                "results",
-                "discussion"
+                {"name": "sec-type", "value": "transcript"}
             ],
             "xref_rid_error_level": "ERROR",
             "element_id_error_level": "ERROR",
-            "attrib_name_and_value_requires_xref_error_level": "WARNING"
+            "attrib_name_and_value_requires_xref_error_level": "CRITICAL",
+            "required_id_error_level": "CRITICAL",
+            "required_rid_error_level": "CRITICAL",
         }
 
     def validate_xref_rid_has_corresponding_element_id(self):
