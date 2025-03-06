@@ -1,7 +1,9 @@
 from packtools.sps.validation import xml_validations
+from packtools.sps.validation.xml_validatior_rules import get_default_rules
 
-
-def validate_xml_content(xmltree, params):
+def validate_xml_content(xmltree, rules):
+    params = get_default_rules()
+    params.update(rules or {})
     yield {
         "group": "journal-meta",
         "items": xml_validations.validate_journal_meta(xmltree, params),
