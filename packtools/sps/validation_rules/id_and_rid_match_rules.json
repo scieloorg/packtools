@@ -1,7 +1,11 @@
 {
     "id_and_rid_match_rules": {
         "required_id_error_level": "CRITICAL",
-        "required_rid_error_level": "ERROR",
-        "elements_required_rid": ["ref", "table-wrap", "fig", "disp-formula", "aff", "corresp"]
+        "required_rid_error_level": "CRITICAL",
+        "attrib_name_and_value_requires_xref_error_level": "CRITICAL",
+        "elements_requires_xref_rid": ["ref", "table-wrap", "fig", "disp-formula", "aff", "corresp"],
+        "attrib_name_and_value_requires_xref": [
+            {"name": "sec-type", "value": "transcript"}
+        ]
     }
 }
