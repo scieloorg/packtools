@@ -19,6 +19,7 @@ def read_json(path):
 
 
 def fix_json(content):
+    content = content.strip()
     temp = " ".join(content.split())
     return temp.replace(", ]", "]").replace(", }", "}")
 
@@ -37,3 +38,9 @@ def get_default_rules():
             rules.update(json_loads(content) or {})
     rules["journal_data"] = None
     return rules
+
+
+def get_group_rules(group):
+    params_path = "packtools.sps.validation_rules"
+    content = files(params_path).joinpath(f"{group}_rules.json").read_text()
+    return json_loads(content)
