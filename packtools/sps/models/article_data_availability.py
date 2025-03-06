@@ -18,7 +18,7 @@
 </article>
 """
 
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.models.article_and_subarticles import Fulltext
 
 
 class DataAvailability:
@@ -26,12 +26,31 @@ class DataAvailability:
         self.xmltree = xmltree
 
     @property
-    def specific_use(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(self.xmltree):
-            xpath_query = './/*[self::sec[@sec-type="data-availability"] | self::fn[@fn-type="data-availability"]]'
-            for item in self.xmltree.xpath(xpath_query):
-                response = {
-                    'tag': item.tag,
-                    'specific_use': item.get('specific-use')
-                }
-                yield put_parent_context(response, lang, article_type, parent, parent_id)
+    def items(self):
+        xpath_query = './body//sec[@sec-type="data-availability"] | ./body//fn[@fn-type="data-availability"] | ./back//sec[@sec-type="data-availability"] | ./back//fn[@fn-type="data-availability"]'
+
+        for node in self.xmltree.xpath(
+            ". | ./sub-article[@article-type='translation']"
+        ):
+            fulltext = Fulltext(node)
+            items = fulltext.node.xpath(xpath_query)
+            if len(items) == 0:
+                yield fulltext.attribs_parent_prefixed
+            else:
+                for item in items:
+                    data = {
+                        "tag": item.tag,
+                        "specific_use": item.get("specific-use"),
+                        "label": item.findtext("label"),
+                        "text": " ".join(item.xpath("./p//text()")),
+                    }
+                    data.update(fulltext.attribs_parent_prefixed)
+                    yield data
+
+    @property
+    def items_by_lang(self):
+        d = {}
+        for item in self.items:
+            d.setdefault(item["parent_lang"], [])
+            d[item["parent_lang"]].append(item)
+        return d

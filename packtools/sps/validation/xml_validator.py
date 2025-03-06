@@ -1,45 +1,47 @@
 from packtools.sps.validation import xml_validations
+from packtools.sps.validation.xml_validatior_rules import get_default_rules
 
-
-def validate_xml_content(xmltree, params):
+def validate_xml_content(xmltree, rules):
+    params = get_default_rules()
+    params.update(rules or {})
     yield {
-        "group": "journal_meta",
+        "group": "journal-meta",
         "items": xml_validations.validate_journal_meta(xmltree, params),
     }
     yield {
-        "group": "bibliographic_strip",
+        "group": "bibliographic strip",
         "items": xml_validations.validate_bibliographic_strip(xmltree, params),
     }
     yield {
-        "group": "article",
+        "group": "article attributes",
         "items": xml_validations.validate_article(xmltree, params),
     }
     yield {
-        "group": "article_ids",
+        "group": "article-id",
         "items": xml_validations.validate_article_ids(xmltree, params),
     }
     yield {
-        "group": "article_dates",
+        "group": "article dates",
         "items": xml_validations.validate_article_dates(xmltree, params),
     }
     yield {
-        "group": "article_languages",
+        "group": "article languages",
         "items": xml_validations.validate_article_languages(xmltree, params),
     }
     yield {
-        "group": "article_languages",
+        "group": "article languages",
         "items": xml_validations.validate_metadata_languages(xmltree, params),
     }
     yield {
-        "group": "article_toc_sections",
+        "group": "subject",
         "items": xml_validations.validate_article_toc_sections(xmltree, params),
     }
     yield {
-        "group": "article_type",
+        "group": "article-type",
         "items": xml_validations.validate_article_type(xmltree, params),
     }
     yield {
-        "group": "article_contribs",
+        "group": "contrib",
         "items": xml_validations.validate_article_contribs(xmltree, params),
     }
     yield {
@@ -55,18 +57,18 @@ def validate_xml_content(xmltree, params):
         "items": xml_validations.validate_abstracts(xmltree, params),
     }
     yield {
-        "group": "open_science_actions",
+        "group": "open science",
         "items": xml_validations.validate_open_science_actions(xmltree, params),
     }
     yield {
-        "group": "funding_data",
+        "group": "funding data",
         "items": xml_validations.validate_funding_data(xmltree, params),
     }
     yield {
-        "group": "id and rid match",
+        "group": "id and rid",
         "items": xml_validations.validate_id_and_rid_match(xmltree, params),
     }
-    yield {"group": "figs", "items": xml_validations.validate_figs(xmltree, params)}
+    yield {"group": "fig", "items": xml_validations.validate_figs(xmltree, params)}
     yield {
         "group": "table-wrap",
         "items": xml_validations.validate_tablewraps(xmltree, params),
@@ -80,11 +82,11 @@ def validate_xml_content(xmltree, params):
         "items": xml_validations.validate_inline_equations(xmltree, params),
     }
     yield {
-        "group": "article_references",
+        "group": "reference",
         "items": xml_validations.validate_references(xmltree, params),
     }
     yield {
-        "group": "related_articles",
+        "group": "related-article",
         "items": xml_validations.validate_related_articles(xmltree, params),
     }
     yield {
@@ -92,6 +94,6 @@ def validate_xml_content(xmltree, params):
         "items": xml_validations.validate_fns(xmltree, params),
     }
     yield {
-        "group": "peer-reviews",
+        "group": "reviewer-report",
         "items": xml_validations.validate_peer_reviews(xmltree, params),    
     }

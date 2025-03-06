@@ -1,5 +1,6 @@
 {
     "aff_rules": {
+        "aff_components_error_level": "ERROR",
         "id_error_level": "CRITICAL",
         "label_error_level": "ERROR",
         "original_error_level": "CRITICAL",

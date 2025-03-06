@@ -11,7 +11,7 @@ from packtools.sps.models import (
     article_abstract,
     article_and_subarticles,
     article_authors,
-    article_citations,
+    references,
     article_doi_with_lang,
     article_ids,
     article_license,
@@ -1865,7 +1865,7 @@ def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    citations = article_citations.ArticleCitations(xml_tree).article_citations
+    citations = references.XMLREferences(xml_tree).main_references
     citation_list = ET.Element("citation_list")
     for item in citations:
         citation = get_citation(item)

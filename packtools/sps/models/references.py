@@ -6,6 +6,49 @@ from packtools.sps.utils.xml_utils import tostring, get_parent_context, put_pare
 class Reference:
     def __init__(self, ref):
         self.ref = ref
+        self.check_marks()
+
+    def check_marks(self):
+        self.marked = []
+        self.unmatched = []
+        mixed_citation = (self.get_mixed_citation() or '').strip()
+        label = self.get_label()
+        if label and mixed_citation.startswith(label):
+            mixed_citation = mixed_citation[len(label):].strip()
+
+        marked = []
+        for node in self.ref.xpath('.//element-citation//*'):
+            for text in (node.text, node.tail):
+                text = (text or '').strip()
+                if text:
+                    marked.append({"tag": node.tag, "text": text})
+
+        for item in sorted(marked, key=lambda x: len(x["text"]), reverse=True):
+            text = item["text"]
+            if text in mixed_citation:
+                mixed_citation = mixed_citation.replace(text, "<tag/>", 1)
+                self.marked.append(item)
+            else:
+                self.unmatched.append(item)
+
+        self.not_marked = mixed_citation.split("<tag/>")
+        self.filtered_not_marked = list(self.exclude_separators(self.not_marked))
+
+    def exclude_separators(self, not_marked):
+        for item in not_marked:
+            item = item.strip()
+            for c in ",.;":
+                if not item:
+                    break
+                if item[-1] == c:
+                    item = item[:-1].strip()
+                if item and item[0] == c:
+                    item = item[1:].strip()
+            if item:
+                if item.isdigit():
+                    yield item
+                elif len(item) > 20:
+                    yield item
 
     def get_label(self):
         return node_plain_text(self.ref.find("./label"))
@@ -79,28 +122,45 @@ class Reference:
         return self.ref.get("id")
 
     def get_extlink_and_comment_content(self):
-        ext_link = self.ref.find("./element-citation//ext-link")
-        if ext_link is not None:
-            comment = self.ref.find("./element-citation/comment")
-            full_comment = None
-            text_between = None
-            if comment is not None:
-                text_between = (comment.text or "").strip()
-                full_comment = process_subtags(comment) or None
-            return {
-                'full_comment': full_comment,
-                'has_comment': comment is not None,
-                'text_between': text_between,
-                'ext_link_text': process_subtags(ext_link),
-                'text_before': self.get_text_before_extlink()
-            }
+        has_comment = False
+        full_comment = None
+        text_between = None
+        text_before = None
 
-    def get_text_before_extlink(self):
-        extlink_node = self.ref.find("./element-citation/ext-link")
-        if extlink_node is not None:
-            previous = extlink_node.getprevious()
-            if previous is not None:
-                return previous.tail
+        comment = self.ref.find("./element-citation//comment")
+        if comment is not None:
+            has_comment = True
+            text_between = comment.text
+            full_comment = "".join(comment.xpath(".//text()")) or None
+
+        ext_link = self.ref.find("./element-citation//ext-link")
+        try:
+            href = ext_link.get("{http://www.w3.org/1999/xlink}href")
+            ext_link_text = " ".join(ext_link.xpath(".//text()")) or None
+
+            try:
+                text_before = ext_link.getprevious().tail
+            except AttributeError:
+                if not has_comment:
+                    text_before = ext_link.getparent().text
+
+        except AttributeError:
+            href = None
+            ext_link_text = None
+
+        if text_before and not text_before.strip():
+            text_before = None
+        if text_between and not text_between.strip():
+            text_between = None
+
+        return {
+            'ext_link_uri': href,
+            'full_comment': full_comment,
+            'has_comment': has_comment,
+            'text_between': text_between,
+            'ext_link_text': ext_link_text,
+            'text_before_extlink': text_before
+        }
 
     def get_chapter_title(self):
         return node_plain_text(self.ref.find("./element-citation/chapter-title"))
@@ -108,6 +168,7 @@ class Reference:
     def get_part_title(self):
         return node_plain_text(self.ref.find("./element-citation/part-title"))
 
+    @property
     def data(self):
         tags = [
             ("ref_id", self.get_ref_id()),
@@ -126,8 +187,6 @@ class Reference:
             ("citation_ids", self.get_citation_ids()),
             ("mixed_citation", self.get_mixed_citation()),
             ("mixed_citation_sub_tags", self.get_mixed_citation_sub_tags()),
-            ("comment_text", self.get_extlink_and_comment_content()),
-            ("text_before_extlink", self.get_text_before_extlink()),
             ("chapter_title", self.get_chapter_title()),
             ("part_title", self.get_part_title())
         ]
@@ -140,6 +199,13 @@ class Reference:
                     d[name] = value
         d["author_type"] = "institutional" if self.get_collab() else "person"
 
+        d.update({
+            "filtered_not_marked": self.filtered_not_marked,
+            "not_marked": self.not_marked,
+            "marked": self.marked,
+            "unmatched": self.unmatched,
+        })
+        d.update(self.get_extlink_and_comment_content())
         return d
 
 
@@ -152,13 +218,14 @@ class FullTextReferences(Fulltext):
     def __init__(self, node, citing_pub_year=None):
         super().__init__(node)
         self._citing_pub_year = citing_pub_year
+        self.fulltext = Fulltext(node)
 
     @property
     def citing_pub_year(self):
         if not self._citing_pub_year:
             fulltext = FulltextDates(self.node)
             self._citing_pub_year = (
-                fulltext.collection_date or fulltext.article_date
+                fulltext.collection_date or fulltext.article_date or {}
             ).get("year")
         return self._citing_pub_year
 
@@ -169,51 +236,27 @@ class FullTextReferences(Fulltext):
         common["citing_pub_year"] = self.citing_pub_year
         return common
 
+    def get_references(self, node):
+        reflists = node.xpath("./back/ref-list") or []
+        for index, reflist in enumerate(reflists):
+            for node_ref in reflist.xpath("ref"):
+                ref = Reference(node_ref)
+                data = {}
+                data["ref-list-index"] = index
+                data.update(ref.data)
+                data.update(self.common_data)
+                yield data
+
     @property
     def main_references(self):
-        try:
-            refs = self.back.xpath("ref-list/ref")
-        except AttributeError:
-            return
-
-        if not refs:
-            return
-
-        for item in refs:
-            ref = Reference(item)
-            data = ref.data()
-            data.update(self.common_data)
-            yield data
-
-    @property
-    def subarticle_references(self):
-        d = {}
-        for node in self.node.xpath("sub-article[@article-type!='translation']"):
-            if node.find("back/ref-list") is not None:
-                fulltext = FullTextReferences(node, self.citing_pub_year)
-                d[fulltext.id] = fulltext.data
-        return d
-
-    @property
-    def data(self):
-        d = {}
-        if refs := list(self.main_references):
-            d["main_references"] = refs
-            d.update(self.subarticle_references)
-        return d
-
-    @property
-    def items(self):
-        yield from self.main_references
-        for id_, refs in self.subarticle_references.items():
-            yield from refs
+        return self.get_references(self.node.find("."))
 
 
 class XMLReferences:
 
     def __init__(self, xmltree):
         self.xmltree = xmltree
-        self.fulltext = FullTextReferences(self.xmltree.find("."))
+        self.fulltext = FullTextReferences(xmltree.find("."))
 
     @property
     def main_references(self):
@@ -221,7 +264,15 @@ class XMLReferences:
 
     @property
     def subarticle_references(self):
-        return self.fulltext.subarticle_references
+        items = {}
+        for node in self.xmltree.xpath(".//sub-article[@article-type!='translation'] | .//response"):
+            if node.get("id"):
+                k = f'{node.tag} {node.get("id")}'
+            else:
+                k = f'{node.tag}'
+            fulltext = FullTextReferences(node)
+            items[k] = fulltext.main_references
+        return items
 
     @property
     def items(self):

@@ -1,6 +1,21 @@
 import os
 import json
 import logging
+from importlib.resources import files
+
+
+def json_loads(content):
+    try:
+        return json.loads(content)
+    except Exception as e:        
+        return json.loads(fix_json(content))
+
+def read_json(path):
+    if path and os.path.isfile(path):
+        with open(path, "r") as fp:
+            data = json_loads(fp.read())
+        return data
+    return {}
 
 
 def fix_json(content):
@@ -9,16 +24,16 @@ def fix_json(content):
 
 
 def get_default_rules():
+    params_path = "packtools.sps.validation_rules"
     rules = {}
-    dirname = "packtools/sps/validation_rules"
-    for filename in os.listdir(dirname):
+    for entry in files(params_path).iterdir():
+        filename = entry.name
         if filename.endswith(".json"):
-            path = os.path.join(dirname, filename)
-            try:
-                with open(path, "r") as fp:
-                    content_file = fix_json(fp.read())
-                rules.update(json.loads(content_file))
-            except Exception as e:
-                logging.exception(f"{filename}: {e}")
+            content = (
+                files(params_path)
+                .joinpath(filename)
+                .read_text()
+            )
+            rules.update(json_loads(content) or {})
     rules["journal_data"] = None
     return rules
