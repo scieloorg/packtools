@@ -10,7 +10,8 @@ from importlib.resources import files
 from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
 
 from packtools.sps.validation.xml_validator import validate_xml_content
-from packtools.sps.validation.xml_validator_rules import get_default_rules
+from packtools.sps.validation.xml_validator_rules import read_json
+
 
 
 class Report:
@@ -198,6 +199,7 @@ if __name__ == "__main__":
     parser.add_argument("xml_path", type=str, help="XML path")
     parser.add_argument("output_path", type=str, help="Ouput path")
     parser.add_argument("--xml_report_path", type=str, help="CSV output folder path.")
+    parser.add_argument("--rules_file_path", type=str, help="Validation rules JSON file path.")
 
     args = parser.parse_args()
 
@@ -206,11 +208,11 @@ if __name__ == "__main__":
     xml_path = args.xml_path
     xml_report_path = args.xml_report_path
 
+    params = read_json(args.rules_file_path)
+
     try:
         validator = XMLDataChecker(report_file_path, error_file_path, xml_path, xml_report_path)
-        params = get_default_rules()
         validator.validate(params)
 
     except FileNotFoundError as e:
         sys.exit(e)
-
