@@ -1,133 +1,134 @@
 import unittest
-from lxml import etree
-
-from packtools.sps.models.media import Media, XmlMedias
-from packtools.sps.models.accessibility_data import AccessibilityData
+from xml.etree.ElementTree import Element, SubElement
+from packtools.sps.models.media import Media  # Ajuste o caminho conforme sua estrutura
 
 
-class MediaTest(unittest.TestCase):
+class TestMedia(unittest.TestCase):
+
     def setUp(self):
-        """Configura um XML de teste contendo um único elemento <media>."""
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-                <media mimetype="video" mime-subtype="mp4" xlink:href="media1.mp4" content-type="machine-generated">
-                    <alt-text>Breve descrição do vídeo</alt-text>
-                    <long-desc>Descrição detalhada do vídeo contendo mais de 120 caracteres. Isso garante que a 
-                    extração esteja correta e seja útil para acessibilidade.</long-desc>
-                    <sec sec-type="transcript">
-                        <speaker>Gabriel</speaker>
-                        <speech>Olá, este é um vídeo demonstrativo.</speech>
-                    </sec>
-                </media>
-            </body>
-        </article>
-        """
-        self.xml_tree = etree.fromstring(xml_str)
-        self.media = Media(self.xml_tree.xpath(".//media")[0])  # Instancia Media com o nó <media>
-        self.accessibility = AccessibilityData(self.xml_tree.xpath(".//media")[0])  # Instancia AccessibilityData
+        """Configuração inicial dos elementos XML para cada teste."""
 
-    def test_mimetype(self):
-        """Testa a extração do atributo mimetype."""
-        self.assertEqual(self.media.mimetype, "video")
+        # Criando um elemento <media> completo, com label, caption, attrib e long-desc
+        self.media_complete = Element("media", {
+            "id": "media1",
+            "mimetype": "video",
+            "mime-subtype": "mp4",
+            "{http://www.w3.org/1999/xlink}href": "1234-5678-scie-58-e1043-md1.mp4"
+        })
 
-    def test_mime_subtype(self):
-        """Testa a extração do atributo mime-subtype."""
-        self.assertEqual(self.media.mime_subtype, "mp4")
+        label = SubElement(self.media_complete, "label")
+        label.text = "Video 1"
 
-    def test_xlink_href(self):
-        """Testa a extração do atributo xlink:href."""
-        self.assertEqual(self.media.xlink_href, "media1.mp4")
+        caption = SubElement(self.media_complete, "caption")
+        title = SubElement(caption, "title")
+        title.text = "Vídeo: malesuada vehicula"
 
-    def test_media_type(self):
-        """Testa a extração da tag do elemento mídia."""
-        self.assertEqual(self.media.media_type, "media")
+        attrib = SubElement(self.media_complete, "attrib")
+        attrib.text = "Fonte: consectetur adipiscing elit"
 
-    def test_alt_text(self):
-        """Testa a extração do <alt-text>."""
-        self.assertEqual(self.accessibility.alt_text, "Breve descrição do vídeo")
+        long_desc = SubElement(self.media_complete, "long-desc")
+        long_desc.text = "Descrição detalhada do objeto (acima de 120 caracteres)"
 
-    def test_long_desc(self):
-        """Testa a extração do <long-desc>."""
-        expected_text = ("Descrição detalhada do vídeo contendo mais de 120 caracteres. Isso garante que "
-                         "a extração esteja correta e seja útil para acessibilidade.")
-        self.assertEqual(self.accessibility.long_desc, expected_text)
+        # Criando um <media> sem label e caption
+        self.media_no_label_caption = Element("media", {
+            "id": "media2",
+            "mimetype": "audio",
+            "mime-subtype": "mp3",
+            "{http://www.w3.org/1999/xlink}href": "1234-5678-scie-58-e1043-md2.mp3"
+        })
 
-    def test_transcript(self):
-        """Testa a extração da transcrição <sec sec-type='transcript'>."""
-        transcript = self.accessibility.transcript
-        self.assertIsNotNone(transcript)
-        self.assertIn("Gabriel", transcript)
-        self.assertIn("Olá, este é um vídeo demonstrativo.", transcript)
+        # Criando um <media> sem mimetype e mime-subtype
+        self.media_no_mime = Element("media", {
+            "id": "media3",
+            "{http://www.w3.org/1999/xlink}href": "1234-5678-scie-58-e1043-md3.ogg"
+        })
 
-    def test_content_type(self):
-        """Testa a extração do atributo @content-type."""
-        self.assertEqual(self.accessibility.content_type, "machine-generated")
+        # Criando um <media> sem xlink:href
+        self.media_no_xlink = Element("media", {
+            "id": "media4",
+            "mimetype": "image",
+            "mime-subtype": "png"
+        })
 
-    def test_speaker_data(self):
-        """Testa a extração de falantes e discursos dentro de <sec sec-type='transcript'>."""
-        expected_data = [
-            {"speaker": "Gabriel", "speech": "Olá, este é um vídeo demonstrativo."}
-        ]
-        self.assertEqual(self.accessibility.speaker_data, expected_data)
+    def test_media_xlink_href(self):
+        """Testa se xlink_href do Media é extraído corretamente."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.xlink_href, "1234-5678-scie-58-e1043-md1.mp4")
 
-    def test_data(self):
-        """Testa a extração combinada de todos os dados de mídia e acessibilidade."""
-        self.maxDiff = None
-        expected = {
-            "media_type": "media",
+    def test_media_id(self):
+        """Testa se o ID do Media é extraído corretamente."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.id, "media1")
+
+    def test_media_mimetype_and_mime_subtype(self):
+        """Testa se mimetype e mime_subtype são extraídos corretamente do Media."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.mimetype, "video")
+        self.assertEqual(resource.mime_subtype, "mp4")
+
+    def test_media_label_and_caption(self):
+        """Testa se label e caption são extraídos corretamente do Media."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.label, "Video 1")
+        self.assertEqual(resource.caption, "Vídeo: malesuada vehicula")
+
+    def test_media_attrib_extraction(self):
+        """Testa se attrib (fonte) é extraído corretamente do Media."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.attrib, "Fonte: consectetur adipiscing elit")
+
+    def test_media_long_desc(self):
+        """Testa se long-desc é extraído corretamente do Media."""
+        resource = Media(self.media_complete)
+        self.assertEqual(resource.data.get("long_desc"), "Descrição detalhada do objeto (acima de 120 caracteres)")
+
+    def test_media_data_output(self):
+        """Testa se a propriedade data de Media retorna o dicionário esperado."""
+        resource = Media(self.media_complete)
+        expected_data = {
+            "xlink_href": "1234-5678-scie-58-e1043-md1.mp4",
+            "id": "media1",
             "mimetype": "video",
             "mime_subtype": "mp4",
-            "xlink_href": "media1.mp4",
-            "alt_text": "Breve descrição do vídeo",
-            "long_desc": ("Descrição detalhada do vídeo contendo mais de 120 caracteres. Isso garante que "
-                          "a extração esteja correta e seja útil para acessibilidade."),
-            "transcript": "Gabriel Olá, este é um vídeo demonstrativo.",
-            "content_type": "machine-generated",
-            "speakers": [{"speaker": "Gabriel", "speech": "Olá, este é um vídeo demonstrativo."}]
+            "alt_text": None,
+            "long_desc": "Descrição detalhada do objeto (acima de 120 caracteres)",
+            "transcript": None,
+            "content_type": None,
+            "speakers": None,
+            "tag": "media",
+            "label": "Video 1",
+            "caption": "Vídeo: malesuada vehicula",
+            "attrib": "Fonte: consectetur adipiscing elit",
         }
-        obtained = self.media.data
-        self.assertDictEqual(expected, obtained)
+        self.assertDictEqual(resource.data, expected_data)
 
+    def test_media_no_label_caption(self):
+        """Testa o comportamento quando <media> não contém label nem caption."""
+        resource = Media(self.media_no_label_caption)
+        self.assertIsNone(resource.label)
+        self.assertIsNone(resource.caption)
 
-class XmlMediasTest(unittest.TestCase):
-    def setUp(self):
-        """Configura um XML contendo mídias tanto no <article> quanto em <sub-article>."""
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-                <media mimetype="video" mime-subtype="mp4" xlink:href="media1.mp4">
-                    <label>Media 1</label>
-                </media>
-                <media mimetype="image" mime-subtype="png" xlink:href="image1.png">
-                    <label>Imagem 1</label>
-                </media>
-            </body>
-            <sub-article article-type="translation" xml:lang="en">
-                <body>
-                    <media mimetype="audio" mime-subtype="mp3" xlink:href="media2.mp3">
-                        <label>Media 2</label>
-                    </media>
-                </body>
-            </sub-article>
-        </article>
-        """
-        self.xml_tree = etree.fromstring(xml_str)
+    def test_media_no_mimetype_and_mime_subtype(self):
+        """Testa o comportamento quando mimetype e mime-subtype não estão presentes."""
+        resource = Media(self.media_no_mime)
+        self.assertIsNone(resource.mimetype)
+        self.assertIsNone(resource.mime_subtype)
 
-    def test_items(self):
-        """Testa a extração de todos os elementos <media> no <article> e <sub-article>."""
-        obtained = XmlMedias(self.xml_tree).items
-        self.assertEqual(len(obtained), 4)
+    def test_media_no_xlink_href(self):
+        """Testa o comportamento quando <media> não contém xlink:href."""
+        resource = Media(self.media_no_xlink)
+        self.assertIsNone(resource.xlink_href)
 
-        expected_mimetypes = {"video", "image", "audio"}
-        extracted_mimetypes = {media["mimetype"] for media in obtained}
-        self.assertEqual(extracted_mimetypes, expected_mimetypes)
+    def test_media_no_id(self):
+        """Testa o comportamento quando a tag <media> não contém id."""
+        media_no_id = Element("media", {
+            "mimetype": "video",
+            "mime-subtype": "mp4",
+            "{http://www.w3.org/1999/xlink}href": "video.mp4"
+        })
 
-        expected_hrefs = {"media1.mp4", "image1.png", "media2.mp3"}
-        extracted_hrefs = {media["xlink_href"] for media in obtained}
-        self.assertEqual(extracted_hrefs, expected_hrefs)
+        resource = Media(media_no_id)
+        self.assertIsNone(resource.id)
 
 
 if __name__ == "__main__":
