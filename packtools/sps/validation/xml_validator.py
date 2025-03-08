@@ -1,6 +1,7 @@
 from packtools.sps.validation import xml_validations
 from packtools.sps.validation.xml_validator_rules import get_default_rules
 
+
 def validate_xml_content(xmltree, rules):
     params = get_default_rules()
     params.update(rules or {})
