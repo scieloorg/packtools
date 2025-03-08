@@ -104,7 +104,7 @@ class XMLFnGroupValidation:
 
     def validate_edited_by(self):
         is_valid = bool(self.xml_article.fn_edited_by)
-        return build_response(
+        yield build_response(
             title="edited-by",
             parent={},
             item="fn",
