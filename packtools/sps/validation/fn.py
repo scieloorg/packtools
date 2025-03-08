@@ -84,7 +84,7 @@ class XMLFnGroupValidation:
             fn_types.append(fn_group["fn_type"])
             yield from self.validate_fn(fn_group)
 
-        yield self.validate_edited_by()
+        yield from self.validate_edited_by()
 
     def validate_fn(self, fn):
         """
