@@ -174,7 +174,7 @@ def validate_open_science_actions(xmltree, params):
 
     validator = ArticleLicenseValidation(xmltree)
     try:
-        yield validator.validate_license_code(
+        yield from validator.validate_license_code(
             expected_code=params["journal_data"]["license_code"],
             error_level=license_rules["error_level"],
         )
