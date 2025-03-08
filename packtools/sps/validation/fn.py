@@ -43,10 +43,10 @@ class XMLFnGroupValidation:
         self.rules = rules
         self.dtd_version = xml_tree
 
-        xml_article = XMLFns(xml_tree)
+        self.xml_article = XMLFns(xml_tree)
 
-        self.article_fn_groups = list(xml_article.article_fn_groups_notes())
-        self.sub_article_fn_groups = list(xml_article.sub_article_fn_groups_notes())
+        self.article_fn_groups = list(self.xml_article.article_fn_groups_notes())
+        self.sub_article_fn_groups = list(self.xml_article.sub_article_fn_groups_notes())
 
     @property
     def dtd_version(self):
@@ -102,9 +102,8 @@ class XMLFnGroupValidation:
         )
         yield from validator.validate()
 
-    def validate_edited_by(self, fn_types):
-        is_valid = "edited-by" in fn_types and "edited-by" in rules["fn_type_expected_values"]
-
+    def validate_edited_by(self):
+        is_valid = bool(self.xml_article.fn_edited_by)
         return build_response(
             title="edited-by",
             parent={},
@@ -114,8 +113,7 @@ class XMLFnGroupValidation:
             is_valid=is_valid,
             expected='<fn fn-type="edited-by">',
             obtained='<fn fn-type="edited-by">' if is_valid else None,
-            advice='Add mandatory <fn fn-type="edited-by"> to indicate the responsible editor for Open Science. '
-                   'Ensure "edited-by" is required in rules JSON.',
-            data=None,
+            advice='Make the responsible editor with <fn fn-type="edited-by">',
+            data=list(self.xml_article.fn_edited_by),
             error_level=self.rules["fn_type_error_level"]
         )
