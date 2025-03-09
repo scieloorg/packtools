@@ -1,9 +1,12 @@
 {
     "abstract_rules": {
+        "default_error_level": "ERROR",
+        "kwd_error_level": "ERROR",
+        "title_error_level": "ERROR",
         "abstract_type_error_level": "CRITICAL",
         "abstract_presence_error_level": "WARNING",
         "article_type_requires_abstract_error_level": "CRITICAL",
-        "article_type_rejects_abstract_error_level": "CRITICAL",
+        "article_type_unexpects_abstract_error_level": "CRITICAL",
         "abstract_type_list": [
             "key-points",
             "graphical",
