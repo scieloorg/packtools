@@ -8,16 +8,14 @@ from datetime import date, datetime
 
 from importlib.resources import files
 from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
-
-from packtools.sps.validation.xml_validator import validate_xml_content
+from packtools.sps.validation.xml_validator import get_validation_results
 from packtools.sps.validation.xml_validator_rules import read_json
 
 
-
 class Report:
-    def __init__(self, report_file_path=None, error_file_path=None):
-        self.report_file_path = report_file_path
-        self.error_file_path = error_file_path
+    def __init__(self, csv_file_path=None, exception_json_file_path=None):
+        self.csv_file_path = csv_file_path
+        self.exception_json_file_path = exception_json_file_path
 
         self.cols = (
             "xml",
@@ -27,38 +25,38 @@ class Report:
             "detail",
         )
         self.write_header()
-        self.create_empty_file(self.error_file_path)
+        self.create_empty_file(self.exception_json_file_path)
 
     def create_empty_file(self, file_path):
         with open(file_path, "w", newline="") as fp:
             fp.write("")
 
-    def create_xml_report(self, report_file_path, fieldnames, rows):
-        with open(report_file_path, "w", newline="") as f:
+    def create_xml_report(self, csv_file_path, fieldnames, rows):
+        with open(csv_file_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
-        print(f"Created: {report_file_path}")
+        # print(f"Created: {csv_file_path}")
 
     def write_header(self):
-        with open(self.report_file_path, "w", newline="") as f:
+        with open(self.csv_file_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.cols)
             writer.writeheader()
 
     def write_rows(self, rows):
-        with open(self.report_file_path, "a", newline="") as f:
+        with open(self.csv_file_path, "a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.cols)
             writer.writerows(rows)
 
     def register_exceptions(self, exceptions):
         if exceptions:
-            with open(self.error_file_path, "a") as fp:
-                fp.write("\n".join([json.dumps(error) for error in exceptions]))
-            print(self.error_file_path)
+            with open(self.exception_json_file_path, "a") as fp:
+                fp.write("\n".join([json.dumps(error) for error in exceptions])+"\n")
+            print(self.exception_json_file_path)
 
 
 class XMLFile:
-    def __init__(self, xml_file_path, xml_report_path):
+    def __init__(self, xml_file_path, xml_csv_path):
         self.cols = (
             "response",
             "context",
@@ -66,26 +64,27 @@ class XMLFile:
             "detail",
         )
         self.xml_file_path = xml_file_path
-        self.xml_report_path = xml_report_path
+        self.xml_csv_path = xml_csv_path
         self.exceptions = None
         self.results = None
 
     def validate(self, params):
-        xmltree = self.get_xml_tree()
         self.exceptions = []
         self.results = []
-        for result in validate_xml_content(xmltree, params):
-            group = result["group"]
-            for item in result["items"]:
-                try:
-                    item = self.get_error(item)
-                    if item:
-                        item["context"] = group
-                        self.results.append(item)
-                except Exception as e:
-                    self.exceptions.append(
-                        {"xml": self.xml_file_path, "error": str(e), "type": str(type(e))}
-                    )
+        try:
+            xmltree = self.get_xml_tree()
+        except Exception as e:
+            logging.error(f"Unable to read {self.xml_file_path}")
+            return
+
+        for item in get_validation_results(xmltree, params):
+            if item["response"] == "exception":
+                self.exceptions.append(item)
+            else:
+                item["context"] = item["group"]
+                item = self.get_error(item)
+                if item:
+                    self.results.append(item)
 
     def get_xml_tree(self):
         for xml_with_pre in XMLWithPre.create(path=self.xml_file_path):
@@ -130,25 +129,25 @@ class XMLFile:
 
 
 class XMLDataChecker:
-    def __init__(self, report_file_path, error_file_path, xml_path, xml_report_path=None):
-        self.xml_report_path = xml_report_path
-        self.report_file_path = report_file_path
-        self.error_file_path = error_file_path
-        if self.xml_report_path:
-            if not os.path.isdir(self.xml_report_path):
+    def __init__(self, csv_file_path, exception_json_file_path, xml_path, xml_csv_path=None):
+        self.xml_csv_path = xml_csv_path
+        self.csv_file_path = csv_file_path
+        self.exception_json_file_path = exception_json_file_path
+        if self.xml_csv_path:
+            if not os.path.isdir(self.xml_csv_path):
                 try:
-                    os.makedirs(self.xml_report_path)
+                    os.makedirs(self.xml_csv_path)
                 except Exception as error:
                     pass
 
         self.xmls = []
         if os.path.isdir(xml_path):
-            if not self.xml_report_path:
-                self.xml_report_path = xml_path
+            if not self.xml_csv_path:
+                self.xml_csv_path = xml_path
             self.xmls = self._get_xml_file_paths(xml_path)
         elif os.path.isfile(xml_path):
-            if not self.xml_report_path:
-                self.xml_report_path = os.path.dirname(xml_path)
+            if not self.xml_csv_path:
+                self.xml_csv_path = os.path.dirname(xml_path)
             self.xmls = [xml_path]
 
         if not self.xmls:
@@ -178,41 +177,53 @@ class XMLDataChecker:
     def get_xml_files(self):
         for file_path in self.xmls:
             f = os.path.basename(file_path)
-            yield XMLFile(
-                file_path,
-                os.path.join(self.xml_report_path, f + ".csv")
-            )
+            try:
+                yield XMLFile(
+                    file_path,
+                    os.path.join(self.xml_csv_path, f + ".csv"),
+                )
+            except Exception as e:
+                print(f"Unable to read {file_path} {e}")
 
-    def validate(self, params):
-        report = Report(self.report_file_path, self.error_file_path)
+    def validate(self, params, csv_per_xml):
+        report = Report(self.csv_file_path, self.exception_json_file_path)
         for xml_file in self.get_xml_files():
-            
-            xml_file.validate(params)
-            report.create_xml_report(xml_file.xml_report_path, xml_file.cols, xml_file.results)
-
-            report.write_rows(xml_file.add_xml())
-            report.register_exceptions(xml_file.exceptions)
+            if not xml_file:
+                continue
+            try:
+                xml_file.validate(params)
+                if csv_per_xml:
+                    report.create_xml_report(xml_file.xml_csv_path, xml_file.cols, xml_file.results)
+                else:
+                    report.write_rows(xml_file.add_xml())
+                report.register_exceptions(xml_file.exceptions)
+            except Exception as e:
+                print(f"Unable to process {xml_file.xml_file_path} {e}")
+        if csv_per_xml:
+            print("CSV file created and placed next to each XML")
+        else:
+            print(f"Created {self.csv_file_path}")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="XML data checker")
-    parser.add_argument("xml_path", type=str, help="XML path")
-    parser.add_argument("output_path", type=str, help="Ouput path")
-    parser.add_argument("--xml_report_path", type=str, help="CSV output folder path.")
-    parser.add_argument("--rules_file_path", type=str, help="Validation rules JSON file path.")
+    parser.add_argument("xml_path", type=str, help="XML folder or file path")
+    parser.add_argument("output_path", type=str, help="Ouput folder path")
+    parser.add_argument("--csv_per_xml", dest='csv_per_xml', action='store_true', help="Create one csv per xml", default=False)
 
     args = parser.parse_args()
 
-    report_file_path = os.path.join(args.output_path, "errors.csv")
-    error_file_path = os.path.join(args.output_path, "exceptions.jsonl")
+    if args.output_path and not os.path.isdir(args.output_path):
+        os.makedirs(args.output_path)
+
+    csv_per_xml = args.csv_per_xml
+    prefix = datetime.now().isoformat().replace(" ", "").replace(":", "").replace(".", "")
+    csv_file_path = os.path.join(args.output_path, f"{prefix}-errors.csv")
+    exception_json_file_path = os.path.join(args.output_path, f"{prefix}-exceptions.jsonl")
     xml_path = args.xml_path
-    xml_report_path = args.xml_report_path
-
-    params = read_json(args.rules_file_path)
-
     try:
-        validator = XMLDataChecker(report_file_path, error_file_path, xml_path, xml_report_path)
-        validator.validate(params)
+        validator = XMLDataChecker(csv_file_path, exception_json_file_path, xml_path)
+        validator.validate({}, csv_per_xml)
 
     except FileNotFoundError as e:
         sys.exit(e)

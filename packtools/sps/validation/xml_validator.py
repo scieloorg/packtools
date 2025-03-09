@@ -2,6 +2,37 @@ from packtools.sps.validation import xml_validations
 from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
+def get_validation_results(xmltree, params):
+    for result in validate_xml_content(xmltree, params):
+        try:
+            group = None
+            group = result["group"]
+            for index, item in enumerate(result["items"]):
+                if not item:
+                    continue
+                try:
+                    data = {}
+                    data.update(item)
+                    data["group"] = group
+                    yield data
+                except Exception as e:
+                    data = {
+                        "response": "exception",
+                        "group": group,
+                        "error": str(e),
+                        "type": str(type(e))
+                    }
+                    data.update(item)
+                    yield data
+        except Exception as e:
+            yield {
+                "response": "exception",
+                "group": group,
+                "error": str(e),
+                "type": str(type(e))
+            }
+
+
 def validate_xml_content(xmltree, rules):
     params = get_default_rules()
     params.update(rules or {})
