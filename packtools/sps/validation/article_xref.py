@@ -1,5 +1,5 @@
 from packtools.sps.models.v2.article_xref import XMLCrossReference
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import format_response, build_response
 
 
 class ArticleXrefValidation:
@@ -183,7 +183,6 @@ class ArticleXrefValidation:
                         "xref": xrefs,
                         "missing_xrefs": self.missing_xrefs,
                         "missing_elems": self.missing_elems,
-                        "attrib": attrib
                     },
                     error_level=error_level,
                 )
