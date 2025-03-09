@@ -219,6 +219,7 @@ class ArticleDoiValidation:
                 if registered := result.get("registered"):
                     advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
                 else:
+                    error_level = "WARNING"
                     advice = (
                         f"Unable to check if {xml_doi} is registered for {expected}"
                     )

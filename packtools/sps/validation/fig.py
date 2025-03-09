@@ -33,7 +33,7 @@ class ArticleFigValidation:
                 obtained=None,
                 advice=f'({self.article_type}) No <fig> found in XML',
                 data=None,
-                error_level=self.rules["required_error_level"],
+                error_level=self.rules["absent_error_level"],
             )
 
 
