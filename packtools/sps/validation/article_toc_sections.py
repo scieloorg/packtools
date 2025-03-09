@@ -164,6 +164,7 @@ class SubjectValidation:
         article_title = self.data.get("article_title") or ""
         subsection_text = " ".join(subsections or "")
         journal = self.data.get("journal") or ""
+        error_level = self.value_error_level
 
         if subsection_text:
             subject = f"{section_title}: {subsection_text}"
@@ -184,6 +185,7 @@ class SubjectValidation:
                 )
                 advice = f"{subject} is not registered as a table of contents section. Valid values: {self.expected_toc_sections}"
             else:
+                error_level = "WARNING"
                 advice = f'Unable to check if {subject} (<subject-group subj-group-type="heading"><subject>{subject}</subject></subject-group>) is a valid table of contents section because the journal ({journal}) sections were not informed'
         else:
             validation_type = "exist"
@@ -200,7 +202,7 @@ class SubjectValidation:
             obtained=subject,
             advice=advice,
             data=self.data,
-            error_level=self.value_error_level,
+            error_level=error_level,
         )
 
     def validade_article_title_is_different_from_section_title(self):

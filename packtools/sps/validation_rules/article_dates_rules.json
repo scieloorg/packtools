@@ -17,11 +17,14 @@
         "pre_pub_ordered_events":[
             "preprint",
             "received",
+            "rev-request",
+            "rev-recd",
             "revised",
             "accepted"
         ],
         "pos_pub_ordered_events":[
             "pub",
+            "resubmitted",
             "corrected",
             "retracted"
         ],

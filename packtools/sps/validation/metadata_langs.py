@@ -25,7 +25,7 @@ def _elements_exist(title, abstract, keyword):
     """
     # Verifica se existe título no XML
     if not title:
-        return False, True, 'title'
+        return False, True, 'article title'
     # Verifica se existe palavras-chave sem resumo
     if not abstract and keyword:
         return False, True, 'abstract'
@@ -124,7 +124,7 @@ class MetadataLanguagesValidation:
                     is_valid=False,
                     expected=f"{missing_element_name} in {lang}",
                     obtained=None,
-                    advice=f'Provide {missing_element_name} in the {lang} language',
+                    advice=f'Mark {missing_element_name} for {lang} language',
                     data=None,
                     error_level=error_level,
                 )
