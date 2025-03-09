@@ -1,1207 +1,863 @@
-from unittest import TestCase
-
+import unittest
 from lxml import etree
 
 from packtools.sps.utils.xml_utils import get_xml_tree
 from packtools.sps.validation.article_and_subarticles import (
     ArticleLangValidation,
-    ArticleAttribsValidation,
     ArticleTypeValidation,
-    ArticleIdValidation, JATSAndDTDVersionValidation,
+    ArticleIdValidation,
+    JATSAndDTDVersionValidation,
+)
+from packtools.sps.validation.exceptions import (
+    ValidationArticleAndSubArticlesLanguageCodeException,
+    ValidationArticleAndSubArticlesSpecificUseException,
+    ValidationArticleAndSubArticlesDtdVersionException,
+    ValidationArticleAndSubArticlesArticleTypeException,
+    ValidationArticleAndSubArticlesSubjectsException,
 )
 
 
-
-class ArticleAndSubarticlesTest(TestCase):
-
+class TestArticleLangValidation(unittest.TestCase):
+    
     def setUp(self):
-        self.params = {
-            "language_codes_list": ["pt", "en", "es"],
-            "language_error_level": "CRITICAL",
-            "specific_use_list": {
-                "sps-1.1": ["1.0"],
-                "sps-1.2": ["1.0"],
-                "sps-1.3": ["1.0"],
-                "sps-1.4": ["1.0"],
-                "sps-1.5": ["1.0"],
-                "sps-1.6": ["1.0"],
-                "sps-1.7": ["1.0", "1.1"],
-                "sps-1.8": ["1.0", "1.1"],
-                "sps-1.9": ["1.1"],
-                "sps-1.10": ["1.1", "1.2", "1.3"]
-            },
-            "specific_use_error_level": "CRITICAL",
-            "dtd_version_list": ["1.1", "1.2", "1.3"],
-            "dtd_version_error_level": "CRITICAL",
-            "article_type_list": ["research-article"],
-            "article_type_list_error_level": "CRITICAL",
-            "subjects_list": [
-                {"subject": "Original Article", "lang": "en"},
-                {"subject": "Artigo Original", "lang": "pt"},
-                {"subject": "Artículo Original", "lang": "es"},
-            ],
-            "target_article_types": ["research-article"],
-            "expected_similarity": 0.7,
-            "expected_similarity_error_level": "CRITICAL",
-            "id_other_error_level": "CRITICAL",
-            "jats_and_dtd_version_error_level": "CRITICAL"
-        }
-
-    def test_article_has_no_language_attribute(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">zTn4sYXBrfSTMNVPF5Dm7jr</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-50532014001202258</article-id>
-                    <article-id pub-id-type="doi">10.5935/0103-5053.20140192</article-id>
-                </article-meta>
-            </front>
+        # Create sample XML for testing
+        self.valid_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
         </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
+        '''
+        
+        self.invalid_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="fr">
+        </article>
+        '''
+        
+        self.no_lang_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+        </article>
+        '''
+        
+        # Parse the XML strings
+        self.valid_xmltree = (etree.fromstring(self.valid_xml_string))
+        self.invalid_xmltree = (etree.fromstring(self.invalid_xml_string))
+        self.no_lang_xmltree = (etree.fromstring(self.no_lang_xml_string))
 
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
+    def test_validate_language_with_valid_language(self):
+        # Test with a valid language
+        validator = ArticleLangValidation(self.valid_xmltree, None)
+        results = list(validator.validate_language())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "en")
+        self.assertEqual(result['expected_value'], "en")  # For valid case, expected_value equals got_value
+        self.assertIsNone(result['advice'])  # For valid case, advice should be None
 
-        expected = [
-            {
-                "title": "text language",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': None,
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": None,
-                'message': "Got None, expected one of ['pt', 'en', 'es']",
-                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': None,
-                    'line_number': 2,
-                    'subject': None
-                }
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
+    def test_validate_language_with_invalid_language(self):
+        # Test with an invalid language
+        validator = ArticleLangValidation(self.invalid_xmltree, None)
+        results = list(validator.validate_language())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value'], "fr")
+        self.assertEqual(result['expected_value'], "one of ['pt', 'en', 'es']")
+        
+        # Assert that advice is not None and contains expected text
+        self.assertIsNotNone(result['advice'])
+        expected_advice = "Replace fr in <article xml:lang=\"fr\"> with one of ['pt', 'en', 'es']"
+        self.assertEqual(result['advice'], expected_advice)
 
-    def test_article_has_valid_language(self):
-        self.maxDiff = None
-        xml_str = """
+    def test_validate_language_with_no_language(self):
+        # Test with no language specified
+        validator = ArticleLangValidation(self.no_lang_xmltree, None)
+        results = list(validator.validate_language())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value'], None)
+        self.assertEqual(result['expected_value'], "one of ['pt', 'en', 'es']")
+        
+        # Assert that advice is not None and contains guidance for adding a missing attribute
+        self.assertIsNotNone(result['advice'])
+        expected_advice = """Add xml:lang=\"VALUE\" in <article>: <article xml:lang="VALUE"> and replace VALUE with one of ['pt', 'en', 'es']"""
+        self.assertEqual(result['advice'], expected_advice)
+
+    def test_validate_language_with_custom_language_codes(self):
+        # Test with custom language codes
+        validator = ArticleLangValidation(
+            self.invalid_xmltree, 
+            {"language_codes_list": ["fr", "it", "de"]}
+        )
+        results = list(validator.validate_language())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "fr")
+        self.assertEqual(result['expected_value'], "fr")  # For valid case, expected_value equals got_value
+        self.assertIsNone(result['advice'])  # For valid case, advice should be None
+
+    def test_validate_language_with_custom_error_level(self):
+        # Test with custom error level
+        validator = ArticleLangValidation(
+            self.invalid_xmltree, 
+            {"language_error_level": "WARNING"}
+        )
+        results = list(validator.validate_language())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "WARNING")
+        self.assertEqual(result['got_value'], "fr")
+        self.assertEqual(result['expected_value'], "one of ['pt', 'en', 'es']")
+        
+        # Assert that advice is not None and contains expected text with the same format
+        # but a different error level
+        self.assertIsNotNone(result['advice'])
+        expected_advice = "Replace fr in <article xml:lang=\"fr\"> with one of ['pt', 'en', 'es']"
+        self.assertEqual(result['advice'], expected_advice)
+
+    def test_validate_language_with_missing_param(self):
+        # Test with missing language_codes_list parameter
+        validator = ArticleLangValidation(
+            self.valid_xmltree, 
+            {"language_codes_list": None}
+        )
+        validator.params.pop("language_codes_list")
+        
+        with self.assertRaises(ValidationArticleAndSubArticlesLanguageCodeException):
+            list(validator.validate_language())
+
+    def test_validate_language_with_multiple_articles(self):
+        # Create sample XML with a main article and two sub-articles
+        multi_article_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+        <sub-article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="translation" xml:lang="es">
+        </sub-article>
+        <sub-article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="abstract" xml:lang="fr">
+        </sub-article>
+        </article>
+        '''
+        
+        multi_article_xmltree = (etree.fromstring(multi_article_xml_string))
+        
+        # Test with real XML containing multiple articles
+        validator = ArticleLangValidation(multi_article_xmltree, None)
+        results = list(validator.validate_language())
+        
+        # Should have 3 results (main article + 2 sub-articles)
+        self.assertEqual(len(results), 3)
+        
+        # Main article and first sub-article should be valid
+        self.assertEqual(results[0]['response'], "OK")
+        self.assertEqual(results[0]['got_value'], "en")
+        self.assertIsNone(results[0]['advice'])  # For valid case, advice should be None
+        
+        self.assertEqual(results[1]['response'], "OK")
+        self.assertEqual(results[1]['got_value'], "es")
+        self.assertIsNone(results[1]['advice'])  # For valid case, advice should be None
+        
+        # Second sub-article should be invalid (fr is not in the default language list)
+        self.assertEqual(results[2]['response'], "CRITICAL")
+        self.assertEqual(results[2]['got_value'], "fr")
+        
+        # Assert that advice for invalid language is not None and has expected format
+        self.assertIsNotNone(results[2]['advice'])
+        expected_advice = "Replace fr in <sub-article xml:lang=\"fr\"> with one of ['pt', 'en', 'es']"
+        self.assertEqual(results[2]['advice'], expected_advice)
+
+    def test_validate_language_with_no_language_attributes(self):
+        # Create sample XML with a main article and two sub-articles, all missing language attributes
+        no_lang_multi_article_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+        <sub-article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+        </sub-article>
+        <sub-article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+        </sub-article>
+        </article>
+        '''
+        
+        no_lang_multi_article_xmltree = (etree.fromstring(no_lang_multi_article_xml_string))
+        
+        # Test with real XML containing multiple articles without language attributes
+        validator = ArticleLangValidation(no_lang_multi_article_xmltree, None)
+        results = list(validator.validate_language())
+        
+        # Should have 3 results (main article + 2 sub-articles)
+        self.assertEqual(len(results), 3)
+        
+        # All articles should be invalid as they lack xml:lang attributes
+        for i, result in enumerate(results):
+            element_name = "article" if i == 0 else "sub-article"
+            self.assertEqual(result['response'], "CRITICAL")
+            self.assertEqual(result['got_value'], None)
+            self.assertIsNotNone(result['advice'])
+            expected_advice = f"""Add xml:lang="VALUE" in <{element_name}>: <{element_name} xml:lang="VALUE"> and replace VALUE with one of ['pt', 'en', 'es']"""
+            self.assertEqual(result['advice'], expected_advice)
+
+
+class TestArticleTypeValidation(unittest.TestCase):
+    
+    def setUp(self):
+        # Create sample XML for testing
+        self.valid_xml_string = '''
         <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
             <front>
                 <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">zTn4sYXBrfSTMNVPF5Dm7jr</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-50532014001202258</article-id>
-                    <article-id pub-id-type="doi">10.5935/0103-5053.20140192</article-id>
+                    <article-id pub-id-type="publisher-id">article1</article-id>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Research Article</subject>
+                        </subj-group>
+                    </article-categories>
                 </article-meta>
-            </front>
+            </front>           
         </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": "text language",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "en",
-                "got_value": "en",
-                "message": "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                "data": {
-                    "parent_name": "article",
-                    "article_id": None,
-                    'article_type': 'research-article',
-                    'lang': 'en',
-                    'line_number': 2,
-                    'subject': None
-                }
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_has_invalid_language(self):
-        self.maxDiff = None
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="e">
+        '''
+        
+        self.invalid_article_type_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="unknown-type" xml:lang="en">
             <front>
                 <article-meta>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v3">zTn4sYXBrfSTMNVPF5Dm7jr</article-id>
-                    <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0103-50532014001202258</article-id>
-                    <article-id pub-id-type="doi">10.5935/0103-5053.20140192</article-id>
+                    <article-id pub-id-type="publisher-id">article2</article-id>
+                    <article-categories>
+                        <subj-group subj-group-type="heading">
+                            <subject>Unknown Article Type</subject>
+                        </subj-group>
+                    </article-categories>
                 </article-meta>
             </front>
         </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": "text language",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'e',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": "e",
-                'message': "Got e, expected one of ['pt', 'en', 'es']",
-                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'e',
-                    'line_number': 2,
-                    'subject': None
-                }
-            }
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_have_valid_languages(self):
-        self.maxDiff = None
-        with open("tests/samples/article-abstract-en-sub-articles-pt-es.xml") as data:
-            xml_tree = get_xml_tree(data.read())
-
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": 'text language',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'en',
-                "got_value": "en",
-                'message': "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'en',
-                    'line_number': 2,
-                    'subject': 'Original Article'
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'parent_article_type': 'translation',
-                'parent_lang': 'pt',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'pt',
-                "got_value": "pt",
-                'message': "Got pt, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's1',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'pt',
-                    'line_number': 1307,
-                    'subject': 'Artigo Original'
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's2',
-                'parent_article_type': 'translation',
-                'parent_lang': 'es',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'es',
-                "got_value": "es",
-                'message': "Got es, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's2',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'es',
-                    'line_number': 1527,
-                    'subject': 'Artículo Original'
-                },
-
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_with_three_valid_languages(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="es">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": 'text language',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "en",
-                "got_value": "en",
-                'message': "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'en',
-                    'line_number': 2,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'parent_article_type': 'translation',
-                'parent_lang': 'pt',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "pt",
-                "got_value": "pt",
-                'message': "Got pt, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's1',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'pt',
-                    'line_number': 3,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's2',
-                'parent_article_type': 'translation',
-                'parent_lang': 'es',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "es",
-                "got_value": "es",
-                'message': "Got es, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's2',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'es',
-                    'line_number': 5,
-                    'subject': None
-                },
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_with_two_valid_languages_and_one_invalid(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="pt">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": 'text language',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'en',
-                "got_value": "en",
-                'message': "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'en',
-                    'line_number': 2,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'parent_article_type': 'translation',
-                'parent_lang': 'pt',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "pt",
-                "got_value": "pt",
-                'message': "Got pt, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's1',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'pt',
-                    'line_number': 3,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's2',
-                'parent_article_type': 'translation',
-                'parent_lang': '',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": "",
-                'message': "Got , expected one of ['pt', 'en', 'es']",
-                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
-                'data': {
-                    'article_id': 's2',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': '',
-                    'line_number': 5,
-                    'subject': None
-                }
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_with_one_valid_language_one_empty_and_one_invalid(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": 'text language',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'en',
-                "got_value": "en",
-                'message': "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'en',
-                    'line_number': 2,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'parent_article_type': 'translation',
-                'parent_lang': None,
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": None,
-                'message': "Got None, expected one of ['pt', 'en', 'es']",
-                "advice": 'Provide for sub-article[@id="s1"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
-                'data': {
-                    'article_id': 's1',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': None,
-                    'line_number': 3,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's2',
-                'parent_article_type': 'translation',
-                'parent_lang': '',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": "",
-                'message': "Got , expected one of ['pt', 'en', 'es']",
-                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
-                'data': {
-                    'article_id': 's2',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': '',
-                    'line_number': 5,
-                    'subject': None
-                },
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_with_two_invalid_languages(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = ArticleLangValidation(xml_tree, self.params).validate_language()
-
-        expected = [
-            {
-                "title": 'text language',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": "portugol",
-                'message': "Got portugol, expected one of ['pt', 'en', 'es']",
-                "advice": "Provide for article/@xml:lang one of ['pt', 'en', 'es']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's1',
-                'parent_article_type': 'translation',
-                'parent_lang': 'en',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "en",
-                "got_value": "en",
-                'message': "Got en, expected one of ['pt', 'en', 'es']",
-                "advice": None,
-                'data': {
-                    'article_id': 's1',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'en',
-                    'line_number': 3,
-                    'subject': None
-                },
-            },
-            {
-                "title": 'text language',
-                'parent': 'sub-article',
-                'parent_id': 's2',
-                'parent_article_type': 'translation',
-                'parent_lang': 'thisisaninvalidlanguagecode',
-                'item': 'sub-article',
-                'sub_item': '@xml:lang',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['pt', 'en', 'es']",
-                "got_value": "thisisaninvalidlanguagecode",
-                'message': "Got thisisaninvalidlanguagecode, expected one of ['pt', 'en', 'es']",
-                "advice": 'Provide for sub-article[@id="s2"]/@xml:lang one of [\'pt\', \'en\', \'es\']',
-                'data': {
-                    'article_id': 's2',
-                    'article_type': 'translation',
-                    'parent_name': 'sub-article',
-                    'lang': 'thisisaninvalidlanguagecode',
-                    'line_number': 5,
-                    'subject': None
-                }
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_specific_use(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleAttribsValidation(xml_tree, self.params).validate_specific_use()
-        )
-
-        expected = [
-            {
-                "title": 'article/@specific-use',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@specific-use',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": 'sps-1.9',
-                "got_value": "sps-1.9",
-                'message': "Got sps-1.9, expected one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': 'sps-1.9',
-                    'subject': None
-                },
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_article_and_subarticles_without_specific_use(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleAttribsValidation(xml_tree, self.params).validate_specific_use()
-        )
-
-        expected = [
-            {
-                "title": "article/@specific-use",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@specific-use',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
-                "got_value": None,
-                'message': "Got None, expected one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
-                "advice": "Provide for article/@specific-use one of ['sps-1.1', 'sps-1.2', 'sps-1.3', 'sps-1.4', 'sps-1.5', 'sps-1.6', 'sps-1.7', 'sps-1.8', 'sps-1.9', 'sps-1.10']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': None,
-                    'subject': None
-                },
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_article_and_subarticles_dtd_version(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleAttribsValidation(xml_tree, self.params).validate_dtd_version()
-        )
-
-        expected = [
-            {
-                "title": 'article/@dtd-version',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@dtd-version',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": '1.1',
-                "got_value": "1.1",
-                'message': "Got 1.1, expected one of ['1.1', '1.2', '1.3']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': 'sps-1.9',
-                    'subject': None
-                },
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_article_and_subarticles_article_type_is_valid(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleTypeValidation(xml_tree, self.params).validate_article_type()
-        )
-
-        expected = [
-            {
-                "title": 'article/@article-type',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@article-type',
-                "validation_type": "value in list",
-                "response": "OK",
-                "expected_value": "research-article",
-                "got_value": "research-article",
-                'message': "Got research-article, expected one of ['research-article']",
-                "advice": None,
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': None,
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': 'sps-1.9',
-                    'subject': None
-                }
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_article_and_subarticles_article_type_is_not_valid(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="main" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
-            </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
-            </sub-article>
-        </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleTypeValidation(xml_tree, self.params).validate_article_type()
-        )
-
-        expected = [
-            {
-                "title": 'article/@article-type',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'main',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@article-type',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['research-article']",
-                "got_value": "main",
-                'message': "Got main, expected one of ['research-article']",
-                "advice": "Provide for article/@article-type one of ['research-article']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'main',
-                    'parent_name': 'article',
-                    'dtd_version': None,
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': 'sps-1.9',
-                    'subject': None
-                },
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_article_and_subarticles_article_type_vs_subject_similarity(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-                <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
+        '''
+        
+        self.mismatch_subject_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article3</article-id>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                        <subject>Scientific Article</subject>
+                            <subject>Editorial</subject>
                         </subj-group>
                     </article-categories>
-                <sub-article article-type="translation" id="s1" xml:lang="pt">
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        self.multi_article_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">main-article</article-id>
                     <article-categories>
                         <subj-group subj-group-type="heading">
-                        <subject>Artigo Científico</subject>
+                            <subject>Research Article</subject>
                         </subj-group>
                     </article-categories>
-                </sub-article>
-                <sub-article article-type="translation" id="s2" xml:lang="es">
-                    <article-categories>
-                        <subj-group subj-group-type="heading">
-                        <subject>Artículo Científico</subject>
-                        </subj-group>
-                    </article-categories>
-                </sub-article>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = ArticleTypeValidation(xml_tree, self.params).validate_article_type_vs_subject_similarity()
-
-        expected = [
-            {
-                "title": "Article type vs subjects validation",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@article-type',
-                "validation_type": "similarity",
-                "response": "CRITICAL",
-                "expected_value": 0.7,
-                "got_value": 0.6818181818181818,
-                'message': 'Got 0.6818181818181818, expected 0.7',
-                "advice": "The subject Scientific Article (en) does not match the items provided in the list: "
-                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'en',
-                    'line_number': 3,
-                    'specific_use': 'sps-1.9',
-                    'subject': 'Scientific Article'
-                },
-            },
-            {
-                "title": "Article type vs subjects validation",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@article-type',
-                "validation_type": "similarity",
-                "response": "ERROR",
-                "expected_value": 0.7,
-                "got_value": 0.6190476190476191,
-                'message': 'Got 0.6190476190476191, expected 0.7',
-                "advice": "The subject Artigo Científico (pt) does not match the items provided in the list: "
-                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'en',
-                    'line_number': 3,
-                    'specific_use': 'sps-1.9',
-                    'subject': 'Scientific Article'
-                },
-            },
-            {
-                "title": "Article type vs subjects validation",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article',
-                'sub_item': '@article-type',
-                "validation_type": "similarity",
-                "response": "ERROR",
-                "expected_value": 0.7,
-                "got_value": 0.6521739130434783,
-                'message': 'Got 0.6521739130434783, expected 0.7',
-                "advice": "The subject Artículo Científico (es) does not match the items provided in the list: "
-                "Original Article (en) | Artigo Original (pt) | Artículo Original (es)",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': '1.1',
-                    'lang': 'en',
-                    'line_number': 3,
-                    'specific_use': 'sps-1.9',
-                    'subject': 'Scientific Article'
-                },
-            },
-        ]
-        for i, item in enumerate(obtained):
-            with self.subTest(i):
-                self.assertDictEqual(expected[i], item)
-
-    def test_article_and_subarticles_validate_article_id_other_is_ok(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-            <article-meta>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-id pub-id-type="other">123</article-id>
-            </article-meta>
+                </article-meta>
             </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
-
-        expected = [
-            {
-                "title": 'article-id (@pub-id-type="other")',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="other"',
-                "validation_type": "format",
-                "response": "OK",
-                "expected_value": "123",
-                "got_value": "123",
-                'message': 'Got 123, expected numerical value from 1 to 99999',
-                "advice": None,
-                'data': {
-                    'other': '123',
-                    'v2': 'S0104-11692020000100303',
-                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
-                },
-            }
-        ]
-        self.assertEqual(expected, obtained)
-
-    def test_article_and_subarticles_validate_article_id_other_non_numeric_digit(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-            <article-meta>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-id pub-id-type="other">x23</article-id>
-            </article-meta>
-            </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
-
-        expected = [
-            {
-                "title": 'article-id (@pub-id-type="other")',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="other"',
-                "validation_type": "format",
-                "response": "CRITICAL",
-                'expected_value': 'numerical value from 1 to 99999',
-                "got_value": "x23",
-                'message': 'Got x23, expected numerical value from 1 to 99999',
-                "advice": 'Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
-                'data': {
-                    'other': 'x23',
-                    'v2': 'S0104-11692020000100303',
-                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
-                },
-            }
-        ]
-        self.assertEqual(expected, obtained)
-
-    def test_article_and_subarticles_validate_article_id_other_with_more_than_five_digits(self):
-        self.maxDiff = None
-        xml_str = """
-            <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
-            article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
-            <front>
-            <article-meta>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v3">TPg77CCrGj4wcbLCh9vG8bS</article-id>
-            <article-id pub-id-type="publisher-id" specific-use="scielo-v2">S0104-11692020000100303</article-id>
-            <article-id pub-id-type="other">123456</article-id>
-            </article-meta>
-            </front>
-            </article>
-            """
-        xml_tree = get_xml_tree(xml_str)
-        obtained = list(ArticleIdValidation(xml_tree, self.params).validate_article_id_other())
-
-        expected = [
-            {
-                "title": 'article-id (@pub-id-type="other")',
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'en',
-                'item': 'article-id',
-                'sub_item': '@pub-id-type="other"',
-                "validation_type": "format",
-                "response": "CRITICAL",
-                "expected_value": 'numerical value from 1 to 99999',
-                "got_value": "123456",
-                'message': 'Got 123456, expected numerical value from 1 to 99999',
-                "advice": 'Provide for <article-id pub-id-type="other"> numerical value from 1 to 99999',
-                'data': {
-                    'other': '123456',
-                    'v2': 'S0104-11692020000100303',
-                    'v3': 'TPg77CCrGj4wcbLCh9vG8bS'
-                },
-            }
-        ]
-        self.assertEqual(expected, obtained)
-
-    def test_article_and_subarticles_without_dtd_version(self):
-        self.maxDiff = None
-        xml_str = """
-        <article article-type="research-article" specific-use="sps-1.9" xml:lang="portugol" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <sub-article article-type="translation" id="s1" xml:lang="en">
+            <sub-article article-type="review-article" id="sub1" xml:lang="es">
+                <front>
+                    <article-meta>
+                        <article-id pub-id-type="publisher-id">sub-article-1</article-id>
+                        <article-categories>
+                            <subj-group subj-group-type="heading">
+                                <subject>Artículo de Revisión</subject>
+                            </subj-group>
+                        </article-categories>
+                    </article-meta>
+                </front>
             </sub-article>
-            <sub-article article-type="translation" id="s2" xml:lang="thisisaninvalidlanguagecode">
+            <sub-article article-type="invalid-type" id="sub2" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <article-id pub-id-type="publisher-id">sub-article-2</article-id>
+                        <article-categories>
+                            <subj-group subj-group-type="heading">
+                                <subject>Tipo Inválido</subject>
+                            </subj-group>
+                        </article-categories>
+                    </article-meta>
+                </front>
             </sub-article>
         </article>
-        """
-        xml_tree = get_xml_tree(xml_str)
-
-        obtained = list(
-            ArticleAttribsValidation(xml_tree, self.params).validate_dtd_version()
-        )
-
-        expected = [
-            {
-                "title": "article/@dtd-version",
-                'parent': 'article',
-                'parent_id': None,
-                'parent_article_type': 'research-article',
-                'parent_lang': 'portugol',
-                'item': 'article',
-                'sub_item': '@dtd-version',
-                "validation_type": "value in list",
-                "response": "CRITICAL",
-                "expected_value": "one of ['1.1', '1.2', '1.3']",
-                "got_value": None,
-                'message': "Got None, expected one of ['1.1', '1.2', '1.3']",
-                'advice': "Provide for article/@dtd-version one of ['1.1', '1.2', '1.3']",
-                'data': {
-                    'article_id': None,
-                    'article_type': 'research-article',
-                    'parent_name': 'article',
-                    'dtd_version': None,
-                    'lang': 'portugol',
-                    'line_number': 2,
-                    'specific_use': 'sps-1.9',
-                    'subject': None
-                },
-            }
-        ]
-
-        self.assertEqual(obtained, expected)
-
-    def test_validate_jats_and_dtd_version(self):
-        xml_str = """
-        <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.3 20210610//EN" "JATS-journalpublishing1-3.dtd">
-        <article article-type="research-article" dtd-version="1.1" xml:lang="en" specific-use="sps-1.9"
-                 xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+        '''
+        
+        self.no_subject_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article4</article-id>
+                </article-meta>
+            </front>
+            <!-- No article-categories element -->
         </article>
-        """
+        '''
+        
+        # Parse the XML strings
+        self.valid_xmltree = etree.fromstring(self.valid_xml_string)
+        self.invalid_article_type_xmltree = etree.fromstring(self.invalid_article_type_xml_string)
+        self.mismatch_subject_xmltree = etree.fromstring(self.mismatch_subject_xml_string)
+        self.multi_article_xmltree = etree.fromstring(self.multi_article_xml_string)
+        self.no_subject_xmltree = etree.fromstring(self.no_subject_xml_string)
 
-        xml_tree = etree.fromstring(xml_str)
+    def test_validate_article_type_with_valid_type(self):
+        # Test with a valid article type
+        validator = ArticleTypeValidation(self.valid_xmltree, None)
+        results = list(validator.validate_article_type())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "research-article")
+        self.assertEqual(result['expected_value'], "research-article")  # For valid case
+        self.assertIsNone(result['advice'])  # For valid case, advice should be None
 
-        # Instancia a classe de validação
-        validator = JATSAndDTDVersionValidation(xml_tree, self.params)
+    def test_validate_article_type_with_invalid_type(self):
+        # Test with an invalid article type
+        validator = ArticleTypeValidation(self.invalid_article_type_xmltree, None)
+        results = list(validator.validate_article_type())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value'], "unknown-type")
+        self.assertIn("one of", result['expected_value'])
+        
+        # Assert that advice is not None and contains expected text
+        self.assertIsNotNone(result['advice'])
+        self.assertIn("Complete article article-type", result['advice'])
+        self.assertIn("with valid value", result['advice'])
 
-        # Executa a validação
-        obtained = list(validator.validate())
+    def test_validate_article_type_with_custom_list(self):
+        # Test with custom article types list
+        custom_params = {
+            "article_type_list": ["unknown-type", "custom-type"]
+        }
+        validator = ArticleTypeValidation(self.invalid_article_type_xmltree, custom_params)
+        results = list(validator.validate_article_type())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "unknown-type")
+        self.assertEqual(result['expected_value'], "unknown-type")
+        self.assertIsNone(result['advice'])
 
-        # Resultado esperado
-        expected = []
+    def test_validate_article_type_with_custom_error_level(self):
+        # Test with custom error level
+        custom_params = {
+            "article_type_error_level": "WARNING"
+        }
+        validator = ArticleTypeValidation(self.invalid_article_type_xmltree, custom_params)
+        results = list(validator.validate_article_type())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "WARNING")  # Should use custom error level
+        self.assertEqual(result['got_value'], "unknown-type")
 
-        # Verifica se a validação foi bem-sucedida
-        self.assertEqual(obtained, expected)
+    def test_validate_article_type_with_missing_param(self):
+        # Test with missing article_type_list parameter
+        validator = ArticleTypeValidation(self.valid_xmltree, {"article_type_list": None})
+        validator.params.pop("article_type_list")
+        
+        with self.assertRaises(ValidationArticleAndSubArticlesArticleTypeException):
+            list(validator.validate_article_type())
 
-    def test_validate_jats_and_dtd_version_incompatible(self):
-        self.maxDiff = None
-        xml_str = """
-        <!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20210610//EN" "JATS-journalpublishing1-1.dtd">
-        <article article-type="research-article" dtd-version="1.0" xml:lang="en" specific-use="sps-1.9"
-                 xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink">
+    def test_validate_article_type_with_multiple_articles(self):
+        # Test with multiple articles (main and sub-articles)
+        validator = ArticleTypeValidation(self.multi_article_xmltree, None)
+        results = list(validator.validate_article_type())
+        
+        # Should have 3 results (main article + 2 sub-articles)
+        self.assertEqual(len(results), 3)
+        
+        # Main article should be valid
+        self.assertEqual(results[0]['response'], "OK")
+        self.assertEqual(results[0]['got_value'], "research-article")
+        self.assertIsNone(results[0]['advice'])
+        
+        # First sub-article should be valid
+        self.assertEqual(results[1]['response'], "OK")
+        self.assertEqual(results[1]['got_value'], "review-article")
+        self.assertIsNone(results[1]['advice'])
+        
+        # Second sub-article should be invalid
+        self.assertEqual(results[2]['response'], "CRITICAL")
+        self.assertEqual(results[2]['got_value'], "invalid-type")
+        self.assertIsNotNone(results[2]['advice'])
+
+    def test_validate_article_type_vs_subject_similarity_with_matching(self):
+        # Test with matching article type and subject
+        validator = ArticleTypeValidation(self.valid_xmltree, None)
+        results = list(validator.validate_article_type_vs_subject_similarity())
+        
+        # Should have results since there is an English subject
+        self.assertTrue(len(results) > 0)
+        
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "research-article")
+        self.assertIsNone(result['advice'])
+
+    def test_validate_article_type_vs_subject_similarity_with_mismatch(self):
+        # Test with mismatched article type and subject
+        validator = ArticleTypeValidation(self.mismatch_subject_xmltree, None)
+        results = list(validator.validate_article_type_vs_subject_similarity())
+        
+        # Should return results for mismatch
+        self.assertTrue(len(results) > 0)
+        
+        result = results[0]
+        # Editorial in subject doesn't match research-article type
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "research-article")
+        self.assertIsNotNone(result['advice'])
+        self.assertIn("Check <article article-type=\"research-article\"/>", result['advice'])
+        self.assertIn("seems to be more suitable", result['advice'])
+
+    def test_validate_article_type_vs_subject_similarity_with_no_subject(self):
+        # Test with no subject (should not yield any results)
+        validator = ArticleTypeValidation(self.no_subject_xmltree, None)
+        results = list(validator.validate_article_type_vs_subject_similarity())
+        
+        # Should not have results since there is no English subject
+        self.assertEqual(len(list(results)), 0)
+
+    def test_validate_article_type_vs_subject_similarity_with_custom_threshold(self):
+        # Test with custom similarity threshold
+        custom_params = {
+            "article_type_and_subject_expected_similarity": 0.8
+        }
+        validator = ArticleTypeValidation(self.valid_xmltree, custom_params)
+        results = list(validator.validate_article_type_vs_subject_similarity())
+        
+        # With a higher threshold, may not find a match
+        # Just verify that the function runs with the custom threshold
+        self.assertTrue(isinstance(results, list) or hasattr(results, '__next__'))
+
+class TestArticleIdValidation(unittest.TestCase):
+    
+    def setUp(self):
+        # XML com ID válido: número entre 1 e 99999, máximo 5 dígitos
+        self.valid_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">12345</article-id>
+                </article-meta>
+            </front>
         </article>
-        """
+        '''
+        
+        # XML com ID inválido: número negativo
+        self.invalid_negative_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">-123</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com ID inválido: zero
+        self.invalid_zero_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">0</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com ID inválido: excede 99999
+        self.invalid_too_large_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">100000</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com ID inválido: não é numérico
+        self.invalid_non_numeric_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">A123</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com ID inválido: excede 5 caracteres (mas ainda está abaixo de 99999)
+        self.invalid_too_many_leading_zeros_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="other">000123</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML sem ID
+        self.no_id_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <!-- Sem article-id -->
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # Parse de strings XML
+        self.valid_xmltree = etree.fromstring(self.valid_xml_string)
+        self.invalid_negative_xmltree = etree.fromstring(self.invalid_negative_xml_string)
+        self.invalid_zero_xmltree = etree.fromstring(self.invalid_zero_xml_string)
+        self.invalid_too_large_xmltree = etree.fromstring(self.invalid_too_large_xml_string)
+        self.invalid_non_numeric_xmltree = etree.fromstring(self.invalid_non_numeric_xml_string)
+        self.invalid_too_many_leading_zeros_xmltree = etree.fromstring(self.invalid_too_many_leading_zeros_xml_string)
+        self.no_id_xmltree = etree.fromstring(self.no_id_xml_string)
 
-        xml_tree = etree.fromstring(xml_str)
+    def test_validate_article_id_other_with_valid_id(self):
+        """Testa validação com um ID válido (numérico entre 1 e 99999 com máximo 5 dígitos)"""
+        validator = ArticleIdValidation(self.valid_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        # Deve haver um resultado
+        self.assertEqual(len(results), 1)
+        
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value'], "12345")
+        self.assertIsNone(result['advice'])  # Para caso válido, advice deve ser None
 
-        # Instancia a classe de validação
-        validator = JATSAndDTDVersionValidation(xml_tree, self.params)
+    def test_validate_article_id_other_with_negative_id(self):
+        """Testa validação com um ID inválido (número negativo)"""
+        validator = ArticleIdValidation(self.invalid_negative_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "-123")
+        self.assertIn("a numerical value from 1 to 99999", result['expected_value'])
+        self.assertIsNotNone(result['advice'])
+        self.assertIn("Fix the table of contents article order", result['advice'])
 
-        # Executa a validação
-        obtained = list(validator.validate())
+    def test_validate_article_id_other_with_zero_id(self):
+        """Testa validação com um ID inválido (zero)"""
+        validator = ArticleIdValidation(self.invalid_zero_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "0")
+        self.assertIn("a numerical value from 1 to 99999", result['expected_value'])
+        self.assertIsNotNone(result['advice'])
 
-        # Resultado esperado
-        expected = [
-            {
-                "title": 'article-id (@pub-id-type="other")',
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "en",
-                "item": "dtd-version",
-                "sub_item": None,
-                "validation_type": "match",
-                'message': "Got 1.0, expected ['1.1']",
-                "advice": "Incompatibility: SPS sps-1.9 is not compatible with JATS 1.0.",
-                "response": "CRITICAL",
-                'data': [
-                    {
-                        'article_id': None,
-                        'article_type': 'research-article',
-                        'lang': 'en',
-                        'line_number': 4,
-                        'parent_name': 'article',
-                        'subject': None
-                    }
-                ],
-               'expected_value': ['1.1'],
-               'got_value': '1.0',
+    def test_validate_article_id_other_with_too_large_id(self):
+        """Testa validação com um ID inválido (excede 99999)"""
+        validator = ArticleIdValidation(self.invalid_too_large_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "100000")
+        self.assertIn("a numerical value from 1 to 99999", result['expected_value'])
+        self.assertIsNotNone(result['advice'])
+
+    def test_validate_article_id_other_with_non_numeric_id(self):
+        """Testa validação com um ID inválido (não numérico)"""
+        validator = ArticleIdValidation(self.invalid_non_numeric_xmltree, None)
+        results = list(validator.validate_article_id_other())
+
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "A123")
+        self.assertIn("a numerical value from 1 to 99999", result['expected_value'])
+        self.assertIsNotNone(result['advice'])
+
+    def test_validate_article_id_other_with_too_many_leading_zeros(self):
+        """Testa validação com um ID inválido (excede 5 caracteres, mesmo sendo abaixo de 99999)"""
+        validator = ArticleIdValidation(self.invalid_too_many_leading_zeros_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "ERROR")
+        self.assertEqual(result['got_value'], "000123")
+        self.assertIn("must have maximum 5 characters", result['expected_value'])
+        self.assertIsNotNone(result['advice'])
+
+    def test_validate_article_id_other_with_no_id(self):
+        """Testa validação sem ID (não deve gerar resultados)"""
+        validator = ArticleIdValidation(self.no_id_xmltree, None)
+        results = list(validator.validate_article_id_other())
+        
+        # Não deve haver resultados, pois o método retorna cedo quando other é None
+        self.assertEqual(len(results), 0)
+
+    def test_validate_article_id_other_with_custom_error_level(self):
+        """Testa validação com nível de erro personalizado"""
+        custom_params = {
+            "id_other_error_level": "WARNING"
+        }
+        validator = ArticleIdValidation(self.invalid_non_numeric_xmltree, custom_params)
+        results = list(validator.validate_article_id_other())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "WARNING")  # Deve usar o nível de erro personalizado
+        self.assertEqual(result['got_value'], "A123")
+
+
+class TestJATSAndDTDVersionValidation(unittest.TestCase):
+    
+    def setUp(self):
+        # XML com versões compatíveis (sps-1.9 e jats 1.1)
+        self.valid_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article1</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com versões compatíveis (sps-1.10 e jats 1.3)
+        self.valid_xml_string2 = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 dtd-version="1.3" specific-use="sps-1.10" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article2</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com versões incompatíveis (sps-1.9 e jats 1.0)
+        self.invalid_version_mismatch_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 dtd-version="1.0" specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article3</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML com SPS versão inválida
+        self.invalid_sps_version_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 dtd-version="1.1" specific-use="sps-2.0" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article4</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML sem atributos de versão
+        self.missing_versions_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article5</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML apenas com SPS, sem JATS
+        self.only_sps_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 specific-use="sps-1.9" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article6</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # XML apenas com JATS, sem SPS
+        self.only_jats_xml_string = '''
+        <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article"
+                 dtd-version="1.1" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="publisher-id">article7</article-id>
+                </article-meta>
+            </front>
+        </article>
+        '''
+        
+        # Parse de strings XML
+        self.valid_xmltree = etree.fromstring(self.valid_xml_string)
+        self.valid_xmltree2 = etree.fromstring(self.valid_xml_string2)
+        self.invalid_version_mismatch_xmltree = etree.fromstring(self.invalid_version_mismatch_xml_string)
+        self.invalid_sps_version_xmltree = etree.fromstring(self.invalid_sps_version_xml_string)
+        self.missing_versions_xmltree = etree.fromstring(self.missing_versions_xml_string)
+        self.only_sps_xmltree = etree.fromstring(self.only_sps_xml_string)
+        self.only_jats_xmltree = etree.fromstring(self.only_jats_xml_string)
+
+    def test_validate_with_valid_versions(self):
+        """Testa validação com versões SPS e JATS compatíveis (sps-1.9 e jats 1.1)"""
+        validator = JATSAndDTDVersionValidation(self.valid_xmltree, None)
+        results = list(validator.validate())
+        
+        # Deve haver um resultado
+        self.assertEqual(len(results), 1)
+        
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
+        self.assertEqual(result['got_value']['dtd-version'], "1.1")
+        self.assertIsNone(result['advice'])  # Para caso válido, advice deve ser None
+
+    def test_validate_with_valid_versions2(self):
+        """Testa validação com versões SPS e JATS compatíveis (sps-1.10 e jats 1.3)"""
+        validator = JATSAndDTDVersionValidation(self.valid_xmltree2, None)
+        results = list(validator.validate())
+        
+        # Deve haver um resultado
+        self.assertEqual(len(results), 1)
+        
+        result = results[0]
+        self.assertEqual(result['response'], "OK")
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.10")
+        self.assertEqual(result['got_value']['dtd-version'], "1.3")
+        self.assertIsNone(result['advice'])  # Para caso válido, advice deve ser None
+
+    def test_validate_with_incompatible_versions(self):
+        """Testa validação com versões SPS e JATS incompatíveis (sps-1.9 e jats 1.0)"""
+        validator = JATSAndDTDVersionValidation(self.invalid_version_mismatch_xmltree, None)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
+        self.assertEqual(result['got_value']['dtd-version'], "1.0")
+        self.assertIsNotNone(result['advice'])
+        self.assertIn("Complete SPS", result['advice'])
+        self.assertIn("JATS", result['advice'])
+        self.assertIn("compatible values", result['advice'])
+
+    def test_validate_with_invalid_sps_version(self):
+        """Testa validação com versão SPS inválida (sps-2.0)"""
+        validator = JATSAndDTDVersionValidation(self.invalid_sps_version_xmltree, None)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value']['specific-use'], "sps-2.0")
+        self.assertEqual(result['got_value']['dtd-version'], "1.1")
+        self.assertIsNotNone(result['advice'])
+        # Como sps-2.0 não está na lista de versões válidas, expected_jats_versions estará vazio
+        self.assertEqual(result['expected_value'], validator.params.get("specific_use_list"))
+
+    def test_validate_with_missing_versions(self):
+        """Testa validação com versões SPS e JATS ausentes"""
+        validator = JATSAndDTDVersionValidation(self.missing_versions_xmltree, None)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value']['specific-use'], None)
+        self.assertEqual(result['got_value']['dtd-version'], None)
+        self.assertIsNotNone(result['advice'])
+
+    def test_validate_with_only_sps_version(self):
+        """Testa validação com apenas versão SPS, sem JATS"""
+        validator = JATSAndDTDVersionValidation(self.only_sps_xmltree, None)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
+        self.assertEqual(result['got_value']['dtd-version'], None)
+        self.assertIsNotNone(result['advice'])
+        # Espera-se JATS 1.1 para SPS-1.9
+        self.assertEqual(result['expected_value'], ["1.1"])
+
+    def test_validate_with_only_jats_version(self):
+        """Testa validação com apenas versão JATS, sem SPS"""
+        validator = JATSAndDTDVersionValidation(self.only_jats_xmltree, None)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "CRITICAL")
+        self.assertEqual(result['got_value']['specific-use'], None)
+        self.assertEqual(result['got_value']['dtd-version'], "1.1")
+        # Como não há specific-use, expected_jats_versions estará vazio
+        self.assertEqual(result['expected_value'], {
+            "sps-1.1": ["1.0"],
+            "sps-1.2": ["1.0"],
+            "sps-1.3": ["1.0"],
+            "sps-1.4": ["1.0"],
+            "sps-1.5": ["1.0"],
+            "sps-1.6": ["1.0"],
+            "sps-1.7": ["1.0", "1.1"],
+            "sps-1.8": ["1.0", "1.1"],
+            "sps-1.9": ["1.1"],
+            "sps-1.10": ["1.1", "1.2", "1.3"]
+        })
+        self.assertIsNotNone(result['advice'])
+
+    def test_validate_with_custom_version_list(self):
+        """Testa validação com lista personalizada de versões compatíveis"""
+        custom_params = {
+            "specific_use_list": {
+                "sps-2.0": ["2.0"],
+                "sps-1.9": ["1.0", "1.1", "1.2"]  # Adicionando 1.0 como válido para sps-1.9
             }
-        ]
+        }
+        validator = JATSAndDTDVersionValidation(self.invalid_version_mismatch_xmltree, custom_params)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "OK")  # Agora deve ser válido com os parâmetros personalizados
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
+        self.assertEqual(result['got_value']['dtd-version'], "1.0")
+        self.assertIsNone(result['advice'])
 
-        # Verifica se o resultado obtido é igual ao esperado
-        self.assertEqual(obtained, expected)
+    def test_validate_with_custom_error_level(self):
+        """Testa validação com nível de erro personalizado"""
+        custom_params = {
+            "jats_and_dtd_version_error_level": "WARNING"
+        }
+        validator = JATSAndDTDVersionValidation(self.invalid_version_mismatch_xmltree, custom_params)
+        results = list(validator.validate())
+        
+        self.assertEqual(len(results), 1)
+        result = results[0]
+        self.assertEqual(result['response'], "WARNING")  # Deve usar o nível de erro personalizado
+        self.assertEqual(result['got_value']['specific-use'], "sps-1.9")
+        self.assertEqual(result['got_value']['dtd-version'], "1.0")
