@@ -63,4 +63,5 @@ class AccessibilityData:
             "transcript": self.transcript,
             "content_type": self.content_type,
             "speakers": self.speaker_data,
+            "tag": self.node.tag,
         }
