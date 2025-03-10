@@ -1,0 +1,1952 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en" xmlns:ali="http://www.niso.org/schemas/ali/1.0/" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<front>
+		<journal-meta>
+			<journal-id journal-id-type="publisher-id">bjb</journal-id>
+			<journal-id journal-id-type="nlm-ta">Braz J Biol</journal-id>
+			<journal-title-group>
+				<journal-title>Brazilian Journal of Biology</journal-title>
+				<abbrev-journal-title abbrev-type="publisher">Braz. J. Biol.</abbrev-journal-title>
+			</journal-title-group>
+			<issn pub-type="ppub">1519-6984</issn>
+			<issn pub-type="epub">1678-4375</issn>
+			<publisher>
+				<publisher-name>Instituto Internacional de Ecologia</publisher-name>
+			</publisher>
+		</journal-meta>
+		<article-meta>
+			<article-id pub-id-type="publisher-id">bjbAO246904_EN</article-id>
+			<article-id pub-id-type="other">00293</article-id>
+			<article-id pub-id-type="doi">10.1590/1519-6984.246904</article-id>
+			<article-categories>
+				<subj-group subj-group-type="heading">
+					<subject>Original Article</subject>
+				</subj-group>
+			</article-categories>
+			<title-group>
+				<article-title>Range of factors in the reduction of hyperhydricity associated with <italic>in vitro</italic> shoots of <italic>Salvia santolinifolia</italic> Bioss</article-title>
+				<trans-title-group xml:lang="pt">
+					<trans-title>Gama de fatores na redução da hiperidricidade associada a brotos <italic>in vitro</italic> de <italic>Salvia santolinifolia</italic> Bioss</trans-title>
+				</trans-title-group>
+			</title-group>
+			<contrib-group>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-9544-2826</contrib-id>
+					<name>
+						<surname>Jan</surname>
+						<given-names>T.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+					<xref ref-type="corresp" rid="c01">*</xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-9744-8693</contrib-id>
+					<name>
+						<surname>Gul</surname>
+						<given-names>S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-7754-8515</contrib-id>
+					<name>
+						<surname>Khan</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff02"><sup>b</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Pervez</surname>
+						<given-names>S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff03"><sup>c</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-7600-6156</contrib-id>
+					<name>
+						<surname>Noor</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff04"><sup>d</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-4345-9001</contrib-id>
+					<name>
+						<surname>Amin</surname>
+						<given-names>H.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0002-7652-2353</contrib-id>
+					<name>
+						<surname>Bibi</surname>
+						<given-names>S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Nawaz</surname>
+						<given-names>M. A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff05"><sup>e</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0001-5403-0123</contrib-id>
+					<name>
+						<surname>Rahim</surname>
+						<given-names>A.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff06"><sup>f</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0003-2565-0299</contrib-id>
+					<name>
+						<surname>Ahmad</surname>
+						<given-names>M. S.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<contrib-id contrib-id-type="orcid">0000-0003-3215-6213</contrib-id>
+					<name>
+						<surname>Azam</surname>
+						<given-names>R.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<contrib contrib-type="author">
+					<name>
+						<surname>Ullah</surname>
+						<given-names>H.</given-names>
+					</name>
+					<xref ref-type="aff" rid="aff01"><sup>a</sup></xref>
+				</contrib>
+				<aff id="aff01">
+					<label>a</label>
+					<institution content-type="orgname">University of Malakand</institution>
+					<institution content-type="orgdiv1">Department of Botany</institution>
+					<institution content-type="orgdiv2">Plant Tissue Culture Laboratory</institution>
+					<addr-line>
+						<named-content content-type="city">Dir lower</named-content>
+						<named-content content-type="state">Khyber Pakhtunkhwa</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">University of Malakand, Department of Botany, Plant Tissue Culture Laboratory, Dir lower, Khyber Pakhtunkhwa, Pakistan</institution>
+				</aff>
+				<aff id="aff02">
+					<label>b</label>
+					<institution content-type="orgname">University of Lakki Marwat</institution>
+					<institution content-type="orgdiv1">Department of Biological Sciences</institution>
+					<addr-line>
+						<named-content content-type="state">Khyber Pakhtunkhwa</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">University of Lakki Marwat, Department of Biological Sciences, Khyber Pakhtunkhwa, Pakistan</institution>
+				</aff>
+				<aff id="aff03">
+					<label>c</label>
+					<institution content-type="orgname">Shaheed Benazir Bhutto Women University</institution>
+					<institution content-type="orgdiv1">Department of Biochemistry</institution>
+					<addr-line>
+						<named-content content-type="city">Peshawar</named-content>
+						<named-content content-type="state">Khyber Pakhtunkhwa</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">Shaheed Benazir Bhutto Women University, Department of Biochemistry, Peshawar, Khyber Pakhtunkhwa, Pakistan</institution>
+				</aff>
+				<aff id="aff04">
+					<label>d</label>
+					<institution content-type="orgname">Karakoram International University</institution>
+					<institution content-type="orgdiv1">Department of Biological Sciences</institution>
+					<addr-line>
+						<named-content content-type="city">Gilgit-Baltistan</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">Karakoram International University, Department of Biological Sciences, Gilgit-Baltistan, Pakistan</institution>
+				</aff>
+				<aff id="aff05">
+					<label>e</label>
+					<institution content-type="orgname">Shaheed Benazir Bhutto University</institution>
+					<institution content-type="orgdiv1">Department of Biotechnology</institution>
+					<addr-line>
+						<named-content content-type="city">Sheringal</named-content>
+						<named-content content-type="state">Dir Upper</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">Shaheed Benazir Bhutto University, Department of Biotechnology, Sheringal, Dir Upper, Pakistan</institution>
+				</aff>
+				<aff id="aff06">
+					<label>f</label>
+					<institution content-type="orgname">University of Malakand</institution>
+					<institution content-type="orgdiv1">Department of Zoology</institution>
+					<addr-line>
+						<named-content content-type="city">Dir lower</named-content>
+						<named-content content-type="state">Khyber Pakhtunkhwa</named-content>
+					</addr-line>
+					<country country="PK">Pakistan</country>
+					<institution content-type="original">University of Malakand, Department of Zoology, Dir lower, Khyber Pakhtunkhwa, Pakistan</institution>
+				</aff>
+			</contrib-group>
+			<author-notes>
+				<corresp id="c01">
+					<label>*</label>e-mail: <email>tour_jan@yahoo.com</email>
+				</corresp>
+			</author-notes>
+			<pub-date date-type="pub" publication-format="electronic">
+				<day>22</day>
+				<month>10</month>
+				<year>2021</year>
+			</pub-date>
+			<pub-date date-type="collection" publication-format="electronic">
+				<year>2023</year>
+			</pub-date>
+			<volume>83</volume>
+			<elocation-id>e246904</elocation-id>
+			<history>
+				<date date-type="received">
+					<day>22</day>
+					<month>12</month>
+					<year>2020</year>
+				</date>
+				<date date-type="accepted">
+					<day>05</day>
+					<month>07</month>
+					<year>2021</year>
+				</date>
+			</history>
+			<permissions>
+				<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+					<license-p>This is an Open Access article distributed under the terms of the <underline>Creative Commons Attribution License</underline>, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+				</license>
+			</permissions>
+			<abstract>
+				<title>Abstract</title>
+				<p>Hyperhydricity is a serious physiological disorder and affects <italic>In vitro</italic> propagation of many plants and as well of <italic>Salvia santolinifolia</italic>. The donor material to initiate the <italic>in vitro</italic> culture was the callus taken from the <italic>in vitro</italic> shoots produced on Murashig and Skoogs (MS) medium at 4.0 mg/l BA. This callus formed numerous hyperhydric shoots on culturing upon the medium of the same composition. The aim was to systematically evaluate the effect of cytokinins (Benzyladnine (BA) and N<sup>6</sup>-(-2-isopentenyl) adenine (2iP), culture vessels magnitude, medium solidification, source of nitrogen and calcium chloride for the alleviation of hyperhydricity. In the tissue cultures of <italic>S. santolinifolia</italic> BA and 2iP induced severe hyperhydricity, when other factors i.e. culture vessels magnitude and a suitable concentration of agar, ammonium nitrate (NH<sub>4</sub>NO<sub>3</sub>), potassium nitrate (KNO<sub>3</sub>) &amp; calcium chloride (CaCl<sub>2</sub>.2H<sub>2</sub>O) were not optimized. After 30 days’ culture, we observed 83.82% hyperhydric shoots at increased level (1.5 mg/l 2iP) and 81.59% at decreased levels (1.0 mg/l 2iP). On the other hand, hyperhydricity percentage at decreased (0.4%) and at increased (0.8%) levels of agar were 72.37% and 39.08%, respectively. MS medium modification with NH<sub>4</sub>NO<sub>3</sub> (412 mg/l), KNO<sub>3</sub> (475 mg/l) and CaCl<sub>2</sub>.2H<sub>2</sub>O (880 mg/l) was found the best medium to reduced hyperhydricity (23.6%).</p>
+			</abstract>
+			<trans-abstract xml:lang="pt">
+				<title>Resumo</title>
+				<p>A hiperidricidade é um distúrbio fisiológico sério e afeta a propagação <italic>in vitro</italic> de muitas plantas e também da <italic>Salvia santolinifolia</italic>. O material doador para iniciar a cultura <italic>in vitro</italic> foi o calo retirado dos brotos <italic>in vitro</italic> produzidos em meio Murashig e Skoogs (MS) a 4,0 mg / l BA. Esse calo formou numerosos rebentos hiperídricos em cultura no meio da mesma composição. O objetivo foi avaliar sistematicamente o efeito das citocininas (Benziladnina (BA) e N6 - (- 2-isopentenil) adenina (2iP), magnitude dos vasos de cultura, solidificação do meio, fonte de nitrogênio e cloreto de cálcio para o alívio da hiperidricidade. culturas de tecidos de <italic>S. santolinifolia</italic> BA e 2iP induziram hiperidricidade severa, quando outros fatores, como magnitude dos vasos de cultura e uma concentração adequada de ágar, nitrato de amônio (NH4NO<sub>3</sub>), nitrato de potássio (KNO<sub>3</sub>) e cloreto de cálcio (CaCl2.2H<sub>2</sub>O), não foram otimizados. Após 30 dias de cultura, observamos 83,82% de brotos hiperídricos em níveis aumentados (1,5 mg / l 2iP) e 81,59% em níveis reduzidos (1,0 mg / l 2iP). Por outro lado, a porcentagem de hiperidricidade diminuiu (0,4%) e em níveis aumentados (0,8%) de ágar foram 72,37% e 39,08%, respectivamente. A modificação do meio MS com NH<sub>4</sub>NO<sub>3</sub> (412 mg / l), KNO<sub>3</sub> (475 mg / l) e CaCl2.2H2O (880 mg / l) foi encontrada melhor hiperidricidade média a reduzida (23,6%).</p>
+			</trans-abstract>
+			<kwd-group xml:lang="en">
+				<title>Keywords:</title>
+				<kwd>agar</kwd>
+				<kwd>culture vessels</kwd>
+				<kwd>growth regulators</kwd>
+				<kwd>macronutrients</kwd>
+				<kwd>lamiaceae</kwd>
+			</kwd-group>
+			<kwd-group xml:lang="pt">
+				<title>Palavras-chave:</title>
+				<kwd>ágar</kwd>
+				<kwd>vasos de cultura</kwd>
+				<kwd>reguladores de crescimento</kwd>
+				<kwd>macronutrientes</kwd>
+				<kwd>lamiaceae</kwd>
+			</kwd-group>
+			<counts>
+				<fig-count count="1"/>
+				<table-count count="6"/>
+				<equation-count count="0"/>
+				<ref-count count="37"/>
+			</counts>
+		</article-meta>
+	</front>
+	<body>
+		<sec sec-type="intro">
+			<title>1. Introduction</title>
+			<p>Hyperhydricity is a physiological disorder and hampered the micropropagation of many plants. <xref ref-type="bibr" rid="B029">Phillips and Matthews (1964)</xref> reported it for the first time in carnation shoot tip culture. Hyperhydric individual obstructs the industrial production of plants regeneration and caused economic loss. For nearly 60% of plants species, hyperhydricity was described to results in a great loss (<xref ref-type="bibr" rid="B031">Tabart et al., 2015</xref>; <xref ref-type="bibr" rid="B032">Tian et al., 2017</xref>). Hyperhydricity are often affect the performance and persistence of tissue culture of many plant species (<xref ref-type="bibr" rid="B008">Debergh et al., 1992</xref>) and can lead in to permanent damage of regenerated capability of the tissue (<xref ref-type="bibr" rid="B010">Gaspar et al., 2000</xref>) and the conservation of endangered species became more problematic (<xref ref-type="bibr" rid="B027">Pence et al., 2014</xref>), hence the inhibition of this difficult is very essential. Numerous factors can encourage the hyperhydricity an <italic>in vitro</italic> shoots, large quantities of ammonium ions (<xref ref-type="bibr" rid="B004">Brand 1993</xref>), high level of exogenous cytokinins (<xref ref-type="bibr" rid="B014">Ivanova et al., 2006</xref>; <xref ref-type="bibr" rid="B026">Oliveira et al., 2010</xref>), vessel aeration (<xref ref-type="bibr" rid="B018">Lai et al., 2005</xref>), cultivar (<xref ref-type="bibr" rid="B005">Carvalho et al., 2013</xref>) and agar concentrations in the medium (<xref ref-type="bibr" rid="B001">Abdoli et al. 2007</xref>). The greatest collective reason of the hyperhydricity existence is the culture in liquid medium (<xref ref-type="bibr" rid="B030">Silva et al., 2013</xref>) and the use of high concentrations of cytokinins causes the accumulation of ethylene in the culture vessels (<xref ref-type="bibr" rid="B013">Isah, 2015</xref>).</p>
+			<p><italic>Salvia</italic> is one of the well-known genus of family Lamiaceae with round about 800 species. Genus <italic>Salvia</italic> is well known for its anti-tumor phytochemicals (<xref ref-type="bibr" rid="B011">Ginda and Kakisawa, 1990</xref>). In the frequent exploration for novel bioactive compounds one new and two know compounds were isolated from the callus culture of <italic>S. santolinifolia</italic> (<xref ref-type="bibr" rid="B015">Jan et al., 2018</xref>). The methods of tissue culture controls the conservation of plant genetic properties without depleting their natural place; because it requires a small fragment of plants to initiate the regeneration process (<xref ref-type="bibr" rid="B024">Mikula and Rybczynski, 2006</xref>). During the callus culture of <italic>S. santolinifolia</italic>, hyperhydricity easily burst on a large scale and causes high fatalities in term of effort, material and financial resources. To study the scope of factors on hyperhydricity of <italic>S. santolinifolia</italic>, we evaluated the effects of cytokinin types and concentration, culture vessels magnitude, medium solidification and source of nitrogen with calcium chloride on hyperhydricity and regeneration of adventitious shoots from callus. This study contributes to our understanding of the effect of factors on hyperhydricity in shoots from callus of <italic>S. santolinifolia</italic>. Developing an effective system of regeneration would be a useful tool for the conservation of this species and others members of the family Lamiaceae.</p>
+		</sec>
+		<sec sec-type="materials|methods">
+			<title>2. Materials and Methods</title>
+			<sec>
+				<title>2.1. Experimental materials and subcultures</title>
+				<p>The donor explants (nodes and leaves) for the initiation of callus was obtained from 90 days old <italic>In vitro</italic> shoots on MS medium augmented with BA (4.0 mg/l) BA+NAA (4.0+0.1 mg/l), sucrose (3%), agar (0.5%), pH (5.55-5.56), (<xref ref-type="table" rid="t01">Table 1</xref>) in the initial experiment. The nodes derived callus showed organogenic potential and was selected for further experiments for the induction of adventitious shoots while callus of leaves failed to form adventitious shoots and was not used in further experiments.</p>
+				<table-wrap id="t01" position="float">
+					<label>Table 1</label>
+					<caption>
+						<title>Induction of callus in the influence of Cytokinin and Auxin.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<col width="24.04%"/>
+						<col width="15.71%"/>
+						<col width="17.93%"/>
+						<col width="42.32%"/>
+						<thead>
+							<tr>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Hormones (mg/l)</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Explants</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% response</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Nature of callus</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left" scope="row" style="border-top: solid 0.50pt" valign="top">BA</td>
+								<td align="left" rowspan="2" style="border-top: solid 0.50pt" valign="top"><italic>In vitro</italic> nodes</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">4.0</td>
+								<td align="left" colspan="1" style="border-bottom: solid 0.50pt" valign="top">90-100</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Whitish, granular and friable</td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-top: solid 0.50pt" valign="top">BA/NAA</td>
+								<td align="left" rowspan="2" style="border-top: solid 0.50pt" valign="top"><italic>In vitro</italic> Leaf</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">4.0/0.5</td>
+								<td align="left" colspan="1" style="border-bottom: solid 0.50pt" valign="top">55-82</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Yellowish and friable</td>
+							</tr>
+						</tbody>
+					</table>
+				</table-wrap>
+				<p>The callus and hyperhydric shoots formed after 30 days of incubation were subcultured on MS media containing different concentrations of BA (3.0 and 3.5 mg/l) and 2iP (1.0 and 1.5 mg/l) for induction of multiple shoots (<xref ref-type="table" rid="t02">Table 2</xref>). The hyperhydric shoots along with callus were also shifted to MS medium supplemented with combination of cytokinin and gibberellin (BA+GA<sub>3</sub> (3.0+2.0 and 3.5+2.0 mg/l) and 2iP+GA<sub>3</sub> (1.0+2.0 and 1.5+2.0 mg/l) (<xref ref-type="table" rid="t03">Table 3</xref>).</p>
+				<table-wrap id="t02" position="float">
+					<label>Table 2</label>
+					<caption>
+						<title>The influence of BA and 2iP on hyperhydricity in subculture in small size container (90×51mm).</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<col width="12.45%"/>
+						<col width="7.76%"/>
+						<col width="8.58%"/>
+						<col width="37.02%"/>
+						<col width="34.19%"/>
+						<thead>
+							<tr>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">Hormones (mg/l)</th>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">%HS</th>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">LHS (cm)</th>
+								<th align="left" colspan="2" scope="colgroup" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Nature of hyperhydric shoots</th>
+							</tr>
+							<tr>
+								<th align="left" colspan="1" scope="colgroup" style="border-top: solid 0.50pt; border-right: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Shoots</th>
+								<th align="left" scope="col" style="border-left: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Leaf</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left" scope="col" style="border-top: solid 0.50pt" valign="top">BA</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">3.0</td>
+								<td align="left" valign="top">86.72</td>
+								<td align="left" valign="top">0.79</td>
+								<td align="left" valign="top">Yellowish green, internodes short, brittle, callus like</td>
+								<td align="left" valign="top">Yellowish green, lamina narrow, brittle, curled, wrinkled</td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">3.5</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">88.21</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">0.58</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Yellowish green, internodes short, brittle, callus like</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Yellowish green, lamina narrow, brittle, curled, wrinkled</td>
+							</tr>
+							<tr>
+								<td align="left" scope="col" style="border-top: solid 0.50pt" valign="top">2iP</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">1.0</td>
+								<td align="left" valign="top">81.59</td>
+								<td align="left" valign="top">0.36</td>
+								<td align="left" valign="top">Yellowish green, internodes short, brittle</td>
+								<td align="left" valign="top">Yellowish green, brittle, curled</td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">1.5</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">83.82</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">0.47</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Yellowish green, internodes short, brittle</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">Yellowish green, brittle, curled</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<fn fn-type="other">
+							<p>HS = Hyperhydric shoots; LHS = Length of hyperhydric shoots; NS = Normal shoots.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+				<table-wrap id="t03" position="float">
+					<label>Table 3</label>
+					<caption>
+						<title>The influence of 2iP in combination withGA<sub>3</sub> on hyperhydricity in small size container (90×51mm).</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<col width="18.12%"/>
+						<col width="13.27%"/>
+						<col width="12.99%"/>
+						<col width="18.46%"/>
+						<col width="24.24%"/>
+						<col width="12.92%"/>
+						<thead>
+							<tr>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">Hormones (mg/l)</th>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">%HS</th>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">LHS (cm)</th>
+								<th align="left" colspan="2" scope="colgroup" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Hyperhydricity symptoms</th>
+								<th align="left" rowspan="2" scope="col" style="border-top: solid 0.50pt" valign="top">%NS</th>
+							</tr>
+							<tr>
+								<th align="left" colspan="1" scope="colgroup" style="border-top: solid 0.50pt; border-right: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Internodes</th>
+								<th align="left" scope="col" style="border-left: solid 0.50pt; border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Leaf</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left" scope="col" style="border-top: solid 0.50pt" valign="top">2iP/GA<sub>3</sub></td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">1.0/2.0</td>
+								<td align="left" valign="top">70.47</td>
+								<td align="left" valign="top">0.67</td>
+								<td align="left" valign="top">Short</td>
+								<td align="left" valign="top">Curled and Wrinkled</td>
+								<td align="left" valign="top">8.72</td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<fn fn-type="other">
+							<p>HS = Hyperhydric shoots; LHS = Length of hyperhydric shoots; NS = Normal shoots.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+			</sec>
+			<sec>
+				<title>2.2. Culture vessels and medium solidification</title>
+				<p>In order to determine the effect of culture vessels magnitude and agar concentration on induction of hyperhydricity in the shoots two types of culture vessels were used, (1) small magnitude screw cap culture vessels (90.0x51 mm) and (2) large magnitude screw cap culture vessels (138x72 mm). For solidification of medium several agar concentrations have been tested (0.4%, 0.5%, 0.6%, 0.7% and 0.8%) while pH was maintained at 5.55 to 5.56 (<xref ref-type="table" rid="t05">Table 5</xref>). One organogenic callus was placed in small culture vessels containing 15 ml of culture medium and two organogenic calluses were placed in large culture vessels containing 30 ml of culture medium. After 30 days of incubation percentage of hyperhydric and normal morphology shoots were determined (<xref ref-type="table" rid="t04">Table 4</xref>).</p>
+				<table-wrap id="t05" position="float">
+					<label>Table 5</label>
+					<caption>
+						<title>Effect of agar levels on hyperhydricity in the presence of 2iP (1.0 mg/l) in MS medium in large culture vessels.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<col width="14.07%"/>
+						<col width="21.22%"/>
+						<col width="18.75%"/>
+						<col width="19.57%"/>
+						<col width="26.39%"/>
+						<thead>
+							<tr>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Agar %</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Hyperhydric Shoots</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Normal Shoot</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">No. of Shoots ±SE</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Length of Shoot (cm) ±SE</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left" scope="row" style="border-top: solid 0.50pt" valign="top">0.4</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top">72.37</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top">27.63</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top">3.8±0.26<sup>d</sup></td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top">2±0.21<sup>c</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">0.5</td>
+								<td align="left" valign="top">65.72</td>
+								<td align="left" valign="top">34.28</td>
+								<td align="left" valign="top">4.1±0.26<sup>d</sup></td>
+								<td align="left" valign="top">3.4±0.29<sup>b</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">0.6</td>
+								<td align="left" valign="top">53.69</td>
+								<td align="left" valign="top">48.31</td>
+								<td align="left" valign="top">4.7±0.28<sup>c</sup></td>
+								<td align="left" valign="top">3.5±0.29<sup>b</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">0.7</td>
+								<td align="left" valign="top">41.19</td>
+								<td align="left" valign="top">58.81</td>
+								<td align="left" valign="top">8.5±0.29<sup>a</sup></td>
+								<td align="left" valign="top">5.5±0.20<sup>a</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">0.8</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">39.08</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">60.92</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">5.2±0.28<sup>b</sup></td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">3.5±0.20<sup>b</sup></td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<fn fn-type="other">
+							<p>Mean followed by different alphabets are statistically significant at p&lt;0.05.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+				<table-wrap id="t04" position="float">
+					<label>Table 4</label>
+					<caption>
+						<title>The effect of 2iP in large and small size containers on shoots regeneration from callus.</title>
+					</caption>
+					<table frame="hsides" rules="groups">
+						<col width="16.43%"/>
+						<col width="20.07%"/>
+						<col width="17.9%"/>
+						<col width="12.75%"/>
+						<col width="16.8%"/>
+						<col width="16.05%"/>
+						<thead>
+							<tr>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Hormone</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Vessels Magnitude</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Hyperhydric Shoots</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Normal Shoot</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Mean Shoot No ± SE</th>
+								<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">Mean Shoot Length (cm) ±SE</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left" scope="col" style="border-top: solid 0.50pt" valign="top">2iP</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">1.0</td>
+								<td align="left" rowspan="2" valign="top">(138×72mm)</td>
+								<td align="left" valign="top">69.32</td>
+								<td align="left" valign="top">30.68</td>
+								<td align="left" valign="top">3.4±0.36<sup>a</sup></td>
+								<td align="left" valign="top">1.8±0.26<sup>a</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">1.5</td>
+								<td align="left" colspan="1" style="border-bottom: solid 0.50pt" valign="top">75.82</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">24.18</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">2.4±0.20<sup>b</sup></td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">1.7±0.28<sup>a</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="col" style="border-top: solid 0.50pt" valign="top">2iP</td>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+								<td align="left" style="border-top: solid 0.50pt" valign="top"/>
+							</tr>
+							<tr>
+								<td align="left" scope="row" valign="top">1.0</td>
+								<td align="left" rowspan="2" valign="top">(90×51mm)</td>
+								<td align="left" valign="top">84.08</td>
+								<td align="left" valign="top">15.92</td>
+								<td align="left" valign="top">1.4±0.2<sup>c</sup></td>
+								<td align="left" valign="top">1.4±0.2<sup>a</sup></td>
+							</tr>
+							<tr>
+								<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">1.5</td>
+								<td align="left" colspan="1" style="border-bottom: solid 0.50pt" valign="top">86.23</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">13.77</td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">0.7±0.18<sup>d</sup></td>
+								<td align="left" style="border-bottom: solid 0.50pt" valign="top">1.5±0.2<sup>a</sup></td>
+							</tr>
+						</tbody>
+					</table>
+					<table-wrap-foot>
+						<fn fn-type="other">
+							<p>Mean followed by different alphabets are statistically significant at p&lt;0.05.</p>
+						</fn>
+					</table-wrap-foot>
+				</table-wrap>
+			</sec>
+			<sec>
+				<title>2.3. Optimization of medium components</title>
+				<p>
+					<xref ref-type="bibr" rid="B025">Murashige and Skoog (1962)</xref> medium was modified and the organogenic callus of nodes were cultured on them as explants;</p>
+				<list id="L1" list-type="order">
+					<list-item>
+						<label>1</label>
+						<p>To confirm the effect of macroelements, concentration of ammonium nitrate (NH<sub>4</sub>NO<sub>3</sub> 825 mg/l) and potassium nitrate (KNO<sub>3</sub> 950 mg/l) was decreased, and concentration of calcium chloride dehydrate CaCl<sub>2</sub>.2H<sub>2</sub>O (880 mg/l) was increased in the standard MS medium (<xref ref-type="table" rid="t06">Table 6</xref>).<table-wrap id="t06" position="float">
+								<label>Table 6</label>
+								<caption>
+									<title>Effect of different concentration of NH<sub>4</sub>NO<sub>3</sub>, KNO<sub>3</sub> and CaCl<sub>2</sub>.2H<sub>2</sub>O in the medium in large size container comprising 2iP (1.0 mg/l) and agar (0.7%).</title>
+								</caption>
+								<table frame="hsides" rules="groups">
+									<col width="15.72%"/>
+									<col width="11.52%"/>
+									<col width="17.72%"/>
+									<col width="21.96%"/>
+									<col width="14.47%"/>
+									<col width="18.61%"/>
+									<thead>
+										<tr>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">NH<sub>4</sub>NO<sub>3</sub> (mg/l)</th>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">KNO<sub>3</sub> (mg/l)</th>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">CaCl<sub>2</sub> .2H<sub>2</sub>O (mg/l)</th>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Hyperhydric Shoots</th>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">% Normal <break/>Shoot</th>
+											<th align="left" scope="col" style="border-top: solid 0.50pt; border-bottom: solid 0.50pt" valign="top">No of Shoots<break/> ±SE</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td align="left" scope="row" valign="top">825</td>
+											<td align="left" valign="top">950</td>
+											<td align="left" valign="top">880</td>
+											<td align="left" valign="top">38.4</td>
+											<td align="left" valign="top">61.6</td>
+											<td align="left" valign="top">4.6±0.21<sup>d</sup></td>
+										</tr>
+										<tr>
+											<td align="left" scope="row" valign="top">---</td>
+											<td align="left" valign="top">950</td>
+											<td align="left" valign="top">880</td>
+											<td align="left" valign="top">35.3</td>
+											<td align="left" valign="top">64.7</td>
+											<td align="left" valign="top">5.0±0.36<sup>d</sup></td>
+										</tr>
+										<tr>
+											<td align="left" scope="row" valign="top">825</td>
+											<td align="left" valign="top">--</td>
+											<td align="left" valign="top">880</td>
+											<td align="left" valign="top">36.9</td>
+											<td align="left" valign="top">63.1</td>
+											<td align="left" valign="top">11.6±0.61<sup>ab</sup></td>
+										</tr>
+										<tr>
+											<td align="left" scope="row" valign="top">412</td>
+											<td align="left" valign="top">475</td>
+											<td align="left" valign="top">880</td>
+											<td align="left" valign="top">23.6</td>
+											<td align="left" valign="top">72.4</td>
+											<td align="left" valign="top">14.6±0.49<sup>a</sup></td>
+										</tr>
+										<tr>
+											<td align="left" scope="row" valign="top">--</td>
+											<td align="left" valign="top">475</td>
+											<td align="left" valign="top">880</td>
+											<td align="left" valign="top">31.3</td>
+											<td align="left" valign="top">60.7</td>
+											<td align="left" valign="top">9.5±0.42<sup>bc</sup></td>
+										</tr>
+										<tr>
+											<td align="left" scope="row" style="border-bottom: solid 0.50pt" valign="top">412</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">--</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">880</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">33.7</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">62.3</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">9.0±0.36<sup>c</sup></td>
+										</tr>
+										<tr>
+											<td align="left" colspan="3" scope="row" style="border-bottom: solid 0.50pt" valign="top">Control (Standard MS medium</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">46.5</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">53.5</td>
+											<td align="left" style="border-bottom: solid 0.50pt" valign="top">5.6±0.33<sup>cd</sup></td>
+										</tr>
+									</tbody>
+								</table>
+								<table-wrap-foot>
+									<fn fn-type="other">
+										<p>Mean followed by different alphabets are statistically significant at p&lt;0.05.</p>
+									</fn>
+								</table-wrap-foot>
+							</table-wrap>
+						</p>
+					</list-item>
+					<list-item>
+						<label>2</label>
+						<p>To confirm the existence of NH<sub>4</sub><sup>+</sup> only in the medium, KNO<sub>3</sub> was kept out and CaCl<sub>2</sub>.2H<sub>2</sub>O was kept in the medium at the level of 880 mg/l. And nitrogen source was supplied in the form of NH<sub>4</sub>NO<sub>3</sub> (<xref ref-type="table" rid="t06">Table 6</xref>).</p>
+					</list-item>
+					<list-item>
+						<label>3</label>
+						<p>To confirm the existence of NO<sub>3</sub><sup>+</sup> only in the medium, NH<sub>4</sub>NO<sub>3</sub> was kept out and CaCl<sub>2</sub>.2H<sub>2</sub>O was kept in the medium at the level of 880 mg/l. And nitrogen source was supplied in the form of KNO<sub>3</sub> (<xref ref-type="table" rid="t06">Table 6</xref>).</p>
+					</list-item>
+					<list-item>
+						<label>4</label>
+						<p>The organogenic medium contained 2 time decreased level of ammonium nitrate (412 mg/l), potassium nitrate (475 mg/l) and 2 time increased concentration of calcium chloride dehydrate (880 mg/l) of MS medium (<xref ref-type="table" rid="t06">Table 6</xref>).</p>
+					</list-item>
+				</list>
+				<p>All cultures were shifted into growth chamber where temperature was maintained at 25±°C. Light was provided from white fluorescent tubes in the growth chamber under a light regime of 16-h photoperiod.</p>
+			</sec>
+			<sec>
+				<title>2.4. Statistical analysis</title>
+				<p>All treatments were consisted of seven explants with two replicates per treatment; the experimental design used was completely randomize block design. Data were analyzed by applying ANOVA (SPSS statistical package software version 21.0) followed by Post hoc Tukey HSD test to check the significance difference at <italic>p</italic>&lt;0.05.</p>
+			</sec>
+		</sec>
+		<sec sec-type="results">
+			<title>3. Results</title>
+			<sec>
+				<title>3.1. Callus development from <italic>in vitro</italic> leaf</title>
+				<p>The <italic>In vitro</italic> leaves of the 3<sup>rd</sup> subculture induced callus at combination of BA+NAA (4.0+0.5 mg/l) in the medium. The percent response of callus induction on leaves explants were 55 to 82% (<xref ref-type="table" rid="t01">Table 1</xref>). The calli were yellowish and friable (<xref ref-type="fig" rid="gf01">Figure 1</xref>A). The induced callus did not show shoots regeneration when subcultured on medium of the same composition.</p>
+				<fig fig-type="figure" id="gf01" position="float">
+					<label>Figure 1</label>
+					<caption>
+						<title>Adventitious shoots formation from callus of <italic>Salvia santolinifolia</italic>. Callus produced on MS medium, (A) callus from leaf, (B) callus from node after 25 days of culture; Hyperhydric shoots (Preserved in 70% alcohol) regenerated, (C) with 2iP (1.0 mg/l), (D) with BA (3.0 mg/l); Organogenic callus on medium, (E) Hyperhydric and normal shoot, (F) Hyperhydric shoot, (G) Normal morphology shoots.</title>
+					</caption>
+					<graphic xlink:href="1519-6984-bjb-83-e246904-gf01.jpg"/>
+				</fig>
+			</sec>
+			<sec>
+				<title>3.2. Callus development from <italic>in vitro</italic> shoots</title>
+				<p>After three successive subculture of the regenerated shoot on MS medium containing BA (4.0 mg/l), small amount of callus formed at the base of shoots. The callus was whitish, granular and friable (<xref ref-type="table" rid="t01">Table 1</xref>). This callus was isolated and sub cultured to fresh medium of the similar formation. The calli first became necrotic within 3-5 days and then formed white callus from the deep-seated living cells. These white calli formed numerous small green areas after 17-20 days of cultured (<xref ref-type="fig" rid="gf01">Figure 1</xref>B). The green areas grew further and developed into numerous adventitious shoots which were looking glassy and fleshy and they were hyperhydric.</p>
+			</sec>
+			<sec>
+				<title>3.3. Subculture of hyperhydric shoots</title>
+				<p>The hyperhydric shoots and callus which have been produced on MS media supplemented with BA (4.0 and 5.0 mg/l were shifted to MS medium with reduced concentrations of BA (3.0 and 3.5 mg/l) and 2iP (1.0 and 1.5 mg/l). The original hyperhydric shoots increased in length (0.79 cm) with abnormal morphology (<xref ref-type="table" rid="t02">Table 2</xref>). While callus culture on media containing BA (3.0 and 3.5 mg/l) and 2iP (1.0 and 1.5 mg/l) replicated further and produced new green area which developed into new hyperhydric shoots. The hyperhydric shoots formed with 2iP were yellowish green, brittle and their leaves were curled (<xref ref-type="fig" rid="gf01">Figure 1</xref>C) while on media supplemented with BA the hyperhydric shoots were yellowish green, brittle and their leaves were curled, wrinkled (<xref ref-type="fig" rid="gf01">Figure 1</xref>D). Increase percentage of hyperhydric shoots (86.72%) were observed on BA augmented media and 81.82% hyperhydric shoots were observed on 2iP containing media (<xref ref-type="table" rid="t02">Table 2</xref>). This culture condition (2iP comprised culture medium) was optimized and considered as the control. Onward experiments were planned to reduce the problem of hyperhydricity by adjusting different culture parameters.</p>
+			</sec>
+			<sec>
+				<title>3.4. The effect of cytokinins in combination with GA<sub>3</sub></title>
+				<p>Calli along with adventitious shoots (hyperhydric) were subculture on MS media, having 2iP (1.0 and 1.5 mg/l) in combination with GAз (2.0 mg/l). All calli turned brown and then white calli emerged from necrosed callus masses which grew further and formed numerous shoots which were short, fleshy and glassy. Symptoms of these shoots were; short internodes and abnormal leaves i.e., thick, curled, wrinkled and fleshy. In spite of the presence of GA<sub>3</sub> in the medium shoots did not elongate more and remained small (<xref ref-type="table" rid="t03">Table 3</xref>).</p>
+			</sec>
+			<sec>
+				<title>3.5. Effect of vessels magnitude on hyperhydricity</title>
+				<p>The determination of this experiment was to observe the effect of culture vessels magnitude (138×72 mm &amp;90.0×51 mm) on hyperhydricity and formation of normal morphology shoots on MS medium in the presence of 2iP (1.0 and 1.5 mg/l). After 7 days of incubation on medium in large magnitude culture vessels (138×72 mm), the callus turned brown, became necrotic and the necrotic calli then formed white callus as they did before. After 28 days of incubation it was noted that higher concentration of 2iP (1.5 mg/l) lead to numerous hyperhydric shoots along with limited numbers of normal adventitious shoots (<xref ref-type="fig" rid="gf01">Figure 1</xref>E) whereas lower concentration of 2iP (1.0 mg/l) lead to new crops of hyperhydric shoots with more number of normal shoots (<xref ref-type="table" rid="t04">Table 4</xref>). However, in small magnitude containers (90.0x51 mm) the callus performed the same as they did in the previous experiments (<xref ref-type="table" rid="t02">Table 2</xref>, <xref ref-type="table" rid="t03">3</xref>) and formed reduced percentage of normal shoots. Thus, large magnitude culture vessel and cytokinin 2iP at the rate of 1.0 mg/l were optimized and used in all onward experiments.</p>
+			</sec>
+			<sec>
+				<title>3.6. Effect of gelling agent on hyperhydricity</title>
+				<p>Different concentrations of gelling agent were assimilated in the medium, in order to demonstrate the influence of medium solidification on hyperhydricity and regeneration of normal morphology shoots. The percentage of hyperhydricity decreased as concentrations of agar was increased progressively in the medium, highest hyperhydricity (72.37%) resulted at 0.4% agar and lowest hyperhydricity (39.08%) resulted at 0.8% agar in the medium but good quality and maximum numbers of shoots were observed at 0.7% agar (<xref ref-type="table" rid="t05">Table 5</xref>). Thus 0.7% agar was optimized and used in onward experiments.</p>
+			</sec>
+			<sec>
+				<title>3.7. Effect of ammonium nitrate, potassium nitrate and calcium chloride on hyperhydricity and initiation of shoot</title>
+				<p>To alleviate the problem of hyperhydricity and produce maximum number of normal morphology shoots, MS medium was modified by adding decreased concentrations of ammonium nitrate (NH<sub>4</sub>NO<sub>3</sub>), potassium nitrate ((KNO<sub>3</sub>) and increased concentration of calcium chloride (CaCl<sub>2</sub>.2H<sub>2</sub>O) (of the standard level of MS) with 0.7% agar in large magnitude container (<xref ref-type="table" rid="t06">Table 6</xref>). Ammonium nitrate (NH<sub>4</sub>NO<sub>3</sub>) at the level of 825 mg/l, potassium nitrate (KNO<sub>3</sub>) at the level of 950 mg/l and calcium chloride (CaCl<sub>2</sub>.2H<sub>2</sub>O) at 880 mg/l, caused the hyperhydricity to decrease drastically by 38.4% and increased the formation of normal morphology shoots by 24.37%. Only 31.3% decreased in hyperhydricity were observed when NH<sub>4</sub>NO<sub>3</sub> was completely eliminated from the medium and retained KNO<sub>3</sub> at 475 mg/l, CaCl<sub>2</sub>.2H<sub>2</sub>O at 880 mg/l) (<xref ref-type="table" rid="t06">Table 6</xref>). When KNO<sub>3</sub> was eliminated from the medium and retained other condition the same (NH<sub>4</sub>NO<sub>3</sub> 412 mg/l, CaCl<sub>2</sub>.2H<sub>2</sub>O (880 mg/l), hyperhydricity decreased to 33.7%. Lowest percentage of hyperhydricity (23.6%) and highest percentage of normal morphology shoots (73.89%) (<xref ref-type="fig" rid="gf01">Figure 1</xref>G) was resulted in the combination of both nitrogen source (NH<sub>4</sub>NO<sub>3</sub> (412 mg/l) and KNO<sub>3</sub> (475 mg/l) with double concentration of CaCl<sub>2</sub>.2H<sub>2</sub>O (880 mg/l) (of the standard MS medium). Whereas maximum percentage of hyperhydric shoots was observed on the control medium (NH<sub>4</sub>NO<sub>3</sub>1650 mg/l), KNO<sub>3</sub> 1900 mg/l and CaCl<sub>2</sub>.2H<sub>2</sub>O (440 mg/l)) with symptom of tip necrosis of the normal shoots (<xref ref-type="table" rid="t06">Table 6</xref>).</p>
+			</sec>
+		</sec>
+		<sec sec-type="discussion">
+			<title>4. Discussion</title>
+			<p>Hyperhydricity is a serious problem in the tissue culture of plants (<xref ref-type="bibr" rid="B037">Ziv 1991</xref>; <xref ref-type="bibr" rid="B008">Debergh et al., 1992</xref>) producing from stresses linked to several factors such as high humidity, high level of growth regulators, gas accumulation (<xref ref-type="bibr" rid="B017">Kevers et al., 2004</xref>). The hyperhydric shoots formed in this study were glassy, curled, wrinkled, water logged and translucent showing distorted growth and were very small in size, similar symptoms described by <xref ref-type="bibr" rid="B017">Kevers et al., (2004)</xref>. The problem of hyperhydricity in micropropagation was also reported by <xref ref-type="bibr" rid="B019">Lebedev et al. (2018)</xref>, <xref ref-type="bibr" rid="B016">Kadota and Niimi (2003)</xref>, <xref ref-type="bibr" rid="B014">Ivanova et al., (2006)</xref> and <xref ref-type="bibr" rid="B009">Fontes et al. (1999)</xref>. Cytokinins are growth hormones and its high concentrations induced hyperhydricity in the <italic>in vitro</italic> shoots of <italic>S. santolinifolia</italic>, as reported in the literature that high concentration of cytokinins causes ethylene accumulation in the cultured vessels which lead to hyperhydricity (<xref ref-type="bibr" rid="B036">Žd’árská et al., 2013</xref>; <xref ref-type="bibr" rid="B020">Liu et al., 2017</xref>). At high concentration of BA (3.5 mg/l), 85.21% explants shown hyperhydricity whereas at low concentration of BA (3.0 mg/l), 82.72% explants shown hyperhydricity along with multiple shoots formation. <xref ref-type="bibr" rid="B020">Liu et al. (2017)</xref> observed 94.17% hyperhydricity with Kinetin in the tissue culture of <italic>Allium sativum</italic>. <xref ref-type="bibr" rid="B014">Ivanova et al. (2006)</xref> reported that high level of exogenous cytokinin in concentration dependent manner influence hyperhidricity. A similar results stated by <xref ref-type="bibr" rid="B033">Vardja and Vardja, (2001)</xref>, <xref ref-type="bibr" rid="B022">Martin et al. (2006)</xref>. GA<sub>3</sub> has been shown to control the growth of plants by stimulating mitotic division and cell elongation (<xref ref-type="bibr" rid="B002">Ali et al., 2018</xref>). In our study the addition of GA<sub>3</sub> in combination with BA and 2iP did not bring about elongation of hyperhydric shoots and their number also remained unaffected.</p>
+			<p>Hyperhydricity is a developmental disorder in <italic>in vitro</italic> regenerated shoots and various causes have been assigned to it. In the present study it appeared due to use of small culture vessels because the aeration in vessel decreased, as well as medium solidification with low agar level (0.5%) which might have resulted in producing high humidity in the culture container, increased absorption of water by the cells. High humidity of the container may also discourage wax formation on the leaves and hence impaired transpiration leading to succulence development so that the tissues appeared thickened and translucent (<xref ref-type="bibr" rid="B007">Collin and Edwards, 1998</xref>). With low agar concentration, more sever the hyperhydricity. Increasing agar concentration from 0.5 to 0.8% shrank hyperhydricity in our study. We discussed that low concentration of agar increases the chances of accessibility of water and humidity in the culture bottle, permitted more uptake of water, resulting hyperhydricity. It has been reported that hyperhydricity can be alleviated by increasing the concentration of agar (<xref ref-type="bibr" rid="B006">Casanova et al., 2008</xref>) and its reduction caused hyperhydricity (<xref ref-type="bibr" rid="B019">Lebedev et al., 2018</xref>). <xref ref-type="bibr" rid="B003">Bayraktar et al. (2020)</xref> prevented hyperhydricity by changing the gelling agent to agar-agar. The appearance of some of normal shoot in cultures which were transferred to large size culture vessels suggest that normal shoot morphogenesis requires large size containers and solid growth medium with 0.7% agar. The osmotic pressure of the medium and minimum humidity in the culture containers might have played a role in the process. The magnitude of culture vessel, ventilation, types of closure and climate parameters of the culture room all influence hyperhydration (<xref ref-type="bibr" rid="B018">Lai et al., 2005</xref>; <xref ref-type="bibr" rid="B012">Hakkaart and Versluijs, 1983</xref>). High relative humidity above the cultures accelerates the hyperhydration process (<xref ref-type="bibr" rid="B034">Wardle et al., 1983</xref>). The light green colour of shoots in our results may be due to chlorophyll deficiency in the regenerated shoots which have been lead to the abnormalities in the shoots of this species. Several authors identified that the light green colour of vitrified leaves may be the results of deficiency of chlorophyll (<xref ref-type="bibr" rid="B028">Phan and Letouze1983</xref>).</p>
+			<p>Our data in <xref ref-type="table" rid="t06">Table 6</xref> specify that different concentrations of macro-elements (ammonium nitrate, potassium nitrate and calcium chlorite) play an important role in hyperhydricity as reported by <xref ref-type="bibr" rid="B023">Mazri et al. (2016)</xref> that high concentration of NH<sub>4</sub>NO<sub>3</sub> in the medium resulted increased hyperhydricity. When concentrations of NH<sub>4</sub>NO<sub>3</sub> and KNO<sub>3</sub>were decreased and CaCl<sub>2</sub>.2H<sub>2</sub>O was increased (of the standard level of MS) in the medium, the frequency of hyperhydricity decreased. The process of hyperhyricity was found reduced when the level of NH<sub>4</sub>NO<sub>3</sub> and KNO<sub>3</sub> was reduced twice and CaCl<sub>2</sub>.2H<sub>2</sub>O was increased twice of the standard level of MS medium. It has been reported that increased concentration of CaCl<sub>2</sub>.2H<sub>2</sub>O in the culture medium decreased hyperhydricity in the shoots (<xref ref-type="bibr" rid="B021">Machado et al., 2014</xref>). Large quantities of ammonium ions have been reported to increased hyperhydricity in different species (<xref ref-type="bibr" rid="B004">Brand, 1993</xref>). Normal shoots with zero hyperhydricity was induced on MS medium without NH<sub>4</sub>NO<sub>3</sub> (<xref ref-type="bibr" rid="B035">Yu et al., 2011</xref>). Our results demonstrated the increase level of calcium effect to reduced hyperhydricity. Similar result has also been reported by <xref ref-type="bibr" rid="B021">Machado et al. (2014)</xref>.</p>
+		</sec>
+		<sec sec-type="conclusions">
+			<title>5. Conclusions</title>
+			<p>Hyperhydricity in shoots of <italic>S. santolinifolia</italic> was induced by multiple factors. Hormone types and concentration, culture vessels humidity, medium solidification and modification, all had impact on hyperhydricity. The used of high level of cytokinins causes extra hyperhydricity in the shoots compare of low level. Shoots in the small culture vessels were more easily hyperhydric than those in the large culture vessels. The kind of nitrogen source affected hyperhydricity and our results advised the presence of NH<sub>4</sub>NO<sub>3</sub> (412 mg/l), KNO<sub>3</sub> (475 mg/l), CaCl<sub>2</sub>.2H<sub>2</sub>O (880 mg/l) (of the standard MS medium), 2iP (1.0 mg/l), agar (0.7%) essential in the medium and culture vessels magnitude (138×72mm) for decreased percentage of hyperhydricity (23.6%) and increased normal morphology shoots (73.89%).</p>
+		</sec>
+	</body>
+	<back>
+		<ack>
+			<title>Acknowledgements</title>
+			<p>We acknowledge the Department of Botany, University of Malakand for providing laboratory services.</p>
+		</ack>
+		<sec sec-type="data-availability" specific-use="data-available">
+			<title>Data Availability Statement</title>
+			<media mimetype="video" mime-subtype="mp4" xlink:href="1519-6984-bjb-83-e246904-m1.mp4">
+				<label>Data 1</label>
+				<caption>
+					<title>Vídeo</title>
+				</caption>
+			</media>
+			<fig>
+				<label>Data 2</label>
+				<caption>
+					<title>Figure</title>
+				</caption>
+				<graphic xlink:href="1519-6984-bjb-83-e246904-gf03.tif"/>
+			</fig>
+			<media mimetype="application" mime-subtype="xlsx" xlink:href="1519-6984-bjb-83-e246904-m2.xlsx">
+				<label>Data 3</label>
+					<caption>
+						<title>Spreadsheet</title>
+					</caption>
+			</media>
+			<media mimetype="application" mime-subtype="pdf" xlink:href="1519-6984-bjb-83-e246904-m3.pdf">
+				<label>Data 4</label>
+				<caption>
+					<title>Document</title>
+				</caption>
+			</media>
+		</sec>
+		<ref-list>
+			<title>References</title>
+			<ref id="B001">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>ABDOLI</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>MOIENI</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>DEHGHANI</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>2007</year>
+					<article-title>Effects of cultivar and agar concentration on <italic>in vitro</italic> shoot organogenesis and hyperhydricity in sunflower (<italic>Helianthus annus</italic> 1)</article-title>
+					<source>Pakistan Journal of Botany</source>
+					<volume>39</volume>
+					<issue>1</issue>
+					<fpage>31</fpage>
+					<lpage>35</lpage>
+				</element-citation>
+				<mixed-citation>ABDOLI, M., MOIENI, A. and DEHGHANI, H., 2007. Effects of cultivar and agar concentration on <italic>in vitro</italic> shoot organogenesis and hyperhydricity in sunflower (<italic>Helianthus annus</italic> 1). <italic>Pakistan Journal of Botany</italic>, vol. 39, no. 1, pp. 31-35.</mixed-citation>
+			</ref>
+			<ref id="B002">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>ALI</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>KHAN</surname>
+							<given-names>N.</given-names>
+						</name>
+						<name>
+							<surname>NOUROZ</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>ERUM</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>NASIM</surname>
+							<given-names>W.</given-names>
+						</name>
+						<name>
+							<surname>SHAHID</surname>
+							<given-names>M.A.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>In vitro effects of GA3 on morphogenesis of CIP potato explants and acclimatization of plantlets in field</article-title>
+					<source>In Vitro Cellular and Develomental Biololy—Plants</source>
+					<volume>54</volume>
+					<issue>1</issue>
+					<fpage>104</fpage>
+					<lpage>111</lpage>
+				</element-citation>
+				<mixed-citation>ALI, S., KHAN, N., NOUROZ, F., ERUM, S., NASIM, W. and SHAHID, M.A., 2018. In vitro effects of GA3 on morphogenesis of CIP potato explants and acclimatization of plantlets in field. <italic>In Vitro Cellular and Develomental Biololy—Plants</italic>, vol. 54, no. 1, pp. 104-111.</mixed-citation>
+			</ref>
+			<ref id="B003">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>BAYRAKTAR</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>HAYTA-SMEDLEY</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>UNAL</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>VAROL</surname>
+							<given-names>N.</given-names>
+						</name>
+						<name>
+							<surname>GUREL</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2020</year>
+					<article-title>Micropropagation and prevention of hyperhydricity in olive (<italic>Olea europaea</italic> L.) cultivar ‘Gemlik’</article-title>
+					<source>South African Journal of Botany</source>
+					<volume>128</volume>
+					<fpage>264</fpage>
+					<lpage>273</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.sajb.2019.11.022">http://dx.doi.org/10.1016/j.sajb.2019.11.022</ext-link>
+				</element-citation>
+				<mixed-citation>BAYRAKTAR, M., HAYTA-SMEDLEY, S., UNAL, S., VAROL, N. and GUREL, A., 2020. Micropropagation and prevention of hyperhydricity in olive (<italic>Olea europaea</italic> L.) cultivar ‘Gemlik’. <italic>South African Journal of Botany</italic>, vol. 128, pp. 264-273. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.sajb.2019.11.022">http://dx.doi.org/10.1016/j.sajb.2019.11.022</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B004">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>BRAND</surname>
+							<given-names>M.H.</given-names>
+						</name>
+					</person-group>
+					<year>1993</year>
+					<article-title>Agar and ammonium nitrate influence hyperhydricity, tissue nitrate and total nitrogen content of serviceberry (<italic>Amelanchier arborea</italic>) shoots <italic>in vitro</italic></article-title>
+					<source>Plant Cell, Tissue and Organ Culture</source>
+					<volume>35</volume>
+					<issue>3</issue>
+					<fpage>203</fpage>
+					<lpage>209</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF00037271">http://dx.doi.org/10.1007/BF00037271</ext-link>
+				</element-citation>
+				<mixed-citation>BRAND, M.H., 1993. Agar and ammonium nitrate influence hyperhydricity, tissue nitrate and total nitrogen content of serviceberry (<italic>Amelanchier arborea</italic>) shoots <italic>in vitro</italic>. <italic>Plant Cell, Tissue and Organ Culture</italic>, vol. 35, no. 3, pp. 203-209. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF00037271">http://dx.doi.org/10.1007/BF00037271</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B005">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>CARVALHO</surname>
+							<given-names>D.C.</given-names>
+						</name>
+						<name>
+							<surname>SILVA</surname>
+							<given-names>A.L.L.</given-names>
+						</name>
+						<name>
+							<surname>SCHUCK</surname>
+							<given-names>M.R.</given-names>
+						</name>
+						<name>
+							<surname>PURCINO</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>TANNO</surname>
+							<given-names>G.N.</given-names>
+						</name>
+						<name>
+							<surname>BIASI</surname>
+							<given-names>L.A.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Fox grape cv. Bordô (<italic>Vitislabrusca</italic>L.) and grapevine cv. Chardonnay (<italic>Vitisvinifera</italic>L.) cultivated <italic>in vitro</italic> under different carbohydrates, amino acids and 6- Benzylaminopurine levels</article-title>
+					<source>Brazilian Archives of Biology and Technology</source>
+					<volume>56</volume>
+					<issue>2</issue>
+					<fpage>191</fpage>
+					<lpage>201</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S1516-89132013000200004">http://dx.doi.org/10.1590/S1516-89132013000200004</ext-link>
+				</element-citation>
+				<mixed-citation>CARVALHO, D.C., SILVA, A.L.L., SCHUCK, M.R., PURCINO, M., TANNO, G.N. and BIASI, L.A., 2013. Fox grape cv. Bordô (<italic>Vitislabrusca</italic>L.) and grapevine cv. Chardonnay (<italic>Vitisvinifera</italic>L.) cultivated <italic>in vitro</italic> under different carbohydrates, amino acids and 6- Benzylaminopurine levels. <italic>Brazilian Archives of Biology and Technology</italic>, vol. 56, no. 2, pp. 191-201. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S1516-89132013000200004">http://dx.doi.org/10.1590/S1516-89132013000200004</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B006">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>CASANOVA</surname>
+							<given-names>E.</given-names>
+						</name>
+						<name>
+							<surname>MOYSSET</surname>
+							<given-names>L.</given-names>
+						</name>
+						<name>
+							<surname>TRILLAS</surname>
+							<given-names>M.I.</given-names>
+						</name>
+					</person-group>
+					<year>2008</year>
+					<article-title>Effects of agar concentration and vessel closure on the organogenesis and hyperhydricity of adventitious carnation shoots</article-title>
+					<source>Biologia Plantarum</source>
+					<volume>52</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>8</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10535-008-0001-z">http://dx.doi.org/10.1007/s10535-008-0001-z</ext-link>
+				</element-citation>
+				<mixed-citation>CASANOVA, E., MOYSSET, L. and TRILLAS, M.I., 2008. Effects of agar concentration and vessel closure on the organogenesis and hyperhydricity of adventitious carnation shoots. <italic>Biologia Plantarum</italic>, vol. 52, no. 1, pp. 1-8. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10535-008-0001-z">http://dx.doi.org/10.1007/s10535-008-0001-z</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B007">
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>COLLIN</surname>
+							<given-names>H.A.</given-names>
+						</name>
+						<name>
+							<surname>EDWARDS</surname>
+							<given-names>S.</given-names>
+						</name>
+					</person-group>
+					<year>1998</year>
+					<source>Plant cell culture.</source>
+					<publisher-loc>London</publisher-loc>
+					<publisher-name>Bios Scientific Publishers</publisher-name>
+					<fpage>121</fpage>
+					<lpage>137</lpage>
+				</element-citation>
+				<mixed-citation>COLLIN, H.A. and EDWARDS, S., 1998. <italic>Plant cell culture.</italic> London: Bios Scientific Publishers, pp. 121-137</mixed-citation>
+			</ref>
+			<ref id="B008">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>DEBERGH</surname>
+							<given-names>P.</given-names>
+						</name>
+						<name>
+							<surname>AITKEN-CHRISTIE</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>COHEN</surname>
+							<given-names>D.</given-names>
+						</name>
+						<name>
+							<surname>GROUT</surname>
+							<given-names>B.</given-names>
+						</name>
+						<name>
+							<surname>VON ARNOLD</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>ZIMMERMAN</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>ZIV</surname>
+							<given-names>M.</given-names>
+						</name>
+					</person-group>
+					<year>1992</year>
+					<article-title>Reconsideration of the term vitrification as used micropropagation</article-title>
+					<source>Plant Cell, Tissue and Organ Culture</source>
+					<volume>30</volume>
+					<issue>2</issue>
+					<fpage>135</fpage>
+					<lpage>140</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF00034307">http://dx.doi.org/10.1007/BF00034307</ext-link>
+				</element-citation>
+				<mixed-citation>DEBERGH, P., AITKEN-CHRISTIE, J., COHEN, D., GROUT, B., VON ARNOLD, S., ZIMMERMAN, R. and ZIV, M., 1992. Reconsideration of the term vitrification as used micropropagation. <italic>Plant Cell, Tissue and Organ Culture</italic>, vol. 30, no. 2, pp. 135-140. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF00034307">http://dx.doi.org/10.1007/BF00034307</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B009">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>FONTES</surname>
+							<given-names>M.A.</given-names>
+						</name>
+						<name>
+							<surname>OTONI</surname>
+							<given-names>W.C.</given-names>
+						</name>
+						<name>
+							<surname>CAROLINO</surname>
+							<given-names>S.M.B.</given-names>
+						</name>
+						<name>
+							<surname>BROMMONSCHENKEL</surname>
+							<given-names>S.H.</given-names>
+						</name>
+						<name>
+							<surname>FONTES</surname>
+							<given-names>E.P.B.</given-names>
+						</name>
+						<name>
+							<surname>LOURO</surname>
+							<given-names>R.P.</given-names>
+						</name>
+					</person-group>
+					<year>1999</year>
+					<article-title>Hyperhydricity in pepper plants regenerated in vitro: involvement of BiP (Binding Protein) and ultrastructural aspects</article-title>
+					<source>Plant Cell Reports</source>
+					<volume>19</volume>
+					<issue>1</issue>
+					<fpage>81</fpage>
+					<lpage>87</lpage>
+				</element-citation>
+				<mixed-citation>FONTES, M.A., OTONI, W.C., CAROLINO, S.M.B., BROMMONSCHENKEL, S.H., FONTES, E.P.B. and LOURO, R.P., 1999. Hyperhydricity in pepper plants regenerated in vitro: involvement of BiP (Binding Protein) and ultrastructural aspects. <italic>Plant Cell Reports</italic>, vol. 19, no. 1, pp. 81-87.</mixed-citation>
+			</ref>
+			<ref id="B010">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>GASPAR</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>KEVERS</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>BISBIS</surname>
+							<given-names>B.</given-names>
+						</name>
+						<name>
+							<surname>FRANCK</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>CRÈVECOEUR</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>GREPPIN</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>2000</year>
+					<article-title>Loss of plant organogenictotipotency in the course of <italic>in vitro</italic> neoplastic progression</article-title>
+					<source>In Vitro Cellular and Developmental Biololgy-Plants</source>
+					<volume>36</volume>
+					<issue>3</issue>
+					<lpage>171</lpage>
+					<fpage>181</fpage>
+				</element-citation>
+				<mixed-citation>GASPAR, T., KEVERS, C., BISBIS, B., FRANCK, T., CRÈVECOEUR, M. and GREPPIN, H., 2000. Loss of plant organogenictotipotency in the course of <italic>in vitro</italic> neoplastic progression. <italic>In Vitro Cellular and Developmental Biololgy-Plants</italic>, vol. 36, no. 3, pp. 171-181.</mixed-citation>
+			</ref>
+			<ref id="B011">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>GINDA</surname>
+							<given-names>H.</given-names>
+						</name>
+						<name>
+							<surname>KAKISAWA</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>1990</year>
+					<article-title>Miltipolone, a new diterpenoidtropolone possessing cytotoxic activities from <italic>Salvia miltiorrhiza</italic></article-title>
+					<source>Chemistery Letters</source>
+					<fpage>1599</fpage>
+					<lpage>1602</lpage>
+				</element-citation>
+				<mixed-citation>GINDA, H. and KAKISAWA, H., 1990. Miltipolone, a new diterpenoidtropolone possessing cytotoxic activities from <italic>Salvia miltiorrhiza. Chemistery Letters</italic>, pp. 1599-1602.</mixed-citation>
+			</ref>
+			<ref id="B012">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>HAKKAART</surname>
+							<given-names>F.A.</given-names>
+						</name>
+						<name>
+							<surname>VERSLUIJS</surname>
+							<given-names>J.M.A..</given-names>
+						</name>
+					</person-group>
+					<year>1983</year>
+					<article-title>Some factors affecting glassiness in carnation meristem tip culture</article-title>
+					<source>Netherlands Journal of Plant Pathology</source>
+					<volume>89</volume>
+					<issue>1-2</issue>
+					<fpage>47</fpage>
+					<lpage>53</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF01974443">http://dx.doi.org/10.1007/BF01974443</ext-link>
+				</element-citation>
+				<mixed-citation>HAKKAART, F.A. and VERSLUIJS, J.M.A.., 1983. Some factors affecting glassiness in carnation meristem tip culture. <italic>Netherlands Journal of Plant Pathology</italic>, vol. 89, no. 1-2, pp. 47-53. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/BF01974443">http://dx.doi.org/10.1007/BF01974443</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B013">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>ISAH</surname>
+							<given-names>T.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Adjustments to in vitro culture conditions and associated anomalies in plants</article-title>
+					<source>Acta Biologica Cracoviensia. Series; Botanica</source>
+					<volume>57</volume>
+					<issue>2</issue>
+					<fpage>9</fpage>
+					<lpage>28</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1515/abcsb-2015-0026">http://dx.doi.org/10.1515/abcsb-2015-0026</ext-link>
+				</element-citation>
+				<mixed-citation>ISAH, T., 2015. Adjustments to in vitro culture conditions and associated anomalies in plants. <italic>Acta Biologica Cracoviensia. Series; Botanica</italic>, vol. 57, no. 2, pp. 9-28. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1515/abcsb-2015-0026">http://dx.doi.org/10.1515/abcsb-2015-0026</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B014">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>IVANOVA</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>NOVAK</surname>
+							<given-names>O.</given-names>
+						</name>
+						<name>
+							<surname>STRNAD</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>VAN STADEN</surname>
+							<given-names>J.</given-names>
+						</name>
+					</person-group>
+					<year>2006</year>
+					<article-title>Endogenous cytokinins in shoots of <italic>Aloe polyphylla</italic> cultured <italic>in vitro</italic> in relation to hyperhydricity, exogenous cytokinins and gelling agents</article-title>
+					<source>Plant Growth Regulation</source>
+					<volume>50</volume>
+					<issue>2-3</issue>
+					<fpage>219</fpage>
+					<lpage>230</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10725-006-9139-x">http://dx.doi.org/10.1007/s10725-006-9139-x</ext-link>
+				</element-citation>
+				<mixed-citation>IVANOVA, M., NOVAK, O., STRNAD, M. and VAN STADEN, J., 2006. Endogenous cytokinins in shoots of <italic>Aloe polyphylla</italic> cultured <italic>in vitro</italic> in relation to hyperhydricity, exogenous cytokinins and gelling agents. <italic>Plant Growth Regulation</italic>, vol. 50, no. 2-3, pp. 219-230. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10725-006-9139-x">http://dx.doi.org/10.1007/s10725-006-9139-x</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B015">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>JAN</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>QADRI</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>NAQVI</surname>
+							<given-names>B.</given-names>
+						</name>
+						<name>
+							<surname>ADHIKARI</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>NADEEM</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>MUHAMMAD</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>A novel Salvialactomine from the callus culture of <italic>Salvia santolinifolia</italic> Boiss</article-title>
+					<source>Natural Product Research</source>
+					<volume>32</volume>
+					<issue>7</issue>
+					<fpage>749</fpage>
+					<lpage>754</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1080/14786419.2017.1311887">http://dx.doi.org/10.1080/14786419.2017.1311887</ext-link>
+					<pub-id pub-id-type="pmid">28412869.</pub-id>
+				</element-citation>
+				<mixed-citation>JAN, T., QADRI, R., NAQVI, B., ADHIKARI, A., NADEEM, S. and MUHAMMAD, A., 2018. A novel Salvialactomine from the callus culture of <italic>Salvia santolinifolia</italic> Boiss. <italic>Natural Product Research</italic>, vol. 32, no. 7, pp. 749-754. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1080/14786419.2017.1311887">http://dx.doi.org/10.1080/14786419.2017.1311887</ext-link>. PMid:28412869.</mixed-citation>
+			</ref>
+			<ref id="B016">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>KADOTA</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>NIIMI</surname>
+							<given-names>Y.</given-names>
+						</name>
+					</person-group>
+					<year>2003</year>
+					<article-title>Effect of cytokinin types and their concentration on shoot proliferation and hyperhydricity <italic>in vitro</italic> pear cultivar shoots</article-title>
+					<source>Plant Cell, Tissue and Organ Culture</source>
+					<volume>72</volume>
+					<issue>3</issue>
+					<fpage>261</fpage>
+					<lpage>265</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1023/A:1022378511659">http://dx.doi.org/10.1023/A:1022378511659</ext-link>
+				</element-citation>
+				<mixed-citation>KADOTA, M. and NIIMI, Y., 2003. Effect of cytokinin types and their concentration on shoot proliferation and hyperhydricity <italic>in vitro</italic> pear cultivar shoots. <italic>Plant Cell, Tissue and Organ Culture</italic>, vol. 72, no. 3, pp. 261-265. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1023/A:1022378511659">http://dx.doi.org/10.1023/A:1022378511659</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B017">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>KEVERS</surname>
+							<given-names>K.</given-names>
+						</name>
+						<name>
+							<surname>FRANCK</surname>
+							<given-names>D.</given-names>
+						</name>
+						<name>
+							<surname>STRASSER</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>DOMMES</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>GASPAR</surname>
+							<given-names>T.</given-names>
+						</name>
+					</person-group>
+					<year>2004</year>
+					<article-title>Hyperhydricity of micropropagated shoots: a typically stressinduced change of physiological state</article-title>
+					<source>Plant Cell, Tissue and Organ Culture</source>
+					<volume>77</volume>
+					<issue>2</issue>
+					<fpage>181</fpage>
+					<lpage>191</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1023/B:TICU.0000016825.18930.e4">http://dx.doi.org/10.1023/B:TICU.0000016825.18930.e4</ext-link>
+				</element-citation>
+				<mixed-citation>KEVERS, K., FRANCK, D., STRASSER, R., DOMMES, J. and GASPAR, T., 2004. Hyperhydricity of micropropagated shoots: a typically stressinduced change of physiological state. <italic>Plant Cell, Tissue and Organ Culture</italic>, vol. 77, no. 2, pp. 181-191. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1023/B:TICU.0000016825.18930.e4">http://dx.doi.org/10.1023/B:TICU.0000016825.18930.e4</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B018">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>LAI</surname>
+							<given-names>C.C.</given-names>
+						</name>
+						<name>
+							<surname>LIN</surname>
+							<given-names>H.M.</given-names>
+						</name>
+						<name>
+							<surname>NALAWADE</surname>
+							<given-names>S.M.</given-names>
+						</name>
+						<name>
+							<surname>FANG</surname>
+							<given-names>W.</given-names>
+						</name>
+						<name>
+							<surname>TSAY</surname>
+							<given-names>H.</given-names>
+						</name>
+					</person-group>
+					<year>2005</year>
+					<article-title>Hyperhydricity in shoot cultures of <italic>Scrophularia yoshimurae</italic> can be effectively reduced by ventilation of culture vessels</article-title>
+					<source>Journal of Plant Physiology</source>
+					<volume>162</volume>
+					<issue>3</issue>
+					<fpage>355</fpage>
+					<lpage>361</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.jplph.2004.07.015">http://dx.doi.org/10.1016/j.jplph.2004.07.015</ext-link>
+					<pub-id pub-id-type="pmid">15832688.</pub-id>
+				</element-citation>
+				<mixed-citation>LAI, C.C., LIN, H.M., NALAWADE, S.M., FANG, W. and TSAY, H., 2005. Hyperhydricity in shoot cultures of<italic>Scrophularia yoshimurae</italic>can be effectively reduced by ventilation of culture vessels. <italic>Journal of Plant Physiology</italic>, vol. 162, no. 3, pp. 355-361. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.jplph.2004.07.015">http://dx.doi.org/10.1016/j.jplph.2004.07.015</ext-link>. PMid:15832688.</mixed-citation>
+			</ref>
+			<ref id="B019">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>LEBEDEV</surname>
+							<given-names>V.</given-names>
+						</name>
+						<name>
+							<surname>ARKAEV</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>DREMOVA</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>POZDNIAKOV</surname>
+							<given-names>I.</given-names>
+						</name>
+						<name>
+							<surname>SHESTIBRATOV</surname>
+							<given-names>K.</given-names>
+						</name>
+					</person-group>
+					<year>2018</year>
+					<article-title>Effects of growth regulators and gelling agents on ex vitro rooting of raspberry</article-title>
+					<source>Plants</source>
+					<volume>8</volume>
+					<issue>1</issue>
+					<fpage>1</fpage>
+					<lpage>10</lpage>
+					<pub-id pub-id-type="pmid">30583529.</pub-id>
+				</element-citation>
+				<mixed-citation>LEBEDEV, V., ARKAEV, M., DREMOVA, M., POZDNIAKOV, I. and SHESTIBRATOV, K., 2018. Effects of growth regulators and gelling agents on ex vitro rooting of raspberry. <italic>Plants</italic>, vol. 8, no. 1, pp. 1-10. PMid:30583529.</mixed-citation>
+			</ref>
+			<ref id="B020">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>LIU</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>JIANG</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>KONG</surname>
+							<given-names>X.</given-names>
+						</name>
+						<name>
+							<surname>TIAN</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>WU</surname>
+							<given-names>Z.</given-names>
+						</name>
+						<name>
+							<surname>WU</surname>
+							<given-names>Z.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Effects of multiple factors on hyperhydricity of <italic>Allium sativum</italic> L</article-title>
+					<source>Scientia Horticulturae</source>
+					<volume>217</volume>
+					<fpage>285</fpage>
+					<lpage>296</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.scienta.2017.02.010">http://dx.doi.org/10.1016/j.scienta.2017.02.010</ext-link>
+				</element-citation>
+				<mixed-citation>LIU, M., JIANG, F., KONG, X., TIAN, J., WU, Z. and WU, Z., 2017. Effects of multiple factors on hyperhydricity of <italic>Allium sativum</italic> L. <italic>Scientia Horticulturae</italic>, vol. 217, pp. 285-296. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/j.scienta.2017.02.010">http://dx.doi.org/10.1016/j.scienta.2017.02.010</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B021">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MACHADO</surname>
+							<given-names>M.P.</given-names>
+						</name>
+						<name>
+							<surname>SILVA</surname>
+							<given-names>A.L.L.</given-names>
+						</name>
+						<name>
+							<surname>BIASI</surname>
+							<given-names>L.A.</given-names>
+						</name>
+						<name>
+							<surname>DESCHAMPS</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>BESPALHOK</surname>
+							<given-names>J.C.</given-names>
+							<suffix>FILHO</suffix>
+						</name>
+						<name>
+							<surname>ZANETTE</surname>
+							<given-names>F.</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Influence of calcium content of tissue on hyperhydricity and shoot-tip necrosis of <italic>in vitro</italic> regenerated shoots of <italic>Lavandula angustifolia</italic> Mill</article-title>
+					<source>Brazilian Archives of Biology and Technology</source>
+					<volume>57</volume>
+					<issue>5</issue>
+					<fpage>636</fpage>
+					<lpage>643</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S1516-8913201402165">http://dx.doi.org/10.1590/S1516-8913201402165</ext-link>
+				</element-citation>
+				<mixed-citation>MACHADO, M.P., SILVA, A.L.L., BIASI, L.A., DESCHAMPS, C., BESPALHOK FILHO, J.C. and ZANETTE, F., 2014. Influence of calcium content of tissue on hyperhydricity and shoot-tip necrosis of <italic>in vitro</italic> regenerated shoots of <italic>Lavandula angustifolia</italic> Mill. <italic>Brazilian Archives of Biology and Technology</italic>, vol. 57, no. 5, pp. 636-643. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1590/S1516-8913201402165">http://dx.doi.org/10.1590/S1516-8913201402165</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B022">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MARTIN</surname>
+							<given-names>G.</given-names>
+						</name>
+						<name>
+							<surname>GEETHA</surname>
+							<given-names>S.P.</given-names>
+						</name>
+						<name>
+							<surname>RAJA</surname>
+							<given-names>S.S.</given-names>
+						</name>
+						<name>
+							<surname>RAGHU</surname>
+							<given-names>A.V.</given-names>
+						</name>
+						<name>
+							<surname>BALACHANDRAN</surname>
+							<given-names>I.</given-names>
+						</name>
+						<name>
+							<surname>RAVINDRAN</surname>
+							<given-names>P.N.</given-names>
+						</name>
+					</person-group>
+					<year>2006</year>
+					<article-title>An efficient micropropagation system for <italic>Celastru spaniculatus</italic> Wild.: a vulnerable medicinal plant</article-title>
+					<source>Journal of Forest Research</source>
+					<volume>11</volume>
+					<issue>6</issue>
+					<fpage>461</fpage>
+					<lpage>465</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10310-006-0237-4">http://dx.doi.org/10.1007/s10310-006-0237-4</ext-link>
+				</element-citation>
+				<mixed-citation>MARTIN, G., GEETHA, S.P., RAJA, S.S., RAGHU, A.V., BALACHANDRAN, I. and RAVINDRAN, P.N., 2006. An efficient micropropagation system for <italic>Celastru spaniculatus</italic> Wild.: a vulnerable medicinal plant. <italic>Journal of Forest Research</italic>, vol. 11, no. 6, pp. 461-465. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s10310-006-0237-4">http://dx.doi.org/10.1007/s10310-006-0237-4</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B023">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MAZRI</surname>
+							<given-names>M.A.</given-names>
+						</name>
+						<name>
+							<surname>MEZIANI</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>FADILE</surname>
+							<given-names>J.E.</given-names>
+						</name>
+						<name>
+							<surname>EZZINBI</surname>
+							<given-names>A.</given-names>
+						</name>
+					</person-group>
+					<year>2016</year>
+					<article-title>Optimization of medium composition for <italic>in vitro</italic> shoot proliferation and growth of date palm cv. Mejhoul</article-title>
+					<source>3 Biotech</source>
+					<volume>6</volume>
+					<issue>111</issue>
+					<fpage>1</fpage>
+					<lpage>11</lpage>
+				</element-citation>
+				<mixed-citation>MAZRI, M.A., MEZIANI, R., FADILE, J.E. and EZZINBI, A., 2016. Optimization of medium composition for <italic>in vitro</italic> shoot proliferation and growth of date palm cv. Mejhoul. <italic>3 Biotech</italic>, vol. 6, no. 111, pp. 1-11.</mixed-citation>
+			</ref>
+			<ref id="B024">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MIKULA</surname>
+							<given-names>A.</given-names>
+						</name>
+						<name>
+							<surname>RYBCZYNSKI</surname>
+							<given-names>J.J.</given-names>
+						</name>
+					</person-group>
+					<year>2006</year>
+					<article-title>Cryopreservation - a tool for long-term storage of cells, tissues and organs from <italic>in vitro</italic> culture derived</article-title>
+					<source>Biotechnologia</source>
+					<volume>4</volume>
+					<fpage>145</fpage>
+					<lpage>163</lpage>
+				</element-citation>
+				<mixed-citation>MIKULA, A. and RYBCZYNSKI, J.J., 2006. Cryopreservation - a tool for long-term storage of cells, tissues and organs from <italic>in vitro</italic> culture derived. <italic>Biotechnologia</italic>, vol. 4, pp. 145-163.</mixed-citation>
+			</ref>
+			<ref id="B025">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>MURASHIGE</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>SKOOG</surname>
+							<given-names>F.</given-names>
+						</name>
+					</person-group>
+					<year>1962</year>
+					<article-title>A revised medium for rapid growth and bioassays with tobacco tissue cultures</article-title>
+					<source>Physiologia Plantarum</source>
+					<volume>15</volume>
+					<issue>3</issue>
+					<fpage>473</fpage>
+					<lpage>497</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1111/j.1399-3054.1962.tb08052.x">http://dx.doi.org/10.1111/j.1399-3054.1962.tb08052.x</ext-link>
+				</element-citation>
+				<mixed-citation>MURASHIGE, T. and SKOOG, F., 1962. A revised medium for rapid growth and bioassays with tobacco tissue cultures. <italic>Physiologia Plantarum</italic>, vol. 15, no. 3, pp. 473-497. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1111/j.1399-3054.1962.tb08052.x">http://dx.doi.org/10.1111/j.1399-3054.1962.tb08052.x</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B026">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>OLIVEIRA</surname>
+							<given-names>Y.</given-names>
+						</name>
+						<name>
+							<surname>PINTO</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>SILVA</surname>
+							<given-names>A.L.L.</given-names>
+						</name>
+						<name>
+							<surname>GUEDES</surname>
+							<given-names>I.</given-names>
+						</name>
+						<name>
+							<surname>BIASI</surname>
+							<given-names>L.A.</given-names>
+						</name>
+						<name>
+							<surname>QUOIRIN</surname>
+							<given-names>M.</given-names>
+						</name>
+					</person-group>
+					<year>2010</year>
+					<article-title>An efficient protocol for micropropagation of <italic>Melaleucaalternifolia</italic> Cheel</article-title>
+					<source>In Vitro Cellular &amp; Developmental Biology. Plant</source>
+					<volume>46</volume>
+					<issue>2</issue>
+					<fpage>192</fpage>
+					<lpage>197</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s11627-010-9287-6">http://dx.doi.org/10.1007/s11627-010-9287-6</ext-link>
+				</element-citation>
+				<mixed-citation>OLIVEIRA, Y., PINTO, F., SILVA, A.L.L., GUEDES, I., BIASI, L.A. and QUOIRIN, M., 2010. An efficient protocol for micropropagation of <italic>Melaleucaalternifolia</italic> Cheel. <italic>In Vitro Cellular &amp; Developmental Biology. Plant</italic>, vol. 46, no. 2, pp. 192-197. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s11627-010-9287-6">http://dx.doi.org/10.1007/s11627-010-9287-6</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B027">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>PENCE</surname>
+							<given-names>V.</given-names>
+						</name>
+						<name>
+							<surname>FINKE</surname>
+							<given-names>L.</given-names>
+						</name>
+						<name>
+							<surname>NIEDZ</surname>
+							<given-names>R.</given-names>
+						</name>
+					</person-group>
+					<year>2014</year>
+					<article-title>Reducing hyperhydricity in shoot cultures of <italic>cycladenia humilis</italic> var. jonesii: an endangered dry land species</article-title>
+					<source>In Vitro Cellular &amp; Developmental Biology. Plant</source>
+					<volume>50</volume>
+					<fpage>S62</fpage>
+				</element-citation>
+				<mixed-citation>PENCE, V., FINKE, L. and NIEDZ, R., 2014. Reducing hyperhydricity in shoot cultures of <italic>cycladenia humilis</italic> var. jonesii: an endangered dry land species. <italic>In Vitro Cellular &amp; Developmental Biology. Plant</italic>, vol. 50, pp. S62.</mixed-citation>
+			</ref>
+			<ref id="B028">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>PHAN</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>LETOUZE</surname>
+							<given-names>R.</given-names>
+						</name>
+					</person-group>
+					<year>1983</year>
+					<article-title>A comparative study of chlorophyll, phenolic and protein content and of hydroxycinnamate CoA ligase activity of normal and vitreous plants (<italic>Prunusavium</italic> L) obtained <italic>in vitro</italic></article-title>
+					<source>Plant Science Letters</source>
+					<volume>31</volume>
+					<issue>2-3</issue>
+					<fpage>323</fpage>
+					<lpage>327</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/0304-4211(83)90071-8">http://dx.doi.org/10.1016/0304-4211(83)90071-8</ext-link>
+				</element-citation>
+				<mixed-citation>PHAN, C. and LETOUZE, R., 1983. A comparative study of chlorophyll, phenolic and protein content and of hydroxycinnamate CoA ligase activity of normal and vitreous plants (<italic>Prunusavium</italic> L) obtained <italic>in vitro</italic>. <italic>Plant Science Letters</italic>, vol. 31, no. 2-3, pp. 323-327. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1016/0304-4211(83)90071-8">http://dx.doi.org/10.1016/0304-4211(83)90071-8</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B029">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>PHILLIPS</surname>
+							<given-names>D.J.</given-names>
+						</name>
+						<name>
+							<surname>MATTHEWS</surname>
+							<given-names>G.J.</given-names>
+						</name>
+					</person-group>
+					<year>1964</year>
+					<article-title>Growth and development of carnation shoot tips <italic>in vitro</italic></article-title>
+					<source>Journal of Botanical Gazette</source>
+					<volume>125</volume>
+					<issue>1</issue>
+					<fpage>7</fpage>
+					<lpage>12</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1086/336237">http://dx.doi.org/10.1086/336237</ext-link>
+				</element-citation>
+				<mixed-citation>PHILLIPS, D.J. and MATTHEWS, G.J., 1964. Growth and development of carnation shoot tips <italic>in vitro</italic>. <italic>Journal of Botanical Gazette</italic>, vol. 125, no. 1, pp. 7-12. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1086/336237">http://dx.doi.org/10.1086/336237</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B030">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>SILVA</surname>
+							<given-names>A.L.L.</given-names>
+						</name>
+						<name>
+							<surname>RODRIGUES</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>COSTA</surname>
+							<given-names>J.L.</given-names>
+						</name>
+						<name>
+							<surname>MACHADO</surname>
+							<given-names>M.P.</given-names>
+						</name>
+						<name>
+							<surname>PENHA</surname>
+							<given-names>R.O.</given-names>
+						</name>
+						<name>
+							<surname>BIASI</surname>
+							<given-names>L.A.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Gibberellic acid fermented extract obtained by solid-state fermentation using citric pulp by <italic>Fusariummoniliforme</italic>: influence on <italic>Lavandula angustifolia</italic> Mill. Cultivated <italic>in vitro.</italic></article-title>
+					<source>Pakistan Journal of Botany</source>
+					<volume>45</volume>
+					<fpage>2057</fpage>
+					<lpage>2064</lpage>
+				</element-citation>
+				<mixed-citation>SILVA, A.L.L., RODRIGUES, C., COSTA, J.L., MACHADO, M.P., PENHA, R.O. and BIASI, L.A., 2013. Gibberellic acid fermented extract obtained by solid-state fermentation using citric pulp by <italic>Fusariummoniliforme</italic>: influence on <italic>Lavandula angustifolia</italic> Mill. Cultivated <italic>in vitro. Pakistan Journal of Botany</italic>, vol. 45, pp. 2057-2064.</mixed-citation>
+			</ref>
+			<ref id="B031">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>TABART</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>FRANCK</surname>
+							<given-names>T.</given-names>
+						</name>
+						<name>
+							<surname>KEVERS</surname>
+							<given-names>C.</given-names>
+						</name>
+						<name>
+							<surname>DOMMES</surname>
+							<given-names>J.</given-names>
+						</name>
+					</person-group>
+					<year>2015</year>
+					<article-title>Effect of polyamines and polyamine precursors on hyperhydricity in micropropagated apple shoots</article-title>
+					<source>Plant Cell, Tissue and Organ Culture</source>
+					<volume>120</volume>
+					<issue>1</issue>
+					<fpage>11</fpage>
+					<lpage>18</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s11240-014-0568-3">http://dx.doi.org/10.1007/s11240-014-0568-3</ext-link>
+				</element-citation>
+				<mixed-citation>TABART, J., FRANCK, T., KEVERS, C. and DOMMES, J., 2015. Effect of polyamines and polyamine precursors on hyperhydricity in micropropagated apple shoots. <italic>Plant Cell, Tissue and Organ Culture</italic>, vol. 120, no. 1, pp. 11-18. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s11240-014-0568-3">http://dx.doi.org/10.1007/s11240-014-0568-3</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B032">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>TIAN</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>CHENG</surname>
+							<given-names>Y.</given-names>
+						</name>
+						<name>
+							<surname>KONG</surname>
+							<given-names>X.</given-names>
+						</name>
+						<name>
+							<surname>LIU</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>JIANG</surname>
+							<given-names>F.</given-names>
+						</name>
+						<name>
+							<surname>WU</surname>
+							<given-names>Z.</given-names>
+						</name>
+					</person-group>
+					<year>2017</year>
+					<article-title>Induction of reactive oxygen species and the potential role of NAD pH oxidase in hyperhydricity of garlic plantlets <italic>in vitro</italic></article-title>
+					<source>Protoplasma</source>
+					<volume>254</volume>
+					<issue>1</issue>
+					<fpage>379</fpage>
+					<lpage>388</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s00709-016-0957-z">http://dx.doi.org/10.1007/s00709-016-0957-z</ext-link>
+					<pub-id pub-id-type="pmid">26945990.</pub-id>
+				</element-citation>
+				<mixed-citation>TIAN, J., CHENG, Y., KONG, X., LIU, M., JIANG, F. and WU, Z., 2017. Induction of reactive oxygen species and the potential role of NAD pH oxidase in hyperhydricity of garlic plantlets <italic>in vitro</italic>. <italic>Protoplasma</italic>, vol. 254, no. 1, pp. 379-388. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/s00709-016-0957-z">http://dx.doi.org/10.1007/s00709-016-0957-z</ext-link>. PMid:26945990.</mixed-citation>
+			</ref>
+			<ref id="B033">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>VARDJA</surname>
+							<given-names>R.</given-names>
+						</name>
+						<name>
+							<surname>VARDJA</surname>
+							<given-names>T.</given-names>
+						</name>
+					</person-group>
+					<year>2001</year>
+					<article-title>The effect of cytokinin type and concentration and the number of subcultures on the multiplication rate of some decorative plants</article-title>
+					<source>Proceedings of the Estonian Academy of Sciences. Biology, Ecology</source>
+					<volume>50</volume>
+					<issue>1</issue>
+					<fpage>22</fpage>
+					<lpage>32</lpage>
+				</element-citation>
+				<mixed-citation>VARDJA, R. and VARDJA, T., 2001. The effect of cytokinin type and concentration and the number of subcultures on the multiplication rate of some decorative plants. <italic>Proceedings of the Estonian Academy of Sciences. Biology, Ecology</italic>, vol. 50, no. 1, pp. 22-32.</mixed-citation>
+			</ref>
+			<ref id="B034">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>WARDLE</surname>
+							<given-names>K.</given-names>
+						</name>
+						<name>
+							<surname>DOBBS</surname>
+							<given-names>E.B.</given-names>
+						</name>
+						<name>
+							<surname>SHORT</surname>
+							<given-names>K.C.</given-names>
+						</name>
+					</person-group>
+					<year>1983</year>
+					<article-title>In vitro acclimitization of aseptically cultured plantlet to humidity</article-title>
+					<source>Journal of the American Society for Horticultural Science</source>
+					<volume>108</volume>
+					<fpage>386</fpage>
+					<lpage>389</lpage>
+				</element-citation>
+				<mixed-citation>WARDLE, K., DOBBS, E.B. and SHORT, K.C., 1983. In vitro acclimitization of aseptically cultured plantlet to humidity. <italic>Journal of the American Society for Horticultural Science</italic>, vol. 108, pp. 386-389.</mixed-citation>
+			</ref>
+			<ref id="B035">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>YU</surname>
+							<given-names>Y.</given-names>
+						</name>
+						<name>
+							<surname>ZHAO</surname>
+							<given-names>Y.</given-names>
+						</name>
+						<name>
+							<surname>ZHAO</surname>
+							<given-names>B.</given-names>
+						</name>
+						<name>
+							<surname>REN</surname>
+							<given-names>S.</given-names>
+						</name>
+						<name>
+							<surname>GUO</surname>
+							<given-names>Y.</given-names>
+						</name>
+					</person-group>
+					<year>2011</year>
+					<article-title>Influencing factors and structural characterization of hyperhydricity of <italic>in vitro</italic> regeneration in <italic>Brassica oleracea var.</italic></article-title>
+					<source>Canadian Journal of Plant Science</source>
+					<volume>91</volume>
+					<issue>1</issue>
+					<fpage>159</fpage>
+					<lpage>165</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.4141/cjps10034">http://dx.doi.org/10.4141/cjps10034</ext-link>
+				</element-citation>
+				<mixed-citation>YU, Y., ZHAO, Y., ZHAO, B., REN, S. and GUO, Y., 2011. Influencing factors and structural characterization of hyperhydricity of <italic>in vitro</italic> regeneration in <italic>Brassica oleracea var. Canadian Journal of Plant Science</italic>, vol. 91, no. 1, pp. 159-165. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.4141/cjps10034">http://dx.doi.org/10.4141/cjps10034</ext-link>.</mixed-citation>
+			</ref>
+			<ref id="B036">
+				<element-citation publication-type="journal">
+					<person-group person-group-type="author">
+						<name>
+							<surname>ŽD’ÁRSKÁ</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>ZATLOUKALOVÁ</surname>
+							<given-names>P.</given-names>
+						</name>
+						<name>
+							<surname>BENÍTEZ</surname>
+							<given-names>M.</given-names>
+						</name>
+						<name>
+							<surname>ŠEDO</surname>
+							<given-names>O.</given-names>
+						</name>
+						<name>
+							<surname>POTĚ¡IL</surname>
+							<given-names>D.</given-names>
+						</name>
+						<name>
+							<surname>NOVÁK</surname>
+							<given-names>O.</given-names>
+						</name>
+						<name>
+							<surname>SVAČINOVÁ</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>PE¡EK</surname>
+							<given-names>B.</given-names>
+						</name>
+						<name>
+							<surname>MALBECK</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>VA¡ÍČKOVÁ</surname>
+							<given-names>J.</given-names>
+						</name>
+						<name>
+							<surname>ZDRÁHAL</surname>
+							<given-names>Z.</given-names>
+						</name>
+						<name>
+							<surname>HEJÁTKO</surname>
+							<given-names>J.</given-names>
+						</name>
+					</person-group>
+					<year>2013</year>
+					<article-title>Proteomeanalysis in arabidopsis reveals shoot- and root-Specific targets of cytokinin action and differential regulation of hormonal homeostasis</article-title>
+					<source>Plant Physiology</source>
+					<volume>161</volume>
+					<issue>2</issue>
+					<fpage>918</fpage>
+					<lpage>930</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1104/pp.112.202853">http://dx.doi.org/10.1104/pp.112.202853</ext-link>
+					<pub-id pub-id-type="pmid">23209126.</pub-id>
+				</element-citation>
+				<mixed-citation>ŽD’ÁRSKÁ, M., ZATLOUKALOVÁ, P., BENÍTEZ, M., ŠEDO, O., POTĚ¡IL, D., NOVÁK, O., SVAČINOVÁ, J., PE¡EK, B., MALBECK, J., VA¡ÍČKOVÁ, J., ZDRÁHAL, Z. and HEJÁTKO, J. 2013. Proteomeanalysis in arabidopsis reveals shoot- and root-Specific targets of cytokinin action and differential regulation of hormonal homeostasis. <italic>Plant Physiology</italic>, vol. 161, no. 2, pp. 918-930. <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1104/pp.112.202853">http://dx.doi.org/10.1104/pp.112.202853</ext-link>. PMid:23209126.</mixed-citation>
+			</ref>
+			<ref id="B037">
+				<element-citation publication-type="book">
+					<person-group person-group-type="author">
+						<name>
+							<surname>ZIV</surname>
+							<given-names>M.</given-names>
+						</name>
+					</person-group>
+					<year>1991</year>
+					<chapter-title>Vitrification: morphological and physiological disorders of <italic>in vitro</italic> plants.</chapter-title>
+					<person-group person-group-type="editor">
+						<name>
+							<surname>DEBERGH</surname>
+							<given-names>P.C.</given-names>
+						</name>
+						<name>
+							<surname>ZIMMERMAN</surname>
+							<given-names>R.H.</given-names>
+						</name>
+					</person-group>
+					<source>Micropropagation: technology and application.</source>
+					<publisher-loc>Dordrecht</publisher-loc>
+					<publisher-name>KluwerAcademic Publishers</publisher-name>
+					<fpage>45</fpage>
+					<lpage>69</lpage>
+					<ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/978-94-009-2075-0_4">http://dx.doi.org/10.1007/978-94-009-2075-0_4</ext-link>
+				</element-citation>
+				<mixed-citation>ZIV, M. (1991). Vitrification: morphological and physiological disorders of <italic>in vitro</italic> plants. In: P.C. DEBERGH and R.H. ZIMMERMAN, eds. <italic>Micropropagation: technology and application</italic>. Dordrecht: KluwerAcademic Publishers, pp. 45-69 <ext-link ext-link-type="uri" xlink:href="http://dx.doi.org/10.1007/978-94-009-2075-0_4">http://dx.doi.org/10.1007/978-94-009-2075-0_4</ext-link>. </mixed-citation>
+			</ref>
+		</ref-list>
+	</back>
+</article>
