@@ -12,15 +12,17 @@ class AppTest(TestCase):
         self.app = App(xml_tree.xpath(".//app")[0])
 
     def test_app_id(self):
-        self.assertEqual(self.app.app_id, "app01")
+        self.assertEqual(self.app.id, "app01")
 
     def test_app_label(self):
-        self.assertEqual(self.app.app_label, "FONTES")
+        self.assertEqual(self.app.label, "FONTES")
 
     def test_data(self):
         expected = {
-            "app_id": "app01",
-            "app_label": "FONTES"
+            'attrib': None,
+            'caption': None,
+            'id': 'app01',
+            'label': 'FONTES'
         }
         obtained = self.app.data
         self.assertDictEqual(expected, obtained)
@@ -34,8 +36,10 @@ class AppGroupTest(TestCase):
         obtained = list(AppGroup(self.xml_tree).data())
         expected = [
             {
-                'app_id': 'app01',
-                'app_label': 'FONTES',
+                'id': 'app01',
+                'label': 'FONTES',
+                'attrib': None,
+                'caption': None,
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
