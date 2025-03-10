@@ -1,25 +1,22 @@
 class LabelAndCaption:
     def __init__(self, node):
         self.node = node
-        self.id = node.get("id")
-        self.label = node.findtext("label")
+        self.label = self.node.findtext("label")
+        self.attrib = node.findtext("attrib")
 
     @property
     def caption(self):
-        caption_element = self.node.find(".//caption")
+        """Garante que a captura de caption sempre funcione"""
+        caption_element = self.node.find("caption")
         if caption_element is not None:
-            return caption_element.xpath("string()").strip()
+            return "".join(caption_element.itertext()).strip()  # Melhor que XPath "string()"
+        return None
 
     @property
     def data(self):
+        """Garante que label, caption e attrib sejam extraídos corretamente"""
         return {
-            "id": self.id,
             "label": self.label,
-            "caption": self.caption
+            "caption": self.caption,
+            "attrib": self.attrib if self.attrib else None,  # Inclui fonte, se existir
         }
-
-    @property
-    def xml(self):
-        if self.id:
-            return f'<{self.node.tag} id="{self.id}">'
-        return f'<{self.node.tag}>'
