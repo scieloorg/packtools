@@ -1,21 +1,16 @@
+from packtools.sps.models.label_and_caption import LabelAndCaption
 from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
 
 
-class App:
-    def __init__(self, node):
-        self.node = node
-
+class App(LabelAndCaption):
     @property
-    def app_id(self):
+    def id(self):
         return self.node.get("id")
 
     @property
-    def app_label(self):
-        return self.node.findtext("label")
-
-    @property
     def data(self):
-        return {"app_id": self.app_id, "app_label": self.app_label}
+        base_data = super().data or {}
+        return {**base_data, "id": self.id}
 
 
 class AppGroup:
