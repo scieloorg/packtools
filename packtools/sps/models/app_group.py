@@ -1,5 +1,7 @@
+from packtools.sps.models.article_and_subarticles import Fulltext, ArticleAndSubArticles
 from packtools.sps.models.label_and_caption import LabelAndCaption
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.models.media import Media
+from packtools.sps.models.graphic import Graphic
 
 
 class App(LabelAndCaption):
@@ -8,21 +10,40 @@ class App(LabelAndCaption):
         return self.node.get("id")
 
     @property
+    def graphics(self):
+        """Retorna uma lista de dados de gráficos (<graphic>) dentro do <app>."""
+        return [
+            Graphic(graphic).data for graphic in self.node.xpath(".//graphic")
+        ]
+
+    @property
+    def media(self):
+        """Retorna uma lista de dados de mídias (<media>) dentro do <app>."""
+        return [
+            Media(media).data for media in self.node.xpath(".//media")
+        ]
+
+    @property
     def data(self):
+        """Inclui os atributos de LabelAndCaption e adiciona 'id', 'graphics' e 'media'."""
         base_data = super().data or {}
-        return {**base_data, "id": self.id}
+        return {
+            **base_data,
+            "id": self.id,
+            "graphics": self.graphics,
+            "media": self.media,
+        }
 
 
-class AppGroup:
+class XmlAppGroup:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
+        self.article_and_subarticles = ArticleAndSubArticles(xml_tree).article_and_sub_articles
 
     def data(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xml_tree
-        ):
+        for node in self.article_and_subarticles:
+            full_text = Fulltext(node)
+
             for app_node in node.xpath(".//app-group//app"):
                 app_data = App(app_node).data
-                yield put_parent_context(
-                    app_data, lang, article_type, parent, parent_id
-                )
+                yield {**app_data, **full_text.attribs_parent_prefixed}
