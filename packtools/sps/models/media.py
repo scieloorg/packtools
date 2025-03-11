@@ -1,6 +1,5 @@
-from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.label_and_caption import LabelAndCaption
-from packtools.sps.models.visual_resource_base import VisualResourceBase
+from packtools.sps.models.visual_resource_base import VisualResourceBase, XmlVisualResource
 
 
 class BaseMedia(VisualResourceBase):
@@ -42,18 +41,5 @@ class InlineMedia(BaseMedia):
     pass
 
 
-class XmlMedia:
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self.article_and_subarticle = ArticleAndSubArticles(xmltree).article_and_sub_articles
-
-    def data(self):
-        """Gera dados de mídia e inline-media de cada artigo e sub-artigo."""
-        for item in self.article_and_subarticle:
-            node_data = getattr(item, "data", {})
-
-            for media_type, media_class in [("media", Media), ("inline-media", InlineMedia)]:
-                nodes = item.xpath(f".//{media_type}") or []
-                for node in nodes:
-                    media_data = media_class(node).data
-                    yield {**media_data, **node_data}
+class XmlMedia(XmlVisualResource):
+    RESOURCE_TYPES = [("media", Media), ("inline-media", InlineMedia)]
