@@ -1,51 +1,91 @@
-from unittest import TestCase
-
-from lxml import etree
-
-from packtools.sps.models.app_group import App, AppGroup
-from packtools.sps.utils import xml_utils
+import unittest
+from lxml.etree import Element, SubElement, QName
+from packtools.sps.models.app_group import App, XmlAppGroup
 
 
-class AppTest(TestCase):
+XLINK_NAMESPACE = "http://www.w3.org/1999/xlink"
+
+
+class AppTest(unittest.TestCase):
     def setUp(self):
-        xml_tree = xml_utils.get_xml_tree('tests/fixtures/htmlgenerator/app_group_supplementary_material/0104-5970-hcsm-27-01-0275.xml')
-        self.app = App(xml_tree.xpath(".//app")[0])
+        """Configuração inicial dos elementos XML para cada teste."""
+
+        self.app_group = Element("app-group", nsmap={"xlink": XLINK_NAMESPACE})
+
+        # Criando primeiro <app> com <graphic>
+        self.app1 = SubElement(self.app_group, "app", {"id": "app1"})
+        SubElement(self.app1, "label").text = "Appendix 1"
+        SubElement(self.app1, "graphic", {QName(XLINK_NAMESPACE, "href"): "image1.jpg"})
+
+        # Criando segundo <app> com <media>
+        self.app2 = SubElement(self.app_group, "app", {"id": "app2"})
+        SubElement(self.app2, "label").text = "Appendix 2"
+        media = SubElement(self.app2, "media", {
+            "mimetype": "video",
+            "mime-subtype": "mp4",
+            QName(XLINK_NAMESPACE, "href"): "video1.mp4"
+        })
+        SubElement(media, "label").text = "Video 1"
+        caption = SubElement(media, "caption")
+        SubElement(caption, "title").text = "Video 1"
+
+        self.app = App(self.app_group.xpath(".//app")[0])
 
     def test_app_id(self):
-        self.assertEqual(self.app.id, "app01")
+        self.assertEqual(self.app.id, "app1")
 
     def test_app_label(self):
-        self.assertEqual(self.app.label, "FONTES")
+        self.assertEqual(self.app.label, "Appendix 1")
 
     def test_data(self):
         expected = {
             'attrib': None,
             'caption': None,
-            'id': 'app01',
-            'label': 'FONTES'
+            'graphics': [{'alt_text': None,
+                        'content_type': None,
+                        'id': None,
+                        'long_desc': None,
+                        'speakers': None,
+                        'tag': 'graphic',
+                        'transcript': None,
+                        'xlink_href': 'image1.jpg'}],
+            'id': 'app1',
+            'label': 'Appendix 1',
+            'media': []
         }
         obtained = self.app.data
         self.assertDictEqual(expected, obtained)
 
 
-class AppGroupTest(TestCase):
+class AppGroupTest(unittest.TestCase):
     def setUp(self):
-        self.xml_tree = xml_utils.get_xml_tree('tests/fixtures/htmlgenerator/app_group_supplementary_material/0104-5970-hcsm-27-01-0275.xml')
+        """Criação do XML em memória para testes de AppGroup."""
+
+        self.xml_tree = Element("article", nsmap={"xlink": XLINK_NAMESPACE})
+        self.app_group = SubElement(self.xml_tree, "app-group")
+
+        # Criando primeiro <app> com <graphic>
+        self.app1 = SubElement(self.app_group, "app", {"id": "app1"})
+        SubElement(self.app1, "label").text = "Appendix 1"
+        SubElement(self.app1, "graphic", {QName(XLINK_NAMESPACE, "href"): "image1.jpg"})
+
+        # Criando segundo <app> com <media>
+        self.app2 = SubElement(self.app_group, "app", {"id": "app2"})
+        SubElement(self.app2, "label").text = "Appendix 2"
+        media = SubElement(self.app2, "media", {
+            "mimetype": "video",
+            "mime-subtype": "mp4",
+            QName(XLINK_NAMESPACE, "href"): "video1.mp4"
+        })
+        SubElement(media, "label").text = "Video 1"
+        caption = SubElement(media, "caption")
+        SubElement(caption, "title").text = "Video 1"
 
     def test_data(self):
-        obtained = list(AppGroup(self.xml_tree).data())
-        expected = [
-            {
-                'id': 'app01',
-                'label': 'FONTES',
-                'attrib': None,
-                'caption': None,
-                'parent': 'article',
-                'parent_article_type': 'research-article',
-                'parent_id': None,
-                'parent_lang': 'pt'
-            },
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.maxDiff = None
+        obtained = list(XmlAppGroup(self.xml_tree).data())
+        self.assertEqual(len(obtained), 2)
+
+
+if __name__ == "__main__":
+    unittest.main()

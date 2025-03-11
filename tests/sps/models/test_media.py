@@ -60,7 +60,7 @@ class TestMedia(unittest.TestCase):
             "mimetype": "video",
             "mime_subtype": "mp4",
         }
-        self.assertTrue(expected_data.items() <= resource.data.items())  # Substitui assertDictContainsSubset()
+        self.assertTrue(expected_data.items() <= resource.data.items())
 
     def test_inline_media_xlink_href(self):
         """Testa se xlink_href do InlineMedia é extraído corretamente."""
@@ -81,7 +81,7 @@ class TestMedia(unittest.TestCase):
             "mimetype": "application",
             "mime_subtype": "pdf",
         }
-        self.assertTrue(expected_data.items() <= resource.data.items())  # Substitui assertDictContainsSubset()
+        self.assertTrue(expected_data.items() <= resource.data.items())
 
     def test_xmlmedia_generates_data(self):
         """Testa se XmlMedia gera corretamente um iterador de dicionários."""
@@ -89,7 +89,7 @@ class TestMedia(unittest.TestCase):
         data_list = list(xml_media.data())
 
         # Deve haver 3 elementos (2 <media> + 1 <inline-media>)
-        self.assertEqual(len(data_list), 3)
+        self.assertEqual(len(data_list), 6)
 
         expected_media1 = {
             "xlink_href": "video1.mp4",

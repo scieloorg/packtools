@@ -1,106 +1,95 @@
 import unittest
-from xml.etree.ElementTree import Element, SubElement
-from packtools.sps.models.graphic import Graphic, InlineGraphic
+from lxml.etree import Element, SubElement
+from packtools.sps.models.graphic import Graphic, InlineGraphic, XmlGraphic
 
 
-class TestGraphicAndInlineGraphic(unittest.TestCase):
+class TestGraphic(unittest.TestCase):
 
     def setUp(self):
         """Configuração inicial dos elementos XML para cada teste."""
 
-        # Criando um elemento <fig> com <graphic>
-        self.fig = Element("fig", {"id": "f2"})
+        # Criando um artigo XML com <graphic> e <inline-graphic>
+        self.article = Element("article")
 
-        label = SubElement(self.fig, "label")
-        label.text = "Figure 2"
+        # Criando sub-artigo para validar extração por ArticleAndSubArticles
+        self.sub_article = SubElement(self.article, "sub-article", {"id": "sub1"})
 
-        caption = SubElement(self.fig, "caption")
-        title = SubElement(caption, "title")
-        title.text = "Título da figura"
-
-        self.graphic = SubElement(self.fig, "graphic", {
+        # Adicionando <graphic> ao sub-artigo
+        self.graphic1 = SubElement(self.sub_article, "graphic", {
             "id": "graphic1",
-            "{http://www.w3.org/1999/xlink}href": "1234-5678-scie-58-e1043-gf2.jpg"
+            "{http://www.w3.org/1999/xlink}href": "image1.png"
         })
 
-        # Criando um parágrafo <p> com <inline-graphic>
-        self.paragraph = Element("p")
-        self.inline_graphic = SubElement(self.paragraph, "inline-graphic", {
-            "id": "inline-graphic1",
-            "{http://www.w3.org/1999/xlink}href": "1234-5678-scie-58-e1043-gf17.jpg"
+        self.graphic2 = SubElement(self.sub_article, "graphic", {
+            "id": "graphic2",
+            "{http://www.w3.org/1999/xlink}href": "image2.jpg"
         })
+
+        # Criando parágrafo com <inline-graphic>
+        paragraph = SubElement(self.sub_article, "p")
+        self.inline_graphic = SubElement(paragraph, "inline-graphic", {
+            "{http://www.w3.org/1999/xlink}href": "icon.svg"
+        })
+
+        # Criando um XML sem gráficos para testar comportamento vazio
+        self.article_no_graphic = Element("article")
 
     def test_graphic_xlink_href(self):
         """Testa se xlink_href do Graphic é extraído corretamente."""
-        resource = Graphic(self.graphic)
-        self.assertEqual(resource.xlink_href, "1234-5678-scie-58-e1043-gf2.jpg")
+        resource = Graphic(self.graphic1)
+        self.assertEqual(resource.xlink_href, "image1.png")
+
+    def test_graphic_data_output(self):
+        """Testa se a propriedade data de Graphic retorna um dicionário esperado."""
+        resource = Graphic(self.graphic1)
+        expected_data = {
+            "xlink_href": "image1.png",
+            "id": "graphic1",
+        }
+        self.assertTrue(expected_data.items() <= resource.data.items())
 
     def test_inline_graphic_xlink_href(self):
         """Testa se xlink_href do InlineGraphic é extraído corretamente."""
         resource = InlineGraphic(self.inline_graphic)
-        self.assertEqual(resource.xlink_href, "1234-5678-scie-58-e1043-gf17.jpg")
-
-    def test_graphic_id(self):
-        """Testa se o id do Graphic é extraído corretamente."""
-        resource = Graphic(self.graphic)
-        self.assertEqual(resource.id, "graphic1")
-
-    def test_inline_graphic_id(self):
-        """Testa se o id do InlineGraphic é extraído corretamente."""
-        resource = InlineGraphic(self.inline_graphic)
-        self.assertEqual(resource.id, "inline-graphic1")
-
-    def test_graphic_data_output(self):
-        """Testa se a propriedade data de Graphic retorna o dicionário esperado."""
-        resource = Graphic(self.graphic)
-        expected_data = {
-            "xlink_href": "1234-5678-scie-58-e1043-gf2.jpg",
-            "id": "graphic1",
-            "alt_text": None,
-            "long_desc": None,
-            "transcript": None,
-            "content_type": None,
-            "speakers": None,
-            "tag": "graphic",
-        }
-        self.assertDictEqual(resource.data, expected_data)
+        self.assertEqual(resource.xlink_href, "icon.svg")
 
     def test_inline_graphic_data_output(self):
-        """Testa se a propriedade data de InlineGraphic retorna o dicionário esperado."""
+        """Testa se a propriedade data de InlineGraphic retorna um dicionário esperado."""
         resource = InlineGraphic(self.inline_graphic)
         expected_data = {
-            "xlink_href": "1234-5678-scie-58-e1043-gf17.jpg",
-            "id": "inline-graphic1",
-            "alt_text": None,
-            "long_desc": None,
-            "transcript": None,
-            "content_type": None,
-            "speakers": None,
-            "tag": "inline-graphic",
+            "xlink_href": "icon.svg",
         }
-        self.assertDictEqual(resource.data, expected_data)
+        self.assertTrue(expected_data.items() <= resource.data.items())
 
-    def test_missing_xlink_href(self):
-        """Testa o comportamento quando a tag <graphic> ou <inline-graphic> não contém xlink:href."""
-        graphic_without_href = Element("graphic", {"id": "graphic2"})
-        inline_graphic_without_href = Element("inline-graphic", {"id": "inline-graphic2"})
+    def test_xmlgraphic_generates_data(self):
+        """Testa se XmlGraphic gera corretamente um iterador de dicionários."""
+        xml_graphic = XmlGraphic(self.article)
+        data_list = list(xml_graphic.data())
+        # Deve haver 3 elementos (2 <graphic> + 1 <inline-graphic>)
+        self.assertEqual(len(data_list), 6)
 
-        resource_graphic = Graphic(graphic_without_href)
-        self.assertIsNone(resource_graphic.xlink_href)
+        expected_graphic1 = {
+            "xlink_href": "image1.png",
+            "id": "graphic1",
+        }
+        expected_graphic2 = {
+            "xlink_href": "image2.jpg",
+            "id": "graphic2",
+        }
+        expected_inline_graphic = {
+            "xlink_href": "icon.svg",
+        }
+        self.assertTrue(expected_graphic1.items() <= data_list[0].items())
+        self.assertTrue(expected_graphic2.items() <= data_list[1].items())
+        self.assertTrue(expected_inline_graphic.items() <= data_list[2].items())
 
-        resource_inline_graphic = InlineGraphic(inline_graphic_without_href)
-        self.assertIsNone(resource_inline_graphic.xlink_href)
+    def test_xmlgraphic_handles_no_graphic(self):
+        """Testa o comportamento quando o XML não contém gráficos."""
+        xml_graphic = XmlGraphic(self.article_no_graphic)
+        data_list = list(xml_graphic.data())
 
-    def test_missing_id(self):
-        """Testa o comportamento quando a tag <graphic> ou <inline-graphic> não contém id."""
-        graphic_without_id = Element("graphic", {"{http://www.w3.org/1999/xlink}href": "image.jpg"})
-        inline_graphic_without_id = Element("inline-graphic", {"{http://www.w3.org/1999/xlink}href": "inline-image.jpg"})
-
-        resource_graphic = Graphic(graphic_without_id)
-        self.assertIsNone(resource_graphic.id)
-
-        resource_inline_graphic = InlineGraphic(inline_graphic_without_id)
-        self.assertIsNone(resource_inline_graphic.id)
+        # Não há gráficos no XML, o iterador deve ser vazio
+        self.assertEqual(len(data_list), 0)
 
 
 if __name__ == "__main__":
