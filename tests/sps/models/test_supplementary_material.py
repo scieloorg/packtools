@@ -49,9 +49,6 @@ class SupplementaryMaterialTest(unittest.TestCase):
     def test_xlink_href(self):
         self.assertEqual(self.supp.xlink_href, "supplementary1.pdf")
 
-    def test_media_type(self):
-        self.assertEqual(self.supp.media_type, "media")
-
     def test_xml(self):
         self.assertEqual(self.supp.xml, '<supplementary-material id="supp01">')
 
@@ -94,7 +91,7 @@ class SupplementaryMaterialTest(unittest.TestCase):
 
 class XmlSupplementaryMaterialsTest(unittest.TestCase):
     def setUp(self):
-        xml_str = """
+        self.xml_str = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">
             <body>
                 <supplementary-material id="supp01">
@@ -109,13 +106,46 @@ class XmlSupplementaryMaterialsTest(unittest.TestCase):
                     </supplementary-material>
                 </sec>
             </body>
+            <sub-article id="subart01">
+                <body>
+                    <supplementary-material id="supp03">
+                        <label>Supplementary Material 3</label>
+                        <graphic xlink:href="supplementary3.jpg"/>
+                    </supplementary-material>
+                </body>
+            </sub-article>
         </article>
         """
-        self.xml_tree = etree.fromstring(xml_str)
+        self.xml_tree = etree.fromstring(self.xml_str)
+        self.supplementary_materials = XmlSupplementaryMaterials(self.xml_tree)
 
-    def test_items(self):
-        obtained = list(XmlSupplementaryMaterials(self.xml_tree).items)
-        self.assertEqual(len(obtained), 2)
+    def test_items_by_id(self):
+        items_by_id = self.supplementary_materials.items_by_id
+
+        # Verifica se os materiais suplementares estão organizados corretamente
+        self.assertIn("main_article", items_by_id)  # Agora, "main_article" representa o artigo sem @id
+        self.assertIn("subart01", items_by_id)  # Subartigo continua com seu próprio @id
+
+        # Verifica se o artigo principal contém dois materiais suplementares
+        self.assertEqual(len(items_by_id["main_article"]), 2)
+
+        # Verifica se o subartigo contém um material suplementar
+        self.assertEqual(len(items_by_id["subart01"]), 1)
+
+        # Verifica se os IDs dos materiais suplementares estão corretos
+        supp_ids_main_article = [item["id"] for item in items_by_id["main_article"]]
+        self.assertIn("supp01", supp_ids_main_article)
+        self.assertIn("supp02", supp_ids_main_article)
+
+        supp_ids_subarticle = [item["id"] for item in items_by_id["subart01"]]
+        self.assertIn("supp03", supp_ids_subarticle)
+
+        # Verifica se os dados do primeiro material suplementar estão corretos
+        supp1_data = next(item for item in items_by_id["main_article"] if item["id"] == "supp01")
+        self.assertEqual(supp1_data["parent_suppl_mat"], "body")
+        self.assertEqual(supp1_data["mimetype"], "application")
+        self.assertEqual(supp1_data["mime_subtype"], "pdf")
+        self.assertEqual(supp1_data["xlink_href"], "supplementary1.pdf")
 
 if __name__ == "__main__":
     unittest.main()
