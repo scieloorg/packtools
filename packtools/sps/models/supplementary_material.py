@@ -1,5 +1,6 @@
 from lxml import etree
 
+from packtools.sps.models.graphic import Graphic
 from packtools.sps.models.label_and_caption import LabelAndCaption
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.media import Media
@@ -7,14 +8,21 @@ from packtools.sps.models.media import Media
 class SupplementaryMaterial(LabelAndCaption):
     def __init__(self, node):
         super().__init__(node)
+        self.id = node.get("id")
         self._parent_node = node.getparent()
-        media_nodes = node.xpath("./media | ./graphic")
+        media_nodes = node.xpath("./media")
+        graphic_nodes = node.xpath("./graphic")
         self.media_node = media_nodes[0] if media_nodes else None
         self.media = Media(self.media_node) if self.media_node is not None else None
+        self.graphic_node = graphic_nodes[0] if graphic_nodes else None
+        self.graphic = Graphic(self.graphic_node) if self.graphic_node is not None else None
 
     def __getattr__(self, name):
         if self.media is not None and hasattr(self.media, name):
             return getattr(self.media, name)
+
+        if self.graphic is not None and hasattr(self.graphic, name):
+            return getattr(self.graphic, name)
 
         if hasattr(super(), name):
             return getattr(super(), name)
@@ -62,12 +70,13 @@ class XmlSupplementaryMaterials:
     def items_by_id(self):
         supp_dict = {}
         for node in self.xml_tree.xpath(". | sub-article"):
-            supp_dict[node.get("id")] = []
+            node_id = node.get("id") if node.get("id") else "main_article"
+            supp_dict.setdefault(node_id, [])
             full_text = Fulltext(node)
             for supp_node in full_text.node.xpath(".//supplementary-material"):
                 supp_data = SupplementaryMaterial(supp_node).data
                 supp_data.update(full_text.attribs_parent_prefixed)
-                supp_dict[node.get("id")].append(supp_data)
+                supp_dict[node_id].append(supp_data)
         return supp_dict
 
     @property
