@@ -48,9 +48,11 @@ class SupplementaryMaterial(LabelAndCaption):
     def data(self):
         base_data = super().data.copy()
         base_data.update(self.media.data if self.media else {})
+        base_data.update(self.graphic.data if self.graphic else {})
         base_data.update({
             "parent_suppl_mat": self.parent_tag,
             "sec_type": self.sec_type,
+            "visual_elem": "media" if self.media else "graphic"
         })
 
         return base_data
