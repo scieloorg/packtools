@@ -1,19 +1,10 @@
-from lxml import etree
+from packtools.sps.models.accessibility_data import AccessibilityData
 from packtools.sps.validation.utils import build_response
 
 
 class AccessibilityDataValidation:
-    def __init__(self, accessibility_data, xml_tree, params):
-        """
-        Initializes accessibility validation for multimedia elements.
-
-        Args:
-            accessibility_data (dict): Accessibility data extracted from the model
-            xml_tree (etree.ElementTree): XML tree of the article
-            params (dict): Validation configuration parameters
-        """
-        self.accessibility_data = accessibility_data
-        self.xml_tree = xml_tree
+    def __init__(self, node, params):
+        self.accessibility_data = AccessibilityData(node).data
         self.params = params
 
     def validate(self):
@@ -25,8 +16,6 @@ class AccessibilityDataValidation:
         yield self.validate_transcript()
         yield self.validate_content_type()
         yield self.validate_speaker_and_speech()
-        yield self.validate_media_structure()
-        yield self.validate_cross_references()
 
     def validate_alt_text(self):
         """Validates that <alt-text> has a maximum of 120 characters and contains only allowed characters."""
@@ -118,10 +107,10 @@ class AccessibilityDataValidation:
             data=self.accessibility_data
         )
 
-    def validate_media_structure(self):
+    def validate_media_structure(self): # corrigir o nome do método
         """Checks if accessibility elements are correctly structured within media."""
-        valid_tags = {"graphic", "inline-graphic", "media", "inline-media"}
-        valid = self.accessibility_data.get("media_type") in valid_tags
+        valid_tags = {"graphic", "inline-graphic", "media", "inline-media"} # parâmetro
+        valid = self.accessibility_data.get("tag") in valid_tags
         return build_response(
             title="Media structure validation",
             parent=self.accessibility_data,
@@ -133,23 +122,5 @@ class AccessibilityDataValidation:
             obtained=self.accessibility_data.get("media_type"),
             advice="Ensure that accessibility elements are placed within appropriate media types.",
             error_level=self.params["media_structure_error_level"],
-            data=self.accessibility_data
-        )
-
-    def validate_cross_references(self):
-        """Checks cross-references between media and transcripts."""
-        media_refs = self.accessibility_data.get("xref_refs", [])
-        valid = bool(media_refs)
-        return build_response(
-            title="Cross-references validation",
-            parent=self.accessibility_data,
-            item="xref",
-            sub_item=None,
-            is_valid=valid,
-            validation_type="exist",
-            expected="Reference present",
-            obtained="Missing" if not media_refs else "Present",
-            advice="Ensure that media references a transcript.",
-            error_level=self.params["cross_references_error_level"],
             data=self.accessibility_data
         )
