@@ -1,14 +1,15 @@
 {
     "supplementary_material": {
-        "supplementary_material_structure_error_level": "CRITICAL",
-        "supplementary_material_attributes_error_level": "CRITICAL",
-        "supplementary_material_language_error_level": "CRITICAL",
-        "supplementary_material_position_error_level": "CRITICAL",
-        "supplementary_material_format_error_level": "CRITICAL",
-        "supplementary_material_in_app_group_error_level": "CRITICAL",
-        "inline_supplementary_material_error_level": "CRITICAL",
-        "supplementary_material_sec_attributes_error_level": "CRITICAL",
-        "supplementary_material_midia_attributes_error_level": "CRITICAL",
-        "supplementary_material_midia_accessibility_requirements_error_level": "CRITICAL"
+        "sec_type_error_level": "CRITICAL",
+        "position_error_level": "CRITICAL",
+        "label_error_level": "CRITICAL",
+        "app_group_error_level": "CRITICAL",
+        "inline_error_level": "CRITICAL",
+        "mime_correspondence": {
+            "pdf": "application",
+            "zip": "application",
+            "mp4": "video",
+            "mp3": "audio"
+        }
     }
 }
