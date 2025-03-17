@@ -41,5 +41,5 @@ class InlineMedia(BaseMedia):
     pass
 
 
-class XmlMedia(XmlVisualResource):
+class XmlMedias(XmlVisualResource):
     RESOURCE_TYPES = [("media", Media), ("inline-media", InlineMedia)]
