@@ -1,6 +1,6 @@
 import unittest
 from lxml.etree import Element, SubElement
-from packtools.sps.models.media import Media, InlineMedia, XmlMedia
+from packtools.sps.models.media import Media, InlineMedia, XmlMedias
 
 
 class TestMedia(unittest.TestCase):
@@ -85,7 +85,7 @@ class TestMedia(unittest.TestCase):
 
     def test_xmlmedia_generates_data(self):
         """Testa se XmlMedia gera corretamente um iterador de dicionários."""
-        xml_media = XmlMedia(self.article)
+        xml_media = XmlMedias(self.article)
         data_list = list(xml_media.data())
 
         # Deve haver 3 elementos (2 <media> + 1 <inline-media>)
@@ -112,7 +112,7 @@ class TestMedia(unittest.TestCase):
 
     def test_xmlmedia_handles_no_media(self):
         """Testa o comportamento quando o XML não contém mídias."""
-        xml_media = XmlMedia(self.article_no_media)
+        xml_media = XmlMedias(self.article_no_media)
         data_list = list(xml_media.data())
 
         # Não há mídia no XML, o iterador deve ser vazio
