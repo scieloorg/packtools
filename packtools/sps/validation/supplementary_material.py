@@ -2,96 +2,64 @@ from lxml import etree
 from langdetect import detect
 from packtools.sps.models.supplementary_material import XmlSupplementaryMaterials
 from packtools.sps.models.media import XmlMedias
+from packtools.sps.models.graphic import Graphic, XmlGraphic
+from packtools.sps.validation.graphic import GraphicValidation
 from packtools.sps.validation.media import MediaValidation
 from packtools.sps.validation.utils import build_response
 
 
 class SupplementaryMaterialValidation:
-    def __init__(self, supp, xml_tree, params):
+    def __init__(self, data, xml_tree, params, node=None):
         """
         Inicializa a validação de um material suplementar.
 
         Args:
             supp (dict): Dados do material suplementar extraídos do modelo
         """
-        self.supp = supp
-        self.article_lang = supp.get("parent_lang")
-        self.xml_tree = xml_tree
+        self.data = data
         self.params = params
-        self.media_data = XmlMedias(xml_tree).items
+        self.xml_tree = xml_tree
+        self.node = node
 
     def validate(self):
         """
         Executa todas as validações definidas.
         """
-        yield self.validate_structure()
-        yield self.validate_id()
-        yield self.validate_language()
+        yield self.validate_sec_type()
         yield self.validate_position()
-        yield self.validate_format()
+
+        for media in self.node.xpath(".//media"):
+            if media.data:
+                yield from MediaValidation(media.data, self.params).validate()
+
+        for graphic in self.node.xpath(".//graphic"):
+            if graphic.data:
+                yield from GraphicValidation(graphic, self.params).validate()
+
         yield self.validate_not_in_app_group()
         yield self.validate_sec_type()
-        for media in self.media_data:
-            yield from MediaValidation(media, self.xml_tree, self.params).validate()
 
-    def validate_structure(self):
-        """
-        Ensures that supplementary materials are inside <sec sec-type="supplementary-material">.
-        """
-        valid = self.supp.get("parent_tag") == "sec" and self.supp.get("parent_attrib_type") == "supplementary-material"
-        return build_response(
-            title="Supplementary material structure",
-            parent=self.supp,
-            item="supplementary-material",
-            sub_item="parent sec-type",
-            is_valid=valid,
-            validation_type="structure",
-            expected="Inside <sec sec-type='supplementary-material'>",
-            obtained=self.supp.get("parent_tag"),
-            advice="Supplementary materials must be inside <sec sec-type='supplementary-material'>.",
-            error_level=self.params["supplementary_material_structure_error_level"],
-            data=self.supp
-        )
 
-    def validate_id(self):
+    def validate_sec_type(self):
         """
-        Verifies the presence of required attribute id in supplementary materials.
+        Verifica se <supplementary-material> está inserido em <sec>, caso esteja, valida @sec-type="supplementary-material"
         """
-        valid = bool(self.supp.get("id"))
-        return build_response(
-            title="ID",
-            parent=self.supp,
-            item="supplementary-material",
-            sub_item="@id",
-            is_valid=valid,
-            validation_type="exist",
-            expected='<supplementary-material id="">',
-            obtained=f'<supplementary-material id="{self.supp.get('id')}">',
-            advice='Add supplementary material with id="" in <supplementary-material>: <supplementary-material id="">. Consult SPS documentation for more detail.',
-            error_level=self.params["supplementary_material_attributes_error_level"],
-            data=self.supp
-        )
-
-    def validate_language(self):
-        """
-        Verifies if the language of the supplementary material is consistent with the article's language.
-        """
-        label_text = self.supp.get("label", "")
-        detected_lang = detect(label_text) if label_text else "unknown"
-        valid = detected_lang == self.article_lang
-        return build_response(
-            title="Consistency of language between article and supplementary material",
-            parent=self.supp,
-            item="supplementary-material",
-            sub_item="language",
-            is_valid=valid,
-            validation_type="match",
-            expected=self.article_lang,
-            obtained=detected_lang,
-            advice=f"The language of the supplementary material ({detected_lang}) differs from the language of the article ({self.article_lang}).",
-            error_level=self.params["supplementary_material_language_error_level"],
-            data=self.supp
-        )
+        if self.data.get("parent_suppl_mat") == "sec":
+            sec_type = self.data.get("sec_type")
+            valid = sec_type == "supplementary-material"
+            return build_response(
+                title="@sec-type",
+                parent=self.data,
+                item="sec",
+                sub_item="supplementary-material",
+                is_valid=valid,
+                validation_type="match",
+                expected="<sec sec-type='supplementary-material'>",
+                obtained=self.data.get("parent_tag"),
+                advice=f'In <sec sec-type="{sec_type}"><supplementary-material> replace "{sec_type}" with "supplementary-material".',
+                error_level=self.params["sec_type_error_level"],
+                data=self.data
+            )
 
     def validate_position(self):
         """
@@ -99,7 +67,7 @@ class SupplementaryMaterialValidation:
         """
         article_body = self.xml_tree.find("body")
         article_back = self.xml_tree.find("back")
-        parent_tag = self.supp.get("parent_tag")
+        parent_tag = self.data.get("parent_tag")
 
         is_last_in_body = False
         is_in_back = False
@@ -117,62 +85,55 @@ class SupplementaryMaterialValidation:
 
         return build_response(
             title="Position of supplementary materials",
-            parent=self.supp,
+            parent=self.data,
             item="supplementary-material",
-            sub_item="position",
+            sub_item=None,
             is_valid=valid,
             validation_type="position",
             expected="Last section of <body> or inside <back>",
             obtained=parent_tag,
             advice="The supplementary materials section must be at the end of <body> or inside <back>.",
-            error_level=self.params["supplementary_material_position_error_level"],
-            data=self.supp
+            error_level=self.params["position_error_level"],
+            data=self.data
         )
 
-    def validate_format(self):
+    def validate_label(self):
         """
-        Ensures that the supplementary material type matches the correct markup.
+        Verifica a presença obrigatória de <label>
         """
-        expected_format = {
-            "application/pdf": "media",
-            "image/jpeg": "graphic",
-            "video/mp4": "media",
-            "audio/mp3": "media",
-            "application/zip": "media",
-        }
-        valid = expected_format.get(self.supp.get("mimetype")) == self.supp.get("media_type")
-        print(expected_format.get(self.supp.get("mimetype")), self.supp.get("media_type"))
+        label = self.data.get("label")
+        valid = bool(label)
         return build_response(
-            title="Correct format of supplementary material",
-            parent=self.supp,
+            title="label",
+            parent=self.data,
             item="supplementary-material",
-            sub_item="format",
+            sub_item="label",
             is_valid=valid,
-            validation_type="match",
-            expected=expected_format.get(self.supp.get("mimetype")),
-            obtained=self.supp.get("media_type"),
-            advice=f"Incorrect format. Expected: {expected_format.get(self.supp.get('mimetype'))} for {self.supp.get('mimetype')}.",
-            error_level=self.params["supplementary_material_format_error_level"],
-            data=self.supp
+            validation_type="exist",
+            expected='<label> in <supplementary-material>',
+            obtained=label,
+            advice='Add label in <supplementary-material>: <supplementary-material><label>. Consult SPS documentation for more detail.',
+            error_level=self.params["label_error_level"],
+            data=self.data
         )
 
     def validate_not_in_app_group(self):
         """
         Ensures that <supplementary-material> does not occur inside <app-group> and <app>.
         """
-        valid = self.supp.get("parent_suppl_mat") not in ["app-group", "app"]
+        valid = self.data.get("parent_suppl_mat") not in ["app-group", "app"]
         return build_response(
             title="Prohibition of <supplementary-material> inside <app-group> and <app>",
-            parent=self.supp,
+            parent=self.data,
             item="supplementary-material",
             sub_item="parent",
             is_valid=valid,
             validation_type="forbidden",
             expected="Outside <app-group> and <app>",
-            obtained=self.supp.get("parent_tag"),
+            obtained=self.data.get("parent_tag"),
             advice="Do not use <supplementary-material> inside <app-group> or <app>.",
-            error_level=self.params["supplementary_material_in_app_group_error_level"],
-            data=self.supp
+            error_level=self.params["app_group_error_level"],
+            data=self.data
         )
 
     def validate_prohibited_inline(self):
@@ -186,7 +147,7 @@ class SupplementaryMaterialValidation:
 
         return build_response(
             title="Prohibition of inline-supplementary-material",
-            parent=self.supp,
+            parent=self.data,
             item="inline-supplementary-material",
             sub_item=None,
             is_valid=valid,
@@ -194,27 +155,9 @@ class SupplementaryMaterialValidation:
             expected="No <inline-supplementary-material>",
             obtained=obtained,
             advice="The use of <inline-supplementary-material> is prohibited.",
-            error_level=self.params["inline_supplementary_material_error_level"],
-            data=self.supp
+            error_level=self.params["inline_error_level"],
+            data=self.data
         )
-
-    def validate_sec_type(self):
-        """Checks if all <sec> elements containing <supplementary-material> have @sec-type='supplementary-material'."""
-        valid = self.supp.get("parent_tag") == "sec" and self.supp.get("parent_type") == "supplementary-material"
-        return build_response(
-            title="Mandatory attribute in <sec>",
-            parent=self.supp,
-            item="sec",
-            sub_item="sec-type",
-            is_valid=valid,
-            validation_type="exist",
-            expected="sec-type='supplementary-material'",
-            obtained=self.supp.get("parent_type"),
-            advice="Every section containing <supplementary-material> must have sec-type='supplementary-material'.",
-            error_level=self.params["supplementary_material_sec_attributes_error_level"],
-            data=self.supp
-        )
-
 
 class ArticleSupplementaryMaterialValidation:
     def __init__(self, xml_tree, params):
