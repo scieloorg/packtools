@@ -1,10 +1,11 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.models.label_and_caption import LabelAndCaption
+from packtools.sps.models.visual_resource_base import (
+    VisualResourceBase,
+    XmlVisualResource,
+)
 
 
-class Media:
-    def __init__(self, node):
-        self.node = node
-
+class BaseMedia(VisualResourceBase):
     @property
     def mimetype(self):
         return self.node.get("mimetype")
@@ -14,28 +15,34 @@ class Media:
         return self.node.get("mime-subtype")
 
     @property
-    def xlink_href(self):
-        return self.node.get("{http://www.w3.org/1999/xlink}href")
+    def data(self):
+        base_data = super().data
+
+        media_data = {
+            "mimetype": self.mimetype,
+            "mime_subtype": self.mime_subtype,
+        }
+
+        combined_data = {**base_data, **media_data}
+        return combined_data
+
+
+class Media(BaseMedia, LabelAndCaption):
+    def __init__(self, node):
+        BaseMedia.__init__(self, node)  # Chama o __init__ de BaseMedia
+        LabelAndCaption.__init__(self, node)  # Chama o __init__ de LabelAndCaption
 
     @property
     def data(self):
-        return {
-            "mimetype": self.mimetype,
-            "mime_subtype": self.mime_subtype,
-            "xlink_href": self.xlink_href,
-        }
+        base_data = super().data
+        label_caption_data = LabelAndCaption.data.fget(self)
+
+        return {**base_data, **label_caption_data}
 
 
-class ArticleMedias:
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
+class InlineMedia(BaseMedia):
+    pass
 
-    def data(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xml_tree
-        ):
-            for media_node in node.xpath(".//media"):
-                media_data = Media(media_node).data
-                yield put_parent_context(
-                    media_data, lang, article_type, parent, parent_id
-                )
+
+class XmlMedias(XmlVisualResource):
+    RESOURCE_TYPES = [("media", Media), ("inline-media", InlineMedia)]
