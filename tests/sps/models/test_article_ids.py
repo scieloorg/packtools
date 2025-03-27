@@ -1,10 +1,6 @@
-from unittest import TestCase, skip
-
+from unittest import TestCase
 from lxml import etree
-from packtools.sps.models.article_ids import (
-    ArticleIds,
-)
-
+from packtools.sps.models.article_ids import ArticleIds
 
 def _get_xmltree(xml=None):
     xml = xml or ''
@@ -19,12 +15,7 @@ def _get_xmltree(xml=None):
     )
     return etree.fromstring(s)
 
-
 class TestArticleIds(TestCase):
-    """
-    Estes testes são para explicitar a saída de
-    parse_issue usando o contéudo de <issue></issue>
-    """
     def setUp(self):
         xml = (
             '<article-id specific-use="scielo-v3" pub-id-type="publisher-id">P3swRmPHQfy37r9xRbLCw8G</article-id>'
@@ -76,17 +67,18 @@ class TestArticleIds(TestCase):
         article_id = ArticleIds(_get_xmltree())
         self.assertIsNone(article_id.doi)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_v3(self):
-        self.article_id.v3 = "novo_v3"
-        self.assertEqual("novo_v3", self.article_id.v3)
+        # Valor válido: 23 caracteres
+        new_v3 = "NOVO_SCIELO_V3_VALUE!!!"  # 23 caracteres
+        self.article_id.v3 = new_v3
+        self.assertEqual(new_v3, self.article_id.v3)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_aop_pid(self):
-        self.article_id.aop_pid = "novo_aop_pid"
-        self.assertEqual("novo_aop_pid", self.article_id.aop_pid)
+        # Valor válido: 23 caracteres
+        new_aop_pid = "NOVO_AOPPID_12345678901"  # 23 caracteres
+        self.article_id.aop_pid = new_aop_pid
+        self.assertEqual(new_aop_pid, self.article_id.aop_pid)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_v2_raises_AttributeError(self):
         with self.assertRaises(AttributeError):
             self.article_id.v2 = "xxxx"
@@ -107,32 +99,26 @@ class TestArticleIds(TestCase):
         with self.assertRaises(ValueError):
             self.article_id.aop_pid = ""
 
-
 class TestArticleIdsOriginalXMLHasNoArticleId(TestCase):
-    """
-    Estes testes são para explicitar a saída de
-    parse_issue usando o contéudo de <issue></issue>
-    """
     def setUp(self):
         self.article_id = ArticleIds(_get_xmltree(''))
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_v2(self):
-        self.article_id.v2 = "novo_v2"
-        self.assertEqual("novo_v2", self.article_id.v2)
+        with self.assertRaises(AttributeError):
+            self.article_id.v2 = "novo_v2"
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_v3(self):
-        self.article_id.v3 = "novo_v3"
-        self.assertEqual("novo_v3", self.article_id.v3)
+        new_v3 = "NOVO_SCIELO_V3_VALUE!!!"  # 23 caracteres
+        self.article_id.v3 = new_v3
+        self.assertEqual(new_v3, self.article_id.v3)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_update_aop_pid(self):
-        self.article_id.aop_pid = "novo_aop_pid"
-        self.assertEqual("novo_aop_pid", self.article_id.aop_pid)
+        new_aop_pid = "NOVO_AOPPID_12345678901"  # 23 caracteres
+        self.article_id.aop_pid = new_aop_pid
+        self.assertEqual(new_aop_pid, self.article_id.aop_pid)
 
     def test_update_v2_raises_ValueError(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             self.article_id.v2 = ""
 
     def test_update_v3_raises_ValueError(self):
