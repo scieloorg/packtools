@@ -25,20 +25,19 @@ class VisualResourceBase:
 
 
 class XmlVisualResource:
-    RESOURCE_TYPES = []
-
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, resource_types=None):
         self.xmltree = xmltree
         self.article_and_subarticles = ArticleAndSubArticles(
             xmltree
         ).article_and_sub_articles
+        self.resource_types = resource_types if resource_types else []
 
     def data(self):
         """Gera dados dos recursos visuais de cada artigo e sub-artigo."""
         for node in self.article_and_subarticles:
             full_text = Fulltext(node)
 
-            for resource_type, resource_class in self.RESOURCE_TYPES:
+            for resource_type, resource_class in self.resource_types:
                 resource_nodes = node.xpath(f".//{resource_type}") or []
                 for resource_node in resource_nodes:
                     resource_instance = resource_class(resource_node)
