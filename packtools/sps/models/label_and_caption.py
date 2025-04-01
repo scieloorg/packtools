@@ -16,5 +16,5 @@ class LabelAndCaption:
         return {
             "label": self.label,
             "caption": self.caption,
-            "attrib": self.attrib if self.attrib else None,  # Inclui fonte, se existir
+            "attrib": self.attrib,
         }
