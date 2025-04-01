@@ -1,0 +1,13 @@
+{
+    "accessibility_data_rules": {
+        "alt_text_error_level": "CRITICAL",
+        "long_desc_error_level": "CRITICAL",
+        "transcript_error_level": "CRITICAL",
+        "content_type_error_level": "CRITICAL",
+        "speaker_speech_error_level": "CRITICAL",
+        "media_structure_error_level": "CRITICAL",
+        "content_types": [
+            "machine-generated"
+        ]
+    }
+}
