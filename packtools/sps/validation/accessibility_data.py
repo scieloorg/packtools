@@ -1,4 +1,6 @@
 from packtools.sps.models.accessibility_data import AccessibilityData
+from sympy.physics.vector.printing import params
+
 from packtools.sps.validation.utils import build_response
 
 
@@ -74,7 +76,7 @@ class AccessibilityDataValidation:
     def validate_content_type(self):
         """Validates the @content-type attribute for machine-generated content when applicable."""
         content_type = self.accessibility_data.get("content_type")
-        valid = content_type == "machine-generated"
+        valid = content_type in self.params["content_types"]
         return build_response(
             title="@content-type validation",
             parent=self.accessibility_data,
@@ -82,9 +84,9 @@ class AccessibilityDataValidation:
             sub_item=None,
             is_valid=valid,
             validation_type="match",
-            expected="machine-generated",
+            expected=self.params["content_types"],
             obtained=content_type,
-            advice="If applicable, use 'machine-generated' as the content-type.",
+            advice=f'In <long-desc> or <alt-text> replace @content-type by one of {self.params["content_types"]}',
             error_level=self.params["content_type_error_level"],
             data=self.accessibility_data,
         )
