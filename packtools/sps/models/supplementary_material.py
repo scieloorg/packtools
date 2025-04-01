@@ -11,12 +11,16 @@ class SupplementaryMaterial(LabelAndCaption):
         self._parent_node = node.getparent()
         media_nodes = node.xpath("./media")
         graphic_nodes = node.xpath("./graphic")
-        self.media_node = media_nodes[0] if media_nodes else None
-        self.media = Media(self.media_node) if self.media_node is not None else None
-        self.graphic_node = graphic_nodes[0] if graphic_nodes else None
-        self.graphic = (
-            Graphic(self.graphic_node) if self.graphic_node is not None else None
-        )
+        if media_nodes:
+            self.media_node = media_nodes[0]
+            self.media = Media(self.media_node)
+            self.graphic_node = None
+            self.graphic = None
+        elif graphic_nodes:
+            self.media_node = None
+            self.media = None
+            self.graphic_node = graphic_nodes[0]
+            self.graphic = Graphic(self.graphic_node)
 
     def __getattr__(self, name):
         if self.media is not None and hasattr(self.media, name):
