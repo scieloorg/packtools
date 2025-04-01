@@ -13,4 +13,6 @@ class InlineGraphic(Graphic):
 
 
 class XmlGraphic(XmlVisualResource):
-    RESOURCE_TYPES = [("graphic", Graphic), ("inline-graphic", InlineGraphic)]
+    def __init__(self, xmltree):
+        resource_types = [("graphic", Graphic), ("inline-graphic", InlineGraphic)]
+        super().__init__(xmltree, resource_types=resource_types)
