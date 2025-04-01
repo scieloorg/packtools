@@ -75,7 +75,7 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         self.assertEqual(results["response"], "CRITICAL")
         self.assertEqual(
             results["advice"],
-            "If applicable, use 'machine-generated' as the content-type.",
+            "In <long-desc> or <alt-text> replace @content-type by one of ['machine-generated']",
         )
 
     def test_validate_speaker_and_speech_failure(self):
