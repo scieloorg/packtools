@@ -45,4 +45,6 @@ class InlineMedia(BaseMedia):
 
 
 class XmlMedias(XmlVisualResource):
-    RESOURCE_TYPES = [("media", Media), ("inline-media", InlineMedia)]
+    def __init__(self, xmltree):
+        resource_types = [("media", Media), ("inline-media", InlineMedia)]
+        super().__init__(xmltree, resource_types=resource_types)
