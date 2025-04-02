@@ -1,0 +1,15 @@
+{
+    "supplementary_material": {
+        "sec_type_error_level": "CRITICAL",
+        "position_error_level": "CRITICAL",
+        "label_error_level": "CRITICAL",
+        "app_group_error_level": "CRITICAL",
+        "inline_error_level": "CRITICAL",
+        "mime_correspondence": {
+            "pdf": "application",
+            "zip": "application",
+            "mp4": "video",
+            "mp3": "audio"
+        }
+    }
+}
