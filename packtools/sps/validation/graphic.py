@@ -3,5 +3,4 @@ from packtools.sps.validation.visual_resource_base import VisualResourceBaseVali
 
 
 class GraphicValidation(VisualResourceBaseValidation):
-    def validate(self):
-        yield from super().validate()
+    ...
