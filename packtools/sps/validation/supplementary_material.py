@@ -57,44 +57,6 @@ class SupplementaryMaterialValidation:
                 data=self.data,
             )
 
-    def validate_position(self):
-        """
-        Verifies if the supplementary materials section is in the last position of <body> or inside <back>.
-        """
-        article_body = self.xml_tree.find("body")
-        article_back = self.xml_tree.find("back")
-        parent_tag = self.data.get("parent_tag")
-
-        is_last_in_body = False
-        is_in_back = False
-
-        if article_body is not None:
-            sections = article_body.findall("sec")
-            if sections and sections[-1].get("sec-type") == "supplementary-material":
-                is_last_in_body = True
-
-        if article_back is not None:
-            sections = article_back.findall("sec")
-            is_in_back = any(
-                sec.get("sec-type") == "supplementary-material" for sec in sections
-            )
-
-        valid = is_last_in_body or is_in_back
-
-        return build_response(
-            title="Position of supplementary materials",
-            parent=self.data,
-            item="supplementary-material",
-            sub_item=None,
-            is_valid=valid,
-            validation_type="position",
-            expected="Last section of <body> or inside <back>",
-            obtained=parent_tag,
-            advice="The supplementary materials section must be at the end of <body> or inside <back>.",
-            error_level=self.params["position_error_level"],
-            data=self.data,
-        )
-
     def validate_label(self):
         """
         Verifica a presença obrigatória de <label>
