@@ -9,7 +9,7 @@ from packtools.sps.validation.utils import build_response
 
 
 class SupplementaryMaterialValidation:
-    def __init__(self, data, xml_tree, params, node=None):
+    def __init__(self, data, params, node=None):
         """
         Inicializa a validação de um material suplementar.
 
@@ -18,7 +18,6 @@ class SupplementaryMaterialValidation:
         """
         self.data = data
         self.params = params
-        self.xml_tree = xml_tree
         self.node = node
 
     def validate(self):
