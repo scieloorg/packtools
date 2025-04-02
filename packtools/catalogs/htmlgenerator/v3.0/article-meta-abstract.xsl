@@ -151,6 +151,12 @@
         <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"/>
     </xsl:template>
 
+    <xsl:template match="sub-article//abstract[not(@abstract-type)]" mode="keywords">
+        <!-- apresenta as palavras-chaves no idioma correspondente -->
+        <xsl:variable name="lang" select="../../@xml:lang"/>
+        <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"/>
+    </xsl:template>
+
     <xsl:template match="trans-abstract[not(@abstract-type)]" mode="keywords">
         <xsl:variable name="lang" select="@xml:lang"/>
         <xsl:apply-templates select="../kwd-group[@xml:lang=$lang]" mode="keywords"/>
@@ -193,16 +199,9 @@
                 <xsl:apply-templates select="sub-article[@article-type='translation' and @xml:lang=$gs_abstract_lang]" mode="text-abstracts"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="." mode="text-trans-abstracts-gs"/>
+                <xsl:apply-templates select=".//trans-abstract[@xml:lang=$gs_abstract_lang]" mode="layout"/>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-
-    <xsl:template match="*[trans-abstract]" mode="text-trans-abstracts-gs">
-        <xsl:apply-templates select="trans-abstract[not(@abstract-type) and @xml:lang=$gs_abstract_lang]" mode="abstract-block"/>
-        <xsl:apply-templates select="trans-abstract[@abstract-type='key-points' and @xml:lang=$gs_abstract_lang]" mode="abstract-block"/>
-        <xsl:apply-templates select="trans-abstract[@abstract-type='graphical' and @xml:lang=$gs_abstract_lang]" mode="abstract-block"/>
-        <xsl:apply-templates select="trans-abstract[@abstract-type='summary' and @xml:lang=$gs_abstract_lang]" mode="abstract-block"/>
     </xsl:template>
 
 </xsl:stylesheet>
