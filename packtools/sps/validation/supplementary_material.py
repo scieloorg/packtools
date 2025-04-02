@@ -24,9 +24,6 @@ class SupplementaryMaterialValidation:
         """
         Executa todas as validações definidas.
         """
-        yield self.validate_sec_type()
-        yield self.validate_position()
-
         for media in self.node.xpath(".//media"):
             if media.data:
                 yield from MediaValidation(media.data, self.params).validate()
@@ -35,8 +32,9 @@ class SupplementaryMaterialValidation:
             if graphic.data:
                 yield from GraphicValidation(graphic, self.params).validate()
 
-        yield self.validate_not_in_app_group()
         yield self.validate_sec_type()
+        yield self.validate_label()
+        yield self.validate_not_in_app_group()
 
     def validate_sec_type(self):
         """
