@@ -177,6 +177,5 @@ class ArticleSupplementaryMaterialValidation:
                 supp, self.xml_tree, self.params
             ).validate()
 
-        SupplementaryMaterialValidation(
-            {}, self.xml_tree, self.params
-        ).validate_prohibited_inline()
+        yield self.validate_prohibited_inline()
+        yield self.validate_position()
