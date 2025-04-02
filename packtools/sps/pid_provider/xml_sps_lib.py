@@ -402,6 +402,7 @@ class XMLWithPre:
         self._system_id = None
         self.relative_system_id = None
         self._sps_version = None
+        self.errors = None
 
     @property
     def data(self):
@@ -416,7 +417,7 @@ class XMLWithPre:
         )
 
     @classmethod
-    def create(cls, path=None, uri=None):
+    def create(cls, path=None, uri=None, capture_errors=False, timeout=30):
         """
         Returns instance of XMLWithPre
 
@@ -426,13 +427,24 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-            for item in get_xml_items(path):
-                item["xml_with_pre"].filename = item["filename"]
-                item["xml_with_pre"].files = item.get("files")
-                item["xml_with_pre"].filenames = item.get("filenames")
-                yield item["xml_with_pre"]
+            if capture_errors:
+                self.errors = self.errors or []
+                items = get_sps_pkg_xml_items(path)
+            else:
+                items = get_xml_items(path)
+
+            for item in items:
+                if not item:
+                    continue
+                if item.get("error"):
+                    self.errors.append(item)
+                else:
+                    item["xml_with_pre"].filename = item["filename"]
+                    item["xml_with_pre"].files = item.get("files")
+                    item["xml_with_pre"].filenames = item.get("filenames")
+                    yield item["xml_with_pre"]
         if uri:
-            yield get_xml_with_pre_from_uri(uri, timeout=30)
+            yield get_xml_with_pre_from_uri(uri, timeout)
 
     @property
     def DOCTYPE(self):
