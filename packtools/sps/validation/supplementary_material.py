@@ -96,6 +96,14 @@ class SupplementaryMaterialValidation:
             data=self.data,
         )
 
+
+class ArticleSupplementaryMaterialValidation:
+    def __init__(self, xml_tree, params):
+        self.article_supp = list(XmlSupplementaryMaterials(xml_tree).items)
+        self.xml_tree = xml_tree
+        self.params = params
+
+
     def validate_prohibited_inline(self):
         """
         Ensures that <inline-supplementary-material> is not used.
@@ -107,7 +115,7 @@ class SupplementaryMaterialValidation:
 
         return build_response(
             title="Prohibition of inline-supplementary-material",
-            parent=self.data,
+            parent={},
             item="inline-supplementary-material",
             sub_item=None,
             is_valid=valid,
@@ -116,15 +124,52 @@ class SupplementaryMaterialValidation:
             obtained=obtained,
             advice="The use of <inline-supplementary-material> is prohibited.",
             error_level=self.params["inline_error_level"],
-            data=self.data,
+            data={},
         )
 
+    def validate_position(self):
+        """
+        Verifies if the supplementary materials section is in the last position of <body> or inside <back>.
+        """
+        article_body = self.xml_tree.find("body")
+        article_back = self.xml_tree.find("back")
 
-class ArticleSupplementaryMaterialValidation:
-    def __init__(self, xml_tree, params):
-        self.article_supp = list(XmlSupplementaryMaterials(xml_tree).items)
-        self.xml_tree = xml_tree
-        self.params = params
+        is_last_in_body = False
+        is_in_back = False
+
+        if article_body is not None:
+            sections = article_body.findall("sec")
+            if sections and sections[-1].get("sec-type") == "supplementary-material":
+                is_last_in_body = True
+
+        if article_back is not None:
+            sections = article_back.findall("sec")
+            is_in_back = any(
+                sec.get("sec-type") == "supplementary-material" for sec in sections
+            )
+
+        valid = is_last_in_body or is_in_back
+
+        if is_last_in_body:
+            parent_tag = "body (last section)"
+        elif is_in_back:
+            parent_tag = "back"
+        else:
+            parent_tag = None
+
+        return build_response(
+            title="Position of supplementary materials",
+            parent={},
+            item="supplementary-material",
+            sub_item=None,
+            is_valid=valid,
+            validation_type="position",
+            expected="Last section of <body> or inside <back>",
+            obtained=parent_tag,
+            advice="The supplementary materials section must be at the end of <body> or inside <back>.",
+            error_level=self.params["position_error_level"],
+            data={},
+        )
 
     def validate(self):
         for supp in self.article_supp:
