@@ -36,7 +36,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
         supplementary_node = xml_tree.xpath(".//media")
         validator = SupplementaryMaterialValidation(
-            supplementary_data[0], xml_tree, self.params, supplementary_node
+            supplementary_data[0], self.params, supplementary_node
         )
         results = validator.validate_sec_type()
         self.assertEqual(results["response"], "CRITICAL")
@@ -60,7 +60,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         )
         supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
         validator = SupplementaryMaterialValidation(
-            supplementary_data[0], xml_tree, self.params
+            supplementary_data[0], self.params
         )
         results = validator.validate_label()
         self.assertEqual(results["response"], "CRITICAL")
@@ -90,9 +90,8 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             </article>
         """
         )
-        supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
-        validator = SupplementaryMaterialValidation(
-            supplementary_data[0], xml_tree, self.params
+        validator = ArticleSupplementaryMaterialValidation(
+            xml_tree, self.params
         )
         results = validator.validate_position()
         self.assertEqual(results["response"], "CRITICAL")
@@ -120,7 +119,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         )
         supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
         validator = SupplementaryMaterialValidation(
-            supplementary_data[0], xml_tree, self.params
+            supplementary_data[0], self.params
         )
         results = validator.validate_not_in_app_group()
         self.assertEqual(results["response"], "CRITICAL")
@@ -143,7 +142,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         """
         )
 
-        validator = SupplementaryMaterialValidation({}, xml_tree, self.params)
+        validator = ArticleSupplementaryMaterialValidation(xml_tree, self.params)
         results = validator.validate_prohibited_inline()
         self.assertEqual(results["response"], "CRITICAL")
         self.assertEqual(
