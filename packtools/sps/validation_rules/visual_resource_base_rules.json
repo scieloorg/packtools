@@ -1,0 +1,7 @@
+{
+    "visual_resource_base_rules": {
+        "media_attributes_error_level": "CRITICAL",
+        "xlink_href_error_level": "CRITICAL",
+        "valid_extension": ["mp3", "mp4"]
+    }
+}
