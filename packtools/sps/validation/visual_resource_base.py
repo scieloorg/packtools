@@ -1,3 +1,5 @@
+import os
+
 from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.accessibility_data import AccessibilityDataValidation
 
@@ -34,9 +36,9 @@ class VisualResourceBaseValidation:
 
     def validate_xlink_href(self):
         xlink_href = self.data.get("xlink_href")
-        valid = bool(
-            xlink_href and "." in xlink_href and len(xlink_href.split(".")) == 2
-        )
+        name, ext = os.path.splitext(xlink_href)
+        valid = ext[1:] in self.params["valid_extension"]
+
         return build_response(
             title="@xlink:href validation",
             parent=self.data,
@@ -46,7 +48,7 @@ class VisualResourceBaseValidation:
             validation_type="format",
             expected="File name with extension",
             obtained=xlink_href,
-            advice="Provide a valid file name with its extension in @xlink:href.",  # citar o contexto
+            advice=f'In @xlink:href, provide a valid file name with its extension in {self.params["valid_extension"]}.',
             error_level=self.params["xlink_href_error_level"],
             data=self.data,
         )
