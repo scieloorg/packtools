@@ -21,6 +21,12 @@ class ContribValidation:
         self.contrib = contrib
         self.contrib_name = self.contrib.get("contrib_full_name")
 
+    @property
+    def info(self):
+        if parent_id := self.data.get("parent_id"):
+            return f'{self.contrib_name} (sub-article {parent_id}) :'
+        return f'{self.contrib_name} :'
+
     def _get_default_params(self):
         return {
             # Error levels
@@ -43,20 +49,16 @@ class ContribValidation:
             parent_id = self.data.get("parent_id")
             parent_article_type = self.data.get("parent_article_type")
 
-            if parent_id:
-                xml = f'<{parent} id="{parent_id}" article-type="{parent_article_type}">'
-            else:
-                xml = f'<{parent} article-type="{parent_article_type}">'
             yield build_response(
-                title=f"{parent} {parent_id} contributor role",
+                title=f"contributor role",
                 parent=self.contrib,
                 item="contrib",
                 sub_item="role",
                 validation_type="exist",
                 is_valid=False,
-                expected=f"{xml}<contrib><role></role></contrib>",
+                expected=f"<role> in <contrib>",
                 obtained=None,
-                advice="Mark the contrib role. Consult SPS documentation for detailed instructions",
+                advice=f"{self.info} Mark the contrib role. Consult SPS documentation for detailed instructions",
                 data=self.contrib,
                 error_level=self.data.get("contrib_role_error_level"),
             )
@@ -94,7 +96,7 @@ class ContribValidation:
         if _orcid:
             advice = f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>'
         else:
-            advice = f'Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib> of {self.contrib_name}'            
+            advice = f'{self.info} Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>'            
 
         yield build_response(
             title="ORCID format",
@@ -105,7 +107,7 @@ class ContribValidation:
             is_valid=is_valid,
             expected="valid ORCID",
             obtained=_orcid,
-            advice=advice,
+            advice=advice or "(validate_orcid_format)",
             data=self.contrib,
             error_level=error_level,
         )
@@ -149,7 +151,7 @@ class ContribValidation:
             is_valid=result["status"] == "registered",
             expected="registered",
             obtained=result["status"],
-            advice=f'Check ORCID <contrib-id contrib-id-type="orcid">{orcid}</contrib-id> belongs to {self.contrib_name}',
+            advice=f'{self.info} Unable to automatically check the {orcid}. Check it manually',
             data=result,
             error_level=error_level,
         )
@@ -176,7 +178,7 @@ class ContribValidation:
             is_valid=not affs,
             expected="affiliation",
             obtained=affs,
-            advice=f'Add <xref ref-type="aff" rid=""></xref> in <contrib></contrib> for {self.contrib_name}',
+            advice=f'{self.info} Add <xref ref-type="aff" rid=""> in <contrib>',
             data=self.contrib,
             error_level=error_level,
         )
@@ -191,10 +193,10 @@ class ContribValidation:
             item="contrib",
             sub_item="name",
             validation_type="exist",
-            is_valid=not item,
+            is_valid=bool(item),
             expected="contributor name",
             obtained=item,
-            advice=f"Mark contributor name with <name></name> in <contrib></contrib>",
+            advice=f"{self.info} Mark contributor name with <name> in <contrib>",
             data=self.contrib,
             error_level=error_level,
         )
@@ -209,10 +211,10 @@ class ContribValidation:
             item="contrib",
             sub_item="collab",
             validation_type="exist",
-            is_valid=not item,
+            is_valid=bool(item),
             expected="collab",
             obtained=None,
-            advice=f"Mark contributor collab with <collab></collab> in <contrib></contrib>",
+            advice=f"{self.info} Mark institutional contributor with <collab> in <contrib>",
             data=self.contrib,
             error_level=error_level,
         )
@@ -228,11 +230,11 @@ class ContribValidation:
         if self.contrib.get("original_article_type") == "reviewer-report":
             expected = ["name", "anonymous"]
             value = self.contrib.get("contrib_name") or self.contrib.get("anonymous")
-            advice = f"Mark contributor with <name></name> and anonymous contributor with <anonymous/> in <contrib></contrib>"
+            advice = f"{self.info} Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
         else:
             expected = ["name", "collab"]
             value = self.contrib.get("contrib_name") or self.contrib.get("collab")
-            advice = f"Mark contributor with <name></name> and institutional contributor with <collab></collab> in <contrib></contrib>"
+            advice = f"{self.info} Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
 
         yield build_response(
             title="contributor",
@@ -240,10 +242,10 @@ class ContribValidation:
             item="contrib",
             sub_item=None,
             validation_type="exist",
-            is_valid=not value,
+            is_valid=bool(value),
             expected=expected,
             obtained=value,
-            advice=advice,
+            advice=advice or '(validate_contrib)',
             data=self.contrib,
             error_level=error_level,
         )
@@ -295,7 +297,7 @@ class XMLContribsValidation:
             is_valid=not bool(repeated_orcid),
             expected="Unique ORCID",
             obtained=repeated_orcid,
-            advice=advice,
+            advice=advice or '(validate_orcid_is_unique)',
             data=repeated_orcid,
             error_level=error_level,
         )
@@ -371,7 +373,7 @@ class CollabListValidation:
                 is_valid=valid,
                 expected=expected_type,
                 obtained=contrib_group_data["type"],
-                advice=advice,
+                advice=advice or f'(validate {contrib_group_data})',
                 data=contrib_group_data,
                 error_level=self.params["collab_list_error_level"],
             )
@@ -387,6 +389,26 @@ class ContribRoleValidation:
 
         self.params = self._get_default_params()
         self.params.update(params or {})
+        self.index_credit_taxonomy()
+
+    def index_credit_taxonomy(self):
+        credit_taxonomy_by_uri = {}
+        credit_taxonomy_by_term = {}
+        credit_taxonomy_by_terms = []
+        for item in self.params["credit_taxonomy_terms_and_urls"] or []:
+            credit_taxonomy_by_terms.append(item["term"])
+            credit_taxonomy_by_uri[item["uri"]] = item["term"]
+            credit_taxonomy_by_term[item["term"].upper()] = item["uri"]
+        self.params["credit_taxonomy_by_uri"] = credit_taxonomy_by_uri
+        self.params["credit_taxonomy_by_term"] = credit_taxonomy_by_term
+        self.params["credit_taxonomy_by_terms"] = credit_taxonomy_by_terms
+
+    @property
+    def info(self):
+        contrib_name = self.contrib.get("contrib_full_name")
+        if parent_id := self.contrib.get("parent_id"):
+            return f'{contrib_name} (sub-article {parent_id}) :'
+        return f'{contrib_name} :'
 
     def _get_default_params(self):
         return {
@@ -410,7 +432,7 @@ class ContribRoleValidation:
                 {"term": "Validation", "uri": "http://credit.niso.org/contributor-roles/validation/"},
                 {"term": "Visualization", "uri": "http://credit.niso.org/contributor-roles/visualization/"},
                 {"term": "Writing – original draft", "uri": "http://credit.niso.org/contributor-roles/writing-original-draft/"},
-                {"term": "Writing – review & editing", "uri": "http://credit.niso.org/contributor-roles/writing-review-editing/"}
+                {"term": "Writing – review &amp; editing", "uri": "http://credit.niso.org/contributor-roles/writing-review-editing/"}
             ],
 
             # List of valid contributor role types
@@ -433,70 +455,75 @@ class ContribRoleValidation:
             title, xpath, validation_type, response, expected_value,
             got_value, message, and advice fields.
         """
+        uri = self.contrib_role.get("content-type")
+        text = self.contrib_role.get("text")
+        if not uri and not text:
+            return
+
         expected = self.params["credit_taxonomy_terms_and_urls"]
         if not expected:
             return
 
         uri_error_level = self.params["credit_taxonomy_uri_error_level"]
         term_error_level = self.params["credit_taxonomy_term_error_level"]
-        # uri, term vs content-type, text
-        
-        expected_by_uri = {}
-        expected_by_term = {}
-        for item in expected:
-            uri = item["uri"]
-            term = item["term"]
-            expected_by_uri[uri] = term
-            expected_by_term[term] = uri
+        credit_taxonomy_by_uri = self.params["credit_taxonomy_by_uri"]
+        credit_taxonomy_by_term = self.params["credit_taxonomy_by_term"]
 
-        uri = self.contrib_role.get("content-type")
-        text = self.contrib_role.get("text")
-        valid_uri = False
-        valid_text = False
+        expected_term = credit_taxonomy_by_uri.get(uri) or None
+        expected_uri = credit_taxonomy_by_term.get(text and text.upper()) or None
 
-        try:
-            expected_term = expected_by_uri[uri]
-            valid_text = True
-        except KeyError:
-            expected_term = None
-        try:
-            expected_uri = expected_by_term[text]
-            valid_uri = True
-        except KeyError:
-            expected_uri = None
-
-        expected_uris = list(expected_by_uri.keys())
-        if uri:
-            advice = f'Fix <role content-type="{uri}">{text}</role>, replace {uri} by valid values: {expected_uris}'
-        else:
-            advice = f'Mark CRediT taxonomy URI with <role content-type="">{text}</role> and valid values: {expected_uris}'
+        valid_uri = uri and expected_uri == uri
+        valid_term = text and expected_term and (expected_term.upper() == text.upper())
+        advice = ""
+        if not valid_uri:
+            if expected_uri and uri:
+                advice = f'{self.info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'
+            elif expected_uri:
+                advice = f'{self.info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'
+            elif uri:
+                expected_uris = list(credit_taxonomy_by_uri.keys())
+                advice = f'{self.info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI: {expected_uris}'                
+            elif text:
+                expected_uris = list(credit_taxonomy_by_uri.keys())
+                advice = f'{self.info} check if <role>{text}</role> has corresponding CRediT URI: {expected_uris}'                
         yield build_response(
             title="CRediT taxonomy URI",
             parent=self.contrib,
             item="role",
             sub_item=None,
-            validation_type="value in list",
+            validation_type="exist",
             is_valid=valid_uri,
-            expected=expected_uri or expected_uris,
+            expected=expected_uri,
             obtained=uri,
             advice=advice,
             data=self.contrib,
             error_level=uri_error_level,
         )
+        
+        if not valid_term:
+            if uri:
+                content_type = f' content-type="{uri}"'
+            else:
+                content_type = ''
+            if expected_term and text:
+                advice = f'{self.info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'
+            elif expected_term:
+                advice = f'{self.info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'
+            elif text:
+                expected_terms = self.params["credit_taxonomy_by_terms"]
+                advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'  
+            else:
+                expected_terms = self.params["credit_taxonomy_by_terms"]
+                advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'  
 
-        expected_terms = list(expected_by_term.keys())
-        if text:
-            advice = f'''Fix <role content-type="{expected_uri or ''}">{text}</role>, replace {text} by valid values: {expected_terms}'''
-        else:
-            advice = f'''Mark CRediT taxonomy term with <role content-type="{expected_uri or ''}">{text}</role> and valid values: {expected_terms}'''
         yield build_response(
             title="CRediT taxonomy term",
             parent=self.contrib,
             item="role",
             sub_item=None,
-            validation_type="value in list",
-            is_valid=valid_text,
-            expected=expected_term or expected_terms,
+            validation_type="exist",
+            is_valid=valid_term,
+            expected=expected_term or "contributor role",
             obtained=text,
             advice=advice,
             data=self.contrib,
@@ -509,9 +536,9 @@ class ContribRoleValidation:
         specific_use = self.contrib_role.get("specific-use")
         valid = specific_use in expected
         if specific_use:
-            advice = f'Replace {specific_use} in <role specific-use="{specific_use}"> with {expected}'
+            advice = f'{self.info} replace {specific_use} in <role specific-use="{specific_use}"> with {expected}'
         else:
-            advice = f'Add contributor role type <contrib><role specific-use=""></contrib with {expected}'
+            advice = f'{self.info} add contributor role type <contrib><role specific-use=""></role></contrib> with {expected}'
         yield build_response(
             title="contributor role",
             parent=self.contrib,
@@ -521,7 +548,7 @@ class ContribRoleValidation:
             is_valid=valid,
             expected=expected,
             obtained=specific_use,
-            advice=advice,
+            advice=advice or f'(validate_role_specific_use {self.contrib_role})',
             data=self.contrib,
             error_level=error_level,
         )

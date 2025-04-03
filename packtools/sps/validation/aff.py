@@ -19,12 +19,40 @@ class FulltextAffiliationsValidation:
             Validation parameters including country codes and error levels
         """
         self.node = node
-        self.params = deepcopy(params or {})
+        self.params = self.get_default_params()
+        self.params.update(params or {})
         self.fulltext_affs = FulltextAffiliations(node)
         self.translation_params = deepcopy(self.params)
         self.translation_params.update(
             params.get("translation_aff_rules") or {}
         )
+
+    def get_default_params(self):
+        return {
+            "aff_components_error_level": "ERROR",
+            "id_error_level": "CRITICAL",
+            "label_error_level": "ERROR",
+            "original_error_level": "CRITICAL",
+            "orgname_error_level": "CRITICAL",
+            "orgdiv1_error_level": "ERROR",
+            "orgdiv2_error_level": "WARNING",
+            "country_error_level": "CRITICAL",
+            "country_code_error_level": "CRITICAL",
+            "state_error_level": "WARNING",
+            "city_error_level": "WARNING",
+            "translation_aff_rules": {
+                "id_error_level": "CRITICAL",
+                "label_error_level": "ERROR",
+                "original_error_level": "CRITICAL",
+                "orgname_error_level": "INFO",
+                "country_error_level": "INFO",
+                "country_code_error_level": "INFO",
+                "state_error_level": "INFO",
+                "city_error_level": "INFO"
+            },
+            "translation_qty_error_level": "CRITICAL",
+            "translation_similarity_error_level": "WARNING"
+        }
 
     def validate_main_affiliations(self):
         """
@@ -124,15 +152,16 @@ class AffiliationValidation:
             - country_codes_list: List of valid country codes
             - error_levels: Dict with error levels for each validation type
         """
+        self.params = self.get_default_params()
+        self.params.update(params or {})
+
         if not params.get("country_codes_list"):
             raise ValueError(
                 "AffiliationValidation requires list of country codes"
             )
 
         self.affiliation = affiliation
-        self.params = params
         self.original = self.affiliation.get("original")
-
         self.original_components = {
             "orgname": self.affiliation.get("orgname"),
             "orgdiv1": self.affiliation.get("orgdiv1"),
@@ -142,20 +171,48 @@ class AffiliationValidation:
             "city": self.affiliation.get("city")
         }
 
-        default_min_similarity = {
-            "original": 0.5,
-            "orgname": 1,
-            "orgdiv1": 0.6,
-            "orgdiv2": 0.6,
-            "city": 0.6,
-            "state": 0.6,
-            "country": 0.6,
-            "country_code": 1,
+    def get_default_params(self):
+        return {
+            "aff_components_error_level": "ERROR",
+            "id_error_level": "CRITICAL",
+            "label_error_level": "ERROR",
+            "original_error_level": "CRITICAL",
+            "orgname_error_level": "CRITICAL",
+            "orgdiv1_error_level": "ERROR",
+            "orgdiv2_error_level": "WARNING",
+            "country_error_level": "CRITICAL",
+            "country_code_error_level": "CRITICAL",
+            "state_error_level": "WARNING",
+            "city_error_level": "WARNING",
+            "translation_aff_rules": {
+                "id_error_level": "CRITICAL",
+                "label_error_level": "ERROR",
+                "original_error_level": "CRITICAL",
+                "orgname_error_level": "INFO",
+                "country_error_level": "INFO",
+                "country_code_error_level": "INFO",
+                "state_error_level": "INFO",
+                "city_error_level": "INFO"
+            },
+            "translation_qty_error_level": "CRITICAL",
+            "translation_similarity_error_level": "WARNING",
+            "min_expected_similarity": {
+                "original": 0.5,
+                "orgname": 1,
+                "orgdiv1": 0.6,
+                "orgdiv2": 0.6,
+                "city": 0.6,
+                "state": 0.6,
+                "country": 0.6,
+                "country_code": 1,
+            }
         }
-        self.params.setdefault(
-            "min_expected_similarity", default_min_similarity
-        )
-
+    @property
+    def info(self):
+        aff_id = self.affiliation.get("id") or self.affiliation.get("original")
+        parent = self.affiliation.get("parent_id") or self.affiliation.get("parent")
+        return f'({parent} - {aff_id})'
+        
     def validate_original(self):
         error_level = self.params["original_error_level"]
 
@@ -376,16 +433,13 @@ class AffiliationValidation:
             got[field] = max([score1, score2])
 
             valid = got[field] >= min_expected_sim
-            items.append(
-                {
-                    "field": field,
-                    "main": main_value,
-                    "translation": translation,
-                    "got": got[field],
-                    "expected": min_expected_sim,
-                    "valid": valid,
-                }
-            )
+
+            t_info = self.affiliation.get("id") or self.affiliation.get("label")
+            m_info = main_aff.get("id") or main_aff.get("label")
+            
+            if not valid:
+                items.append(f'{field}: {main_value} ({m_info}) x {translation} ({t_info})')
+            
             if valid or (_main_value and not _translation):
                 correct += 1
         return {
@@ -410,10 +464,11 @@ class AffiliationValidation:
         if invalid:
             got = result["got"]
             items = result["items"]
-            if self.affiliation.get("id"):
-                advice = f'The affiliation {self.affiliation.get("id")} is inconsistent with {main_aff}. Check if {self.affiliation.get("id")} is translation of {main_aff}'
-            else:
-                advice = f'The affiliation {self.affiliation} is inconsistent with {main_aff}. Check if {self.affiliation} is translation of {main_aff}'
+
+            aff_info = self.affiliation.get("id") or self.affiliation
+            main_info = main_aff.get("id") or main_aff
+
+            advice = f'Compare {main_info} and {aff_info}. Make sure they are corresponding'
             yield build_response(
                 title=f"low similarity",
                 parent=self.affiliation,
@@ -421,72 +476,66 @@ class AffiliationValidation:
                 sub_item="translation",
                 validation_type="similarity",
                 is_valid=False,
-                expected=f"Similarity expected: {self.params['min_expected_similarity']}",
-                obtained=f"Similarity got: {got}",
+                expected=f'{main_info} and {aff_info} are similar',
+                obtained=f'{main_info} and {aff_info} are not similar',
                 advice=advice,
                 error_level=self.params["translation_similarity_error_level"],
                 data=items,
             )
 
-    def validate_original_aff_components(self):
+    def validate_aff_components(self):
         if not self.original:
             return
 
-        component_not_found = [
-            (key, value) for key, value in self.original_components.items()
-            if value and not any(word in self.original for word in value.split())
-        ]
+        original = self.original
+        found = {}
+        not_found = {}
+        for k, v in sorted(self.original_components.items(), key=lambda x: len(x[1] or ''), reverse=True):
+            if v and v in original:
+                original = original.replace(v, "", 1)
+                found.update({k: v})
+                is_valid = True
+                advice = None
 
-        is_valid = len(component_not_found) == 0
+                yield build_response(
+                    title="original",
+                    parent=self.affiliation,
+                    item="institution",
+                    sub_item='@content-type="original"',
+                    validation_type="exist",
+                    is_valid=is_valid,
+                    expected=f'{k} marked',
+                    obtained=v,
+                    advice=advice,
+                    data={k: v},
+                    error_level=self.params["aff_components_error_level"]
+                )
 
-        if not is_valid:
-            formatted_components = ", ".join(f"{value} ({key})" for key, value in component_not_found)
-            advice = (
-                'Mark the complete original affiliation with '
-                '<institution content-type="original"> in <aff> and add '
-                f'{formatted_components} in <institution content-type="original">'
-            )
+            else:
+                not_found.update({k: v})
 
-        yield build_response(
-            title="original",
-            parent=self.affiliation,
-            item="institution",
-            sub_item='@content-type="original"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="original affiliation",
-            obtained=self.original,
-            advice=advice,
-            data=self.affiliation,
-            error_level=self.params["original_error_level"]
-        )
-
-    def validate_original_aff_components_value(self):
-        original_words = re.findall(r'\b\w+\b', self.original)  # Tokeniza sem pontuação
-
-        component_words = [word for value in self.original_components.values()
-                           for word in re.findall(r'\b\w+\b', value)]
-
-        remaining_words = [word for word in original_words if word not in component_words]
-
-        is_valid = not remaining_words
-
-        yield build_response(
-            title="original",
-            parent=self.affiliation,
-            item="institution",
-            sub_item='@content-type="original"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="original affiliation",
-            obtained=self.original,
-            advice=(
-                'Mark the complete original affiliation with <institution content-type="original"> '
-                f'in <aff> and add missing words: {remaining_words}.'
-            ),
-            data=self.affiliation,
-            error_level=self.params["original_error_level"]
-        )
+        words = [word for word in original.split() if word.isalnum() and len(word) > 2]
+        if words:
+            for k, v in not_found.items():
+                if v:
+                    advice = f'{self.info}: {v} ({k}) not found in {self.original}'
+                else:
+                    advice = f'{self.info}: {k} was not marked. Check {k} is found in {self.original}'
+                
+                is_valid = False
+                yield build_response(
+                    title="original",
+                    parent=self.affiliation,
+                    item="institution",
+                    sub_item='@content-type="original"',
+                    validation_type="exist",
+                    is_valid=is_valid,
+                    expected=f'{k} marked',
+                    obtained=v,
+                    advice=advice,
+                    data={k: v, "original": self.original},
+                    error_level=self.params["aff_components_error_level"]
+                )
 
     def validate(self):
         """
@@ -501,10 +550,10 @@ class AffiliationValidation:
         yield from self.validate_label()
         yield from self.validate_original()
         yield from self.validate_orgname()
-        yield from self.validate_orgdiv1()
-        yield from self.validate_orgdiv2()
+        # yield from self.validate_orgdiv1()
+        # yield from self.validate_orgdiv2()
         yield from self.validate_country()
         yield from self.validate_country_code()
         yield from self.validate_state()
         yield from self.validate_city()
-        yield from self.validate_orgname_composition()
+        yield from self.validate_aff_components()

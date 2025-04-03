@@ -63,7 +63,7 @@ class TestContribValidation(unittest.TestCase):
         """Test validate_role with valid contributor role"""
         results = list(self.validator.validate_role())
         errors = [r for r in results if r['response'] != 'OK']
-        self.assertEqual(len(errors), 1)
+        self.assertEqual(len(errors), 2)
 
     def test_validate_role_missing(self):
         """Test validate_role with missing role"""
@@ -82,7 +82,7 @@ class TestContribValidation(unittest.TestCase):
         advices = [error['advice'] for error in errors]
         
         expected_responses = ['ERROR']
-        expected_advices = ['Mark the contrib role. Consult SPS documentation for detailed instructions']
+        expected_advices = ['Smith, John : Mark the contrib role. Consult SPS documentation for detailed instructions']
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
@@ -134,7 +134,7 @@ class TestContribValidation(unittest.TestCase):
         advices = [error['advice'] for error in errors]
         
         expected_responses = ['ERROR']
-        expected_advices = ['Check ORCID <contrib-id contrib-id-type="orcid">0000-0002-1234-5678</contrib-id> belongs to Smith, John']
+        expected_advices = ['Smith, John : Unable to automatically check the 0000-0002-1234-5678. Check it manually']
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
@@ -168,9 +168,9 @@ class TestContribRoleValidation(unittest.TestCase):
         results = list(validator.validate_credit())
         errors = [r for r in results if r['response'] != 'OK']
         
-        self.assertEqual(len(errors), 1)  # Should fail both URI and term validation
+        self.assertEqual(len(errors), 2)  # Should fail both URI and term validation
         responses = [error['response'] for error in errors]
-        expected_responses = ['ERROR']
+        expected_responses = ['ERROR', 'ERROR']
         self.assertEqual(responses, expected_responses)
 
     def test_validate_role_specific_use_success(self):
@@ -193,7 +193,7 @@ class TestContribRoleValidation(unittest.TestCase):
         advices = [error['advice'] for error in errors]
         
         expected_responses = ['ERROR']
-        expected_advices = ["Replace invalid-role in <role specific-use=\"invalid-role\"> with ['author', 'editor', 'reviewer', 'translator']"]
+        expected_advices = ["""Smith, John : replace invalid-role in <role specific-use="invalid-role"> with ['author', 'editor', 'reviewer', 'translator']"""]
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)

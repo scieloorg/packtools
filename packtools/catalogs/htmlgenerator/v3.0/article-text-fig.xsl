@@ -28,6 +28,7 @@
                                 <xsl:attribute name="class">thumbImg</xsl:attribute>
                                 <img>
                                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                                    <xsl:apply-templates select="." mode="alt-text"/>
                                 </img>
                             </xsl:when>
                             <xsl:otherwise>

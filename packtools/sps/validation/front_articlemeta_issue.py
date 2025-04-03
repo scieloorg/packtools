@@ -226,7 +226,7 @@ class IssueValidation:
                 obtained=issue,
                 advice="Unable to check if issue is registered",
                 data=issue,
-                error_level=self.params["expected_issues_error_level"],
+                error_level="WARNING",
             )
 
         return build_response(

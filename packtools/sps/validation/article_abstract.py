@@ -1,12 +1,8 @@
-from packtools.sps.models.article_abstract import (
-    ArticleVisualAbstracts,
-    ArticleHighlights,
-    ArticleAbstract,
-)
-from packtools.sps.validation.utils import format_response
+from packtools.sps.models.v2.abstract import XMLAbstracts
+from packtools.sps.validation.utils import format_response, build_response
 
 
-class AbstractValidationBase:
+class AbstractValidation:
     """
     Base class for validating article abstracts.
 
@@ -14,51 +10,56 @@ class AbstractValidationBase:
         abstract (dict): A dictionary containing the abstract information to be validated.
     """
 
-    def __init__(self, abstract):
+    def __init__(self, abstract, params=None):
         # this is a dictionary with abstract data
         self.abstract = abstract
+        self.params = self.get_default_params()
+        self.params.update(params or {})
 
-    def validate_unexpected_kwd(self, error_level="ERROR"):
-        """
-        Validates if unexpected keywords (kwd) are present in the abstract.
-
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
-
-        Returns:
-            dict: Formatted validation response if unexpected keywords are found.
-        """
-        if self.abstract.get("kwds"):
-            return self._format_response(
-                title="unexpected kwd",
-                sub_item="kwd",
-                is_valid=False,
-                validation_type="exist",
-                obtained=self.abstract.get("kwds"),
-                advice=f"Remove keywords (<kwd>) from <abstract abstract-type='{self.abstract.get('abstract_type')}'>",
-                error_level=error_level,
-            )
-
-    def validate_tag_title_in_abstract(self, error_level="ERROR"):
-        """
-        Validates if the abstract contains a title.
-
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
-
-        Returns:
-            dict: Formatted validation response if the title is missing.
-        """
-        title = self.abstract.get("title")
-        return self._format_response(
-            title="title",
-            sub_item="title",
-            validation_type="exist",
-            is_valid=bool(title),
-            expected="title",
-            advice="mark abstract title with <abstract><title>",
-            error_level=error_level,
-        )
+    def get_default_params(self):
+        return {
+            "default_error_level": "ERROR",
+            "kwd_error_level": "ERROR",
+            "title_error_level": "ERROR",
+            "abstract_type_error_level": "CRITICAL",
+            "abstract_presence_error_level": "WARNING",
+            "article_type_requires_abstract_error_level": "CRITICAL",
+            "article_type_unexpects_abstract_error_level": "CRITICAL",
+            "abstract_type_list": [
+                "key-points",
+                "graphical",
+                "summary",
+                None
+            ],
+            "article_type_requires": [
+                "case-report",
+                "research-article",
+                "review-article"
+            ],
+            "article_type_unexpects": [
+                "addendum",
+                "article-commentary",
+                "book-review",
+                "brief-report",
+                "correction",
+                "discussion",
+                "editorial",
+                "letter",
+                "obituary",
+                "partial-retraction",
+                "rapid-communication",
+                "reply",
+                "retraction",
+                "other"            
+            ],
+            "article_type_neutral": [
+                "clinical-instruction",
+                "data-article",
+                "oration",
+                "product-review",
+                "reviewer-report"
+            ]
+        }
 
     def _format_response(
         self,
@@ -87,14 +88,11 @@ class AbstractValidationBase:
         Returns:
             dict: A formatted validation response.
         """
-        return format_response(
+        return build_response(
             title=title,
-            parent=self.abstract.get("parent"),
-            parent_id=self.abstract.get("parent_id"),
-            parent_article_type=self.abstract.get("parent_article_type"),
-            parent_lang=self.abstract.get("parent_lang"),
-            item=f'abstract ({self.abstract.get("abstract_type")})',
-            sub_item=sub_item,
+            parent=self.abstract,
+            item='abstract',
+            sub_item=self.abstract.get("abstract_type"),
             validation_type=validation_type,
             is_valid=is_valid,
             expected=expected,
@@ -104,177 +102,52 @@ class AbstractValidationBase:
             error_level=error_level,
         )
 
+    def validate(self):
+        yield self.validate_abstract_type()
+        yield self.validate_title()
 
-class AbstractsValidationBase:
-    """
-    Base class for validating multiple article abstracts.
+        abstract_type = self.abstract.get("abstract_type")
+        if abstract_type is None:
+            yield self.validate_kwd()
+        elif abstract_type == "key-points":
+            yield self.validate_p()
+            yield self.validate_list()
+        elif abstract_type == "summary":
+            yield self.validate_p()
+        elif abstract_type == "graphical":
+            yield self.validate_graphic()
 
-    Args:
-        xml_tree (lxml.etree._Element): XML tree of the article.
-        abstracts (list): List of abstracts to be validated.
-    """
-
-    def __init__(self, xml_tree):
-        self.xml_tree = xml_tree
-        self.article_type = xml_tree.find(".").get("article-type")
-        self.lang = xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
-
-    def validate_exists(
-        self,
-        article_type_requires,
-        article_type_unexpects,
-        article_type_neutral,
-        article_type_accepts,
-    ):
-        data = self.abstracts
-        obtained = self.abstracts
-        error_level = "INFO"
-        is_valid = True
-        advice = None
-
-        if self.article_type in article_type_requires:
-            expected = f"{self.abstract_title} is required"
-            if not self.abstracts:
-                is_valid = False
-                error_level = "CRITICAL"
-                advice = f"It is required that documents which article-type={self.article_type} have {self.abstract_title}. Check if article-type is correct."
-        elif self.article_type in article_type_unexpects:
-            expected = f"{self.abstract_title} is unexpected"
-            if self.abstracts:
-                is_valid = False
-                error_level = "CRITICAL"
-                advice = f"It is unexpected that documents which article-type={self.article_type} have {self.abstract_title}. Check if article-type is correct."
-        elif self.article_type in article_type_neutral:
-            expected = f"{self.abstract_title} is not required and not unexpected"
-            advice = None
-        elif self.article_type in article_type_accepts:
-            expected = f"{self.abstract_title} is acceptable"
-            advice = None
-            error_level = "INFO"
+    def validate_abstract_type(self):
+        expected_abstract_type_list = self.params["abstract_type_list"]
+        abstract_type = self.abstract.get("abstract_type")
+        xml = self.abstract.get("xml")
+        if abstract_type:
+            advice = f'Replace {abstract_type} in {xml} by a valid value: {expected_abstract_type_list}'
         else:
-            raise ValueError(
-                f"Unable to identify if {self.abstract_title} is required or unexpected or neutral or acceptable"
-            )
-        return format_response(
-            title=self.abstract_title,
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_type,
-            parent_lang=self.lang,
-            item=self.abstract_title,
-            sub_item=None,
-            validation_type="exist",
+            advice = f'Add abstract type in {xml}. Valid values: {expected_abstract_type_list}'
+        is_valid = abstract_type in (expected_abstract_type_list or [])
+        return build_response(
+            title="@abstract-type",
+            parent=self.abstract,
+            item="abstract",
+            sub_item="@abstract-type",
+            validation_type="value in list",
             is_valid=is_valid,
-            expected=expected,
-            obtained=obtained,
+            expected=expected_abstract_type_list,
+            obtained=abstract_type,
             advice=advice,
-            data=data,
-            error_level=error_level,
+            data=self.abstract,
+            error_level=self.params["abstract_type_error_level"],
         )
 
-
-class HighlightValidation(AbstractValidationBase):
-    """
-    Validation class for article highlights, inheriting from AbstractValidationBase.
-    """
-
-    def validate_tag_list_in_abstract(self, error_level="ERROR"):
-        """
-        Validates if <list> tag is present in the abstract and suggests replacing it with <p>.
-
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
-
-        Returns:
-            dict: Formatted validation response if <list> tag is found.
-        """
-        if self.abstract.get("list"):
-            return self._format_response(
-                title="list",
-                sub_item="list",
-                validation_type="exist",
-                is_valid=False,
-                obtained=self.abstract.get("list"),
-                advice='Replace <list> from <abstract abstract-type="key-points"> by <p>' ,
-                error_level=error_level,
-            )
-
-    def validate_tag_p_in_abstract(self, error_level="ERROR"):
-        """
-        Validates if the abstract contains more than one <p> tag.
-
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
-
-        Returns:
-            dict: Formatted validation response if less than two <p> tags are found.
-        """
-        if len(self.abstract.get("highlights")) <= 1:
-            return self._format_response(
-                title="p",
-                sub_item="p",
-                validation_type="exist",
-                is_valid=False,
-                expected="p",
-                obtained=self.abstract.get("highlights"),
-                advice='Mark each key-point with <p> in <abstract abstract-type="key-points">',
-                error_level=error_level,
-            )
-
-
-class HighlightsValidation(AbstractsValidationBase):
-    """
-    Validation class for highlights section of articles, inheriting from AbstractsValidationBase.
-    """
-
-    def __init__(self, xml_tree):
-        # this is a list of dictionaries with highlight abstract data
-        super().__init__(xml_tree)
-        self.abstracts = list(ArticleHighlights(xml_tree).article_abstracts())
-        self.abstract_title = "abstracts (key-points)"
-
-    def validate(
-        self,
-        kwd_error_level="ERROR",
-        title_error_level="ERROR",
-        p_error_level="ERROR",
-        list_error_level="ERROR",
-    ):
-        """
-        Runs the validation checks for keywords, title, paragraph, and list tags in highlights.
-
-        Args:
-            kwd_error_level (str): Error level for keyword validation. Default is "ERROR".
-            title_error_level (str): Error level for title validation. Default is "ERROR".
-            p_error_level (str): Error level for paragraph validation. Default is "ERROR".
-            list_error_level (str): Error level for list validation. Default is "ERROR".
-
-        Yields:
-            dict: Formatted validation responses for each issue found.
-        """
-        for abstract in self.abstracts:
-            validations = HighlightValidation(abstract)
-            yield validations.validate_unexpected_kwd(kwd_error_level)
-            yield validations.validate_tag_title_in_abstract(title_error_level)
-            yield validations.validate_tag_p_in_abstract(p_error_level)
-            yield validations.validate_tag_list_in_abstract(list_error_level)
-
-
-class VisualAbstractValidation(AbstractValidationBase):
-    """
-    Validation class for visual abstracts, inheriting from AbstractValidationBase.
-    """
-
-    def validate_tag_graphic_in_abstract(self, error_level="ERROR"):
+    def validate_graphic(self):
         """
         Validates if the abstract contains a <graphic> tag.
-
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
 
         Returns:
             dict: Formatted validation response if the <graphic> tag is missing.
         """
+        error_level = self.params.get("graphic_error_level", self.params["default_error_level"])
         graphic = self.abstract.get("graphic")
         return self._format_response(
             title="graphic",
@@ -282,106 +155,263 @@ class VisualAbstractValidation(AbstractValidationBase):
             validation_type="exist",
             is_valid=bool(graphic),
             expected="graphic",
-            advice='Mark visual abstract with <abstract abstract-type="graphical"><p><fig><graphic xlink:href="VALUE"/> and replace VALUE with graphic path',
+            advice='Mark graphic in <abstract abstract-type="graphical">',
+            error_level=error_level,
+        )
+
+    def validate_kwd(self):
+        error_level = self.params.get("kwd_error_level", self.params["default_error_level"])
+        if not self.abstract.get("abstract_type"):
+            is_valid = bool(self.abstract.get("kwds"))
+            lang = self.abstract.get("lang")
+            return self._format_response(
+                title="kwd",
+                sub_item="kwd",
+                is_valid=is_valid,
+                validation_type="exist",
+                obtained=self.abstract.get("kwds"),
+                advice=f"Add keywords ({lang})",
+                error_level=self.params["kwd_error_level"],
+            )
+
+    def validate_title(self):
+        """
+        Validates if the abstract contains a title.
+
+        Returns:
+            dict: Formatted validation response if the title is missing.
+        """
+        error_level = self.params.get("title_error_level", self.params["default_error_level"])
+        title = self.abstract.get("title")
+        return self._format_response(
+            title="title",
+            sub_item="title",
+            validation_type="exist",
+            is_valid=bool(title),
+            expected="title",
+            advice="Mark abstract title with <title> in <abstract>",
+            error_level=self.params["title_error_level"],
+        )
+
+    def validate_list(self):
+        """
+        Validates if <list> tag is present in the abstract and suggests replacing it with <p>.
+
+        Returns:
+            dict: Formatted validation response if <list> tag is found.
+        """
+        error_level = self.params.get("list_error_level", self.params["default_error_level"])
+        is_valid = not self.abstract.get("list")
+        return self._format_response(
+            title="list",
+            sub_item="list",
+            validation_type="exist",
+            is_valid=is_valid,
+            obtained=self.abstract.get("list"),
+            advice='Replace <list> inside <abstract abstract-type="key-points"> by <p>',
+            error_level=error_level,
+        )
+
+    def validate_p(self):
+        """
+        Validates if the abstract contains more than one <p> tag.
+
+        Returns:
+            dict: Formatted validation response if less than two <p> tags are found.
+        """
+        error_level = self.params.get("p_error_level", self.params["default_error_level"])
+        is_valid = len(self.abstract.get("p") or []) <= 1
+        return self._format_response(
+            title="p",
+            sub_item="p",
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="p",
+            obtained=self.abstract.get("highlights"),
+            advice='Mark each key-point with <p> in <abstract abstract-type="key-points">',
             error_level=error_level,
         )
 
 
-class VisualAbstractsValidation(AbstractsValidationBase):
-    """
-    Validation class for visual abstracts, inheriting from AbstractsValidationBase.
-    """
-
-    def __init__(self, xml_tree):
-        # this is a list of dictionaries with visual abstract data
-        super().__init__(xml_tree)
-        self.abstracts = list(ArticleVisualAbstracts(xml_tree).article_abstracts())
-        self.abstract_title = "abstracts (graphical)"
-
-    def validate(
-        self,
-        kwd_error_level="ERROR",
-        title_error_level="ERROR",
-        graphic_error_level="ERROR",
-    ):
-        """
-        Runs the validation checks for keywords, title, and graphic tags in visual abstracts.
-
-        Args:
-            kwd_error_level (str): Error level for keyword validation. Default is "ERROR".
-            title_error_level (str): Error level for title validation. Default is "ERROR".
-            graphic_error_level (str): Error level for graphic validation. Default is "ERROR".
-
-        Yields:
-            dict: Formatted validation responses for each issue found.
-        """
-        for abstract in self.abstracts:
-            validations = VisualAbstractValidation(abstract)
-            yield validations.validate_unexpected_kwd(kwd_error_level)
-            yield validations.validate_tag_title_in_abstract(title_error_level)
-            yield validations.validate_tag_graphic_in_abstract(graphic_error_level)
-
-
-class AbstractsValidation(AbstractsValidationBase):
-    """
-    Standard abstracts validation
-    """
-
-    def __init__(self, xml_tree):
-        # this is a list of dictionaries with highlight abstract data
-        super().__init__(xml_tree)
-        self.abstracts = list(
-            ArticleAbstract(xml_tree, selection="standard").get_abstracts()
-        )
-        self.abstract_title = "standard abstracts"
-
-
-class ArticleAbstractsValidation:
-    """
-    Class to validate various types of abstracts in an article.
-
-    Args:
-        xml_tree (lxml.etree._Element): XML tree of the article.
-    """
-
-    def __init__(self, xml_tree):
-        # this is a list of dictionaries with abstract data
+class AbstractsValidationBase:
+    def __init__(self, xml_tree, abstracts, params=None):
         self.xml_tree = xml_tree
-        self.abstracts = list(
-            ArticleAbstract(xml_tree, selection="all").get_abstracts()
+        self.article_type = xml_tree.find(".").get("article-type")
+        self.lang = xml_tree.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.params = self.get_default_params()
+        self.params.update(params or {})
+        self.abstracts = list(abstracts or [])
+
+    def get_default_params(self):
+        return {
+            "default_error_level": "ERROR",
+            "kwd_error_level": "ERROR",
+            "title_error_level": "ERROR",
+            "abstract_type_error_level": "CRITICAL",
+            "abstract_presence_error_level": "WARNING",
+            "article_type_requires_abstract_error_level": "CRITICAL",
+            "article_type_unexpects_abstract_error_level": "CRITICAL",
+            "abstract_type_list": [
+                "key-points",
+                "graphical",
+                "summary",
+                None
+            ],
+            "article_type_requires": [
+                "case-report",
+                "research-article",
+                "review-article"
+            ],
+            "article_type_unexpects": [
+                "addendum",
+                "article-commentary",
+                "book-review",
+                "brief-report",
+                "correction",
+                "discussion",
+                "editorial",
+                "letter",
+                "obituary",
+                "partial-retraction",
+                "rapid-communication",
+                "reply",
+                "retraction",
+                "other"            
+            ],
+            "article_type_neutral": [
+                "clinical-instruction",
+                "data-article",
+                "oration",
+                "product-review",
+                "reviewer-report"
+            ]
+        }
+
+    def validate(self):
+        for item in self.abstracts:
+            validator = AbstractValidation(item)
+            yield from validator.validate()
+        
+
+class StandardAbstractsValidation(AbstractsValidationBase):
+
+    def validate_exists(self):
+        data = self.abstracts
+        error_level = self.params["default_error_level"]
+        is_valid = True
+        advice = None
+
+        if self.article_type in self.params["article_type_requires"]:
+            expected = f"Abstract is required"
+            is_valid = bool(data)
+            error_level = self.params["article_type_requires_abstract_error_level"]
+            advice = f"Mark abstract which is required for {self.article_type}"
+        elif self.article_type in self.params["article_type_unexpects"]:
+            expected = f"Abstract is unexpected"
+            is_valid = not bool(data)
+            error_level = self.params["article_type_unexpects_abstract_error_level"]
+            advice = f"Abstract is not expected for {self.article_type}"
+        elif self.article_type in self.params["article_type_neutral"]:
+            is_valid = True
+            expected = f"Abstract is optional"
+            advice = None
+        else:
+            raise ValueError(
+                f"Unable to identify if abstract is required or unexpected or neutral or acceptable"
+            )
+        return format_response(
+            title="abstract",
+            parent="article",
+            parent_id=None,
+            parent_article_type=self.article_type,
+            parent_lang=self.lang,
+            item="abstract",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected=expected,
+            obtained=data,
+            advice=advice,
+            data=data,
+            error_level=error_level,
         )
 
-    def validate_abstracts_type(
-        self, error_level="ERROR", expected_abstract_type_list=None
-    ):
-        """
-        Validates if the abstract types are within an expected list of types.
+    def validate(self):
+        yield from super().validate()
+        yield self.validate_exists()
 
-        Args:
-            error_level (str): Error level to be reported. Default is "ERROR".
-            expected_abstract_type_list (list, optional): List of expected abstract types.
 
-        Yields:
-            dict: Formatted validation responses for each abstract with unexpected type.
-        """
-        for abstract in self.abstracts:
-            advice = None
-            if abstract_type := abstract.get("abstract_type"):
-                advice = f'Replace {abstract_type} in <abstract abstract-type="{abstract_type}"> by a valid value: {expected_abstract_type_list}'
-            is_valid = abstract_type not in (expected_abstract_type_list or [])
-            yield format_response(
-                title="@abstract-type",
-                parent=abstract.get("parent"),
-                parent_id=abstract.get("parent_id"),
-                parent_article_type=abstract.get("parent_article_type"),
-                parent_lang=abstract.get("parent_lang"),
-                item="abstract",
-                sub_item="@abstract-type",
-                validation_type="value in list",
-                is_valid=is_valid,
-                expected=expected_abstract_type_list,
-                obtained=abstract_type,
-                advice=advice,
-                data=abstract,
-                error_level=error_level,
-            )
+class XMLAbstractsValidation:
+    def __init__(self, xmltree, params=None):
+        self.xmltree = xmltree
+        self.article_type = xmltree.find(".").get("article-type")
+        self.lang = xmltree.get("{http://www.w3.org/XML/1998/namespace}lang")
+        self.params = self.get_default_params()
+        self.params.update(params or {})
+        self.xml_abstracts = XMLAbstracts(xmltree)
+
+    def get_default_params(self):
+        return {
+            "default_error_level": "ERROR",
+            "kwd_error_level": "ERROR",
+            "title_error_level": "ERROR",
+            "abstract_type_error_level": "CRITICAL",
+            "abstract_presence_error_level": "WARNING",
+            "article_type_requires_abstract_error_level": "CRITICAL",
+            "article_type_unexpects_abstract_error_level": "CRITICAL",
+            "abstract_type_list": [
+                "key-points",
+                "graphical",
+                "summary",
+                None
+            ],
+            "article_type_requires": [
+                "case-report",
+                "research-article",
+                "review-article"
+            ],
+            "article_type_unexpects": [
+                "addendum",
+                "article-commentary",
+                "book-review",
+                "brief-report",
+                "correction",
+                "discussion",
+                "editorial",
+                "letter",
+                "obituary",
+                "partial-retraction",
+                "rapid-communication",
+                "reply",
+                "retraction",
+                "other"            
+            ],
+            "article_type_neutral": [
+                "clinical-instruction",
+                "data-article",
+                "oration",
+                "product-review",
+                "reviewer-report"
+            ]
+        }
+
+    def validate(self):
+        validator = StandardAbstractsValidation(
+            self.xmltree, self.xml_abstracts.standard_abstracts, self.params["abstract_rules"]
+        )
+        yield from validator.validate()
+
+        validator = AbstractsValidationBase(
+            self.xmltree, self.xml_abstracts.key_points_abstracts, self.params["highlight_rules"]
+        )
+        yield from validator.validate()
+        
+        validator = AbstractsValidationBase(
+            self.xmltree, self.xml_abstracts.visual_abstracts, self.params["graphical_abstract_rules"]
+        )
+        yield from validator.validate()
+        
+        validator = AbstractsValidationBase(
+            self.xmltree, self.xml_abstracts.summary_abstracts, self.params["abstract_rules"]
+        )
+        yield from validator.validate()

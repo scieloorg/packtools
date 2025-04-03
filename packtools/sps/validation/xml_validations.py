@@ -1,9 +1,6 @@
 from packtools.sps.validation.aff import FulltextAffiliationsValidation
 from packtools.sps.validation.article_abstract import (
-    AbstractsValidation,
-    ArticleAbstractsValidation,
-    HighlightsValidation,
-    VisualAbstractsValidation,
+    XMLAbstractsValidation,
 )
 from packtools.sps.validation.article_and_subarticles import (
     ArticleIdValidation,
@@ -56,52 +53,8 @@ def validate_affiliations(xmltree, params):
 
 
 def validate_abstracts(xmltree, params):
-
-    abstract_rules = params["abstract_rules"]
-    validator = ArticleAbstractsValidation(xmltree)
-    yield from validator.validate_abstracts_type(
-        error_level=abstract_rules["abstract_type_error_level"],
-        expected_abstract_type_list=abstract_rules["abstract_type_list"],
-    )
-
-    validator = AbstractsValidation(xmltree)
-    yield validator.validate_exists(
-        article_type_requires=abstract_rules["article_type_requires"],
-        article_type_unexpects=abstract_rules["article_type_unexpects"],
-        article_type_neutral=abstract_rules["article_type_neutral"],
-        article_type_accepts=[],
-    )
-
-    highlight_rules = params["highlight_rules"]
-
-    validator = HighlightsValidation(xmltree)
-    yield from validator.validate(
-        kwd_error_level=highlight_rules["kwd_error_level"],
-        title_error_level=highlight_rules["title_error_level"],
-        p_error_level=highlight_rules["p_error_level"],
-        list_error_level=highlight_rules["list_error_level"],
-    )
-    yield validator.validate_exists(
-        article_type_requires=[],
-        article_type_unexpects=highlight_rules["article_type_unexpects"],
-        article_type_neutral=highlight_rules["article_type_neutral"],
-        article_type_accepts=highlight_rules["article_type_accepts"],
-    )
-
-    graphical_abstract_rules = params["graphical_abstract_rules"]
-
-    validator = VisualAbstractsValidation(xmltree)
-    yield from validator.validate(
-        kwd_error_level=graphical_abstract_rules["kwd_error_level"],
-        title_error_level=graphical_abstract_rules["title_error_level"],
-        graphic_error_level=graphical_abstract_rules["graphic_error_level"],
-    )
-    yield validator.validate_exists(
-        article_type_requires=[],
-        article_type_unexpects=graphical_abstract_rules["article_type_unexpects"],
-        article_type_neutral=graphical_abstract_rules["article_type_neutral"],
-        article_type_accepts=graphical_abstract_rules["article_type_accepts"],
-    )
+    validator = XMLAbstractsValidation(xmltree, params)
+    yield from validator.validate()
 
 
 def validate_article(xmltree, params):
@@ -174,7 +127,7 @@ def validate_open_science_actions(xmltree, params):
 
     validator = ArticleLicenseValidation(xmltree)
     try:
-        yield validator.validate_license_code(
+        yield from validator.validate_license_code(
             expected_code=params["journal_data"]["license_code"],
             error_level=license_rules["error_level"],
         )
@@ -183,6 +136,9 @@ def validate_open_science_actions(xmltree, params):
 
     validator = DataAvailabilityValidation(xmltree, data_availability_rules)
     yield from validator.validate_data_availability()
+
+    validator = XMLFnGroupValidation(xmltree, params["fn_rules"])
+    yield from validator.validate_edited_by()
 
 
 def validate_article_toc_sections(xmltree, params):
@@ -196,16 +152,10 @@ def validate_article_toc_sections(xmltree, params):
 
 def validate_id_and_rid_match(xmltree, params):
     id_and_rid_match_rules = params["id_and_rid_match_rules"]
-
-    validator = ArticleXrefValidation(xmltree)
-    yield from validator.validate_xref_rid_has_corresponding_element_id(
-        error_level=id_and_rid_match_rules["required_id_error_level"]
-    )
-
-    yield from validator.validate_element_id_has_corresponding_xref_rid(
-        id_and_rid_match_rules["elements_required_rid"],
-        error_level=id_and_rid_match_rules["required_rid_error_level"],
-    )
+    validator = ArticleXrefValidation(xmltree, id_and_rid_match_rules)
+    yield from validator.validate_xref_rid_has_corresponding_element_id()
+    yield from validator.validate_element_id_has_corresponding_xref_rid()
+    yield from validator.validate_attrib_name_and_value_has_corresponding_xref()
 
 
 def validate_article_dates(xmltree, params):
@@ -256,6 +206,7 @@ def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
     validator = FundingGroupValidation(xmltree, funding_data_rules)
     yield from validator.validate_required_award_ids()
+    yield from validator.validate_funding_statement()
 
 
 def validate_journal_meta(xmltree, params):
@@ -313,5 +264,9 @@ def validate_author_notes(xmltree, params):
 
 
 def validate_peer_reviews(xmltree, params):
-    validator = XMLPeerReviewValidation(xmltree, params["peer_review_rules"])
+    rules = {}
+    rules.update(params["related_article_rules"])
+    rules.update(params["peer_review_rules"])
+    
+    validator = XMLPeerReviewValidation(xmltree, rules)
     yield from validator.validate()

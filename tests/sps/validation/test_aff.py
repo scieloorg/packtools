@@ -81,7 +81,14 @@ class AffiliationValidationTest(TestCase):
         obtained = list(
             AffiliationValidation(self.complete_aff, PARAMS).validate()
         )
-        self.assertEqual(0, len(obtained))
+        expected = [
+            '(article - aff1): Divisão 1 (orgdiv1) not found in Secretaria Municipal de '
+            'Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil',
+            '(article - aff1): Divisão 2 (orgdiv2) not found in Secretaria Municipal de '
+            'Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil']
+        self.assertEqual(16, len(obtained))
+        self.assertEqual(['ERROR', 'ERROR'], [item['response'] for item in obtained if item['response'] != 'OK'])
+        self.assertEqual(expected, [item['advice'] for item in obtained if item['advice']])
 
     def test_validate_incomplete_aff(self):
         obtained = list(self.validator.validate())
@@ -120,16 +127,16 @@ class AffiliationValidationTest(TestCase):
         self.assertEqual(1, len(obtained))
 
     def test_validate_original_aff_components(self):
-        obtained = list(AffiliationValidation(self.complete_aff, PARAMS).validate_original_aff_components())[0]
-        self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil")
+        results = list(AffiliationValidation(self.complete_aff, PARAMS).validate_aff_components())
+
+        obtained = results[0]
+        self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde")
         self.assertEqual(obtained["advice"], 'Mark the complete original affiliation with '
                                              '<institution content-type="original"> in <aff> and '
                                              'add Divisão 1 (orgdiv1), Divisão 2 (orgdiv2) in <institution content-type="original">')
 
-    def test_validate_original_aff_components_value(self):
-        self.maxDiff = None
-        obtained = list(AffiliationValidation(self.complete_aff_modified, PARAMS).validate_original_aff_components_value())[0]
-        self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde de Belo Horizonte. Belo Horizonte, MG, Brasil")
+        obtained = results[1]
+        self.assertEqual(obtained["got_value"], "Secretaria Municipal de Saúde")
         self.assertEqual(obtained["advice"], 'Mark the complete original affiliation with <institution content-type="original"> '
                                              'in <aff> and add missing words: [\'Secretaria\', \'Municipal\', \'de\', \'Saúde\', \'de\'].')
 
@@ -362,7 +369,8 @@ class TestFulltextAffiliationsValidation(TestCase):
         results = list(self.validator.validate_translations_consistency())
         self.assertEqual(2, len(results))  # All fields being compared
 
-        self.assertEqual(results[0]["advice"], "Review affiliation (aff2)")
+        print(results)
+        self.assertEqual(results[0]["advice"], "Compare aff1 and aff2. Make sure they are corresponding")
         self.assertEqual(results[1]["advice"], "Review affiliation (aff21)")
 
     @patch("packtools.sps.validation.aff.AffiliationValidation")

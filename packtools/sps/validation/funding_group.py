@@ -1,6 +1,6 @@
 from packtools.sps.models.funding_group import FundingGroup
 from packtools.sps.validation.utils import build_response
-
+from packtools.sps.validation.similarity_utils import most_similar, similarity
 
 def _callable_extern_validate_default(award_id):
     raise NotImplementedError
@@ -24,10 +24,10 @@ class FundingGroupValidation:
         self.xml_tree = xml_tree
         self.params = {
             "special_chars_award_id": ["/", ".", "-"],
-            "error_level": "ERROR",
+            "award_id_error_level": "CRITICAL",
+            "funding_statement_error_level": "CRITICAL"
         }
         self.params.update(params or {})
-
         self.funding = FundingGroup(xml_tree, self.params)
 
     def validate_required_award_ids(self):
@@ -46,45 +46,64 @@ class FundingGroupValidation:
             "parent_article_type": funding_data.get("article_type"),
             "parent_lang": funding_data.get("article_lang"),
         }
-
-        if bool(self.funding.award_ids):
+        award_ids = None
+        found_award_ids = set()
+        for item in self.funding.award_groups:
+            funding_sources = item["funding-source"]
+            award_ids = item["award-id"]
+            found_award_ids.update(award_ids)
+            
+            if funding_sources and award_ids:
+                valid = True
+                advice = None
+            elif award_ids:
+                valid = False
+                advice = f'Mark the sponsor institution with <funding-source> for <award-id> ({award_ids}). Consult SPS documentation for more detail'
+            elif funding_sources:
+                valid = False
+                advice = f'Mark the contract number with <award-id> for <funding-source> ({funding_sources}). Consult SPS documentation for more detail'
+            else:
+                valid = False
+                advice = f'Mark the contract number with <award-id> and the funding institution with <funding-source> insider <award-group>. Consult SPS documentation for more detail'
             yield build_response(
-                title="Funding information validation",
+                title="award-id and funding-source",
                 parent=parent,
                 item="award-group",
                 sub_item="award-id",
                 validation_type="exist",
-                is_valid=True,
+                is_valid=valid,
                 expected="award-id and funding-source in award-group",
-                obtained="Valid award-id and funding-source found",
-                advice=None,
-                data=None,
-                error_level="INFO",
+                obtained=item,
+                advice=advice,
+                data=item,
+                error_level=self.params["award_id_error_level"],
             )
-
-        errors = []
-        if items := self.funding.ack:
-            for ack in items:
-                for item in ack.get("p") or []:
-                    if item.get("look-like-award-id"):
-                        item["context"] = "ack"
-                        errors.append(item)
-        if items := self.funding.financial_disclosure:
-            for item in items or []:
-                if item.get("look-like-award-id"):
-                    item["context"] = "fn[@fn-type='financial-disclosure']"
-                    errors.append(item)
-        if items := self.funding.supported_by:
-            for item in items or []:
-                if item.get("look-like-award-id"):
-                    item["context"] = "fn[@fn-type='supported-by']"
-                    errors.append(item)
-        if funding_statement_data := self.funding.funding_statement_data:
-            if funding_statement_data.get("look-like-award-id"):
-                funding_statement_data["context"] = (
-                    "funding-group/funding-statement"
+        numbers = set()
+        for item in self.funding.look_like_award_ids:
+            numbers.update(item["look-like-award-id"])
+        if numbers == found_award_ids:
+            return
+        for item in self.funding.look_like_award_ids:
+            context = item["context"]
+            text = item["text"]
+            look_like_award_ids = set(item["look-like-award-id"])
+            missing_items = look_like_award_ids - found_award_ids
+            if not missing_items:
+                continue
+            for missing in missing_items:
+                yield build_response(
+                    title="Required funding-group/award-group with award-id and funding-source",
+                    parent=parent,
+                    item="award-group",
+                    sub_item="award-id",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected="award-id and funding-source in award-group",
+                    obtained=None,
+                    advice=f"Found {missing} in {text} ({context}), if {missing} is a contract number, add <award-id>{missing}</award-id> and the corresponding funding institution with <funding-source> inside <award-group>. Consult the SPS documentation for more detail",
+                    data=item,
+                    error_level=self.params["award_id_error_level"],
                 )
-                errors.append(funding_statement_data)
 
         for error in errors:
             yield build_response(

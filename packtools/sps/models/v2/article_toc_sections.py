@@ -21,10 +21,13 @@ class ArticleTocSections:
             except AttributeError:
                 yield parent_data
             else:
-                parent_data["article_title"] = node_text_without_fn_xref(fulltext.front.find(".//article-title"))
+                common_data = {}
+                common_data.update(parent_data)
+                common_data["journal"] = journal
+                common_data["article_title"] = node_text_without_fn_xref(fulltext.front.find(".//article-title"))
                 for subj_group in subj_groups:
                     _section = {}
-                    _section.update(parent_data)
+                    _section.update(common_data)
                     _section.update(
                         self.get_data(
                             subj_group.find("./subject"), subj_group.get("subj-group-type")
@@ -33,9 +36,15 @@ class ArticleTocSections:
                     subsections = []
                     for subsection in subj_group.xpath("./subj-group//subject"):
                         subsections.append(node_text_without_fn_xref(subsection) or None)
-                    _section["subsections"] = subsections
-                    _section["journal"] = journal
+                    _section["subsections"] = subsections                
                     yield _section
+                if not subj_groups:
+                    common_data["section"] = None
+                    common_data["subject"] = None
+                    common_data["subj_group_type"] = None
+                    common_data["subsec"] = None
+                    common_data["subsections"] = None
+                    yield common_data
 
     @property
     def sections_dict(self):

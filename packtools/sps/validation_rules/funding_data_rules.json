@@ -1,6 +1,7 @@
 {
     "funding_data_rules": {
         "special_chars_award_id": ["/", ".", "-"],
-        "error_level": "CRITICAL"
+        "award_id_error_level": "CRITICAL",
+        "funding_statement_error_level": "CRITICAL"
     }
 }
