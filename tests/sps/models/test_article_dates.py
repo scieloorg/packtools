@@ -122,19 +122,15 @@ class ArticleDatesArticleBefore1_8Test(TestCase):
         self.xmltree = etree.fromstring(_get_xml(pub_dates))
         self.xml_dates = ArticleDates(self.xmltree)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_collection_date_is_none(self):
         self.assertIsNone(self.xml_dates.collection_date)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_article_date_year(self):
         self.assertEqual("2023", self.xml_dates.article_date["year"])
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_article_date_month(self):
         self.assertEqual("02", self.xml_dates.article_date["month"])
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_article_date_day(self):
         self.assertEqual("20", self.xml_dates.article_date["day"])
 

@@ -111,7 +111,7 @@ class ArticleDates:
 
         if len(_dates) == 1 and not _dates[0]["type"]:
             try:
-                for key in ("day", "month", "year", "season"):
+                for key in ("day", "month", "year"):
                     _dates[0][key]
                 _dates[0]["type"] = "pub"
             except KeyError:
