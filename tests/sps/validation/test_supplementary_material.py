@@ -2,7 +2,7 @@ import unittest
 from lxml import etree
 from packtools.sps.validation.supplementary_material import (
     SupplementaryMaterialValidation,
-    ArticleSupplementaryMaterialValidation,
+    XmlSupplementaryMaterialValidation,
 )
 from packtools.sps.models.supplementary_material import XmlSupplementaryMaterials
 
@@ -90,7 +90,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             </article>
         """
         )
-        validator = ArticleSupplementaryMaterialValidation(
+        validator = XmlSupplementaryMaterialValidation(
             xml_tree, self.params
         )
         results = validator.validate_position()
@@ -142,7 +142,7 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         """
         )
 
-        validator = ArticleSupplementaryMaterialValidation(xml_tree, self.params)
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
         results = validator.validate_prohibited_inline()
         self.assertEqual(results["response"], "CRITICAL")
         self.assertEqual(
