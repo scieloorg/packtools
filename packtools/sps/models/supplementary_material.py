@@ -77,6 +77,10 @@ class XmlSupplementaryMaterials:
 
     @property
     def items_by_id(self):
+        """
+        De acordo com o SPS 1.10, não é permitido o uso de <inline-supplementary-material>, assim, o modelo não
+        considera esse elemento, apesar de ele poder existir.
+        """
         supp_dict = {}
         for node in self.xml_tree.xpath(". | sub-article"):
             node_id = node.get("id") if node.get("id") else "main_article"
