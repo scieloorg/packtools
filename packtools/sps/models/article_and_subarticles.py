@@ -123,7 +123,7 @@ class ArticleAndSubArticles:
 
     @property
     def article(self):
-        node = self.xmltree.find(".")
+        node = self.xmltree.find(".//article-meta")
         if node is not None:
             yield node
 
