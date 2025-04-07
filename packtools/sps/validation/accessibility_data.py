@@ -22,36 +22,55 @@ class AccessibilityDataValidation:
     def validate_alt_text(self):
         """Validates that <alt-text> has a maximum of 120 characters and contains only allowed characters."""
         alt_text = self.accessibility_data.get("alt_text")
-        valid = bool(alt_text) and len(alt_text) <= 120
+        if not alt_text:
+            error_level = self.params["alt_text_exist_error_level"]
+            valid = False
+        elif len(alt_text) > 120:
+            error_level = self.params["alt_text_content_error_level"]
+            valid = False
+        else:
+            error_level = None
+            valid = True
+
         return build_response(
             title="<alt-text> validation",
             parent=self.accessibility_data,
             item="alt-text",
             sub_item=None,
             is_valid=valid,
-            validation_type="length",
+            validation_type="format",
             expected="Up to 120 characters",
-            obtained=len(alt_text) if alt_text else "Missing",
-            advice="Provide an alternative text with a maximum of 120 characters.",
-            error_level=self.params["alt_text_error_level"],
+            obtained=alt_text,
+            advice="Ensure <alt-text> is provided and does not exceed 120 characters to support accessibility.",
+            error_level=error_level,
             data=self.accessibility_data,
         )
 
     def validate_long_desc(self):
-        """Validates that <long-desc> has more than 120 characters."""
+        """Validates that <long-desc> is present and has more than 120 characters."""
         long_desc = self.accessibility_data.get("long_desc")
-        valid = bool(long_desc) and len(long_desc) > 120
+
+        if not long_desc:
+            error_level = self.params["long_desc_exist_error_level"]
+            valid = False
+        elif len(long_desc) <= 120:
+            error_level = self.params["long_desc_content_error_level"]
+            valid = False
+        else:
+            error_level = None
+            valid = True
+
         return build_response(
             title="<long-desc> validation",
             parent=self.accessibility_data,
             item="long-desc",
             sub_item=None,
             is_valid=valid,
-            validation_type="length",
+            validation_type="format",
             expected="More than 120 characters",
-            obtained=len(long_desc) if long_desc else "Missing",
-            advice="Provide a long description with more than 120 characters.",
-            error_level=self.params["long_desc_error_level"],
+            obtained=long_desc,
+            advice="Ensure <long-desc> is provided and contains more than 120 characters to support accessibility.",
+            error_level=error_level,
             data=self.accessibility_data,
         )
 
@@ -92,9 +111,21 @@ class AccessibilityDataValidation:
         )
 
     def validate_speaker_and_speech(self):
-        """Ensures that <speaker> and <speech> are used correctly in transcripts."""
+        """Validates that <speaker> and <speech> elements are present when required in transcript sections."""
         speakers = self.accessibility_data.get("speakers", [])
-        valid = bool(speakers)
+
+        if not speakers:
+            valid = False
+            obtained = "Missing"
+            advice = (
+                "Use <speaker> and <speech> inside <sec sec-type=\"transcript\"> to mark dialogues. "
+                "Refer to SPS 1.10 docs for details."
+            )
+        else:
+            valid = True
+            obtained = "Present"
+            advice = "Dialogue is properly marked with <speaker> and <speech> elements."
+
         return build_response(
             title="<speaker> and <speech> validation",
             parent=self.accessibility_data,
@@ -102,9 +133,9 @@ class AccessibilityDataValidation:
             sub_item=None,
             is_valid=valid,
             validation_type="exist",
-            expected="Present",
-            obtained="Missing" if not speakers else "Present",
-            advice="Ensure proper markup for dialogues.",
+            expected="Present in dialogue transcripts",
+            obtained=obtained,
+            advice=advice,
             error_level=self.params["speaker_speech_error_level"],
             data=self.accessibility_data,
         )
