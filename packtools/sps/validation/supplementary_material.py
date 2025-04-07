@@ -97,7 +97,7 @@ class SupplementaryMaterialValidation:
         )
 
 
-class ArticleSupplementaryMaterialValidation:
+class XmlSupplementaryMaterialValidation:
     def __init__(self, xml_tree, params):
         self.article_supp = list(XmlSupplementaryMaterials(xml_tree).items)
         self.xml_tree = xml_tree
