@@ -70,7 +70,7 @@ class TestGraphic(unittest.TestCase):
         xml_graphic = XmlGraphic(self.article)
         data_list = list(xml_graphic.data())
         # Deve haver 3 elementos (2 <graphic> + 1 <inline-graphic>)
-        self.assertEqual(len(data_list), 6)
+        self.assertEqual(len(data_list), 3)
 
         expected_graphic1 = {
             "xlink_href": "image1.png",
