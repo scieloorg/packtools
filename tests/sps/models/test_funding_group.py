@@ -84,48 +84,48 @@ class FundingTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
                 "text": "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
-                "text": "[https://doi.org/10.13039/501100003593]",
+                "text": "[ https://doi.org/10.13039/501100003593 ]",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": ["303625/2019-8"],
                 "text": "Grant No: 303625/2019-8",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
                 "text": "Fundação de Amparo à Pesquisa do Estado de São Paulo",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
-                "text": "[https://doi.org/10.13039/501100001807]",
+                "text": "[ https://doi.org/10.13039/501100001807 ]",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": ["2016/17640-0"],
                 "text": "Grant No: 2016/17640-0",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
                 "text": "Coordenação de Aperfeiçoamento de Pessoal de Nível Superior.",
             },
             {
-                "fn-type": "financial-disclosure",
+                "context": "financial-disclosure",
                 "look-like-award-id": [],
-                "text": "[https://doi.org/10.13039/501100002322]",
+                "text": "[ https://doi.org/10.13039/501100002322 ]",
             },
             {
-                "fn-type": "financial-disclosure",
-                "look-like-award-id": ["0001."],
+                "context": "financial-disclosure",
+                "look-like-award-id": ["0001"],
                 "text": "Finance code 0001.",
             },
         ]
@@ -136,12 +136,12 @@ class FundingTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                "fn-type": "supported-by",
+                "context": "supported-by",
                 "look-like-award-id": [],
                 "text": "Conselho Nacional de Desenvolvimento Científico e Tecnológico",
             },
             {
-                "fn-type": "supported-by",
+                "context": "supported-by",
                 "look-like-award-id": ["123.456-7"],
                 "text": "Número 123.456-7",
             },
@@ -198,21 +198,18 @@ class FundingTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                "title": "Acknowledgments",
-                "p": [
-                    {
-                        "look-like-award-id": [],
-                        "text": "Federal University of Rio de Janeiro (UFRJ), School of Medicine, Department of Surgery and Anesthesiology, RJ, Brazil, provided important support for this research.",
-                    },
-                    {
-                        "look-like-award-id": [],
-                        "text": "This study was funded by the Hospital Municipal Conde Modesto Leal, Center of Diagnostic and Treatment (CDT), Municipal Secretariat of Health, Maricá, RJ, Brazil.",
-                    },
-                    {
-                        "look-like-award-id": ["10-14"],
-                        "text": "This study was presented as a poster presentation at the Brazilian Congress of Anesthesiology CBA Annual Meeting 10-14 November 2018, Belém do Pará, Brazil.",
-                    },
+                'p': [
+                    'Federal University of Rio de Janeiro (UFRJ), School of Medicine,  '
+                    'Department of Surgery and Anesthesiology , RJ, Brazil, provided '
+                    'important support for this research.',
+                    'This study was funded by the Hospital Municipal Conde Modesto Leal, '
+                    'Center of Diagnostic and Treatment (CDT), Municipal Secretariat of '
+                    'Health, Maricá, RJ, Brazil.',
+                    'This study was presented as a poster presentation at the Brazilian '
+                    'Congress of Anesthesiology CBA Annual Meeting 10-14 November 2018, '
+                    'Belém do Pará, Brazil.'
                 ],
+                'title': 'Acknowledgments'
             }
         ]
         obtained = self.funding.ack
