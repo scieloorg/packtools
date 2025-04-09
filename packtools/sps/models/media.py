@@ -34,6 +34,7 @@ class Media(BaseMedia, LabelAndCaption):
 
     @property
     def data(self):
+        # Detalhes sobre a obtenção dos atributos abaixo em: https://github.com/scieloorg/packtools/pull/964
         base_data = BaseMedia.data.fget(self)
         label_caption_data = LabelAndCaption.data.fget(self)
 
