@@ -101,7 +101,7 @@ class TestMedia(unittest.TestCase):
         data_list = list(xml_media.data())
 
         # Deve haver 3 elementos (2 <media> + 1 <inline-media>)
-        self.assertEqual(len(data_list), 6)
+        self.assertEqual(len(data_list), 3)
 
         expected_media1 = {
             "xlink_href": "video1.mp4",

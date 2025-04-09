@@ -34,8 +34,9 @@ class Media(BaseMedia, LabelAndCaption):
 
     @property
     def data(self):
-        base_data = super(BaseMedia, self).data
-        label_caption_data = super(LabelAndCaption, self).data
+        # Detalhes sobre a obtenção dos atributos abaixo em: https://github.com/scieloorg/packtools/pull/964
+        base_data = BaseMedia.data.fget(self)
+        label_caption_data = LabelAndCaption.data.fget(self)
 
         return {**base_data, **label_caption_data}
 
