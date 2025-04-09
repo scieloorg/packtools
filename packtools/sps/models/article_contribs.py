@@ -160,6 +160,12 @@ class XMLContribs:
         else:
             yield from self.text_contribs.items
 
+    @property
+    def translations_contrib(self):
+        for contrib in self.all_contribs:
+            if contrib.get("contrib_type") == "translator":
+                yield contrib
+
     def _add_affs(self, contrib):
         if self.aff and contrib and (xrefs := contrib.get("contrib_xref")):
             affs = []
