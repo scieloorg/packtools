@@ -81,7 +81,14 @@ class ArticleMetaIssueTest(TestCase):
         self.assertEqual("123", self.issue.lpage)
 
     def test_collection_date(self):
-        expected = {"year": "2003", "type": "collection"}
+        expected = {
+            'display': '2003',
+            'is_complete': False,
+            'parts': {'day': None, 'month': None, 'season': None, 'year': '2003'},
+            'type': 'collection',
+            'year': '2003'
+        }
+
         self.assertDictEqual(expected, self.issue.collection_date)
 
     def test_fpage_seq(self):
