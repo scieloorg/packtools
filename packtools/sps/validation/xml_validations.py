@@ -24,7 +24,10 @@ from packtools.sps.validation.formula import (
     ArticleDispFormulaValidation,
     ArticleInlineFormulaValidation,
 )
-from packtools.sps.validation.front_articlemeta_issue import PaginationValidation, IssueValidation
+from packtools.sps.validation.front_articlemeta_issue import (
+    PaginationValidation,
+    IssueValidation,
+)
 from packtools.sps.validation.funding_group import FundingGroupValidation
 from packtools.sps.validation.journal_meta import (
     JournalIdValidation,
@@ -37,11 +40,11 @@ from packtools.sps.validation.references import ReferencesValidation
 from packtools.sps.validation.related_articles import XMLRelatedArticlesValidation
 from packtools.sps.validation.tablewrap import ArticleTableWrapValidation
 
-# TODO remover journal
-# from packtools.sps.validation.journal import xValidation
-# TODO completar
-# from packtools.sps.validation.media import xValidation
-# from packtools.sps.validation.supplementary_material import xValidation
+from packtools.sps.validation.media import XMLMediaValidation
+from packtools.sps.validation.accessibility_data import XMLAccessibilityDataValidation
+from packtools.sps.validation.app_group import AppValidation
+
+# from packtools.sps.validation.supplementary_material import XMLSupplementaryMaterialValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -202,6 +205,7 @@ def validate_bibliographic_strip(xmltree, params):
     validator = PaginationValidation(xmltree, rules)
     yield validator.validate()
 
+
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
     validator = FundingGroupValidation(xmltree, funding_data_rules)
@@ -267,6 +271,35 @@ def validate_peer_reviews(xmltree, params):
     rules = {}
     rules.update(params["related_article_rules"])
     rules.update(params["peer_review_rules"])
-    
+
     validator = XMLPeerReviewValidation(xmltree, rules)
+    yield from validator.validate()
+
+
+def validate_accessibility_data(xmltree, params):
+    rules = {}
+    rules.update(params["accessibility_data_rules"])
+    validator = XMLAccessibilityDataValidation(xmltree, rules)
+    yield from validator.validate()
+
+
+def validate_media(xmltree, params):
+    rules = {}
+    rules.update(params["visual_resource_base_rules"])
+    validator = XMLMediaValidation(xmltree, rules)
+    yield from validator.validate()
+
+
+def validate_app_group(xmltree, params):
+    rules = {}
+    rules.update(params["app_group_rules"])
+    validator = AppValidation(xmltree, rules)
+    yield from validator.validate()
+
+
+def validate_supplementary_materials(xmltree, params):
+    # TODO
+    rules = {}
+    rules.update(params["supplementary_materials_rules"])
+    validator = XMLSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
