@@ -3,9 +3,11 @@ from packtools.sps.models.visual_resource_base import (
     VisualResourceBase,
     XmlVisualResource,
 )
+from packtools.sps.utils.xml_utils import tostring
 
 
 class BaseMedia(VisualResourceBase):
+
     @property
     def mimetype(self):
         return self.node.get("mimetype")
@@ -47,5 +49,5 @@ class InlineMedia(BaseMedia):
 
 class XmlMedias(XmlVisualResource):
     def __init__(self, xmltree):
-        resource_types = [("media", Media), ("inline-media", InlineMedia)]
+        resource_types = [("*[name()!='supplementary-material']/media", Media), ("inline-media", InlineMedia)]
         super().__init__(xmltree, resource_types=resource_types)

@@ -1,35 +1,43 @@
 import os
 
+from packtools.sps.validation.accessibility_data import \
+    AccessibilityDataValidation
 from packtools.sps.validation.utils import build_response
-from packtools.sps.validation.accessibility_data import AccessibilityDataValidation
 
 
 class VisualResourceBaseValidation:
-    def __init__(self, node, data, params):
-        self.node = node
+    def __init__(self, data, params):
         self.data = data
         self.params = params
         self.accessibility_validation = AccessibilityDataValidation(
-            self.node, self.params
+            data, self.params
         )
 
     def validate(self):
-        yield self.validate_id
-        yield self.validate_xlink_href
+        yield self.validate_id()
+        yield self.validate_xlink_href()
         yield from self.accessibility_validation.validate()
 
     def validate_id(self):
-        valid = bool(self.data.get("id"))
+        xml = self.data.get("xml")
+        tag = self.data.get("tag")
+        if tag.startswith("inline-"):
+            valid = True
+            expected = None
+        else:
+            valid = bool(self.data.get("id"))
+            elem = xml[:xml.find(">")+1]
+            expected = f"id for {elem}"
         return build_response(
-            title="@id attribute validation",
+            title="@id",
             parent=self.data,
-            item="media",
+            item=tag,
             sub_item=None,
             is_valid=valid,
             validation_type="exist",
-            expected="Present",
-            obtained="Missing" if not valid else "Present",
-            advice="Ensure @id is included.",
+            expected=expected,
+            obtained=self.data.get("id"),
+            advice=f'Add id="" to {xml}',
             error_level=self.params["media_attributes_error_level"],
             data=self.data,
         )

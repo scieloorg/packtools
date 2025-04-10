@@ -7,7 +7,7 @@
         "transcript_error_level": "WARNING",
         "content_type_error_level": "CRITICAL",
         "speaker_speech_error_level": "WARNING",
-        "media_structure_error_level": "CRITICAL",
+        "structure_error_level": "CRITICAL",
         "content_types": [
             "machine-generated"
         ]

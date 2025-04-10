@@ -34,14 +34,12 @@ class App(LabelAndCaption):
 class XmlAppGroup:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
-        self.article_and_subarticles = ArticleAndSubArticles(
-            xml_tree
-        ).article_and_sub_articles
 
+    @property
     def data(self):
-        for node in self.article_and_subarticles:
+        for node in self.xml_tree.xpath(".|.//sub-article"):
             full_text = Fulltext(node)
 
-            for app_node in node.xpath(".//app-group//app"):
+            for app_node in node.xpath("./back//app"):
                 app_data = App(app_node).data
                 yield {**app_data, **full_text.attribs_parent_prefixed}

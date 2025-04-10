@@ -1,11 +1,11 @@
-from ..models.app_group import AppGroup
+from ..models.app_group import XmlAppGroup
 from ..validation.utils import format_response
 
 
 class AppValidation:
-    def __init__(self, xmltree):
+    def __init__(self, xmltree, params):
         self.xmltree = xmltree
-        self.apps = AppGroup(xmltree).data()
+        self.apps = XmlAppGroup(xmltree).data
 
     def validate_app_existence(self, error_level="WARNING"):
         for app in self.apps:
