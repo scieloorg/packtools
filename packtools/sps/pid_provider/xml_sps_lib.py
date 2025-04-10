@@ -427,8 +427,8 @@ class XMLWithPre:
             XML file URI
         """
         if path:
+            errors = []
             if capture_errors:
-                self.errors = self.errors or []
                 items = get_sps_pkg_xml_items(path)
             else:
                 items = get_xml_items(path)
@@ -437,11 +437,12 @@ class XMLWithPre:
                 if not item:
                     continue
                 if item.get("error"):
-                    self.errors.append(item)
+                    errors.append(item)
                 else:
                     item["xml_with_pre"].filename = item["filename"]
                     item["xml_with_pre"].files = item.get("files")
                     item["xml_with_pre"].filenames = item.get("filenames")
+                    item["xml_with_pre"].errors = errors
                     yield item["xml_with_pre"]
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout)
