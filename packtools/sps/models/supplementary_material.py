@@ -11,6 +11,10 @@ class SupplementaryMaterial(LabelAndCaption):
         self._parent_node = node.getparent()
         media_nodes = node.xpath("./media")
         graphic_nodes = node.xpath("./graphic")
+        self.media = None
+        self.graphic = None
+        self.media_node = None
+        self.graphic_node = None
         if media_nodes:
             self.media_node = media_nodes[0]
             self.media = Media(self.media_node)
@@ -29,8 +33,7 @@ class SupplementaryMaterial(LabelAndCaption):
         if self.graphic is not None and hasattr(self.graphic, name):
             return getattr(self.graphic, name)
 
-        if hasattr(super(), name):
-            return getattr(super(), name)
+
 
         raise AttributeError(f"SupplementaryMaterial has no attribute {name}")
 
