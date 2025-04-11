@@ -171,7 +171,7 @@ class XmlSupplementaryMaterialValidation:
     def validate(self):
         for supp in self.article_supp:
             yield from SupplementaryMaterialValidation(
-                supp, self.xml_tree, self.params
+                supp, self.params
             ).validate()
 
         yield self.validate_prohibited_inline()
