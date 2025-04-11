@@ -15,6 +15,23 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             "label_error_level": "CRITICAL",
             "app_group_error_level": "CRITICAL",
             "inline_error_level": "CRITICAL",
+            "mime_types_and_subtypes": [
+                {"mimetype": "video", "mime-subtype": "mp4"},
+                {"mimetype": "audio", "mime-subtype": "mp3"},
+                {"mimetype": "application", "mime-subtype": "zip"},
+                {"mimetype": "application", "mime-subtype": "pdf"},
+                {"mimetype": "application", "mime-subtype": "xlsx"}
+            ],
+            "mime_type_error_level": "CRITICAL",
+            "media_attributes_error_level": "CRITICAL",
+            "valid_extension": "CRITICAL",
+            "xlink_href_error_level": "CRITICAL",
+            "alt_text_exist_error_level": "CRITICAL",
+            "long_desc_exist_error_level": "CRITICAL",
+            "transcript_error_level": "CRITICAL",
+            "speaker_speech_error_level": "CRITICAL",
+            "structure_error_level": "CRITICAL",
+            "parent_suppl_mat_expected": ["app-group", "app"]
         }
 
     def test_validate_sec_type(self):
@@ -34,9 +51,8 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
         """
         )
         supplementary_data = list(XmlSupplementaryMaterials(xml_tree).items)
-        supplementary_node = xml_tree.xpath(".//media")
         validator = SupplementaryMaterialValidation(
-            supplementary_data[0], self.params, supplementary_node
+            supplementary_data[0], self.params
         )
         results = validator.validate_sec_type()
         self.assertEqual(results["response"], "CRITICAL")
@@ -149,6 +165,48 @@ class TestSupplementaryMaterialValidation(unittest.TestCase):
             results["advice"],
             "The use of <inline-supplementary-material> is prohibited.",
         )
+
+    def test_validate_full_workflow(self):
+        """Test the complete validation workflow for supplementary material."""
+        xml_tree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="en">
+                <body>
+                    <sec sec-type="supplementary-material">
+                        <supplementary-material id="supp1" xlink:href="file.pdf">
+                            <label>Supplementary Material</label>
+                            <media mimetype="application" mime-subtype="pdf" xlink:href="file.pdf"/>
+                        </supplementary-material>
+                    </sec>
+                </body>
+            </article>
+            """
+        )
+        validator = XmlSupplementaryMaterialValidation(xml_tree, self.params)
+        results = list(validator.validate())
+
+        self.assertEqual(len(results), 20)  # Validações executadas
+        titles = [result["title"] for result in results]
+        self.assertIn("mime type and subtype", titles)
+        self.assertIn("@id", titles)
+        self.assertIn("@xlink:href validation", titles)
+        self.assertIn("<alt-text>", titles)
+        self.assertIn("<long-desc>", titles)
+        self.assertIn("Transcript validation", titles)
+        self.assertIn("<speaker> and <speech> validation", titles)
+        self.assertIn("structure", titles)
+        self.assertIn("@id", titles)
+        self.assertIn("@xlink:href validation", titles)
+        self.assertIn("<alt-text>", titles)
+        self.assertIn("<long-desc>", titles)
+        self.assertIn("Transcript validation", titles)
+        self.assertIn("<speaker> and <speech> validation", titles)
+        self.assertIn("structure", titles)
+        self.assertIn("@sec-type", titles)
+        self.assertIn("label", titles)
+        self.assertIn("Prohibition of <supplementary-material> inside <app-group> and <app>", titles)
+        self.assertIn("Prohibition of inline-supplementary-material", titles)
+        self.assertIn("Position of supplementary materials", titles)
 
 
 if __name__ == "__main__":
