@@ -75,8 +75,8 @@ class AccessibilityData:
             "tag": self.node.tag,
             "xref_sec_rid": self.xref_sec_rid,
         }
-        d.update(self.long_desc)
-        d.update(self.alt_text)
+        d.update(self.long_desc or {})
+        d.update(self.alt_text or {})
         d.update(self.transcript_data or {})
         return d
 

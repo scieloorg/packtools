@@ -9,6 +9,7 @@
             {"mimetype": "application", "mime-subtype": "zip"},
             {"mimetype": "application", "mime-subtype": "pdf"},
             {"mimetype": "application", "mime-subtype": "xlsx"}
-        ]
+        ],
+        "mime_type_error_level": "CRITICAL"
     }
 }
