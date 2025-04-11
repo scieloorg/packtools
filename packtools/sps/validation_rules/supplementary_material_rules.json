@@ -10,6 +10,7 @@
             "zip": "application",
             "mp4": "video",
             "mp3": "audio"
-        }
+        },
+        "parent_suppl_mat_expected": ["app-group", "app"]
     }
 }
