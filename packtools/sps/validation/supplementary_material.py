@@ -9,7 +9,7 @@ from packtools.sps.validation.utils import build_response
 
 
 class SupplementaryMaterialValidation:
-    def __init__(self, data, params, node=None):
+    def __init__(self, data, params):
         """
         Inicializa a validação de um material suplementar.
 
@@ -18,20 +18,13 @@ class SupplementaryMaterialValidation:
         """
         self.data = data
         self.params = params
-        self.node = node
 
     def validate(self):
         """
         Executa todas as validações definidas.
         """
-        for media in self.node.xpath(".//media"):
-            if media.data:
-                yield from MediaValidation(media.data, self.params).validate()
-
-        for graphic in self.node.xpath(".//graphic"):
-            if graphic.data:
-                yield from GraphicValidation(graphic, self.params).validate()
-
+        yield from MediaValidation(self.data, self.params).validate()
+        yield from GraphicValidation(self.data, self.params).validate()
         yield self.validate_sec_type()
         yield self.validate_label()
         yield self.validate_not_in_app_group()
