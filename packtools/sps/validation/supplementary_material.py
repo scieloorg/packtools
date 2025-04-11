@@ -124,6 +124,10 @@ class XmlSupplementaryMaterialValidation:
         """
         Verifies if the supplementary materials section is in the last position of <body> or inside <back>.
         """
+        sections = self.xml_tree.findall(".//sec")
+        if not any(sec.get("sec-type") == "supplementary-material" for sec in sections):
+            return
+
         article_body = self.xml_tree.find("body")
         article_back = self.xml_tree.find("back")
 
