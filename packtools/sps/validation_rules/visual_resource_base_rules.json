@@ -1,0 +1,14 @@
+{
+    "visual_resource_base_rules": {
+        "media_attributes_error_level": "CRITICAL",
+        "xlink_href_error_level": "CRITICAL",
+        "valid_extension": ["mp3", "mp4", "zip", "pdf", "xlsx"],
+        "mime_types_and_subtypes": [
+            {"mimetype": "video", "mime-subtype": "mp4"},
+            {"mimetype": "audio", "mime-subtype": "mp3"},
+            {"mimetype": "application", "mime-subtype": "zip"},
+            {"mimetype": "application", "mime-subtype": "pdf"},
+            {"mimetype": "application", "mime-subtype": "xlsx"}
+        ]
+    }
+}

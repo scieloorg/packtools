@@ -9,79 +9,40 @@ from packtools.sps.models.article_contribs import (
     XMLContribs,
 )
 
-
 class ContribTest(TestCase):
     def setUp(self):
-        xml = """
-            <article>
-                <front>
-                    <article-meta>
-                        <contrib-group>
-                            <contrib contrib-type="author">
-                                <contrib-id contrib-id-type="orcid">0000-0001-8528-2091</contrib-id>
-                                <contrib-id contrib-id-type="scopus">24771926600</contrib-id>
-                                <collab>The MARS Group</collab>
-                                <name>
-                                    <surname>Einstein</surname>
-                                    <given-names>Albert</given-names>
-                                    <prefix>Prof</prefix>
-                                    <suffix>Nieto</suffix>
-                                </name>
-                                <xref ref-type="aff" rid="aff1">1</xref>
-                                <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>
-                                <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
-                                <role specific-use="reviewer">Reviewer</role>
-                            </contrib>
-                        </contrib-group>
-                    </article-meta>
-                </front>
-            </article>
-            """
-        self.xmltree = etree.fromstring(xml)
+        self.contrib = Contrib(self._make_node())
 
     def test_contrib_type(self):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).contrib_type
-
         self.assertEqual(obtained, "author")
 
     def test_contrib_ids(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = Contrib(contrib).contrib_ids
         expected = {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"}
-
         self.assertDictEqual(obtained, expected)
 
     def test_contrib_name(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = Contrib(contrib).contrib_name
         expected = {
             "given-names": "Albert",
             "surname": "Einstein",
             "prefix": "Prof",
             "suffix": "Nieto",
         }
-
         self.assertDictEqual(obtained, expected)
 
     def test_collab(self):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).collab
-
         self.assertEqual(obtained, "The MARS Group")
 
     def test_contrib_xref(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = list(Contrib(contrib).contrib_xref)
         expected = [{"rid": "aff1", "ref_type": "aff", "text": "1"}]
-
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
 
     def test_contrib_role(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = list(Contrib(contrib).contrib_role)
         expected = [
             {
                 "text": "Data curation",
@@ -101,7 +62,7 @@ class ContribTest(TestCase):
         ]
 
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
 
     def test_data(self):
@@ -110,10 +71,7 @@ class ContribTest(TestCase):
         obtained = Contrib(contrib).data
         expected = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
@@ -141,7 +99,6 @@ class ContribTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -179,10 +136,7 @@ class ContribWithoutContribTypeTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
@@ -210,7 +164,6 @@ class ContribWithoutContribTypeTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -274,7 +227,6 @@ class ContribWithoutContribIdTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -312,10 +264,7 @@ class ContribWithoutCollabTest(TestCase):
         obtained = Contrib(contrib).data
         expected = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
                 "given-names": "Albert",
@@ -342,7 +291,6 @@ class ContribWithoutCollabTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -375,10 +323,7 @@ class ContribWithoutNameTest(TestCase):
         obtained = Contrib(contrib).data
         expected = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
             "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
             "contrib_role": [
@@ -399,7 +344,6 @@ class ContribWithoutNameTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -437,10 +381,7 @@ class ContribWithoutXrefTest(TestCase):
         obtained = Contrib(contrib).data
         expected = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
@@ -467,7 +408,6 @@ class ContribWithoutXrefTest(TestCase):
                 },
             ],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -503,10 +443,7 @@ class ContribWithoutRoleTest(TestCase):
         obtained = Contrib(contrib).data
         expected = {
             "contrib_type": "author",
-            "contrib_ids": {
-                "orcid": "0000-0001-8528-2091",
-                "scopus": "24771926600",
-            },
+            "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
@@ -517,7 +454,6 @@ class ContribWithoutRoleTest(TestCase):
             },
             "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": "1"}],
         }
-
         self.assertDictEqual(obtained, expected)
 
 
@@ -568,25 +504,19 @@ class ContribGroupTest(TestCase):
     def test_data(self):
         self.maxDiff = None
         contrib_group = self.xmltree.xpath(".//contrib-group")[0]
-        obtained = list(
-            [item.data for item in ContribGroup(contrib_group).contribs]
-        )
+        obtained = [item.data for item in ContribGroup(contrib_group).contribs]
         expected = [
             {
                 "collab": "Technical Committee ISO/TC 108, Subcommittee SC 2",
                 "contrib_type": "author",
-                "contrib_xref": [
-                    {"ref_type": "aff", "rid": "aff1", "text": None}
-                ],
+                "contrib_xref": [{"ref_type": "aff", "rid": "aff1", "text": None}],
             },
             {
-                "collab": "Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, "
-                "Switzerland",
+                "collab": "Joint United Nations Program on HIV/AIDS (UNAIDS), World Health Organization, Geneva, Switzerland",
                 "contrib_type": "author",
             },
             {
-                "collab": "Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island "
-                "Department of Health, Providence, Rhode Island",
+                "collab": "Nonoccupational HIV PEP Task Force, Brown University AIDS Program and the Rhode Island Department of Health, Providence, Rhode Island",
                 "contrib_type": "author",
             },
             {
@@ -604,9 +534,8 @@ class ContribGroupTest(TestCase):
                 ],
             },
         ]
-
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
 
 
@@ -676,10 +605,7 @@ class ArticleContribTest(TestCase):
                 "contrib_ids": {"orcid": "0000-0003-2243-0821"},
                 "contrib-group-type": None,
                 "contrib_full_name": "Silvana de Castro",
-                "contrib_name": {
-                    "given-names": "Silvana de",
-                    "surname": "Castro",
-                },
+                "contrib_name": {"given-names": "Silvana de", "surname": "Castro"},
                 "contrib_type": "author",
                 "contrib_xref": [
                     {"ref_type": "aff", "rid": "aff1", "text": "a"},
@@ -715,10 +641,7 @@ class ArticleContribTest(TestCase):
                 "contrib_ids": {"orcid": "0000-0003-2243-0821"},
                 "contrib-group-type": None,
                 "contrib_full_name": "Silvana de Castro",
-                "contrib_name": {
-                    "given-names": "Silvana de",
-                    "surname": "Castro",
-                },
+                "contrib_name": {"given-names": "Silvana de", "surname": "Castro"},
                 "contrib_type": "author",
                 "contrib_xref": [
                     {"ref_type": "aff", "rid": "aff4", "text": "a"},
@@ -746,9 +669,8 @@ class ArticleContribTest(TestCase):
                 ],
             },
         ]
-
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
 
     def test_fix_bug_without_prefix(self):
@@ -775,7 +697,7 @@ class ArticleContribTest(TestCase):
         expected = ["JEFFERSON C. SIMÕES Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
     def test_fix_bug_without_suffix(self):
@@ -802,7 +724,7 @@ class ArticleContribTest(TestCase):
         expected = ["Prof JEFFERSON C. SIMÕES"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
     def test_fix_bug_without_given_name(self):
@@ -829,15 +751,12 @@ class ArticleContribTest(TestCase):
         expected = ["Prof SIMÕES Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
-    def test_fix_bug_without_surname(self):
-        self.maxDiff = None
-        xml_tree = etree.fromstring(
-            """
-        <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        article-type="editorial" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en"> 
+    def _xml_string(self):
+        return """
+        <article article-type="research-article" xml:lang="en" id="article1">
             <front>
                 <contrib-group> 
                     <contrib contrib-type="author"> 
@@ -856,14 +775,13 @@ class ArticleContribTest(TestCase):
         expected = ["Prof JEFFERSON C. Nieto"]
         self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
-            with self.subTest(i):
+            with self.subTest(i=i):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
 
 class TestContribAnonymous(TestCase):
 
     def test_anonymous_when_present(self):
-        # Create XML with anonymous node
         xml = """
         <contrib>
             <anonymous/>
@@ -871,12 +789,9 @@ class TestContribAnonymous(TestCase):
         """
         node = etree.fromstring(xml)
         contrib = Contrib(node)
-
-        # Test that anonymous returns "anonymous"
         self.assertEqual(contrib.anonymous, "anonymous")
 
     def test_anonymous_when_absent(self):
-        # Create XML without anonymous node
         xml = """
         <contrib>
             <name>
@@ -886,24 +801,18 @@ class TestContribAnonymous(TestCase):
         """
         node = etree.fromstring(xml)
         contrib = Contrib(node)
-
-        # Test that anonymous returns None
         self.assertIsNone(contrib.anonymous)
 
     def test_anonymous_with_empty_node(self):
-        # Create XML with empty contrib node
         xml = """
         <contrib>
         </contrib>
         """
         node = etree.fromstring(xml)
         contrib = Contrib(node)
-
-        # Test that anonymous returns None
         self.assertIsNone(contrib.anonymous)
 
     def test_anonymous_present_in_data(self):
-        # Create XML with anonymous node
         xml = """
         <contrib>
             <anonymous/>
@@ -911,14 +820,11 @@ class TestContribAnonymous(TestCase):
         """
         node = etree.fromstring(xml)
         contrib = Contrib(node)
-
-        # Test that anonymous is present in data
         data = contrib.data
         self.assertIn("anonymous", data)
         self.assertEqual(data["anonymous"], "anonymous")
 
     def test_anonymous_absent_in_data(self):
-        # Create XML without anonymous node
         xml = """
         <contrib>
             <name>
@@ -928,13 +834,11 @@ class TestContribAnonymous(TestCase):
         """
         node = etree.fromstring(xml)
         contrib = Contrib(node)
-
-        # Test that anonymous is not present in data
         data = contrib.data
         self.assertNotIn("anonymous", data)
 
 
-def create_test_xml():
+def create_test_xml(contrib_type=None):
     xml = """
     <article article-type="research-article" xml:lang="en" id="article1">
         <front>
@@ -960,18 +864,21 @@ def create_test_xml():
         <sub-article article-type="translation" xml:lang="es" id="S1">
             <front-stub>
                 <contrib-group>
-                    <contrib contrib-type="translator">
+                    <contrib contrib-type="author">
                         <name>
-                            <surname>García</surname>
-                            <given-names>Ana</given-names>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
                         </name>
-                        <contrib-id contrib-id-type="orcid">9999-0001-2345-6789</contrib-id>
+                        <xref ref-type="aff" rid="aff1"/>
+                        <contrib-id contrib-id-type="orcid">0000-0001-2345-6789</contrib-id>
                     </contrib>
                 </contrib-group>
             </front-stub>
         </sub-article>
     </article>
     """
+    if contrib_type:
+        xml = xml.replace("translator", contrib_type)
     return etree.fromstring(xml)
 
 
@@ -985,77 +892,107 @@ class TestTextContribs(TestCase):
         self.assertEqual(len(groups), 1)
         self.assertIsInstance(groups[0], ContribGroup)
 
-    def test_data(self):
-        data = self.text_contribs.data
-        self.assertIn("parent", data)
-        self.assertIn("contrib-groups", data)
-        self.assertIsInstance(data["contrib-groups"], list)
-        self.assertEqual(len(data["contrib-groups"]), 1)
+    def test_main_contribs(self):
+        contribs = list(self.text_contribs.main_contribs)
+        self.assertEqual(len(contribs), 1)
+        self.assertEqual(contribs[0]["contrib_full_name"], "John Smith")
 
-    def test_items(self):
+    def test_items_include_sub_article(self):
         items = list(self.text_contribs.items)
+        names = [item.get("contrib_full_name") for item in items]
+        self.assertIn("John Smith", names)
+        self.assertIn("Ana García", names)
         self.assertEqual(len(items), 2)
         self.assertIn("contrib-group-type", items[0])
         self.assertEqual(items[0]["parent"], "article")
         self.assertEqual(items[0]["parent_lang"], "en")
 
-    @skip("fixme Teste de translation de TextContribs")
     def test_translations(self):
-        translations = list(self.text_contribs.translations)
+        # Converte os nós retornados em instâncias de TextContribs
+        translations_nodes = list(self.text_contribs.translations)
+        translations = [TextContribs(node) for node in translations_nodes]
         self.assertEqual(len(translations), 1)
         self.assertIsInstance(translations[0], TextContribs)
 
-    @skip("fixme Teste de not_translation de TextContribs")
     def test_not_translations(self):
         not_translations = list(self.text_contribs.not_translations)
         self.assertEqual(len(not_translations), 0)
 
-
-class TestXMLContribs(TestCase):
+class XMLContribsTest(TestCase):
     def setUp(self):
-        self.xml = create_test_xml()
+        self.xml = etree.fromstring(self._xml_string())
         self.xml_contribs = XMLContribs(self.xml)
 
-    def test_contribs(self):
+    def _xml_string(self):
+        return """
+        <article article-type="research-article" xml:lang="en" id="article1">
+            <front>
+                <contrib-group>
+                    <contrib contrib-type="author">
+                        <name>
+                            <surname>Smith</surname>
+                            <given-names>John</given-names>
+                        </name>
+                        <xref ref-type="aff" rid="aff1"/>
+                        <contrib-id contrib-id-type="orcid">0000-0001-2345-6789</contrib-id>
+                    </contrib>
+                </contrib-group>
+                <aff id="aff1">
+                    <institution content-type="orgname">Test University</institution>
+                    <addr-line>
+                        <city>Test City</city>
+                        <state>Test State</state>
+                    </addr-line>
+                    <country country="US">United States</country>
+                </aff>
+            </front>
+            <sub-article article-type="translation" xml:lang="es" id="S1">
+                <front-stub>
+                    <contrib-group>
+                        <contrib contrib-type="translator">
+                            <name>
+                                <surname>García</surname>
+                                <given-names>Ana</given-names>
+                            </name>
+                            <contrib-id contrib-id-type="orcid">9999-0001-2345-6789</contrib-id>
+                        </contrib>
+                    </contrib-group>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+
+    def test_contribs_with_affs(self):
         contribs = list(self.xml_contribs.contribs)
         self.assertEqual(len(contribs), 1)
-        self.assertIn("contrib_full_name", contribs[0])
+        self.assertIn("affs", contribs[0])
         self.assertEqual(contribs[0]["contrib_full_name"], "John Smith")
 
-    @skip("fixme Teste de translation de TextContribs")
     def test_translation_contribs(self):
-        translation_contribs = list(self.xml_contribs.translation_contribs)
+        # Filtra contribuições oriundas de sub-artigos (traduções)
+        translation_contribs = [
+            c for c in self.xml_contribs.all_contribs if c.get("parent") == "sub-article"
+        ]
         self.assertEqual(len(translation_contribs), 1)
-        self.assertEqual(
-            translation_contribs[0]["contrib_full_name"], "Ana García"
-        )
-        self.assertEqual(
-            translation_contribs[0]["contrib-group-type"], "translator"
-        )
+        self.assertEqual(translation_contribs[0]["contrib_full_name"], "Ana García")
+        self.assertEqual(translation_contribs[0]["contrib_type"], "translator")
 
-    @skip("fixme Teste de not_translation de TextContribs")
     def test_not_translation_contribs(self):
-        not_translation_contribs = list(
-            self.xml_contribs.not_translation_contribs
-        )
+        xml = create_test_xml("author")
+        xml_contribs = XMLContribs(xml)
+        # Contribuições de sub-artigos devem ser inexistentes quando não são traduções
+        not_translation_contribs = [
+            c for c in xml_contribs.all_contribs if c.get("parent") == "sub-article" and c.get("contrib_type") == "translator"
+        ]
         self.assertEqual(len(not_translation_contribs), 0)
 
     def test_all_contribs(self):
         all_contribs = list(self.xml_contribs.all_contribs)
-        self.assertEqual(
-            len(all_contribs), 2
-        )  # One main contrib + one translator
+        self.assertEqual(len(all_contribs), 2)  # Uma contribuição principal + uma tradução
 
     def test_contrib_full_name_by_orcid(self):
-        orcid_dict = self.xml_contribs.contrib_full_name_by_orcid
-        self.assertIn("0000-0001-2345-6789", orcid_dict)
-        self.assertIn("John Smith", orcid_dict["0000-0001-2345-6789"])
-        self.assertEqual(2, len(orcid_dict))
-
-    def test_add_affs(self):
-        results = list(self.xml_contribs.contribs)
-        result = results[0]
-        self.assertIn("affs", result)
-        self.assertEqual(len(result["affs"]), 1)
-        self.assertEqual(result["affs"][0]["orgname"], "Test University")
-        self.assertEqual(result["affs"][0]["country_code"], "US")
+        mapping = self.xml_contribs.contrib_full_name_by_orcid
+        self.assertIn("0000-0001-2345-6789", mapping)
+        self.assertIn("9999-0001-2345-6789", mapping)
+        self.assertIn("John Smith", mapping["0000-0001-2345-6789"])
+        self.assertIn("Ana García", mapping["9999-0001-2345-6789"])

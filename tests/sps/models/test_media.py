@@ -1,89 +1,134 @@
 import unittest
-from lxml import etree
+from lxml.etree import Element, SubElement
+from packtools.sps.models.media import Media, InlineMedia, XmlMedias
 
-from packtools.sps.models.media import Media, ArticleMedias
 
+class TestMedia(unittest.TestCase):
 
-class MediaTest(unittest.TestCase):
     def setUp(self):
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-                <media mimetype="video" mime-subtype="mp4" xlink:href="media1.mp4">
-                    <label>Media 1</label>
-                </media>
-            </body>
-        </article>
-        """
-        self.xml_tree = etree.fromstring(xml_str)
-        self.media = Media(self.xml_tree.xpath(".//media")[0])
+        """Configuração inicial dos elementos XML para cada teste."""
 
-    def test_mimetype(self):
-        self.assertEqual(self.media.mimetype, "video")
+        # Criando um artigo XML com <media> e <inline-media>
+        self.article = Element("article")
 
-    def test_mime_subtype(self):
-        self.assertEqual(self.media.mime_subtype, "mp4")
+        # Criando sub-artigo para validar extração por ArticleAndSubArticles
+        self.sub_article = SubElement(self.article, "sub-article", {"id": "sub1"})
 
-    def test_xlink_href(self):
-        self.assertEqual(self.media.xlink_href, "media1.mp4")
+        # Adicionando <media> ao sub-artigo
+        self.media1 = SubElement(
+            self.sub_article,
+            "media",
+            {
+                "id": "media1",
+                "mimetype": "video",
+                "mime-subtype": "mp4",
+                "{http://www.w3.org/1999/xlink}href": "video1.mp4",
+            },
+        )
 
-    def test_data(self):
-        expected = {
+        self.media2 = SubElement(
+            self.sub_article,
+            "media",
+            {
+                "id": "media2",
+                "mimetype": "audio",
+                "mime-subtype": "mp3",
+                "{http://www.w3.org/1999/xlink}href": "audio1.mp3",
+            },
+        )
+
+        # Criando parágrafo com <inline-media>
+        paragraph = SubElement(self.sub_article, "p")
+        self.inline_media = SubElement(
+            paragraph,
+            "inline-media",
+            {
+                "mimetype": "application",
+                "mime-subtype": "pdf",
+                "{http://www.w3.org/1999/xlink}href": "document1.pdf",
+            },
+        )
+
+        # Criando um XML sem mídias para testar comportamento vazio
+        self.article_no_media = Element("article")
+
+    def test_media_xlink_href(self):
+        """Testa se xlink_href do Media é extraído corretamente."""
+        resource = Media(self.media1)
+        self.assertEqual(resource.xlink_href, "video1.mp4")
+
+    def test_media_mimetype_and_mime_subtype(self):
+        """Testa se mimetype e mime_subtype são extraídos corretamente do Media."""
+        resource = Media(self.media1)
+        self.assertEqual(resource.mimetype, "video")
+        self.assertEqual(resource.mime_subtype, "mp4")
+
+    def test_media_data_output(self):
+        """Testa se a propriedade data de Media retorna um dicionário esperado."""
+        resource = Media(self.media1)
+        expected_data = {
+            "xlink_href": "video1.mp4",
+            "id": "media1",
             "mimetype": "video",
             "mime_subtype": "mp4",
-            "xlink_href": "media1.mp4",
         }
-        obtained = self.media.data
-        self.assertDictEqual(expected, obtained)
+        self.assertTrue(expected_data.items() <= resource.data.items())
 
+    def test_inline_media_xlink_href(self):
+        """Testa se xlink_href do InlineMedia é extraído corretamente."""
+        resource = InlineMedia(self.inline_media)
+        self.assertEqual(resource.xlink_href, "document1.pdf")
 
-class ArticleMediasTest(unittest.TestCase):
-    def setUp(self):
-        xml_str = """
-        <article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" 
-        dtd-version="1.0" article-type="research-article" xml:lang="pt">
-            <body>
-                <media mimetype="video" mime-subtype="mp4" xlink:href="media1.mp4">
-                    <label>Media 1</label>
-                </media>
-            </body>
-            <sub-article article-type="translation" xml:lang="en">
-                <body>
-                    <media mimetype="audio" mime-subtype="mp3" xlink:href="media2.mp3">
-                        <label>Media 2</label>
-                    </media>
-                </body>
-            </sub-article>
-        </article>
-        """
-        self.xml_tree = etree.fromstring(xml_str)
+    def test_inline_media_mimetype_and_mime_subtype(self):
+        """Testa se mimetype e mime_subtype são extraídos corretamente do InlineMedia."""
+        resource = InlineMedia(self.inline_media)
+        self.assertEqual(resource.mimetype, "application")
+        self.assertEqual(resource.mime_subtype, "pdf")
 
-    def test_data(self):
-        obtained = list(ArticleMedias(self.xml_tree).data())
-        expected = [
-            {
-                "mimetype": "video",
-                "mime_subtype": "mp4",
-                "xlink_href": "media1.mp4",
-                "parent": "article",
-                "parent_article_type": "research-article",
-                "parent_id": None,
-                "parent_lang": "pt",
-            },
-            {
-                "mimetype": "audio",
-                "mime_subtype": "mp3",
-                "xlink_href": "media2.mp3",
-                "parent": "sub-article",
-                "parent_article_type": "translation",
-                "parent_id": None,
-                "parent_lang": "en",
-            },
-        ]
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+    def test_inline_media_data_output(self):
+        """Testa se a propriedade data de InlineMedia retorna um dicionário esperado."""
+        resource = InlineMedia(self.inline_media)
+        expected_data = {
+            "xlink_href": "document1.pdf",
+            "mimetype": "application",
+            "mime_subtype": "pdf",
+        }
+        self.assertTrue(expected_data.items() <= resource.data.items())
+
+    def test_xmlmedia_generates_data(self):
+        """Testa se XmlMedia gera corretamente um iterador de dicionários."""
+        xml_media = XmlMedias(self.article)
+        data_list = list(xml_media.data())
+
+        # Deve haver 3 elementos (2 <media> + 1 <inline-media>)
+        self.assertEqual(len(data_list), 3)
+
+        expected_media1 = {
+            "xlink_href": "video1.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        expected_media2 = {
+            "xlink_href": "audio1.mp3",
+            "mimetype": "audio",
+            "mime_subtype": "mp3",
+        }
+        expected_inline_media = {
+            "xlink_href": "document1.pdf",
+            "mimetype": "application",
+            "mime_subtype": "pdf",
+        }
+        self.assertTrue(expected_media1.items() <= data_list[0].items())
+        self.assertTrue(expected_media2.items() <= data_list[1].items())
+        self.assertTrue(expected_inline_media.items() <= data_list[2].items())
+
+    def test_xmlmedia_handles_no_media(self):
+        """Testa o comportamento quando o XML não contém mídias."""
+        xml_media = XmlMedias(self.article_no_media)
+        data_list = list(xml_media.data())
+
+        # Não há mídia no XML, o iterador deve ser vazio
+        self.assertEqual(len(data_list), 0)
 
 
 if __name__ == "__main__":

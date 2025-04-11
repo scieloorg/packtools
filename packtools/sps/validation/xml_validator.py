@@ -20,7 +20,7 @@ def get_validation_results(xmltree, params):
                         "response": "exception",
                         "group": group,
                         "error": str(e),
-                        "type": str(type(e))
+                        "type": str(type(e)),
                     }
                     data.update(item)
                     yield data
@@ -29,7 +29,7 @@ def get_validation_results(xmltree, params):
                 "response": "exception",
                 "group": group,
                 "error": str(e),
-                "type": str(type(e))
+                "type": str(type(e)),
             }
 
 
@@ -82,7 +82,7 @@ def validate_xml_content(xmltree, rules):
     }
     yield {
         "group": "author-notes",
-        "items": xml_validations.validate_author_notes(xmltree, params)
+        "items": xml_validations.validate_author_notes(xmltree, params),
     }
     yield {
         "group": "abstract",
@@ -127,5 +127,21 @@ def validate_xml_content(xmltree, rules):
     }
     yield {
         "group": "reviewer-report",
-        "items": xml_validations.validate_peer_reviews(xmltree, params),    
+        "items": xml_validations.validate_peer_reviews(xmltree, params),
+    }
+    yield {
+        "group": "accessibility",
+        "items": xml_validations.validate_accessibility_data(xmltree, params),
+    }
+    yield {
+        "group": "media",
+        "items": xml_validations.validate_media(xmltree, params),
+    }
+    yield {
+        "group": "app",
+        "items": xml_validations.validate_app_group(xmltree, params),
+    }
+    yield {
+        "group": "supplementary-material",
+        "items": xml_validations.validate_supplementary_materials(xmltree, params),
     }

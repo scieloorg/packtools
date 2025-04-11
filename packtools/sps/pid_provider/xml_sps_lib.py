@@ -139,6 +139,101 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
         )
 
 
+def get_sps_pkg_xml_items(xml_sps_file_path, filenames=None):
+    """
+    Get XML items from XML file or Zip file
+
+    Arguments
+    ---------
+        xml_sps_file_path: str
+
+    Return
+    ------
+    dict iterator which keys are filename and xml_with_pre
+
+    Raises
+    ------
+    GetXMLItemsError
+    """
+    try:
+        name, ext = os.path.splitext(xml_sps_file_path)
+        if ext == ".zip":
+            return get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames)
+        if ext == ".xml":
+            with open(xml_sps_file_path) as fp:
+                xml = get_xml_with_pre(fp.read())
+                xml.xml_file_path = xml_sps_file_path
+                item = os.path.basename(xml_sps_file_path)
+            return [{"filename": item, "xml_with_pre": xml, "files": [item], "filenames": [item]}]
+        return [
+            {
+                "error": _("{} must be xml file or zip file containing xml").format(
+                    xml_sps_file_path
+                )
+            }
+        ]
+
+    except Exception as e:
+        return [
+            {
+                "error": _("Unable to get xml items from {}: {} {}").format(
+                    xml_sps_file_path, type(e), e
+                )
+            }
+        ]
+
+
+def get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
+    """
+    Return the first XML content in the Zip file.
+
+    Arguments
+    ---------
+        xml_sps_file_path: str
+        filenames: str list
+
+    Return
+    ------
+    str
+    """
+    try:
+        filenames = []
+        _filenames = []
+        with ZipFile(xml_sps_file_path) as zf:
+            filenames = filenames or zf.namelist() or []
+            _filenames = [
+                os.path.basename(name)
+                for name in zf.namelist() if name
+            ]
+            for item in filenames:
+                if item.endswith(".xml"):
+                    try:
+                        content = zf.read(item)
+                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
+                        xml_with_pre.zip_file_path = xml_sps_file_path
+                        yield {
+                            "filename": item,
+                            "xml_with_pre": xml_with_pre,
+                            "files": filenames,
+                            "filenames": _filenames,
+                        }
+                    except Exception as e:
+                        yield {
+                            "filename": item,
+                            "files": filenames,
+                            "filenames": _filenames,
+                            "error": str(e),
+                            "type_error": str(type(e)),
+                        }
+    except Exception as e:
+        yield {
+            "files": filenames,
+            "filenames": _filenames,
+            "error": str(e),
+            "type_error": str(type(e)),
+        }
+
+
 def update_zip_file_xml(xml_sps_file_path, xml_file_path, content):
     """
     Save XML content in a Zip file.
@@ -307,6 +402,7 @@ class XMLWithPre:
         self._system_id = None
         self.relative_system_id = None
         self._sps_version = None
+        self.errors = None
 
     @property
     def data(self):
@@ -321,7 +417,7 @@ class XMLWithPre:
         )
 
     @classmethod
-    def create(cls, path=None, uri=None):
+    def create(cls, path=None, uri=None, capture_errors=False, timeout=30):
         """
         Returns instance of XMLWithPre
 
@@ -331,13 +427,25 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-            for item in get_xml_items(path):
-                item["xml_with_pre"].filename = item["filename"]
-                item["xml_with_pre"].files = item.get("files")
-                item["xml_with_pre"].filenames = item.get("filenames")
-                yield item["xml_with_pre"]
+            errors = []
+            if capture_errors:
+                items = get_sps_pkg_xml_items(path)
+            else:
+                items = get_xml_items(path)
+
+            for item in items:
+                if not item:
+                    continue
+                if item.get("error"):
+                    errors.append(item)
+                else:
+                    item["xml_with_pre"].filename = item["filename"]
+                    item["xml_with_pre"].files = item.get("files")
+                    item["xml_with_pre"].filenames = item.get("filenames")
+                    item["xml_with_pre"].errors = errors
+                    yield item["xml_with_pre"]
         if uri:
-            yield get_xml_with_pre_from_uri(uri, timeout=30)
+            yield get_xml_with_pre_from_uri(uri, timeout)
 
     @property
     def DOCTYPE(self):

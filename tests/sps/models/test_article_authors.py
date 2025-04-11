@@ -407,7 +407,6 @@ class AuthorsWithAffTest(TestCase):
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_contribs(self):
         self.maxDiff = None
         expected = [
@@ -430,6 +429,10 @@ class AuthorsWithAffTest(TestCase):
                         "country_code": None,
                         "country_name": "Brasil",
                         "email": None,
+                        'parent': 'article',
+                        'parent_article_type': None,
+                        'parent_id': None,
+                        'parent_lang': None,
                     },
                 ],
             },
@@ -467,6 +470,10 @@ class AuthorsWithAffTest(TestCase):
                         "country_code": None,
                         "country_name": "Brasil",
                         "email": None,
+                        'parent': 'article',
+                        'parent_article_type': None,
+                        'parent_id': None,
+                        'parent_lang': None,
                     },
                     {
                         "id": "aff2",
@@ -480,6 +487,10 @@ class AuthorsWithAffTest(TestCase):
                         "orgdiv2": None,
                         "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                         "email": None,
+                        'parent': 'article',
+                        'parent_article_type': None,
+                        'parent_id': None,
+                        'parent_lang': None,
                     },
                 ],
             }
@@ -535,7 +546,6 @@ class AuthorsWithAffInContribGroupTest(TestCase):
         xmltree = etree.fromstring(xml)
         self.authors = Authors(xmltree)
 
-    @skip("Teste pendente de correção e/ou ajuste")
     def test_contribs(self):
         expected = [
             {
@@ -560,6 +570,10 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                         "country_code": None,
                         "country_name": "Brasil",
                         "email": None,
+                        'parent': 'article',
+                        'parent_article_type': None,
+                        'parent_id': None,
+                        'parent_lang': None,
                     },
                     {
                         "id": "aff2",
@@ -573,6 +587,10 @@ class AuthorsWithAffInContribGroupTest(TestCase):
                         "orgdiv2": None,
                         "original": "Grupo de Pesquisas em Epidemiologia e Avaliação em Saúde. Faculdade de Medicina. Universidade Federal de Minas Gerais. Belo Horizonte, MG, Brasil",
                         "email": None,
+                        'parent': 'article',
+                        'parent_article_type': None,
+                        'parent_id': None,
+                        'parent_lang': None,
                     },
                 ],
             }

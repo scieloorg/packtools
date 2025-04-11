@@ -1,33 +1,45 @@
-from packtools.sps.utils.xml_utils import get_parent_context, put_parent_context
+from packtools.sps.models.article_and_subarticles import Fulltext, ArticleAndSubArticles
+from packtools.sps.models.label_and_caption import LabelAndCaption
+from packtools.sps.models.media import Media
+from packtools.sps.models.graphic import Graphic
 
 
-class App:
-    def __init__(self, node):
-        self.node = node
-
+class App(LabelAndCaption):
     @property
-    def app_id(self):
+    def id(self):
         return self.node.get("id")
 
     @property
-    def app_label(self):
-        return self.node.findtext("label")
+    def graphics(self):
+        """Retorna uma lista de dados de gráficos (<graphic>) dentro do <app>."""
+        return [Graphic(graphic).data for graphic in self.node.xpath(".//graphic")]
+
+    @property
+    def media(self):
+        """Retorna uma lista de dados de mídias (<media>) dentro do <app>."""
+        return [Media(media).data for media in self.node.xpath(".//media")]
 
     @property
     def data(self):
-        return {"app_id": self.app_id, "app_label": self.app_label}
+        """Inclui os atributos de LabelAndCaption e adiciona 'id', 'graphics' e 'media'."""
+        base_data = super().data or {}
+        return {
+            **base_data,
+            "id": self.id,
+            "graphics": self.graphics,
+            "media": self.media,
+        }
 
 
-class AppGroup:
+class XmlAppGroup:
     def __init__(self, xml_tree):
         self.xml_tree = xml_tree
 
+    @property
     def data(self):
-        for node, lang, article_type, parent, parent_id in get_parent_context(
-            self.xml_tree
-        ):
-            for app_node in node.xpath(".//app-group//app"):
+        for node in self.xml_tree.xpath(".|.//sub-article"):
+            full_text = Fulltext(node)
+
+            for app_node in node.xpath("./back//app"):
                 app_data = App(app_node).data
-                yield put_parent_context(
-                    app_data, lang, article_type, parent, parent_id
-                )
+                yield {**app_data, **full_text.attribs_parent_prefixed}
