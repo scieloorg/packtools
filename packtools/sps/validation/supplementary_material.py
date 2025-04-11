@@ -74,7 +74,7 @@ class SupplementaryMaterialValidation:
         """
         Ensures that <supplementary-material> does not occur inside <app-group> and <app>.
         """
-        valid = self.data.get("parent_suppl_mat") not in ["app-group", "app"]
+        valid = self.data.get("parent_suppl_mat") not in self.params["parent_suppl_mat_expected"]
         return build_response(
             title="Prohibition of <supplementary-material> inside <app-group> and <app>",
             parent=self.data,
