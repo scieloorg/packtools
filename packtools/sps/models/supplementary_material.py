@@ -86,11 +86,11 @@ class XmlSupplementaryMaterials:
         considera esse elemento, apesar de ele poder existir.
         """
         supp_dict = {}
-        for node in self.xml_tree.xpath("./front | ./body | ./back | .//sub-article"):
+        for node in self.xml_tree.xpath(". | .//sub-article"):
             node_id = node.get("id") if node.get("id") else "main_article"
             supp_dict.setdefault(node_id, [])
             full_text = Fulltext(node)
-            for supp_node in full_text.node.xpath(".//supplementary-material") or []:
+            for supp_node in full_text.node.xpath("./front//supplementary-material | ./body//supplementary-material | ./back//supplementary-material") or []:
                 supp_data = SupplementaryMaterial(supp_node).data
                 supp_data.update(full_text.attribs_parent_prefixed)
                 supp_dict[node_id].append(supp_data)
