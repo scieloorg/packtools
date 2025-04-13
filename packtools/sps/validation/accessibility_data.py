@@ -53,7 +53,8 @@ class AccessibilityDataValidation:
             validation_type=validation_type,
             expected="Up to 120 characters",
             obtained=alt_text,
-            advice="Ensure <alt-text> is provided and does not exceed 120 characters to support accessibility.",
+            advice="The content is missing or exceeds 120 characters in the <alt-text> element. "
+                   "Provide text with up to 120 characters to meet accessibility standards.",
             error_level=error_level,
             data=self.data,
         )
@@ -70,7 +71,8 @@ class AccessibilityDataValidation:
                 validation_type="exist",
                 expected=self.params["content_types"],
                 obtained=alt_text_content_type,
-                advice=f'Replace {alt_text_content_type} (alt-text/@content-type) by one of {self.params["content_types"]}',
+                advice=f"The value '{alt_text_content_type}' is invalid in <alt-text>/@content-type. "
+                       f"Replace it with one of the accepted values: {self.params['content_types']}.",
                 error_level=self.params["content_type_error_level"],
                 data=self.data,
             )
@@ -101,7 +103,8 @@ class AccessibilityDataValidation:
             validation_type=validation_type,
             expected="More than 120 characters",
             obtained=long_desc,
-            advice="Ensure <long-desc> is provided and contains more than 120 characters to support accessibility.",
+            advice="The content is missing or too short in the <long-desc> element. "
+                   "Provide text with more than 120 characters to support accessibility.",
             error_level=error_level,
             data=self.data,
         )
@@ -118,7 +121,8 @@ class AccessibilityDataValidation:
                 validation_type="exist",
                 expected=self.params["content_types"],
                 obtained=long_desc_content_type,
-                advice=f'Replace {long_desc_content_type} (long-desc/@content-type) by one of {self.params["content_types"]}',
+                advice=f"The value '{long_desc_content_type}' is invalid in <long-desc>/@content-type. "
+                       f"Replace it with one of the accepted values: {self.params['content_types']}.",
                 error_level=self.params["content_type_error_level"],
                 data=self.data,
             )
@@ -136,7 +140,8 @@ class AccessibilityDataValidation:
             validation_type="exist",
             expected="Present",
             obtained="Missing" if not transcript else "Present",
-            advice="Provide a transcript for videos and audio files.",
+            advice="The transcript is missing in the media element. "
+                   "Add a <sec sec-type='transcript'> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.",
             error_level=self.params["transcript_error_level"],
             data=self.data,
         )
@@ -148,14 +153,12 @@ class AccessibilityDataValidation:
         if not speakers:
             valid = False
             obtained = "Missing"
-            advice = (
-                "Use <speaker> and <speech> inside <sec sec-type=\"transcript\"> to mark dialogues. "
-                "Refer to SPS 1.10 docs for details."
-            )
+            advice=("Dialog elements are missing in the <sec sec-type='transcript'> section. "
+                    "Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details.")
         else:
             valid = True
             obtained = "Present"
-            advice = "Dialogue is properly marked with <speaker> and <speech> elements."
+            advice = None
 
         return build_response(
             title="<speaker> and <speech> validation",
@@ -185,7 +188,8 @@ class AccessibilityDataValidation:
             validation_type="value in list",
             expected=valid_tags,
             obtained=tag,
-            advice=f"Expected accessibility data in {valid_tags}. Found in {tag}",
+            advice=f"Accessibility data is located in an invalid element: <{tag}>. "
+                   f"Use one of the valid elements: {valid_tags}. Refer to SPS 1.10 docs for details.",
             error_level=self.params["structure_error_level"],
             data=self.data,
         )
