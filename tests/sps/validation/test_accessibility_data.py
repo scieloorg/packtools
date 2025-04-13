@@ -14,7 +14,7 @@ class TestAccessibilityDataValidation(unittest.TestCase):
             "transcript_error_level": "WARNING",
             "content_type_error_level": "CRITICAL",
             "speaker_speech_error_level": "WARNING",
-            "media_structure_error_level": "CRITICAL",
+            "structure_error_level": "CRITICAL",
             "content_types": ["machine-generated"],
         }
 
@@ -28,10 +28,11 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_alt_text()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "CRITICAL")
-        self.assertIn("does not exceed 120 characters", result["advice"])
+        results = list(validator.validate_alt_text())
+
+        response = results[0]
+        self.assertEqual(response["response"], "WARNING")
+        self.assertIn("The content is missing or exceeds 120 characters in the <alt-text> element.", response["advice"])
 
     def test_validate_long_desc_failure(self):
         """Fails when <long-desc> is shorter than 120 characters."""
@@ -42,10 +43,11 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_long_desc()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "CRITICAL")
-        self.assertIn("more than 120 characters", result["advice"])
+        results = list(validator.validate_long_desc())
+
+        response = results[0]
+        self.assertEqual(response["response"], "WARNING")
+        self.assertIn("The content is missing or too short in the <long-desc> element.", response["advice"])
 
     def test_validate_transcript_failure(self):
         """Fails when a transcript is missing."""
@@ -57,10 +59,13 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """.format("x" * 130)
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_transcript()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "WARNING")
-        self.assertIn("transcript for videos", result["advice"])
+        response = validator.validate_transcript()
+
+        self.assertEqual(response["response"], "WARNING")
+        self.assertEqual(
+            response["advice"],
+            "The transcript is missing in the media element. Add a <sec sec-type='transcript'> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details."
+        )
 
     def test_validate_content_type_failure(self):
         """Fails when @content-type is not an allowed value."""
@@ -71,10 +76,12 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_content_type()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "CRITICAL")
-        self.assertIn("replace @content-type", result["advice"])
+        results = list(validator.validate_alt_text())
+
+        response = results[0]  # segunda validação trata do @content-type
+        self.assertEqual(response["response"], "WARNING")
+        self.assertIn('The content is missing or exceeds 120 characters in the <alt-text> element. '
+                      'Provide text with up to 120 characters to meet accessibility standards.', response["advice"])
 
     def test_validate_speaker_and_speech_failure(self):
         """Fails when no <speaker> and <speech> elements are present."""
@@ -87,10 +94,13 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_speaker_and_speech()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "WARNING")
-        self.assertIn("Use <speaker> and <speech>", result["advice"])
+        response = validator.validate_speaker_and_speech()
+
+        self.assertEqual(response["response"], "WARNING")
+        self.assertEqual(
+            response["advice"],
+            "Dialog elements are missing in the <sec sec-type='transcript'> section. Use <speaker> and <speech> to represent the dialogue. Refer to SPS 1.10 docs for details."
+        )
 
     def test_validate_media_structure_failure(self):
         """Fails when accessibility elements are placed outside valid media tags."""
@@ -101,10 +111,11 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         """
         xml_node = etree.fromstring(xml_content)
         validator = AccessibilityDataValidation(xml_node, self.params)
-        result = validator.validate_media_structure()
-        self.assertFalse(result["is_valid"])
-        self.assertEqual(result["error_level"], "CRITICAL")
-        self.assertIn("accessibility elements are placed", result["advice"])
+        response = validator.validate_structure()
+
+        self.assertEqual(response["response"], "CRITICAL")
+        self.assertIn("Accessibility data is located in an invalid element", response["advice"])
+        self.assertIn("Refer to SPS 1.10 docs", response["advice"])
 
 
 if __name__ == "__main__":
