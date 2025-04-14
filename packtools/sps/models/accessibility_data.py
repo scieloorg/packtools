@@ -36,7 +36,6 @@ class AccessibilityData:
 
     @property
     def xref_sec_rid(self):
-        """Obtém o texto alternativo (<alt-text>) do XML."""
         try:
             return self.node.xpath('xref[@ref-type="sec"]')[0].get("rid")
         except:
@@ -44,12 +43,18 @@ class AccessibilityData:
             
     @property
     def alt_text(self):
-        """Obtém o texto alternativo (<alt-text>) do XML."""
         try:
-            alt_text_node = self.node.find("alt-text")
+            node = self.node.find("alt-text")
+            text = node.text
+            content_type = node.get("content-type")
+            if content_type:
+                xml = f'<alt-text content-type="{content_type}">{text}</alt-text>'
+            else:
+                xml = f'<alt-text>{text}</alt-text>'
             return {
-                "alt_text": alt_text_node.text,
-                "alt_text_content_type": alt_text_node.get("content-type")
+                "alt_text": text,
+                "alt_text_content_type": content_type,
+                "alt_text_xml": xml
             }
         except:
             return None
