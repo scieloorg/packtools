@@ -121,7 +121,7 @@ class Transcript:
     def data(self):
         """Retorna um dicionário com todos os dados extraídos do XML."""
         return {
-            "id": self.id,
+            "id": self.transcript_id,
             "transcript": self.transcript,
             "speakers": self.speaker_data,
             "tag": self.node.tag,
