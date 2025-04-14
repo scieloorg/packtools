@@ -57,8 +57,7 @@ class AccessibilityDataValidation:
             validation_type=validation_type,
             expected="Up to 120 characters",
             obtained=alt_text,
-            advice="The content is missing or exceeds 120 characters in the <alt-text> element. "
-                   "Provide text with up to 120 characters to meet accessibility standards.",
+            advice=advice,
             error_level=error_level,
             data=self.data,
         )
@@ -75,7 +74,7 @@ class AccessibilityDataValidation:
                 validation_type="exist",
                 expected=self.params["content_types"],
                 obtained=alt_text_content_type,
-                advice=f"The value '{alt_text_content_type}' is invalid in <alt-text>/@content-type. "
+                advice=f"The value '{alt_text_content_type}' is invalid in {self.data.get("alt_text_xml")}. "
                        f"Replace it with one of the accepted values: {self.params['content_types']}.",
                 error_level=self.params["content_type_error_level"],
                 data=self.data,
@@ -110,8 +109,7 @@ class AccessibilityDataValidation:
             validation_type=validation_type,
             expected="More than 120 characters",
             obtained=long_desc,
-            advice="The content is missing or too short in the <long-desc> element. "
-                   "Provide text with more than 120 characters to support accessibility.",
+            advice=advice,
             error_level=error_level,
             data=self.data,
         )
@@ -128,7 +126,7 @@ class AccessibilityDataValidation:
                 validation_type="exist",
                 expected=self.params["content_types"],
                 obtained=long_desc_content_type,
-                advice=f"The value '{long_desc_content_type}' is invalid in <long-desc>/@content-type. "
+                advice=f"The value '{long_desc_content_type}' is invalid in {long_desc_xml}. "
                        f"Replace it with one of the accepted values: {self.params['content_types']}.",
                 error_level=self.params["content_type_error_level"],
                 data=self.data,
