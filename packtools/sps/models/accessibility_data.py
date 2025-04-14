@@ -63,10 +63,17 @@ class AccessibilityData:
     def long_desc(self):
         """Obtém a descrição longa (<long-desc>) do XML, removendo espaços extras."""
         try:
-            long_desc_node = self.node.find("long-desc")
+            node = self.node.find("long-desc")
+            text = node.text
+            content_type = node.get("content-type")
+            if content_type:
+                xml = f'<long-desc content-type="{content_type}">{text}</long-desc>'
+            else:
+                xml = f'<long-desc>{text}</long-desc>'
             return {
-                "long_desc": long_desc_node.text,
-                "long_desc_content_type": long_desc_node.get("content-type")
+                "long_desc": text,
+                "long_desc_content_type": content_type,
+                "long_desc_xml": xml
             }
         except:
             return None
