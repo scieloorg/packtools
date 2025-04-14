@@ -109,11 +109,13 @@ class Transcript:
     @property
     def speaker_data(self):
         """Obtém os dados de <speaker> e <speech> dentro de transcrição."""
-        for speech in self.node.xpath("speech"):
-            yield {
+        speaker_data = []
+        for speech in self.node.xpath(".//speech"):
+            speaker_data.append({
                 "speaker": speech.findtext("speaker"),
                 "speech": " ".join(speech.xpath("p//text()"))
-            }
+            })
+        return speaker_data
 
     @property
     def data(self):
