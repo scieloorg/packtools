@@ -84,19 +84,22 @@ class AccessibilityDataValidation:
     def validate_long_desc(self):
         """Validates that <long-desc> is present and has more than 120 characters."""
         long_desc = self.data.get("long_desc")
-
+        long_desc_xml = self.data.get("long_desc_xml")
         if not long_desc:
             error_level = self.params["long_desc_exist_error_level"]
             valid = False
             validation_type = "exist"
+            advice = "long-desc is missing. Provide a descriptive value."
         elif len(long_desc) <= 120:
             error_level = self.params["long_desc_content_error_level"]
             valid = False
             validation_type = "format"
+            advice = f"long-desc has {len(long_desc)} characters in {long_desc_xml}. Provide text with more than to 120 characters."
         else:
             error_level = None
             valid = True
             validation_type = "exist"
+            advice = None
 
         yield build_response(
             title="<long-desc>",
