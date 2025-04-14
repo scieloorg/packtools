@@ -31,18 +31,22 @@ class AccessibilityDataValidation:
     def validate_alt_text(self):
         """Validates that <alt-text> has a maximum of 120 characters and contains only allowed characters."""
         alt_text = self.data.get("alt_text")
+        xml = self.data.get("alt_text_xml")
         if not alt_text:
             error_level = self.params["alt_text_exist_error_level"]
             valid = False
             validation_type = "exist"
+            advice = "alt-text is missing. Provide a descriptive value."
         elif len(alt_text) > 120:
             error_level = self.params["alt_text_content_error_level"]
             valid = False
             validation_type = "format"
+            advice = f"alt-text has {len(alt_text)} characters in {xml}. Provide text with up to 120 characters."
         else:
             error_level = None
             valid = True
             validation_type = "exist"
+            advice = None
 
         yield build_response(
             title="<alt-text>",
