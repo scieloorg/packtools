@@ -18,8 +18,6 @@ class XMLAccessibilityData:
     @property
     def data(self):
         xpaths = [
-            ".//*[alt-text]",
-            ".//*[long-desc]",
             "graphic",
             "inline-graphic",
             "media",
@@ -73,10 +71,10 @@ class AccessibilityData:
         """Retorna um dicionário com todos os dados extraídos do XML."""
         d = {
             "tag": self.node.tag,
-            "xref_sec_rid": self.xref_sec_rid,
+            "id": self.xref_sec_rid,
         }
-        d.update(self.long_desc)
-        d.update(self.alt_text)
+        d.update(self.long_desc or {})
+        d.update(self.alt_text or {})
         d.update(self.transcript_data or {})
         return d
 
