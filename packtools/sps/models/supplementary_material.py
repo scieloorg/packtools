@@ -90,7 +90,9 @@ class XmlSupplementaryMaterials:
             node_id = node.get("id") if node.get("id") else "main_article"
             supp_dict.setdefault(node_id, [])
             full_text = Fulltext(node)
-            for supp_node in full_text.node.xpath("./front//supplementary-material | ./body//supplementary-material | ./back//supplementary-material") or []:
+            for supp_node in full_text.node.xpath(
+                    "./front-stub//supplementary-material | ./front//supplementary-material | ./body//supplementary-material | ./back//supplementary-material"
+            ) or []:
                 supp_data = SupplementaryMaterial(supp_node).data
                 supp_data.update(full_text.attribs_parent_prefixed)
                 supp_dict[node_id].append(supp_data)
