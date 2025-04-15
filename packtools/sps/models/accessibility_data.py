@@ -85,7 +85,7 @@ class AccessibilityData:
         """Retorna um dicionário com todos os dados extraídos do XML."""
         d = {
             "tag": self.node.tag,
-            "id": self.xref_sec_rid,
+            "xref_sec_rid": self.xref_sec_rid,
         }
         d.update(self.long_desc or {})
         d.update(self.alt_text or {})
@@ -123,7 +123,7 @@ class Transcript:
     def data(self):
         """Retorna um dicionário com todos os dados extraídos do XML."""
         return {
-            "id": self.transcript_id,
+            "transcript_id": self.transcript_id,
             "transcript": self.transcript,
             "speakers": self.speaker_data,
             "tag": self.node.tag,
