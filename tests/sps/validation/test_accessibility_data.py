@@ -117,6 +117,29 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         )
         self.assertEqual(response["advice"], expected_advice)
 
+    def test_validate_structure_failure(self):
+        """Fails when accessibility data is in an invalid tag."""
+        xml_content = """
+        <body>
+            <invalid>
+                <alt-text>Valid alt text</alt-text>
+                <long-desc>""" + "d" * 130 + """</long-desc>
+            </invalid>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        structure_res = [res for res in results if res["title"] == "structure"]
+        self.assertEqual(len(structure_res), 1)
+        self.assertEqual(structure_res[0]["response"], "CRITICAL")
+        self.assertEqual(
+            structure_res[0]["advice"],
+            "Accessibility data is located in an invalid element: <invalid>. "
+            "Use one of the valid elements: ('graphic', 'inline-graphic', 'media', 'inline-media'). "
+            "Refer to SPS 1.10 docs for details.")
+
 
 if __name__ == "__main__":
     unittest.main()
