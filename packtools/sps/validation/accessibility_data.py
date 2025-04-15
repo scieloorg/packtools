@@ -26,7 +26,7 @@ class AccessibilityDataValidation:
         yield from self.validate_long_desc()
         yield self.validate_transcript()
         yield self.validate_speaker_and_speech()
-        yield self.validate_media_structure()
+        yield self.validate_accessibility_data_structure()
 
     def validate_alt_text(self):
         """Validates that <alt-text> has a maximum of 120 characters and contains only allowed characters."""
@@ -179,9 +179,9 @@ class AccessibilityDataValidation:
             data=self.data,
         )
 
-    def validate_media_structure(self):
-        """Checks if accessibility elements are correctly structured within media."""
-        valid_tags = {"graphic", "inline-graphic", "media", "inline-media"}  # parâmetro
+    def validate_accessibility_data_structure(self):
+        """Checks if accessibility elements are correctly structured within a valid tag."""
+        valid_tags = ("graphic", "inline-graphic", "media", "inline-media")
         tag = self.data.get("tag")
         valid = tag in valid_tags
         return build_response(
