@@ -18,6 +18,8 @@ class XMLAccessibilityData:
     @property
     def data(self):
         xpaths = [
+            ".//*[alt-text]",
+            ".//*[long-desc]",
             "graphic",
             "inline-graphic",
             "media",
