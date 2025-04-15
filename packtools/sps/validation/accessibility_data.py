@@ -36,7 +36,7 @@ class AccessibilityDataValidation:
             error_level = self.params["alt_text_exist_error_level"]
             valid = False
             validation_type = "exist"
-            advice = "alt-text is missing. Provide a descriptive value."
+            advice = "Missing <alt-text>. Provide a concise textual description of the visual element content."
         elif len(alt_text) > 120:
             error_level = self.params["alt_text_content_error_level"]
             valid = False
@@ -88,7 +88,7 @@ class AccessibilityDataValidation:
             error_level = self.params["long_desc_exist_error_level"]
             valid = False
             validation_type = "exist"
-            advice = "long-desc is missing. Provide a descriptive value."
+            advice = "Missing <long-desc>. Provide a detailed textual description of the visual element content."
         elif len(long_desc) <= 120:
             error_level = self.params["long_desc_content_error_level"]
             valid = False
