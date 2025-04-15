@@ -70,7 +70,7 @@ class TestAccessibilityData(unittest.TestCase):
         """Testa a extração completa dos dados de acessibilidade."""
         extracted = self.xml_data[0]
         self.assertEqual(extracted["tag"], "sec")
-        self.assertEqual(extracted["id"], "TR1")
+        self.assertEqual(extracted["transcript_id"], "TR1")
 
 
 if __name__ == "__main__":
