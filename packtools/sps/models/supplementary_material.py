@@ -11,6 +11,10 @@ class SupplementaryMaterial(LabelAndCaption):
         self._parent_node = node.getparent()
         media_nodes = node.xpath("./media")
         graphic_nodes = node.xpath("./graphic")
+        self.media = None
+        self.graphic = None
+        self.media_node = None
+        self.graphic_node = None
         if media_nodes:
             self.media_node = media_nodes[0]
             self.media = Media(self.media_node)
@@ -29,8 +33,7 @@ class SupplementaryMaterial(LabelAndCaption):
         if self.graphic is not None and hasattr(self.graphic, name):
             return getattr(self.graphic, name)
 
-        if hasattr(super(), name):
-            return getattr(super(), name)
+
 
         raise AttributeError(f"SupplementaryMaterial has no attribute {name}")
 
@@ -56,6 +59,7 @@ class SupplementaryMaterial(LabelAndCaption):
         base_data.update(self.graphic.data if self.graphic else {})
         base_data.update(
             {
+                "id": self.id,
                 "parent_suppl_mat": self.parent_tag,
                 "sec_type": self.sec_type,
                 "visual_elem": "media" if self.media else "graphic",
@@ -82,11 +86,13 @@ class XmlSupplementaryMaterials:
         considera esse elemento, apesar de ele poder existir.
         """
         supp_dict = {}
-        for node in self.xml_tree.xpath(". | sub-article"):
+        for node in self.xml_tree.xpath(". | .//sub-article"):
             node_id = node.get("id") if node.get("id") else "main_article"
             supp_dict.setdefault(node_id, [])
             full_text = Fulltext(node)
-            for supp_node in full_text.node.xpath(".//supplementary-material"):
+            for supp_node in full_text.node.xpath(
+                    "./front-stub//supplementary-material | ./front//supplementary-material | ./body//supplementary-material | ./back//supplementary-material"
+            ) or []:
                 supp_data = SupplementaryMaterial(supp_node).data
                 supp_data.update(full_text.attribs_parent_prefixed)
                 supp_dict[node_id].append(supp_data)
