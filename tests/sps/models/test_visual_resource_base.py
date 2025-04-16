@@ -1,5 +1,5 @@
 import unittest
-from xml.etree.ElementTree import Element, SubElement
+from lxml.etree import Element, SubElement
 from packtools.sps.models.visual_resource_base import VisualResourceBase
 
 
@@ -95,17 +95,16 @@ class TestVisualResourceBase(unittest.TestCase):
         self.assertIsNone(resource_2.accessibility.alt_text)
 
     def test_data_output(self):
+        self.maxDiff = None
         """Testa se a propriedade data retorna o dicionário esperado."""
         resource_1 = VisualResourceBase(self.media_1)
         expected_data_1 = {
             "xlink_href": "1234-5678-scie-58-e1043-md1.mp4",
             "id": "media1",
-            "alt_text": None,
-            "long_desc": None,
-            "transcript": None,
-            "content_type": None,
-            "speakers": None,
             "tag": "media",
+            "xml": '<media xmlns:ns0="http://www.w3.org/1999/xlink" id="media1" mimetype="video" mime-subtype="mp4" '
+                   'ns0:href="1234-5678-scie-58-e1043-md1.mp4"/>',
+            "xref_sec_rid": None
         }
         self.assertDictEqual(resource_1.data, expected_data_1)
 
@@ -113,12 +112,10 @@ class TestVisualResourceBase(unittest.TestCase):
         expected_data_2 = {
             "xlink_href": "1234-5678-scie-58-e1043-md2.xlsx",
             "id": "media2",
-            "alt_text": None,
-            "long_desc": None,
-            "transcript": None,
-            "content_type": None,
-            "speakers": None,
             "tag": "media",
+            "xml": '<media xmlns:ns0="http://www.w3.org/1999/xlink" id="media2" mimetype="application" mime-subtype="xlsx" '
+                   'ns0:href="1234-5678-scie-58-e1043-md2.xlsx"/>',
+            "xref_sec_rid": None,
         }
         self.assertDictEqual(resource_2.data, expected_data_2)
 

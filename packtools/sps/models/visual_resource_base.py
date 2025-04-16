@@ -42,7 +42,7 @@ class XmlVisualResource:
             full_text = Fulltext(node)
             for resource_xpath, resource_class in self.resource_types:
                 resource_nodes = full_text.node.xpath(
-                    f"./front//{resource_xpath} | ./body//{resource_xpath} | ./back//{resource_xpath}"
+                    f"./front-stub//{resource_xpath} | ./front//{resource_xpath} | ./body//{resource_xpath} | ./back//{resource_xpath}"
                 ) or []
                 for resource_node in resource_nodes:
                     resource_instance = resource_class(resource_node)
