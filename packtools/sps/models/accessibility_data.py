@@ -38,7 +38,6 @@ class AccessibilityData:
 
     @property
     def xref_sec_rid(self):
-        """Obtém o texto alternativo (<alt-text>) do XML."""
         try:
             return self.node.xpath('xref[@ref-type="sec"]')[0].get("rid")
         except:
@@ -46,12 +45,18 @@ class AccessibilityData:
             
     @property
     def alt_text(self):
-        """Obtém o texto alternativo (<alt-text>) do XML."""
         try:
-            alt_text_node = self.node.find("alt-text")
+            node = self.node.find("alt-text")
+            text = node.text
+            content_type = node.get("content-type")
+            if content_type:
+                xml = f'<alt-text content-type="{content_type}">{text}</alt-text>'
+            else:
+                xml = f'<alt-text>{text}</alt-text>'
             return {
-                "alt_text": alt_text_node.text,
-                "alt_text_content_type": alt_text_node.get("content-type")
+                "alt_text": text,
+                "alt_text_content_type": content_type,
+                "alt_text_xml": xml
             }
         except:
             return None
@@ -60,10 +65,17 @@ class AccessibilityData:
     def long_desc(self):
         """Obtém a descrição longa (<long-desc>) do XML, removendo espaços extras."""
         try:
-            long_desc_node = self.node.find("long-desc")
+            node = self.node.find("long-desc")
+            text = node.text
+            content_type = node.get("content-type")
+            if content_type:
+                xml = f'<long-desc content-type="{content_type}">{text}</long-desc>'
+            else:
+                xml = f'<long-desc>{text}</long-desc>'
             return {
-                "long_desc": long_desc_node.text,
-                "long_desc_content_type": long_desc_node.get("content-type")
+                "long_desc": text,
+                "long_desc_content_type": content_type,
+                "long_desc_xml": xml
             }
         except:
             return None
@@ -99,17 +111,19 @@ class Transcript:
     @property
     def speaker_data(self):
         """Obtém os dados de <speaker> e <speech> dentro de transcrição."""
-        for speech in self.node.xpath("speech"):
-            yield {
+        speaker_data = []
+        for speech in self.node.xpath(".//speech"):
+            speaker_data.append({
                 "speaker": speech.findtext("speaker"),
                 "speech": " ".join(speech.xpath("p//text()"))
-            }
+            })
+        return speaker_data
 
     @property
     def data(self):
         """Retorna um dicionário com todos os dados extraídos do XML."""
         return {
-            "id": self.id,
+            "transcript_id": self.transcript_id,
             "transcript": self.transcript,
             "speakers": self.speaker_data,
             "tag": self.node.tag,
