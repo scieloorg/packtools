@@ -74,8 +74,8 @@ class AccessibilityDataValidation:
                 validation_type="exist",
                 expected=self.params["content_types"],
                 obtained=alt_text_content_type,
-                advice=f"The value '{alt_text_content_type}' is invalid in {self.data.get("alt_text_xml")}. "
-                       f"Replace it with one of the accepted values: {self.params['content_types']}.",
+                advice=f'The value {alt_text_content_type} is invalid in {self.data.get("alt_text_xml")}. '
+                       f'Replace it with one of the accepted values: {self.params["content_types"]}.',
                 error_level=self.params["content_type_error_level"],
                 data=self.data,
             )
