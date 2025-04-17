@@ -145,8 +145,8 @@ class AccessibilityDataValidation:
             validation_type="exist",
             expected="Present",
             obtained="Missing" if not transcript else "Present",
-            advice=f"The transcript is missing in the {self.data["tag"]} element. "
-                   "Add a <sec sec-type='transcript'> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.",
+            advice=f'The transcript is missing in the {self.data["tag"]} element. '
+                   'Add a <sec sec-type="transcript"> section to provide accessible text alternatives. Refer to SPS 1.10 docs for details.',
             error_level=self.params["transcript_error_level"],
             data=self.data,
         )
