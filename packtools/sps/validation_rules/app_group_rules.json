@@ -1,0 +1,5 @@
+{
+    "app_group_rules": {
+        "app_existence_error_level": "WARNING"
+    }
+}

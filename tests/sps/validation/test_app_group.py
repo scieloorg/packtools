@@ -5,6 +5,9 @@ from packtools.sps.validation.app_group import AppValidation
 
 
 class AppValidationTest(unittest.TestCase):
+    def setUp(self):
+        self.params = {"app_existence_error_level": "WARNING"}
+
     def test_app_validation_no_app_elements(self):
         self.maxDiff = None
         xmltree = etree.fromstring(
@@ -15,11 +18,11 @@ class AppValidationTest(unittest.TestCase):
             "</body>"
             "</article>"
         )
-        obtained = list(AppValidation(xmltree).validate_app_existence())
+        obtained = list(AppValidation(xmltree, self.params).validate_app_existence())
 
         expected = [
             {
-                "title": "validation of <app> elements",
+                "title": "<app>",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -45,26 +48,21 @@ class AppValidationTest(unittest.TestCase):
         xmltree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
-            "<body>"
+            "<back>"
             "<app-group>"
             '<app id="app1">'
             "<label>Appendix 1</label>"
             "<p>Some supplementary content.</p>"
             "</app>"
-            "<alternatives>"
-            '<app id="app1-alt1">'
-            "<p>Alternative content for Appendix 1.</p>"
-            "</app>"
-            "</alternatives>"
             "</app-group>"
-            "</body>"
+            "</back>"
             "</article>"
         )
-        obtained = list(AppValidation(xmltree).validate_app_existence())
+        obtained = list(AppValidation(xmltree, self.params).validate_app_existence())
 
         expected = [
             {
-                "title": "validation of <app> elements",
+                "title": "<app>",
                 "parent": "article",
                 "parent_id": None,
                 "parent_article_type": "research-article",
@@ -78,16 +76,22 @@ class AppValidationTest(unittest.TestCase):
                 "message": "Got app1, expected app1",
                 "advice": None,
                 "data": {
-                    "app_id": "app1",
-                    "app_label": "Appendix 1",
+                    "attrib": None,
+                    "caption": None,
+                    "graphics": [],
+                    "id": "app1",
+                    "label": "Appendix 1",
+                    "media": [],
+                    "original_article_type": "research-article",
                     "parent": "article",
-                    "parent_id": None,
                     "parent_article_type": "research-article",
+                    "parent_id": None,
                     "parent_lang": "pt",
                 },
             }
         ]
 
+        self.assertEqual(len(obtained), 1)
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
