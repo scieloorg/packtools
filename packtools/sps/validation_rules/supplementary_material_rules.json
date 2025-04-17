@@ -1,5 +1,5 @@
 {
-    "supplementary_material": {
+    "supplementary_materials_rules": {
         "sec_type_error_level": "CRITICAL",
         "position_error_level": "CRITICAL",
         "label_error_level": "CRITICAL",
@@ -11,6 +11,15 @@
             "mp4": "video",
             "mp3": "audio"
         },
-        "parent_suppl_mat_expected": ["app-group", "app"]
+        "parent_suppl_mat_expected": ["app-group", "app"],
+        "mime_types_and_subtypes": [
+                {"mimetype": "video", "mime-subtype": "mp4"},
+                {"mimetype": "audio", "mime-subtype": "mp3"},
+                {"mimetype": "application", "mime-subtype": "zip"},
+                {"mimetype": "application", "mime-subtype": "pdf"},
+                {"mimetype": "application", "mime-subtype": "xlsx"}
+            ],
+        "mime_type_error_level": "CRITICAL",
+        "media_attributes_error_level": "CRITICAL"
     }
 }
