@@ -21,12 +21,12 @@ class VisualResourceBaseValidation:
     def validate_id(self):
         xml = self.data.get("xml")
         tag = self.data.get("tag")
-        if tag.startswith("inline-"):
+        if tag and tag.startswith("inline-"):
             valid = True
             expected = None
         else:
             valid = bool(self.data.get("id"))
-            elem = xml[:xml.find(">")+1]
+            elem = xml[:xml.find(">")+1] if xml else None
             expected = f"id for {elem}"
         return build_response(
             title="@id",

@@ -44,7 +44,7 @@ from packtools.sps.validation.media import XMLMediaValidation
 from packtools.sps.validation.accessibility_data import XMLAccessibilityDataValidation
 from packtools.sps.validation.app_group import AppValidation
 
-# from packtools.sps.validation.supplementary_material import XMLSupplementaryMaterialValidation
+from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -301,5 +301,5 @@ def validate_supplementary_materials(xmltree, params):
     # TODO
     rules = {}
     rules.update(params["supplementary_materials_rules"])
-    validator = XMLSupplementaryMaterialValidation(xmltree, rules)
+    validator = XmlSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
