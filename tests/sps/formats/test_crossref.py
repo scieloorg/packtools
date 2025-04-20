@@ -6,44 +6,44 @@ from lxml import etree as ET
 from packtools.sps.utils import xml_utils
 from packtools.sps.formats.crossref import (
     pipeline_crossref,
-    setupdoibatch_pipe,
+    setup_doi_batch_pipe,
     xml_crossref_head_pipe,
-    xml_crossref_doibatchid_pipe,
+    xml_crossref_doi_batch_id_pipe,
     xml_crossref_timestamp_pipe,
     xml_crossref_depositor_pipe,
     xml_crossref_registrant_pipe,
     xml_crossref_body_pipe,
     xml_crossref_journal_pipe,
-    xml_crossref_journalmetadata_pipe,
-    xml_crossref_journaltitle_pipe,
-    xml_crossref_abbreviatedjournaltitle_pipe,
+    xml_crossref_journal_metadata_pipe,
+    xml_crossref_journal_title_pipe,
+    xml_crossref_abbreviated_journal_title_pipe,
     xml_crossref_issn_pipe,
-    xml_crossref_journalissue_pipe,
+    xml_crossref_journal_issue_pipe,
     xml_crossref_pubdate_pipe,
-    xml_crossref_journalvolume_pipe,
+    xml_crossref_journal_volume_pipe,
     xml_crossref_volume_pipe,
     xml_crossref_issue_pipe,
-    xml_crossref_journalarticle_pipe,
-    xml_crossref_articlecontributors_pipe,
-    xml_crossref_articleabstract_pipe,
-    xml_crossref_articlepubdate_pipe,
+    xml_crossref_journal_article_pipe,
+    xml_crossref_article_contributors_pipe,
+    xml_crossref_article_abstract_pipe,
+    xml_crossref_article_pubdate_pipe,
     xml_crossref_pages_pipe,
     xml_crossref_pid_pipe,
     xml_crossref_elocation_pipe,
     xml_crossref_permissions_pipe,
-    xml_crossref_articletitles_pipe,
-    xml_crossref_programrelateditem_pipe,
-    xml_crossref_doidata_pipe,
+    xml_crossref_article_titles_pipe,
+    xml_crossref_program_related_item_pipe,
+    xml_crossref_doi_data_pipe,
     xml_crossref_doi_pipe,
     xml_crossref_resource_pipe,
     xml_crossref_collection_pipe,
-    xml_crossref_articlecitations_pipe,
+    xml_crossref_article_citations_pipe,
 )
 
 
 class PipelineCrossref(TestCase):
 
-    def test_setupdoibatch_pipe(self):
+    def test_setup_doi_batch_pipe(self):
         expected = (
             '<doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd" '
             'xmlns:jats="http://www.ncbi.nlm.nih.gov/JATS1" '
@@ -53,12 +53,12 @@ class PipelineCrossref(TestCase):
             'http://www.crossref.org/schemas/crossref4.4.0.xsd"/>'
         )
 
-        result = setupdoibatch_pipe()
+        result = setup_doi_batch_pipe()
         obtained = ET.tostring(result, encoding="utf-8").decode("utf-8")
 
         self.assertEqual(expected, obtained)
 
-    def test_xmlhead_pipe(self):
+    def test_xml_head_pipe(self):
         xml_crossref = ET.fromstring(
             """
             <doi_batch xmlns:ai="http://www.crossref.org/AccessIndicators.xsd"
@@ -76,7 +76,7 @@ class PipelineCrossref(TestCase):
         self.assertIsNotNone(xml_crossref.find('head'))
 
     @patch('packtools.sps.formats.crossref.get_doi_batch_id')
-    def test_xml_doibatchid_pipe(self, mock_get_doi_batch_id):
+    def test_xml_doi_batch_id_pipe(self, mock_get_doi_batch_id):
         expected = (
             "<head>"
             "<doi_batch_id>49d374553c5d48c0bdd54d25080e0045</doi_batch_id>"
@@ -92,7 +92,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_doibatchid_pipe(xml_crossref)
+        xml_crossref_doi_batch_id_pipe(xml_crossref)
 
         self.obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -171,7 +171,7 @@ class PipelineCrossref(TestCase):
         self.assertIn(expected, self.obtained)
 
     def test_xml_body_pipe(self):
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('body'))
@@ -189,7 +189,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIsNotNone(xml_crossref.find('./body/journal'))
 
-    def test_xml_journalmetadata_pipe(self):
+    def test_xml_journal_metadata_pipe(self):
         xml_crossref = ET.fromstring(
             '<doi_batch>'
             '<head>'
@@ -201,11 +201,11 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalmetadata_pipe(xml_crossref)
+        xml_crossref_journal_metadata_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_metadata'))
 
-    def test_xml_journaltitle_pipe(self):
+    def test_xml_journal_title_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -242,13 +242,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journaltitle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_title_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_abbreviatedjournaltitle_pipe(self):
+    def test_xml_abbreviated_journal_title_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -283,7 +283,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree)
+        xml_crossref_abbreviated_journal_title_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -330,7 +330,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_journalissue_pipe(self):
+    def test_xml_journal_issue_pipe(self):
         xml_crossref = ET.fromstring(
             '<doi_batch>'
             '<body>'
@@ -340,7 +340,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalissue_pipe(xml_crossref)
+        xml_crossref_journal_issue_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue'))
 
@@ -392,7 +392,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_journalvolume_pipe(self):
+    def test_xml_journal_volume_pipe(self):
         xml_crossref = ET.fromstring(
             '<doi_batch>'
             '<body>'
@@ -404,7 +404,7 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalvolume_pipe(xml_crossref)
+        xml_crossref_journal_volume_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('./body/journal/journal_issue/journal_volume'))
 
@@ -509,7 +509,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_journalarticle_pipe(self):
+    def test_xml_journal_article_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -543,13 +543,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlecontributors_pipe(self):
+    def test_xml_article_contributors_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -651,13 +651,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_contributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlecontributors_without_reviewers_example_1_pipe(self):
+    def test_xml_article_contributors_without_reviewers_example_1_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt"> '
@@ -784,13 +784,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_contributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlecontributors_without_reviewers_example_2_pipe(self):
+    def test_xml_article_contributors_without_reviewers_example_2_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt"> '
@@ -926,13 +926,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_contributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlecontributors_without_reviewers_example_3_pipe(self):
+    def test_xml_article_contributors_without_reviewers_example_3_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="pt">'
             '<front>'
@@ -1170,13 +1170,13 @@ class PipelineCrossref(TestCase):
             '</doi_batch>'
         )
 
-        xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_contributors_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articleabstract_pipe(self):
+    def test_xml_article_abstract_pipe(self):
         xml_tree = ET.fromstring(
             """
             <article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1279,18 +1279,18 @@ class PipelineCrossref(TestCase):
         #     '</body>'
         #     '</doi_batch>'
         # )
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articleabstract_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_abstract_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlepubdate_pipe(self):
+    def test_xml_article_pubdate_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -1346,12 +1346,12 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_pubdate_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1582,10 +1582,10 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
         xml_crossref_permissions_pipe(xml_crossref, xml_tree)
 
@@ -1656,12 +1656,12 @@ class PipelineCrossref(TestCase):
         #     '</doi_batch>'
         # )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articletitles_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_titles_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -1720,18 +1720,18 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree)
+        xml_crossref_program_related_item_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
         self.assertIn(expected, obtained)
 
-    def test_xml_doidata_pipe(self):
+    def test_xml_doi_data_pipe(self):
         xml_tree = ET.fromstring(
             '<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" '
             'article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">'
@@ -1762,12 +1762,12 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref_doi_data_pipe(xml_crossref)
 
         self.assertIsNotNone(xml_crossref.find('.//doi_data'))
 
@@ -1817,11 +1817,11 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
+        xml_crossref_doi_data_pipe(xml_crossref)
 
         xml_crossref_doi_pipe(xml_crossref, xml_tree)
 
@@ -1867,11 +1867,11 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
+        xml_crossref_doi_data_pipe(xml_crossref)
 
         xml_crossref_resource_pipe(xml_crossref, xml_tree)
 
@@ -1925,11 +1925,11 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-        xml_crossref_doidata_pipe(xml_crossref)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
+        xml_crossref_doi_data_pipe(xml_crossref)
 
         xml_crossref_collection_pipe(xml_crossref, xml_tree)
 
@@ -1937,7 +1937,7 @@ class PipelineCrossref(TestCase):
 
         self.assertIn(expected, obtained)
 
-    def test_xml_articlecitations_pipe(self):
+    def test_xml_article_citations_pipe(self):
         self.maxDiff = None
         xml_tree = ET.fromstring(
             """
@@ -1946,7 +1946,7 @@ class PipelineCrossref(TestCase):
             <ref-list>
             <title>REFERENCES</title>
             <ref id="B1">
-            <label>1.</label>
+            <label>1</label>
             <mixed-citation>
             1. Tran B, Falster MO, Douglas K, Blyth F, Jorm LR. Smoking and potentially preventable hospitalisation: the benefit of smoking cessation in older ages. Drug Alcohol Depend. 2015;150:85-91. DOI:
             <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.drugalcdep.2015.02.028">https://doi.org/10.1016/j.drugalcdep.2015.02.028</ext-link>
@@ -1987,7 +1987,7 @@ class PipelineCrossref(TestCase):
             </element-citation>
             </ref>
             <ref id="B2">
-            <label>2.</label>
+            <label>2</label>
             <mixed-citation>
             2. Kwon JA, Jeon W, Park EC, Kim JH, Kim SJ, Yoo KB, et al. Effects of disease detection on changes in smoking behavior. Yonsei Med J. 2015;56(4): 1143-9. DOI:
             <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.3349/ymj.2015.56.4.1143">https://doi.org/10.3349/ymj.2015.56.4.1143</ext-link>
@@ -2090,12 +2090,12 @@ class PipelineCrossref(TestCase):
             '</body>'
         )
 
-        xml_crossref = setupdoibatch_pipe()
+        xml_crossref = setup_doi_batch_pipe()
         xml_crossref_body_pipe(xml_crossref)
         xml_crossref_journal_pipe(xml_crossref)
-        xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
+        xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
 
-        xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
+        xml_crossref_article_citations_pipe(xml_crossref, xml_tree)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
