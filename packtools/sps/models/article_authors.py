@@ -1,3 +1,7 @@
+# WARNING: The `article_authors` module is deprecated.
+# Please use `article_contribs` instead.
+# `article_authors` will be removed in future versions.
+
 from packtools.sps.models.aff import Affiliation
 from packtools.sps.utils.xml_utils import node_plain_text
 
