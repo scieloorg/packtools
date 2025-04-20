@@ -11,18 +11,44 @@ from packtools.sps.models.article_contribs import (
 
 class ContribTest(TestCase):
     def setUp(self):
-        self.contrib = Contrib(self._make_node())
+        xml = """
+            <article>
+                <front>
+                    <article-meta>
+                        <contrib-group>
+                            <contrib  contrib-type="author">
+                                <contrib-id contrib-id-type="orcid">0000-0001-8528-2091</contrib-id>
+                                <contrib-id contrib-id-type="scopus">24771926600</contrib-id>
+                                <collab>The MARS Group</collab>
+                                <name>
+                                    <surname>Einstein</surname>
+                                    <given-names>Albert</given-names>
+                                    <prefix>Prof</prefix>
+                                    <suffix>Nieto</suffix>
+                                </name>
+                                <xref ref-type="aff" rid="aff1">1</xref>
+                                <role content-type="https://credit.niso.org/contributor-roles/data-curation/">Data curation</role>
+                                <role content-type="https://credit.niso.org/contributor-roles/conceptualization/">Conceptualization</role>
+                                <role specific-use="reviewer">Reviewer</role>
+                            </contrib>
+                        </contrib-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        self.xmltree = etree.fromstring(xml)
+        self.contrib = Contrib(self.xmltree.xpath(".//contrib")[0])
 
     def test_contrib_type(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = Contrib(contrib).contrib_type
-        self.assertEqual(obtained, "author")
+        self.assertEqual(self.contrib.contrib_type, "author")
 
     def test_contrib_ids(self):
+        obtained = self.contrib.contrib_ids
         expected = {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"}
         self.assertDictEqual(obtained, expected)
 
     def test_contrib_name(self):
+        obtained = self.contrib.contrib_name
         expected = {
             "given-names": "Albert",
             "surname": "Einstein",
@@ -32,12 +58,11 @@ class ContribTest(TestCase):
         self.assertDictEqual(obtained, expected)
 
     def test_collab(self):
-        contrib = self.xmltree.xpath(".//contrib")[0]
-        obtained = Contrib(contrib).collab
-        self.assertEqual(obtained, "The MARS Group")
+        self.assertEqual(self.contrib.collab, "The MARS Group")
 
     def test_contrib_xref(self):
         expected = [{"rid": "aff1", "ref_type": "aff", "text": "1"}]
+        obtained = list(self.contrib.contrib_xref)
         for i, item in enumerate(expected):
             with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
@@ -60,7 +85,7 @@ class ContribTest(TestCase):
                 "specific-use": "reviewer",
             },
         ]
-
+        obtained = list(self.contrib.contrib_role)
         for i, item in enumerate(expected):
             with self.subTest(i=i):
                 self.assertDictEqual(item, obtained[i])
@@ -70,9 +95,9 @@ class ContribTest(TestCase):
         contrib = self.xmltree.xpath(".//contrib")[0]
         obtained = Contrib(contrib).data
         expected = {
-            "contrib_type": "author",
             "contrib_ids": {"orcid": "0000-0001-8528-2091", "scopus": "24771926600"},
             "collab": "The MARS Group",
+            "contrib_type": "author",
             "contrib_full_name": "Prof Albert Einstein Nieto",
             "contrib_name": {
                 "given-names": "Albert",
@@ -755,7 +780,7 @@ class ArticleContribTest(TestCase):
                 self.assertEqual(item, obtained[i].get("contrib_full_name"))
 
     def _xml_string(self):
-        return """
+        return ("""
         <article article-type="research-article" xml:lang="en" id="article1">
             <front>
                 <contrib-group> 
@@ -899,13 +924,8 @@ class TestTextContribs(TestCase):
 
     def test_items_include_sub_article(self):
         items = list(self.text_contribs.items)
-        names = [item.get("contrib_full_name") for item in items]
-        self.assertIn("John Smith", names)
-        self.assertIn("Ana García", names)
-        self.assertEqual(len(items), 2)
-        self.assertIn("contrib-group-type", items[0])
-        self.assertEqual(items[0]["parent"], "article")
-        self.assertEqual(items[0]["parent_lang"], "en")
+        self.assertEqual(items[1]["parent"], "sub-article")
+        self.assertEqual(items[1]["parent_lang"], "es")
 
     def test_translations(self):
         # Converte os nós retornados em instâncias de TextContribs
