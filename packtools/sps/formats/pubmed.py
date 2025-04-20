@@ -5,7 +5,7 @@ from packtools.sps.models import (
     aff,
     article_abstract,
     article_and_subarticles,
-    article_authors,
+    article_contribs,
     references,
     article_ids,
     article_titles,
@@ -168,10 +168,11 @@ def xml_pubmed_article_title_pipe(xml_pubmed, xml_tree):
         Spontaneous Coronary Artery Dissection: Are There Differences between Men and Women?
     </ArticleTitle>
     """
-    title = get_article_titles(xml_tree)
-    if title.get("en") is not None:
+    titles = get_article_titles(xml_tree)
+    title_by_lang = titles.get("en", {}).get("text")
+    if title_by_lang is not None:
         el = ET.Element("ArticleTitle")
-        el.text = title.get("en")
+        el.text = title_by_lang
         xml_pubmed.append(el)
 
 
@@ -182,10 +183,11 @@ def xml_pubmed_vernacular_title_pipe(xml_pubmed, xml_tree):
     </VernacularTitle>
     """
     main_lang = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_lang
-    title = get_article_titles(xml_tree)
-    if title.get(main_lang) is not None:
+    titles = get_article_titles(xml_tree)
+    title_by_lang = titles.get(main_lang, {}).get("text")
+    if title_by_lang is not None:
         el = ET.Element("VernacularTitle")
-        el.text = title.get(main_lang)
+        el.text = title_by_lang
         xml_pubmed.append(el)
 
 
@@ -284,29 +286,31 @@ def pipeline_pubmed(xml_tree, pretty_print=True):
 
 
 def get_authors(xml_tree):
-    return article_authors.Authors(xml_tree).contribs
+    return article_contribs.XMLContribs(xml_tree).contribs
 
 
 def add_first_name(author_reg, author_tag):
-    if author_reg.get("given_names"):
+    author_first_name = author_reg.get("contrib_name", {}).get("given-names")
+    if author_first_name:
         first = ET.Element("FirstName")
-        first.text = author_reg.get("given_names")
+        first.text = author_first_name
         author_tag.append(first)
 
 
 def add_last_name(author_reg, author_tag):
-    if author_reg.get("surname"):
+    author_last_name = author_reg.get("contrib_name", {}).get("surname")
+    if author_last_name:
         last = ET.Element("LastName")
-        last.text = author_reg.get("surname")
+        last.text = author_last_name
         author_tag.append(last)
 
 
 def get_affiliations(author_reg, xml_tree):
     affiliations = aff.AffiliationExtractor(xml_tree).get_affiliation_dict(subtag=False)
     affiliation_list = []
-    for rid in author_reg.get("rid-aff"):
+    for item in author_reg.get("affs"):
         affiliation_list.append(
-            affiliations.get(rid).get("institution")[0].get("original")
+            affiliations.get(item.get("id"), {}).get("institution", {})[0].get("original")
         )
     return affiliation_list
 
@@ -324,15 +328,16 @@ def add_affiliations(affiliations, author_tag):
 
 
 def add_orcid(author_reg, author_tag):
-    if author_reg.get("orcid"):
-        orcid = ET.Element("Identifier")
-        orcid.set("Source", "orcid")
-        orcid.text = "http://orcid.org/" + author_reg.get("orcid")
-        author_tag.append(orcid)
+    orcid = author_reg.get("contrib_ids", {}).get("orcid")
+    if orcid:
+        orcid_elem = ET.Element("Identifier")
+        orcid_elem.set("Source", "orcid")
+        orcid_elem.text = "http://orcid.org/" + orcid
+        author_tag.append(orcid_elem)
 
 
 def xml_pubmed_author_list(xml_pubmed, xml_tree):
-    authors = get_authors(xml_tree)
+    authors = list(get_authors(xml_tree))
     if authors:
         author_list_tag = ET.Element("AuthorList")
         for author_reg in authors:
@@ -341,8 +346,8 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
 
             # TODO
             # add_middle_name(author_reg, author_tag)
-            # The Author’s full middle name, or initial if the full name is not available. Multiple names are allowed
-            # in this tag.
+            # The Author’s full middle name, or initial if the full name is not available.
+            # Multiple names are allowed in this tag.
             # There is no example of using this value in the files.
 
             add_last_name(author_reg, author_tag)
@@ -389,8 +394,8 @@ def xml_pubmed_author_list(xml_pubmed, xml_tree):
 
             # TODO
             # add_individual_name(author_reg, author_tag)
-            # The name of individual members belonging to the authoring committee or organization. The name should
-            # be tagged with the FirstName, MiddleName, LastName, Suffix, and Affiliation tags.
+            # The name of individual members belonging to the authoring committee or organization.
+            # The name should be tagged with the FirstName, MiddleName, LastName, Suffix, and Affiliation tags.
             # There is no example of using this value in the files
 
         xml_pubmed.append(author_list_tag)
@@ -620,7 +625,7 @@ def xml_pubmed_citations(xml_pubmed, xml_tree):
             </Reference>
      </ReferenceList>
     """
-    refs = references.XMLREferences(xml_tree).main_references
+    refs = references.XMLReferences(xml_tree).main_references
     xml = xml_pubmed.find("./ReferenceList")
     for ref in refs:
         ref_el = ET.Element("Reference")
