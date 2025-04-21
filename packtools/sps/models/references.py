@@ -1,6 +1,6 @@
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.dates import FulltextDates
-from packtools.sps.utils.xml_utils import tostring, get_parent_context, put_parent_context, node_plain_text, process_subtags
+from packtools.sps.utils.xml_utils import node_plain_text
 
 
 class Reference:

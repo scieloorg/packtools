@@ -1,12 +1,10 @@
 import hashlib
 import logging
 import os
-from copy import deepcopy
-from datetime import date, datetime
+from datetime import date
 from gettext import gettext as _
-from shutil import copyfile
 from tempfile import TemporaryDirectory
-from zipfile import BadZipFile, ZipFile, ZIP_DEFLATED
+from zipfile import ZipFile, ZIP_DEFLATED
 
 
 from lxml import etree

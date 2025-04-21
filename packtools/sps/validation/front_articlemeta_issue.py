@@ -1,5 +1,4 @@
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.validation.exceptions import MissingJournalDataException
 from packtools.sps.validation.utils import build_response
 
 

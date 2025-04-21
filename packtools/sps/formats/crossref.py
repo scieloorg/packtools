@@ -7,7 +7,6 @@ from datetime import datetime
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    aff,
     article_abstract,
     article_and_subarticles,
     article_authors,

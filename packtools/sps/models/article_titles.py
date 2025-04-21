@@ -1,7 +1,3 @@
-from copy import deepcopy
-
-from lxml import etree
-
 from packtools.sps.utils import xml_utils
 
 

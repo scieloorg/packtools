@@ -1,9 +1,7 @@
 import urllib.parse
 import re
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
-import requests
-from langdetect import detect
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.validation.similarity_utils import most_similar, similarity, how_similar
 

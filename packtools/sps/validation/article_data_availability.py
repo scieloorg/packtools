@@ -1,7 +1,6 @@
-from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.article_data_availability import DataAvailability
 from packtools.sps.validation.exceptions import ValidationDataAvailabilityException
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
 
 
 class DataAvailabilityValidation:

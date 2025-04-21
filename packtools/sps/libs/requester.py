@@ -1,10 +1,9 @@
 import logging
-import re
 
 import requests
 from tenacity import (retry, retry_if_exception_type, stop_after_attempt,
                       wait_exponential)
-from urllib3.util import Retry
+
 
 logger = logging.getLogger(__name__)
 

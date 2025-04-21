@@ -1,6 +1,6 @@
 import lxml.etree as ET
 
-from packtools.sps.utils.xml_utils import put_parent_context, node_plain_text, tostring, process_subtags
+from packtools.sps.utils.xml_utils import put_parent_context, node_plain_text, tostring
 
 
 class TableWrap:

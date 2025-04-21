@@ -1,4 +1,4 @@
-from packtools.sps.models.article_and_subarticles import Fulltext, ArticleAndSubArticles
+from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.models.label_and_caption import LabelAndCaption
 from packtools.sps.models.media import Media
 from packtools.sps.models.graphic import Graphic

@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import date
 
 from packtools.sps.models.article_and_subarticles import Fulltext
 

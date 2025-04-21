@@ -1,16 +1,10 @@
-from packtools.sps.models.article_contribs import ContribGroup
-from packtools.sps.models.article_dates import HistoryDates
-from packtools.sps.models.peer_review import CustomMeta, PeerReview
-from packtools.sps.models.v2.related_articles import RelatedArticles
-from packtools.sps.utils.xml_utils import put_parent_context
+from packtools.sps.models.peer_review import PeerReview
 from packtools.sps.validation.article_contribs import ContribValidation
-from packtools.sps.validation.exceptions import ValidationPeerReviewException
 
-# from packtools.sps.validation.dates import FulltextDatesValidation
 from packtools.sps.validation.related_articles import (
     FulltextRelatedArticlesValidation,
 )
-from packtools.sps.validation.utils import build_response, format_response
+from packtools.sps.validation.utils import build_response
 
 
 class CustomMetaPeerReviewValidation:
