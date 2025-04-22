@@ -7,10 +7,9 @@ from datetime import datetime
 from lxml import etree as ET
 
 from packtools.sps.models import (
-    aff,
     article_abstract,
     article_and_subarticles,
-    article_authors,
+    article_contribs,
     references,
     article_doi_with_lang,
     article_ids,
@@ -459,19 +458,20 @@ def get_one_contributor(seq, author):
         </person_name>
     """
     person_name = ET.Element("person_name")
-    person_name.set("contributor_role", author.get("contrib-type"))
+
+    person_name.set("contributor_role", author.get("contrib_type"))
     if seq == 0:
         person_name.set("sequence", "first")
     else:
         person_name.set("sequence", "additional")
 
-    _given_name = author.get("given_names")
+    _given_name = author.get("contrib_name", {}).get("given-names")
     if _given_name:
         given_name = ET.Element("given_name")
         given_name.text = _given_name
         person_name.append(given_name)
 
-    _surname = author.get("surname")
+    _surname = author.get("contrib_name", {}).get("surname")
     if _surname:
         surname = ET.Element("surname")
         surname.text = _surname
@@ -488,7 +488,7 @@ def get_one_contributor(seq, author):
     except TypeError:
         pass
 
-    _orcid = author.get("orcid")
+    _orcid = author.get("contrib_ids", {}).get("orcid")
     if _orcid:
         orcid = ET.Element("ORCID")
         orcid.text = "http://orcid.org/" + _orcid
@@ -498,39 +498,38 @@ def get_one_contributor(seq, author):
 
 
 def pipeline_crossref(xml_tree, data, pretty_print=True):
-    xml_crossref = setupdoibatch_pipe()
+    xml_crossref = setup_doi_batch_pipe()
     xml_crossref_head_pipe(xml_crossref)
-    xml_crossref_doibatchid_pipe(xml_crossref)
+    xml_crossref_doi_batch_id_pipe(xml_crossref)
     xml_crossref_timestamp_pipe(xml_crossref)
     xml_crossref_depositor_pipe(xml_crossref, data)
     xml_crossref_registrant_pipe(xml_crossref, data)
     xml_crossref_body_pipe(xml_crossref)
     xml_crossref_journal_pipe(xml_crossref)
-    xml_crossref_journalmetadata_pipe(xml_crossref)
-    xml_crossref_journaltitle_pipe(xml_crossref, xml_tree)
-    xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree)
+    xml_crossref_journal_metadata_pipe(xml_crossref)
+    xml_crossref_journal_title_pipe(xml_crossref, xml_tree)
+    xml_crossref_abbreviated_journal_title_pipe(xml_crossref, xml_tree)
     xml_crossref_issn_pipe(xml_crossref, xml_tree)
-    xml_crossref_journalissue_pipe(xml_crossref)
+    xml_crossref_journal_issue_pipe(xml_crossref)
     xml_crossref_pubdate_pipe(xml_crossref, xml_tree)
-    xml_crossref_journalvolume_pipe(xml_crossref)
+    xml_crossref_journal_volume_pipe(xml_crossref)
     xml_crossref_volume_pipe(xml_crossref, xml_tree)
     xml_crossref_issue_pipe(xml_crossref, xml_tree)
-    xml_crossref_journalarticle_pipe(xml_crossref, xml_tree)
-    xml_crossref_articletitles_pipe(xml_crossref, xml_tree)
-    # xml_crossref_articletitle_pipe(xml_crossref, xml_tree)
-    xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree)
-    xml_crossref_articleabstract_pipe(xml_crossref, xml_tree)
-    xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree)
+    xml_crossref_journal_article_pipe(xml_crossref, xml_tree)
+    xml_crossref_article_titles_pipe(xml_crossref, xml_tree)
+    xml_crossref_article_contributors_pipe(xml_crossref, xml_tree)
+    xml_crossref_article_abstract_pipe(xml_crossref, xml_tree)
+    xml_crossref_article_pubdate_pipe(xml_crossref, xml_tree)
     xml_crossref_pages_pipe(xml_crossref, xml_tree)
     xml_crossref_pid_pipe(xml_crossref, xml_tree)
     xml_crossref_elocation_pipe(xml_crossref, xml_tree)
     xml_crossref_permissions_pipe(xml_crossref, xml_tree)
-    xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree)
-    xml_crossref_doidata_pipe(xml_crossref)
+    xml_crossref_program_related_item_pipe(xml_crossref, xml_tree)
+    xml_crossref_doi_data_pipe(xml_crossref)
     xml_crossref_doi_pipe(xml_crossref, xml_tree)
     xml_crossref_resource_pipe(xml_crossref, xml_tree)
     xml_crossref_collection_pipe(xml_crossref, xml_tree)
-    xml_crossref_articlecitations_pipe(xml_crossref, xml_tree)
+    xml_crossref_article_citations_pipe(xml_crossref, xml_tree)
     xml_crossref_close_pipe(xml_crossref)
 
     xml_tree = ET.ElementTree(xml_crossref)
@@ -539,7 +538,7 @@ def pipeline_crossref(xml_tree, data, pretty_print=True):
     )
 
 
-def setupdoibatch_pipe():
+def setup_doi_batch_pipe():
     """
     Cria o elemento XML inicial padronizado.
 
@@ -594,7 +593,7 @@ def xml_crossref_head_pipe(xml_crossref):
     xml_crossref.append(head)
 
 
-def xml_crossref_doibatchid_pipe(xml_crossref):
+def xml_crossref_doi_batch_id_pipe(xml_crossref):
     """
     Adiciona o elemento 'doi_batch_id' ao xml_crossref.
 
@@ -765,7 +764,7 @@ def xml_crossref_journal_pipe(xml_crossref):
     xml_crossref.find("./body").append(journal)
 
 
-def xml_crossref_journalmetadata_pipe(xml_crossref):
+def xml_crossref_journal_metadata_pipe(xml_crossref):
     """
     Adiciona o elemento 'journal_metadata' ao xml_crossref.
 
@@ -792,7 +791,7 @@ def xml_crossref_journalmetadata_pipe(xml_crossref):
     xml_crossref.find("./body/journal").append(journal_metadata)
 
 
-def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
+def xml_crossref_journal_title_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'full_title' ao xml_crossref.
 
@@ -824,7 +823,7 @@ def xml_crossref_journaltitle_pipe(xml_crossref, xml_tree):
     xml_crossref.find("./body/journal/journal_metadata").append(full_title)
 
 
-def xml_crossref_abbreviatedjournaltitle_pipe(xml_crossref, xml_tree):
+def xml_crossref_abbreviated_journal_title_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'abbrev_title' ao xml_crossref.
 
@@ -895,7 +894,7 @@ def xml_crossref_issn_pipe(xml_crossref, xml_tree):
     xml_crossref.find("./body/journal/journal_metadata").append(issn)
 
 
-def xml_crossref_journalissue_pipe(xml_crossref):
+def xml_crossref_journal_issue_pipe(xml_crossref):
     """
     Adiciona o elemento 'journal_issue' ao xml_crossref.
 
@@ -961,7 +960,7 @@ def xml_crossref_pubdate_pipe(xml_crossref, xml_tree):
         pass
 
 
-def xml_crossref_journalvolume_pipe(xml_crossref):
+def xml_crossref_journal_volume_pipe(xml_crossref):
     """
     Adiciona o elemento 'journal_volume' ao xml_crossref.
 
@@ -1054,7 +1053,7 @@ def xml_crossref_issue_pipe(xml_crossref, xml_tree):
     xml_crossref.find("./body/journal/journal_issue/journal_volume").append(issue)
 
 
-def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
+def xml_crossref_journal_article_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'journal_article' ao xml_crossref.
 
@@ -1087,7 +1086,7 @@ def xml_crossref_journalarticle_pipe(xml_crossref, xml_tree):
         xml_crossref.find("./body/journal").append(journal_article)
 
 
-def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
+def xml_crossref_article_titles_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'titles' ao xml_crossref.
 
@@ -1122,6 +1121,7 @@ def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
     </doi_batch>
     """
     art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
+
     art_lang = [
         lang.get("lang")
         for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data
@@ -1130,19 +1130,19 @@ def xml_crossref_articletitles_pipe(xml_crossref, xml_tree):
     for lang in art_lang:
         titles = ET.Element("titles")
         title = ET.Element("title")
-        title.text = art_titles.get(lang)
+        title.text = art_titles.get(lang, {}).get("text")
         titles.append(title)
         original_language_title = ET.Element("original_language_title")
         orig_lang = "pt" if lang == "en" else "en"
         original_language_title.set("language", orig_lang)
-        original_language_title.text = art_titles.get(orig_lang)
+        original_language_title.text = art_titles.get(orig_lang, {}).get("text")
         titles.append(original_language_title)
         xml_crossref.find(f"./body/journal/journal_article[@language='{lang}']").append(
             titles
         )
 
 
-def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
+def xml_crossref_article_contributors_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'contributors' ao xml_crossref.
 
@@ -1222,24 +1222,26 @@ def xml_crossref_articlecontributors_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    article_data = articles.data
-    article_nodes = articles.article
-    for article_node in article_nodes:
-        authors = list(article_authors.Authors(article_node).contribs_with_affs)
+
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
+
+
+    authors = list(article_contribs.XMLContribs(xml_tree).contribs)
+
     contributors = ET.Element("contributors")
+
     for seq, author in enumerate(authors):
         person_name = get_one_contributor(seq, author)
         contributors.append(person_name)
 
-    for article in article_data:
+    for article in articles:
         if article.get("article_type") != "reviewer-report":
             xml_crossref.find(
                 f"./body/journal/journal_article[@language='{article['lang']}']"
             ).append(deepcopy(contributors))
 
 
-def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
+def xml_crossref_article_abstract_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'abstract' ao xml_crossref.
 
@@ -1301,7 +1303,7 @@ def xml_crossref_articleabstract_pipe(xml_crossref, xml_tree):
                 ).append(deepcopy(jats))
 
 
-def xml_crossref_articlepubdate_pipe(xml_crossref, xml_tree):
+def xml_crossref_article_pubdate_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'publication_date' ao xml_crossref.
 
@@ -1504,7 +1506,8 @@ def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    art_license = article_license.ArticleLicense(xml_tree).licenses
+    art_license = list(article_license.ArticleLicense(xml_tree).licenses)
+
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree).data
 
     for article in articles:
@@ -1529,7 +1532,7 @@ def xml_crossref_permissions_pipe(xml_crossref, xml_tree):
         ).append(program)
 
 
-def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
+def xml_crossref_program_related_item_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'program' ao xml_crossref.
 
@@ -1568,6 +1571,7 @@ def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
     </doi_batch>
     """
     art_titles = article_titles.ArticleTitles(xml_tree).article_title_dict
+
     art_lang = [
         lang.get("lang")
         for lang in article_and_subarticles.ArticleAndSubArticles(xml_tree).data
@@ -1580,7 +1584,7 @@ def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
 
         orig_lang = "pt" if lang == "en" else "en"
         description = ET.Element("description")
-        description.text = art_titles.get(orig_lang)
+        description.text = art_titles.get(orig_lang, {}).get("text")
 
         intra_work_relation = ET.Element("intra_work_relation")
         intra_work_relation_type = (
@@ -1602,7 +1606,7 @@ def xml_crossref_programrelateditem_pipe(xml_crossref, xml_tree):
         )
 
 
-def xml_crossref_doidata_pipe(xml_crossref):
+def xml_crossref_doi_data_pipe(xml_crossref):
     """
     Adiciona o elemento 'doi_data' ao xml_crossref.
 
@@ -1799,7 +1803,7 @@ def xml_crossref_close_pipe(xml_crossref):
     ).decode("utf-8")
 
 
-def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
+def xml_crossref_article_citations_pipe(xml_crossref, xml_tree):
     """
     Adiciona o elemento 'citation_list' ao xml_crossref.
 
@@ -1865,7 +1869,7 @@ def xml_crossref_articlecitations_pipe(xml_crossref, xml_tree):
        </body>
     </doi_batch>
     """
-    citations = references.XMLREferences(xml_tree).main_references
+    citations = references.XMLReferences(xml_tree).items
     citation_list = ET.Element("citation_list")
     for item in citations:
         citation = get_citation(item)
