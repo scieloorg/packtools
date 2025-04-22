@@ -163,3 +163,7 @@ class ArticleMetaIssue:
         if _order is None:
             _order = ArticleIds(self.xmltree).v2
         return int(_order)
+
+    @property
+    def order_string_format(self):
+        return self.xmltree.findtext('.//article-id[@pub-id-type="other"]')
