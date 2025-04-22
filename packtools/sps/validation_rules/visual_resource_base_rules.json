@@ -10,6 +10,17 @@
             {"mimetype": "application", "mime-subtype": "pdf"},
             {"mimetype": "application", "mime-subtype": "xlsx"}
         ],
-        "mime_type_error_level": "CRITICAL"
+        "mime_type_error_level": "CRITICAL",
+        "alt_text_exist_error_level": "WARNING",
+        "alt_text_content_error_level": "CRITICAL",
+        "long_desc_exist_error_level": "WARNING",
+        "long_desc_content_error_level": "CRITICAL",
+        "transcript_error_level": "WARNING",
+        "content_type_error_level": "CRITICAL",
+        "speaker_speech_error_level": "WARNING",
+        "structure_error_level": "CRITICAL",
+        "content_types": [
+            "machine-generated"
+        ]
     }
 }
