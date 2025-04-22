@@ -1,7 +1,6 @@
 from packtools.sps.models.references import XMLReferences
-from packtools.sps.models.dates import ArticleDates
 from packtools.sps.validation.exceptions import ValidationReferencesException
-from packtools.sps.validation.utils import build_response, get_future_date
+from packtools.sps.validation.utils import build_response
 
 
 class ReferenceValidation:

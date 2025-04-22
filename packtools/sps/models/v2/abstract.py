@@ -71,7 +71,6 @@ article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lan
 </sub-article>
 </article>
 """
-from packtools.sps.utils.xml_utils import node_text, get_node_without_subtag, process_subtags
 
 
 class Abstract:

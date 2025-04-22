@@ -3,7 +3,6 @@ from packtools.sps.models.visual_resource_base import (
     VisualResourceBase,
     XmlVisualResource,
 )
-from packtools.sps.utils.xml_utils import tostring
 
 
 class BaseMedia(VisualResourceBase):

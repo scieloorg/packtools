@@ -1,6 +1,5 @@
 from packtools.sps.models.tablewrap import ArticleTableWrappers
 from packtools.sps.validation.utils import format_response
-from packtools.sps.validation.xml_validator_rules import get_default_rules
 
 
 class ArticleTableWrapValidation:

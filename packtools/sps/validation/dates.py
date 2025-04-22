@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 
 from packtools.sps.models.dates import FulltextDates
 from packtools.sps.validation.utils import build_response, get_future_date
