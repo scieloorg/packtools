@@ -1,9 +1,13 @@
-from packtools.sps.models import (
-journal_meta,
-front_articlemeta_issue,
-article_ids,
-article_contribs,
-)
+def simple_field(key, value):
+    if value:
+        return {
+                key: [
+                    {
+                        "_": value
+                    }
+                ]
+            }
+    return {}
 
 
 def simple_data(value):
