@@ -80,6 +80,11 @@ def get_affs(xml_tree):
         extractor=get_aff_data
     )
 
+def get_references(xml_tree):
+    refs = list(references.XMLReferences(xml_tree).items)
+    d = {}
+    d.update(record.simple_field("v72", len(refs)))
+    return d
 
 def build(xml_tree):
     resp = {}
@@ -87,4 +92,5 @@ def build(xml_tree):
     resp.update(get_articlemeta_issue(xml_tree))
     resp.update(get_ids(xml_tree))
     resp.update(get_contribs(xml_tree))
+    resp.update(get_affs(xml_tree))
     return resp
