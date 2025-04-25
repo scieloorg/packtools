@@ -54,13 +54,14 @@ def get_contrib_data(author):
     ]
 
 def get_contribs(xml_tree):
-    keys = ("k", "n", "1", "s", "r", "_")
-    values = []
+    return record.multiple_fields_list(
+        key="v10",
+        nested_keys=("k", "n", "1", "s", "r", "_"),
+        iterator=article_contribs.XMLContribs(xml_tree).contribs,
+        extractor=get_contrib_data
+    )
 
-    for author in article_contribs.XMLContribs(xml_tree).contribs:
-        values.append(record.multiple_fields(keys, get_contrib_data(author)))
 
-    return {"v10": values}
 
 def build(xml_tree):
     resp = {}
