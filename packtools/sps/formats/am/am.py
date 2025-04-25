@@ -3,6 +3,8 @@ journal_meta,
 front_articlemeta_issue,
 article_ids,
 article_contribs,
+aff,
+references,
 )
 
 from packtools.sps.formats.am import record
@@ -17,6 +19,20 @@ def get_articlemeta_issue(xml_tree):
     d = {}
     d.update(record.simple_field("v31", article_meta.volume))
     d.update(record.simple_field("v121", article_meta.order_string_format))
+    d.update(
+        {
+            "v882": [
+                record.multiple_fields(
+                    keys=("v", "n", "_"),
+                    values=[
+                        article_meta.volume,
+                        article_meta.number,
+                        ""
+                    ]
+                )
+            ]
+        }
+    )
     return d
 
 def get_ids(xml_tree):
