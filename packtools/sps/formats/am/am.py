@@ -61,6 +61,24 @@ def get_contribs(xml_tree):
         extractor=get_contrib_data
     )
 
+def get_aff_data(aff):
+    return [
+        aff.get("city"),
+        aff.get("id"),
+        aff.get("label"),
+        aff.get("orgdiv1"),
+        aff.get("country_name"),
+        aff.get("state"),
+        aff.get("orgname")
+    ]
+
+def get_affs(xml_tree):
+    return record.multiple_fields_list(
+        key="v70",
+        nested_keys=("c", "i", "l", "1", "p", "s", "_"),
+        iterator=aff.Affiliation(xml_tree).affiliation_list,
+        extractor=get_aff_data
+    )
 
 
 def build(xml_tree):
