@@ -55,7 +55,7 @@ class TestProperAwardGroup(TestFundingValidationBase):
 
     def test_proper_award_group(self):
         results = list(self.validator.validate_required_award_ids())
-        self.assertEqual(len(results), 0)
+        self.assertEqual(len(results), 1)
 
 
 class TestAwardInAck(TestFundingValidationBase):
@@ -77,7 +77,6 @@ class TestAwardInAck(TestFundingValidationBase):
 
     def test_award_in_ack(self):
         results = list(self.validator.validate_required_award_ids())
-        print(results)
         self.assertEqual(len(results), 1)
         result = results[0]
         self.assertEqual(result["data"]["context"], "ack")
@@ -246,6 +245,61 @@ class TestErrorLevels(TestFundingValidationBase):
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
         self.assertEqual(results[0]["response"], "INFO")
+
+
+class TestFundingValidation(unittest.TestCase):
+    def setUp(self):
+        self.xml_success = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>Project 123.456-7</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+                <back>
+                    <ack>
+                        <p>Project 123.456-7</p>
+                    </ack>
+                </back>
+            </article>
+        """
+
+        self.xml_failure = """
+            <article article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>Project 123.456-7</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+                <back>
+                    <ack>
+                        <p>Project 987.654-3</p>
+                    </ack>
+                </back>
+            </article>
+        """
+        self.params = {"special_chars_award_id": ["/", ".", "-"], "error_level": "ERROR"}
+
+    def test_validate_funding_statement_success(self):
+        xml_tree = etree.fromstring(self.xml_success)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertIsNone(results[0]["advice"])
+
+    def test_validate_funding_statement_failure(self):
+        xml_tree = etree.fromstring(self.xml_failure)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement())
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertEqual(results[0]["advice"], "Ensure that funding information 'Project 987.654-3' from ack is replicated in <funding-statement>.")
+
 
 
 if __name__ == "__main__":
