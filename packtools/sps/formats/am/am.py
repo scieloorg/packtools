@@ -16,75 +16,71 @@ def get_journal(xml_tree):
 
 def get_articlemeta_issue(xml_tree):
     article_meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
-    d = {}
-    d.update(record.simple_field("v31", article_meta.volume))
-    d.update(record.simple_field("v121", article_meta.order_string_format))
-    d.update(
-        {
-            "v882": [
-                record.multiple_fields(
-                    keys=("v", "n", "_"),
-                    values=[
-                        article_meta.volume,
-                        article_meta.number,
-                        ""
-                    ]
-                )
-            ]
-        }
-    )
-    return d
+    dict_issue = {}
+    dict_issue.update(record.simple_field("v31", article_meta.volume))
+    dict_issue.update(record.simple_field("v121", article_meta.order_string_format))
+
+    v882 = {}
+    record.add_item(v882, "v", article_meta.volume)
+    record.add_item(v882, "n", article_meta.number)
+    # TODO fixme
+    record.add_item(v882, "_", "")
+    dict_issue.update(record.complex_field("v882", v882))
+
+    return dict_issue
 
 def get_ids(xml_tree):
     ids = article_ids.ArticleIds(xml_tree)
     return {"code": ids.v2}
 
-def get_contrib_data(author):
-    author_type = author.get("contrib_type")
-    if author_type == "author":
-        author_type = "ND"
-
-    return [
-        author.get("contrib_ids", {}).get("orcid"),
-        author.get("contrib_name", {}).get("given-names"),
-        author.get("affs", [{}])[0].get("id"),
-        author.get("contrib_name", {}).get("surname"),
-        author_type,
-        ""
-    ]
-
 def get_contribs(xml_tree):
-    return record.multiple_fields_list(
-        key="v10",
-        nested_keys=("k", "n", "1", "s", "r", "_"),
-        iterator=article_contribs.XMLContribs(xml_tree).contribs,
-        extractor=get_contrib_data
-    )
+    dict_contrib = {}
+    list_contribs = []
+    for author in article_contribs.XMLContribs(xml_tree).contribs:
 
-def get_aff_data(aff):
-    return [
-        aff.get("city"),
-        aff.get("id"),
-        aff.get("label"),
-        aff.get("orgdiv1"),
-        aff.get("country_name"),
-        aff.get("state"),
-        aff.get("orgname")
-    ]
+        author_type = author.get("contrib_type")
+        if author_type == "author":
+            author_type = "ND"
+
+        v10 = {}
+        record.add_item(v10, "k", author.get("contrib_ids", {}).get("orcid"))
+        record.add_item(v10, "n", author.get("contrib_name", {}).get("given-names"))
+        record.add_item(v10, "1", author.get("affs", [{}])[0].get("id"))
+        record.add_item(v10, "s", author.get("contrib_name", {}).get("surname"))
+        record.add_item(v10, "r", author_type)
+        # TODO fixme
+        record.add_item(v10, "_", "")
+
+        list_contribs.append(v10)
+
+    dict_contrib.update(record.multiple_complex_field("v10", list_contribs))
+
+    return dict_contrib
 
 def get_affs(xml_tree):
-    return record.multiple_fields_list(
-        key="v70",
-        nested_keys=("c", "i", "l", "1", "p", "s", "_"),
-        iterator=aff.Affiliation(xml_tree).affiliation_list,
-        extractor=get_aff_data
-    )
+    dict_aff = {}
+    list_affs = []
+
+    for item in aff.Affiliation(xml_tree).affiliation_list:
+        v70 = {}
+        record.add_item(v70, "c", item.get("city"))
+        record.add_item(v70, "i", item.get("id"))
+        record.add_item(v70, "l", item.get("label"))
+        record.add_item(v70, "1", item.get("orgdiv1"))
+        record.add_item(v70, "p", item.get("country_name"))
+        record.add_item(v70, "s", item.get("state"))
+        record.add_item(v70, "_", item.get("orgname"))
+        list_affs.append(v70)
+
+    dict_aff.update(record.multiple_complex_field("v70", list_affs))
+
+    return dict_aff
 
 def get_references(xml_tree):
     refs = list(references.XMLReferences(xml_tree).items)
-    d = {}
-    d.update(record.simple_field("v72", len(refs)))
-    return d
+    dict_ref = {}
+    dict_ref.update(record.simple_field("v72", len(refs)))
+    return dict_ref
 
 def build(xml_tree):
     resp = {}
