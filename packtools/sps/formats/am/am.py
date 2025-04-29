@@ -33,6 +33,14 @@ def get_articlemeta_issue(xml_tree):
     record.add_item(v882, "_", "")
     dict_issue.update(record.complex_field("v882", v882))
 
+    v14 = {}
+    record.add_item(v14, "e", article_meta.elocation_id)
+    record.add_item(v14, "f", article_meta.fpage)
+    record.add_item(v14, "l", article_meta.lpage)
+    # TODO fixme
+    record.add_item(v14, "_", "")
+    dict_issue.update(record.complex_field("v14", v14))
+
     return dict_issue
 
 def get_ids(xml_tree):
