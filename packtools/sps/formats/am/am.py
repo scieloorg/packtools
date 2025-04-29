@@ -99,6 +99,23 @@ def get_references(xml_tree):
     dict_ref.update(record.simple_field("v72", len(refs)))
     return dict_ref
 
+def get_dates(xml_tree):
+    dates = article_dates.ArticleDates(xml_tree).history_dates_dict
+    dict_dates = {}
+    try:
+        v114 = "".join([dates["accepted"]["year"], dates["accepted"]["month"], dates["accepted"]["day"]])
+    except KeyError:
+        v114 = None
+
+    try:
+        v112 = "".join([dates["received"]["year"], dates["received"]["month"], dates["received"]["day"]])
+    except KeyError:
+        v112 = None
+
+    dict_dates.update(record.simple_field("v114", v114))
+    dict_dates.update(record.simple_field("v112", v112))
+    return dict_dates
+
 def build(xml_tree):
     resp = {}
     resp.update(get_journal(xml_tree))
