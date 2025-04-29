@@ -116,6 +116,13 @@ def get_dates(xml_tree):
     dict_dates.update(record.simple_field("v112", v112))
     return dict_dates
 
+def get_article_and_subarticle(xml_tree):
+    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
+    dict_articles = {}
+    v40 = articles.main_lang
+    dict_articles.update(record.simple_field("v40", v40))
+    return dict_articles
+
 def build(xml_tree):
     resp = {}
     resp.update(get_journal(xml_tree))
