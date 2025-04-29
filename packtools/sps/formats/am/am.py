@@ -45,7 +45,10 @@ def get_articlemeta_issue(xml_tree):
 
 def get_ids(xml_tree):
     ids = article_ids.ArticleIds(xml_tree)
-    return {"code": ids.v2}
+    dict_id = {"code": ids.v2}
+    dict_id.update(record.simple_field("v880", ids.v2))
+    dict_id.update(record.simple_field("v237", ids.doi))
+    return dict_id
 
 def get_contribs(xml_tree):
     dict_contrib = {}
