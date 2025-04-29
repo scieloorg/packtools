@@ -5,14 +5,20 @@ article_ids,
 article_contribs,
 aff,
 references,
+article_dates,
+article_and_subarticles
 )
 
 from packtools.sps.formats.am import record
 
 
 def get_journal(xml_tree):
-    journal = journal_meta.Title(xml_tree)
-    return record.simple_field("v30", journal.abbreviated_journal_title)
+    journal_title = journal_meta.Title(xml_tree)
+    journal_id = journal_meta.JournalID(xml_tree)
+    dict_journal_meta = {}
+    dict_journal_meta.update(record.simple_field("v30", journal_title.abbreviated_journal_title))
+    dict_journal_meta.update(record.simple_field("v421", journal_id.nlm_ta))
+    return dict_journal_meta
 
 def get_articlemeta_issue(xml_tree):
     article_meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
