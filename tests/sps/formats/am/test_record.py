@@ -141,6 +141,13 @@ class TestGetDates(BaseTest):
         expected = [{'_': '20240208'}]
         self.assertEqual(obtained["v112"], expected)
 
+    def test_field_v65(self):
+        obtained = am.get_dates(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v65", obtained)
+        expected = [{'_': '20250000'}]
+        self.assertEqual(obtained["v65"], expected)
+
 
 class TestGetArticleAndSubarticle(BaseTest):
     def test_field_v40(self):
@@ -149,6 +156,18 @@ class TestGetArticleAndSubarticle(BaseTest):
         self.assertIn("v40", obtained)
         expected = [{'_': 'en'}]
         self.assertEqual(obtained["v40"], expected)
+
+
+class TestGetArticleAbstract(BaseTest):
+    def test_field_v83(self):
+        obtained = am.get_article_abstract(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v83", obtained)
+        self.assertGreater(len(obtained["v83"]), 0)
+
+        abstract = obtained["v83"][0]
+        expected_keys = {"a", "l", "_"}
+        self.assertTrue(expected_keys.issubset(abstract.keys()))
 
 
 if __name__ == "__main__":
