@@ -132,6 +132,25 @@ def get_article_and_subarticle(xml_tree):
     dict_articles.update(record.simple_field("v40", v40))
     return dict_articles
 
+def get_article_abstract(xml_tree):
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
+
+    dict_abs = {}
+    list_abs = []
+
+    for lang, abstract in abstracts.items():
+        v83 = {}
+        record.add_item(v83, "a", abstract)
+        record.add_item(v83, "l", lang)
+        record.add_item(v83, "_", "")
+        list_abs.append(v83)
+
+    dict_abs.update(record.multiple_complex_field("v83", list_abs))
+
+    return dict_abs
+
+
+
 def build(xml_tree):
     resp = {}
     resp.update(get_journal(xml_tree))
