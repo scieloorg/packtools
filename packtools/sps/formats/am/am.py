@@ -1,12 +1,13 @@
 from packtools.sps.models import (
-journal_meta,
-front_articlemeta_issue,
-article_ids,
-article_contribs,
-aff,
-references,
-article_dates,
-article_and_subarticles
+    journal_meta,
+    front_articlemeta_issue,
+    article_ids,
+    article_contribs,
+    aff,
+    references,
+    article_dates,
+    article_and_subarticles,
+    article_abstract,
 )
 
 from packtools.sps.formats.am import record
@@ -100,20 +101,28 @@ def get_references(xml_tree):
     return dict_ref
 
 def get_dates(xml_tree):
-    dates = article_dates.ArticleDates(xml_tree).history_dates_dict
+    dates = article_dates.ArticleDates(xml_tree)
+    history_dates = dates.history_dates_dict
+    collection_date = dates.collection_date
     dict_dates = {}
     try:
-        v114 = "".join([dates["accepted"]["year"], dates["accepted"]["month"], dates["accepted"]["day"]])
+        v114 = "".join([history_dates["accepted"]["year"], history_dates["accepted"]["month"], history_dates["accepted"]["day"]])
     except KeyError:
         v114 = None
 
     try:
-        v112 = "".join([dates["received"]["year"], dates["received"]["month"], dates["received"]["day"]])
+        v112 = "".join([history_dates["received"]["year"], history_dates["received"]["month"], history_dates["received"]["day"]])
     except KeyError:
         v112 = None
 
+    try:
+        v65 = "".join([collection_date["year"], "0000"])
+    except KeyError:
+        v65 = None
+
     dict_dates.update(record.simple_field("v114", v114))
     dict_dates.update(record.simple_field("v112", v112))
+    dict_dates.update(record.simple_field("v65", v65))
     return dict_dates
 
 def get_article_and_subarticle(xml_tree):
