@@ -151,8 +151,22 @@ def get_dates(xml_tree):
 def get_article_and_subarticle(xml_tree):
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
     dict_articles = {}
-    v40 = articles.main_lang
-    dict_articles.update(record.simple_field("v40", v40))
+
+    dict_articles.update(record.simple_field("v40", articles.main_lang))
+
+    dict_articles.update(
+        record.simple_field("v120", f"XML_{articles.dtd_version}")
+        if articles.dtd_version else {}
+    )
+
+    list_lang = [
+        {"_": lang}
+        for item in articles.data
+        if (lang := item["lang"]) and lang != articles.main_lang
+    ]
+
+    dict_articles.update(record.multiple_complex_field("v601", list_lang))
+
     return dict_articles
 
 def get_article_abstract(xml_tree):
