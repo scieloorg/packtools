@@ -26,6 +26,27 @@ class TestGetJournal(BaseTest):
         expected = [{"_": "Rev Lat Am Enfermagem"}]
         self.assertEqual(obtained["v421"], expected)
 
+    def test_field_v62(self):
+        obtained = am.get_journal(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v62", obtained)
+        expected = [{"_": "Escola de Enfermagem de Ribeirão Preto / Universidade de São Paulo"}]
+        self.assertEqual(obtained["v62"], expected)
+
+    def test_field_v435(self):
+        obtained = am.get_journal(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v435", obtained)
+        expected = [{'_': '1518-8345', 't': 'epub'}]
+        self.assertEqual(obtained["v435"], expected)
+
+    def test_field_v100(self):
+        obtained = am.get_journal(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v100", obtained)
+        expected = [{"_": "Revista Latino-Americana de Enfermagem"}]
+        self.assertEqual(obtained["v100"], expected)
+
 
 class TestGetArticlemetaIssue(BaseTest):
     def test_field_v31(self):
@@ -55,6 +76,13 @@ class TestGetArticlemetaIssue(BaseTest):
         self.assertIn("v14", obtained)
         expected = [{"e": "e4434", "_": ""}]
         self.assertEqual(obtained["v14"], expected)
+
+    def test_field_v4(self):
+        obtained = am.get_articlemeta_issue(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v4", obtained)
+        expected = [{'_': 'V33'}]
+        self.assertEqual(obtained["v4"], expected)
 
 
 class TestGetIds(BaseTest):
@@ -148,14 +176,35 @@ class TestGetDates(BaseTest):
         expected = [{'_': '20250000'}]
         self.assertEqual(obtained["v65"], expected)
 
+    def test_field_v223(self):
+        obtained = am.get_dates(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v223", obtained)
+        expected = [{'_': '20250127'}]
+        self.assertEqual(obtained["v223"], expected)
+
 
 class TestGetArticleAndSubarticle(BaseTest):
     def test_field_v40(self):
         obtained = am.get_article_and_subarticle(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v40", obtained)
-        expected = [{'_': 'en'}]
-        self.assertEqual(obtained["v40"], expected)
+
+        self.assertEqual(obtained["v40"], [{'_': 'en'}])
+
+    def test_field_v120(self):
+        obtained = am.get_article_and_subarticle(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v120", obtained)
+
+        self.assertEqual(obtained["v120"], [{'_': 'XML_1.1'}])
+
+    def test_field_v601(self):
+        obtained = am.get_article_and_subarticle(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v601", obtained)
+
+        self.assertEqual(obtained["v601"], [{'_': 'es'}, {'_': 'pt'}])
 
 
 class TestGetArticleAbstract(BaseTest):
@@ -168,6 +217,18 @@ class TestGetArticleAbstract(BaseTest):
         abstract = obtained["v83"][0]
         expected_keys = {"a", "l", "_"}
         self.assertTrue(expected_keys.issubset(abstract.keys()))
+
+
+class TestGetKeyWord(BaseTest):
+    def test_field_v85(self):
+        obtained = am.get_keyword(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v85", obtained)
+        self.assertGreater(len(obtained["v85"]), 0)
+
+        keyword = obtained["v85"][0]
+        expected_keys = {"k", "l", "_"}
+        self.assertTrue(expected_keys.issubset(keyword.keys()))
 
 
 if __name__ == "__main__":
