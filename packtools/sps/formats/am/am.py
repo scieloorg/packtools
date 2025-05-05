@@ -53,6 +53,11 @@ def get_articlemeta_issue(xml_tree):
     record.add_item(v14, "_", "")
     dict_issue.update(record.complex_field("v14", v14))
 
+    dict_issue.update(
+        record.simple_field("v4", f"V{article_meta.volume}")
+        if article_meta.volume else {}
+    )
+
     return dict_issue
 
 def get_ids(xml_tree):
