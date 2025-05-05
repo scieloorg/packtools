@@ -16,9 +16,20 @@ from packtools.sps.formats.am import record
 def get_journal(xml_tree):
     journal_title = journal_meta.Title(xml_tree)
     journal_id = journal_meta.JournalID(xml_tree)
+    publisher_name = journal_meta.Publisher(xml_tree)
+    issns = journal_meta.ISSN(xml_tree)
+
     dict_journal_meta = {}
+
     dict_journal_meta.update(record.simple_field("v30", journal_title.abbreviated_journal_title))
     dict_journal_meta.update(record.simple_field("v421", journal_id.nlm_ta))
+    dict_journal_meta.update(record.simple_field("v62", publisher_name.publishers_names[0]))
+    dict_journal_meta.update(record.simple_field("v100", journal_title.journal_title))
+
+    issn_map = {"epub": issns.epub, "ppub": issns.ppub}
+    issn_list = [{"t": t, "_": val} for t, val in issn_map.items() if val]
+    dict_journal_meta.update(record.multiple_complex_field("v435", issn_list))
+
     return dict_journal_meta
 
 def get_articlemeta_issue(xml_tree):
