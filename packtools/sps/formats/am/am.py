@@ -120,6 +120,7 @@ def get_dates(xml_tree):
     dates = article_dates.ArticleDates(xml_tree)
     history_dates = dates.history_dates_dict
     collection_date = dates.collection_date
+    pub_date = dates.epub_date
     dict_dates = {}
     try:
         v114 = "".join([history_dates["accepted"]["year"], history_dates["accepted"]["month"], history_dates["accepted"]["day"]])
@@ -136,9 +137,15 @@ def get_dates(xml_tree):
     except KeyError:
         v65 = None
 
+    try:
+        v223 = "".join([pub_date["year"], pub_date["month"], pub_date["day"]])
+    except KeyError:
+        v223 = None
+
     dict_dates.update(record.simple_field("v114", v114))
     dict_dates.update(record.simple_field("v112", v112))
     dict_dates.update(record.simple_field("v65", v65))
+    dict_dates.update(record.simple_field("v223", v223))
     return dict_dates
 
 def get_article_and_subarticle(xml_tree):
