@@ -8,6 +8,7 @@ from packtools.sps.models import (
     article_dates,
     article_and_subarticles,
     article_abstract,
+    kwd_group,
 )
 
 from packtools.sps.formats.am import record
@@ -186,7 +187,26 @@ def get_article_abstract(xml_tree):
 
     return dict_abs
 
+def get_keyword(xml_tree):
+    keywords = kwd_group.ArticleKeywords(xml_tree)
+    keywords.configure()
 
+    dict_kw = {}
+    list_kw = []
+
+    for kw in keywords.items:
+        v85 = {}
+        try:
+            record.add_item(v85, "k", kw["plain_text"])
+            record.add_item(v85, "l", kw["lang"])
+            record.add_item(v85, "_", "")
+            list_kw.append(v85)
+        except KeyError:
+            pass
+
+    dict_kw.update(record.multiple_complex_field("v85", list_kw))
+
+    return dict_kw
 
 def build(xml_tree):
     resp = {}
