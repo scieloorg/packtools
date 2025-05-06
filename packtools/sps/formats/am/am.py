@@ -37,6 +37,7 @@ def get_journal(xml_tree):
 
     return dict_journal_meta
 
+
 def get_articlemeta_issue(xml_tree):
     article_meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
     dict_issue = {}
@@ -66,12 +67,14 @@ def get_articlemeta_issue(xml_tree):
 
     return dict_issue
 
+
 def get_ids(xml_tree):
     ids = article_ids.ArticleIds(xml_tree)
     dict_id = {"code": ids.v2}
     dict_id.update(record.simple_field("v880", ids.v2))
     dict_id.update(record.simple_field("v237", ids.doi))
     return dict_id
+
 
 def get_contribs(xml_tree):
     dict_contrib = {}
@@ -97,6 +100,7 @@ def get_contribs(xml_tree):
 
     return dict_contrib
 
+
 def get_affs(xml_tree):
     dict_aff = {}
     list_affs = []
@@ -116,11 +120,13 @@ def get_affs(xml_tree):
 
     return dict_aff
 
+
 def get_references(xml_tree):
     refs = list(references.XMLReferences(xml_tree).items)
     dict_ref = {}
     dict_ref.update(record.simple_field("v72", len(refs)))
     return dict_ref
+
 
 def get_dates(xml_tree):
     dates = article_dates.ArticleDates(xml_tree)
@@ -129,12 +135,24 @@ def get_dates(xml_tree):
     pub_date = dates.epub_date
     dict_dates = {}
     try:
-        v114 = "".join([history_dates["accepted"]["year"], history_dates["accepted"]["month"], history_dates["accepted"]["day"]])
+        v114 = "".join(
+            [
+                history_dates["accepted"]["year"],
+                history_dates["accepted"]["month"],
+                history_dates["accepted"]["day"],
+            ]
+        )
     except KeyError:
         v114 = None
 
     try:
-        v112 = "".join([history_dates["received"]["year"], history_dates["received"]["month"], history_dates["received"]["day"]])
+        v112 = "".join(
+            [
+                history_dates["received"]["year"],
+                history_dates["received"]["month"],
+                history_dates["received"]["day"],
+            ]
+        )
     except KeyError:
         v112 = None
 
@@ -162,7 +180,8 @@ def get_article_and_subarticle(xml_tree):
 
     dict_articles.update(
         record.simple_field("v120", f"XML_{articles.dtd_version}")
-        if articles.dtd_version else {}
+        if articles.dtd_version
+        else {}
     )
 
     list_lang = [
@@ -175,8 +194,11 @@ def get_article_and_subarticle(xml_tree):
 
     return dict_articles
 
+
 def get_article_abstract(xml_tree):
-    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(
+        style="inline"
+    )
 
     dict_abs = {}
     list_abs = []
@@ -191,6 +213,7 @@ def get_article_abstract(xml_tree):
     dict_abs.update(record.multiple_complex_field("v83", list_abs))
 
     return dict_abs
+
 
 def get_keyword(xml_tree):
     keywords = kwd_group.ArticleKeywords(xml_tree)
