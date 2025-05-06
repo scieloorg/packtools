@@ -9,6 +9,7 @@ from packtools.sps.models import (
     article_and_subarticles,
     article_abstract,
     kwd_group,
+    article_titles,
 )
 
 from packtools.sps.formats.am import record
@@ -199,6 +200,7 @@ def get_dates(xml_tree):
     dict_dates.update(record.simple_field("v223", v223))
     return dict_dates
 
+
 def get_article_and_subarticle(xml_tree):
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
     dict_articles = {}
@@ -274,6 +276,21 @@ def get_keyword(xml_tree):
     dict_kw.update(record.multiple_complex_field("v85", list_kw))
 
     return dict_kw
+
+
+def get_title(xml_tree):
+    dict_title = {}
+    v12_fields = {"l": "lang", "_": "plain_text"}
+
+    v12_list = []
+
+    for item in article_titles.ArticleTitles(xml_tree).article_title_list:
+        v12 = {key: item.get(src) for key, src in v12_fields.items() if item.get(src)}
+        v12_list.append(v12)
+
+    dict_title.update(record.multiple_complex_field("v12", v12_list))
+    return dict_title
+
 
 def build(xml_tree):
     resp = {}
