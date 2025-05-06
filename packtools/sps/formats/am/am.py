@@ -22,9 +22,13 @@ def get_journal(xml_tree):
 
     dict_journal_meta = {}
 
-    dict_journal_meta.update(record.simple_field("v30", journal_title.abbreviated_journal_title))
+    dict_journal_meta.update(
+        record.simple_field("v30", journal_title.abbreviated_journal_title)
+    )
     dict_journal_meta.update(record.simple_field("v421", journal_id.nlm_ta))
-    dict_journal_meta.update(record.simple_field("v62", publisher_name.publishers_names[0]))
+    dict_journal_meta.update(
+        record.simple_field("v62", publisher_name.publishers_names[0])
+    )
     dict_journal_meta.update(record.simple_field("v100", journal_title.journal_title))
 
     issn_map = {"epub": issns.epub, "ppub": issns.ppub}
