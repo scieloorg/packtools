@@ -219,6 +219,18 @@ def get_article_and_subarticle(xml_tree):
 
     dict_articles.update(record.multiple_complex_field("v601", list_lang))
 
+    doi_list = []
+    for item in articles.data:
+        try:
+            v337 = {}
+            record.add_item(v337, "d", item["doi"])
+            record.add_item(v337, "l", item["lang"])
+            record.add_item(v337, "_", "")
+            doi_list.append(v337)
+        except KeyError:
+            pass
+    dict_articles.update(record.multiple_complex_field("v337", doi_list))
+
     return dict_articles
 
 
