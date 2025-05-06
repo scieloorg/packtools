@@ -103,20 +103,47 @@ def get_contribs(xml_tree):
 
 def get_affs(xml_tree):
     dict_aff = {}
-    list_affs = []
+
+    v70_fields = {
+        "c": "city",
+        "i": "id",
+        "l": "label",
+        "1": "orgdiv1",
+        "p": "country_name",
+        "s": "state",
+        "_": "orgname",
+    }
+
+    v240_fields = {
+        "c": "city",
+        "i": "id",
+        "p": "country_code",
+        "s": "state",
+        "_": "orgname",
+    }
+
+    list_v70 = []
+    list_v240 = []
 
     for item in aff.Affiliation(xml_tree).affiliation_list:
-        v70 = {}
-        record.add_item(v70, "c", item.get("city"))
-        record.add_item(v70, "i", item.get("id"))
-        record.add_item(v70, "l", item.get("label"))
-        record.add_item(v70, "1", item.get("orgdiv1"))
-        record.add_item(v70, "p", item.get("country_name"))
-        record.add_item(v70, "s", item.get("state"))
-        record.add_item(v70, "_", item.get("orgname"))
-        list_affs.append(v70)
+        try:
+            if item["parent"] != "article":
+                continue
 
-    dict_aff.update(record.multiple_complex_field("v70", list_affs))
+            v70 = {
+                key: item.get(src) for key, src in v70_fields.items() if item.get(src)
+            }
+            v240 = {
+                key: item.get(src) for key, src in v240_fields.items() if item.get(src)
+            }
+
+            list_v70.append(v70)
+            list_v240.append(v240)
+        except KeyError:
+            pass
+
+    dict_aff.update(record.multiple_complex_field("v70", list_v70))
+    dict_aff.update(record.multiple_complex_field("v240", list_v240))
 
     return dict_aff
 
