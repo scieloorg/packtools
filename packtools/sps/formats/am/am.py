@@ -60,7 +60,8 @@ def get_articlemeta_issue(xml_tree):
 
     dict_issue.update(
         record.simple_field("v4", f"V{article_meta.volume}")
-        if article_meta.volume else {}
+        if article_meta.volume
+        else {}
     )
 
     return dict_issue
