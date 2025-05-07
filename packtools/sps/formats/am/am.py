@@ -12,98 +12,98 @@ from packtools.sps.models import (
     article_titles,
 )
 
-from packtools.sps.formats.am import record
+from packtools.sps.formats.am.am_utils import (
+    simple_field,
+    complex_field,
+    multiple_complex_field,
+    add_item,
+    format_date,
+    ARTICLE_TYPE_MAP,
+)
 
 
 def get_journal(xml_tree):
-    journal_title = journal_meta.Title(xml_tree)
+    title = journal_meta.Title(xml_tree)
     journal_id = journal_meta.JournalID(xml_tree)
-    publisher_name = journal_meta.Publisher(xml_tree)
+    publisher = journal_meta.Publisher(xml_tree)
     issns = journal_meta.ISSN(xml_tree)
 
-    dict_journal_meta = {}
+    issn_list = [
+        {"t": t, "_": val}
+        for t, val in {"epub": issns.epub, "ppub": issns.ppub}.items()
+        if val
+    ]
 
-    dict_journal_meta.update(
-        record.simple_field("v30", journal_title.abbreviated_journal_title)
-    )
-    dict_journal_meta.update(record.simple_field("v421", journal_id.nlm_ta))
-    dict_journal_meta.update(
-        record.simple_field("v62", publisher_name.publishers_names[0])
-    )
-    dict_journal_meta.update(record.simple_field("v100", journal_title.journal_title))
-
-    issn_map = {"epub": issns.epub, "ppub": issns.ppub}
-    issn_list = [{"t": t, "_": val} for t, val in issn_map.items() if val]
-    dict_journal_meta.update(record.multiple_complex_field("v435", issn_list))
-
-    return dict_journal_meta
+    return {
+        **simple_field("v30", title.abbreviated_journal_title),
+        **simple_field("v421", journal_id.nlm_ta),
+        **simple_field("v62", publisher.publishers_names[0]),
+        **simple_field("v100", title.journal_title),
+        **multiple_complex_field("v435", issn_list),
+    }
 
 
 def get_articlemeta_issue(xml_tree):
-    article_meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
-    dict_issue = {}
-    dict_issue.update(record.simple_field("v31", article_meta.volume))
-    dict_issue.update(record.simple_field("v121", article_meta.order_string_format))
+    meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
 
     v882 = {}
-    record.add_item(v882, "v", article_meta.volume)
-    record.add_item(v882, "n", article_meta.number)
-    # TODO fixme
-    record.add_item(v882, "_", "")
-    dict_issue.update(record.complex_field("v882", v882))
+    add_item(v882, "v", meta.volume)
+    add_item(v882, "n", meta.number)
+    add_item(v882, "_", "")
 
     v14 = {}
-    record.add_item(v14, "e", article_meta.elocation_id)
-    record.add_item(v14, "f", article_meta.fpage)
-    record.add_item(v14, "l", article_meta.lpage)
-    # TODO fixme
-    record.add_item(v14, "_", "")
-    dict_issue.update(record.complex_field("v14", v14))
+    add_item(v14, "e", meta.elocation_id)
+    add_item(v14, "f", meta.fpage)
+    add_item(v14, "l", meta.lpage)
+    add_item(v14, "_", "")
 
-    dict_issue.update(
-        record.simple_field("v4", f"V{article_meta.volume}")
-        if article_meta.volume
-        else {}
-    )
+    result = {
+        **simple_field("v31", meta.volume),
+        **simple_field("v121", meta.order_string_format),
+        **complex_field("v882", v882),
+        **complex_field("v14", v14),
+    }
 
-    return dict_issue
+    if meta.volume:
+        result.update(simple_field("v4", f"V{meta.volume}"))
+
+    return result
 
 
 def get_ids(xml_tree):
     ids = article_ids.ArticleIds(xml_tree)
-    dict_id = {"code": ids.v2}
-    dict_id.update(record.simple_field("v880", ids.v2))
-    dict_id.update(record.simple_field("v237", ids.doi))
-    return dict_id
+
+    return {
+        "code": ids.v2,
+        **simple_field("v880", ids.v2),
+        **simple_field("v237", ids.doi),
+    }
 
 
 def get_contribs(xml_tree):
-    dict_contrib = {}
-    list_contribs = []
-    for author in article_contribs.XMLContribs(xml_tree).contribs:
+    contribs = article_contribs.XMLContribs(xml_tree).contribs
 
-        author_type = author.get("contrib_type")
+    list_contribs = []
+    for author in contribs:
+        author_type = author.get("contrib_type", "ND")
         if author_type == "author":
             author_type = "ND"
 
         v10 = {}
-        record.add_item(v10, "k", author.get("contrib_ids", {}).get("orcid"))
-        record.add_item(v10, "n", author.get("contrib_name", {}).get("given-names"))
-        record.add_item(v10, "1", author.get("affs", [{}])[0].get("id"))
-        record.add_item(v10, "s", author.get("contrib_name", {}).get("surname"))
-        record.add_item(v10, "r", author_type)
-        # TODO fixme
-        record.add_item(v10, "_", "")
+        add_item(v10, "k", author.get("contrib_ids", {}).get("orcid"))
+        add_item(v10, "n", author.get("contrib_name", {}).get("given-names"))
+        add_item(v10, "1", author.get("affs", [{}])[0].get("id"))
+        add_item(v10, "s", author.get("contrib_name", {}).get("surname"))
+        add_item(v10, "r", author_type)
+        add_item(v10, "_", "")
 
         list_contribs.append(v10)
 
-    dict_contrib.update(record.multiple_complex_field("v10", list_contribs))
-
-    return dict_contrib
+    return multiple_complex_field("v10", list_contribs)
 
 
 def get_affs(xml_tree):
-    dict_aff = {}
+    affiliations = aff.Affiliation(xml_tree).affiliation_list
 
     v70_fields = {
         "c": "city",
@@ -126,114 +126,82 @@ def get_affs(xml_tree):
     list_v70 = []
     list_v240 = []
 
-    for item in aff.Affiliation(xml_tree).affiliation_list:
-        try:
-            if item["parent"] != "article":
-                continue
+    for item in affiliations:
+        if item.get("parent") != "article":
+            continue
 
-            v70 = {
-                key: item.get(src) for key, src in v70_fields.items() if item.get(src)
-            }
-            v240 = {
-                key: item.get(src) for key, src in v240_fields.items() if item.get(src)
-            }
+        v70 = {k: item[src] for k, src in v70_fields.items() if src in item}
+        v240 = {k: item[src] for k, src in v240_fields.items() if src in item}
 
-            list_v70.append(v70)
-            list_v240.append(v240)
-        except KeyError:
-            pass
+        list_v70.append(v70)
+        list_v240.append(v240)
 
-    dict_aff.update(record.multiple_complex_field("v70", list_v70))
-    dict_aff.update(record.multiple_complex_field("v240", list_v240))
-
-    return dict_aff
+    return {
+        "v70": list_v70,
+        "v240": list_v240,
+    }
 
 
 def get_references(xml_tree):
     refs = list(references.XMLReferences(xml_tree).items)
-    dict_ref = {}
-    dict_ref.update(record.simple_field("v72", len(refs)))
-    return dict_ref
+    return simple_field("v72", len(refs))
 
 
 def get_dates(xml_tree):
     dates = article_dates.ArticleDates(xml_tree)
-    history_dates = dates.history_dates_dict
-    collection_date = dates.collection_date
-    pub_date = dates.epub_date
-    dict_dates = {}
-    try:
-        v114 = "".join(
-            [
-                history_dates["accepted"]["year"],
-                history_dates["accepted"]["month"],
-                history_dates["accepted"]["day"],
-            ]
-        )
-    except KeyError:
-        v114 = None
 
-    try:
-        v112 = "".join(
-            [
-                history_dates["received"]["year"],
-                history_dates["received"]["month"],
-                history_dates["received"]["day"],
-            ]
-        )
-    except KeyError:
-        v112 = None
+    v114 = format_date(
+        dates.history_dates_dict.get("accepted"), ["year", "month", "day"]
+    )
+    v112 = format_date(
+        dates.history_dates_dict.get("received"), ["year", "month", "day"]
+    )
+    v65 = (
+        format_date(dates.collection_date, ["year"]) + "0000"
+        if dates.collection_date
+        else None
+    )
+    v223 = format_date(dates.epub_date, ["year", "month", "day"])
 
-    try:
-        v65 = "".join([collection_date["year"], "0000"])
-    except KeyError:
-        v65 = None
-
-    try:
-        v223 = "".join([pub_date["year"], pub_date["month"], pub_date["day"]])
-    except KeyError:
-        v223 = None
-
-    dict_dates.update(record.simple_field("v114", v114))
-    dict_dates.update(record.simple_field("v112", v112))
-    dict_dates.update(record.simple_field("v65", v65))
-    dict_dates.update(record.simple_field("v223", v223))
-    return dict_dates
+    return {
+        **simple_field("v114", v114),
+        **simple_field("v112", v112),
+        **simple_field("v65", v65),
+        **simple_field("v223", v223),
+    }
 
 
 def get_article_and_subarticle(xml_tree):
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    dict_articles = {}
 
-    dict_articles.update(record.simple_field("v40", articles.main_lang))
+    article_type = articles.main_article_type
+    v71_value = ARTICLE_TYPE_MAP.get(article_type)
 
-    dict_articles.update(
-        record.simple_field("v120", f"XML_{articles.dtd_version}")
-        if articles.dtd_version
-        else {}
-    )
+    result = {
+        **simple_field("v40", articles.main_lang),
+        **simple_field(
+            "v120", f"XML_{articles.dtd_version}" if articles.dtd_version else None
+        ),
+        **simple_field("v71", v71_value),
+    }
 
-    list_lang = [
+    other_langs = [
         {"_": lang}
         for item in articles.data
-        if (lang := item["lang"]) and lang != articles.main_lang
+        if (lang := item.get("lang")) and lang != articles.main_lang
     ]
+    if other_langs:
+        result.update(multiple_complex_field("v601", other_langs))
 
-    dict_articles.update(record.multiple_complex_field("v601", list_lang))
+    doi_list = [
+        {"d": item["doi"], "l": item["lang"], "_": ""}
+        for item in articles.data
+        if item.get("doi") and item.get("lang")
+    ]
+    if doi_list:
+        result.update(multiple_complex_field("v337", doi_list))
 
-    doi_list = []
-    for item in articles.data:
-        try:
-            v337 = {}
-            record.add_item(v337, "d", item["doi"])
-            record.add_item(v337, "l", item["lang"])
-            record.add_item(v337, "_", "")
-            doi_list.append(v337)
-        except KeyError:
-            pass
-    dict_articles.update(record.multiple_complex_field("v337", doi_list))
-
-    return dict_articles
+    return result
 
 
 def get_article_abstract(xml_tree):
@@ -241,62 +209,115 @@ def get_article_abstract(xml_tree):
         style="inline"
     )
 
-    dict_abs = {}
     list_abs = []
-
     for lang, abstract in abstracts.items():
         v83 = {}
-        record.add_item(v83, "a", abstract)
-        record.add_item(v83, "l", lang)
-        record.add_item(v83, "_", "")
+        add_item(v83, "a", abstract)
+        add_item(v83, "l", lang)
+        add_item(v83, "_", "")
         list_abs.append(v83)
 
-    dict_abs.update(record.multiple_complex_field("v83", list_abs))
-
-    return dict_abs
+    return multiple_complex_field("v83", list_abs)
 
 
 def get_keyword(xml_tree):
     keywords = kwd_group.ArticleKeywords(xml_tree)
     keywords.configure()
 
-    dict_kw = {}
     list_kw = []
-
     for kw in keywords.items:
         v85 = {}
-        try:
-            record.add_item(v85, "k", kw["plain_text"])
-            record.add_item(v85, "l", kw["lang"])
-            record.add_item(v85, "_", "")
-            list_kw.append(v85)
-        except KeyError:
-            pass
+        add_item(v85, "k", kw.get("plain_text"))
+        add_item(v85, "l", kw.get("lang"))
+        add_item(v85, "_", "")
+        list_kw.append(v85)
 
-    dict_kw.update(record.multiple_complex_field("v85", list_kw))
-
-    return dict_kw
+    return multiple_complex_field("v85", list_kw)
 
 
 def get_title(xml_tree):
-    dict_title = {}
     v12_fields = {"l": "lang", "_": "plain_text"}
 
-    v12_list = []
+    v12_list = [
+        {k: item.get(v) for k, v in v12_fields.items() if item.get(v)}
+        for item in article_titles.ArticleTitles(xml_tree).article_title_list
+    ]
 
-    for item in article_titles.ArticleTitles(xml_tree).article_title_list:
-        v12 = {key: item.get(src) for key, src in v12_fields.items() if item.get(src)}
-        v12_list.append(v12)
-
-    dict_title.update(record.multiple_complex_field("v12", v12_list))
-    return dict_title
+    return multiple_complex_field("v12", v12_list)
 
 
 def build(xml_tree):
+    """
+    input_data contém informações complementares que não estão disponíveis no XML original.
+    Cada campo segue a convenção de metadados da estrutura ISIS/SciELO:
+
+    Campos:
+    - v999: Caminho para a base local utilizada no processamento.
+    - v38: Código de status do registro (ex: 'GRA' = gravado).
+    - v71: Tipo de artigo no formato reduzido (ex: 'oa' = research-article).
+    - v992: Código da coleção SciELO (ex: 'scl' = SciELO Brasil).
+    - v35: ISSN impresso do periódico.
+    - v42: Número do fascículo.
+    - v49: Código de controle interno do periódico.
+    - v706: Idioma principal do artigo (ex: 'h' = português).
+    - collection: Identificador da coleção, duplicado para compatibilidade.
+    - v709: Tipo do documento (ex: 'article').
+    - v2: Identificador do artigo no formato PID (ex: SciELO PID).
+    - v91: Data de publicação no formato YYYYMMDD.
+    - v701: Ordem do artigo no fascículo.
+    - v700: Número do fascículo.
+    - v702: Caminho relativo para o XML do artigo.
+    - v705: Tipo de publicação (ex: 'S' = científica).
+    - processing_date: Data de processamento do registro no formato YYYY-MM-DD.
+    - v265: Lista de datas associadas ao processamento:
+        - k: tipo de data (ex: 'real', 'expected'),
+        - s: fonte da data (ex: 'xml'),
+        - v: valor da data (formato YYYYMMDD ou similar).
+    - v708: Número total de páginas (ou valor estimado).
+    - v3: Nome do arquivo XML do artigo.
+    - v936: Dados bibliográficos combinados:
+        - i: ISSN,
+        - y: ano de publicação,
+        - o: número do fascículo.
+
+    Esses dados são usados como fallback ou complemento quando não extraídos diretamente do XML.
+        input_data = {
+        "v999": "../bases-work/rlae/rlae",
+        "v38": "GRA",
+        "v71": "oa",
+        "v992": "scl",
+        "v35": "0104-1169",
+        "v42": "1",
+        "v49": "RLAE350",
+        "v706": "h",
+        "collection": "scl",
+        "v709": "article",
+        "v2": "S0104-1169(25)03300000300",
+        "v91": "20250203",
+        "v701": "1",
+        "v700": "2",
+        "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
+        "v705": "S",
+        "processing_date": "2025-02-03",
+        "v265": [
+            {"k": "real", "s": "xml", "v": "20250127"},
+            {"k": "expected", "s": "xml", "v": "202500"}
+        ],
+        "v708": "1",
+        "v3": "1518-8345-rlae-33-e4434.xml",
+        "v936": {"i": "0104-1169", "y": "2025", "o": "1"}
+    }
+    """
     resp = {}
     resp.update(get_journal(xml_tree))
     resp.update(get_articlemeta_issue(xml_tree))
     resp.update(get_ids(xml_tree))
     resp.update(get_contribs(xml_tree))
     resp.update(get_affs(xml_tree))
+    resp.update(get_references(xml_tree))
+    resp.update(get_dates(xml_tree))
+    resp.update(get_article_and_subarticle(xml_tree))
+    resp.update(get_article_abstract(xml_tree))
+    resp.update(get_keyword(xml_tree))
+    resp.update(get_title(xml_tree))
     return resp
