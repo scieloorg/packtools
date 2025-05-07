@@ -231,6 +231,13 @@ class TestGetArticleAndSubarticle(BaseTest):
             {"d": "10.1590/1518-8345.7320.4434", "l": "en", "_": ""},
         )
 
+    def test_field_v71(self):
+        obtained = am.get_article_and_subarticle(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v71", obtained)
+
+        self.assertEqual(obtained["v71"], [{"_": "oa"}])
+
 
 class TestGetArticleAbstract(BaseTest):
     def test_field_v83(self):
