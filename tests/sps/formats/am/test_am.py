@@ -10,6 +10,31 @@ class BaseTest(unittest.TestCase):
             "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
         )
 
+        self.data = {
+            "v999": "../bases-work/rlae/rlae",
+            "v38": "GRA",
+            "v992": "scl",
+            "v35": "0104-1169",
+            "v42": "1",
+            "v49": "RLAE350",
+            "v706": "h",
+            "collection": "scl",
+            "v2": "S0104-1169(25)03300000300",
+            "v91": "20250203",
+            "v701": "1",
+            "v700": "2",
+            "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
+            "v705": "S",
+            "processing_date": "2025-02-03",
+            "v265": [
+                {"k": "real", "s": "xml", "v": "20250127"},
+                {"k": "expected", "s": "xml", "v": "202500"},
+            ],
+            "v708": "1",
+            "v3": "1518-8345-rlae-33-e4434.xml",
+            "v936": {"i": "0104-1169", "y": "2025", "o": "1"},
+        }
+
 
 class TestGetJournal(BaseTest):
     def test_field_v30(self):
@@ -49,42 +74,49 @@ class TestGetJournal(BaseTest):
         expected = [{"_": "Revista Latino-Americana de Enfermagem"}]
         self.assertEqual(obtained["v100"], expected)
 
+    def test_field_v35(self):
+        obtained = am.get_journal(self.xml_tree, self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v35", obtained)
+        self.assertEqual(obtained["v35"], [{"_": "0104-1169"}])
+
 
 class TestGetArticlemetaIssue(BaseTest):
     def test_field_v31(self):
         obtained = am.get_articlemeta_issue(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v31", obtained)
-        expected = [{"_": "33"}]
-        self.assertEqual(obtained["v31"], expected)
+        self.assertEqual(obtained["v31"], [{"_": "33"}])
 
     def test_field_v121(self):
         obtained = am.get_articlemeta_issue(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v121", obtained)
-        expected = [{"_": "00300"}]
-        self.assertEqual(obtained["v121"], expected)
+        self.assertEqual(obtained["v121"], [{"_": "00300"}])
 
     def test_field_v882(self):
         obtained = am.get_articlemeta_issue(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v882", obtained)
-        expected = [{"v": "33", "_": ""}]
-        self.assertEqual(obtained["v882"], expected)
+        self.assertEqual(obtained["v882"], [{"v": "33", "_": ""}])
 
     def test_field_v14(self):
         obtained = am.get_articlemeta_issue(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v14", obtained)
-        expected = [{"e": "e4434", "_": ""}]
-        self.assertEqual(obtained["v14"], expected)
+        self.assertEqual(obtained["v14"], [{"e": "e4434", "_": ""}])
 
     def test_field_v4(self):
         obtained = am.get_articlemeta_issue(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v4", obtained)
-        expected = [{"_": "V33"}]
-        self.assertEqual(obtained["v4"], expected)
+        self.assertEqual(obtained["v4"], [{"_": "V33"}])
+
+    def test_field_v709(self):
+        obtained = am.get_articlemeta_issue(self.xml_tree)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v709", obtained)
+        self.assertEqual(obtained["v709"], [{"_": "article"}])
 
 
 class TestGetIds(BaseTest):
@@ -279,6 +311,68 @@ class TestGetTitle(BaseTest):
             "Play Nicely Program in the prevention of violence against children: "
             "strengthening sustainable development",
         )
+
+
+class TestExternalFields(BaseTest):
+    def test_field_v999(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v999", obtained)
+        self.assertEqual(obtained["v999"], [{"_": "../bases-work/rlae/rlae"}])
+
+    def test_field_v38(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v38", obtained)
+        self.assertEqual(obtained["v38"], [{"_": "GRA"}])
+
+    def test_field_v992(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v992", obtained)
+        self.assertEqual(obtained["v992"], [{"_": "scl"}])
+
+    def test_field_v42(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v42", obtained)
+        self.assertEqual(obtained["v42"], [{"_": "1"}])
+
+    def test_field_v49(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v49", obtained)
+        self.assertEqual(obtained["v49"], [{"_": "RLAE350"}])
+
+    def test_field_v706(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v706", obtained)
+        self.assertEqual(obtained["v706"], [{"_": "h"}])
+
+    def test_field_collection(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("collection", obtained)
+        self.assertEqual(obtained["collection"], "scl")
+
+    def test_field_v2(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v2", obtained)
+        self.assertEqual(obtained["v2"], [{"_": "S0104-1169(25)03300000300"}])
+
+    def test_field_v91(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v91", obtained)
+        self.assertEqual(obtained["v91"], [{"_": "20250203"}])
+
+    def test_field_v701(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v701", obtained)
+        self.assertEqual(obtained["v701"], [{"_": "1"}])
 
 
 if __name__ == "__main__":
