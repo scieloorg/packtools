@@ -22,7 +22,7 @@ from packtools.sps.formats.am.am_utils import (
 )
 
 
-def get_journal(xml_tree):
+def get_journal(xml_tree, data=None):
     title = journal_meta.Title(xml_tree)
     journal_id = journal_meta.JournalID(xml_tree)
     publisher = journal_meta.Publisher(xml_tree)
@@ -34,17 +34,24 @@ def get_journal(xml_tree):
         if val
     ]
 
+    if not data:
+        data = {}
+
     return {
         **simple_field("v30", title.abbreviated_journal_title),
         **simple_field("v421", journal_id.nlm_ta),
         **simple_field("v62", publisher.publishers_names[0]),
         **simple_field("v100", title.journal_title),
         **multiple_complex_field("v435", issn_list),
+        **simple_field("v35", data.get("v35")),
     }
 
 
 def get_articlemeta_issue(xml_tree):
     meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(
+        style="inline"
+    )
 
     v882 = {}
     add_item(v882, "v", meta.volume)
@@ -66,6 +73,11 @@ def get_articlemeta_issue(xml_tree):
 
     if meta.volume:
         result.update(simple_field("v4", f"V{meta.volume}"))
+
+    if abstracts:
+        result.update(simple_field("v709", "article"))
+    else:
+        result.update(simple_field("v709", "text"))
 
     return result
 
@@ -246,6 +258,24 @@ def get_title(xml_tree):
     return multiple_complex_field("v12", v12_list)
 
 
+def get_external_fields(data):
+    if not data:
+        return
+
+    return {
+        **simple_field("v999", data.get("v999")),
+        **simple_field("v38", data.get("v38")),
+        **simple_field("v992", data.get("v992")),
+        **simple_field("v42", data.get("v42")),
+        **simple_field("v49", data.get("v49")),
+        **simple_field("v706", data.get("v706")),
+        **{"collection": data.get("collection")},
+        **simple_field("v2", data.get("v2")),
+        **simple_field("v91", data.get("v91")),
+        **simple_field("v701", data.get("v701")),
+    }
+
+
 def build(xml_tree):
     """
     input_data contém informações complementares que não estão disponíveis no XML original.
@@ -254,17 +284,15 @@ def build(xml_tree):
     Campos:
     - v999: Caminho para a base local utilizada no processamento.
     - v38: Código de status do registro (ex: 'GRA' = gravado).
-    - v71: Tipo de artigo no formato reduzido (ex: 'oa' = research-article).
     - v992: Código da coleção SciELO (ex: 'scl' = SciELO Brasil).
     - v35: ISSN impresso do periódico.
-    - v42: Número do fascículo.
-    - v49: Código de controle interno do periódico.
-    - v706: Idioma principal do artigo (ex: 'h' = português).
+    - v42: Disponibilidade de acesso do documento.
+    - v49: Código da seção.
+    - v706: Tipo de registro (h).
     - collection: Identificador da coleção, duplicado para compatibilidade.
-    - v709: Tipo do documento (ex: 'article').
-    - v2: Identificador do artigo no formato PID (ex: SciELO PID).
-    - v91: Data de publicação no formato YYYYMMDD.
-    - v701: Ordem do artigo no fascículo.
+    - v2: Publisher Item Identifier (antigo).
+    - v91: Data de processamento no formato YYYYMMDD.
+    - v701: Indice do Registro (counter) neste tipo
     - v700: Número do fascículo.
     - v702: Caminho relativo para o XML do artigo.
     - v705: Tipo de publicação (ex: 'S' = científica).
@@ -284,7 +312,6 @@ def build(xml_tree):
         input_data = {
         "v999": "../bases-work/rlae/rlae",
         "v38": "GRA",
-        "v71": "oa",
         "v992": "scl",
         "v35": "0104-1169",
         "v42": "1",
