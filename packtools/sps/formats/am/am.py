@@ -311,7 +311,7 @@ def get_external_fields(data):
     }
 
 
-def build(xml_tree):
+def build(xml_tree, data=None):
     """
     input_data contém informações complementares que não estão disponíveis no XML original.
     Cada campo segue a convenção de metadados da estrutura ISIS/SciELO:
@@ -330,13 +330,13 @@ def build(xml_tree):
     - v701: Indice do Registro (counter) neste tipo
     - v700: Número do fascículo.
     - v702: Caminho relativo para o XML do artigo.
-    - v705: Tipo de publicação (ex: 'S' = científica).
+    - v705: Tipo de literatura (ex: 'S' = científica).
     - processing_date: Data de processamento do registro no formato YYYY-MM-DD.
     - v265: Lista de datas associadas ao processamento:
         - k: tipo de data (ex: 'real', 'expected'),
         - s: fonte da data (ex: 'xml'),
         - v: valor da data (formato YYYYMMDD ou similar).
-    - v708: Número total de páginas (ou valor estimado).
+    - v708: Qtd de registros do tipo atual.
     - v3: Nome do arquivo XML do artigo.
     - v936: Dados bibliográficos combinados:
         - i: ISSN,
@@ -370,16 +370,24 @@ def build(xml_tree):
         "v936": {"i": "0104-1169", "y": "2025", "o": "1"}
     }
     """
+    data = data or {}
+
     resp = {}
-    resp.update(get_journal(xml_tree))
-    resp.update(get_articlemeta_issue(xml_tree))
-    resp.update(get_ids(xml_tree))
-    resp.update(get_contribs(xml_tree))
-    resp.update(get_affs(xml_tree))
-    resp.update(get_references(xml_tree))
-    resp.update(get_dates(xml_tree))
-    resp.update(get_article_and_subarticle(xml_tree))
-    resp.update(get_article_abstract(xml_tree))
-    resp.update(get_keyword(xml_tree))
-    resp.update(get_title(xml_tree))
+
+    article = {}
+    article.update(get_journal(xml_tree, data))
+    article.update(get_articlemeta_issue(xml_tree))
+    article.update(get_ids(xml_tree))
+    article.update(get_contribs(xml_tree))
+    article.update(get_affs(xml_tree))
+    article.update(count_references(xml_tree))
+    article.update(get_dates(xml_tree, data))
+    article.update(get_article_and_subarticle(xml_tree))
+    article.update(get_article_abstract(xml_tree))
+    article.update(get_keyword(xml_tree))
+    article.update(get_title(xml_tree))
+    article.update(get_external_fields(data))
+    resp["article"] = article
+    resp["citations"] = get_references(xml_tree)
+
     return resp
