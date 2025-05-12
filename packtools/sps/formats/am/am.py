@@ -160,7 +160,7 @@ def get_references(xml_tree):
     return simple_field("v72", len(refs))
 
 
-def get_dates(xml_tree):
+def get_dates(xml_tree, data=None):
     dates = article_dates.ArticleDates(xml_tree)
 
     v114 = format_date(
@@ -176,11 +176,28 @@ def get_dates(xml_tree):
     )
     v223 = format_date(dates.epub_date, ["year", "month", "day"])
 
+    data = data or {}
+
+    v265_list = []
+    for item in data.get("v265", []):
+        if all(k in item for k in ("k", "s", "v")):
+            v265_list.append({
+                "k": item["k"],
+                "s": item["s"],
+                "v": item["v"]
+            })
+
+    v936_dict = data.get("v936")
+    v936 = v936_dict if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o")) else None
+
     return {
         **simple_field("v114", v114),
         **simple_field("v112", v112),
         **simple_field("v65", v65),
         **simple_field("v223", v223),
+        **{"processing_date": data.get("processing_date")},
+        **multiple_complex_field("v265", v265_list),
+        **complex_field("v936", v936),
     }
 
 
