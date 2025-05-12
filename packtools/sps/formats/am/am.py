@@ -155,9 +155,21 @@ def get_affs(xml_tree):
     }
 
 
-def get_references(xml_tree):
+def count_references(xml_tree):
     refs = list(references.XMLReferences(xml_tree).items)
     return simple_field("v72", len(refs))
+
+
+def get_reference(xml_tree):
+    for ref in references.XMLReferences(xml_tree).items:
+        yield {
+                **simple_field("v30", ref.get("source")),
+                ** simple_field("v31", ref.get("volume"))
+            }
+
+
+def get_references(xml_tree):
+    return [ref for ref in get_reference(xml_tree)]
 
 
 def get_dates(xml_tree, data=None):
