@@ -291,6 +291,11 @@ def get_external_fields(data):
         **simple_field("v2", data.get("v2")),
         **simple_field("v91", data.get("v91")),
         **simple_field("v701", data.get("v701")),
+        **simple_field("v700", data.get("v700")),
+        **simple_field("v702", data.get("v702")),
+        **simple_field("v705", data.get("v705")),
+        **simple_field("v708", data.get("v708")),
+        **simple_field("v3", data.get("v3")),
     }
 
 
