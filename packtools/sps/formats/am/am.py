@@ -34,13 +34,14 @@ def get_journal(xml_tree, data=None):
         if val
     ]
 
-    if not data:
-        data = {}
+    data = data or {}
+
+    publisher_name = publisher.publishers_names[0] if publisher.publishers_names else None
 
     return {
         **simple_field("v30", title.abbreviated_journal_title),
         **simple_field("v421", journal_id.nlm_ta),
-        **simple_field("v62", publisher.publishers_names[0]),
+        **simple_field("v62", publisher_name),
         **simple_field("v100", title.journal_title),
         **multiple_complex_field("v435", issn_list),
         **simple_field("v35", data.get("v35")),
