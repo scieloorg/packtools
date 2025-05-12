@@ -193,11 +193,24 @@ class TestGetAffs(BaseTest):
 
 class TestGetReferences(BaseTest):
     def test_field_v72(self):
-        obtained = am.get_references(self.xml_tree)
+        obtained = am.count_references(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v72", obtained)
         expected = [{"_": 35}]
         self.assertEqual(obtained["v72"], expected)
+
+    def test_references_structure(self):
+        obtained = am.get_references(self.xml_tree)
+        self.assertIsInstance(obtained, list)
+        self.assertEqual(len(obtained), 35)
+
+    def test_reference_contains_v30(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v30", ref)
+
+    def test_reference_contains_v31(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v31", ref)
 
 
 class TestGetDates(BaseTest):
@@ -228,6 +241,27 @@ class TestGetDates(BaseTest):
         self.assertIn("v223", obtained)
         expected = [{"_": "20250127"}]
         self.assertEqual(obtained["v223"], expected)
+
+    def test_field_processing_date(self):
+        obtained = am.get_dates(self.xml_tree, self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("processing_date", obtained)
+        self.assertEqual(obtained["processing_date"], "2025-02-03")
+
+    def test_field_v265(self):
+        obtained = am.get_dates(self.xml_tree, self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v265", obtained)
+        self.assertEqual(len(obtained["v265"]), 2)
+
+        self.assertEqual(obtained["v265"][0], {"k": "real", "s": "xml", "v": "20250127"})
+        self.assertEqual(obtained["v265"][1], {"k": "expected", "s": "xml", "v": "202500"})
+
+    def test_field_v936(self):
+        obtained = am.get_dates(self.xml_tree, self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v936", obtained)
+        self.assertEqual(obtained["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}])
 
 
 class TestGetArticleAndSubarticle(BaseTest):
@@ -373,6 +407,36 @@ class TestExternalFields(BaseTest):
         self.assertIsInstance(obtained, dict)
         self.assertIn("v701", obtained)
         self.assertEqual(obtained["v701"], [{"_": "1"}])
+
+    def test_field_v700(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v700", obtained)
+        self.assertEqual(obtained["v700"], [{"_": "2"}])
+
+    def test_field_v702(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v702", obtained)
+        self.assertEqual(obtained["v702"], [{"_": "rlae/v33/1518-8345-rlae-33-e4434.xml"}])
+
+    def test_field_v705(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v705", obtained)
+        self.assertEqual(obtained["v705"], [{"_": "S"}])
+
+    def test_field_v708(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v708", obtained)
+        self.assertEqual(obtained["v708"], [{"_": "1"}])
+
+    def test_field_v3(self):
+        obtained = am.get_external_fields(self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v3", obtained)
+        self.assertEqual(obtained["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}])
 
 
 if __name__ == "__main__":
