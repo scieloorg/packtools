@@ -196,22 +196,78 @@ class TestGetReferences(BaseTest):
         obtained = am.count_references(self.xml_tree)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v72", obtained)
-        expected = [{"_": 35}]
-        self.assertEqual(obtained["v72"], expected)
+        self.assertEqual(obtained["v72"], [{"_": 35}])
 
     def test_references_structure(self):
         obtained = am.get_references(self.xml_tree)
         self.assertIsInstance(obtained, list)
         self.assertEqual(len(obtained), 35)
 
-    def test_reference_contains_v30(self):
+    def test_field_v30(self):
         ref = am.get_references(self.xml_tree)[0]
         self.assertIn("v30", ref)
+        self.assertEqual(ref["v30"], [{"_": "Am J Psychiatry"}])
 
-    def test_reference_contains_v31(self):
+    def test_field_v31(self):
         ref = am.get_references(self.xml_tree)[0]
         self.assertIn("v31", ref)
+        self.assertEqual(ref["v31"], [{"_": "177"}])
 
+    def test_field_v32(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v32", ref)
+        self.assertEqual(ref["v32"], [{"_": "1"}])
+
+    def test_field_code(self):
+        # primeira referência
+        first_ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("code", first_ref)
+        self.assertEqual(first_ref["code"], "S0104-1169202500010030000001")
+
+        # última referência
+        last_ref = am.get_references(self.xml_tree)[34]
+        self.assertIn("code", last_ref)
+        self.assertEqual(last_ref["code"], "S0104-1169202500010030000035")
+
+    def test_field_v999(self):
+        ref = am.get_references(self.xml_tree, article_data=self.data)[0]
+        self.assertIn("v999", ref)
+        self.assertEqual(ref["v999"], [{"_": "../bases-work/rlae/rlae"}])
+
+    def test_field_v37(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v37", ref)
+        self.assertEqual(
+            ref["v37"], [{"_": "https://doi.org/10.1176/appi.ajp.2019.19010020"}]
+        )
+
+    def test_field_v12(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v12", ref)
+        self.assertEqual(
+            ref["v12"],
+            [
+                {
+                    "_": "The Devastating Clinical Consequences of Child Abuse and Neglect: Increased Disease Vulnerability and Poor Treatment Response in Mood Disorders"
+                }
+            ],
+        )
+
+    def test_field_v10(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v10", ref)
+        self.assertEqual(len(ref["v10"]), 2)
+        self.assertEqual(ref["v10"][0]["n"], "E. T. C.")
+        self.assertEqual(ref["v10"][0]["s"], "Lippard")
+        self.assertEqual(ref["v10"][0]["r"], "ND")
+        self.assertEqual(ref["v10"][0]["_"], "")
+
+    def test_field_v71(self):
+        ref = am.get_references(self.xml_tree)[0]
+        self.assertIn("v71", ref)
+        self.assertEqual(
+            ref["v71"], [{"_": "journal"}]
+        )
 
 class TestGetDates(BaseTest):
     def test_field_v114(self):
@@ -254,8 +310,12 @@ class TestGetDates(BaseTest):
         self.assertIn("v265", obtained)
         self.assertEqual(len(obtained["v265"]), 2)
 
-        self.assertEqual(obtained["v265"][0], {"k": "real", "s": "xml", "v": "20250127"})
-        self.assertEqual(obtained["v265"][1], {"k": "expected", "s": "xml", "v": "202500"})
+        self.assertEqual(
+            obtained["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
+        )
+        self.assertEqual(
+            obtained["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
+        )
 
     def test_field_v936(self):
         obtained = am.get_dates(self.xml_tree, self.data)
@@ -418,7 +478,9 @@ class TestExternalFields(BaseTest):
         obtained = am.get_external_fields(self.data)
         self.assertIsInstance(obtained, dict)
         self.assertIn("v702", obtained)
-        self.assertEqual(obtained["v702"], [{"_": "rlae/v33/1518-8345-rlae-33-e4434.xml"}])
+        self.assertEqual(
+            obtained["v702"], [{"_": "rlae/v33/1518-8345-rlae-33-e4434.xml"}]
+        )
 
     def test_field_v705(self):
         obtained = am.get_external_fields(self.data)
