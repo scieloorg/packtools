@@ -36,7 +36,9 @@ def get_journal(xml_tree, data=None):
 
     data = data or {}
 
-    publisher_name = publisher.publishers_names[0] if publisher.publishers_names else None
+    publisher_name = (
+        publisher.publishers_names[0] if publisher.publishers_names else None
+    )
 
     return {
         **simple_field("v30", title.abbreviated_journal_title),
@@ -118,24 +120,6 @@ def get_contribs(xml_tree):
 def get_affs(xml_tree):
     affiliations = aff.Affiliation(xml_tree).affiliation_list
 
-    v70_fields = {
-        "c": "city",
-        "i": "id",
-        "l": "label",
-        "1": "orgdiv1",
-        "p": "country_name",
-        "s": "state",
-        "_": "orgname",
-    }
-
-    v240_fields = {
-        "c": "city",
-        "i": "id",
-        "p": "country_code",
-        "s": "state",
-        "_": "orgname",
-    }
-
     list_v70 = []
     list_v240 = []
 
@@ -143,15 +127,27 @@ def get_affs(xml_tree):
         if item.get("parent") != "article":
             continue
 
-        v70 = {k: item[src] for k, src in v70_fields.items() if src in item}
-        v240 = {k: item[src] for k, src in v240_fields.items() if src in item}
-
+        v70 = {}
+        add_item(v70, "c", item.get("city"))
+        add_item(v70, "i", item.get("id"))
+        add_item(v70, "l", item.get("label"))
+        add_item(v70, "1", item.get("orgdiv1"))
+        add_item(v70, "p", item.get("country_name"))
+        add_item(v70, "s", item.get("state"))
+        add_item(v70, "_", item.get("orgname"))
         list_v70.append(v70)
+
+        v240 = {}
+        add_item(v240, "c", item.get("city"))
+        add_item(v240, "i", item.get("id"))
+        add_item(v240, "p", item.get("country_code"))
+        add_item(v240, "s", item.get("state"))
+        add_item(v240, "_", item.get("orgname"))
         list_v240.append(v240)
 
     return {
-        "v70": list_v70,
-        "v240": list_v240,
+        **multiple_complex_field("v70", list_v70),
+        **multiple_complex_field("v240", list_v240),
     }
 
 
@@ -160,16 +156,38 @@ def count_references(xml_tree):
     return simple_field("v72", len(refs))
 
 
-def get_reference(xml_tree):
-    for ref in references.XMLReferences(xml_tree).items:
+def get_reference(xml_tree, article_data=None):
+    article_data = article_data or {}
+
+    article_code = article_ids.ArticleIds(xml_tree).v2
+
+    for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
+        v10_list = []
+        for author in ref.get("all_authors") or []:
+            v10 = {}
+            add_item(v10, "n", author.get("given-names"))
+            add_item(v10, "s", author.get("surname"))
+            add_item(v10, "r", author.get("role", "ND"))
+            add_item(v10, "_", "")
+            v10_list.append(v10)
+
         yield {
-                **simple_field("v30", ref.get("source")),
-                ** simple_field("v31", ref.get("volume"))
-            }
+            **simple_field("v30", ref.get("source")),
+            **simple_field("v31", ref.get("volume")),
+            **simple_field("v32", ref.get("issue")),
+            # considerando que o valor de "code" para referências seja o identificador do artigo (v2)
+            # concatenado com um inteiro sequencial de cinco caracteres, eg.: S0104-1169202500010030000001
+            **{"code": f"{article_code}{idx:05}"},
+            **simple_field("v999", article_data.get("v999")),
+            **simple_field("v37", ref.get("mixed_citation_xlink")),
+            **simple_field("v12", ref.get("article_title")),
+            **multiple_complex_field("v10", v10_list),
+            **simple_field("v71", ref.get("publication_type")),
+        }
 
 
-def get_references(xml_tree):
-    return [ref for ref in get_reference(xml_tree)]
+def get_references(xml_tree, article_data=None):
+    return [ref for ref in get_reference(xml_tree, article_data)]
 
 
 def get_dates(xml_tree, data=None):
@@ -193,14 +211,14 @@ def get_dates(xml_tree, data=None):
     v265_list = []
     for item in data.get("v265", []):
         if all(k in item for k in ("k", "s", "v")):
-            v265_list.append({
-                "k": item["k"],
-                "s": item["s"],
-                "v": item["v"]
-            })
+            v265_list.append({"k": item["k"], "s": item["s"], "v": item["v"]})
 
     v936_dict = data.get("v936")
-    v936 = v936_dict if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o")) else None
+    v936 = (
+        v936_dict
+        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
+        else None
+    )
 
     return {
         **simple_field("v114", v114),
@@ -388,6 +406,6 @@ def build(xml_tree, data=None):
     article.update(get_title(xml_tree))
     article.update(get_external_fields(data))
     resp["article"] = article
-    resp["citations"] = get_references(xml_tree)
+    resp["citations"] = get_references(xml_tree, article_data=data)
 
     return resp
