@@ -161,18 +161,11 @@ def count_references(xml_tree):
 def get_citation(xml_tree, article_data=None):
     article_data = article_data or {}
 
-    article_code = article_ids.ArticleIds(xml_tree).v2
+    article_code = (get_ids(xml_tree) or {}).get("code")
 
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
-        v10_list = []
-        for author in ref.get("all_authors") or []:
-            v10 = {}
-            add_item(v10, "n", author.get("given-names"))
-            add_item(v10, "s", author.get("surname"))
-            add_item(v10, "r", author.get("role", "ND"))
-            add_item(v10, "_", "")
-            v10_list.append(v10)
-
+        v64 = format_date(ref, ["year"])
+        v65 = v64 + "0000" if v64 else None
         yield {
             **simple_field("v30", ref.get("source")),
             **simple_field("v31", ref.get("volume")),
@@ -183,8 +176,17 @@ def get_citation(xml_tree, article_data=None):
             **simple_field("v999", article_data.get("v999")),
             **simple_field("v37", ref.get("mixed_citation_xlink")),
             **simple_field("v12", ref.get("article_title")),
-            **multiple_complex_field("v10", v10_list),
+            **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
             **simple_field("v71", ref.get("publication_type")),
+            **simple_field("v14", format_page_range(ref.get("fpage"), ref.get("lpage"))),
+            **complex_field("v936", get_field_v936(article_data)),
+            **simple_field("v880", article_code),
+            **{"v865": (get_dates(xml_tree) or {}).get("v65")},
+            **simple_field("v118", ref.get("label")),
+            **{"v237": (get_ids(xml_tree) or {}).get("v237")},
+            **simple_field("v706", "c"),
+            **simple_field("v64", v64),
+            **simple_field("v65", v65),
         }
 
 
