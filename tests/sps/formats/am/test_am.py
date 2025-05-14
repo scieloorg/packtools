@@ -191,7 +191,7 @@ class TestGetAffs(BaseTest):
         self.assertTrue(expected_keys.issubset(aff.keys()))
 
 
-class TestGetReferences(BaseTest):
+class TestGetCitations(BaseTest):
     def test_field_v72(self):
         obtained = am.count_references(self.xml_tree)
         self.assertIsInstance(obtained, dict)
@@ -199,50 +199,50 @@ class TestGetReferences(BaseTest):
         self.assertEqual(obtained["v72"], [{"_": 35}])
 
     def test_references_structure(self):
-        obtained = am.get_references(self.xml_tree)
+        obtained = am.get_citations(self.xml_tree)
         self.assertIsInstance(obtained, list)
         self.assertEqual(len(obtained), 35)
 
     def test_field_v30(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v30", ref)
         self.assertEqual(ref["v30"], [{"_": "Am J Psychiatry"}])
 
     def test_field_v31(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v31", ref)
         self.assertEqual(ref["v31"], [{"_": "177"}])
 
     def test_field_v32(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v32", ref)
         self.assertEqual(ref["v32"], [{"_": "1"}])
 
     def test_field_code(self):
         # primeira referência
-        first_ref = am.get_references(self.xml_tree)[0]
+        first_ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("code", first_ref)
         self.assertEqual(first_ref["code"], "S0104-1169202500010030000001")
 
         # última referência
-        last_ref = am.get_references(self.xml_tree)[34]
+        last_ref = am.get_citations(self.xml_tree)[34]
         self.assertIn("code", last_ref)
         self.assertEqual(last_ref["code"], "S0104-1169202500010030000035")
 
     def test_field_v999(self):
-        ref = am.get_references(self.xml_tree, article_data=self.data)[0]
+        ref = am.get_citations(self.xml_tree, article_data=self.data)[0]
         self.assertIn("v999", ref)
         self.assertEqual(ref["v999"], [{"_": "../bases-work/rlae/rlae"}])
 
     def test_field_v37(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v37", ref)
         self.assertEqual(
             ref["v37"], [{"_": "https://doi.org/10.1176/appi.ajp.2019.19010020"}]
         )
 
     def test_field_v12(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v12", ref)
         self.assertEqual(
             ref["v12"],
@@ -254,7 +254,7 @@ class TestGetReferences(BaseTest):
         )
 
     def test_field_v10(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v10", ref)
         self.assertEqual(len(ref["v10"]), 2)
         self.assertEqual(ref["v10"][0]["n"], "E. T. C.")
@@ -263,10 +263,72 @@ class TestGetReferences(BaseTest):
         self.assertEqual(ref["v10"][0]["_"], "")
 
     def test_field_v71(self):
-        ref = am.get_references(self.xml_tree)[0]
+        ref = am.get_citations(self.xml_tree)[0]
         self.assertIn("v71", ref)
         self.assertEqual(
             ref["v71"], [{"_": "journal"}]
+        )
+
+    def test_field_v14(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v14", ref)
+        self.assertEqual(
+            ref["v14"], [{'_': '20-36'}]
+        )
+
+    def test_field_v936(self):
+        obtained = am.get_dates(self.xml_tree, self.data)
+        self.assertIsInstance(obtained, dict)
+        self.assertIn("v936", obtained)
+        self.assertEqual(obtained["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}])
+
+    def test_field_v880(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v880", ref)
+        self.assertEqual(
+            ref["v880"], [{'_': 'S0104-11692025000100300'}]
+        )
+
+    def test_field_v865(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v865", ref)
+        self.assertEqual(
+            ref["v865"], [{'_': '20250000'}]
+        )
+
+    def test_field_v118(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v118", ref)
+        self.assertEqual(
+            ref["v118"], [{'_': '1.'}]
+        )
+
+    def test_field_v237(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v237", ref)
+        self.assertEqual(
+            ref["v237"], [{'_': '10.1590/1518-8345.7320.4434'}]
+        )
+
+    def test_field_v706(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v706", ref)
+        self.assertEqual(
+            ref["v706"], [{'_': 'c'}]
+        )
+
+    def test_field_v64(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v64", ref)
+        self.assertEqual(
+            ref["v64"], [{'_': '2020'}]
+        )
+
+    def test_field_v65(self):
+        ref = am.get_citations(self.xml_tree)[0]
+        self.assertIn("v65", ref)
+        self.assertEqual(
+            ref["v65"], [{'_': '20200000'}]
         )
 
 class TestGetDates(BaseTest):
