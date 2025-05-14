@@ -156,6 +156,22 @@ def count_references(xml_tree):
     return simple_field("v72", len(refs))
 
 
+def extract_authors(all_authors):
+    v10_list = []
+    for author in all_authors or []:
+        v10 = {}
+        add_item(v10, "n", author.get("given-names"))
+        add_item(v10, "s", author.get("surname"))
+        add_item(v10, "r", author.get("role", "ND"))
+        add_item(v10, "_", "")
+        v10_list.append(v10)
+    return v10_list
+
+
+def format_page_range(fpage, lpage):
+    if fpage and lpage:
+        return f"{fpage}-{lpage}"
+    return fpage or lpage or ""
 
 
 def get_citation(xml_tree, article_data=None):
@@ -195,6 +211,13 @@ def get_citations(xml_tree, article_data=None):
     return [ref for ref in get_citation(xml_tree, article_data)]
 
 
+def get_field_v936(data):
+    v936_dict = data.get("v936") or {}
+    return (
+        v936_dict
+        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
+        else None
+    )
 
 
 def get_dates(xml_tree, data=None):
@@ -220,13 +243,6 @@ def get_dates(xml_tree, data=None):
         if all(k in item for k in ("k", "s", "v")):
             v265_list.append({"k": item["k"], "s": item["s"], "v": item["v"]})
 
-    v936_dict = data.get("v936")
-    v936 = (
-        v936_dict
-        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
-        else None
-    )
-
     return {
         **simple_field("v114", v114),
         **simple_field("v112", v112),
@@ -234,7 +250,7 @@ def get_dates(xml_tree, data=None):
         **simple_field("v223", v223),
         **{"processing_date": data.get("processing_date")},
         **multiple_complex_field("v265", v265_list),
-        **complex_field("v936", v936),
+        **complex_field("v936", get_field_v936(data)),
     }
 
 
@@ -336,83 +352,26 @@ def get_external_fields(data):
     }
 
 
-def build(xml_tree, data=None):
-    """
-    input_data contém informações complementares que não estão disponíveis no XML original.
-    Cada campo segue a convenção de metadados da estrutura ISIS/SciELO:
-
-    Campos:
-    - v999: Caminho para a base local utilizada no processamento.
-    - v38: Código de status do registro (ex: 'GRA' = gravado).
-    - v992: Código da coleção SciELO (ex: 'scl' = SciELO Brasil).
-    - v35: ISSN impresso do periódico.
-    - v42: Disponibilidade de acesso do documento.
-    - v49: Código da seção.
-    - v706: Tipo de registro (h).
-    - collection: Identificador da coleção, duplicado para compatibilidade.
-    - v2: Publisher Item Identifier (antigo).
-    - v91: Data de processamento no formato YYYYMMDD.
-    - v701: Indice do Registro (counter) neste tipo
-    - v700: Número do fascículo.
-    - v702: Caminho relativo para o XML do artigo.
-    - v705: Tipo de literatura (ex: 'S' = científica).
-    - processing_date: Data de processamento do registro no formato YYYY-MM-DD.
-    - v265: Lista de datas associadas ao processamento:
-        - k: tipo de data (ex: 'real', 'expected'),
-        - s: fonte da data (ex: 'xml'),
-        - v: valor da data (formato YYYYMMDD ou similar).
-    - v708: Qtd de registros do tipo atual.
-    - v3: Nome do arquivo XML do artigo.
-    - v936: Dados bibliográficos combinados:
-        - i: ISSN,
-        - y: ano de publicação,
-        - o: número do fascículo.
-
-    Esses dados são usados como fallback ou complemento quando não extraídos diretamente do XML.
-        input_data = {
-        "v999": "../bases-work/rlae/rlae",
-        "v38": "GRA",
-        "v992": "scl",
-        "v35": "0104-1169",
-        "v42": "1",
-        "v49": "RLAE350",
-        "v706": "h",
-        "collection": "scl",
-        "v709": "article",
-        "v2": "S0104-1169(25)03300000300",
-        "v91": "20250203",
-        "v701": "1",
-        "v700": "2",
-        "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
-        "v705": "S",
-        "processing_date": "2025-02-03",
-        "v265": [
-            {"k": "real", "s": "xml", "v": "20250127"},
-            {"k": "expected", "s": "xml", "v": "202500"}
-        ],
-        "v708": "1",
-        "v3": "1518-8345-rlae-33-e4434.xml",
-        "v936": {"i": "0104-1169", "y": "2025", "o": "1"}
+def get_article_metadata(xml_tree, data):
+    return {
+        **get_journal(xml_tree, data),
+        **get_articlemeta_issue(xml_tree),
+        **get_ids(xml_tree),
+        **get_contribs(xml_tree),
+        **get_affs(xml_tree),
+        **count_references(xml_tree),
+        **get_dates(xml_tree, data),
+        **get_article_and_subarticle(xml_tree),
+        **get_article_abstract(xml_tree),
+        **get_keyword(xml_tree),
+        **get_title(xml_tree),
+        **get_external_fields(data),
     }
-    """
+
+
+def build(xml_tree, data=None):
     data = data or {}
-
-    resp = {}
-
-    article = {}
-    article.update(get_journal(xml_tree, data))
-    article.update(get_articlemeta_issue(xml_tree))
-    article.update(get_ids(xml_tree))
-    article.update(get_contribs(xml_tree))
-    article.update(get_affs(xml_tree))
-    article.update(count_references(xml_tree))
-    article.update(get_dates(xml_tree, data))
-    article.update(get_article_and_subarticle(xml_tree))
-    article.update(get_article_abstract(xml_tree))
-    article.update(get_keyword(xml_tree))
-    article.update(get_title(xml_tree))
-    article.update(get_external_fields(data))
-    resp["article"] = article
-    resp["citations"] = get_references(xml_tree, article_data=data)
-
-    return resp
+    return {
+        "article": get_article_metadata(xml_tree, data),
+        "citations": get_citations(xml_tree, article_data=data),
+    }
