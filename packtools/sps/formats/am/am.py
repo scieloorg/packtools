@@ -156,7 +156,9 @@ def count_references(xml_tree):
     return simple_field("v72", len(refs))
 
 
-def get_reference(xml_tree, article_data=None):
+
+
+def get_citation(xml_tree, article_data=None):
     article_data = article_data or {}
 
     article_code = article_ids.ArticleIds(xml_tree).v2
@@ -186,8 +188,11 @@ def get_reference(xml_tree, article_data=None):
         }
 
 
-def get_references(xml_tree, article_data=None):
-    return [ref for ref in get_reference(xml_tree, article_data)]
+
+def get_citations(xml_tree, article_data=None):
+    return [ref for ref in get_citation(xml_tree, article_data)]
+
+
 
 
 def get_dates(xml_tree, data=None):
