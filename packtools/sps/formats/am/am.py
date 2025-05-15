@@ -177,7 +177,9 @@ def format_page_range(fpage, lpage):
 def get_citation(xml_tree, article_data=None):
     article_data = article_data or {}
 
-    article_code = (get_ids(xml_tree) or {}).get("code")
+    ids = get_ids(xml_tree) or {}
+    article_code = ids.get("code")
+    v237 = ids.get("v237")
 
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
         v64 = format_date(ref, ["year"])
@@ -199,7 +201,7 @@ def get_citation(xml_tree, article_data=None):
             **simple_field("v880", article_code),
             **{"v865": (get_dates(xml_tree) or {}).get("v65")},
             **simple_field("v118", ref.get("label")),
-            **{"v237": (get_ids(xml_tree) or {}).get("v237")},
+            **{"v237": v237},
             **simple_field("v706", "c"),
             **simple_field("v64", v64),
             **simple_field("v65", v65),
