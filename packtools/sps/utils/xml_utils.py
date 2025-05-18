@@ -159,12 +159,21 @@ def tostring(node, doctype=None, pretty_print=False, xml_declaration=True):
     ).decode("utf-8")
 
 
+def remove_comments(node):
+    comments = node.xpath('//comment()')
+    for comment in comments:
+        parent = comment.getparent()
+        if parent is not None:
+            parent.remove(comment)
+
+
 def node_text(node):
     """
     Retorna todos os node.text, incluindo a subtags
     Para <title>Text <bold>text</bold> Text</title>, retorna
     Text <bold>text</bold> Text
     """
+    remove_comments(node)
     items = [node.text or ""]
     for child in node.getchildren():
         items.append(etree.tostring(child, encoding="utf-8").decode("utf-8"))
