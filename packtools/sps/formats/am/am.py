@@ -46,7 +46,7 @@ def get_journal(xml_tree, article_data=None):
         **simple_field("v62", publisher_name),
         **simple_field("v100", title.journal_title),
         **multiple_complex_field("v435", issn_list),
-        **simple_field("v35", article_data.get("v35")),
+        "v35": article_data.get("v35"),
     }
 
 
@@ -285,10 +285,10 @@ def get_title(xml_tree):
 def get_external_fields(article_data=None):
     article_data = article_data or {}
     return {
-        **simple_field("v999", article_data.get("v999")),
-        **simple_field("v38", article_data.get("v38")),
-        **simple_field("v992", article_data.get("v992")),
-        **simple_field("v42", article_data.get("v42")),
+        "v999": article_data.get("v999"),
+        "v38": article_data.get("v38"),
+        "v992": article_data.get("v992"),
+        "v42": article_data.get("v42"),
         **simple_field("v49", article_data.get("v49")),
         **simple_field("v706", article_data.get("v706")),
         "collection": article_data.get("collection"),
@@ -380,7 +380,7 @@ def get_citations(xml_tree, article_data=None, citation_data=None):
                 if citation_common["code"]
                 else None
             ),
-            **simple_field("v999", citation_common["v999"]),
+            "v999": citation_common["v999"],
             **simple_field("v37", ref.get("mixed_citation_xlink")),
             **simple_field("v12", ref.get("article_title")),
             **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
@@ -401,7 +401,7 @@ def get_citations(xml_tree, article_data=None, citation_data=None):
             **simple_field("v2", citation_common["v2"]),
             **simple_field("v3", citation_common["v3"]),
             "v4": citation_common["v4"],
-            **simple_field("v992", citation_common["v992"]),
+            "v992": citation_common["v992"],
             **simple_field("v701", citation_common["v701"]),
             **simple_field("v700", v700),
             **simple_field("v702", citation_common["v702"]),
