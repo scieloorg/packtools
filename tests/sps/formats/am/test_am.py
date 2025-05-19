@@ -10,12 +10,36 @@ class BaseTest(unittest.TestCase):
             "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
         )
 
+        self.issue_data = {
+            "v999": [
+                {
+                    "_": "../bases-work/rlae/rlae"
+                }
+            ],
+            "v992": [
+                {
+                    "_": "scl"
+                }
+            ],
+            "v35": [
+                {
+                    "_": "0104-1169"
+                }
+            ],
+            "v42": [
+                {
+                    "_": "1"
+                }
+            ],
+        }
+
         self.article_data = {
-            "v999": "../bases-work/rlae/rlae",
-            "v38": "GRA",
-            "v992": "scl",
-            "v35": "0104-1169",
-            "v42": "1",
+            **self.issue_data,
+            "v38": [
+                {
+                    "_": "GRA"
+                }
+            ],
             "v49": "RLAE350",
             "v706": "h",
             "collection": "scl",
