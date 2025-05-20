@@ -10,7 +10,7 @@ class BaseTest(unittest.TestCase):
             "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
         )
 
-        self.issue_data = {
+        self.external_issue_data = {
             "v999": [
                 {
                     "_": "../bases-work/rlae/rlae"
@@ -31,21 +31,21 @@ class BaseTest(unittest.TestCase):
                     "_": "1"
                 }
             ],
-        }
-
-        self.article_data = {
-            **self.issue_data,
-            "v38": [
+            "collection": "scl",
+            "v701": [
                 {
-                    "_": "GRA"
+                    "_": "1"
                 }
             ],
+        }
+
+        self.external_article_data = {
+            **self.external_issue_data,
+            "v38":  "GRA",
             "v49": "RLAE350",
             "v706": "h",
-            "collection": "scl",
             "v2": "S0104-1169(25)03300000300",
             "v91": "20250203",
-            "v701": "1",
             "v700": "2",
             "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
             "v705": "S",
@@ -65,7 +65,7 @@ class BaseTest(unittest.TestCase):
             "version": "xml",
         }
 
-        self.citation_data = {
+        self.external_citation_data = {
             "processing_date": "2025-04-28",
             "v700": [str(value) for value in range(5, 40)],
         }
@@ -74,7 +74,7 @@ class BaseTest(unittest.TestCase):
 class TestGetJournal(BaseTest):
     def setUp(self):
         super().setUp()
-        self.journal_data = am.get_journal(self.xml_tree, self.article_data)
+        self.journal_data = am.get_journal(self.xml_tree, self.external_article_data)
 
     def test_field_v30(self):
         self.assertEqual(
@@ -213,7 +213,7 @@ class TestGetCitations(BaseTest):
         super().setUp()
         self.v72_data = am.count_references(self.xml_tree)
         self.refs = am.get_citations(
-            self.xml_tree, self.article_data, self.citation_data
+            self.xml_tree, self.external_article_data, self.external_citation_data
         )
         self.first_ref = self.refs[0]
         self.last_ref = self.refs[-1]
@@ -341,8 +341,8 @@ class TestGetCitations(BaseTest):
 class TestGetDates(BaseTest):
     def setUp(self):
         super().setUp()
-        self.dates_data = am.get_dates(self.xml_tree, article_data=None)
-        self.dates_data_ext = am.get_dates(self.xml_tree, self.article_data)
+        self.dates_data = am.get_dates(self.xml_tree, external_article_data=None)
+        self.dates_data_ext = am.get_dates(self.xml_tree, self.external_article_data)
 
     def test_field_v114(self):
         self.assertEqual(self.dates_data["v114"], [{"_": "20240811"}])
@@ -444,7 +444,7 @@ class TestGetTitle(BaseTest):
 class TestExternalFields(BaseTest):
     def setUp(self):
         super().setUp()
-        self.external_data = am.get_external_fields(self.article_data)
+        self.external_data = am.get_external_fields(self.external_article_data)
 
     def test_field_v999(self):
         self.assertEqual(self.external_data["v999"], [{"_": "../bases-work/rlae/rlae"}])
@@ -499,7 +499,7 @@ class TestExternalFields(BaseTest):
 class TestBuild(BaseTest):
     def setUp(self):
         super().setUp()
-        self.build_data = am.build(self.xml_tree, self.article_data, self.citation_data)
+        self.build_data = am.build(self.xml_tree, self.external_article_data, self.external_citation_data)
 
     def test_field_code(self):
         self.assertEqual(self.build_data["code"], "S0104-11692025000100300")
