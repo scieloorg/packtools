@@ -11,37 +11,17 @@ class BaseTest(unittest.TestCase):
         )
 
         self.external_issue_data = {
-            "v999": [
-                {
-                    "_": "../bases-work/rlae/rlae"
-                }
-            ],
-            "v992": [
-                {
-                    "_": "scl"
-                }
-            ],
-            "v35": [
-                {
-                    "_": "0104-1169"
-                }
-            ],
-            "v42": [
-                {
-                    "_": "1"
-                }
-            ],
+            "v999": [{"_": "../bases-work/rlae/rlae"}],
+            "v992": [{"_": "scl"}],
+            "v35": [{"_": "0104-1169"}],
+            "v42": [{"_": "1"}],
             "collection": "scl",
-            "v701": [
-                {
-                    "_": "1"
-                }
-            ],
+            "v701": [{"_": "1"}],
         }
 
         self.external_article_data = {
             **self.external_issue_data,
-            "v38":  "GRA",
+            "v38": "GRA",
             "v49": "RLAE350",
             "v706": "h",
             "v2": "S0104-1169(25)03300000300",
@@ -74,7 +54,7 @@ class BaseTest(unittest.TestCase):
 class TestGetJournal(BaseTest):
     def setUp(self):
         super().setUp()
-        self.journal_data = am.get_journal(self.xml_tree, self.external_article_data)
+        self.journal_data = am.get_journal(self.xml_tree)
 
     def test_field_v30(self):
         self.assertEqual(
@@ -102,14 +82,9 @@ class TestGetJournal(BaseTest):
             self.journal_data["v100"], [{"_": "Revista Latino-Americana de Enfermagem"}]
         )
 
-    def test_field_v35_from_article_data(self):
-        self.assertEqual(self.journal_data["v35"], [{"_": "0104-1169"}])
-
     def test_journal_returns_expected_fields(self):
         self.assertTrue(
-            {"v30", "v421", "v62", "v435", "v100", "v35"}.issubset(
-                self.journal_data.keys()
-            )
+            {"v30", "v421", "v62", "v435", "v100"}.issubset(self.journal_data.keys())
         )
 
 
@@ -341,8 +316,7 @@ class TestGetCitations(BaseTest):
 class TestGetDates(BaseTest):
     def setUp(self):
         super().setUp()
-        self.dates_data = am.get_dates(self.xml_tree, external_article_data=None)
-        self.dates_data_ext = am.get_dates(self.xml_tree, self.external_article_data)
+        self.dates_data = am.get_dates(self.xml_tree)
 
     def test_field_v114(self):
         self.assertEqual(self.dates_data["v114"], [{"_": "20240811"}])
@@ -355,23 +329,6 @@ class TestGetDates(BaseTest):
 
     def test_field_v223(self):
         self.assertEqual(self.dates_data["v223"], [{"_": "20250127"}])
-
-    def test_field_processing_date(self):
-        self.assertEqual(self.dates_data_ext["processing_date"], "2025-02-03")
-
-    def test_field_v265(self):
-        self.assertEqual(len(self.dates_data_ext["v265"]), 2)
-        self.assertEqual(
-            self.dates_data_ext["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
-        )
-        self.assertEqual(
-            self.dates_data_ext["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
-        )
-
-    def test_field_v936(self):
-        self.assertEqual(
-            self.dates_data_ext["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}]
-        )
 
 
 class TestGetArticleAndSubarticle(BaseTest):
@@ -495,11 +452,33 @@ class TestExternalFields(BaseTest):
             self.external_data["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}]
         )
 
+    def test_field_v35_from_article_data(self):
+        self.assertEqual(self.external_data["v35"], [{"_": "0104-1169"}])
+
+    def test_field_processing_date(self):
+        self.assertEqual(self.external_data["processing_date"], "2025-02-03")
+
+    def test_field_v265(self):
+        self.assertEqual(len(self.external_data["v265"]), 2)
+        self.assertEqual(
+            self.external_data["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
+        )
+        self.assertEqual(
+            self.external_data["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
+        )
+
+    def test_field_v936(self):
+        self.assertEqual(
+            self.external_data["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}]
+        )
+
 
 class TestBuild(BaseTest):
     def setUp(self):
         super().setUp()
-        self.build_data = am.build(self.xml_tree, self.external_article_data, self.external_citation_data)
+        self.build_data = am.build(
+            self.xml_tree, self.external_article_data, self.external_citation_data
+        )
 
     def test_field_code(self):
         self.assertEqual(self.build_data["code"], "S0104-11692025000100300")
