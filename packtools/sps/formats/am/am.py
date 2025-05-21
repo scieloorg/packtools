@@ -22,9 +22,7 @@ from packtools.sps.formats.am.am_utils import (
 )
 
 
-def get_journal(xml_tree, external_article_data=None):
-    external_article_data = external_article_data or {}
-
+def get_journal(xml_tree):
     title = journal_meta.Title(xml_tree)
     journal_id = journal_meta.JournalID(xml_tree)
     publisher = journal_meta.Publisher(xml_tree)
@@ -46,7 +44,6 @@ def get_journal(xml_tree, external_article_data=None):
         **simple_field("v62", publisher_name),
         **simple_field("v100", title.journal_title),
         **multiple_complex_field("v435", issn_list),
-        "v35": external_article_data.get("v35"),
     }
 
 
@@ -169,20 +166,7 @@ def format_page_range(fpage, lpage):
     return fpage or lpage or ""
 
 
-def get_field_v936(external_article_data=None):
-    external_article_data = external_article_data or {}
-
-    v936_dict = external_article_data.get("v936") or {}
-    return (
-        v936_dict
-        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
-        else None
-    )
-
-
-def get_dates(xml_tree, external_article_data=None):
-    external_article_data = external_article_data or {}
-
+def get_dates(xml_tree):
     dates = article_dates.ArticleDates(xml_tree)
     v114 = format_date(
         dates.history_dates_dict.get("accepted"), ["year", "month", "day"]
@@ -197,20 +181,11 @@ def get_dates(xml_tree, external_article_data=None):
     )
     v223 = format_date(dates.epub_date, ["year", "month", "day"])
 
-    v265_list = [
-        {"k": item["k"], "s": item["s"], "v": item["v"]}
-        for item in external_article_data.get("v265", [])
-        if all(k in item for k in ("k", "s", "v"))
-    ]
-
     return {
         **simple_field("v114", v114),
         **simple_field("v112", v112),
         **simple_field("v65", v65),
         **simple_field("v223", v223),
-        "processing_date": external_article_data.get("processing_date"),
-        **multiple_complex_field("v265", v265_list),
-        **complex_field("v936", get_field_v936(external_article_data)),
     }
 
 
@@ -284,37 +259,55 @@ def get_title(xml_tree):
 
 def get_external_fields(external_article_data=None):
     external_article_data = external_article_data or {}
+
+    v265_list = [
+        {"k": item["k"], "s": item["s"], "v": item["v"]}
+        for item in external_article_data.get("v265", [])
+        if all(k in item for k in ("k", "s", "v"))
+    ]
+
+    v936_dict = external_article_data.get("v936") or {}
+    v936 = (
+        v936_dict
+        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
+        else None
+    )
+
     return {
-        "v999": external_article_data.get("v999"),
-        **simple_field("v38", external_article_data.get("v38")),
-        "v992": external_article_data.get("v992"),
-        "v42": external_article_data.get("v42"),
-        **simple_field("v49", external_article_data.get("v49")),
-        **simple_field("v706", external_article_data.get("v706")),
+        "applicable": external_article_data.get("applicable"),
         "collection": external_article_data.get("collection"),
-        **simple_field("v2", external_article_data.get("v2")),
-        **simple_field("v91", external_article_data.get("v91")),
+        "created_at": external_article_data.get("created_at"),
+        "processing_date": external_article_data.get("processing_date"),
+        "v35": external_article_data.get("v35"),
+        "v42": external_article_data.get("v42"),
         "v701": external_article_data.get("v701"),
+        "v992": external_article_data.get("v992"),
+        "v999": external_article_data.get("v999"),
+        **simple_field("v2", external_article_data.get("v2")),
+        **simple_field("v3", external_article_data.get("v3")),
+        **simple_field("v38", external_article_data.get("v38")),
+        **simple_field("v49", external_article_data.get("v49")),
         **simple_field("v700", external_article_data.get("v700")),
         **simple_field("v702", external_article_data.get("v702")),
         **simple_field("v705", external_article_data.get("v705")),
+        **simple_field("v706", external_article_data.get("v706")),
         **simple_field("v708", external_article_data.get("v708")),
-        **simple_field("v3", external_article_data.get("v3")),
-        "applicable": external_article_data.get("applicable"),
-        "created_at": external_article_data.get("created_at"),
+        **simple_field("v91", external_article_data.get("v91")),
+        **complex_field("v936", v936),
+        **multiple_complex_field("v265", v265_list),
     }
 
 
 def get_article_metadata(xml_tree, external_article_data=None):
     external_article_data = external_article_data or {}
     return {
-        **get_journal(xml_tree, external_article_data),
+        **get_journal(xml_tree),
         **get_articlemeta_issue(xml_tree),
         **get_ids(xml_tree),
         **get_contribs(xml_tree),
         **get_affs(xml_tree),
         **count_references(xml_tree),
-        **get_dates(xml_tree, external_article_data),
+        **get_dates(xml_tree),
         **get_article_and_subarticle(xml_tree),
         **get_article_abstract(xml_tree),
         **get_keyword(xml_tree),
@@ -329,109 +322,104 @@ def get_citations(xml_tree, external_article_data=None, external_citation_data=N
 
     xml_data = {
         **get_ids(xml_tree),
-        **get_dates(xml_tree, external_article_data),
+        **get_dates(xml_tree),
         **get_articlemeta_issue(xml_tree),
         **count_references(xml_tree),
     }
 
-    citation_common = {
-        # Identificadores principais
-        "code": xml_data.get("code"),
-        "v237": xml_data.get("v237"),
-        "v4": xml_data.get("v4"),
-        "v72": xml_data.get("v72"),
-        "v65": xml_data.get("v65"),
-        "v708": xml_data.get("v72"),
-        # Metadados externos do artigo
-        "collection": external_article_data.get("collection"),
-        "v2": external_article_data.get("v2"),
-        "v3": external_article_data.get("v3"),
-        "v999": external_article_data.get("v999"),
-        "v992": external_article_data.get("v992"),
-        "v701": external_article_data.get("v701"),
-        "v702": external_article_data.get("v702"),
-        "v705": external_article_data.get("v705"),
-        "v936": get_field_v936(external_article_data),
-        # Dados específicos de citação
-        "v700": external_citation_data.get("v700", []),
-        "processing_date": external_citation_data.get("processing_date"),
-        # Dados de fascículo
-        "v882": xml_data.get("v882"),
-    }
+    citation_common = get_citation_common(
+        xml_data, external_article_data, external_citation_data
+    )
+    v700_refs = citation_common.get("v700", [])
 
     refs = []
-    v700_refs = citation_common.get("v700")
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
-        v64 = format_date(ref, ["year"])
-        v65 = v64 + "0000" if v64 else None
-        v700 = v700_refs[idx - 1] if v700_refs and idx - 1 < len(v700_refs) else None
-
-        v514 = {}
-        add_item(v514, "l", ref.get("lpage"))
-        add_item(v514, "f", ref.get("fpage"))
-        add_item(v514, "_", "")
-
-        citation = {
-            **simple_field("v30", ref.get("source")),
-            **simple_field("v31", ref.get("volume")),
-            **simple_field("v32", ref.get("issue")),
-            "code": (
-                f"{citation_common['code']}{idx:05}"
-                if citation_common["code"]
-                else None
-            ),
-            "v999": citation_common["v999"],
-            **simple_field("v37", ref.get("mixed_citation_xlink")),
-            **simple_field("v12", ref.get("article_title")),
-            **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
-            **simple_field("v71", ref.get("publication_type")),
-            **simple_field(
-                "v14", format_page_range(ref.get("fpage"), ref.get("lpage"))
-            ),
-            **complex_field("v936", citation_common["v936"]),
-            **simple_field("v880", citation_common["code"]),
-            "v865": citation_common["v65"],
-            **simple_field("v118", ref.get("label")),
-            "v237": citation_common["v237"],
-            **simple_field("v706", "c"),
-            **simple_field("v64", v64),
-            **simple_field("v65", v65),
-            "collection": citation_common["collection"],
-            "v708": citation_common["v708"],
-            **simple_field("v2", citation_common["v2"]),
-            **simple_field("v3", citation_common["v3"]),
-            "v4": citation_common["v4"],
-            "v992": citation_common["v992"],
-            "v701": citation_common["v701"],
-            **simple_field("v700", v700),
-            **simple_field("v702", citation_common["v702"]),
-            **simple_field("v705", citation_common["v705"]),
-            "processing_date": citation_common["processing_date"],
-            **complex_field("v514", v514),
-            "v882": citation_common["v882"],
-        }
-
-        refs.append(citation)
+        refs.append(build_citation(ref, citation_common, idx, v700_refs))
 
     return refs
 
 
+def get_citation_common(xml_data, external_article_data, external_citation_data):
+    return {
+        "code": xml_data.get("code"),
+        "collection": external_article_data.get("collection"),
+        "processing_date": external_citation_data.get("processing_date"),
+        "v237": xml_data.get("v237"),
+        "v2": external_article_data.get("v2"),
+        "v3": external_article_data.get("v3"),
+        "v4": xml_data.get("v4"),
+        "v65": xml_data.get("v65"),
+        "v700": external_citation_data.get("v700", []),
+        "v701": external_article_data.get("v701"),
+        "v702": external_article_data.get("v702"),
+        "v705": external_article_data.get("v705"),
+        "v708": xml_data.get("v72"),
+        "v882": xml_data.get("v882"),
+        "v936": external_article_data.get("v936"),
+        "v992": external_article_data.get("v992"),
+        "v999": external_article_data.get("v999"),
+    }
+
+
+def build_citation(ref, common, idx, v700_refs):
+    v64 = format_date(ref, ["year"])
+    v65 = f"{v64}0000" if v64 else None
+    v700 = v700_refs[idx - 1] if idx - 1 < len(v700_refs) else None
+
+    v514 = {
+        "l": ref.get("lpage"),
+        "f": ref.get("fpage"),
+        "_": "",
+    }
+
+    return {
+        "code": f"{common['code']}{idx:05}" if common["code"] else None,
+        "collection": common["collection"],
+        "processing_date": common["processing_date"],
+        "v237": common["v237"],
+        "v4": common["v4"],
+        "v865": common["v65"],
+        "v882": common["v882"],
+        "v999": common["v999"],
+        "v701": common["v701"],
+        "v708": common["v708"],
+        "v992": common["v992"],
+        **simple_field("v118", ref.get("label")),
+        **simple_field("v12", ref.get("article_title")),
+        **simple_field("v14", format_page_range(ref.get("fpage"), ref.get("lpage"))),
+        **simple_field("v2", common["v2"]),
+        **simple_field("v3", common["v3"]),
+        **simple_field("v30", ref.get("source")),
+        **simple_field("v31", ref.get("volume")),
+        **simple_field("v32", ref.get("issue")),
+        **simple_field("v37", ref.get("mixed_citation_xlink")),
+        **simple_field("v64", v64),
+        **simple_field("v65", v65),
+        **simple_field("v700", v700),
+        **simple_field("v702", common["v702"]),
+        **simple_field("v705", common["v705"]),
+        **simple_field("v706", "c"),
+        **simple_field("v71", ref.get("publication_type")),
+        **simple_field("v880", common["code"]),
+        **complex_field("v514", v514),
+        **complex_field("v936", common["v936"]),
+        **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
+    }
+
+
 def build(xml_tree, external_article_data=None, external_citation_data=None):
     code = (get_ids(xml_tree) or {}).get("code")
-    journal_data = get_journal(xml_tree, external_article_data)
+    journal_data = get_journal(xml_tree)
     external_fields = get_external_fields(external_article_data)
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
     article_type = articles.main_article_type
     article_metadata = get_article_metadata(xml_tree, external_article_data)
     citations = get_citations(xml_tree, external_article_data, external_citation_data)
-    publication_date = article_metadata.get("v65", [{}])[0].get("_")  # "20250000"
+    publication_date = article_metadata.get("v65", [{}])[0].get("_")
     publication_year = publication_date[:4] if publication_date else None
 
-    issns = [
-        item.get("_")
-        for field in ("v35", "v435")
-        for item in journal_data.get(field, [])
-    ]
+    issns = [item.get("_") for item in external_article_data.get("v35", [])]
+    issns.extend(item.get("_") for item in journal_data.get("v435", []))
 
     return {
         "code": code,
