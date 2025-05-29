@@ -65,12 +65,19 @@ class Date:
         return _date
 
     def __str__(self):
-        return self.display or str({"year": self.year, "month": self.month, "day": self.day})
+        return self.display or str(
+            {"year": self.year, "month": self.month, "day": self.day}
+        )
 
     @property
     def parts(self):
-        return {"year": self.year, "season": self.season, "month": self.month, "day": self.day}
-    
+        return {
+            "year": self.year,
+            "season": self.season,
+            "month": self.month,
+            "day": self.day,
+        }
+
     @property
     def display(self):
         if self.season:
@@ -207,7 +214,7 @@ class FulltextDates(Fulltext):
     def translations(self):
         for node in super().translations:
             yield FulltextDates(node)
-            
+
     @property
     def not_translations(self):
         for node in super().not_translations:

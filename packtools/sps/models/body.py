@@ -1,4 +1,3 @@
-
 def _get_texts(node):
     texts = []
     if node.text:

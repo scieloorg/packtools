@@ -7,6 +7,7 @@ de Foucault.
 : revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.
 </related-article>
 """
+
 from packtools.sps.models.article_and_subarticles import Fulltext
 from packtools.sps.utils.xml_utils import (
     get_parent_context,
@@ -61,6 +62,7 @@ class FulltextRelatedArticles(Fulltext):
     """
     Processes article or sub-article node and provides methods to extract information
     """
+
     @property
     def parent_data(self):
         return self.attribs_parent_prefixed

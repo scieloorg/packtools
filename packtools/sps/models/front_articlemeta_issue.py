@@ -12,6 +12,7 @@
   </front>
 </article>
 """
+
 from packtools.sps.models.dates import ArticleDates
 from packtools.sps.models.article_ids import ArticleIds
 
@@ -30,10 +31,7 @@ def extract_number_and_supplement_from_issue_element(issue):
     issue = issue.strip().replace(".", "")
     splitted = [s for s in issue.split() if s]
 
-    splitted = ["spe"
-                if "spe" in s.lower() and s.isalpha() else s
-                for s in splitted
-                ]
+    splitted = ["spe" if "spe" in s.lower() and s.isalpha() else s for s in splitted]
     if len(splitted) == 1:
         issue = splitted[0]
         if issue.isdigit():
@@ -70,8 +68,12 @@ class ArticleMetaIssue:
     @property
     def data(self):
         attr_names = (
-            "volume", "number", "suppl",
-            "fpage", "fpage_seq", "lpage",
+            "volume",
+            "number",
+            "suppl",
+            "fpage",
+            "fpage_seq",
+            "lpage",
             "elocation_id",
         )
         _data = {}
@@ -111,14 +113,32 @@ class ArticleMetaIssue:
         if len(parts) == 1:
             return {"number": parts[0]}
         if len(parts) == 3:
-            return {"number": parts[0], "type_value": parts[-1], "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+            return {
+                "number": parts[0],
+                "type_value": parts[-1],
+                "type": parts[1],
+                "type_valid_format": parts[1] in ("spe", "suppl"),
+            }
         if len(parts) == 2:
             if parts[0] in ("spe", "suppl"):
-                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+                return {
+                    "type_value": parts[-1],
+                    "type": parts[0],
+                    "type_valid_format": parts[0] in ("spe", "suppl"),
+                }
             elif parts[1] in ("spe", "suppl"):
-                return {"number": parts[0], "type_value": None, "type": parts[1], "type_valid_format": parts[1] in ("spe", "suppl")}
+                return {
+                    "number": parts[0],
+                    "type_value": None,
+                    "type": parts[1],
+                    "type_valid_format": parts[1] in ("spe", "suppl"),
+                }
             else:
-                return {"type_value": parts[-1], "type": parts[0], "type_valid_format": parts[0] in ("spe", "suppl")}
+                return {
+                    "type_value": parts[-1],
+                    "type": parts[0],
+                    "type_valid_format": parts[0] in ("spe", "suppl"),
+                }
 
     @property
     def number(self):

@@ -1,5 +1,6 @@
 from lxml import etree
 
+
 class ArticleIds:
     """
     Torna acessível os dados representados pelos elementos `article-id`.
@@ -46,11 +47,14 @@ class ArticleIds:
     @property
     def v2(self):
         return self._get_node_text(".//article-id[@specific-use='scielo-v2']")
+
     # v2 é somente leitura
 
     @property
     def aop_pid(self):
-        return self._get_node_text('.//article-id[@specific-use="previous-pid" and @pub-id-type="publisher-id"]')
+        return self._get_node_text(
+            './/article-id[@specific-use="previous-pid" and @pub-id-type="publisher-id"]'
+        )
 
     @aop_pid.setter
     def aop_pid(self, value):
@@ -60,7 +64,9 @@ class ArticleIds:
                 "can't set attribute ArticleIds.aop_pid. "
                 "Expected value must have 23 characters. Got: %s" % value
             )
-        nodes = self._xmltree.xpath('.//article-id[@specific-use="previous-pid" and @pub-id-type="publisher-id"]')
+        nodes = self._xmltree.xpath(
+            './/article-id[@specific-use="previous-pid" and @pub-id-type="publisher-id"]'
+        )
         if nodes:
             node = nodes[0]
         else:
@@ -73,11 +79,13 @@ class ArticleIds:
     @property
     def other(self):
         return self._get_node_text('.//article-id[@pub-id-type="other"]')
+
     # other é somente leitura
 
     @property
     def doi(self):
         return self._get_node_text('.//article-id[@pub-id-type="doi"]')
+
     # doi é somente leitura
 
     @property

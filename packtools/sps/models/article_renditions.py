@@ -12,7 +12,9 @@ class ArticleRenditions:
         )
         _renditions.append(main_rendition)
 
-        for sub_article in self.xmltree.xpath(".//sub-article[@article-type='translation']"):
+        for sub_article in self.xmltree.xpath(
+            ".//sub-article[@article-type='translation']"
+        ):
             _renditions.append(Rendition(sub_article))
 
         return _renditions
@@ -21,7 +23,7 @@ class ArticleRenditions:
 class Rendition:
     def __init__(self, node, is_main_language=False):
         self.node = node
-        self.is_main_language=is_main_language
+        self.is_main_language = is_main_language
 
     @property
     def language(self):

@@ -1,8 +1,7 @@
 import os
 
 
-class AssetReplacementError(Exception):
-    ...
+class AssetReplacementError(Exception): ...
 
 
 class ArticleAssets:

@@ -28,12 +28,12 @@ class ISSN:
 
     @property
     def epub(self):
-        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="epub"]') or ''
+        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="epub"]') or ""
 
     @property
     def ppub(self):
-        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]') or ''
- 
+        return self.xmltree.findtext('.//journal-meta//issn[@pub-type="ppub"]') or ""
+
 
 class Acronym:
     def __init__(self, xmltree):
@@ -41,7 +41,10 @@ class Acronym:
 
     @property
     def text(self):
-        return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
+        return self.xmltree.findtext(
+            './/journal-meta//journal-id[@journal-id-type="publisher-id"]'
+        )
+
 
 class Title:
     def __init__(self, xmltree):
@@ -51,24 +54,32 @@ class Title:
     def data(self):
         _data = []
 
-        _data.append({
-            'type': 'main',
-            'value': self.journal_title,
-        })
-        _data.append({
-            'type': 'abbreviated',
-            'value': self.abbreviated_journal_title,
-        })
+        _data.append(
+            {
+                "type": "main",
+                "value": self.journal_title,
+            }
+        )
+        _data.append(
+            {
+                "type": "abbreviated",
+                "value": self.abbreviated_journal_title,
+            }
+        )
 
         return _data
 
     @property
     def abbreviated_journal_title(self):
-        return self.xmltree.findtext('.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]')
+        return self.xmltree.findtext(
+            './/journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]'
+        )
 
     @property
     def journal_title(self):
-        return self.xmltree.findtext('.//journal-meta//journal-title-group//journal-title')
+        return self.xmltree.findtext(
+            ".//journal-meta//journal-title-group//journal-title"
+        )
 
 
 class Publisher:
@@ -78,7 +89,7 @@ class Publisher:
     @property
     def publishers_names(self):
         names = []
-        for node in self.xmltree.xpath('.//journal-meta//publisher//publisher-name'):
+        for node in self.xmltree.xpath(".//journal-meta//publisher//publisher-name"):
             names.append(node.text)
         return names
 
@@ -89,4 +100,6 @@ class JournalID:
 
     @property
     def nlm_ta(self):
-        return self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="nlm-ta"]')
+        return self.xmltree.findtext(
+            './/journal-meta//journal-id[@journal-id-type="nlm-ta"]'
+        )

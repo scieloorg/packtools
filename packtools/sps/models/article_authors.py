@@ -46,15 +46,17 @@ class Authors:
 
             _author["role"] = []
             for role in node.xpath(".//role"):
-                _author["role"].append({
-                    "text": role.text,
-                    "content-type": role.get("content-type"),
-                    "specific-use": role.get("specific-use")
-                })
+                _author["role"].append(
+                    {
+                        "text": role.text,
+                        "content-type": role.get("content-type"),
+                        "specific-use": role.get("specific-use"),
+                    }
+                )
             if not _author["role"]:
                 _author.pop("role")
 
-            for xref in node.findall('.//xref'):
+            for xref in node.findall(".//xref"):
                 rid = xref.get("rid")
 
                 if not rid:
