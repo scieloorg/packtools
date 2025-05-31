@@ -10,18 +10,19 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
-from packtools.sps.models.v2.article_assets import ArticleAssets
-from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.models.article_authors import Authors
-from packtools.sps.models.article_doi_with_lang import DoiWithLang
-from packtools.sps.models.article_ids import ArticleIds
-from packtools.sps.models.article_renditions import ArticleRenditions
-from packtools.sps.models.article_titles import ArticleTitles
-from packtools.sps.models.body import Body
-from packtools.sps.models.dates import ArticleDates
-from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
-from packtools.sps.models.journal_meta import ISSN, Acronym, Title
-from packtools.sps.models.related_articles import RelatedItems
+# 4.7.1 packtools.sps.models.*
+from packtools.sps.pid_provider.models.article_assets import ArticleAssets
+from packtools.sps.pid_provider.models.article_and_subarticles import ArticleAndSubArticles
+from packtools.sps.pid_provider.models.article_authors import Authors
+from packtools.sps.pid_provider.models.article_doi_with_lang import DoiWithLang
+from packtools.sps.pid_provider.models.article_ids import ArticleIds
+from packtools.sps.pid_provider.models.article_renditions import ArticleRenditions
+from packtools.sps.pid_provider.models.article_titles import ArticleTitles
+from packtools.sps.pid_provider.models.body import Body
+from packtools.sps.pid_provider.models.dates import ArticleDates
+from packtools.sps.pid_provider.models.front_articlemeta_issue import ArticleMetaIssue
+from packtools.sps.pid_provider.models.journal_meta import ISSN, Acronym, Title
+from packtools.sps.pid_provider.models.related_articles import RelatedItems
 
 LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
