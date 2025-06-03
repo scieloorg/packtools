@@ -105,52 +105,80 @@ class FundingGroupValidation:
                     error_level=self.params["award_id_error_level"],
                 )
 
+        for error in errors:
+            yield build_response(
+                title="Required funding-group/award-group with award-id and funding-source",
+                parent=parent,
+                item="award-group",
+                sub_item="award-id",
+                validation_type="exist",
+                is_valid=False,
+                expected="award-id and funding-source in award-group",
+                obtained=None,
+                advice="If {} is a project contract number, make it with <award-id> and the corresponding financial "
+                       "sponsors with <funding-source> in <funding-group>. Consult the SPS documentation "
+                       "for more detail".format(error["look-like-award-id"]),
+                data=error,
+                error_level=self.params["error_level"],
+            )
+
     def validate_funding_statement(self):
         """
-        Validates the existence of funding sources and award IDs.
-
-        Yields
-        ------
-        dict
-            Validation results for each funding source and award ID.
+        Validates if funding-related information from <ack>, <fn> (financial-disclosure or supported-by)
+        is properly replicated in <funding-statement>.
         """
-        if self.funding.award_groups:
-            for lang, statements in self.funding.statements_by_lang.items():
-                parent_id = statements.get("parent_id")
-                xml = f'<sub-article id="{parent_id}">' if parent_id else "<article>"
-                advice = None
-                funding_statement = statements["funding_statement"]
-                items = {k: v for k, v in statements["texts"].items() if v}
-                texts = []
-                valid = False
-                if items:
-                    texts = list(items.values())
+        funding_statement_text = self.funding.funding_statement_data.get(
+            "text") if self.funding.funding_statement_data else ""
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": self.funding.data.get("article_type"),
+            "parent_lang": self.funding.data.get("article_lang"),
+        }
 
-                if funding_statement and texts:
-                    best_score, best_matches = most_similar(similarity(texts, funding_statement, 0.8))
+        errors = []
+        sources = {
+            "ack": self.funding.ack,
+            "financial-disclosure": self.funding.financial_disclosure,
+            "supported-by": self.funding.supported_by,
+        }
 
-                    if best_matches:
-                        valid = True
-                    else:
-                        valid = False
-                        advice = f'Replace <funding-statement>{funding_statement}</funding-statement> by <funding-statement>{texts[0]}</funding-statement> for {xml}'
-                elif texts:
-                    valid = False
-                    advice = f'Add <funding-statement>{texts[0]}</funding-statement> in <funding-group> for {xml}. Consult SPS documentation for more detail'
-                else:
-                    valid = False
-                    advice = f'Add funding statement with <funding-statement> inside <funding-group> for {xml}. Consult SPS documentation for more detail'
+        for context, items in sources.items():
+            for item in items or []:
+                for award_id in item.get("p") or []:
+                    text = award_id.get("text").strip()
+                    if text and text not in funding_statement_text:
+                        errors.append({
+                            "context": context,
+                            "missing_text": text,
+                        })
 
+        if not errors:
+            yield build_response(
+                title="Funding statement validation",
+                parent=parent,
+                item="funding-statement",
+                sub_item="text",
+                validation_type="consistency",
+                is_valid=True,
+                expected="Text from <ack>, <fn> (financial-disclosure or supported-by) should be present in <funding-statement>",
+                obtained="Funding statement correctly includes all necessary information.",
+                advice=None,
+                data=None,
+                error_level="INFO",
+            )
+        else:
+            for error in errors:
                 yield build_response(
-                    title="funding-statement",
-                    parent=statements,
+                    title="Missing funding information in funding-statement",
+                    parent=parent,
                     item="funding-statement",
-                    sub_item=None,
-                    validation_type="match",
-                    is_valid=valid,
-                    expected="funding-statement",
-                    obtained=statements,
-                    advice=advice,
-                    data=statements,
-                    error_level=self.params["funding_statement_error_level"],
+                    sub_item="text",
+                    validation_type="consistency",
+                    is_valid=False,
+                    expected=f"Text from {error["context"]} should be present in <funding-statement>",
+                    obtained=f"Missing text: '{error["missing_text"]}'",
+                    advice=f"Ensure that funding information '{error["missing_text"]}' from {error['context']} is replicated in <funding-statement>.",
+                    data=error,
+                    error_level=self.params["error_level"],
                 )
