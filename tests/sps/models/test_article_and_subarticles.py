@@ -61,6 +61,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 2,
                 "subject": "ARTIGOS",
                 "parent_name": "article",
+                "doi": "10.1590/2176-4573p59270",
             },
             {
                 "article_id": "s2",
@@ -69,6 +70,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 93,
                 "subject": "Pareceres",
                 "parent_name": "sub-article",
+                "doi": None,
             },
             {
                 "article_id": "s3",
@@ -77,6 +79,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 141,
                 "subject": "Pareceres",
                 "parent_name": "sub-article",
+                "doi": None,
             },
             {
                 "article_id": "s1",
@@ -85,6 +88,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 189,
                 "subject": "ARTICLES",
                 "parent_name": "sub-article",
+                "doi": "10.1590/2176-4573e59270",
             },
             {
                 "article_id": "s5",
@@ -93,6 +97,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 233,
                 "subject": "Reviews",
                 "parent_name": "sub-article",
+                "doi": None,
             },
             {
                 "article_id": "s6",
@@ -101,6 +106,7 @@ class ArticleAndSubarticlesTest(TestCase):
                 "line_number": 271,
                 "subject": "Reviews",
                 "parent_name": "sub-article",
+                "doi": None,
             },
         ]
         obtained = [d for d in ArticleAndSubArticles(xmltree).data]

@@ -104,6 +104,12 @@ class Reference:
     def get_mixed_citation(self):
         return node_plain_text(self.ref.find("./mixed-citation"))
 
+    def get_mixed_citation_xlink(self):
+        ext_link = self.ref.find(".//mixed-citation//ext-link[@ext-link-type='uri']")
+        if ext_link is not None:
+            return ext_link.get("{http://www.w3.org/1999/xlink}href")
+        return None
+
     def get_mixed_citation_sub_tags(self):
         element = self.ref.find("./mixed-citation")
         if element is not None:
@@ -188,7 +194,8 @@ class Reference:
             ("mixed_citation", self.get_mixed_citation()),
             ("mixed_citation_sub_tags", self.get_mixed_citation_sub_tags()),
             ("chapter_title", self.get_chapter_title()),
-            ("part_title", self.get_part_title())
+            ("part_title", self.get_part_title()),
+            ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
         ]
         d = dict()
         for name, value in tags:

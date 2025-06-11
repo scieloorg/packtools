@@ -118,6 +118,11 @@ class ArticleAndSubArticles:
         return self.xmltree.find(".").get("dtd-version")
 
     @property
+    def doi(self):
+        elem = self.xmltree.find('.//article-meta/article-id[@pub-id-type="doi"]')
+        return elem.text if elem is not None else None
+
+    @property
     def main_subject(self):
         return self.xmltree.findtext(".//subject")
 
@@ -150,6 +155,7 @@ class ArticleAndSubArticles:
                     "line_number": self.main_line_number,
                     "subject": self.main_subject,
                     "parent_name": "article",
+                    "doi": self.doi
                 }
             )
 
@@ -157,6 +163,7 @@ class ArticleAndSubArticles:
             lang = sub_article.get("{http://www.w3.org/XML/1998/namespace}lang")
 
             subject = sub_article.find(".//subject")
+            doi = sub_article.find('.//article-id[@pub-id-type="doi"]')
 
             _data.append(
                 {
@@ -166,6 +173,7 @@ class ArticleAndSubArticles:
                     "line_number": sub_article.sourceline,
                     "subject": subject.text if subject is not None else None,
                     "parent_name": "sub-article",
+                    "doi": doi.text if doi is not None else None
                 }
             )
         return _data
