@@ -10,14 +10,15 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
+
 # 4.7.1 packtools.sps.models.*
 from packtools.sps.pid_provider.models.article_assets import ArticleAssets
-from packtools.sps.pid_provider.models.article_and_subarticles import ArticleAndSubArticles
-from packtools.sps.pid_provider.models.article_authors import Authors
+from packtools.sps.pid_provider.models.article_and_subarticles import (
+    ArticleAndSubArticles,
+)
 from packtools.sps.pid_provider.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 from packtools.sps.pid_provider.models.article_renditions import ArticleRenditions
-from packtools.sps.pid_provider.models.article_titles import ArticleTitles
 from packtools.sps.pid_provider.models.body import Body
 from packtools.sps.pid_provider.models.dates import ArticleDates
 from packtools.sps.pid_provider.models.front_articlemeta_issue import ArticleMetaIssue
@@ -28,24 +29,19 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_FMT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
 
-class GetXmlWithPreError(Exception):
-    ...
+class GetXmlWithPreError(Exception): ...
 
 
-class GetXmlWithPreFromURIError(Exception):
-    ...
+class GetXmlWithPreFromURIError(Exception): ...
 
 
-class GetXMLItemsError(Exception):
-    ...
+class GetXMLItemsError(Exception): ...
 
 
-class GetXMLItemsFromZipFileError(Exception):
-    ...
+class GetXMLItemsFromZipFileError(Exception): ...
 
 
-class XMLWithPreArticlePublicationDateError(Exception):
-    ...
+class XMLWithPreArticlePublicationDateError(Exception): ...
 
 
 def get_xml_items(xml_sps_file_path, filenames=None):
@@ -71,9 +67,16 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         if ext == ".xml":
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
-                xml.xml_file_path = xml_sps_file_path
+                xml.file_path = xml_sps_file_path
                 item = os.path.basename(xml_sps_file_path)
-            return [{"filename": item, "xml_with_pre": xml, "files": [item], "filenames": [item]}]
+            return [
+                {
+                    "filename": item,
+                    "xml_with_pre": xml,
+                    "files": [item],
+                    "filenames": [item],
+                }
+            ]
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
                 xml_sps_file_path
@@ -105,10 +108,7 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
         found = False
         with ZipFile(xml_sps_file_path) as zf:
             filenames = filenames or zf.namelist() or []
-            _filenames = [
-                os.path.basename(name)
-                for name in zf.namelist() if name
-            ]
+            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
             for item in filenames:
                 if item.endswith(".xml"):
                     try:
@@ -123,7 +123,9 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
                             "filenames": _filenames,
                         }
                     except Exception as e:
-                        LOGGER.exception(f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}")
+                        LOGGER.exception(
+                            f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}"
+                        )
                         continue
             if not found:
                 raise TypeError(
@@ -161,9 +163,16 @@ def get_sps_pkg_xml_items(xml_sps_file_path, filenames=None):
         if ext == ".xml":
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
-                xml.xml_file_path = xml_sps_file_path
+                xml.filename = xml_sps_file_path
                 item = os.path.basename(xml_sps_file_path)
-            return [{"filename": item, "xml_with_pre": xml, "files": [item], "filenames": [item]}]
+            return [
+                {
+                    "filename": item,
+                    "xml_with_pre": xml,
+                    "files": [item],
+                    "filenames": [item],
+                }
+            ]
         return [
             {
                 "error": _("{} must be xml file or zip file containing xml").format(
@@ -200,10 +209,7 @@ def get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
         _filenames = []
         with ZipFile(xml_sps_file_path) as zf:
             filenames = filenames or zf.namelist() or []
-            _filenames = [
-                os.path.basename(name)
-                for name in zf.namelist() if name
-            ]
+            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
             for item in filenames:
                 if item.endswith(".xml"):
                     try:
@@ -294,15 +300,17 @@ def get_zips(xml_sps_file_path):
         filenames = zf.namelist() or []
         xmls = [
             os.path.splitext(os.path.basename(filename))[0]
-            for filename in filenames if filename.endswith(".xml")]
+            for filename in filenames
+            if filename.endswith(".xml")
+        ]
         xmls = {key: [] for key in xmls}
 
         for key in list(xmls.keys()):
             for filename in filenames:
                 name = os.path.basename(filename)
-                if name in (key+".pdf", key+".xml"):
+                if name in (key + ".pdf", key + ".xml"):
                     xmls[key].append(filename)
-                elif name.startswith(key+"-") and not name.endswith(".xml"):
+                elif name.startswith(key + "-") and not name.endswith(".xml"):
                     xmls[key].append(filename)
             filenames = list(set(filenames) - set(xmls[key]))
 
@@ -316,7 +324,7 @@ def get_zips(xml_sps_file_path):
                         zfw.writestr(item, zf.read(item))
 
                 with open(zfile, "rb") as zfw:
-                    yield {"zipfilename": key+".zip", "content": zfw.read()}
+                    yield {"zipfilename": key + ".zip", "content": zfw.read()}
 
 
 def get_xml_with_pre_from_uri(uri, timeout=30):
@@ -449,30 +457,32 @@ class XMLWithPre:
     @property
     def DOCTYPE(self):
         if self._DOCTYPE is None:
-            if '<!DOCTYPE' in self.xmlpre:
-                self._DOCTYPE = self.xmlpre[self.xmlpre.find('<!DOCTYPE'):]
-                self._DOCTYPE = self._DOCTYPE[:self._DOCTYPE.find('>')+1]
+            if "<!DOCTYPE" in self.xmlpre:
+                self._DOCTYPE = self.xmlpre[self.xmlpre.find("<!DOCTYPE") :]
+                self._DOCTYPE = self._DOCTYPE[: self._DOCTYPE.find(">") + 1]
         return self._DOCTYPE
 
     @property
     def public_id(self):
         if self._public_id is None:
             if self.DOCTYPE is not None:
-                self._public_id = self.DOCTYPE[self.DOCTYPE.find('"')+1:]
-                self._public_id = self._public_id[:self._public_id.find('"')]
+                self._public_id = self.DOCTYPE[self.DOCTYPE.find('"') + 1 :]
+                self._public_id = self._public_id[: self._public_id.find('"')]
         return self._public_id
 
     @property
     def system_id(self):
         if self._system_id is None:
-            if 'http' in self.DOCTYPE:
-                self._system_id = self.DOCTYPE[self.DOCTYPE.find('"http')+1:]
-                self._system_id = self._system_id[:self._system_id.find('"')]
+            if "http" in self.DOCTYPE:
+                self._system_id = self.DOCTYPE[self.DOCTYPE.find('"http') + 1 :]
+                self._system_id = self._system_id[: self._system_id.find('"')]
             if self.public_id:
-                _text = self.DOCTYPE[self.DOCTYPE.find(self.public_id)+len(self.public_id):]
-                _text = _text[_text.find('"')+1:]
-                _text = _text[_text.find('"')+1:]
-                self.relative_system_id = _text[:_text.find('"')]
+                _text = self.DOCTYPE[
+                    self.DOCTYPE.find(self.public_id) + len(self.public_id) :
+                ]
+                _text = _text[_text.find('"') + 1 :]
+                _text = _text[_text.find('"') + 1 :]
+                self.relative_system_id = _text[: _text.find('"')]
         return self._system_id
 
     @property
@@ -566,9 +576,7 @@ class XMLWithPre:
             self.xmltree,
             encoding="utf-8",
             pretty_print=pretty_print,
-        ).decode(
-            "utf-8"
-        )
+        ).decode("utf-8")
 
     def update_ids(self, v3, v2, aop_pid):
         """
@@ -823,10 +831,9 @@ class XMLWithPre:
     def pub_year(self):
         if not hasattr(self, "_pub_year") or not self._pub_year:
             try:
-                self._pub_year = (
-                    self.article_meta_issue.collection_date.get("year") or
-                    self.article_meta_issue.article_date.get("year")
-                )
+                self._pub_year = self.article_meta_issue.collection_date.get(
+                    "year"
+                ) or self.article_meta_issue.article_date.get("year")
             except AttributeError:
                 return None
         return self._pub_year
@@ -834,19 +841,48 @@ class XMLWithPre:
     @property
     def authors(self):
         if not hasattr(self, "_authors") or not self._authors:
-            authors = Authors(self.xmltree)
-            self._authors = {
-                "person": authors.contribs,
-                "collab": authors.collab or None,
-            }
+            self._authors = {}
+
+            contrib_group = self.xmltree.find(".//article-meta//contrib-group")
+            if contrib_group is not None:
+                names = []
+                for item in contrib_group.xpath(".//surname"):
+                    content = " ".join(
+                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                    )
+                    names.append({"surname": content})
+
+                collab = None
+                for item in contrib_group.xpath(".//collab"):
+                    content = " ".join(
+                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                    )
+                    collab = content
+
+                self._authors = {
+                    "person": names,
+                    "collab": collab,
+                }
         return self._authors
 
     @property
     def article_titles(self):
         if not hasattr(self, "_article_titles") or not self._article_titles:
             # list of dict which keys are lang and text
-            article_titles = ArticleTitles(self.xmltree)
-            self._article_titles = article_titles.data
+            xpath = "|".join([
+                ".//article-meta//article-title",
+                ".//article-meta//trans-title",
+                ".//front-stub//article-title",
+                ".//front-stub//trans-title",
+            ])
+            titles = []
+            for item in self.xmltree.xpath(xpath):
+                title = " ".join(
+                    [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                )
+                titles.append(title)
+            titles = sorted(titles)
+            self._article_titles = titles
         return self._article_titles
 
     @property
@@ -929,7 +965,9 @@ class XMLWithPre:
             node = self.xmltree.xpath(".//article-meta//pub-date[@date-type='pub']")[0]
         except IndexError:
             try:
-                node = self.xmltree.xpath(".//article-meta//pub-date[@pub-type='epub']")[0]
+                node = self.xmltree.xpath(
+                    ".//article-meta//pub-date[@pub-type='epub']"
+                )[0]
             except IndexError:
                 node = None
         if node is None:
@@ -983,9 +1021,7 @@ class XMLWithPre:
     @property
     def article_titles_texts(self):
         if not hasattr(self, "_article_titles_texts") or not self._article_titles_texts:
-            self._article_titles_texts = [
-                item["plain_text"] for item in self.article_titles if item["plain_text"]
-            ]
+            self._article_titles_texts = self.article_titles
         return self._article_titles_texts
 
     @property
@@ -1033,7 +1069,11 @@ class XMLWithPre:
     def renditions(self):
         xml_renditions = ArticleRenditions(self.xmltree)
         for item in xml_renditions.article_renditions:
-            name = self.sps_pkg_name + ".pdf" if item.is_main_language else f"{self.sps_pkg_name}-{item.language}.pdf"
+            name = (
+                self.sps_pkg_name + ".pdf"
+                if item.is_main_language
+                else f"{self.sps_pkg_name}-{item.language}.pdf"
+            )
             yield {
                 "name": name,
                 "lang": item.language,
