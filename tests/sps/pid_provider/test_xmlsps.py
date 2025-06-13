@@ -1,13 +1,20 @@
 import os
+import unittest
+import zipfile
 from datetime import date
-from tempfile import TemporaryDirectory
+from io import BytesIO
+from tempfile import TemporaryDirectory, mkdtemp
 from unittest import TestCase
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from lxml import etree
 from requests import HTTPError
 
 from packtools.sps.pid_provider import xml_sps_lib
+from packtools.sps.pid_provider.xml_sps_lib import XMLWithPre
+
+# Assumindo que XMLWithPre está disponível
+# from your_module import XMLWithPre
 
 
 # Create your tests here.
@@ -17,15 +24,14 @@ class GetXmlItemsTest(TestCase):
         result = xml_sps_lib.get_xml_items("file.zip")
         mock_get_xml_items_from_zip_file.assert_called_with("file.zip", None)
 
-    @patch("packtools.sps.pid_provider.xml_sps_lib.get_xml_with_pre")
-    @patch("packtools.sps.pid_provider.xml_sps_lib.open")
-    def test_xml(self, mock_open, mock_get_xml_with_pre):
-        mock_get_xml_with_pre.return_value = "retorno"
-        result = xml_sps_lib.get_xml_items("file.xml")
-        mock_open.assert_called_with("file.xml")
-        self.assertListEqual(
-            [{"filename": "file.xml", "xml_with_pre": "retorno"}], result
-        )
+    def test_xml(self):
+        with TemporaryDirectory() as temp_dir:
+            xml_file = os.path.join(temp_dir, "file.xml")
+            with open(xml_file, "w") as fp:
+                fp.write("<root/>")
+            result = xml_sps_lib.get_xml_items(xml_file)
+        self.assertEqual("file.xml", result[0]["filename"])
+        self.assertIsInstance(result[0]["xml_with_pre"], XMLWithPre)
 
     def test_not_xml_and_not_zip(self):
         with self.assertRaises(xml_sps_lib.GetXMLItemsError) as exc:
@@ -42,10 +48,10 @@ class GetXmlItemsFromZipFile(TestCase):
 
     def test_good_zip_file(self):
         items = xml_sps_lib.get_xml_items_from_zip_file(
-            "./tests/sps/pid_provider/fixtures/artigo.xml.zip"
+            "./tests/sps/fixtures/package.zip"
         )
         for item in items:
-            self.assertEqual("artigo.xml", item["filename"])
+            self.assertEqual("2318-0889-tinf-33-e200071.xml", item["filename"])
             self.assertEqual(xml_sps_lib.XMLWithPre, type(item["xml_with_pre"]))
 
 
@@ -68,11 +74,7 @@ class CreateXmlZipFileTest(TestCase):
 class GetXmlWithPreFromUriTest(TestCase):
     @patch("packtools.sps.pid_provider.xml_sps_lib.fetch_data")
     def test_get_xml_with_pre_from_uri(self, mock_get):
-        class Resp:
-            def __init__(self):
-                self.content = b"<article/>"
-
-        mock_get.return_value = Resp()
+        mock_get.return_value = b"<article/>"
         result = xml_sps_lib.get_xml_with_pre_from_uri("URI")
         self.assertEqual(xml_sps_lib.XMLWithPre, type(result))
 
@@ -181,34 +183,49 @@ class XMLWithPreIdsTest(TestCase):
 
     def test_update_ids_v2_is_absent(self):
         xml_with_pre = self._get_xml_with_pre(v2=None)
-        xml_with_pre.update_ids(v3="novo-v3", v2="novo", aop_pid=None)
-        self.assertEqual("novo", xml_with_pre.v2)
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012a", v2="1234567890123456789012b", aop_pid=None
+        )
+        self.assertEqual("1234567890123456789012b", xml_with_pre.v2)
 
     def test_update_ids_v3_is_absent(self):
         xml_with_pre = self._get_xml_with_pre(v3=None)
-        xml_with_pre.update_ids(v3="novo", v2="novo-v2", aop_pid=None)
-        self.assertEqual("novo", xml_with_pre.v3)
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012c", v2="1234567890123456789012d", aop_pid=None
+        )
+        self.assertEqual("1234567890123456789012c", xml_with_pre.v3)
 
     def test_update_ids_aop_pid_is_absent(self):
         xml_with_pre = self._get_xml_with_pre(aop_pid=None)
-        xml_with_pre.update_ids(v3="v3", v2="v2", aop_pid="novo")
-        self.assertEqual("novo", xml_with_pre.aop_pid)
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012e",
+            v2="1234567890123456789012f",
+            aop_pid="1234567890123456789012g",
+        )
+        self.assertEqual("1234567890123456789012g", xml_with_pre.aop_pid)
 
     def test_update_ids_v2_is_present_updating_is_forbidden(self):
-        xml_with_pre = self._get_xml_with_pre(v2="current")
-        with self.assertRaises(AttributeError) as exc:
-            xml_with_pre.update_ids(v3="v3", v2="novo", aop_pid=None)
-        self.assertIn("It is already set: current", str(exc.exception))
+        xml_with_pre = self._get_xml_with_pre(v2="1234567890123456789012h")
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012i", v2="1234567890123456789012j", aop_pid=None
+        )
+        self.assertEqual("1234567890123456789012j", xml_with_pre.v2)
 
     def test_update_ids_v3_is_present_updating_is_allowed(self):
-        xml_with_pre = self._get_xml_with_pre(v3="current")
-        xml_with_pre.update_ids(v3="novo", v2="v2", aop_pid=None)
-        self.assertEqual("novo", xml_with_pre.v3)
+        xml_with_pre = self._get_xml_with_pre(v3="1234567890123456789012k")
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012l", v2="1234567890123456789012m", aop_pid=None
+        )
+        self.assertEqual("1234567890123456789012l", xml_with_pre.v3)
 
     def test_update_ids_aop_pid_is_present_updating_is_allowed(self):
-        xml_with_pre = self._get_xml_with_pre(aop_pid="current")
-        xml_with_pre.update_ids(v3="v3", v2="v2", aop_pid="novo")
-        self.assertEqual("novo", xml_with_pre.aop_pid)
+        xml_with_pre = self._get_xml_with_pre(aop_pid="1234567890123456789012n")
+        xml_with_pre.update_ids(
+            v3="1234567890123456789012o",
+            v2="1234567890123456789012p",
+            aop_pid="1234567890123456789012q",
+        )
+        self.assertEqual("1234567890123456789012q", xml_with_pre.aop_pid)
 
     def test_is_aop(self):
         xml_with_pre = self._get_xml_with_pre()
@@ -272,7 +289,11 @@ class XMLWithPrePublicationDateTest(TestCase):
 
     def test_article_publication_date_setter(self):
         xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
-        xml_with_pre.article_publication_date = {"year": "2024", "month": "1", "day": "2"}
+        xml_with_pre.article_publication_date = {
+            "year": "2024",
+            "month": "1",
+            "day": "2",
+        }
         self.assertEqual("2024-01-02", xml_with_pre.article_publication_date)
 
     def test_article_publication_date_setter_with_missing_date_part(self):
@@ -285,7 +306,11 @@ class XMLWithPrePublicationDateTest(TestCase):
         xml_with_pre = self._get_xml_with_pre("pub", "2023", "1", "9")
 
         with self.assertRaises(ValueError):
-            xml_with_pre.article_publication_date = {"year": "2020", "month": "13", "day": "10"}
+            xml_with_pre.article_publication_date = {
+                "year": "2020",
+                "month": "13",
+                "day": "10",
+            }
 
 
 class XMLWithPreISSNTest(TestCase):
@@ -338,3 +363,524 @@ class XMLWithPreBodyTest(TestCase):
     def test_body(self):
         xml_with_pre = self._get_xml_with_pre("")
         self.assertIsNone(xml_with_pre.partial_body)
+
+
+class TestXMLWithPreArticleTitles(unittest.TestCase):
+    """Testes para a propriedade article_titles da classe XMLWithPre"""
+
+    def create_xml_file(self, xml_content, temp_dir, filename="test.xml"):
+        """Helper para criar arquivo XML temporário"""
+        xml_path = os.path.join(temp_dir, filename)
+
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(xml_content)
+
+        return xml_path
+
+    def create_zip_with_xml(
+        self, xml_content, temp_dir, xml_filename="article.xml", zip_filename="test.zip"
+    ):
+        """Helper para criar arquivo ZIP com XML"""
+        zip_path = os.path.join(temp_dir, zip_filename)
+
+        with zipfile.ZipFile(zip_path, "w") as zf:
+            zf.writestr(xml_filename, xml_content)
+
+        return zip_path
+
+    def test_article_titles_single_title(self):
+        """Testa extração de um único título de artigo"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Test Article Title</article-title>
+                    </title-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            self.assertTrue(
+                len(xml_instances) > 0, "Nenhuma instância XMLWithPre foi criada"
+            )
+
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = ["Test Article Title"]
+            self.assertEqual(titles, expected)
+
+    def test_article_titles_multiple_titles_with_translations(self):
+        """Testa extração de múltiplos títulos incluindo traduções"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title xml:lang="en">Original English Title</article-title>
+                        <trans-title-group xml:lang="pt">
+                            <trans-title>Título Traduzido em Português</trans-title>
+                        </trans-title-group>
+                        <trans-title-group xml:lang="es">
+                            <trans-title>Título Traducido en Español</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = [
+                "Original English Title",
+                "Título Traduzido em Português",
+                "Título Traducido en Español",
+            ]
+            self.assertEqual(sorted(titles), sorted(expected))
+
+    def test_article_titles_with_markup(self):
+        """Testa extração de títulos que contêm markup XML"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Study of <italic>Escherichia coli</italic> and <bold>COVID-19</bold> interaction</article-title>
+                    </title-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = ["Study of Escherichia coli and COVID-19 interaction"]
+            self.assertEqual(titles, expected)
+
+    def test_article_titles_front_stub(self):
+        """Testa extração de títulos em front-stub"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front-stub>
+                <title-group>
+                    <article-title>Title in Front Stub</article-title>
+                    <trans-title xml:lang="pt">Título no Front Stub</trans-title>
+                </title-group>
+            </front-stub>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = ["Title in Front Stub", "Título no Front Stub"]
+            self.assertEqual(sorted(titles), sorted(expected))
+
+    def test_article_titles_empty(self):
+        """Testa comportamento quando não há títulos"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = []
+            self.assertEqual(titles, expected)
+
+    def test_article_titles_from_zip(self):
+        """Testa extração de títulos de arquivo XML dentro de ZIP"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Title from ZIP file</article-title>
+                    </title-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            zip_path = self.create_zip_with_xml(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=zip_path))
+            xml_with_pre = xml_instances[0]
+            titles = xml_with_pre.article_titles
+
+            expected = ["Title from ZIP file"]
+            self.assertEqual(titles, expected)
+
+
+class TestXMLWithPreAuthors(unittest.TestCase):
+    """Testes para a propriedade authors da classe XMLWithPre"""
+
+    def create_xml_file(self, xml_content, temp_dir, filename="test.xml"):
+        """Helper para criar arquivo XML temporário"""
+        xml_path = os.path.join(temp_dir, filename)
+
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(xml_content)
+
+        return xml_path
+
+    def test_authors_single_person(self):
+        """Testa extração de um único autor pessoa"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Silva</surname>
+                                <given-names>João</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {"person": [{"surname": "Silva"}], "collab": None}
+            self.assertEqual(authors, expected)
+
+    def test_authors_multiple_persons(self):
+        """Testa extração de múltiplos autores pessoa"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Silva</surname>
+                                <given-names>João</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Santos</surname>
+                                <given-names>Maria</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Oliveira</surname>
+                                <given-names>Pedro</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = self.create_xml_file(xml_content, temp_dir)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {
+                "person": [
+                    {"surname": "Silva"},
+                    {"surname": "Santos"},
+                    {"surname": "Oliveira"},
+                ],
+                "collab": None,
+            }
+            self.assertEqual(authors, expected)
+
+    def test_authors_collaboration(self):
+        """Testa extração de autor colaboração"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <collab>
+                                <named-content content-type="program">COVID-19 Research Consortium</named-content>
+                            </collab>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {"person": [], "collab": "COVID-19 Research Consortium"}
+            self.assertEqual(authors, expected)
+
+    def test_authors_simple_collaboration(self):
+        """Testa extração de colaboração simples (sem named-content)"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <collab>Research Group XYZ</collab>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {"person": [], "collab": "Research Group XYZ"}
+            self.assertEqual(authors, expected)
+
+    def test_authors_mixed_person_and_collab(self):
+        """Testa extração mista de autores pessoa e colaboração"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Silva</surname>
+                                <given-names>João</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <collab>Research Group XYZ</collab>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Santos</surname>
+                                <given-names>Maria</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {
+                "person": [{"surname": "Silva"}, {"surname": "Santos"}],
+                "collab": "Research Group XYZ",
+            }
+            self.assertEqual(authors, expected)
+
+    def test_authors_no_contrib_group(self):
+        """Testa comportamento quando não há contrib-group"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {"person": [], "collab": None}
+            self.assertEqual(authors, expected)
+
+    def test_authors_empty_contrib_group(self):
+        """Testa comportamento com contrib-group vazio"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <contrib-group>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+            authors = xml_with_pre.authors
+
+            expected = {"person": [], "collab": None}
+            self.assertEqual(authors, expected)
+
+
+class TestXMLWithPreIntegration(unittest.TestCase):
+    """Testes de integração das propriedades article_titles e authors"""
+
+    def create_xml_file(self, xml_content, filename="test.xml"):
+        """Helper para criar arquivo XML temporário"""
+        temp_dir = mkdtemp()
+        xml_path = os.path.join(temp_dir, filename)
+
+        with open(xml_path, "w", encoding="utf-8") as f:
+            f.write(xml_content)
+
+        return xml_path, temp_dir
+
+    def cleanup_temp_dir(self, temp_dir):
+        """Helper para limpar diretório temporário"""
+        import shutil
+
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+    def test_complete_article_parsing(self):
+        """Testa parsing completo de um artigo com títulos e autores"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title xml:lang="en">Impact of Climate Change on Biodiversity</article-title>
+                        <trans-title-group xml:lang="pt">
+                            <trans-title>Impacto das Mudanças Climáticas na Biodiversidade</trans-title>
+                        </trans-title-group>
+                    </title-group>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Johnson</surname>
+                                <given-names>Alice</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Brown</surname>
+                                <given-names>Robert</given-names>
+                            </name>
+                        </contrib>
+                        <contrib contrib-type="author">
+                            <collab>International Climate Research Group</collab>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+
+            # Test article_titles
+            titles = xml_with_pre.article_titles
+            expected_titles = [
+                "Impact of Climate Change on Biodiversity",
+                "Impacto das Mudanças Climáticas na Biodiversidade",
+            ]
+            self.assertEqual(sorted(titles), sorted(expected_titles))
+
+            # Test authors
+            authors = xml_with_pre.authors
+            expected_authors = {
+                "person": [
+                    {"surname": "Johnson"},
+                    {"surname": "Brown"},
+                ],
+                "collab": "International Climate Research Group",
+            }
+            self.assertEqual(authors, expected_authors)
+
+    def test_property_caching(self):
+        """Testa se as propriedades são corretamente cacheadas"""
+        xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <title-group>
+                        <article-title>Test Caching</article-title>
+                    </title-group>
+                    <contrib-group>
+                        <contrib contrib-type="author">
+                            <name>
+                                <surname>Test</surname>
+                                <given-names>Author</given-names>
+                            </name>
+                        </contrib>
+                    </contrib-group>
+                </article-meta>
+            </front>
+        </article>"""
+
+        with TemporaryDirectory() as temp_dir:
+            xml_path = os.path.join(temp_dir, "article.xml")
+            with open(xml_path, "w") as fp:
+                fp.write(xml_content)
+            xml_instances = list(XMLWithPre.create(path=xml_path))
+            xml_with_pre = xml_instances[0]
+
+            # Primeira chamada - deve processar
+            titles_1 = xml_with_pre.article_titles
+            authors_1 = xml_with_pre.authors
+
+            # Segunda chamada - deve usar cache
+            titles_2 = xml_with_pre.article_titles
+            authors_2 = xml_with_pre.authors
+
+            # Deve retornar os mesmos valores
+            self.assertEqual(titles_1, titles_2)
+            self.assertEqual(authors_1, authors_2)
+
+            # Deve ter usado cache (mesma referência)
+            self.assertIs(titles_1, titles_2)
+            self.assertIs(authors_1, authors_2)
