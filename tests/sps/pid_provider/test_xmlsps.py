@@ -736,7 +736,7 @@ class TestXMLWithPreAuthors(unittest.TestCase):
             xml_with_pre = xml_instances[0]
             authors = xml_with_pre.authors
 
-            expected = {}
+            expected = {"person": [], "collab": None}
             self.assertEqual(authors, expected)
 
     def test_authors_empty_contrib_group(self):

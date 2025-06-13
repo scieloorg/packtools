@@ -842,27 +842,27 @@ class XMLWithPre:
     def authors(self):
         if not hasattr(self, "_authors") or not self._authors:
             self._authors = {}
+            names = []
+            collab = None
 
             contrib_group = self.xmltree.find(".//article-meta//contrib-group")
             if contrib_group is not None:
-                names = []
                 for item in contrib_group.xpath(".//surname"):
                     content = " ".join(
                         [text.strip() for text in item.xpath(".//text()") if text.strip()]
                     )
                     names.append({"surname": content})
 
-                collab = None
                 for item in contrib_group.xpath(".//collab"):
                     content = " ".join(
                         [text.strip() for text in item.xpath(".//text()") if text.strip()]
                     )
                     collab = content
 
-                self._authors = {
-                    "person": names,
-                    "collab": collab,
-                }
+            self._authors = {
+                "person": names,
+                "collab": collab,
+            }
         return self._authors
 
     @property
