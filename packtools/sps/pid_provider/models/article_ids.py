@@ -69,7 +69,7 @@ class ArticleIds:
                 "Expected value must have 23 characters. Got: %s" % value
             )
         try:
-            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]')[0]
+            node = self.am.xpath('.//article-id[@specific-use="scielo-v2"]')[0]
         except IndexError:
             node = None
         if node is None:
@@ -88,7 +88,7 @@ class ArticleIds:
                 "Expected value must have 23 characters. Got: %s" % value
             )
         try:
-            node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v3"]')[0]
+            node = self.am.xpath('.//article-id[@specific-use="scielo-v3"]')[0]
         except IndexError:
             node = None
 
@@ -109,7 +109,7 @@ class ArticleIds:
                 "Expected value must have 23 characters. Got: %s" % value
             )
         try:
-            node = self.xmltree.xpath(
+            node = self.am.xpath(
                 './/article-id[@specific-use="previous-pid" and '
                 '@pub-id-type="publisher-id"]'
             )[0]
