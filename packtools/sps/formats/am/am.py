@@ -80,11 +80,16 @@ def get_articlemeta_issue(xml_tree):
 
 def get_ids(xml_tree):
     ids = article_ids.ArticleIds(xml_tree)
-    return {
-        "code": ids.v2,
-        **simple_field("v880", ids.v2),
-        **simple_field("v237", ids.doi),
-    }
+    result = {}
+
+    if ids.v2:
+        result["code"] = ids.v2
+        result.update(simple_field("v880", ids.v2))
+
+    if ids.doi:
+        result.update(simple_field("v237", ids.doi))
+
+    return result
 
 
 def get_contribs(xml_tree):
@@ -273,7 +278,7 @@ def get_external_fields(external_article_data=None):
         else None
     )
 
-    return {
+    result = {
         "applicable": external_article_data.get("applicable"),
         "collection": external_article_data.get("collection"),
         "created_at": external_article_data.get("created_at"),
@@ -296,6 +301,8 @@ def get_external_fields(external_article_data=None):
         **complex_field("v936", v936),
         **multiple_complex_field("v265", v265_list),
     }
+
+    return {k: v for k, v in result.items() if v is not None}
 
 
 def get_article_metadata(xml_tree, external_article_data=None):
@@ -372,7 +379,7 @@ def build_citation(ref, common, idx, v700_refs):
         "_": "",
     }
 
-    return {
+    result = {
         "code": f"{common['code']}{idx:05}" if common["code"] else None,
         "collection": common["collection"],
         "processing_date": common["processing_date"],
@@ -406,36 +413,53 @@ def build_citation(ref, common, idx, v700_refs):
         **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
     }
 
+    return {k: v for k, v in result.items() if v is not None}
+
 
 def build(xml_tree, external_article_data=None, external_citation_data=None):
-    code = (get_ids(xml_tree) or {}).get("code")
-    journal_data = get_journal(xml_tree)
-    external_fields = get_external_fields(external_article_data)
-    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    article_type = articles.main_article_type
+    external_article_data = external_article_data or {}
+    external_citation_data = external_citation_data or {}
+
     article_metadata = get_article_metadata(xml_tree, external_article_data)
     citations = get_citations(xml_tree, external_article_data, external_citation_data)
-    publication_date = article_metadata.get("v65", [{}])[0].get("_")
+    journal_data = get_journal(xml_tree)
+    external_fields = get_external_fields(external_article_data)
+    article_type = article_and_subarticles.ArticleAndSubArticles(xml_tree).main_article_type
+
+    def extract_first_text(lst):
+        return lst[0].get("_") if isinstance(lst, list) and lst and isinstance(lst[0], dict) else None
+
+    publication_date = extract_first_text(article_metadata.get("v65"))
     publication_year = publication_date[:4] if publication_date else None
+    doi = extract_first_text(article_metadata.get("v237"))
+    code = article_metadata.get("code")
+    code_issue = code[1:18] if code and len(code) >= 18 else None
 
-    issns = [item.get("_") for item in external_article_data.get("v35", [])]
-    issns.extend(item.get("_") for item in journal_data.get("v435", []))
+    issns = [
+        item.get("_") for item in external_article_data.get("v35", []) + journal_data.get("v435", [])
+        if isinstance(item, dict) and item.get("_")
+    ]
 
-    return {
-        "code": code,
+    result = {
         "collection": external_fields.get("collection"),
         "applicable": external_fields.get("applicable"),
         "article": article_metadata,
         "citations": citations,
-        "code_issue": code[1:18] if code and len(code) >= 18 else None,
         "code_title": issns,
         "created_at": external_fields.get("created_at"),
         "document_type": article_type,
-        "doi": article_metadata.get("v237", [{}])[0].get("_"),
+        "doi": doi,
         "publication_date": publication_date,
         "publication_year": publication_year,
         "sent_wos": external_article_data.get("sent_wos"),
         "validated_scielo": external_article_data.get("validated_scielo"),
         "validated_wos": external_article_data.get("validated_wos"),
         "version": external_article_data.get("version"),
+        "code": code,
+        "code_issue": code_issue,
     }
+
+    return {k: v for k, v in result.items() if v is not None}
+
+
+
