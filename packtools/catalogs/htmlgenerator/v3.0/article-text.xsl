@@ -6,9 +6,9 @@
     <xsl:include href="../v2.0/article-text.xsl"/>
 
     <xsl:template match="body/sec/title">
-        <h3 class="articleSectionTitle">
+        <h2 class="h5">
             <xsl:apply-templates select="*|text()"/>
-        </h3>
+        </h2>
     </xsl:template>
     
     <xsl:template match="sec/sec/title">

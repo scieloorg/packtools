@@ -288,9 +288,11 @@
 
     <xsl:template match="*[label or caption]" mode="row-label-caption">
         <div class="col-12">
-            <strong><xsl:apply-templates select="label"/></strong>
-            <br/>
-            <xsl:apply-templates select="caption"/>
+            <caption class="sr-only">
+                <strong><xsl:apply-templates select="label"/></strong>
+                <xsl:apply-templates select="caption"/>
+            </caption>
         </div>
     </xsl:template>
+
 </xsl:stylesheet>

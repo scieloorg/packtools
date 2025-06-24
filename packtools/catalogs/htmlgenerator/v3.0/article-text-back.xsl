@@ -7,11 +7,11 @@
 
     <xsl:template match="*" mode="back-section-h">
         <xsl:if test="title or label">
-            <h3 class="articleSectionTitle">
+            <h2 class="h5">
                 <xsl:apply-templates select="label"/>
                 <xsl:if test="label and title">&#160;</xsl:if>
                 <xsl:apply-templates select="title"/>
-            </h3>
+            </h2>
         </xsl:if>
     </xsl:template>
 
