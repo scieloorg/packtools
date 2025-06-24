@@ -67,7 +67,7 @@
             </xsl:variable>
 
             <div class="articleSection" data-anchor="{$title}">
-                <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
+                <h2 class="h5"><xsl:value-of select="$title"/></h2>
             </div>
         </xsl:if>
     </xsl:template>
@@ -90,10 +90,10 @@
         </xsl:if>
 
         <!-- título -->
-        <h3>
+        <h2>
             <xsl:attribute name="class">h5</xsl:attribute>
             <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
-        </h3>
+        </h2>
     </xsl:template>
 
     <xsl:template match="*[contains(name(),'abstract')]" mode="index">

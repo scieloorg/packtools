@@ -38,11 +38,11 @@
         -->
         <xsl:variable name="name" select="@fn-type"/>
         <xsl:if test="not(preceding-sibling::node()) or preceding-sibling::*[1][not(@fn-type)] or preceding-sibling::*[1][@fn-type!=$name]">
-            <h3 class="articleSectionTitle">
+            <h2 class="h5">
                 <xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text"><xsl:value-of select="@fn-type"/></xsl:with-param>
                 </xsl:apply-templates>
-            </h3>
+            </h2>
         </xsl:if>
     </xsl:template>
 

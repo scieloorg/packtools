@@ -19,10 +19,10 @@
                     <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
                     <xsl:attribute name="class">articleSection</xsl:attribute>
                     <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-                    <h3>
-                        <xsl:attribute name="class">articleSectionTitle</xsl:attribute>
+                    <h2>
+                        <xsl:attribute name="class">h5</xsl:attribute>
                         <xsl:apply-templates select="." mode="title"/>
-                    </h3>
+                    </h2>
                     <div class="row">
                         <div class="col ref-list">
                             <ul class="refList articleFootnotes">

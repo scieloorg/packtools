@@ -12,9 +12,9 @@
              <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">Publication Dates</xsl:with-param>
              </xsl:apply-templates></xsl:attribute>
-             <h3 class="articleSectionTitle"><xsl:apply-templates select="." mode="text-labels">
+             <h2 class="h5"><xsl:apply-templates select="." mode="text-labels">
                  <xsl:with-param name="text">Publication Dates</xsl:with-param>
-             </xsl:apply-templates></h3>
+             </xsl:apply-templates></h2>
              <div class="row">
                  <div class="col-md-12 col-sm-12">
                      <ul class="articleTimeline">

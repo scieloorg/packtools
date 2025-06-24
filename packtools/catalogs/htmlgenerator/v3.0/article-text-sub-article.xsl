@@ -6,7 +6,7 @@
     <xsl:include href="../v2.0/article-text-sub-article.xsl"/>
 
     <xsl:template match="sub-article[@article-type!='translation']//subject | response//subject">
-        <h3 class="articleSectionTitle"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h3>
+        <h2 class="h5"><xsl:apply-templates select="*|text()"></xsl:apply-templates></h2>
      </xsl:template>
 
 </xsl:stylesheet>

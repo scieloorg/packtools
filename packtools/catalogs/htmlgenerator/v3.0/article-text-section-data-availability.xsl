@@ -47,15 +47,15 @@
         <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
         <div class="articleSection">
             <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
-            <h3 class="articleSectionTitle"><xsl:value-of select="$title"/></h3>
+            <h2 class="h5"><xsl:value-of select="$title"/></h2>
         </div>
     </xsl:template>
 
     <xsl:template match="ref-list" mode="data-availability">
         <xsl:if test=".//element-citation[@publication-type='data' or @publication-type='database']">
-            <h3><xsl:apply-templates select="." mode="text-labels">
+            <h2 class="h5"><xsl:apply-templates select="." mode="text-labels">
                     <xsl:with-param name="text">Data citations</xsl:with-param>
-                </xsl:apply-templates></h3>
+                </xsl:apply-templates></h2>
             <xsl:apply-templates select=".//element-citation[@publication-type='data' or @publication-type='database']" mode="data-availability"/>
         </xsl:if>
     </xsl:template>
