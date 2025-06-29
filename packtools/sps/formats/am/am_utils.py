@@ -71,3 +71,12 @@ def format_date(date_dict, fields):
         return None
     parts = [date_dict.get(field, "") for field in fields]
     return "".join(parts) if any(parts) else None
+
+
+def extract_first_text(list_field):
+    """
+    Extrai o texto do primeiro item da lista no campo "_", se existir.
+    """
+    if isinstance(list_field, list) and list_field and isinstance(list_field[0], dict):
+        return list_field[0].get("_")
+    return None
