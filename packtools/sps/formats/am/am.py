@@ -559,186 +559,140 @@ def get_article_metadata(xml_tree, external_article_data=None):
 
 
 def get_citations(xml_tree, external_article_data=None, external_citation_data=None):
-    """
-    Gera a lista de citações no formato ArticleMeta.
-    """
     external_article_data = external_article_data or {}
     external_citation_data = external_citation_data or {}
 
-    # Extrai dados básicos do artigo que serão usados como base comum nas citações
     xml_data = {
-        **get_ids(xml_tree),  # identificadores (ex.: DOI, códigos)
-        **get_dates(xml_tree),  # datas do artigo
-        **get_articlemeta_issue(xml_tree),  # volume, número, elocation-id
-        **count_references(xml_tree),  # número total de referências
+        **get_ids(xml_tree),
+        **get_dates(xml_tree),
+        **get_articlemeta_issue(xml_tree),
+        "v708": count_references(xml_tree).get(
+            "v72"
+        ),  # v708: número total de referências
     }
 
-    # Gera o conjunto de dados comuns a todas as citações
-    citation_common = get_citation_common(
-        xml_data, external_article_data, external_citation_data
-    )
+    v700_refs = external_citation_data.get(
+        "v700", []
+    )  # v700: ordem das referências
 
-    # Lista de v700 das referências externas (se houver)
-    v700_refs = citation_common.get("v700", [])
+    xml_common = get_xml_data_common(xml_data)
+    ext_article_common = get_external_article_data_common(external_article_data)
 
-    # Processa cada referência do XML, atribuindo índice e dados comuns
+    # Dados fixos das citações
+    base_citation_common = {}
+    if processing_date := external_citation_data.get("processing_date"):
+        base_citation_common["processing_date"] = (
+            processing_date  # Data de processamento
+        )
+
     refs = []
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
-        refs.append(build_citation(ref, citation_common, idx, v700_refs))
+        citation_common = base_citation_common.copy()
+        v700 = v700_refs[idx - 1] if 0 <= idx - 1 < len(v700_refs) else None
+        if v700:
+            citation_common.update(
+                simple_field("v700", v700)
+            )  # v700: ordem das referências
 
-    # Retorna a lista completa de citações formatadas
+        refs.append(
+            build_citation(ref, xml_common, ext_article_common, citation_common, idx)
+        )
+
     return refs
 
 
-def get_citation_common(xml_data, external_article_data, external_citation_data):
-    """
-    Gera o dicionário comum a todas as citações, combinando dados do artigo
-    e informações externas.
-    """
-    # Dados provenientes do artigo (XML)
-    article_data = {
-        "code": xml_data.get("code"),  # código único do artigo
-        "v237": xml_data.get("v237"),  # DOI do artigo
-        "v4": xml_data.get("v4"),  # volume formatado (ex.: v59)
-        "v65": xml_data.get("v65"),  # ano/mês da publicação
-        "v708": xml_data.get("v72"),  # número do fascículo usado como contador de ref
-        "v882": xml_data.get("v882"),  # reforço do número do volume
-    }
-
-    # Dados provenientes dos dados externos do artigo
-    external_data = {
-        "collection": external_article_data.get("collection"),  # coleção (ex.: scl)
-        "v2": external_article_data.get("v2"),  # identificador de controle
-        "v3": external_article_data.get("v3"),  # caminho relativo do XML
-        "v701": external_article_data.get("v701"),  # sequência de publicação
-        "v702": external_article_data.get("v702"),  # caminho completo do XML
-        "v705": external_article_data.get("v705"),  # tipo do registro (S = artigo)
-        "v936": external_article_data.get(
-            "v936"
-        ),  # identificador composto (ISSN, ano, ordem)
-        "v992": external_article_data.get(
-            "v992"
-        ),  # coleção (redundante em alguns contextos)
-        "v999": external_article_data.get("v999"),  # dados internos do sistema
-    }
-
-    # Dados provenientes dos dados externos das citações
-    citation_data = {
-        "processing_date": external_citation_data.get(
-            "processing_date"
-        ),  # data de processamento das citações
-        "v700": external_citation_data.get(
-            "v700", []
-        ),  # ordem das referências externas
-    }
-
-    # Combina e retorna todos os dados
-    return {
-        **article_data,
-        **external_data,
-        **citation_data,
-    }
+def get_xml_data_common(xml_data):
+    result = {}
+    if code := xml_data.get("code"):
+        result["code"] = code  # Código do artigo (código único SciELO)
+        result.update(simple_field("v880", code))  # v880: código base do artigo
+    if v237 := xml_data.get("v237"):
+        result["v237"] = v237  # v237: DOI do artigo
+    if v4 := xml_data.get("v4"):
+        result["v4"] = v4  # v4: volume do artigo
+    if v65 := xml_data.get("v65"):
+        result["v865"] = v65  # v865: data de publicação normalizada
+    if v708 := xml_data.get("v708"):
+        result["v708"] = v708  # v708: número total de referências
+    if v882 := xml_data.get("v882"):
+        result["v882"] = v882  # v882: reforço do volume
+    result.update(simple_field("v706", "c"))  # v706: tipo de registro (citação)
+    return result
 
 
-def build_citation(ref, common, idx, v700_refs):
-    """
-    Gera uma citação individual no formato ArticleMeta.
-    """
-    # --- Dados derivados do próprio XML da referência ---
-    v64 = format_date(ref, ["year"])  # ano da citação
-    v65 = f"{v64}0000" if v64 else None  # ano no formato completo para v65
-    v700 = (
-        v700_refs[idx - 1] if idx - 1 < len(v700_refs) else None
-    )  # ordem no v700 externo
+def get_external_article_data_common(external_article_data):
+    result = {}
+    if collection := external_article_data.get("collection"):
+        result["collection"] = collection  # Nome da coleção
+    if v2 := external_article_data.get("v2"):
+        result.update(simple_field("v2", v2))  # v2: identificador de controle
+    if v3 := external_article_data.get("v3"):
+        result.update(simple_field("v3", v3))  # v3: caminho relativo do XML
+    if v701 := external_article_data.get("v701"):
+        result["v701"] = v701  # v701: sequência de publicação
+    if v705 := external_article_data.get("v705"):
+        result.update(simple_field("v705", v705))  # v705: tipo do registro (S = artigo)
+    if v936 := external_article_data.get("v936"):
+        result.update(
+            complex_field("v936", v936)
+        )  # v936: identificador composto (ISSN, ano, ordem)
+    if v992 := external_article_data.get("v992"):
+        result["v992"] = v992  # v992: coleção
+    if v999 := external_article_data.get("v999"):
+        result["v999"] = v999  # v999: dados internos
+    if v702 := external_article_data.get("v702"):
+        result.update(simple_field("v702", v702))  # v702: caminho completo do XML
+    return result
 
-    v514 = {
-        "l": ref.get("lpage"),  # página final
-        "f": ref.get("fpage"),  # página inicial
-        "_": "",  # campo vazio obrigatório no formato
-    }
+
+def get_external_citation_data_common(external_citation_data, idx, v700_refs):
+    result = {}
+    if processing_date := external_citation_data.get("processing_date"):
+        result["processing_date"] = processing_date  # Data de processamento
+    v700 = v700_refs[idx - 1] if 0 <= idx - 1 < len(v700_refs) else None
+    if v700:
+        result.update(simple_field("v700", v700))  # v700: ordem no arquivo externo
+    return result
+
+
+def build_citation(ref, xml_common, ext_article_common, ext_citation_common, idx):
+    v64 = format_date(ref, ["year"])  # v64: ano da publicação da referência
+    v65 = f"{v64}0000" if v64 else None  # v65: ano + '0000'
+    v514 = {"l": ref.get("lpage"), "f": ref.get("fpage"), "_": ""}  # v514: paginação
 
     result = {}
+    result.update(xml_common)
+    result.update(ext_article_common)
+    result.update(ext_citation_common)
+    if code := xml_common.get("code"):
+        result["code"] = f"{code}{idx:05d}"  # Código único da citação
 
-    # --- Dados comuns (do artigo e externos) ---
-    if common.get("code"):
-        result["code"] = f"{common['code']}{idx:05}"  # código único da citação
-    if common.get("collection"):
-        result["collection"] = common["collection"]
-    if common.get("processing_date"):
-        result["processing_date"] = common["processing_date"]
-    if common.get("v237"):
-        result["v237"] = common["v237"]  # DOI do artigo
-    if common.get("v4"):
-        result["v4"] = common["v4"]  # volume do artigo
-    if common.get("v65"):
-        result["v865"] = common["v65"]  # data do artigo
-    if common.get("v882"):
-        result["v882"] = common["v882"]  # reforço do volume
-    if common.get("v999"):
-        result["v999"] = common["v999"]  # dados internos
-    if common.get("v701"):
-        result["v701"] = common["v701"]  # sequência de publicação
-    if common.get("v708"):
-        result["v708"] = common["v708"]  # número do fascículo
-    if common.get("v992"):
-        result["v992"] = common["v992"]  # coleção
-    if common.get("v2"):
-        result.update(simple_field("v2", common["v2"]))  # identificador de controle
-    if common.get("v3"):
-        result.update(simple_field("v3", common["v3"]))  # caminho relativo do XML
-    if common.get("v702"):
-        result.update(simple_field("v702", common["v702"]))  # caminho completo do XML
-    if common.get("v705"):
-        result.update(simple_field("v705", common["v705"]))  # tipo do registro
-    result.update(simple_field("v706", "c"))  # tipo citação, sempre presente
-    if v700:
-        result.update(simple_field("v700", v700))  # ordem no v700 externo
-    if common.get("code"):
-        result.update(simple_field("v880", common["code"]))  # código base do artigo
-    if common.get("v936"):
-        result.update(
-            complex_field("v936", common["v936"])
-        )  # identificador composto (ISSN + ano + ordem)
+    # Dados da citação (referência)
+    ref_fields = [
+        ("v118", "label"),  # v118: rótulo da citação
+        ("v12", "article_title"),  # v12: título do artigo citado
+        ("v30", "source"),  # v30: fonte (nome do periódico)
+        ("v31", "volume"),  # v31: volume citado
+        ("v32", "issue"),  # v32: número citado
+        ("v37", "mixed_citation_xlink"),  # v37: DOI da citação
+        ("v71", "publication_type"),  # v71: tipo de publicação
+    ]
+    for out_field, in_field in ref_fields:
+        if value := ref.get(in_field):
+            result.update(simple_field(out_field, value))
 
-    # --- Dados da referência (XML da citação) ---
-    if ref.get("label"):
-        result.update(
-            simple_field("v118", ref.get("label"))
-        )  # label da citação (ex.: [1])
-    if ref.get("article_title"):
-        result.update(
-            simple_field("v12", ref.get("article_title"))
-        )  # título do artigo citado
-    page_range = format_page_range(ref.get("fpage"), ref.get("lpage"))
-    if page_range:
-        result.update(simple_field("v14", page_range))  # intervalo de páginas
-    if ref.get("source"):
-        result.update(simple_field("v30", ref.get("source")))  # nome do periódico
-    if ref.get("volume"):
-        result.update(simple_field("v31", ref.get("volume")))  # volume citado
-    if ref.get("issue"):
-        result.update(simple_field("v32", ref.get("issue")))  # número citado
-    if ref.get("mixed_citation_xlink"):
-        result.update(
-            simple_field("v37", ref.get("mixed_citation_xlink"))
-        )  # DOI da citação
+    if page_range := format_page_range(ref.get("fpage"), ref.get("lpage")):
+        result.update(simple_field("v14", page_range))  # v14: intervalo de páginas
     if v64:
-        result.update(simple_field("v64", v64))  # ano citado
+        result.update(simple_field("v64", v64))  # v64: ano citado
     if v65:
-        result.update(simple_field("v65", v65))  # ano+0000 citado
-    if ref.get("publication_type"):
-        result.update(
-            simple_field("v71", ref.get("publication_type"))
-        )  # tipo de publicação
+        result.update(simple_field("v65", v65))  # v65: ano citado + '0000'
 
-    # autores da citação
-    authors = extract_authors(ref.get("all_authors"))
-    if authors:
-        result.update(multiple_complex_field("v10", authors))
+    if authors := extract_authors(ref.get("all_authors")):
+        result.update(multiple_complex_field("v10", authors))  # v10: autores da citação
 
-    # paginação complexa
-    if v514.get("l") or v514.get("f"):
-        result.update(complex_field("v514", v514))
+    if v514["l"] or v514["f"]:
+        result.update(complex_field("v514", v514))  # v514: paginação complexa
 
     return result
 
