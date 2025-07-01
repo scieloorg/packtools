@@ -833,7 +833,7 @@ class XMLWithPre:
             try:
                 self._pub_year = self.article_meta_issue.collection_date.get(
                     "year"
-                ) or self.article_meta_issue.article_date.get("year")
+                ) or self.article_pub_year
             except AttributeError:
                 return None
         return self._pub_year
