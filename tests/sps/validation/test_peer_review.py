@@ -2,11 +2,7 @@ from unittest import TestCase, skip
 
 from lxml import etree
 
-from packtools.sps.models.article_contribs import ArticleContribs, ContribGroup
-from packtools.sps.models.article_dates import HistoryDates
-from packtools.sps.models.related_articles import RelatedItems
 from packtools.sps.validation.peer_review import (
-    CustomMetaPeerReviewValidation,
     PeerReviewValidation,
     XMLPeerReviewValidation,
 )
