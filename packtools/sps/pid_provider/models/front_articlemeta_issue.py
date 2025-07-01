@@ -12,8 +12,8 @@
   </front>
 </article>
 """
-from packtools.sps.models.dates import ArticleDates
-from packtools.sps.models.article_ids import ArticleIds
+from packtools.sps.pid_provider.models.dates import ArticleDates
+from packtools.sps.pid_provider.models.article_ids import ArticleIds
 
 
 def _extract_number_and_supplment_from_issue_element(issue):
