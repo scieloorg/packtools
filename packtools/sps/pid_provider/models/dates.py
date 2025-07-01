@@ -99,7 +99,7 @@ class ArticleDates:
                 # handle legacy attribute
                 type = node.get("pub-type")
                 if type == "epub":
-                    type = None
+                    type = "pub"
                 elif type == "epub-ppub":
                     type = "collection"
             _date = Date(node)
