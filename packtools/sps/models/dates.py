@@ -265,7 +265,7 @@ class FulltextDates(Fulltext):
         if not hasattr(self, "_collection_model"):
             try:
                 node = self.front.xpath(
-                    ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub']"
+                    ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub'] | .//pub-date[@pub-type='collection']"
                 )[0]
             except (IndexError, AttributeError):
                 self._collection_model = None
