@@ -10,6 +10,7 @@ from packtools.sps.models import (
     article_abstract,
     kwd_group,
     article_titles,
+    funding_group,
 )
 
 from packtools.sps.formats.am.am_utils import (
@@ -312,6 +313,19 @@ def get_title(xml_tree):
     return {}
 
 
+def get_funding(xml_tree):
+    """
+    Extrai e estrutura os dados de financiamento do artigo no formato ArticleMeta.
+    """
+    funding_statement = funding_group.FundingGroup(xml_tree).funding_statement
+
+    fields = [
+        ("v102", funding_statement, simple_field),
+    ]
+
+    return generate_am_dict(fields)
+
+
 def get_external_article_data(external_article_data=None):
     """
     Geração dos campos externos do ArticleMeta a partir dos dados fornecidos.
@@ -422,6 +436,7 @@ def get_xml_article_metadata(xml_tree):
         **get_ids(xml_tree),
         **get_dates(xml_tree),
         **get_articlemeta_issue(xml_tree),
+        **get_funding(xml_tree),
         **simple_field("v708", "1"), # Qtd de registros do tipo atual
         **simple_field("v706", "h"),  # Tipo de registro
     }

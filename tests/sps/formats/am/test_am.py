@@ -7,7 +7,7 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
+            "tests/sps/formats/am/examples/S0104-11692025000100300/S0104-11692025000100300.xml"
         )
 
         self.external_data = {
@@ -363,6 +363,20 @@ class TestGetTitle(BaseTest):
             "Play Nicely Program in the prevention of violence against children: "
             "strengthening sustainable development",
         )
+
+
+class TestGetFunding(BaseTest):
+    def setUp(self):
+        self.xml_tree = xml_utils.get_xml_tree(
+            "tests/sps/formats/am/examples/S0034-89102025000100200/S0034-89102025000100200.xml"
+        )
+        self.funding_data = am.get_funding(self.xml_tree)
+
+    def test_field_v102(self):
+        self.assertEqual(
+            self.funding_data["v102"],
+            [{"_": "Funding: Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). "
+            "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ)."}])
 
 
 class TestExternalFields(BaseTest):
