@@ -10,154 +10,195 @@ from packtools.sps.models import (
     article_abstract,
     kwd_group,
     article_titles,
+    funding_group,
 )
 
 from packtools.sps.formats.am.am_utils import (
     simple_field,
     complex_field,
     multiple_complex_field,
-    add_item,
     format_date,
     ARTICLE_TYPE_MAP,
+    generate_am_dict,
+    simple_kv,
 )
 
 
 def get_journal(xml_tree):
+    """
+    Extrai e estrutura os dados do periódico no formato ArticleMeta.
+    """
+
+    # Obtenção dos valores do XML
     title = journal_meta.Title(xml_tree)
     journal_id = journal_meta.JournalID(xml_tree)
-    publisher = journal_meta.Publisher(xml_tree)
+    try:
+        publisher = journal_meta.Publisher(xml_tree).publishers_names[0]
+    except IndexError:
+        publisher = None
     issns = journal_meta.ISSN(xml_tree)
 
-    issn_list = [
-        {"t": t, "_": val}
-        for t, val in {"epub": issns.epub, "ppub": issns.ppub}.items()
-        if val
+    # Lista de ISSNs (e-ISSN e p-ISSN)
+    issn_types = [("epub", issns.epub), ("ppub", issns.ppub)]
+    issn_list = [{"t": t, "_": val} for t, val in issn_types if val]
+
+    # (campo ArticleMeta, valor, função geradora)
+    fields = [
+        ("v30", title.abbreviated_journal_title, simple_field),     # Título abreviado do periódico
+        ("v421", journal_id.nlm_ta, simple_field),                  # Título Medline do periódico
+        ("v62", publisher, simple_field),                           # Nome do editor
+        ("v100", title.journal_title, simple_field),                # Título completo do periódico
+        ("v435", issn_list, multiple_complex_field),                # Lista de ISSNs do periódico
     ]
 
-    publisher_name = (
-        publisher.publishers_names[0] if publisher.publishers_names else None
-    )
-
-    return {
-        **simple_field("v30", title.abbreviated_journal_title),
-        **simple_field("v421", journal_id.nlm_ta),
-        **simple_field("v62", publisher_name),
-        **simple_field("v100", title.journal_title),
-        **multiple_complex_field("v435", issn_list),
-    }
+    return generate_am_dict(fields)
 
 
 def get_articlemeta_issue(xml_tree):
+    """
+    Extrai e estrutura os dados do fascículo no formato ArticleMeta.
+    """
+
+    # Obtenção dos valores do XML
     meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
-    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(
-        style="inline"
-    )
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
+    has_abstracts = bool(abstracts)
 
-    v882 = {}
-    add_item(v882, "v", meta.volume)
-    add_item(v882, "n", meta.number)
-    add_item(v882, "_", "")
+    fields = [
+        ("e", meta.elocation_id, simple_kv),
+        ("f", meta.fpage, simple_kv),
+        ("l", meta.lpage, simple_kv),
+        ("_", "", simple_kv),
+    ]
+    paginations_or_elocation = generate_am_dict(fields)
 
-    v14 = {}
-    add_item(v14, "e", meta.elocation_id)
-    add_item(v14, "f", meta.fpage)
-    add_item(v14, "l", meta.lpage)
-    add_item(v14, "_", "")
+    # (campo ArticleMeta, valor, função geradora)
+    fields = [
+        ("v121", meta.order_string_format, simple_field), # ordem do artigo no fascículo
+        ("v31", meta.volume, simple_field), # volume
+        ("v14", paginations_or_elocation if paginations_or_elocation else None, complex_field), # elocation-id ou paginação
+        ("v709", "article" if has_abstracts else "text", simple_field), # tipo de conteúdo
+    ]
 
-    result = {
-        **simple_field("v31", meta.volume),
-        **simple_field("v121", meta.order_string_format),
-        **complex_field("v882", v882),
-        **complex_field("v14", v14),
-    }
-
-    if meta.volume:
-        result.update(simple_field("v4", f"V{meta.volume}"))
-
-    result.update(simple_field("v709", "article" if abstracts else "text"))
-    return result
+    return generate_am_dict(fields)
 
 
 def get_ids(xml_tree):
+    """
+    Extrai e estrutura os identificadores do artigo no formato ArticleMeta.
+    """
     ids = article_ids.ArticleIds(xml_tree)
-    return {
-        "code": ids.v2,
-        **simple_field("v880", ids.v2),
-        **simple_field("v237", ids.doi),
-    }
+
+    # (campo ArticleMeta, valor, função geradora)
+    fields = [
+        ("v237", ids.doi, simple_field), # DOI
+    ]
+
+    return generate_am_dict(fields)
 
 
 def get_contribs(xml_tree):
+    """
+    Extrai e estrutura os dados dos autores no formato ArticleMeta.
+    """
     contribs = article_contribs.XMLContribs(xml_tree).contribs
-    list_contribs = []
-    for author in contribs:
-        author_type = author.get("contrib_type", "ND")
-        if author_type == "author":
-            author_type = "ND"
+    contribs_list = [build_contrib(author) for author in contribs if build_contrib(author)]
+    return multiple_complex_field("v10", contribs_list)
 
-        affs = author.get("affs", [])
-        aff_id = affs[0].get("id") if affs else None
 
-        v10 = {}
-        add_item(v10, "k", author.get("contrib_ids", {}).get("orcid"))
-        add_item(v10, "n", author.get("contrib_name", {}).get("given-names"))
-        add_item(v10, "1", aff_id)
-        add_item(v10, "s", author.get("contrib_name", {}).get("surname"))
-        add_item(v10, "r", author_type)
-        add_item(v10, "_", "")
-        list_contribs.append(v10)
+def build_contrib(author):
+    """
+    Constrói o dicionário v10 para um autor no formato ArticleMeta.
+    """
+    author_type = author.get("contrib_type", "ND")
+    if author_type == "author":
+        author_type = "ND"
 
-    return multiple_complex_field("v10", list_contribs)
+    affs = author.get("affs", [])
+    aff_id = affs[0].get("id") if affs else None
+
+    # (campo ArticleMeta, valor, função geradora)
+    fields = [
+        ("k", author.get("contrib_ids", {}).get("orcid"), simple_kv),  # ORCID
+        ("n", author.get("contrib_name", {}).get("given-names"), simple_kv),  # prenome
+        ("1", aff_id, simple_kv),  # id da afiliação
+        ("s", author.get("contrib_name", {}).get("surname"), simple_kv),  # sobrenome
+        ("r", author_type, simple_kv),  # tipo de contribuição
+        ("_", "", simple_kv)
+    ]
+
+    return generate_am_dict(fields)
 
 
 def get_affs(xml_tree):
+    """
+    Extrai e estrutura os dados das afiliações no formato ArticleMeta.
+    """
     affiliations = aff.Affiliation(xml_tree).affiliation_list
-    list_v70 = []
-    list_v240 = []
+
+    list_full_affs = []
+    list_short_affs = []
 
     for item in affiliations:
         if item.get("parent") != "article":
             continue
 
-        v70 = {}
-        add_item(v70, "c", item.get("city"))
-        add_item(v70, "i", item.get("id"))
-        add_item(v70, "l", item.get("label"))
-        add_item(v70, "1", item.get("orgdiv1"))
-        add_item(v70, "p", item.get("country_name"))
-        add_item(v70, "s", item.get("state"))
-        add_item(v70, "_", item.get("orgname"))
-        list_v70.append(v70)
+        # v70: afiliação detalhada
+        fields_full_affs = [
+            ("c", item.get("city"), simple_kv),                # cidade
+            ("i", item.get("id"), simple_kv),                  # id afiliação
+            ("l", item.get("label"), simple_kv),               # label
+            ("1", item.get("orgdiv1"), simple_kv),             # divisão
+            ("p", item.get("country_name"), simple_kv),        # país (nome)
+            ("s", item.get("state"), simple_kv),               # estado
+            ("_", item.get("orgname"), simple_kv),             # nome da organização
+        ]
+        full_affs = generate_am_dict(fields_full_affs)
+        if full_affs:
+            list_full_affs.append(full_affs)
 
-        v240 = {}
-        add_item(v240, "c", item.get("city"))
-        add_item(v240, "i", item.get("id"))
-        add_item(v240, "p", item.get("country_code"))
-        add_item(v240, "s", item.get("state"))
-        add_item(v240, "_", item.get("orgname"))
-        list_v240.append(v240)
+        # v240: afiliação reduzida (com código do país)
+        fields_short_affs = [
+            ("c", item.get("city"), simple_kv),                # cidade
+            ("i", item.get("id"), simple_kv),                  # id afiliação
+            ("p", item.get("country_code"), simple_kv),        # país (código)
+            ("s", item.get("state"), simple_kv),               # estado
+            ("_", item.get("orgname"), simple_kv),             # nome da organização
+        ]
+        short_affs = generate_am_dict(fields_short_affs)
+        if short_affs:
+            list_short_affs.append(short_affs)
 
     return {
-        **multiple_complex_field("v70", list_v70),
-        **multiple_complex_field("v240", list_v240),
+        **multiple_complex_field("v70", list_full_affs),
+        **multiple_complex_field("v240", list_short_affs),
     }
 
 
 def count_references(xml_tree):
     refs = list(references.XMLReferences(xml_tree).items)
-    return simple_field("v72", str(len(refs)))
+    return str(len(refs))
 
 
 def extract_authors(all_authors):
-    v10_list = []
+    """
+    Extrai e estrutura os dados simplificados dos autores no formato ArticleMeta (v10).
+    """
+    authors_list = []
+
     for author in all_authors or []:
-        v10 = {}
-        add_item(v10, "n", author.get("given-names"))
-        add_item(v10, "s", author.get("surname"))
-        add_item(v10, "r", author.get("role", "ND"))
-        add_item(v10, "_", "")
-        v10_list.append(v10)
-    return v10_list
+        fields = [
+            ("n", author.get("given-names"), simple_kv),     # prenome
+            ("s", author.get("surname"), simple_kv),         # sobrenome
+            ("r", author.get("role", "ND"), simple_kv),      # tipo de contribuição
+            ("_", "", simple_kv),                            # campo vazio obrigatório
+        ]
+
+        authors = generate_am_dict(fields)
+        if authors:
+            authors_list.append(authors)
+
+    return authors_list
 
 
 def format_page_range(fpage, lpage):
@@ -167,275 +208,306 @@ def format_page_range(fpage, lpage):
 
 
 def get_dates(xml_tree):
+    """
+    Extrai e estrutura as datas do artigo no formato ArticleMeta.
+    """
     dates = article_dates.ArticleDates(xml_tree)
-    v114 = format_date(
-        dates.history_dates_dict.get("accepted"), ["year", "month", "day"]
-    )
-    v112 = format_date(
-        dates.history_dates_dict.get("received"), ["year", "month", "day"]
-    )
-    v65 = (
-        format_date(dates.collection_date, ["year"]) + "0000"
-        if dates.collection_date
-        else None
-    )
-    v223 = format_date(dates.epub_date, ["year", "month", "day"])
 
-    return {
-        **simple_field("v114", v114),
-        **simple_field("v112", v112),
-        **simple_field("v65", v65),
-        **simple_field("v223", v223),
-    }
+    accepted_date = format_date(dates.history_dates_dict.get("accepted"), ["year", "month", "day"])
+    received_date = format_date(dates.history_dates_dict.get("received"), ["year", "month", "day"])
+    collection_year = f"{format_date(dates.collection_date, ['year'])}0000" if dates.collection_date else None
+    epub_date = format_date(dates.epub_date, ["year", "month", "day"])
+
+    fields = [
+        ("v114", accepted_date, simple_field),
+        ("v112", received_date, simple_field),
+        ("v65", collection_year, simple_field),
+        ("v223", epub_date, simple_field),
+    ]
+
+    return generate_am_dict(fields)
 
 
 def get_article_and_subarticle(xml_tree):
+    """
+    Extrai e estrutura os dados do artigo e subartigos no formato ArticleMeta.
+    """
     articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
     article_type = articles.main_article_type
-    v71_value = ARTICLE_TYPE_MAP.get(article_type)
+    mapped_article_type = ARTICLE_TYPE_MAP.get(article_type)  # tipo do artigo (mapeado)
 
-    result = {
-        **simple_field("v40", articles.main_lang),
-        **simple_field(
-            "v120", f"XML_{articles.dtd_version}" if articles.dtd_version else None
-        ),
-        **simple_field("v71", v71_value),
-    }
-
+    # Idiomas secundários (v601)
     other_langs = [
         {"_": lang}
         for item in articles.data
         if (lang := item.get("lang")) and lang != articles.main_lang
     ]
-    if other_langs:
-        result.update(multiple_complex_field("v601", other_langs))
 
+    # DOIs por idioma (v337)
     doi_list = [
         {"d": item["doi"], "l": item["lang"], "_": ""}
         for item in articles.data
         if item.get("doi") and item.get("lang")
     ]
-    if doi_list:
-        result.update(multiple_complex_field("v337", doi_list))
 
-    return result
+    fields = [
+        ("v40", articles.main_lang, simple_field),
+        ("v120", f"XML_{articles.dtd_version}" if articles.dtd_version else None, simple_field),
+        ("v71", mapped_article_type, simple_field),
+        ("v601", other_langs if other_langs else None, multiple_complex_field),
+        ("v337", doi_list if doi_list else None, multiple_complex_field),
+    ]
+
+    return generate_am_dict(fields)
 
 
 def get_article_abstract(xml_tree):
-    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(
-        style="inline"
-    )
-    list_abs = []
-    for lang, abstract in abstracts.items():
-        v83 = {}
-        add_item(v83, "a", abstract)
-        add_item(v83, "l", lang)
-        add_item(v83, "_", "")
-        list_abs.append(v83)
-    return multiple_complex_field("v83", list_abs)
+    """
+    Extrai e estrutura os resumos do artigo no formato ArticleMeta.
+    """
+    abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
+
+    abstract_list = [
+        {"a": abstract, "l": lang, "_": ""}
+        for lang, abstract in abstracts.items()
+        if abstract
+    ]
+
+    if abstract_list:
+        return multiple_complex_field("v83", abstract_list)
+    return {}
 
 
 def get_keyword(xml_tree):
+    """
+    Extrai e estrutura as palavras-chave do artigo no formato ArticleMeta.
+    """
     keywords = kwd_group.ArticleKeywords(xml_tree)
     keywords.configure()
-    list_kw = []
-    for kw in keywords.items:
-        v85 = {}
-        add_item(v85, "k", kw.get("plain_text"))
-        add_item(v85, "l", kw.get("lang"))
-        add_item(v85, "_", "")
-        list_kw.append(v85)
-    return multiple_complex_field("v85", list_kw)
+
+    kw_list = [
+        {"k": kw.get("plain_text"), "l": kw.get("lang"), "_": ""}
+        for kw in keywords.items
+        if kw.get("plain_text")
+    ]
+
+    if kw_list:
+        return multiple_complex_field("v85", kw_list)
+    return {}
 
 
 def get_title(xml_tree):
-    v12_fields = {"l": "lang", "_": "plain_text"}
-    v12_list = [
-        {k: item.get(v) for k, v in v12_fields.items() if item.get(v)}
-        for item in article_titles.ArticleTitles(xml_tree).article_title_list
+    """
+    Extrai e estrutura os títulos do artigo no formato ArticleMeta.
+    """
+    titles = article_titles.ArticleTitles(xml_tree).article_title_list
+
+    title_list = [
+        {"l": item.get("lang"), "_": item.get("plain_text")}
+        for item in titles
+        if item.get("plain_text")
     ]
-    return multiple_complex_field("v12", v12_list)
+
+    if title_list:
+        return multiple_complex_field("v12", title_list)
+    return {}
 
 
-def get_external_fields(external_article_data=None):
+def get_funding(xml_tree):
+    """
+    Extrai e estrutura os dados de financiamento do artigo no formato ArticleMeta.
+    """
+    funding_statement = funding_group.FundingGroup(xml_tree).funding_statement
+
+    fields = [
+        ("v102", funding_statement, simple_field),
+    ]
+
+    return generate_am_dict(fields)
+
+
+def get_external_article_data(external_article_data=None):
+    """
+    Geração dos campos externos do ArticleMeta a partir dos dados fornecidos.
+    """
     external_article_data = external_article_data or {}
 
-    v265_list = [
+    # v265: Dados complementares de processamento do XML: real (data real), expected (data esperada).
+    processing_dates_list = [
         {"k": item["k"], "s": item["s"], "v": item["v"]}
         for item in external_article_data.get("v265", [])
         if all(k in item for k in ("k", "s", "v"))
     ]
 
-    v936_dict = external_article_data.get("v936") or {}
-    v936 = (
-        v936_dict
-        if isinstance(v936_dict, dict) and all(k in v936_dict for k in ("i", "y", "o"))
+    # v936: Identificador composto do fascículo: inclui ISSN (i), ano (y), ordem no ano (o).
+    composite_issue_id = external_article_data.get("v936")
+    composite_issue_id_valid = (
+        composite_issue_id
+        if isinstance(composite_issue_id, dict) and all(k in composite_issue_id for k in ("i", "y", "o"))
         else None
     )
 
-    return {
-        "applicable": external_article_data.get("applicable"),
-        "collection": external_article_data.get("collection"),
-        "created_at": external_article_data.get("created_at"),
-        "processing_date": external_article_data.get("processing_date"),
-        "v35": external_article_data.get("v35"),
-        "v42": external_article_data.get("v42"),
-        "v701": external_article_data.get("v701"),
-        "v992": external_article_data.get("v992"),
-        "v999": external_article_data.get("v999"),
-        **simple_field("v2", external_article_data.get("v2")),
-        **simple_field("v3", external_article_data.get("v3")),
-        **simple_field("v38", external_article_data.get("v38")),
-        **simple_field("v49", external_article_data.get("v49")),
-        **simple_field("v700", external_article_data.get("v700")),
-        **simple_field("v702", external_article_data.get("v702")),
-        **simple_field("v705", external_article_data.get("v705")),
-        **simple_field("v706", external_article_data.get("v706")),
-        **simple_field("v708", external_article_data.get("v708")),
-        **simple_field("v91", external_article_data.get("v91")),
-        **complex_field("v936", v936),
-        **multiple_complex_field("v265", v265_list),
-    }
+    fields = [
+        ("v38", external_article_data.get("v38"), simple_field),  # Tipo de elemento presente no artigo
+        ("v49", external_article_data.get("v49"), simple_field),  # Código interno de status
+        # ("v700", external_article_data.get("v700"), simple_field),  # Ordem no processamento
+        ("v91", external_article_data.get("v91"), simple_field),  # Data de processamento (AAAAMMDD)
+        ("v265", processing_dates_list if processing_dates_list else None, multiple_complex_field),  # Datas de processamento
+        ("applicable", external_article_data.get("applicable"), simple_kv),  # Flag se o registro é aplicável
+        ("created_at", external_article_data.get("created_at"), simple_kv),  # Data de criação
+        ("processing_date", external_article_data.get("processing_date"), simple_kv),  # Data de processamento
+        ("v35", external_article_data.get("v35"), simple_field),  # ISSN impresso
+        ("v42", external_article_data.get("v42"), simple_field),  # Status do fascículo
+    ]
+
+    return generate_am_dict(fields)
 
 
-def get_article_metadata(xml_tree, external_article_data=None):
+def get_external_common_data(external_article_data=None):
+    """
+    Gera os campos externos comuns usados nas referências de artigo no ArticleMeta.
+    """
     external_article_data = external_article_data or {}
+
+    fields = [
+        ("collection", external_article_data.get("collection"), simple_kv),  # Nome da coleção
+        ("v2", external_article_data.get("v2"), simple_field),               # Identificador de controle
+        ("v3", external_article_data.get("v3"), simple_field),               # Caminho relativo do XML
+        ("v701", external_article_data.get("v701"), simple_field),              # Sequência de publicação
+        ("v705", external_article_data.get("v705"), simple_field),           # Tipo do registro (S = artigo)
+        ("v936", external_article_data.get("v936"), complex_field),          # Identificador composto (ISSN, ano, ordem)
+        ("v992", external_article_data.get("v992"), simple_field),              # Código da coleção
+        ("v999", external_article_data.get("v999"), simple_field),              # Dados internos
+        ("v702", external_article_data.get("v702"), simple_field),           # Caminho completo do XML
+    ]
+
+    return generate_am_dict(fields)
+
+
+def get_external_citation_data(external_citation_data):
+    """
+    Gera os campos externos comuns usados nas citações no ArticleMeta.
+    """
+
+    fields = [
+        ("processing_date", external_citation_data.get("citations_processing_date"), simple_kv),  # Data de processamento das citações
+    ]
+
+    return generate_am_dict(fields)
+
+
+def get_xml_common_data(xml_tree):
+    # Obtenção dos valores do XML
+    ids = article_ids.ArticleIds(xml_tree)
+    meta = front_articlemeta_issue.ArticleMetaIssue(xml_tree)
+
+    fields = [
+        ("v", meta.volume, simple_kv),
+        ("n", meta.number, simple_kv),
+        ("_", "", simple_kv)
+    ]
+    volume_and_number = generate_am_dict(fields)
+
+    # (campo comum, valor, função geradora)
+    fields = [
+        ("code", ids.v2, simple_kv),  # código SciELO no dicionário direto
+        ("v882", volume_and_number if volume_and_number else None, complex_field),  # volume e número do fascículo
+        ("v880", ids.v2, simple_field),  # código SciELO no campo v880
+        ("v4", f"V{meta.volume}" if meta.volume else None, simple_field),  # volume formatado
+    ]
+
+    return generate_am_dict(fields)
+
+
+def get_xml_article_metadata(xml_tree):
+    """
+    Gera os metadados do artigo no formato ArticleMeta.
+    """
+
     return {
         **get_journal(xml_tree),
-        **get_articlemeta_issue(xml_tree),
-        **get_ids(xml_tree),
         **get_contribs(xml_tree),
         **get_affs(xml_tree),
-        **count_references(xml_tree),
-        **get_dates(xml_tree),
+        **simple_field("v72", count_references(xml_tree)),
         **get_article_and_subarticle(xml_tree),
         **get_article_abstract(xml_tree),
         **get_keyword(xml_tree),
         **get_title(xml_tree),
-        **get_external_fields(external_article_data),
-    }
-
-
-def get_citations(xml_tree, external_article_data=None, external_citation_data=None):
-    external_article_data = external_article_data or {}
-    external_citation_data = external_citation_data or {}
-
-    xml_data = {
         **get_ids(xml_tree),
         **get_dates(xml_tree),
         **get_articlemeta_issue(xml_tree),
-        **count_references(xml_tree),
+        **get_funding(xml_tree),
+        **simple_field("v708", "1"), # Qtd de registros do tipo atual
+        **simple_field("v706", "h"),  # Tipo de registro
     }
 
-    citation_common = get_citation_common(
-        xml_data, external_article_data, external_citation_data
-    )
-    v700_refs = citation_common.get("v700", [])
 
-    refs = []
+def get_xml_citation_data(ref):
+    fields = [
+        ("v118", ref.get("label"), simple_field),  # rótulo da citação
+        ("v12", ref.get("article_title"), simple_field),  # título do artigo citado
+        ("v30", ref.get("source"), simple_field),  # fonte (nome do periódico)
+        ("v31", ref.get("volume"), simple_field),  # volume citado
+        ("v32", ref.get("issue"), simple_field),  # número citado
+        ("v37", ref.get("mixed_citation_xlink"), simple_field),  # link do DOI da citação
+        ("v71", ref.get("publication_type"), simple_field),  # tipo de publicação
+        ("v14", format_page_range(ref.get("fpage"), ref.get("lpage")), simple_field), # intervalo de páginas
+        ("v64", format_date(ref, ["year"]), simple_field),  # ano da publicação da referência
+        ("v65", f"{format_date(ref, ["year"])}0000", simple_field),  # ano + '0000'
+        ("v10", extract_authors(ref.get("all_authors")), multiple_complex_field), # autores da citação
+        ("v514", {"l": ref.get("lpage"), "f": ref.get("fpage"), "_": ""}, complex_field), # paginação
+    ]
+
+    return generate_am_dict(fields)
+
+
+def build(xml_tree, external_data=None):
+    """
+    Gera o dicionário completo do ArticleMeta no formato final.
+    """
+    external_data = external_data or {}
+
+    # Extrai e formata dados externos do artigo
+    external_article_data = get_external_article_data(external_data)
+
+    # Extrai e formata dados externos das citações
+    external_citation_data = get_external_citation_data(external_data)
+
+    # Extrai e formata dados externos comuns ao artigo e às citações
+    external_common_data = get_external_common_data(external_data)
+
+    # Extrai e formata dados do XML comuns ao artigo e às citações
+    xml_common_data = get_xml_common_data(xml_tree)
+
+    # Extrai metadados do artigo no formato AM
+    article_metadata = get_xml_article_metadata(xml_tree)
+    article_metadata.update(xml_common_data)
+    article_metadata.update(external_article_data)
+    article_metadata.update(external_common_data)
+
+    # Extrai metadados das citações no formato AM
+    citations_number = count_references(xml_tree)
+    citations_data = []
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
-        refs.append(build_citation(ref, citation_common, idx, v700_refs))
+        citation_data = get_xml_citation_data(ref)
+        citation_data.update(external_citation_data)
+        citation_data.update(external_common_data)
+        citation_data.update(xml_common_data)
+        # Formata code e v880 específicos para as citações
+        base_v880 = citation_data.get("v880")[0]["_"] if citation_data.get("v880") else None
+        if base_v880:
+            citation_v880 = f"{base_v880}{idx:05d}"
+            citation_data["v880"] = [{"_": citation_v880}]
+            citation_data["code"] = citation_v880
+        citation_data["v865"] = article_metadata.get("v65") # Data do artigo
+        citation_data.update(simple_field("v708", citations_number)) # Número de citações do artigo
+        citation_data.update(simple_field("v706", "c"))  # Tipo de registro
 
-    return refs
+        citations_data.append(citation_data)
 
+    fields = [
+        ("article", article_metadata, simple_kv),
+        ("citations", citations_data, simple_kv),
+    ]
 
-def get_citation_common(xml_data, external_article_data, external_citation_data):
-    return {
-        "code": xml_data.get("code"),
-        "collection": external_article_data.get("collection"),
-        "processing_date": external_citation_data.get("processing_date"),
-        "v237": xml_data.get("v237"),
-        "v2": external_article_data.get("v2"),
-        "v3": external_article_data.get("v3"),
-        "v4": xml_data.get("v4"),
-        "v65": xml_data.get("v65"),
-        "v700": external_citation_data.get("v700", []),
-        "v701": external_article_data.get("v701"),
-        "v702": external_article_data.get("v702"),
-        "v705": external_article_data.get("v705"),
-        "v708": xml_data.get("v72"),
-        "v882": xml_data.get("v882"),
-        "v936": external_article_data.get("v936"),
-        "v992": external_article_data.get("v992"),
-        "v999": external_article_data.get("v999"),
-    }
-
-
-def build_citation(ref, common, idx, v700_refs):
-    v64 = format_date(ref, ["year"])
-    v65 = f"{v64}0000" if v64 else None
-    v700 = v700_refs[idx - 1] if idx - 1 < len(v700_refs) else None
-
-    v514 = {
-        "l": ref.get("lpage"),
-        "f": ref.get("fpage"),
-        "_": "",
-    }
-
-    return {
-        "code": f"{common['code']}{idx:05}" if common["code"] else None,
-        "collection": common["collection"],
-        "processing_date": common["processing_date"],
-        "v237": common["v237"],
-        "v4": common["v4"],
-        "v865": common["v65"],
-        "v882": common["v882"],
-        "v999": common["v999"],
-        "v701": common["v701"],
-        "v708": common["v708"],
-        "v992": common["v992"],
-        **simple_field("v118", ref.get("label")),
-        **simple_field("v12", ref.get("article_title")),
-        **simple_field("v14", format_page_range(ref.get("fpage"), ref.get("lpage"))),
-        **simple_field("v2", common["v2"]),
-        **simple_field("v3", common["v3"]),
-        **simple_field("v30", ref.get("source")),
-        **simple_field("v31", ref.get("volume")),
-        **simple_field("v32", ref.get("issue")),
-        **simple_field("v37", ref.get("mixed_citation_xlink")),
-        **simple_field("v64", v64),
-        **simple_field("v65", v65),
-        **simple_field("v700", v700),
-        **simple_field("v702", common["v702"]),
-        **simple_field("v705", common["v705"]),
-        **simple_field("v706", "c"),
-        **simple_field("v71", ref.get("publication_type")),
-        **simple_field("v880", common["code"]),
-        **complex_field("v514", v514),
-        **complex_field("v936", common["v936"]),
-        **multiple_complex_field("v10", extract_authors(ref.get("all_authors"))),
-    }
-
-
-def build(xml_tree, external_article_data=None, external_citation_data=None):
-    code = (get_ids(xml_tree) or {}).get("code")
-    journal_data = get_journal(xml_tree)
-    external_fields = get_external_fields(external_article_data)
-    articles = article_and_subarticles.ArticleAndSubArticles(xml_tree)
-    article_type = articles.main_article_type
-    article_metadata = get_article_metadata(xml_tree, external_article_data)
-    citations = get_citations(xml_tree, external_article_data, external_citation_data)
-    publication_date = article_metadata.get("v65", [{}])[0].get("_")
-    publication_year = publication_date[:4] if publication_date else None
-
-    issns = [item.get("_") for item in external_article_data.get("v35", [])]
-    issns.extend(item.get("_") for item in journal_data.get("v435", []))
-
-    return {
-        "code": code,
-        "collection": external_fields.get("collection"),
-        "applicable": external_fields.get("applicable"),
-        "article": article_metadata,
-        "citations": citations,
-        "code_issue": code[1:18] if code and len(code) >= 18 else None,
-        "code_title": issns,
-        "created_at": external_fields.get("created_at"),
-        "document_type": article_type,
-        "doi": article_metadata.get("v237", [{}])[0].get("_"),
-        "publication_date": publication_date,
-        "publication_year": publication_year,
-        "sent_wos": external_article_data.get("sent_wos"),
-        "validated_scielo": external_article_data.get("validated_scielo"),
-        "validated_wos": external_article_data.get("validated_wos"),
-        "version": external_article_data.get("version"),
-    }
+    return generate_am_dict(fields)

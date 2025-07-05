@@ -164,8 +164,18 @@ class FundingGroup:
         """
         De acordo com https://scielo.readthedocs.io/projects/scielo-publishing-schema/pt-br/latest/tagset/elemento-funding-statement.html?highlight=funding-statement
         <funding-statement> ocorre zero ou uma vez.
+
+        Retorna o texto do funding-statement com espaços e quebras de linha normalizados.
+        Se não houver o elemento, retorna None.
         """
-        return self._xmltree.findtext(".//funding-group/funding-statement")
+        el = self._xmltree.find(".//funding-group/funding-statement")
+        if el is None:
+            return None
+        # Obtem o texto bruto (com conteúdo de elementos filhos, se houver)
+        raw_text = "".join(el.itertext())
+        # Limpa quebras de linha e espaços duplicados
+        cleaned_text = " ".join(raw_text.split())
+        return cleaned_text if cleaned_text else None
 
     @property
     def funding_statement_data(self):

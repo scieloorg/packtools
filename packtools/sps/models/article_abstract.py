@@ -439,8 +439,13 @@ class Abstract(BaseAbstract):
         Retorna dicionário cuja chave é idioma e valor o resumo no formato dado por style
         """
         d = {}
-        for item in self.get_abstracts(style=style):
-            d[item["lang"]] = item["abstract"]
+        abstracts = self.get_abstracts(style=style)
+        if not abstracts:
+            return d
+
+        for item in abstracts:
+            if isinstance(item, dict) and "lang" in item and "abstract" in item:
+                d[item["lang"]] = item["abstract"]
         return d
 
 
