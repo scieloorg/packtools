@@ -29,15 +29,13 @@ def load_json_data(path_str: Optional[str]) -> dict:
 
 def process_xml_file(
     xml_path: Path,
-    external_article_data: dict,
-    external_citation_data: dict
+    external_data: dict
 ):
     try:
         xml_tree = xml_utils.get_xml_tree(str(xml_path))
         articlemeta = am.build(
             xml_tree=xml_tree,
-            external_article_data=external_article_data,
-            external_citation_data=external_citation_data,
+            external_data=external_data
         )
 
         output_path = xml_path.with_suffix(".am.json")
@@ -58,18 +56,16 @@ def is_leaf_directory(path: Path) -> bool:
 
 def process_input_path(
     input_path_str: str,
-    external_article_data_path: Optional[str] = None,
-    external_citation_data_path: Optional[str] = None
+    external_data_path: Optional[str] = None
 ):
     input_path = Path(input_path_str)
     if not input_path.exists():
         raise FileNotFoundError(f"Caminho não encontrado: {input_path}")
 
-    external_article_data = load_json_data(external_article_data_path)
-    external_citation_data = load_json_data(external_citation_data_path)
+    external_data = load_json_data(external_data_path)
 
     if input_path.is_file() and input_path.suffix.lower() == ".xml":
-        process_xml_file(input_path, external_article_data, external_citation_data)
+        process_xml_file(input_path, external_data)
     elif input_path.is_dir():
         leaf_dirs = [d for d in input_path.rglob("*") if is_leaf_directory(d)]
         xml_files = [f for d in leaf_dirs for f in d.glob("*.xml")]
@@ -77,7 +73,7 @@ def process_input_path(
         if not xml_files:
             print("[AVISO] Nenhum XML encontrado em pastas folha.")
         for xml_file in xml_files:
-            process_xml_file(xml_file, external_article_data, external_citation_data)
+            process_xml_file(xml_file, external_data)
     else:
         raise ValueError("Entrada inválida: deve ser um arquivo .xml ou um diretório.")
 
@@ -86,11 +82,10 @@ if __name__ == "__main__":
     import sys
 
     if len(sys.argv) < 2:
-        print("Uso: python script.py <arquivo_ou_pasta> [external_article_data.json] [external_citation_data.json]")
+        print("Uso: python generate_am.py <arquivo_ou_pasta> [external_article_data.json]")
         sys.exit(1)
 
     input_path = sys.argv[1]
-    external_article_data_path = sys.argv[2] if len(sys.argv) > 2 else None
-    external_citation_data_path = sys.argv[3] if len(sys.argv) > 3 else None
+    external_data_path = sys.argv[2] if len(sys.argv) > 2 else None
 
-    process_input_path(input_path, external_article_data_path, external_citation_data_path)
+    process_input_path(input_path, external_data_path)
