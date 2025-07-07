@@ -16,15 +16,14 @@ class BaseTest(unittest.TestCase):
             "v35": "0104-1169",
             "v42": "1",
             "collection": "scl",
-            "v701": "1",
-            "v38": "GRA",
+            "v700": "2",
+            "v38": ["TAB", "GRA"],
             "v49": "RLAE350",
             "v2": "S0104-1169(25)03300000300",
             "v91": "20250203",
             "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
             "v705": "S",
             "processing_date": "2025-02-03",
-            "citations_processing_date": "2025-04-28",
             "v265": [
                 {"k": "real", "s": "xml", "v": "20250127"},
                 {"k": "expected", "s": "xml", "v": "202500"},
@@ -37,6 +36,183 @@ class BaseTest(unittest.TestCase):
             "validated_scielo": "False",
             "validated_wos": "False",
             "version": "xml",
+            "external_citation_data": [
+                {
+                    "code": "S0104-1169202500010030000001",
+                    "processing_date": "2025-04-01",
+                    "v700": "5"
+                },
+                {
+                    "code": "S0104-1169202500010030000002",
+                    "processing_date": "2025-04-01",
+                    "v700": "6"
+                },
+                {
+                    "code": "S0104-1169202500010030000003",
+                    "processing_date": "2025-04-01",
+                    "v700": "7"
+                },
+                {
+                    "code": "S0104-1169202500010030000004",
+                    "processing_date": "2025-04-01",
+                    "v700": "8"
+                },
+                {
+                    "code": "S0104-1169202500010030000005",
+                    "processing_date": "2025-04-01",
+                    "v700": "9"
+                },
+                {
+                    "code": "S0104-1169202500010030000006",
+                    "processing_date": "2025-04-01",
+                    "v700": "10"
+                },
+                {
+                    "code": "S0104-1169202500010030000007",
+                    "processing_date": "2025-04-01",
+                    "v700": "11"
+                },
+                {
+                    "code": "S0104-1169202500010030000008",
+                    "processing_date": "2025-04-01",
+                    "v700": "12"
+                },
+                {
+                    "code": "S0104-1169202500010030000009",
+                    "processing_date": "2025-04-01",
+                    "v700": "13"
+                },
+                {
+                    "code": "S0104-1169202500010030000010",
+                    "processing_date": "2025-04-01",
+                    "v700": "14"
+                },
+                {
+                    "code": "S0104-1169202500010030000011",
+                    "processing_date": "2025-04-01",
+                    "v700": "15"
+                },
+                {
+                    "code": "S0104-1169202500010030000012",
+                    "processing_date": "2025-04-01",
+                    "v700": "16"
+                },
+                {
+                    "code": "S0104-1169202500010030000013",
+                    "processing_date": "2025-04-01",
+                    "v700": "17"
+                },
+                {
+                    "code": "S0104-1169202500010030000014",
+                    "processing_date": "2025-04-01",
+                    "v700": "18"
+                },
+                {
+                    "code": "S0104-1169202500010030000015",
+                    "processing_date": "2025-04-01",
+                    "v700": "19"
+                },
+                {
+                    "code": "S0104-1169202500010030000016",
+                    "processing_date": "2025-04-01",
+                    "v700": "20"
+                },
+                {
+                    "code": "S0104-1169202500010030000017",
+                    "processing_date": "2025-04-01",
+                    "v700": "21"
+                },
+                {
+                    "code": "S0104-1169202500010030000018",
+                    "processing_date": "2025-04-01",
+                    "v700": "22"
+                },
+                {
+                    "code": "S0104-1169202500010030000019",
+                    "processing_date": "2025-04-01",
+                    "v700": "23"
+                },
+                {
+                    "code": "S0104-1169202500010030000020",
+                    "processing_date": "2025-04-01",
+                    "v700": "24"
+                },
+                {
+                    "code": "S0104-1169202500010030000021",
+                    "processing_date": "2025-04-01",
+                    "v700": "25"
+                },
+                {
+                    "code": "S0104-1169202500010030000022",
+                    "processing_date": "2025-04-01",
+                    "v700": "26"
+                },
+                {
+                    "code": "S0104-1169202500010030000023",
+                    "processing_date": "2025-04-01",
+                    "v700": "27"
+                },
+                {
+                    "code": "S0104-1169202500010030000024",
+                    "processing_date": "2025-04-01",
+                    "v700": "28"
+                },
+                {
+                    "code": "S0104-1169202500010030000025",
+                    "processing_date": "2025-04-01",
+                    "v700": "29"
+                },
+                {
+                    "code": "S0104-1169202500010030000026",
+                    "processing_date": "2025-04-01",
+                    "v700": "30"
+                },
+                {
+                    "code": "S0104-1169202500010030000027",
+                    "processing_date": "2025-04-01",
+                    "v700": "31"
+                },
+                {
+                    "code": "S0104-1169202500010030000028",
+                    "processing_date": "2025-04-01",
+                    "v700": "32"
+                },
+                {
+                    "code": "S0104-1169202500010030000029",
+                    "processing_date": "2025-04-01",
+                    "v700": "33"
+                },
+                {
+                    "code": "S0104-1169202500010030000030",
+                    "processing_date": "2025-04-01",
+                    "v700": "34"
+                },
+                {
+                    "code": "S0104-1169202500010030000031",
+                    "processing_date": "2025-04-01",
+                    "v700": "35"
+                },
+                {
+                    "code": "S0104-1169202500010030000032",
+                    "processing_date": "2025-04-01",
+                    "v700": "36"
+                },
+                {
+                    "code": "S0104-1169202500010030000033",
+                    "processing_date": "2025-04-01",
+                    "v700": "37"
+                },
+                {
+                    "code": "S0104-1169202500010030000034",
+                    "processing_date": "2025-04-01",
+                    "v700": "38"
+                },
+                {
+                    "code": "S0104-1169202500010030000035",
+                    "processing_date": "2025-04-01",
+                    "v700": "39"
+                },
+            ]
         }
 
 
@@ -94,9 +270,12 @@ class TestGetArticlemetaIssue(BaseTest):
     def test_field_v709(self):
         self.assertEqual(self.issue_data["v709"], [{"_": "article"}])
 
+    def test_field_v701(self):
+        self.assertEqual(self.issue_data["v701"], [{"_": "1"}])
+
     def test_issue_returns_expected_fields(self):
         self.assertTrue(
-            {"v31", "v121", "v14", "v709"}.issubset(
+            {"v31", "v121", "v14", "v709", "v701"}.issubset(
                 self.issue_data.keys()
             )
         )
@@ -109,7 +288,6 @@ class TestGetIds(BaseTest):
 
     def test_field_v237(self):
         self.assertEqual(self.ids_data["v237"], [{"_": "10.1590/1518-8345.7320.4434"}])
-
 
 
 class TestGetContribs(BaseTest):
@@ -270,7 +448,7 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v705"], [{"_": "S"}])
 
     def test_field_processing_date(self):
-        self.assertEqual(self.first_ref["processing_date"], "2025-04-28")
+        self.assertEqual(self.first_ref["processing_date"], "2025-04-01")
 
     def test_field_v514(self):
         self.assertEqual(self.first_ref["v514"], [{"_": "", "f": "20", "l": "36"}])
@@ -278,6 +456,10 @@ class TestGetCitations(BaseTest):
 
     def test_field_v882(self):
         self.assertEqual(self.first_ref["v882"], [{"_": "", "v": "33"}])
+
+    def test_field_v700(self):
+        self.assertEqual(self.first_ref["v700"], [{"_": "5"}])
+        self.assertEqual(self.last_ref["v700"], [{"_": "39"}])
 
 
 class TestGetDates(BaseTest):
@@ -378,6 +560,11 @@ class TestGetFunding(BaseTest):
             [{"_": "Funding: Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). "
             "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ)."}])
 
+    def test_field_v158(self):
+        self.assertEqual(
+            self.funding_data["v58"],
+            [{"_": "CAPES"}, {"_": "CNPq"}])
+
 
 class TestExternalFields(BaseTest):
     def setUp(self):
@@ -390,7 +577,8 @@ class TestExternalFields(BaseTest):
         self.assertEqual(self.external_data_formated["v999"], [{"_": "../bases-work/rlae/rlae"}])
 
     def test_field_v38(self):
-        self.assertEqual(self.external_data_formated["v38"], [{"_": "GRA"}])
+        self.assertEqual(self.external_data_formated["v38"][0], {"_": "TAB"})
+        self.assertEqual(self.external_data_formated["v38"][1], {"_": "GRA"})
 
     def test_field_v992(self):
         self.assertEqual(self.external_data_formated["v992"], [{"_": "scl"}])
@@ -410,8 +598,8 @@ class TestExternalFields(BaseTest):
     def test_field_v91(self):
         self.assertEqual(self.external_data_formated["v91"], [{"_": "20250203"}])
 
-    def test_field_v701(self):
-        self.assertEqual(self.external_data_formated["v701"], [{"_": "1"}])
+    def test_field_v700(self):
+        self.assertEqual(self.external_data_formated["v700"], [{"_": "2"}])
 
     def test_field_v702(self):
         self.assertEqual(
@@ -435,10 +623,10 @@ class TestExternalFields(BaseTest):
     def test_field_v265(self):
         self.assertEqual(len(self.external_data_formated["v265"]), 2)
         self.assertEqual(
-            self.external_data_formated["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
+            self.external_data_formated["v265"][0], {"k": "real", "s": "xml", "v": "20250127", "_": ""}
         )
         self.assertEqual(
-            self.external_data_formated["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
+            self.external_data_formated["v265"][1], {"k": "expected", "s": "xml", "v": "202500", "_": ""}
         )
 
     def test_field_v936(self):
