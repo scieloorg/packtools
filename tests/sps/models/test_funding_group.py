@@ -251,3 +251,11 @@ class FundingTest(TestCase):
         # Verify some key values
         self.assertEqual("research-article", obtained["article_type"])
         self.assertEqual("en", obtained["article_lang"])
+
+    def test_funding_statement_2(self):
+        from packtools.sps.utils import xml_utils
+        xmltree = xml_utils.get_xml_tree('tests/sps/formats/am/examples/S0034-89102025000100200/S0034-89102025000100200.xml')
+        funding = funding_group.FundingGroup(xmltree)
+        obtained = funding.funding_statement
+        expected = "Funding: Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ)."
+        self.assertEqual(expected, obtained)

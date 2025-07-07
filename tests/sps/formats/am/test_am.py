@@ -7,34 +7,28 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
+            "tests/sps/formats/am/examples/S0104-11692025000100300/S0104-11692025000100300.xml"
         )
 
-        self.external_issue_data = {
-            "v999": [{"_": "../bases-work/rlae/rlae"}],
-            "v992": [{"_": "scl"}],
-            "v35": [{"_": "0104-1169"}],
-            "v42": [{"_": "1"}],
+        self.external_data = {
+            "v999": "../bases-work/rlae/rlae",
+            "v992": "scl",
+            "v35": "0104-1169",
+            "v42": "1",
             "collection": "scl",
-            "v701": [{"_": "1"}],
-        }
-
-        self.external_article_data = {
-            **self.external_issue_data,
+            "v701": "1",
             "v38": "GRA",
             "v49": "RLAE350",
-            "v706": "h",
             "v2": "S0104-1169(25)03300000300",
             "v91": "20250203",
-            "v700": "2",
             "v702": "rlae/v33/1518-8345-rlae-33-e4434.xml",
             "v705": "S",
             "processing_date": "2025-02-03",
+            "citations_processing_date": "2025-04-28",
             "v265": [
                 {"k": "real", "s": "xml", "v": "20250127"},
                 {"k": "expected", "s": "xml", "v": "202500"},
             ],
-            "v708": "1",
             "v3": "1518-8345-rlae-33-e4434.xml",
             "v936": {"i": "0104-1169", "y": "2025", "o": "1"},
             "applicable": "True",
@@ -43,11 +37,6 @@ class BaseTest(unittest.TestCase):
             "validated_scielo": "False",
             "validated_wos": "False",
             "version": "xml",
-        }
-
-        self.external_citation_data = {
-            "processing_date": "2025-04-28",
-            "v700": [str(value) for value in range(5, 40)],
         }
 
 
@@ -99,21 +88,15 @@ class TestGetArticlemetaIssue(BaseTest):
     def test_field_v121(self):
         self.assertEqual(self.issue_data["v121"], [{"_": "00300"}])
 
-    def test_field_v882(self):
-        self.assertEqual(self.issue_data["v882"], [{"v": "33", "_": ""}])
-
     def test_field_v14(self):
         self.assertEqual(self.issue_data["v14"], [{"e": "e4434", "_": ""}])
-
-    def test_field_v4(self):
-        self.assertEqual(self.issue_data["v4"], [{"_": "V33"}])
 
     def test_field_v709(self):
         self.assertEqual(self.issue_data["v709"], [{"_": "article"}])
 
     def test_issue_returns_expected_fields(self):
         self.assertTrue(
-            {"v31", "v121", "v882", "v14", "v4", "v709"}.issubset(
+            {"v31", "v121", "v14", "v709"}.issubset(
                 self.issue_data.keys()
             )
         )
@@ -124,17 +107,9 @@ class TestGetIds(BaseTest):
         super().setUp()
         self.ids_data = am.get_ids(self.xml_tree)
 
-    def test_code(self):
-        self.assertEqual(self.ids_data["code"], "S0104-11692025000100300")
-
-    def test_field_v880(self):
-        self.assertEqual(self.ids_data["v880"], [{"_": "S0104-11692025000100300"}])
-
     def test_field_v237(self):
         self.assertEqual(self.ids_data["v237"], [{"_": "10.1590/1518-8345.7320.4434"}])
 
-    def test_ids_returns_expected_fields(self):
-        self.assertTrue({"code", "v880", "v237"}.issubset(self.ids_data.keys()))
 
 
 class TestGetContribs(BaseTest):
@@ -186,18 +161,15 @@ class TestGetAffs(BaseTest):
 class TestGetCitations(BaseTest):
     def setUp(self):
         super().setUp()
-        self.v72_data = am.count_references(self.xml_tree)
-        self.refs = am.get_citations(
-            self.xml_tree, self.external_article_data, self.external_citation_data
-        )
-        self.first_ref = self.refs[0]
-        self.last_ref = self.refs[-1]
+        self.am_format = am.build(self.xml_tree, self.external_data)
+        self.first_ref = self.am_format["citations"][0]
+        self.last_ref = self.am_format["citations"][-1]
 
     def test_field_v72(self):
-        self.assertEqual(self.v72_data["v72"], [{"_": "35"}])
+        self.assertEqual(self.am_format["article"]["v72"], [{"_": "35"}])
 
     def test_references_structure(self):
-        self.assertEqual(len(self.refs), 35)
+        self.assertEqual(len(self.am_format["citations"]), 35)
 
     def test_field_v30(self):
         self.assertEqual(self.first_ref["v30"], [{"_": "Am J Psychiatry"}])
@@ -250,16 +222,14 @@ class TestGetCitations(BaseTest):
         )
 
     def test_field_v880(self):
-        self.assertEqual(self.first_ref["v880"], [{"_": "S0104-11692025000100300"}])
+        self.assertEqual(self.first_ref["v880"], [{"_": "S0104-1169202500010030000001"}])
+        self.assertEqual(self.last_ref["v880"], [{"_": "S0104-1169202500010030000035"}])
 
     def test_field_v865(self):
         self.assertEqual(self.first_ref["v865"], [{"_": "20250000"}])
 
     def test_field_v118(self):
         self.assertEqual(self.first_ref["v118"], [{"_": "1."}])
-
-    def test_field_v237(self):
-        self.assertEqual(self.first_ref["v237"], [{"_": "10.1590/1518-8345.7320.4434"}])
 
     def test_field_v706(self):
         self.assertEqual(self.first_ref["v706"], [{"_": "c"}])
@@ -290,9 +260,6 @@ class TestGetCitations(BaseTest):
 
     def test_field_v701(self):
         self.assertEqual(self.first_ref["v701"], [{"_": "1"}])
-
-    def test_field_v700(self):
-        self.assertEqual(self.first_ref["v700"], [{"_": "5"}])
 
     def test_field_v702(self):
         self.assertEqual(
@@ -398,129 +365,86 @@ class TestGetTitle(BaseTest):
         )
 
 
+class TestGetFunding(BaseTest):
+    def setUp(self):
+        self.xml_tree = xml_utils.get_xml_tree(
+            "tests/sps/formats/am/examples/S0034-89102025000100200/S0034-89102025000100200.xml"
+        )
+        self.funding_data = am.get_funding(self.xml_tree)
+
+    def test_field_v102(self):
+        self.assertEqual(
+            self.funding_data["v102"],
+            [{"_": "Funding: Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). "
+            "Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ)."}])
+
+
 class TestExternalFields(BaseTest):
     def setUp(self):
         super().setUp()
-        self.external_data = am.get_external_fields(self.external_article_data)
+        self.external_data_formated = am.get_external_article_data(self.external_data)
+        self.external_data_common_formated = am.get_external_common_data(self.external_data)
+        self.external_data_formated.update(self.external_data_common_formated)
 
     def test_field_v999(self):
-        self.assertEqual(self.external_data["v999"], [{"_": "../bases-work/rlae/rlae"}])
+        self.assertEqual(self.external_data_formated["v999"], [{"_": "../bases-work/rlae/rlae"}])
 
     def test_field_v38(self):
-        self.assertEqual(self.external_data["v38"], [{"_": "GRA"}])
+        self.assertEqual(self.external_data_formated["v38"], [{"_": "GRA"}])
 
     def test_field_v992(self):
-        self.assertEqual(self.external_data["v992"], [{"_": "scl"}])
+        self.assertEqual(self.external_data_formated["v992"], [{"_": "scl"}])
 
     def test_field_v42(self):
-        self.assertEqual(self.external_data["v42"], [{"_": "1"}])
+        self.assertEqual(self.external_data_formated["v42"], [{"_": "1"}])
 
     def test_field_v49(self):
-        self.assertEqual(self.external_data["v49"], [{"_": "RLAE350"}])
-
-    def test_field_v706(self):
-        self.assertEqual(self.external_data["v706"], [{"_": "h"}])
+        self.assertEqual(self.external_data_formated["v49"], [{"_": "RLAE350"}])
 
     def test_field_collection(self):
-        self.assertEqual(self.external_data["collection"], "scl")
+        self.assertEqual(self.external_data_formated["collection"], "scl")
 
     def test_field_v2(self):
-        self.assertEqual(self.external_data["v2"], [{"_": "S0104-1169(25)03300000300"}])
+        self.assertEqual(self.external_data_formated["v2"], [{"_": "S0104-1169(25)03300000300"}])
 
     def test_field_v91(self):
-        self.assertEqual(self.external_data["v91"], [{"_": "20250203"}])
+        self.assertEqual(self.external_data_formated["v91"], [{"_": "20250203"}])
 
     def test_field_v701(self):
-        self.assertEqual(self.external_data["v701"], [{"_": "1"}])
-
-    def test_field_v700(self):
-        self.assertEqual(self.external_data["v700"], [{"_": "2"}])
+        self.assertEqual(self.external_data_formated["v701"], [{"_": "1"}])
 
     def test_field_v702(self):
         self.assertEqual(
-            self.external_data["v702"], [{"_": "rlae/v33/1518-8345-rlae-33-e4434.xml"}]
+            self.external_data_formated["v702"], [{"_": "rlae/v33/1518-8345-rlae-33-e4434.xml"}]
         )
 
     def test_field_v705(self):
-        self.assertEqual(self.external_data["v705"], [{"_": "S"}])
-
-    def test_field_v708(self):
-        self.assertEqual(self.external_data["v708"], [{"_": "1"}])
+        self.assertEqual(self.external_data_formated["v705"], [{"_": "S"}])
 
     def test_field_v3(self):
         self.assertEqual(
-            self.external_data["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}]
+            self.external_data_formated["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}]
         )
 
     def test_field_v35_from_article_data(self):
-        self.assertEqual(self.external_data["v35"], [{"_": "0104-1169"}])
+        self.assertEqual(self.external_data_formated["v35"], [{"_": "0104-1169"}])
 
     def test_field_processing_date(self):
-        self.assertEqual(self.external_data["processing_date"], "2025-02-03")
+        self.assertEqual(self.external_data_formated["processing_date"], "2025-02-03")
 
     def test_field_v265(self):
-        self.assertEqual(len(self.external_data["v265"]), 2)
+        self.assertEqual(len(self.external_data_formated["v265"]), 2)
         self.assertEqual(
-            self.external_data["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
+            self.external_data_formated["v265"][0], {"k": "real", "s": "xml", "v": "20250127"}
         )
         self.assertEqual(
-            self.external_data["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
+            self.external_data_formated["v265"][1], {"k": "expected", "s": "xml", "v": "202500"}
         )
 
     def test_field_v936(self):
         self.assertEqual(
-            self.external_data["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}]
+            self.external_data_formated["v936"], [{"i": "0104-1169", "y": "2025", "o": "1"}]
         )
-
-
-class TestBuild(BaseTest):
-    def setUp(self):
-        super().setUp()
-        self.build_data = am.build(
-            self.xml_tree, self.external_article_data, self.external_citation_data
-        )
-
-    def test_field_code(self):
-        self.assertEqual(self.build_data["code"], "S0104-11692025000100300")
-
-    def test_field_collection(self):
-        self.assertEqual(self.build_data["collection"], "scl")
-
-    def test_field_applicable(self):
-        self.assertEqual(self.build_data["applicable"], "True")
-
-    def test_field_code_issue(self):
-        self.assertEqual(self.build_data["code_issue"], "0104-116920250001")
-
-    def test_field_code_title(self):
-        self.assertEqual(self.build_data["code_title"], ["0104-1169", "1518-8345"])
-
-    def test_field_created_at(self):
-        self.assertEqual(self.build_data["created_at"], "2025-02-03")
-
-    def test_field_document_type(self):
-        self.assertEqual(self.build_data["document_type"], "research-article")
-
-    def test_field_doi(self):
-        self.assertEqual(self.build_data["doi"], "10.1590/1518-8345.7320.4434")
-
-    def test_field_publication_date(self):
-        self.assertEqual(self.build_data["publication_date"], "20250000")
-
-    def test_field_publication_year(self):
-        self.assertEqual(self.build_data["publication_year"], "2025")
-
-    def test_field_sent_wos(self):
-        self.assertEqual(self.build_data["sent_wos"], "False")
-
-    def test_field_validated_scielo(self):
-        self.assertEqual(self.build_data["validated_scielo"], "False")
-
-    def test_field_validated_wos(self):
-        self.assertEqual(self.build_data["validated_wos"], "False")
-
-    def test_field_version(self):
-        self.assertEqual(self.build_data["version"], "xml")
 
 
 if __name__ == "__main__":

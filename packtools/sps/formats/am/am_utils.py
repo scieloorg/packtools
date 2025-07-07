@@ -51,11 +51,6 @@ def complex_field(key, value):
     return {}
 
 
-def add_item(dictionary, key, value):
-    if value is not None:
-        dictionary[key] = value
-
-
 def multiple_complex_field(key, value_list):
     if value_list:
         return {key: value_list}
@@ -71,3 +66,15 @@ def format_date(date_dict, fields):
         return None
     parts = [date_dict.get(field, "") for field in fields]
     return "".join(parts) if any(parts) else None
+
+
+def generate_am_dict(fields):
+    response = {}
+    for tag, value, formatter in fields:
+        if value is not None:
+            response.update(formatter(tag, value))
+    return response
+
+def simple_kv(tag, value):
+    return {tag: value}
+
