@@ -72,12 +72,25 @@ def get_articlemeta_issue(xml_tree):
     ]
     paginations_or_elocation = generate_am_dict(fields)
 
+    # v42: total de páginas do artigo ou "1" caso elocation
+    if meta.fpage and meta.lpage:
+        try:
+            pages = str(int(meta.lpage) - int(meta.fpage) + 1)
+        except ValueError:
+            pages = "1"
+    else:
+        pages = "1"
+
     # (campo ArticleMeta, valor, função geradora)
     fields = [
         ("v121", meta.order_string_format, simple_field), # ordem do artigo no fascículo
         ("v31", meta.volume, simple_field), # volume
         ("v14", paginations_or_elocation if paginations_or_elocation else None, complex_field), # elocation-id ou paginação
         ("v709", "article" if has_abstracts else "text", simple_field), # tipo de conteúdo
+        ("v42", pages, simple_field),  # tipo de conteúdo
+        ("v701", "1", simple_field),  # Número sequencial por tipo de registro
+        # fixme: definir a obtenção do valor de v701
+
     ]
 
     return generate_am_dict(fields)
@@ -317,10 +330,16 @@ def get_funding(xml_tree):
     """
     Extrai e estrutura os dados de financiamento do artigo no formato ArticleMeta.
     """
-    funding_statement = funding_group.FundingGroup(xml_tree).funding_statement
+    funding = funding_group.FundingGroup(xml_tree)
+
+    statement = funding.funding_statement
+
+    # v58: órgãos financiadores do artigo.
+    sponsors = [{"_": sponsor} for sponsor in funding.funding_sources]
 
     fields = [
-        ("v102", funding_statement, simple_field),
+        ("v102", statement, simple_field),
+        ("v58", sponsors, simple_kv)
     ]
 
     return generate_am_dict(fields)
@@ -334,7 +353,7 @@ def get_external_article_data(external_article_data=None):
 
     # v265: Dados complementares de processamento do XML: real (data real), expected (data esperada).
     processing_dates_list = [
-        {"k": item["k"], "s": item["s"], "v": item["v"]}
+        {"k": item["k"], "s": item["s"], "v": item["v"], "_": ""}
         for item in external_article_data.get("v265", [])
         if all(k in item for k in ("k", "s", "v"))
     ]
@@ -347,10 +366,13 @@ def get_external_article_data(external_article_data=None):
         else None
     )
 
+    # v38: tipo de ilustrações ou recursos visuais existentes no artigo.
+    elements_type = [{"_": item} for item in external_article_data.get("v38") or []]
+
     fields = [
-        ("v38", external_article_data.get("v38"), simple_field),  # Tipo de elemento presente no artigo
+        ("v38", elements_type, simple_kv),  # Tipo de elemento presente no artigo
         ("v49", external_article_data.get("v49"), simple_field),  # Código interno de status
-        # ("v700", external_article_data.get("v700"), simple_field),  # Ordem no processamento
+        ("v700", external_article_data.get("v700"), simple_field),  # Ordem no processamento
         ("v91", external_article_data.get("v91"), simple_field),  # Data de processamento (AAAAMMDD)
         ("v265", processing_dates_list if processing_dates_list else None, multiple_complex_field),  # Datas de processamento
         ("applicable", external_article_data.get("applicable"), simple_kv),  # Flag se o registro é aplicável
@@ -373,7 +395,6 @@ def get_external_common_data(external_article_data=None):
         ("collection", external_article_data.get("collection"), simple_kv),  # Nome da coleção
         ("v2", external_article_data.get("v2"), simple_field),               # Identificador de controle
         ("v3", external_article_data.get("v3"), simple_field),               # Caminho relativo do XML
-        ("v701", external_article_data.get("v701"), simple_field),              # Sequência de publicação
         ("v705", external_article_data.get("v705"), simple_field),           # Tipo do registro (S = artigo)
         ("v936", external_article_data.get("v936"), complex_field),          # Identificador composto (ISSN, ano, ordem)
         ("v992", external_article_data.get("v992"), simple_field),              # Código da coleção
@@ -390,7 +411,8 @@ def get_external_citation_data(external_citation_data):
     """
 
     fields = [
-        ("processing_date", external_citation_data.get("citations_processing_date"), simple_kv),  # Data de processamento das citações
+        ("processing_date", external_citation_data.get("processing_date"), simple_kv),  # Data de processamento das citações
+        ("v700", external_citation_data.get("v700"), simple_field)
     ]
 
     return generate_am_dict(fields)
@@ -470,9 +492,6 @@ def build(xml_tree, external_data=None):
     # Extrai e formata dados externos do artigo
     external_article_data = get_external_article_data(external_data)
 
-    # Extrai e formata dados externos das citações
-    external_citation_data = get_external_citation_data(external_data)
-
     # Extrai e formata dados externos comuns ao artigo e às citações
     external_common_data = get_external_common_data(external_data)
 
@@ -487,19 +506,32 @@ def build(xml_tree, external_data=None):
 
     # Extrai metadados das citações no formato AM
     citations_number = count_references(xml_tree)
+
+    # Extrai dados externos das citações
+    external_citations_data_list = external_data.get("external_citation_data") or []
+
     citations_data = []
     for idx, ref in enumerate(references.XMLReferences(xml_tree).items, start=1):
+        # Formata dados externos das citações
+        try:
+            external_citation_data = get_external_citation_data(external_citations_data_list[idx - 1])
+        except IndexError:
+            external_citation_data = {}
+
         citation_data = get_xml_citation_data(ref)
         citation_data.update(external_citation_data)
         citation_data.update(external_common_data)
         citation_data.update(xml_common_data)
+
         # Formata code e v880 específicos para as citações
         base_v880 = citation_data.get("v880")[0]["_"] if citation_data.get("v880") else None
         if base_v880:
             citation_v880 = f"{base_v880}{idx:05d}"
             citation_data["v880"] = [{"_": citation_v880}]
             citation_data["code"] = citation_v880
+
         citation_data["v865"] = article_metadata.get("v65") # Data do artigo
+        citation_data.update(simple_field("v701", str(idx))) # Número sequencial por tipo de registro
         citation_data.update(simple_field("v708", citations_number)) # Número de citações do artigo
         citation_data.update(simple_field("v706", "c"))  # Tipo de registro
 
