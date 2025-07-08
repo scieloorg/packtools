@@ -196,6 +196,7 @@ class Reference:
             ("chapter_title", self.get_chapter_title()),
             ("part_title", self.get_part_title()),
             ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
+            ("collab", self.get_collab()),
         ]
         d = dict()
         for name, value in tags:

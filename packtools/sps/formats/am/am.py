@@ -484,6 +484,7 @@ def get_xml_citation_data(ref):
         ("v10", extract_authors(ref.get("all_authors")), multiple_complex_field), # autores da citação
         ("v514", {"l": ref.get("lpage"), "f": ref.get("fpage"), "_": ""}, complex_field), # paginação
         ("v237", ref.get("citation_ids", {}).get("doi"), simple_field),  # DOI
+        ("v17", ref.get("collab")[0] if ref.get("collab") else None, simple_field), # Autor institucional (corporativo)
     ]
 
     return generate_am_dict(fields)

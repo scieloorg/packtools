@@ -341,6 +341,7 @@ class TestGetCitations(BaseTest):
         super().setUp()
         self.am_format = am.build(self.xml_tree, self.external_data)
         self.first_ref = self.am_format["citations"][0]
+        self.second_ref = self.am_format["citations"][1]
         self.last_ref = self.am_format["citations"][-1]
 
     def test_field_v72(self):
@@ -464,6 +465,10 @@ class TestGetCitations(BaseTest):
     def test_field_v237(self):
         self.assertEqual(self.first_ref["v237"], [{"_": "10.1176/appi.ajp.2019.19010020"}])
         self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
+
+    def test_field_v17(self):
+        self.assertEqual(self.second_ref["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+
 
 class TestGetDates(BaseTest):
     def setUp(self):
