@@ -483,6 +483,7 @@ def get_xml_citation_data(ref):
         ("v65", f"{format_date(ref, ["year"])}0000", simple_field),  # ano + '0000'
         ("v10", extract_authors(ref.get("all_authors")), multiple_complex_field), # autores da citação
         ("v514", {"l": ref.get("lpage"), "f": ref.get("fpage"), "_": ""}, complex_field), # paginação
+        ("v237", ref.get("citation_ids", {}).get("doi"), simple_field),  # DOI
     ]
 
     return generate_am_dict(fields)

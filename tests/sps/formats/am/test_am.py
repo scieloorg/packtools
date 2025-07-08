@@ -461,6 +461,9 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v700"], [{"_": "5"}])
         self.assertEqual(self.last_ref["v700"], [{"_": "39"}])
 
+    def test_field_v237(self):
+        self.assertEqual(self.first_ref["v237"], [{"_": "10.1176/appi.ajp.2019.19010020"}])
+        self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
 
 class TestGetDates(BaseTest):
     def setUp(self):
