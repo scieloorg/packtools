@@ -5,7 +5,7 @@ from packtools.sps.models import (
     article_contribs,
     aff,
     references,
-    article_dates,
+    dates,
     article_and_subarticles,
     article_abstract,
     kwd_group,
@@ -211,12 +211,12 @@ def get_dates(xml_tree):
     """
     Extrai e estrutura as datas do artigo no formato ArticleMeta.
     """
-    dates = article_dates.ArticleDates(xml_tree)
+    dt = dates.ArticleDates(xml_tree)
 
-    accepted_date = format_date(dates.history_dates_dict.get("accepted"), ["year", "month", "day"])
-    received_date = format_date(dates.history_dates_dict.get("received"), ["year", "month", "day"])
-    collection_year = f"{format_date(dates.collection_date, ['year'])}0000" if dates.collection_date else None
-    epub_date = format_date(dates.epub_date, ["year", "month", "day"])
+    accepted_date = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
+    received_date = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
+    collection_year = f"{format_date(dt.collection_date, ['year'])}0000" if dt.collection_date else None
+    epub_date = format_date(dt.epub_date, ["year", "month", "day"])
 
     fields = [
         ("v114", accepted_date, simple_field),
