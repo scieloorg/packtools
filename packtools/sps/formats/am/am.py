@@ -224,18 +224,18 @@ def get_dates(xml_tree):
     """
     Extrai e estrutura as datas do artigo no formato ArticleMeta.
     """
-    dt = dates.FulltextDates(xml_tree).data
+    dt = dates.ArticleDates(xml_tree)
 
-    accepted = dt.get("accepted", {}).get("parts")
-    received = dt.get("received", {}).get("parts")
-    collection = dt.get("collection_date", {}).get("parts")
-    pub = dt.get("pub", {}).get("parts")
+    accepted_date = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
+    received_date = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
+    collection_year = f"{format_date(dt.collection_date, ['year'])}0000" if dt.collection_date else None
+    epub_date = format_date(dt.epub_date, ["year", "month", "day"])
 
     fields = [
-        ("v114", format_date(accepted, ["year", "month", "day"]) if accepted else None, simple_field),
-        ("v112", format_date(received, ["year", "month", "day"]) if received else None, simple_field),
-        ("v65", f"{format_date(collection, ['year'])}0000" if collection else None, simple_field),
-        ("v223", format_date(pub, ["year", "month", "day"]) if pub else None, simple_field),
+        ("v114", accepted_date, simple_field),
+        ("v112", received_date, simple_field),
+        ("v65", collection_year, simple_field),
+        ("v223", epub_date, simple_field),
     ]
 
     return generate_am_dict(fields)
