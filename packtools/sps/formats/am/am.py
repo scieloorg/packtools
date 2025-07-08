@@ -473,7 +473,6 @@ def get_xml_citation_data(ref):
     fields = [
         ("v118", ref.get("label"), simple_field),  # rótulo da citação
         ("v12", ref.get("article_title"), simple_field),  # título do artigo citado
-        ("v30", ref.get("source"), simple_field),  # fonte (nome do periódico)
         ("v31", ref.get("volume"), simple_field),  # volume citado
         ("v32", ref.get("issue"), simple_field),  # número citado
         ("v37", ref.get("mixed_citation_xlink"), simple_field),  # link do DOI da citação
@@ -486,6 +485,11 @@ def get_xml_citation_data(ref):
         ("v237", ref.get("citation_ids", {}).get("doi"), simple_field),  # DOI
         ("v17", ref.get("collab")[0] if ref.get("collab") else None, simple_field), # Autor institucional (corporativo)
     ]
+
+    if ref.get("publication_type") == "journal":
+        fields.append(("v30", ref.get("source"), simple_field)) # Título de obra seriada
+    else:
+        fields.append(("v18", ref.get("source"), simple_field)) # Título de obra não seriada
 
     return generate_am_dict(fields)
 

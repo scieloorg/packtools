@@ -341,7 +341,6 @@ class TestGetCitations(BaseTest):
         super().setUp()
         self.am_format = am.build(self.xml_tree, self.external_data)
         self.first_ref = self.am_format["citations"][0]
-        self.second_ref = self.am_format["citations"][1]
         self.last_ref = self.am_format["citations"][-1]
 
     def test_field_v72(self):
@@ -467,8 +466,12 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
 
     def test_field_v17(self):
-        self.assertEqual(self.second_ref["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+        self.assertEqual(self.am_format["citations"][1]["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
 
+    def test_field_v18(self):
+        self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
+        self.assertEqual(self.am_format["citations"][10]["v18"], [{
+            "_": "Ending the physical punishment of children: A guide for clinicians and practitioners"}])
 
 class TestGetDates(BaseTest):
     def setUp(self):
