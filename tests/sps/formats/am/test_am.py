@@ -476,6 +476,10 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.am_format["citations"][1]["v62"], [{"_": "IPEA"}])
         self.assertEqual(self.am_format["citations"][5]["v62"], [{"_": "John Wiley & Sons"}])
 
+    def test_field_v66(self):
+        self.assertEqual(self.am_format["citations"][1]["v66"], [{"_": "Brasília"}])
+        self.assertEqual(self.am_format["citations"][5]["v66"], [{"_": "Hoboken, NJ"}])
+
 
 class TestGetDates(BaseTest):
     def setUp(self):

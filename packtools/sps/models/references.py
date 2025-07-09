@@ -59,6 +59,9 @@ class Reference:
     def get_publisher_name(self):
         return node_plain_text(self.ref.find("./element-citation/publisher-name"))
 
+    def get_publisher_loc(self):
+        return node_plain_text(self.ref.find("./element-citation/publisher-loc"))
+
     def get_source(self):
         return node_plain_text(self.ref.find("./element-citation/source"))
 
