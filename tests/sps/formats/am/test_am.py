@@ -484,6 +484,9 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.am_format["citations"][1]["v61"], [{"_": "Available from: https://www.ipea.gov.br/ods/ods16.html"}])
         self.assertEqual(self.am_format["citations"][12]["v61"], [{"_": "Available from: https://pediatrics.vumc.org/play-nicely"}])
 
+    def test_field_v11(self):
+        self.assertEqual(self.am_format["citations"][1]["v11"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+
 
 class TestGetDates(BaseTest):
     def setUp(self):
