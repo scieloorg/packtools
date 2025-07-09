@@ -204,15 +204,17 @@ def extract_authors(all_authors):
     authors_list = []
 
     for author in all_authors or []:
+        name = author.get("given-names") or None
+        surname = author.get("surname") or None
         fields = [
-            ("n", author.get("given-names"), simple_kv),     # prenome
-            ("s", author.get("surname"), simple_kv),         # sobrenome
+            ("n", name, simple_kv),     # prenome
+            ("s", surname, simple_kv),         # sobrenome
             ("r", author.get("role", "ND"), simple_kv),      # tipo de contribuição
             ("_", "", simple_kv),                            # campo vazio obrigatório
         ]
 
         authors = generate_am_dict(fields)
-        if authors:
+        if name or surname:
             authors_list.append(authors)
 
     return authors_list
