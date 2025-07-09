@@ -469,9 +469,9 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.am_format["citations"][1]["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
 
     def test_field_v18(self):
+        self.assertIsNone(self.am_format["citations"][1].get("v18")) # Não tem a tag <source>
         self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
-        self.assertEqual(self.am_format["citations"][10]["v18"], [{
-            "_": "Ending the physical punishment of children: A guide for clinicians and practitioners"}])
+
     def test_field_v62(self):
         self.assertEqual(self.am_format["citations"][1]["v62"], [{"_": "IPEA"}])
         self.assertEqual(self.am_format["citations"][5]["v62"], [{"_": "John Wiley & Sons"}])
@@ -490,6 +490,13 @@ class TestGetCitations(BaseTest):
 
     def test_field_v11(self):
         self.assertEqual(self.am_format["citations"][1]["v11"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+
+    def test_field_v16(self):
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+
 
 
 class TestGetDates(BaseTest):

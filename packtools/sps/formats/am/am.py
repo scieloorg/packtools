@@ -510,6 +510,17 @@ def get_xml_citation_data(ref):
     else:
         fields.append(("v18", ref.get("source"), simple_field)) # Título de obra não seriada
         fields.append(("v109", ref.get("date_in_citation"), simple_field))  # Data de publicação de obra não seriada
+        if is_person:
+            monograph_authors = []
+            for author in ref.get("all_authors") or []:
+                author_fields = [
+                    ("r", "ND", simple_kv),
+                    ("n", author.get("given-names"), simple_kv),
+                    ("s", author.get("surname"), simple_kv),
+                    ("_", "", simple_kv),
+                ]
+                monograph_authors.append(generate_am_dict(author_fields))
+            fields.append(("v16", monograph_authors, simple_kv))
 
     return generate_am_dict(fields)
 
