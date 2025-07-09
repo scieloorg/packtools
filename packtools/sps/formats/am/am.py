@@ -471,6 +471,8 @@ def get_xml_article_metadata(xml_tree):
 
 
 def get_xml_citation_data(ref):
+    comment = ref.get("comment")
+    availability_note = " ".join(comment.split()) if comment else None
     citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
     fields = [
         ("v118", ref.get("label"), simple_field),  # rótulo da citação
@@ -488,6 +490,7 @@ def get_xml_citation_data(ref):
         ("v17", ref.get("collab")[0] if ref.get("collab") else None, simple_field), # Autor institucional (corporativo)
         ("v62", ref.get("publisher_name"), simple_field),  # Nome do editor
         ("v66", ref.get("publisher_loc"), simple_field),  # Localização do editor
+        ("v61", availability_note, simple_field), # Nota de disponibilidade da obra citada
     ]
 
     if ref.get("publication_type") == "journal":

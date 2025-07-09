@@ -180,6 +180,12 @@ class Reference:
     def get_part_title(self):
         return node_plain_text(self.ref.find("./element-citation/part-title"))
 
+    def get_comment(self):
+        el = self.ref.find("./element-citation/comment")
+        if el is None:
+            return None
+        return "".join(el.itertext()).strip()
+
     @property
     def data(self):
         tags = [
@@ -204,6 +210,8 @@ class Reference:
             ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
             ("collab", self.get_collab()),
             ("publisher_name", self.get_publisher_name()),
+            ("publisher_loc", self.get_publisher_loc()),
+            ("comment", self.get_comment()),
         ]
         d = dict()
         for name, value in tags:
