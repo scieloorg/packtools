@@ -161,7 +161,6 @@ def get_affs(xml_tree):
             ("c", item.get("city"), simple_kv),                # cidade
             ("i", item.get("id"), simple_kv),                  # id afiliação
             ("l", item.get("label"), simple_kv),               # label
-            ("*", item.get("orgname"), simple_kv),             # orgname
             ("d", item.get("orgdiv"), simple_kv),              # orgdiv(v. 2.x/3.0)
             ("1", item.get("orgdiv1"), simple_kv),             # orgdiv1
             ("2", item.get("orgdiv2"), simple_kv),             # orgdiv2
