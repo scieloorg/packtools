@@ -471,9 +471,10 @@ def get_xml_article_metadata(xml_tree):
 
 
 def get_xml_citation_data(ref):
+    citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
     fields = [
         ("v118", ref.get("label"), simple_field),  # rótulo da citação
-        ("v12", ref.get("article_title"), simple_field),  # título do artigo citado
+        ("v12", citation_title, simple_field),  # título do artigo citado
         ("v31", ref.get("volume"), simple_field),  # volume citado
         ("v32", ref.get("issue"), simple_field),  # número citado
         ("v37", ref.get("mixed_citation_xlink"), simple_field),  # link do DOI da citação
