@@ -472,6 +472,10 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
         self.assertEqual(self.am_format["citations"][10]["v18"], [{
             "_": "Ending the physical punishment of children: A guide for clinicians and practitioners"}])
+    def test_field_v62(self):
+        self.assertEqual(self.am_format["citations"][1]["v62"], [{"_": "IPEA"}])
+        self.assertEqual(self.am_format["citations"][5]["v62"], [{"_": "John Wiley & Sons"}])
+
 
 class TestGetDates(BaseTest):
     def setUp(self):

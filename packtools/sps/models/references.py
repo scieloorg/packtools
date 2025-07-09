@@ -56,6 +56,9 @@ class Reference:
     def get_publication_type(self):
         return self.ref.find("./element-citation").get("publication-type")
 
+    def get_publisher_name(self):
+        return node_plain_text(self.ref.find("./element-citation/publisher-name"))
+
     def get_source(self):
         return node_plain_text(self.ref.find("./element-citation/source"))
 
@@ -197,6 +200,7 @@ class Reference:
             ("part_title", self.get_part_title()),
             ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
             ("collab", self.get_collab()),
+            ("publisher_name", self.get_publisher_name()),
         ]
         d = dict()
         for name, value in tags:
