@@ -471,9 +471,12 @@ def get_xml_article_metadata(xml_tree):
 
 
 def get_xml_citation_data(ref):
+    is_analytic_author = ref.get("publication_type") == "journal"
+    is_person = ref.get("author_type") == "person"
     comment = ref.get("comment")
     availability_note = " ".join(comment.split()) if comment else None
     citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
+
     fields = [
         ("v118", ref.get("label"), simple_field),  # rótulo da citação
         ("v12", citation_title, simple_field),  # título do artigo citado
@@ -493,7 +496,6 @@ def get_xml_citation_data(ref):
         ("v11", ref.get("collab")[0] if ref.get("collab") else None, simple_field),  # Autor institucional (corporativo)
     ]
 
-    if ref.get("publication_type") == "journal":
     pagination_fields = [
         ("l", ref.get("lpage"), simple_kv),
         ("f", ref.get("fpage"), simple_kv),
@@ -502,9 +504,12 @@ def get_xml_citation_data(ref):
     ]
 
     fields.append(("v514", generate_am_dict(pagination_fields), complex_field))  # paginação
+
+    if is_analytic_author:
         fields.append(("v30", ref.get("source"), simple_field)) # Título de obra seriada
     else:
         fields.append(("v18", ref.get("source"), simple_field)) # Título de obra não seriada
+        fields.append(("v109", ref.get("date_in_citation"), simple_field))  # Data de publicação de obra não seriada
 
     return generate_am_dict(fields)
 

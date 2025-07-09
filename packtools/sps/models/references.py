@@ -104,6 +104,9 @@ class Reference:
     def get_year(self):
         return node_plain_text(self.ref.find("./element-citation/year"))
 
+    def get_date_in_citation(self):
+        return node_plain_text(self.ref.find("./element-citation/date-in-citation"))
+
     def get_article_title(self):
         return node_plain_text(self.ref.find("./element-citation/article-title"))
 
@@ -211,6 +214,7 @@ class Reference:
             ("collab", self.get_collab()),
             ("publisher_name", self.get_publisher_name()),
             ("publisher_loc", self.get_publisher_loc()),
+            ("date_in_citation", self.get_date_in_citation()),
             ("comment", self.get_comment()),
         ]
         d = dict()
