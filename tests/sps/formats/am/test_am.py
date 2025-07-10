@@ -461,6 +461,43 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v700"], [{"_": "5"}])
         self.assertEqual(self.last_ref["v700"], [{"_": "39"}])
 
+    def test_field_v237(self):
+        self.assertEqual(self.first_ref["v237"], [{"_": "10.1176/appi.ajp.2019.19010020"}])
+        self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
+
+    def test_field_v17(self):
+        self.assertEqual(self.am_format["citations"][1]["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+
+    def test_field_v18(self):
+        self.assertIsNone(self.am_format["citations"][1].get("v18")) # Não tem a tag <source>
+        self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
+
+    def test_field_v62(self):
+        self.assertEqual(self.am_format["citations"][1]["v62"], [{"_": "IPEA"}])
+        self.assertEqual(self.am_format["citations"][5]["v62"], [{"_": "John Wiley & Sons"}])
+
+    def test_field_v66(self):
+        self.assertEqual(self.am_format["citations"][1]["v66"], [{"_": "Brasília"}])
+        self.assertEqual(self.am_format["citations"][5]["v66"], [{"_": "Hoboken, NJ"}])
+
+    def test_field_v109(self):
+        self.assertEqual(self.am_format["citations"][1]["v109"], [{"_": "cited 2024 Feb 08"}])
+        self.assertEqual(self.am_format["citations"][12]["v109"], [{"_": "cited 2024 Feb 08"}])
+
+    def test_field_v61(self):
+        self.assertEqual(self.am_format["citations"][1]["v61"], [{"_": "Available from: https://www.ipea.gov.br/ods/ods16.html"}])
+        self.assertEqual(self.am_format["citations"][12]["v61"], [{"_": "Available from: https://pediatrics.vumc.org/play-nicely"}])
+
+    def test_field_v11(self):
+        self.assertEqual(self.am_format["citations"][1]["v11"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+
+    def test_field_v16(self):
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+
+
 
 class TestGetDates(BaseTest):
     def setUp(self):

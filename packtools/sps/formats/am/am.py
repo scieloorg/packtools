@@ -161,9 +161,13 @@ def get_affs(xml_tree):
             ("c", item.get("city"), simple_kv),                # cidade
             ("i", item.get("id"), simple_kv),                  # id afiliação
             ("l", item.get("label"), simple_kv),               # label
-            ("1", item.get("orgdiv1"), simple_kv),             # divisão
+            ("d", item.get("orgdiv"), simple_kv),              # orgdiv(v. 2.x/3.0)
+            ("1", item.get("orgdiv1"), simple_kv),             # orgdiv1
+            ("2", item.get("orgdiv2"), simple_kv),             # orgdiv2
+            ("3", item.get("orgdiv3"), simple_kv),             # orgdiv3
             ("p", item.get("country_name"), simple_kv),        # país (nome)
             ("s", item.get("state"), simple_kv),               # estado
+            ("e", item.get("email"), simple_kv),               # e-mail
             ("_", item.get("orgname"), simple_kv),             # nome da organização
         ]
         full_affs = generate_am_dict(fields_full_affs)
@@ -200,15 +204,17 @@ def extract_authors(all_authors):
     authors_list = []
 
     for author in all_authors or []:
+        name = author.get("given-names") or None
+        surname = author.get("surname") or None
         fields = [
-            ("n", author.get("given-names"), simple_kv),     # prenome
-            ("s", author.get("surname"), simple_kv),         # sobrenome
+            ("n", name, simple_kv),     # prenome
+            ("s", surname, simple_kv),         # sobrenome
             ("r", author.get("role", "ND"), simple_kv),      # tipo de contribuição
             ("_", "", simple_kv),                            # campo vazio obrigatório
         ]
 
         authors = generate_am_dict(fields)
-        if authors:
+        if name or surname:
             authors_list.append(authors)
 
     return authors_list
@@ -465,10 +471,15 @@ def get_xml_article_metadata(xml_tree):
 
 
 def get_xml_citation_data(ref):
+    is_analytic_author = ref.get("publication_type") == "journal"
+    is_person = ref.get("author_type") == "person"
+    comment = ref.get("comment")
+    availability_note = " ".join(comment.split()) if comment else None
+    citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
+
     fields = [
         ("v118", ref.get("label"), simple_field),  # rótulo da citação
-        ("v12", ref.get("article_title"), simple_field),  # título do artigo citado
-        ("v30", ref.get("source"), simple_field),  # fonte (nome do periódico)
+        ("v12", citation_title, simple_field),  # título do artigo citado
         ("v31", ref.get("volume"), simple_field),  # volume citado
         ("v32", ref.get("issue"), simple_field),  # número citado
         ("v37", ref.get("mixed_citation_xlink"), simple_field),  # link do DOI da citação
@@ -477,8 +488,39 @@ def get_xml_citation_data(ref):
         ("v64", format_date(ref, ["year"]), simple_field),  # ano da publicação da referência
         ("v65", f"{format_date(ref, ["year"])}0000", simple_field),  # ano + '0000'
         ("v10", extract_authors(ref.get("all_authors")), multiple_complex_field), # autores da citação
-        ("v514", {"l": ref.get("lpage"), "f": ref.get("fpage"), "_": ""}, complex_field), # paginação
+        ("v237", ref.get("citation_ids", {}).get("doi"), simple_field),  # DOI
+        ("v17", ref.get("collab")[0] if ref.get("collab") else None, simple_field), # Autor institucional (corporativo)
+        ("v62", ref.get("publisher_name"), simple_field),  # Nome do editor
+        ("v66", ref.get("publisher_loc"), simple_field),  # Localização do editor
+        ("v61", availability_note, simple_field), # Nota de disponibilidade da obra citada
+        ("v11", ref.get("collab")[0] if ref.get("collab") else None, simple_field),  # Autor institucional (corporativo)
     ]
+
+    pagination_fields = [
+        ("l", ref.get("lpage"), simple_kv),
+        ("f", ref.get("fpage"), simple_kv),
+        ("e", ref.get("elocation_id"), simple_kv),
+        ("_", "", simple_kv),
+    ]
+
+    fields.append(("v514", generate_am_dict(pagination_fields), complex_field))  # paginação
+
+    if is_analytic_author:
+        fields.append(("v30", ref.get("source"), simple_field)) # Título de obra seriada
+    else:
+        fields.append(("v18", ref.get("source"), simple_field)) # Título de obra não seriada
+        fields.append(("v109", ref.get("date_in_citation"), simple_field))  # Data de publicação de obra não seriada
+        if is_person:
+            monograph_authors = []
+            for author in ref.get("all_authors") or []:
+                author_fields = [
+                    ("r", "ND", simple_kv),
+                    ("n", author.get("given-names"), simple_kv),
+                    ("s", author.get("surname"), simple_kv),
+                    ("_", "", simple_kv),
+                ]
+                monograph_authors.append(generate_am_dict(author_fields))
+            fields.append(("v16", monograph_authors, simple_kv))
 
     return generate_am_dict(fields)
 

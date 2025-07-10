@@ -56,6 +56,12 @@ class Reference:
     def get_publication_type(self):
         return self.ref.find("./element-citation").get("publication-type")
 
+    def get_publisher_name(self):
+        return node_plain_text(self.ref.find("./element-citation/publisher-name"))
+
+    def get_publisher_loc(self):
+        return node_plain_text(self.ref.find("./element-citation/publisher-loc"))
+
     def get_source(self):
         return node_plain_text(self.ref.find("./element-citation/source"))
 
@@ -97,6 +103,9 @@ class Reference:
 
     def get_year(self):
         return node_plain_text(self.ref.find("./element-citation/year"))
+
+    def get_date_in_citation(self):
+        return node_plain_text(self.ref.find("./element-citation/date-in-citation"))
 
     def get_article_title(self):
         return node_plain_text(self.ref.find("./element-citation/article-title"))
@@ -174,6 +183,12 @@ class Reference:
     def get_part_title(self):
         return node_plain_text(self.ref.find("./element-citation/part-title"))
 
+    def get_comment(self):
+        el = self.ref.find("./element-citation/comment")
+        if el is None:
+            return None
+        return "".join(el.itertext()).strip()
+
     @property
     def data(self):
         tags = [
@@ -196,6 +211,11 @@ class Reference:
             ("chapter_title", self.get_chapter_title()),
             ("part_title", self.get_part_title()),
             ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
+            ("collab", self.get_collab()),
+            ("publisher_name", self.get_publisher_name()),
+            ("publisher_loc", self.get_publisher_loc()),
+            ("date_in_citation", self.get_date_in_citation()),
+            ("comment", self.get_comment()),
         ]
         d = dict()
         for name, value in tags:
