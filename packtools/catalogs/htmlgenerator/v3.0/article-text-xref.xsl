@@ -93,7 +93,9 @@
         <xsl:variable name="id"><xsl:value-of select="@rid"/></xsl:variable>
         <xsl:variable name="text"><xsl:apply-templates select=".//text()"/></xsl:variable>
         <xsl:variable name="elem"><xsl:choose>
-            <xsl:when test="$article//ref/label">sup</xsl:when>
+            <xsl:when test="sup">sup</xsl:when>
+            <xsl:when test="$article//ref[@id=$id]/label">sup</xsl:when>
+            <xsl:when test="starts-with($article//ref/mixed-citation)">1</xsl:when>
             <xsl:otherwise>span</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <!--
