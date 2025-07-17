@@ -74,13 +74,13 @@ class Reference:
     def get_all_authors(self):
         tags = ["surname", "given-names", "prefix", "suffix"]
         result = []
-        authors = self.ref.xpath("./element-citation/person-group//name")
-        for author in authors:
-            d = {}
-            for tag in tags:
-                if text := node_plain_text(author.find(tag)):
-                    d[tag] = text
-            result.append(d)
+        for person_group in self.ref.xpath("./element-citation//person-group"):
+            for author in person_group.xpath(".//name"):
+                d = {"person_group_type": person_group.get("person-group-type")}
+                for tag in tags:
+                    if text := node_plain_text(author.find(tag)):
+                        d[tag] = text
+                result.append(d)
         if collab := self.get_collab():
             result.append({"collab": collab})
 
@@ -189,6 +189,9 @@ class Reference:
             return None
         return "".join(el.itertext()).strip()
 
+    def get_edition(self):
+        return node_plain_text(self.ref.find("./element-citation/edition"))
+
     @property
     def data(self):
         tags = [
@@ -216,6 +219,7 @@ class Reference:
             ("publisher_loc", self.get_publisher_loc()),
             ("date_in_citation", self.get_date_in_citation()),
             ("comment", self.get_comment()),
+            ("edition", self.get_edition()),
         ]
         d = dict()
         for name, value in tags:
@@ -225,6 +229,8 @@ class Reference:
                 except AttributeError:
                     d[name] = value
         d["author_type"] = "institutional" if self.get_collab() else "person"
+        d["count_persons"] = len(self.ref.findall(".//person-group"))
+        d["has_etal"] = self.ref.find(".//person-group/etal") is not None
 
         d.update({
             "filtered_not_marked": self.filtered_not_marked,
