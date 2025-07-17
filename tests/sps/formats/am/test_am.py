@@ -7,7 +7,7 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0104-11692025000100300/S0104-11692025000100300.xml"
+            "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
         )
 
         self.external_data = {
