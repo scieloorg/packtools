@@ -478,6 +478,7 @@ class XMLReferencesTest(TestCase):
         self.assertEqual(None, ref["text_between"])
         self.assertEqual(False, ref["has_comment"])    
     # Teste para subarticle_references
+
     def test_subarticle_references(self):
         xml = """
             <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
@@ -536,3 +537,22 @@ class XMLReferencesTest(TestCase):
         sources = [ref.get("source") for ref in all_items]
         self.assertIn("Main Source", sources)
         self.assertIn("Abstract Source", sources)
+
+    def test_get_citation_lang(self):
+        xml = """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+                <back>
+                    <ref-list>
+                        <ref id="B1">
+                            <element-citation publication-type="journal" xml:lang="es">
+                                <source>Main Source</source>
+                            </element-citation>
+                        </ref>
+                    </ref-list>
+                </back>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        references = list(XMLReferences(xml_tree).main_references)
+        lang = references[0].get("lang")
+        self.assertEqual(lang, "es")
