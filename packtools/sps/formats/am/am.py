@@ -501,7 +501,7 @@ def get_xml_citation_data(ref):
         ("v71", ref.get("publication_type"), simple_field),  # tipo de publicação
         ("v14", format_page_range(ref.get("fpage"), ref.get("lpage")), simple_field), # intervalo de páginas
         ("v64", format_date(ref, ["year"]), simple_field),  # ano da publicação da referência
-        ("v65", f"{format_date(ref, ["year"])}0000", simple_field),  # ano + '0000'
+        ("v65", f"{format_date(ref, ['year'])}0000", simple_field),  # ano + '0000'
         ("v237", ref.get("citation_ids", {}).get("doi"), simple_field),  # DOI
         ("v62", ref.get("publisher_name"), simple_field),  # Nome do editor
         ("v66", ref.get("publisher_loc"), simple_field),  # Localização do editor
