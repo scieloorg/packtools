@@ -7,7 +7,7 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0104-11692025000100300.xml"
+            "tests/sps/fixtures/format/am/S0104-11692025000100300.xml"
         )
 
         self.external_data = {
@@ -587,7 +587,7 @@ class TestGetTitle(BaseTest):
 class TestGetFunding(BaseTest):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0034-89102025000100200/S0034-89102025000100200.xml"
+            "tests/sps/fixtures/format/am/S0034-89102025000100200.xml"
         )
         self.funding_data = am.get_funding(self.xml_tree)
 
