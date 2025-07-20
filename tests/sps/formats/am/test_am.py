@@ -431,7 +431,7 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}])
 
     def test_field_v4(self):
-        self.assertEqual(self.first_ref["v4"], [{"_": "V33"}])
+        self.assertEqual(self.first_ref["v4"], [{"_": "v33"}])
 
     def test_field_v992(self):
         self.assertEqual(self.first_ref["v992"], [{"_": "scl"}])
