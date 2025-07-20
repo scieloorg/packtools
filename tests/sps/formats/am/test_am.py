@@ -466,7 +466,7 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
 
     def test_field_v17(self):
-        self.assertEqual(self.am_format["citations"][1]["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
+        self.assertEqual(self.am_format["citations"][18]["v17"], [{"_": "Ministério da Cidadania (BR)"}])
 
     def test_field_v18(self):
         self.assertIsNone(self.am_format["citations"][1].get("v18")) # Não tem a tag <source>
