@@ -491,12 +491,15 @@ class TestGetCitations(BaseTest):
     def test_field_v11(self):
         self.assertEqual(self.am_format["citations"][1]["v11"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
 
-    def test_field_v16(self):
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+    def test_field_v10_book_ref(self):
+        self.assertDictEqual(self.am_format["citations"][5]["v10"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v10"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
 
+    def test_field_v16_book_ref(self):
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'E.', 'r': 'ND', 's': 'Pearson'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'C. N.', 'r': 'ND', 's': 'van der Veere'})
 
 
 class TestGetDates(BaseTest):
