@@ -495,7 +495,7 @@ class TestGetCitations(BaseTest):
         self.assertDictEqual(self.am_format["citations"][5]["v10"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
         self.assertDictEqual(self.am_format["citations"][5]["v10"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
 
-    def test_field_v16_book_ref(self):
+    def test_field_v16(self):
         self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
         self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
         self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'E.', 'r': 'ND', 's': 'Pearson'})
@@ -622,9 +622,6 @@ class TestExternalFields(BaseTest):
 
     def test_field_v992(self):
         self.assertEqual(self.external_data_formated["v992"], [{"_": "scl"}])
-
-    def test_field_v42(self):
-        self.assertEqual(self.external_data_formated["v42"], [{"_": "1"}])
 
     def test_field_v49(self):
         self.assertEqual(self.external_data_formated["v49"], [{"_": "RLAE350"}])
