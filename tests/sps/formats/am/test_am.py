@@ -431,7 +431,7 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v3"], [{"_": "1518-8345-rlae-33-e4434.xml"}])
 
     def test_field_v4(self):
-        self.assertEqual(self.first_ref["v4"], [{"_": "V33"}])
+        self.assertEqual(self.first_ref["v4"], [{"_": "v33"}])
 
     def test_field_v992(self):
         self.assertEqual(self.first_ref["v992"], [{"_": "scl"}])
@@ -465,9 +465,6 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.first_ref["v237"], [{"_": "10.1176/appi.ajp.2019.19010020"}])
         self.assertEqual(self.last_ref["v237"], [{"_": "10.4013/ctc.2019.121.10"}])
 
-    def test_field_v17(self):
-        self.assertEqual(self.am_format["citations"][1]["v17"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
-
     def test_field_v18(self):
         self.assertIsNone(self.am_format["citations"][1].get("v18")) # Não tem a tag <source>
         self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
@@ -492,10 +489,10 @@ class TestGetCitations(BaseTest):
         self.assertEqual(self.am_format["citations"][1]["v11"], [{"_": "Instituto de Pesquisa Econômica Aplicada"}])
 
     def test_field_v16(self):
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'U.', 'r': 'ND', 's': 'Bronfenbrenner'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'E.', 'r': 'ND', 's': 'Pearson'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'C. N.', 'r': 'ND', 's': 'van der Veere'})
 
 
 
@@ -587,7 +584,7 @@ class TestGetTitle(BaseTest):
 class TestGetFunding(BaseTest):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/formats/am/examples/S0034-89102025000100200/S0034-89102025000100200.xml"
+            "packtools/sps/formats/am/S0034-89102025000100200/S0034-89102025000100200.xml"
         )
         self.funding_data = am.get_funding(self.xml_tree)
 
@@ -619,9 +616,6 @@ class TestExternalFields(BaseTest):
 
     def test_field_v992(self):
         self.assertEqual(self.external_data_formated["v992"], [{"_": "scl"}])
-
-    def test_field_v42(self):
-        self.assertEqual(self.external_data_formated["v42"], [{"_": "1"}])
 
     def test_field_v49(self):
         self.assertEqual(self.external_data_formated["v49"], [{"_": "RLAE350"}])

@@ -1,3 +1,5 @@
+import re
+
 ARTICLE_TYPE_MAP = {
     "research-article": "oa",
     "editorial": "ed",
@@ -78,3 +80,34 @@ def generate_am_dict(fields):
 def simple_kv(tag, value):
     return {tag: value}
 
+def format_page_range(fpage, lpage):
+    if fpage and not lpage:
+        return fpage
+    if lpage and not fpage:
+        return lpage
+    if fpage == lpage:
+        return fpage
+    return f"{fpage}-{lpage}"
+
+
+def abbreviate_page_range(first, last):
+    """
+    Abrevia a última página removendo o primeiro dígito comum com a primeira página,
+    apenas se ambos tiverem o mesmo número de dígitos.
+    """
+    if not first or not last:
+        return first, last
+
+    if not first.isdigit() or not last.isdigit():
+        return first, last
+
+    if first == last:
+        return first, last
+
+    if len(first) != len(last):
+        return first, last
+
+    if first[0] == last[0]:
+        return first, last[1:]
+
+    return first, last

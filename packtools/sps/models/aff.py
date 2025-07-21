@@ -1,8 +1,41 @@
+import html
+import re
+
+
 from packtools.sps.utils.xml_utils import (
     node_text_without_fn_xref,
     get_parent_context,
     put_parent_context,
 )
+
+
+def extract_node_text_cleaned(node):
+    """
+    Retorna o conteúdo textual completo de um nó XML (<aff>, por exemplo),
+    com os textos das subtags concatenados, espaços apropriados e texto limpo:
+
+    - Remove múltiplos espaços e quebras de linha
+    - Corrige pontuação com espaçamento incorreto (ex: '85. 040' → '85.040')
+    - Decodifica entidades HTML
+    - Garante separação entre blocos textuais
+    """
+
+    # Coleta os textos das subtags em ordem
+    texts = [text for text in node.itertext()]
+
+    # Junta os blocos com espaço
+    raw_text = " ".join(texts)
+
+    # Remove espaços múltiplos
+    cleaned = " ".join(raw_text.split())
+
+    # Corrige espaçamento após ponto decimal (ex: '85. 040' → '85.040')
+    cleaned = re.sub(r'(?<=\d)\. (?=\d)', '.', cleaned)
+
+    # Decodifica entidades HTML
+    cleaned = html.unescape(cleaned)
+
+    return cleaned
 
 
 def get_node_without_subtag(node):
@@ -164,7 +197,7 @@ class Affiliation:
         """
 
         loc_types = ("state", "city")
-        inst_types = ("orgname", "orgdiv1", "orgdiv2", "original")
+        inst_types = ("orgname", "orgdiv1", "orgdiv2", "original", "normalized")
 
         for node, lang, article_type, parent, parent_id in get_parent_context(
             self._xmltree
@@ -201,6 +234,7 @@ class Affiliation:
                 item = {
                     "id": affiliation_id,
                     "label": label,
+                    "original_affiliation_text": extract_node_text_cleaned(aff_node)
                 }
                 item.update(institution)
                 item.update(address)

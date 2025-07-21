@@ -727,6 +727,7 @@ class AffiliationTest(TestCase):
             {
                 "id": "aff1",
                 "label": "I",
+                "normalized": None,
                 "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                 "orgdiv1": None,
                 "orgdiv2": None,
@@ -748,6 +749,7 @@ class AffiliationTest(TestCase):
                 "state": "MG",
                 "country_code": None,
                 "country_name": "Brasil",
+                "normalized": None,
                 "orgname": "Universidade Federal de Minas Gerais",
                 "orgdiv1": "Faculdade de Medicina",
                 "orgdiv2": None,
@@ -761,6 +763,7 @@ class AffiliationTest(TestCase):
             {
                 "id": "aff3",
                 "label": "III",
+                "normalized": None,
                 "orgname": "Fundação Oswaldo Cruz",
                 "orgdiv1": "Escola Nacional de Saúde Pública Sergio Arouca",
                 "orgdiv2": "Departamento de Ciências Sociais",
@@ -778,6 +781,7 @@ class AffiliationTest(TestCase):
             {
                 "id": "aff4",
                 "label": "IV",
+                "normalized": None,
                 "orgname": "Universidade Federal de Minas Gerais",
                 "orgdiv1": "Faculdade de Farmácia",
                 "orgdiv2": "Departamento de Farmácia Social",
@@ -795,6 +799,7 @@ class AffiliationTest(TestCase):
             {
                 "id": "aff5",
                 "label": "V",
+                "normalized": None,
                 "orgname": "Universidade Federal do Ceará",
                 "orgdiv1": "Faculdade de Medicina",
                 "orgdiv2": "Departamento de Saúde Comunitária",
@@ -835,6 +840,7 @@ class AffiliationTest(TestCase):
                         <label>II</label>
                         <institution content-type="orgdiv1">Faculdade de Medicina</institution>
                         <institution content-type="orgname">Universidade Federal de Minas Gerais</institution>
+                        <institution content-type="normalized">Universidade Estadual do Oeste do Paraná</institution>
                         <addr-line>
                             <named-content content-type="city">Belo Horizonte</named-content>
                             <named-content content-type="state">MG</named-content>
@@ -894,6 +900,7 @@ class AffiliationTest(TestCase):
             "aff1": {
                 "id": "aff1",
                 "label": "I",
+                "normalized": None,
                 "orgname": "Secretaria Municipal de Saúde de Belo Horizonte",
                 "orgdiv1": None,
                 "orgdiv2": None,
@@ -915,6 +922,7 @@ class AffiliationTest(TestCase):
                 "state": "MG",
                 "country_code": None,
                 "country_name": "Brasil",
+                "normalized": "Universidade Estadual do Oeste do Paraná",
                 "orgname": "Universidade Federal de Minas Gerais",
                 "orgdiv1": "Faculdade de Medicina",
                 "orgdiv2": None,
@@ -928,6 +936,7 @@ class AffiliationTest(TestCase):
             "aff3": {
                 "id": "aff3",
                 "label": "III",
+                "normalized": None,
                 "orgname": "Fundação Oswaldo Cruz",
                 "orgdiv1": "Escola Nacional de Saúde Pública Sergio Arouca",
                 "orgdiv2": "Departamento de Ciências Sociais",
@@ -945,6 +954,7 @@ class AffiliationTest(TestCase):
             "aff4": {
                 "id": "aff4",
                 "label": "IV",
+                "normalized": None,
                 "orgname": "Universidade Federal de Minas Gerais",
                 "orgdiv1": "Faculdade de Farmácia",
                 "orgdiv2": "Departamento de Farmácia Social",
@@ -962,6 +972,7 @@ class AffiliationTest(TestCase):
             "aff5": {
                 "id": "aff5",
                 "label": "V",
+                "normalized": None,
                 "orgname": "Universidade Federal do Ceará",
                 "orgdiv1": "Faculdade de Medicina",
                 "orgdiv2": "Departamento de Saúde Comunitária",
