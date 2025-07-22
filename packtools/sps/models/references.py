@@ -113,14 +113,8 @@ class Reference:
     def get_mixed_citation(self):
         return node_plain_text(self.ref.find("./mixed-citation"))
 
-    def get_mixed_citation_xlink(self):
-        ext_link = self.ref.find(".//mixed-citation//ext-link[@ext-link-type='uri']")
-        if ext_link is not None:
-            return ext_link.get("{http://www.w3.org/1999/xlink}href")
-        return None
-
-    def get_comment_xlink(self):
-        ext_link = self.ref.find(".//comment//ext-link[@ext-link-type='uri']")
+    def get_xlink(self):
+        ext_link = self.ref.find(".//ext-link[@ext-link-type='uri']")
         if ext_link is not None:
             return ext_link.get("{http://www.w3.org/1999/xlink}href")
         return None
@@ -212,6 +206,9 @@ class Reference:
             return {"units": units, "text": text}
         return None
 
+    def get_conf_name(self):
+        return node_plain_text(self.ref.find("./element-citation/conf-name"))
+
     @property
     def data(self):
         tags = [
@@ -233,8 +230,7 @@ class Reference:
             ("mixed_citation_sub_tags", self.get_mixed_citation_sub_tags()),
             ("chapter_title", self.get_chapter_title()),
             ("part_title", self.get_part_title()),
-            ("mixed_citation_xlink", self.get_mixed_citation_xlink()),
-            ("comment_xlink", self.get_comment_xlink()),
+            ("xlink", self.get_xlink()),
             ("collab", self.get_collab()),
             ("publisher_name", self.get_publisher_name()),
             ("publisher_loc", self.get_publisher_loc()),
@@ -243,6 +239,7 @@ class Reference:
             ("edition", self.get_edition()),
             ("lang", self.get_citation_lang()),
             ("size_info", self.get_size_info()),
+            ("conf_name", self.get_conf_name()),
         ]
         d = dict()
         for name, value in tags:
