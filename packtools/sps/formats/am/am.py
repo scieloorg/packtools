@@ -65,33 +65,29 @@ def get_articlemeta_issue(xml_tree):
     abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
     has_abstracts = bool(abstracts)
 
-    # Evitar repetição de dígitos quando last_page começa com os mesmos dígitos que first_page
-    first_page, last_page = abbreviate_page_range(meta.fpage, meta.lpage)
-
     fields = [
         ("e", meta.elocation_id, simple_kv),
-        ("f", first_page, simple_kv),
-        ("l", last_page, simple_kv),
+        ("f", meta.fpage, simple_kv),
+        ("l", meta.lpage, simple_kv),
         ("_", "", simple_kv),
     ]
     paginations_or_elocation = generate_am_dict(fields)
 
-    # v42: total de páginas do artigo ou "1" caso elocation
-    if meta.fpage and meta.lpage:
-        try:
-            pages = str(int(meta.lpage) - int(meta.fpage) + 1)
-        except ValueError:
-            pages = "1"
+    # Ordem do artigo no sumário
+    if meta.elocation_id:
+        article_order = meta.elocation_id.lstrip("e")
+    elif meta.fpage:
+        article_order = meta.fpage
     else:
-        pages = "1"
+        article_order = None  # fallback
 
     # (campo ArticleMeta, valor, função geradora)
     fields = [
-        ("v121", meta.order_string_format, simple_field), # ordem do artigo no fascículo
+        ("v121", article_order, simple_field), # ordem do artigo no fascículo
         ("v31", meta.volume, simple_field), # volume
+        ("v32", meta.number, simple_field), # issue
         ("v14", paginations_or_elocation if paginations_or_elocation else None, complex_field), # elocation-id ou paginação
         ("v709", "article" if has_abstracts else "text", simple_field), # tipo de conteúdo
-        ("v42", pages, simple_field),  # tipo de conteúdo
         ("v701", "1", simple_field),  # Número sequencial por tipo de registro
         # fixme: definir a obtenção do valor de v701
     ]
@@ -161,6 +157,7 @@ def get_affs(xml_tree):
 
     list_full_affs = []
     list_short_affs = []
+    list_original_affs = []
 
     for item in affiliations:
         if item.get("parent") != "article":
@@ -200,9 +197,14 @@ def get_affs(xml_tree):
         if short_affs:
             list_short_affs.append(short_affs)
 
+        # v170: originals
+        if original := item.get("original_affiliation_text"):
+            list_original_affs.append({"_": original})
+
     return {
         **multiple_complex_field("v70", list_full_affs),
         **multiple_complex_field("v240", list_short_affs),
+        **multiple_complex_field("v170", list_original_affs),
     }
 
 
@@ -285,16 +287,24 @@ def get_dates(xml_tree):
     """
     dt = dates.ArticleDates(xml_tree)
 
-    accepted_date = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
-    received_date = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
-    #collection_year = f"{format_date(dt.collection_date, ['year'])}0000" if dt.collection_date else None
+    received_date_v111 = format_date(dt.history_dates_dict.get("received"), ["day", "month", "year"], "/")
+    received_date_v112 = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
+    accepted_date_v113 = format_date(dt.history_dates_dict.get("accepted"), ["day", "month", "year"], "/")
+    accepted_date_v114 = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
     collection_year = normalize_date_from_parts(dt.collection_date)
     epub_date = format_date(dt.epub_date, ["year", "month", "day"])
+    try:
+        pub_date = dt.pub_dates[0].get("display")
+    except (IndexError, AttributeError):
+        pub_date = None
 
     fields = [
-        ("v114", accepted_date, simple_field),
-        ("v112", received_date, simple_field),
+        ("v64", pub_date, simple_field),
         ("v65", collection_year, simple_field),
+        ("v111", received_date_v111, simple_field),
+        ("v112", received_date_v112, simple_field),
+        ("v113", accepted_date_v113, simple_field),
+        ("v114", accepted_date_v114, simple_field),
         ("v223", epub_date, simple_field),
     ]
 
@@ -392,14 +402,19 @@ def get_funding(xml_tree):
     """
     funding = funding_group.FundingGroup(xml_tree)
 
-    statement = funding.funding_statement
+    # v102: declaração de financiamento
+    statement = funding.funding_statement or funding.funding_ack[0].get("text")
 
     # v58: órgãos financiadores do artigo.
     sponsors = [{"_": sponsor} for sponsor in funding.funding_sources] or None
 
+    # v60: Número do contrato
+    award_ids = [{"_": award_id} for award_id in funding.award_ids] or None
+
     fields = [
         ("v102", statement, simple_field),
-        ("v58", sponsors, simple_kv)
+        ("v58", sponsors, simple_kv),
+        ("v60", award_ids, simple_kv),
     ]
 
     return generate_am_dict(fields)
@@ -434,7 +449,6 @@ def fill_languages_in_citation_fields(citation_data, external_data, idx, fields)
                 first["l"] = lang
 
 
-
 def get_external_article_data(external_article_data=None):
     """
     Geração dos campos externos do ArticleMeta a partir dos dados fornecidos.
@@ -453,6 +467,7 @@ def get_external_article_data(external_article_data=None):
 
     fields = [
         ("v38", elements_type, simple_kv),  # Tipo de elemento presente no artigo
+        ("v42", external_article_data.get("v42"), simple_field),  # Disponibilidade de acesso do documento
         ("v49", external_article_data.get("v49"), simple_field),  # Código interno de status
         ("v700", external_article_data.get("v700"), simple_field),  # Ordem no processamento
         ("v91", external_article_data.get("v91"), simple_field),  # Data de processamento (AAAAMMDD)
@@ -567,8 +582,6 @@ def get_xml_citation_data(ref):
     size_info = ref.get("size_info")
     v20 = {"u": size_info.get("units"), "_": size_info.get("text")} if size_info else None
 
-    url = ref.get("mixed_citation_xlink") or ref.get("comment_xlink")
-
     citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
     citation_lang = ref.get("lang")
 
@@ -589,7 +602,7 @@ def get_xml_citation_data(ref):
         ("v20", v20, complex_field),
         ("v31", ref.get("volume"), simple_field),
         ("v32", ref.get("issue"), simple_field),
-        ("v37", url, simple_field),
+        ("v37", ref.get("xlink"), simple_field),
         ("v71", pub_type, simple_field),
         ("v14", format_page_range(first_page, last_page), simple_field),
         ("v64", format_date(ref, ["year"]), simple_field),
@@ -602,6 +615,7 @@ def get_xml_citation_data(ref):
         ("v63", ref.get("edition"), simple_field),
         ("v704", v704, simple_field),
         ("v60", comment, simple_field),
+        ("v53", ref.get("conf_name"), simple_field),
     ]
 
     # Título da parte citada
@@ -625,13 +639,13 @@ def get_xml_citation_data(ref):
 
     # Autores e tipo de obra
     is_analytic = any(ref.get(tag) for tag in ("article_title", "part_title", "chapter_title"))
+    analytic_authors = [a for a in all_authors if a.get("person_group_type") == "author"]
+    monographic_authors = [a for a in all_authors if a.get("person_group_type") == "editor"]
+
+    fields.append(("v10", extract_authors(analytic_authors), multiple_complex_field))
+    fields.append(("v16", extract_authors(monographic_authors), multiple_complex_field))
 
     if is_analytic:
-        analytic_authors = [a for a in all_authors if a.get("person_group_type") == "author"]
-        monographic_authors = [a for a in all_authors if a.get("person_group_type") == "editor"]
-
-        fields.append(("v10", extract_authors(analytic_authors), multiple_complex_field))
-        fields.append(("v16", extract_authors(monographic_authors), multiple_complex_field))
         fields.append(("v11", collab[0] if collab else None, simple_field))
 
         if monographic_authors and source:
@@ -641,7 +655,6 @@ def get_xml_citation_data(ref):
         else:
             fields.append(("v30", source, simple_field))
     else:
-        fields.append(("v16", extract_authors(all_authors), multiple_complex_field))
         fields.append(("v17", collab[0] if collab else None, simple_field))
 
         title_value = {"_": source, "l": citation_lang} if citation_lang else source
@@ -652,7 +665,6 @@ def get_xml_citation_data(ref):
     fields.append(("v109", ref.get("date_in_citation"), simple_field))
 
     return generate_am_dict(fields)
-
 
 
 def build(xml_tree, external_data=None):
