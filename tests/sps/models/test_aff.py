@@ -822,6 +822,7 @@ class AffiliationTest(TestCase):
                 self.assertDictEqual(item, expected_output[i])
 
     def test_extract_affiliation_by_id_only_from_article_meta(self):
+        self.maxDiff = None
         xml = """
         <article>
             <front>
