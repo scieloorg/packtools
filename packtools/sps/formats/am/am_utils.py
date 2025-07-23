@@ -112,3 +112,35 @@ def abbreviate_page_range(first, last):
             return first, last[i:]
 
     return first, last
+
+
+def map_contrib_type_to_isis_role(person_group_type):
+    """
+    Mapeia valores de @person-group-type (JATS) para os códigos 'r' usados em ArticleMeta (ISIS).
+
+    Parâmetros:
+    -----------
+    person_group_type : str
+        Valor do atributo @person-group-type (ex: 'author', 'editor', 'translator', etc.)
+
+    Retorna:
+    --------
+    str
+        Código do atributo 'r' correspondente (ex: 'ND', 'ED', 'TR', etc.)
+    """
+    person_type = (person_group_type or "").strip().lower()
+
+    mapping = {
+        "author": "ND",
+        "allauthors": "ND",
+        "editor": "ED",
+        "guest-editor": "ED",
+        "transed": "ED",
+        "translator": "TR",
+        "compiler": "CO",
+        "research-assistant": "CO",
+        "director": "ED",
+    }
+
+    # Retorna o valor mapeado ou None se não houver mapeamento válido
+    return mapping.get(person_type, None)
