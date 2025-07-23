@@ -189,6 +189,12 @@ class Reference:
             return None
         return "".join(el.itertext()).strip()
 
+    def get_degree(self):
+        el = self.ref.xpath('./element-citation/comment[@content-type="degree"]')
+        if len(el) == 0:
+            return None
+        return "".join(el[0].itertext()).strip()
+
     def get_edition(self):
         return node_plain_text(self.ref.find("./element-citation/edition"))
 
@@ -208,6 +214,9 @@ class Reference:
 
     def get_conf_name(self):
         return node_plain_text(self.ref.find("./element-citation/conf-name"))
+
+    def get_conf_loc(self):
+        return node_plain_text(self.ref.find("./element-citation/conf-loc"))
 
     @property
     def data(self):
@@ -240,6 +249,8 @@ class Reference:
             ("lang", self.get_citation_lang()),
             ("size_info", self.get_size_info()),
             ("conf_name", self.get_conf_name()),
+            ("conf_loc", self.get_conf_loc()),
+            ("degree", self.get_degree()),
         ]
         d = dict()
         for name, value in tags:
