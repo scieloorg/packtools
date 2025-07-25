@@ -59,7 +59,7 @@ def multiple_complex_field(key, value_list):
     return {}
 
 
-def format_date(date_dict, fields):
+def format_date(date_dict, fields, sep=""):
     """
     Concatena campos de uma data (como 'year', 'month', 'day') em uma string compacta.
     Retorna None se o dicionário for None ou se todos os campos estiverem ausentes.
@@ -67,7 +67,7 @@ def format_date(date_dict, fields):
     if not date_dict:
         return None
     parts = [date_dict.get(field, "") for field in fields]
-    return "".join(parts) if any(parts) else None
+    return sep.join(parts) if any(parts) else None
 
 
 def generate_am_dict(fields):
@@ -107,7 +107,40 @@ def abbreviate_page_range(first, last):
     if len(first) != len(last):
         return first, last
 
-    if first[0] == last[0]:
-        return first, last[1:]
+    for i in range(len(first)):
+        if first[i] != last[i]:
+            return first, last[i:]
 
     return first, last
+
+
+def map_contrib_type_to_isis_role(person_group_type):
+    """
+    Mapeia valores de @person-group-type (JATS) para os códigos 'r' usados em ArticleMeta (ISIS).
+
+    Parâmetros:
+    -----------
+    person_group_type : str
+        Valor do atributo @person-group-type (ex: 'author', 'editor', 'translator', etc.)
+
+    Retorna:
+    --------
+    str
+        Código do atributo 'r' correspondente (ex: 'ND', 'ED', 'TR', etc.)
+    """
+    person_type = (person_group_type or "").strip().lower()
+
+    mapping = {
+        "author": "ND",
+        "allauthors": "ND",
+        "editor": "ED",
+        "guest-editor": "ED",
+        "transed": "ED",
+        "translator": "TR",
+        "compiler": "CO",
+        "research-assistant": "CO",
+        "director": "ED",
+    }
+
+    # Retorna o valor mapeado ou None se não houver mapeamento válido
+    return mapping.get(person_type, None)

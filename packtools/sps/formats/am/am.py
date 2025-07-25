@@ -21,7 +21,9 @@ from packtools.sps.formats.am.am_utils import (
     ARTICLE_TYPE_MAP,
     generate_am_dict,
     simple_kv,
-    abbreviate_page_range, format_page_range,
+    abbreviate_page_range,
+    format_page_range,
+    map_contrib_type_to_isis_role,
 )
 
 
@@ -65,33 +67,29 @@ def get_articlemeta_issue(xml_tree):
     abstracts = article_abstract.Abstract(xml_tree).get_abstracts_by_lang(style="inline")
     has_abstracts = bool(abstracts)
 
-    # Evitar repetição de dígitos quando last_page começa com os mesmos dígitos que first_page
-    first_page, last_page = abbreviate_page_range(meta.fpage, meta.lpage)
-
     fields = [
         ("e", meta.elocation_id, simple_kv),
-        ("f", first_page, simple_kv),
-        ("l", last_page, simple_kv),
+        ("f", meta.fpage, simple_kv),
+        ("l", meta.lpage, simple_kv),
         ("_", "", simple_kv),
     ]
     paginations_or_elocation = generate_am_dict(fields)
 
-    # v42: total de páginas do artigo ou "1" caso elocation
-    if meta.fpage and meta.lpage:
-        try:
-            pages = str(int(meta.lpage) - int(meta.fpage) + 1)
-        except ValueError:
-            pages = "1"
+    # Ordem do artigo no sumário
+    if meta.elocation_id:
+        article_order = meta.elocation_id.lstrip("e")
+    elif meta.fpage:
+        article_order = meta.fpage
     else:
-        pages = "1"
+        article_order = None  # fallback
 
     # (campo ArticleMeta, valor, função geradora)
     fields = [
-        ("v121", meta.order_string_format, simple_field), # ordem do artigo no fascículo
+        ("v121", article_order, simple_field), # ordem do artigo no fascículo
         ("v31", meta.volume, simple_field), # volume
+        ("v32", meta.number, simple_field), # issue
         ("v14", paginations_or_elocation if paginations_or_elocation else None, complex_field), # elocation-id ou paginação
         ("v709", "article" if has_abstracts else "text", simple_field), # tipo de conteúdo
-        ("v42", pages, simple_field),  # tipo de conteúdo
         ("v701", "1", simple_field),  # Número sequencial por tipo de registro
         # fixme: definir a obtenção do valor de v701
     ]
@@ -161,6 +159,7 @@ def get_affs(xml_tree):
 
     list_full_affs = []
     list_short_affs = []
+    list_original_affs = []
 
     for item in affiliations:
         if item.get("parent") != "article":
@@ -200,9 +199,14 @@ def get_affs(xml_tree):
         if short_affs:
             list_short_affs.append(short_affs)
 
+        # v170: originals
+        if original := item.get("original_affiliation_text"):
+            list_original_affs.append({"_": original})
+
     return {
         **multiple_complex_field("v70", list_full_affs),
         **multiple_complex_field("v240", list_short_affs),
+        **multiple_complex_field("v170", list_original_affs),
     }
 
 
@@ -211,29 +215,26 @@ def count_references(xml_tree):
     return str(len(refs))
 
 
-def extract_authors(all_authors):
+def extract_author(author):
     """
-    Extrai e estrutura os dados simplificados dos autores no formato ArticleMeta (v10).
+    Extrai e estrutura os dados simplificados do autor no formato ArticleMeta.
     """
-    authors_list = []
+    author_type = map_contrib_type_to_isis_role(author.get("person_group_type"))
+    name_parts = [v for v in [author.get("given-names"), author.get("prefix")] if v is not None]
+    name = " ".join(name_parts)
 
-    for author in all_authors or []:
-        name_parts = [v for v in [author.get("given-names"), author.get("prefix")] if v is not None]
-        name = " ".join(name_parts)
+    if not(name or author.get("surname")):
+        return None
 
-        fields = [
-            ("n", name, simple_kv),                          # prenome
-            ("s", author.get("surname"), simple_kv),         # sobrenome
-            ("z", author.get("suffix"), simple_kv),          # sufixo
-            ("r", author.get("role", "ND"), simple_kv),      # tipo de contribuição
-            ("_", "", simple_kv),                            # campo vazio obrigatório
-        ]
+    fields = [
+        ("n", name, simple_kv),                          # prenome
+        ("s", author.get("surname"), simple_kv),         # sobrenome
+        ("z", author.get("suffix"), simple_kv),          # sufixo
+        ("r", author_type, simple_kv),                   # tipo de contribuição
+        ("_", "", simple_kv),                            # campo vazio obrigatório
+    ]
 
-        authors = generate_am_dict(fields)
-        if name or author.get("surname"):
-            authors_list.append(authors)
-
-    return authors_list
+    return generate_am_dict(fields)
 
 
 def normalize_date_from_parts(date_parts):
@@ -285,16 +286,24 @@ def get_dates(xml_tree):
     """
     dt = dates.ArticleDates(xml_tree)
 
-    accepted_date = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
-    received_date = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
-    #collection_year = f"{format_date(dt.collection_date, ['year'])}0000" if dt.collection_date else None
+    received_date_v111 = format_date(dt.history_dates_dict.get("received"), ["day", "month", "year"], "/")
+    received_date_v112 = format_date(dt.history_dates_dict.get("received"), ["year", "month", "day"])
+    accepted_date_v113 = format_date(dt.history_dates_dict.get("accepted"), ["day", "month", "year"], "/")
+    accepted_date_v114 = format_date(dt.history_dates_dict.get("accepted"), ["year", "month", "day"])
     collection_year = normalize_date_from_parts(dt.collection_date)
     epub_date = format_date(dt.epub_date, ["year", "month", "day"])
+    try:
+        pub_date = dt.pub_dates[0].get("display")
+    except (IndexError, AttributeError):
+        pub_date = None
 
     fields = [
-        ("v114", accepted_date, simple_field),
-        ("v112", received_date, simple_field),
+        ("v64", pub_date, simple_field),
         ("v65", collection_year, simple_field),
+        ("v111", received_date_v111, simple_field),
+        ("v112", received_date_v112, simple_field),
+        ("v113", accepted_date_v113, simple_field),
+        ("v114", accepted_date_v114, simple_field),
         ("v223", epub_date, simple_field),
     ]
 
@@ -392,14 +401,19 @@ def get_funding(xml_tree):
     """
     funding = funding_group.FundingGroup(xml_tree)
 
-    statement = funding.funding_statement
+    # v102: declaração de financiamento
+    statement = funding.funding_statement or funding.funding_ack[0].get("text")
 
     # v58: órgãos financiadores do artigo.
     sponsors = [{"_": sponsor} for sponsor in funding.funding_sources] or None
 
+    # v60: Número do contrato
+    award_ids = [{"_": award_id} for award_id in funding.award_ids] or None
+
     fields = [
         ("v102", statement, simple_field),
-        ("v58", sponsors, simple_kv)
+        ("v58", sponsors, simple_kv),
+        ("v60", award_ids, simple_kv),
     ]
 
     return generate_am_dict(fields)
@@ -434,7 +448,6 @@ def fill_languages_in_citation_fields(citation_data, external_data, idx, fields)
                 first["l"] = lang
 
 
-
 def get_external_article_data(external_article_data=None):
     """
     Geração dos campos externos do ArticleMeta a partir dos dados fornecidos.
@@ -453,6 +466,7 @@ def get_external_article_data(external_article_data=None):
 
     fields = [
         ("v38", elements_type, simple_kv),  # Tipo de elemento presente no artigo
+        ("v42", external_article_data.get("v42"), simple_field),  # Disponibilidade de acesso do documento
         ("v49", external_article_data.get("v49"), simple_field),  # Código interno de status
         ("v700", external_article_data.get("v700"), simple_field),  # Ordem no processamento
         ("v91", external_article_data.get("v91"), simple_field),  # Data de processamento (AAAAMMDD)
@@ -556,6 +570,93 @@ def get_xml_article_metadata(xml_tree):
     }
 
 
+def get_citation_title(ref):
+    """
+    Extrai o título da parte citada, retornando os dados para o campo v12 do formato ArticleMeta.
+    """
+    citation_title = (
+        ref.get("article_title")
+        or ref.get("chapter_title")
+        or ref.get("part_title")
+    )
+    if not citation_title:
+        return None
+
+    citation_lang = ref.get("lang")
+    title_field = (
+        {"_": citation_title, "l": citation_lang}
+        if citation_lang else citation_title
+    )
+    title_func = complex_field if citation_lang else simple_field
+
+    return "v12", title_field, title_func
+
+
+def get_citation_pagination(ref):
+    """
+    Retorna a informação de paginação (v514) de uma citação.
+    """
+    fpage = ref.get("fpage")
+    lpage = ref.get("lpage")
+    elocation = ref.get("elocation_id")
+    pub_type = ref.get("publication_type")
+
+    if not any([fpage, lpage, elocation]):
+        return None
+
+    pagination_fields = [
+        ("l", lpage, simple_kv),
+        ("f", fpage, simple_kv),
+        ("e", elocation, simple_kv),
+        ("_", "", simple_kv),  # campo obrigatório quando existe qualquer valor
+    ]
+
+    if pub_type in {
+        "book", "confproc", "journal", "legal-doc",
+        "newspaper", "report", "thesis"
+    }:
+        return "v514", generate_am_dict(pagination_fields), complex_field
+
+    return None
+
+
+def is_analytic_author(ref, person_group_type=None):
+    """
+    Retorna True se o autor deve ser considerado analítico (parte de uma obra),
+    ou False se for monográfico (obra completa).
+
+    - Em publicações do tipo "book", autores de capítulo são analíticos.
+    - Editores em livros são monográficos.
+    """
+    pub_type = ref.get("publication_type")
+    is_book = pub_type == "book"
+    has_chapter = bool(ref.get("part_title") or ref.get("chapter_title"))
+
+    if is_book:
+        if person_group_type == "editor":
+            return False
+        return has_chapter
+
+    return pub_type in {"journal", "confproc", "newspaper", "preprint"}
+
+
+def determine_author_tag(ref, person_group_type):
+    """
+    Decide qual tag de autor aplicar (v10, v11, v16 ou v17) com base nos metadados de uma referência.
+    """
+    is_person = ref.get("author_type") == "person"
+    is_analytic = is_analytic_author(ref, person_group_type)
+
+    if is_person and is_analytic:
+        return "v10"  # Pessoa, analítica
+    elif not is_person and is_analytic:
+        return "v11"  # Instituição, analítica
+    elif is_person and not is_analytic:
+        return "v16"  # Pessoa, monográfica
+    else:
+        return "v17"  # Instituição, monográfica
+
+
 def get_xml_citation_data(ref):
     # Campos auxiliares para composição de valores
     comment = ref.get("comment")
@@ -567,92 +668,63 @@ def get_xml_citation_data(ref):
     size_info = ref.get("size_info")
     v20 = {"u": size_info.get("units"), "_": size_info.get("text")} if size_info else None
 
-    url = ref.get("mixed_citation_xlink") or ref.get("comment_xlink")
-
-    citation_title = ref.get("article_title") or ref.get("chapter_title") or ref.get("part_title")
-    citation_lang = ref.get("lang")
-
-    fpage = ref.get("fpage")
-    lpage = ref.get("lpage")
-    elocation = ref.get("elocation_id")
-    first_page, last_page = abbreviate_page_range(fpage, lpage)
+    first_page, last_page = abbreviate_page_range(ref.get("fpage"), ref.get("lpage"))
 
     citation_ids = ref.get("citation_ids", {})
-    source = ref.get("source")
-    pub_type = ref.get("publication_type")
-    collab = ref.get("collab")
-    all_authors = ref.get("all_authors", [])
 
     # Campos bibliográficos básicos (formato AM)
     fields = [
-        ("v118", ref.get("label"), simple_field),
+        ("v14", format_page_range(first_page, last_page), simple_field),
         ("v20", v20, complex_field),
         ("v31", ref.get("volume"), simple_field),
         ("v32", ref.get("issue"), simple_field),
-        ("v37", url, simple_field),
-        ("v71", pub_type, simple_field),
-        ("v14", format_page_range(first_page, last_page), simple_field),
+        ("v37", ref.get("xlink"), simple_field),
+        ("v51", ref.get("degree"), simple_field),
+        ("v53", ref.get("conf_name"), simple_field),
+        ("v56", ref.get("conf_loc"), simple_field),
+        ("v60", comment, simple_field),
+        ("v61", availability_note, simple_field),
+        ("v62", ref.get("publisher_name"), simple_field),
+        ("v63", ref.get("edition"), simple_field),
         ("v64", format_date(ref, ["year"]), simple_field),
         ("v65", f"{format_date(ref, ['year'])}0000", simple_field),
-        ("v237", citation_ids.get("doi"), simple_field),
-        ("v62", ref.get("publisher_name"), simple_field),
         ("v66", ref.get("publisher_loc"), simple_field),
-        ("v61", availability_note, simple_field),
-        ("v810", "et al" if ref.get("has_etal") else None, simple_field),
-        ("v63", ref.get("edition"), simple_field),
+        ("v71", ref.get("publication_type"), simple_field),
+        ("v109", ref.get("date_in_citation"), simple_field),
+        ("v118", ref.get("label"), simple_field),
+        ("v237", citation_ids.get("doi"), simple_field),
         ("v704", v704, simple_field),
-        ("v60", comment, simple_field),
+        ("v810", "et al" if ref.get("has_etal") else None, simple_field),
     ]
 
-    # Título da parte citada
-    if citation_title:
-        title_field = (
-            {"_": citation_title, "l": citation_lang}
-            if citation_lang else citation_title
-        )
-        fields.append(("v12", title_field, complex_field if citation_lang else simple_field))
+    citation_title_field = get_citation_title(ref) # v12
+    if citation_title_field:
+        fields.append(citation_title_field)
 
-    # Paginação completa (v514)
-    pagination_fields = [
-        ("l", lpage, simple_kv),
-        ("f", fpage, simple_kv),
-        ("e", elocation, simple_kv),
-    ]
-    if any([lpage, fpage, elocation]):
-        pagination_fields.append(("_", "", simple_kv))
-    if pub_type in ["book", "confproc", "journal", "legal-doc", "newspaper", "report", "thesis"]:
-        fields.append(("v514", generate_am_dict(pagination_fields), complex_field))
+    pagination_field = get_citation_pagination(ref) # v514
+    if pagination_field:
+        fields.append(pagination_field)
 
-    # Autores e tipo de obra
-    is_analytic = any(ref.get(tag) for tag in ("article_title", "part_title", "chapter_title"))
+    # Autores (v10, v11, v16 ou v17)
+    authors = {}
+    for author in ref.get("all_authors", []):
+        tag = determine_author_tag(ref, author.get("person_group_type"))
+        authors.setdefault(tag, [])
+        authors[tag].append(extract_author(author))
 
-    if is_analytic:
-        analytic_authors = [a for a in all_authors if a.get("person_group_type") == "author"]
-        monographic_authors = [a for a in all_authors if a.get("person_group_type") == "editor"]
+    for tag, author_list in authors.items():
+        fields.append((tag, author_list, multiple_complex_field))
 
-        fields.append(("v10", extract_authors(analytic_authors), multiple_complex_field))
-        fields.append(("v16", extract_authors(monographic_authors), multiple_complex_field))
-        fields.append(("v11", collab[0] if collab else None, simple_field))
-
-        if monographic_authors and source:
-            title_value = {"_": source, "l": citation_lang} if citation_lang else source
-            title_func = complex_field if citation_lang else simple_field
-            fields.append(("v18", title_value, title_func))
-        else:
-            fields.append(("v30", source, simple_field))
+    citation_lang = ref.get("lang")
+    source = ref.get("source")
+    if is_analytic_author(ref):
+        fields.append(("v30", source, simple_field))
     else:
-        fields.append(("v16", extract_authors(all_authors), multiple_complex_field))
-        fields.append(("v17", collab[0] if collab else None, simple_field))
-
         title_value = {"_": source, "l": citation_lang} if citation_lang else source
         title_func = complex_field if citation_lang else simple_field
         fields.append(("v18", title_value, title_func))
 
-    # Data de publicação não seriada
-    fields.append(("v109", ref.get("date_in_citation"), simple_field))
-
     return generate_am_dict(fields)
-
 
 
 def build(xml_tree, external_data=None):
