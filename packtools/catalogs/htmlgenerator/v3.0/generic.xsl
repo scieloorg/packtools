@@ -5,4 +5,8 @@
 
     <xsl:include href="../v2.0/generic.xsl"/>
 
+    <xsl:template match="@id" mode="add_span_id">
+        <span id="{.}"/>
+    </xsl:template>
+
 </xsl:stylesheet>
