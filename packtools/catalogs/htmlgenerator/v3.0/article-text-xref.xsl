@@ -95,7 +95,7 @@
         <xsl:variable name="elem"><xsl:choose>
             <xsl:when test="sup">sup</xsl:when>
             <xsl:when test="$article//ref[@id=$id]/label">sup</xsl:when>
-            <xsl:when test="starts-with($article//ref/mixed-citation)">1</xsl:when>
+            <xsl:when test="starts-with($article//ref/mixed-citation, '1')">sup</xsl:when>
             <xsl:otherwise>span</xsl:otherwise>
         </xsl:choose></xsl:variable>
         <!--
