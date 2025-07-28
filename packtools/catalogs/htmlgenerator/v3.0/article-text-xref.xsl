@@ -46,6 +46,10 @@
         <xsl:apply-templates select="*|text()"/>
     </xsl:template>
 
+    <xsl:template match="xref">
+        <a href="#{@rid}"><xsl:apply-templates select="*|text()"/></a>
+    </xsl:template>
+
     <xsl:template match="xref[@ref-type='equation' or @ref-type='disp-formula']">
         <!-- <a href="#{@rid}" class="goto"><span class="sci-ico-fileFormula"></span> <xsl:apply-templates select="*|text()"></xsl:apply-templates></a> -->
         <a href="" class="open-asset-modal" data-toggle="modal" data-target="#ModalScheme{translate(@rid,'.','_')}">
