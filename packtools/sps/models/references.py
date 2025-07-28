@@ -254,11 +254,16 @@ class Reference:
         ]
         d = dict()
         for name, value in tags:
-            if value is not None and len(value) > 0:
-                try:
-                    d[name] = value.text
-                except AttributeError:
-                    d[name] = value
+            if value is not None:
+                if isinstance(value, str):
+                    if value.strip():
+                        d[name] = value
+                else:
+                    try:
+                        d[name] = value.text
+                    except AttributeError:
+                        d[name] = value
+
         d["author_type"] = "institutional" if self.get_collab() else "person"
         d["count_persons"] = len(self.ref.findall(".//person-group"))
         d["has_etal"] = self.ref.find(".//person-group/etal") is not None

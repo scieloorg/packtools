@@ -402,7 +402,10 @@ def get_funding(xml_tree):
     funding = funding_group.FundingGroup(xml_tree)
 
     # v102: declaração de financiamento
-    statement = funding.funding_statement or funding.funding_ack[0].get("text")
+    statement = (
+            funding.funding_statement
+            or (funding.funding_ack[0].get("text") if funding.funding_ack else None)
+    )
 
     # v58: órgãos financiadores do artigo.
     sponsors = [{"_": sponsor} for sponsor in funding.funding_sources] or None
@@ -628,16 +631,15 @@ def is_analytic_author(ref, person_group_type=None):
     - Em publicações do tipo "book", autores de capítulo são analíticos.
     - Editores em livros são monográficos.
     """
+    if person_group_type == "editor":
+        return False
+
+    if ref.get("part_title") or ref.get("chapter_title") or ref.get("article_title"):
+        return True
+
     pub_type = ref.get("publication_type")
-    is_book = pub_type == "book"
-    has_chapter = bool(ref.get("part_title") or ref.get("chapter_title"))
 
-    if is_book:
-        if person_group_type == "editor":
-            return False
-        return has_chapter
-
-    return pub_type in {"journal", "confproc", "newspaper", "preprint"}
+    return pub_type in {"confproc", "newspaper", "preprint"}
 
 
 def determine_author_tag(ref, person_group_type):
