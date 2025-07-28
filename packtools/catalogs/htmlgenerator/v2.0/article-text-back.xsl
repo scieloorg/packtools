@@ -122,6 +122,7 @@
     </xsl:template>
         
     <xsl:template match="*" mode="back-section">
+        <xsl:apply-templates select="@id" mode="add_span_id"/>
         <div>
             <xsl:apply-templates select="." mode="back-section-menu"/>
             <xsl:apply-templates select="." mode="back-section-h"/>
