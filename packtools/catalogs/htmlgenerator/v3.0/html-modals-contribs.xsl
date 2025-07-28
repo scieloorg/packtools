@@ -234,7 +234,7 @@
     <xsl:template match="author-notes/corresp/email" mode="modal-contrib">
         <xsl:variable name="text"><xsl:apply-templates select="..//text()" mode="corresp-texts"/></xsl:variable>
         <xsl:choose>
-            <xsl:when test="contains($text, 'mail')">2
+            <xsl:when test="contains($text, 'mail')">
                 <xsl:apply-templates select="."/>
             </xsl:when>
             <xsl:otherwise>
