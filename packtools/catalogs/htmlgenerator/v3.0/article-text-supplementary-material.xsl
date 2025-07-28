@@ -41,9 +41,11 @@
         <xsl:variable name="media_text"><xsl:apply-templates select="media" mode="texts"/></xsl:variable>
         <xsl:choose>
             <xsl:when test="normalize-space($media_text)=''">
-                <a href="{media/@xlink:href}" download="1">
-                    <xsl:value-of select="label"/>
-                </a>
+                <p name="{@id}">
+                    <a href="{media/@xlink:href}" download="1">
+                        <xsl:value-of select="label"/>
+                    </a>
+                </p>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="*|text()"/>
