@@ -402,7 +402,10 @@ def get_funding(xml_tree):
     funding = funding_group.FundingGroup(xml_tree)
 
     # v102: declaração de financiamento
-    statement = funding.funding_statement or funding.funding_ack[0].get("text")
+    statement = (
+            funding.funding_statement
+            or (funding.funding_ack[0].get("text") if funding.funding_ack else None)
+    )
 
     # v58: órgãos financiadores do artigo.
     sponsors = [{"_": sponsor} for sponsor in funding.funding_sources] or None
