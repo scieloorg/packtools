@@ -1,0 +1,1862 @@
+
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">rsp</journal-id>
+      <journal-id journal-id-type="nlm-ta">Rev Saude Publica</journal-id>
+      <journal-title-group>
+        <journal-title>Revista de Saúde Pública</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Rev. Saúde Pública</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">0034-8910</issn>
+      <issn pub-type="epub">1518-8787</issn>
+      <publisher>
+        <publisher-name>Faculdade de Saúde Pública da Universidade de São Paulo</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">FtqMmr7jqDbWT8nPGwjKP3M</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S0034-89102025000100200</article-id>
+      <article-id pub-id-type="other">00200</article-id>
+      <article-id pub-id-type="doi">10.11606/s1518-8787.2025059006139</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Original Article</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Temporal trends and spatial patterns of Hepatitis C-related mortality in Brazil</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-6622-6585</contrib-id>
+          <name>
+            <surname>Hyppolito</surname>
+            <given-names>Elodie Bomfim</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">I</xref>
+          <xref ref-type="aff" rid="aff2">II</xref>
+          <xref ref-type="aff" rid="aff3">III</xref>
+          <xref ref-type="corresp" rid="c1"/>
+          <role>Study design and planning</role>
+          <role>Data collection, analysis, and interpretation</role>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-7982-1757</contrib-id>
+          <name>
+            <surname>Ramos</surname>
+            <given-names>Alberto Novaes</given-names>
+            <suffix>Júnior</suffix>
+          </name>
+          <xref ref-type="aff" rid="aff1">I</xref>
+          <role>Study design and planning</role>
+          <role>Data collection, analysis, and interpretation</role>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-1816-9459</contrib-id>
+          <name>
+            <surname>Ferreira</surname>
+            <given-names>Anderson Fuentes</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">I</xref>
+          <role>Data collection, analysis, and interpretation</role>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0009-0008-2698-0242</contrib-id>
+          <name>
+            <surname>Dantas</surname>
+            <given-names>Thor Oliveira</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff4">IV</xref>
+          <role>Data collection, analysis, and interpretation</role>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0001-9001-8404</contrib-id>
+          <name>
+            <surname>Lima</surname>
+            <given-names>José Milton de Castro</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff5">V</xref>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-1558-0506</contrib-id>
+          <name>
+            <surname>Silva</surname>
+            <given-names>Taynara Laís</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff1">I</xref>
+          <role>Drafting and revision of the manuscript</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0003-0291-9523</contrib-id>
+          <name>
+            <surname>Pires</surname>
+            <given-names>Roberto da Justa</given-names>
+            <suffix>Neto</suffix>
+          </name>
+          <xref ref-type="aff" rid="aff1">I</xref>
+          <xref ref-type="aff" rid="aff6">VI</xref>
+          <role>Study design and planning</role>
+          <role>Data collection, analysis, and interpretation</role>
+          <role>Approval of final version</role>
+          <role>Public responsibility for the content of the article</role>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">
+        <label>I</label>
+        <institution content-type="original">Universidade Federal do Ceará. Faculdade de Medicina. Programa de Pós-graduação em Saúde Pública. Fortaleza, CE, Brasil</institution>
+        <institution content-type="orgname">Universidade Federal do Ceará</institution>
+        <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+        <institution content-type="orgdiv2">Programa de Pós-graduação em Saúde Pública</institution>
+        <addr-line>
+          <state>CE</state>
+          <city>Fortaleza</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff2">
+        <label>II</label>
+        <institution content-type="original">Secretaria de Saúde do Estado do Ceará. Hospital São José de Doenças Infecciosas. Fortaleza, CE, Brasil</institution>
+        <institution content-type="orgname">Secretaria de Saúde do Estado do Ceará</institution>
+        <institution content-type="orgdiv1">Hospital São José de Doenças Infecciosas</institution>
+        <addr-line>
+          <state>CE</state>
+          <city>Fortaleza</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff3">
+        <label>III</label>
+        <institution content-type="original">Universidade de Fortaleza. Fortaleza, CE, Brasil</institution>
+        <institution content-type="orgname">Universidade de Fortaleza</institution>
+        <addr-line>
+          <state>CE</state>
+          <city>Fortaleza</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff4">
+        <label>IV</label>
+        <institution content-type="original">Universidade Federal do Acre. Centro de Ciências da Saúde e do Desporto. Rio Branco, AC, Brasil</institution>
+        <institution content-type="orgname">Universidade Federal do Acre</institution>
+        <institution content-type="orgdiv1">Centro de Ciências da Saúde e do Desporto</institution>
+        <addr-line>
+          <state>AC</state>
+          <city>Rio Branco</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff5">
+        <label>V</label>
+        <institution content-type="original">Universidade Federal do Ceará. Faculdade de Medicina. Departamento de Clínica Médica. Fortaleza, CE, Brasil</institution>
+        <institution content-type="orgname">Universidade Federal do Ceará</institution>
+        <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+        <institution content-type="orgdiv2">Departamento de Clínica Médica</institution>
+        <addr-line>
+          <state>CE</state>
+          <city>Fortaleza</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <aff id="aff6">
+        <label>VI</label>
+        <institution content-type="original">Universidade Federal do Ceará. Faculdade de Medicina. Departamento de Saúde Comunitária. Fortaleza, CE, Brasil</institution>
+        <institution content-type="orgname">Universidade Federal do Ceará</institution>
+        <institution content-type="orgdiv1">Faculdade de Medicina</institution>
+        <institution content-type="orgdiv2">Departamento de Saúde Comunitária</institution>
+        <addr-line>
+          <state>CE</state>
+          <city>Fortaleza</city>
+        </addr-line>
+        <country country="BR">Brasil</country>
+      </aff>
+      <author-notes>
+        <corresp id="c1"><label>Correspondence:</label> Elodie Bomfim Hyppolito Universidade Federal do Ceará Faculdade de Medicina Programa de Pós-Graduação em Saúde Pública Rua Professor Costa Mendes, 1.608 – Bloco didático, 5°andar 60430-140, Fortaleza, CE, Brasil E-mail: <email>elodie.hyppolito@gmail.com</email> </corresp>
+        <fn fn-type="conflict">
+          <label>Conflict of Interest:</label>
+          <p>The authors declare no conflict of interest.</p>
+        </fn>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>24</day>
+        <month>03</month>
+        <year>2025</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2025</year>
+      </pub-date>
+      <volume>59</volume>
+      <elocation-id>e1</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>07</day>
+          <month>02</month>
+          <year>2024</year>
+        </date>
+        <date date-type="accepted">
+          <day>03</day>
+          <month>05</month>
+          <year>2024</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0" xml:lang="en">
+          <license-p>This is an open-access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided that the original author and source are credited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <title>ABSTRACT</title>
+        <sec>
+          <label>OBJECTIVE:</label>
+          <p>To analyze the trends and spatial patterns of hepatitis C-related mortality in Brazil from 2000 to 2020.</p>
+        </sec>
+        <sec sec-type="methods">
+          <label>METHODS:</label>
+          <p>A population-based, mixed ecological study of spatial and temporal trends, using secondary data from death certificate (DC) registries, in which hepatitis C was mentioned as an underlying or associated cause of mortality. Temporal trends were analyzed by joinpoint regression, and spatial analysis by the distribution of adjusted rates by age and sex, and spatial autocorrelation by the local Moran index and the Getis-Ord Gi* index (Gi star).</p>
+        </sec>
+        <sec sec-type="results">
+          <label>RESULTS:</label>
+          <p>From 2000 to 2020, 64,029 deaths due to hepatitis C were recorded in the Mortality Information System (SIM), representing 0.26% of deaths in Brazil. Most deaths were due to underlying causes (n = 33,652, 52.6%). Areas with high rates in all five analyzed periods were identified in the states of São Paulo, southern Minas Gerais, southern Rio de Janeiro, northern Paraná, southern and coastal Santa Catarina, eastern Mato Grosso do Sul, and Rio Grande do Sul. The states of Acre and southern Amazonas showed high rates after 2004, which spread to northern Rondônia from 2016 to 2020. The joinpoint regression model showed an increasing trend in hepatitis C mortality in Brazil from 2000 to 2015, but a decreasing trend from 2016-2020. The mortality rate was higher in men and people over sixty years of age.</p>
+        </sec>
+        <sec sec-type="conclusions">
+          <label>CONCLUSION:</label>
+          <p>Differences were observed in the temporal and spatial trend of hepatitis C mortality in different regions of Brazil. These data may support the design of hepatitis C elimination strategies in Brazil, according to regional specificities.</p>
+        </sec>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>DESCRITORES:</title>
+        <kwd>Hepatitis C</kwd>
+        <kwd>Mortality</kwd>
+        <kwd>Spatial Analysis</kwd>
+        <kwd>Time Series Study</kwd>
+        <kwd>Epidemiology</kwd>
+      </kwd-group>
+      <funding-group>
+        <award-group>
+          <funding-source>CAPES</funding-source>
+          <funding-source>CNPq</funding-source>
+        </award-group>
+        <funding-statement><bold>Funding:</bold> Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ). </funding-statement>
+      </funding-group>
+      <counts>
+        <fig-count count="4"/>
+        <table-count count="1"/>
+        <ref-count count="27"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <sec sec-type="intro">
+      <title>INTRODUCTION</title>
+      <p>Hepatitis C (HC) is a worldwide infection caused by an RNA virus that is primarily transmitted through blood. Patients who received blood before 1993, intravenous drug users, healthcare professionals, and adults over 45 years of age are the populations with the highest prevalence of this infection<sup><xref alt="1" ref-type="bibr" rid="B1">1</xref> , <xref alt="2" ref-type="bibr" rid="B2">2</xref></sup>.</p>
+      <p>A recent serological survey, conducted from 2005 to 2009, showed an overall prevalence of anti-HCV antibodies of 1.38% in the capital cities of Brazil. Seropositivity ranged from 0.68% in the Northeast Region to 2.10% in the North Region<sup><xref alt="1" ref-type="bibr" rid="B1">1</xref></sup>. Most will remain infected as chronic carriers. If left untreated, chronic hepatitis C virus may lead to cirrhosis in up to one third of those infected individuals after 20 to 30 years. Hepatocarcinoma occurs in 1% to 4% of patients with cirrhosis. Hepatitis C is the most commonly reported hepatitis in Brazil, accounting for 38.1% of all viral hepatitis cases reported in the country. In 2020, 47.9% of these cases occurred in the Southeast region, 35.2% in the South, 5.9% in the Northeast, 5.6% in the Central-West, and 5.4% in the North. Hepatitis C is also the most lethal form of viral hepatitis in Brazil, being the third cause of hepatocarcinoma after hepatitis B and alcohol, and the second cause of liver transplantation <sup><xref alt="3" ref-type="bibr" rid="B3">3</xref> , <xref alt="4" ref-type="bibr" rid="B4">4</xref></sup>.</p>
+      <p>Since 2015, the Unified Health System has started to treat hepatitis C with drugs of direct antiviral action (DAAs) which, despite their high cost, cure most of the patients. The researchers reviewed multicenter trials involving 3,939 patients across the country. Overall, Standard Variable Rates were greater than 95%<sup><xref alt="5" ref-type="bibr" rid="B5">5</xref></sup>.</p>
+      <p>Few studies have evaluated mortality from hepatitis C in Brazil. One study showed that from January 2008 to December 2014 a total of 8,106,219 deaths were registered in Brazil. During this period, 0.43% (n = 34,978) of deaths had <ext-link ext-link-type="uri" xlink:href="https://www.who.int/standards/classifications/classification-of-diseases">International Classification of Diseases</ext-link> (ICD-10) codes related to viral hepatitis as the primary, secondary, or contributing cause of death<sup><xref alt="6" ref-type="bibr" rid="B6">6</xref></sup>. In another study evaluating the period from 2008 to 2018, approximately 140,000 newly diagnosed cases of hepatitis C were considered anti-HCV and HCV RNA positive, with an increasing trend in Brazil, but a decreasing trend in the mortality rate during the period analysed<sup><xref alt="7" ref-type="bibr" rid="B7">7</xref></sup>. Another study addressed mortality from hepatitis A, B, and C in Brazil, from 2001 to 2020, and found similar results<sup><xref alt="8" ref-type="bibr" rid="B8">8</xref></sup>.</p>
+      <p>This study aims to analyze the burden of hepatitis C mortality, temporal trends, and spatial patterns of hepatitis C mortality in Brazil, from 2000 to 2020.</p>
+    </sec>
+    <sec sec-type="methods">
+      <title>METHODS</title>
+      <sec>
+        <title>Study Design</title>
+        <p>We conducted a mixed ecological study to analyze the spatial distribution and temporal trends. We used information from selected Death Certificates (DC) with hepatitis-related deaths (associated and underlying causes), in Brazil, according to the International Statistical Classification of Diseases and Health Problems in its tenth revision (ICD-10). The following ICD-10 codes were used for identification: B17.1 – Acute hepatitis C; B18.2 – Chronic viral hepatitis C.</p>
+      </sec>
+      <sec>
+        <title>Study Area</title>
+        <p>The study was conducted in Brazil, the largest country in South America in terms of area and population, with an area of 8.5 million km² and an estimated population of 213.3 million inhabitants. The Southeast region has the highest population density (86.9 inhabitants per km²), while the North region has the lowest (4.1 inhabitants per km<sup>2</sup>)<sup><xref alt="9" ref-type="bibr" rid="B9">9</xref></sup>.</p>
+        <p>According to data from the 2010 Brazilian census, Brazil has a Gini index of 0.60, reflecting the inequality in the country, which is more pronounced in the North and Northeast regions (Gini of 0.62)<sup><xref alt="10" ref-type="bibr" rid="B10">10</xref></sup>.</p>
+        <p>The 2019 National Continuous Household Sample Survey (PNAD) had the highest population percentages in the age groups from 25–39 (23.1%) and 40–59 (26.2%) age groups. The South (17.4%) and Southeast (17.1%) regions had the highest proportions of older population (60 years and over)<sup><xref alt="11" ref-type="bibr" rid="B11">11</xref></sup>.</p>
+      </sec>
+      <sec>
+        <title>Data Sources</title>
+        <p>Information was obtained from the Brazilian Mortality Information System (SIM – <italic>Sistema de Informação sobre Mortalidade</italic>), which was developed by the Ministry of Health to analyze mortality data in the country and is based on analyzed and consolidated DCs. Medical professionals are responsible for issuing the Death Certificates, filling in all the fields, and signing at the end. In this study, we considered all deaths in which hepatitis C was listed as either as the underlying cause or as an associated cause of death, from 2008 to 2020<sup><xref alt="12" ref-type="bibr" rid="B12">12</xref></sup>.</p>
+        <p>Data published in the 2023 Viral Hepatitis Epidemiological Bulletin were also included<sup><xref alt="3" ref-type="bibr" rid="B3">3</xref></sup>. Confirmed cases of hepatitis C were considered as follows: individuals with both reactive serological markers (anti-HCV and HCV RNA) from 2000 to 2014, and individuals testing positive for either marker (anti-HCV or HCV RNA) from 2015 to 2023. The change in the reporting criteria was adopted by the Brazilian Ministry of Health with the aim of increasing the sensitivity of detection of new cases of hepatitis C in the national territory. Despite the change, the Brazilian Ministry of Health database provides data on both confirmation criteria for the entire study period. Therefore, this study present data for both criteria from 2000 to 2023<sup><xref alt="13" ref-type="bibr" rid="B13">13</xref></sup>.</p>
+      </sec>
+      <sec>
+        <title>Variables, Statistical Analysis</title>
+        <p>The following variables were analyzed: sex/gender (male, female), age group (&lt; 15, 15–29, 30–39, 40–49, 50–59, 60–69, and ≥ 70 years), race/skin color (White, Black [Afro-Brazilian/Afro-descendant], Yellow [Asian-descendant], <italic>Pardo</italic> [Brown/Mixed race], and Indigenous [Amerindians]), region of residence (North, Northeast, Southeast, South, and Central-West regions), and residence in a state capital city (yes/no). Relative frequencies were calculated using the direct standardization method, including crude mortality rates (mean deaths/population) and sex- and age-adjusted rates, and with the 2010 Brazilian population as a reference per 100,000 inhabitants. Differences between groups were analyzed using the relative risk (RR) estimated with the corresponding respective confidence intervals (95%CI). Pearson’s chi-squared test (χ<sup><xref alt="2" ref-type="bibr" rid="B2">2</xref></sup>) was used to determine statistically significant differences between the groups<sup><xref alt="14" ref-type="bibr" rid="B14">14</xref></sup>.</p>
+      </sec>
+      <sec>
+        <title>Trend Analysis</title>
+        <p>Temporal trends in hepatitis C-specific mortality rates were calculated using joinpoint regression (Joinpoint Regression Program, version 4.4.2; Statistical Research and Applications Branch, National Cancer Institute, available at: <ext-link ext-link-type="uri" xlink:href="https://surveillance.cancer.gov/joinpoint/"> https://surveillance.cancer.gov/joinpoint/) <sup><xref alt="15" ref-type="bibr" rid="B15">15</xref></sup></ext-link>15). This statistical method uses annual trend tests to determine the fit of a series of lines and their inflection points on a logarithmic scale. In addition, we used the Monte Carlo permutation method as a statistical significance test to obtain the best line for each segment. We tested and validated the annual percent change (APC) and the average annual percent change (AAPC), with respective 95%CIs to identify increase (positive APC/AAPC), decrease (negative APC/AAPC), or no trend (APC/AAPC without statistical significance)<sup><xref alt="16" ref-type="bibr" rid="B16">16</xref></sup>.</p>
+      </sec>
+      <sec>
+        <title>Spatial Analysis</title>
+        <p>Four different time series were used for the spatial analysis: 2000–2003, 2004–2007, 2008–2011, 2012–2015, 2016–2020. The locations included refer to the municipality of residence. The technique that analyzed the spatial distribution of deaths took into account the standardized rates by age and sex, as well as the deaths of neighboring municipalities per 100,000 inhabitants. Thematic maps were produced to show whether the distribution patterns remained similar and how areas with higher rates changed over time. The age groups used to calculate the mortality rates were standardized as 0–14, 15–29, 30–39, 40–49, 50–59, 60–69, and ≥ 70 years. The standardized rates (age and sex) were calculated using the direct standardization method, with the population of Brazil in 2010 as reference<sup><xref alt="17" ref-type="bibr" rid="B17">17</xref> , <xref alt="18" ref-type="bibr" rid="B18">18</xref></sup>.</p>
+        <p>Spatial dependence was assessed using the Getis-Ord indices of {G} and {Gi*} (Gi star). It was assumed that a high value of score “Z” and a low value of “p” of a parameter indicates a spatial agglomeration of high values. Conversely, a low negative “Z” score and a small “p” value indicate spatial clusters of low values. These analysis parameters identified the presence of high or low value aggregates in groups of municipalities, allowing the identification of high and low risk clusters on the map.</p>
+        <p>The presence of local autocorrelation was checked using the Local Moran’s Index. The method is based on the use of local indicators of spatial association. The results show the municipalities around which there is a significant clustering of similar values. Statistical analyses were performed using the Stata software (version 11.2; StataCorp LP, College Station, TX, USA), and ArcGIS software (version 9.3; Environmental Systems Research Institute, Redlands, CA, USA) to estimate autocorrelation indicators and produce thematic maps<sup><xref alt="19" ref-type="bibr" rid="B19">19</xref></sup>.</p>
+      </sec>
+      <sec>
+        <title>Ethical Considerations</title>
+        <p>The project was approved by the Research Ethics Committee of the Hospital São José de Doenças Infecciosas (HSJ), number 4.149.901, CAAE: 53791616.7.2007.5044. This research only uses public secondary data, available through free access to official websites of the Ministry of Health and with anonymized identification data of hospitalizations and/or deaths. Therefore, the principles of Resolution no. 466 of December 2012, of the National Health Council of Brazil, have been followed for research involving human subjects.</p>
+      </sec>
+    </sec>
+    <sec sec-type="results">
+      <title>RESULTS</title>
+      <p>From 2000 to 2020, 64,029 deaths occurred due to hepatitis C, representing 0.26% of deaths in Brazil (n = 24,215,831). Most deaths in the country were due to underlying causes (n = 33,652, 52.6%). Acute hepatitis C was responsible for 13,225 (20.7%) deaths, while chronic viral hepatitis C was identified in 50,821 (79.4%) deaths. Both forms were found together in 17 DCs. The average adjusted rate was 1.57/100,000 inhabitants (95%CI 1.56–1.58) (<xref alt="Table 1" ref-type="table" rid="t1">Table 1</xref>). The adjusted mortality rates over time showed a pattern of increase until 2012, stabilization by 2016, and a decrease in 2017–2020. The highest averages rates were observed in the South (2.77/100,000 inhabitants), followed by the Southeast (2.09/100,000 inhabitants) region (<xref alt="Figure 1" ref-type="fig" rid="f1">Figure 1</xref>).</p>
+      <p>Males predominated (n = 41,047, 64.1%, 2.05/100,000 inhabitants [95%CI 2.03–2.07]), aged between 50–59 years (n = 18,711, 29 years), with higher adjusted mortality rates for the age groups 60–69 years (6.69/100,000 inhabitants [95%CI 6.59–6.80]) and 70 years and older (6.88/100,000 inhabitants [95%CI 6.76–7.00]), of white race/skin color (n = 42,178, 65.9%, 1.98/100,000 inhabitants [95%CI 1.89–2.07]), resident in the Southeast region (n = 35,553, 55.5%), with the highest adjusted mortality rates in the South region (2.56/100,000 inhabitants [95%CI 2.52–2.60]) and non-residents in the state capital (n = 36,972, 57.7%), in addition to higher adjusted mortality rates for capital residents (2.76/100,000 inhabitants [95%CI 2.73–2.79]) (<xref alt="Table 1" ref-type="table" rid="t1">Table 1</xref>).</p>
+      <p>
+        <table-wrap id="t1">
+          <label>Table 1.</label>
+          <caption>
+            <title>Number and percentage, crude rate (per 100,000 inhabitants), adjusted rate, relative risk, and temporal trend according to Joinpoint regression of Hepatitis C-related mortality by sociodemographic variables, Brazil, 2000–2020.</title>
+          </caption>
+          <table style="border-collapse:collapse; border-bottom:1px solid #045ca4; border-top:1px solid #045ca4" width="100%">
+            <thead style="background-color:#dce4f4">
+              <tr>
+                <th rowspan="2">Indicator/Characteristic</th>
+                <th style="border-bottom:1px solid #045ca4">Death</th>
+                <th rowspan="2">Crude rate</th>
+                <th rowspan="2">Adjusted rate (95%CI)</th>
+                <th colspan="2" style="border-bottom:1px solid #045ca4">Trend</th>
+                <th style="border-bottom:1px solid #045ca4">Entire period</th>
+              </tr>
+              <tr>
+                <th>n (%)</th>
+                <th>Period</th>
+                <th>APC (95%CI)</th>
+                <th>AAPC (95%CI)</th>
+              </tr>
+            </thead>
+            <tbody align="center">
+              <tr>
+                <td align="left">
+                  <bold>Brazil – Total</bold>
+                </td>
+                <td>64,029 (100.0)</td>
+                <td>1.58</td>
+                <td>1.57 (1.56–1.58)</td>
+                <td>2000–2005</td>
+                <td>15.1* (12.8 to 17.5)</td>
+                <td>1.8* (0.1 to 3.5)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2012</td>
+                <td>2.8* (1.6 to 4.0)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2012–2016</td>
+                <td>0.2 (-2.9 to 3.4)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-10.4* (-12.4 to -8.4)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">
+                  <bold>Sex/Gender</bold>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">Male</td>
+                <td>41,047 (64.1)</td>
+                <td>2.06</td>
+                <td>2.05 (2.03–2.07)</td>
+                <td>2000–2005</td>
+                <td>15.9* (13.5 to 18.4)</td>
+                <td>1.8* (0.2 to 3.5)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2015</td>
+                <td>2.1* (1.5 to 2.8)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-8.2* (-9.6 to -6.7)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">Female</td>
+                <td>22,975 (35.9)</td>
+                <td>1.11</td>
+                <td>1.11 (1.09–1.12)</td>
+                <td>2000–2005</td>
+                <td>13.8* (10.1 to 17.6)</td>
+                <td>1.9* (0.1 to 3.7)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2011</td>
+                <td>3.9* (1.4 to 6.5)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2011–2016</td>
+                <td>0.5 (-2.6 to 3.7)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-11.9* (-15 to -8.6)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">
+                  <italic>Missing values</italic>
+                </td>
+                <td>7 (0.0)</td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">
+                  <bold>Age group (years)</bold>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">&lt;15</td>
+                <td>44 (0.1)</td>
+                <td>0.00</td>
+                <td>0.00 (0.00–0.01)</td>
+                <td>2000–2020</td>
+                <td>-4.3 (-9.6 to 1.4)</td>
+                <td>-4.3 (-9.6 to 1.4)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">15–29</td>
+                <td>705 1.1)</td>
+                <td>0.07</td>
+                <td>0.07 (0.06–0.07)</td>
+                <td>2000–2005</td>
+                <td>2.1 (-5.4 to 10.3)</td>
+                <td>-6.5* (-8.0 to -5.0)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2020</td>
+                <td>-8.7* (-10.5 to -6.8)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">30–39</td>
+                <td>3,627 (5.7)</td>
+                <td>0.59</td>
+                <td>0.57 (0.55–0.59)</td>
+                <td>2000–2005</td>
+                <td>10.3* (2.8 to 18.3)</td>
+                <td>-6.3* (-8.3 to -4.3)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2020</td>
+                <td>-9.9* (-11.3 to -8.4)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">40–49</td>
+                <td>10,462 (16.3)</td>
+                <td>2.02</td>
+                <td>2.01 (1.97–2.05)</td>
+                <td>2000–2005</td>
+                <td>13.1* (10.8 to 15.4)</td>
+                <td>-2.6* (-4.6 to -0.5)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2008</td>
+                <td>0.1 (-6.7 to 7.3)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2008–2015</td>
+                <td>-4.4* (-5.6 to -3.2)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-14.0* (-15.8 to -12.2)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">50–59</td>
+                <td>18,711 (29.2)</td>
+                <td>4.82</td>
+                <td>4.81 (4.74–4.88)</td>
+                <td>2000–2005</td>
+                <td>16.7* (12.7 to 20.8)</td>
+                <td>0.1 (-1.9 to 2.2)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2014</td>
+                <td>1.4* (0.2 to 2.5)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2014–2017</td>
+                <td>-8.0 (-16.6 to 1.4)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2017–2020</td>
+                <td>-13.8* (-18.7 to -8.7)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">60–69</td>
+                <td>16,733 (26.1)</td>
+                <td>6.92</td>
+                <td>6.69 (6.59–6.80)</td>
+                <td>2000–2004</td>
+                <td>15.7* (6.9 to 25.2)</td>
+                <td>1.6 (-0.1 to 3.4)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2004–2015</td>
+                <td>3.6* (2.3 to 5.0)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-9.7* (-12.7 to -6.6)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">≥70</td>
+                <td>13,729 (21.4)</td>
+                <td>6.97</td>
+                <td>6.88 (6.76–7.00)</td>
+                <td>2000–2002</td>
+                <td>26.5* (3.8 to 54.3)</td>
+                <td>0.7 (-0.8 to 2.3)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2002–2007</td>
+                <td>6.1* (1.3 to 11.1)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2007–2016</td>
+                <td>0.9 (-0.4 to 2.2)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-11.0* (-14.2 to -7.7)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">
+                  <italic>Missing values</italic>
+                </td>
+                <td>18 (0.0)</td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">
+                  <bold>Race/color</bold>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">White</td>
+                <td>42,178 (65.9)</td>
+                <td>2.25</td>
+                <td>1.98 (1.89–2.07)</td>
+                <td>2000–2004</td>
+                <td>19.1* (14.4 to 24.0)</td>
+                <td>1.8* (0.0 to 3.6)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2004–2012</td>
+                <td>3.1* (1.8 to 4.4)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2012–2016</td>
+                <td>0.1 (-4.4 to 4.7)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-11.9* (-14.8 to -8.9)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">Black (Afro-Brazilian/Afro-descendant)</td>
+                <td>4,513 (7.0)</td>
+                <td>1.49</td>
+                <td>1.32 (1.14–1.50)</td>
+                <td>2000–2006</td>
+                <td>17.5* (9.0 to 26.6)</td>
+                <td>2.1* (0.1 to 4.1)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2006–2016</td>
+                <td>1.7 (-0.9 to 4.3)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-9.4* (-16.7 to -1.4)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">Yellow (Asian-descendant)</td>
+                <td>442 (0.7)</td>
+                <td>1.02</td>
+                <td>0.66 (0.33–0.98)</td>
+                <td>2000–2002</td>
+                <td>-46 (-72.3 to 5.1)</td>
+                <td>-11.1* (-13.1 to -9.1)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2002–2007</td>
+                <td>4.1 (-16.5 to 29.8)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2007–2020</td>
+                <td>-12.9* (-16.1 to -9.5)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"><italic>Pardo</italic> (Brown /Mixed race) </td>
+                <td>13,979 (21.8)</td>
+                <td>0.80</td>
+                <td>0.93 (0.86–1.00)</td>
+                <td>2000–2005</td>
+                <td>23.1* (17.3 to 29.2)</td>
+                <td>3.6* (1.6 to 5.6)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2015</td>
+                <td>4.7* (3.5 to 5.9)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-7.2* (-9.5 to -4.8)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">Indigenous (Amerindians)</td>
+                <td>54 (0.1)</td>
+                <td>0.30</td>
+                <td>-</td>
+                <td>2000–2020</td>
+                <td>2.4 (-1.3 to 6.1)</td>
+                <td>2.4 (-1.3 to 6.1)</td>
+              </tr>
+              <tr>
+                <td align="left">
+                  <italic>Missing values</italic>
+                </td>
+                <td>2,863 (4.5)</td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">
+                  <bold>Region of residence</bold>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">North</td>
+                <td>2,671 (4.2)</td>
+                <td>0.78</td>
+                <td>1.10 (1.06–1.15)</td>
+                <td>2000–2012</td>
+                <td>11.6* (8.4 to 14.9)</td>
+                <td>4.8* (2.6 to 7.0)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2012–2020</td>
+                <td>-3.2 (-6.8 to 0.5)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">Northeast</td>
+                <td>6,433 (10.0)</td>
+                <td>0.56</td>
+                <td>0.63 (0.61–0.64)</td>
+                <td>2000–2005</td>
+                <td>23.5* (17.2 to 30.2)</td>
+                <td>3.3* (1.5 to 5.2)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2016</td>
+                <td>2.8* (1.6 to 4.1)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-7.6* (-12 to -2.9)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">Southeast</td>
+                <td>35,553 (55.5)</td>
+                <td>2.09</td>
+                <td>1.90 (1.88–1.92)</td>
+                <td>2000–2005</td>
+                <td>14.5* (11.2 to 17.9)</td>
+                <td>0.8 (-1.0 to 2.5)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2015</td>
+                <td>1.1* (0.2 to 2.1)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-10.5* (-12.7 to -8.3)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">South</td>
+                <td>16,656 (26.0)</td>
+                <td>2.86</td>
+                <td>2.56 (2.52–2.60)</td>
+                <td>2000–2006</td>
+                <td>12.5* (9.8 to 15.2)</td>
+                <td>2.9* (1.3 to 4.5)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2006–2012</td>
+                <td>4.3* (1.9 to 6.8)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2012–2018</td>
+                <td>-0.7 (-2.8 to 1.5)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2018–2020</td>
+                <td>-17.4* (-26.1 to -7.8)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">Central-West</td>
+                <td>2,716 (4.2)</td>
+                <td>0.90</td>
+                <td>0.98 (0.94–1.01)</td>
+                <td>2000–2012</td>
+                <td>10.8* (7.2 to 14.4)</td>
+                <td>3.8* (1.5 to 6.1)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2012–2020</td>
+                <td>-4.6* (-8.5 to -0.5)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">
+                  <italic>Missing values</italic>
+                </td>
+                <td>0 (0.0)</td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">
+                  <bold>Residence in a state capital city</bold>
+                </td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">No</td>
+                <td>36,972 (57.7)</td>
+                <td>1.19</td>
+                <td>1.19 (1.18–1.21)</td>
+                <td>2000–2005</td>
+                <td>17.6* (14.6 to 20.6)</td>
+                <td>2.5* (0.7 to 4.3)</td>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2015</td>
+                <td>3.1* (2.3 to 3.8)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2015–2020</td>
+                <td>-8.1* (-9.8 to -6.4)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left">Yes</td>
+                <td>27,057 (42.3)</td>
+                <td>2.81</td>
+                <td>2.76 (2.73–2.79)</td>
+                <td>2000–2005</td>
+                <td>13.3* (10.9 to 15.8)</td>
+                <td>0.9 (-0.7 to 2.6)</td>
+              </tr>
+              <tr>
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2005–2016</td>
+                <td>1.1* (0.5 to 1.6)</td>
+                <td/>
+              </tr>
+              <tr style="background-color:#dce4f4">
+                <td align="left"/>
+                <td/>
+                <td/>
+                <td/>
+                <td>2016–2020</td>
+                <td>-12.9* (-15.1 to -10.7)</td>
+                <td/>
+              </tr>
+              <tr>
+                <td align="left">
+                  <italic>Missing values</italic>
+                </td>
+                <td>0 (0.0)</td>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+                <td/>
+              </tr>
+            </tbody>
+          </table>
+          <table-wrap-foot>
+            <fn>
+              <p>-: not calculated; *: significantly different from 0 (p &lt; 0.05); N: Number, %: percentage; APC: Annual Percent Change; AAPC: Average Annual Percent Change</p>
+            </fn>
+          </table-wrap-foot>
+        </table-wrap>
+      </p>
+      <p>
+        <fig id="f1">
+          <label>Figure 1.</label>
+          <caption>
+            <title>Age and sex-adjusted Hepatitis C-related rates (per 100,000 inhabitants), by Brazilian regions, 2000–2020.</title>
+          </caption>
+          <alternatives>
+            <graphic mime-subtype="jpeg" mimetype="image" xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/f6f472c53e9f201844dd8f04d5cf42a51254a118.jpg"/>
+            <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/e0ccb651abb6591c1d671dd5b961e21cda2cfbac.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+          </alternatives>
+        </fig>
+      </p>
+      <sec>
+        <title>Time Trend</title>
+        <p>The time trend by the joinpoint analysis showed a total of three (3) breaks for most of the variables analyzed, as presented for the general trend in Brazil, with an increase in the time trend in the period 2000–2005 (APC 15.1, 95%CI 12.8 to 17.5), a further increase in the period 2005–2012 (APC 2.8, 95%CI 1.6 to 4.0) and a decrease in the period 2016–2020 (APC -10.4, 95%CI -12.4 to -8.4). For the sexes, there was an increasing trend in the general period (males: AAPC 1.8, 95%CI 0.2 to 3.5; females: AAPC 1.9, 95%CI 0.1 to 3.7). For age groups, a general downward trend was observed between those aged 15–49 years old (<xref alt="Table 1" ref-type="table" rid="t1">Table 1</xref>).</p>
+        <p>For race/skin color, general upward trends were observed for White (AAPC 1.8, 95%CI 0.0 to 3.6), Black (AAPC 2.1, 95%CI 0.1 to 4.1), and <italic>Pardo</italic> (AAPC 3.6, 95%CI 1.6 to 5.6). Regionally, the strongest general upward trends were observed in the North (AAPC 4.8, 95%CI 2.6 to 7.0) and the Central-West (AAPC 3.8, 95%CI 1.5 to 6.1) regions. An upward trend was identified in mortality rate among non-residents of capital cities (AAPC 2.5, 95%CI 0.7 to 4.3) (<xref alt="Table 1" ref-type="table" rid="t1">Table 1</xref>).</p>
+      </sec>
+      <sec>
+        <title>Spatial Distribution and Spatial Analysis</title>
+        <p>The spatial distribution of adjusted rates showed a heterogeneous pattern, with concentrations of high rates in the states of São Paulo, Rio de Janeiro, and Rio Grande do Sul. The states of Acre, Pará, Rondônia, and Mato Grosso do Sul showed an increase in areas with high rates after the 2012-2015 and 2016-2020 periods (<xref alt="Figure 2" ref-type="fig" rid="f2">Figure 2</xref>).</p>
+        <p>Spatial autocorrelation identified clusters of municipalities with high rates surrounded by municipalities with high rates (high-high) in the five analyzed time periods (Moran’s I 2000–2003: 0.196199 [Z-score 57.631538, p-value &lt; 0.0001], 2004–2007: 0.200011 [Z-score 58.713194, p-value &lt; 0.0001], 2008–2011: 0.195546 [Z-score 57.399518, p-value &lt; 0.0001], 2012–2015: 0.202017 [Z-score 59.227519, p-value &lt; 0.0001], 2016–2020: 0.122914 [Z-score 36.179333, p-value &lt; 0.0001]). Municipalities with high rates surrounded by municipalities with high rates (persistent over the five analyzed periods) (high-high) were identified in the states of São Paulo, south of Rio de Janeiro, and Rio Grande do Sul. After 2004, municipalities with a concentration of high rates surrounded by municipalities with high rates were identified in Acre, southern Amazonas, eastern Mato Grosso do Sul, southern Minas Gerais, in the north and in the coastal region of Paraná, and in the coastal region of Santa Catarina (high-high) (<xref alt="Figure 3" ref-type="fig" rid="f3">Figure 3</xref>).</p>
+        <p>The spatial correlation of hot areas using the Getis-Ord Gi* method revealed a concentration of agglomerations with high rates in the five analyzed periods (Getis-Ord General G 2000– 2003: 0.000002 [Z-score 25.187988, p-value &lt; 0.0001], 2004– 2007: 0.000002 [Z-score 23.588958, p-value &lt; 0.0001], 2008-2011: 0.000002 [Z-score 21.860611, p-value &lt; 0.0001], 2012-2015: 0.000002 [Z-score 20.295399, p-value &lt; 0.0001], 2016-2020: 0.000001 [Z-score 7.604160, p-value &lt; 0.0001]). Areas with high rates in the five analyzed periods were identified in the states of São Paulo, southern Minas Gerais, southern Rio de Janeiro, northern Paraná, southern and in the coastal region of Santa Catarina, eastern of Mato Grosso do Sul, and southern Rio Grande do Sul. The states of Acre and southern Amazonas showed concentrations of high rates after 2004, which spread to northern Rondônia in the period 2016-2020 (<xref alt="Figure 4" ref-type="fig" rid="f4">Figure 4</xref>).</p>
+        <p>
+          <fig id="f2">
+            <label>Figure 2.</label>
+            <caption>
+              <title>Spatial distribution of rate adjusted for age and sex of Hepatitis C-related mortality rates (per 100,000 inhabitants) by the municipality of residence in Brazil, 2000–2020</title>
+            </caption>
+            <alternatives>
+              <graphic mime-subtype="jpeg" mimetype="image" xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/c7591d08fc1598daecc13ef2b870b3b3ce545ae9.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/07b56cdc684ea20093ccddeb0e343c1d9057f199.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f3">
+            <label>Figure 3.</label>
+            <caption>
+              <title>Spatial and spatiotemporal LISA cluster analysis (Moran map) of Hepatitis C-related mortality rates (per 100,000 inhabitants) by the municipality of residence in Brazil, 2000–2020</title>
+            </caption>
+            <alternatives>
+              <graphic mime-subtype="jpeg" mimetype="image" xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/0831e28937590db16e172ff38448e096df41ba8d.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/ea82bf8e19e9416b601cd73dac8db86cc6c68861.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+        <p>
+          <fig id="f4">
+            <label>Figure 4.</label>
+            <caption>
+              <title>Spatial and spatiotemporal hot spot analysis (Getis–Ord Gi*) of Hepatitis C-related mortality rates (per 100,000 inhabitants) by the municipality of residence in Brazil, 2000–2020</title>
+            </caption>
+            <alternatives>
+              <graphic mime-subtype="jpeg" mimetype="image" xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/604a72aa62b2154a2dad3a3b2662119bc4d14b31.jpg"/>
+              <graphic xlink:href="https://minio.scielo.br/documentstore/1518-8787/FtqMmr7jqDbWT8nPGwjKP3M/56a09847e30165edef00eb9a5f05a377b39d589d.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+            </alternatives>
+          </fig>
+        </p>
+      </sec>
+    </sec>
+    <sec sec-type="discussion">
+      <title>DISCUSSION</title>
+      <p>The World Health Organization (WHO) proposed to reduce new hepatotropic virus infections and their associated mortality by 90% and 65%, respectively, by 2030<sup><xref alt="20" ref-type="bibr" rid="B20">20</xref></sup>.</p>
+      <p>In agreement with WHO’s proposal, the Brazilian Ministry of Health outlined a national strategy to achieve this goal. The overall objective of the Plan for the Elimination of Hepatitis C in Brazil is to expand access to prevention, diagnosis, and treatment of hepatitis C, involving the three levels of government (federal, state, and municipal), to reduce new infections and mortality<sup><xref alt="21" ref-type="bibr" rid="B21">21</xref></sup>.</p>
+      <p>A previous study evaluated hepatitis C notification and mortality in Brazil from 2008 to 2018. Regarding hepatitis C reporting, a temporal pattern of increase was observed in ten states after implementing the change in the mandatory reporting process: three states in the North region from 2008 (Rondônia, Amazonas, and Pará); five states in the Northeast region (Piauí, Ceará, and Bahia, starting in 2008, Alagoas from 2013, and Rio Grande do Norte from 2015); one state in the Southeast region starting in 2008 (Minas Gerais), and also one in the South region from 2008 (Paraná). On the other hand, decreasing trends were observed in four states: three states in the North region from the time series (Acre, Roraima, and Amapá) and one state in the South region from 2013 (Santa Catarina)<sup><xref alt="6" ref-type="bibr" rid="B6">6</xref></sup>.</p>
+      <p>Temporal trends in mortality from viral hepatitis were updated with concordant results. The temporal trend of hepatitis A, B, other viral hepatitis, and unspecified hepatitis decreased in Brazil, while mortality from chronic hepatitis increased in the North and Northeast regions.</p>
+      <p>Hepatitis C was included in 0.26% of the DC in Brazil from 2000 to 2020. Fulminant hepatitis, the fatal form of acute hepatitis, is extremely rare and would not justify such a large number of deaths. The large number of deaths associated with acute hepatitis may reflect cases of acute to chronic liver failure.</p>
+      <p>When analyzing mortality trends over time, we observed a progressive increase in mortality until 2016, with a significant decrease from 2016 to 2020. This fact is probably related to the introduction of direct-acting antiviral (DAA) treatments in Brazil in 2015. In Europe, the number of liver transplants (LT) for Hepatitis C viral infection (HCV) is declining rapidly for both HCV cirrhosis and HCV hepatocellular carcinoma indications<sup><xref alt="6" ref-type="bibr" rid="B6">6</xref></sup>. The predominance of deaths in men with higher adjusted mortality in the 60–69 age group reflects the epidemiological profile of infected patients in Brazil. Age-adjusted mortality was almost twice as high in men than in women, which may be explained by the association of overlapping risk behaviors such as alcoholism.</p>
+      <p>Age-adjusted mortality was higher in those over 60 years of age, which may be explained by the natural history of hepatitis C. It tends to increase severity later in the course of the infection and the later the contamination occurs.</p>
+      <p>The highest mortality from hepatitis C occurring after 60 years of age is explained by the fact that most of patients with hepatitis C in Brazil became infected before 1980 and the emergence of HIV, which introduced the implementation of standard precautions against the transmission of blood borne infections and the screening in blood banks in 1993<sup><xref alt="3" ref-type="bibr" rid="B3">3</xref></sup>.</p>
+      <p>The regional distribution of hepatitis C mortality in Brazil is quite heterogeneous, with more than twice as many deaths in the South and Southeast regions as in the Central-West, Northeast, and North regions. Although mortality is still significant in the South, it is higher in the North, Central-West, and Northeast regions, in descending order. This may reflect better access to diagnosis, albeit late, and less access to direct-acting antiviral (DAA) treatment. The temporal and spatial maps show a high and increasing mortality in the state of Acre, in the far north of Brazil. A recognized high prevalence of infection in its population, together with delayed diagnosis and/or less access to new treatments, could be possible explanations for this finding<sup><xref alt="22" ref-type="bibr" rid="B22">22</xref></sup>.</p>
+      <p>The higher adjusted mortality for White people is explained by their predominance in the southern and south-eastern Brazil, where most deaths are concentrated. In the temporal analysis, there is a significant decrease in mortality in Asians and White. On the other hand, there is a significant increase in mortality among Black and <italic>Pardo</italic> people, which may be explained by the difficulty this population has of accessing new treatments.</p>
+      <p>Deaths predominated among people living in the capital cities compared with those living in the countryside. However, there is a clear temporal trend in the reduction of mortality in the capital cities and a significant increase in mortality in residents of the countryside. The predominance of hepatitis C deaths in municipalities with low and very low social vulnerability index (IVS) can be explained by the better provision of testing and diagnosis. Similarly, the significant increase in mortality in municipalities with high and very high IVS can be explained by the difficulty of access to diagnosis and treatment.</p>
+      <p>The spatial distribution showed a higher concentration of deaths in the states of São Paulo, Rio de Janeiro, Rio Grande do Sul, Acre, Amazonas, Pará, Rondônia, and Mato Grosso do Sul, with several clusters identified. In 2020, the ranking of capitals with the highest hepatitis C detection rates showed nine capitals with rates higher than the national rate of 4.4 cases per 100,000 inhabitants: Porto Alegre-RS (47.2 cases per 100,000 inhabitants) with the highest rate among the capitals, followed by Curitiba-PR (11.9), Boa Vista-RR (11.0), São Paulo-SP (9.6), Rio Branco-AC (8.5), Florianópolis-SC (8.3), Cuiabá-MT (6.0), Manaus-AM (5.4), and Porto Velho-RO (5.0). The coincidence of the mortality clusters in several capital cities with high mortality and the increase in the number of diagnoses/notifications suggests that these regions may be testing more and therefore, the DC for hepatitis C are higher. This interpretation highlights the increase in mortality in the state of Acre and in the south of the Amazon.</p>
+      <p>Despite being as socially vulnerable as the rest of the region, the state of Acre may have had a successful hepatitis C testing policy after 2004. The high mortality in Acre, similar to that reported in the South region, is also explained by the high prevalence of hepatitis C in the state, which is well above the national average. The municipalities of Tarauacá and Cruzeiro do Sul stand out in the state, with 7% and 3.8% of the population are infected with hepatitis C, respectively<sup><xref alt="23" ref-type="bibr" rid="B23">23</xref></sup>.</p>
+      <p>Although it represents the largest number of deaths among hepatitis, hepatitis C has shown a decrease in the mortality coefficient and in the number of deaths since 2015, with a 25% decrease in the number of deaths in this period. It may be related to the beginning of the offer of highly effective treatments, which cure more than 95% of cases. In Brazil, 1.5–2 million people are infected with HCV, which remains the leading cause of cirrhosis and hepatocellular carcinoma in the country. More than 130,000 Brazilians have been cured from hepatitis C by the new direct-acting antiviral (DAAs) since the drugs were included into the Brazilian Unified Health System (SUS) in 2015. This represents 23% of the target to eliminate the infection in the country by 2030<sup><xref alt="24" ref-type="bibr" rid="B24">24</xref> , <xref alt="25" ref-type="bibr" rid="B25">25</xref></sup>. This study provides a baseline for new studies on mortality and supports the achievement of the projected goals for the elimination of hepatitis in Brazil by 2030.</p>
+      <p>From 2008 to 2018, 136,759 newly diagnosed cases of hepatitis C were reported considering anti-HCV and HCV-RNA positivity, and 271,624 newly diagnosed cases were reported considering one or another positive test. The majority of cases were concentrated in the Southeast (61%) and South (26.2%) regions. The joinpoint regression model showed an increasing trend in the detection rate of hepatitis C in Brazil, but there was a decreasing trend in the mortality rate during the period analyzed. It is important to highlight that the criteria for reporting a case of hepatitis C changed in 2015, which explains part of the increase in diagnosed cases. Previously, a molecular test was required to report a case of hepatitis C; after 2015, only a serological test was sufficient for reporting.</p>
+      <p>The limitations of this study are related to the databases used. Despite the progress made, there is still evidence of variation in performance across the country in terms of recording all the deaths and the quality of completion and investigation of DCs<sup><xref alt="26" ref-type="bibr" rid="B26">26</xref></sup>. Although it is recognized that, since 2005, the Ministry of Health has initiated a process to improve the system coverage by reducing the number of deaths with undetermined causes, based on the development of new computerized tools and training and/or qualification courses for new coders, there are still challenges in terms of the quality of the records<sup><xref alt="27" ref-type="bibr" rid="B27">27</xref></sup>.</p>
+      <p>The high mortality due to hepatitis C in Brazil has decreased heterogeneously, as shown by our results. Efforts for early diagnosis and treatment imply an important reduction in costs for the SUS. In the early and late phases, outpatient prescriptions were the largest cost component, whereas, in the terminal phase, the costs were primarily driven by inpatient care. The average annual cost per patient for hepatitis C treatment was $6,120 in the early phase and increased to $15,480 in the late phase. The substantial increase in costs highlights the role of early diagnosis and treatment in preventing hepatitis C sequelae and in reducing healthcare costs<sup><xref alt="27" ref-type="bibr" rid="B27">27</xref></sup>.</p>
+      <p>Mortality rates among people successfully treated for hepatitis C in the era of interferon-free DDAs are highly compared in the general population. Drug- and liver-related causes of death were the main causes of excess mortality<sup><xref alt="22" ref-type="bibr" rid="B22">22</xref></sup>.</p>
+    </sec>
+    <sec sec-type="conclusions">
+      <title>CONCLUSION</title>
+      <p>This study provides important data on the behavior of hepatitis C in Brazil over a 20-year period. A change in the disease epidemiology has been observed, mainly due to changes in diagnostic confirmation criteria and the introduction of new drugs, which have contributed to a reduction in mortality in recent years. Marked differences in diagnosis and mortality call the need for a differentiated elimination strategy. The data point to the need for increased diagnostic coverage in the non-capital cities and strong investment in treatment in states such as Acre, São Paulo, Rio de Janeiro, Paraná, and Rio Grande do Sul. The elimination of hepatitis C as originally proposed by the WHO seems to be a distant scenario.</p>
+    </sec>
+  </body>
+  <back>
+    <ack>
+      <title>Acknowledgements</title>
+      <p><bold>Acknowledgements:</bold> to the <italic>Programa de Pós-Graduação em Saúde Pública</italic> of the Universidade Federal do Ceará.</p>
+    </ack>
+    <ref-list>
+      <title>REFERENCES</title>
+      <ref id="B1">
+        <label>1.</label>
+        <mixed-citation>1. Barré T, Bourlière M, Parlati L, Ramier C, Marcellin F, Protopopescu C et al. Hepatitis C virus cure from direct-acting antivirals and mortality: Are people with and without a history of injection drug use in the same boat? (ANRS CO22 Hepather cohort). Drug Alcohol Review. 2024;43(3): 718–31. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/dar.13802">https://doi.org/10.1111/dar.13802</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Barré</surname>
+              <given-names>T.</given-names>
+            </name>
+            <name>
+              <surname>Bourlière</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Parlati</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Ramier</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Marcellin</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>C</surname>
+              <given-names>Protopopescu</given-names>
+            </name>
+          </person-group>
+          <article-title>Hepatitis C virus cure from direct-acting antivirals and mortality: Are people with and without a history of injection drug use in the same boat? (ANRS CO22 Hepather cohort)</article-title>
+          <source>Drug Alcohol Review</source>
+          <year iso-8601-date="2024">2024</year>
+          <volume>43</volume>
+          <issue>3</issue>
+          <pub-id pub-id-type="doi">10.1111/dar.13802</pub-id>
+          <fpage>718</fpage>
+          <lpage>31</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B2">
+        <label>2.</label>
+        <mixed-citation>2. Pereira LMMB, Martelli CMT, Moreira RC, Merchan-Hamman E, Stein AT, Cardoso RMA et al. Prevalence and risk factors of Hepatitis C virus infection in Brazil, 2005 through 2009: A cross-sectional study. BMC Infect Dis. 2013;13(1). <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1186/1471-2334-13-60">https://doi.org/10.1186/1471-2334-13-60</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pereira</surname>
+              <given-names>L. M. M. B.</given-names>
+            </name>
+            <name>
+              <surname>Martelli</surname>
+              <given-names>C. M. T.</given-names>
+            </name>
+            <name>
+              <surname>Moreira</surname>
+              <given-names>R. C.</given-names>
+            </name>
+            <name>
+              <surname>Merchan-Hamman</surname>
+              <given-names>E.</given-names>
+            </name>
+            <name>
+              <surname>Stein</surname>
+              <given-names>A. T.</given-names>
+            </name>
+            <name>
+              <surname>RMA</surname>
+              <given-names>Cardoso</given-names>
+            </name>
+          </person-group>
+          <article-title>Prevalence and risk factors of Hepatitis C virus infection in Brazil, 2005 through 2009: A cross-sectional study</article-title>
+          <source>BMC Infect Dis</source>
+          <year iso-8601-date="2013">2013</year>
+          <volume>13</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1186/1471-2334-13-60</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B3">
+        <label>3.</label>
+        <mixed-citation>3. Ministério da Saúde (BR). Boletim Epidemiológico - Hepatites Virais 2023 Departamento de HIV/Aids, Tuberculose, Hepatites Virais e Infecções Sexualmente Transmissíveis. Secretaria de Vigilância em Saúde e Ambiente [Internet]. Brasília, DF: Ministério da Saúde; 2023. [cited 2024 Jan 2024] Available from: <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/aids/pt-br/central-de-conteudo/boletins-epidemiologicos/2023/hepatites-virais/boletim-epidemiologico-hepatites-virais-_-2023.pdf/view">https://www.gov.br/aids/pt-br/central-de-conteudo/boletins-epidemiologicos/2023/hepatites-virais/boletim-epidemiologico-hepatites-virais-_-2023.pdf/view</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Ministério da Saúde (BR)</collab>
+          </person-group>
+          <source>Boletim Epidemiológico - Hepatites Virais 2023 Departamento de HIV/Aids, Tuberculose, Hepatites Virais e Infecções Sexualmente Transmissíveis. Secretaria de Vigilância em Saúde e Ambiente [Internet]</source>
+          <publisher-name>Ministério da Saúde</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2023">2023</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-01">2024-01</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/aids/pt-br/central-de-conteudo/boletins-epidemiologicos/2023/hepatites-virais/boletim-epidemiologico-hepatites-virais-_-2023.pdf/view">https://www.gov.br/aids/pt-br/central-de-conteudo/boletins-epidemiologicos/2023/hepatites-virais/boletim-epidemiologico-hepatites-virais-_-2023.pdf/view</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B4">
+        <label>4.</label>
+        <mixed-citation>4. Pawlotsky JM, Negro F, Aghemo A, Berenguer M, Dalgard O, Dusheiko G et al. EASL recommendations on treatment of hepatitis C: Final update of the series. J Hepatol. 2020 Nov;73(5):1170–218. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.jhep.2020.08.018">https://doi.org/10.1016/j.jhep.2020.08.018</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Pawlotsky</surname>
+              <given-names>J. M.</given-names>
+            </name>
+            <name>
+              <surname>Negro</surname>
+              <given-names>F.</given-names>
+            </name>
+            <name>
+              <surname>Aghemo</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Berenguer</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Dalgard</surname>
+              <given-names>O.</given-names>
+            </name>
+            <name>
+              <surname>G</surname>
+              <given-names>Dusheiko</given-names>
+            </name>
+          </person-group>
+          <article-title>EASL recommendations on treatment of hepatitis C: Final update of the series</article-title>
+          <source>J Hepatol</source>
+          <year iso-8601-date="2020">2020</year>
+          <volume>73</volume>
+          <issue>5</issue>
+          <pub-id pub-id-type="doi">10.1016/j.jhep.2020.08.018</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B5">
+        <label>5.</label>
+        <mixed-citation>5. Lobato CMO, Codes L, Silva GF, Souza AFM, Coelho HSM, Pedroso MLA et al. Direct antiviral therapy for treatment of hepatitis C: A real-world study from Brazil. Annals of Hepatology, 2019 Nov-Dec;18(6):849–54. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/j.aohep.2019.08.001">https://doi.org/10.1016/j.aohep.2019.08.001</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lobato</surname>
+              <given-names>C. M. O.</given-names>
+            </name>
+            <name>
+              <surname>Codes</surname>
+              <given-names>L.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>G. F.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>A. F. M.</given-names>
+            </name>
+            <name>
+              <surname>Coelho</surname>
+              <given-names>H. S. M.</given-names>
+            </name>
+            <name>
+              <surname>MLA</surname>
+              <given-names>Pedroso</given-names>
+            </name>
+          </person-group>
+          <article-title>Direct antiviral therapy for treatment of hepatitis C: A real-world study from Brazil</article-title>
+          <source>Annals of Hepatology</source>
+          <year iso-8601-date="2019">2019</year>
+          <volume>18</volume>
+          <issue>6</issue>
+          <pub-id pub-id-type="doi">10.1016/j.aohep.2019.08.001</pub-id>
+          <fpage>849</fpage>
+          <lpage>54</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B6">
+        <label>6.</label>
+        <mixed-citation>6. Perazzo H, Pacheco AG, Luz PM, Castro R, Hyde C, Fittipaldi J et al. Age-standardized mortality rates related to viral hepatitis in Brazil. BMC Infectious Diseases. 2017 July;17(1):527. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1186/s12879-017-2619-y">https://doi.org/10.1186/s12879-017-2619-y</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Perazzo</surname>
+              <given-names>H.</given-names>
+            </name>
+            <name>
+              <surname>Pacheco</surname>
+              <given-names>A. G.</given-names>
+            </name>
+            <name>
+              <surname>Luz</surname>
+              <given-names>P. M.</given-names>
+            </name>
+            <name>
+              <surname>Castro</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Hyde</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>J</surname>
+              <given-names>Fittipaldi</given-names>
+            </name>
+          </person-group>
+          <article-title>Age-standardized mortality rates related to viral hepatitis in Brazil</article-title>
+          <source>BMC Infectious Diseases</source>
+          <year iso-8601-date="2017-07">2017</year>
+          <month>07</month>
+          <volume>17</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1186/s12879-017-2619-y</pub-id>
+          <fpage>527</fpage>
+          <lpage>527</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B7">
+        <label>7.</label>
+        <mixed-citation>7. Brito RJVC, Silva LF, Santos MB, Moura PMMF, Souza CDF, Carmo RF. A time series analysis of detection and mortality of hepatitis C in Brazil, 2008–2018. BMC Infec Dis. 2022 Jan;22(1):81. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1186/s12879-022-07063-5">https://doi.org/10.1186/s12879-022-07063-5</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Brito</surname>
+              <given-names>R. J. V. C.</given-names>
+            </name>
+            <name>
+              <surname>Silva</surname>
+              <given-names>L. F.</given-names>
+            </name>
+            <name>
+              <surname>Santos</surname>
+              <given-names>M. B.</given-names>
+            </name>
+            <name>
+              <surname>Moura</surname>
+              <given-names>P. M. M. F.</given-names>
+            </name>
+            <name>
+              <surname>Souza</surname>
+              <given-names>C. D. F.</given-names>
+            </name>
+            <name>
+              <surname>Carmo</surname>
+              <given-names>R. F.</given-names>
+            </name>
+          </person-group>
+          <article-title>A time series analysis of detection and mortality of hepatitis C in Brazil, 2008–2018</article-title>
+          <source>BMC Infec Dis</source>
+          <year iso-8601-date="2022-01">2022</year>
+          <month>01</month>
+          <volume>22</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1186/s12879-022-07063-5</pub-id>
+          <fpage>81</fpage>
+          <lpage>81</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B8">
+        <label>8.</label>
+        <mixed-citation>8. Sousa LFO, Santos ERS, Oliveira RM, Andrade RLB, Batista JFC, Lima SO. Hepatitis mortality in Brazil and regions, 2001–2020: temporal trend and spatial analysis. Rev bras epidemiol. 2023;26:e230029. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1590/1980-549720230029">https://doi.org/10.1590/1980-549720230029</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sousa</surname>
+              <given-names>L. F. O.</given-names>
+            </name>
+            <name>
+              <surname>Santos</surname>
+              <given-names>E. R. S.</given-names>
+            </name>
+            <name>
+              <surname>Oliveira</surname>
+              <given-names>R. M.</given-names>
+            </name>
+            <name>
+              <surname>Andrade</surname>
+              <given-names>R. L. B.</given-names>
+            </name>
+            <name>
+              <surname>Batista</surname>
+              <given-names>J. F. C.</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>S. O.</given-names>
+            </name>
+          </person-group>
+          <article-title>Hepatitis mortality in Brazil and regions, 2001–2020: temporal trend and spatial analysis</article-title>
+          <source>Rev bras epidemiol</source>
+          <year iso-8601-date="2023">2023</year>
+          <volume>26</volume>
+          <pub-id pub-id-type="doi">10.1590/1980-549720230029</pub-id>
+          <elocation-id>e230029</elocation-id>
+        </element-citation>
+      </ref>
+      <ref id="B9">
+        <label>9.</label>
+        <mixed-citation>9. Instituto Brasileiro de Geografia e Estatística (IBGE). Cidades e Estados [Internet]. Rio de Janeiro; 2023 [cited 2023 Jul 18]. Available from: <ext-link ext-link-type="uri" xlink:href="https://www.ibge.gov.br/cidades-e-estados/">https://www.ibge.gov.br/cidades-e-estados/</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>Instituto Brasileiro de Geografia e Estatística (IBGE)</collab>
+          </person-group>
+          <article-title>Cidades e Estados [Internet]</article-title>
+          <source>Rio de Janeiro</source>
+          <year iso-8601-date="2023">2023</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2023-07-18">2023-07-18</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://www.ibge.gov.br/cidades-e-estados/">https://www.ibge.gov.br/cidades-e-estados/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B10">
+        <label>10.</label>
+        <mixed-citation>10. Instituto de Pesquisa Econômica Aplicada (IPEA). Atlas da Vulnerabilidade Social nos Municípios Brasileiros [Internet]. Brasília, DF: IPEA; 2015 [cited 2023 Feb 4]. Available from: <ext-link ext-link-type="uri" xlink:href="http://ivs.ipea.gov.br">http://ivs.ipea.gov.br</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Instituto de Pesquisa Econômica Aplicada (IPEA)</collab>
+          </person-group>
+          <source>Atlas da Vulnerabilidade Social nos Municípios Brasileiros [Internet]</source>
+          <publisher-name>IPEA</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2015">2015</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2023-02-04">2023-02-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="http://ivs.ipea.gov.br">http://ivs.ipea.gov.br</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B11">
+        <label>11.</label>
+        <mixed-citation>11. Instituto Brasileiro de Geografia e Estatística (IBGE). Características gerais dos domicílios e dos moradores 2019 – PNAD Contínua. Pesquisa Nacional por Amostra de Domicílios Contínua. Rio de Janeiro: IBGE; 2020.</mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Instituto Brasileiro de Geografia e Estatística (IBGE)</collab>
+          </person-group>
+          <source>Características gerais dos domicílios e dos moradores 2019 – PNAD Contínua. Pesquisa Nacional por Amostra de Domicílios Contínua</source>
+          <publisher-name>IBGE</publisher-name>
+          <publisher-loc>Rio de Janeiro</publisher-loc>
+          <year iso-8601-date="2020">2020</year>
+        </element-citation>
+      </ref>
+      <ref id="B12">
+        <label>12.</label>
+        <mixed-citation>12. Organização Mundial da Saúde (OMS). International Statistical Classification of Diseases and Related Health Problems 10th Revision. ICD-10 Version: 2019 [Internet]. Geneva; 2019 [cited 2024 Feb 4]. Available from: <ext-link ext-link-type="uri" xlink:href="https://icd.who.int/browse10/2019/em">https://icd.who.int/browse10/2019/en</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Organização Mundial da Saúde (OMS)</collab>
+          </person-group>
+          <source>International Statistical Classification of Diseases and Related Health Problems 10th Revision. ICD-10 Version: 2019 [Internet]</source>
+          <publisher-loc>Geneva</publisher-loc>
+          <year iso-8601-date="2019">2019</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-02-04">2024-02-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://icd.who.int/browse10/2019/em">https://icd.who.int/browse10/2019/en</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B13">
+        <label>13.</label>
+        <mixed-citation>13. Ministério da Saúde (BR). Departamento de Doenças de Condições Crônicas e Infecções Sexualmente Transmissíveis. Plano para Eliminação da Hepatite C no Brasil. Brasília, DF: Ministério da Saúde, 2018. [cited 2024 Apr 04]. Available from: <ext-link ext-link-type="uri" xlink:href="http://www.aids.gov.br/pt-br/pub/2019/">http://www.aids.gov.br/pt-br/pub/2019/</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Ministério da Saúde (BR)</collab>
+          </person-group>
+          <source>Departamento de Doenças de Condições Crônicas e Infecções Sexualmente Transmissíveis</source>
+          <publisher-name>Plano para Eliminação da Hepatite C no Brasil</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2018">2018</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-04-04">2024-04-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="http://www.aids.gov.br/pt-br/pub/2019/">http://www.aids.gov.br/pt-br/pub/2019/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B14">
+        <label>14.</label>
+        <mixed-citation>14. Ministério da Saúde (BR). População Residente - Estudo de Estimativas Populacionais por Município, Idade e Sexo 2000-2020. Informações de Saúde (TABNET). DATASUS [Internet]. Brasília, DF: Ministério da Saúde; 2021 [cited 2024 Feb 4]. Available from: <ext-link ext-link-type="uri" xlink:href="http://tabnet.datasus.gov.br/cgi/deftohtm.exe?ibge/cnv/popsvsbr.def">http://tabnet.datasus.gov.br/cgi/deftohtm.exe?ibge/cnv/popsvsbr.def</ext-link> </mixed-citation>
+        <element-citation publication-type="book">
+          <person-group person-group-type="author">
+            <collab>Ministério da Saúde (BR)</collab>
+          </person-group>
+          <chapter-title>População Residente - Estudo de Estimativas Populacionais por Município, Idade e Sexo 2000-2020</chapter-title>
+          <source>Informações de Saúde (TABNET). DATASUS [Internet]</source>
+          <publisher-name>Ministério da Saúde</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-02-04">2024-02-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="http://tabnet.datasus.gov.br/cgi/deftohtm.exe?ibge/cnv/popsvsbr.def">http://tabnet.datasus.gov.br/cgi/deftohtm.exe?ibge/cnv/popsvsbr.def</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B15">
+        <label>15.</label>
+        <mixed-citation>15. StataCorp LLC. Stata 11©. College Station [Internet]. Lakeway; 2021 [cited 2023 Feb 4]. Available from: <ext-link ext-link-type="uri" xlink:href="https://www.stata.com/stata11/">https://www.stata.com/stata11/</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>StataCorp</surname>
+              <given-names>L. L. C.</given-names>
+            </name>
+          </person-group>
+          <source>Stata 11©. College Station [Internet]</source>
+          <publisher-loc>Lakeway</publisher-loc>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2023-02-04">2023-02-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://www.stata.com/stata11/">https://www.stata.com/stata11/</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B16">
+        <label>16.</label>
+        <mixed-citation>16. National Cancer Institute (USA). Joinpoint Trend Analysis Software [Internet]. Calverton; 2021 [cited 2023 Mar 2]. Available from: <ext-link ext-link-type="uri" xlink:href="https://surveillance.cancer.gov/joinpoint">https://surveillance.cancer.gov/joinpoint</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Institute</surname>
+              <given-names>National Cancer</given-names>
+            </name>
+          </person-group>
+          <article-title>Joinpoint Trend Analysis Software [Internet]</article-title>
+          <publisher-loc>Calverton</publisher-loc>
+          <year iso-8601-date="2021">2021</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2023-03-02">2023-03-02</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://surveillance.cancer.gov/joinpoint">https://surveillance.cancer.gov/joinpoint</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B17">
+        <label>17.</label>
+        <mixed-citation>17. Kim HJ, Fay MP, Feuer EJ, Midthune DN. Permutation tests for joinpoint regression with applications to cancer rates. Statistics Med. 2000 Jan;19(3):335–51. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1002/(SICI)1097-0258(20000215)19">https://doi.org/10.1002/(SICI)1097-0258(20000215)19</ext-link>: 3%3C335::AID-SIM336%3E3.0.CO;2-Z </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kim</surname>
+              <given-names>H. J.</given-names>
+            </name>
+            <name>
+              <surname>Fay</surname>
+              <given-names>M. P.</given-names>
+            </name>
+            <name>
+              <surname>Feuer</surname>
+              <given-names>E. J.</given-names>
+            </name>
+            <name>
+              <surname>Midthune</surname>
+              <given-names>D. N.</given-names>
+            </name>
+          </person-group>
+          <article-title>Permutation tests for joinpoint regression with applications to cancer rates</article-title>
+          <source>Statistics Med</source>
+          <year iso-8601-date="2000-01">2000</year>
+          <month>01</month>
+          <volume>19</volume>
+          <issue>3</issue>
+          <pub-id pub-id-type="doi">10.1002/(SICI)1097-0258(20000215)19</pub-id>
+          <fpage>335</fpage>
+          <lpage>51</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B18">
+        <label>18.</label>
+        <mixed-citation>18. Dunn CE, Kingham SP, Rowlingson B, Bhopal RS, Cockings S, Foy CJW, et al. Analysing spatially referenced public health data: A comparison of three methodological approaches. Health Place. 2001 Mar;7(1):1–12. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/s1353-8292(00)00033-2">https://doi.org/10.1016/s1353-8292(00)00033-2</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dunn</surname>
+              <given-names>C. E.</given-names>
+            </name>
+            <name>
+              <surname>Kingham</surname>
+              <given-names>S. P.</given-names>
+            </name>
+            <name>
+              <surname>Rowlingson</surname>
+              <given-names>B.</given-names>
+            </name>
+            <name>
+              <surname>Bhopal</surname>
+              <given-names>R. S.</given-names>
+            </name>
+            <name>
+              <surname>Cockings</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Foy</surname>
+              <given-names>C. J. W.</given-names>
+            </name>
+          </person-group>
+          <article-title>Analysing spatially referenced public health data: A comparison of three methodological approaches</article-title>
+          <source>Health Place</source>
+          <year iso-8601-date="2001-03">2001</year>
+          <month>03</month>
+          <volume>7</volume>
+          <issue>1</issue>
+          <pub-id pub-id-type="doi">10.1016/s1353-8292(00)00033-2</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B19">
+        <label>19.</label>
+        <mixed-citation>19. Anselin L. Local Indicators of Spatial Association–LISA. Geogr Anal. 1995 Apr; 27(2):93–115. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1111/j.1538-4632.1995.tb00338.x">https://doi.org/10.1111/j.1538-4632.1995.tb00338.x</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Anselin</surname>
+              <given-names>L.</given-names>
+            </name>
+          </person-group>
+          <article-title>Local Indicators of Spatial Association–LISA</article-title>
+          <source>Geogr Anal</source>
+          <year iso-8601-date="1995">1995</year>
+          <volume>27</volume>
+          <issue>2</issue>
+          <pub-id pub-id-type="doi">10.1111/j.1538-4632.1995.tb00338.x</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B20">
+        <label>20.</label>
+        <mixed-citation>20. World Health Organization (WHO). Global health sector strategy on viral hepatitis 2016–2021. Towards ending viral hepatitis [Internet]. Geneva; 2016. [cited 2024 Apr 04]. Available from: <ext-link ext-link-type="uri" xlink:href="https://apps.who.int/iris/bitstream/handle/10665/246177/WHO?sequence=1">https://apps.who.int/iris/bitstream/handle/10665/246177/WHO?sequence=1</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>World Health Organization (WHO)</collab>
+          </person-group>
+          <source>Global health sector strategy on viral hepatitis 2016–2021. Towards ending viral hepatitis [Internet]</source>
+          <publisher-loc>Geneva</publisher-loc>
+          <year iso-8601-date="2016">2016</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-04-04">2024-04-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://apps.who.int/iris/bitstream/handle/10665/246177/WHO?sequence=1">https://apps.who.int/iris/bitstream/handle/10665/246177/WHO?sequence=1</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B21">
+        <label>21.</label>
+        <mixed-citation>21. Brasil. Plano para Eliminação da Hepatite C no Brasil. Brasília, DF: Ministério da Saúde; 2018 [cited 2024 Apr 04]. Available from: <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2019/plano-para-eliminacao-da-hepatite-c-no-brasil">https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2019/plano-para-eliminacao-da-hepatite-c-no-brasil</ext-link> </mixed-citation>
+        <element-citation publication-type="webpage">
+          <person-group person-group-type="author">
+            <collab>Brasil</collab>
+          </person-group>
+          <source>Plano para Eliminação da Hepatite C no Brasil</source>
+          <publisher-name>Ministério da Saúde</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2018">2018</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-04-04">2024-04-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2019/plano-para-eliminacao-da-hepatite-c-no-brasil">https://www.gov.br/aids/pt-br/central-de-conteudo/publicacoes/2019/plano-para-eliminacao-da-hepatite-c-no-brasil</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B22">
+        <label>22.</label>
+        <mixed-citation>22. Hamill V, Wong S, Benselin J, Krajden M, Hayes PC, Mutimer D et al. Mortality rates among patients successfully treated for hepatitis C in the era of interferon-free antivirals: population based cohort study. BMJ. 2023 Aug;382:e074001. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1136/bmj-2022-074001">https://doi.org/10.1136/bmj-2022-074001</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hamill</surname>
+              <given-names>V.</given-names>
+            </name>
+            <name>
+              <surname>Wong</surname>
+              <given-names>S.</given-names>
+            </name>
+            <name>
+              <surname>Benselin</surname>
+              <given-names>J.</given-names>
+            </name>
+            <name>
+              <surname>Krajden</surname>
+              <given-names>M.</given-names>
+            </name>
+            <name>
+              <surname>Hayes</surname>
+              <given-names>P. C.</given-names>
+            </name>
+            <name>
+              <surname>D</surname>
+              <given-names>Mutimer</given-names>
+            </name>
+          </person-group>
+          <article-title>Mortality rates among patients successfully treated for hepatitis C in the era of interferon-free antivirals: population based cohort study</article-title>
+          <source>BMJ</source>
+          <year iso-8601-date="2023">2023</year>
+          <pub-id pub-id-type="doi">10.1136/bmj-2022-074001</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B23">
+        <label>23.</label>
+        <mixed-citation>23. Dantas TOM. Aspectos epidemiológicos da infecção pelo vírus da hepatite C e coinfecções com os vírus B e delta no estado do Acre, Amazônia Ocidental Brasileira [Internet]. Brasília, DF. Tese [Doutorado]. – Universidade de Brasília, Núcleo de Medicina Tropical; 2010 [cited 2024 Apr 04]. Available from: <ext-link ext-link-type="uri" xlink:href="http://repositorio2.unb.br/jspui/handle/10482/8157">http://repositorio2.unb.br/jspui/handle/10482/8157</ext-link> </mixed-citation>
+        <element-citation publication-type="thesis">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Dantas</surname>
+              <given-names>T. O. M.</given-names>
+            </name>
+          </person-group>
+          <comment content-type="degree">Tese [Doutorado].</comment>
+          <source>Aspectos epidemiológicos da infecção pelo vírus da hepatite C e coinfecções com os vírus B e delta no estado do Acre, Amazônia Ocidental Brasileira [Internet]</source>
+          <publisher-name>Universidade de Brasília, Núcleo de Medicina Tropical</publisher-name>
+          <publisher-loc>Brasília, DF</publisher-loc>
+          <year iso-8601-date="2010">2010</year>
+          <date-in-citation content-type="access-date" iso-8601-date="2024-04-04">2024-04-04</date-in-citation>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="http://repositorio2.unb.br/jspui/handle/10482/8157">http://repositorio2.unb.br/jspui/handle/10482/8157</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B24">
+        <label>24.</label>
+        <mixed-citation>24. Cooke GS, Andrieux-Meyer I, Applegate TL, Atun R, Burry JR, Cheinquer H et al. Accelerating the elimination of viral hepatitis: a Lancet Gastroenterology &amp; Hepatology Commission. Lancet Gastroenterol Hepatol. 2019 Feb; 4(2):135–84. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1016/S2468-1253(18)30270-X">https://doi.org/10.1016/S2468-1253(18)30270-X</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Cooke</surname>
+              <given-names>G. S.</given-names>
+            </name>
+            <name>
+              <surname>Andrieux-Meyer</surname>
+              <given-names>I.</given-names>
+            </name>
+            <name>
+              <surname>Applegate</surname>
+              <given-names>T. L.</given-names>
+            </name>
+            <name>
+              <surname>Atun</surname>
+              <given-names>R.</given-names>
+            </name>
+            <name>
+              <surname>Burry</surname>
+              <given-names>Cheinquer H.</given-names>
+              <suffix>JR</suffix>
+            </name>
+          </person-group>
+          <article-title>Accelerating the elimination of viral hepatitis: a Lancet Gastroenterology &amp; Hepatology Commission</article-title>
+          <source>Lancet Gastroenterol Hepatol</source>
+          <year iso-8601-date="2019-02">2019</year>
+          <month>02</month>
+          <volume>4</volume>
+          <issue>2</issue>
+          <pub-id pub-id-type="doi">10.1016/S2468-1253(18)30270-X</pub-id>
+        </element-citation>
+      </ref>
+      <ref id="B25">
+        <label>25.</label>
+        <mixed-citation>25. World Health Organization (WHO). Global health sector strategy on viral hepatitis 2016-2021. Global Hepatitis Programme Department of HIV/AIDS. Geneva; 2016. Available from: <ext-link ext-link-type="uri" xlink:href="https://iris.who.int/bitstream/handle/10665/246177/WHO-HIV-2016.06-eng.pdf?sequence=1">https://iris.who.int/bitstream/handle/10665/246177/WHO-HIV-2016.06-eng.pdf?sequence=1</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <collab>World Health Organization (WHO)</collab>
+          </person-group>
+          <article-title>Global health sector strategy on viral hepatitis 2016-2021. Global Hepatitis Programme Department of HIV/AIDS</article-title>
+          <source>Geneva</source>
+          <year iso-8601-date="2016">2016</year>
+          <comment> Available from: <ext-link ext-link-type="uri" xlink:href="https://iris.who.int/bitstream/handle/10665/246177/WHO-HIV-2016.06-eng.pdf?sequence=1">https://iris.who.int/bitstream/handle/10665/246177/WHO-HIV-2016.06-eng.pdf?sequence=1</ext-link> </comment>
+        </element-citation>
+      </ref>
+      <ref id="B26">
+        <label>26.</label>
+        <mixed-citation>26. Diógenes VHD, Pinto Júnior EP, Gonzaga MR, Queiroz BL, Lima EEC, Costa LCC, et al. Differentials in death count records by databases in Brazil in 2010. Rev Saúde Pública. 2022;56:1-11. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.11606/s1518-8787.2022056004282">https://doi.org/10.11606/s1518-8787.2022056004282</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Diógenes</surname>
+              <given-names>V. H. D.</given-names>
+            </name>
+            <name>
+              <surname>Pinto </surname>
+              <given-names>E. P.</given-names>
+              <suffix>Júnior</suffix>
+            </name>
+            <name>
+              <surname>Gonzaga</surname>
+              <given-names>M. R.</given-names>
+            </name>
+            <name>
+              <surname>Queiroz</surname>
+              <given-names>B. L.</given-names>
+            </name>
+            <name>
+              <surname>Lima</surname>
+              <given-names>E. E. C.</given-names>
+            </name>
+            <name>
+              <surname>Costa</surname>
+              <given-names>L. C. C.</given-names>
+            </name>
+          </person-group>
+          <article-title>Differentials in death count records by databases in Brazil in 2010</article-title>
+          <source>Rev Saúde Pública</source>
+          <year iso-8601-date="2022">2022</year>
+          <volume>56</volume>
+          <pub-id pub-id-type="doi">10.11606/s1518-8787.2022056004282</pub-id>
+          <fpage>1</fpage>
+          <lpage>11</lpage>
+        </element-citation>
+      </ref>
+      <ref id="B27">
+        <label>27.</label>
+        <mixed-citation>27. Erman A, Sahakyan Y, Everett K, Greenaway C, Janjua N, Kwong JC et al. Hepatitis C Attributable Healthcare Costs and Mortality among Immigrants: A Population-Based Matched Cohort Study. Can J Gastroenterol Hepatol. 2024;1. <ext-link ext-link-type="uri" xlink:href="https://doi.org/10.1155/2024/5573068">https://doi.org/10.1155/2024/5573068</ext-link> </mixed-citation>
+        <element-citation publication-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Erman</surname>
+              <given-names>A.</given-names>
+            </name>
+            <name>
+              <surname>Sahakyan</surname>
+              <given-names>Y.</given-names>
+            </name>
+            <name>
+              <surname>Everett</surname>
+              <given-names>K.</given-names>
+            </name>
+            <name>
+              <surname>Greenaway</surname>
+              <given-names>C.</given-names>
+            </name>
+            <name>
+              <surname>Janjua</surname>
+              <given-names>N.</given-names>
+            </name>
+            <name>
+              <surname>JC</surname>
+              <given-names>Kwong</given-names>
+            </name>
+          </person-group>
+          <article-title>Hepatitis C Attributable Healthcare Costs and Mortality among Immigrants: A Population-Based Matched Cohort Study</article-title>
+          <source>Can J Gastroenterol Hepatol</source>
+          <year iso-8601-date="2024">2024</year>
+          <volume>1</volume>
+          <pub-id pub-id-type="doi">10.1155/2024/5573068</pub-id>
+        </element-citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn fn-type="supported-by">
+        <label>Funding:</label>
+        <p>Coordenação de Aperfeiçoamento Pessoal de Nível Superior (CAPES – PhD fellowship for AFF). Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq – productivity fellowship for ANRJ).</p>
+      </fn>
+      <fn fn-type="other">
+        <label>How to cite:</label>
+        <p> Hyppolito EB, Ramos Jr AN, Ferreira AF, Dantas TOM, Lima JMC, Silva TL, et al. Temporal trends and spatial patterns of Hepatitis C-related mortality in Brazil. Rev. Saude Publica. 2025;59:e1. <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.11606/s1518-8787.2025059006139">http://doi.org/10.11606/s1518-8787.2025059006139</ext-link> </p>
+      </fn>
+    </fn-group>
+  </back>
+</article>
