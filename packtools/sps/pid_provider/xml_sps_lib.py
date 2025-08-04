@@ -93,49 +93,51 @@ def get_xml_items(xml_sps_file_path, filenames=None):
 
 def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
     """
-    Return the first XML content in the Zip file.
+    Return XML items from a Zip file as a generator.
 
     Arguments
     ---------
         xml_sps_file_path: str
-        filenames: str list
+        filenames: list of str, optional
 
-    Return
+    Yields
     ------
-    str
+        dict: Dictionary with filename, xml_with_pre, files, and filenames
     """
     try:
         found = False
         with ZipFile(xml_sps_file_path) as zf:
-            filenames = filenames or zf.namelist() or []
-            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
-            for item in filenames:
-                if item.endswith(".xml"):
-                    try:
-                        content = zf.read(item)
-                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
-                        xml_with_pre.zip_file_path = xml_sps_file_path
-                        found = True
-                        yield {
-                            "filename": item,
-                            "xml_with_pre": xml_with_pre,
-                            "files": filenames,
-                            "filenames": _filenames,
-                        }
-                    except Exception as e:
-                        LOGGER.exception(
-                            f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}"
-                        )
-                        continue
-            if not found:
-                raise TypeError(
-                    f"{xml_sps_file_path} has no XML. Files found: {filenames}"
-                )
+            zip_files = zf.namelist()
+            check_files = filenames or zip_files
+            xml_files = tuple(f for f in check_files if f.endswith(".xml"))
+
+            if not xml_files:
+                raise TypeError(f"{xml_sps_file_path} has no XML files")
+
+            basenames = tuple(os.path.basename(n) for n in zip_files if n)
+
+            for xml_file in xml_files:
+                try:
+                    content = zf.read(xml_file).decode("utf-8")
+                    xml_with_pre = get_xml_with_pre(content)
+                    xml_with_pre.zip_file_path = xml_sps_file_path
+                    yield {
+                        "filename": xml_file,
+                        "xml_with_pre": xml_with_pre,
+                        "files": check_files,
+                        "filenames": basenames,
+                    }
+                except Exception as e:
+                    LOGGER.exception(f"Error in {xml_sps_file_path}/{xml_file}")
+                    continue
+
+    except TypeError:
+        raise
     except Exception as e:
         LOGGER.exception(e)
         raise GetXMLItemsFromZipFileError(
             _("Unable to get xml items from zip file {}: {} {}").format(
-                xml_sps_file_path, type(e), e
+                xml_sps_file_path, type(e).__name__, e
             )
         )
 
