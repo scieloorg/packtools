@@ -276,7 +276,6 @@ def get_xml_with_pre_from_uri(uri, timeout=30):
 
 def get_xml_with_pre(xml_content):
     try:
-        xml_content = xml_content.strip()
         # return etree.fromstring(xml_content)
         pref, xml = split_processing_instruction_doctype_declaration_and_xml(
             xml_content
@@ -293,36 +292,14 @@ def get_xml_with_pre(xml_content):
 
 
 def split_processing_instruction_doctype_declaration_and_xml(xml_content):
-    xml_content = xml_content.strip()
+    if not xml_content:
+        return "", ""
 
-    if not xml_content.startswith("<?") and not xml_content.startswith("<!"):
-        return "", xml_content
-    if xml_content.endswith("/>"):
-        # <article/>
-        p = xml_content.rfind("<")
-        if p >= 0:
-            pre = xml_content[:p].strip()
-            if pre.endswith(">"):
-                return xml_content[:p], xml_content[p:]
-            else:
-                return "", xml_content
+    p = xml_content.find("<article")
+    if p >= 0:
+        return xml_content[:p], xml_content[p:].strip()
 
-    p = xml_content.rfind("</")
-    if p:
-        # </article>
-        endtag = xml_content[p:]
-        starttag1 = endtag.replace("/", "").replace(">", " ")
-        starttag2 = endtag.replace("/", "")
-        for starttag in (starttag1, starttag2):
-            p = xml_content.find(starttag)
-            if p >= 0:
-                pre = xml_content[:p].strip()
-                if pre.endswith(">"):
-                    return xml_content[:p], xml_content[p:]
-                else:
-                    return "", xml_content
-
-    return "", xml_content
+    return xml_content, ""
 
 
 class XMLWithPre:
