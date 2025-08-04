@@ -44,7 +44,7 @@ class GetXMLItemsFromZipFileError(Exception): ...
 class XMLWithPreArticlePublicationDateError(Exception): ...
 
 
-def get_xml_items(xml_sps_file_path, filenames=None):
+def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
     """
     Get XML items from XML file or Zip file
 
@@ -63,7 +63,9 @@ def get_xml_items(xml_sps_file_path, filenames=None):
     try:
         name, ext = os.path.splitext(xml_sps_file_path)
         if ext == ".zip":
-            return get_xml_items_from_zip_file(xml_sps_file_path, filenames)
+            return get_xml_items_from_zip_file(
+                xml_sps_file_path, filenames, capture_errors
+            )
         if ext == ".xml":
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
@@ -77,6 +79,7 @@ def get_xml_items(xml_sps_file_path, filenames=None):
                     "filenames": [item],
                 }
             ]
+
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
                 xml_sps_file_path
@@ -84,6 +87,14 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         )
     except Exception as e:
         LOGGER.exception(e)
+        if capture_errors:
+            return [
+                {
+                    "error": _("Unable to get xml items from {}: {} {}").format(
+                        xml_sps_file_path, type(e), e
+                    )
+                }
+            ]
         raise GetXMLItemsError(
             _("Unable to get xml items from {}: {} {}").format(
                 xml_sps_file_path, type(e), e
@@ -91,21 +102,33 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         )
 
 
-def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
+def get_xml_items_from_zip_file(
+    xml_sps_file_path, filenames=None, capture_errors=False
+):
     """
-    Return XML items from a Zip file as a generator.
+    Extract and process XML items from a ZIP file.
 
-    Arguments
-    ---------
-        xml_sps_file_path: str
-        filenames: list of str, optional
+    Parameters
+    ----------
+    xml_sps_file_path : str
+        Path to the ZIP file
+    filenames : list of str, optional
+        Specific files to process. If None, processes all files.
 
     Yields
     ------
-        dict: Dictionary with filename, xml_with_pre, files, and filenames
+    dict
+        Success: {filename, xml_with_pre, files, filenames}
+        XML error: {filename, files, filenames, error, type_error}
+        ZIP error: {files, filenames, error, type_error}
+
+    Notes
+    -----
+    Yields errors as dicts instead of raising. Check for 'error' key.
     """
+    filenames = None
+    basenames = None
     try:
-        found = False
         with ZipFile(xml_sps_file_path) as zf:
             zip_files = zf.namelist()
             check_files = filenames or zip_files
@@ -118,8 +141,7 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
 
             for xml_file in xml_files:
                 try:
-                    content = zf.read(xml_file).decode("utf-8")
-                    xml_with_pre = get_xml_with_pre(content)
+                    xml_with_pre = get_xml_with_pre(zf.read(xml_file).decode("utf-8"))
                     xml_with_pre.zip_file_path = xml_sps_file_path
                     yield {
                         "filename": xml_file,
@@ -128,116 +150,29 @@ def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
                         "filenames": basenames,
                     }
                 except Exception as e:
-                    LOGGER.exception(f"Error in {xml_sps_file_path}/{xml_file}")
-                    continue
+                    if not capture_errors:
+                        LOGGER.exception(f"Error in {xml_sps_file_path}/{xml_file}")
 
-    except TypeError:
-        raise
+                    yield {
+                        "filename": xml_file,
+                        "files": check_files,
+                        "filenames": basenames,
+                        "error": str(e),
+                        "type_error": type(e).__name__,
+                    }
     except Exception as e:
         LOGGER.exception(e)
-        raise GetXMLItemsFromZipFileError(
-            _("Unable to get xml items from zip file {}: {} {}").format(
-                xml_sps_file_path, type(e).__name__, e
+        if not capture_errors:
+            raise GetXMLItemsFromZipFileError(
+                _("Unable to get xml items from zip file {}: {} {}").format(
+                    xml_sps_file_path, type(e).__name__, e
+                )
             )
-        )
-
-
-def get_sps_pkg_xml_items(xml_sps_file_path, filenames=None):
-    """
-    Get XML items from XML file or Zip file
-
-    Arguments
-    ---------
-        xml_sps_file_path: str
-
-    Return
-    ------
-    dict iterator which keys are filename and xml_with_pre
-
-    Raises
-    ------
-    GetXMLItemsError
-    """
-    try:
-        name, ext = os.path.splitext(xml_sps_file_path)
-        if ext == ".zip":
-            return get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames)
-        if ext == ".xml":
-            with open(xml_sps_file_path) as fp:
-                xml = get_xml_with_pre(fp.read())
-                xml.filename = xml_sps_file_path
-                item = os.path.basename(xml_sps_file_path)
-            return [
-                {
-                    "filename": item,
-                    "xml_with_pre": xml,
-                    "files": [item],
-                    "filenames": [item],
-                }
-            ]
-        return [
-            {
-                "error": _("{} must be xml file or zip file containing xml").format(
-                    xml_sps_file_path
-                )
-            }
-        ]
-
-    except Exception as e:
-        return [
-            {
-                "error": _("Unable to get xml items from {}: {} {}").format(
-                    xml_sps_file_path, type(e), e
-                )
-            }
-        ]
-
-
-def get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
-    """
-    Return the first XML content in the Zip file.
-
-    Arguments
-    ---------
-        xml_sps_file_path: str
-        filenames: str list
-
-    Return
-    ------
-    str
-    """
-    try:
-        filenames = []
-        _filenames = []
-        with ZipFile(xml_sps_file_path) as zf:
-            filenames = filenames or zf.namelist() or []
-            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
-            for item in filenames:
-                if item.endswith(".xml"):
-                    try:
-                        content = zf.read(item)
-                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
-                        xml_with_pre.zip_file_path = xml_sps_file_path
-                        yield {
-                            "filename": item,
-                            "xml_with_pre": xml_with_pre,
-                            "files": filenames,
-                            "filenames": _filenames,
-                        }
-                    except Exception as e:
-                        yield {
-                            "filename": item,
-                            "files": filenames,
-                            "filenames": _filenames,
-                            "error": str(e),
-                            "type_error": str(type(e)),
-                        }
-    except Exception as e:
         yield {
             "files": filenames,
-            "filenames": _filenames,
+            "filenames": basenames,
             "error": str(e),
-            "type_error": str(type(e)),
+            "type_error": type(e).__name__,
         }
 
 
@@ -332,12 +267,11 @@ def get_zips(xml_sps_file_path):
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
         response = fetch_data(uri, timeout=timeout)
-        xml_content = response.decode("utf-8")
+        xml_with_pre = get_xml_with_pre(response.decode("utf-8"))
+        xml_with_pre.uri = uri
+        return xml_with_pre
     except Exception as e:
         raise GetXmlWithPreFromURIError(_("Unable to get xml from {}").format(uri))
-    xml_with_pre = get_xml_with_pre(xml_content)
-    xml_with_pre.uri = uri
-    return xml_with_pre
 
 
 def get_xml_with_pre(xml_content):
@@ -426,7 +360,9 @@ class XMLWithPre:
         )
 
     @classmethod
-    def create(cls, path=None, uri=None, capture_errors=False, timeout=30):
+    def create(
+        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30
+    ):
         """
         Returns instance of XMLWithPre
 
@@ -436,23 +372,24 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-            errors = []
-            if capture_errors:
-                items = get_sps_pkg_xml_items(path)
-            else:
-                items = get_xml_items(path)
 
-            for item in items:
+            for item in get_xml_items(path, capture_errors):
                 if not item:
                     continue
+
+                errors = []
                 if item.get("error"):
                     errors.append(item)
-                else:
-                    item["xml_with_pre"].filename = item["filename"]
-                    item["xml_with_pre"].files = item.get("files")
-                    item["xml_with_pre"].filenames = item.get("filenames")
-                    item["xml_with_pre"].errors = errors
-                    yield item["xml_with_pre"]
+
+                xml_with_pre = item["xml_with_pre"]
+                xml_with_pre.filename = item["filename"]
+                xml_with_pre.files = item.get("files")
+                xml_with_pre.filenames = item.get("filenames")
+                xml_with_pre.errors = errors
+                yield xml_with_pre
+
+        if xml_content:
+            yield get_xml_with_pre(xml_content)
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout)
 
@@ -833,9 +770,10 @@ class XMLWithPre:
     def pub_year(self):
         if not hasattr(self, "_pub_year") or not self._pub_year:
             try:
-                self._pub_year = self.article_meta_issue.collection_date.get(
-                    "year"
-                ) or self.article_pub_year
+                self._pub_year = (
+                    self.article_meta_issue.collection_date.get("year")
+                    or self.article_pub_year
+                )
             except AttributeError:
                 return None
         return self._pub_year
@@ -851,13 +789,21 @@ class XMLWithPre:
             if contrib_group is not None:
                 for item in contrib_group.xpath(".//surname"):
                     content = " ".join(
-                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                        [
+                            text.strip()
+                            for text in item.xpath(".//text()")
+                            if text.strip()
+                        ]
                     )
                     names.append({"surname": content})
 
                 for item in contrib_group.xpath(".//collab"):
                     content = " ".join(
-                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                        [
+                            text.strip()
+                            for text in item.xpath(".//text()")
+                            if text.strip()
+                        ]
                     )
                     collab = content
 
@@ -871,12 +817,14 @@ class XMLWithPre:
     def article_titles(self):
         if not hasattr(self, "_article_titles") or not self._article_titles:
             # list of dict which keys are lang and text
-            xpath = "|".join([
-                ".//article-meta//article-title",
-                ".//article-meta//trans-title",
-                ".//front-stub//article-title",
-                ".//front-stub//trans-title",
-            ])
+            xpath = "|".join(
+                [
+                    ".//article-meta//article-title",
+                    ".//article-meta//trans-title",
+                    ".//front-stub//article-title",
+                    ".//front-stub//trans-title",
+                ]
+            )
             titles = []
             for item in self.xmltree.xpath(xpath):
                 title = " ".join(
