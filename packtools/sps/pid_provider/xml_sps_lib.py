@@ -308,18 +308,18 @@ class XMLWithPre:
     """
 
     def __init__(self, xmlpre, xmltree, pretty_print=True):
-        self.xmlpre = xmlpre or ""
         self.xmltree = xmltree
-        self.filename = None
+        self.xmlpre = xmlpre or ""
         self.pretty_print = pretty_print
+
+        self.parse_doctype()
+
+        self.filename = None
         self.files = None
         self.filenames = None
         self.uri = None
         self.zip_file_path = None
         self.xml_file_path = None
-        self._DOCTYPE = None
-        self._public_id = None
-        self._system_id = None
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
@@ -370,36 +370,37 @@ class XMLWithPre:
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout)
 
-    @property
-    def DOCTYPE(self):
-        if self._DOCTYPE is None:
-            if "<!DOCTYPE" in self.xmlpre:
-                self._DOCTYPE = self.xmlpre[self.xmlpre.find("<!DOCTYPE") :]
-                self._DOCTYPE = self._DOCTYPE[: self._DOCTYPE.find(">") + 1]
-        return self._DOCTYPE
+    def parse_doctype(self):
+        """
+        Extrai informações do DOCTYPE de forma pythônica.
+        
+        Returns:
+            DoctypeInfo com doctype, public_id e system_id
+        """
+        self.DOCTYPE = None
+        self.public_id = None
+        self.system_id = None
+        if not self.xmlpre or '<!DOCTYPE' not in self.xmlpre:
+            return
+        try:
+            # Extrai DOCTYPE
+            start = self.xmlpre.index('<!DOCTYPE')
+            end = self.xmlpre.index('>', start) + 1
+            self.DOCTYPE = self.xmlpre[start:end]
+            
+            # Parse dos IDs usando split
+            parts = self.DOCTYPE.split('"')
+            
+            if 'PUBLIC' in self.DOCTYPE and len(parts) >= 4:
+                self.public_id = parts[1]
+                self.system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
+                return
 
-    @property
-    def public_id(self):
-        if self._public_id is None:
-            if self.DOCTYPE is not None:
-                self._public_id = self.DOCTYPE[self.DOCTYPE.find('"') + 1 :]
-                self._public_id = self._public_id[: self._public_id.find('"')]
-        return self._public_id
-
-    @property
-    def system_id(self):
-        if self._system_id is None:
-            if "http" in self.DOCTYPE:
-                self._system_id = self.DOCTYPE[self.DOCTYPE.find('"http') + 1 :]
-                self._system_id = self._system_id[: self._system_id.find('"')]
-            if self.public_id:
-                _text = self.DOCTYPE[
-                    self.DOCTYPE.find(self.public_id) + len(self.public_id) :
-                ]
-                _text = _text[_text.find('"') + 1 :]
-                _text = _text[_text.find('"') + 1 :]
-                self.relative_system_id = _text[: _text.find('"')]
-        return self._system_id
+            if 'SYSTEM' in self.DOCTYPE and len(parts) >= 2:
+                self.system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
+                
+        except (ValueError, IndexError):
+            return
 
     @property
     def sps_version(self):
@@ -407,14 +408,6 @@ class XMLWithPre:
             return self.xmltree.find(".").get("specific-use")
         except (AttributeError, TypeError, ValueError):
             return None
-
-    def update_xml_in_zip_file(self):
-        if self.zip_file_path and self.filename:
-            with ZipFile(self.zip_file_path, "a", compression=ZIP_DEFLATED) as zf:
-                zf.writestr(
-                    self.filename,
-                    self.tostring(pretty_print=True),
-                )
 
     def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
@@ -428,20 +421,19 @@ class XMLWithPre:
 
     @property
     def sps_pkg_name_suffix(self):
-        if self.is_aop and self.main_doi:
-            doi = self.main_doi
-            if "/" in doi:
-                doi = doi[doi.rfind("/") + 1 :]
-            return doi.replace(".", "-")
         if self.elocation_id:
             return self.elocation_id
         if self.fpage:
             try:
-                fpage = int(self.fpage)
+                if not int(self.fpage) == 0:
+                    return self.fpage + (self.fpage_seq or "")
             except (TypeError, ValueError):
-                return self.fpage
-            if fpage != 0:
                 return self.fpage + (self.fpage_seq or "")
+        if self.main_doi:
+            doi = self.main_doi
+            if "/" in doi:
+                doi = doi[doi.rfind("/") + 1 :]
+            return doi.replace(".", "-")
 
     @property
     def alternative_sps_pkg_name_suffix(self):
