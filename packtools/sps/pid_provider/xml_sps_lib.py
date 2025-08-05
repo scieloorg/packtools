@@ -2,10 +2,10 @@ import hashlib
 import logging
 import os
 from datetime import date
+from functools import lru_cache
 from gettext import gettext as _
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
-
 
 from lxml import etree
 
@@ -44,7 +44,7 @@ class GetXMLItemsFromZipFileError(Exception): ...
 class XMLWithPreArticlePublicationDateError(Exception): ...
 
 
-def get_xml_items(xml_sps_file_path, filenames=None):
+def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
     """
     Get XML items from XML file or Zip file
 
@@ -63,7 +63,9 @@ def get_xml_items(xml_sps_file_path, filenames=None):
     try:
         name, ext = os.path.splitext(xml_sps_file_path)
         if ext == ".zip":
-            return get_xml_items_from_zip_file(xml_sps_file_path, filenames)
+            return get_xml_items_from_zip_file(
+                xml_sps_file_path, filenames, capture_errors
+            )
         if ext == ".xml":
             with open(xml_sps_file_path) as fp:
                 xml = get_xml_with_pre(fp.read())
@@ -77,6 +79,7 @@ def get_xml_items(xml_sps_file_path, filenames=None):
                     "filenames": [item],
                 }
             ]
+
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
                 xml_sps_file_path
@@ -84,6 +87,14 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         )
     except Exception as e:
         LOGGER.exception(e)
+        if capture_errors:
+            return [
+                {
+                    "error": _("Unable to get xml items from {}: {} {}").format(
+                        xml_sps_file_path, type(e), e
+                    )
+                }
+            ]
         raise GetXMLItemsError(
             _("Unable to get xml items from {}: {} {}").format(
                 xml_sps_file_path, type(e), e
@@ -91,151 +102,76 @@ def get_xml_items(xml_sps_file_path, filenames=None):
         )
 
 
-def get_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
+def get_xml_items_from_zip_file(
+    xml_sps_file_path, filenames=None, capture_errors=False
+):
     """
-    Return the first XML content in the Zip file.
+    Extract and process XML items from a ZIP file.
 
-    Arguments
-    ---------
-        xml_sps_file_path: str
-        filenames: str list
+    Parameters
+    ----------
+    xml_sps_file_path : str
+        Path to the ZIP file
+    filenames : list of str, optional
+        Specific files to process. If None, processes all files.
 
-    Return
+    Yields
     ------
-    str
+    dict
+        Success: {filename, xml_with_pre, files, filenames}
+        XML error: {filename, files, filenames, error, type_error}
+        ZIP error: {files, filenames, error, type_error}
+
+    Notes
+    -----
+    Yields errors as dicts instead of raising. Check for 'error' key.
     """
+    filenames = None
+    basenames = None
     try:
-        found = False
         with ZipFile(xml_sps_file_path) as zf:
-            filenames = filenames or zf.namelist() or []
-            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
-            for item in filenames:
-                if item.endswith(".xml"):
-                    try:
-                        content = zf.read(item)
-                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
-                        xml_with_pre.zip_file_path = xml_sps_file_path
-                        found = True
-                        yield {
-                            "filename": item,
-                            "xml_with_pre": xml_with_pre,
-                            "files": filenames,
-                            "filenames": _filenames,
-                        }
-                    except Exception as e:
-                        LOGGER.exception(
-                            f"Unable to get XMLWithPre from {xml_sps_file_path}/{item}"
-                        )
-                        continue
-            if not found:
-                raise TypeError(
-                    f"{xml_sps_file_path} has no XML. Files found: {filenames}"
-                )
+            zip_files = zf.namelist()
+            check_files = filenames or zip_files
+            xml_files = (f for f in check_files if f.endswith(".xml"))
+
+            if not xml_files:
+                raise TypeError(f"{xml_sps_file_path} has no XML files")
+
+            basenames = (os.path.basename(n) for n in zip_files if n)
+            for xml_file in xml_files:
+                try:
+                    xml_with_pre = get_xml_with_pre(zf.read(xml_file).decode("utf-8"))
+                    xml_with_pre.zip_file_path = xml_sps_file_path
+                    yield {
+                        "filename": xml_file,
+                        "xml_with_pre": xml_with_pre,
+                        "files": check_files,
+                        "filenames": basenames,
+                    }
+                except Exception as e:
+                    if not capture_errors:
+                        LOGGER.exception(f"Error in {xml_sps_file_path}/{xml_file}")
+
+                    yield {
+                        "filename": xml_file,
+                        "files": check_files,
+                        "filenames": basenames,
+                        "error": str(e),
+                        "type_error": type(e).__name__,
+                    }
     except Exception as e:
         LOGGER.exception(e)
-        raise GetXMLItemsFromZipFileError(
-            _("Unable to get xml items from zip file {}: {} {}").format(
-                xml_sps_file_path, type(e), e
+        if not capture_errors:
+            raise GetXMLItemsFromZipFileError(
+                _("Unable to get xml items from zip file {}: {} {}").format(
+                    xml_sps_file_path, type(e).__name__, e
+                )
             )
-        )
-
-
-def get_sps_pkg_xml_items(xml_sps_file_path, filenames=None):
-    """
-    Get XML items from XML file or Zip file
-
-    Arguments
-    ---------
-        xml_sps_file_path: str
-
-    Return
-    ------
-    dict iterator which keys are filename and xml_with_pre
-
-    Raises
-    ------
-    GetXMLItemsError
-    """
-    try:
-        name, ext = os.path.splitext(xml_sps_file_path)
-        if ext == ".zip":
-            return get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames)
-        if ext == ".xml":
-            with open(xml_sps_file_path) as fp:
-                xml = get_xml_with_pre(fp.read())
-                xml.filename = xml_sps_file_path
-                item = os.path.basename(xml_sps_file_path)
-            return [
-                {
-                    "filename": item,
-                    "xml_with_pre": xml,
-                    "files": [item],
-                    "filenames": [item],
-                }
-            ]
-        return [
-            {
-                "error": _("{} must be xml file or zip file containing xml").format(
-                    xml_sps_file_path
-                )
-            }
-        ]
-
-    except Exception as e:
-        return [
-            {
-                "error": _("Unable to get xml items from {}: {} {}").format(
-                    xml_sps_file_path, type(e), e
-                )
-            }
-        ]
-
-
-def get_sps_pkg_xml_items_from_zip_file(xml_sps_file_path, filenames=None):
-    """
-    Return the first XML content in the Zip file.
-
-    Arguments
-    ---------
-        xml_sps_file_path: str
-        filenames: str list
-
-    Return
-    ------
-    str
-    """
-    try:
-        filenames = []
-        _filenames = []
-        with ZipFile(xml_sps_file_path) as zf:
-            filenames = filenames or zf.namelist() or []
-            _filenames = [os.path.basename(name) for name in zf.namelist() if name]
-            for item in filenames:
-                if item.endswith(".xml"):
-                    try:
-                        content = zf.read(item)
-                        xml_with_pre = get_xml_with_pre(content.decode("utf-8"))
-                        xml_with_pre.zip_file_path = xml_sps_file_path
-                        yield {
-                            "filename": item,
-                            "xml_with_pre": xml_with_pre,
-                            "files": filenames,
-                            "filenames": _filenames,
-                        }
-                    except Exception as e:
-                        yield {
-                            "filename": item,
-                            "files": filenames,
-                            "filenames": _filenames,
-                            "error": str(e),
-                            "type_error": str(type(e)),
-                        }
-    except Exception as e:
         yield {
             "files": filenames,
-            "filenames": _filenames,
+            "filenames": basenames,
             "error": str(e),
-            "type_error": str(type(e)),
+            "type_error": type(e).__name__,
         }
 
 
@@ -330,17 +266,15 @@ def get_zips(xml_sps_file_path):
 def get_xml_with_pre_from_uri(uri, timeout=30):
     try:
         response = fetch_data(uri, timeout=timeout)
-        xml_content = response.decode("utf-8")
+        xml_with_pre = get_xml_with_pre(response.decode("utf-8"))
+        xml_with_pre.uri = uri
+        return xml_with_pre
     except Exception as e:
         raise GetXmlWithPreFromURIError(_("Unable to get xml from {}").format(uri))
-    xml_with_pre = get_xml_with_pre(xml_content)
-    xml_with_pre.uri = uri
-    return xml_with_pre
 
 
 def get_xml_with_pre(xml_content):
     try:
-        xml_content = xml_content.strip()
         # return etree.fromstring(xml_content)
         pref, xml = split_processing_instruction_doctype_declaration_and_xml(
             xml_content
@@ -357,34 +291,31 @@ def get_xml_with_pre(xml_content):
 
 
 def split_processing_instruction_doctype_declaration_and_xml(xml_content):
+    if not xml_content:
+        return "", ""
+
     xml_content = xml_content.strip()
+    if not xml_content:
+        return "", ""
 
-    if not xml_content.startswith("<?") and not xml_content.startswith("<!"):
-        return "", xml_content
-    if xml_content.endswith("/>"):
-        # <article/>
-        p = xml_content.rfind("<")
+    if xml_content.endswith("</article>") or xml_content.endswith("<article/>"):
+        p = xml_content.find("<article")
         if p >= 0:
-            pre = xml_content[:p].strip()
-            if pre.endswith(">"):
-                return xml_content[:p], xml_content[p:]
-            else:
-                return "", xml_content
+            return xml_content[:p], xml_content[p:]
 
-    p = xml_content.rfind("</")
-    if p:
-        # </article>
-        endtag = xml_content[p:]
-        starttag1 = endtag.replace("/", "").replace(">", " ")
-        starttag2 = endtag.replace("/", "")
-        for starttag in (starttag1, starttag2):
-            p = xml_content.find(starttag)
-            if p >= 0:
-                pre = xml_content[:p].strip()
-                if pre.endswith(">"):
-                    return xml_content[:p], xml_content[p:]
-                else:
-                    return "", xml_content
+    p = xml_content.rfind("<")
+    if p >= 0:
+        if xml_content.endswith("/>"):
+            start = p + 1
+            end = -2
+        else:
+            start = p + 2
+            end = -1
+        tag = xml_content[start:end]
+
+        p = xml_content.find(f"<{tag}")
+        if p >= 0:
+            return xml_content[:p], xml_content[p:]
 
     return "", xml_content
 
@@ -395,18 +326,23 @@ class XMLWithPre:
     """
 
     def __init__(self, xmlpre, xmltree, pretty_print=True):
-        self.xmlpre = xmlpre or ""
         self.xmltree = xmltree
-        self.filename = None
+        self.xmlpre = xmlpre or ""
+
+        # Parse DOCTYPE uma única vez durante init
+        self.DOCTYPE = None
+        self.public_id = None
+        self.system_id = None
+        if self.xmlpre and '<!DOCTYPE' in self.xmlpre:
+            self.parse_doctype()
+
         self.pretty_print = pretty_print
+        self.filename = None
         self.files = None
         self.filenames = None
         self.uri = None
         self.zip_file_path = None
         self.xml_file_path = None
-        self._DOCTYPE = None
-        self._public_id = None
-        self._system_id = None
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
@@ -424,7 +360,9 @@ class XMLWithPre:
         )
 
     @classmethod
-    def create(cls, path=None, uri=None, capture_errors=False, timeout=30):
+    def create(
+        cls, path=None, uri=None, xml_content=None, capture_errors=False, timeout=30
+    ):
         """
         Returns instance of XMLWithPre
 
@@ -434,56 +372,51 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-            errors = []
-            if capture_errors:
-                items = get_sps_pkg_xml_items(path)
-            else:
-                items = get_xml_items(path)
 
-            for item in items:
+            for item in get_xml_items(path, capture_errors):
                 if not item:
                     continue
-                if item.get("error"):
-                    errors.append(item)
-                else:
-                    item["xml_with_pre"].filename = item["filename"]
-                    item["xml_with_pre"].files = item.get("files")
-                    item["xml_with_pre"].filenames = item.get("filenames")
-                    item["xml_with_pre"].errors = errors
-                    yield item["xml_with_pre"]
+
+                xml_with_pre = item["xml_with_pre"]
+                xml_with_pre.filename = item["filename"]
+                xml_with_pre.files = item.get("files")
+                xml_with_pre.filenames = item.get("filenames")
+                xml_with_pre.errors = item.get("error") 
+                yield xml_with_pre
+
+        if xml_content:
+            yield get_xml_with_pre(xml_content)
         if uri:
             yield get_xml_with_pre_from_uri(uri, timeout)
 
-    @property
-    def DOCTYPE(self):
-        if self._DOCTYPE is None:
-            if "<!DOCTYPE" in self.xmlpre:
-                self._DOCTYPE = self.xmlpre[self.xmlpre.find("<!DOCTYPE") :]
-                self._DOCTYPE = self._DOCTYPE[: self._DOCTYPE.find(">") + 1]
-        return self._DOCTYPE
+    def parse_doctype(self):
+        """
+        Extrai informações do DOCTYPE de forma pythônica.
+        
+        Returns:
+            DoctypeInfo com doctype, public_id e system_id
+        """
+        if not self.xmlpre or '<!DOCTYPE' not in self.xmlpre:
+            return
+        try:
+            # Extrai DOCTYPE
+            start = self.xmlpre.index('<!DOCTYPE')
+            end = self.xmlpre.index('>', start) + 1
+            self.DOCTYPE = self.xmlpre[start:end]
+            
+            # Parse dos IDs usando split
+            parts = self.DOCTYPE.split('"')
+            
+            if 'PUBLIC' in self.DOCTYPE and len(parts) >= 4:
+                self.public_id = parts[1]
+                self.system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
+                return
 
-    @property
-    def public_id(self):
-        if self._public_id is None:
-            if self.DOCTYPE is not None:
-                self._public_id = self.DOCTYPE[self.DOCTYPE.find('"') + 1 :]
-                self._public_id = self._public_id[: self._public_id.find('"')]
-        return self._public_id
-
-    @property
-    def system_id(self):
-        if self._system_id is None:
-            if "http" in self.DOCTYPE:
-                self._system_id = self.DOCTYPE[self.DOCTYPE.find('"http') + 1 :]
-                self._system_id = self._system_id[: self._system_id.find('"')]
-            if self.public_id:
-                _text = self.DOCTYPE[
-                    self.DOCTYPE.find(self.public_id) + len(self.public_id) :
-                ]
-                _text = _text[_text.find('"') + 1 :]
-                _text = _text[_text.find('"') + 1 :]
-                self.relative_system_id = _text[: _text.find('"')]
-        return self._system_id
+            if 'SYSTEM' in self.DOCTYPE and len(parts) >= 2:
+                self.system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
+                
+        except (ValueError, IndexError):
+            return
 
     @property
     def sps_version(self):
@@ -491,14 +424,6 @@ class XMLWithPre:
             return self.xmltree.find(".").get("specific-use")
         except (AttributeError, TypeError, ValueError):
             return None
-
-    def update_xml_in_zip_file(self):
-        if self.zip_file_path and self.filename:
-            with ZipFile(self.zip_file_path, "a", compression=ZIP_DEFLATED) as zf:
-                zf.writestr(
-                    self.filename,
-                    self.tostring(pretty_print=True),
-                )
 
     def get_zip_content(self, xml_filename, pretty_print=False):
         zip_content = None
@@ -512,20 +437,19 @@ class XMLWithPre:
 
     @property
     def sps_pkg_name_suffix(self):
-        if self.is_aop and self.main_doi:
-            doi = self.main_doi
-            if "/" in doi:
-                doi = doi[doi.rfind("/") + 1 :]
-            return doi.replace(".", "-")
         if self.elocation_id:
             return self.elocation_id
         if self.fpage:
             try:
-                fpage = int(self.fpage)
+                if not int(self.fpage) == 0:
+                    return self.fpage + (self.fpage_seq or "")
             except (TypeError, ValueError):
-                return self.fpage
-            if fpage != 0:
                 return self.fpage + (self.fpage_seq or "")
+        if self.main_doi:
+            doi = self.main_doi
+            if "/" in doi:
+                doi = doi[doi.rfind("/") + 1 :]
+            return doi.replace(".", "-")
 
     @property
     def alternative_sps_pkg_name_suffix(self):
@@ -535,7 +459,9 @@ class XMLWithPre:
             return self.filename
 
     @property
+    @lru_cache(maxsize=1)
     def sps_pkg_name(self):
+        """Cache do nome do pacote SPS que é usado frequentemente"""
         try:
             suppl = self.suppl
             if suppl and int(suppl) == 0:
@@ -715,246 +641,221 @@ class XMLWithPre:
         )
 
     @property
+    @lru_cache(maxsize=1)
     def article_doi_with_lang(self):
-        if (
-            not hasattr(self, "_article_doi_with_lang")
-            or not self._article_doi_with_lang
-        ):
-            # [{"lang": "en", "value": "DOI"}]
-            doi_with_lang = DoiWithLang(self.xmltree)
-            self._main_doi = doi_with_lang.main_doi
-            self._article_doi_with_lang = doi_with_lang.data
-        return self._article_doi_with_lang
+        # [{"lang": "en", "value": "DOI"}]
+        return DoiWithLang(self.xmltree).data
 
     @property
+    @lru_cache(maxsize=1)
     def main_doi(self):
-        if not hasattr(self, "_main_doi") or not self._main_doi:
-            # [{"lang": "en", "value": "DOI"}]
-            doi_with_lang = DoiWithLang(self.xmltree)
-            self._main_doi = doi_with_lang.main_doi
-        return self._main_doi
+        # [{"lang": "en", "value": "DOI"}]
+        return DoiWithLang(self.xmltree).main_doi
 
     @property
+    @lru_cache(maxsize=1)
     def main_toc_section(self):
         """
         <subj-group subj-group-type="heading">
             <subject>Articles</subject>
         </subj-group>
         """
-        if not hasattr(self, "_main_toc_section") or not self._main_toc_section:
-            # [{"lang": "en", "value": "DOI"}]
-            node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
-            if node is None:
-                self._main_toc_section = None
-            else:
-                self._main_toc_section = node.findtext("./subject")
-        return self._main_toc_section
+        node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
+        if node is not None:
+            return node.findtext("./subject")
 
     @property
+    @lru_cache(maxsize=1)
     def issns(self):
-        if not hasattr(self, "_issns") or not self._issns:
-            # [{"type": "epub", "value": "1234-9876"}]
-            issns = ISSN(self.xmltree)
-            self._issns = {item["type"]: item["value"] for item in issns.data}
-        return self._issns
+        # [{"type": "epub", "value": "1234-9876"}]
+        return {item["type"]: item["value"] for item in ISSN(self.xmltree).data}
 
     @property
+    @lru_cache(maxsize=1)
     def is_aop(self):
-        if not hasattr(self, "_is_aop") or not self._is_aop:
-            items = (
-                self.article_meta_issue.volume,
-                self.article_meta_issue.number,
-                self.article_meta_issue.suppl,
-            )
-            self._is_aop = not any(items)
-        return self._is_aop
+        if self.volume:
+            try:
+                return int(self.volume) == 0
+            except (ValueError, TypeError):
+                return False
+            return False
+        if self.number:
+            try:
+                return int(self.number) == 0
+            except (ValueError, TypeError):
+                return False
+            return False
+        return True
 
     @property
     def xml_dates(self):
-        if not hasattr(self, "_xml_dates") or not self._xml_dates:
-            # ("year", "month", "season", "day")
-            self._xml_dates = ArticleDates(self.xmltree)
-        return self._xml_dates
+        # ("year", "month", "season", "day")
+        return ArticleDates(self.xmltree)
 
     @property
+    @lru_cache(maxsize=1)
     def article_meta_issue(self):
         # artigos podem ser publicados sem estarem associados a um fascículo
         # Neste caso, não há volume, número, suppl, fpage, fpage_seq, lpage
         # Mas deve ter ano de publicação em qualquer caso
-        if not hasattr(self, "_article_meta_issue") or not self._article_meta_issue:
-            self._article_meta_issue = ArticleMetaIssue(self.xmltree)
-        return self._article_meta_issue
+        return ArticleMetaIssue(self.xmltree)
 
     @property
+    @lru_cache(maxsize=1)
     def volume(self):
-        if not hasattr(self, "_volume") or not self._volume:
-            self._volume = self.article_meta_issue.volume
-        return self._volume
+        return self.article_meta_issue.volume
 
     @property
+    @lru_cache(maxsize=1)
     def number(self):
-        if not hasattr(self, "_number") or not self._number:
-            self._number = self.article_meta_issue.number
-        return self._number
+        return self.article_meta_issue.number
 
     @property
+    @lru_cache(maxsize=1)
     def suppl(self):
-        if not hasattr(self, "_suppl") or not self._suppl:
-            self._suppl = self.article_meta_issue.suppl
-        return self._suppl
+        return self.article_meta_issue.suppl
 
     @property
+    @lru_cache(maxsize=1)
     def fpage(self):
-        if not hasattr(self, "_fpage") or not self._fpage:
-            self._fpage = self.article_meta_issue.fpage
-        return self._fpage
+        return self.article_meta_issue.fpage
 
     @property
+    @lru_cache(maxsize=1)
     def fpage_seq(self):
-        if not hasattr(self, "_fpage_seq") or not self._fpage_seq:
-            self._fpage_seq = self.article_meta_issue.fpage_seq
-        return self._fpage_seq
+        return self.article_meta_issue.fpage_seq
 
     @property
+    @lru_cache(maxsize=1)
     def lpage(self):
-        if not hasattr(self, "_lpage") or not self._lpage:
-            self._lpage = self.article_meta_issue.lpage
-        return self._lpage
+        return self.article_meta_issue.lpage
 
     @property
+    @lru_cache(maxsize=1)
     def elocation_id(self):
-        if not hasattr(self, "_elocation_id") or not self._elocation_id:
-            self._elocation_id = self.article_meta_issue.elocation_id
-        return self._elocation_id
+        return self.article_meta_issue.elocation_id
 
     @property
+    @lru_cache(maxsize=1)
     def pub_year(self):
-        if not hasattr(self, "_pub_year") or not self._pub_year:
-            try:
-                self._pub_year = self.article_meta_issue.collection_date.get(
-                    "year"
-                ) or self.article_pub_year
-            except AttributeError:
-                return None
-        return self._pub_year
+        try:
+            return (
+                self.article_meta_issue.collection_date.get("year")
+                or self.article_pub_year
+            )
+        except AttributeError:
+            return None
 
     @property
+    @lru_cache(maxsize=1)
     def authors(self):
-        if not hasattr(self, "_authors") or not self._authors:
-            self._authors = {}
-            names = []
-            collab = None
+        authors_dict = {}
+        names = []
+        collab = None
 
-            contrib_group = self.xmltree.find(".//article-meta//contrib-group")
-            if contrib_group is not None:
-                for item in contrib_group.xpath(".//surname"):
-                    content = " ".join(
-                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
-                    )
-                    names.append({"surname": content})
+        contrib_group = self.xmltree.find(".//article-meta//contrib-group")
+        if contrib_group is not None:
+            for item in contrib_group.xpath(".//surname"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if text.strip()
+                    ]
+                )
+                names.append({"surname": content})
 
-                for item in contrib_group.xpath(".//collab"):
-                    content = " ".join(
-                        [text.strip() for text in item.xpath(".//text()") if text.strip()]
-                    )
-                    collab = content
+            for item in contrib_group.xpath(".//collab"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if text.strip()
+                    ]
+                )
+                collab = content
 
-            self._authors = {
-                "person": names,
-                "collab": collab,
-            }
-        return self._authors
+        return {
+            "person": names,
+            "collab": collab,
+        }
 
     @property
+    @lru_cache(maxsize=1)
     def article_titles(self):
-        if not hasattr(self, "_article_titles") or not self._article_titles:
-            # list of dict which keys are lang and text
-            xpath = "|".join([
+        # list of dict which keys are lang and text
+        xpath = "|".join(
+            [
                 ".//article-meta//article-title",
                 ".//article-meta//trans-title",
                 ".//front-stub//article-title",
                 ".//front-stub//trans-title",
-            ])
-            titles = []
-            for item in self.xmltree.xpath(xpath):
-                title = " ".join(
-                    [text.strip() for text in item.xpath(".//text()") if text.strip()]
-                )
-                titles.append(title)
-            titles = sorted(titles)
-            self._article_titles = titles
-        return self._article_titles
+            ]
+        )
+        titles = []
+        for item in self.xmltree.xpath(xpath):
+            title = " ".join(
+                [text.strip() for text in item.xpath(".//text()") if text.strip()]
+            )
+            titles.append(title)
+        return sorted(titles)
 
     @property
+    @lru_cache(maxsize=1)
     def partial_body(self):
-        if not hasattr(self, "_partial_body") or not self._partial_body:
-            self._partial_body = None
-            try:
-                body = Body(self.xmltree)
-                for text in body.main_body_texts:
-                    if text:
-                        self._partial_body = text
-                        break
-            except AttributeError:
-                self._partial_body = None
-        return self._partial_body
+        try:
+            body = Body(self.xmltree)
+            for text in body.main_body_texts:
+                if text:
+                    return text
+        except AttributeError:
+            pass
+        return None
 
     @property
+    @lru_cache(maxsize=1)
     def collab(self):
-        if not hasattr(self, "_collab") or not self._collab:
-            self._collab = self.authors.get("collab")
-        return self._collab
+        return self.authors.get("collab")
 
     @property
+    @lru_cache(maxsize=1)
     def journal_title(self):
-        if not hasattr(self, "_journal_title") or not self._journal_title:
-            self._journal_title = Title(self.xmltree).journal_title
-        return self._journal_title
+        return Title(self.xmltree).journal_title
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_print(self):
-        if not hasattr(self, "_journal_issn_print") or not self._journal_issn_print:
-            # list of dict which keys are
-            # href, ext-link-type, related-article-type
-            self._journal_issn_print = self.issns.get("ppub")
-        return self._journal_issn_print
+        # list of dict which keys are
+        # href, ext-link-type, related-article-type
+        return self.issns.get("ppub")
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_electronic(self):
-        if (
-            not hasattr(self, "_journal_issn_electronic")
-            or not self._journal_issn_electronic
-        ):
-            # list of dict which keys are
-            # href, ext-link-type, related-article-type
-            self._journal_issn_electronic = self.issns.get("epub")
-        return self._journal_issn_electronic
+        # list of dict which keys are
+        # href, ext-link-type, related-article-type
+        return self.issns.get("epub")
 
     @property
     def article_publication_date(self):
-        if (
-            not hasattr(self, "_article_publication_date")
-            or not self._article_publication_date
-        ):
-            # ("year", "month", "season", "day")
-            self._article_publication_date = None
-            _date = self.xml_dates.article_date
-            if _date:
-                try:
-                    d = date(
-                        int(_date["year"]),
-                        int(_date["month"]),
-                        int(_date["day"]),
-                    )
-                except (ValueError, TypeError, KeyError) as e:
-                    raise XMLWithPreArticlePublicationDateError(
-                        _(
-                            "Unable to get XMLWithPre.article_publication_date {} {} {}"
-                        ).format(_date, type(e), e)
-                    )
-                else:
-                    self._article_publication_date = f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
-        return self._article_publication_date
+        # ("year", "month", "season", "day")
+        _date = self.xml_dates.article_date
+        if _date:
+            try:
+                d = date(
+                    int(_date["year"]),
+                    int(_date["month"]),
+                    int(_date["day"]),
+                )
+            except (ValueError, TypeError, KeyError) as e:
+                raise XMLWithPreArticlePublicationDateError(
+                    _(
+                        "Unable to get XMLWithPre.article_publication_date {} {} {}"
+                    ).format(_date, type(e), e)
+                )
+            else:
+                return f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
+        return None
 
     @article_publication_date.setter
     def article_publication_date(self, value):
@@ -1010,19 +911,16 @@ class XMLWithPre:
 
     @property
     def article_pub_year(self):
-        if not hasattr(self, "_article_pub_year") or not self._article_pub_year:
-            # ("year", "month", "season", "day")
-            try:
-                self._article_pub_year = self.xml_dates.article_date["year"]
-            except (ValueError, TypeError, KeyError) as e:
-                self._article_pub_year = self.pub_year
-        return self._article_pub_year
+        # ("year", "month", "season", "day")
+        try:
+            return self.xml_dates.article_date["year"]
+        except (ValueError, TypeError, KeyError) as e:
+            return self.pub_year
 
     @property
+    @lru_cache(maxsize=1)
     def article_titles_texts(self):
-        if not hasattr(self, "_article_titles_texts") or not self._article_titles_texts:
-            self._article_titles_texts = self.article_titles
-        return self._article_titles_texts
+        return self.article_titles
 
     @property
     def finger_print(self):
