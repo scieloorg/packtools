@@ -2,10 +2,10 @@ import hashlib
 import logging
 import os
 from datetime import date
+from functools import lru_cache
 from gettext import gettext as _
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
-
 
 from lxml import etree
 
@@ -459,7 +459,9 @@ class XMLWithPre:
             return self.filename
 
     @property
+    @lru_cache(maxsize=1)
     def sps_pkg_name(self):
+        """Cache do nome do pacote SPS que é usado frequentemente"""
         try:
             suppl = self.suppl
             if suppl and int(suppl) == 0:
@@ -639,257 +641,223 @@ class XMLWithPre:
         )
 
     @property
+    @lru_cache(maxsize=1)
     def article_doi_with_lang(self):
-        if (
-            not hasattr(self, "_article_doi_with_lang")
-            or not self._article_doi_with_lang
-        ):
-            # [{"lang": "en", "value": "DOI"}]
-            doi_with_lang = DoiWithLang(self.xmltree)
-            self._main_doi = doi_with_lang.main_doi
-            self._article_doi_with_lang = doi_with_lang.data
-        return self._article_doi_with_lang
+        # [{"lang": "en", "value": "DOI"}]
+        return DoiWithLang(self.xmltree).data
 
     @property
+    @lru_cache(maxsize=1)
     def main_doi(self):
-        if not hasattr(self, "_main_doi") or not self._main_doi:
-            # [{"lang": "en", "value": "DOI"}]
-            doi_with_lang = DoiWithLang(self.xmltree)
-            self._main_doi = doi_with_lang.main_doi
-        return self._main_doi
+        # [{"lang": "en", "value": "DOI"}]
+        return DoiWithLang(self.xmltree).main_doi
 
     @property
+    @lru_cache(maxsize=1)
     def main_toc_section(self):
         """
         <subj-group subj-group-type="heading">
             <subject>Articles</subject>
         </subj-group>
         """
-        if not hasattr(self, "_main_toc_section") or not self._main_toc_section:
-            # [{"lang": "en", "value": "DOI"}]
-            node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
-            if node is None:
-                self._main_toc_section = None
-            else:
-                self._main_toc_section = node.findtext("./subject")
-        return self._main_toc_section
+        node = self.xmltree.find('.//subj-group[@subj-group-type="heading"]')
+        if node is not None:
+            return node.findtext("./subject")
 
     @property
+    @lru_cache(maxsize=1)
     def issns(self):
-        if not hasattr(self, "_issns") or not self._issns:
-            # [{"type": "epub", "value": "1234-9876"}]
-            issns = ISSN(self.xmltree)
-            self._issns = {item["type"]: item["value"] for item in issns.data}
-        return self._issns
+        # [{"type": "epub", "value": "1234-9876"}]
+        return {item["type"]: item["value"] for item in ISSN(self.xmltree).data}
 
     @property
+    @lru_cache(maxsize=1)
     def is_aop(self):
-        if not hasattr(self, "_is_aop") or not self._is_aop:
-            items = (
-                self.article_meta_issue.volume,
-                self.article_meta_issue.number,
-                self.article_meta_issue.suppl,
-            )
-            self._is_aop = not any(items)
-        return self._is_aop
+        if self.volume:
+            try:
+                return int(self.volume) == 0
+            except (ValueError, TypeError):
+                return False
+            return False
+        if self.number:
+            try:
+                return int(self.number) == 0
+            except (ValueError, TypeError):
+                return False
+            return False
+        return True
 
     @property
+    @lru_cache(maxsize=1)
     def xml_dates(self):
-        if not hasattr(self, "_xml_dates") or not self._xml_dates:
-            # ("year", "month", "season", "day")
-            self._xml_dates = ArticleDates(self.xmltree)
-        return self._xml_dates
+        # ("year", "month", "season", "day")
+        return ArticleDates(self.xmltree)
 
     @property
+    @lru_cache(maxsize=1)
     def article_meta_issue(self):
         # artigos podem ser publicados sem estarem associados a um fascículo
         # Neste caso, não há volume, número, suppl, fpage, fpage_seq, lpage
         # Mas deve ter ano de publicação em qualquer caso
-        if not hasattr(self, "_article_meta_issue") or not self._article_meta_issue:
-            self._article_meta_issue = ArticleMetaIssue(self.xmltree)
-        return self._article_meta_issue
+        return ArticleMetaIssue(self.xmltree)
 
     @property
+    @lru_cache(maxsize=1)
     def volume(self):
-        if not hasattr(self, "_volume") or not self._volume:
-            self._volume = self.article_meta_issue.volume
-        return self._volume
+        return self.article_meta_issue.volume
 
     @property
+    @lru_cache(maxsize=1)
     def number(self):
-        if not hasattr(self, "_number") or not self._number:
-            self._number = self.article_meta_issue.number
-        return self._number
+        return self.article_meta_issue.number
 
     @property
+    @lru_cache(maxsize=1)
     def suppl(self):
-        if not hasattr(self, "_suppl") or not self._suppl:
-            self._suppl = self.article_meta_issue.suppl
-        return self._suppl
+        return self.article_meta_issue.suppl
 
     @property
+    @lru_cache(maxsize=1)
     def fpage(self):
-        if not hasattr(self, "_fpage") or not self._fpage:
-            self._fpage = self.article_meta_issue.fpage
-        return self._fpage
+        return self.article_meta_issue.fpage
 
     @property
+    @lru_cache(maxsize=1)
     def fpage_seq(self):
-        if not hasattr(self, "_fpage_seq") or not self._fpage_seq:
-            self._fpage_seq = self.article_meta_issue.fpage_seq
-        return self._fpage_seq
+        return self.article_meta_issue.fpage_seq
 
     @property
+    @lru_cache(maxsize=1)
     def lpage(self):
-        if not hasattr(self, "_lpage") or not self._lpage:
-            self._lpage = self.article_meta_issue.lpage
-        return self._lpage
+        return self.article_meta_issue.lpage
 
     @property
+    @lru_cache(maxsize=1)
     def elocation_id(self):
-        if not hasattr(self, "_elocation_id") or not self._elocation_id:
-            self._elocation_id = self.article_meta_issue.elocation_id
-        return self._elocation_id
+        return self.article_meta_issue.elocation_id
 
     @property
+    @lru_cache(maxsize=1)
     def pub_year(self):
-        if not hasattr(self, "_pub_year") or not self._pub_year:
-            try:
-                self._pub_year = (
-                    self.article_meta_issue.collection_date.get("year")
-                    or self.article_pub_year
-                )
-            except AttributeError:
-                return None
-        return self._pub_year
-
-    @property
-    def authors(self):
-        if not hasattr(self, "_authors") or not self._authors:
-            self._authors = {}
-            names = []
-            collab = None
-
-            contrib_group = self.xmltree.find(".//article-meta//contrib-group")
-            if contrib_group is not None:
-                for item in contrib_group.xpath(".//surname"):
-                    content = " ".join(
-                        [
-                            text.strip()
-                            for text in item.xpath(".//text()")
-                            if text.strip()
-                        ]
-                    )
-                    names.append({"surname": content})
-
-                for item in contrib_group.xpath(".//collab"):
-                    content = " ".join(
-                        [
-                            text.strip()
-                            for text in item.xpath(".//text()")
-                            if text.strip()
-                        ]
-                    )
-                    collab = content
-
-            self._authors = {
-                "person": names,
-                "collab": collab,
-            }
-        return self._authors
-
-    @property
-    def article_titles(self):
-        if not hasattr(self, "_article_titles") or not self._article_titles:
-            # list of dict which keys are lang and text
-            xpath = "|".join(
-                [
-                    ".//article-meta//article-title",
-                    ".//article-meta//trans-title",
-                    ".//front-stub//article-title",
-                    ".//front-stub//trans-title",
-                ]
+        try:
+            return (
+                self.article_meta_issue.collection_date.get("year")
+                or self.article_pub_year
             )
-            titles = []
-            for item in self.xmltree.xpath(xpath):
-                title = " ".join(
-                    [text.strip() for text in item.xpath(".//text()") if text.strip()]
+        except AttributeError:
+            return None
+
+    @property
+    @lru_cache(maxsize=1)
+    def authors(self):
+        authors_dict = {}
+        names = []
+        collab = None
+
+        contrib_group = self.xmltree.find(".//article-meta//contrib-group")
+        if contrib_group is not None:
+            for item in contrib_group.xpath(".//surname"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if text.strip()
+                    ]
                 )
-                titles.append(title)
-            titles = sorted(titles)
-            self._article_titles = titles
-        return self._article_titles
+                names.append({"surname": content})
+
+            for item in contrib_group.xpath(".//collab"):
+                content = " ".join(
+                    [
+                        text.strip()
+                        for text in item.xpath(".//text()")
+                        if text.strip()
+                    ]
+                )
+                collab = content
+
+        return {
+            "person": names,
+            "collab": collab,
+        }
 
     @property
+    @lru_cache(maxsize=1)
+    def article_titles(self):
+        # list of dict which keys are lang and text
+        xpath = "|".join(
+            [
+                ".//article-meta//article-title",
+                ".//article-meta//trans-title",
+                ".//front-stub//article-title",
+                ".//front-stub//trans-title",
+            ]
+        )
+        titles = []
+        for item in self.xmltree.xpath(xpath):
+            title = " ".join(
+                [text.strip() for text in item.xpath(".//text()") if text.strip()]
+            )
+            titles.append(title)
+        return sorted(titles)
+
+    @property
+    @lru_cache(maxsize=1)
     def partial_body(self):
-        if not hasattr(self, "_partial_body") or not self._partial_body:
-            self._partial_body = None
-            try:
-                body = Body(self.xmltree)
-                for text in body.main_body_texts:
-                    if text:
-                        self._partial_body = text
-                        break
-            except AttributeError:
-                self._partial_body = None
-        return self._partial_body
+        try:
+            body = Body(self.xmltree)
+            for text in body.main_body_texts:
+                if text:
+                    return text
+        except AttributeError:
+            pass
+        return None
 
     @property
+    @lru_cache(maxsize=1)
     def collab(self):
-        if not hasattr(self, "_collab") or not self._collab:
-            self._collab = self.authors.get("collab")
-        return self._collab
+        return self.authors.get("collab")
 
     @property
+    @lru_cache(maxsize=1)
     def journal_title(self):
-        if not hasattr(self, "_journal_title") or not self._journal_title:
-            self._journal_title = Title(self.xmltree).journal_title
-        return self._journal_title
+        return Title(self.xmltree).journal_title
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_print(self):
-        if not hasattr(self, "_journal_issn_print") or not self._journal_issn_print:
-            # list of dict which keys are
-            # href, ext-link-type, related-article-type
-            self._journal_issn_print = self.issns.get("ppub")
-        return self._journal_issn_print
+        # list of dict which keys are
+        # href, ext-link-type, related-article-type
+        return self.issns.get("ppub")
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_electronic(self):
-        if (
-            not hasattr(self, "_journal_issn_electronic")
-            or not self._journal_issn_electronic
-        ):
-            # list of dict which keys are
-            # href, ext-link-type, related-article-type
-            self._journal_issn_electronic = self.issns.get("epub")
-        return self._journal_issn_electronic
+        # list of dict which keys are
+        # href, ext-link-type, related-article-type
+        return self.issns.get("epub")
 
     @property
+    @lru_cache(maxsize=1)
     def article_publication_date(self):
-        if (
-            not hasattr(self, "_article_publication_date")
-            or not self._article_publication_date
-        ):
-            # ("year", "month", "season", "day")
-            self._article_publication_date = None
-            _date = self.xml_dates.article_date
-            if _date:
-                try:
-                    d = date(
-                        int(_date["year"]),
-                        int(_date["month"]),
-                        int(_date["day"]),
-                    )
-                except (ValueError, TypeError, KeyError) as e:
-                    raise XMLWithPreArticlePublicationDateError(
-                        _(
-                            "Unable to get XMLWithPre.article_publication_date {} {} {}"
-                        ).format(_date, type(e), e)
-                    )
-                else:
-                    self._article_publication_date = f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
-        return self._article_publication_date
+        # ("year", "month", "season", "day")
+        _date = self.xml_dates.article_date
+        if _date:
+            try:
+                d = date(
+                    int(_date["year"]),
+                    int(_date["month"]),
+                    int(_date["day"]),
+                )
+            except (ValueError, TypeError, KeyError) as e:
+                raise XMLWithPreArticlePublicationDateError(
+                    _(
+                        "Unable to get XMLWithPre.article_publication_date {} {} {}"
+                    ).format(_date, type(e), e)
+                )
+            else:
+                return f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
+        return None
 
     @article_publication_date.setter
     def article_publication_date(self, value):
@@ -944,20 +912,18 @@ class XMLWithPre:
                 elem.text = str(numbers[name]).zfill(max_length)
 
     @property
+    @lru_cache(maxsize=1)
     def article_pub_year(self):
-        if not hasattr(self, "_article_pub_year") or not self._article_pub_year:
-            # ("year", "month", "season", "day")
-            try:
-                self._article_pub_year = self.xml_dates.article_date["year"]
-            except (ValueError, TypeError, KeyError) as e:
-                self._article_pub_year = self.pub_year
-        return self._article_pub_year
+        # ("year", "month", "season", "day")
+        try:
+            return self.xml_dates.article_date["year"]
+        except (ValueError, TypeError, KeyError) as e:
+            return self.pub_year
 
     @property
+    @lru_cache(maxsize=1)
     def article_titles_texts(self):
-        if not hasattr(self, "_article_titles_texts") or not self._article_titles_texts:
-            self._article_titles_texts = self.article_titles
-        return self._article_titles_texts
+        return self.article_titles
 
     @property
     def finger_print(self):
