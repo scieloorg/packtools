@@ -688,7 +688,6 @@ class XMLWithPre:
         return True
 
     @property
-    @lru_cache(maxsize=1)
     def xml_dates(self):
         # ("year", "month", "season", "day")
         return ArticleDates(self.xmltree)
@@ -838,7 +837,6 @@ class XMLWithPre:
         return self.issns.get("epub")
 
     @property
-    @lru_cache(maxsize=1)
     def article_publication_date(self):
         # ("year", "month", "season", "day")
         _date = self.xml_dates.article_date
@@ -912,7 +910,6 @@ class XMLWithPre:
                 elem.text = str(numbers[name]).zfill(max_length)
 
     @property
-    @lru_cache(maxsize=1)
     def article_pub_year(self):
         # ("year", "month", "season", "day")
         try:
