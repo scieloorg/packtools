@@ -132,13 +132,12 @@ def get_xml_items_from_zip_file(
         with ZipFile(xml_sps_file_path) as zf:
             zip_files = zf.namelist()
             check_files = filenames or zip_files
-            xml_files = tuple(f for f in check_files if f.endswith(".xml"))
+            xml_files = (f for f in check_files if f.endswith(".xml"))
 
             if not xml_files:
                 raise TypeError(f"{xml_sps_file_path} has no XML files")
 
-            basenames = tuple(os.path.basename(n) for n in zip_files if n)
-
+            basenames = (os.path.basename(n) for n in zip_files if n)
             for xml_file in xml_files:
                 try:
                     xml_with_pre = get_xml_with_pre(zf.read(xml_file).decode("utf-8"))
@@ -299,7 +298,7 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
     if p >= 0:
         return xml_content[:p], xml_content[p:].strip()
 
-    return xml_content, ""
+    raise ValueError("No <article> tag found in XML")
 
 
 class XMLWithPre:
@@ -308,12 +307,12 @@ class XMLWithPre:
     """
 
     def __init__(self, xmlpre, xmltree, pretty_print=True):
+        self._DOCTYPE = None
+        self._public_id = None
+        self._system_id = None
         self.xmltree = xmltree
         self.xmlpre = xmlpre or ""
         self.pretty_print = pretty_print
-
-        self.parse_doctype()
-
         self.filename = None
         self.files = None
         self.filenames = None
@@ -354,15 +353,11 @@ class XMLWithPre:
                 if not item:
                     continue
 
-                errors = []
-                if item.get("error"):
-                    errors.append(item)
-
                 xml_with_pre = item["xml_with_pre"]
                 xml_with_pre.filename = item["filename"]
                 xml_with_pre.files = item.get("files")
                 xml_with_pre.filenames = item.get("filenames")
-                xml_with_pre.errors = errors
+                xml_with_pre.errors = item.get("error") 
                 yield xml_with_pre
 
         if xml_content:
@@ -377,30 +372,45 @@ class XMLWithPre:
         Returns:
             DoctypeInfo com doctype, public_id e system_id
         """
-        self.DOCTYPE = None
-        self.public_id = None
-        self.system_id = None
         if not self.xmlpre or '<!DOCTYPE' not in self.xmlpre:
             return
         try:
             # Extrai DOCTYPE
             start = self.xmlpre.index('<!DOCTYPE')
             end = self.xmlpre.index('>', start) + 1
-            self.DOCTYPE = self.xmlpre[start:end]
+            self._DOCTYPE = self.xmlpre[start:end]
             
             # Parse dos IDs usando split
-            parts = self.DOCTYPE.split('"')
+            parts = self._DOCTYPE.split('"')
             
-            if 'PUBLIC' in self.DOCTYPE and len(parts) >= 4:
-                self.public_id = parts[1]
-                self.system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
+            if 'PUBLIC' in self._DOCTYPE and len(parts) >= 4:
+                self._public_id = parts[1]
+                self._system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
                 return
 
-            if 'SYSTEM' in self.DOCTYPE and len(parts) >= 2:
-                self.system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
+            if 'SYSTEM' in self._DOCTYPE and len(parts) >= 2:
+                self._system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
                 
         except (ValueError, IndexError):
             return
+
+    @property
+    def DOCTYPE(self):
+        if not self._DOCTYPE:
+            self.parse_doctype()
+        return self._DOCTYPE
+
+    @property
+    def system_id(self):
+        if not self._system_id:
+            self.parse_doctype()
+        return self._system_id
+
+    @property
+    def public_id(self):
+        if not self._public_id:
+            self.parse_doctype()
+        return self._public_id
 
     @property
     def sps_version(self):
