@@ -294,11 +294,30 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
     if not xml_content:
         return "", ""
 
-    p = xml_content.find("<article")
-    if p >= 0:
-        return xml_content[:p], xml_content[p:].strip()
+    xml_content = xml_content.strip()
+    if not xml_content:
+        return "", ""
 
-    raise ValueError("No <article> tag found in XML")
+    if xml_content.endswith("</article>") or xml_content.endswith("<article/>"):
+        p = xml_content.find("<article")
+        if p >= 0:
+            return xml_content[:p], xml_content[p:]
+
+    p = xml_content.rfind("<")
+    if p >= 0:
+        if xml_content.endswith("/>"):
+            start = p + 1
+            end = -2
+        else:
+            start = p + 2
+            end = -1
+        tag = xml_content[start:end]
+
+        p = xml_content.find(f"<{tag}")
+        if p >= 0:
+            return xml_content[:p], xml_content[p:]
+
+    return "", xml_content
 
 
 class XMLWithPre:
@@ -307,11 +326,16 @@ class XMLWithPre:
     """
 
     def __init__(self, xmlpre, xmltree, pretty_print=True):
-        self._DOCTYPE = None
-        self._public_id = None
-        self._system_id = None
         self.xmltree = xmltree
         self.xmlpre = xmlpre or ""
+
+        # Parse DOCTYPE uma única vez durante init
+        self.DOCTYPE = None
+        self.public_id = None
+        self.system_id = None
+        if self.xmlpre and '<!DOCTYPE' in self.xmlpre:
+            self.parse_doctype()
+
         self.pretty_print = pretty_print
         self.filename = None
         self.files = None
@@ -378,39 +402,21 @@ class XMLWithPre:
             # Extrai DOCTYPE
             start = self.xmlpre.index('<!DOCTYPE')
             end = self.xmlpre.index('>', start) + 1
-            self._DOCTYPE = self.xmlpre[start:end]
+            self.DOCTYPE = self.xmlpre[start:end]
             
             # Parse dos IDs usando split
-            parts = self._DOCTYPE.split('"')
+            parts = self.DOCTYPE.split('"')
             
-            if 'PUBLIC' in self._DOCTYPE and len(parts) >= 4:
-                self._public_id = parts[1]
-                self._system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
+            if 'PUBLIC' in self.DOCTYPE and len(parts) >= 4:
+                self.public_id = parts[1]
+                self.system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
                 return
 
-            if 'SYSTEM' in self._DOCTYPE and len(parts) >= 2:
-                self._system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
+            if 'SYSTEM' in self.DOCTYPE and len(parts) >= 2:
+                self.system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
                 
         except (ValueError, IndexError):
             return
-
-    @property
-    def DOCTYPE(self):
-        if not self._DOCTYPE:
-            self.parse_doctype()
-        return self._DOCTYPE
-
-    @property
-    def system_id(self):
-        if not self._system_id:
-            self.parse_doctype()
-        return self._system_id
-
-    @property
-    def public_id(self):
-        if not self._public_id:
-            self.parse_doctype()
-        return self._public_id
 
     @property
     def sps_version(self):
