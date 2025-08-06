@@ -126,8 +126,8 @@ def get_xml_items_from_zip_file(
     -----
     Yields errors as dicts instead of raising. Check for 'error' key.
     """
-    filenames = None
-    basenames = None
+    filenames = []
+    basenames = []
     try:
         with ZipFile(xml_sps_file_path) as zf:
             zip_files = zf.namelist()
@@ -137,7 +137,7 @@ def get_xml_items_from_zip_file(
             if not xml_files:
                 raise TypeError(f"{xml_sps_file_path} has no XML files")
 
-            basenames = (os.path.basename(n) for n in zip_files if n)
+            basenames = list(os.path.basename(n) for n in zip_files if n)
             for xml_file in xml_files:
                 try:
                     xml_with_pre = get_xml_with_pre(zf.read(xml_file).decode("utf-8"))
