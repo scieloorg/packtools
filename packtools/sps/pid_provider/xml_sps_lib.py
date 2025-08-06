@@ -419,6 +419,7 @@ class XMLWithPre:
             return
 
     @property
+    @lru_cache(maxsize=1)
     def sps_version(self):
         try:
             return self.xmltree.find(".").get("specific-use")
@@ -436,6 +437,7 @@ class XMLWithPre:
         return zip_content
 
     @property
+    @lru_cache(maxsize=1)
     def sps_pkg_name_suffix(self):
         if self.elocation_id:
             return self.elocation_id
@@ -452,6 +454,7 @@ class XMLWithPre:
             return doi.replace(".", "-")
 
     @property
+    @lru_cache(maxsize=1)
     def alternative_sps_pkg_name_suffix(self):
         try:
             return self.v2[-5:]
@@ -481,6 +484,7 @@ class XMLWithPre:
         return "-".join([part for part in parts if part])
 
     @property
+    @lru_cache(maxsize=1)
     def article_id_parent(self):
         """
         Retorna o nó pai dos elementos article-id (v2, v3, aop_pid)
@@ -514,10 +518,12 @@ class XMLWithPre:
             self.article_ids.aop_pid = aop_pid
 
     @property
+    @lru_cache(maxsize=1)
     def related_items(self):
         return RelatedItems(self.xmltree).related_articles
 
     @property
+    @lru_cache(maxsize=1)
     def links(self):
         # Ha casos de related-article sem href
         # <related-article id="pr03" related-article-type="press-release" specific-use="processing-only"/>
@@ -688,12 +694,6 @@ class XMLWithPre:
         return True
 
     @property
-    def xml_dates(self):
-        # ("year", "month", "season", "day")
-        return ArticleDates(self.xmltree)
-
-    @property
-    @lru_cache(maxsize=1)
     def article_meta_issue(self):
         # artigos podem ser publicados sem estarem associados a um fascículo
         # Neste caso, não há volume, número, suppl, fpage, fpage_seq, lpage
@@ -736,11 +736,10 @@ class XMLWithPre:
         return self.article_meta_issue.elocation_id
 
     @property
-    @lru_cache(maxsize=1)
     def pub_year(self):
         try:
             return (
-                self.article_meta_issue.collection_date.get("year")
+                ArticleMetaIssue(self.xmltree).collection_date.get("year")
                 or self.article_pub_year
             )
         except AttributeError:
@@ -839,7 +838,7 @@ class XMLWithPre:
     @property
     def article_publication_date(self):
         # ("year", "month", "season", "day")
-        _date = self.xml_dates.article_date
+        _date = ArticleDates(self.xmltree).article_date
         if _date:
             try:
                 d = date(
@@ -913,7 +912,7 @@ class XMLWithPre:
     def article_pub_year(self):
         # ("year", "month", "season", "day")
         try:
-            return self.xml_dates.article_date["year"]
+            return ArticleDates(self.xmltree).article_date["year"]
         except (ValueError, TypeError, KeyError) as e:
             return self.pub_year
 
@@ -927,10 +926,12 @@ class XMLWithPre:
         return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
 
     @property
+    @lru_cache(maxsize=1)
     def main_lang(self):
         return ArticleAndSubArticles(self.xmltree).main_lang
 
     @property
+    @lru_cache(maxsize=1)
     def langs(self):
         for item in ArticleAndSubArticles(self.xmltree).data:
             yield item["lang"]

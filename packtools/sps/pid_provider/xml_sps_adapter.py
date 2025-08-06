@@ -1,5 +1,6 @@
 import hashlib
 import logging
+from functools import lru_cache
 
 
 LOGGER = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ class PidProviderXMLAdapter:
         return self.xml_with_pre.tostring(pretty_print=pretty_print)
 
     @property
+    @lru_cache(maxsize=1)
     def sps_pkg_name(self):
         return self.xml_with_pre.sps_pkg_name
 
@@ -23,18 +25,22 @@ class PidProviderXMLAdapter:
         return self.xml_with_pre.finger_print
 
     @property
+    @lru_cache(maxsize=1)
     def related_items(self):
         return self.xml_with_pre.related_items
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_electronic(self):
         return self.xml_with_pre.journal_issn_electronic
 
     @property
+    @lru_cache(maxsize=1)
     def journal_issn_print(self):
         return self.xml_with_pre.journal_issn_print
 
     @property
+    @lru_cache(maxsize=1)
     def v2_prefix(self):
         # S + ISSN + YEAR ou 14 primeiros dígitos do pid clássico
         return self.xml_with_pre.v2_prefix
@@ -42,17 +48,21 @@ class PidProviderXMLAdapter:
     @property
     def order(self):
         # até 5 dígitos, em geral 5 últimos dígitos do pid v2
+        # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.order
 
     @property
+    @lru_cache(maxsize=1)
     def volume(self):
         return self.xml_with_pre.volume
 
     @property
+    @lru_cache(maxsize=1)
     def number(self):
         return self.xml_with_pre.number
 
     @property
+    @lru_cache(maxsize=1)
     def suppl(self):
         return self.xml_with_pre.suppl
 
@@ -65,35 +75,43 @@ class PidProviderXMLAdapter:
         return self.xml_with_pre.article_pub_year
 
     @property
+    @lru_cache(maxsize=1)
     def main_doi(self):
         return self.xml_with_pre.main_doi
 
     @property
+    @lru_cache(maxsize=1)
     def main_toc_section(self):
         return self.xml_with_pre.main_toc_section
 
     @property
+    @lru_cache(maxsize=1)
     def is_aop(self):
         return self.xml_with_pre.is_aop
 
     @property
+    @lru_cache(maxsize=1)
     def elocation_id(self):
         return self.xml_with_pre.elocation_id
 
     @property
+    @lru_cache(maxsize=1)
     def fpage(self):
         return self.xml_with_pre.fpage
 
     @property
+    @lru_cache(maxsize=1)
     def fpage_seq(self):
         return self.xml_with_pre.fpage_seq
 
     @property
+    @lru_cache(maxsize=1)
     def lpage(self):
         return self.xml_with_pre.lpage
 
     @property
     def v2(self):
+        # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.v2
 
     @v2.setter
@@ -102,6 +120,7 @@ class PidProviderXMLAdapter:
 
     @property
     def v3(self):
+        # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.v3
 
     @v3.setter
@@ -110,6 +129,7 @@ class PidProviderXMLAdapter:
 
     @property
     def aop_pid(self):
+        # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.aop_pid
 
     @aop_pid.setter
@@ -121,47 +141,43 @@ class PidProviderXMLAdapter:
         self.xml_with_pre.order = value
 
     @property
+    @lru_cache(maxsize=1)
     def z_links(self):
-        if not hasattr(self, "_links") or not self._links:
-            self._links = _str_with_64_char("|".join(self.xml_with_pre.links))
-        return self._links
+        return _str_with_64_char("|".join(self.xml_with_pre.links))
 
     @property
+    @lru_cache(maxsize=1)
     def z_collab(self):
-        if not hasattr(self, "_collab") or not self._collab:
-            self._collab = _str_with_64_char(self.xml_with_pre.collab)
-        return self._collab
+        return _str_with_64_char(self.xml_with_pre.collab)
 
     @property
+    @lru_cache(maxsize=1)
     def z_surnames(self):
-        if not hasattr(self, "_surnames") or not self._surnames:
-            self._surnames = _str_with_64_char(
-                "|".join(
-                    [
-                        _standardize(person.get("surname"))
-                        for person in self.xml_with_pre.authors.get("person")
-                    ]
-                )
+        return _str_with_64_char(
+            "|".join(
+                [
+                    _standardize(person.get("surname"))
+                    for person in self.xml_with_pre.authors.get("person")
+                ]
             )
-        return self._surnames
+        )
 
     @property
+    @lru_cache(maxsize=1)
     def z_article_titles_texts(self):
         return _str_with_64_char(
             "|".join(sorted(self.xml_with_pre.article_titles_texts or []))
         )
 
     @property
+    @lru_cache(maxsize=1)
     def z_partial_body(self):
-        if not hasattr(self, "_partial_body") or not self._partial_body:
-            self._partial_body = _str_with_64_char(self.xml_with_pre.partial_body)
-        return self._partial_body
+        return _str_with_64_char(self.xml_with_pre.partial_body)
 
     @property
+    @lru_cache(maxsize=1)
     def z_journal_title(self):
-        if not hasattr(self, "_journal_title") or not self._journal_title:
-            self._journal_title = _str_with_64_char(self.xml_with_pre.journal_title)
-        return self._journal_title
+        return _str_with_64_char(self.xml_with_pre.journal_title)
 
     def query_params(self, filter_by_issue=False, aop_version=False):
         """
@@ -246,6 +262,7 @@ class PidProviderXMLAdapter:
         return _params
 
     @property
+    @lru_cache(maxsize=1)
     def query_list(self):
         items = []
         if self.is_aop:
@@ -266,6 +283,28 @@ class PidProviderXMLAdapter:
             params = self.query_params(aop_version=True)
             items.append(params)
         return items
+
+    @property
+    def data(self):
+        return dict(
+            pkg_name=self.sps_pkg_name,
+            issn_print=self.journal_issn_print,
+            issn_electronic=self.journal_issn_electronic,
+            article_pub_year=self.article_pub_year,
+            pub_year=self.pub_year,
+            main_doi=self.main_doi,
+            elocation_id=self.elocation_id,
+            volume=self.volume,
+            number=self.number,
+            suppl=self.suppl,
+            fpage=self.fpage,
+            fpage_seq=self.fpage_seq,
+            lpage=self.lpage,
+            z_surnames=self.z_surnames or None,
+            z_collab=self.z_collab or None,
+            z_links=self.z_links,
+            z_partial_body=self.z_partial_body,
+        )
 
 
 def _standardize(text):
@@ -289,3 +328,4 @@ def _str_with_64_char(text):
     if not text:
         return None
     return hashlib.sha256(_standardize(text).encode("utf-8")).hexdigest()
+
