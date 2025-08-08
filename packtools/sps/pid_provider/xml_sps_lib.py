@@ -996,17 +996,17 @@ def generate_finger_print(content):
 
 
 def remove_comments(xmltree):
-  """
-  Remove todos os nós de comentário de uma árvore XML.
+    """
+    Remove todos os nós de comentário de uma árvore XML.
 
-  Args:
-    root: O elemento raiz da árvore XML (lxml.etree._Element).
-  """
-  # Encontra todos os comentários na árvore
-  comments_to_remove = xmltree.find(".").xpath('//comment()')
+    Args:
+      root: O elemento raiz da árvore XML (lxml.etree._Element).
+    """
+    # Encontra todos os comentários na árvore
+    comments_to_remove = xmltree.find(".").xpath("//comment()")
 
-  # Itera sobre a lista de comentários e os remove
-  for comment in comments_to_remove:
-    parent = comment.getparent()
-    if parent is not None:
-      parent.remove(comment)
+    # Itera sobre a lista de comentários e os remove
+    for comment in comments_to_remove:
+        parent = comment.getparent()
+        if parent is not None:
+            parent.remove(comment)
