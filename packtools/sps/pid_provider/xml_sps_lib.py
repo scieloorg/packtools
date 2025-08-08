@@ -923,7 +923,12 @@ class XMLWithPre:
 
     @property
     def finger_print(self):
-        return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
+        if self.xmltree.xpath(".//comment()"):
+            for item in XMLWithPre.create(xml_content=self.tostring(pretty_print=self.pretty_print)):
+                remove_comments(item.xmltree)
+                return generate_finger_print(item.tostring(pretty_print=True))
+        else:
+            return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
 
     @property
     @lru_cache(maxsize=1)
@@ -988,3 +993,20 @@ def generate_finger_print(content):
         content = content.upper()
         content = content.encode("utf-8")
     return hashlib.sha256(content).hexdigest()
+
+
+def remove_comments(xmltree):
+  """
+  Remove todos os nós de comentário de uma árvore XML.
+
+  Args:
+    root: O elemento raiz da árvore XML (lxml.etree._Element).
+  """
+  # Encontra todos os comentários na árvore
+  comments_to_remove = xmltree.find(".").xpath('//comment()')
+
+  # Itera sobre a lista de comentários e os remove
+  for comment in comments_to_remove:
+    parent = comment.getparent()
+    if parent is not None:
+      parent.remove(comment)
