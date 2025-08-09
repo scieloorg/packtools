@@ -1,7 +1,7 @@
 urllib3==2.2.2
 lxml==4.9.3
 Pillow==10.1.0
-minio==7.2.0
+minio==7.2.11
 requests==2.32.0
 tenacity==8.2.3
 picles.plumber==0.11
