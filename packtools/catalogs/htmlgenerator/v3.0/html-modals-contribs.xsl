@@ -144,7 +144,8 @@
     </xsl:template>
     
     <xsl:template match="contrib-id" mode="modal-contrib">
-        <a href="{.}" target="_blank" class="btn btn-secondary  {@contrib-id-type}-button">
+        <a target="_blank" class="btn btn-secondary  {@contrib-id-type}-button">
+            <xsl:attribute name="href"><xsl:apply-templates select="." mode="url"/><xsl:value-of select="."/></xsl:attribute>
             <xsl:value-of select="."/>
         </a>
     </xsl:template>
