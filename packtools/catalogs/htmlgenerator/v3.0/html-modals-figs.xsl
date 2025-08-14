@@ -41,9 +41,51 @@
                     </div>
                     <div class="modal-body">
                         <xsl:apply-templates select="." mode="fig-modal-body"/>
+                        <xsl:apply-templates select=".//*[graphic]|graphic[alt-text]|graphic[long-desc]" mode="accessibility-note">
+                            <xsl:with-param name="figid"><xsl:value-of select="$figid"/></xsl:with-param>
+                        </xsl:apply-templates>
                     </div>
                 </div>
             </div>
         </div>
     </xsl:template>
+
+    <xsl:template match="graphic" mode="accessibility-note">
+        <xsl:param name="figid"/>
+        <xsl:apply-templates select=".." mode="accessibility-note">
+            <xsl:with-param name="figid"><xsl:value-of select="$figid"/></xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="*[graphic]|graphic[alt-text]|graphic[long-desc]" mode="accessibility-note">
+        <xsl:param name="figid"/>
+        
+        <xsl:choose>
+            <xsl:when test=".//long-desc">
+                <xsl:apply-templates select=".//long-desc" mode="accessibility-note">
+                    <xsl:with-param name="figid"><xsl:value-of select="$figid"/></xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:when>
+            <xsl:when test=".//alt-text">
+                <xsl:apply-templates select=".//alt-text" mode="accessibility-note">
+                    <xsl:with-param name="figid"><xsl:value-of select="$figid"/></xsl:with-param>
+                </xsl:apply-templates>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="long-desc/title | alt-text/title" mode="accessibility-note">
+        <!-- não existe, mas fica com exemplo -->
+        <h6 class="fw-bold mb-1">
+            <xsl:apply-templates select="."/>
+        </h6>
+    </xsl:template>
+
+    <xsl:template match="long-desc|alt-text" mode="accessibility-note">
+        <xsl:param name="figid"/>
+        <small class="scielo__accessibility-note mt-3" id="descFig{$figid}">
+            <xsl:apply-templates select="*|text()"  mode="accessibility-note"/>
+        </small>
+    </xsl:template>
+
 </xsl:stylesheet>

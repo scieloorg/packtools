@@ -9,4 +9,10 @@
         <span id="{.}"/>
     </xsl:template>
 
+    <xsl:template match="attrib">
+        <small class="d-block">
+            <xsl:apply-templates select="*|text()"></xsl:apply-templates>
+        </small>
+    </xsl:template>
+
 </xsl:stylesheet>

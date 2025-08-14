@@ -28,7 +28,8 @@
                                 <xsl:attribute name="class">thumbImg</xsl:attribute>
                                 <img>
                                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                                    <xsl:apply-templates select="." mode="alt-text"/>
+                                    <xsl:attribute name="aria-describedby">descFig<xsl:value-of select="$figid"/></xsl:attribute>
+                                    <xsl:apply-templates select=".|fig" mode="thumbnail-alt"/>
                                 </img>
                             </xsl:when>
                             <xsl:otherwise>
@@ -43,5 +44,19 @@
                 <xsl:apply-templates select="." mode="fig-label-caption-thumb"/>
             </div>
         </div>
+    </xsl:template>
+
+    <xsl:template match="fig-group" mode="thumbnail-alt">
+        <xsl:apply-templates select="fig[@xml:lang=$TEXT_LANG]" mode="thumbnail-alt"/>
+    </xsl:template>
+
+    <xsl:template match="fig" mode="thumbnail-alt">
+        <xsl:attribute name="alt">
+            <xsl:apply-templates select="." mode="translate">
+                <xsl:with-param name="term">thumbnail of</xsl:with-param>
+                <xsl:with-param name="default_value">thumbnail of</xsl:with-param>
+                <xsl:with-param name="lang"><xsl:value-of select="$TEXT_LANG"/></xsl:with-param>
+            </xsl:apply-templates><xsl:text>&#32;</xsl:text><xsl:apply-templates select="label"/>
+        </xsl:attribute>
     </xsl:template>
 </xsl:stylesheet>
