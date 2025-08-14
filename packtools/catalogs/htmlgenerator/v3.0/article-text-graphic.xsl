@@ -21,6 +21,8 @@
     </xsl:template>
 
     <xsl:template match="graphic | inline-graphic" mode="display-graphic">
+        <xsl:param name="id"/>
+        <xsl:param name="alt"/>
         <!-- APRESENTA O ELEMENTO GRÁFICO, NAO IMPORTA O TAMANHO -->
         <xsl:variable name="location"><xsl:apply-templates select="@xlink:href" mode="fix_extension"/></xsl:variable>
         <xsl:variable name="ext"><xsl:value-of select="substring($location,string-length($location)-3)"/></xsl:variable>
@@ -35,26 +37,48 @@
                 <img>
                     <xsl:attribute name="style">max-width:100%</xsl:attribute>
                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
-                    <xsl:apply-templates select="." mode="alt-text"/>
+                    <xsl:apply-templates select="." mode="alt"/>
                 </img>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="*" mode="alt-text">
+    <xsl:template match="*" mode="alt">
+        <xsl:choose>
+            <xsl:when test=".//alt-text">
+                <xsl:apply-templates select=".//graphic[alt-text]" mode="alt"/>
+            </xsl:when>
+            <xsl:when test=".//long-desc">
+                <xsl:apply-templates select=".//graphic[long-desc]" mode="alt"/>
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="graphic" mode="alt">
+        <xsl:apply-templates select=".." mode="alt"/>
+    </xsl:template>
+
+    <xsl:template match="graphic[alt-text]" mode="alt">
         <xsl:attribute name="alt">
-            <xsl:choose>
-                <xsl:when test="alt-text">
-                    <xsl:value-of select="alt-text"/>
-                </xsl:when>
-                <xsl:when test="../alt-text">
-                    <xsl:value-of select="../alt-text"/>
-                </xsl:when>
-                <xsl:when test="../../alt-text">
-                    <xsl:value-of select="../../alt-text"/>
-                </xsl:when>
-            </xsl:choose>
+            <xsl:apply-templates select="alt-text" mode="alt"/>
         </xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="graphic[long-desc]" mode="alt">
+        <xsl:attribute name="alt">
+            <xsl:apply-templates select="long-desc" mode="alt"/>
+        </xsl:attribute>
+    </xsl:template>
+
+    <xsl:template match="alt-text|long-desc" mode="alt">
+        <xsl:choose>
+            <xsl:when test="string-length(.)&lt;=120">
+                <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="substring(., 1, 120)"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="alternatives" mode="display-graphic">
