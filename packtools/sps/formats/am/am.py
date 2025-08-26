@@ -219,20 +219,23 @@ def extract_author(author):
     """
     Extrai e estrutura os dados simplificados do autor no formato ArticleMeta.
     """
-    author_type = map_contrib_type_to_isis_role(author.get("person_group_type"))
-    name_parts = [v for v in [author.get("given-names"), author.get("prefix")] if v is not None]
-    name = " ".join(name_parts)
+    if "collab" in author:
+        fields = [
+            ("_", author["collab"][0], simple_kv)            # autor institucional
+        ]
 
-    if not(name or author.get("surname")):
-        return None
+    else:
+        author_type = map_contrib_type_to_isis_role(author.get("person_group_type"))
+        name_parts = [v for v in [author.get("given-names"), author.get("prefix")] if v is not None]
+        name = " ".join(name_parts)
 
-    fields = [
-        ("n", name, simple_kv),                          # prenome
-        ("s", author.get("surname"), simple_kv),         # sobrenome
-        ("z", author.get("suffix"), simple_kv),          # sufixo
-        ("r", author_type, simple_kv),                   # tipo de contribuição
-        ("_", "", simple_kv),                            # campo vazio obrigatório
-    ]
+        fields = [
+            ("n", name, simple_kv),                          # prenome
+            ("s", author.get("surname"), simple_kv),         # sobrenome
+            ("z", author.get("suffix"), simple_kv),          # sufixo
+            ("r", author_type, simple_kv),                   # tipo de contribuição
+            ("_", "", simple_kv),                            # campo vazio obrigatório
+        ]
 
     return generate_am_dict(fields)
 

@@ -7,7 +7,7 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "tests/sps/fixtures/formats/am/S0104-11692025000100300.xml"
+            "packtools/sps/formats/am/S0104-11692025000100300/S0104-11692025000100300.xml"
         )
 
         self.external_data = {
@@ -262,7 +262,7 @@ class TestGetArticlemetaIssue(BaseTest):
         self.assertEqual(self.issue_data["v31"], [{"_": "33"}])
 
     def test_field_v121(self):
-        self.assertEqual(self.issue_data["v121"], [{"_": "00300"}])
+        self.assertEqual(self.issue_data["v121"], [{"_": "4434"}])
 
     def test_field_v14(self):
         self.assertEqual(self.issue_data["v14"], [{"e": "e4434", "_": ""}])
@@ -470,7 +470,11 @@ class TestGetCitations(BaseTest):
 
     def test_field_v18(self):
         self.assertIsNone(self.am_format["citations"][1].get("v18")) # Não tem a tag <source>
-        self.assertEqual(self.am_format["citations"][5]["v18"], [{"_": "Handbook of Child Psychology"}])
+        self.assertEqual(self.am_format["citations"][18]["v18"], [{"_":
+                                                                       "Portaria nº 664, de 2 de setembro de 2021. "
+                                                                       "Consolida os atos normativos que regulamentam o "
+                                                                       "Programa Criança Feliz/Primeira Infância no "
+                                                                       "Sistema Único de Assistência Social – SUAS"}])
 
     def test_field_v62(self):
         self.assertEqual(self.am_format["citations"][1]["v62"], [{"_": "IPEA"}])
@@ -496,10 +500,10 @@ class TestGetCitations(BaseTest):
         self.assertDictEqual(self.am_format["citations"][5]["v10"][1], {'_': '', 'n': 'P. A.', 'r': 'ND', 's': 'Morris'})
 
     def test_field_v16(self):
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'W.', 'r': 'ND', 's': 'Damon'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'R. M.', 'r': 'ND', 's': 'Lerner'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'E.', 'r': 'ND', 's': 'Pearson'})
-        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'C. N.', 'r': 'ND', 's': 'van der Veere'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][0], {'_': '', 'n': 'W.', 'r': 'ED', 's': 'Damon'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][1], {'_': '', 'n': 'R. M.', 'r': 'ED', 's': 'Lerner'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][2], {'_': '', 'n': 'E.', 'r': 'ED', 's': 'Pearson'})
+        self.assertDictEqual(self.am_format["citations"][5]["v16"][3], {'_': '', 'n': 'C. N.', 'r': 'ED', 's': 'van der Veere'})
 
 
 class TestGetDates(BaseTest):
