@@ -2,6 +2,8 @@ from packtools.sps.models.references import XMLReferences
 from unittest import TestCase
 from lxml import etree
 
+from packtools.sps.utils import xml_utils
+
 
 class XMLReferencesTest(TestCase):
     """Testes unitários para a classe XMLReferences com testes individuais para cada chave."""
@@ -131,6 +133,19 @@ class XMLReferencesTest(TestCase):
         self.many_authors_ref = list(XMLReferences(self.many_authors_tree).main_references)[0]
         self.one_author_ref = list(XMLReferences(self.one_author_tree).main_references)[0]
         self.collab_ref = list(XMLReferences(self.collab_tree).main_references)[0]
+
+        # Documento para correção de problemas de obtenção de pub-id-type
+        self.article1_tree = xml_utils.get_xml_tree(
+            'tests/sps/fixtures/xml_test_fixtures/S1984-92302025000100304.xml'
+        )
+        self.article1_ref_b1 = list(XMLReferences(self.article1_tree).main_references)[0]
+        self.article1_ref_b2 = list(XMLReferences(self.article1_tree).main_references)[1]
+
+        # Documento para correção de problemas de obtenção de pub-id-type
+        self.article2_tree = xml_utils.get_xml_tree(
+            'tests/sps/fixtures/xml_test_fixtures/S2176-66652019000100074.xml'
+        )
+        self.article2_ref_b1 = list(XMLReferences(self.article2_tree).main_references)[0]
 
     # Testes para atributos básicos das referências
     def test_ref_id(self):
