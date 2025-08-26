@@ -2,6 +2,8 @@ from packtools.sps.models.references import XMLReferences
 from unittest import TestCase
 from lxml import etree
 
+from packtools.sps.utils import xml_utils
+
 
 class XMLReferencesTest(TestCase):
     """Testes unitários para a classe XMLReferences com testes individuais para cada chave."""
@@ -132,6 +134,19 @@ class XMLReferencesTest(TestCase):
         self.one_author_ref = list(XMLReferences(self.one_author_tree).main_references)[0]
         self.collab_ref = list(XMLReferences(self.collab_tree).main_references)[0]
 
+        # Documento para correção de problemas de obtenção de pub-id-type
+        self.article1_tree = xml_utils.get_xml_tree(
+            'tests/sps/fixtures/xml_test_fixtures/S1984-92302025000100304.xml'
+        )
+        self.article1_ref_b1 = list(XMLReferences(self.article1_tree).main_references)[0]
+        self.article1_ref_b2 = list(XMLReferences(self.article1_tree).main_references)[1]
+
+        # Documento para correção de problemas de obtenção de pub-id-type
+        self.article2_tree = xml_utils.get_xml_tree(
+            'tests/sps/fixtures/xml_test_fixtures/S2176-66652019000100074.xml'
+        )
+        self.article2_ref_b1 = list(XMLReferences(self.article2_tree).main_references)[0]
+
     # Testes para atributos básicos das referências
     def test_ref_id(self):
         self.assertEqual("B1", self.many_authors_ref.get("ref_id"))
@@ -251,6 +266,25 @@ class XMLReferencesTest(TestCase):
         self.assertEqual("22222222", citation_ids.get("pmid"))
         self.assertEqual("33333333", citation_ids.get("pmcid"))
         self.assertEqual("10.1016/B2", citation_ids.get("doi"))
+
+    def test_citation_ids_with_valid_doi(self):
+        """Ref B1: <pub-id pub-id-type="doi">10.1590/1982-02672016v24n0105</pub-id>"""
+        citation_ids = self.article1_ref_b1.get("citation_ids")
+
+        expected = {"doi": "10.1590/1982-02672016v24n0105"}
+        self.assertEqual(citation_ids, expected)
+
+    def test_citation_ids_without_type_attribute(self):
+        """Ref B2: <pub-id>10.3390/su13010408</pub-id> - sem pub-id-type"""
+        citation_ids = self.article1_ref_b2.get("citation_ids")
+
+        self.assertEqual(citation_ids, {})
+
+    def test_citation_ids_absent_pub_id(self):
+        """Referência sem elementos pub-id"""
+        citation_ids = self.article2_ref_b1.get("citation_ids")
+
+        self.assertEqual(citation_ids, {})
 
     # Testes para dados de comentário e links externos
     def test_comment_text(self):

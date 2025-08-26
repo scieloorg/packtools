@@ -126,8 +126,18 @@ class Reference:
 
     def get_citation_ids(self):
         ids = {}
-        for pub_id in self.ref.xpath(".//pub-id"):
-            ids[pub_id.attrib["pub-id-type"]] = node_plain_text(pub_id)
+        try:
+            for pub_id in self.ref.xpath(".//pub-id"):
+                try:
+                    pub_id_type = pub_id.attrib.get("pub-id-type")
+                    if pub_id_type:
+                        text_value = node_plain_text(pub_id)
+                        if text_value and text_value.strip():
+                            ids[pub_id_type] = text_value.strip()
+                except Exception:
+                    continue
+        except Exception:
+            pass
         return ids
 
     def get_elocation_id(self):

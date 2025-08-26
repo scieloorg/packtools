@@ -1,0 +1,2301 @@
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+<front>
+<journal-meta>
+<journal-id journal-id-type="publisher-id">osoc</journal-id>
+<journal-title-group>
+<journal-title>Organizações e Sociedade</journal-title>
+<abbrev-journal-title abbrev-type="publisher">Organ. Soc.</abbrev-journal-title>
+</journal-title-group>
+<issn pub-type="ppub">1413-585X</issn>
+<issn pub-type="epub">1984-9230</issn>
+<publisher>
+<publisher-name>Escola de Administração da Universidade Federal da Bahia</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id specific-use="scielo-v3" pub-id-type="publisher-id">tZLpjKrzkrTQCRtPZX3Jqcx</article-id>
+<article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1984-92302025000100304</article-id>
+<article-id pub-id-type="other">00304</article-id>
+<article-id pub-id-type="doi">10.1590/1984-92302025v32n0005EN</article-id>
+<article-categories>
+<subj-group subj-group-type="heading">
+<subject>Article</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>The Relationship between Tourism Development and the Gentrification Process in Pirenópolis (GO)</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0001-6165-9958</contrib-id>
+<name>
+<surname>Marques</surname>
+<given-names>Ariane Belcavelo Silveira</given-names>
+</name>
+<role>conceptualization (equal)</role>
+<role>data curation (lead)</role>
+<role>formal analysis (lead)</role>
+<role>investigation (lead)</role>
+<role>methodology (lead)</role>
+<role>supervision (equal)</role>
+<role>validation (lead)</role>
+<role>visualization (equal)</role>
+<role>writing-original draft (lead)</role>
+<role>writing-review e editing (equal)</role>
+<xref ref-type="aff" rid="aff1">
+<sup>a</sup>
+</xref>
+<bio>
+<p>Ariane Belcavelo Silveira Marques She holds a master's degree in Management from the Federal University of Viçosa. Her investigations concern the production of space in tourist cities.</p>
+</bio>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0003-3524-3566</contrib-id>
+<name>
+<surname>Xavier</surname>
+<given-names>Wescley Silva</given-names>
+</name>
+<role>conceptualization (equal)</role>
+<role> data curation (supporting)</role>
+<role>formal analysis (supporting)</role>
+<role>funding acquisition (lead)</role>
+<role>investigation (supporting)</role>
+<role>methodology (supporting)</role>
+<role>project administration (lead)</role>
+<role>resources (lead)</role>
+<role> supervision (equal)</role>
+<role>validation (supporting)</role>
+<role> visualization (equal)</role>
+<role>writing-original draft (supporting)</role>
+<role>writing-review e editing (equal)</role>
+<xref ref-type="aff" rid="aff1">
+<sup>a</sup>
+</xref>
+<bio>
+<p>Wescley Silva Xavier He holds a PhD degree in Management from the Federal University of Minas Gerais, with postdoctoral research in Sociology from Lancaster University. He is an Associate Professor at the Federal University of Viçosa.</p>
+</bio>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0001-6529-2188</contrib-id>
+<name>
+<surname>Guedes</surname>
+<given-names>Leandro Theodoro</given-names>
+</name>
+<xref ref-type="aff" rid="aff2">
+<sup>b</sup>
+</xref>
+<bio>
+<p>He holds a PhD degree in Management from the Federal University of Viçosa. He is a Lecturer at the Technical School of Rio de Janeiro State.</p>
+</bio>
+</contrib>
+</contrib-group>
+<aff id="aff1">
+<label>a</label>
+<institution content-type="orgname">Federal University of Viçosa</institution>
+<addr-line>
+<named-content content-type="city">Viçosa</named-content>
+</addr-line>
+<country country="BR">Brazil</country>
+<email>arianebsm@gmail.com</email>
+<email>wescley@ufv.br</email>
+<institution content-type="original">Federal University of Viçosa, Viçosa, Brazil. Email: arianebsm@gmail.com; Email: wescley@ufv.br</institution>
+</aff>
+<aff id="aff2">
+<label>b</label>
+<institution content-type="orgname">Technical School of Rio de Janeiro State</institution>
+<addr-line>
+<named-content content-type="city">Três Rios</named-content>
+</addr-line>
+<country country="BR">Brazil</country>
+<email>ltheodoroguedes@yahoo.com</email>
+<institution content-type="original">Technical School of Rio de Janeiro State, Três Rios, Brazil</institution>
+</aff>
+<author-notes>
+<fn fn-type="edited-by">
+<label>Associate Editor:</label>
+<p>Maria Elisabete Pereira dos Santos</p>
+</fn>
+<fn fn-type="conflict">
+<label>Conflict of interests:</label>
+<p>The authors have stated that there is no conflict of interest.</p>
+</fn>
+</author-notes>
+<pub-date date-type="pub" publication-format="electronic">
+<day>20</day>
+<month>06</month>
+<year>2025</year>
+</pub-date>
+<pub-date date-type="collection" publication-format="electronic">
+<month>04</month>
+<year>2025</year>
+</pub-date>
+<volume>32</volume>
+<issue>111</issue>
+<elocation-id>ev32n0005EN</elocation-id>
+<history>
+<date date-type="received">
+<day>28</day>
+<month>06</month>
+<year>2023</year>
+</date>
+<date date-type="accepted">
+<day>07</day>
+<month>02</month>
+<year>2025</year>
+</date>
+<date date-type="corrected">
+<day>04</day>
+<month>07</month>
+<year>2025</year>
+</date>
+</history>
+<permissions>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+<license-p>Creative Commons Atribuição 4.0 Internacional</license-p>
+</license>
+</permissions>
+<related-article related-article-type="correction-forward" id="r01" xlink:href="10.1590/1984-92302025v32n0000-ERRATA-EN" ext-link-type="doi"/>
+<abstract>
+<title>Abstract</title>
+<p>This paper aims to understand the relationship between gentrification and tourism development in Pirenópolis-GO based on spatial configuration. It focuses mainly on the tourism policies integrated by the municipality and their consequences, which encompass concrete and symbolic issues experienced by the individual in space. The paper is qualitative, and data were collected from documentary research, semi-structured interviews, and non-participant observation, which were analysed in the light of content analysis. The results show that state action focused on tourism-related economic activities overlaps social, cultural, historical and environmental relations. Indeed, gentrification is expressed in concrete aspects with the removal of the marginalized population from that centre to increasingly distant areas in substitution for the business class coming from outside the city, and symbolic, since individuals begin to feel a loss of value cultural-historical heritage and do not feel like an integral part of the new space designed for tourism.</p>
+</abstract>
+<kwd-group xml:lang="en">
+<kwd>gentrification</kwd>
+<kwd>tourism urbanization</kwd>
+<kwd>tourism policies</kwd>
+</kwd-group>
+<funding-group>
+<award-group>
+<funding-source>CAPES</funding-source>
+<award-id>88887.692143/2022-00</award-id>
+</award-group>
+<award-group>
+<funding-source>FAPEMIG</funding-source>
+<award-id>APQ-03362-18</award-id>
+</award-group>
+<funding-statement>Funding: The authors acknowledge the financial support of CAPES (Process ID 88887.692143/2022-00) and FAPEMIG (Process ID APQ-03362-18).</funding-statement>
+</funding-group>
+<counts>
+<fig-count count="2"/>
+<table-count count="2"/>
+<equation-count count="0"/>
+<ref-count count="47"/>
+</counts>
+</article-meta>
+</front>
+<body>
+<sec sec-type="intro">
+<title>Introduction</title>
+<p>
+Studies on tourism policies and their relationship with urban transformations (also called tourism urbanization) have intensified due to the link between this relationship and changes in the sociospatial dynamics of cities (Toledo, Alvarez Valdéz e Castroman Pollero, 2013; Barbosa, Oliveira e Resende, 2010;
+<xref ref-type="bibr" rid="B3">Araújo e Posenatto, 2012)</xref>
+.
+</p>
+<p>
+Tourism in the light of public administration began to be discussed worldwide as a result of the influence of the New Public Governance in the 1990s, which sought to strengthen tourism activities by forming partnerships with the private sector for local development (
+<xref ref-type="bibr" rid="B31">Paddison e Walmsley, 2018</xref>
+). Following the guidelines for conducting public administration similar to the management of private companies, some cities began to be planned and managed as enterprises, from the perspective of a rationality for homogenizing spaces, prioritizing territorial organization aimed at economic activities related to tourism, combining aesthetics and using the power of images to build tourism scenarios that would attract visitors (
+<xref ref-type="bibr" rid="B19">Harvey, 1996)</xref>
+.
+</p>
+<p>
+Within this new orientation, we can point to new tourism products, among which historic cities and ecotourism activities stand out. The latter were born in the midst of the debate on the need to preserve nature and have been gaining worldwide attention since the 1980s.
+<xref ref-type="bibr" rid="B36">Rodrigues (2003)</xref>
+points out that these are economic activities directed towards areas of significant natural, social and cultural value.
+</p>
+<p>With regard to historic cities, their treatment within tourism policies in Brazil was introduced in the 1970s through the Integrated Program for Historic Cities, which represents the first national document for the recovery of urban cultural heritage for tourism (Troitiño e Vinuesa, 2003). Cultural heritage, as well as natural heritage (ecotourism), was considered an important resource in the design of the tourist space.</p>
+<p>
+The State is directly involved in this process, formulating and implementing policies aimed at making tourism activities viable. The public policies that work in this direction are not limited to tourism and have a wide range of possibilities. They range from changes in the planning of the use of urban space to specific policies for the revitalization of historic regions. Given the scale of the impact of these policies, there is also a notable body of research investigating this phenomenon in large cities and metropolitan regions (
+<xref ref-type="bibr" rid="B32">Paes, 2017</xref>
+;
+<xref ref-type="bibr" rid="B27">Mendes, 2017</xref>
+). For
+<xref ref-type="bibr" rid="B28">Magnier et al. (2018)</xref>
+, this spatial planning must necessarily be characterized as an integrated project involving local society – city residents and private initiative.
+</p>
+<p>
+However, the reordering of geographical space, which involves the revitalization of historical heritage sites, either directly with public funds or through public-private partnerships, and its instrumentalization through urban marketing to attract new businesses, has as a consequence both objective structural elements, such as the rising cost of living and the exodus of residents to the peripheries, and cultural and symbolic ones, with the loss of ties and memories. This process has been called “gentrification” (
+<xref ref-type="bibr" rid="B40">Smith, 1982</xref>
+).
+</p>
+<p>
+Although the process of gentrification is more directly linked to urban planning policies, there is a delicate relationship with tourism, which is even more acute in so-called tourism urbanization. Despite the factors generated, some authors see gentrification as something positive for local authorities (
+<xref ref-type="bibr" rid="B7">Bolzoni e Semi, 2023</xref>
+), since in many cases gentrification has been a means rather than an end to overcome economic crises, especially deindustrialization (
+<xref ref-type="bibr" rid="B30">Meethan, 1997</xref>
+;
+<xref ref-type="bibr" rid="B46">Zhan, 2021)</xref>
+.
+</p>
+<p>This phenomenon has been addressed by national and international literature, for example, from the perspective of the advance of hotel companies (González-Perez, 2020), the impact on local populations (Almeida-Garcia, Cortés-Macías e Parzych, 2021; Curvelo e Lopes Júnior, 2021), or even considering its role within the economic matrix of countries (Zhang, Lu, Huang e Zhang, 2022).</p>
+<p>Based on a greater role of private companies in the promotion of tourism, these studies reveal changes that have the same consequences as gentrification: the increase in the price of square meters due to real estate speculation and the increase in the number of tourists, the displacement of population contingents to more peripheral regions with less access to basic public services, and the breaking of symbolic ties historically created by these displaced contingents. Given the scope of this literature, it is interesting to understand the extent to which the process of gentrification is related to tourism policies that include, among other things, the preservation and revitalization of historical heritage.</p>
+<p>Considering the important dimension of gentrification for the understanding of contemporary urban planning phenomena, as well as the abundance of tourism policies that touch on the same aspect, this paper aims to critically analyze the relationship between tourism policies in Pirenópolis and the process of gentrification that the city has undergone. It is understood that, in addition to contributing to the critical analysis of tourism policies in Brazil, it is also possible to contribute to the analysis of the phenomenon of gentrification in small cities where tourism is a relevant economic and social activity.</p>
+<p>In addition to this introduction, the text is divided into five other sections. The next two discuss theoretical aspects of tourism policy in Brazil and the gentrification process, followed by the methodological procedures, data analysis, and concluding remarks.</p>
+</sec>
+<sec>
+<title>Public policies and the transformation of space through tourism in Brazil</title>
+<p>
+Until the 1960s, there were no policies directly aimed at tourism, apart from the regulation of certain activities. In Brazil, the first state guidelines for tourism were established in 1966 with the creation of the National Tourism Policy (PNT), the National Tourism Council (CNTur) and the Brazilian Tourism Corporation (Embratur). During this period, there was a very close relationship between the Brazilian state and private companies involved in the sector, as evidenced by the lines of public funding for tourism. In 1971, Decree-Law No. 1,191 was enacted to create the General Tourism Fund to finance tourism works, services and activities of national interest. Decree-Law No. 1,376 of 1974 defined the Sectoral Investment Fund for tourism, fishing, reforestation and accommodation, the latter for investments in infrastructure (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+).
+</p>
+<p>
+On the initiative of the Secretariat for Planning, in partnership with Embratur, the Integrated Program for Historic Cities was implemented (1973-1979). This was the first federal investment program for the recovery of urban cultural heritage and marked the introduction of tourism development in historic cities. The program initially worked in the cities of the Northeast and was later disseminated to other Brazilian cities for the recovery of urban cultural heritage (
+<xref ref-type="bibr" rid="B34">Ribeiro, 2005</xref>
+).
+</p>
+<p>
+In the 1970s, there was also a focus on historical heritage with the Integrated Program for the Reconstruction of Historic Cities (PCH). This program was also based on a clear relationship between the state and the private sector, which played an important role in defining policy guidelines. The very choice of cities in the Northeast led to an increase in real estate speculation to the detriment of regional development (Fridman, Araújo e Daibert, 2019). According to the author, “few properties were used for housing and the intention of a 'national system' resulted in isolated federal, state and municipal preservation systems.” Institutionally, until 1980, there was little participation of the federal units and municipalities in the actions of the National Tourism Policy (PNT), which was implemented centrally without the participation of the subnational spheres (especially the local ones, where tourism actually takes place) (
+<xref ref-type="bibr" rid="B39">Silva, 2015)</xref>
+.
+</p>
+<p>Since 1990, the Brazilian state has prioritized tourism as an economic activity, building policies based on decentralization to municipalities through the implementation of the National Tourism Municipalization Program (PNMT), in addition to the establishment of the new National Tourism Policy (1996-1999), which institutionalized the participatory management of municipal tourism. In the 2000s, the Ministry of Tourism (MTur) created the Tourism Regionalization Program (PRT) and defined 65 Regional Tourism Development Destinations, which was updated to 3,265 destinations in 2015 (Brazil, 2022).</p>
+<p>
+In the context of tourism development, only economic plans with short-term objectives were in force (Henz, Leite e Anjos, 2010). Until then, there was little participation of states and municipalities in the actions of the National Tourism Policy (PNT), whose implementation was centralized without the participation of the subnational spheres (
+<xref ref-type="bibr" rid="B39">Silva, 2015)</xref>
+. Adopting a territorial approach, in 1994 the government institutionalized the National Tourism Municipalization Program, which aimed at participatory planning and local tourism management, so that municipalities would be responsible for the development of their localities, while the federal government would act by organizing and making decisions (
+<xref ref-type="bibr" rid="B14">Cruz, 2000)</xref>
+. During this period, the scope of the policies in terms of coverage in the states and municipalities, the coverage of a wide range of tourism activities, and also the maintenance of the logic of alliance between public power and private initiative are noteworthy.
+</p>
+<p>
+The National Program for the Development and Structuring of Tourism (PRODETUR) for the Northeast is a clear example of this process. “The funds, which came from public-private partnerships, were to be used to modernize the hotel network and airports, offer professional courses, and revitalize the historical heritage of the main cities of the Northeast” (
+<xref ref-type="bibr" rid="B15">Fridman et al., 2019</xref>
+, p. 627). In this sense, the very notion of regional development was embodied in the abundance of service and commercial economic activities related to historical heritage.
+</p>
+<p>
+Historic cities began to stand out due to the emergence of new tourism products, which led to changes in consumer profiles.
+<xref ref-type="bibr" rid="B12">Coriolano and Vasconcelos (2012)</xref>
+emphasize that this was only possible thanks to the different forms of tourism that materialized in urban space, consolidating expressions of tourist practice and offering experiences that attracted a significant flow of visitors. For this reason, since the 1970s (when the first policies focused on historical heritage were implemented), cultural heritage has increasingly been considered an important resource in the configuration of space, as it has become an ally in the development of tourism, favoring the creation of jobs and the social cohesion of a locality (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012</xref>
+).
+</p>
+<p>
+Here, it is worth opening an important window on the turn of tourism in historic cities, when in the 1970s the Historic Cities Program (PCH), aimed at preserving and conserving Brazil's material heritage, especially that of the Northeast, was fundamental (
+<xref ref-type="bibr" rid="B13">Correa, 2016</xref>
+), coinciding with the initiatives of the United Nations Educational, Scientific and Cultural Organization (UNESCO) to promote tourism, starting in 1965. During the urbanization process experienced by Brazilian cities, land use faced a process of valorization that, in a way, compressed the historical heritage, due to population densification and the use of areas for industrialization. Therefore, there was an urgent need to recover these degraded areas in order to reintegrate them into the very logic of valorization of the urban fabric (
+<xref ref-type="bibr" rid="B13">Correa, 2016)</xref>
+.
+</p>
+<p>
+In 2003, the Ministry of Tourism was created to plan regional tourism development actions and the National Tourism Policy (2003-2007), which included the Tourism Regionalization Program. The main objective of regionalization is to promote sustainable tourism development, diversify the tourism offer in the municipalities, continue the territorial planning strategies implemented by the National Tourism Municipalization Program (PNMT), and extrapolate the territorial logic of tourism from the municipality to the region (MTur, 2022). Following the 1988 Federal Constitution, the protection of historical and cultural heritage and the responsibility for assets of historical value were addressed in the 1992 National Tourism Policy (PNT). However,
+<xref ref-type="bibr" rid="B34">Ribeiro (2005)</xref>
+points out that the 1996 National Tourism Policy (PNT) did not mention this issue, and the same happened in the 2003 National Tourism Policy (PNT), which did not include the heritage issue in its program goals and objectives.
+</p>
+<p>
+In 2007, the Ministry of Tourism launched the National Tourism Plan (2007-2010) to structure 65 destinations with international quality standards. The proposal and the number, according to the Federal Government, were based on data from the previous National Tourism Policy (PNT) of the Tourism Regionalization Program –
+<italic>Roteiros do Brasil</italic>
+, and the action established the structuring of itineraries in tourist regions and was based on the principles of cooperation, integration and environmental, economic, socio-cultural and political-institutional sustainability (MTur, 2022). In 2015, the Regional Tourism Development Destinations were updated to 3,265 (MTur, 2022).
+</p>
+<p>
+The Ministry of Tourism became the body responsible for establishing the National Tourism Policy (PNT) in Brazil (Law 11,771/2008). The Tourism Regionalization Program was relaunched in 2013 with the aim of supporting the management, structuring and promotion of tourism in a regional and decentralized manner. In the same year, the government launched the National Tourism Plan (2013-2016), which, together with the Tourism Regionalization Program, promoted guidelines and actions that allowed the participation of regions and municipalities in the construction of national public policies, in addition to the local policies that already existed (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+).
+</p>
+<p>
+Because of this incomplete incorporation of historical heritage issues into tourism policies, this process of decentralization and participation was expressed in a hybrid way in the historical heritage revitalization programs. The
+<italic>Monumenta</italic>
+program, which was active between 1996 and 2006, allowed for the participation of state entities, but also followed the guidelines of the Inter-American Development Bank, which financed it, and was also managed by external consultants (Fridman et al., 2009). Also in the mid-2000s, the Growth Acceleration Program – Historic Cities was launched, also financed by national public companies and banks, which followed the logic of decentralization and maintained the idea of linking the preservation of the historical heritage with economic activities, also taking into account the major events that would take place in the country.
+</p>
+<p>In 2013, the Ministry of Planning approved the creation of a credit line exclusively for historic urban sites protected by the National Institute of Historical and Artistic Heritage (Iphan), which gave rise to the Historic Cities Growth Acceleration Program. The projects and infrastructure works were carried out under the coordination of the Ministry of Planning, in collaboration with Iphan and in partnership with municipalities, universities, federal institutions and state governments (Iphan, 2018).</p>
+<p>The historical trajectory of tourism policies in Brazil, especially those that also include historical heritage, reveals important institutional ruptures with the increasing participation of subnational entities in the formulation and implementation process. It also reveals continuities with the intimate relationship between the State and capital. In this sense, it is essential to characterize the possible consequences of this relationship, which, in the case under study, materialize in points such as the gentrification process.</p>
+</sec>
+<sec>
+<title>The sociospatial consequences of the relationship between tourism and gentrification</title>
+<p>
+Tourism can be promoted through public policies that include direct actions by the State, tax incentives, and marketing that allow the installation of equipment, infrastructure, and conditions necessary to serve visitors and private investors, especially those that seek political interests and stimulate the local economy for tourism activities (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012</xref>
+).
+</p>
+<p>
+Tourism activities have a direct impact on the use and occupation of space, involving the management of the territory, as
+<xref ref-type="bibr" rid="B42">Steinberger (2009)</xref>
+notes. Social space is historically constructed and tourism is one of the activities of contemporary society that stimulates the economy and constantly acts in the production of history and space itself. Thus, tourism production is materialized in space over time through objects or forms, and for this reason it is necessary to consider the unfolding of sociospatial dynamics.
+</p>
+<p>
+This tourism production is materialized in space through natural or artificial geographical objects (attractions and facilities), from which flows are generated (movements that constitute life and drive this materiality). These objects can be shaped by techniques over time. In this way, tourism appropriates and updates the “roughness,” the traces left by time in the space, producing forms and content that give meaning to tourism activity (
+<xref ref-type="bibr" rid="B42">Steinberger, 2009</xref>
+, p. 44).
+</p>
+<p>
+From this perspective of the territory used, tourism is in principle not just an economic activity. It includes considerations such as the appropriation of natural and artificial objects that, reconfigured over the years, involve political actions resulting from the tourist use of the territory. Among these actions,
+<xref ref-type="bibr" rid="B26">Luchiari (2004</xref>
+, p. 105) defines this process as “tourism urbanization,” which “reinvents and creates new functions,” establishing a new sociospatial organization.
+</p>
+<p>Understanding territory involves the multiplicity of ways in which space is appropriated and transformed by different groups and social classes. Different functions are attributed to appropriated, territorialized places in different temporalities, assuming a diversity of meanings from the agents that produce territorialization in space (Coriolano e Vasconcellos, 2012). This territorialization is a key concept for understanding the current actions of the State and for designing public, urban, economic or tourism policies that involve public actions and those of private entrepreneurs in society.</p>
+<p>
+According to
+<xref ref-type="bibr" rid="B14">Cruz (2000)</xref>
+, territorial appropriation can occur, for example, through the direction of a public tourism policy in a given place. In this case, public managers outline the objectives and guidelines of these policies, which guide the sociospatial development of the activity in terms of the public and private spheres. Therefore, territorialization, mediated by different and often conflicting conditions and interests, shows the relationship between territory, politics and tourism. Even when there is a more organic process of growth in tourism activity, supported by and with the participation of the community, there are some negative externalities, such as the impact on services for the local population and the depletion of natural resources (
+<xref ref-type="bibr" rid="B10">Brida et al., 2014</xref>
+).
+</p>
+<p>The State can promote tourism activity in partnership with private companies, appropriating spaces and transforming them into tourist spaces in order to accumulate capital. One the one hand, this trend follows an economic logic of developing tourism as a source of employment and business opportunities for the city's inhabitants. On the other hand, it has consequences such as the formation of gentrification processes and the failure to identify the new space conceived as a space experienced by the local population itself.</p>
+<p>
+The term gentrification was first used in the early 1960s by Ruth
+<xref ref-type="bibr" rid="B16">Glass (1963)</xref>
+to describe the process of ennoblement of an area of London. Since then, the term has been popularized by various authors, leading to new interpretations of gentrification. More broadly,
+<xref ref-type="bibr" rid="B18">Hamnett (1984)</xref>
+defines it as a phenomenon that is at once physical, economic, social and cultural, involving social, physical (housing stock at the neighborhood level), and economic (land and real estate markets) changes.
+</p>
+<p>
+According to
+<xref ref-type="bibr" rid="B41">Smith (2007)</xref>
+, the language of urban renaissance is not new and has been used in the United States in a different sense than the poetic one evoked by Ruth Glass, since the current language of urban renaissance is evidence of the generalization of gentrification (
+<xref ref-type="bibr" rid="B41">Smith, 2007</xref>
+). Although the phenomenon of gentrification is a good strategy for preserving the physical fabric of the city, with beautiful houses and streets, cafés, small shops and squares, as the case of New York has shown, gentrifiers change the local economy in a way that benefits them over the majority of the city's inhabitants (
+<xref ref-type="bibr" rid="B45">Zukin, 2010</xref>
+). The author criticizes the fact that these agents support consumer markets that cater to specific audiences and disregard small shops and street markets on which lower-income residents depend.
+</p>
+<p>
+Specifically,
+<xref ref-type="bibr" rid="B38">Savage and Warde (1993)</xref>
+present four processes that result from gentrification: i) the reorganization of the social geography of the city in areas that are replaced by a higher class social group; ii) the spatial regrouping of individuals with similar lifestyles and cultural characteristics; iii) the transformation of the built environment, with the creation of new services and requalification of housing, which includes architectural improvements; iv) the change in the land tenure, which in most cases determines the rise in values, increasing the proportion of housing. As a result of this process, there is the “elitization of certain areas, with the replacement of the traditional population by residents with greater purchasing power, based on their redevelopment, with an increase in infrastructure and/or urban requalification” (
+<xref ref-type="bibr" rid="B35">Ribeiro, 2018</xref>
+, p. 1338).
+</p>
+<p>
+Comparing two gentrified neighborhoods in Brazil and Portugal,
+<xref ref-type="bibr" rid="B24">Leite (2007)</xref>
+found that the places underwent specific interventions by modifying the urban architecture with the strong visual appeal built for tourists. The idea is that this new scenario attracts the attention of tourists and satisfies their demands, in addition to real estate appreciation, safety, and urban cleanliness for reappropriation by the middle and upper classes, which will be able to support themselves in these ennobled places.
+</p>
+<p>
+These gentrification policies have a market interest, formulated by building an image of the city that attracts public and private investment, mainly under the discourse of cultural restoration of space (
+<xref ref-type="bibr" rid="B24">Leite, 2007</xref>
+;
+<xref ref-type="bibr" rid="B8">Botelho, 2004</xref>
+). As a result, certain spaces have been targeted by public authorities to generate activities and increase revenues for some municipalities.
+</p>
+<p>
+<xref ref-type="bibr" rid="B24">Leite (2007)</xref>
+points out that the tendency towards homogenization resulting from gentrification promotes the loss of elements of identity of its inhabitants. When these spaces are reproduced, there are consequences such as a loss of sociospatial meaning. This is due to the coexistence of land use, as well as the complexity of sociospatial dynamics and the intensification of tourism promotion.
+</p>
+<p>
+There is a clear link between tourism policies involving historical heritage and the process of gentrification, as noted by
+<xref ref-type="bibr" rid="B35">Ribeiro (2018)</xref>
+for cities such as Recife and Salvador. Precisely because the revitalization of certain areas attracts new businesses, it increases the cost of living and displaces residents. In this sense, it is worth analyzing a specific case in Brazil that follows the decentralization of tourism policies and also affects towns in rural areas.
+</p>
+</sec>
+<sec sec-type="methods">
+<title>Methodological procedures</title>
+<p>Since it aims to understand the relationship between tourism policies and the gentrification process in the spatial configuration of Pirenópolis, in the state of Goiás (GO), this research can be classified as descriptive. In terms of approach, it is characterized as essentially qualitative research, since it is concerned with understanding and explaining the dynamics of social relations. Data collection included documentary research, semi-structured scripted interviews, and non-participant observation such as field diary notes. The source of the bibliographic data used were articles published in the city's newspapers and magazines, as well as websites such as the Pirenópolis Tourism Portal, the City Hall, the Goiás Geographic Observatory, Iphan-GO, IBGE, among others, related to the development of tourism and the configuration of the urban space of Pirenópolis.</p>
+<p>In addition to documentary research, semi-structured interviews were conducted, with the corpus defined by categorical saturation, in which the observation notes and recruitment of new participants were interrupted when no category emerged from the field. During data collection, participants were approached at random, and some of them were approached at the suggestion of the interviewees themselves. Data collection took place at different times and in different locations in the city in order to capture different perspectives on the topic under study. Five groups of interviewees were defined, divided according to the different actors involved in tourism and the urban space of Pirenópolis: Iphan, the local government, business people, the local population and tourists, totaling 55 interviews, of which thirteen made up the corpus of analysis for this study. The following table shows the interview codes and their respective references:</p>
+<p>
+<table-wrap id="t1">
+<label>Table 1</label>
+<caption>
+<title>: Interview codes and their references</title>
+</caption>
+<table frame="hsides" rules="groups">
+<colgroup width="33%">
+<col/>
+<col/>
+<col/>
+</colgroup>
+<thead>
+<tr>
+<th align="left" valign="top">Code</th>
+<th align="left" valign="top">Identification</th>
+<th align="left" valign="top">Number of subjects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">ERS1</td>
+<td valign="top">People associated with Iphan</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS2</td>
+<td valign="top">Local government</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS3</td>
+<td valign="top">Business people</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS4</td>
+<td valign="top">Local population (minimum age 40)</td>
+<td align="center" valign="top">6</td>
+</tr>
+<tr>
+<td valign="top">ERS5</td>
+<td valign="top">Tourists</td>
+<td align="center" valign="top">1</td>
+</tr>
+</tbody>
+</table>
+<table-wrap-foot>
+<attrib>Source: Research data.</attrib>
+</table-wrap-foot>
+</table-wrap>
+</p>
+<p>
+Finally, non-participant observation was used, in which the researcher remains a spectator of the object being observed, according to Gil (2008). During this technique, the observer does not interact with the object of observation, so the subjects are unaware that they are being observed. The instrument used to record data during non-participant observation was the field diary, in which notes were taken during interviews, conversations, and walks through the city streets. This note-taking technique makes it possible to describe and analyze the dynamics under study, as well as to understand the places described to the observer by those being observed, and to clarify the observer's attitude in interacting with them (
+<xref ref-type="bibr" rid="B44">Weber, 2009</xref>
+). Since the researcher's task is to seek a reading of the text in terms of its symbols (
+<xref ref-type="bibr" rid="B29">May, 2004)</xref>
+, photographic records were taken to capture the materiality of the space.
+</p>
+<p>
+Content analysis was used to analyze the data, which allowed the content of documents and texts to be read, described, and interpreted. According to
+<xref ref-type="bibr" rid="B6">Bardin (2016)</xref>
+, content analysis is a set of communication analysis techniques aimed at describing the content of messages through systematic and objective procedures in order to obtain quantitative or qualitative indicators that allow the inference of knowledge about the conditions of production/reception of these messages. The message expresses a meaning, a sense, which is captured in its qualitative aspect.
+</p>
+<p>
+Content analysis is a personal interpretation that the researcher has of their own decoding process, through which they analyze, infer, and interpret about the process of coding products. Among the different forms of analysis, such as experimentation and categorization,
+<xref ref-type="bibr" rid="B6">Bardin (2016)</xref>
+suggests three chronological poles for carrying out the method: i) pre-analysis (organization); ii) exploration of the material (coding and categorization); iii) treatment of the results, inference and interpretation (information provided by the analysis).
+</p>
+<p>
+The first phase aims to organize, although it consists of unstructured activities. It corresponds to a period of intuition in which initial ideas are operationalized and systematized, leading to an outline of the development of an analysis plan. In the material exploration phase, the preparation of the material is completed in terms of coding, decomposition or enumeration operations, according to previously formulated rules. These operations are performed automatically (computer operations) or manually. In the third phase, the analysis itself, “the raw results are processed in a way that makes them meaningful (‘speaking’) and valid” (
+<xref ref-type="bibr" rid="B6">Bardin, 2016</xref>
+, p. 131).
+</p>
+<sec>
+<title>Defining the categories of analysis</title>
+<p>After organizing the collected material for analysis, the main categories of analysis were identified. The guidelines of tourism urbanization based on the implementation of policies produce changes in urban space that influence people's daily practices. Consequently, these changes cause strangeness in their concrete gentrification and symbolic aspects as a result of the use of space by tourism itself. Considering the theoretical discussion so far, it was possible to identify the main categories of analysis for examining the material extracted from the empirical incursions. Systematically, the categories of analysis were associated with their indicators, as shown in the diagram below.</p>
+<p>
+<fig id="f01">
+<label>Figure 1</label>
+<caption>
+<title>Diagram of the Evolution of Tourism Urbanization in Pirenópolis</title>
+</caption>
+<attrib>Source: Research data.</attrib>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/3e27157100cf1ca54d1d8fce395a7c6598b38e01.tif"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/62d2d1342397b93ab3c17bfd43e79cae042871f8.png" specific-use="scielo-web"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/5497d0c94985d949383861425d1dfca3de3ff577.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+The concrete aspects of gentrification are materialized in space, causing the reconfiguration of urban space and the formation of a scenario and social regrouping (
+<xref ref-type="bibr" rid="B37">Santos, 2008</xref>
+;
+<xref ref-type="bibr" rid="B38">Savage e Warde, 1993</xref>
+). Concrete aspects of gentrification include the reconfiguration of urban space through the transformation of the surroundings, private and rural areas; the formation of a scenario based on the homogenization of tourism to meet this type of demand; and social regrouping due to real estate appreciation. The indicators of the category of symbolic aspects related to space are identity, meaning and value, with the emerging category of reciprocity of place. In this sociospatial dynamic, concrete and symbolic aspects are directly linked. When there is an intervention in the space that leads to gentrification, there is a loss of social identity that is linked to the symbolic loss of value in the individual's social construction of the space. Despite the initial alienation, the individual tends to resignify the space in their new location, creating new values and identities. This form of re-signification happens through appropriation, using it in a concrete way, materializing its meanings in the space between them (
+<xref ref-type="bibr" rid="B23">Lefebvre, 1991)</xref>
+.
+</p>
+</sec>
+</sec>
+<sec sec-type="results|discussion">
+<title>Presentation and discussion of results</title>
+<p>The city of Pirenópolis is part of one of the 21 regions surrounding the Federal District, located 150 km from Brasília and 130 km from Goiânia. From its foundation in 1727 to the present day, the city has been characterized by four cycles, according to the Pirenópolis Tourism Portal (PTP, 2018), adapted in this research and divided as follows: Gold Cycle (1727 - 1800), Agriculture and Trade Cycle (1800 - 1930), Stone and Art Cycle (1930 - 1989), and Tourism Cycle (1989 - 2018). On November 22, 1989, Pirenópolis was listed by Iphan as an architectural, urbanistic, landscape and historical site, and from 1997 onwards, renovation projects began in the Historic Center. Since then, tourism has been strongly promoted by the state and municipal governments and currently represents the main economic activity of the municipality (PTP, 2018).</p>
+<p>The reconfiguration of the space necessarily involves the growth of tourism activity, which has had a direct impact on the urban dynamics of the city. Analyzing the statements collected in the interviews and considering the concrete aspects of gentrification, when asked if the municipal government shares the idea of the formation of this process in Pirenópolis, Secretary ERS2-4 describes the urban configuration since tourism:</p>
+<disp-quote>
+<p>The city has grown in the last 30 years, but the population has grown very little, it's stable. If you look at a photograph of the city from 1980, it's impressive to see how much it's grown with the construction of condominiums and rental houses. So there's a lot of swelling, which is a problem because we're losing population within the Historic Center (ERS2-4).</p>
+</disp-quote>
+<p>This growth has intensified since the beginning of the Tourism Cycle, which represents the reconfiguration of the urban space through the advance of construction. One factor that may have caused this expansion of construction is the difficulty of regulation and supervision by the public authorities. Since the Master Plan did not define the zones for land use and occupation, many irregular buildings have been constructed, causing the urban and rural areas to swell.</p>
+<p>The interviews revealed that the residents of the Center are increasingly moving to the outskirts of the city, causing a process of social regrouping. As a result of the processes of spatial reconfiguration and regrouping, the Historic Center is seen as a setting for tourists and has a low demographic density. This is due to real estate speculation and the intensification of commerce in this highly valued area, as former Iphan employee ERS1-1 explains: “The square meter inflated and many people began to build in the shadows, using the spaces they had to earn an income, or they sold their houses and moved to the suburbs.”</p>
+<p>Three types of transformations were identified in the reconfiguration of space in Pirenópolis: the surroundings, the private space, and the rural areas. The transformation of the surroundings represents the construction of modern residences and guesthouses, such as Vila Zezito Pompeu I and II (known as Alto do Carmo) and Vila Vulpina. According to ERS2-5, a public official, these outlying areas are expensive due to real estate speculation.</p>
+<p>Since the houses in the Historic Center are generally expensive to maintain, most families end up selling their properties to business people from outside the city or turning them into guesthouses. This results in the displacement of former residents to the outskirts of the city, as ERS2-5, a government representative, describes the current scenario. “People from Pirenópolis can only buy houses in the countryside, because the outskirts are being occupied by closed or horizontal communities of temporary residents, who usually buy plots in the city with groups of friends” (ERS2-5).</p>
+<p>On the one hand, there is forced segregation of the people of Pirenópolis, due to the impossibility of buying land in the surrounding area as a result of real estate speculation. On the other hand, there is self-segregation of the class of temporary residents and entrepreneurs who choose to live far from the center, schools, health centers and shops. In this sense, it is worth considering that, historically, gentrification is a phenomenon directly linked to the planning of urban space and, in the case under study, the policies to promote tourism in the Historic Center are combined with the construction of new housing. It should also be noted that the people of Pirenópolis are increasingly moving to the rural areas of the municipality, occupying, for example, the areas known as Passagem Funda and Vila Mutirão.</p>
+<p>This transformation of the area highlights two unique aspects of gentrification, in its concrete and symbolic forms. The first is represented by the movement of residents to the rural area, which makes the population feel uncomfortable and becomes more frequent due to the constant changes. The symbolic one refers to the loss of meaning of the place because it is different from the one intended by those who control the spatial changes. This process leads to a loss of meaning for the inhabitants and ends up damaging the stimulus for interaction.</p>
+<p>More directly on the symbolic aspects of the gentrification process, government representative ERS2-4 criticizes the current context:</p>
+<disp-quote>
+<p>I took part in the discussions of the Master Plan, and since the first one was approved in 2002, we've had a lot of trouble with gentrification, because it's turning the Historic Center into a shopping mall. Families are leaving and moving to the outskirts. The population is practically being expelled from the city, in the sense that the patriarch dies and the children sell to a third party. This house is used for rent or on the weekend. So we have a lot of empty houses and this is an interesting feature because people don't declare that this is their second home (ERS2-4).</p>
+</disp-quote>
+<p>Complementing the above excerpt, former Iphan employee ERS1-2 emphatically states that “Pirenópolis is turning into an open-air shopping mall, the city is losing its essence, prostituting itself, de-characterizing itself. But where hasn't that happened? At the end of his statement, however, he softens this development by justifying it as normal, as a process of naturalization resulting from the use of the space. After all, this happens in many places, and it won't be a problem if it happens in Pirenópolis, as he demonstrates in his statement.</p>
+<p>
+The characterization of the Historic Center as a shopping mall marks the gentrification in which there have been interventions that have produced urban space for tourism activity, through the strong visual appeal built for tourists (
+<xref ref-type="bibr" rid="B24">Leite, 2007</xref>
+). These interventions are carried out by agents of the federal government, through Iphan, the state and municipal governments, who work together with business people to homogenize spaces in order to attract tourists, with a view to the economic development of the city. With the structural transformation of the Historic Center, there is also a cultural change in the relationships that used to take place in the area.
+</p>
+<p>This tendency towards homogenization that results from gentrification has concrete consequences when it drives residents to the outskirts, far from the shops, schools, health centers and other services that tend to be concentrated in the city center. In addition, it promotes the loss of elements of identity of the local population when it comes to this place, which has a historical-cultural heritage context involved.</p>
+<p>The displacement of the population to more peripheral areas is a recurring theme in the statements. According to ERS2-5, due to real estate speculation and the conditions of underemployment offered by the tourism market, the people of Pirenópolis don't have the purchasing power to buy plots in the surrounding area or in the Historic Center, causing the population to move further and further away to rural areas:</p>
+<disp-quote>
+<p>The people of Pirenópolis are moving to the countryside, which is even further away, to small, often irregular plots that aren't within the size required by law. That's why the PDP is in this impasse, and also why the areas that are increasing in value are going up to the springs. The PDP was supposed to stop this, but it's involved a whole game of economic and political interests and very little focus on this population that's being expelled, and expelled deliberately, to areas that are increasingly distant from the center (ERS2-5).</p>
+</disp-quote>
+<p>
+This exclusion leads to isolation, segregation, and negative conflicts, such as the shattering of social identity, which is difficult for individuals to reconstruct in the face of the areas they are denied or neglected. All these dynamics lead to the marginalization of the population being pushed to the peripheries. Sociospatial inequality and precarious lifestyles are products of tourism urbanization (
+<xref ref-type="bibr" rid="B26">Luchiari, 2004</xref>
+) and a consequence of the capitalist mode of production (
+<xref ref-type="bibr" rid="B20">Harvey, 2014</xref>
+). In order to analyze the production of the urban space and sociospatial inequality, it is essential to understand the consequences of this process.
+</p>
+<p>Among the problems of the Historic Center identified in the diagnosis of the Master Plan in 2002, the low demographic density already represented a movement of the population to the surroundings, a characteristic of the change of use of the converted houses for activities related to tourism. They have been transformed into guesthouses, bars, restaurants, handicraft shops and various businesses that have been incorporated as a result of the development of tourism (Pirenópolis Master Plan, 2002).</p>
+<p>The dynamics of tourism urbanization lead to social regrouping through gentrification. The resident of Vila Matutina, ER4-36, contextualizes this process by pointing out that the financial gain of the people of Pirenópolis is linked to construction:</p>
+<disp-quote>
+<p>
+They build a good house, not to live in, but to rent on weekends and go to the countryside to hide. If you rent your house every weekend for R$1,500, you’re winning in life. A lot of people are living like this because the government is letting them. Those who can afford to turn their house into a guesthouse do so. Those who can't are forced to live with this anarchy, the mess, the noise, the garbage, and the next day they have to get up early to go to work. Sometimes you call the police 10 times and they don't come; you call
+<italic>Central da Postura</italic>
+and nobody answers. So the people here are desperate to move to the countryside because they can't stand living on the streets any longer. This is becoming a ghost town (ERS4-36).
+</p>
+</disp-quote>
+<p>Among the consequences of tourism urbanization in Pirenópolis, which lead to the process of gentrification, is the replacement of daily life by commercial transactions. The objective changes in the use of homes near the Historic Center are also changing the habits of the residents. People are moving out of their own homes, turning them into guesthouses to receive tourists and investing as a business opportunity. Interviewee ERS4-36 also highlights a peculiar feature of this development: some people from Pirenópolis rent out their homes on weekends and go to more remote places. This allows them to earn money and escape the inconveniences caused by the tourist invasion.</p>
+<p>Social regrouping and the reconfiguration of the space reveal a city that is practically abandoned during the week. On weekends and holidays, the houses in the central area are occupied by tourists. From this perspective, according to public manager ERS2-5, it is essential to think about public policies for attracting tourists, since:</p>
+<disp-quote>
+<p>Tourists come and use all the space that has been built for the local population. They're in the street, at the gas station, in the restaurant, in the church. They occupy the space that should normally be occupied by the community that lives in the city (ERS2-5).</p>
+</disp-quote>
+<p>From the moment tourists plan out their itinerary, they choose the attractions they will visit, the restaurants they will eat in, and where they will stay. It is worth noting whether there is any interest in getting to know the people who live there and what their traditions are. In general, visitors don't absorb or create a relationship with the place, as businesswoman ERS3-12 points out:</p>
+<disp-quote>
+<p>On certain dates, like New Year's Eve, you want to get out of here. What do these people come here for? Why do they come here? It's become a place of vandalism, debauchery, and unhealthy parties. What have I done? I close the shop doors because I have no security. If ten people enter my establishment, I have no control over anything. When the city gets crowded, everything runs out: water, energy, supermarket items, the traffic doesn't flow, it's impossible. On holidays, I don't set foot outside my house. Unfortunately, we have to choose the type of tourist who appreciates what we have here. The city is losing its character and its social context. Where is that beautiful, cultural and historical city?” (ERS3-12).</p>
+</disp-quote>
+<p>It is worth mentioning that this businesswoman targets the population of Pirenópolis due to the location of her business. In her statement, we noticed a feeling of being trapped in the place, which is related to the anxiety that is expressed at times of commemoration and holidays, such as “I close the shop doors” and “I don't set foot outside my house” (ERS3-12). As the interviewee points out, looting and vandalism in the city are characteristic acts of abandonment of activities related to cultural and heritage traditions.</p>
+<p>This type of behavior was also easily identified in the interviews with the local population, as reported: “Carnival and New Year's Eve are tormenting, heavy festivals, the city is taken over, you can't leave the house” (ERS4-34). And from resident ERS4-29:</p>
+<disp-quote>
+<p>The New Year's Eve party was a horror show: the next day there were shards of glass everywhere. You thought the street had been built with broken glass, it was too much and I don't think there was anyone who wasn't horrified by what they saw. There were so many people, we didn't know where they came from, and the city can't handle it all (ERS4-29).</p>
+</disp-quote>
+<p>From these statements we can see that there is no reciprocity between the visitor and the place, which is formed by a type of behavior that remains distant from the receiving place, in such a way that we perceive a change in value not only in relation to the architectural ensemble, re-signified by commercial use, but also in relation to the traditional cultural manifestations of the city. This behavior generates a feeling of repulsion towards this type of visitor, who not only brings no benefit to the city, but also marks their passage with garbage, traffic disruption and unacceptable behavior. In this context, the resident of the Historic Center, ERS4-42, points out that the difficulty of living with tourists has become a frightening experience, since she has already been threatened with aggression:</p>
+<disp-quote>
+<p>To add to my joy, there's now a hostel next to my house. On weekends, I hardly sleep because the young people who stay there have the sound on 24 hours a day and at the highest volume. My children are even afraid because I always go there to complain, and some people have even tried to assault me when they were drunk. People from here sometimes don't even notice because they live far away from the city and go to their country house, but since I don't have that, I'm forced to stay here (ERS4-42).</p>
+</disp-quote>
+<p>The field research and interviews showed that although tourism has brought some improvements to the urban space and increased the income of the population, the people of Pirenópolis feel trapped in their place. Population movements and the spatial reconfigurations that lead to speculation and an increase in the price of housing near the Historic Center are compounded by cultural and symbolic changes, with the result that the population develops a sense of not belonging to their environment and, consequently, animosity towards outsiders.</p>
+<p>The distance between tourists and residents is not the result of a voluntary process. There are a number of peculiarities in the tourism development strategy itself that do not favor this encounter between tourists and residents, and even the first visitors to the city feel this shortcoming. An example of this is the above-mentioned venues. The city doesn't offer adequate infrastructure to provide a space for this interaction between residents and tourists, and this was reported by some tourists as a negative factor in the activity. According to ERS5-48, “the city needs to encourage people to talk to us. We tourists just want to enjoy what the city has to offer.”</p>
+<p>The occupation of spaces normally used by the local population can lead to tensions between them and the inhabitants, who feel invaded. This is due to the complex process of spatial production that has taken place over the years, not only because of the presence of tourists, but above all in relation to the spatial transformations to meet the demands of tourism, implying the need to resignify the “new places” produced as a result of this dynamic.</p>
+<disp-quote>
+<p>Tourism used to be an economic advantage for those who made a living from it, but now it's becoming a disadvantage because it's turning my city into something I don't recognize. My city is no longer mine. I like something more organized: it's my city, you come here and use it carefully. As a resident, during the week I'm still in my normal routine, I'm working, I need my car (“oh, why don't you leave your car at home?”); and why doesn't the tourist leave their car at home? I have to go home for lunch, take my son to school and go back to work. It's so busy, I need my car! People start arriving here on Thursday. People are forced to hurry and take longer because there's no one to organize the traffic. It's a mess and people are destroying it. I feel invaded and cornered all the time (ERS4-36).</p>
+</disp-quote>
+<p>Because of the strangeness of the spatial changes, the local population sees the Historic Center as scenery, in other words, a space designed for tourism that no longer has space to live in. For this reason, the Historic Center is interpreted by the same interviewee in another excerpt above as a “ghost town,” with a loss of meaning, identity, and value, in which they don't feel part and have no sense of belonging.</p>
+<p>In the tourism scenario, the spatial conflict represents a contradictory experience because individuals have to share their living space with others. The greatest negative consequence of tourism, according to Municipal Secretary ERS2-5, is the sharing of space with strangers, because “it's one thing to share living space with people who share the same existence with you, such as neighbors, friends and relatives, but it's another to have to share the same space with tourists.”</p>
+<p>In this tourism urbanization of the current context, it is worth understanding what it actually represents for the population of Pirenópolis, identifying the preservation of heritage as a constituent part of the knowledge of history and memory represented by memories materialized in the existence of the preservation of this heritage (Meneses, 2004). In this sense, it is essential to build places of memory, which are constituted from the formation of a social role that forms senses and meanings for the community, allowing for the development of historical heritage.</p>
+<p>Places of memory allow for the interpretation and critical reading of heritage. In this way, historical preservation should not simply be a collection of rare objects in space-time. Preservation must be interpreted in such a way that it fulfills its identity-forming role, in which the population feels part of the past, recognizes itself in the new configurations, identifies its symbols and perceives its values.</p>
+<p>However, the transformations brought about by the process of tourism urbanization have ended up transforming the material and immaterial goods of the cultural heritage into commodities, placing the Historic Center in the dimensions of capitalist reproduction. According to Troitiño (2004), despite the fact that the locality tries to present instruments of cooperation aimed at helping to solve the problems of tourism related to heritage, it is in vain, since, according to the interviews, there is no conversation with the local population to help in the strategic development of tourism.</p>
+<p>Among the disadvantages of tourism activity, resident ERS4-17 says that “we lose the privacy of the city.” Businessman ERS3-15 highlights the three main problems: irregular occupation, security and environmental quality, given the very high level of waste generation. Resident ERS4-18 was more specific about waste disposal:</p>
+<disp-quote>
+<p>we have a very serious problem with garbage on the banks of the Almas River, where all the bars on Rua do Lazer dump it. It's filthy, fly-tipped, disgusting, horrible. So that was the first thing to do, because that's the center, that's where the tourists go all the time. If it's supposed to be pretty for tourists, then it's lost (ERS4-18).</p>
+</disp-quote>
+<p>In short, the increase in tourist traffic has been accompanied by an overload of vehicles and the consequent disorganization of traffic, since the streets of the Historic Center were built at a time when there were no cars; an increase in violence and robberies, jeopardizing urban security; and irregular occupations due to real estate appreciation marked by spatial reconfiguration.</p>
+</sec>
+<sec sec-type="discussion">
+<title>Conclusion</title>
+<p>This study aimed to understand the relationship between tourism policies and the gentrification process in Pirenópolis, in the state of Goiás (GO), based on an essentially qualitative study. Among the consequences of the changes, two main lines of analysis emerged from the interviews: the concrete aspects of gentrification and the symbolic aspects related to the space.</p>
+<p>The concrete aspects of gentrification are characterized by the reconfiguration of the urban space, transforming the urban environment with the construction of private condominiums. In addition, the touristification of the urban center has had a significant impact on the occupation of the center by housing, so that a significant part of the buildings have been transformed into various businesses, which necessarily implies real estate appreciation in the Historic Center and its surroundings. As a result, the marginalized population has moved away from the city center to more and more distant areas, being replaced by the business class from outside the city, characterizing a social regrouping on the fringes of Pirenópolis. This process is aggravated by the fact that it goes hand in hand with the distancing of residents from the shops, schools, health centers and services that are generally concentrated in the city center.</p>
+<p>
+The reconfiguration of the space also promotes the notion of the space as scenery, which, according to the interviews, is intended for the enjoyment of tourists and has no utility value, since it serves to compose a relatively homogeneous atmosphere, common in cities undergoing processes of touristification of their spaces (
+<xref ref-type="bibr" rid="B30">Meethan, 1997</xref>
+).
+</p>
+<p>At the same time, changes in the habits of the population, cultural distancing and a segregated relationship between residents and tourists also accentuate symbolic points of this process, such as the elements of sociospatial identity, as individuals begin to feel a loss of value in the historical and cultural heritage and do not feel an integral part of the new space designed for tourism, as the meanings of these spaces are transformed by their new commercial function.</p>
+<p>From a theoretical point of view, this is the main contribution of this article, which, through the case of Pirenópolis, sheds light on a process of gentrification based on the refunctionalization of the Historic Center, in which buildings become commercial spaces and, as a consequence, residents are moved to the outskirts, directly implying the production of meanings about the city, as well as the very identity of the city's inhabitants.</p>
+<p>
+From a practical point of view, we can conclude that the process itself is a reflection of the policy of unequal geographical development in the production of the space, fueled by the weight of the city's Master Plan, whose tourism development strategy not only contributes to the gentrification process, but also hinders the functioning of other basic services. In Pirenópolis, there is a lack of governance and cooperation between public authorities, business and civil society. This lack of interaction greatly hinders the processes and development of public policies for urban planning and tourism, as well as actions to promote and support marketing in an integrated manner. This context is not similar to other tourist cities, such as Paraty (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+), Fortaleza (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012)</xref>
+and Recife (
+<xref ref-type="bibr" rid="B24">Leite, 2007)</xref>
+.
+</p>
+<p>As future research, based on sociospatial developments, we suggest an immersion in the research field, so that it is possible to analyze the governance mechanisms of tourism development and spatial transformations. Considering that the relationship between tourism policies and gentrification is still little explored, future research could look more closely at this agenda in other locations in Brazil. In this way, it is hoped that it will be possible to understand the context of municipal tourism development in comparison with other places, regionally and nationally, based on the consequences for spatial configuration caused by tourism urbanization. In this way, we will be able to develop tourism policies in collaboration with the actors (government, business and civil society) that have a direct influence on the configuration of the space.</p>
+<p>In the process of designing public policies for tourism development, the social actors (government officials, business people, the local population and tourists) are revealed, along with their different expectations. It is up to the public authorities to articulate these often divergent political, economic, cultural and social interests. Finally, it should be noted that this reconciliation is formed in the face of territorial planning, the use of space, and ends up following the perspective of tourism development, currently considered as the driving force of development in Pirenópolis.</p>
+</sec>
+</body>
+<back>
+<ref-list>
+<title>References</title>
+<ref id="B1">
+<mixed-citation>
+Aguiar, L. B. (2016). O Programa de Cidades Históricas, o turismo e a "viabilidade econômica" do patrimônio (1973-1979).
+<italic>Anais do Museu Paulista</italic>
+,
+<italic>24</italic>
+(1), 137-149. 10.1590/1982-02672016v24n0105
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Aguiar</surname>
+<given-names>L. B.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<article-title>O Programa de Cidades Históricas, o turismo e a "viabilidade econômica" do patrimônio (1973-1979)</article-title>
+<source>Anais do Museu Paulista</source>
+<volume>24</volume>
+<issue>1</issue>
+<fpage>137</fpage>
+<lpage>149</lpage>
+<pub-id pub-id-type="doi">10.1590/1982-02672016v24n0105</pub-id>
+</element-citation>
+</ref>
+<ref id="B2">
+<mixed-citation>
+Almeida-García, F., Cortés-Macías, R., Parzych, K. (2021). Tourism Impacts, Tourism-Phobia and Gentrification in Historic Centers: The Cases of Málaga (Spain) and Gdansk (Poland).
+<italic>Sustainability</italic>
+,
+<italic>13</italic>
+(1), 1-25. 10.3390/su13010408
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Almeida-García</surname>
+<given-names>F.</given-names>
+</name>
+<name>
+<surname>Cortés-Macías</surname>
+<given-names>R.</given-names>
+</name>
+<name>
+<surname>Parzych</surname>
+<given-names>K</given-names>
+</name>
+</person-group>
+<year>2021</year>
+<article-title>Tourism Impacts, Tourism-Phobia and Gentrification in Historic Centers: The Cases of Málaga (Spain) and Gdansk (Poland).</article-title>
+<source>Sustainability</source>
+<volume>13</volume>
+<issue>1</issue>
+<fpage>1</fpage>
+<lpage>25</lpage>
+<pub-id>10.3390/su13010408</pub-id>
+</element-citation>
+</ref>
+<ref id="B3">
+<mixed-citation>
+Araújo, R. M., Posenatto, A. F. G. (2012). Plano de Fortalecimento da Gestão do Turismo (PFGT): uma avaliação ex-ante no município de Nísia Floresta (RN).
+<italic>Revista de Administração Pública</italic>
+,
+<italic>46</italic>
+(1), 221-248. 10.1590/S0034-76122012000100011
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Araújo</surname>
+<given-names>R. M.</given-names>
+</name>
+<name>
+<surname>Posenatto</surname>
+<given-names>A. F. G</given-names>
+</name>
+</person-group>
+<year>2012</year>
+<article-title>Plano de Fortalecimento da Gestão do Turismo (PFGT): uma avaliação ex-ante no município de Nísia Floresta (RN).</article-title>
+<source>Revista de Administração Pública</source>
+<volume>46</volume>
+<issue>1</issue>
+<fpage>221</fpage>
+<lpage>248</lpage>
+<pub-id>10.1590/S0034-76122012000100011</pub-id>
+</element-citation>
+</ref>
+<ref id="B4">
+<mixed-citation>Augé, M. (2010). Não Lugares: introdução a uma antropologia da supermodernidade (8ª ed). Campinas, SP: Papirus.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Augé</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<source>Não Lugares: introdução a uma antropologia da supermodernidade</source>
+<edition>8ª</edition>
+<publisher-loc>Campinas, SP</publisher-loc>
+<publisher-name>Papirus</publisher-name>
+</element-citation>
+</ref>
+<ref id="B5">
+<mixed-citation>
+Barbosa, L. G. M., Oliveira, C. T. F. de, e Rezende, C. (2010). Competitividade de destinos turísticos: estudo de 65 destinos-chave para o desenvolvimento do turismo regional.
+<italic>Revista de Administração Pública</italic>
+,
+<italic>44</italic>
+(5), 1067-1095. 10.1590/S0034-76122010000500004
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Barbosa</surname>
+<given-names>L. G. M</given-names>
+</name>
+<name>
+<surname>Oliveira</surname>
+<given-names>C. T. F. de</given-names>
+</name>
+<name>
+<surname>Rezende</surname>
+<given-names>C</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<article-title>Competitividade de destinos turísticos: estudo de 65 destinos-chave para o desenvolvimento do turismo regional.</article-title>
+<source>Revista de Administração Pública</source>
+<volume>44</volume>
+<issue>5</issue>
+<fpage>1067</fpage>
+<lpage>1095</lpage>
+<pub-id>10.1590/S0034-76122010000500004</pub-id>
+</element-citation>
+</ref>
+<ref id="B6">
+<mixed-citation>Bardin, L. (2016). Análise de conteúdo. São Paulo, SP: Edições 70.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Bardin</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<source>Análise de conteúdo</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Edições 70</publisher-name>
+</element-citation>
+</ref>
+<ref id="B7">
+<mixed-citation>
+Bolzoni, M., e Semi, G. (2023). Adaptive urbanismo in ordinay citis: gentrification and temporalities in Turin (1993-2021).
+<italic>Cities</italic>
+,
+<italic>134</italic>
+, 1-9. 10.1016/j.cities.2022.104144
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Bolzoni</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Semi</surname>
+<given-names>G.</given-names>
+</name>
+</person-group>
+<year>2023</year>
+<article-title>Adaptive urbanismo in ordinay citis: gentrification and temporalities in Turin (1993-2021)</article-title>
+<source>Cities</source>
+<volume>134</volume>
+<fpage>1</fpage>
+<lpage>9</lpage>
+<pub-id pub-id-type="doi">10.1016/j.cities.2022.104144</pub-id>
+</element-citation>
+</ref>
+<ref id="B8">
+<mixed-citation>
+Botelho, A. (2004). A produção do espaço e o empresariamento Urbano: o caso de Barcelona e seu fórum das culturas de 2004.
+<italic>GEOUSP-Espaço e Tempo</italic>
+,
+<italic>8</italic>
+(2), 111-124. 10.11606/issn.2179-0892.geousp.2004.73958.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Botelho</surname>
+<given-names>A</given-names>
+</name>
+</person-group>
+<year>2004</year>
+<article-title>A produção do espaço e o empresariamento Urbano: o caso de Barcelona e seu fórum das culturas de 2004</article-title>
+<source>GEOUSP-Espaço e Tempo</source>
+<volume>8</volume>
+<issue>2</issue>
+<fpage>111</fpage>
+<lpage>124</lpage>
+<pub-id pub-id-type="doi">10.11606/issn.2179-0892.geousp.2004.73958</pub-id>
+</element-citation>
+</ref>
+<ref id="B9">
+<mixed-citation>
+Brasil. (2022). Ministério do Turismo. Programa de Regionalização do Turismo: Novas diretrizes. Recuperado de:
+<ext-link ext-link-type="uri" xlink:href="http://www.regionalizacao.turismo.gov.br/images/produto5___Ebook_Web.pdf">http://www.regionalizacao.turismo.gov.br/images/produto5___Ebook_Web.pdf</ext-link>
+.
+</mixed-citation>
+<element-citation publication-type="webpage">
+<person-group person-group-type="author">
+<collab>Brasil</collab>
+</person-group>
+<year>2022</year>
+<source>Ministério do Turismo. Programa de Regionalização do Turismo: Novas diretrizes</source>
+<ext-link ext-link-type="uri" xlink:href="http://www.regionalizacao.turismo.gov.br/images/produto5___Ebook_Web.pdf">http://www.regionalizacao.turismo.gov.br/images/produto5___Ebook_Web.pdf</ext-link>
+</element-citation>
+</ref>
+<ref id="B10">
+<mixed-citation>
+Brida, J. G., Del Chiappa, G., Meleddu, M., Pulina, M. (2014). A comparison of residents’ perceptions in two cruise ports in the Mediterranean Sea.
+<italic>International Journal of Tourism Research</italic>
+,
+<italic>16</italic>
+(2), 180-190. 10.1002/jtr.1915
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Brida</surname>
+<given-names>J. G.</given-names>
+</name>
+<name>
+<surname>Del Chiappa</surname>
+<given-names>G.</given-names>
+</name>
+<name>
+<surname>Meleddu</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Pulina</surname>
+<given-names>M</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<article-title>A comparison of residents’ perceptions in two cruise ports in the Mediterranean Sea.</article-title>
+<source>International Journal of Tourism Research</source>
+<volume>16</volume>
+<issue>2</issue>
+<fpage>180</fpage>
+<lpage>190</lpage>
+<pub-id>10.1002/jtr.1915</pub-id>
+</element-citation>
+</ref>
+<ref id="B11">
+<mixed-citation>
+Closs, L., Rocha-de-Oliveira, S. (2018). Análise da Cidade Baixa como Polo Criativo Potencial.
+<italic>REAd. Revista Eletrônica de Administração</italic>
+.
+<italic>24</italic>
+(1) 208-237. 10.1590/1413-2311.184.62076.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Closs</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Rocha-de-Oliveira</surname>
+<given-names>S</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<article-title>Análise da Cidade Baixa como Polo Criativo Potencial.</article-title>
+<source>REAd. Revista Eletrônica de Administração</source>
+<volume>24</volume>
+<issue>1</issue>
+<fpage>208</fpage>
+<lpage>237</lpage>
+<pub-id>10.1590/1413-2311.184.62076.</pub-id>
+</element-citation>
+</ref>
+<ref id="B12">
+<mixed-citation>
+Coriolano, L., Vasconcelos, F. (2012).
+<italic>Turismo, Território e Conflitos Imobiliários</italic>
+. Fortaleza, CE: Eduece.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Coriolano</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Vasconcelos</surname>
+<given-names>F</given-names>
+</name>
+</person-group>
+<year>2012</year>
+<source>Turismo, Território e Conflitos Imobiliários</source>
+<publisher-loc>Fortaleza, CE</publisher-loc>
+<publisher-name>Eduece</publisher-name>
+</element-citation>
+</ref>
+<ref id="B13">
+<mixed-citation>
+Correa, S. M. (2016). O Programa de Cidades Históricas: por uma política integrada de preservação do patrimônio cultural urbano.
+<italic>Anais do Museu Paulista</italic>
+,
+<italic>24</italic>
+(1), 15-57. 10.1590/1982-02672016v24n0101
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Correa</surname>
+<given-names>S. M.</given-names>
+</name>
+</person-group>
+<year>2016</year>
+<article-title>O Programa de Cidades Históricas: por uma política integrada de preservação do patrimônio cultural urbano</article-title>
+<source>Anais do Museu Paulista</source>
+<volume>24</volume>
+<issue>1</issue>
+<fpage>15</fpage>
+<lpage>57</lpage>
+<pub-id pub-id-type="doi">10.1590/1982-02672016v24n0101</pub-id>
+</element-citation>
+</ref>
+<ref id="B14">
+<mixed-citation>
+Cruz, R. C. A. (2000).
+<italic>Política Pública do Turismo e Território</italic>
+. São Paulo, SP: Contexto.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Cruz</surname>
+<given-names>R. C. A.</given-names>
+</name>
+</person-group>
+<year>2000</year>
+<source>Política Pública do Turismo e Território</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Contexto</publisher-name>
+</element-citation>
+</ref>
+<ref id="B15">
+<mixed-citation>
+Fridman, F., Silva de Araújo, A. P.,e Barcelos Damasceno Daibert, A. (2019). Políticas públicas de preservação do patrimônio histórico no Brasil. Três estudos de caso (1973-2016).
+<italic>Revista Brasileira de Estudos Urbanos e Regionais</italic>
+,
+<italic>21</italic>
+(3), 621-638. 10.22296/2317-1529.2019v21n3p621
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Fridman</surname>
+<given-names>F.</given-names>
+</name>
+<name>
+<surname>Silva de Araújo</surname>
+<given-names>A. P.</given-names>
+</name>
+<name>
+<surname>Barcelos Damasceno Daibert</surname>
+<given-names>A.</given-names>
+</name>
+</person-group>
+<year>2019</year>
+<article-title>Políticas públicas de preservação do patrimônio histórico no Brasil. Três estudos de caso (1973-2016)</article-title>
+<source>Revista Brasileira de Estudos Urbanos e Regionais</source>
+<volume>21</volume>
+<issue>3</issue>
+<fpage>621</fpage>
+<lpage>638</lpage>
+<pub-id pub-id-type="doi">10.22296/2317-1529.2019v21n3p621</pub-id>
+</element-citation>
+</ref>
+<ref id="B16">
+<mixed-citation>Glass, R. (1963). Introduction to London: Aspects of change. Center for Urban Studies: London.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Glass</surname>
+<given-names>R</given-names>
+</name>
+</person-group>
+<year>1963</year>
+<source>Introduction to London: Aspects of change</source>
+<publisher-name>Center for Urban Studies</publisher-name>
+<publisher-loc>London</publisher-loc>
+</element-citation>
+</ref>
+<ref id="B17">
+<mixed-citation>
+González-Pérez, Jesús M. (2020). The dispute over tourist cities. Tourism gentrification in the historic Centre of Palma (Majorca, Spain).
+<italic>Tourism Geographies</italic>
+,
+<italic>22</italic>
+(1), 171-191, 10.1080/14616688.2019.1586986
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>González-Pérez</surname>
+<given-names>Jesús M.</given-names>
+</name>
+</person-group>
+<year>2020</year>
+<article-title>The dispute over tourist cities. Tourism gentrification in the historic Centre of Palma (Majorca, Spain)</article-title>
+<source>Tourism Geographies</source>
+<volume>22</volume>
+<issue>1</issue>
+<fpage>171</fpage>
+<lpage>191</lpage>
+<pub-id pub-id-type="doi">10.1080/14616688.2019.1586986</pub-id>
+</element-citation>
+</ref>
+<ref id="B18">
+<mixed-citation>Hamnett, C. (1984). Gentrification and residential location theory: a review and assessment. In D. T. Herbert, e R. J. Johnston, R.J. (eds). Geography and the urban environment. Progress in research and applications. London: Wiley-Blackwell, p. 283-319.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Hamnett</surname>
+<given-names>C</given-names>
+</name>
+</person-group>
+<year>1984</year>
+<chapter-title>Gentrification and residential location theory: a review and assessment</chapter-title>
+<person-group person-group-type="author">
+<name>
+<surname>Herbert</surname>
+<given-names>D. T.</given-names>
+</name>
+<name>
+<surname>Johnston</surname>
+<given-names>R. J.</given-names>
+</name>
+<name>
+<surname>R.J.</surname>
+<given-names>eds</given-names>
+</name>
+</person-group>
+<source>Geography and the urban environment. Progress in research and applications</source>
+<publisher-loc>London</publisher-loc>
+<publisher-name>Wiley-Blackwell</publisher-name>
+<fpage>283</fpage>
+<lpage>319</lpage>
+</element-citation>
+</ref>
+<ref id="B19">
+<mixed-citation>Harvey, D. (1996). Do gerenciamento ao empresariamento: a transformação da administração urbana no capitalismo tardio. São Paulo, Espaço e Debates, 16 (39), 48 - 64.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Harvey</surname>
+<given-names>D</given-names>
+</name>
+</person-group>
+<year>1996</year>
+<article-title>Do gerenciamento ao empresariamento: a transformação da administração urbana no capitalismo tardio</article-title>
+<publisher-loc>São Paulo</publisher-loc>
+<source>Espaço e Debates</source>
+<volume>16</volume>
+<issue>39</issue>
+<fpage>48</fpage>
+<lpage>64</lpage>
+</element-citation>
+</ref>
+<ref id="B20">
+<mixed-citation>
+Harvey, D. (2014).
+<italic>17 Contradições e o Fim do Capitalismo</italic>
+. São Paulo, SP: Boitempo.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Harvey</surname>
+<given-names>D.</given-names>
+</name>
+</person-group>
+<year>2014</year>
+<source>17 Contradições e o Fim do Capitalismo</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Boitempo</publisher-name>
+</element-citation>
+</ref>
+<ref id="B21">
+<mixed-citation>Henz, A. P., Leite, F. C. L., e Anjos, F. (2010). A. Refletindo as Políticas Públicas para Turismo: uma retrospectiva brasileira desde a década de 60. Artigo apresentado no 6º Semintur - Seminário de Pesquisa em Turismo do Mercosul, Caxias do Sul, RS.</mixed-citation>
+<element-citation publication-type="confproc">
+<person-group person-group-type="author">
+<name>
+<surname>Henz</surname>
+<given-names>A. P.</given-names>
+</name>
+<name>
+<surname>Leite</surname>
+<given-names>F. C. L.</given-names>
+</name>
+<name>
+<surname>Anjos</surname>
+<given-names>F.</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<source>A. Refletindo as Políticas Públicas para Turismo: uma retrospectiva brasileira desde a década de 60</source>
+<comment>Artigo apresentado no</comment>
+<conf-name>6º Semintur - Seminário de Pesquisa em Turismo do Mercosul</conf-name>
+<conf-loc>Caxias do Sul, RS</conf-loc>
+</element-citation>
+</ref>
+<ref id="B22">
+<mixed-citation>
+Iphan. (2018).
+<italic>PAC Cidades Históricas</italic>
+. Recuperado de
+<ext-link ext-link-type="uri" xlink:href="http://portal.iphan.gov.br/pac#:~:text=O%20Programa%20de%20Acelera%C3%A7%C3%A3o%20do,log%C3%ADstica%20e%20energ%C3%A9tica%20do%20Brasil">http://portal.iphan.gov.br/pac#:~:text=O%20Programa%20de%20Acelera%C3%A7%C3%A3o%20do,log%C3%ADstica%20e%20energ%C3%A9tica%20do%20Brasil</ext-link>
+.
+</mixed-citation>
+<element-citation publication-type="webpage">
+<person-group person-group-type="author">
+<collab>Iphan</collab>
+</person-group>
+<year>2018</year>
+<source>PAC Cidades Históricas</source>
+<ext-link ext-link-type="uri" xlink:href="http://portal.iphan.gov.br/pac#:~:text=O%20Programa%20de%20Acelera%C3%A7%C3%A3o%20do,log%C3%ADstica%20e%20energ%C3%A9tica%20do%20Brasil">http://portal.iphan.gov.br/pac#:~:text=O%20Programa%20de%20Acelera%C3%A7%C3%A3o%20do,log%C3%ADstica%20e%20energ%C3%A9tica%20do%20Brasil</ext-link>
+</element-citation>
+</ref>
+<ref id="B23">
+<mixed-citation>
+Lefebvre, H. (1991).
+<italic>The production of space</italic>
+. Oxford: Blackwell.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Lefebvre</surname>
+<given-names>H.</given-names>
+</name>
+</person-group>
+<year>1991</year>
+<source>The production of space</source>
+<publisher-loc>Oxford</publisher-loc>
+<publisher-name>Blackwell</publisher-name>
+</element-citation>
+</ref>
+<ref id="B24">
+<mixed-citation>
+Leite, R. P. (2007).
+<italic>Contra-usos da Cidade</italic>
+(2ª ed.). Campinas, SP: Editora Unicamp.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Leite</surname>
+<given-names>R. P.</given-names>
+</name>
+</person-group>
+<year>2007</year>
+<source>Contra-usos da Cidade</source>
+<edition>2ª ed.</edition>
+<publisher-loc>Campinas, SP</publisher-loc>
+<publisher-name>Editora Unicamp</publisher-name>
+</element-citation>
+</ref>
+<ref id="B25">
+<mixed-citation>
+Lemos, C. C. (2013). Planejamento do turismo em âmbito federal: uma análise dos instrumentos utilizados e dos investimentos no setor.
+<italic>Revista de Administração Pública</italic>
+,
+<italic>47</italic>
+(6), 1401-1428. 10.1590/S0034-76122013000600004.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Lemos</surname>
+<given-names>C. C.</given-names>
+</name>
+</person-group>
+<year>2013</year>
+<article-title>Planejamento do turismo em âmbito federal: uma análise dos instrumentos utilizados e dos investimentos no setor</article-title>
+<source>Revista de Administração Pública</source>
+<volume>47</volume>
+<issue>6</issue>
+<fpage>1401</fpage>
+<lpage>1428</lpage>
+<pub-id pub-id-type="doi">10.1590/S0034-76122013000600004</pub-id>
+</element-citation>
+</ref>
+<ref id="B26">
+<mixed-citation>
+Luchiari, M. T. (2004). Urbanização turística: um novo nexo entre o lugar e o mundo. In: C. Serrano, H. Bruhns, M. Luchiari (Orgs):
+<italic>Olhares contemporâneos sobre o turismo</italic>
+(3ª ed.). Campinas, SP: Papirus, 105-130.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Luchiari</surname>
+<given-names>M. T</given-names>
+</name>
+</person-group>
+<year>2004</year>
+<chapter-title>Urbanização turística: um novo nexo entre o lugar e o mundo</chapter-title>
+<person-group person-group-type="author">
+<name>
+<surname>Serrano</surname>
+<given-names>C.</given-names>
+</name>
+<name>
+<surname>Bruhns</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Luchiari</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<comment>Orgs</comment>
+<source>Olhares contemporâneos sobre o turismo</source>
+<edition>3ª ed</edition>
+<publisher-loc>Campinas, SP</publisher-loc>
+<publisher-name>Papirus</publisher-name>
+<fpage>105</fpage>
+<lpage>130</lpage>
+</element-citation>
+</ref>
+<ref id="B27">
+<mixed-citation>
+Mendes, L. (2017). Gentrificação turística em Lisboa: neoliberalismo, financeirização e urbanismo austeritário em tempos de pós-crise capitalista 2008-2009.
+<italic>Cadernos Metrópole</italic>
+,
+<italic>19</italic>
+(39), 479-512. 10.1590/2236-9996.2017-3906
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Mendes</surname>
+<given-names>L</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<article-title>Gentrificação turística em Lisboa: neoliberalismo, financeirização e urbanismo austeritário em tempos de pós-crise capitalista 2008-2009</article-title>
+<source>Cadernos Metrópole</source>
+<volume>19</volume>
+<issue>39</issue>
+<fpage>479</fpage>
+<lpage>512</lpage>
+<pub-id pub-id-type="doi">10.1590/2236-9996.2017-3906</pub-id>
+</element-citation>
+</ref>
+<ref id="B28">
+<mixed-citation>
+Magnier, A., Getimis, P., Cabria, M., e Baptista, L. (2018). Mayors and spatial planning in their cities. In H. Heinelt, A. Magnier, M. Cabria, e H. Reynaert (Eds.),
+<italic>Political leaders and changing local democracy: The European mayor</italic>
+. London: Palgrave Macmillan, 411-446.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Magnier</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Getimis</surname>
+<given-names>P.</given-names>
+</name>
+<name>
+<surname>Cabria</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Baptista</surname>
+<given-names>L.</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<chapter-title>Mayors and spatial planning in their cities</chapter-title>
+<person-group person-group-type="editor">
+<name>
+<surname>Heinelt</surname>
+<given-names>H.</given-names>
+</name>
+<name>
+<surname>Magnier</surname>
+<given-names>A.</given-names>
+</name>
+<name>
+<surname>Cabria</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Reynaert</surname>
+<given-names>H.</given-names>
+</name>
+<role>Eds</role>
+</person-group>
+<source>Political leaders and changing local democracy: The European mayor</source>
+<publisher-loc>London</publisher-loc>
+<publisher-name>Palgrave Macmillan</publisher-name>
+<fpage>411</fpage>
+<lpage>446</lpage>
+</element-citation>
+</ref>
+<ref id="B29">
+<mixed-citation>May, T. (2004). Pesquisa social: questões, métodos e processo. Porto Alegre, Artmed.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>May</surname>
+<given-names>T</given-names>
+</name>
+</person-group>
+<year>2004</year>
+<source>Pesquisa social: questões, métodos e processo</source>
+<publisher-loc>Porto Alegre</publisher-loc>
+<publisher-name>Artmed</publisher-name>
+</element-citation>
+</ref>
+<ref id="B30">
+<mixed-citation>
+Meethan, K. (1997). York: managing the tourist city.
+<italic>Cities</italic>
+,
+<italic>16</italic>
+(6), 333-342. 10.1016/S0264-2751(97)00024-3
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Meethan</surname>
+<given-names>K</given-names>
+</name>
+</person-group>
+<year>1997</year>
+<article-title>York: managing the tourist city</article-title>
+<source>Cities</source>
+<volume>16</volume>
+<issue>6</issue>
+<fpage>333</fpage>
+<lpage>342</lpage>
+<pub-id pub-id-type="doi">10.1016/S0264-2751(97)00024-3</pub-id>
+</element-citation>
+</ref>
+<ref id="B31">
+<mixed-citation>
+Paddison B., e Walmsley A. (2018). New Public Management in tourism: a case study of York.
+<italic>Journal of Sustainable Tourism</italic>
+,
+<italic>26</italic>
+(6), 910-926. 10.1080/09669582.2018.1425696.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Paddison</surname>
+<given-names>B.</given-names>
+</name>
+<name>
+<surname>Walmsley</surname>
+<given-names>A.</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<article-title>New Public Management in tourism: a case study of York</article-title>
+<source>Journal of Sustainable Tourism</source>
+<volume>26</volume>
+<issue>6</issue>
+<fpage>910</fpage>
+<lpage>926</lpage>
+<pub-id pub-id-type="doi">10.1080/09669582.2018.1425696</pub-id>
+</element-citation>
+</ref>
+<ref id="B32">
+<mixed-citation>
+Paes, M. T. D. (2017). Gentrificação, preservação patrimonial e turismo: os novos sentidos da paisagem urbana na renovação das cidades.
+<italic>GEOUSP Espaço e Tempo</italic>
+,
+<italic>21</italic>
+(3), 667-684, 2017. 10.11606/issn.2179-0892.geousp.2017.128345.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Paes</surname>
+<given-names>M. T. D.</given-names>
+</name>
+</person-group>
+<year>2017</year>
+<article-title>Gentrificação, preservação patrimonial e turismo: os novos sentidos da paisagem urbana na renovação das cidades</article-title>
+<source>GEOUSP Espaço e Tempo</source>
+<volume>21</volume>
+<issue>3</issue>
+<fpage>667</fpage>
+<lpage>684</lpage>
+<comment>2017</comment>
+<pub-id pub-id-type="doi">10.11606/issn.2179-0892.geousp.2017.128345</pub-id>
+</element-citation>
+</ref>
+<ref id="B33">
+<mixed-citation>
+Plano Diretor de Pirenópolis. (2002). Lei Complementar nº 02/02 de 12/12/2002. Recuperado de
+<ext-link ext-link-type="uri" xlink:href="https://pirenopolis.go.gov.br/wp-content/uploads/2022/04/plano-diretor-2002_antigo.pdf">https://pirenopolis.go.gov.br/wp-content/uploads/2022/04/plano-diretor-2002_antigo.pdf</ext-link>
+.
+</mixed-citation>
+<element-citation publication-type="webpage">
+<person-group person-group-type="author">
+<collab>Plano Diretor de Pirenópolis</collab>
+</person-group>
+<year>2002</year>
+<source>Lei Complementar nº 02/02 de 12/12/2002</source>
+<ext-link ext-link-type="uri" xlink:href="https://pirenopolis.go.gov.br/wp-content/uploads/2022/04/plano-diretor-2002_antigo.pdf">https://pirenopolis.go.gov.br/wp-content/uploads/2022/04/plano-diretor-2002_antigo.pdf</ext-link>
+</element-citation>
+</ref>
+<ref id="B34">
+<mixed-citation>
+Ribeiro, S. B. (2005).
+<italic>Brasília: memória, cidadania e gestão do patrimônio cultural</italic>
+. São Paulo, SP: Anablume.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Ribeiro</surname>
+<given-names>S. B.</given-names>
+</name>
+</person-group>
+<year>2005</year>
+<source>Brasília: memória, cidadania e gestão do patrimônio cultural</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Anablume</publisher-name>
+</element-citation>
+</ref>
+<ref id="B35">
+<mixed-citation>
+Ribeiro, T. F. (2018). Gentrificação: aspectos conceituais e práticos de sua verificação no Brasil.
+<italic>Revista de Direito da Cidade</italic>
+,
+<italic>10</italic>
+(3), 1334-1356. 10.12957/rdc.2018.31328.
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Ribeiro</surname>
+<given-names>T. F.</given-names>
+</name>
+</person-group>
+<year>2018</year>
+<article-title>Gentrificação: aspectos conceituais e práticos de sua verificação no Brasil</article-title>
+<source>Revista de Direito da Cidade</source>
+<volume>10</volume>
+<issue>3</issue>
+<fpage>1334</fpage>
+<lpage>1356</lpage>
+<pub-id pub-id-type="doi">10.12957/rdc.2018.31328</pub-id>
+</element-citation>
+</ref>
+<ref id="B36">
+<mixed-citation>
+Rodrigues, A. B. (2003). Ecoturismo: limites do eco e da ética. In A. B. Rodrigues.
+<italic>Ecoturismo no Brasil: possibilidades e limites</italic>
+. São Paulo, SP: Contexto.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Rodrigues</surname>
+<given-names>A. B.</given-names>
+</name>
+</person-group>
+<year>2003</year>
+<chapter-title>Ecoturismo: limites do eco e da ética</chapter-title>
+<person-group person-group-type="author">
+<name>
+<surname>Rodrigues</surname>
+<given-names>A. B.</given-names>
+</name>
+</person-group>
+<source>Ecoturismo no Brasil: possibilidades e limites</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Contexto</publisher-name>
+</element-citation>
+</ref>
+<ref id="B37">
+<mixed-citation>
+Santos, M. (2008).
+<italic>Metamorfoses do Espaço Habitado</italic>
+(6ª ed.). São Paulo: EdUSP.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Santos</surname>
+<given-names>M.</given-names>
+</name>
+</person-group>
+<year>2008</year>
+<source>Metamorfoses do Espaço Habitado</source>
+<edition>6ª ed.</edition>
+<publisher-loc>São Paulo</publisher-loc>
+<publisher-name>EdUSP</publisher-name>
+</element-citation>
+</ref>
+<ref id="B38">
+<mixed-citation>
+Savage, M., e Warde, A. (1993).
+<italic>Urban sociology, capitalism and modernity</italic>
+. Londres, Macmillan.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Savage</surname>
+<given-names>M.</given-names>
+</name>
+<name>
+<surname>Warde</surname>
+<given-names>A.</given-names>
+</name>
+</person-group>
+<year>1993</year>
+<source>Urban sociology, capitalism and modernity</source>
+<publisher-loc>Londres</publisher-loc>
+<publisher-name>Macmillan</publisher-name>
+</element-citation>
+</ref>
+<ref id="B39">
+<mixed-citation>Silva, F, C. (2015). A formação de agenda de políticas públicas de turismo em âmbito local: os casos de Ouro Preto (MG) e Paraty (RJ) (Tese de Doutorado). Escola de Administração de Empresas de São Paulo da Fundação Getúlio Vargas, São Paulo, SP.</mixed-citation>
+<element-citation publication-type="thesis">
+<person-group person-group-type="author">
+<name>
+<surname>Silva</surname>
+<given-names>F, C.</given-names>
+</name>
+</person-group>
+<year>2015</year>
+<source>A formação de agenda de políticas públicas de turismo em âmbito local: os casos de Ouro Preto (MG) e Paraty (RJ)</source>
+<comment>Tese de Doutorado</comment>
+<publisher-name>Escola de Administração de Empresas de São Paulo da Fundação Getúlio Vargas</publisher-name>
+<publisher-loc>São Paulo, SP</publisher-loc>
+</element-citation>
+</ref>
+<ref id="B40">
+<mixed-citation>
+Smith, N. (1982). Gentrification and Uneven Development.
+<italic>Economic Geography</italic>
+,
+<italic>58</italic>
+(2), 139-155. 10.2307/143793
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Smith</surname>
+<given-names>N</given-names>
+</name>
+</person-group>
+<year>1982</year>
+<article-title>Gentrification and Uneven Development</article-title>
+<source>Economic Geography</source>
+<volume>58</volume>
+<issue>2</issue>
+<fpage>139</fpage>
+<lpage>155</lpage>
+<pub-id pub-id-type="doi">10.2307/143793</pub-id>
+</element-citation>
+</ref>
+<ref id="B41">
+<mixed-citation>
+Smith, N. (2007). A gentrificação generalizada. In C. Bidou-Zachariasen.
+<italic>De volta à cidade: dos processos de gentrificação às políticas de "revitalização" dos centros urbanos</italic>
+. São Paulo, SP: Annablume, 59-87.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Smith</surname>
+<given-names>N</given-names>
+</name>
+</person-group>
+<year>2007</year>
+<chapter-title>A gentrificação generalizada</chapter-title>
+<person-group person-group-type="author">
+<name>
+<surname>Bidou-Zachariasen</surname>
+<given-names>C.</given-names>
+</name>
+</person-group>
+<source>De volta à cidade: dos processos de gentrificação às políticas de "revitalização" dos centros urbanos</source>
+<publisher-loc>São Paulo, SP</publisher-loc>
+<publisher-name>Annablume</publisher-name>
+<fpage>59</fpage>
+<lpage>87</lpage>
+</element-citation>
+</ref>
+<ref id="B42">
+<mixed-citation>Steinberger, M. (Org.) (2009) Territórios Turísticos no Brasil Central. Brasília, DF: LGE Editora.</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Steinberger</surname>
+<given-names>M</given-names>
+</name>
+<role>Org</role>
+</person-group>
+<year>2009</year>
+<source>Territórios Turísticos no Brasil Central</source>
+<publisher-loc>Brasília, DF</publisher-loc>
+<publisher-name>LGE Editora</publisher-name>
+</element-citation>
+</ref>
+<ref id="B43">
+<mixed-citation>Troitiño Vinuesa, M. A. (2003). La protección, recuperación y revitalización funcional de los centros históricos. Instituto de Estudios Socioeconómicos de Cajamar. Ciudades, Arquitectura y Espacio Urbano, (3), 131-160.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Troitiño Vinuesa</surname>
+<given-names>M. A.</given-names>
+</name>
+</person-group>
+<year>2003</year>
+<article-title>La protección, recuperación y revitalización funcional de los centros históricos</article-title>
+<source>Instituto de Estudios Socioeconómicos de Cajamar. Ciudades, Arquitectura y Espacio Urbano</source>
+<issue>3</issue>
+<fpage>131</fpage>
+<lpage>160</lpage>
+</element-citation>
+</ref>
+<ref id="B44">
+<mixed-citation>
+Weber, F. (2009). A entrevista, a pesquisa e o íntimo, ou: por que censurar seu diário de campo?
+<italic>Horizontes Antropológicos</italic>
+,
+<italic>15</italic>
+(32), 157-170. 10.1590/S0104-71832009000200007
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Weber</surname>
+<given-names>F</given-names>
+</name>
+</person-group>
+<year>2009</year>
+<article-title>A entrevista, a pesquisa e o íntimo, ou: por que censurar seu diário de campo?</article-title>
+<source>Horizontes Antropológicos</source>
+<volume>15</volume>
+<issue>32</issue>
+<fpage>157</fpage>
+<lpage>170</lpage>
+<pub-id pub-id-type="doi">10.1590/S0104-71832009000200007</pub-id>
+</element-citation>
+</ref>
+<ref id="B45">
+<mixed-citation>
+Zukin, S. (2010).
+<italic>The Culture of Cities</italic>
+(10th ed). Oxford: Blackwell Publishers.
+</mixed-citation>
+<element-citation publication-type="book">
+<person-group person-group-type="author">
+<name>
+<surname>Zukin</surname>
+<given-names>S.</given-names>
+</name>
+</person-group>
+<year>2010</year>
+<source>The Culture of Cities</source>
+<edition>10th</edition>
+<publisher-loc>Oxford</publisher-loc>
+<publisher-name>Blackwell Publishers</publisher-name>
+</element-citation>
+</ref>
+<ref id="B46">
+<mixed-citation>
+Zhan, Y. (2021). Beyond neoliberal urbanism: Assembling fluid gentrification through informal housing upgrading programs in Shenzhen, China.
+<italic>Cities</italic>
+,
+<italic>112</italic>
+(May), 1-9. 10.1016/j.cities.2021.103111
+</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Zhan</surname>
+<given-names>Y</given-names>
+</name>
+</person-group>
+<year>2021</year>
+<article-title>Beyond neoliberal urbanism: Assembling fluid gentrification through informal housing upgrading programs in Shenzhen, China</article-title>
+<source>Cities</source>
+<volume>112</volume>
+<month>05</month>
+<fpage>1</fpage>
+<lpage>9</lpage>
+<pub-id pub-id-type="doi">10.1016/j.cities.2021.103111</pub-id>
+</element-citation>
+</ref>
+<ref id="B47">
+<mixed-citation>Zhang, Q., Lu, L., Huang, J., Zhang, X. (2022). Uneven development and tourism gentrification in the metropolitan fringe: A case study of Wuzhen Xizha in Zhejiang Province, China, Cities, 121 (Feb), 1-14. 10.1016/j.cities.2021.103476.</mixed-citation>
+<element-citation publication-type="journal">
+<person-group person-group-type="author">
+<name>
+<surname>Zhang</surname>
+<given-names>Q.</given-names>
+</name>
+<name>
+<surname>Lu</surname>
+<given-names>L.</given-names>
+</name>
+<name>
+<surname>Huang</surname>
+<given-names>J.</given-names>
+</name>
+<name>
+<surname>Zhang</surname>
+<given-names>X.</given-names>
+</name>
+</person-group>
+<year>2022</year>
+<article-title>Uneven development and tourism gentrification in the metropolitan fringe: A case study of Wuzhen Xizha in Zhejiang Province, China</article-title>
+<source>Cities</source>
+<volume>121</volume>
+<month>02</month>
+<fpage>1</fpage>
+<lpage>14</lpage>
+<pub-id pub-id-type="doi">10.1016/j.cities.2021.103476</pub-id>
+</element-citation>
+</ref>
+</ref-list>
+<fn-group>
+<fn fn-type="other" id="fn1">
+<label>Inclusive language</label>
+<p>The authors use inclusive language that acknowledges diversity, conveys respect to all people, is sensitive to differences, and promotes equal opportunities.</p>
+</fn>
+<fn fn-type="other" id="fn2">
+<label>Plagiarism check</label>
+<p>OeS submit all documents approved for publication to the plagiarism check, using specific tools.</p>
+</fn>
+<fn fn-type="data-availability" specific-use="data-not-available">
+<label>Data availability</label>
+<p>OeS encourages data sharing. However, in compliance with ethical principles, it does not demand the disclosure of any means of identifying research participants, preserving fully their privacy. The practice of open data seeks to ensure the transparency of the research results, without requiring the identity of research participants.</p>
+</fn>
+<fn fn-type="financial-disclosure">
+<label>Funding:</label>
+<p> The authors acknowledge the financial support of CAPES (Process ID 88887.692143/2022-00) and FAPEMIG (Process ID APQ-03362-18).</p>
+</fn>
+</fn-group>
+</back>
+<sub-article article-type="translation" id="TRpt" xml:lang="pt">
+<front-stub>
+<article-id pub-id-type="doi">10.1590/1984-92302025v32n0005PT</article-id>
+<article-categories>
+<subj-group subj-group-type="heading">
+<subject>Artigo</subject>
+</subj-group>
+</article-categories>
+<title-group>
+<article-title>A Relação entre o Desenvolvimento do Turismo e o Processo de Gentrificação em Pirenópolis-GO</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0001-6165-9958</contrib-id>
+<name>
+<surname>Marques</surname>
+<given-names>Ariane Belcavelo Silveira</given-names>
+</name>
+<role>concepção (igual)</role>
+<role>curadoria de dados (líder)</role>
+<role>análise formal (líder/)</role>
+<role>investigação (líder)</role>
+<role>metodologia (líder)</role>
+<role>recursos (igual/ líder/apoio)</role>
+<role>supervisão (igual)</role>
+<role>validação (líder)</role>
+<role>visualização (igual)</role>
+<role>redação – rascunho original (líder)</role>
+<role> redação – revisão e edição (igual)</role>
+<xref ref-type="aff" rid="aff1002">
+<sup>a</sup>
+</xref>
+<bio>
+<p>Ariane Belcavelo Silveira Marques Mestrado em Administração pela Universidade Federal de Viçosa. Suas pesquisas concentram-se na produção do espaço em cidades turísticas.</p>
+</bio>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0003-3524-3566</contrib-id>
+<name>
+<surname>Xavier</surname>
+<given-names>Wescley Silva</given-names>
+</name>
+<role> concepção (igual)</role>
+<role>curadoria de dados (apoio)</role>
+<role>análise formal (apoio)</role>
+<role>aquisição de financiamento (líder)</role>
+<role>investigação (apoio)</role>
+<role> metodologia (apoio)</role>
+<role>administração do projeto (líder)</role>
+<role>recursos (líder)</role>
+<role>supervisão (igual)</role>
+<role>validação (apoio)</role>
+<role>visualização (igual)</role>
+<role>redação – rascunho original (apoio)</role>
+<role>redação – revisão e edição (igual)</role>
+<xref ref-type="aff" rid="aff1002">
+<sup>a</sup>
+</xref>
+<bio>
+<p>Wescley Silva Xavier Doutor em Administração pela Universidade Federal de Minas Gerais, com pós-doutorado em Sociologia pela Lancaster University. Professor Associado da Universidade Federal de Viçosa.</p>
+</bio>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">0000-0001-6529-2188</contrib-id>
+<name>
+<surname>Guedes</surname>
+<given-names>Leandro Theodoro</given-names>
+</name>
+<xref ref-type="aff" rid="aff2002">
+<sup>b</sup>
+</xref>
+<bio>
+<p>Doutor em Administração pela Universidade Federal de Viçosa. Professor Associado da Universidade Federal de Viçosa. Professor da Fundação de Apoio à Escola Técnica do Estado do Rio de Janeiro.</p>
+</bio>
+</contrib>
+</contrib-group>
+<aff id="aff1002">
+<label>a</label>
+<country country="BR">Brasil</country>
+<institution content-type="original">Universidade Federal de Viçosa, Viçosa-MG, Brasil. E-mail: arianebsm@gmail.com; E-mail: wescley@ufv.br</institution>
+</aff>
+<aff id="aff2002">
+<label>b</label>
+<country country="BR">Brasil</country>
+<institution content-type="original">Escola Técnica do Estado do Rio de Janeiro, Três Rios-RJ, Brasil. E-mail: ltheodoroguedes@yahoo.com</institution>
+</aff>
+<author-notes>
+<fn fn-type="edited-by">
+<label>Editor/a Associado/a:</label>
+<p>Maria Elisabete Pereira dos Santos</p>
+</fn>
+<fn fn-type="conflict">
+<label>Conflito de interesses:</label>
+<p>Os autores informam que não há conflito de interesses.</p>
+</fn>
+</author-notes>
+<elocation-id>ev32n0005PT</elocation-id>
+<related-article related-article-type="correction-forward" id="r01_pt" xlink:href="10.1590/1984-92302025v32n0000-ERRATA-PT" ext-link-type="doi"/>
+<abstract>
+<title>Resumo</title>
+<p>O presente trabalho busca compreender a relação entre a gentrificação e o desenvolvimento do turismo em Pirenópolis, no estado de Goiás (GO), a partir da configuração espacial. Concentra-se, sobretudo, nas políticas de turismo implementadas pelo município e suas consequências que abarcam questões de ordem concreta e simbólica do indivíduo no espaço. O trabalho é de natureza qualitativa, e os dados foram coletados a partir de pesquisa documental, entrevistas semiestruturadas e observação não participante, analisados à luz da análise de conteúdo. Os resultados permitem compreender que a ação estatal com foco nas atividades econômicas relacionadas ao turismo se sobrepõe às relações sociais, culturais, históricas e ambientais. Com efeito, a gentrificação se expressa em aspectos concretos com afastamento da população marginalizada desse centro para áreas, cada vez mais distantes, em substituição pela classe dos empresários vindos de fora da cidade, e simbólicos, uma vez que os indivíduos passam a sentir perda do valor do patrimônio histórico-cultural e não se sentem parte integrante do novo espaço concebido para o turismo.</p>
+</abstract>
+<kwd-group xml:lang="pt">
+<kwd>gentrificação</kwd>
+<kwd>urbanização turística</kwd>
+<kwd>políticas de turismo</kwd>
+</kwd-group>
+</front-stub>
+<body>
+<sec sec-type="intro">
+<title>Introdução</title>
+<p>
+Os estudos sobre as políticas de turismo e sua relação com as transformações urbanísticas (também chamada de urbanização turística) têm se intensificado, em função da ligação dessa relação com as mudanças na dinâmica socioespacial das cidades (Toledo, Alvarez Valdéz e Castroman Pollero, 2013; Barbosa, Oliveira e Resende, 2010;
+<xref ref-type="bibr" rid="B3">Araújo e Posenatto, 2012)</xref>
+.
+</p>
+<p>
+O turismo, à luz da Administração Pública, passou a ser debatido em âmbito mundial em decorrência da influência da
+<italic>New Public Governance</italic>
+dos anos de 1990, que buscava a potencialização da atividade turística para formação de parcerias com o setor privado para o desenvolvimento local (
+<xref ref-type="bibr" rid="B31">Paddison e Walmsley, 2018</xref>
+). Seguindo as diretrizes de condução da Administração Pública similares à gestão de empresas privadas, algumas cidades passaram a ser planejadas e geridas como empreendimentos, sob a ótica de uma racionalidade para homogeneização dos espaços, priorizando a organização territorial voltada para as atividades econômicas ligadas ao turismo, aliando a estética e utilizando a força das imagens para construção de cenários turísticos, que atraíssem visitantes (
+<xref ref-type="bibr" rid="B19">Harvey, 1996)</xref>
+.
+</p>
+<p>
+No interior dessa nova orientação, pode-se apontar os novos produtos turísticos, entre os quais se destacaram as cidades históricas e as atividades de ecoturismo. Essas últimas surgiram em meio à discussão sobre a necessidade de preservação da natureza, ganhando notoriedade mundial a partir dos anos 1980.
+<xref ref-type="bibr" rid="B36">Rodrigues (2003)</xref>
+aponta que são atividades econômicas orientadas para áreas de significativo valor natural, social e cultural.
+</p>
+<p>Considerando as cidades históricas, seu tratamento no interior das políticas de turismo no Brasil foi inserido na década de 1970, através do Programa Integrado de Cidades Históricas, que representa o primeiro documento nacional para recuperação do patrimônio cultural urbano para turismo (Troitiño e Vinuesa, 2003). O patrimônio cultural, assim como o patrimônio natural (ecoturismo), passou a ser considerado importante recurso na configuração do espaço turístico.</p>
+<p>
+Nesse processo, a participação do Estado é direta, como formulador e implementador de políticas voltadas para viabilizar as atividades turísticas. As políticas públicas, que atuam nesse sentido não se restringem ao turismo e possuem um grau variado de possibilidades. Estas vão desde modificações no planejamento do uso do espaço urbano até políticas específicas de revitalização de regiões históricas. É, inclusive, notável também o conjunto de pesquisas voltadas para a investigação desse fenômeno em grandes cidades e regiões metropolitanas, dadas as dimensões dos impactos das políticas (
+<xref ref-type="bibr" rid="B32">Paes, 2017</xref>
+;
+<xref ref-type="bibr" rid="B27">Mendes, 2017</xref>
+). Para Magnier
+<italic>et al</italic>
+. (2018), esse planejamento do espaço deve, necessariamente, se caracterizar como um projeto integrado que envolva a sociedade local – citadinos e iniciativa privada.
+</p>
+<p>
+Todavia, o reordenamento do espaço geográfico, que passa pela revitalização de patrimônios históricos, seja diretamente com recursos públicos ou por meio de parcerias público-privadas, e sua instrumentalização pelo marketing urbano, com o objetivo de atração de novos negócios, possui como consequência, tanto elementos estruturais objetivos, como o encarecimento do custo de vida e o êxodo de moradores para as periferias, quanto culturais e simbólicos, com a perda de laços e memórias. Esse processo tem sido caracterizado como gentrificação (
+<xref ref-type="bibr" rid="B40">Smith, 1982</xref>
+).
+</p>
+<p>
+Por mais que o processo de gentrificação esteja mais diretamente ligado com políticas de ordenamento urbano, há uma conexão sensível com o turismo, que se mostra ainda mais aguda na chamada urbanização turística. Não obstante os fatores gerados, alguns autores assumem a gentrificação como algo positivo para poderes locais (
+<xref ref-type="bibr" rid="B7">Bolzoni e Semi, 2023</xref>
+), uma vez que, em muitos casos, a gentrificação tem sido um meio, e não um fim, para superação de crises econômicas, principalmente, a desindustrialização (
+<xref ref-type="bibr" rid="B30">Meethan, 1997</xref>
+;
+<xref ref-type="bibr" rid="B46">Zhan, 2021)</xref>
+.
+</p>
+<p>Este fenômeno vem sendo abordado pela literatura nacional e internacional, por exemplo, sob a perspectiva do avanço das empresas de hotelaria (González-Perez, 2020), os impactos sobre as populações locais (Almeida-Garcia, Cortés-Macías e Parzych, 2021; Curvelo e Lopes Júnior, 2021), ou mesmo considerando seu papel no interior da matriz econômica dos países (Zhang, Lu, Huang e Zhang, 2022).</p>
+<p>Assentadas em um protagonismo maior das empresas privadas para promover o turismo, estas pesquisas revelam modificações que resultam nas mesmas consequências da gentrificação: o encarecimento do metro quadrado decorrente da especulação imobiliária e do aumento do contingente de turistas, o deslocamento de contingentes populacionais para regiões mais periféricas e com menor acesso aos serviços públicos básicos e a quebra dos laços simbólicos criados, historicamente, por esses contingentes que se deslocam. Considerando o ensejo dessa literatura, entende-se ser interessante compreender em que medida o processo de gentrificação se relaciona com políticas de turismo que envolvem, entre outras coisas, a conservação e revitalização do patrimônio histórico.</p>
+<p>Considerando a importante dimensão da gentrificação para a compreensão dos fenômenos de ordenamento urbano contemporâneos, bem como a profusão de políticas de turismo, que tocam nesse mesmo aspecto, o presente trabalho tem por objetivo analisar criticamente a relação entre as políticas de turismo em Pirenópolis com o processo de gentrificação pelo qual tem passado a cidade. Entende-se que, além de contribuir com a análise crítica das políticas de turismo no Brasil, é possível também contribuir com a análise do fenômeno da gentrificação em cidades de pequeno porte, nas quais o turismo é uma atividade econômica e social relevante.</p>
+<p>Além desta introdução, o texto se organiza em mais cinco seções. As duas seguintes discutem aspectos teóricos acerca das políticas de turismo no Brasil e do processo de gentrificação; em seguida, estão colocados os procedimentos metodológicos sucedidos pela análise dos dados e as considerações finais.</p>
+</sec>
+<sec>
+<title>As políticas públicas e as transformações no espaço pelo turismo no Brasil</title>
+<p>
+Até os anos 1960, não houve uma política diretamente orientada para o turismo, para além da regulamentação de algumas atividades. No Brasil, as primeiras diretrizes do Estado para o turismo surgiram, em 1966, por meio da criação da Política Nacional de Turismo (PNT), do Conselho Nacional de Turismo (CNTur) e da Empresa Brasileira de Turismo (Embratur). Nesse período, havia uma relação muito próxima entre o Estado brasileiro e as empresas privadas ligadas ao setor, o que pode ser atestado, por exemplo, pelas linhas de financiamento público do turismo. Em 1971, foi promulgado o Decreto-Lei nº 1.191 para a criação do Fundo Geral do Turismo para o financiamento de obras, serviços e atividades turísticas de interesse nacional. O Decreto-Lei n.º 1.376 de 1974 definiu o Fundo de Investimentos Setoriais destinados ao turismo, pesca, reflorestamento e hospedagem, sendo este último para investimentos em infraestrutura (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+).
+</p>
+<p>
+Por meio da iniciativa da Secretaria de Planejamento, em parceria com a Embratur, foi implementado o Programa Integrado de Cidades Históricas (1973 – 1979). Este foi o primeiro programa federal de investimentos para recuperação do patrimônio cultural urbano, marcando a inserção do desenvolvimento do turismo nas cidades históricas. O programa atuou, inicialmente, nas cidades do Nordeste e, posteriormente, foi disseminado para as demais cidades brasileiras para recuperação do patrimônio cultural urbano (
+<xref ref-type="bibr" rid="B34">Ribeiro, 2005</xref>
+).
+</p>
+<p>
+Nos anos 1970 houve também o direcionamento para o patrimônio histórico com o Programa Integrado de Reconstrução das Cidades Históricas (PCH). Este Programa também ocorria a partir de uma relação clara entre o Estado e a iniciativa privada, que tinha papel importante na definição das diretrizes da política. A própria escolha de cidades contempladas no Nordeste resultou no aumento da especulação imobiliária em detrimento do desenvolvimento regional (Fridman, Araújo e Daibert, 2019). Segundo a autora “poucos imóveis foram aproveitados para moradias e, da intenção de um “sistema nacional”, resultaram sistemas isolados de preservação federal, estaduais e municipais”. Institucionalmente, até 1980 havia pouca participação das unidades federativas e municípios nas ações da Política Nacional de Turismo (PNT), cuja implementação acontecia de forma centralizada, sem participação das esferas subnacionais (sobretudo as locais, nas quais o turismo efetivamente ocorre) (
+<xref ref-type="bibr" rid="B39">Silva, 2015)</xref>
+.
+</p>
+<p>
+A partir de 1990, o Estado brasileiro priorizou o turismo como atividade econômica, construindo as políticas sob base da descentralização aos municípios, por meio da implementação do Programa Nacional de Municipalização do Turismo (PNMT), além de estabelecer a nova Política Nacional do Turismo (1996 - 1999), que institucionalizava a gestão participativa do turismo municipal. Nos anos 2000, criou o Ministério do Turismo (MTur), o Programa de Regionalização do Turismo (PRT) e definiu 65 Destinos Indutores do Desenvolvimento Turístico Regional, sendo este atualizado, em 2015, para 3.265 destinos (
+<xref ref-type="bibr" rid="B9">Brasil, 2022</xref>
+).
+</p>
+<p>
+No contexto do desenvolvimento do turismo, vigoraram somente planos econômicos com objetivos de curto prazo (Henz, Leite e Anjos, 2010) e, até então, havia pouca participação dos estados e municípios nas ações da Política Nacional do Turismo (PNT), cuja implementação acontecia de forma centralizada sem participação das esferas subnacionais (
+<xref ref-type="bibr" rid="B39">Silva, 2015)</xref>
+. Adotando um enfoque territorial, o governo institucionalizou o Programa Nacional de Municipalização do Turismo, em 1994, visando o planejamento participativo e a gestão local do turismo para que os municípios tivessem a responsabilidade de desenvolver suas localidades, enquanto o Governo Federal agiria organizando e tomando decisões (
+<xref ref-type="bibr" rid="B14">Cruz, 2000)</xref>
+. Nesse período, é destacável o alcance das políticas em termos de cobertura nos estados e municípios, a abrangência de um conjunto variado de atividades turísticas e, também, a manutenção da lógica de aliança entre o poder público e a iniciativa privada.
+</p>
+<p>
+O Programa Nacional de Desenvolvimento e Estruturação do Turismo (PRODETUR) voltado para a Região Nordeste é um exemplo claro desse processo. “Os recursos, oriundos de parcerias público-privadas, seriam destinados à modernização da rede hoteleira e dos aeroportos; à oferta de cursos profissionalizantes e à revitalização do patrimônio histórico das principais cidades nordestinas” (Fridman
+<italic>et al</italic>
+., 2019, p. 627). Nesse sentido, a própria noção de desenvolvimento regional se materializava com a profusão de atividades econômicas de serviço e comerciais envolvendo o patrimônio histórico.
+</p>
+<p>
+As cidades históricas passaram a se destacar em função do surgimento de novas ofertas de produtos turísticos, resultando em mudanças do perfil do consumidor.
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos (2012)</xref>
+enfatizam que isso só foi possível graças às diversas formas de turismo que se materializaram no espaço urbano, consolidando expressões da prática turística e oferecendo experiências que captaram um fluxo significativo de visitantes. Por isso, o patrimônio cultural passou a ser considerado importante recurso na configuração do espaço, de maneira crescente, a partir da década de 1970 (quando foram implementadas as primeiras políticas voltadas para o patrimônio histórico), por se converter a um aliado no desenvolvimento turístico, favorecendo a criação de empregos e a coesão social de uma localidade (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012</xref>
+).
+</p>
+<p>
+Aqui cabe abrir uma janela importante para a inflexão do turismo em cidades históricas, quando na década de 1970 o Programa de Cidades Históricas (PCH), voltado para preservação e conservação do patrimônio material brasileiro, em particular, o do Nordeste, foi fundamental (
+<xref ref-type="bibr" rid="B13">Correa, 2016</xref>
+), contemporâneo às iniciativas da Organização das Nações Unidas para a Educação, Ciência e Cultura (UNESCO) para promoção do turismo, a partir de 1965. Durante o processo de urbanização vivido por cidades brasileiras, o uso do solo enfrentou um processo de valorização que, de certo modo, comprimia o patrimônio histórico, pelo adensamento populacional e uso de áreas para industrialização. Desse modo, foi premente a recuperação dessas áreas que se tornavam degradadas, de modo a reinseri-las na própria lógica de valorização do tecido urbano (
+<xref ref-type="bibr" rid="B13">Correa, 2016</xref>
+).
+</p>
+<p>
+Em 2003, foi criado o Ministério do Turismo para o planejamento das ações do desenvolvimento turístico regional e a Política Nacional do Turismo (2003-2007), do qual fazia parte o Programa de Regionalização do Turismo. O objetivo principal da regionalização é promover o desenvolvimento turístico sustentável, diversificando a oferta turística nos municípios, dando continuidade às estratégias de ordenamento territoriais implementadas pelo Programa Nacional de Municipalização do Turismo (PNMT) e extrapolando a lógica territorial do turismo do município para a região (MTur, 2022). Seguindo a Constituição Federal de 1988, a proteção patrimonial histórica e cultural e responsabilização pelos bens de valor histórico foram abordados na Política Nacional do Turismo (PNT) de 1992. Todavia,
+<xref ref-type="bibr" rid="B34">Ribeiro (2005)</xref>
+destaca que a Política Nacional de Turismo (PNT) de 1996 não mencionou esse assunto e o mesmo aconteceu na Política Nacional de Turismo (PNT) de 2003, que desconsiderou a questão patrimonial nos seus objetivos e metas do programa.
+</p>
+<p>Em 2007, o Ministério do Turismo lançou o Plano Nacional do Turismo (2007-2010) para a estruturação de 65 destinos com padrão de qualidade internacional. A proposta e o número, segundo o Governo Federal, partiram dos dados da Política Nacional de Turismo (PNT) anterior do Programa de Regionalização do Turismo – Roteiros do Brasil, sendo que a ação estabelecia a estruturação dos roteiros nas regiões turísticas e se baseou nos princípios de cooperação, integração e sustentabilidade ambiental, econômica, sociocultural e político-institucional (MTur, 2022). Em 2015, os Destinos Indutores do Desenvolvimento Turístico Regional foram atualizados e definidos para 3.265 (MTur, 2022).</p>
+<p>
+O Ministério do Turismo passou a ser o órgão responsável pelo estabelecimento da Política Nacional do Turismo (PNT) no Brasil (Lei nº 11.771/2008). O Programa de Regionalização do Turismo foi relançado, em 2013, com o objetivo de apoiar a gestão, estruturar e promover o turismo de forma regional e descentralizada. No mesmo ano, o Governo lançou o Plano Nacional do Turismo (2013 - 2016) para, juntamente com o Programa de Regionalização do Turismo, promover diretrizes e ações permitindo a participação das regiões e municípios na construção das políticas públicas nacionais, além das próprias políticas locais que já existiam (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+).
+</p>
+<p>
+Por conta dessa incorporação incompleta das questões do patrimônio histórico, nas políticas de turismo, esse processo de descentralização e participação se expressava de maneira híbrida nos programas de revitalização do patrimônio histórico. O programa Monumenta, que permaneceu ativo entre 1996 e 2006, embora admitisse a participação dos entes estatais, seguia também diretrizes do Banco Interamericano de Desenvolvimento, que o financiava e, também, era dirigido por consultorias externas (Fridman
+<italic>et al</italic>
+., 2009). Ainda, em meados dos anos 2000, havia sido lançado o Programa de Aceleração do Crescimento – Cidades Históricas, também financiado por empresas e bancos públicos nacionais, que seguia a lógica da descentralização e mantinha a ideia de vincular a preservação do patrimônio histórico com as atividades econômicas, levando em consideração, também, os grandes eventos que ocorreriam no país.
+</p>
+<p>Em 2013, o Ministério do Planejamento autorizou a criação de uma linha de crédito destinada, exclusivamente, aos sítios históricos urbanos protegidos pelo Instituto do Patrimônio Histórico e Artístico Nacional (Iphan), dando origem ao Programa de Aceleração do Crescimento das Cidades Históricas. Os projetos e as obras de infraestrutura foram executados sob a coordenação do Ministério do Planejamento em cooperação com o Iphan e parcerias com municípios, Universidades e Instituições federais e Governos estaduais (Iphan, 2018).</p>
+<p>A trajetória histórica das políticas de turismo no Brasil, em especial, as que incluem também o patrimônio histórico, revela importantes rupturas institucionais com a participação cada vez maior dos entes subnacionais no processo de formulação e implementação. Ademais, revela também continuidades com a íntima relação entre o Estado e o capital. Nesse sentido, é fundamental caracterizar as possíveis consequências dessa relação que, no caso em estudo, se materializam em pontos como o processo de gentrificação.</p>
+</sec>
+<sec>
+<title>Os desdobramentos socioespaciais provocados pela relação entre turismo e gentrificação</title>
+<p>
+O turismo pode ser promovido por meio de políticas públicas, que incluem ações diretas do Estado, incentivos fiscais e de marketing, viabilizando a instalação de equipamentos, infraestruturas e condições necessárias ao atendimento, em especial, aos visitantes e investidores privados, aspirando interesses políticos e dinamização da economia local para atividade turística (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012</xref>
+).
+</p>
+<p>
+As atividades turísticas incidem, de maneira direta, no uso e ocupação do espaço, envolvendo a gestão do território, conforme afirma
+<xref ref-type="bibr" rid="B42">Steinberger (2009)</xref>
+. O espaço social é construído, historicamente, e o turismo é uma das atividades da sociedade contemporânea que potencializa a economia e, constantemente, atua na produção da história e do próprio espaço. Assim, a produção turística é materializada no espaço, ao longo do tempo, por meio de objetos ou formas e, por isso, é preciso considerar os desdobramentos das dinâmicas socioespaciais.
+</p>
+<p>
+Essa produção turística é materializada no espaço por meio de objetos geográficos naturais ou artificiais (atrativos e equipamentos), dos quais são gerados os fluxos (deslocamentos que constituem a vida e impulsionam essa materialidade). Esses objetos podem ser moldados, ao longo do tempo, por meio de técnicas. Assim, o turismo se apropria das “rugosidades”, marcas deixadas no espaço pelo tempo, e vai atualizando, produzindo formas e conteúdos, atribuindo o significado da atividade turística (
+<xref ref-type="bibr" rid="B42">Steinberger, 2009</xref>
+, p. 44).
+</p>
+<p>
+Considerada essa perspectiva do território usado, em princípio, o turismo não é somente uma atividade econômica. Compreende reflexões como, por exemplo, a apropriação dos objetos naturais e artificiais que, reconfigurados ao longo dos anos, envolvem ações políticas decorrentes do uso turístico do território. Entre essas ações,
+<xref ref-type="bibr" rid="B26">Luchiari (2004</xref>
+, p. 105) define esse processo como “urbanização turística”, que “reinventa e cria novas funções”, estabelecendo uma nova organização socioespacial.
+</p>
+<p>A compreensão do território perpassa a multiplicidade de formas de apropriação e transformação do espaço por grupos e classes sociais distintas. Funcionalidades diversas são atribuídas a lugares apropriados, territorializados, em diferentes temporalidades, assumindo uma diversidade de significações dos agentes produtores da territorialização no espaço (Coriolano e Vasconcellos, 2012). Essa territorialização é conceito-chave de compreensão das ações atuais do Estado e de elaboração de políticas públicas, urbanas, econômicas ou de turismo, nas quais incidem ações públicas e de empreendedores privados da sociedade.</p>
+<p>
+De acordo com
+<xref ref-type="bibr" rid="B14">Cruz (2000)</xref>
+, a apropriação territorial pode acontecer, por exemplo, através do direcionamento de uma política pública do turismo em determinado lugar. Nesse caso, os gestores públicos traçam metas e diretrizes dessas políticas, que norteiam o desenvolvimento socioespacial da atividade no que se refere às esferas pública e privada. Por isso, a territorialização mediada por diferentes condições e interesses, muitas vezes conflitivos, mostra a relação entre território, política e turismo. Mesmo quando há um processo mais orgânico de crescimento da atividade turística apoiada e com a participação da comunidade, algumas externalidades negativas, como o impacto em serviços direcionados à população local, e na exaustão de recursos naturais (Brida
+<italic>et al</italic>
+., 2014).
+</p>
+<p>O Estado pode promover a atividade turística em parceria com empresas privadas, apropriando-se dos espaços, transformando-os em espaços concebidos para os turistas para o acúmulo de capital. Essa tendência segue uma racionalidade econômica de desenvolver o turismo como oportunidade de emprego e possível empreendimento para os moradores da cidade. Por outro lado, desencadeia em consequências como formação dos processos de gentrificação e a não identificação do novo espaço concebido como um espaço vivido pela própria população local.</p>
+<p>
+O termo
+<italic>gentrification</italic>
+foi usado, pela primeira vez, no início dos anos 1960, por Ruth
+<xref ref-type="bibr" rid="B16">Glass (1963)</xref>
+, ao descrever o processo de enobrecimento de uma área de Londres. Desde então, o termo foi disseminado por diversos autores, fazendo surgir novas interpretações sobre a gentrificação. De modo mais amplo,
+<xref ref-type="bibr" rid="B18">Hamnett (1984)</xref>
+a define como um fenômeno, ao mesmo tempo físico, econômico, social e cultural que implica mudanças sociais, físicas (do estoque de moradias na escala de bairros) e econômicas (mercados fundiário e imobiliário).
+</p>
+<p>
+Segundo
+<xref ref-type="bibr" rid="B41">Smith (2007)</xref>
+, a linguagem do renascimento urbano não é nova e foi empregada nos Estados Unidos em um sentido diferente do poético evocado por Ruth Glass, pois a linguagem atual corrente do renascimento urbano é a prova da generalização da gentrificação (
+<xref ref-type="bibr" rid="B41">Smith, 2007</xref>
+). Apesar do fenômeno da gentrificação ser uma boa estratégia para preservação do tecido físico da cidade, apresentando casas e ruas bonitas, cafés, pequenas lojas, praças, como foi apresentado o caso de Nova Iorque, os gentrificadores alteram a economia local de modo a beneficiá-los em relação à maioria dos habitantes da cidade (
+<xref ref-type="bibr" rid="B45">Zukin, 2010</xref>
+). A autora critica o fato desses agentes apoiarem os mercados de consumo, que visam públicos específicos e de desconsiderarem pequenas lojas e feiras livres, as quais os residentes de menor renda dependem.
+</p>
+<p>
+Especificamente,
+<xref ref-type="bibr" rid="B38">Savage e Warde (1993)</xref>
+apresentam quatro processos decorrentes da gentrificação: i) reorganização da geografia social da cidade nas áreas para substituição por um grupo social de classe mais elevada; ii) reagrupamento espacial de indivíduos com estilos de vida e características culturais similares; iii) transformação do ambiente construído, com a criação de novos serviços e requalificação residencial, que prevê melhorias arquitetônicas; iv) mudança da ordem fundiária que, na maioria dos casos, determina a elevação dos valores, aumentando a quota das habitações. Como consequência desse processo há a “elitização de determinadas áreas com a substituição da população tradicional por moradores com maior poder aquisitivo a partir de seu redesenvolvimento, com incremento de infraestrutura e/ou requalificação urbana” (
+<xref ref-type="bibr" rid="B35">Ribeiro, 2018</xref>
+, p. 1338).
+</p>
+<p>
+Ao comparar dois bairros do Brasil e dois de Portugal gentrificados,
+<xref ref-type="bibr" rid="B24">Leite (2007)</xref>
+identificou que os locais sofreram intervenções específicas pela alteração da arquitetura urbanística com a utilização do forte apelo visual construído para os turistas. A ideia é que esse novo cenário chame a atenção dos turistas e atenda suas demandas, além da valorização imobiliária, segurança e limpeza urbana para a reapropriação por parte das classes médias e altas, que consigam se sustentar nesses locais enobrecidos.
+</p>
+<p>
+Essas políticas gentrificadoras guardam em si um interesse de mercado que se formula pela construção de uma imagem da cidade que atraia investimentos, públicos e privados, principalmente, sob o discurso da restauração cultural do espaço (
+<xref ref-type="bibr" rid="B24">Leite, 2007</xref>
+;
+<xref ref-type="bibr" rid="B8">Botelho, 2004</xref>
+). Por isso, determinados espaços passaram a ser visados pelo poder público como oportunidades para geração de atividades e aumento das receitas de alguns municípios.
+</p>
+<p>
+<xref ref-type="bibr" rid="B24">Leite (2007)</xref>
+ressalta que a tendência da homogeneização decorrente da gentrificação promove a perda dos elementos identitários do seu povo. Quando esses espaços são reproduzidos, há desdobramentos como perda de significação socioespacial. Isso ocorre em função da coexistência do uso do território, bem como pela complexidade das dinâmicas socioespaciais e intensificação da promoção do turismo.
+</p>
+<p>
+Há uma vinculação evidente entre as políticas de turismo que envolvem o patrimônio histórico e o processo de gentrificação, como notou
+<xref ref-type="bibr" rid="B35">Ribeiro (2018)</xref>
+para cidades como Recife e Salvador. Exatamente porque a revitalização de determinadas regiões atrai novos negócios, essa encarece o custo de vida e expele os moradores. Nesse sentido, cabe a análise de um caso concreto na particularidade brasileira que vai na esteira da própria descentralização das políticas de turismo e atinge também cidades menores do interior.
+</p>
+</sec>
+<sec sec-type="methods">
+<title>Procedimentos metodológicos</title>
+<p>
+Por visar compreender a relação entre as políticas de turismo e o processo de gentrificação, na configuração espacial de Pirenópolis, no estado de Goiás (GO), esta pesquisa pode ser classificada como descritiva. Quanto à abordagem, caracteriza-se por uma pesquisa essencialmente qualitativa por se preocupar com a compreensão e explicação da dinâmica das relações sociais. A coleta de dados compreendeu pesquisa documental, entrevistas com roteiro semiestruturado, e observação não participante como anotações em diário de campo. A fonte dos dados bibliográficos utilizados envolveu matérias anunciadas nos jornais e revistas da cidade, além dos sítios eletrônicos como o
+<italic>Portal do Turismo de Pirenópolis</italic>
+,
+<italic>Prefeitura Municipal</italic>
+,
+<italic>Observatório Geográfico de Goiás</italic>
+,
+<italic>Iphan-GO</italic>
+,
+<italic>IBGE</italic>
+, entre outros relacionados ao desenvolvimento do turismo e à configuração do espaço urbano de Pirenópolis.
+</p>
+<p>Além da pesquisa documental, foram feitas entrevistas semiestruturadas, com o corpus definido por saturação categórica, no qual foram interrompidas as anotações das observações e o recrutamento de novos participantes no momento em que nenhuma categoria emergia do campo. Durante a coleta, os participantes foram abordados de forma aleatória e, especificamente alguns, por indicação dos próprios entrevistados. A coleta de dados ocorreu em períodos e locais diferentes da cidade para que fosse possível captar perspectivas distintas sobre o assunto estudado. Foram definidos cinco grupos de entrevistados, divididos de acordo com os diferentes atores, que envolvem o turismo e o espaço urbano de Pirenópolis: Iphan, poder público local, empresários, população local e os turistas, totalizando 55 entrevistas, das quais treze compuseram o corpus de análise do presente estudo. Na tabela que segue são informados os códigos das entrevistas e suas respectivas referências:</p>
+<p>
+<table-wrap id="t1002">
+<label>Tabela 1</label>
+<caption>
+<title>: Códigos das entrevistas e seus referentes</title>
+</caption>
+<table frame="hsides" rules="groups">
+<colgroup width="33%">
+<col/>
+<col/>
+<col/>
+</colgroup>
+<thead>
+<tr>
+<th align="left" valign="top">Código</th>
+<th align="left" valign="top">Identificação</th>
+<th align="left" valign="top">Número de sujeitos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">ERS1</td>
+<td valign="top">Pessoas ligadas ao Iphan</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS2</td>
+<td valign="top">Poder público local</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS3</td>
+<td valign="top">Empresários</td>
+<td align="center" valign="top">2</td>
+</tr>
+<tr>
+<td valign="top">ERS4</td>
+<td valign="top">População local (idade mínima 40 anos)</td>
+<td align="center" valign="top">6</td>
+</tr>
+<tr>
+<td valign="top">ERS5</td>
+<td valign="top">Turistas</td>
+<td align="center" valign="top">1</td>
+</tr>
+</tbody>
+</table>
+<table-wrap-foot>
+<attrib>Fonte: dados da pesquisa.</attrib>
+</table-wrap-foot>
+</table-wrap>
+</p>
+<p>
+Por fim, foi utilizada a observação não participante, com a permanência da pesquisadora enquanto espectadora do objeto observado, segundo a perspectiva de Gil (2008). Durante a aplicação da técnica, o observador não interage com o objeto da observação, por isso, os sujeitos não sabem que estão sendo observados. O instrumento de registro dos dados durante a observação não participante foi o diário de campo, no qual foram realizadas anotações durante as entrevistas, conversas e andanças pelas ruas da cidade. Essa técnica de anotar permite descrever e analisar a dinâmica estudada, além de compreender os lugares que foram relacionados pelos observados ao observador e esclarecer a atitude deste nas interações com aqueles (
+<xref ref-type="bibr" rid="B44">Weber, 2009</xref>
+). Como a tarefa do pesquisador é buscar uma leitura do texto em termos dos seus símbolos (
+<xref ref-type="bibr" rid="B29">May, 2004</xref>
+), registros fotográficos foram realizados para apreensão da materialidade no espaço.
+</p>
+<p>
+Para análise dos dados foi utilizada a análise de conteúdo, permitindo a leitura, descrição e interpretação do conteúdo de documentos e textos. Segundo
+<xref ref-type="bibr" rid="B6">Bardin (2016)</xref>
+, a análise de conteúdo compõe um conjunto de técnicas de análise de comunicação que visa, através de procedimentos sistemáticos e objetivos, a descrição do conteúdo das mensagens para obtenção de indicadores, quantitativos ou qualitativos, que permitam a inferência de conhecimentos relativos às condições de produção/recepção destas mensagens. A mensagem expressa um significado, um sentido, que é captado em sua vertente qualitativa.
+</p>
+<p>
+A análise de conteúdo é uma interpretação pessoal que o pesquisador tem do seu próprio processo de decodificação e, por meio desse, analisa, infere e interpreta acerca do processo de codificação de produtos. Entre as diferentes formas de análise, como a experimentação e a categorização,
+<xref ref-type="bibr" rid="B6">Bardin (2016)</xref>
+sugere três polos cronológicos para a execução do método: i) pré-análise (organização); ii) a exploração do material (codificação e categorização); iii) o tratamento dos resultados, a inferência e a interpretação (informações fornecidas pela análise).
+</p>
+<p>
+A primeira fase tem por objetivo a organização, embora seja composta por atividades não estruturadas. Corresponde a um período de intuições em que se operacionaliza e sistematiza as ideias iniciais de maneira a conduzir um esquema do desenvolvimento em um plano de análise. Na fase de exploração do material, é feita a conclusão da preparação do material em termos de operações de codificação, decomposição ou enumeração, em função de regras previamente formuladas. Trata-se de operações aplicadas automaticamente (operações efetuadas por computador) ou manualmente. Na terceira fase da análise, propriamente dita, “os resultados brutos são tratados de maneira a serem significativos (‘falantes’) e válidos” (
+<xref ref-type="bibr" rid="B6">Bardin, 2016</xref>
+, p. 131).
+</p>
+<sec>
+<title>Definição das categorias de análise</title>
+<p>A partir da organização prévia para a análise do material coletado, trata-se proceder à identificação das principais categorias de análise. As diretrizes da urbanização turística, a partir da implementação de políticas produzem alterações no espaço urbano influenciando as práticas cotidianas das pessoas. Consequentemente, essas alterações provocam estranhamentos em seus aspectos concretos da gentrificação e simbólicos em decorrência do uso do espaço pelo turismo em si. Considerando a discussão teórica feita até o momento foi possível identificar as principais categorias de análise para o exame do material extraído das incursões empíricas. Sistematicamente, as categorias de análise foram associadas aos seus indicadores, conforme o esquema da Figura a seguir.</p>
+<p>
+<fig id="f01002">
+<label>Figura 1</label>
+<caption>
+<title>Esquema dos Desdobramentos da Urbanização Turística em Pirenópolis</title>
+</caption>
+<attrib>Fonte: dados da pesquisa.</attrib>
+<alternatives>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/06ce4deba93daa6fac64bbe1a1071bee35e8d6a6.tif"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/cc242bf191aa56a0bb51f5c70cd3cea7e86e8d8b.png" specific-use="scielo-web"/>
+<graphic xlink:href="https://minio.scielo.br/documentstore/1984-9230/tZLpjKrzkrTQCRtPZX3Jqcx/65eac0dedbc2a8094c4cc9b2b52074d480029bbb.jpg" specific-use="scielo-web" content-type="scielo-267x140"/>
+</alternatives>
+</fig>
+</p>
+<p>
+Os aspectos concretos da gentrificação estão materializados no espaço provocando a reconfiguração do espaço urbano e formação de um cenário e reagrupamento social (
+<xref ref-type="bibr" rid="B37">Santos, 2008</xref>
+;
+<xref ref-type="bibr" rid="B38">Savage e Warde, 1993</xref>
+). Entendem-se como aspectos concretos da gentrificação as formas de reconfiguração do espaço urbano de transformações do entorno, a privativa e das áreas rurais; a formação de cenário baseado na homogeneização turística para atender esse tipo de demanda; e reagrupamento social em função da valorização imobiliária.
+</p>
+<p>
+Associados a isso, os indicadores da categoria dos aspectos simbólicos relacionados ao espaço são a identidade, significação e valor, tendo como categoria emergente a reciprocidade do lugar. Nessa dinâmica socioespacial, os aspectos concretos e simbólicos estão diretamente interligados. Quando é feita alguma intervenção no espaço, ocasionando em processos de gentrificação, ocorre perda de identidade social relacionada à perda simbólica do valor da construção social do indivíduo com esse espaço. Apesar do estranhamento inicial, em seu novo lugar, a tendência é que esse indivíduo o ressignifique, criando novos valores e identidades. Essa forma de ressignificação acontece por meio da apropriação, utilizando de forma concreta, materializando suas significações no espaço entre si (
+<xref ref-type="bibr" rid="B23">Lefebvre, 1991</xref>
+).
+</p>
+</sec>
+</sec>
+<sec sec-type="results|discussion">
+<title>Apresentação e discussão dos resultados</title>
+<p>A cidade de Pirenópolis integra uma das 21 regiões do entorno do Distrito Federal, estando sua sede localizada a 150 km de Brasília e a 130 km de Goiânia. Desde a sua fundação, em 1727, até os dias de hoje, a cidade é caracterizada por quatro ciclos, de acordo com o Portal do Turismo de Pirenópolis (PTP, 2018), e que foram adaptados nesta pesquisa e, assim, divididos: Ciclo do Ouro (1727 – 1800); Ciclo da Agricultura e do Comércio (1800 – 1930); Ciclo da Pedra e da Arte (1930 - 1989) e Ciclo do Turismo (1989 - 2018). No dia 22 de novembro de 1989, Pirenópolis foi tombada pelo Iphan como conjunto arquitetônico, urbanístico, paisagístico e histórico, e a partir de 1997, foram iniciados projetos de refuncionalizações no Centro Histórico. Desde então, o turismo passou a ser fortemente impulsionado pelos governos estadual e municipal e, atualmente, representa a principal atividade econômica do município (PTP, 2018).</p>
+<p>A reconfiguração do espaço passa, necessariamente, pelo crescimento da atividade turística que tem impactado, diretamente, a dinâmica urbana da cidade. Analisando as falas coletadas nas entrevistas, e considerando os aspectos concretos da gentrificação, ao ser questionado se o poder público municipal partilha da ideia de formação desse processo em Pirenópolis, o Secretário ERS2-4 descreve a configuração urbana desde o turismo.</p>
+<disp-quote>
+<p>A cidade cresceu nos últimos 30 anos, porém a população cresceu muito pouco, é estável. Se analisarmos uma fotografia da cidade de 1980, é impressionante ver o tanto que ela cresceu com a construção de condomínios, casas de aluguel. Então, há um inchaço muito grande que representa um problema, pois estamos perdendo a população dentro do Centro Histórico (ERS2-4).</p>
+</disp-quote>
+<p>Esse crescimento se intensificou desde o início do Ciclo do Turismo, representando a reconfiguração do espaço urbano através do avanço das construções. Um fator que pode ter ocasionado essa expansão das construções é a dificuldade de regulamentação e fiscalização por parte do poder público. Como o Plano Diretor não definiu as zonas de uso e ocupação do solo, muitas construções irregulares foram erguidas promovendo esse inchaço nas zonas urbana e rural.</p>
+<p>Por meio das entrevistas, identificou-se um afastamento cada vez maior dos residentes do Centro para as áreas periféricas da cidade, provocando um processo de reagrupamento social. Em decorrência dos processos de reconfiguração do espaço e reagrupamento, o Centro Histórico é visto como um cenário para o turista e possui baixa densidade demográfica. Isso acontece em função da especulação imobiliária e intensificação do comércio nessa área valorizada, conforme explica o ex-funcionário do Iphan, ERS1-1, “inflacionou o metro quadrado e várias pessoas começaram a construir escondido aproveitando os espaços que tinham para fazer renda ou venderam suas casas e mudaram para os bairros”.</p>
+<p>Foram identificados três tipos de transformações na reconfiguração do espaço em Pirenópolis, sendo, a do entorno, a privativa do espaço e a das áreas rurais. A transformação do entorno representa as edificações de residências modernas e pousadas, como a Vila Zezito Pompeu I e II (conhecida como Alto do Carmo) e Vila Vulpina. Segundo a agente do poder público, ERS2-5, essas áreas periféricas do entorno são caras em função da especulação imobiliária.</p>
+<p>Geralmente, como as casas do Centro Histórico possuem alto custo de manutenção, a maioria das famílias acaba vendendo suas propriedades para os empresários de fora da cidade ou as transformam em pousadas. Isso faz com que haja um deslocamento dos antigos moradores pirenopolinos para o entorno da cidade, conforme a agente, ERS2-5, do poder público descreve na configuração do cenário atual. “O pirenopolino só está conseguindo comprar casas na zona rural, porque a periferia está sendo ocupada pelos condomínios fechados ou horizontais dos moradores temporários que costumam comprar lotes na cidade junto com grupos de amigos” (ERS2-5).</p>
+<p>Nota-se, de um lado, a segregação forçada pela inviabilidade de compra de terreno na área do entorno em função da especulação imobiliária, por parte dos pirenopolinos. E, do outro, a autossegregação, por parte da classe dos moradores temporários e empresários que vivem por opção, longe do centro, das escolas, das unidades de saúde e dos comércios. Nesse sentido, cabe considerar que, historicamente, a gentrificação é um fenômeno diretamente ligado ao ordenamento do espaço urbano e, no caso em estudo, as políticas de valorização turística do Centro Histórico se somam com a construção de novas residências. Em complemento, cabe destacar que os pirenopolinos estão se afastando cada vez mais para as áreas rurais do município, ocupando as zonas conhecidas como Passagem Funda e Vila Mutirão, por exemplo.</p>
+<p>Essa transformação da área evidencia dois aspectos singulares da gentrificação, em sua forma concreta e simbólica. A primeira, representada pela movimentação da instalação de residência para a área rural, que gera estranhamentos por parte da população e que se tornam mais frequentes em razão das constantes mudanças. A simbólica é referente à perda de significação do lugar por ser distinta daquela pretendida pelos que controlam as mudanças espaciais. Esse processo resulta na perda da significação dos moradores e acaba prejudicando o estímulo à interação.</p>
+<p>Mais diretamente sobre os aspectos simbólicos do processo de gentrificação, o agente público ERS2-4 faz uma crítica diante do contexto atual.</p>
+<disp-quote>
+<p>Eu participei das discussões do Plano Diretor e, desde a aprovação do primeiro, em 2002, temos muita dificuldade em relação à gentrificação, pelo fato de estar transformando o Centro Histórico em um shopping. As famílias saem e vão para a periferia. Praticamente a população está sendo expulsa da cidade no sentido de que o patriarca morre e os filhos vendem para um terceiro. Esta casa é usada para aluguel ou ao final de semana. Então, temos muitas casas vazias e isso é uma característica interessante, pois a pessoa não declara que aqui é a segunda residência (ERS2-4).</p>
+</disp-quote>
+<p>Em complemento ao trecho acima, o ex-funcionário do Iphan, ERS1-2 é enfático ao afirmar que “Pirenópolis está virando um shopping a céu aberto, a cidade está perdendo a sua essência, se prostituindo, se descaracterizando. Mas onde não aconteceu isso?”. Todavia, ao final de sua fala, ameniza esse desdobramento justificando como normal, sendo um processo de naturalização decorrente do uso do espaço. Afinal, isso ocorre em vários lugares, e não haverá problema se ocorrer em Pirenópolis, conforme demonstra em sua fala.</p>
+<p>
+A caracterização do Centro Histórico como um shopping marca a gentrificação, na qual houve intervenções que produziram o espaço urbano para a atividade turística, por meio do forte apelo visual construído para os turistas (
+<xref ref-type="bibr" rid="B24">Leite, 2007</xref>
+). Essas intervenções são realizadas pelos agentes do governo federal, através do Iphan, estadual e municipal que trabalham juntamente com os empresários na busca da homogeneização dos espaços para atração dos turistas, visando o desenvolvimento econômico para a cidade. Com a transformação estrutural do Centro Histórico, há também uma mudança cultural nas relações que ocorriam naquela região.
+</p>
+<p>Essa tendência à homogeneização, decorrente da gentrificação, desdobramentos concretos quando afasta moradores para as áreas periféricas, situados longe dos comércios, escolas, postos de saúde e outros estabelecimentos, que oferecem serviços e tendem a serem concentrados no centro da cidade. Além disso, promove a perda dos elementos identitários da população local, quando se trata desse local, que possui um contexto patrimonial histórico-cultural envolvido.</p>
+<p>O afastamento da população para áreas mais periféricas aparece, reiteradamente, nas falas. Segundo a agente do poder público ERS2-5, em função da especulação imobiliária e das condições de subemprego oferecidas pelo mercado turístico, o pirenopolino não possui poder aquisitivo para comprar lotes no entorno e tampouco no Centro Histórico, ocasionando um afastamento cada vez maior da população para as áreas rurais.</p>
+<disp-quote>
+<p>O pirenopolino está indo para a área rural, que é mais afastada ainda, para pequenos lotes, muitas vezes irregulares, que não estão dentro da metragem que a lei obriga. É por isso que o PDP está nesse impasse e, ainda, as áreas que mais se valorizam estão subindo para as nascentes. O PDP deveria barrar isso, mas tem envolvido todo um jogo de interesse econômico, político e muito pouco voltado para essa população que está sendo expulsa, e expulsa com vontade, para áreas cada vez mais distantes do centro (ERS2-5).</p>
+</disp-quote>
+<p>
+Essa exclusão acaba isolando, segregando e gerando conflitos negativos, como esfacelamento da identidade social, que dificilmente é reconstruída pelos indivíduos frente às áreas que a eles são negadas ou negligenciadas. Toda essa dinâmica desencadeia no alijamento da população marginalizada às periferias. A desigualdade socioespacial e a precariedade dos modos de vida são produtos da urbanização turística (
+<xref ref-type="bibr" rid="B26">Luchiari, 2004</xref>
+), consequentes do modo de produção capitalista (
+<xref ref-type="bibr" rid="B20">Harvey, 2014</xref>
+). É fundamental para a análise da produção do espaço urbano, da desigualdade socioespacial, que se compreendam os desdobramentos desse processo.
+</p>
+<p>
+Entre os problemas do Centro Histórico identificados pelo diagnóstico do Plano Diretor no ano de 2002, a baixa densidade demográfica já representava uma movimentação da população para o entorno, característica proveniente da mudança da utilização dos casarios convertidos para atividades ligadas ao turismo. Reconfigurando-se em pousadas, bares, restaurantes, lojas de artesanatos e diversos comércios, que foram se incorporando em função do desenvolvimento do turismo (
+<xref ref-type="bibr" rid="B33">Plano Diretor de Pirenópolis, 2002</xref>
+).
+</p>
+<p>A dinâmica da urbanização turística provoca o reagrupamento social causado pela gentrificação. A moradora da Vila Matutina, ER4-36, contextualiza esse processo apontando que o ganho financeiro dos pirenopolinos se associa à construção civil.</p>
+<disp-quote>
+<p>Eles constroem uma boa casa, não para viverem dentro, mas para alugarem aos finais de semana e vão para uma roça para se esconderem. Alugando sua casa por R$ 1.500,00 todo final de semana, sua vida tá ganha. Muita gente tá vivendo assim, porque o poder público está deixando ser assim. Quem tem poder aquisitivo para transformar sua casa em pousada, o faz. Quem não tem, é obrigado a conviver com essa anarquia, bagunça barulho, lixo, e, no dia seguinte, é obrigado a acordar cedo para trabalhar. Às vezes você liga para polícia 10 vezes e ela não vem mais; liga na Central da Postura e ninguém atende. Aí, o povo daqui fica louco pra mudar pra roça porque não aguenta mais viver na rua. Isso está virando cidade fantasma (ERS4-36).</p>
+</disp-quote>
+<p>Entre os desdobramentos da urbanização turística em Pirenópolis, que levam ao processo de gentrificação, ocorre a substituição da vida cotidiana pela transação comercial. As mudanças objetivas no uso das residências próximas ao Centro Histórico mudam também os hábitos dos moradores. As pessoas estão saindo da sua própria casa, transformando-as em pousadas para receber os hóspedes e investindo como uma oportunidade de negócio. A entrevistada ERS4-36 ainda destaca uma característica peculiar sobre esse desdobramento: alguns pirenopolinos alugam suas residências aos finais de semana e vão para locais mais afastados. Com isso, eles ganham dinheiro e se afastam dos transtornos causados pela invasão turística.</p>
+<p>O reagrupamento social e a reconfiguração do espaço revelam uma cidade praticamente abandonada durante a semana. Aos finais de semana e feriados, os turistas ocupam as casas da área central. Nessa perspectiva, de acordo com a gestora pública ERS2-5, é fundamental pensar nas políticas públicas de atração turística, uma vez que:</p>
+<disp-quote>
+<p>O turista vai chegando e usufruindo de todo o espaço que é construído pra população local. Ele está na rua, no posto de gasolina, no restaurante, na igreja. Ele ocupa o espaço que normalmente deveria ser ocupado pela comunidade que vive na cidade (ERS2-5).</p>
+</disp-quote>
+<p>A partir do momento em que o turista traça a sua rota de viagem, escolhe os atrativos para visitar, os restaurantes que irão fazer suas refeições e em qual local irá se hospedar. É válido notar se há algum interesse em conhecer as pessoas que vivem nesse destino e quais são suas tradições. Em geral, o visitante não absorve e nem cria relação com o lugar, conforme evidencia a empresária ERS3-12.</p>
+<disp-quote>
+<p>Em datas específicas, como Réveillon, dá vontade de sumir daqui. O que essas pessoas vêm fazer aqui? Por que elas vêm para cá? Virou um lugar de vandalismo, libertinagem e farra não saudável. O que eu tenho feito? Fecho as portas do meu comércio, porque não tenho segurança. Se entrarem dez pessoas no meu estabelecimento, eu não tenho controle de nada. Quando a cidade lota, acaba tudo, a água, energia, os itens do supermercado esgotam, o trânsito não funciona, não tem condição. Nos feriadões eu não coloco os pés para fora de casa. Infelizmente precisamos selecionar o tipo de turista para valorizar o que temos aqui. A cidade está perdendo a sua característica e o seu contexto social. Onde está aquela cidade linda, cultural e histórica? (ERS3-12).</p>
+</disp-quote>
+<p>É válido citar que esta empresária tem a população pirenopolina como público-alvo em decorrência da localização de seu estabelecimento. Notou-se, em sua fala, um sentimento de aprisionamento ao local relacionado ao medo revelado nas épocas de datas comemorativas e feriados, como “fecho as portas do comércio” e “não coloco os pés para fora de casa” (ERS3-12). Como destaca a entrevistada, depredar e praticar vandalismo na cidade são atos característicos de abandono das atividades que envolvem as tradições culturais e patrimoniais.</p>
+<p>Esse tipo de comportamento também foi facilmente identificado nas entrevistas da população local, como relatado: “o carnaval e o Réveillon são festas atormentadoras, pesadas, a cidade fica tomada, não dá pra sair de casa” (ERS4-34). E pela moradora ERS4-29:</p>
+<disp-quote>
+<p>a festa de final de ano foi o horror: no dia seguinte tinha caco de vidro pra todo lado. Você pensava que a rua tinha sido construída por caco de vidro, foi um exagero e acho que não teve quem não ficasse horrorizado com o que viu. Era tanta gente que não sabíamos de onde tinha saído aquilo e a cidade não comporta isso tudo (ERS4-29).</p>
+</disp-quote>
+<p>Por meio dessas falas, percebe-se a inexistência de reciprocidade do visitante com o lugar formado por um tipo de comportamento que se mantém distante do local receptor, de modo que se perceba uma mudança de valor não apenas frente ao conjunto arquitetônico, ressignificado pelo uso comercial, como também das manifestações culturais tradicionais na cidade. Esse comportamento gera um sentimento de repulsa por esse tipo de visitante que, além de não trazer nenhum benefício para a cidade, ainda marca sua passagem com lixo, desordem no trânsito e comportamentos não aceitáveis. Nesse contexto, a moradora do Centro Histórico, ERS4-42 ressalta que a dificuldade de convivência com os turistas se tornou uma experiência amedrontadora, visto que já foi ameaçada de agressão.</p>
+<disp-quote>
+<p>Para completar minha alegria, agora, ao lado da minha casa tem um Hostel. Aos finais de semana eu praticamente não durmo, os jovens que ficam hospedados lá ficam com o som ligado 24 horas e na maior altura. Meus filhos têm até com medo porque eu sempre vou lá reclamar, teve gente que já até tentou me agredir quando estava bêbado. Quem é daqui às vezes nem percebe por que mora afastado da cidade e vai para a chácara, mas como eu não tenho isso, sou obrigada a ficar aqui (ERS4-42).</p>
+</disp-quote>
+<p>Observou-se, por meio da pesquisa de campo e das entrevistas que, apesar do turismo trazer algumas melhorias para o espaço urbano e aumento da renda para a população, o pirenopolino se sente acuado em seu lugar. As movimentações populacionais e a reconfiguração espacial que leva à especulação e ao encarecimento das moradias próximas ao Centro Histórico se somam às modificações culturais e simbólicas com a população desenvolvendo um sentimento de falta de pertença em seu ambiente e, consequentemente, criando uma animosidade com os forasteiros.</p>
+<p>O distanciamento entre o turista e o morador não deriva de um processo voluntário. Há na própria estratégia de desenvolvimento turístico um conjunto de especificidades que não favorece esse encontro entre turistas e moradores, e que mesmo os primeiros visitantes que chegam na cidade sentem essa carência. Exemplo disso são os espaços para eventos, citados anteriormente. A cidade não oferece uma infraestrutura adequada que permita um espaço para essa interação entre o morador e o turista e isso foi relatado por alguns turistas como um fator negativo da atividade. Segundo ERS5-48, “a cidade precisa incentivar a população a conversar com a gente. Nós, turistas, apenas queremos desfrutar do que a cidade pode proporcionar”.</p>
+<p>Na ocupação dos espaços que, normalmente, são apropriados pela população local, podem surgir tensões entre eles e os moradores por esses se sentirem invadidos. Isso ocorre em razão do complexo processo de produção do espaço que é formado ao longo dos anos, não somente em razão da presença do turista, mas, sobretudo, em relação às transformações espaciais para atender as demandas do turismo, implicando a necessidade de ressignificação quanto aos “novos lugares” produzidos a partir dessa dinâmica.</p>
+<disp-quote>
+<p>O turismo até tinha uma vantagem da parte econômica para quem vive disso, mas agora já está entrando na linha da desvantagem porque transforma a minha cidade em algo que não reconheço. A minha cidade já não é mais minha. Eu gosto de uma coisa mais organizada: a cidade é minha, você vem aqui e usa com cuidado. Eu, como moradora, durante a semana ainda estou na rotina normal, estou trabalhando, preciso do meu carro (“ah, porque não larga seu carro em casa?”); e por que o turista não larga o carro dele em casa? Eu tenho que ir para casa fazer almoço, deixar meu filho na escola e voltar para o trabalho. Como é corrido, preciso do meu carro! O povo começa a chegar aqui na quinta. A população é obrigada a correr e aumentar o percurso porque não tem ninguém no trânsito para organizar isso. A bagunça tá feita e o pau tá quebrando. Eu me sinto invadida e acuada o tempo todo (ERS4-36).</p>
+</disp-quote>
+<p>Devido aos estranhamentos frente às mudanças espaciais, a população local visualiza o Centro Histórico como um cenário, ou seja, um espaço concebido para o turismo, o qual não há mais espaço para sua vivência. Por isso, o Centro Histórico é interpretado por essa mesma entrevista em outro trecho acima como uma “cidade fantasma”, com perda de significado, identitária e de valor, na qual ela não se sente integrante e não possui sentimento de pertença.</p>
+<p>No cenário turístico, a disputa espacial representa uma experiência contraditória pelo fato do indivíduo ter que dividir seu espaço de vivência com o outro. A maior consequência negativa do turismo, segundo a Secretária Municipal ERS2-5, se resume a dividir o espaço com o desconhecido, pois, “uma coisa é dividir o espaço de vivência com as pessoas que compartilham com você a mesma existência, como os vizinhos, amigos e parentes, a outra, é ter que dividir o mesmo espaço com o turista”.</p>
+<p>Nessa urbanização turística do contexto atual, vale compreender o que de fato representa para a população pirenopolina, identificando a preservação patrimonial como parte constituinte do conhecimento da história e memória representadas por meio de lembranças materializadas na existência da preservação desse patrimônio (Meneses, 2004). Nesse sentido, é fundamental a construção dos lugares de memória, que são constituídos a partir da formação de um papel social que formam sentidos e significações à coletividade permitindo o desenvolvimento do patrimônio histórico.</p>
+<p>Os lugares de memórias permitem a interpretação do patrimônio e a realização da leitura crítica dos mesmos. Dessa forma, a preservação histórica não deve representar, simplesmente, uma coletânea de objetos raros no espaço-tempo. A preservação deve ser interpretada de modo que consiga cumprir o seu papel formador de identidade do qual a população se sinta integrante do tempo passado, reconhecendo-se nas novas configurações, e identificando seus símbolos e percebendo seus valores.</p>
+<p>Todavia, as transformações ocorridas pelo processo de urbanização turística acabaram convertendo os bens materiais e imateriais do patrimônio cultural em mercadoria, colocando o Centro Histórico nas dimensões de reprodução capitalistas. Seguindo a perspectiva de Troitiño (2004), apesar de a localidade tentar apresentar instrumentos de cooperação que visam contribuir para resolução dos problemas turísticos referentes ao patrimônio, de nada adianta, visto que, segundo relatos de entrevistas, não existe conversa com a população local para auxiliar no desenvolvimento estratégico turístico.</p>
+<p>Entre as desvantagens da atividade turística, a moradora ERS4-17 diz que a “gente perde a privacidade da cidade”. O empresário ERS3-15 destaca os três maiores problemas: ocupação irregular, segurança e qualidade ambiental, considerando a geração altíssima de resíduos. Sobre a destinação do lixo, a moradora ERS4-18 foi mais específica:</p>
+<disp-quote>
+<p>a gente tem um problema seríssimo de lixo ali na beira do Rio das Almas, onde todos os botecos da Rua do Lazer fazem o descarte. É uma sujeira, uma moscaiada, um nojo, uma coisa horrorosa. Então era a primeira coisa que tinha que ter tomado uma providência porque ali é o centro, é onde o turista circula o tempo todo. Se for pra ficar bonito para o turista, então tá perdido (ERS4-18).</p>
+</disp-quote>
+<p>Resumidamente, o aumento do fluxo turístico veio acompanhado da extrapolação da capacidade de carga de veículos e consequente desorganização do trânsito, visto que as ruas do Centro Histórico foram edificadas em uma época em que não havia automóveis; aumento da violência e roubos, prejudicando a segurança urbana; e ocupações irregulares em função da valorização imobiliária marcada pela reconfiguração espacial.</p>
+</sec>
+<sec sec-type="conclusions">
+<title>Conclusões</title>
+<p>O presente trabalho objetivou compreender a relação entre as políticas de turismo e o processo de gentrificação em Pirenópolis, no estado de Goiás (GO), com base em um estudo essencialmente qualitativo. Entre as consequências das modificações, dois grandes eixos de análise emergiram das entrevistas, sendo estes os aspectos concretos da gentrificação, e os aspectos simbólicos relacionados ao espaço.</p>
+<p>Os aspectos concretos da gentrificação são demarcados pela reconfiguração do espaço urbano transformando o entorno da cidade com a construção de condomínios privados. Ademais, a turistificação do centro urbano impactou, significativamente, a ocupação do centro por moradias, de modo que parte significativa das edificações tenha se transformado em comércios variados, que implicam, necessariamente, na valorização imobiliária no Centro Histórico e no entorno. Consequentemente, houve um afastamento da população marginalizada desse centro para áreas cada vez mais distantes em substituição pela classe dos empresários vindos de fora da cidade, caracterizando um reagrupamento social nas margens de Pirenópolis-GO. Esse processo se agrava por ser acompanhado de um distanciamento dos moradores dos comércios, escolas, postos de saúde e estabelecimentos que oferecem serviços e, geralmente, estão concentrados no centro da cidade.</p>
+<p>
+A reconfiguração do espaço promove também a concepção do espaço como cenário, que segundo depoimentos, destina-se à fruição dos turistas, sem valor de uso, uma vez que serve para compor uma atmosfera relativamente homogênea, comum em cidades que passam por processos de turistificação dos seus espaços (
+<xref ref-type="bibr" rid="B30">Meethan, 1997</xref>
+).
+</p>
+<p>Ao mesmo tempo, mudanças nos hábitos da população, distanciamento cultural e uma relação segregada entre moradores e turistas também acentuam pontos simbólicos desse processo, como os elementos da identidade socioespacial, tendo em vista que os indivíduos passam a sentir perda do valor do patrimônio histórico-cultural e não se sentem parte integrante do novo espaço concebido para o turismo, uma vez que os significados desses espaços se transformam com sua nova função comercial.</p>
+<p>Em termos teóricos, entende-se que aqui reside a principal contribuição deste artigo, que a partir do caso de Pirenópolis, lança luz sobre um processo de gentrificação a partir da refuncionalização do Centro Histórico, no qual as edificações se tornam espaços comerciais, e por consequência, deslocam os moradores para a periferia, implicando diretamente a produção de significados sobre a cidade, bem como sobre o próprio caráter identitário dos citadinos.</p>
+<p>
+Em termos práticos, conclui-se que o próprio processo representa um reflexo da política do desenvolvimento geográfico desigual da produção do espaço, alimentada pelo peso do Plano Diretor da cidade, cuja estratégia de desenvolvimento do turismo contribui não apenas com o processo de gentrificação, como também dificulta o funcionamento de outros serviços básicos. Em Pirenópolis, inexistem governança e cooperação entre o poder público, empresariado e sociedade civil. Essa falta de interação prejudica, sobremaneira, os processos e a elaboração de políticas públicas de planejamento urbano e da atividade turística, assim como as ações de promoção e apoio à comercialização de forma integrada. Esse contexto não se revela de modo semelhante a outras cidades turísticas, como Paraty (
+<xref ref-type="bibr" rid="B39">Silva, 2015</xref>
+), Fortaleza (
+<xref ref-type="bibr" rid="B12">Coriolano e Vasconcelos, 2012</xref>
+) e Recife (
+<xref ref-type="bibr" rid="B24">Leite, 2007)</xref>
+.
+</p>
+<p>Como futuras pesquisas, a partir dos desdobramentos socioespaciais, sugere-se uma imersão no campo de pesquisa de modo que seja possível analisar os mecanismos de governança de desenvolvimento do turismo e as transformações espaciais. Considerando que a relação entre as políticas de turismo e a gentrificação ainda é pouco explorada, entende-se que pesquisas futuras podem se ocupar mais detidamente dessa agenda em outras localidades do Brasil. Dessa forma, espera-se que, a partir dos desdobramentos na configuração espacial provocados pela urbanização turística, seja possível compreender um contexto do desenvolvimento do turismo municipal, comparado a outras localidades, regional e nacional. E, com isso, traçar diretrizes turísticas em conjunto com os atores (governo, empresas e sociedade civil) que sofrem influência direta na configuração do espaço.</p>
+<p>Durante a elaboração das políticas públicas de desenvolvimento turístico, os atores sociais (agentes do poder público, empresários, população local e os turistas) são revelados expondo as suas diferentes expectativas. Cabe ao poder público articular esse jogo de interesses, não raro divergente em termos políticos, econômicos, culturais e sociais. Afinal, ressalta-se que tal conciliação é formada diante do ordenamento territorial, pelo uso do espaço, e acaba seguindo a perspectiva do desenvolvimento do turismo, tomado, atualmente, como mola propulsora de desenvolvimento em Pirenópolis.</p>
+</sec>
+</body>
+<back>
+<fn-group>
+<fn fn-type="other" id="fn1002">
+<label>Linguagem inclusiva</label>
+<p>Os autores usam linguagem inclusiva que reconhece a diversidade, demonstra respeito por todas as pessoas, é sensível a diferenças e promove oportunidades iguais.</p>
+</fn>
+<fn fn-type="other" id="fn2002">
+<label>Verificação de plágio</label>
+<p>A OeS submete todos os documentos aprovados para a publicação à verificação de plágio, mediante o uso de ferramenta específica.</p>
+</fn>
+<fn fn-type="data-availability" specific-use="data-not-available">
+<label>Disponibilidade de dados</label>
+<p>A OeS incentiva o compartilhamento de dados. Entretanto, por respeito a ditames éticos, não requer a divulgação de qualquer meio de identificação dos participantes de pesquisa, preservando plenamente sua privacidade. A prática do open data busca assegurar a transparência dos resultados da pesquisa, sem que seja revelada a identidade dos participantes da pesquisa.</p>
+</fn>
+<fn fn-type="financial-disclosure">
+<label>Financiamento:</label>
+<p> Os autores agradecem a CAPES pela bolsa de Mestrado concedida e à FAPEMIG pelo financiamento de materiais permanentes utilizados nesta pesquisa através do projeto APQ-03362-18.</p>
+</fn>
+</fn-group>
+</back>
+</sub-article>
+</article>
