@@ -267,6 +267,25 @@ class XMLReferencesTest(TestCase):
         self.assertEqual("33333333", citation_ids.get("pmcid"))
         self.assertEqual("10.1016/B2", citation_ids.get("doi"))
 
+    def test_citation_ids_with_valid_doi(self):
+        """Ref B1: <pub-id pub-id-type="doi">10.1590/1982-02672016v24n0105</pub-id>"""
+        citation_ids = self.article1_ref_b1.get("citation_ids")
+
+        expected = {"doi": "10.1590/1982-02672016v24n0105"}
+        self.assertEqual(citation_ids, expected)
+
+    def test_citation_ids_without_type_attribute(self):
+        """Ref B2: <pub-id>10.3390/su13010408</pub-id> - sem pub-id-type"""
+        citation_ids = self.article1_ref_b2.get("citation_ids")
+
+        self.assertEqual(citation_ids, {})
+
+    def test_citation_ids_absent_pub_id(self):
+        """Referência sem elementos pub-id"""
+        citation_ids = self.article2_ref_b1.get("citation_ids")
+
+        self.assertEqual(citation_ids, {})
+
     # Testes para dados de comentário e links externos
     def test_comment_text(self):
         comment_text = self.many_authors_ref
