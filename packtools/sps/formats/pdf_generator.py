@@ -1,8 +1,7 @@
 import argparse
+import os
 
-from packtools.sps.formats.pdf.pipeline import (
-    docx,
-)   
+from packtools.sps.formats.pdf.pipeline import docx  
 from packtools.sps.formats.pdf.utils import file_utils
 from packtools.sps.utils import xml_utils
 
