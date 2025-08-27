@@ -278,7 +278,6 @@ def docx_cite_as_pipe(
         cite_as_part_one,
         journal_title,
         footer_data,
-
 ):
     """
     Adds the citation information to the first page footer of the DOCX document.
