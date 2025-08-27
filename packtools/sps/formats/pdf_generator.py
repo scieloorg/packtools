@@ -49,8 +49,16 @@ def main():
     else:
         pdf_path = arguments.path_to_read.replace('.xml', '.pdf')
 
-    file_utils.convert_docx_to_pdf(path_intermediate_docx, arguments.path_to_write)
+    dir_name = os.path.dirname(pdf_path)
+    base_name = os.path.basename(pdf_path)
+    f_name, f_ext = os.path.splitext(base_name)
+    docx_path = os.path.join(dir_name, f"{f_name}.docx")
 
+    document.save(docx_path)
+    print(f'DOCX generated at {docx_path}')
+    
+    file_utils.convert_docx_to_pdf(docx_path, arguments.libreoffice_binary)
+    print(f'PDF generated at {pdf_path}')
 
 if __name__ == "__main__":
     main()
