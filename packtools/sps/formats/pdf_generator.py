@@ -32,6 +32,10 @@ def main():
         required=False,
         help="Path for writing the PDF file. If omitted, a default name will be used.",
     )
+    parser.add_argument(
+        "--libreoffice-binary",
+        action="store",
+        dest="libreoffice_binary",
     )
     arguments = parser.parse_args()
 
