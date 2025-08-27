@@ -29,8 +29,9 @@ def main():
         "--pdf",
         action="store",
         dest="path_to_write",
-        required=True,
-        help="Path for writing the PDF file.",
+        required=False,
+        help="Path for writing the PDF file. If omitted, a default name will be used.",
+    )
     )
     arguments = parser.parse_args()
 
