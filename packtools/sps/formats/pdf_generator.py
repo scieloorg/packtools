@@ -44,9 +44,10 @@ def main():
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     document = docx.pipeline_docx(xml_tree, data)
 
-    path_intermediate_docx = arguments.path_to_write.replace(".pdf", ".docx")
-    document.save(path_intermediate_docx)
-    print(f"Documento intermediário salvo em {path_intermediate_docx}")
+    if arguments.path_to_write:
+        pdf_path = arguments.path_to_write
+    else:
+        pdf_path = arguments.path_to_read.replace('.xml', '.pdf')
 
     file_utils.convert_docx_to_pdf(path_intermediate_docx, arguments.path_to_write)
 
