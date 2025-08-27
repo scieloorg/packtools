@@ -100,7 +100,6 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
         python-docx.Paragraph: The paragraph object containing the journal title text.
     """
     first_page_header = docx_utils.get_first_page_header(docx)
-    first_page_header
     para = docx_utils.get_first_paragraph(first_page_header)
 
     left_run = para.add_run(journal_title_text.replace(' ', '\n'))
