@@ -10,6 +10,18 @@ class DirectoryRemovalError(Exception):
 
 
 def convert_docx_to_pdf(docx_path, libreoffice_binary="libreoffice"):
+    """
+    Converts a DOCX file to PDF format using LibreOffice in headless mode.
+    The function runs a subprocess to call LibreOffice, specifying the input DOCX file
+    and the output directory for the generated PDF file.
+    Args:
+        docx_path (str): The path to the DOCX file to be converted.
+        libreoffice_binary (str): The path to the LibreOffice binary. Defaults to "libreoffice".
+    Raises:
+        RuntimeError: If the PDF file was not created successfully.
+    Returns:
+        str: The path to the generated PDF file.
+    """
 
     output_dir = os.path.dirname(docx_path)
     os.makedirs(output_dir, exist_ok=True)
