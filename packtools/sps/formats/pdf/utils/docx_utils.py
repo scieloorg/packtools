@@ -256,7 +256,10 @@ def add_table(docx, table_data, header_style_name='SCL Table Heading'):
         header_row = table.rows[0]
         for i, header in enumerate(headers[0]):
             cell = header_row.cells[i]
-            cell.text = header
+            try:
+                cell.text = header
+            except TypeError:
+                cell.text = ''
             style_cell(cell, bold=True, font_size=7, align='center')
 
     for i, row_data in enumerate(rows):
