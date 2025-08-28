@@ -39,8 +39,10 @@ def convert_docx_to_pdf(docx_path, libreoffice_binary="libreoffice"):
     base_name = os.path.basename(docx_path)
     f_name, f_ext = os.path.splitext(base_name)
     pdf_path = os.path.join(output_dir, f"{f_name}.pdf")
+
     if not os.path.exists(pdf_path):
-        raise RuntimeError(f"PDF não gerado: {pdf_path}")
+        raise RuntimeError(f"PDF file was not created: {pdf_path}")
+
     return pdf_path
 
 def unzip_docx(path, prefix="scl_xml2pdf"):
