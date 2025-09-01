@@ -119,7 +119,7 @@ class Work:
         return data
 
 
-def prepare_request_data(xml_tree):
+def build_payload(xml_tree):
     work_data = Work(xml_tree).data
     if not work_data:
         return

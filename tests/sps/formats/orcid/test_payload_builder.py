@@ -1,7 +1,7 @@
 # coding: utf-8
 import unittest
 from lxml import etree
-from packtools.sps.utils.prepare_request_data import prepare_request_data
+from packtools.sps.formats.orcid.payload_builder import build_payload
 
 
 class PrepareTest(unittest.TestCase):
@@ -80,7 +80,7 @@ class PrepareTest(unittest.TestCase):
     def test_orcid_extraction(self):
         """Testa se o ORCID ID é extraído corretamente"""
         expected = "0000-0001-8528-2091"
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         self.assertEqual(len(obtained), 1)
         self.assertIn("orcid_id", obtained[0])
         self.assertEqual(expected, obtained[0]["orcid_id"])
@@ -88,7 +88,7 @@ class PrepareTest(unittest.TestCase):
     def test_author_name_extraction(self):
         """Testa se o nome completo do autor é extraído corretamente"""
         expected = "Prof Albert Einstein Nieto"
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         self.assertEqual(len(obtained), 1)
         self.assertIn("author_name", obtained[0])
         self.assertEqual(expected, obtained[0]["author_name"])
@@ -96,14 +96,14 @@ class PrepareTest(unittest.TestCase):
     def test_author_email_extraction(self):
         """Testa se o email é extraído das afiliações"""
         expected = "denise.peres@email.com"
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         self.assertEqual(len(obtained), 1)
         self.assertIn("author_email", obtained[0])
         self.assertEqual(expected, obtained[0]["author_email"])
 
     def test_work_data_structure(self):
         """Testa se work_data tem a estrutura correta"""
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         self.assertEqual(len(obtained), 1)
 
         work_data = obtained[0]["work_data"]
@@ -126,7 +126,7 @@ class PrepareTest(unittest.TestCase):
 
     def test_work_data_external_ids(self):
         """Testa se external-ids (DOI) são extraídos corretamente"""
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         work_data = obtained[0]
 
         self.assertIn("external-id", work_data)
@@ -140,7 +140,7 @@ class PrepareTest(unittest.TestCase):
 
     def test_work_data_publication_date(self):
         """Testa se a data de publicação é extraída corretamente"""
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
 
         self.assertIn("year", obtained[0])
         self.assertEqual(obtained[0]["year"]["value"], "2021")
@@ -153,7 +153,7 @@ class PrepareTest(unittest.TestCase):
 
     def test_complete_payload_structure(self):
         """Testa se o payload completo tem todos os campos obrigatórios"""
-        obtained = list(prepare_request_data(self.xmltree))
+        obtained = list(build_payload(self.xmltree))
         self.assertEqual(len(obtained), 1)
 
         payload = obtained[0]
@@ -193,7 +193,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_orcid_and_name)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
     def test_missing_orcid_only(self):
@@ -231,7 +231,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_orcid)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
     def test_missing_name_only(self):
@@ -266,7 +266,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_name)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
     def test_missing_required_work_fields(self):
@@ -306,7 +306,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_doi)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
         # XML sem título do artigo
@@ -341,7 +341,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_title)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
         # XML sem journal title
@@ -374,7 +374,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_journal)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
         # XML sem article-type
@@ -412,7 +412,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_type)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
         # XML sem ano de publicação
@@ -447,7 +447,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_year)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
         self.assertEqual(len(obtained), 0)
 
     def test_multiple_contributors(self):
@@ -499,7 +499,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_multiple)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
 
         self.assertEqual(len(obtained), 2)
 
@@ -562,7 +562,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_multiple)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
 
         self.assertEqual(len(obtained), 2)
 
@@ -610,7 +610,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_no_email)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
 
         self.assertEqual(len(obtained), 1)
         self.assertIn("author_email", obtained[0])
@@ -654,7 +654,7 @@ class PrepareTest(unittest.TestCase):
             </article>
             """
         xmltree = etree.fromstring(xml_single_digit)
-        obtained = list(prepare_request_data(xmltree))
+        obtained = list(build_payload(xmltree))
 
         self.assertEqual(len(obtained), 1)
         self.assertEqual(obtained[0]["year"]["value"], "2024")
