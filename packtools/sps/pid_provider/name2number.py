@@ -395,6 +395,42 @@ NAME_TO_NUMBER_ENTITIES = {
     "&euro;": "&#8364;",
 }
 
+
+def fix_pre_loading(xml):
+    """Corrige entidades problemáticas no XML de entrada."""
+    if "&" not in xml:
+        return xml
+
+    entities = set(find_entities_to_fix(xml))
+    if not entities:
+        return xml
+
+    for ent in entities:
+        xml = xml.replace(ent, NAME_TO_NUMBER_ENTITIES.get(ent) or f"&amp;{ent}")
+
+    return xml
+
+
+def find_entities_to_fix(bkp):
+    """Identifica entidades que precisam ser corrigidas na entrada."""
+    bkp = bkp.replace("&", "<ISOLAENTIDADEXML>&")
+    bkp = bkp.replace(";", ";<ISOLAENTIDADEXML>")
+
+    for item in bkp.split("<ISOLAENTIDADEXML>"):
+        if not item.strip():
+            continue
+        if " " in item:
+            continue
+        if not item[0] == "&" and not item[-1] == ";":
+            continue
+        if item[1] == "#":
+            continue
+        if item in ("&amp;", "&gt;", "&apos;", "&quot;", "&lt;"):
+            continue
+        if item[0] == "&" and item[-1] == ";":
+            yield item
+
+
 # Exemplo de uso:
 if __name__ == "__main__":
     # Testando algumas conversões
