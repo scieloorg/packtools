@@ -10,6 +10,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from lxml import etree
 
 from packtools.sps.libs.requester import fetch_data
+from packtools.sps.pid_provider.ent2char import fix_entities
 
 # 4.7.1 packtools.sps.models.*
 from packtools.sps.pid_provider.models.article_assets import ArticleAssets
@@ -279,7 +280,7 @@ def get_xml_with_pre(xml_content):
         pref, xml = split_processing_instruction_doctype_declaration_and_xml(
             xml_content
         )
-        return XMLWithPre(pref, etree.fromstring(xml))
+        return XMLWithPre(pref, etree.fromstring(fix_entities(xml)))
 
     except Exception as e:
         if xml_content:
