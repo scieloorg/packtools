@@ -2,8 +2,8 @@ import html
 import logging
 from lxml import etree
 from bs4 import BeautifulSoup
-from packtools.sps.pid_provider.amp_name2number import AMP_NAME_TO_NUMBER_ENTITIES
-from packtools.sps.pid_provider.name2number import NAME_TO_NUMBER_ENTITIES
+from packtools.sps.pid_provider.amp_name2number import fix_pos_loading
+from packtools.sps.pid_provider.name2number import fix_pre_loading
 
 
 def load_xml(xml):
@@ -34,45 +34,8 @@ def load_xml(xml):
     </article>
     """
     return etree.tostring(
-        etree.fromstring(fix_input(xml)),
+        etree.fromstring(fix_pre_loading(xml)),
         method="xml", encoding="utf-8").decode("utf-8")
-
-
-def fix_input(xml):
-    """Corrige entidades problemáticas no XML de entrada."""
-    if "&" not in xml:
-        return xml
-
-    entities = set(find_entities_to_fix_in_input(xml))
-    if not entities:
-        return xml
-
-    for ent in entities:
-        xml = xml.replace(ent, NAME_TO_NUMBER_ENTITIES.get(ent) or f"&amp;{ent}")
-
-    print(xml)
-    return xml
-
-
-def find_entities_to_fix_in_input(bkp):
-    """Identifica entidades que precisam ser corrigidas na entrada."""
-    bkp = bkp.replace("&", "<ISOLAENTIDADEXML>&")
-    bkp = bkp.replace(";", ";<ISOLAENTIDADEXML>")
-
-    for item in bkp.split("<ISOLAENTIDADEXML>"):
-        print(item)
-        if not item.strip():
-            continue
-        if " " in item:
-            continue
-        if not item[0] == "&" and not item[-1] == ";":
-            continue
-        if item[1] == "#":
-            continue
-        if item in ("&amp;", "&gt;", "&apos;", "&quot;", "&lt;"):
-            continue
-        if item[0] == "&" and item[-1] == ";":
-            yield item
 
 
 def fix_entities(xml):
@@ -82,36 +45,10 @@ def fix_entities(xml):
     Análise:
     - Usa html_parser_ent2char internamente
     - Aplica format_output para corrigir entidades finais
+
+    PERDE BODY
     """
-    return format_output(html_parser_ent2char(xml))
-
-
-def discover_entities_to_fix_in_output(bkp):
-    """Descobre entidades que precisam ser corrigidas na saída."""
-    bkp = bkp.replace("&amp;", "<ISOLAENTIDADEXML>&")
-    bkp = bkp.replace(";", ";<ISOLAENTIDADEXML>")
-
-    for item in bkp.split("<ISOLAENTIDADEXML>"):
-        if not item.strip():
-            continue
-        if " " in item:
-            continue
-        if item[0] == "&" and item[-1] == ";":
-            yield item.replace("&", "&amp;")
-
-
-def format_output(xml):
-    """Formata a saída convertendo entidades para números."""
-    if "&" not in xml:
-        return xml
-
-    entities = set(discover_entities_to_fix_in_output(xml))
-    if not entities:
-        return xml
-
-    for ent in entities:
-        xml = xml.replace(ent, AMP_NAME_TO_NUMBER_ENTITIES.get(ent) or ent)
-    return xml
+    return fix_pos_loading(html_parser_ent2char(xml))
 
 
 def xml_parser_ent2char(xml):
