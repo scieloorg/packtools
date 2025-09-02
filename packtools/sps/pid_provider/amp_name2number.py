@@ -395,6 +395,35 @@ AMP_NAME_TO_NUMBER_ENTITIES = {
     "&amp;euro;": "&#8364;",
 }
 
+
+def fix_pos_loading(xml):
+    """Formata a saída convertendo entidades para números."""
+    if "&" not in xml:
+        return xml
+
+    entities = set(find_entities_to_fix(xml))
+    if not entities:
+        return xml
+
+    for ent in entities:
+        xml = xml.replace(ent, AMP_NAME_TO_NUMBER_ENTITIES.get(ent) or ent)
+    return xml
+
+
+def find_entities_to_fix(bkp):
+    """Descobre entidades que precisam ser corrigidas na saída."""
+    bkp = bkp.replace("&amp;", "<ISOLAENTIDADEXML>&")
+    bkp = bkp.replace(";", ";<ISOLAENTIDADEXML>")
+
+    for item in bkp.split("<ISOLAENTIDADEXML>"):
+        if not item.strip():
+            continue
+        if " " in item:
+            continue
+        if item[0] == "&" and item[-1] == ";":
+            yield item.replace("&", "&amp;")
+
+
 # Exemplo de uso:
 if __name__ == "__main__":
     # Testando algumas conversões
