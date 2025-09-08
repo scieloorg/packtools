@@ -419,16 +419,11 @@ def find_entities_to_fix(bkp):
     for item in bkp.split("<ISOLAENTIDADEXML>"):
         if not item.strip():
             continue
-        if " " in item:
-            continue
-        if not item[0] == "&" and not item[-1] == ";":
-            continue
-        if item[1] == "#":
-            continue
-        if item in ("&amp;", "&gt;", "&apos;", "&quot;", "&lt;"):
-            continue
         if item[0] == "&" and item[-1] == ";":
-            yield item
+            if item in ("&amp;", "&gt;", "&apos;", "&quot;", "&lt;"):
+                continue
+            if item[1:-1].isalpha():
+                yield item
 
 
 # Exemplo de uso:
