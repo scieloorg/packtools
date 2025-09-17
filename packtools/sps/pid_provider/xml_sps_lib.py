@@ -375,18 +375,22 @@ class XMLWithPre:
             XML file URI
         """
         if path:
-
+            errors = []
+            xml_with_pre = None
             for item in get_xml_items(path, capture_errors):
                 if not item:
                     continue
-
-                xml_with_pre = item["xml_with_pre"]
-                xml_with_pre.filename = item["filename"]
-                xml_with_pre.files = item.get("files")
-                xml_with_pre.filenames = item.get("filenames")
-                xml_with_pre.errors = item.get("error") 
-                yield xml_with_pre
-
+                try:
+                    xml_with_pre = item["xml_with_pre"]
+                    xml_with_pre.filename = item["filename"]
+                    xml_with_pre.files = item.get("files")
+                    xml_with_pre.filenames = item.get("filenames")
+                    xml_with_pre.errors = item.get("error")
+                    yield xml_with_pre
+                except KeyError:
+                    errors.append(item)
+            if not xml_with_pre:
+                raise GetXmlWithPreError("Unable to get xml with pre %s" % str(errors))
         if xml_content:
             yield get_xml_with_pre(xml_content)
         if uri:
