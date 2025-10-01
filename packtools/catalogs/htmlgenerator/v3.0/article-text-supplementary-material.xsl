@@ -97,21 +97,55 @@
         </div>
     </xsl:template>
     -->
-
     <xsl:template match="supplementary-material">
+        <xsl:apply-templates select="." mode="supplementary-material-label-and-caption"/>
         <div class="row fig" id="{@id}">
             <div class="col-md-12 col-sm-12">
                 <a target="_blank" download="1">
                     <xsl:apply-templates select="." mode="supplementary-material-link"/>
-                    <xsl:apply-templates select="." mode="supplementary-material-label-caption"/>
+                    <xsl:apply-templates select="." mode="supplementary-material-lnktxt"/>
                 </a>
             </div>
         </div>
     </xsl:template>
 
-    <xsl:template match="*" mode="supplementary-material-label-caption">
-        <xsl:value-of select="label"/>&#160;<xsl:apply-templates select="caption"/>
+    <xsl:template match="supplementary-material" mode="supplementary-material-label-and-caption">
+        <xsl:if test="label">
+            <h2 class="h5">
+                <xsl:apply-templates select="label"/>
+            </h2>
+        </xsl:if>
     </xsl:template>
+
+    <xsl:template match="supplementary-material" mode="supplementary-material-lnktxt">
+        <xsl:variable name="text"><xsl:apply-templates select="." mode="supplementary-material-variable-text"/></xsl:variable>
+        <xsl:apply-templates select="*|text()" mode="sm-link-text"/>
+        <xsl:if test="normalize-space($text)=''">
+            <xsl:apply-templates select="label" mode="sm-alt-link-text"/>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="*" mode="supplementary-material-variable-text">
+        <xsl:apply-templates select="*|text()" mode="supplementary-material-variable-text"/>
+    </xsl:template>
+    <xsl:template match="text()" mode="supplementary-material-variable-text">
+        <xsl:value-of select="."/>
+    </xsl:template>
+    <xsl:template match="supplementary-material/label" mode="supplementary-material-variable-text">
+    </xsl:template>
+
+    <xsl:template match="supplementary-material/*[text()]" mode="sm-link-text">
+        <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="supplementary-material/label" mode="sm-link-text">
+    </xsl:template>
+    <xsl:template match="supplementary-material/label" mode="sm-alt-link-text">
+        <xsl:value-of select="."/>
+    </xsl:template>
+
+    <!--xsl:template match="supplementary-material//p" mode="supplementary-material-lnktxt">
+        <p><xsl:apply-templates select="@*|*|text()"/></p>
+    </xsl:template-->
 
     <xsl:template match="supplementary-material[@xlink:href]" mode="supplementary-material-link">
         <xsl:attribute name="href"><xsl:value-of select="@xlink:href"/></xsl:attribute>
