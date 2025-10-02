@@ -356,32 +356,17 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
     para = footer.paragraphs[0]
     para.style = docx.styles[paragraph_style_name]
 
-    page_number_run = para.add_run()
-
-    fld_char_start = OxmlElement('w:fldChar')
-    fld_char_start.set(qn('w:fldCharType'), 'begin')
-    page_number_run._element.append(fld_char_start)
-
-    instr_text = OxmlElement('w:instrText')
-    instr_text.text = "PAGE \\* MERGEFORMAT"
-    page_number_run._element.append(instr_text)
-
-    fld_char_end = OxmlElement('w:fldChar')
-    fld_char_end.set(qn('w:fldCharType'), 'end')
-    page_number_run._element.append(fld_char_end)
+    docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
     
     para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
-
-    sect_pr = docx.sections[1]._sectPr
-    pg_num_type = OxmlElement('w:pgNumType')
 
     try:
         current_page_number = int(footer_data['fpage']) + 1
     except ValueError:
         current_page_number = 1
 
-    pg_num_type.set(ns.qn('w:start'), str(current_page_number))
-    sect_pr.append(pg_num_type)
+    second_section = docx_renderer.section.get_or_create_second_section(docx)
+    docx_renderer.section.set_start_page_number(second_section, current_page_number)
 
 def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
     """
