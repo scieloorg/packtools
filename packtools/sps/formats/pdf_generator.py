@@ -39,7 +39,11 @@ def main():
     )
     arguments = parser.parse_args()
 
-    data = {'base_layout': arguments.layout,}
+    xml_dir = os.path.dirname(os.path.abspath(arguments.path_to_read))
+    data = {
+        'base_layout': arguments.layout,
+        'assets_dir': xml_dir,
+    }
 
     xml_tree = xml_utils.get_xml_tree(arguments.path_to_read)
     document = docx.pipeline_docx(xml_tree, data)

@@ -1,3 +1,4 @@
+from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.utils import xml_utils
 
 
@@ -329,33 +330,162 @@ def extract_body_data(xml_tree):
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
             - 'title': The title of the section, if present.
-            - 'paragraphs': A list of the text content of each paragraph in the section, excluding paragraphs that contain table references or table wrappers.
+            - 'paragraphs': A list of the text content of each paragraph in the section, excluding paragraphs that contain table/figure references or wrappers.
             - 'tables': A list of dictionaries representing the tables in the section, as returned by the `extract_table_data` function.
+            - 'figures': A list of dictionaries representing figures in the section, as returned by the `extract_figure_data` function.
     """
     data = []
+    seen_fig_keys = set()
 
     for document_section in xml_tree.findall('.//sec'):
-        sec = {'paragraphs': [], 'tables': []}
+        sec = {'paragraphs': [], 'tables': [], 'figures': []}
         sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
         sec['title'] = document_section.find('title')
 
         if sec['title'] is not None:
-            sec['title'] = sec['title'].text
-            for para in document_section.findall('p'):
-                has_table_ref = para.find('.//xref[@ref-type="table"]') is not None
-                has_table_wrap = para.find('.//table-wrap') is not None
+            sec['title'] = ''.join(sec['title'].itertext()).strip()
 
-                if not has_table_ref and not has_table_wrap:
-                    para_text = xml_utils.get_text_from_node(para)
-                    if para_text:
-                        sec['paragraphs'].append(para_text)
+        # Collect textual paragraphs but exclude figure/table elements
+        for para in document_section.findall('p'):
+            try:
+                # Get text nodes that are not inside fig or table-wrap
+                texts = para.xpath('.//text()[not(ancestor::fig) and not(ancestor::table-wrap)]')
+                para_text = ' '.join(' '.join(texts).split()).strip()
+            except Exception:
+                # Fallback to generic text extraction
+                para_text = xml_utils.get_text_from_node(para)
+            if para_text:
+                sec['paragraphs'].append(para_text)
 
-            for table_wrap in document_section.findall('.//table-wrap'):
-                sec['tables'].append(extract_table_data(table_wrap))
+        # Tables within the section
+        for table_wrap in document_section.findall('.//table-wrap'):
+            sec['tables'].append(extract_table_data(table_wrap))
+
+        # Figures within the section (deduplicated across the body)
+        for fig in document_section.findall('.//fig'):
+            # Build a deduplication key: prefer @id; fallback to first href found
+            fig_id = fig.get('id') or fig.get('xml:id')
+            href = None
+            g = fig.find('.//graphic')
+            if g is not None:
+                href = (
+                    g.get('{http://www.w3.org/1999/xlink}href')
+                    or g.get('xlink:href')
+                    or g.get('href')
+                )
+            key = fig_id or (href or '')
+            if key and key in seen_fig_keys:
+                continue
+            fig_data = extract_figure_data(fig)
+            sec['figures'].append(fig_data)
+            if key:
+                seen_fig_keys.add(key)
 
         data.append(sec)
     
     return data
+
+def extract_figure_data(fig_node):
+    """
+    Extracts figure metadata from a <fig> node.
+
+    Args:
+        fig_node (ElementTree): The XML <fig> element.
+
+    Returns:
+        dict: A dictionary with keys:
+            - 'label': Figure label (e.g., "Figure 1")
+            - 'caption': Caption text (title + paragraphs if present)
+            - 'href': Path/URL from graphic/@xlink:href (or alternatives)
+            - 'alt': Alternative text if present
+    """
+    def _get_href_from_node(node):
+        # Try common attribute forms
+        return (
+            node.get('{http://www.w3.org/1999/xlink}href')
+            or node.get('xlink:href')
+            or node.get('href')
+        )
+
+    label_el = fig_node.find('label')
+    label = (label_el.text or '').strip() if label_el is not None else ''
+
+    caption_texts = []
+    caption_el = fig_node.find('caption')
+    if caption_el is not None:
+        # Prefer title then paragraphs
+        title_el = caption_el.find('title')
+        if title_el is not None:
+            caption_texts.append(''.join(title_el.itertext()).strip())
+        for p in caption_el.findall('p'):
+            txt = ''.join(p.itertext()).strip()
+            if txt:
+                caption_texts.append(txt)
+    caption = ' '.join([c for c in caption_texts if c])
+
+    # graphic may be direct child or inside <alternatives>
+    href = None
+    alt_text = None
+
+    graphic = fig_node.find('.//graphic')
+    if graphic is not None:
+        href = _get_href_from_node(graphic)
+        alt_text = graphic.get('alt') or graphic.get('alt-text')
+
+    if href is None:
+        alt = fig_node.find('.//alternatives')
+        if alt is not None:
+            preferred_ext_order = ('.png', '.jpg', '.jpeg', '.gif', '.tif', '.tiff')
+            candidates = []
+            for g in alt.findall('graphic'):
+                _href = _get_href_from_node(g)
+                if not _href:
+                    continue
+                # Extract potential size from content-type like 'scielo-267x140'
+                ctype = (g.get('content-type') or '').lower()
+                dims_area = 0
+                import re
+                m = re.search(r'(\d+)x(\d+)', ctype)
+                if m:
+                    try:
+                        w = int(m.group(1))
+                        h = int(m.group(2))
+                        dims_area = w * h
+                    except Exception:
+                        dims_area = 0
+                # Penalize obvious thumbnails
+                is_thumbnail = '267x140' in ctype
+                ext_rank = len(preferred_ext_order)
+                lu = _href.lower()
+                for i, ext in enumerate(preferred_ext_order):
+                    if lu.endswith(ext):
+                        ext_rank = i
+                        break
+                candidates.append({
+                    'href': _href,
+                    'dims_area': dims_area,
+                    'ext_rank': ext_rank,
+                    'is_thumbnail': is_thumbnail,
+                    'alt': g.get('alt') or g.get('alt-text')
+                })
+            if candidates:
+                # Choose best: avoid thumbnails, larger area first, then better extension
+                candidates.sort(key=lambda c: (
+                    c['is_thumbnail'],           # False (0) before True (1)
+                    -c['dims_area'],              # larger first
+                    c['ext_rank']                 # better extension first
+                ))
+                best = candidates[0]
+                href = best['href']
+                if alt_text is None:
+                    alt_text = best.get('alt')
+
+    return {
+        'label': label,
+        'caption': caption,
+        'href': href,
+        'alt': alt_text or '',
+    }
 
 def extract_acknowledgment_data(xml_tree):
     """
@@ -433,7 +563,7 @@ def extract_supplementary_data(xml_tree):
 
 def extract_table_data(table_wrap):
     """
-    Extracts table data from an XML table-wrap element.
+    Extracts table data from an XML table-wrap element, handling merged cells.
     
     Args:
         table_wrap (ElementTree): The XML table-wrap element to extract data from.
@@ -444,6 +574,8 @@ def extract_table_data(table_wrap):
             - 'title': The text content of the table title element, or an empty string if not found.
             - 'headers': A list of lists, where each inner list represents the text content of the table header cells.
             - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
+            - 'layout': A string indicating the table layout ('single-column-layout' or 'double-column-layout').
+            - 'column_widths': A list of calculated column widths based on content.
     """
     table_label = table_wrap.find('.//label')
     label_text = table_label.text if table_label is not None else ""
@@ -454,14 +586,382 @@ def extract_table_data(table_wrap):
     headers = []
     rows = []
     table = table_wrap.find('.//table')
+    layout = determine_table_layout(table_wrap)
 
     if table is not None:
         thead = table.find('.//thead')
         if thead is not None:
-            headers = [[th.text for th in tr.findall('.//th')] for tr in thead.findall('.//tr')]
+            headers = _extract_table_rows_with_merged_cells(thead, 'th')
+            header_spans = _extract_table_spans(thead, 'th')
+        else:
+            header_spans = []
 
         tbody = table.find('.//tbody')
         if tbody is not None:
-            rows = [[td.text for td in tr.findall('.//td')] for tr in tbody.findall('.//tr')]
+            rows = _extract_table_rows_with_merged_cells(tbody, 'td')
+            row_spans = _extract_table_spans(tbody, 'td')
+        else:
+            row_spans = []
 
-    return {'label': label_text, 'title': title_text, 'headers': headers, 'rows': rows}
+    # Calculate column widths based on content
+    column_widths = _calculate_column_widths(headers, rows)
+    
+    return {
+        'label': label_text,
+        'title': title_text,
+        'headers': headers,
+        'rows': rows,
+        'layout': layout,
+        'column_widths': column_widths,
+        'header_spans': header_spans,
+        'row_spans': row_spans,
+    }
+
+def determine_table_layout(table_wrap):
+    """
+    Determines the layout of a table based on the number of columns it contains, considering merged cells.
+
+    Args:
+        table_wrap (ElementTree): The XML table-wrap element to analyze.
+
+    Returns:
+        str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
+    """
+    table = table_wrap.find('.//table')
+    if table is not None:
+        # Check both thead and tbody for maximum columns
+        max_columns = 0
+        
+        thead = table.find('.//thead')
+        if thead is not None:
+            max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
+        
+        tbody = table.find('.//tbody')
+        if tbody is not None:
+            max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
+        
+        if max_columns > 4:
+            return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    
+    return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+
+def get_table_column_info(headers, rows):
+    """
+    Provides detailed information about table columns including content analysis.
+    
+    Args:
+        headers (list): List of header rows.
+        rows (list): List of data rows.
+    
+    Returns:
+        list: A list of dictionaries with column information including:
+            - 'index': Column index
+            - 'max_length': Maximum character length in the column
+            - 'avg_length': Average character length in the column
+            - 'content_type': Estimated content type ('numeric', 'text', 'mixed')
+            - 'suggested_width': Suggested width in points
+    """
+    if not headers and not rows:
+        return []
+    
+    # Determine number of columns
+    num_cols = 0
+    if headers:
+        num_cols = max(num_cols, max(len(row) for row in headers) if headers else 0)
+    if rows:
+        num_cols = max(num_cols, max(len(row) for row in rows) if rows else 0)
+    
+    column_info = []
+    
+    for col_idx in range(num_cols):
+        col_data = {
+            'index': col_idx,
+            'max_length': 0,
+            'total_length': 0,
+            'cell_count': 0,
+            'numeric_count': 0,
+            'text_count': 0
+        }
+        
+        # Analyze headers
+        for header_row in headers:
+            if col_idx < len(header_row) and header_row[col_idx]:
+                content = header_row[col_idx].strip()
+                if content:
+                    length = len(content)
+                    col_data['max_length'] = max(col_data['max_length'], length)
+                    col_data['total_length'] += length
+                    col_data['cell_count'] += 1
+                    col_data['text_count'] += 1
+        
+        # Analyze data rows
+        for data_row in rows:
+            if col_idx < len(data_row) and data_row[col_idx]:
+                content = data_row[col_idx].strip()
+                if content:
+                    length = len(content)
+                    col_data['max_length'] = max(col_data['max_length'], length)
+                    col_data['total_length'] += length
+                    col_data['cell_count'] += 1
+                    
+                    # Check if content is numeric
+                    try:
+                        float(content.replace(',', '.').replace('%', '').replace('$', '').strip())
+                        col_data['numeric_count'] += 1
+                    except ValueError:
+                        col_data['text_count'] += 1
+        
+        # Calculate averages and content type
+        avg_length = col_data['total_length'] / col_data['cell_count'] if col_data['cell_count'] > 0 else 0
+        
+        if col_data['numeric_count'] > col_data['text_count']:
+            content_type = 'numeric'
+        elif col_data['text_count'] > col_data['numeric_count']:
+            content_type = 'text'
+        else:
+            content_type = 'mixed'
+        
+        # Calculate suggested width
+        base_width = col_data['max_length'] * 6  # 6 points per character
+        if content_type == 'numeric':
+            suggested_width = max(50, min(base_width, 120))  # Narrower for numbers
+        else:
+            suggested_width = max(80, min(base_width, 200))  # Wider for text
+        
+        column_info.append({
+            'index': col_idx,
+            'max_length': col_data['max_length'],
+            'avg_length': round(avg_length, 1),
+            'content_type': content_type,
+            'suggested_width': suggested_width
+        })
+    
+    return column_info
+
+
+# -----------------
+# Private helpers
+# -----------------
+
+def _extract_table_rows_with_merged_cells(table_section, cell_tag):
+    """
+    Extracts table rows handling merged cells (colspan/rowspan).
+    
+    Args:
+        table_section (ElementTree): The thead or tbody element.
+        cell_tag (str): The cell tag to look for ('td' or 'th').
+    
+    Returns:
+        list: A list of lists representing the table rows with merged cells properly handled.
+    """
+    rows = []
+    row_elements = table_section.findall('.//tr')
+    
+    if not row_elements:
+        return rows
+    
+    # Create a matrix to track occupied positions
+    max_cols = _calculate_max_columns(table_section, cell_tag)
+    occupied = [[False] * max_cols for _ in range(len(row_elements))]
+    
+    for row_idx, tr in enumerate(row_elements):
+        row_data = [''] * max_cols
+        col_idx = 0
+        
+        for cell in tr.findall(f'.//{cell_tag}'):
+            # Find next available column
+            while col_idx < max_cols and occupied[row_idx][col_idx]:
+                col_idx += 1
+            
+            if col_idx >= max_cols:
+                break
+                
+            # Get cell content
+            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
+            
+            # Get colspan and rowspan
+            colspan = int(cell.get('colspan', 1))
+            rowspan = int(cell.get('rowspan', 1))
+            
+            # Fill the cell and mark occupied positions
+            row_data[col_idx] = cell_text
+            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
+                for c in range(col_idx, min(col_idx + colspan, max_cols)):
+                    occupied[r][c] = True
+            
+            col_idx += colspan
+        
+        rows.append(row_data)
+    
+    return rows
+
+def _extract_table_spans(table_section, cell_tag):
+    """
+    Builds a grid describing cell spans (colspan/rowspan) for a table section.
+
+    Each entry is either None (no cell starts here) or a dict with keys:
+      - 'colspan': int
+      - 'rowspan': int
+      - 'text': str (cell text)
+
+    The grid has dimensions [number_of_rows][max_columns] where max_columns
+    takes into account merged cells.
+    """
+    spans = []
+    row_elements = table_section.findall('.//tr')
+    if not row_elements:
+        return spans
+
+    max_cols = _calculate_max_columns(table_section, cell_tag)
+    # Track occupied positions due to spans
+    occupied = [[False] * max_cols for _ in range(len(row_elements))]
+
+    for row_idx, tr in enumerate(row_elements):
+        row_spans = [None] * max_cols
+        col_idx = 0
+
+        for cell in tr.findall(f'.//{cell_tag}'):
+            # Advance to next free column
+            while col_idx < max_cols and occupied[row_idx][col_idx]:
+                col_idx += 1
+            if col_idx >= max_cols:
+                break
+
+            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
+            colspan = int(cell.get('colspan', 1))
+            rowspan = int(cell.get('rowspan', 1))
+
+            row_spans[col_idx] = {
+                'colspan': colspan,
+                'rowspan': rowspan,
+                'text': cell_text,
+            }
+
+            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
+                for c in range(col_idx, min(col_idx + colspan, max_cols)):
+                    occupied[r][c] = True
+
+            col_idx += colspan
+
+        spans.append(row_spans)
+
+    return spans
+
+def _calculate_max_columns(table_section, cell_tag):
+    """
+    Calculates the maximum number of columns in a table section, considering merged cells.
+    
+    Args:
+        table_section (ElementTree): The thead or tbody element.
+        cell_tag (str): The cell tag to look for ('td' or 'th').
+    
+    Returns:
+        int: The maximum number of columns.
+    """
+    max_cols = 0
+    
+    for tr in table_section.findall('.//tr'):
+        current_cols = 0
+        for cell in tr.findall(f'.//{cell_tag}'):
+            colspan = int(cell.get('colspan', 1))
+            current_cols += colspan
+        max_cols = max(max_cols, current_cols)
+    
+    return max_cols
+
+def _calculate_column_widths(headers, rows, min_width=50, max_width=200):
+    """
+    Calculates optimal column widths based on content length.
+    
+    Args:
+        headers (list): List of header rows.
+        rows (list): List of data rows.
+        min_width (int): Minimum column width in points. Defaults to 50.
+        max_width (int): Maximum column width in points. Defaults to 200.
+    
+    Returns:
+        list: A list of calculated column widths.
+    """
+    if not headers and not rows:
+        return []
+    
+    # Determine number of columns
+    num_cols = 0
+    if headers:
+        num_cols = max(num_cols, max(len(row) for row in headers) if headers else 0)
+    if rows:
+        num_cols = max(num_cols, max(len(row) for row in rows) if rows else 0)
+    
+    if num_cols == 0:
+        return []
+    
+    # Calculate max content length for each column
+    column_max_lengths = [0] * num_cols
+    
+    # Check headers
+    for header_row in headers:
+        for col_idx, cell_content in enumerate(header_row):
+            if col_idx < num_cols and cell_content:
+                column_max_lengths[col_idx] = max(
+                    column_max_lengths[col_idx], 
+                    _estimate_text_width(cell_content)
+                )
+    
+    # Check data rows
+    for data_row in rows:
+        for col_idx, cell_content in enumerate(data_row):
+            if col_idx < num_cols and cell_content:
+                column_max_lengths[col_idx] = max(
+                    column_max_lengths[col_idx], 
+                    _estimate_text_width(cell_content)
+                )
+    
+    # Apply min/max constraints and convert to points
+    column_widths = []
+    for max_length in column_max_lengths:
+        # Base calculation: approximately 6 points per character
+        base_width = max_length * 6
+        
+        # Apply constraints
+        width = max(min_width, min(base_width, max_width))
+        column_widths.append(width)
+    
+    # Normalize to ensure reasonable distribution
+    total_width = sum(column_widths)
+    if total_width > 500:  # If total is too wide, proportionally reduce
+        scaling_factor = 500 / total_width
+        column_widths = [int(width * scaling_factor) for width in column_widths]
+    
+    return column_widths
+
+def _estimate_text_width(text):
+    """
+    Estimates the display width of text content.
+    
+    Args:
+        text (str): The text to measure.
+    
+    Returns:
+        int: Estimated width in characters.
+    """
+    if not text:
+        return 0
+    
+    # Remove extra whitespace and count actual display characters
+    clean_text = ' '.join(text.split())
+    
+    # Account for different character widths (rough approximation)
+    width = 0
+    for char in clean_text:
+        if char.isupper():
+            width += 1.2  # Uppercase letters are typically wider
+        elif char.isdigit():
+            width += 1.0  # Numbers are consistent width
+        elif char in 'ijl':
+            width += 0.5  # These letters are narrower
+        elif char in 'mwMW':
+            width += 1.5  # These letters are wider
+        else:
+            width += 1.0  # Standard character width
+    
+    return int(width)

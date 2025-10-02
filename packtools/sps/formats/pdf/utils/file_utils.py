@@ -91,3 +91,30 @@ def embed_docx(source_dir, prefix="scl_xml2pdf", suffix=".docx"):
     except OSError:
         raise DirectoryRemovalError(f'Unable to delete temporary directory: {source_dir}')
     return temp_docx_path
+
+def resolve_asset_path(href, assets_dir=None):
+    """
+    Resolve a resource path given a href-like string and an optional assets directory.
+
+    Behavior:
+    - If href is http(s), return as-is.
+    - If href is an absolute filesystem path, return as-is.
+    - If assets_dir is provided and contains the relative file, return the joined path.
+    - Otherwise return the href unchanged (caller may handle it later).
+    """
+    if not href:
+        return None
+    
+    href = str(href)
+    if href.startswith('http://') or href.startswith('https://'):
+        return href
+
+    if os.path.isabs(href):
+        return href
+
+    if assets_dir:
+        candidate = os.path.join(assets_dir, href)
+        if os.path.exists(candidate):
+            return candidate
+
+    return href

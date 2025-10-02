@@ -1,9 +1,7 @@
-from docx.oxml import OxmlElement, ns
-from docx.oxml.ns import qn
-
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
-from packtools.sps.formats.pdf.utils import docx_utils, xml_utils
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf.renderer import docx as docx_renderer
+from packtools.sps.formats.pdf.utils import xml_utils
 
 
 def pipeline_docx(xml_tree, data):
@@ -17,7 +15,7 @@ def pipeline_docx(xml_tree, data):
     Returns:
         A DOCX Document object.
     """
-    docx = docx_utils.init_docx(data)
+    docx = docx_renderer.builder.init_docx(data)
 
     # First page header
     journal_title = xml_pipe.extract_journal_title(xml_tree)
@@ -61,7 +59,7 @@ def pipeline_docx(xml_tree, data):
     docx_cite_as_pipe(docx, cite_as_part_one, journal_title, footer_data)
     docx_page_vol_issue_year_pipe(docx, footer_data)
 
-    # Next Pages footer
+    # Next pages footer
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
@@ -77,13 +75,13 @@ def pipeline_docx(xml_tree, data):
     references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
     docx_references_pipe(docx, references_data['title'], references)
 
-    # Supplementary Material
+    # Supplementary material
     supplementary_data = xml_pipe.extract_supplementary_data(xml_tree)
     if supplementary_data['elements']:
         docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
 
     # Setting up sections
-    docx_utils.docx_setup_sections(docx)
+    docx_renderer.section.docx_setup_sections(docx)
     
     return docx
 
@@ -99,8 +97,8 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
     Returns:
         python-docx.Paragraph: The paragraph object containing the journal title text.
     """
-    first_page_header = docx_utils.get_first_page_header(docx)
-    para = docx_utils.get_first_paragraph(first_page_header)
+    first_page_header = docx_renderer.section.get_first_page_header(docx)
+    para = docx_renderer.text.get_first_paragraph(first_page_header)
 
     left_run = para.add_run(journal_title_text.replace(' ', '\n'))
     left_run.style = docx.styles[style_name]
@@ -125,8 +123,8 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
     if paragraph:
         para = paragraph
     else:
-        first_page_header = docx_utils.get_first_page_header(docx)
-        para = docx_utils.get_first_paragraph(first_page_header)
+        first_page_header = docx_renderer.section.get_first_page_header(docx)
+        para = docx_renderer.text.get_first_paragraph(first_page_header)
 
     r = para.add_run(f'\t{doi_url}')
     r.style = docx.styles[style_name]
@@ -173,7 +171,7 @@ def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', ch
     Returns:
         None
     """
-    docx_utils.add_authors_names_paragraph_with_formatting_sup(
+    docx_renderer.text.add_authors_names_paragraph_with_formatting_sup(
     docx, 
         authors_names,
         paragraph_style_name=paragraph_style_name,
@@ -195,7 +193,7 @@ def docx_affiliation_pipe(docx, affiliations, paragraph_style_name='SCL Affiliat
         None
     """
     for aff in affiliations:
-        docx_utils.add_text_paragraph_with_formatting_sup(
+        docx_renderer.text.add_text_paragraph_with_formatting_sup(
             docx, 
             aff, 
             paragraph_style_name=paragraph_style_name,
@@ -216,7 +214,7 @@ def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affil
     Returns:
         None
     """
-    docx_utils.add_text_paragraph_with_formatting_sup(
+    docx_renderer.text.add_text_paragraph_with_formatting_sup(
         docx,
         corresponding,
         paragraph_style_name=paragraph_style_name,
@@ -293,21 +291,21 @@ def docx_cite_as_pipe(
     """
     cite_as_part_two = f'{footer_data["volume"]}: {footer_data["fpage"]}-{footer_data["lpage"]}'
 
-    footer = docx_utils.get_first_page_footer(docx)
-    para = docx_utils.get_first_paragraph(footer)
+    footer = docx_renderer.section.get_first_page_footer(docx)
+    para = docx_renderer.text.get_first_paragraph(footer)
     para.style = docx.styles['SCL Paragraph Cite As']
 
     footer_style = docx.styles['SCL Paragraph Cite As Footer Char']
-    docx_utils.add_run_with_style(para, 'CITE AS: ', footer_style)
+    docx_renderer.style.add_run_with_style(para, 'CITE AS: ', footer_style)
 
     p1_style = docx.styles['SCL Paragraph Cite As Char']
-    docx_utils.add_run_with_style(para, cite_as_part_one, p1_style)
+    docx_renderer.style.add_run_with_style(para, cite_as_part_one, p1_style)
 
     journal_title_style = docx.styles['SCL Paragraph Cite As Journal Title Char']
-    docx_utils.add_run_with_style(para, f'{journal_title} ', journal_title_style)
+    docx_renderer.style.add_run_with_style(para, f'{journal_title} ', journal_title_style)
 
     p2_style = docx.styles['SCL Paragraph Cite As Char']
-    docx_utils.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
+    docx_renderer.style.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
 
 def docx_second_header_pipe(
         docx, 
@@ -330,7 +328,7 @@ def docx_second_header_pipe(
     Returns:
         None
     """
-    header = docx_utils.get_second_header(docx)
+    header = docx_renderer.section.get_second_header(docx)
     header.is_linked_to_previous = False
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
@@ -353,37 +351,22 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
     Returns:
         None
     """
-    footer = docx_utils.get_second_footer(docx)
+    footer = docx_renderer.section.get_second_footer(docx)
 
     para = footer.paragraphs[0]
     para.style = docx.styles[paragraph_style_name]
 
-    page_number_run = para.add_run()
-
-    fld_char_start = OxmlElement('w:fldChar')
-    fld_char_start.set(qn('w:fldCharType'), 'begin')
-    page_number_run._element.append(fld_char_start)
-
-    instr_text = OxmlElement('w:instrText')
-    instr_text.text = "PAGE \\* MERGEFORMAT"
-    page_number_run._element.append(instr_text)
-
-    fld_char_end = OxmlElement('w:fldChar')
-    fld_char_end.set(qn('w:fldCharType'), 'end')
-    page_number_run._element.append(fld_char_end)
+    docx_renderer.text.add_field_run(para, "PAGE \\* MERGEFORMAT")
     
     para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
-
-    sect_pr = docx.sections[1]._sectPr
-    pg_num_type = OxmlElement('w:pgNumType')
 
     try:
         current_page_number = int(footer_data['fpage']) + 1
     except ValueError:
         current_page_number = 1
 
-    pg_num_type.set(ns.qn('w:start'), str(current_page_number))
-    sect_pr.append(pg_num_type)
+    second_section = docx_renderer.section.get_or_create_second_section(docx)
+    docx_renderer.section.set_start_page_number(second_section, current_page_number)
 
 def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL Footer'):
     """
@@ -397,7 +380,7 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     Returns:
         None
     """
-    footer = docx_utils.get_first_page_footer(docx)
+    footer = docx_renderer.section.get_first_page_footer(docx)
     para = footer.add_paragraph()
 
     para.style = docx.styles[paragraph_style_name]
@@ -414,27 +397,11 @@ def docx_body_pipe(docx, body_data):
     Returns:
         None
     """
-    section = docx_utils.get_or_create_second_section(docx)
-    docx_utils.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    _setup_two_column_body_section(docx)
 
-    for section in body_data:
-        section_style_name = docx_utils.level_to_style(section['level'])
-        if section['title'] is not None:
-            docx_utils.add_heading_with_formatting(docx, section['title'], section_style_name, section['level'])
+    for section_data in body_data:
+        _render_body_section(docx, section_data)
 
-            for para in section['paragraphs']:
-                docx_utils.add_paragraph_with_formatting(docx, para)
-
-            for table in section['tables']:
-                docx_utils.add_table(docx, table)
-                # FIXME: enable/disable one-column or two-column page tables
-                #   1. enable the one-column mode
-                #       single_col_section = docx.add_section(WD_SECTION.CONTINUOUS)
-                #       setup_section_columns(single_col_section, 1, 0)
-                #   2. add the table itself
-                #   3. disable the one-column mode
-                #       multi_col_section = docx.add_section(WD_SECTION.CONTINUOUS)
-                #       setup_section_columns(multi_col_section, 2, TWO_COLUMNS_SPACING)
 
 def docx_references_pipe(
         docx, 
@@ -456,7 +423,7 @@ def docx_references_pipe(
     Returns:
         None
     """
-    docx_utils.add_heading_with_formatting(docx, title, section_style_name, 2)
+    docx_renderer.text.add_heading_with_formatting(docx, title, section_style_name, 2)
     for reference in references:
         paragraph = docx.add_paragraph(reference)
         paragraph.style = docx.styles[paragraph_style_name]
@@ -474,10 +441,10 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
     Returns:
         None
     """
-    docx_utils.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
+    docx_renderer.text.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
 
     for text in acknowledgement_paragraphs:
-        docx_utils.add_paragraph_with_formatting(docx, text)
+        docx_renderer.text.add_paragraph_with_formatting(docx, text)
 
 def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, section_style_name='SCL Section Title'):
     """
@@ -502,12 +469,93 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
     
     para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
     
-    docx_utils.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
+    docx_renderer.section.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
 
-    docx_utils.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
-    
+    docx_renderer.text.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
+
     for element in supplementary_data['elements']:
         if element['type'] == 'table':
-            docx_utils.add_table(docx, element['content'])
+            docx_renderer.table.add_table(docx, element['content'])
         elif element['type'] == 'text':
-            docx_utils.add_paragraph_with_formatting(docx, element['content'])
+            docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
+
+
+# -----------------
+# Private helpers
+# -----------------
+
+def _setup_two_column_body_section(docx):
+    """Create or get the second section and set it to two columns."""
+    section = docx_renderer.section.get_or_create_second_section(docx)
+    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+
+
+def _render_body_section(docx, section_data):
+    """Render a single body section including title, paragraphs, tables, and figures."""
+    level = section_data.get('level')
+    section_style_name = docx_renderer.style.level_to_style(level)
+
+    _render_section_title(docx, section_data.get('title'), section_style_name, level)
+    _render_paragraphs(docx, section_data.get('paragraphs', []))
+    _render_tables(docx, section_data.get('tables', []))
+    _render_figures(docx, section_data.get('figures', []))
+
+
+def _render_section_title(docx, title, style_name, level):
+    """Render section title if present."""
+    if title is not None:
+        docx_renderer.text.add_heading_with_formatting(docx, title, style_name, level)
+
+
+def _render_paragraphs(docx, paragraphs):
+    """Render a list of paragraphs with the default formatting for body text."""
+    for para in paragraphs:
+        docx_renderer.text.add_paragraph_with_formatting(docx, para)
+
+
+def _add_single_column_section(docx):
+    """Insert a continuous section break and set a single column layout. Returns the section."""
+    single_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
+    docx_renderer.section.setup_section_columns(single_col_section, 1, 0)
+    return single_col_section
+
+
+def _add_two_column_section(docx):
+    """Insert a continuous section break and set a two column layout. Returns the section."""
+    multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
+    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    return multi_col_section
+
+
+def _render_tables(docx, tables):
+    """Render tables, switching to single column when required by layout."""
+    for table in tables:
+        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+            _add_single_column_section(docx)
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            _add_two_column_section(docx)
+        else:
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+
+
+def _figure_layout(docx, fig):
+    """Resolve and cache figure layout if not provided."""
+    layout = fig.get('layout') if isinstance(fig, dict) else None
+    if not layout:
+        layout = docx_renderer.figure.decide_figure_layout(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+        if isinstance(fig, dict):
+            fig['layout'] = layout
+    return layout
+
+
+def _render_figures(docx, figures):
+    """Render figures, switching to single column when the layout requires it."""
+    for fig in figures:
+        layout = _figure_layout(docx, fig)
+
+        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+            _add_single_column_section(docx)
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            _add_two_column_section(docx)
+        else:
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
