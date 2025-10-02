@@ -1,3 +1,4 @@
+from packtools.sps.formats.pdf import enum as pdf_enum
 from packtools.sps.formats.pdf.utils import xml_utils
 
 
@@ -329,29 +330,56 @@ def extract_body_data(xml_tree):
         list: A list of dictionaries, where each dictionary represents a section in the body of the document. Each dictionary has the following keys:
             - 'level': The nesting level of the section.
             - 'title': The title of the section, if present.
-            - 'paragraphs': A list of the text content of each paragraph in the section, excluding paragraphs that contain table references or table wrappers.
+            - 'paragraphs': A list of the text content of each paragraph in the section, excluding paragraphs that contain table/figure references or wrappers.
             - 'tables': A list of dictionaries representing the tables in the section, as returned by the `extract_table_data` function.
+            - 'figures': A list of dictionaries representing figures in the section, as returned by the `extract_figure_data` function.
     """
     data = []
+    seen_fig_keys = set()
 
     for document_section in xml_tree.findall('.//sec'):
-        sec = {'paragraphs': [], 'tables': []}
+        sec = {'paragraphs': [], 'tables': [], 'figures': []}
         sec['level'] = xml_utils.get_node_level(document_section, xml_tree)
         sec['title'] = document_section.find('title')
 
         if sec['title'] is not None:
-            sec['title'] = sec['title'].text
-            for para in document_section.findall('p'):
-                has_table_ref = para.find('.//xref[@ref-type="table"]') is not None
-                has_table_wrap = para.find('.//table-wrap') is not None
+            sec['title'] = ''.join(sec['title'].itertext()).strip()
 
-                if not has_table_ref and not has_table_wrap:
-                    para_text = xml_utils.get_text_from_node(para)
-                    if para_text:
-                        sec['paragraphs'].append(para_text)
+        # Collect textual paragraphs but exclude figure/table elements
+        for para in document_section.findall('p'):
+            try:
+                # Get text nodes that are not inside fig or table-wrap
+                texts = para.xpath('.//text()[not(ancestor::fig) and not(ancestor::table-wrap)]')
+                para_text = ' '.join(' '.join(texts).split()).strip()
+            except Exception:
+                # Fallback to generic text extraction
+                para_text = xml_utils.get_text_from_node(para)
+            if para_text:
+                sec['paragraphs'].append(para_text)
 
-            for table_wrap in document_section.findall('.//table-wrap'):
-                sec['tables'].append(extract_table_data(table_wrap))
+        # Tables within the section
+        for table_wrap in document_section.findall('.//table-wrap'):
+            sec['tables'].append(extract_table_data(table_wrap))
+
+        # Figures within the section (deduplicated across the body)
+        for fig in document_section.findall('.//fig'):
+            # Build a deduplication key: prefer @id; fallback to first href found
+            fig_id = fig.get('id') or fig.get('xml:id')
+            href = None
+            g = fig.find('.//graphic')
+            if g is not None:
+                href = (
+                    g.get('{http://www.w3.org/1999/xlink}href')
+                    or g.get('xlink:href')
+                    or g.get('href')
+                )
+            key = fig_id or (href or '')
+            if key and key in seen_fig_keys:
+                continue
+            fig_data = extract_figure_data(fig)
+            sec['figures'].append(fig_data)
+            if key:
+                seen_fig_keys.add(key)
 
         data.append(sec)
     
