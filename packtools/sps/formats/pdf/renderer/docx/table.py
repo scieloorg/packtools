@@ -547,3 +547,107 @@ def _set_table_outer_borders(t, color='000000', size=8, space=0):
 		t_pr.append(borders)
 	except Exception:
 		pass
+
+
+# --------------
+# Private helpers: content utils
+# --------------
+
+def _norm(txt):
+	if txt is None:
+		return ''
+	return re.sub(r"\s+", " ", str(txt)).strip()
+
+def _first_non_empty_text(cells):
+	for c in cells:
+		t = _norm("".join(p.text for p in c.paragraphs) if c.paragraphs else c.text)
+		if t:
+			return t
+	return ''
+
+def _set_first_run_text(cell, text):
+	if not cell.paragraphs:
+		p = cell.add_paragraph()
+	else:
+		p = cell.paragraphs[0]
+	if not p.runs:
+		run = p.add_run()
+	else:
+		run = p.runs[0]
+		for i in range(len(p.runs) - 1, 0, -1):
+			r = p.runs[i]._element
+			r.getparent().remove(r)
+	run.text = _norm(text)
+
+def _cell_is_vmerge_continue(cell):
+	try:
+		tcPr = cell._element.get_or_add_tcPr()
+		vMerge = tcPr.find(qn('w:vMerge'))
+		if vMerge is None:
+			return False
+		val = vMerge.get(qn('w:val'))
+		return (val is None) or (val == 'continue')
+	except Exception:
+		return False
+
+def _row_is_fully_empty_with_vmerge(row):
+	all_empty = True
+	any_vmerge_continue = False
+	for c in row.cells:
+		txt = (c.text or '').strip()
+		if txt:
+			all_empty = False
+			break
+		if _cell_is_vmerge_continue(c):
+			any_vmerge_continue = True
+	return all_empty and any_vmerge_continue
+
+def _is_placeholder_text(txt):
+	if txt is None:
+		return True
+	s = txt.strip()
+	return s == '' or s in {'-', '–', '—', '−'}
+
+def _row_is_placeholder_only(row):
+	for c in row.cells:
+		if not _is_placeholder_text(c.text):
+			return False
+	return True
+
+def _make_table_full_width_floating(table, wrap_distance_twips=0):
+	"""Make the table floating (Around) and centered between page margins."""
+	try:
+		table.allow_autofit = False
+
+		tbl = table._element
+		tblPr = tbl.tblPr
+
+		existing_overlap = tblPr.find(qn('w:tblOverlap'))
+		if existing_overlap is not None:
+			tblPr.remove(existing_overlap)
+		tblOverlap = OxmlElement('w:tblOverlap')
+		tblOverlap.set(qn('w:val'), 'never')
+		tblPr.append(tblOverlap)
+
+		existing_tblpPr = tblPr.find(qn('w:tblpPr'))
+		if existing_tblpPr is not None:
+			tblPr.remove(existing_tblpPr)
+		tblpPr = OxmlElement('w:tblpPr')
+		tblpPr.set(qn('w:horzAnchor'), 'margin')
+		tblpPr.set(qn('w:vertAnchor'), 'paragraph')
+		tblpPr.set(qn('w:tblpXSpec'), 'center')
+
+		tw = str(int(wrap_distance_twips))
+		tblpPr.set(qn('w:leftFromText'), '0')
+		tblpPr.set(qn('w:rightFromText'), '0')
+		tblpPr.set(qn('w:topFromText'), tw)
+		tblpPr.set(qn('w:bottomFromText'), tw)
+		tblPr.append(tblpPr)
+
+		for r in table.rows:
+			trPr = r._tr.get_or_add_trPr()
+			if trPr.find(qn('w:cantSplit')) is None:
+				trPr.append(OxmlElement('w:cantSplit'))
+	except Exception:
+		pass
+
