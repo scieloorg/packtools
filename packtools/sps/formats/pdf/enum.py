@@ -29,3 +29,6 @@ SUPPORTED_STYLES = [
 # TWO_COLUMNS_SPACING is the space between two columns in twocolumn layout, measured in twips (1/20 of a point).
 # 300 twips = 15 points = ~5.29 mm
 TWO_COLUMNS_SPACING = 300
+
+SINGLE_COLUMN_PAGE_LABEL = 'single-column-layout'
+DOUBLE_COLUMN_PAGE_LABEL = 'double-column-layout'
