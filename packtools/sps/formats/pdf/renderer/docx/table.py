@@ -525,7 +525,7 @@ def _finalize_table_appearance(table):
 	_set_table_outer_borders(table, color='000000', size=8, space=0)
 
 def _set_table_outer_borders(t, color='000000', size=8, space=0):
-	"""Set table outer borders (top and botoom)"""
+	"""Set table outer borders (top and bottom)"""
 	try:
 		t_el = t._element
 		t_pr = t_el.tblPr
