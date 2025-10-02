@@ -382,7 +382,7 @@ def _set_table_width(table, table_width):
 		table.width = table_width
 
 def _disable_table_autofit(table):
-	"""Diable table autofit"""
+	"""Disable table autofit"""
 	try:
 		table.autofit = False
 		table.allow_autofit = False
