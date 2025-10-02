@@ -15,7 +15,7 @@ def pipeline_docx(xml_tree, data):
     Returns:
         A DOCX Document object.
     """
-    docx = docx_utils.init_docx(data)
+    docx = docx_renderer.builder.init_docx(data)
 
     # First page header
     journal_title = xml_pipe.extract_journal_title(xml_tree)
@@ -59,7 +59,7 @@ def pipeline_docx(xml_tree, data):
     docx_cite_as_pipe(docx, cite_as_part_one, journal_title, footer_data)
     docx_page_vol_issue_year_pipe(docx, footer_data)
 
-    # Next Pages footer
+    # Next pages footer
     docx_second_footer_pipe(docx, footer_data)
     
     # Main content
@@ -75,13 +75,13 @@ def pipeline_docx(xml_tree, data):
     references = map(xml_utils.get_text_from_mixed_citation_node, references_data['references'])
     docx_references_pipe(docx, references_data['title'], references)
 
-    # Supplementary Material
+    # Supplementary material
     supplementary_data = xml_pipe.extract_supplementary_data(xml_tree)
     if supplementary_data['elements']:
         docx_supplementary_material_pipe(docx, footer_data, supplementary_data)
 
     # Setting up sections
-    docx_utils.docx_setup_sections(docx)
+    docx_renderer.section.docx_setup_sections(docx)
     
     return docx
 
@@ -97,8 +97,8 @@ def docx_journal_title_pipe(docx, journal_title_text, style_name='SCL Journal Ti
     Returns:
         python-docx.Paragraph: The paragraph object containing the journal title text.
     """
-    first_page_header = docx_utils.get_first_page_header(docx)
-    para = docx_utils.get_first_paragraph(first_page_header)
+    first_page_header = docx_renderer.section.get_first_page_header(docx)
+    para = docx_renderer.text.get_first_paragraph(first_page_header)
 
     left_run = para.add_run(journal_title_text.replace(' ', '\n'))
     left_run.style = docx.styles[style_name]
@@ -123,8 +123,8 @@ def docx_doi_pipe(docx, doi_code, paragraph=None, style_name='SCL Header Paragra
     if paragraph:
         para = paragraph
     else:
-        first_page_header = docx_utils.get_first_page_header(docx)
-        para = docx_utils.get_first_paragraph(first_page_header)
+        first_page_header = docx_renderer.section.get_first_page_header(docx)
+        para = docx_renderer.text.get_first_paragraph(first_page_header)
 
     r = para.add_run(f'\t{doi_url}')
     r.style = docx.styles[style_name]
@@ -171,7 +171,7 @@ def docx_authors_pipe(docx, authors_names, paragraph_style_name='SCL Author', ch
     Returns:
         None
     """
-    docx_utils.add_authors_names_paragraph_with_formatting_sup(
+    docx_renderer.text.add_authors_names_paragraph_with_formatting_sup(
     docx, 
         authors_names,
         paragraph_style_name=paragraph_style_name,
@@ -193,7 +193,7 @@ def docx_affiliation_pipe(docx, affiliations, paragraph_style_name='SCL Affiliat
         None
     """
     for aff in affiliations:
-        docx_utils.add_text_paragraph_with_formatting_sup(
+        docx_renderer.text.add_text_paragraph_with_formatting_sup(
             docx, 
             aff, 
             paragraph_style_name=paragraph_style_name,
@@ -214,7 +214,7 @@ def docx_corresponding_pipe(docx, corresponding, paragraph_style_name='SCL Affil
     Returns:
         None
     """
-    docx_utils.add_text_paragraph_with_formatting_sup(
+    docx_renderer.text.add_text_paragraph_with_formatting_sup(
         docx,
         corresponding,
         paragraph_style_name=paragraph_style_name,
@@ -291,21 +291,21 @@ def docx_cite_as_pipe(
     """
     cite_as_part_two = f'{footer_data["volume"]}: {footer_data["fpage"]}-{footer_data["lpage"]}'
 
-    footer = docx_utils.get_first_page_footer(docx)
-    para = docx_utils.get_first_paragraph(footer)
+    footer = docx_renderer.section.get_first_page_footer(docx)
+    para = docx_renderer.text.get_first_paragraph(footer)
     para.style = docx.styles['SCL Paragraph Cite As']
 
     footer_style = docx.styles['SCL Paragraph Cite As Footer Char']
-    docx_utils.add_run_with_style(para, 'CITE AS: ', footer_style)
+    docx_renderer.style.add_run_with_style(para, 'CITE AS: ', footer_style)
 
     p1_style = docx.styles['SCL Paragraph Cite As Char']
-    docx_utils.add_run_with_style(para, cite_as_part_one, p1_style)
+    docx_renderer.style.add_run_with_style(para, cite_as_part_one, p1_style)
 
     journal_title_style = docx.styles['SCL Paragraph Cite As Journal Title Char']
-    docx_utils.add_run_with_style(para, f'{journal_title} ', journal_title_style)
+    docx_renderer.style.add_run_with_style(para, f'{journal_title} ', journal_title_style)
 
     p2_style = docx.styles['SCL Paragraph Cite As Char']
-    docx_utils.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
+    docx_renderer.style.add_run_with_style(para, f'{cite_as_part_two}.', p2_style)
 
 def docx_second_header_pipe(
         docx, 
@@ -328,7 +328,7 @@ def docx_second_header_pipe(
     Returns:
         None
     """
-    header = docx_utils.get_second_header(docx)
+    header = docx_renderer.section.get_second_header(docx)
     header.is_linked_to_previous = False
     para = header.add_paragraph()
     para.style = docx.styles[paragraph_header_style_name]
@@ -351,7 +351,7 @@ def docx_second_footer_pipe(docx, footer_data, paragraph_style_name='SCL Footer'
     Returns:
         None
     """
-    footer = docx_utils.get_second_footer(docx)
+    footer = docx_renderer.section.get_second_footer(docx)
 
     para = footer.paragraphs[0]
     para.style = docx.styles[paragraph_style_name]
@@ -395,7 +395,7 @@ def docx_page_vol_issue_year_pipe(docx, footer_data, paragraph_style_name='SCL F
     Returns:
         None
     """
-    footer = docx_utils.get_first_page_footer(docx)
+    footer = docx_renderer.section.get_first_page_footer(docx)
     para = footer.add_paragraph()
 
     para.style = docx.styles[paragraph_style_name]
@@ -454,7 +454,7 @@ def docx_references_pipe(
     Returns:
         None
     """
-    docx_utils.add_heading_with_formatting(docx, title, section_style_name, 2)
+    docx_renderer.text.add_heading_with_formatting(docx, title, section_style_name, 2)
     for reference in references:
         paragraph = docx.add_paragraph(reference)
         paragraph.style = docx.styles[paragraph_style_name]
@@ -472,10 +472,10 @@ def docx_acknowledgments_pipe(docx, acknowledgment_title, acknowledgement_paragr
     Returns:
         None
     """
-    docx_utils.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
+    docx_renderer.text.add_heading_with_formatting(docx, acknowledgment_title, paragraph_section_style_name, 2)
 
     for text in acknowledgement_paragraphs:
-        docx_utils.add_paragraph_with_formatting(docx, text)
+        docx_renderer.text.add_paragraph_with_formatting(docx, text)
 
 def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, section_style_name='SCL Section Title'):
     """
@@ -500,12 +500,13 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
     
     para.add_run(f" | VOL. {footer_data['volume']} ({footer_data['issue']}) {footer_data['year']}: {footer_data['fpage']}-{footer_data['lpage']}")
     
-    docx_utils.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
+    docx_renderer.section.setup_section_columns(section, 1, pdf_enum.TWO_COLUMNS_SPACING)
 
-    docx_utils.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
-    
+    docx_renderer.text.add_heading_with_formatting(docx, supplementary_data['title'], section_style_name, 2)
+
     for element in supplementary_data['elements']:
         if element['type'] == 'table':
-            docx_utils.add_table(docx, element['content'])
+            docx_renderer.table.add_table(docx, element['content'])
         elif element['type'] == 'text':
-            docx_utils.add_paragraph_with_formatting(docx, element['content'])
+            docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
+
