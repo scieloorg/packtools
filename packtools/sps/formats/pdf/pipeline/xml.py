@@ -737,3 +737,231 @@ def get_table_column_info(headers, rows):
         })
     
     return column_info
+
+
+# -----------------
+# Private helpers
+# -----------------
+
+def _extract_table_rows_with_merged_cells(table_section, cell_tag):
+    """
+    Extracts table rows handling merged cells (colspan/rowspan).
+    
+    Args:
+        table_section (ElementTree): The thead or tbody element.
+        cell_tag (str): The cell tag to look for ('td' or 'th').
+    
+    Returns:
+        list: A list of lists representing the table rows with merged cells properly handled.
+    """
+    rows = []
+    row_elements = table_section.findall('.//tr')
+    
+    if not row_elements:
+        return rows
+    
+    # Create a matrix to track occupied positions
+    max_cols = _calculate_max_columns(table_section, cell_tag)
+    occupied = [[False] * max_cols for _ in range(len(row_elements))]
+    
+    for row_idx, tr in enumerate(row_elements):
+        row_data = [''] * max_cols
+        col_idx = 0
+        
+        for cell in tr.findall(f'.//{cell_tag}'):
+            # Find next available column
+            while col_idx < max_cols and occupied[row_idx][col_idx]:
+                col_idx += 1
+            
+            if col_idx >= max_cols:
+                break
+                
+            # Get cell content
+            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
+            
+            # Get colspan and rowspan
+            colspan = int(cell.get('colspan', 1))
+            rowspan = int(cell.get('rowspan', 1))
+            
+            # Fill the cell and mark occupied positions
+            row_data[col_idx] = cell_text
+            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
+                for c in range(col_idx, min(col_idx + colspan, max_cols)):
+                    occupied[r][c] = True
+            
+            col_idx += colspan
+        
+        rows.append(row_data)
+    
+    return rows
+
+def _extract_table_spans(table_section, cell_tag):
+    """
+    Builds a grid describing cell spans (colspan/rowspan) for a table section.
+
+    Each entry is either None (no cell starts here) or a dict with keys:
+      - 'colspan': int
+      - 'rowspan': int
+      - 'text': str (cell text)
+
+    The grid has dimensions [number_of_rows][max_columns] where max_columns
+    takes into account merged cells.
+    """
+    spans = []
+    row_elements = table_section.findall('.//tr')
+    if not row_elements:
+        return spans
+
+    max_cols = _calculate_max_columns(table_section, cell_tag)
+    # Track occupied positions due to spans
+    occupied = [[False] * max_cols for _ in range(len(row_elements))]
+
+    for row_idx, tr in enumerate(row_elements):
+        row_spans = [None] * max_cols
+        col_idx = 0
+
+        for cell in tr.findall(f'.//{cell_tag}'):
+            # Advance to next free column
+            while col_idx < max_cols and occupied[row_idx][col_idx]:
+                col_idx += 1
+            if col_idx >= max_cols:
+                break
+
+            cell_text = ''.join(cell.itertext()).strip() if cell.text or len(list(cell)) > 0 else ''
+            colspan = int(cell.get('colspan', 1))
+            rowspan = int(cell.get('rowspan', 1))
+
+            row_spans[col_idx] = {
+                'colspan': colspan,
+                'rowspan': rowspan,
+                'text': cell_text,
+            }
+
+            for r in range(row_idx, min(row_idx + rowspan, len(row_elements))):
+                for c in range(col_idx, min(col_idx + colspan, max_cols)):
+                    occupied[r][c] = True
+
+            col_idx += colspan
+
+        spans.append(row_spans)
+
+    return spans
+
+def _calculate_max_columns(table_section, cell_tag):
+    """
+    Calculates the maximum number of columns in a table section, considering merged cells.
+    
+    Args:
+        table_section (ElementTree): The thead or tbody element.
+        cell_tag (str): The cell tag to look for ('td' or 'th').
+    
+    Returns:
+        int: The maximum number of columns.
+    """
+    max_cols = 0
+    
+    for tr in table_section.findall('.//tr'):
+        current_cols = 0
+        for cell in tr.findall(f'.//{cell_tag}'):
+            colspan = int(cell.get('colspan', 1))
+            current_cols += colspan
+        max_cols = max(max_cols, current_cols)
+    
+    return max_cols
+
+def _calculate_column_widths(headers, rows, min_width=50, max_width=200):
+    """
+    Calculates optimal column widths based on content length.
+    
+    Args:
+        headers (list): List of header rows.
+        rows (list): List of data rows.
+        min_width (int): Minimum column width in points. Defaults to 50.
+        max_width (int): Maximum column width in points. Defaults to 200.
+    
+    Returns:
+        list: A list of calculated column widths.
+    """
+    if not headers and not rows:
+        return []
+    
+    # Determine number of columns
+    num_cols = 0
+    if headers:
+        num_cols = max(num_cols, max(len(row) for row in headers) if headers else 0)
+    if rows:
+        num_cols = max(num_cols, max(len(row) for row in rows) if rows else 0)
+    
+    if num_cols == 0:
+        return []
+    
+    # Calculate max content length for each column
+    column_max_lengths = [0] * num_cols
+    
+    # Check headers
+    for header_row in headers:
+        for col_idx, cell_content in enumerate(header_row):
+            if col_idx < num_cols and cell_content:
+                column_max_lengths[col_idx] = max(
+                    column_max_lengths[col_idx], 
+                    _estimate_text_width(cell_content)
+                )
+    
+    # Check data rows
+    for data_row in rows:
+        for col_idx, cell_content in enumerate(data_row):
+            if col_idx < num_cols and cell_content:
+                column_max_lengths[col_idx] = max(
+                    column_max_lengths[col_idx], 
+                    _estimate_text_width(cell_content)
+                )
+    
+    # Apply min/max constraints and convert to points
+    column_widths = []
+    for max_length in column_max_lengths:
+        # Base calculation: approximately 6 points per character
+        base_width = max_length * 6
+        
+        # Apply constraints
+        width = max(min_width, min(base_width, max_width))
+        column_widths.append(width)
+    
+    # Normalize to ensure reasonable distribution
+    total_width = sum(column_widths)
+    if total_width > 500:  # If total is too wide, proportionally reduce
+        scaling_factor = 500 / total_width
+        column_widths = [int(width * scaling_factor) for width in column_widths]
+    
+    return column_widths
+
+def _estimate_text_width(text):
+    """
+    Estimates the display width of text content.
+    
+    Args:
+        text (str): The text to measure.
+    
+    Returns:
+        int: Estimated width in characters.
+    """
+    if not text:
+        return 0
+    
+    # Remove extra whitespace and count actual display characters
+    clean_text = ' '.join(text.split())
+    
+    # Account for different character widths (rough approximation)
+    width = 0
+    for char in clean_text:
+        if char.isupper():
+            width += 1.2  # Uppercase letters are typically wider
+        elif char.isdigit():
+            width += 1.0  # Numbers are consistent width
+        elif char in 'ijl':
+            width += 0.5  # These letters are narrower
+        elif char in 'mwMW':
+            width += 1.5  # These letters are wider
+        else:
+            width += 1.0  # Standard character width
+    
+    return int(width)
