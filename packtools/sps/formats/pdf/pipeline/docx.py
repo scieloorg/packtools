@@ -1,9 +1,7 @@
-from docx.oxml import OxmlElement, ns
-from docx.oxml.ns import qn
-
-from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
-from packtools.sps.formats.pdf.utils import docx_utils, xml_utils
 from packtools.sps.formats.pdf import enum as pdf_enum
+from packtools.sps.formats.pdf.pipeline import xml as xml_pipe
+from packtools.sps.formats.pdf.renderer import docx as docx_renderer
+from packtools.sps.formats.pdf.utils import xml_utils
 
 
 def pipeline_docx(xml_tree, data):
