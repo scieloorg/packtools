@@ -444,7 +444,7 @@ def _force_fixed_tbl_layout(tblPr):
 	tblPr.append(tblLayout)
 
 def _reset_alignment_props(tblPr):
-	"""Reset aligment properties"""
+	"""Reset alignment properties"""
 	existing_indent = tblPr.find(qn('w:tblInd'))
 	if existing_indent is not None:
 		tblPr.remove(existing_indent)
