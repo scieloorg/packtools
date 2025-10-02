@@ -7,7 +7,7 @@ NAMESPACES = {'xml': 'http://www.w3.org/XML/1998/namespace'}
 
 PAGE_ATTRIBUTES = {
     "top_margin": Cm(3.5), 
-    "left_margin": Cm(2), 
+    "left_margin": Cm(2),
     "right_margin": Cm(2), 
     "bottom_margin": Cm(2), 
     "header_distance": Cm(1), 
@@ -23,6 +23,7 @@ PAGE_ATTRIBUTES = {
 SUPPORTED_STYLES = [
     WD_STYLE_TYPE.CHARACTER,
     WD_STYLE_TYPE.PARAGRAPH,
+    WD_STYLE_TYPE.TABLE,
 ]
 
 TWO_COLUMNS_SPACING = 300
