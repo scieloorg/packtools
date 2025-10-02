@@ -390,7 +390,11 @@ def _disable_table_autofit(table):
 		pass
 
 def _set_tblW(tblPr, table_width):
-	"""Set """
+	"""Set the table width in the table properties XML element (tblPr) for a DOCX table.
+
+	Removes any existing width setting, converts the provided width to twips, and sets the
+	'w:tblW' element with the new width and type 'dxa'.
+	"""
 	try:
 		existing_tblW = tblPr.find(qn('w:tblW'))
 		if existing_tblW is not None:
