@@ -180,8 +180,10 @@ def _resolve_image_path(href, context):
     """Resolve the image path, handling local paths and remote URLs."""
     if not href:
         assets_dir = context.get('assets_dir')
-    
-    img_path = resolve_asset_path(href, assets_dir=assets_dir)
+        img_path = resolve_asset_path(href, assets_dir=assets_dir)
+    else:
+        img_path = href
+
     if isinstance(img_path, str) and (img_path.startswith('http://') or img_path.startswith('https://')):
         downloaded = download_remote_asset(img_path, context)
         if downloaded:
