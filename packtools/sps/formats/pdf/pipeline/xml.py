@@ -563,7 +563,7 @@ def extract_supplementary_data(xml_tree):
 
 def extract_table_data(table_wrap):
     """
-    Extracts table data from an XML table-wrap element.
+    Extracts table data from an XML table-wrap element, handling merged cells.
     
     Args:
         table_wrap (ElementTree): The XML table-wrap element to extract data from.
@@ -574,6 +574,8 @@ def extract_table_data(table_wrap):
             - 'title': The text content of the table title element, or an empty string if not found.
             - 'headers': A list of lists, where each inner list represents the text content of the table header cells.
             - 'rows': A list of lists, where each inner list represents the text content of the table data cells.
+            - 'layout': A string indicating the table layout ('single-column-layout' or 'double-column-layout').
+            - 'column_widths': A list of calculated column widths based on content.
     """
     table_label = table_wrap.find('.//label')
     label_text = table_label.text if table_label is not None else ""
@@ -584,14 +586,33 @@ def extract_table_data(table_wrap):
     headers = []
     rows = []
     table = table_wrap.find('.//table')
+    layout = determine_table_layout(table_wrap)
 
     if table is not None:
         thead = table.find('.//thead')
         if thead is not None:
-            headers = [[th.text for th in tr.findall('.//th')] for tr in thead.findall('.//tr')]
+            headers = _extract_table_rows_with_merged_cells(thead, 'th')
+            header_spans = _extract_table_spans(thead, 'th')
+        else:
+            header_spans = []
 
         tbody = table.find('.//tbody')
         if tbody is not None:
-            rows = [[td.text for td in tr.findall('.//td')] for tr in tbody.findall('.//tr')]
+            rows = _extract_table_rows_with_merged_cells(tbody, 'td')
+            row_spans = _extract_table_spans(tbody, 'td')
+        else:
+            row_spans = []
 
-    return {'label': label_text, 'title': title_text, 'headers': headers, 'rows': rows}
+    # Calculate column widths based on content
+    column_widths = _calculate_column_widths(headers, rows)
+    
+    return {
+        'label': label_text,
+        'title': title_text,
+        'headers': headers,
+        'rows': rows,
+        'layout': layout,
+        'column_widths': column_widths,
+        'header_spans': header_spans,
+        'row_spans': row_spans,
+    }
