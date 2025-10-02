@@ -510,3 +510,83 @@ def docx_supplementary_material_pipe(docx, footer_data, supplementary_data, sect
         elif element['type'] == 'text':
             docx_renderer.text.add_paragraph_with_formatting(docx, element['content'])
 
+
+# -----------------
+# Private helpers
+# -----------------
+
+def _setup_two_column_body_section(docx):
+    """Create or get the second section and set it to two columns."""
+    section = docx_renderer.section.get_or_create_second_section(docx)
+    docx_renderer.section.setup_section_columns(section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+
+
+def _render_body_section(docx, section_data):
+    """Render a single body section including title, paragraphs, tables, and figures."""
+    level = section_data.get('level')
+    section_style_name = docx_renderer.style.level_to_style(level)
+
+    _render_section_title(docx, section_data.get('title'), section_style_name, level)
+    _render_paragraphs(docx, section_data.get('paragraphs', []))
+    _render_tables(docx, section_data.get('tables', []))
+    _render_figures(docx, section_data.get('figures', []))
+
+
+def _render_section_title(docx, title, style_name, level):
+    """Render section title if present."""
+    if title is not None:
+        docx_renderer.text.add_heading_with_formatting(docx, title, style_name, level)
+
+
+def _render_paragraphs(docx, paragraphs):
+    """Render a list of paragraphs with the default formatting for body text."""
+    for para in paragraphs:
+        docx_renderer.text.add_paragraph_with_formatting(docx, para)
+
+
+def _add_single_column_section(docx):
+    """Insert a continuous section break and set a single column layout. Returns the section."""
+    single_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
+    docx_renderer.section.setup_section_columns(single_col_section, 1, 0)
+    return single_col_section
+
+
+def _add_two_column_section(docx):
+    """Insert a continuous section break and set a two column layout. Returns the section."""
+    multi_col_section = docx.add_section(pdf_enum.WD_SECTION.CONTINUOUS)
+    docx_renderer.section.setup_section_columns(multi_col_section, 2, pdf_enum.TWO_COLUMNS_SPACING)
+    return multi_col_section
+
+
+def _render_tables(docx, tables):
+    """Render tables, switching to single column when required by layout."""
+    for table in tables:
+        if table.get('layout') == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+            _add_single_column_section(docx)
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            _add_two_column_section(docx)
+        else:
+            docx_renderer.table.add_table(docx, table, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+
+
+def _figure_layout(docx, fig):
+    """Resolve and cache figure layout if not provided."""
+    layout = fig.get('layout') if isinstance(fig, dict) else None
+    if not layout:
+        layout = docx_renderer.figure.decide_figure_layout(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+        if isinstance(fig, dict):
+            fig['layout'] = layout
+    return layout
+
+
+def _render_figures(docx, figures):
+    """Render figures, switching to single column when the layout requires it."""
+    for fig in figures:
+        layout = _figure_layout(docx, fig)
+
+        if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
+            _add_single_column_section(docx)
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
+            _add_two_column_section(docx)
+        else:
+            docx_renderer.figure.add_figure(docx, fig, page_attributes=pdf_enum.PAGE_ATTRIBUTES)
