@@ -644,3 +644,96 @@ def determine_table_layout(table_wrap):
             return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
     
     return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
+
+def get_table_column_info(headers, rows):
+    """
+    Provides detailed information about table columns including content analysis.
+    
+    Args:
+        headers (list): List of header rows.
+        rows (list): List of data rows.
+    
+    Returns:
+        list: A list of dictionaries with column information including:
+            - 'index': Column index
+            - 'max_length': Maximum character length in the column
+            - 'avg_length': Average character length in the column
+            - 'content_type': Estimated content type ('numeric', 'text', 'mixed')
+            - 'suggested_width': Suggested width in points
+    """
+    if not headers and not rows:
+        return []
+    
+    # Determine number of columns
+    num_cols = 0
+    if headers:
+        num_cols = max(num_cols, max(len(row) for row in headers) if headers else 0)
+    if rows:
+        num_cols = max(num_cols, max(len(row) for row in rows) if rows else 0)
+    
+    column_info = []
+    
+    for col_idx in range(num_cols):
+        col_data = {
+            'index': col_idx,
+            'max_length': 0,
+            'total_length': 0,
+            'cell_count': 0,
+            'numeric_count': 0,
+            'text_count': 0
+        }
+        
+        # Analyze headers
+        for header_row in headers:
+            if col_idx < len(header_row) and header_row[col_idx]:
+                content = header_row[col_idx].strip()
+                if content:
+                    length = len(content)
+                    col_data['max_length'] = max(col_data['max_length'], length)
+                    col_data['total_length'] += length
+                    col_data['cell_count'] += 1
+                    col_data['text_count'] += 1
+        
+        # Analyze data rows
+        for data_row in rows:
+            if col_idx < len(data_row) and data_row[col_idx]:
+                content = data_row[col_idx].strip()
+                if content:
+                    length = len(content)
+                    col_data['max_length'] = max(col_data['max_length'], length)
+                    col_data['total_length'] += length
+                    col_data['cell_count'] += 1
+                    
+                    # Check if content is numeric
+                    try:
+                        float(content.replace(',', '.').replace('%', '').replace('$', '').strip())
+                        col_data['numeric_count'] += 1
+                    except ValueError:
+                        col_data['text_count'] += 1
+        
+        # Calculate averages and content type
+        avg_length = col_data['total_length'] / col_data['cell_count'] if col_data['cell_count'] > 0 else 0
+        
+        if col_data['numeric_count'] > col_data['text_count']:
+            content_type = 'numeric'
+        elif col_data['text_count'] > col_data['numeric_count']:
+            content_type = 'text'
+        else:
+            content_type = 'mixed'
+        
+        # Calculate suggested width
+        base_width = col_data['max_length'] * 6  # 6 points per character
+        if content_type == 'numeric':
+            suggested_width = max(50, min(base_width, 120))  # Narrower for numbers
+        else:
+            suggested_width = max(80, min(base_width, 200))  # Wider for text
+        
+        column_info.append({
+            'index': col_idx,
+            'max_length': col_data['max_length'],
+            'avg_length': round(avg_length, 1),
+            'content_type': content_type,
+            'suggested_width': suggested_width
+        })
+    
+    return column_info
