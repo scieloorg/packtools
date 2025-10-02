@@ -616,3 +616,31 @@ def extract_table_data(table_wrap):
         'header_spans': header_spans,
         'row_spans': row_spans,
     }
+
+def determine_table_layout(table_wrap):
+    """
+    Determines the layout of a table based on the number of columns it contains, considering merged cells.
+
+    Args:
+        table_wrap (ElementTree): The XML table-wrap element to analyze.
+
+    Returns:
+        str: A string indicating the table layout. Possible values are 'single-column-layout' and 'double-column-layout'.
+    """
+    table = table_wrap.find('.//table')
+    if table is not None:
+        # Check both thead and tbody for maximum columns
+        max_columns = 0
+        
+        thead = table.find('.//thead')
+        if thead is not None:
+            max_columns = max(max_columns, _calculate_max_columns(thead, 'th'))
+        
+        tbody = table.find('.//tbody')
+        if tbody is not None:
+            max_columns = max(max_columns, _calculate_max_columns(tbody, 'td'))
+        
+        if max_columns > 4:
+            return pdf_enum.SINGLE_COLUMN_PAGE_LABEL
+    
+    return pdf_enum.DOUBLE_COLUMN_PAGE_LABEL
