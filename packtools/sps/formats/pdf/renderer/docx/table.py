@@ -57,3 +57,101 @@ def add_table(docx, table_data, header_style_name='SCL Table Heading', page_attr
 	if layout == pdf_enum.SINGLE_COLUMN_PAGE_LABEL:
 		wrap_distance_twips = int(table_data.get('wrap_distance_twips', 0))
 		_make_table_full_width_floating(table, wrap_distance_twips=wrap_distance_twips)
+
+
+# -----------------
+# Private helpers: cell styling
+# -----------------
+
+def _prepare_cell_paragraph(cell):
+	"""Prepare the cell paragraph by removing excess paragraphs and returning the first one."""
+	paragraphs = cell.paragraphs
+	
+	for i in range(len(paragraphs) - 1, 0, -1):
+		p = paragraphs[i]._element
+		p.getparent().remove(p)
+
+	return cell.paragraphs[0]
+
+def _ensure_single_run(paragraph):
+	"""Ensure the paragraph has a single run, removing any extras, and return it."""
+	if len(paragraph.runs) == 0:
+		return paragraph.add_run()
+	
+	run = paragraph.runs[0]
+	
+	for i in range(len(paragraph.runs) - 1, 0, -1):
+		r = paragraph.runs[i]._element
+		r.getparent().remove(r)
+	
+	return run
+
+def _apply_run_font(run, bold=False, font_size=7, font_color=None):
+	"""Apply font styling to a run."""
+	font = run.font
+	font.bold = bold
+	font.size = Pt(font_size)
+
+	if font_color:
+		font.color.rgb = font_color
+
+def _apply_paragraph_spacing(paragraph):
+	"""Apply spacing to the paragraph."""
+	paragraph.space_before = Pt(0)
+	paragraph.space_after = Pt(0)
+	paragraph.line_spacing = 1.0
+	pf = paragraph.paragraph_format
+	pf.space_before = Pt(0)
+	pf.space_after = Pt(0)
+	pf.line_spacing = 1.0
+	pf.keep_together = True
+	pf.keep_with_next = False
+	pf.page_break_before = False
+	pf.widow_control = False
+	
+	try:
+		pPr = paragraph._element.get_or_add_pPr()
+		existing = pPr.find(qn('w:spacing'))
+		if existing is not None:
+			pPr.remove(existing)
+		spacing = OxmlElement('w:spacing')
+		spacing.set(qn('w:before'), '0')
+		spacing.set(qn('w:after'), '0')
+		spacing.set(qn('w:lineRule'), 'auto')
+		pPr.append(spacing)
+	except Exception:
+		pass
+
+def _apply_paragraph_alignment(paragraph, align):
+	"""Apply alignment to the paragraph."""
+	if align == 'center':
+		paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+	elif align == 'left':
+		paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+	elif align == 'right':
+		paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+def _apply_cell_background(cell, bg_color):
+	"""Apply background shading to the cell."""
+	shading_elm = OxmlElement('w:shd')
+	shading_elm.set(qn('w:fill'), bg_color)
+	cell._element.get_or_add_tcPr().append(shading_elm)
+
+def _apply_cell_margins(cell):
+	"""Apply zero margins to the cell."""
+	tc = cell._element
+	tcPr = tc.get_or_add_tcPr()
+	existing_spacing = tcPr.find(qn('w:tcMar'))
+
+	if existing_spacing is not None:
+		tcPr.remove(existing_spacing)
+
+	tcMar = OxmlElement('w:tcMar')
+
+	for margin_name in ['top', 'left', 'bottom', 'right']:
+		margin_elem = OxmlElement(f'w:{margin_name}')
+		margin_elem.set(qn('w:w'), '0')
+		margin_elem.set(qn('w:type'), 'dxa')
+		tcMar.append(margin_elem)
+
+	tcPr.append(tcMar)
