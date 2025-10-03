@@ -162,7 +162,6 @@ def get_xml_with_pre_from_zip_file(
             except Exception as e:
                 if not capture_errors:
                     raise GetXMLWithPreFromZipFileError(f"Error in {xml_sps_file_path}/{xml_file}")
-                    continue  
                 response["error"] = str(e)
                 response["type_error"] = type(e).__name__
                 yield response
