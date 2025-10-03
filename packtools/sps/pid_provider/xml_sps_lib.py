@@ -39,7 +39,7 @@ class GetXmlWithPreFromURIError(Exception): ...
 class GetXMLItemsError(Exception): ...
 
 
-class GetXMLItemsFromZipFileError(Exception): ...
+class GetXMLWithPreFromZipFileError(Exception): ...
 
 
 class XMLWithPreArticlePublicationDateError(Exception): ...
@@ -64,22 +64,14 @@ def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
     try:
         name, ext = os.path.splitext(xml_sps_file_path)
         if ext == ".zip":
-            return get_xml_items_from_zip_file(
+            return get_xml_with_pre_from_zip_file(
                 xml_sps_file_path, filenames, capture_errors
             )
         if ext == ".xml":
-            with open(xml_sps_file_path) as fp:
-                xml = get_xml_with_pre(fp.read())
-                xml.file_path = xml_sps_file_path
-                item = os.path.basename(xml_sps_file_path)
-            return [
-                {
-                    "filename": item,
-                    "xml_with_pre": xml,
-                    "files": [item],
-                    "filenames": [item],
-                }
-            ]
+            try:
+                return get_xml_with_pre_from_xml_file(xml_sps_file_path, "utf-8")
+            except GetXmlWithPreError as e:
+                return get_xml_with_pre_from_xml_file(xml_sps_file_path, "iso-8859-1")
 
         raise TypeError(
             _("{} must be xml file or zip file containing xml").format(
@@ -87,7 +79,6 @@ def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
             )
         )
     except Exception as e:
-        LOGGER.exception(e)
         if capture_errors:
             return [
                 {
@@ -103,7 +94,23 @@ def get_xml_items(xml_sps_file_path, filenames=None, capture_errors=None):
         )
 
 
-def get_xml_items_from_zip_file(
+def get_xml_with_pre_from_xml_file(xml_sps_file_path, encoding):
+    with open(xml_sps_file_path, encoding=encoding) as fp:
+        content = fp.read()
+    xml = get_xml_with_pre(content)
+    xml.file_path = xml_sps_file_path
+    item = os.path.basename(xml_sps_file_path)
+    return [
+        {
+            "filename": item,
+            "xml_with_pre": xml,
+            "files": [item],
+            "filenames": [item],
+        }
+    ]
+
+
+def get_xml_with_pre_from_zip_file(
     xml_sps_file_path, filenames=None, capture_errors=False
 ):
     """
@@ -127,53 +134,108 @@ def get_xml_items_from_zip_file(
     -----
     Yields errors as dicts instead of raising. Check for 'error' key.
     """
-    filenames = []
-    basenames = []
     try:
-        with ZipFile(xml_sps_file_path) as zf:
-            zip_files = zf.namelist()
-            check_files = filenames or zip_files
-            xml_files = (f for f in check_files if f.endswith(".xml"))
+        paths = []
+        basenames = []
 
-            if not xml_files:
-                raise TypeError(f"{xml_sps_file_path} has no XML files")
+        zip_data = get_xml_items_from_zip_file(
+            xml_sps_file_path, filenames,
+        )
+        xml_files = zip_data.get("xml_files")
+        if not xml_files:
+            raise TypeError(f"{xml_sps_file_path} has no XML files")
 
-            basenames = list(os.path.basename(n) for n in zip_files if n)
-            for xml_file in xml_files:
-                try:
-                    xml_with_pre = get_xml_with_pre(zf.read(xml_file).decode("utf-8"))
-                    xml_with_pre.zip_file_path = xml_sps_file_path
-                    yield {
-                        "filename": xml_file,
-                        "xml_with_pre": xml_with_pre,
-                        "files": check_files,
-                        "filenames": basenames,
-                    }
-                except Exception as e:
-                    if not capture_errors:
-                        LOGGER.exception(f"Error in {xml_sps_file_path}/{xml_file}")
+        paths = zip_data.get("paths")
+        basenames = zip_data.get("basenames")
+        
+        for basename, xml_file in xml_files:
+            try:
+                response = {
+                    "filename": xml_file,
+                    "files": paths,
+                    "filenames": basenames,
+                }
+                xml_with_pre = get_xml_with_pre_from_zip_file_component(xml_sps_file_path, xml_file)
+                xml_with_pre.zip_file_path = xml_sps_file_path
+                response["xml_with_pre"] = xml_with_pre
+                yield response
+            except Exception as e:
+                if not capture_errors:
+                    raise GetXMLWithPreFromZipFileError(f"Error in {xml_sps_file_path}/{xml_file}")
+                response["error"] = str(e)
+                response["type_error"] = type(e).__name__
+                yield response
 
-                    yield {
-                        "filename": xml_file,
-                        "files": check_files,
-                        "filenames": basenames,
-                        "error": str(e),
-                        "type_error": type(e).__name__,
-                    }
     except Exception as e:
-        LOGGER.exception(e)
         if not capture_errors:
-            raise GetXMLItemsFromZipFileError(
+            raise GetXMLWithPreFromZipFileError(
                 _("Unable to get xml items from zip file {}: {} {}").format(
                     xml_sps_file_path, type(e).__name__, e
                 )
             )
         yield {
-            "files": filenames,
+            "files": paths,
             "filenames": basenames,
             "error": str(e),
             "type_error": type(e).__name__,
         }
+
+
+def get_xml_items_from_zip_file(
+    xml_sps_file_path, filenames=None,
+):
+    """
+    Extract and process XML items from a ZIP file.
+
+    Parameters
+    ----------
+    xml_sps_file_path : str
+        Path to the ZIP file
+    filenames : list of str, optional
+        Specific files to process. If None, processes all files.
+
+    Yields
+    ------
+    dict
+        Success: {filename, xml_with_pre, files, filenames}
+        XML error: {filename, files, filenames, error, type_error}
+        ZIP error: {files, filenames, error, type_error}
+
+    Notes
+    -----
+    Yields errors as dicts instead of raising. Check for 'error' key.
+    """
+    basenames = []
+    zip_components = []
+    xml_files = []
+    with ZipFile(xml_sps_file_path) as zf:
+        zip_components = zf.namelist()
+        basenames = list(os.path.basename(n) for n in zip_components if n)
+
+        for item in zip_components:
+            if not item.endswith(".xml"):
+                continue
+
+            basename = os.path.basename(item)
+            if basename.startswith("."):
+                continue
+
+            if not filenames or basename in filenames:                    
+                xml_files.append((basename, item))
+    return {
+        "basenames": basenames,
+        "paths": zip_components,
+        "xml_files": xml_files,
+    }
+
+
+def get_xml_with_pre_from_zip_file_component(xml_sps_file_path, xml_file):
+    with ZipFile(xml_sps_file_path) as zf:
+        zf_read = zf.read(xml_file)
+        try:
+            return get_xml_with_pre(zf_read.decode("utf-8"))
+        except Exception as e:
+            return get_xml_with_pre(zf_read.decode("iso-8859-1"))
 
 
 def update_zip_file_xml(xml_sps_file_path, xml_file_path, content):
@@ -282,7 +344,7 @@ def get_xml_with_pre(xml_content):
         )
         try:
             return XMLWithPre(pref, etree.fromstring(xml))
-        except etree.XMLSyntaxError:
+        except etree.XMLSyntaxError as e:
             return XMLWithPre(pref, etree.fromstring(fix_pre_loading(xml)))
     except Exception as e:
         if xml_content:
@@ -320,7 +382,7 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
         if p >= 0:
             return xml_content[:p], xml_content[p:]
 
-    return "", xml_content
+    return "", xml_content.strip()
 
 
 class XMLWithPre:
