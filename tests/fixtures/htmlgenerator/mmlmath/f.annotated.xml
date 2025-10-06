@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ali="http://www.niso.org/schemas/ali/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" article-type="research-article" dtd-version="1.1" specific-use="sps-1.9" xml:lang="en">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="publisher-id">mr</journal-id>
+      <journal-title-group>
+        <journal-title>Materials Research</journal-title>
+        <abbrev-journal-title abbrev-type="publisher">Mat. Res.</abbrev-journal-title>
+      </journal-title-group>
+      <issn pub-type="ppub">1516-1439</issn>
+      <issn pub-type="epub">1980-5373</issn>
+      <publisher>
+        <publisher-name>ABM, ABC, ABPol</publisher-name>
+      </publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id specific-use="scielo-v3" pub-id-type="publisher-id">nnBRGz6Rc3nYKcyrLsDCLRt</article-id>
+      <article-id specific-use="scielo-v2" pub-id-type="publisher-id">S1516-14392022000100285</article-id>
+      <article-id pub-id-type="other">00285</article-id>
+      <article-id pub-id-type="doi">10.1590/1980-5373-MR-2021-0526</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Articles</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>Structure, Characteristics and Corrosion Behaviour of Gold Nanocoating Thin Film for Biomedical Applications</article-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author">
+          <contrib-id contrib-id-type="orcid">0000-0002-8406-0566</contrib-id>
+          <name>
+            <surname>Wadullah</surname>
+            <given-names>Haitham M.</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01">
+            <sup>a</sup>
+          </xref>
+          <xref ref-type="corresp" rid="c01">*</xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Ali</surname>
+            <given-names>Mohammed Hadi</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff02">
+            <sup>b</sup>
+          </xref>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Abdulrazzaq</surname>
+            <given-names>Tariq Khalid</given-names>
+          </name>
+          <xref ref-type="aff" rid="aff01">
+            <sup>a</sup>
+          </xref>
+        </contrib>
+        <aff id="aff01">
+          <label>a</label>
+          <institution content-type="orgname">Northern Technical University</institution>
+          <institution content-type="orgdiv1">Engineering Technical College</institution>
+          <addr-line>
+            <named-content content-type="city">Mosul</named-content>
+          </addr-line>
+          <country country="IQ">Iraq</country>
+          <institution content-type="original">Northern Technical University, Engineering Technical College, Mosul, Iraq.</institution>
+        </aff>
+        <aff id="aff02">
+          <label>b</label>
+          <institution content-type="orgname">Middle Technical University</institution>
+          <institution content-type="orgdiv1">AL-Suwaira Technical Institute</institution>
+          <addr-line>
+            <named-content content-type="city">Baghdad</named-content>
+          </addr-line>
+          <country country="IQ">Iraq</country>
+          <institution content-type="original">Middle Technical University, AL-Suwaira Technical Institute, Baghdad, Iraq.</institution>
+        </aff>
+      </contrib-group>
+      <author-notes>
+        <corresp id="c01"><label>*</label>e-mail: <email>haitham@ntu.edu.iq</email></corresp>
+      </author-notes>
+      <pub-date date-type="pub" publication-format="electronic">
+        <day>07</day>
+        <month>03</month>
+        <year>2022</year>
+      </pub-date>
+      <pub-date date-type="collection" publication-format="electronic">
+        <year>2022</year>
+      </pub-date>
+      <volume>25</volume>
+      <elocation-id>e20210526</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>10</day>
+          <month>10</month>
+          <year>2021</year>
+        </date>
+        <date date-type="rev-recd">
+          <day>11</day>
+          <month>02</month>
+          <year>2022</year>
+        </date>
+        <date date-type="accepted">
+          <day>13</day>
+          <month>02</month>
+          <year>2022</year>
+        </date>
+      </history>
+      <permissions>
+        <license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/" xml:lang="en">
+          <license-p>This is an Open Access article distributed under the terms of the <underline>Creative Commons Attribution License</underline>, which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.</license-p>
+        </license>
+      </permissions>
+      <abstract>
+        <p>Nanocoatings thin films are layers deposited to improve required properties and corrosion resistance as a major objective for materials that are used for various biomedical applications such as biosensors. In this study, Gold (Au) thin films with 50 nm and 100 nm have been synthesized on Ni-Cr-Mo alloys by magnetron sputtering deposition technique. X-Ray diffraction (XRD), Atomic Force Microscopy (AFM), and Energy-dispersive X-Ray spectroscopy /Scanning Electron Microscopy (EDS/SEM ) have been used to distinguish the surfaces morphology. The results showed that there is no defects or micro-cracks with a uniform and homogenous film. It has spherical nanoparticles diameter morphology with 200-400 nm shaped to fine aggregation. The roughness average (Ra) decreased from 3.91 nm for 50 nm films to 3.70 nm for 100nm films with FCC crystal structure (111) for gold thin films. In vivo, after 50 nm and 100 nm nanocoated thin film by gold, a significant improvement in the localized corrosion resistance has been obtained in artificial saliva corrosive media at 37 °C compared with the uncoated surface.</p>
+      </abstract>
+      <kwd-group xml:lang="en">
+        <title>Keywords:</title>
+        <kwd>Corrosion resistance</kwd>
+        <kwd>sputtering deposition process</kwd>
+        <kwd>gold thin films</kwd>
+        <kwd>Ni-Cr-Mo biomaterial alloy</kwd>
+      </kwd-group>
+      <counts>
+        <!-- SPS-ERROR: Element 'fig-count': Wrong value in fig-count. -->
+        <fig-count count="6"/>
+        <!-- SPS-ERROR: Element 'table-count': Wrong value in table-count. -->
+        <table-count count="4"/>
+        <!-- SPS-ERROR: Element 'equation-count': Wrong value in equation-count. -->
+        <equation-count count="2"/>
+        <!-- SPS-ERROR: Element 'ref-count': Wrong value in ref-count. -->
+        <ref-count count="21"/>
+      </counts>
+    </article-meta>
+  </front>
+  <body>
+    <!-- SPS-ERROR: No declaration for element math -->
+    <!-- SPS-ERROR: No declaration for attribute id of element math -->
+    <!-- SPS-ERROR: No declaration for element msqrt -->
+    <p>
+      <disp-formula id="e03"><math id="m3"><msqrt><!-- SPS-ERROR: No declaration for element mo --><mo> - </mo><!-- SPS-ERROR: No declaration for element mn --><mn> 1 </mn></msqrt></math>
+</disp-formula>
+    </p>
+    <p>
+
+      <disp-formula id="e01">
+        <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML" id="m1"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">D</mml:mi><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">=</mml:mo><mml:mfrac xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">γ</mml:mi><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msqrt xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">β</mml:mi><mml:mn xmlns:mml="http://www.w3.org/1998/Math/MathML">2</mml:mn></mml:msup><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">+</mml:mo><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML"> </mml:mo><mml:msubsup xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">β</mml:mi><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">s</mml:mi><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">t</mml:mi><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">d</mml:mi></mml:mrow><mml:mn xmlns:mml="http://www.w3.org/1998/Math/MathML">2</mml:mn></mml:msubsup><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML"> </mml:mo><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML"> </mml:mo><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">c</mml:mi><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">o</mml:mi><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">s</mml:mi><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">θ</mml:mi></mml:mrow></mml:msqrt></mml:mrow></mml:mfrac></mml:mrow></mml:math>
+        <label>(1)</label>
+      </disp-formula></p>
+    <p>
+<disp-formula id="e02"><mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML" id="m2"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">x</mml:mi><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">=</mml:mo><mml:mfrac xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">-</mml:mo><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">b</mml:mi></mml:mrow><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">±<!--PLUS-MINUS SIGN--></mml:mo><mml:msqrt xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">b</mml:mi><mml:mn xmlns:mml="http://www.w3.org/1998/Math/MathML">2</mml:mn></mml:msup><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">-</mml:mo><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mn xmlns:mml="http://www.w3.org/1998/Math/MathML">4</mml:mn><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">⁢<!--INVISIBLE TIMES--></mml:mo><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">a</mml:mi><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">⁢<!--INVISIBLE TIMES--></mml:mo><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">c</mml:mi></mml:mrow></mml:mrow></mml:msqrt></mml:mrow><mml:mrow xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mn xmlns:mml="http://www.w3.org/1998/Math/MathML">2</mml:mn><mml:mo xmlns:mml="http://www.w3.org/1998/Math/MathML">⁢<!--INVISIBLE TIMES--></mml:mo><mml:mi xmlns:mml="http://www.w3.org/1998/Math/MathML">a</mml:mi></mml:mrow></mml:mfrac></mml:mrow></mml:math>
+</disp-formula></p>
+  </body>
+</article>
