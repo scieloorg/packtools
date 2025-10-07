@@ -5,13 +5,14 @@ Este módulo contém funções utilitárias para corrigir problemas
 comuns em documentos XML, especialmente para conformidade com SPS.
 """
 import logging
-from lxml import etree
 from typing import List, Dict
+
+from lxml import etree
 
 logger = logging.getLogger(__name__)
 
 
-def fix_inline_graphic_in_caption_and_label(xmltree):
+def fix_inline_graphic_in_caption_and_label(xmltree: etree._Element) -> List[Dict[str, str]]:
     """
     Corrige elementos inline-graphic incorretamente posicionados dentro de caption ou label.
     
