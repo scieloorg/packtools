@@ -321,7 +321,7 @@ class FulltextDates(Fulltext):
             _dates.append(self.epub_date)
         return _dates
 
-    @property
+    @cached_property
     def history_dates(self):
         try:
             for node in self.front.xpath(".//history//date"):
