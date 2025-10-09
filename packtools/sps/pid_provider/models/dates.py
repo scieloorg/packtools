@@ -1,4 +1,5 @@
-from functools import lru_cache
+from datetime import date
+from functools import lru_cache, cached_property
 
 """<article>
 <front>
@@ -27,14 +28,41 @@ from functools import lru_cache
   </front>
 </article>
 """
+@lru_cache(maxsize=200)
+def format_date(year=None, month=None, day=None, **kwargs) -> str:
+    """
+    Formata uma data de artigo para o formato YYYY-MM-DD.
+    
+    Args:
+        year: Ano como string ou int
+        month: Mês como string ou int
+        day: Dia como string ou int
+        
+    Returns:
+        String formatada no padrão YYYY-MM-DD
+        
+    Raises:
+        XMLWithPreArticlePublicationDateError: Se a data for inválida
+    """
+    try:
+        # Valida a data criando um objeto date
+        d = date(int(year), int(month), int(day))
+        
+        # Retorna a string formatada
+        return f"{year}-{str(month).zfill(2)}-{str(day).zfill(2)}"
+        
+    except (ValueError, TypeError) as e:
+        raise XMLWithPreArticlePublicationDateError(
+            f"Unable to format_date "
+            f"year={year}, month={month}, day={day}: {type(e).__name__}: {e}"
+        )
 
 
 class Date:
     def __init__(self, node):
         self.node = node
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def date_type(self):
         # Normaliza tipos legados
         date_type = self.node.get("date-type")
@@ -46,8 +74,7 @@ class Date:
                 return "pub"
             return "collection"
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def data(self):
         _d = {
             name: value
@@ -56,6 +83,10 @@ class Date:
         }
         _d["type"] = self.date_type
         return _d
+
+    @cached_property
+    def isoformat(self):
+        return format_date(**self.data)
 
 
 class ArticleDates:
@@ -83,12 +114,29 @@ class ArticleDates:
             return None
 
     @property
-    @lru_cache(maxsize=1)
+    def article_date_isoformat(self):
+        return format_date(**self.article_date)
+
+    @property
+    def article_year(self):
+        try:
+            return self.article_date["year"]
+        except KeyError:
+            return None
+
+    @cached_property
+    def collection_year(self):
+        try:
+            return self.collection_date["year"]
+        except KeyError:
+            return None
+
+    @cached_property
     def collection_date(self):
         try:
             # XPath direto para pub-date com date-type="collection" ou pub-type="epub-ppub"
             nodes = self.xmltree.xpath(
-                './/front//pub-date[@date-type="collection" or @pub-type="epub-ppub"]'
+                ".//front//pub-date[@date-type='collection' or @pub-type='epub-ppub' or @pub-type='collection']"
             )
             return Date(nodes[0]).data
         except IndexError:
