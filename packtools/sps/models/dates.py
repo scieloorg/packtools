@@ -4,6 +4,10 @@ from functools import lru_cache, cached_property
 from packtools.sps.models.article_and_subarticles import Fulltext
 
 
+class XMLWithPreArticlePublicationDateError(Exception):
+    ...
+
+
 @lru_cache(maxsize=200)
 def format_date(year=None, month=None, day=None, **kwargs) -> str:
     """

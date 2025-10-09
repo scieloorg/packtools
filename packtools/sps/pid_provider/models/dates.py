@@ -28,6 +28,10 @@ from functools import lru_cache, cached_property
   </front>
 </article>
 """
+class XMLWithPreArticlePublicationDateError(Exception):
+    ...
+
+
 @lru_cache(maxsize=200)
 def format_date(year=None, month=None, day=None, **kwargs) -> str:
     """

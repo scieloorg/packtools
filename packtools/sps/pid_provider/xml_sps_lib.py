@@ -21,7 +21,7 @@ from packtools.sps.pid_provider.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 from packtools.sps.pid_provider.models.article_renditions import ArticleRenditions
 from packtools.sps.pid_provider.models.body import Body
-from packtools.sps.pid_provider.models.dates import ArticleDates, format_date
+from packtools.sps.pid_provider.models.dates import ArticleDates, format_date, XMLWithPreArticlePublicationDateError
 from packtools.sps.pid_provider.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.pid_provider.models.journal_meta import ISSN, Acronym, Title
 from packtools.sps.pid_provider.models.related_articles import RelatedItems
