@@ -1,6 +1,6 @@
 import hashlib
 import logging
-from functools import lru_cache
+from functools import lru_cache, cached_property
 
 
 LOGGER = logging.getLogger(__name__)
@@ -15,8 +15,7 @@ class PidProviderXMLAdapter:
     def tostring(self, pretty_print=False):
         return self.xml_with_pre.tostring(pretty_print=pretty_print)
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def sps_pkg_name(self):
         return self.xml_with_pre.sps_pkg_name
 
@@ -24,23 +23,19 @@ class PidProviderXMLAdapter:
     def finger_print(self):
         return self.xml_with_pre.finger_print
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def related_items(self):
         return self.xml_with_pre.related_items
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def journal_issn_electronic(self):
         return self.xml_with_pre.journal_issn_electronic
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def journal_issn_print(self):
         return self.xml_with_pre.journal_issn_print
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def v2_prefix(self):
         # S + ISSN + YEAR ou 14 primeiros dígitos do pid clássico
         return self.xml_with_pre.v2_prefix
@@ -51,18 +46,15 @@ class PidProviderXMLAdapter:
         # NÃO pode ter cache pois tem setter
         return self.xml_with_pre.order
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def volume(self):
         return self.xml_with_pre.volume
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def number(self):
         return self.xml_with_pre.number
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def suppl(self):
         return self.xml_with_pre.suppl
 
@@ -74,38 +66,31 @@ class PidProviderXMLAdapter:
     def article_pub_year(self):
         return self.xml_with_pre.article_pub_year
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def main_doi(self):
         return self.xml_with_pre.main_doi
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def main_toc_section(self):
         return self.xml_with_pre.main_toc_section
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def is_aop(self):
         return self.xml_with_pre.is_aop
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def elocation_id(self):
         return self.xml_with_pre.elocation_id
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def fpage(self):
         return self.xml_with_pre.fpage
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def fpage_seq(self):
         return self.xml_with_pre.fpage_seq
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def lpage(self):
         return self.xml_with_pre.lpage
 
@@ -140,18 +125,15 @@ class PidProviderXMLAdapter:
     def order(self, value):
         self.xml_with_pre.order = value
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_links(self):
         return _str_with_64_char("|".join(self.xml_with_pre.links))
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_collab(self):
         return _str_with_64_char(self.xml_with_pre.collab)
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_surnames(self):
         return _str_with_64_char(
             "|".join(
@@ -162,20 +144,17 @@ class PidProviderXMLAdapter:
             )
         )
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_article_titles_texts(self):
         return _str_with_64_char(
             "|".join(sorted(self.xml_with_pre.article_titles_texts or []))
         )
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_partial_body(self):
         return _str_with_64_char(self.xml_with_pre.partial_body)
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def z_journal_title(self):
         return _str_with_64_char(self.xml_with_pre.journal_title)
 
@@ -261,8 +240,7 @@ class PidProviderXMLAdapter:
                 continue
         return _params
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def query_list(self):
         items = []
         if self.is_aop:

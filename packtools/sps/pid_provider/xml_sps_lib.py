@@ -2,7 +2,7 @@ import hashlib
 import logging
 import os
 from datetime import date
-from functools import lru_cache
+from functools import lru_cache, cached_property
 from gettext import gettext as _
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -21,7 +21,7 @@ from packtools.sps.pid_provider.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 from packtools.sps.pid_provider.models.article_renditions import ArticleRenditions
 from packtools.sps.pid_provider.models.body import Body
-from packtools.sps.pid_provider.models.dates import ArticleDates
+from packtools.sps.pid_provider.models.dates import ArticleDates, format_date, XMLWithPreArticlePublicationDateError
 from packtools.sps.pid_provider.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.pid_provider.models.journal_meta import ISSN, Acronym, Title
 from packtools.sps.pid_provider.models.related_articles import RelatedItems
@@ -220,7 +220,7 @@ def get_xml_items_from_zip_file(
             if basename.startswith("."):
                 continue
 
-            if not filenames or basename in filenames:                    
+            if not filenames or basename in filenames:
                 xml_files.append((basename, item))
     return {
         "basenames": basenames,
@@ -487,8 +487,7 @@ class XMLWithPre:
         except (ValueError, IndexError):
             return
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def sps_version(self):
         try:
             return self.xmltree.find(".").get("specific-use")
@@ -505,8 +504,7 @@ class XMLWithPre:
                 zip_content = fp.read()
         return zip_content
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def sps_pkg_name_suffix(self):
         if self.elocation_id:
             return self.elocation_id
@@ -522,16 +520,14 @@ class XMLWithPre:
                 doi = doi[doi.rfind("/") + 1 :]
             return doi.replace(".", "-")
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def alternative_sps_pkg_name_suffix(self):
         try:
             return self.v2[-5:]
         except TypeError:
             return self.filename
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def sps_pkg_name(self):
         """Cache do nome do pacote SPS que é usado frequentemente"""
         try:
@@ -552,8 +548,7 @@ class XMLWithPre:
         ]
         return "-".join([part for part in parts if part])
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def article_id_parent(self):
         """
         Retorna o nó pai dos elementos article-id (v2, v3, aop_pid)
@@ -586,13 +581,11 @@ class XMLWithPre:
         if aop_pid:
             self.article_ids.aop_pid = aop_pid
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def related_items(self):
         return RelatedItems(self.xmltree).related_articles
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def links(self):
         # Ha casos de related-article sem href
         # <related-article id="pr03" related-article-type="press-release" specific-use="processing-only"/>
@@ -633,9 +626,6 @@ class XMLWithPre:
         try:
             node = self.xmltree.xpath('.//article-id[@pub-id-type="other"]')[0]
         except IndexError:
-            node = None
-
-        if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "other")
             parent = self.article_id_parent
@@ -653,8 +643,6 @@ class XMLWithPre:
         try:
             node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v2"]')[0]
         except IndexError:
-            node = None
-        if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "publisher-id")
             node.set("specific-use", "scielo-v2")
@@ -673,16 +661,12 @@ class XMLWithPre:
         try:
             node = self.xmltree.xpath('.//article-id[@specific-use="scielo-v3"]')[0]
         except IndexError:
-            node = None
-
-        if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "publisher-id")
             node.set("specific-use", "scielo-v3")
             parent = self.article_id_parent
             parent.insert(1, node)
-        if node is not None:
-            node.text = value
+        node.text = value
 
     @aop_pid.setter
     def aop_pid(self, value):
@@ -698,16 +682,12 @@ class XMLWithPre:
                 '@pub-id-type="publisher-id"]'
             )[0]
         except IndexError:
-            node = None
-
-        if node is None:
             node = etree.Element("article-id")
             node.set("pub-id-type", "publisher-id")
             node.set("specific-use", "previous-pid")
             parent = self.article_id_parent
             parent.insert(1, node)
-        if node is not None:
-            node.text = value
+        node.text = value
 
     @property
     def v2_prefix(self):
@@ -715,20 +695,17 @@ class XMLWithPre:
             f"S{self.journal_issn_electronic or self.journal_issn_print}{self.pub_year}"
         )
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def article_doi_with_lang(self):
         # [{"lang": "en", "value": "DOI"}]
         return DoiWithLang(self.xmltree).data
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def main_doi(self):
         # [{"lang": "en", "value": "DOI"}]
         return DoiWithLang(self.xmltree).main_doi
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def main_toc_section(self):
         """
         <subj-group subj-group-type="heading">
@@ -739,14 +716,12 @@ class XMLWithPre:
         if node is not None:
             return node.findtext("./subject")
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def issns(self):
         # [{"type": "epub", "value": "1234-9876"}]
         return {item["type"]: item["value"] for item in ISSN(self.xmltree).data}
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def is_aop(self):
         if self.volume:
             try:
@@ -762,60 +737,46 @@ class XMLWithPre:
             return False
         return True
 
-    @property
+    @cached_property
     def article_meta_issue(self):
         # artigos podem ser publicados sem estarem associados a um fascículo
         # Neste caso, não há volume, número, suppl, fpage, fpage_seq, lpage
         # Mas deve ter ano de publicação em qualquer caso
         return ArticleMetaIssue(self.xmltree)
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def volume(self):
         return self.article_meta_issue.volume
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def number(self):
         return self.article_meta_issue.number
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def suppl(self):
         return self.article_meta_issue.suppl
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def fpage(self):
         return self.article_meta_issue.fpage
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def fpage_seq(self):
         return self.article_meta_issue.fpage_seq
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def lpage(self):
         return self.article_meta_issue.lpage
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def elocation_id(self):
         return self.article_meta_issue.elocation_id
 
-    @property
+    @cached_property
     def pub_year(self):
-        try:
-            return (
-                ArticleMetaIssue(self.xmltree).collection_date.get("year")
-                or self.article_pub_year
-            )
-        except AttributeError:
-            return None
+        return self.collection_pub_year or self.article_pub_year
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def authors(self):
         authors_dict = {}
         names = []
@@ -848,8 +809,7 @@ class XMLWithPre:
             "collab": collab,
         }
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def article_titles(self):
         # list of dict which keys are lang and text
         xpath = "|".join(
@@ -868,8 +828,7 @@ class XMLWithPre:
             titles.append(title)
         return sorted(titles)
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def partial_body(self):
         try:
             body = Body(self.xmltree)
@@ -880,25 +839,21 @@ class XMLWithPre:
             pass
         return None
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def collab(self):
         return self.authors.get("collab")
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def journal_title(self):
         return Title(self.xmltree).journal_title
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def journal_issn_print(self):
         # list of dict which keys are
         # href, ext-link-type, related-article-type
         return self.issns.get("ppub")
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def journal_issn_electronic(self):
         # list of dict which keys are
         # href, ext-link-type, related-article-type
@@ -907,23 +862,11 @@ class XMLWithPre:
     @property
     def article_publication_date(self):
         # ("year", "month", "season", "day")
-        _date = ArticleDates(self.xmltree).article_date
-        if _date:
-            try:
-                d = date(
-                    int(_date["year"]),
-                    int(_date["month"]),
-                    int(_date["day"]),
-                )
-            except (ValueError, TypeError, KeyError) as e:
-                raise XMLWithPreArticlePublicationDateError(
-                    _(
-                        "Unable to get XMLWithPre.article_publication_date {} {} {}"
-                    ).format(_date, type(e), e)
-                )
-            else:
-                return f"{_date['year']}-{_date['month'].zfill(2)}-{_date['day'].zfill(2)}"
-        return None
+        try:
+            return ArticleDates(self.xmltree).article_date_isoformat
+        except Exception as e:
+            logging.exception(e)
+            return self.pub_year
 
     @article_publication_date.setter
     def article_publication_date(self, value):
@@ -931,15 +874,15 @@ class XMLWithPre:
         value : dict (keys: year, month, day)
         """
         try:
-            node = self.xmltree.xpath(".//article-meta//pub-date[@date-type='pub']")[0]
+            formatted = format_date(**value)
+        except XMLWithPreArticlePublicationDateError:
+            raise ValueError(f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required")
+
+        try:
+            node = self.xmltree.xpath(
+                ".//article-meta//pub-date[@date-type='pub' or @pub-type='epub']"
+            )[0]
         except IndexError:
-            try:
-                node = self.xmltree.xpath(
-                    ".//article-meta//pub-date[@pub-type='epub']"
-                )[0]
-            except IndexError:
-                node = None
-        if node is None:
             node = etree.Element("pub-date")
             node.set("date-type", "pub")
             node.set("publication-format", "electronic")
@@ -956,37 +899,35 @@ class XMLWithPre:
                 "article-version",
                 "article-id",
             )
+            articlemeta_node = self.xmltree.find(".//article-meta")
             for sibling_name in pub_date_preceding_siblings:
                 try:
-                    self.xmltree.find(f".//article-meta/{sibling_name}").addnext(node)
+                    articlemeta_node.find(sibling_name).addnext(node)
                     break
                 except AttributeError:
                     continue
 
-        if node is not None:
-            try:
-                numbers = {k: int(v) for k, v in value.items()}
-                d = date(numbers.get("year"), numbers.get("month"), numbers.get("day"))
-            except (ValueError, TypeError):
-                raise ValueError(f"Unable to set {value} to article publcation date")
-
-            for name, max_length in zip(("day", "month", "year"), (2, 2, 4)):
-                elem = node.find(name)
-                if elem is None:
-                    elem = etree.Element(name)
-                    node.append(elem)
-                elem.text = str(numbers[name]).zfill(max_length)
+        previous = None
+        for name, val in zip(("day", "month", "year"), reversed(formatted.split("-"))):
+            elem = node.find(name)
+            if elem is None:
+                elem = etree.Element(name)
+                if previous is None:
+                    node.insert(0, elem)
+                else:
+                    previous.addnext(elem)
+            elem.text = val
+            previous = elem
 
     @property
     def article_pub_year(self):
-        # ("year", "month", "season", "day")
-        try:
-            return ArticleDates(self.xmltree).article_date["year"]
-        except (ValueError, TypeError, KeyError) as e:
-            return self.pub_year
+        return ArticleDates(self.xmltree).article_year
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
+    def collection_pub_year(self):
+        return ArticleDates(self.xmltree).collection_year
+
+    @cached_property
     def article_titles_texts(self):
         return self.article_titles
 
@@ -999,13 +940,11 @@ class XMLWithPre:
         else:
             return generate_finger_print(self.tostring(pretty_print=self.pretty_print))
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def main_lang(self):
         return ArticleAndSubArticles(self.xmltree).main_lang
 
-    @property
-    @lru_cache(maxsize=1)
+    @cached_property
     def langs(self):
         for item in ArticleAndSubArticles(self.xmltree).data:
             yield item["lang"]

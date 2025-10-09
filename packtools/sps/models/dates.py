@@ -1,6 +1,41 @@
 from datetime import date
+from functools import lru_cache, cached_property
 
 from packtools.sps.models.article_and_subarticles import Fulltext
+
+
+class XMLWithPreArticlePublicationDateError(Exception):
+    ...
+
+
+@lru_cache(maxsize=200)
+def format_date(year=None, month=None, day=None, **kwargs) -> str:
+    """
+    Formata uma data de artigo para o formato YYYY-MM-DD.
+    
+    Args:
+        year: Ano como string ou int
+        month: Mês como string ou int
+        day: Dia como string ou int
+        
+    Returns:
+        String formatada no padrão YYYY-MM-DD
+        
+    Raises:
+        XMLWithPreArticlePublicationDateError: Se a data for inválida
+    """
+    try:
+        # Valida a data criando um objeto date
+        d = date(int(year), int(month), int(day))
+        
+        # Retorna a string formatada
+        return f"{year}-{str(month).zfill(2)}-{str(day).zfill(2)}"
+        
+    except (ValueError, TypeError) as e:
+        raise XMLWithPreArticlePublicationDateError(
+            f"Unable to format_date "
+            f"year={year}, month={month}, day={day}: {type(e).__name__}: {e}"
+        )
 
 
 class Date:
@@ -97,6 +132,13 @@ class Date:
         except (ValueError, TypeError):
             return None
 
+    @property
+    def isoformat(self):
+        try:
+            return self.date.isoformat()
+        except (ValueError, TypeError):
+            return None
+
 
 class XMLDates:
     """High-level interface to access article dates.
@@ -182,9 +224,7 @@ class FulltextDates(Fulltext):
             xlink:href="10.1590/0101-3173.2022.v45n1.p139"
         >Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. <bold>Trans/form/ação</bold>: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</related-article>
         """
-        for node in self.node.xpath(
-            "front//related-article | front-stub//related-article | body//related-article | back//related-article"
-        ):
+        for node in self.node.xpath(".//related-article"):
             yield {
                 "related-article-type": node.get("related-article-type"),
                 "xlink_href": node.get("{http://www.w3.org/1999/xlink}href"),
@@ -236,42 +276,38 @@ class FulltextDates(Fulltext):
         for item in self.not_translations:
             yield from item.items
 
-    @property
+    @cached_property
     def epub_date_model(self):
-        if not hasattr(self, "_epub_date_model"):
-            try:
-                node = self.front.xpath(
-                    ".//pub-date[@date-type='pub'] | .//pub-date[@pub-type='epub']"
-                )[0]
-            except (IndexError, AttributeError):
-                self._epub_date_model = None
-            else:
-                self._epub_date_model = Date(node)
-        return self._epub_date_model
+        try:
+            node = self.front.xpath(
+                ".//pub-date[@date-type='pub' or @pub-type='epub']"
+            )[0]
+        except (IndexError, AttributeError):
+            return None
+        else:
+            return Date(node)
 
-    @property
+    @cached_property
     def epub_date(self):
         try:
             return self.epub_date_model.data
         except AttributeError:
             return None
 
-    @property
+    @cached_property
     def article_date(self):
         return self.epub_date
 
-    @property
+    @cached_property
     def collection_date_model(self):
-        if not hasattr(self, "_collection_model"):
-            try:
-                node = self.front.xpath(
-                    ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub'] | .//pub-date[@pub-type='collection']"
-                )[0]
-            except (IndexError, AttributeError):
-                self._collection_model = None
-            else:
-                self._collection_model = Date(node)
-        return self._collection_model
+        try:
+            node = self.front.xpath(
+                ".//pub-date[@date-type='collection' or @pub-type='epub-ppub' or @pub-type='collection']"
+            )[0]
+        except (IndexError, AttributeError):
+            return None
+        else:
+            return Date(node)
 
     @property
     def collection_date(self):
@@ -289,7 +325,7 @@ class FulltextDates(Fulltext):
             _dates.append(self.epub_date)
         return _dates
 
-    @property
+    @cached_property
     def history_dates(self):
         try:
             for node in self.front.xpath(".//history//date"):
@@ -297,7 +333,7 @@ class FulltextDates(Fulltext):
         except AttributeError:
             return
 
-    @property
+    @cached_property
     def history_dates_list(self):
         """Get article history dates as a list.
 
@@ -315,7 +351,7 @@ class FulltextDates(Fulltext):
         """
         return [item for item in self.history_dates]
 
-    @property
+    @cached_property
     def history_dates_dict(self):
         """Get article history dates as a dictionary.
 
@@ -336,7 +372,7 @@ class FulltextDates(Fulltext):
             _dates[event_date["type"]] = event_date
         return _dates
 
-    @property
+    @cached_property
     def ordered_events(self):
         obtained_events = [
             (k, item["display"]) for k, item in self.history_dates_dict.items()
@@ -344,7 +380,7 @@ class FulltextDates(Fulltext):
         # ordena a lista de eventos de forma cronológica
         return [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
 
-    @property
+    @cached_property
     def date_types_ordered_by_date(self):
         # obtem uma lista com os nomes dos eventos ordenados
         return [event[0] for event in self.ordered_events]
