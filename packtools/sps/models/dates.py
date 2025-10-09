@@ -89,10 +89,7 @@ class Date:
             {'year': '2024', 'month': '01', 'day': '15'}
         """
         _date = {}
-        for name in ("year", "month", "season", "day"):
-            value = self.node.findtext(name)
-            if value:
-                _date[name] = value
+        _date.update(self.parts)
         _date["type"] = self.type
         _date["display"] = self.display
         _date["is_complete"] = bool(self.date)
@@ -100,21 +97,16 @@ class Date:
         return _date
 
     def __str__(self):
-        return self.display or str({"year": self.year, "month": self.month, "day": self.day})
+        return self.display or str(self.parts)
 
-    @property
+    @cached_property
     def parts(self):
         return {"year": self.year, "season": self.season, "month": self.month, "day": self.day}
     
-    @property
+    @cached_property
     def display(self):
         if self.season:
             return "/".join([item for item in (self.season, self.year) if item])
-
-        try:
-            date(int(self.year), int(self.month or 1), int(self.day or 1))
-        except (ValueError, TypeError):
-            return None
 
         parts = []
         if self.year and len(self.year) == 4:
@@ -125,14 +117,14 @@ class Date:
                     parts.append(self.day.zfill(2))
         return "-".join(parts)
 
-    @property
+    @cached_property
     def date(self):
         try:
             return date(int(self.year), int(self.month), int(self.day))
         except (ValueError, TypeError):
             return None
 
-    @property
+    @cached_property
     def isoformat(self):
         try:
             return self.date.isoformat()
