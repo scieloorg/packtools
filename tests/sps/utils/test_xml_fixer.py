@@ -5,13 +5,13 @@ from packtools.sps.utils.xml_fixer import fix_inline_graphic_in_caption
 
 
 class XMLFixerTest(unittest.TestCase):
-    """Testes para fix_inline_graphic_in_caption - Abordagem 1"""
+    """Tests for fix_inline_graphic_in_caption"""
 
     def test_fix_inline_graphic_simple_case(self):
-        """Teste básico: inline-graphic dentro de caption"""
+        """Basic test: inline-graphic inside caption"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título<inline-graphic xlink:href="img1.jpg"/></title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -22,10 +22,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//inline-graphic"))
 
     def test_fix_inline_graphic_in_label(self):
-        """Teste: inline-graphic dentro de label"""
+        """Test: inline-graphic inside label"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1<inline-graphic xlink:href="img1.jpg"/></label>
-          <caption><title>Título da figura</title></caption>
+          <label>Figure 1<inline-graphic xlink:href="img1.jpg"/></label>
+          <caption><title>Figure title</title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -37,15 +37,15 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//inline-graphic"))
 
     def test_multiple_inline_graphics_different_containers(self):
-        """Teste: múltiplos inline-graphics em diferentes containers"""
+        """Test: multiple inline-graphics in different containers"""
         xml = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
           <fig id="f1">
-            <label>Figura 1</label>
-            <caption><title>Título<inline-graphic xlink:href="img1.jpg"/></title></caption>
+            <label>Figure 1</label>
+            <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
           </fig>
           <fig id="f2">
-            <label>Figura 2<inline-graphic xlink:href="img2.jpg"/></label>
-            <caption><title>Outra figura</title></caption>
+            <label>Figure 2<inline-graphic xlink:href="img2.jpg"/></label>
+            <caption><title>Another figure</title></caption>
           </fig>
         </article>"""
         tree = etree.fromstring(xml)
@@ -57,10 +57,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//inline-graphic"))
 
     def test_multiple_inline_graphics_same_container_no_modification(self):
-        """Teste: múltiplos inline-graphics no MESMO container - NÃO deve modificar"""
+        """Test: multiple inline-graphics in SAME container - should NOT modify"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1<inline-graphic xlink:href="img1.jpg"/></label>
-          <caption><title>Título<inline-graphic xlink:href="img2.jpg"/></title></caption>
+          <label>Figure 1<inline-graphic xlink:href="img1.jpg"/></label>
+          <caption><title>Title<inline-graphic xlink:href="img2.jpg"/></title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -71,12 +71,12 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//graphic"))
 
     def test_two_inline_graphics_in_caption(self):
-        """Teste: dois inline-graphics dentro do caption - NÃO deve modificar"""
+        """Test: two inline-graphics inside caption - should NOT modify"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
+          <label>Figure 1</label>
           <caption>
-            <title>Título<inline-graphic xlink:href="img1.jpg"/></title>
-            <p>Texto<inline-graphic xlink:href="img2.jpg"/></p>
+            <title>Title<inline-graphic xlink:href="img1.jpg"/></title>
+            <p>Text<inline-graphic xlink:href="img2.jpg"/></p>
           </caption>
         </fig>"""
         tree = etree.fromstring(xml)
@@ -88,10 +88,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//graphic"))
 
     def test_graphic_already_exists(self):
-        """Teste: não deve modificar quando graphic já existe"""
+        """Test: should not modify when graphic already exists"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título<inline-graphic xlink:href="img1.jpg"/></title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
           <graphic xlink:href="existing.jpg"/>
         </fig>"""
         tree = etree.fromstring(xml)
@@ -102,11 +102,55 @@ class XMLFixerTest(unittest.TestCase):
         graphics = tree.findall(".//graphic")
         self.assertEqual(len(graphics), 1)
 
-    def test_table_wrap_context(self):
-        """Teste: inline-graphic em contexto de table-wrap"""
+    def test_container_with_table_no_modification(self):
+        """Test: container with table element should NOT be modified"""
         xml = """<table-wrap id="t1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Tabela 1</label>
-          <caption><title>Título<inline-graphic xlink:href="table1.jpg"/></title></caption>
+          <label>Table 1</label>
+          <caption><title>Title<inline-graphic xlink:href="table1.jpg"/></title></caption>
+          <table>
+            <tr><td>Data</td></tr>
+          </table>
+        </table-wrap>"""
+        tree = etree.fromstring(xml)
+        mods = fix_inline_graphic_in_caption(tree)
+
+        self.assertEqual(len(mods), 0)
+        self.assertIsNotNone(tree.find(".//inline-graphic"))
+        self.assertIsNone(tree.find(".//graphic"))
+
+    def test_container_with_mathml_no_modification(self):
+        """Test: container with mathml element should NOT be modified"""
+        xml = """<disp-formula id="eq1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML">
+          <label>(1)</label>
+          <caption><title>Equation<inline-graphic xlink:href="eq1.jpg"/></title></caption>
+          <mml:math><mml:mi>x</mml:mi></mml:math>
+        </disp-formula>"""
+        tree = etree.fromstring(xml)
+        mods = fix_inline_graphic_in_caption(tree)
+
+        self.assertEqual(len(mods), 0)
+        self.assertIsNotNone(tree.find(".//inline-graphic"))
+        self.assertIsNone(tree.find(".//graphic"))
+
+    def test_container_with_paragraph_no_modification(self):
+        """Test: container with paragraph element should NOT be modified"""
+        xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
+          <p>Some description text</p>
+        </fig>"""
+        tree = etree.fromstring(xml)
+        mods = fix_inline_graphic_in_caption(tree)
+
+        self.assertEqual(len(mods), 0)
+        self.assertIsNotNone(tree.find(".//inline-graphic"))
+        self.assertIsNone(tree.find(".//graphic"))
+
+    def test_table_wrap_context(self):
+        """Test: inline-graphic in table-wrap context (no table element)"""
+        xml = """<table-wrap id="t1" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <label>Table 1</label>
+          <caption><title>Title<inline-graphic xlink:href="table1.jpg"/></title></caption>
         </table-wrap>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -117,10 +161,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//inline-graphic"))
 
     def test_disp_formula_context(self):
-        """Teste: inline-graphic em contexto de disp-formula"""
+        """Test: inline-graphic in disp-formula context (no mathml)"""
         xml = """<disp-formula id="eq1" xmlns:xlink="http://www.w3.org/1999/xlink">
           <label>(1)</label>
-          <caption><title>Equação<inline-graphic xlink:href="eq1.jpg"/></title></caption>
+          <caption><title>Equation<inline-graphic xlink:href="eq1.jpg"/></title></caption>
         </disp-formula>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -131,10 +175,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(tree.find(".//inline-graphic"))
 
     def test_preserve_attributes(self):
-        """Teste: preservação de todos os atributos"""
+        """Test: preservation of all attributes"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título<inline-graphic xlink:href="img1.jpg" id="ig1" content-type="image/jpeg"/></title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg" id="ig1" content-type="image/jpeg"/></title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -146,13 +190,13 @@ class XMLFixerTest(unittest.TestCase):
         self.assertEqual(graphic.get("content-type"), "image/jpeg")
 
     def test_preserve_child_elements(self):
-        """Teste: preservação de elementos filhos"""
+        """Test: preservation of child elements"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
+          <label>Figure 1</label>
           <caption>
-            <title>Título
+            <title>Title
               <inline-graphic xlink:href="img1.jpg">
-                <alt-text>Texto alternativo</alt-text>
+                <alt-text>Alternative text</alt-text>
               </inline-graphic>
             </title>
           </caption>
@@ -164,14 +208,13 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNotNone(graphic)
         alt_text = graphic.find(".//alt-text")
         self.assertIsNotNone(alt_text)
-        self.assertEqual(alt_text.text, "Texto alternativo")
+        self.assertEqual(alt_text.text, "Alternative text")
 
     def test_inline_graphic_position_after_caption(self):
-        """Teste: graphic é inserido após label e caption"""
+        """Test: graphic is inserted after label and caption"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título<inline-graphic xlink:href="img1.jpg"/></title></caption>
-          <p>Algum texto</p>
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -180,13 +223,11 @@ class XMLFixerTest(unittest.TestCase):
         self.assertEqual(children[0].tag, "label")
         self.assertEqual(children[1].tag, "caption")
         self.assertEqual(children[2].tag, "graphic")
-        self.assertEqual(children[3].tag, "p")
 
     def test_position_after_label_only(self):
-        """Teste: graphic após label quando não há caption"""
+        """Test: graphic after label when there is no caption"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1<inline-graphic xlink:href="img1.jpg"/></label>
-          <p>Algum texto</p>
+          <label>Figure 1<inline-graphic xlink:href="img1.jpg"/></label>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -194,13 +235,12 @@ class XMLFixerTest(unittest.TestCase):
         children = list(tree)
         self.assertEqual(children[0].tag, "label")
         self.assertEqual(children[1].tag, "graphic")
-        self.assertEqual(children[2].tag, "p")
 
     def test_empty_modifications_no_inline_graphics(self):
-        """Teste: retorna lista vazia quando não há inline-graphics"""
+        """Test: returns empty list when there are no inline-graphics"""
         xml = """<fig id="f1">
-          <label>Figura 1</label>
-          <caption><title>Título</title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title</title></caption>
           <graphic xlink:href="img1.jpg" xmlns:xlink="http://www.w3.org/1999/xlink"/>
         </fig>"""
         tree = etree.fromstring(xml)
@@ -209,10 +249,10 @@ class XMLFixerTest(unittest.TestCase):
         self.assertEqual(len(mods), 0)
 
     def test_inline_graphic_outside_label_caption_ignored(self):
-        """Teste: inline-graphic fora de label/caption é ignorado"""
+        """Test: inline-graphic outside label/caption is ignored"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título</title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title</title></caption>
           <p><inline-graphic xlink:href="img1.jpg"/></p>
         </fig>"""
         tree = etree.fromstring(xml)
@@ -222,17 +262,17 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNotNone(tree.find(".//inline-graphic"))
 
     def test_none_xmltree_raises_error(self):
-        """Teste: xmltree None deve levantar ValueError"""
+        """Test: None xmltree should raise ValueError"""
         with self.assertRaises(ValueError) as context:
             fix_inline_graphic_in_caption(None)
 
-        self.assertIn("não pode ser None", str(context.exception))
+        self.assertIn("cannot be None", str(context.exception))
 
     def test_modification_record_structure(self):
-        """Teste: verifica estrutura do registro de modificação"""
+        """Test: verifies modification record structure"""
         xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <label>Figura 1</label>
-          <caption><title>Título<inline-graphic xlink:href="img1.jpg"/></title></caption>
+          <label>Figure 1</label>
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
@@ -251,9 +291,9 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsInstance(mod["xpath"], str)
 
     def test_preserve_text_and_tail(self):
-        """Teste: preserva text e tail do inline-graphic"""
+        """Test: preserves text and tail of inline-graphic"""
         xml = """<fig xmlns:xlink="http://www.w3.org/1999/xlink">
-          <caption><title>Antes<inline-graphic xlink:href="img.jpg"/>Depois</title></caption>
+          <caption><title>Before<inline-graphic xlink:href="img.jpg"/>After</title></caption>
         </fig>"""
         tree = etree.fromstring(xml)
 
@@ -267,15 +307,15 @@ class XMLFixerTest(unittest.TestCase):
         self.assertEqual(graphic.tail, original_tail)
 
     def test_complex_nested_structure(self):
-        """Teste: estrutura complexa com múltiplos níveis"""
+        """Test: complex structure with multiple levels"""
         xml = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
           <body>
             <sec>
               <fig id="f1">
                 <label>Fig 1</label>
                 <caption>
-                  <title>Título</title>
-                  <p>Descrição<inline-graphic xlink:href="img1.jpg"/></p>
+                  <title>Title</title>
+                  <p>Description<inline-graphic xlink:href="img1.jpg"/></p>
                 </caption>
               </fig>
             </sec>
@@ -290,7 +330,7 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(fig.find(".//inline-graphic"))
 
     def test_multiple_containers_mixed_scenarios(self):
-        """Teste: múltiplos containers com cenários mistos"""
+        """Test: multiple containers with mixed scenarios"""
         xml = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
           <fig id="f1">
             <caption><inline-graphic xlink:href="img1.jpg"/></caption>
@@ -306,9 +346,9 @@ class XMLFixerTest(unittest.TestCase):
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
 
-        # f1: deve modificar (não tem graphic)
-        # f2: não deve modificar (já tem graphic)
-        # t1: deve modificar (não tem graphic)
+        # f1: should modify (does not have graphic)
+        # f2: should not modify (already has graphic)
+        # t1: should modify (does not have graphic)
         self.assertEqual(len(mods), 2)
 
         f1 = tree.find(".//fig[@id='f1']")
@@ -325,7 +365,7 @@ class XMLFixerTest(unittest.TestCase):
         self.assertIsNone(t1.find(".//inline-graphic"))
 
     def test_no_valid_container_parent(self):
-        """Teste: inline-graphic em elemento não-container é ignorado"""
+        """Test: inline-graphic in non-container element is ignored"""
         xml = """<article xmlns:xlink="http://www.w3.org/1999/xlink">
           <p>
             <caption><inline-graphic xlink:href="img1.jpg"/></caption>
@@ -337,10 +377,34 @@ class XMLFixerTest(unittest.TestCase):
         tree = etree.fromstring(xml)
         mods = fix_inline_graphic_in_caption(tree)
 
-        # XPath não encontra estes elementos porque não são containers válidos
+        # XPath does not find these elements because they are not valid containers
         self.assertEqual(len(mods), 0)
-        # inline-graphics permanecem
+        # inline-graphics remain
         self.assertEqual(len(tree.findall(".//inline-graphic")), 2)
+
+    def test_container_only_label_should_modify(self):
+        """Test: container with only label should be modified"""
+        xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <label>Figure 1<inline-graphic xlink:href="img1.jpg"/></label>
+        </fig>"""
+        tree = etree.fromstring(xml)
+        mods = fix_inline_graphic_in_caption(tree)
+
+        self.assertEqual(len(mods), 1)
+        self.assertIsNotNone(tree.find(".//graphic"))
+        self.assertIsNone(tree.find(".//inline-graphic"))
+
+    def test_container_only_caption_should_modify(self):
+        """Test: container with only caption should be modified"""
+        xml = """<fig id="f1" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <caption><title>Title<inline-graphic xlink:href="img1.jpg"/></title></caption>
+        </fig>"""
+        tree = etree.fromstring(xml)
+        mods = fix_inline_graphic_in_caption(tree)
+
+        self.assertEqual(len(mods), 1)
+        self.assertIsNotNone(tree.find(".//graphic"))
+        self.assertIsNone(tree.find(".//inline-graphic"))
 
 
 if __name__ == "__main__":
