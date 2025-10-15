@@ -366,6 +366,8 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
     if xml_content.endswith("</article>") or xml_content.endswith("<article/>"):
         p = xml_content.find("<article")
         if p >= 0:
+            if ' xmlns="http://jats.nlm.nih.gov" ' in xml_content:
+                xml_content = xml_content.replace('xmlns="http://jats.nlm.nih.gov"', '')
             return xml_content[:p], xml_content[p:]
 
     p = xml_content.rfind("<")
