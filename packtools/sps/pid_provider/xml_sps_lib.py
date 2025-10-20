@@ -791,7 +791,7 @@ class XMLWithPre:
                     [
                         text.strip()
                         for text in item.xpath(".//text()")
-                        if text.strip()
+                        if (text or "").strip()
                     ]
                 )
                 names.append({"surname": content})
@@ -801,7 +801,7 @@ class XMLWithPre:
                     [
                         text.strip()
                         for text in item.xpath(".//text()")
-                        if text.strip()
+                        if (text or "").strip()
                     ]
                 )
                 collab = content
@@ -825,7 +825,7 @@ class XMLWithPre:
         titles = []
         for item in self.xmltree.xpath(xpath):
             title = " ".join(
-                [text.strip() for text in item.xpath(".//text()") if text.strip()]
+                [text.strip() for text in item.xpath(".//text()") if text and text.strip()]
             )
             titles.append(title)
         return sorted(titles)
