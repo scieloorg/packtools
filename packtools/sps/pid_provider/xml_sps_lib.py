@@ -6,6 +6,7 @@ from functools import lru_cache, cached_property
 from gettext import gettext as _
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
+from zlib import crc32
 
 from lxml import etree
 
@@ -526,7 +527,7 @@ class XMLWithPre:
             return self.elocation_id
         if self.fpage:
             try:
-                if not int(self.fpage) == 0:
+                if int(self.fpage) != 0:
                     return self.fpage + (self.fpage_seq or "")
             except (TypeError, ValueError):
                 return self.fpage + (self.fpage_seq or "")
@@ -538,10 +539,7 @@ class XMLWithPre:
 
     @cached_property
     def alternative_sps_pkg_name_suffix(self):
-        try:
-            return self.v2[-5:]
-        except TypeError:
-            return self.filename
+        return self.order or self.filename
 
     @cached_property
     def sps_pkg_name(self):
@@ -1016,6 +1014,69 @@ class XMLWithPre:
                 "component_type": "rendition",
                 "main": item.is_main_language,
             }
+
+    def get_article_pid_suffix(self):
+        return self.elocation_id or self.fpage or self.order or ""
+
+    def generate_issue_pid_suffix(self):
+        return str(self.generate_order()).zfill(4)
+
+    def generate_order_for_supplement(self, suppl_start=1000):
+        return suppl_start + extract_number(self.suppl)
+
+    def generate_order_for_number(self, spe_start=2000):
+        number = self.number
+        if "spe" in number:
+            part = number.split("spe")[-1]
+            return spe_start + extract_number(part)
+        if number == "ahead":
+            return 9999
+        return extract_number(number)
+
+    def generate_order(self, suppl_start=1000, spe_start=2000):
+        if self.supplement:
+            return self.generate_order_for_supplement(suppl_start)
+        if not self.number:
+            return 1
+        return self.generate_order_for_number(spe_start) or 1
+
+    def generated_pid_v2(self, journal_pid=None, issue_pid=None):
+        parts = ["S"]
+        if issue_pid:
+            parts.append(issue_pid)
+        else:
+            if journal_pid:
+                parts.append(journal_pid)
+            elif self.journal_issn_electronic:
+                parts.append(self.journal_issn_electronic)
+            elif self.journal_issn_print:
+                parts.append(self.journal_issn_print)
+            else:
+                raise ValueError("Unable to generate pid v2: no journal_pid")
+            parts.append(self.pub_year)
+            parts.append(self.generate_issue_pid_suffix())
+
+        parts.append(string_to_5_digits(self.get_article_pid_suffix()))
+        if parts.count(None):
+            raise ValueError(f"Unable to generate pid v2: {parts}")
+        pid_v2 = "".join(parts)
+        if len(pid_v2) == 23:
+            return pid_v2
+        raise ValueError(f"Unable to generate pid v2: {parts} {pid_v2}")
+
+
+def string_to_5_digits(input_string):
+    return (crc32(input_string.encode()) & 0xFFFFFFFF) % 100000
+
+
+def extract_number(value):
+    if not value:
+        return 0
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        digits = "".join([c for c in value if c.isdigit()])
+        return int(digits) if digits else 0
 
 
 def generate_finger_print(content):
