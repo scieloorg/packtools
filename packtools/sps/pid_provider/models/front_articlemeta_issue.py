@@ -12,6 +12,7 @@
   </front>
 </article>
 """
+
 from packtools.sps.pid_provider.models.dates import ArticleDates
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 
@@ -30,10 +31,7 @@ def _extract_number_and_supplment_from_issue_element(issue):
     issue = issue.strip().replace(".", "")
     splitted = [s for s in issue.split() if s]
 
-    splitted = ["spe"
-                if "spe" in s.lower() and s.isalpha() else s
-                for s in splitted
-                ]
+    splitted = ["spe" if "spe" in s.lower() and s.isalpha() else s for s in splitted]
     if len(splitted) == 1:
         issue = splitted[0]
         if issue.isdigit():
@@ -70,8 +68,12 @@ class ArticleMetaIssue:
     @property
     def data(self):
         attr_names = (
-            "volume", "number", "suppl",
-            "fpage", "fpage_seq", "lpage",
+            "volume",
+            "number",
+            "suppl",
+            "fpage",
+            "fpage_seq",
+            "lpage",
             "elocation_id",
         )
         _data = {}

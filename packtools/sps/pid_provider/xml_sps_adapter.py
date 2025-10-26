@@ -306,4 +306,3 @@ def _str_with_64_char(text):
     if not text:
         return None
     return hashlib.sha256(_standardize(text).encode("utf-8")).hexdigest()
-

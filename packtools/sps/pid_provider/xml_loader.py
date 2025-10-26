@@ -9,7 +9,7 @@ from packtools.sps.pid_provider.name2number import fix_pre_loading
 def load_xml(xml):
     """
     Carrega e processa XML, corrigindo entidades na entrada.
-    
+
     Análise:
     - sucesso
     - Exemplo de saída:
@@ -34,14 +34,14 @@ def load_xml(xml):
     </article>
     """
     return etree.tostring(
-        etree.fromstring(fix_pre_loading(xml)),
-        method="xml", encoding="utf-8").decode("utf-8")
+        etree.fromstring(fix_pre_loading(xml)), method="xml", encoding="utf-8"
+    ).decode("utf-8")
 
 
 def fix_entities(xml):
     """
     Corrige entidades usando parser HTML e formatação de saída.
-    
+
     Análise:
     - Usa html_parser_ent2char internamente
     - Aplica format_output para corrigir entidades finais
@@ -54,7 +54,7 @@ def fix_entities(xml):
 def xml_parser_ent2char(xml):
     """
     Usa parser XML do lxml com modo recover para processar entidades.
-    
+
     Análise:
     - PERDE OS CARACTERES
     - Remove completamente as entidades não reconhecidas
@@ -78,7 +78,7 @@ def xml_parser_ent2char(xml):
       </content>
       </body>
       </article>
-    
+
     Problema: Entidades como &rsquo;, &ldquo;, &mdash; são completamente removidas
     ao invés de convertidas para seus caracteres correspondentes.
     """
@@ -94,14 +94,14 @@ def xml_parser_ent2char(xml):
 def html_unescape_ent2char(xml):
     """
     Usa html.unescape para converter entidades HTML.
-    
+
     Análise:
     - NÃO CONSEGUE LER O XML
     - Falha com erro: Entity 'lquo' not defined
     - Exemplo de erro:
       ERROR:root:Entity 'lquo' not defined, line 5, column 38
       lxml.etree.XMLSyntaxError: Entity 'lquo' not defined
-    
+
     Problema: html.unescape converte as entidades, mas o XML resultante
     não é válido porque algumas entidades HTML não são reconhecidas
     pelo parser XML padrão.
@@ -118,7 +118,7 @@ def html_unescape_ent2char(xml):
 def html_parser_ent2char(xml):
     """
     Usa parser HTML do lxml para processar entidades.
-    
+
     Análise:
     - PERDE O ARTICLE/BODY, MAS PERDE O ; APÓS LQUO E RQUO
     - Converte a maioria das entidades corretamente
@@ -140,7 +140,7 @@ def html_parser_ent2char(xml):
           <p>187 : »</p>
       </content>
       </article>
-    
+
     Problemas:
     1. Parser HTML adiciona estrutura <html><body> que precisa ser removida
     2. Entidades &lquo; e &rquo; perdem o ponto-e-vírgula final
@@ -149,7 +149,9 @@ def html_parser_ent2char(xml):
     try:
         parser = etree.HTMLParser()
         root = etree.fromstring(xml, parser)
-        return etree.tostring(root.find(".").find("body").find("*"), method="xml", encoding="utf-8").decode("utf-8")
+        return etree.tostring(
+            root.find(".").find("body").find("*"), method="xml", encoding="utf-8"
+        ).decode("utf-8")
     except Exception as e:
         logging.info("opção 3")
         logging.exception(e)
@@ -158,24 +160,24 @@ def html_parser_ent2char(xml):
 def bs_ent2char_(xml):
     """
     Testa diferentes parsers do BeautifulSoup.
-    
+
     Análises por parser:
-    
+
     1. "xml" (Alias para lxml-xml):
        - PERDE OS CARACTERES
        - Similar ao xml_parser_ent2char
-    
+
     2. "lxml" (Parser HTML com lxml):
        - PERDE O ARTICLE/BODY se usado direto
        - MANTÉM O ARTICLE/BODY via bs_ent2char
        - PERDE O ; APÓS LQUO E RQUO
        - Exemplo: &amp;lquoapostrophes&amp;rquo (sem ;)
-    
+
     3. "html.parser" (Built-in do Python):
        - MANTÉM O ARTICLE/BODY
        - PERDE O ; APÓS LQUO E RQUO
        - Similar ao lxml mas mantém estrutura melhor
-    
+
     4. "html5lib" (Parser HTML5):
        - ADICIONA <html><head></head><body>
        - Mantém entidades problemáticas como &amp;lquo; e &amp;rquo;
@@ -196,7 +198,7 @@ def bs_ent2char_(xml):
 def bs_ent2char(xml):
     """
     Usa BeautifulSoup com parser lxml para converter entidades.
-    
+
     Análise:
     - MANTÉM O ARTICLE/BODY, MAS PERDE O ; APÓS LQUO E RQUO
     - Converte a maioria das entidades HTML corretamente
@@ -220,11 +222,11 @@ def bs_ent2char(xml):
       </content>
       </body>
       </article>
-    
+
     Vantagens:
     - Mantém estrutura XML original
     - Converte maioria das entidades HTML para caracteres Unicode
-    
+
     Problemas:
     - Entidades &lquo; e &rquo; não são reconhecidas e perdem o ;
     - Tag <break/> é convertida para <break></break>
@@ -236,7 +238,7 @@ def bs_ent2char(xml):
 def main():
     """
     Função principal para testar diferentes métodos de conversão de entidades.
-    
+
     XML de entrada contém várias entidades HTML problemáticas:
     - &rsquo; &ldquo; &rdquo; &lquo; &rquo; (quotes)
     - &mdash; (travessão)
@@ -244,7 +246,7 @@ def main():
     - &copy; &euro; &pound; (símbolos)
     - &frac12; &times; (matemáticos)
     - &#180; &#191; &#187; &#x02019; (numéricos)
-    
+
     Resumo dos resultados:
     - xml_parser_ent2char: Remove entidades não reconhecidas
     - html_unescape_ent2char: Falha ao processar XML
@@ -298,7 +300,7 @@ def main():
     print("\n---\nload_xml")
     print(load_xml(xml))
 
-    
+
 if __name__ == "__main__":
     main()
 
@@ -423,7 +425,7 @@ bs_ent2char LXML
 ---
 """
 
-# PERDE OS CARACTERES 
+# PERDE OS CARACTERES
 """
 xml
 
