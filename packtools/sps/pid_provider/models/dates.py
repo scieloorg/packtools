@@ -125,14 +125,14 @@ class ArticleDates:
     def article_year(self):
         try:
             return self.article_date["year"]
-        except KeyError:
+        except (TypeError, KeyError):
             return None
 
     @cached_property
     def collection_year(self):
         try:
             return self.collection_date["year"]
-        except KeyError:
+        except (TypeError, KeyError):
             return None
 
     @cached_property

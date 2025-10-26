@@ -6,6 +6,7 @@ from functools import lru_cache, cached_property
 from gettext import gettext as _
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
+from zlib import crc32
 
 from lxml import etree
 
@@ -21,7 +22,11 @@ from packtools.sps.pid_provider.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 from packtools.sps.pid_provider.models.article_renditions import ArticleRenditions
 from packtools.sps.pid_provider.models.body import Body
-from packtools.sps.pid_provider.models.dates import ArticleDates, format_date, XMLWithPreArticlePublicationDateError
+from packtools.sps.pid_provider.models.dates import (
+    ArticleDates,
+    format_date,
+    XMLWithPreArticlePublicationDateError,
+)
 from packtools.sps.pid_provider.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.pid_provider.models.journal_meta import ISSN, Acronym, Title
 from packtools.sps.pid_provider.models.related_articles import RelatedItems
@@ -139,7 +144,8 @@ def get_xml_with_pre_from_zip_file(
         basenames = []
 
         zip_data = get_xml_items_from_zip_file(
-            xml_sps_file_path, filenames,
+            xml_sps_file_path,
+            filenames,
         )
         xml_files = zip_data.get("xml_files")
         if not xml_files:
@@ -147,7 +153,7 @@ def get_xml_with_pre_from_zip_file(
 
         paths = zip_data.get("paths")
         basenames = zip_data.get("basenames")
-        
+
         for basename, xml_file in xml_files:
             try:
                 response = {
@@ -155,13 +161,17 @@ def get_xml_with_pre_from_zip_file(
                     "files": paths,
                     "filenames": basenames,
                 }
-                xml_with_pre = get_xml_with_pre_from_zip_file_component(xml_sps_file_path, xml_file)
+                xml_with_pre = get_xml_with_pre_from_zip_file_component(
+                    xml_sps_file_path, xml_file
+                )
                 xml_with_pre.zip_file_path = xml_sps_file_path
                 response["xml_with_pre"] = xml_with_pre
                 yield response
             except Exception as e:
                 if not capture_errors:
-                    raise GetXMLWithPreFromZipFileError(f"Error in {xml_sps_file_path}/{xml_file}")
+                    raise GetXMLWithPreFromZipFileError(
+                        f"Error in {xml_sps_file_path}/{xml_file}"
+                    )
                 response["error"] = str(e)
                 response["type_error"] = type(e).__name__
                 yield response
@@ -182,7 +192,8 @@ def get_xml_with_pre_from_zip_file(
 
 
 def get_xml_items_from_zip_file(
-    xml_sps_file_path, filenames=None,
+    xml_sps_file_path,
+    filenames=None,
 ):
     """
     Extract and process XML items from a ZIP file.
@@ -367,7 +378,7 @@ def split_processing_instruction_doctype_declaration_and_xml(xml_content):
         p = xml_content.find("<article")
         if p >= 0:
             if ' xmlns="http://jats.nlm.nih.gov" ' in xml_content:
-                xml_content = xml_content.replace('xmlns="http://jats.nlm.nih.gov"', '')
+                xml_content = xml_content.replace('xmlns="http://jats.nlm.nih.gov"', "")
             return xml_content[:p], xml_content[p:]
 
     p = xml_content.rfind("<")
@@ -400,7 +411,7 @@ class XMLWithPre:
         self.DOCTYPE = None
         self.public_id = None
         self.system_id = None
-        if self.xmlpre and '<!DOCTYPE' in self.xmlpre:
+        if self.xmlpre and "<!DOCTYPE" in self.xmlpre:
             self.parse_doctype()
 
         self.pretty_print = pretty_print
@@ -463,29 +474,33 @@ class XMLWithPre:
     def parse_doctype(self):
         """
         Extrai informações do DOCTYPE de forma pythônica.
-        
+
         Returns:
             DoctypeInfo com doctype, public_id e system_id
         """
-        if not self.xmlpre or '<!DOCTYPE' not in self.xmlpre:
+        if not self.xmlpre or "<!DOCTYPE" not in self.xmlpre:
             return
         try:
             # Extrai DOCTYPE
-            start = self.xmlpre.index('<!DOCTYPE')
-            end = self.xmlpre.index('>', start) + 1
+            start = self.xmlpre.index("<!DOCTYPE")
+            end = self.xmlpre.index(">", start) + 1
             self.DOCTYPE = self.xmlpre[start:end]
-            
+
             # Parse dos IDs usando split
             parts = self.DOCTYPE.split('"')
-            
-            if 'PUBLIC' in self.DOCTYPE and len(parts) >= 4:
+
+            if "PUBLIC" in self.DOCTYPE and len(parts) >= 4:
                 self.public_id = parts[1]
-                self.system_id = parts[3] if parts[3].startswith(('http://', 'https://')) else None
+                self.system_id = (
+                    parts[3] if parts[3].startswith(("http://", "https://")) else None
+                )
                 return
 
-            if 'SYSTEM' in self.DOCTYPE and len(parts) >= 2:
-                self.system_id = parts[1] if parts[1].startswith(('http://', 'https://')) else None
-                
+            if "SYSTEM" in self.DOCTYPE and len(parts) >= 2:
+                self.system_id = (
+                    parts[1] if parts[1].startswith(("http://", "https://")) else None
+                )
+
         except (ValueError, IndexError):
             return
 
@@ -512,7 +527,7 @@ class XMLWithPre:
             return self.elocation_id
         if self.fpage:
             try:
-                if not int(self.fpage) == 0:
+                if int(self.fpage) != 0:
                     return self.fpage + (self.fpage_seq or "")
             except (TypeError, ValueError):
                 return self.fpage + (self.fpage_seq or "")
@@ -524,10 +539,7 @@ class XMLWithPre:
 
     @cached_property
     def alternative_sps_pkg_name_suffix(self):
-        try:
-            return self.v2[-5:]
-        except TypeError:
-            return self.filename
+        return self.order or self.filename
 
     @cached_property
     def sps_pkg_name(self):
@@ -825,7 +837,11 @@ class XMLWithPre:
         titles = []
         for item in self.xmltree.xpath(xpath):
             title = " ".join(
-                [text.strip() for text in item.xpath(".//text()") if text and text.strip()]
+                [
+                    text.strip()
+                    for text in item.xpath(".//text()")
+                    if text and text.strip()
+                ]
             )
             titles.append(title)
         return sorted(titles)
@@ -878,7 +894,9 @@ class XMLWithPre:
         try:
             formatted = format_date(**value)
         except XMLWithPreArticlePublicationDateError:
-            raise ValueError(f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required")
+            raise ValueError(
+                f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required"
+            )
 
         try:
             node = self.xmltree.xpath(
@@ -936,7 +954,9 @@ class XMLWithPre:
     @property
     def finger_print(self):
         if self.xmltree.xpath(".//comment()"):
-            for item in XMLWithPre.create(xml_content=self.tostring(pretty_print=self.pretty_print)):
+            for item in XMLWithPre.create(
+                xml_content=self.tostring(pretty_print=self.pretty_print)
+            ):
                 remove_comments(item.xmltree)
                 return generate_finger_print(item.tostring(pretty_print=True))
         else:
@@ -994,6 +1014,69 @@ class XMLWithPre:
                 "component_type": "rendition",
                 "main": item.is_main_language,
             }
+
+    def get_article_pid_suffix(self):
+        return self.elocation_id or self.fpage or self.order or ""
+
+    def generate_issue_pid_suffix(self):
+        return str(self.generate_order()).zfill(4)
+
+    def generate_order_for_supplement(self, suppl_start=1000):
+        return suppl_start + extract_number(self.suppl)
+
+    def generate_order_for_number(self, spe_start=2000):
+        number = self.number
+        if "spe" in number:
+            part = number.split("spe")[-1]
+            return spe_start + extract_number(part)
+        if number == "ahead":
+            return 9999
+        return extract_number(number)
+
+    def generate_order(self, suppl_start=1000, spe_start=2000):
+        if self.supplement:
+            return self.generate_order_for_supplement(suppl_start)
+        if not self.number:
+            return 1
+        return self.generate_order_for_number(spe_start) or 1
+
+    def generated_pid_v2(self, journal_pid=None, issue_pid=None):
+        parts = ["S"]
+        if issue_pid:
+            parts.append(issue_pid)
+        else:
+            if journal_pid:
+                parts.append(journal_pid)
+            elif self.journal_issn_electronic:
+                parts.append(self.journal_issn_electronic)
+            elif self.journal_issn_print:
+                parts.append(self.journal_issn_print)
+            else:
+                raise ValueError("Unable to generate pid v2: no journal_pid")
+            parts.append(self.pub_year)
+            parts.append(self.generate_issue_pid_suffix())
+
+        parts.append(string_to_5_digits(self.get_article_pid_suffix()))
+        if parts.count(None):
+            raise ValueError(f"Unable to generate pid v2: {parts}")
+        pid_v2 = "".join(parts)
+        if len(pid_v2) == 23:
+            return pid_v2
+        raise ValueError(f"Unable to generate pid v2: {parts} {pid_v2}")
+
+
+def string_to_5_digits(input_string):
+    return (crc32(input_string.encode()) & 0xFFFFFFFF) % 100000
+
+
+def extract_number(value):
+    if not value:
+        return 0
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        digits = "".join([c for c in value if c.isdigit()])
+        return int(digits) if digits else 0
 
 
 def generate_finger_print(content):
