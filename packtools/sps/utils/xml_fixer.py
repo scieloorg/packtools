@@ -28,7 +28,7 @@ def _remove_and_get_info(xmltree, inline_graphic):
     try:
         xpath = xmltree.getroottree().getpath(inline_graphic)
     except (AttributeError, ValueError):
-        xpath = f".//{inline_graphic.tag}"
+        xpath = f"./{old_parent.tag}/inline-graphic"
 
     # Remove inline-graphic from current position
     old_parent.remove(inline_graphic)
@@ -65,7 +65,7 @@ def fix_inline_graphic_in_caption(xmltree):
     # - Do NOT have a direct child graphic element
     xpath_containers = """
         (//fig | //table-wrap | //disp-formula)
-        [(label//inline-graphic or caption//inline-graphic) and not(graphic)]
+        [(label//inline-graphic or caption//inline-graphic) and not(.//graphic)]
     """
 
     containers = xmltree.xpath(xpath_containers)
@@ -82,10 +82,11 @@ def fix_inline_graphic_in_caption(xmltree):
 
         # Check if the container has only label and/or caption as children
         # If there are other elements (table, mathml:math, etc.), do not process
-        has_only_label_caption = all(
-            child.tag in ("label", "caption")
-            for child in container
-        )
+        has_only_label_caption = True
+        for child in container.getchildren():
+            if child.tag not in ("label", "caption"):
+                has_only_label_caption = False
+                break
 
         if not has_only_label_caption:
             logger.debug(
