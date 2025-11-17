@@ -4,38 +4,50 @@ from functools import lru_cache, cached_property
 from packtools.sps.models.article_and_subarticles import Fulltext
 
 
-class XMLWithPreArticlePublicationDateError(Exception):
-    ...
+class XMLWithPreArticlePublicationDateError(Exception): ...
 
 
 @lru_cache(maxsize=200)
 def format_date(year=None, month=None, day=None, **kwargs) -> str:
     """
     Formata uma data de artigo para o formato YYYY-MM-DD.
-    
+
     Args:
         year: Ano como string ou int
         month: Mês como string ou int
         day: Dia como string ou int
-        
+
     Returns:
         String formatada no padrão YYYY-MM-DD
-        
+
     Raises:
         XMLWithPreArticlePublicationDateError: Se a data for inválida
     """
     try:
         # Valida a data criando um objeto date
         d = date(int(year), int(month), int(day))
-        
+
         # Retorna a string formatada
         return f"{year}-{str(month).zfill(2)}-{str(day).zfill(2)}"
-        
+
     except (ValueError, TypeError) as e:
         raise XMLWithPreArticlePublicationDateError(
             f"Unable to format_date "
             f"year={year}, month={month}, day={day}: {type(e).__name__}: {e}"
         )
+
+
+def get_days(start_date, end_date):
+    """
+    Calculate days between two dates Date.
+
+    Returns:
+        int: Number of days between start_date and end_date, or None if not available
+    """
+    try:
+        return (end_date - start_date).days
+    except (AttributeError, TypeError):
+        return None
 
 
 class Date:
@@ -101,8 +113,13 @@ class Date:
 
     @cached_property
     def parts(self):
-        return {"year": self.year, "season": self.season, "month": self.month, "day": self.day}
-    
+        return {
+            "year": self.year,
+            "season": self.season,
+            "month": self.month,
+            "day": self.day,
+        }
+
     @cached_property
     def display(self):
         if self.season:
@@ -124,11 +141,32 @@ class Date:
         except (ValueError, TypeError):
             return None
 
+    def get_date(self, default_day=15, default_month=6):
+        date_ = self.date
+        if date_:
+            return {"date": date_}
+        return {
+            "estimated": True,
+            "date": self.get_estimated_date(
+                default_day=default_day, default_month=default_month
+            ),
+        }
+
+    def get_estimated_date(self, default_day=15, default_month=6):
+        try:
+            return date(
+                int(self.year),
+                int(self.month or default_month),
+                int(self.day or default_day),
+            )
+        except (ValueError, TypeError):
+            return None
+
     @cached_property
     def isoformat(self):
         try:
             return self.date.isoformat()
-        except (ValueError, TypeError):
+        except (AttributeError, ValueError, TypeError):
             return None
 
 
@@ -239,7 +277,7 @@ class FulltextDates(Fulltext):
     def translations(self):
         for node in super().translations:
             yield FulltextDates(node)
-            
+
     @property
     def not_translations(self):
         for node in super().not_translations:
@@ -376,3 +414,86 @@ class FulltextDates(Fulltext):
     def date_types_ordered_by_date(self):
         # obtem uma lista com os nomes dos eventos ordenados
         return [event[0] for event in self.ordered_events]
+
+    @cached_property
+    def received_date(self):
+        """Get received date as a Date instance.
+
+        Returns:
+            Date: Date instance for the received date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='received']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    @cached_property
+    def accepted_date(self):
+        """Get accepted date as a Date instance.
+
+        Returns:
+            Date: Date instance for the accepted date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='accepted']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    def get_peer_reviewed_stats(
+        self, default_month=6, default_day=15, serialize_dates=False
+    ):
+        received = {}
+        if self.received_date:
+            received = self.received_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
+        accepted = {}
+        if self.accepted_date:
+            accepted = self.accepted_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
+        published = {}
+        if self.epub_date_model or self.collection_date_model:
+            published = (self.epub_date_model or self.collection_date_model).get_date(
+                default_month=default_month, default_day=default_day
+            )
+
+        received_date = received.get("date")
+        accepted_date = accepted.get("date")
+        published_date = published.get("date")
+
+        stats = {}
+        stats["received_date"] = (
+            received_date.isoformat()
+            if serialize_dates and received_date
+            else received_date
+        )
+        stats["accepted_date"] = (
+            accepted_date.isoformat()
+            if serialize_dates and accepted_date
+            else accepted_date
+        )
+        stats["published_date"] = (
+            published_date.isoformat()
+            if serialize_dates and published_date
+            else published_date
+        )
+        stats["days_from_received_to_accepted"] = get_days(received_date, accepted_date)
+        stats["estimated_days_from_received_to_accepted"] = received.get(
+            "estimated"
+        ) or accepted.get("estimated")
+        stats["days_from_accepted_to_published"] = get_days(
+            accepted_date, published_date
+        )
+        stats["estimated_days_from_accepted_to_published"] = accepted.get(
+            "estimated"
+        ) or published.get("estimated")
+        stats["days_from_received_to_published"] = get_days(
+            received_date, published_date
+        )
+        stats["estimated_days_from_received_to_published"] = received.get(
+            "estimated"
+        ) or published.get("estimated")
+        return stats
