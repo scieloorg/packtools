@@ -416,6 +416,19 @@ class FulltextDates(Fulltext):
         return [event[0] for event in self.ordered_events]
 
     @cached_property
+    def preprint_date(self):
+        """Get preprint date as a Date instance.
+
+        Returns:
+            Date: Date instance for the preprint date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='preprint']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    @cached_property
     def received_date(self):
         """Get received date as a Date instance.
 
@@ -444,6 +457,11 @@ class FulltextDates(Fulltext):
     def get_peer_reviewed_stats(
         self, default_month=6, default_day=15, serialize_dates=False
     ):
+        preprint = {}
+        if self.preprint_date:
+            preprint = self.preprint_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
         received = {}
         if self.received_date:
             received = self.received_date.get_date(
@@ -460,11 +478,17 @@ class FulltextDates(Fulltext):
                 default_month=default_month, default_day=default_day
             )
 
+        preprint_date = preprint.get("date")
         received_date = received.get("date")
         accepted_date = accepted.get("date")
         published_date = published.get("date")
 
         stats = {}
+        stats["preprint_date"] = (
+            preprint_date.isoformat()
+            if serialize_dates and preprint_date
+            else preprint_date
+        )
         stats["received_date"] = (
             received_date.isoformat()
             if serialize_dates and received_date
@@ -480,6 +504,10 @@ class FulltextDates(Fulltext):
             if serialize_dates and published_date
             else published_date
         )
+        stats["days_from_preprint_to_received"] = get_days(preprint_date, received_date)
+        stats["estimated_days_from_preprint_to_received"] = preprint.get(
+            "estimated"
+        ) or received.get("estimated")
         stats["days_from_received_to_accepted"] = get_days(received_date, accepted_date)
         stats["estimated_days_from_received_to_accepted"] = received.get(
             "estimated"
@@ -488,6 +516,13 @@ class FulltextDates(Fulltext):
             accepted_date, published_date
         )
         stats["estimated_days_from_accepted_to_published"] = accepted.get(
+            "estimated"
+        ) or published.get("estimated")
+
+        stats["days_from_preprint_to_published"] = get_days(
+            preprint_date, published_date
+        )
+        stats["estimated_days_from_preprint_to_published"] = preprint.get(
             "estimated"
         ) or published.get("estimated")
         stats["days_from_received_to_published"] = get_days(
