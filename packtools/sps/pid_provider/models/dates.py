@@ -109,7 +109,7 @@ class ArticleDates:
         try:
             # XPath direto para pub-date com date-type="pub" ou pub-type="epub"
             nodes = self.xmltree.xpath(
-                './/front//pub-date[@date-type="pub" or @pub-type="epub"]'
+                './/front//pub-date[@date-type="pub" or @pub-type="epub" or @pub-type="epub-ppub"]'
             )
             return Date(nodes[0]).data
         except IndexError:
