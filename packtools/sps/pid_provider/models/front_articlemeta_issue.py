@@ -12,6 +12,21 @@
   </front>
 </article>
 """
+
+"""<article>
+<front>
+    <article-meta>
+      <pub-date publication-format="electronic" date-type="collection">
+        <year>2003</year>
+      </pub-date>
+      <volume>4</volume>
+      <issue>1</issue>
+      <fpage>108</fpage>
+      <lpage>123</lpage>
+    </article-meta>
+  </front>
+</article>
+"""
 from packtools.sps.pid_provider.models.dates import ArticleDates
 from packtools.sps.pid_provider.models.article_ids import ArticleIds
 
@@ -30,10 +45,7 @@ def _extract_number_and_supplment_from_issue_element(issue):
     issue = issue.strip().replace(".", "")
     splitted = [s for s in issue.split() if s]
 
-    splitted = ["spe"
-                if "spe" in s.lower() and s.isalpha() else s
-                for s in splitted
-                ]
+    splitted = ["spe" if "spe" in s.lower() and s.isalpha() else s for s in splitted]
     if len(splitted) == 1:
         issue = splitted[0]
         if issue.isdigit():
@@ -62,6 +74,31 @@ def _extract_number_and_supplment_from_issue_element(issue):
     return "".join(splitted), None
 
 
+def zero_to_none(value):
+    """
+    Normaliza valores de campos numéricos de paginação e volume/número,
+    removendo zeros não significativos.
+
+    Usado para: volume, number, fpage, lpage
+
+    Args:
+        value: Valor a ser normalizado (string ou None)
+
+    Returns:
+        String normalizada ou None se o valor for vazio ou zero
+    """
+    if not value:
+        return None
+
+    try:
+        if int(value) == 0:
+            return None
+        return value
+    except (TypeError, ValueError):
+        # Valor não é numérico, retorna como está
+        return value
+
+
 class ArticleMetaIssue:
 
     def __init__(self, xmltree):
@@ -70,8 +107,12 @@ class ArticleMetaIssue:
     @property
     def data(self):
         attr_names = (
-            "volume", "number", "suppl",
-            "fpage", "fpage_seq", "lpage",
+            "volume",
+            "number",
+            "suppl",
+            "fpage",
+            "fpage_seq",
+            "lpage",
             "elocation_id",
         )
         _data = {}
@@ -96,7 +137,8 @@ class ArticleMetaIssue:
 
     @property
     def volume(self):
-        return self.xmltree.findtext(".//front/article-meta/volume")
+        volume = self.xmltree.findtext(".//front/article-meta/volume")
+        return zero_to_none(volume)
 
     @property
     def issue(self):
@@ -107,7 +149,7 @@ class ArticleMetaIssue:
         _issue = self.issue
         if _issue:
             n, s = _extract_number_and_supplment_from_issue_element(_issue)
-            return n
+            return zero_to_none(n)
 
     @property
     def suppl(self):
@@ -126,7 +168,8 @@ class ArticleMetaIssue:
 
     @property
     def fpage(self):
-        return self.xmltree.findtext(".//front/article-meta/fpage")
+        fpage = self.xmltree.findtext(".//front/article-meta/fpage")
+        return zero_to_none(fpage)
 
     @property
     def fpage_seq(self):
@@ -137,11 +180,24 @@ class ArticleMetaIssue:
 
     @property
     def lpage(self):
-        return self.xmltree.findtext(".//front/article-meta/lpage")
+        lpage = self.xmltree.findtext(".//front/article-meta/lpage")
+        return zero_to_none(lpage)
 
     @property
     def order(self):
+        """
+        Obtém o order do artigo, primeiro tentando article-id[@pub-id-type="other"],
+        depois usando os últimos 5 dígitos do pid v2 como fallback.
+
+        Returns:
+            int: Order do artigo ou 0 se não for possível obter um valor válido
+        """
         _order = self.xmltree.findtext('.//article-id[@pub-id-type="other"]')
-        if _order is None:
+
+        if not _order:
+            # Fallback: usa os últimos 5 dígitos do pid v2
             _order = ArticleIds(self.xmltree).v2
-        return int(_order)
+            if _order:
+                _order = _order[-5:]
+
+        return int(_order or 0)

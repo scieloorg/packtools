@@ -1,11 +1,14 @@
+import unittest
 from datetime import date
-from unittest import TestCase
+from unittest.mock import Mock, MagicMock, patch
 from lxml import etree
 
-from packtools.sps.models.dates import ArticleDates, Date, FulltextDates
+from packtools.sps.models.dates import ArticleDates, Date, FulltextDates, get_days
 
 
-class TestDate(TestCase):
+class TestDate(unittest.TestCase):
+    """Testes originais da classe Date"""
+    
     def setUp(self):
         # Basic date XML
         self.basic_date_xml = """
@@ -76,6 +79,7 @@ class TestDate(TestCase):
             "year": "2024",
             "month": "01",
             "day": "15",
+            "season": None,
             "type": "pub",
             "display": "2024-01-15",
             "is_complete": True,
@@ -88,6 +92,8 @@ class TestDate(TestCase):
         expected_partial_data = {
             "year": "2024",
             "month": "01",
+            "day": None,
+            "season": None,
             "type": "pub",
             "display": "2024-01",
             "is_complete": False,
@@ -105,8 +111,79 @@ class TestDate(TestCase):
         partial_date_obj = Date(self.partial_date_node)
         self.assertEqual(str(partial_date_obj), "2024-01")
 
+    def test_get_date_complete(self):
+        """Testa get_date com data completa"""
+        date_obj = Date(self.basic_date_node)
+        result = date_obj.get_date()
+        
+        self.assertIn("date", result)
+        self.assertNotIn("estimated", result)
+        self.assertEqual(result["date"], date(2024, 1, 15))
 
-class TestArticleDates(TestCase):
+    def test_get_date_missing_day(self):
+        """Testa get_date com dia faltando"""
+        date_obj = Date(self.partial_date_node)
+        result = date_obj.get_date()
+        
+        self.assertIn("date", result)
+        self.assertIn("estimated", result)
+        self.assertTrue(result["estimated"])
+        self.assertEqual(result["date"], date(2024, 1, 15))  # usa default_day=15
+
+    def test_get_date_missing_month_and_day(self):
+        """Testa get_date com mês e dia faltando"""
+        node = etree.fromstring("<pub-date><year>2024</year></pub-date>")
+        date_obj = Date(node)
+        result = date_obj.get_date()
+        
+        self.assertIn("date", result)
+        self.assertIn("estimated", result)
+        self.assertTrue(result["estimated"])
+        self.assertEqual(result["date"], date(2024, 6, 15))  # usa defaults
+
+    def test_get_date_custom_defaults(self):
+        """Testa get_date com valores padrão customizados"""
+        node = etree.fromstring("<pub-date><year>2024</year></pub-date>")
+        date_obj = Date(node)
+        result = date_obj.get_date(default_day=1, default_month=12)
+        
+        self.assertIn("date", result)
+        self.assertTrue(result["estimated"])
+        self.assertEqual(result["date"], date(2024, 12, 1))
+
+    def test_get_estimated_date_complete(self):
+        """Testa get_estimated_date com data completa"""
+        date_obj = Date(self.basic_date_node)
+        result = date_obj.get_estimated_date()
+        
+        self.assertEqual(result, date(2024, 1, 15))
+
+    def test_get_estimated_date_missing_day(self):
+        """Testa get_estimated_date sem dia"""
+        date_obj = Date(self.partial_date_node)
+        result = date_obj.get_estimated_date(default_day=10)
+        
+        self.assertEqual(result, date(2024, 1, 10))
+
+    def test_get_estimated_date_missing_month_and_day(self):
+        """Testa get_estimated_date sem mês e dia"""
+        node = etree.fromstring("<pub-date><year>2024</year></pub-date>")
+        date_obj = Date(node)
+        result = date_obj.get_estimated_date(default_day=25, default_month=8)
+        
+        self.assertEqual(result, date(2024, 8, 25))
+
+    def test_get_estimated_date_invalid(self):
+        """Testa get_estimated_date com data inválida"""
+        date_obj = Date(self.invalid_date_node)
+        result = date_obj.get_estimated_date()
+        
+        self.assertIsNone(result)
+
+
+class TestArticleDates(unittest.TestCase):
+    """Testes originais da classe ArticleDates"""
+    
     def setUp(self):
         self.article_xml = """
         <article article-type="research-article" xml:lang="pt">
@@ -200,7 +277,9 @@ class TestArticleDates(TestCase):
         self.assertIsNotNone(suppl_dates.epub_date)
 
 
-class TestFulltextDates(TestCase):
+class TestFulltextDates(unittest.TestCase):
+    """Testes originais da classe FulltextDates"""
+    
     def setUp(self):
         self.article_xml = """
         <article article-type="research-article" xml:lang="pt">
@@ -220,6 +299,11 @@ class TestFulltextDates(TestCase):
                             <year>2023</year>
                             <month>12</month>
                             <day>01</day>
+                        </date>
+                        <date date-type="accepted">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>10</day>
                         </date>
                     </history>
                 </article-meta>
@@ -299,9 +383,10 @@ class TestFulltextDates(TestCase):
         self.assertEqual(history["received"]["year"], "2023")
         self.assertEqual(history["received"]["month"], "12")
         self.assertEqual(history["received"]["day"], "01")
-        self.assertNotIn("rev-recd", history)
-        self.assertNotIn("rev-request", history)
-        self.assertNotIn("accepted", history)
+        self.assertIn("accepted", history)
+        self.assertEqual(history["accepted"]["year"], "2024")
+        self.assertEqual(history["accepted"]["month"], "01")
+        self.assertEqual(history["accepted"]["day"], "10")
 
     def test_data_property(self):
         data = self.fulltext_dates.data
@@ -337,3 +422,542 @@ class TestFulltextDates(TestCase):
         parent = main_item["parent"]
         self.assertEqual(parent["parent_lang"], "pt")
         self.assertEqual(parent["parent_article_type"], "research-article")
+
+    def test_get_peer_reviewed_stats_complete(self):
+        """Testa get_peer_reviewed_stats com todas as datas"""
+        stats = self.fulltext_dates.get_peer_reviewed_stats()
+        
+        self.assertEqual(stats["received_date"], date(2023, 12, 1))
+        self.assertEqual(stats["accepted_date"], date(2024, 1, 10))
+        self.assertEqual(stats["published_date"], date(2024, 1, 15))
+        self.assertEqual(stats["days_from_received_to_accepted"], 40)
+        self.assertEqual(stats["days_from_accepted_to_published"], 5)
+        self.assertEqual(stats["days_from_received_to_published"], 45)
+        self.assertFalse(stats.get("estimated_days_from_received_to_accepted", False))
+        self.assertFalse(stats.get("estimated_days_from_accepted_to_published", False))
+        self.assertFalse(stats.get("estimated_days_from_received_to_published", False))
+
+    def test_get_peer_reviewed_stats_with_estimated_dates(self):
+        """Testa get_peer_reviewed_stats com datas estimadas"""
+        # Cria XML com datas parciais que precisarão de estimativa
+        xml_with_partial_dates = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>01</month>
+                    </pub-date>
+                    <history>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>12</month>
+                        </date>
+                        <date date-type="accepted">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>10</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_partial_dates)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        # Verifica que as datas estimadas foram marcadas
+        self.assertTrue(stats["estimated_days_from_received_to_accepted"])
+        self.assertTrue(stats["estimated_days_from_accepted_to_published"])
+        self.assertTrue(stats["estimated_days_from_received_to_published"])
+
+    def test_get_peer_reviewed_stats_missing_dates(self):
+        """Testa get_peer_reviewed_stats com datas faltando"""
+        xml_no_history = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>01</month>
+                        <day>15</day>
+                    </pub-date>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_no_history)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        self.assertIsNone(stats["received_date"])
+        self.assertIsNone(stats["accepted_date"])
+        self.assertEqual(stats["published_date"], date(2024, 1, 15))
+        self.assertIsNone(stats["days_from_received_to_accepted"])
+        self.assertIsNone(stats["days_from_accepted_to_published"])
+        self.assertIsNone(stats["days_from_received_to_published"])
+
+    def test_get_peer_reviewed_stats_custom_defaults(self):
+        """Testa get_peer_reviewed_stats com valores padrão customizados"""
+        xml_with_partial = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <year>2023</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_partial)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats(default_month=12, default_day=31)
+        
+        # Verifica que os valores padrão foram aplicados
+        self.assertEqual(stats["received_date"], date(2023, 12, 31))
+        self.assertTrue(stats.get("estimated_days_from_received_to_accepted") or 
+                       stats.get("estimated_days_from_received_to_accepted") is None)
+
+
+class TestGetDays(unittest.TestCase):
+    """Testes para a função get_days"""
+    
+    def test_valid_dates(self):
+        """Testa cálculo com datas válidas"""
+        start = date(2024, 1, 1)
+        end = date(2024, 1, 10)
+        result = get_days(start, end)
+        self.assertEqual(result, 9)
+    
+    def test_same_date(self):
+        """Testa quando as datas são iguais"""
+        start = date(2024, 1, 1)
+        end = date(2024, 1, 1)
+        result = get_days(start, end)
+        self.assertEqual(result, 0)
+    
+    def test_negative_days(self):
+        """Testa quando a data final é anterior à inicial"""
+        start = date(2024, 1, 10)
+        end = date(2024, 1, 1)
+        result = get_days(start, end)
+        self.assertEqual(result, -9)
+    
+    def test_none_start_date(self):
+        """Testa com data inicial None"""
+        end = date(2024, 1, 10)
+        result = get_days(None, end)
+        self.assertIsNone(result)
+    
+    def test_none_end_date(self):
+        """Testa com data final None"""
+        start = date(2024, 1, 1)
+        result = get_days(start, None)
+        self.assertIsNone(result)
+    
+    def test_both_none(self):
+        """Testa com ambas as datas None"""
+        result = get_days(None, None)
+        self.assertIsNone(result)
+    
+    def test_invalid_types(self):
+        """Testa com tipos inválidos"""
+        result = get_days("2024-01-01", "2024-01-10")
+        self.assertIsNone(result)
+    
+    def test_year_difference(self):
+        """Testa cálculo com diferença de anos"""
+        start = date(2023, 12, 31)
+        end = date(2024, 1, 1)
+        result = get_days(start, end)
+        self.assertEqual(result, 1)
+    
+    def test_leap_year(self):
+        """Testa cálculo incluindo ano bissexto"""
+        start = date(2024, 2, 28)
+        end = date(2024, 3, 1)
+        result = get_days(start, end)
+        self.assertEqual(result, 2)  # 2024 é bissexto
+        
+        start = date(2023, 2, 28)
+        end = date(2023, 3, 1)
+        result = get_days(start, end)
+        self.assertEqual(result, 1)  # 2023 não é bissexto
+
+
+class TestPreprintDate(unittest.TestCase):
+    """Testes para a propriedade preprint_date"""
+    
+    def test_preprint_date_exists(self):
+        """Testa quando preprint_date existe no XML"""
+        xml_with_preprint = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>10</month>
+                            <day>15</day>
+                        </date>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>01</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_preprint)
+        fulltext = FulltextDates(xmltree.find("."))
+        
+        preprint = fulltext.preprint_date
+        self.assertIsNotNone(preprint)
+        self.assertIsInstance(preprint, Date)
+        self.assertEqual(preprint.year, "2023")
+        self.assertEqual(preprint.month, "10")
+        self.assertEqual(preprint.day, "15")
+        self.assertEqual(preprint.type, "preprint")
+    
+    def test_preprint_date_not_exists(self):
+        """Testa quando preprint_date não existe no XML"""
+        xml_without_preprint = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>01</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_without_preprint)
+        fulltext = FulltextDates(xmltree.find("."))
+        
+        preprint = fulltext.preprint_date
+        self.assertIsNone(preprint)
+    
+    def test_preprint_date_partial(self):
+        """Testa preprint_date com data parcial (sem dia)"""
+        xml_with_partial_preprint = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>10</month>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_partial_preprint)
+        fulltext = FulltextDates(xmltree.find("."))
+        
+        preprint = fulltext.preprint_date
+        self.assertIsNotNone(preprint)
+        self.assertEqual(preprint.year, "2023")
+        self.assertEqual(preprint.month, "10")
+        self.assertIsNone(preprint.day)
+        
+        # Testa estimativa de data
+        estimated = preprint.get_estimated_date()
+        self.assertEqual(estimated, date(2023, 10, 15))  # usa default_day=15
+    
+    def test_multiple_preprint_dates(self):
+        """Testa comportamento quando há múltiplas datas de preprint (deve pegar a primeira)"""
+        xml_with_multiple_preprints = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>08</month>
+                            <day>20</day>
+                        </date>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>09</month>
+                            <day>10</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_multiple_preprints)
+        fulltext = FulltextDates(xmltree.find("."))
+        
+        preprint = fulltext.preprint_date
+        self.assertIsNotNone(preprint)
+        # Deve pegar a primeira ocorrência
+        self.assertEqual(preprint.year, "2023")
+        self.assertEqual(preprint.month, "08")
+        self.assertEqual(preprint.day, "20")
+
+
+class TestGetPeerReviewedStatsWithPreprint(unittest.TestCase):
+    """Testes para get_peer_reviewed_stats incluindo cenários com preprint"""
+    
+    def test_complete_peer_review_cycle_with_preprint(self):
+        """Testa ciclo completo de revisão incluindo preprint"""
+        xml_complete = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>01</month>
+                        <day>15</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>09</month>
+                            <day>01</day>
+                        </date>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>01</day>
+                        </date>
+                        <date date-type="accepted">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>10</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_complete)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        # Verifica todas as datas
+        self.assertEqual(stats["preprint_date"], date(2023, 9, 1))
+        self.assertEqual(stats["received_date"], date(2023, 11, 1))
+        self.assertEqual(stats["accepted_date"], date(2024, 1, 10))
+        self.assertEqual(stats["published_date"], date(2024, 1, 15))
+        
+        # Verifica intervalos com preprint
+        self.assertEqual(stats["days_from_preprint_to_received"], 61)  # Sep 1 to Nov 1
+        self.assertEqual(stats["days_from_preprint_to_published"], 136)  # Sep 1 to Jan 15
+        
+        # Verifica intervalos tradicionais
+        self.assertEqual(stats["days_from_received_to_accepted"], 70)  # Nov 1 to Jan 10
+        self.assertEqual(stats["days_from_accepted_to_published"], 5)   # Jan 10 to Jan 15
+        self.assertEqual(stats["days_from_received_to_published"], 75)  # Nov 1 to Jan 15
+        
+        # Verifica que não há estimativas
+        self.assertFalse(stats.get("estimated_days_from_preprint_to_received", False))
+        self.assertFalse(stats.get("estimated_days_from_preprint_to_published", False))
+        self.assertFalse(stats.get("estimated_days_from_received_to_accepted", False))
+    
+    def test_preprint_with_estimated_dates(self):
+        """Testa preprint com datas estimadas"""
+        xml_partial = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>02</month>
+                    </pub-date>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>09</month>
+                        </date>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>01</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_partial)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        # Verifica datas com estimativa
+        self.assertEqual(stats["preprint_date"], date(2023, 9, 15))  # usa default_day=15
+        self.assertEqual(stats["received_date"], date(2023, 11, 1))
+        self.assertEqual(stats["published_date"], date(2024, 2, 15))  # usa default_day=15
+        
+        # Verifica flags de estimativa para preprint
+        self.assertTrue(stats["estimated_days_from_preprint_to_received"])
+        self.assertTrue(stats["estimated_days_from_preprint_to_published"])
+        self.assertTrue(stats["estimated_days_from_received_to_published"])
+    
+    def test_only_preprint_and_published(self):
+        """Testa cenário com apenas preprint e data de publicação"""
+        xml_minimal = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>03</month>
+                        <day>01</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>12</month>
+                            <day>15</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_minimal)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        # Verifica datas disponíveis
+        self.assertEqual(stats["preprint_date"], date(2023, 12, 15))
+        self.assertIsNone(stats["received_date"])
+        self.assertIsNone(stats["accepted_date"])
+        self.assertEqual(stats["published_date"], date(2024, 3, 1))
+        
+        # Verifica intervalos
+        self.assertIsNone(stats["days_from_preprint_to_received"])
+        self.assertEqual(stats["days_from_preprint_to_published"], 77)  # Dec 15 to Mar 1, inclui ano bissexto
+        self.assertIsNone(stats["days_from_received_to_accepted"])
+        self.assertIsNone(stats["days_from_received_to_published"])
+    
+    def test_custom_defaults_with_preprint(self):
+        """Testa valores padrão customizados com preprint"""
+        xml_year_only = """
+        <article>
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                        </date>
+                        <date date-type="received">
+                            <year>2024</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_year_only)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats(default_month=12, default_day=31)
+        
+        # Verifica que os defaults foram aplicados
+        self.assertEqual(stats["preprint_date"], date(2023, 12, 31))
+        self.assertEqual(stats["received_date"], date(2024, 12, 31))
+        
+        # Verifica intervalo com datas estimadas
+        self.assertEqual(stats["days_from_preprint_to_received"], 366)  # 2023-12-31 to 2024-12-31, inclui ano bissexto
+        self.assertTrue(stats["estimated_days_from_preprint_to_received"])
+    
+    def test_serialize_dates_with_preprint(self):
+        """Testa serialização de datas incluindo preprint"""
+        xml_for_serialization = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2024</year>
+                        <month>01</month>
+                        <day>20</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>10</month>
+                            <day>05</day>
+                        </date>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>15</day>
+                        </date>
+                        <date date-type="accepted">
+                            <year>2024</year>
+                            <month>01</month>
+                            <day>12</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_for_serialization)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats(serialize_dates=True)
+        
+        # Verifica que as datas foram serializadas como strings ISO
+        self.assertEqual(stats["preprint_date"], "2023-10-05")
+        self.assertEqual(stats["received_date"], "2023-11-15")
+        self.assertEqual(stats["accepted_date"], "2024-01-12")
+        self.assertEqual(stats["published_date"], "2024-01-20")
+        
+        # Intervalos continuam como inteiros
+        self.assertIsInstance(stats["days_from_preprint_to_received"], int)
+        self.assertEqual(stats["days_from_preprint_to_received"], 41)
+    
+    def test_negative_intervals_with_preprint(self):
+        """Testa cenário com intervalos negativos (datas fora de ordem)"""
+        xml_out_of_order = """
+        <article>
+            <front>
+                <article-meta>
+                    <pub-date date-type="pub">
+                        <year>2023</year>
+                        <month>06</month>
+                        <day>01</day>
+                    </pub-date>
+                    <history>
+                        <date date-type="preprint">
+                            <year>2023</year>
+                            <month>12</month>
+                            <day>01</day>
+                        </date>
+                        <date date-type="received">
+                            <year>2023</year>
+                            <month>11</month>
+                            <day>01</day>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_out_of_order)
+        fulltext = FulltextDates(xmltree.find("."))
+        stats = fulltext.get_peer_reviewed_stats()
+        
+        # Verifica intervalos negativos
+        self.assertEqual(stats["days_from_preprint_to_received"], -30)  # Dec 1 to Nov 1 (backward)
+        self.assertEqual(stats["days_from_preprint_to_published"], -183)  # Dec 1 to Jun 1 (backward)
+        self.assertEqual(stats["days_from_received_to_published"], -153)  # Nov 1 to Jun 1 (backward)
+
+
+if __name__ == '__main__':
+    unittest.main()

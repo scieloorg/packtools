@@ -1,6 +1,53 @@
 from datetime import date
+from functools import lru_cache, cached_property
 
 from packtools.sps.models.article_and_subarticles import Fulltext
+
+
+class XMLWithPreArticlePublicationDateError(Exception): ...
+
+
+@lru_cache(maxsize=200)
+def format_date(year=None, month=None, day=None, **kwargs) -> str:
+    """
+    Formata uma data de artigo para o formato YYYY-MM-DD.
+
+    Args:
+        year: Ano como string ou int
+        month: Mês como string ou int
+        day: Dia como string ou int
+
+    Returns:
+        String formatada no padrão YYYY-MM-DD
+
+    Raises:
+        XMLWithPreArticlePublicationDateError: Se a data for inválida
+    """
+    try:
+        # Valida a data criando um objeto date
+        d = date(int(year), int(month), int(day))
+
+        # Retorna a string formatada
+        return f"{year}-{str(month).zfill(2)}-{str(day).zfill(2)}"
+
+    except (ValueError, TypeError) as e:
+        raise XMLWithPreArticlePublicationDateError(
+            f"Unable to format_date "
+            f"year={year}, month={month}, day={day}: {type(e).__name__}: {e}"
+        )
+
+
+def get_days(start_date, end_date):
+    """
+    Calculate days between two dates Date.
+
+    Returns:
+        int: Number of days between start_date and end_date, or None if not available
+    """
+    try:
+        return (end_date - start_date).days
+    except (AttributeError, TypeError):
+        return None
 
 
 class Date:
@@ -54,10 +101,7 @@ class Date:
             {'year': '2024', 'month': '01', 'day': '15'}
         """
         _date = {}
-        for name in ("year", "month", "season", "day"):
-            value = self.node.findtext(name)
-            if value:
-                _date[name] = value
+        _date.update(self.parts)
         _date["type"] = self.type
         _date["display"] = self.display
         _date["is_complete"] = bool(self.date)
@@ -65,21 +109,21 @@ class Date:
         return _date
 
     def __str__(self):
-        return self.display or str({"year": self.year, "month": self.month, "day": self.day})
+        return self.display or str(self.parts)
 
-    @property
+    @cached_property
     def parts(self):
-        return {"year": self.year, "season": self.season, "month": self.month, "day": self.day}
-    
-    @property
+        return {
+            "year": self.year,
+            "season": self.season,
+            "month": self.month,
+            "day": self.day,
+        }
+
+    @cached_property
     def display(self):
         if self.season:
             return "/".join([item for item in (self.season, self.year) if item])
-
-        try:
-            date(int(self.year), int(self.month or 1), int(self.day or 1))
-        except (ValueError, TypeError):
-            return None
 
         parts = []
         if self.year and len(self.year) == 4:
@@ -90,11 +134,39 @@ class Date:
                     parts.append(self.day.zfill(2))
         return "-".join(parts)
 
-    @property
+    @cached_property
     def date(self):
         try:
             return date(int(self.year), int(self.month), int(self.day))
         except (ValueError, TypeError):
+            return None
+
+    def get_date(self, default_day=15, default_month=6):
+        date_ = self.date
+        if date_:
+            return {"date": date_}
+        return {
+            "estimated": True,
+            "date": self.get_estimated_date(
+                default_day=default_day, default_month=default_month
+            ),
+        }
+
+    def get_estimated_date(self, default_day=15, default_month=6):
+        try:
+            return date(
+                int(self.year),
+                int(self.month or default_month),
+                int(self.day or default_day),
+            )
+        except (ValueError, TypeError):
+            return None
+
+    @cached_property
+    def isoformat(self):
+        try:
+            return self.date.isoformat()
+        except (AttributeError, ValueError, TypeError):
             return None
 
 
@@ -182,9 +254,7 @@ class FulltextDates(Fulltext):
             xlink:href="10.1590/0101-3173.2022.v45n1.p139"
         >Referência do artigo comentado: FREITAS, J. H. de. Cinismo e indiferenciación: la huella de Glucksmann en <italic>El coraje de la verdad</italic> de Foucault. <bold>Trans/form/ação</bold>: revista de Filosofia da Unesp, v. 45, n. 1, p. 139-158, 2022.</related-article>
         """
-        for node in self.node.xpath(
-            "front//related-article | front-stub//related-article | body//related-article | back//related-article"
-        ):
+        for node in self.node.xpath(".//related-article"):
             yield {
                 "related-article-type": node.get("related-article-type"),
                 "xlink_href": node.get("{http://www.w3.org/1999/xlink}href"),
@@ -207,7 +277,7 @@ class FulltextDates(Fulltext):
     def translations(self):
         for node in super().translations:
             yield FulltextDates(node)
-            
+
     @property
     def not_translations(self):
         for node in super().not_translations:
@@ -236,42 +306,38 @@ class FulltextDates(Fulltext):
         for item in self.not_translations:
             yield from item.items
 
-    @property
+    @cached_property
     def epub_date_model(self):
-        if not hasattr(self, "_epub_date_model"):
-            try:
-                node = self.front.xpath(
-                    ".//pub-date[@date-type='pub'] | .//pub-date[@pub-type='epub']"
-                )[0]
-            except (IndexError, AttributeError):
-                self._epub_date_model = None
-            else:
-                self._epub_date_model = Date(node)
-        return self._epub_date_model
+        try:
+            node = self.front.xpath(
+                ".//pub-date[@date-type='pub' or @pub-type='epub']"
+            )[0]
+        except (IndexError, AttributeError):
+            return None
+        else:
+            return Date(node)
 
-    @property
+    @cached_property
     def epub_date(self):
         try:
             return self.epub_date_model.data
         except AttributeError:
             return None
 
-    @property
+    @cached_property
     def article_date(self):
         return self.epub_date
 
-    @property
+    @cached_property
     def collection_date_model(self):
-        if not hasattr(self, "_collection_model"):
-            try:
-                node = self.front.xpath(
-                    ".//pub-date[@date-type='collection'] | .//pub-date[@pub-type='epub-ppub'] | .//pub-date[@pub-type='collection']"
-                )[0]
-            except (IndexError, AttributeError):
-                self._collection_model = None
-            else:
-                self._collection_model = Date(node)
-        return self._collection_model
+        try:
+            node = self.front.xpath(
+                ".//pub-date[@date-type='collection' or @pub-type='epub-ppub' or @pub-type='collection']"
+            )[0]
+        except (IndexError, AttributeError):
+            return None
+        else:
+            return Date(node)
 
     @property
     def collection_date(self):
@@ -289,7 +355,7 @@ class FulltextDates(Fulltext):
             _dates.append(self.epub_date)
         return _dates
 
-    @property
+    @cached_property
     def history_dates(self):
         try:
             for node in self.front.xpath(".//history//date"):
@@ -297,7 +363,7 @@ class FulltextDates(Fulltext):
         except AttributeError:
             return
 
-    @property
+    @cached_property
     def history_dates_list(self):
         """Get article history dates as a list.
 
@@ -315,7 +381,7 @@ class FulltextDates(Fulltext):
         """
         return [item for item in self.history_dates]
 
-    @property
+    @cached_property
     def history_dates_dict(self):
         """Get article history dates as a dictionary.
 
@@ -336,7 +402,7 @@ class FulltextDates(Fulltext):
             _dates[event_date["type"]] = event_date
         return _dates
 
-    @property
+    @cached_property
     def ordered_events(self):
         obtained_events = [
             (k, item["display"]) for k, item in self.history_dates_dict.items()
@@ -344,7 +410,125 @@ class FulltextDates(Fulltext):
         # ordena a lista de eventos de forma cronológica
         return [tp for tp in sorted(obtained_events, key=lambda x: x[1])]
 
-    @property
+    @cached_property
     def date_types_ordered_by_date(self):
         # obtem uma lista com os nomes dos eventos ordenados
         return [event[0] for event in self.ordered_events]
+
+    @cached_property
+    def preprint_date(self):
+        """Get preprint date as a Date instance.
+
+        Returns:
+            Date: Date instance for the preprint date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='preprint']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    @cached_property
+    def received_date(self):
+        """Get received date as a Date instance.
+
+        Returns:
+            Date: Date instance for the received date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='received']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    @cached_property
+    def accepted_date(self):
+        """Get accepted date as a Date instance.
+
+        Returns:
+            Date: Date instance for the accepted date, or None if not available
+        """
+        try:
+            node = self.front.xpath(".//history//date[@date-type='accepted']")[0]
+            return Date(node)
+        except (IndexError, AttributeError):
+            return None
+
+    def get_peer_reviewed_stats(
+        self, default_month=6, default_day=15, serialize_dates=False
+    ):
+        preprint = {}
+        if self.preprint_date:
+            preprint = self.preprint_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
+        received = {}
+        if self.received_date:
+            received = self.received_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
+        accepted = {}
+        if self.accepted_date:
+            accepted = self.accepted_date.get_date(
+                default_month=default_month, default_day=default_day
+            )
+        published = {}
+        if self.epub_date_model or self.collection_date_model:
+            published = (self.epub_date_model or self.collection_date_model).get_date(
+                default_month=default_month, default_day=default_day
+            )
+
+        preprint_date = preprint.get("date")
+        received_date = received.get("date")
+        accepted_date = accepted.get("date")
+        published_date = published.get("date")
+
+        stats = {}
+        stats["preprint_date"] = (
+            preprint_date.isoformat()
+            if serialize_dates and preprint_date
+            else preprint_date
+        )
+        stats["received_date"] = (
+            received_date.isoformat()
+            if serialize_dates and received_date
+            else received_date
+        )
+        stats["accepted_date"] = (
+            accepted_date.isoformat()
+            if serialize_dates and accepted_date
+            else accepted_date
+        )
+        stats["published_date"] = (
+            published_date.isoformat()
+            if serialize_dates and published_date
+            else published_date
+        )
+        stats["days_from_preprint_to_received"] = get_days(preprint_date, received_date)
+        stats["estimated_days_from_preprint_to_received"] = preprint.get(
+            "estimated"
+        ) or received.get("estimated")
+        stats["days_from_received_to_accepted"] = get_days(received_date, accepted_date)
+        stats["estimated_days_from_received_to_accepted"] = received.get(
+            "estimated"
+        ) or accepted.get("estimated")
+        stats["days_from_accepted_to_published"] = get_days(
+            accepted_date, published_date
+        )
+        stats["estimated_days_from_accepted_to_published"] = accepted.get(
+            "estimated"
+        ) or published.get("estimated")
+
+        stats["days_from_preprint_to_published"] = get_days(
+            preprint_date, published_date
+        )
+        stats["estimated_days_from_preprint_to_published"] = preprint.get(
+            "estimated"
+        ) or published.get("estimated")
+        stats["days_from_received_to_published"] = get_days(
+            received_date, published_date
+        )
+        stats["estimated_days_from_received_to_published"] = received.get(
+            "estimated"
+        ) or published.get("estimated")
+        return stats
