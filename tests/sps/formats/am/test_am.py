@@ -7,7 +7,11 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "packtools/sps/formats/am/S0104-11692025000100300/S0104-11692025000100300.xml"
+            "tests/sps/fixtures/formats/am/S0104-11692025000100300.xml"
+        )
+
+        self.xml_tree_bug = xml_utils.get_xml_tree(
+            "tests/sps/fixtures/formats/am/S0034-89102004000400017.xml"
         )
 
         self.external_data = {
@@ -510,9 +514,13 @@ class TestGetDates(BaseTest):
     def setUp(self):
         super().setUp()
         self.dates_data = am.get_dates(self.xml_tree)
+        self.dates_data_bug = am.get_dates(self.xml_tree_bug)
 
     def test_field_v114(self):
         self.assertEqual(self.dates_data["v114"], [{"_": "20240811"}])
+
+    def test_field_v111(self):
+        self.assertEqual(self.dates_data_bug["v111"], [{"_": "02/2003"}])
 
     def test_field_v112(self):
         self.assertEqual(self.dates_data["v112"], [{"_": "20240208"}])
