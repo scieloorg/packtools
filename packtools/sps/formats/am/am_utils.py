@@ -67,14 +67,9 @@ def format_date(date_dict, fields, sep=""):
     if not date_dict:
         return None
 
-    parts = []
-    for field in fields:
-        value = date_dict.get(field)
-        if value is not None and str(value).strip():
-            parts.append(str(value))
+    parts = [date_dict.get(field) for field in fields if date_dict.get(field)]
 
-    return sep.join(parts) if parts else None
-
+    return sep.join(parts) or None
 
 def generate_am_dict(fields):
     response = {}
