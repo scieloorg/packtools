@@ -1,5 +1,7 @@
 import unittest
 
+from lxml import etree
+
 from packtools.sps.utils import xml_utils
 from packtools.sps.formats.am import am
 
@@ -7,7 +9,7 @@ from packtools.sps.formats.am import am
 class BaseTest(unittest.TestCase):
     def setUp(self):
         self.xml_tree = xml_utils.get_xml_tree(
-            "packtools/sps/formats/am/S0104-11692025000100300/S0104-11692025000100300.xml"
+            "tests/sps/fixtures/formats/am/S0104-11692025000100300.xml"
         )
 
         self.external_data = {
@@ -513,6 +515,25 @@ class TestGetDates(BaseTest):
 
     def test_field_v114(self):
         self.assertEqual(self.dates_data["v114"], [{"_": "20240811"}])
+
+    def test_field_v111(self):
+        xml_string = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <month>02</month>
+                            <year>2003</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>"""
+
+        xml_tree = etree.fromstring(xml_string)
+        dates_data = am.get_dates(xml_tree)
+        self.assertEqual(dates_data["v111"], [{"_": "02/2003"}])
 
     def test_field_v112(self):
         self.assertEqual(self.dates_data["v112"], [{"_": "20240208"}])
