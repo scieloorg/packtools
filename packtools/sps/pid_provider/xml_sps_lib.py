@@ -877,9 +877,24 @@ class XMLWithPre:
         # href, ext-link-type, related-article-type
         return self.issns.get("epub")
 
+    def get_complete_publication_date(self, default_month=6, default_day=15):
+        try:
+            xml = ArticleDates(self.xmltree)
+        except Exception as e:
+            logging.exception(e)
+            return None
+        try:
+            return xml.article_date_isoformat
+        except Exception as e:
+            data = xml.article_date
+            return date(
+                int(data["year"]),
+                int(data.get("month") or default_month),
+                int(data.get("day") or default_day),
+            ).isoformat()
+        return self.article_publication_date
     @property
     def article_publication_date(self):
-        # ("year", "month", "season", "day")
         try:
             return ArticleDates(self.xmltree).article_date_isoformat
         except Exception as e:
@@ -900,12 +915,20 @@ class XMLWithPre:
 
         try:
             node = self.xmltree.xpath(
-                ".//article-meta//pub-date[@date-type='pub' or @pub-type='epub']"
+                ".//article-meta//pub-date[@date-type='pub' or @pub-type='epub' or @pub-type='epub-ppub']"
             )[0]
+            if node.get("pub-type") == "epub-ppub":
+                node.set("pub-type", "collection")
+                raise IndexError  # força criar novo nó pub-date (epub)
         except IndexError:
             node = etree.Element("pub-date")
-            node.set("date-type", "pub")
-            node.set("publication-format", "electronic")
+            if self.xmltree.xpath(".//article-meta//pub-date[@pub-type]"):
+                # mais antigo
+                node.set("pub-type", "epub")
+            else:
+                # mais recente
+                node.set("date-type", "pub")
+                node.set("publication-format", "electronic")
 
             # https://jats.nlm.nih.gov/publishing/tag-library/1.3/element/article-meta.html
             pub_date_preceding_siblings = (
@@ -1034,7 +1057,7 @@ class XMLWithPre:
         return extract_number(number)
 
     def generate_order(self, suppl_start=1000, spe_start=2000):
-        if self.supplement:
+        if self.suppl:
             return self.generate_order_for_supplement(suppl_start)
         if not self.number:
             return 1
