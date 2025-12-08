@@ -907,9 +907,16 @@ class XMLWithPre:
         value : dict (keys: year, month, day)
         """
         try:
+            if isinstance(value, str):
+                parts = value.split("-")
+                value = {
+                    "day": parts[2],
+                    "month": parts[1],
+                    "year": parts[0],
+                }
             formatted = format_date(**value)
-        except XMLWithPreArticlePublicationDateError:
-            raise ValueError(
+        except Exception as e:
+            raise XMLWithPreArticlePublicationDateError(
                 f"Unable to set article_publication_date with {value}. Date with valid year, month, day is required"
             )
 
