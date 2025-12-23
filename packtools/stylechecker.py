@@ -96,6 +96,7 @@ def summarize(validator, assets_basedir=None):
         'dtd_errors': [_make_err_message(err) for err in dtd_errors],
         'style_errors': {},
         'is_valid': bool(dtd_is_valid and sps_is_valid),
+        'sps_version': validator.sps_version,
     }
 
     for sps_error in sps_errors:
