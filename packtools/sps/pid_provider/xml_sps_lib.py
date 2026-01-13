@@ -566,7 +566,6 @@ class XMLWithPre:
             self.number and self.number.zfill(2),
             self.sps_pkg_name_suppl,
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
-            self.additional_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
     
