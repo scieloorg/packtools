@@ -424,7 +424,6 @@ class XMLWithPre:
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
-        self._additional_sps_pkg_name_suffix = None
 
     @property
     def data(self):
@@ -555,7 +554,7 @@ class XMLWithPre:
     @cached_property
     def alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
-    
+
     @cached_property
     def sps_pkg_name(self):
         """Cache do nome do pacote SPS que é usado frequentemente"""
@@ -567,6 +566,7 @@ class XMLWithPre:
             self.number and self.number.zfill(2),
             self.sps_pkg_name_suppl,
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
+            self.additional_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
     
