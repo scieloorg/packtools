@@ -540,27 +540,41 @@ class XMLWithPre:
     @cached_property
     def alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
+    
+    @property
+    def additional_sps_pkg_name_suffix(self):
+        return self._additional_sps_pkg_name_suffix
+
+    @additional_sps_pkg_name_suffix.setter
+    def additional_sps_pkg_name_suffix(self, value):
+        self._additional_sps_pkg_name_suffix = value
 
     @cached_property
     def sps_pkg_name(self):
         """Cache do nome do pacote SPS que é usado frequentemente"""
-        try:
-            suppl = self.suppl
-            if suppl and int(suppl) == 0:
-                suppl = "suppl"
-        except (TypeError, ValueError):
-            pass
-
         xml_acron = Acronym(self.xmltree)
         parts = [
             self.journal_issn_electronic or self.journal_issn_print,
             xml_acron.text,
             self.volume,
             self.number and self.number.zfill(2),
-            suppl,
+            self.sps_pkg_name_suppl,
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
+            self.additional_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
+    
+    @property
+    def sps_pkg_name_suppl(self):
+        suppl = self.suppl
+        if not suppl:
+            return None
+        try:
+            if int(suppl) == 0:
+                return "suppl"
+        except (TypeError, ValueError):
+            pass
+        return f"s{self.suppl}"
 
     @cached_property
     def article_id_parent(self):
