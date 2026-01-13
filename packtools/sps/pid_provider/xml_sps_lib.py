@@ -424,7 +424,6 @@ class XMLWithPre:
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
-        self._additional_sps_pkg_name_suffix = None
 
     @property
     def data(self):
@@ -526,12 +525,8 @@ class XMLWithPre:
     def sps_pkg_name_suffix(self):
         if self.elocation_id:
             return self.elocation_id
-        if self.fpage:
-            try:
-                if int(self.fpage) != 0:
-                    return self.fpage + (self.fpage_seq or "")
-            except (TypeError, ValueError):
-                return self.fpage + (self.fpage_seq or "")
+        if self.sps_pkg_name_fpage:
+            return self.sps_pkg_name_fpage
         if self.main_doi:
             doi = self.main_doi
             if "/" in doi:
@@ -539,16 +534,26 @@ class XMLWithPre:
             return doi.replace(".", "-")
 
     @cached_property
+    def sps_pkg_name_fpage(self):
+        fpage = self.fpage
+        if not fpage:
+            return None
+        try:
+            if int(fpage) == 0:
+                return None
+        except (TypeError, ValueError):
+            pass
+        seq = self.fpage_seq
+        if not seq:
+            if self.lpage == fpage:
+                seq = self.v2 and self.v2[-5:]
+        if seq:
+            return f"{fpage}_{seq}"
+        return fpage
+
+    @cached_property
     def alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
-    
-    @property
-    def additional_sps_pkg_name_suffix(self):
-        return self._additional_sps_pkg_name_suffix
-
-    @additional_sps_pkg_name_suffix.setter
-    def additional_sps_pkg_name_suffix(self, value):
-        self._additional_sps_pkg_name_suffix = value
 
     @cached_property
     def sps_pkg_name(self):
