@@ -424,6 +424,7 @@ class XMLWithPre:
         self.relative_system_id = None
         self._sps_version = None
         self.errors = None
+        self._additional_sps_pkg_name_suffix = None
 
     @property
     def data(self):
@@ -574,7 +575,7 @@ class XMLWithPre:
                 return "suppl"
         except (TypeError, ValueError):
             pass
-        return f"s{self.suppl}"
+        return f"s{suppl}"
 
     @cached_property
     def article_id_parent(self):
