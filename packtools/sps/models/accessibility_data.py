@@ -17,13 +17,13 @@ class XMLAccessibilityData:
 
     @property
     def data(self):
+        # CORREÇÃO: XPath simplificado para evitar duplicatas
+        # Captura apenas os elementos base que podem conter dados de acessibilidade
         xpaths = [
-            ".//*[alt-text]",
-            ".//*[long-desc]",
-            "graphic",
-            "inline-graphic",
-            "media",
-            "inline-media",
+            ".//graphic",
+            ".//inline-graphic",
+            ".//media",
+            ".//inline-media",
         ]
         for item in self.xmltree.xpath("|".join(xpaths)):
             model = AccessibilityData(item)
@@ -42,7 +42,17 @@ class AccessibilityData:
             return self.node.xpath('xref[@ref-type="sec"]')[0].get("rid")
         except:
             return None
-            
+
+    def _get_xml_string(self):
+        """Retorna string XML do elemento para mensagens de erro"""
+        try:
+            from lxml import etree
+            xml_str = etree.tostring(self.node, encoding='unicode')
+            # Limita a 200 caracteres para não sobrecarregar logs
+            return xml_str[:200] + "..." if len(xml_str) > 200 else xml_str
+        except:
+            return f"<{self.node.tag}...>"
+
     @property
     def alt_text(self):
         try:
@@ -81,14 +91,47 @@ class AccessibilityData:
             return None
 
     @property
+    def parent_info(self):
+        """
+        NOVA FUNCIONALIDADE: Extrai informações do elemento pai para validações.
+        Usado para verificar duplicação de conteúdo e identificar figuras decorativas.
+        """
+        parent = self.node.getparent()
+        if parent is not None:
+            label = parent.findtext(".//label")
+            caption_title = parent.findtext(".//caption/title")
+            return {
+                "parent_tag": parent.tag,
+                "parent_label": label,
+                "parent_caption_title": caption_title,
+            }
+        return {}
+
+    @property
+    def mimetype_info(self):
+        """
+        NOVA FUNCIONALIDADE: Extrai informações de MIME type para elementos <media>.
+        Necessário para validar regra de alt-text apenas em vídeo/áudio.
+        """
+        if self.node.tag in ("media", "inline-media"):
+            return {
+                "mimetype": self.node.get("mimetype"),
+                "mime_subtype": self.node.get("mime-subtype"),
+            }
+        return {}
+
+    @property
     def data(self):
         """Retorna um dicionário com todos os dados extraídos do XML."""
         d = {
             "tag": self.node.tag,
             "xref_sec_rid": self.xref_sec_rid,
+            "xml": self._get_xml_string(),  # Para mensagens de erro mais claras
         }
         d.update(self.long_desc or {})
         d.update(self.alt_text or {})
+        d.update(self.parent_info)  # NOVO
+        d.update(self.mimetype_info)  # NOVO
         d.update(self.transcript_data or {})
         return d
 
@@ -99,7 +142,7 @@ class Transcript:
 
     @property
     def transcript_id(self):
-        """Obtém o texto alternativo (<alt-text>) do XML."""
+        """Obtém o id do transcript."""
         return self.node.get("id")
 
     @property
