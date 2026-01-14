@@ -1,9 +1,13 @@
 import urllib.parse
 import re
+import gettext
 from datetime import date, timedelta
 
 from packtools.sps.libs.requester import fetch_data
 from packtools.sps.validation.similarity_utils import most_similar, similarity, how_similar
+
+# Configuração de internacionalização
+_ = gettext.gettext
 
 
 def format_response(
@@ -44,6 +48,9 @@ def format_response(
         item,
         sub_item,
     )
+
+    message = f"Got {obtained}, expected {expected}"
+
     return {
         "title": title,
         "parent": parent,
@@ -56,8 +63,12 @@ def format_response(
         "response": "OK" if is_valid else error_level,
         "expected_value": obtained if is_valid else expected,
         "got_value": obtained,
-        "message": f"Got {obtained}, expected {expected}",
+        "message": message,
+        "msg_text": _("Got {obtained}, expected {expected}"),
+        "msg_params": {"obtained": obtained, "expected": expected},
         "advice": None if is_valid else advice,
+        "adv_text": None if is_valid else advice,  # Por enquanto, será melhorado no build_response
+        "adv_params": None if is_valid else {},
         "data": data,
     }
 
@@ -78,7 +89,20 @@ def build_response(
     sub_element_name=None,
     attribute_name=None,
     xml=None,
+    advice_text=None,
+    advice_params=None,
 ):
+    """
+    Constrói um dicionário de resposta para validações.
+
+    NOVO: Adicionado suporte para internacionalização com:
+    - msg_text e msg_params: para a mensagem principal
+    - adv_text e adv_params: para o conselho (advice)
+
+    Args:
+        advice_text: Template de mensagem internacionalizada usando _()
+        advice_params: Dicionário com parâmetros para o template
+    """
     if validation_type == "value in list" and "one of " not in expected:
         expected = f"one of {expected}"
 
@@ -103,6 +127,9 @@ def build_response(
         item,
         sub_item
     )
+
+    message = f"Got {obtained}, expected {expected}"
+
     return {
         "title": title,
         "parent": parent.get("parent"),
@@ -115,8 +142,12 @@ def build_response(
         "response": "OK" if is_valid else error_level,
         "expected_value": expected,
         "got_value": obtained,
-        "message": f"Got {obtained}, expected {expected}",
+        "message": message,
+        "msg_text": _("Got {obtained}, expected {expected}"),
+        "msg_params": {"obtained": str(obtained), "expected": str(expected)},
         "advice": None if is_valid else advice,
+        "adv_text": None if is_valid else advice_text,
+        "adv_params": None if is_valid else (advice_params or {}),
         "data": data,
     }
 
