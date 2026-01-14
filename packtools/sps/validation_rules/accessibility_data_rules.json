@@ -2,6 +2,9 @@
     "accessibility_data_rules": {
         "alt_text_exist_error_level": "WARNING",
         "alt_text_content_error_level": "CRITICAL",
+        "alt_text_media_restriction_error_level": "ERROR",
+        "alt_text_duplication_error_level": "WARNING",
+        "decorative_alt_text_error_level": "WARNING",
         "long_desc_exist_error_level": "WARNING",
         "long_desc_content_error_level": "CRITICAL",
         "transcript_error_level": "WARNING",
