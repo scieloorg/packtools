@@ -26,10 +26,14 @@ class AccessibilityDataValidation:
         Executes all defined validations.
         """
         yield from self.validate_alt_text()
-        yield from self.validate_alt_text_media_restriction()  # NOVA
-        yield from self.validate_alt_text_not_duplicate_label_caption()  # NOVA
-        yield from self.validate_decorative_figure_alt_text()  # NOVA
+        yield from self.validate_alt_text_media_restriction()
+        yield from self.validate_alt_text_not_duplicate_label_caption()
+        yield from self.validate_decorative_figure_alt_text()
         yield from self.validate_long_desc()
+        yield from self.validate_long_desc_media_restriction()  # NOVA
+        yield from self.validate_long_desc_not_duplicate_label_caption()  # NOVA
+        yield from self.validate_long_desc_occurrence()  # NOVA
+        yield from self.validate_long_desc_incompatible_with_null_alt()  # NOVA
         yield self.validate_transcript()
         yield self.validate_speaker_and_speech()
         yield self.validate_accessibility_data_structure()
@@ -415,6 +419,268 @@ class AccessibilityDataValidation:
                 obtained=long_desc_content_type,
                 advice=advice,
                 error_level=self.params["content_type_error_level"],
+                data=self.data,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
+    def validate_long_desc_media_restriction(self):
+        """
+        NOVA VALIDAÇÃO: Valida que <long-desc> em <media> e <inline-media> só ocorre para vídeo/áudio.
+
+        Regra SPS 1.10:
+        "Em <media> e <inline-media> o elemento <long-desc> só deverá ocorrer quando
+        o formato do objeto for vídeo ou áudio, tendo os seguintes atributos para
+        @mime-type e @mime-subtype: video/mp4, audio/mp3"
+        """
+        tag = self.data.get("tag")
+
+        # Só valida para elementos <media> e <inline-media>
+        if tag not in ("media", "inline-media"):
+            return
+
+        long_desc = self.data.get("long_desc")
+        mimetype = self.data.get("mimetype")
+        mime_subtype = self.data.get("mime_subtype")
+
+        # Se não há long-desc, não precisa validar esta regra
+        if not long_desc:
+            return
+
+        # long-desc só deve estar presente para video/mp4 ou audio/mp3
+        valid_combinations = [
+            ("video", "mp4"),
+            ("audio", "mp3"),
+        ]
+
+        current = (mimetype, mime_subtype)
+        valid = current in valid_combinations
+
+        # Só retorna resultado quando há erro (validação inválida)
+        if not valid:
+            advice = (
+                f"In <{tag}>, <long-desc> should only be used for video (mp4) or audio (mp3) files. "
+                f"Current mime-type is '{mimetype}' with mime-subtype '{mime_subtype}'. "
+                f"For other file types (PDF, ZIP, XLSX), remove <long-desc> or consider using different accessibility elements. "
+                f"Refer to SPS 1.10 documentation for details."
+            )
+            advice_text = _(
+                "In <{tag}>, <long-desc> should only be used for video (mp4) or audio (mp3) files. "
+                "Current mime-type is {mimetype} with mime-subtype {mime_subtype}. "
+                "For other file types (PDF, ZIP, XLSX), remove <long-desc> or consider using different accessibility elements. "
+                "Refer to SPS 1.10 documentation for details."
+            )
+            advice_params = {
+                "tag": tag,
+                "mimetype": mimetype or "undefined",
+                "mime_subtype": mime_subtype or "undefined"
+            }
+
+            yield build_response(
+                title="<long-desc> restriction for media",
+                parent=self.data,
+                item="long-desc",
+                sub_item="media restriction",
+                is_valid=False,
+                validation_type="value in list",
+                expected=f"mime-type/mime-subtype combinations: {valid_combinations}",
+                obtained=f"{mimetype}/{mime_subtype}",
+                advice=advice,
+                error_level=self.params.get("long_desc_media_restriction_error_level", "ERROR"),
+                data=self.data,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
+    def validate_long_desc_not_duplicate_label_caption(self):
+        """
+        NOVA VALIDAÇÃO: Valida que <long-desc> não copia o conteúdo de <label> ou <caption>.
+
+        Regra SPS 1.10:
+        "O conteúdo de <long-desc> não deve ser usado para substituir ou copiar
+        a informação descrita em <label> ou <caption>."
+        """
+        long_desc = self.data.get("long_desc")
+
+        # Se não há long-desc, não precisa validar esta regra
+        if not long_desc:
+            return
+
+        parent_label = self.data.get("parent_label")
+        parent_caption_title = self.data.get("parent_caption_title")
+
+        # Normaliza strings para comparação (case-insensitive e strip)
+        long_desc_normalized = long_desc.strip().lower() if long_desc else ""
+        label_normalized = parent_label.strip().lower() if parent_label else ""
+        caption_normalized = parent_caption_title.strip().lower() if parent_caption_title else ""
+
+        # Verifica duplicação com <label>
+        if label_normalized and long_desc_normalized == label_normalized:
+            advice = (
+                f"The <long-desc> content '{long_desc}' duplicates <label>'{parent_label}'. "
+                f"Provide unique descriptive content that adds value beyond the label. "
+                f"Refer to SPS 1.10 documentation for best practices."
+            )
+            advice_text = _(
+                "The <long-desc> content {content} duplicates <label>{element}. "
+                "Provide unique descriptive content that adds value beyond the label. "
+                "Refer to SPS 1.10 documentation for best practices."
+            )
+            advice_params = {
+                "content": long_desc,
+                "element": parent_label
+            }
+
+            yield build_response(
+                title="<long-desc> content duplication",
+                parent=self.data,
+                item="long-desc",
+                sub_item="label duplication",
+                is_valid=False,
+                validation_type="format",
+                expected="Unique content (not duplicating <label>)",
+                obtained=long_desc,
+                advice=advice,
+                error_level=self.params.get("long_desc_duplication_error_level", "WARNING"),
+                data=self.data,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
+        # Verifica duplicação com <caption><title>
+        if caption_normalized and long_desc_normalized == caption_normalized:
+            advice = (
+                f"The <long-desc> content '{long_desc}' duplicates <caption><title>'{parent_caption_title}'. "
+                f"Provide unique descriptive content that adds value beyond the caption. "
+                f"Refer to SPS 1.10 documentation for best practices."
+            )
+            advice_text = _(
+                "The <long-desc> content {content} duplicates <caption><title>{element}. "
+                "Provide unique descriptive content that adds value beyond the caption. "
+                "Refer to SPS 1.10 documentation for best practices."
+            )
+            advice_params = {
+                "content": long_desc,
+                "element": parent_caption_title
+            }
+
+            yield build_response(
+                title="<long-desc> content duplication",
+                parent=self.data,
+                item="long-desc",
+                sub_item="caption duplication",
+                is_valid=False,
+                validation_type="format",
+                expected="Unique content (not duplicating <caption><title>)",
+                obtained=long_desc,
+                advice=advice,
+                error_level=self.params.get("long_desc_duplication_error_level", "WARNING"),
+                data=self.data,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
+    def validate_long_desc_occurrence(self):
+        """
+        NOVA VALIDAÇÃO: Valida que <long-desc> ocorre no máximo uma vez por elemento.
+
+        Regra SPS 1.10:
+        "O elemento deve ser usado apenas quando houver a ocorrência de <graphic>,
+        <inline-graphic>, <media> ou <inline-media> e deve estar contido dentro
+        destes elementos e ocorrendo uma única vez."
+        """
+        # Verifica se temos acesso ao nó XML original para contar ocorrências
+        xml_str = self.data.get("xml", "")
+
+        # Conta quantas vezes <long-desc> aparece no XML
+        # Usa uma abordagem simples de contar tags de abertura
+        long_desc_count = xml_str.count("<long-desc")
+
+        valid = long_desc_count <= 1
+
+        # Só retorna resultado quando há erro (validação inválida)
+        if not valid:
+            advice = (
+                f"Found {long_desc_count} <long-desc> elements. "
+                f"Only one <long-desc> is allowed per graphic/media element. "
+                f"Remove duplicate <long-desc> elements. "
+                f"Refer to SPS 1.10 documentation for details."
+            )
+            advice_text = _(
+                "Found {count} <long-desc> elements. "
+                "Only one <long-desc> is allowed per graphic/media element. "
+                "Remove duplicate <long-desc> elements. "
+                "Refer to SPS 1.10 documentation for details."
+            )
+            advice_params = {
+                "count": long_desc_count
+            }
+
+            yield build_response(
+                title="<long-desc> occurrence",
+                parent=self.data,
+                item="long-desc",
+                sub_item="occurrence",
+                is_valid=False,
+                validation_type="format",
+                expected="0 or 1 occurrence",
+                obtained=f"{long_desc_count} occurrence(s)",
+                advice=advice,
+                error_level=self.params.get("long_desc_occurrence_error_level", "ERROR"),
+                data=self.data,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
+    def validate_long_desc_incompatible_with_null_alt(self):
+        """
+        NOVA VALIDAÇÃO: Valida incompatibilidade entre <long-desc> e <alt-text>null</alt-text>.
+
+        Regra SPS 1.10:
+        "Quando houver o uso combinado <alt-text> não pode ter conteúdo ser null,
+        neste caso não use <alt-text>."
+        """
+        long_desc = self.data.get("long_desc")
+        alt_text = self.data.get("alt_text")
+
+        # Só valida quando ambos estão presentes
+        if not long_desc or not alt_text:
+            return
+
+        # Verifica se alt-text é "null"
+        alt_text_normalized = alt_text.strip().lower()
+        valid = alt_text_normalized != "null"
+
+        # Só retorna resultado quando há erro (validação inválida)
+        if not valid:
+            advice = (
+                f"Found <alt-text>null</alt-text> combined with <long-desc>. "
+                f"When using <long-desc>, do not use <alt-text>null</alt-text>. "
+                f"Either remove <alt-text> or provide meaningful content instead of 'null'. "
+                f"Refer to SPS 1.10 documentation for combined markup guidance."
+            )
+            advice_text = _(
+                "Found <alt-text>null</alt-text> combined with <long-desc>. "
+                "When using <long-desc>, do not use <alt-text>null</alt-text>. "
+                "Either remove <alt-text> or provide meaningful content instead of 'null'. "
+                "Refer to SPS 1.10 documentation for combined markup guidance."
+            )
+            advice_params = {
+                "alt_text": alt_text,
+                "long_desc": long_desc[:50] + "..." if len(long_desc) > 50 else long_desc
+            }
+
+            yield build_response(
+                title="<long-desc> incompatibility with null alt-text",
+                parent=self.data,
+                item="long-desc",
+                sub_item="null alt-text incompatibility",
+                is_valid=False,
+                validation_type="format",
+                expected="<alt-text> not 'null' when <long-desc> is present",
+                obtained=f"alt-text='{alt_text}'",
+                advice=advice,
+                error_level=self.params.get("long_desc_null_incompatibility_error_level", "WARNING"),
                 data=self.data,
                 advice_text=advice_text,
                 advice_params=advice_params,
