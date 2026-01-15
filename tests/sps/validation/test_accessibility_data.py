@@ -413,6 +413,254 @@ class TestNewAccessibilityValidations(unittest.TestCase):
         self.assertIn("adv_params", decorative[0])
         self.assertIn("current", decorative[0]["adv_params"])
 
+    def test_long_desc_media_restriction_invalid(self):
+        """NOVA: long-desc em <media> com tipo inválido deve gerar ERROR"""
+        xml_content = """
+        <body>
+            <media mimetype="application" mime-subtype="pdf">
+                <long-desc>""" + "x" * 130 + """</long-desc>
+            </media>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        restriction = [r for r in results if "media restriction" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(restriction), 1)
+        self.assertEqual(restriction[0]["response"], "ERROR")
+        self.assertIn("should only be used for video (mp4) or audio (mp3)", restriction[0]["advice"])
+
+        # Verificar internacionalização
+        self.assertIn("adv_text", restriction[0])
+        self.assertIn("adv_params", restriction[0])
+        self.assertIn("mimetype", restriction[0]["adv_params"])
+        self.assertIn("mime_subtype", restriction[0]["adv_params"])
+
+    def test_long_desc_media_restriction_valid_video(self):
+        """NOVA: long-desc em <media> com video/mp4 é válido"""
+        xml_content = """
+        <body>
+            <media mimetype="video" mime-subtype="mp4">
+                <long-desc>""" + "x" * 130 + """</long-desc>
+            </media>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Não deve haver erro de restrição de mídia
+        restriction = [r for r in results if "media restriction" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(restriction), 0)
+
+    def test_long_desc_media_restriction_valid_audio(self):
+        """NOVA: long-desc em <media> com audio/mp3 é válido"""
+        xml_content = """
+        <body>
+            <media mimetype="audio" mime-subtype="mp3">
+                <long-desc>""" + "x" * 130 + """</long-desc>
+            </media>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Não deve haver erro de restrição de mídia
+        restriction = [r for r in results if "media restriction" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(restriction), 0)
+
+    def test_long_desc_duplicates_label(self):
+        """NOVA: long-desc que duplica <label> deve gerar WARNING"""
+        xml_content = """
+        <body>
+            <fig id="f1">
+                <label>Figure 1</label>
+                <graphic>
+                    <long-desc>Figure 1 repeated with more text to reach the minimum 121 characters required for long-desc validation to pass this test</long-desc>
+                </graphic>
+            </fig>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Devido à normalização, "Figure 1" não duplica o texto completo
+        # Vamos ajustar o teste para usar conteúdo exatamente igual
+        xml_content = """
+        <body>
+            <fig id="f1">
+                <label>This is a very long label that exceeds 121 characters to properly test long-desc duplication validation rules for the SPS requirements</label>
+                <graphic>
+                    <long-desc>This is a very long label that exceeds 121 characters to properly test long-desc duplication validation rules for the SPS requirements</long-desc>
+                </graphic>
+            </fig>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        duplication = [r for r in results if "duplication" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(duplication), 1)
+        self.assertEqual(duplication[0]["response"], "WARNING")
+        self.assertIn("duplicates <label>", duplication[0]["advice"])
+
+        # Verificar internacionalização
+        self.assertIn("adv_text", duplication[0])
+        self.assertIn("adv_params", duplication[0])
+        self.assertIn("content", duplication[0]["adv_params"])
+        self.assertIn("element", duplication[0]["adv_params"])
+
+    def test_long_desc_duplicates_caption_title(self):
+        """NOVA: long-desc que duplica <caption><title> deve gerar WARNING"""
+        xml_content = """
+        <body>
+            <fig id="f1">
+                <label>Figure 1</label>
+                <caption>
+                    <title>This is a detailed caption title that exceeds the minimum character limit for long description element validation testing purposes</title>
+                </caption>
+                <graphic>
+                    <long-desc>This is a detailed caption title that exceeds the minimum character limit for long description element validation testing purposes</long-desc>
+                </graphic>
+            </fig>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        duplication = [r for r in results if "duplication" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(duplication), 1)
+        self.assertEqual(duplication[0]["response"], "WARNING")
+        self.assertIn("duplicates <caption><title>", duplication[0]["advice"])
+
+    def test_long_desc_unique_content_valid(self):
+        """NOVA: long-desc com conteúdo único não gera erro"""
+        xml_content = """
+        <body>
+            <fig id="f1">
+                <label>Figure 1</label>
+                <caption>
+                    <title>Analysis Results</title>
+                </caption>
+                <graphic>
+                    <long-desc>Detailed bar chart showing growth trends from 2020 to 2025 with quarterly breakdowns and regional comparisons across all continents</long-desc>
+                </graphic>
+            </fig>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Não deve haver validação de duplicação nos resultados
+        duplication = [r for r in results if "duplication" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(duplication), 0)
+
+    def test_long_desc_multiple_occurrence_failure(self):
+        """NOVA: Múltiplas ocorrências de long-desc devem gerar ERROR"""
+        xml_content = """
+        <body>
+            <graphic>
+                <long-desc>First detailed description with more than 121 characters to pass the minimum length validation requirement for long-desc</long-desc>
+                <long-desc>Second detailed description with more than 121 characters to pass the minimum length validation requirement for long-desc</long-desc>
+            </graphic>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        occurrence = [r for r in results if "occurrence" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        self.assertEqual(len(occurrence), 1)
+        self.assertEqual(occurrence[0]["response"], "ERROR")
+        self.assertIn("2 <long-desc> elements", occurrence[0]["advice"])
+
+        # Verificar internacionalização
+        self.assertIn("adv_text", occurrence[0])
+        self.assertIn("adv_params", occurrence[0])
+        self.assertIn("count", occurrence[0]["adv_params"])
+        self.assertEqual(occurrence[0]["adv_params"]["count"], 2)
+
+    def test_long_desc_single_occurrence_valid(self):
+        """NOVA: Uma única ocorrência de long-desc é válida"""
+        xml_content = """
+        <body>
+            <graphic>
+                <long-desc>Single detailed description with more than 121 characters to pass the minimum length validation requirement for long-desc element</long-desc>
+            </graphic>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        occurrence = [r for r in results if "occurrence" in str(r.get("sub_item", "")) and r["item"] == "long-desc"]
+        # Não deve haver erro de ocorrência quando há apenas 1 long-desc
+        self.assertEqual(len(occurrence), 0)
+
+    def test_long_desc_with_null_alt_text_failure(self):
+        """NOVA: long-desc combinado com alt-text="null" deve gerar WARNING"""
+        xml_content = """
+        <body>
+            <graphic>
+                <alt-text>null</alt-text>
+                <long-desc>Detailed description with more than 121 characters to pass the minimum length validation requirement for the long-desc element in this test</long-desc>
+            </graphic>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        incompatibility = [r for r in results if "null alt-text incompatibility" in str(r.get("sub_item", ""))]
+        self.assertEqual(len(incompatibility), 1)
+        self.assertEqual(incompatibility[0]["response"], "WARNING")
+        self.assertIn("alt-text>null", incompatibility[0]["advice"])
+
+        # Verificar internacionalização
+        self.assertIn("adv_text", incompatibility[0])
+        self.assertIn("adv_params", incompatibility[0])
+
+    def test_long_desc_with_regular_alt_text_valid(self):
+        """NOVA: long-desc combinado com alt-text normal é válido"""
+        xml_content = """
+        <body>
+            <graphic>
+                <alt-text>Brief description</alt-text>
+                <long-desc>Detailed description with more than 121 characters to pass the minimum length validation requirement for the long-desc element in this test</long-desc>
+            </graphic>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Não deve haver erro de incompatibilidade
+        incompatibility = [r for r in results if "null alt-text incompatibility" in str(r.get("sub_item", ""))]
+        self.assertEqual(len(incompatibility), 0)
+
+    def test_long_desc_without_alt_text_valid(self):
+        """NOVA: long-desc sem alt-text é válido"""
+        xml_content = """
+        <body>
+            <graphic>
+                <long-desc>Detailed description with more than 121 characters to pass the minimum length validation requirement for the long-desc element in this test</long-desc>
+            </graphic>
+        </body>
+        """
+        xml_node = etree.fromstring(xml_content)
+        validator = XMLAccessibilityDataValidation(xml_node, self.params)
+        results = list(validator.validate())
+
+        # Não deve haver erro de incompatibilidade
+        incompatibility = [r for r in results if "null alt-text incompatibility" in str(r.get("sub_item", ""))]
+        self.assertEqual(len(incompatibility), 0)
+
 
 class TestInternationalization(unittest.TestCase):
     """Testes específicos para verificar internacionalização"""
