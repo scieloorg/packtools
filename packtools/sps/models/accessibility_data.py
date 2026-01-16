@@ -40,7 +40,7 @@ class AccessibilityData:
     def xref_sec_rid(self):
         try:
             return self.node.xpath('xref[@ref-type="sec"]')[0].get("rid")
-        except:
+        except Exception:
             return None
 
     def _get_xml_string(self):
@@ -50,7 +50,7 @@ class AccessibilityData:
             xml_str = etree.tostring(self.node, encoding='unicode')
             # Limita a 200 caracteres para não sobrecarregar logs
             return xml_str[:200] + "..." if len(xml_str) > 200 else xml_str
-        except:
+        except Exception:
             return f"<{self.node.tag}...>"
 
     @property
@@ -68,7 +68,7 @@ class AccessibilityData:
                 "alt_text_content_type": content_type,
                 "alt_text_xml": xml
             }
-        except:
+        except Exception:
             return None
 
     @property
@@ -87,7 +87,7 @@ class AccessibilityData:
                 "long_desc_content_type": content_type,
                 "long_desc_xml": xml
             }
-        except:
+        except Exception:
             return None
 
     @property
@@ -98,8 +98,8 @@ class AccessibilityData:
         """
         parent = self.node.getparent()
         if parent is not None:
-            label = parent.findtext(".//label")
-            caption_title = parent.findtext(".//caption/title")
+            label = parent.findtext("./label")
+            caption_title = parent.findtext("./caption/title")
             return {
                 "parent_tag": parent.tag,
                 "parent_label": label,
