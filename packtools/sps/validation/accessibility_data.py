@@ -119,12 +119,12 @@ class AccessibilityDataValidation:
 
     def validate_alt_text_media_restriction(self):
         """
-        NOVA VALIDAÇÃO: Valida que <alt-text> em <media> e <inline-media> só ocorre para vídeo/áudio.
+        Validates that <alt-text> in <media> and <inline-media> only occurs for video/audio.
 
-        Regra SPS 1.10:
-        "Em <media> e <inline-media> o elemento <alt-text> só deverá ocorrer quando
-        o formato do objeto for vídeo ou áudio, tendo os seguintes atributos para
-        @mime-type e @mime-subtype: video/mp4, audio/mp3"
+        SPS 1.10 rule:
+        "In <media> and <inline-media>, the <alt-text> element should only occur when
+        the object format is video or audio, with the following attributes for
+        @mime-type and @mime-subtype: video/mp4, audio/mp3"
         """
         tag = self.data.get("tag")
 
@@ -190,11 +190,11 @@ class AccessibilityDataValidation:
 
     def validate_alt_text_not_duplicate_label_caption(self):
         """
-        NOVA VALIDAÇÃO: Valida que <alt-text> não copia o conteúdo de <label> ou <caption>.
+        Validates that <alt-text> does not copy the content of <label> or <caption>.
 
-        Regra SPS 1.10:
-        "O conteúdo de <alt-text> não deve ser usado para substituir ou copiar
-        a informação descrita em <label> ou <caption>"
+        SPS 1.10 rule:
+        "The content of <alt-text> should not be used to replace or copy
+        the information described in <label> or <caption>"
         """
         alt_text = self.data.get("alt_text")
 
@@ -246,10 +246,6 @@ class AccessibilityDataValidation:
                 "element": duplicated_element,
                 "content": duplicated_content
             }
-        else:
-            advice = None
-            advice_text = None
-            advice_params = None
 
         # Só reporta se houver problema
         if not valid:
@@ -271,18 +267,18 @@ class AccessibilityDataValidation:
 
     def validate_decorative_figure_alt_text(self):
         """
-        NOVA VALIDAÇÃO: Valida que figuras decorativas têm <alt-text>null</alt-text>.
+        Validates that decorative figures have <alt-text>null</alt-text>.
 
-        Regra SPS 1.10:
-        "Figuras decorativas devem ter <alt-text>null</alt-text>"
+        SPS 1.10 rule:
+        "Decorative figures should have <alt-text>null</alt-text>"
 
-        Nota: Esta validação identifica figuras potencialmente decorativas baseado em:
-        - Ausência de <label>
-        - Ausência de <caption> ou <title>
-        - Elemento é <graphic> ou <inline-graphic> (não <media>)
+        Note: This validation identifies potentially decorative figures based on:
+        - Absence of <label>
+        - Absence of <caption> or <title>
+        - Element is <graphic> or <inline-graphic> (not <media>)
 
-        Se uma figura aparenta ser decorativa mas tem alt-text diferente de "null",
-        um aviso é emitido.
+        If a figure appears to be decorative but has alt-text different from "null",
+        a warning is issued.
         """
         alt_text = self.data.get("alt_text")
         tag = self.data.get("tag")
@@ -362,7 +358,7 @@ class AccessibilityDataValidation:
             error_level = self.params["long_desc_content_error_level"]
             valid = False
             validation_type = "format"
-            advice = f"long-desc has {len(long_desc)} characters in {long_desc_xml}. Provide text with more than to 120 characters."
+            advice = f"long-desc has {len(long_desc)} characters in {long_desc_xml}. Provide text with more than 120 characters."
             advice_text = _("long-desc has {length} characters in {xml}. Provide text with more than {min_length} characters.")
             advice_params = {"length": len(long_desc), "xml": long_desc_xml, "min_length": 120}
         else:
@@ -426,12 +422,12 @@ class AccessibilityDataValidation:
 
     def validate_long_desc_media_restriction(self):
         """
-        NOVA VALIDAÇÃO: Valida que <long-desc> em <media> e <inline-media> só ocorre para vídeo/áudio.
+        Validates that <long-desc> in <media> and <inline-media> only occurs for video/audio.
 
-        Regra SPS 1.10:
-        "Em <media> e <inline-media> o elemento <long-desc> só deverá ocorrer quando
-        o formato do objeto for vídeo ou áudio, tendo os seguintes atributos para
-        @mime-type e @mime-subtype: video/mp4, audio/mp3"
+        SPS 1.10 rule:
+        "In <media> and <inline-media>, the <long-desc> element should only occur when
+        the object format is video or audio, with the following attributes for
+        @mime-type and @mime-subtype: video/mp4, audio/mp3"
         """
         tag = self.data.get("tag")
 
@@ -494,11 +490,11 @@ class AccessibilityDataValidation:
 
     def validate_long_desc_not_duplicate_label_caption(self):
         """
-        NOVA VALIDAÇÃO: Valida que <long-desc> não copia o conteúdo de <label> ou <caption>.
+        Validates that <long-desc> does not copy the content of <label> or <caption>.
 
-        Regra SPS 1.10:
-        "O conteúdo de <long-desc> não deve ser usado para substituir ou copiar
-        a informação descrita em <label> ou <caption>."
+        SPS 1.10 rule:
+        "The content of <long-desc> should not be used to replace or copy
+        the information described in <label> or <caption>."
         """
         long_desc = self.data.get("long_desc")
 
@@ -582,12 +578,12 @@ class AccessibilityDataValidation:
 
     def validate_long_desc_occurrence(self):
         """
-        NOVA VALIDAÇÃO: Valida que <long-desc> ocorre no máximo uma vez por elemento.
+        Validates that <long-desc> occurs at most once per element.
 
-        Regra SPS 1.10:
-        "O elemento deve ser usado apenas quando houver a ocorrência de <graphic>,
-        <inline-graphic>, <media> ou <inline-media> e deve estar contido dentro
-        destes elementos e ocorrendo uma única vez."
+        SPS 1.10 rule:
+        "The element should only be used when there is an occurrence of <graphic>,
+        <inline-graphic>, <media> or <inline-media> and must be contained within
+        these elements and occurring only once."
         """
         # Verifica se temos acesso ao nó XML original para contar ocorrências
         xml_str = self.data.get("xml", "")
@@ -634,11 +630,11 @@ class AccessibilityDataValidation:
 
     def validate_long_desc_incompatible_with_null_alt(self):
         """
-        NOVA VALIDAÇÃO: Valida incompatibilidade entre <long-desc> e <alt-text>null</alt-text>.
+        Validates incompatibility between <long-desc> and <alt-text>null</alt-text>.
 
-        Regra SPS 1.10:
-        "Quando houver o uso combinado <alt-text> não pode ter conteúdo ser null,
-        neste caso não use <alt-text>."
+        SPS 1.10 rule:
+        "When using combined markup, <alt-text> cannot have null content;
+        in this case, do not use <alt-text>."
         """
         long_desc = self.data.get("long_desc")
         alt_text = self.data.get("alt_text")
@@ -665,10 +661,7 @@ class AccessibilityDataValidation:
                 "Either remove <alt-text> or provide meaningful content instead of 'null'. "
                 "Refer to SPS 1.10 documentation for combined markup guidance."
             )
-            advice_params = {
-                "alt_text": alt_text,
-                "long_desc": long_desc[:50] + "..." if len(long_desc) > 50 else long_desc
-            }
+            advice_params = {}
 
             yield build_response(
                 title="<long-desc> incompatibility with null alt-text",
