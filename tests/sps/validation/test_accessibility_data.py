@@ -74,7 +74,7 @@ class TestAccessibilityDataValidation(unittest.TestCase):
         response = long_desc_results[0]
 
         self.assertEqual(response["response"], "CRITICAL")
-        expected_advice = f"long-desc has {len(response['got_value'])} characters in <long-desc>Short description.</long-desc>. Provide text with more than to 120 characters."
+        expected_advice = f"long-desc has {len(response['got_value'])} characters in <long-desc>Short description.</long-desc>. Provide text with more than 120 characters."
         self.assertEqual(response["advice"], expected_advice)
 
         # Verificar internacionalização
