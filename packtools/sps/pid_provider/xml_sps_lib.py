@@ -552,6 +552,21 @@ class XMLWithPre:
         return fpage
 
     @cached_property
+    def deprecated_sps_pkg_name_fpage(self):
+        fpage = self.fpage
+        if not fpage:
+            return None
+        try:
+            if int(fpage) == 0:
+                return None
+        except (TypeError, ValueError):
+            pass
+        seq = self.fpage_seq
+        if seq:
+            return f"{fpage}{seq}"
+        return fpage
+
+    @cached_property
     def alternative_sps_pkg_name_suffix(self):
         return self.order or self.filename
 
@@ -568,7 +583,33 @@ class XMLWithPre:
             self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
         ]
         return "-".join([part for part in parts if part])
-    
+
+    @cached_property
+    def deprecated_sps_pkg_name(self):
+        """Cache do nome do pacote SPS que é usado frequentemente"""
+        xml_acron = Acronym(self.xmltree)
+        parts = [
+            self.journal_issn_electronic or self.journal_issn_print,
+            xml_acron.text,
+            self.volume,
+            self.number and self.number.zfill(2),
+            self.deprecated_sps_pkg_name_suppl,
+            self.sps_pkg_name_suffix or self.alternative_sps_pkg_name_suffix,
+        ]
+        return "-".join([part for part in parts if part])
+
+    @property
+    def deprecated_sps_pkg_name_suppl(self):
+        suppl = self.suppl
+        if not suppl:
+            return None
+        try:
+            if int(suppl) == 0:
+                return "suppl"
+        except (TypeError, ValueError):
+            pass
+        return suppl
+
     @property
     def sps_pkg_name_suppl(self):
         suppl = self.suppl
