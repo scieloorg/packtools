@@ -18,6 +18,10 @@ class PidProviderXMLAdapter:
     @cached_property
     def sps_pkg_name(self):
         return self.xml_with_pre.sps_pkg_name
+    
+    @property
+    def deprecated_sps_pkg_name(self):
+        return self.xml_with_pre.deprecated_sps_pkg_name
 
     @property
     def finger_print(self):
