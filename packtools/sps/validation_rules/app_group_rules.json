@@ -1,5 +1,11 @@
 {
     "app_group_rules": {
-        "app_existence_error_level": "WARNING"
+        "app_existence_error_level": "WARNING",
+        "app_id_error_level": "CRITICAL",
+        "app_label_error_level": "CRITICAL",
+        "app_group_wrapper_error_level": "CRITICAL",
+        "app_group_occurrence_error_level": "CRITICAL",
+        "media_alt_text_error_level": "ERROR",
+        "media_transcript_error_level": "WARNING"
     }
 }
