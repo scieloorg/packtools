@@ -9,8 +9,9 @@
         "orgdiv2_error_level": "WARNING",
         "country_error_level": "CRITICAL",
         "country_code_error_level": "CRITICAL",
-        "state_error_level": "WARNING",
-        "city_error_level": "WARNING",
+        "state_error_level": "CRITICAL",
+        "city_error_level": "CRITICAL",
+        "email_in_original_error_level": "ERROR",
         "translation_aff_rules": {
             "id_error_level": "CRITICAL",
             "label_error_level": "ERROR",
@@ -19,7 +20,8 @@
             "country_error_level": "INFO",
             "country_code_error_level": "INFO",
             "state_error_level": "INFO",
-            "city_error_level": "INFO"
+            "city_error_level": "INFO",
+            "email_in_original_error_level": "INFO"
         },
         "translation_qty_error_level": "CRITICAL",
         "translation_similarity_error_level": "WARNING"
