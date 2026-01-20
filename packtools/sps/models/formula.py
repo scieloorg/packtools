@@ -67,7 +67,6 @@ class Formula:
         if formula is not None:
             return ET.tostring(formula, encoding="unicode", method="text").strip()
 
-
     @property
     def tex_math(self):
         """
@@ -96,6 +95,36 @@ class Formula:
         ]
 
     @property
+    def graphic_alt_text(self):
+        """
+        Extracts alt-text from graphic within alternatives.
+
+        Returns:
+            str or None: The text content of <alt-text> if present, None otherwise.
+        """
+        graphic = self.element.find(".//alternatives/graphic")
+        if graphic is not None:
+            alt_text_elem = graphic.find("alt-text")
+            if alt_text_elem is not None:
+                return alt_text_elem.text
+        return None
+
+    @property
+    def graphic_long_desc(self):
+        """
+        Extracts long-desc from graphic within alternatives.
+
+        Returns:
+            str or None: The text content of <long-desc> if present, None otherwise.
+        """
+        graphic = self.element.find(".//alternatives/graphic")
+        if graphic is not None:
+            long_desc_elem = graphic.find("long-desc")
+            if long_desc_elem is not None:
+                return long_desc_elem.text
+        return None
+
+    @property
     def data(self):
         """
         Returns a dictionary containing the formula's data.
@@ -109,6 +138,8 @@ class Formula:
                 - 'mml_math' (str or None): The MathML content, if available.
                 - 'tex_math' (str or None): The TeX math content, if available.
                 - 'graphic' (list): A list of hrefs from graphic elements.
+                - 'graphic_alt_text' (str or None): The alt-text from graphic in alternatives.
+                - 'graphic_long_desc' (str or None): The long-desc from graphic in alternatives.
         """
         alternative_parent = self.element.tag  # 'disp-formula' or 'inline-formula'
         return {
@@ -118,7 +149,9 @@ class Formula:
             "alternative_elements": self.alternative_elements,
             "mml_math": self.mml_math,
             "tex_math": self.tex_math,
-            "graphic": self.graphic
+            "graphic": self.graphic,
+            "graphic_alt_text": self.graphic_alt_text,
+            "graphic_long_desc": self.graphic_long_desc,
         }
 
 
@@ -158,7 +191,7 @@ class ArticleFormulas:
     @property
     def inline_formula_items(self):
         """
-        Generator that yields formulas with their respective parent context.
+        Generator that yields inline formulas with their respective parent context.
 
         Yields:
             dict: A dictionary containing the formula data along with its parent context,
