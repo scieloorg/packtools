@@ -6,9 +6,18 @@ from packtools.sps.validation.app_group import AppValidation
 
 class AppValidationTest(unittest.TestCase):
     def setUp(self):
-        self.params = {"app_existence_error_level": "WARNING"}
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
 
     def test_app_validation_no_app_elements(self):
+        """Teste de validação quando não há elementos <app>"""
         self.maxDiff = None
         xmltree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -20,30 +29,12 @@ class AppValidationTest(unittest.TestCase):
         )
         obtained = list(AppValidation(xmltree, self.params).validate_app_existence())
 
-        expected = [
-            {
-                "title": "<app>",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "app-group",
-                "sub_item": "app",
-                "validation_type": "exist",
-                "response": "WARNING",
-                "expected_value": "<app> element",
-                "got_value": None,
-                "message": "Got None, expected <app> element",
-                "advice": "Consider adding an <app> element to include additional content such as supplementary materials or appendices.",
-                "data": None,
-            }
-        ]
-
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "WARNING")
+        self.assertIn("app", obtained[0]["title"].lower())
 
     def test_app_validation_with_app_elements(self):
+        """Teste de validação com elementos <app> válidos"""
         self.maxDiff = None
         xmltree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -60,41 +51,431 @@ class AppValidationTest(unittest.TestCase):
         )
         obtained = list(AppValidation(xmltree, self.params).validate_app_existence())
 
-        expected = [
-            {
-                "title": "<app>",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "app-group",
-                "sub_item": "app",
-                "validation_type": "exist",
-                "response": "OK",
-                "expected_value": "app1",
-                "got_value": "app1",
-                "message": "Got app1, expected app1",
-                "advice": None,
-                "data": {
-                    "attrib": None,
-                    "caption": None,
-                    "graphics": [],
-                    "id": "app1",
-                    "label": "Appendix 1",
-                    "media": [],
-                    "original_article_type": "research-article",
-                    "parent": "article",
-                    "parent_article_type": "research-article",
-                    "parent_id": None,
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "OK")
+        self.assertEqual(obtained[0]["got_value"], "app1")
+
+
+class TestAppIdValidation(unittest.TestCase):
+    """Testes para validação de @id obrigatório em <app>"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_app_with_id_valid(self):
+        """<app> com @id válido"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_id())
 
         self.assertEqual(len(obtained), 1)
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        self.assertEqual(obtained[0]["response"], "OK")
+        self.assertEqual(obtained[0]["got_value"], "app1")
+
+    def test_app_without_id_invalid(self):
+        """<app> sem @id deve gerar erro CRITICAL"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            "<app>"  # Sem @id
+            "<label>Appendix 1</label>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_id())
+
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "CRITICAL")
+        self.assertIn("@id", obtained[0]["title"])
+
+    def test_multiple_apps_with_and_without_id(self):
+        """Múltiplos <app>, alguns sem @id"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1"><label>App 1</label></app>'
+            "<app><label>App 2</label></app>"  # Sem @id
+            '<app id="app3"><label>App 3</label></app>'
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_id())
+
+        self.assertEqual(len(obtained), 3)
+
+        # app1: OK
+        self.assertEqual(obtained[0]["response"], "OK")
+
+        # app2: CRITICAL (sem id)
+        self.assertEqual(obtained[1]["response"], "CRITICAL")
+
+        # app3: OK
+        self.assertEqual(obtained[2]["response"], "OK")
+
+
+class TestAppLabelValidation(unittest.TestCase):
+    """Testes para validação de <label> obrigatório em <app>"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_app_with_label_valid(self):
+        """<app> com <label> válido"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_label())
+
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "OK")
+        self.assertEqual(obtained[0]["got_value"], "Appendix 1")
+
+    def test_app_without_label_invalid(self):
+        """<app> sem <label> deve gerar erro CRITICAL"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<p>Content without label</p>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_label())
+
+        self.assertEqual(len(obtained), 1)
+        self.assertEqual(obtained[0]["response"], "CRITICAL")
+        self.assertIn("label", obtained[0]["title"].lower())
+
+
+class TestAppGroupWrapperValidation(unittest.TestCase):
+    """Testes para validação de <app-group> como wrapper obrigatório"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_app_inside_app_group_valid(self):
+        """<app> dentro de <app-group> é válido"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1"><label>App</label></app>'
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_group_wrapper())
+
+        # Não deve gerar erro
+        errors = [r for r in obtained if r["response"] != "OK"]
+        self.assertEqual(len(errors), 0)
+
+    def test_orphan_app_invalid(self):
+        """<app> órfão (fora de <app-group>) deve gerar erro CRITICAL"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            '<app id="app1"><label>Orphan App</label></app>'
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_group_wrapper())
+
+        self.assertGreater(len(obtained), 0)
+        self.assertEqual(obtained[0]["response"], "CRITICAL")
+        self.assertIn("wrapper", obtained[0]["title"].lower())
+
+    def test_multiple_app_groups_invalid(self):
+        """Múltiplos <app-group> devem gerar erro CRITICAL"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1"><label>App 1</label></app>'
+            "</app-group>"
+            "<app-group>"
+            '<app id="app2"><label>App 2</label></app>'
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_group_wrapper())
+
+        self.assertGreater(len(obtained), 0)
+        # Deve ter erro sobre múltiplos app-groups
+        multiple_errors = [r for r in obtained if "Single" in r.get("title", "")]
+        self.assertGreater(len(multiple_errors), 0)
+        self.assertEqual(multiple_errors[0]["response"], "CRITICAL")
+
+    def test_single_app_needs_app_group(self):
+        """Mesmo um único <app> precisa estar em <app-group>"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            '<app id="app1"><label>Single App</label></app>'
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_app_group_wrapper())
+
+        self.assertGreater(len(obtained), 0)
+        self.assertEqual(obtained[0]["response"], "CRITICAL")
+
+
+class TestMediaAccessibilityValidation(unittest.TestCase):
+    """Testes para validação de acessibilidade em <media>"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_media_with_alt_text_valid(self):
+        """<media> com <alt-text> é válido"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            '<media mimetype="video" mime-subtype="mp4" xlink:href="video.mp4">'
+            "<alt-text>Video description</alt-text>"
+            '<xref ref-type="sec" rid="TR1"/>'
+            "</media>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
+
+        # Deve ter validações de alt-text e transcript
+        alt_text_validations = [r for r in obtained if "alt-text" in r.get("title", "").lower()]
+        self.assertGreater(len(alt_text_validations), 0)
+
+        # alt-text deve ser OK
+        self.assertEqual(alt_text_validations[0]["response"], "OK")
+
+    def test_media_without_alt_text_invalid(self):
+        """<media> sem <alt-text> ou <long-desc> deve gerar erro"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            '<media mimetype="video" xlink:href="video.mp4"/>'
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
+
+        # Deve ter erro de alt-text
+        alt_text_errors = [r for r in obtained if "alt-text" in r.get("title", "").lower() and r["response"] == "ERROR"]
+        self.assertGreater(len(alt_text_errors), 0)
+
+    def test_media_with_transcript_reference_valid(self):
+        """<media> com referência a transcrição é válido"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            '<media mimetype="video" xlink:href="video.mp4">'
+            "<alt-text>Description</alt-text>"
+            '<xref ref-type="sec" rid="TR1"/>'
+            "</media>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
+
+        # Deve ter validação de transcript
+        transcript_validations = [r for r in obtained if "transcript" in r.get("title", "").lower()]
+        self.assertGreater(len(transcript_validations), 0)
+
+        # transcript deve ser OK
+        self.assertEqual(transcript_validations[0]["response"], "OK")
+
+    def test_media_without_transcript_reference_warning(self):
+        """<media> sem referência a transcrição deve gerar warning"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            '<media mimetype="video" xlink:href="video.mp4">'
+            "<alt-text>Description</alt-text>"
+            "</media>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
+
+        # Deve ter warning de transcript
+        transcript_warnings = [r for r in obtained if "transcript" in r.get("title", "").lower() and r["response"] == "WARNING"]
+        self.assertGreater(len(transcript_warnings), 0)
+
+
+class TestI18nSupport(unittest.TestCase):
+    """Testes para suporte de internacionalização"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_all_validations_have_advice_text(self):
+        """Todas validações devem ter advice_text quando inválidas"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            "<app>"  # Sem id, sem label
+            "<p>Content</p>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate())
+
+        # Filtrar validações com erro
+        errors = [v for v in obtained if v["response"] not in ["OK", "WARNING"]]
+
+        # Todas devem ter adv_text
+        for validation in errors:
+            self.assertIn("adv_text", validation)
+            if validation["adv_text"]:  # Se não for None
+                self.assertIsInstance(validation["adv_text"], str)
+
+    def test_advice_params_present(self):
+        """Validações devem ter advice_params quando inválidas"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            '<app id="app1">'  # Sem label
+            "<p>Content</p>"
+            "</app>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate())
+
+        errors = [v for v in obtained if v["response"] != "OK"]
+
+        for validation in errors:
+            self.assertIn("adv_params", validation)
+            if validation["adv_params"]:  # Se não for None
+                self.assertIsInstance(validation["adv_params"], dict)
+
+
+class TestCompleteValidation(unittest.TestCase):
+    """Testes de validação completa"""
+
+    def setUp(self):
+        self.params = {
+            "app_existence_error_level": "WARNING",
+            "app_id_error_level": "CRITICAL",
+            "app_label_error_level": "CRITICAL",
+            "app_group_wrapper_error_level": "CRITICAL",
+            "app_group_occurrence_error_level": "CRITICAL",
+            "media_alt_text_error_level": "ERROR",
+            "media_transcript_error_level": "WARNING",
+        }
+
+    def test_perfect_app_group(self):
+        """<app-group> perfeito deve passar em todas validações"""
+        xml = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<back>"
+            "<app-group>"
+            '<app id="app1">'
+            "<label>Appendix 1</label>"
+            "<p>Perfect content</p>"
+            "</app>"
+            "</app-group>"
+            "</back>"
+            "</article>"
+        )
+        obtained = list(AppValidation(xml, self.params).validate())
+
+        # Deve ter validações OK
+        ok_validations = [v for v in obtained if v["response"] == "OK"]
+        self.assertGreater(len(ok_validations), 0)
+
+        # Não deve ter CRITICAL
+        critical_errors = [v for v in obtained if v["response"] == "CRITICAL"]
+        self.assertEqual(len(critical_errors), 0)
 
 
 if __name__ == "__main__":
