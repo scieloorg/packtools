@@ -2,3 +2,4 @@ Flask==2.3.2
 Flask-WTF==1.1.0
 MarkupSafe==2.1.1
 flask-babel==3.0.0
+werkzeug>=3.0.6 # not directly required, pinned by Snyk to avoid a vulnerability
