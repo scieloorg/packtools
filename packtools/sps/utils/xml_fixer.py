@@ -1,147 +1,145 @@
-import logging
+"""
+XML Fixer utilities for completing and fixing XML structures.
+
+This module provides utilities to fix and complete XML structures,
+particularly for SciELO Publishing Schema (SPS) compliance.
+"""
+
 from lxml import etree
 
-logger = logging.getLogger(__name__)
 
-
-def _remove_and_get_info(xmltree, inline_graphic):
+def complete_pub_date(xmltree, default_day=15, default_month=6):
     """
-    Removes inline-graphic from its current position and returns information about it.
-
+    Completa elementos pub-date incompletos com valores padrão para day e month.
+    
+    Esta função processa elementos <pub-date> no XML e adiciona elementos <day> e <month>
+    quando estes estão ausentes, mantendo a ordem correta dos elementos (year, month, day).
+    
     Args:
-        xmltree: XML tree for XPath generation
-        inline_graphic: inline-graphic element to be removed
-
+        xmltree: Árvore XML (lxml.etree.Element) a ser processada
+        default_day (int, optional): Dia padrão para completar (1-31). Padrão: 15
+        default_month (int, optional): Mês padrão para completar (1-12). Padrão: 6
+    
     Returns:
-        tuple: (old_parent, xpath) - parent element and XPath of the removed element
-
+        list: Lista de dicionários contendo as mudanças realizadas. Cada dicionário tem:
+            - xpath (str): XPath do elemento pub-date modificado
+            - element_added (str): Nome do elemento adicionado ('day' ou 'month')
+            - value (str): Valor adicionado
+    
     Raises:
-        ValueError: If inline-graphic has no parent
+        ValueError: Se default_day não está entre 1-31 ou default_month não está entre 1-12
+    
+    Examples:
+        >>> from lxml import etree
+        >>> xml = '''<article>
+        ...   <front>
+        ...     <article-meta>
+        ...       <pub-date pub-type="pub">
+        ...         <year>2024</year>
+        ...       </pub-date>
+        ...     </article-meta>
+        ...   </front>
+        ... </article>'''
+        >>> tree = etree.fromstring(xml)
+        >>> changes = complete_pub_date(tree)
+        >>> len(changes)
+        2
+        >>> changes[0]['element_added']
+        'month'
+        >>> changes[1]['element_added']
+        'day'
+        
+        >>> # Após a execução, o XML terá:
+        >>> pub_date = tree.find('.//pub-date')
+        >>> pub_date.findtext('month')
+        '6'
+        >>> pub_date.findtext('day')
+        '15'
+        
+        >>> # Com valores personalizados:
+        >>> tree = etree.fromstring(xml)
+        >>> changes = complete_pub_date(tree, default_day=1, default_month=1)
+        >>> pub_date = tree.find('.//pub-date')
+        >>> pub_date.findtext('month')
+        '1'
+        >>> pub_date.findtext('day')
+        '1'
+        
+        >>> # Não modifica elementos já existentes:
+        >>> xml_complete = '''<article>
+        ...   <front>
+        ...     <article-meta>
+        ...       <pub-date pub-type="pub">
+        ...         <year>2024</year>
+        ...         <month>3</month>
+        ...         <day>20</day>
+        ...       </pub-date>
+        ...     </article-meta>
+        ...   </front>
+        ... </article>'''
+        >>> tree = etree.fromstring(xml_complete)
+        >>> changes = complete_pub_date(tree)
+        >>> len(changes)
+        0
     """
-    # Store information before modification
-    old_parent = inline_graphic.getparent()
-
-    if old_parent is None:
-        raise ValueError("inline-graphic has no parent element")
-
-    # Generate XPath for modification record
-    try:
-        xpath = xmltree.getroottree().getpath(inline_graphic)
-    except (AttributeError, ValueError):
-        xpath = f"./{old_parent.tag}/inline-graphic"
-
-    # Remove inline-graphic from current position
-    old_parent.remove(inline_graphic)
-
-    return old_parent, xpath
-
-
-def fix_inline_graphic_in_caption(xmltree):
-    """
-    Fixes inline-graphic elements incorrectly positioned inside caption/label.
-
-    This function searches for containers (fig, table-wrap, disp-formula) that:
-    - Contain inline-graphic inside label or caption
-    - Do NOT have a graphic element
-    - Do NOT have other child elements besides label and caption
-
-    For each container found, if there is exactly one inline-graphic,
-    it removes it from inside label/caption and creates a graphic element at the container level.
-
-    Args:
-        xmltree: XML tree to be processed
-
-    Returns:
-        list: List of dictionaries with the modifications performed
-    """
-    if xmltree is None:
-        raise ValueError("xmltree cannot be None")
-
-    modifications = []
-
-    # XPath that searches for valid containers needing correction:
-    # - Are fig, table-wrap or disp-formula
-    # - Have inline-graphic inside label or caption
-    # - Do NOT have a direct child graphic element
-    xpath_containers = """
-        (//fig | //table-wrap | //disp-formula)
-        [(label//inline-graphic or caption//inline-graphic) and not(.//graphic)]
-    """
-
-    containers = xmltree.xpath(xpath_containers)
-
-    for container in containers:
-        # Search for all inline-graphics inside label or caption of this container
-        inline_graphics = container.xpath(
-            ".//label//inline-graphic | .//caption//inline-graphic"
-        )
-
-        # Process only if there is exactly 1 inline-graphic
-        if len(inline_graphics) != 1:
+    # Validar parâmetros
+    if not isinstance(default_day, int) or default_day < 1 or default_day > 31:
+        raise ValueError("default_day must be between 1 and 31")
+    
+    if not isinstance(default_month, int) or default_month < 1 or default_month > 12:
+        raise ValueError("default_month must be between 1 and 12")
+    
+    changes = []
+    
+    # Buscar elementos pub-date com pub-type='pub' ou publication-format='electronic'
+    xpath_query = (
+        ".//pub-date[@pub-type='pub'] | "
+        ".//pub-date[@publication-format='electronic']"
+    )
+    
+    pub_date_nodes = xmltree.xpath(xpath_query)
+    
+    for pub_date_node in pub_date_nodes:
+        # Obter xpath do elemento para reportar
+        tree = pub_date_node.getroottree()
+        xpath = tree.getpath(pub_date_node)
+        
+        # Verificar se year existe (necessário para processar)
+        year_elem = pub_date_node.find('year')
+        if year_elem is None:
             continue
-
-        # Check if the container has only label and/or caption as children
-        # If there are other elements (table, mathml:math, etc.), do not process
-        has_only_label_caption = True
-        for child in container.getchildren():
-            if child.tag not in ("label", "caption"):
-                has_only_label_caption = False
-                break
-
-        if not has_only_label_caption:
-            logger.debug(
-                f"Container {container.tag} has other children besides label/caption, skipping",
-                extra={'container_tag': container.tag, 'container_id': container.get('id')}
-            )
-            continue
-
-        inline_graphic = inline_graphics[0]
-
-        try:
-            # Remove inline-graphic and get its information
-            old_parent, xpath = _remove_and_get_info(xmltree, inline_graphic)
-
-            # Change tag from inline-graphic to graphic (preserves all attributes, text, tail, and children)
-            inline_graphic.tag = "graphic"
-
-            # Append graphic after label and caption (container only has label/caption at this point)
-            container.append(inline_graphic)
-
-            # Record modification performed
-            modifications.append({
-                "xpath": xpath,
-                "action": "moved_and_renamed",
-                "old_parent": old_parent.tag if old_parent is not None else "unknown",
-                "new_parent": container.tag
+        
+        # Verificar e adicionar month se ausente
+        month_elem = pub_date_node.find('month')
+        if month_elem is None:
+            month_elem = etree.Element('month')
+            month_elem.text = str(default_month)
+            
+            # Inserir após year
+            year_index = list(pub_date_node).index(year_elem)
+            pub_date_node.insert(year_index + 1, month_elem)
+            
+            changes.append({
+                'xpath': xpath,
+                'element_added': 'month',
+                'value': str(default_month)
             })
-
-        except AttributeError as e:
-            logger.error(
-                f"Error processing inline-graphic in container {container.tag}: "
-                f"missing attribute - {e}",
-                extra={'container_tag': container.tag}
-            )
-            continue
-        except ValueError as e:
-            logger.error(
-                f"Error processing inline-graphic in container {container.tag}: "
-                f"invalid value - {e}",
-                extra={'container_tag': container.tag}
-            )
-            continue
-        except (etree.Error, etree.LxmlError) as e:
-            logger.error(
-                f"Error processing inline-graphic in container {container.tag}: "
-                f"XML structure error - {e}",
-                extra={'container_tag': container.tag}
-            )
-            continue
-        except TypeError as e:
-            logger.error(
-                f"Error processing inline-graphic in container {container.tag}: "
-                f"type error - {e}",
-                extra={'container_tag': container.tag}
-            )
-            continue
-
-    return modifications
+        
+        # Verificar e adicionar day se ausente
+        day_elem = pub_date_node.find('day')
+        if day_elem is None:
+            day_elem = etree.Element('day')
+            day_elem.text = str(default_day)
+            
+            # Inserir após month
+            month_elem = pub_date_node.find('month')  # Atualizar referência
+            month_index = list(pub_date_node).index(month_elem)
+            pub_date_node.insert(month_index + 1, day_elem)
+            
+            changes.append({
+                'xpath': xpath,
+                'element_added': 'day',
+                'value': str(default_day)
+            })
+    
+    return changes
