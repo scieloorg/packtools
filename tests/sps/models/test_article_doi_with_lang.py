@@ -128,6 +128,103 @@ class TestDoiWithLang(unittest.TestCase):
                 data[0]["authors"], []
             )  # Should handle missing author info gracefully
 
+    @patch("packtools.sps.models.article_titles.ArticleTitles")
+    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    def test_all_data_includes_all_subarticles(self, mock_contribs, mock_titles):
+        """Test if all_data property includes ALL sub-article types, not just translations"""
+        # Create XML with multiple sub-article types
+        xml_with_multiple_types = """
+        <article article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="doi">10.1590/main-doi</article-id>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="tr1" xml:lang="pt">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/translation-doi</article-id>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="reviewer-report" id="rr1" xml:lang="en">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/reviewer-doi</article-id>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="correction" id="cor1" xml:lang="en">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/correction-doi</article-id>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_multiple_types.encode("utf-8"))
+
+        # Mock the dependencies
+        mock_titles.return_value.article_title_dict = {}
+        mock_contribs.return_value.contribs = []
+
+        doi_with_lang = DoiWithLang(xmltree)
+        all_data = doi_with_lang.all_data
+
+        # Should include main article + 3 sub-articles = 4 items
+        self.assertEqual(len(all_data), 4)
+
+        # Check types
+        types = [item["parent_article_type"] for item in all_data]
+        self.assertEqual(types, ["research-article", "translation", "reviewer-report", "correction"])
+
+        # Check DOIs
+        dois = [item["value"] for item in all_data]
+        self.assertEqual(dois, [
+            "10.1590/main-doi",
+            "10.1590/translation-doi",
+            "10.1590/reviewer-doi",
+            "10.1590/correction-doi"
+        ])
+
+    @patch("packtools.sps.models.article_titles.ArticleTitles")
+    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    def test_data_vs_all_data_difference(self, mock_contribs, mock_titles):
+        """Test that data only includes translations while all_data includes all types"""
+        xml_with_multiple_types = """
+        <article article-type="research-article" xml:lang="en">
+            <front>
+                <article-meta>
+                    <article-id pub-id-type="doi">10.1590/main-doi</article-id>
+                </article-meta>
+            </front>
+            <sub-article article-type="translation" id="tr1" xml:lang="pt">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/translation-doi</article-id>
+                </front-stub>
+            </sub-article>
+            <sub-article article-type="reviewer-report" id="rr1" xml:lang="en">
+                <front-stub>
+                    <article-id pub-id-type="doi">10.1590/reviewer-doi</article-id>
+                </front-stub>
+            </sub-article>
+        </article>
+        """
+        xmltree = etree.fromstring(xml_with_multiple_types.encode("utf-8"))
+
+        # Mock the dependencies
+        mock_titles.return_value.article_title_dict = {}
+        mock_contribs.return_value.contribs = []
+
+        doi_with_lang = DoiWithLang(xmltree)
+
+        # data should only have main article + translation (2 items)
+        data = doi_with_lang.data
+        self.assertEqual(len(data), 2)
+        types_in_data = [item["parent_article_type"] for item in data]
+        self.assertEqual(types_in_data, ["research-article", "translation"])
+
+        # all_data should have main article + all sub-articles (3 items)
+        all_data = doi_with_lang.all_data
+        self.assertEqual(len(all_data), 3)
+        types_in_all_data = [item["parent_article_type"] for item in all_data]
+        self.assertEqual(types_in_all_data, ["research-article", "translation", "reviewer-report"])
+
 
 if __name__ == "__main__":
     unittest.main()
