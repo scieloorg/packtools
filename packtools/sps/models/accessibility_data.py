@@ -91,6 +91,14 @@ class AccessibilityData:
             return None
 
     @property
+    def long_desc_count(self):
+        """Conta quantos elementos <long-desc> existem como filhos diretos."""
+        try:
+            return len(self.node.findall("long-desc"))
+        except (AttributeError, TypeError):
+            return 0
+
+    @property
     def parent_info(self):
         """
         NOVA FUNCIONALIDADE: Extrai informações do elemento pai para validações.
@@ -127,6 +135,7 @@ class AccessibilityData:
             "tag": self.node.tag,
             "xref_sec_rid": self.xref_sec_rid,
             "xml": self._get_xml_string(),  # Para mensagens de erro mais claras
+            "long_desc_count": self.long_desc_count,
         }
         d.update(self.long_desc or {})
         d.update(self.alt_text or {})

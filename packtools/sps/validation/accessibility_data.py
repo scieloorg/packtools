@@ -505,10 +505,10 @@ class AccessibilityDataValidation:
         parent_label = self.data.get("parent_label")
         parent_caption_title = self.data.get("parent_caption_title")
 
-        # Normaliza strings para comparação (case-insensitive e strip)
-        long_desc_normalized = long_desc.strip().lower() if long_desc else ""
-        label_normalized = parent_label.strip().lower() if parent_label else ""
-        caption_normalized = parent_caption_title.strip().lower() if parent_caption_title else ""
+        # Normaliza strings para comparação (case-insensitive e normalização de espaços)
+        long_desc_normalized = " ".join(long_desc.lower().split()) if long_desc else ""
+        label_normalized = " ".join(parent_label.lower().split()) if parent_label else ""
+        caption_normalized = " ".join(parent_caption_title.lower().split()) if parent_caption_title else ""
 
         # Verifica duplicação com <label>
         if label_normalized and long_desc_normalized == label_normalized:
@@ -585,12 +585,8 @@ class AccessibilityDataValidation:
         <inline-graphic>, <media> or <inline-media> and must be contained within
         these elements and occurring only once."
         """
-        # Verifica se temos acesso ao nó XML original para contar ocorrências
-        xml_str = self.data.get("xml", "")
-
-        # Conta quantas vezes <long-desc> aparece no XML
-        # Usa uma abordagem simples de contar tags de abertura
-        long_desc_count = xml_str.count("<long-desc")
+        # Obtém a contagem confiável calculada no modelo
+        long_desc_count = self.data.get("long_desc_count", 0)
 
         valid = long_desc_count <= 1
 
