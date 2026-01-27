@@ -189,21 +189,42 @@ class Abstract:
         return None
 
     @property
-    def graphic(self):
+    def graphic_href(self):
         """
         Extracts graphic element from visual abstract.
         Returns the xlink:href attribute value of <graphic> element.
 
+        In JATS/SPS XML, <graphic> is a JATS element without namespace,
+        but the href attribute uses the xlink namespace.
+
         Example XML:
-            <graphic xlink:href="1234-5678-va-01.jpg"/>
+            <abstract abstract-type="graphical">
+                <p>
+                    <fig id="vs1">
+                        <graphic xlink:href="1234-5678-va-01.jpg"/>
+                    </fig>
+                </p>
+            </abstract>
 
         Returns:
-            str: The href value (e.g., "1234-5678-va-01.jpg")
-            None: If no graphic found
+            str: The xlink:href attribute value (e.g., "1234-5678-va-01.jpg")
+            None: If no <graphic> element is found
+
+        Note:
+            This implementation is consistent with JATS/SPS schema where:
+            - <graphic> element has no namespace (it's a JATS element)
+            - xlink:href attribute DOES have the xlink namespace
+
+            DO NOT use find() with namespaces parameter as it's not officially
+            supported by lxml and will be ignored silently.
         """
-        graphic_node = self.node.find('.//graphic', namespaces={'xlink': 'http://www.w3.org/1999/xlink'})
+        # Find <graphic> element (no namespace needed for JATS elements)
+        graphic_node = self.node.find('.//graphic')
+
         if graphic_node is not None:
+            # Extract xlink:href attribute (namespace IS needed for xlink attributes)
             return graphic_node.get('{http://www.w3.org/1999/xlink}href')
+
         return None
 
     @property
@@ -226,7 +247,7 @@ class Abstract:
             "sections": list(self.sections),
             "list_items": list(self.list_items),
             "kwds": list(self.kwds),
-            "graphic": self.graphic,  # For visual abstracts
+            "graphic_href": self.graphic_href,  # For visual abstracts
             "fig_id": self.fig_id,    # For visual abstracts
             "caption": self.caption,  # For visual abstracts
         }
