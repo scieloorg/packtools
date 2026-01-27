@@ -147,6 +147,8 @@ class Abstract:
     @property
     def kwds(self):
         parent = self.node.getparent()
+        if parent is None:
+            return
         lang = self.lang
         for kwd_group in parent.xpath(f'kwd-group[@xml:lang="{lang}"]'):
             for kwd in kwd_group.xpath("kwd"):
@@ -161,6 +163,31 @@ class Abstract:
     @property
     def abstract_type(self):
         return self.node.get("abstract-type")
+
+    @property
+    def text(self):
+        """
+        Returns the concatenated text content of the abstract.
+        - With sections: concatenates title and p from each section
+        - Without sections: concatenates p elements
+        """
+        text_parts = []
+        sections = list(self.sections)
+        
+        if sections:
+            # With sections: include title and p from each section
+            for section in sections:
+                if section.get("title") and section["title"].get("plain_text"):
+                    text_parts.append(section["title"]["plain_text"])
+                if section.get("p") and section["p"].get("plain_text"):
+                    text_parts.append(section["p"]["plain_text"])
+        else:
+            # Without sections: include only p elements
+            for p_item in self.p:
+                if p_item.get("plain_text"):
+                    text_parts.append(p_item["plain_text"])
+        
+        return " ".join(text_parts)
 
     @property
     def data(self):
@@ -178,6 +205,7 @@ class Abstract:
             "sections": list(self.sections),
             "list_items": list(self.list_items),
             "kwds": list(self.kwds),
+            "text": self.text,
         }
 
 
