@@ -1,5 +1,5 @@
 from copy import deepcopy
-from unittest import TestCase
+from unittest import TestCase, main
 from unittest.mock import patch
 
 from lxml import etree
@@ -318,6 +318,10 @@ class TestAffiliationValidationCompare(TestCase):
         # Check result structure
         self.assertEqual(result["title"], "low similarity")
         self.assertEqual(result["validation_type"], "similarity")
+        self.assertIn("Universidade A", result["advice"])
+        self.assertIn("São Paulo", result["advice"])
+        self.assertIn("aff2", result["advice"])
+        self.assertIn("Make sure they are corresponding", result["advice"])
         self.assertEqual(
             result["response"],
             self.params["translation_similarity_error_level"],
@@ -408,18 +412,21 @@ class TestFulltextAffiliationsValidation(TestCase):
         """Test validation of main affiliations"""
         results = list(self.validator.validate_main_affiliations())
 
-        # Filtra apenas resultados que mencionam orgdiv2
-        orgdiv2_results = [r for r in results if 'orgdiv2' in r.get('title', '').lower()]
+        # Filtra apenas resultados de orgdiv2
+        orgdiv2_results = [r for r in results if r.get('title') == 'orgdiv2']
 
-        # Deve ter validações relacionadas a orgdiv2
-        self.assertGreater(len(orgdiv2_results), 0)
+        # Deve ter exatamente 2 validações de orgdiv2 (uma para cada aff principal: aff1, aff11)
+        self.assertEqual(len(orgdiv2_results), 2)
+        self.assertIn("Mark the second hierarchical subdivision", orgdiv2_results[0]["advice"])
+        self.assertIn("Mark the second hierarchical subdivision", orgdiv2_results[1]["advice"])
 
     def test_validate_translations_consistency(self):
         """Test validation of translation consistency"""
         results = list(self.validator.validate_translations_consistency())
 
-        # Deve ter pelo menos algumas validações de consistência
-        self.assertGreater(len(results), 0)
+        self.assertEqual(2, len(results))
+        self.assertEqual(results[0]["advice"], "Compare aff1 and aff2. Make sure they are corresponding")
+        self.assertEqual(results[1]["advice"], "Compare aff11 and aff21. Make sure they are corresponding")
 
     @patch("packtools.sps.validation.aff.AffiliationValidation")
     def test_validate_main_affiliations_create_affvalidation(self, mock_av):
@@ -461,7 +468,8 @@ class TestFulltextAffiliationsValidation(TestCase):
         self, mock_av
     ):
         results = list(self.validator.validate_not_translation_affiliations())
-        # Pelo menos 1 para o sub-article reviewer
+        # Pelo menos 1 AffiliationValidation criado para s2 (reviewer-report)
+        # O número exato pode variar dependendo da implementação interna
         self.assertGreaterEqual(mock_av.call_count, 1)
 
     @patch("packtools.sps.validation.aff.AffiliationValidation.validate")
@@ -469,19 +477,19 @@ class TestFulltextAffiliationsValidation(TestCase):
         self, mock_av
     ):
         results = list(self.validator.validate_not_translation_affiliations())
-        # Pelo menos 1 validação
-        self.assertGreaterEqual(mock_av.call_count, 1)
+        # 2 validate() chamados: aff3 (reviewer main) + aff4 (translation dentro de s2)
+        self.assertEqual(mock_av.call_count, 2)
 
     @patch("packtools.sps.validation.aff.AffiliationValidation.compare")
     def test_validate_not_translation_affiliations_calls_compare(self, mock_av):
         results = list(self.validator.validate_not_translation_affiliations())
-        # Pode ter 0 ou mais comparações dependendo da estrutura
-        self.assertGreaterEqual(mock_av.call_count, 0)
+        # 1 compare() chamado: aff4 vs aff3 (dentro de s2)
+        self.assertEqual(mock_av.call_count, 1)
 
     @patch("packtools.sps.validation.aff.AffiliationValidation")
     def test_validate_create_affvalidation(self, mock_av):
         results = list(self.validator.validate())
-        # Número pode variar - verificar que pelo menos 6 foram criadas
+        # Pelo menos 6 AffiliationValidation criados (pode ser mais dependendo da implementação interna)
         self.assertGreaterEqual(mock_av.call_count, 6)
 
     @patch("packtools.sps.validation.aff.AffiliationValidation.validate")
@@ -500,8 +508,8 @@ class TestFulltextAffiliationsValidation(TestCase):
     @patch("packtools.sps.validation.aff.AffiliationValidation.compare")
     def test_validate_calls_compare(self, mock_av):
         results = list(self.validator.validate())
-        # Pelo menos 2 comparações (para as 2 traduções principais)
-        self.assertGreaterEqual(mock_av.call_count, 2)
+        # 3 comparações: 2 em s1 (aff2 vs aff1, aff21 vs aff11) + 1 em s2 (aff4 vs aff3)
+        self.assertEqual(mock_av.call_count, 3)
 
 
 class TestAffiliationAutonomousResearcher(TestCase):
@@ -965,5 +973,4 @@ class TestCountryCodeValidation(TestCase):
 
 
 if __name__ == '__main__':
-    import unittest
-    unittest.main()
+    main()
