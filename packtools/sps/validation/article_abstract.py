@@ -221,11 +221,12 @@ class AbstractValidation:
             dict: Validation response
         """
         error_level = self.params.get("graphic_error_level", self.params["default_error_level"])
-        graphic = self.abstract.get("graphic")
+        graphic = self.abstract.get("graphic_href")
 
-        # Graphic comes as string (xlink:href) from model
-        # Check if graphic exists and is not empty
-        has_graphic = bool(graphic and (graphic if isinstance(graphic, str) else True))
+        if isinstance(graphic, str):
+            has_graphic = bool(graphic.strip())
+        else:
+            has_graphic = bool(graphic)
 
         return self._format_response(
             title="graphic",
