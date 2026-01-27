@@ -172,11 +172,11 @@ class Abstract:
         - Without sections: concatenates p elements
         """
         text_parts = []
-        sections = list(self.sections)
         
-        if sections:
+        # Check if abstract has sections by querying the node directly
+        if self.node.xpath("sec"):
             # With sections: include title and p from each section
-            for section in sections:
+            for section in self.sections:
                 if section.get("title") and section["title"].get("plain_text"):
                     text_parts.append(section["title"]["plain_text"])
                 if section.get("p") and section["p"].get("plain_text"):
