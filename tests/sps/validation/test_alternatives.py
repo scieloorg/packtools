@@ -1,11 +1,63 @@
 from lxml import etree
-from unittest import TestCase
+from unittest import TestCase, main
 
 from packtools.sps.validation.alternatives import AlternativesValidation
 from packtools.sps.validation.exceptions import ValidationAlternativesException
 
 
-class AlternativesValidationTest(TestCase):
+class BaseValidationTest(TestCase):
+    """Base class with helper methods for validation tests"""
+
+    def assert_validation_structure(self, validation,
+                                    expected_response=None,
+                                    expected_title=None):
+        """
+        Helper to validate standard validation response structure.
+
+        Parameters
+        ----------
+        validation : dict
+            Validation result to check
+        expected_response : str, optional
+            Expected response level (OK, WARNING, ERROR, CRITICAL)
+        expected_title : str, optional
+            Expected validation title (partial match allowed)
+
+        Note
+        ----
+        The actual structure from build_response uses:
+        - 'response': OK/WARNING/ERROR/CRITICAL
+        - 'expected_value': what was expected
+        - 'got_value': what was obtained
+        NOT 'is_valid', 'expected', 'obtained'
+        """
+        # Campos obrigatórios
+        required_fields = [
+            'title', 'parent', 'item', 'validation_type',
+            'response', 'expected_value', 'got_value', 'data'
+        ]
+
+        for field in required_fields:
+            self.assertIn(field, validation,
+                          f"Campo obrigatório '{field}' ausente no validation")
+
+        # Validar tipos
+        self.assertIsInstance(validation['title'], str)
+        self.assertIn(validation['response'],
+                      ['OK', 'WARNING', 'ERROR', 'CRITICAL'])
+
+        # Validar valores esperados (se fornecidos)
+        if expected_response:
+            self.assertEqual(expected_response, validation['response'],
+                           f"Expected response {expected_response}, got {validation['response']}")
+
+        if expected_title:
+            self.assertIn(expected_title.lower(), validation['title'].lower(),
+                         f"Expected '{expected_title}' in title '{validation['title']}'")
+
+
+class AlternativesValidationTest(BaseValidationTest):
+    """Tests for AlternativesValidation - inherits helper from BaseValidationTest"""
 
     def test_validation_success(self):
         """Teste de validação bem-sucedida com elementos corretos"""
@@ -41,9 +93,37 @@ class AlternativesValidationTest(TestCase):
         }
         obtained = list(AlternativesValidation(self.xml_tree, params).validate())
 
-        # Deve ter validações OK para ambos elementos
+        # XML válido deve ter todas validações OK
         ok_validations = [v for v in obtained if v['response'] == 'OK']
-        self.assertGreater(len(ok_validations), 0)
+        self.assertGreater(len(ok_validations), 0,
+                          "XML válido deve gerar validações OK")
+
+        # Usar helper para validar estrutura de pelo menos uma validação
+        sample_validation = ok_validations[0]
+        self.assert_validation_structure(
+            sample_validation,
+            expected_response='OK'
+        )
+
+        # Validar tipos dos campos
+        self.assertIsInstance(sample_validation['title'], str)
+        self.assertEqual(sample_validation['response'], 'OK')
+
+        # Verificar que validações específicas estão presentes
+        validation_titles = [v['title'].lower() for v in ok_validations]
+
+        # Deve ter validação de SVG format
+        self.assertTrue(
+            any('svg format' in title for title in validation_titles),
+            "Faltando validação de formato SVG"
+        )
+
+        # Deve ter validação de elementos esperados
+        self.assertTrue(
+            any('alternatives validation' in title or 'expected' in title
+                for title in validation_titles),
+            "Faltando validação de elementos esperados"
+        )
 
     def test_validation_children_fail(self):
         """Teste de validação com elementos filhos incorretos"""
@@ -78,13 +158,36 @@ class AlternativesValidationTest(TestCase):
         }
         obtained = list(AlternativesValidation(self.xml_tree, params).validate())
 
-        # Deve ter erros CRITICAL
-        errors = [v for v in obtained if v['response'] == 'CRITICAL']
-        self.assertGreater(len(errors), 0)
+        # XML inválido deve gerar erros CRITICAL
+        critical_errors = [v for v in obtained if v['response'] == 'CRITICAL']
+        self.assertGreater(len(critical_errors), 0,
+                          "XML inválido deve gerar erros CRITICAL")
 
-        # Verificar mensagens de erro
-        error_advices = [v['advice'] for v in errors]
-        self.assertTrue(any('graphic' in adv for adv in error_advices))
+        # Deve ter erro específico de elementos esperados
+        expected_elem_errors = [
+            e for e in critical_errors
+            if 'alternatives validation' in e.get('title', '').lower() or
+               'expected' in e.get('title', '').lower()
+        ]
+        self.assertGreater(len(expected_elem_errors), 0,
+                          "Deve ter erro de 'expected elements'")
+
+        # Validar estrutura completa do erro usando helper
+        error = expected_elem_errors[0]
+        self.assert_validation_structure(
+            error,
+            expected_response='CRITICAL'
+        )
+
+        # Validações específicas do erro
+        self.assertEqual('CRITICAL', error['response'])
+
+        # Verificar que mensagem menciona elementos corretos
+        error_text = str(error.get('advice', '')) + str(error.get('expected_value', ''))
+        self.assertTrue(
+            'graphic' in error_text.lower() or 'table' in error_text.lower(),
+            "Mensagem de erro deve mencionar elementos esperados"
+        )
 
     def test_validation_parent_fail(self):
         """Teste de validação com parent não configurado"""
@@ -115,7 +218,7 @@ class AlternativesValidationTest(TestCase):
                          "parent and children", str(context.exception))
 
 
-class TestSVGFormatValidation(TestCase):
+class TestSVGFormatValidation(BaseValidationTest):
     """Testes para validação de formato SVG obrigatório"""
 
     def test_svg_format_valid(self):
@@ -137,10 +240,53 @@ class TestSVGFormatValidation(TestCase):
         params = {"table-wrap": ["graphic", "table"]}
         obtained = list(AlternativesValidation(xml, params).validate())
 
-        # Validação de formato SVG deve passar
-        svg_validations = [v for v in obtained if 'SVG format' in v.get('title', '')]
-        if svg_validations:
-            self.assertEqual('OK', svg_validations[0]['response'])
+        # XML válido: todas validações devem ser OK
+        ok_validations = [v for v in obtained if v['response'] == 'OK']
+
+        # Com as correções implementadas, deve ter validações:
+        # 1. SVG format
+        # 2. No alt-text
+        # 3. No long-desc
+        # 4. Both versions (só yield quando erro, então não aparece aqui)
+        # 5. Expected elements / Alternatives validation
+        expected_min_validations = 4  # Mínimo esperado
+        self.assertGreaterEqual(len(ok_validations), expected_min_validations,
+                               f"XML válido deve gerar pelo menos {expected_min_validations} validações OK")
+
+        # Verificar que cada tipo de validação esperado está presente
+        validation_titles = [v['title'].lower() for v in ok_validations]
+
+        # 1. SVG format
+        self.assertTrue(
+            any('svg format' in title for title in validation_titles),
+            "Faltando validação de formato SVG"
+        )
+
+        # 2. No alt-text
+        self.assertTrue(
+            any('alt-text' in title for title in validation_titles),
+            "Faltando validação de alt-text"
+        )
+
+        # 3. No long-desc
+        self.assertTrue(
+            any('long-desc' in title for title in validation_titles),
+            "Faltando validação de long-desc"
+        )
+
+        # 5. Expected elements / Alternatives validation
+        self.assertTrue(
+            any('alternatives validation' in title or 'expected' in title
+                for title in validation_titles),
+            "Faltando validação de elementos esperados"
+        )
+
+        # Verificar estrutura de pelo menos uma validação usando helper
+        sample = ok_validations[0]
+        self.assert_validation_structure(
+            sample,
+            expected_response='OK'
+        )
 
     def test_svg_format_invalid_png(self):
         """PNG deve gerar erro CRITICAL"""
@@ -318,12 +464,24 @@ class TestBothVersionsValidation(TestCase):
         params = {"table-wrap": ["graphic", "table"]}
         obtained = list(AlternativesValidation(xml, params).validate())
 
-        # Validação de ambas versões deve passar
-        both_validations = [v for v in obtained if 'Both versions' in v.get('title', '')]
-        # Pode não ter a validação se ambos estão presentes (não gera)
-        # Ou se tem, deve ser OK
-        for validation in both_validations:
-            self.assertIn(validation['response'], ['OK', 'ERROR'])
+        # Filtrar validação de "both versions"
+        both_validations = [
+            v for v in obtained
+            if 'both versions' in v.get('title', '').lower()
+        ]
+
+        # Note: Com validate_both_versions_present implementado, ele só faz yield quando há erro
+        # Quando ambas versões estão presentes (caso válido), não há yield
+        # Portanto, vamos verificar se NÃO há erro de "both versions"
+        both_errors = [
+            v for v in obtained
+            if 'both versions' in v.get('title', '').lower() and
+               v['response'] in ['ERROR', 'CRITICAL']
+        ]
+
+        # XML válido NÃO deve ter erros de "both versions"
+        self.assertEqual(0, len(both_errors),
+                        f"XML válido não deve ter erros de 'both versions'. Erros encontrados: {both_errors}")
 
     def test_missing_coded_version_invalid(self):
         """Falta versão codificada deve gerar erro"""
@@ -458,5 +616,4 @@ class TestI18nSupport(TestCase):
 
 
 if __name__ == '__main__':
-    import unittest
-    unittest.main()
+    main()
