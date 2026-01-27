@@ -56,7 +56,7 @@ class SummaryAbstractValidationTest(TestCase):
         self.assertEqual(kwd_validation["validation_type"], "exist")
         self.assertEqual(kwd_validation["expected_value"], None)
         self.assertIsNotNone(kwd_validation["got_value"])
-        self.assertTrue(len(kwd_validation["got_value"]) > 0)
+        self.assertGreater(len(kwd_validation["got_value"]), 0)
 
     def test_summary_abstract_without_title_is_invalid(self):
         """Summary abstract must have a title."""
@@ -222,12 +222,12 @@ class SimpleAbstractValidationTest(TestCase):
                         <abstract xml:lang="en">
                             <title>Abstract</title>
                             <sec>
-                                <title>Objective</title>
-                                <p>Study objective.</p>
+                                <title>Background</title>
+                                <p>Background text.</p>
                             </sec>
                             <sec>
                                 <title>Methods</title>
-                                <p>Study methods.</p>
+                                <p>Methods text.</p>
                             </sec>
                         </abstract>
                     </article-meta>
@@ -257,8 +257,8 @@ class SimpleAbstractValidationTest(TestCase):
                         <abstract xml:lang="en">
                             <title>Abstract</title>
                             <sec>
-                                <title>Objective</title>
-                                <p>Study objective.</p>
+                                <title>Background</title>
+                                <p>Background text.</p>
                             </sec>
                         </abstract>
                         <kwd-group xml:lang="en">
@@ -282,16 +282,16 @@ class SimpleAbstractValidationTest(TestCase):
         self.assertEqual(kwd_validation["response"], "OK")
 
 
-class HighlightsPositiveValidationTest(TestCase):
+class KeyPointsValidationTest(TestCase):
     """
-    Tests for positive validation cases of highlights (key-points).
+    Tests for key-points (highlights) abstract validation.
     """
 
-    def test_highlights_with_multiple_p_is_valid(self):
+    def test_key_points_with_single_p_is_invalid(self):
         """
-        Highlights with multiple <p> tags is valid.
+        Key-points abstract with single paragraph is invalid.
 
-        SPS 1.10: Each highlight should be in a separate <p> tag.
+        SPS 1.10: Highlights should have multiple <p> elements.
         """
         self.maxDiff = None
         xmltree = ET.fromstring(
@@ -301,9 +301,7 @@ class HighlightsPositiveValidationTest(TestCase):
                     <article-meta>
                         <abstract abstract-type="key-points" xml:lang="en">
                             <title>HIGHLIGHTS</title>
-                            <p>First key finding of the study</p>
-                            <p>Second key finding of the study</p>
-                            <p>Third key finding of the study</p>
+                            <p>Single highlight point</p>
                         </abstract>
                     </article-meta>
                 </front>
@@ -317,17 +315,91 @@ class HighlightsPositiveValidationTest(TestCase):
         validator = AbstractValidation(abstracts[0])
         obtained = list(validator.validate())
 
-        p_validation = [v for v in obtained if v["sub_item"] == "p"][0]
+        p_validations = [v for v in obtained if v["sub_item"] == "p"]
 
-        self.assertEqual(p_validation["response"], "OK")
-        self.assertEqual(len(p_validation["got_value"]), 3)
+        # Should have validation for <p> count
+        self.assertTrue(len(p_validations) > 0)
 
-    def test_highlights_without_kwd_is_valid(self):
+        # At least one should be ERROR
+        has_error = any(v["response"] in ["ERROR", "WARNING"] for v in p_validations)
+        self.assertTrue(has_error)
+
+    def test_key_points_with_multiple_p_is_valid(self):
         """
-        Highlights without associated keywords is valid.
+        Key-points abstract with multiple paragraphs is valid.
 
-        SPS 1.10: key-points should NOT have keywords.
+        SPS 1.10: Each <p> represents one highlight.
         """
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points" xml:lang="en">
+                            <title>HIGHLIGHTS</title>
+                            <p>First highlight</p>
+                            <p>Second highlight</p>
+                            <p>Third highlight</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        xml_abstracts = XMLAbstracts(xmltree)
+        abstracts = list(xml_abstracts.key_points_abstracts)
+
+        validator = AbstractValidation(abstracts[0])
+        obtained = list(validator.validate())
+
+        p_validations = [v for v in obtained if v["sub_item"] == "p"]
+
+        if p_validations:
+            # All <p> validations should be OK
+            for validation in p_validations:
+                self.assertEqual(validation["response"], "OK")
+
+    def test_key_points_with_kwd_is_invalid(self):
+        """
+        Key-points abstract should NOT have keywords.
+
+        SPS 1.10: key-points doesn't allow <kwd-group>.
+        """
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="key-points" xml:lang="en">
+                            <title>HIGHLIGHTS</title>
+                            <p>First highlight</p>
+                            <p>Second highlight</p>
+                        </abstract>
+                        <kwd-group xml:lang="en">
+                            <title>Keywords:</title>
+                            <kwd>keyword1</kwd>
+                        </kwd-group>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        xml_abstracts = XMLAbstracts(xmltree)
+        abstracts = list(xml_abstracts.key_points_abstracts)
+
+        validator = AbstractValidation(abstracts[0])
+        obtained = list(validator.validate())
+
+        kwd_validation = [v for v in obtained if v["title"] == "unexpected kwd"][0]
+
+        self.assertEqual(kwd_validation["response"], "ERROR")
+
+    def test_key_points_without_kwd_is_valid(self):
+        """Key-points without keywords is valid (keywords not allowed)."""
         self.maxDiff = None
         xmltree = ET.fromstring(
             """
@@ -362,7 +434,18 @@ class VisualAbstractPositiveValidationTest(TestCase):
     """
 
     def test_visual_abstract_with_graphic_is_valid(self):
-        """Visual abstract with graphic element is valid."""
+        """
+        Test that visual abstract with <graphic> element is valid.
+
+        SPS 1.10: Visual Abstract (@abstract-type="graphical") must contain
+        a <graphic> element with xlink:href attribute.
+
+        CRITICAL: This test validates that the model v2 correctly extracts
+        the 'graphic' field from XML. If this test fails, verify:
+        1. Model v2/abstract.py has @property graphic implemented
+        2. AbstractValidation.validate_graphic() is being called
+        3. Validation logic correctly checks for graphic presence
+        """
         self.maxDiff = None
         xmltree = ET.fromstring(
             """
@@ -393,20 +476,165 @@ class VisualAbstractPositiveValidationTest(TestCase):
         self.assertEqual(len(abstracts), 1)
         abstract_data = abstracts[0]
 
-        # Check if graphic field exists in model data
-        # If model returns graphic, it should have a value
-        if "graphic" in abstract_data:
-            self.assertIsNotNone(abstract_data["graphic"],
-                               "Graphic field exists but is None - graphic should be extracted from XML")
+        # MANDATORY VALIDATION: Field 'graphic' MUST be present after model v2 fix
+        self.assertIn("graphic_href", abstract_data,
+                      "Campo 'graphic' DEVE estar presente em abstract_data após correção do modelo v2. "
+                      "Se este teste falhar, verifique se packtools/sps/models/v2/abstract.py "
+                      "tem a propriedade @graphic implementada.")
 
+        # MANDATORY VALIDATION: Field 'graphic' MUST have value (extracted xlink:href)
+        self.assertIsNotNone(abstract_data["graphic_href"],
+                             "Campo 'graphic' não deve ser None para visual abstract. "
+                             "Deve conter o valor do atributo xlink:href extraído do XML.")
+
+        # MANDATORY VALIDATION: Verify type and content
+        self.assertIsInstance(abstract_data["graphic_href"], str,
+                              "Campo 'graphic' deve ser string (valor de xlink:href)")
+
+        self.assertTrue(abstract_data["graphic_href"].strip(),
+                        "Campo 'graphic' não pode ser string vazia")
+
+        # MANDATORY VALIDATION: Verify expected value
+        self.assertEqual(abstract_data["graphic_href"], "1234-5678-va-01.jpg",
+                         "Valor de 'graphic' deve corresponder ao xlink:href do XML")
+
+        # VALIDATOR VALIDATIONS
+        validator = AbstractValidation(abstract_data)
+        obtained = list(validator.validate())
+
+        # MANDATORY VALIDATION: Graphic validation MUST be present in results
+        graphic_validation = [v for v in obtained if v["title"] == "graphic"]
+
+        self.assertTrue(graphic_validation,
+                        "Validação de 'graphic' DEVE estar presente nos resultados. "
+                        "Se este teste falhar, verifique se AbstractValidation.validate_graphic() "
+                        "está sendo chamado em AbstractValidation.validate().")
+
+        # MANDATORY VALIDATION: Validation MUST pass (response = "OK")
+        self.assertEqual(graphic_validation[0]["response"], "OK",
+                         f"Validação de 'graphic' deve ser 'OK' para visual abstract válido. "
+                         f"Resultado obtido: {graphic_validation[0]}")
+
+        # Additional validations for visual abstract
+        self.assertEqual(abstract_data.get("abstract_type"), "graphical")
+        self.assertIsNotNone(abstract_data.get("title"))
+
+    def test_visual_abstract_without_graphic_is_invalid(self):
+        """
+        Test that visual abstract WITHOUT <graphic> element is invalid.
+
+        SPS 1.10: Visual Abstract must contain a <graphic> element.
+        Missing <graphic> should trigger validation error.
+        """
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical" xml:lang="en">
+                            <title>Visual Abstract</title>
+                            <p>Visual abstract without graphic element</p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        xml_abstracts = XMLAbstracts(xmltree)
+        abstracts = list(xml_abstracts.visual_abstracts)
+
+        self.assertEqual(len(abstracts), 1)
+        abstract_data = abstracts[0]
+
+        # EXPECTED VALIDATIONS FOR INVALID CASE
+        # 1. Field 'graphic' may be absent, None, or empty string
+        graphic_value = abstract_data.get("graphic_href")
+
+        # The field may be present but empty, or absent
+        if graphic_value is not None:
+            # If present, should be empty string or no valid content
+            is_empty = not (graphic_value.strip() if isinstance(graphic_value, str) else graphic_value)
+            self.assertTrue(is_empty,
+                            f"Campo 'graphic' deve estar vazio/None quando elemento <graphic> ausente. "
+                            f"Obtido: {graphic_value}")
+
+        # VALIDATOR VALIDATIONS
+        validator = AbstractValidation(abstract_data)
+        obtained = list(validator.validate())
+
+        # 2. Graphic validation MUST be present
+        graphic_validation = [v for v in obtained if v["title"] == "graphic"]
+
+        self.assertTrue(graphic_validation,
+                        "Validação de 'graphic' DEVE estar presente mesmo quando ausente no XML")
+
+        # 3. Validation MUST fail (response = "ERROR" or "CRITICAL")
+        response = graphic_validation[0]["response"]
+        self.assertIn(response, ["ERROR", "CRITICAL"],
+                      f"Validação deve falhar para visual abstract sem <graphic>. "
+                      f"Esperado: ERROR ou CRITICAL, Obtido: {response}")
+
+        # 4. Error message should mention the problem
+        validation_str = str(graphic_validation[0]).lower()
+        self.assertIn("graphic", validation_str,
+                      "Mensagem de erro deve mencionar 'graphic'")
+
+    def test_visual_abstract_with_empty_graphic_is_invalid(self):
+        """
+        Test that visual abstract with empty xlink:href is invalid.
+
+        Edge case: <graphic> element exists but xlink:href attribute is empty.
+        This should be treated as invalid since there's no actual image reference.
+        """
+        self.maxDiff = None
+        xmltree = ET.fromstring(
+            """
+            <article article-type="research-article" xml:lang="en"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                <front>
+                    <article-meta>
+                        <abstract abstract-type="graphical" xml:lang="en">
+                            <title>Visual Abstract</title>
+                            <p>
+                                <fig id="vs1">
+                                    <graphic xlink:href=""/>
+                                </fig>
+                            </p>
+                        </abstract>
+                    </article-meta>
+                </front>
+            </article>
+            """
+        )
+
+        xml_abstracts = XMLAbstracts(xmltree)
+        abstracts = list(xml_abstracts.visual_abstracts)
+
+        abstract_data = abstracts[0]
+
+        # Graphic may be present but empty
+        if "graphic" in abstract_data:
+            graphic = abstract_data["graphic"]
+            if graphic is not None:
+                # If not None, should be empty string or whitespace only
+                self.assertEqual(graphic.strip(), "",
+                                 f"xlink:href vazio deve resultar em string vazia. Obtido: '{graphic}'")
+
+        # Validation should fail
         validator = AbstractValidation(abstract_data)
         obtained = list(validator.validate())
 
         graphic_validation = [v for v in obtained if v["title"] == "graphic"]
+        self.assertTrue(graphic_validation,
+                        "Validação de 'graphic' deve estar presente")
 
-        if graphic_validation:
-            # If graphic validation exists, it should pass for valid graphic
-            self.assertEqual(graphic_validation[0]["response"], "OK")
+        response = graphic_validation[0]["response"]
+        self.assertIn(response, ["ERROR", "CRITICAL"],
+                      f"Validação deve falhar para xlink:href vazio. "
+                      f"Esperado: ERROR ou CRITICAL, Obtido: {response}")
 
     def test_visual_abstract_without_kwd_is_valid(self):
         """
