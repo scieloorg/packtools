@@ -57,4 +57,14 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template name="article-section-header">
+        <xsl:param name="title"/>
+        <xsl:param name="anchor-id">articleSection0</xsl:param>
+        <xsl:variable name="title_lowercase" select="translate($title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ ', 'abcdefghijklmnopqrstuvwxyz-')"/>
+        <xsl:attribute name="class">articleSection articleSection--<xsl:value-of select="$title_lowercase"/></xsl:attribute>
+        <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
+        <a name="{$anchor-id}"></a>
+        <h2 class="h5"><xsl:value-of select="$title"/></h2>
+    </xsl:template>
 </xsl:stylesheet>
