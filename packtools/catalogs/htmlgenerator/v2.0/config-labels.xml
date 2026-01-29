@@ -576,4 +576,40 @@
         <name lang="pt">miniatura da</name>
         <name lang="es">miniatura de la</name>
     </term>
+    <term>
+        <name>access_link</name>
+        <name lang="en">Access</name>
+        <name lang="pt">Acessar</name>
+        <name lang="es">Acceder</name>
+    </term>
+    <term>
+        <name>opens_new_tab</name>
+        <name lang="en">Opens in new tab</name>
+        <name lang="pt">Abre em nova aba</name>
+        <name lang="es">Abre en nueva pestaña</name>
+    </term>
+    <term>
+        <name>external_resource</name>
+        <name lang="en">External resource</name>
+        <name lang="pt">Recurso externo</name>
+        <name lang="es">Recurso externo</name>
+    </term>
+    <term>
+        <name>access_doi</name>
+        <name lang="en">Access DOI</name>
+        <name lang="pt">Acessar DOI</name>
+        <name lang="es">Acceder DOI</name>
+    </term>
+    <term>
+        <name>access_contributor</name>
+        <name lang="en">Access contributor profile</name>
+        <name lang="pt">Acessar perfil do contribuidor</name>
+        <name lang="es">Acceder perfil del contribuidor</name>
+    </term>
+    <term>
+        <name>access_license</name>
+        <name lang="en">Access license information</name>
+        <name lang="pt">Acessar informações da licença</name>
+        <name lang="es">Acceder información de la licencia</name>
+    </term>
 </labels>

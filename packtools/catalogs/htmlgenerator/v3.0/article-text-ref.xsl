@@ -58,4 +58,43 @@
             </xsl:if>
         </li>
     </xsl:template>
+
+    <xsl:template match="ext-link | pub-id" mode="ref">
+        <xsl:apply-templates select=".">
+            <xsl:with-param name="symbol">» </xsl:with-param>
+        </xsl:apply-templates>
+    </xsl:template>
+
+    <xsl:template match="pub-id[@pub-id-type='doi']">
+        <xsl:param name="symbol"></xsl:param>
+        <xsl:variable name="access_text">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">access_doi</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:variable name="new_tab_text">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">opens_new_tab</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:variable name="external_resource_text">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">external_resource</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <xsl:variable name="doi_url">https://doi.org/<xsl:value-of select="."/></xsl:variable>
+        <xsl:variable name="aria_label">
+            <xsl:value-of select="$access_text"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$doi_url"/>
+            <xsl:text>. </xsl:text>
+            <xsl:value-of select="$new_tab_text"/>
+            <xsl:text>. </xsl:text>
+            <xsl:value-of select="$external_resource_text"/>
+            <xsl:text>.</xsl:text>
+        </xsl:variable>
+        <a target="_blank" href="{$doi_url}" aria-label="{normalize-space($aria_label)}">
+            <xsl:value-of select="$symbol"/><xsl:value-of select="$doi_url"/>
+        </a>
+    </xsl:template>
 </xsl:stylesheet>
