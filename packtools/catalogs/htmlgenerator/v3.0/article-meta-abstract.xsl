@@ -65,12 +65,9 @@
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:variable>
-            <xsl:variable name="title_id">
-                <xsl:value-of select="translate($title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
-            </xsl:variable>
-            <div class="articleSection articleSection--{$title_id}:" data-anchor="{$title}"><a name="articleSection0"></a>
-                <h2 class="h5"><xsl:value-of select="$title"/></h2>
-            </div>
+            <xsl:call-template name="article-section-header">
+                <xsl:with-param name="title" select="$title"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
 
@@ -90,12 +87,6 @@
                 <xsl:attribute name="dir">rtl</xsl:attribute>
             </xsl:if>
         </xsl:if>
-
-        <!-- título -->
-        <h2>
-            <xsl:attribute name="class">h5</xsl:attribute>
-            <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
-        </h2>
     </xsl:template>
 
     <xsl:template match="*[contains(name(),'abstract')]" mode="index">
