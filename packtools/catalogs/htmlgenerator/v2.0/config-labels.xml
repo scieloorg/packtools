@@ -612,4 +612,10 @@
         <name lang="pt">Acessar informações da licença</name>
         <name lang="es">Acceder información de la licencia</name>
     </term>
+    <term>
+        <name>article_navigation</name>
+        <name lang="en">Article navigation</name>
+        <name lang="pt">Navegação do artigo</name>
+        <name lang="es">Navegación del artículo</name>
+    </term>
 </labels>
