@@ -15,14 +15,11 @@
                 <xsl:apply-templates select="*"/>
             </xsl:when>
             <xsl:otherwise>
+                <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
                 <div>
-                    <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
-                    <xsl:attribute name="class">articleSection</xsl:attribute>
-                    <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
-                    <h2>
-                        <xsl:attribute name="class">h5</xsl:attribute>
-                        <xsl:apply-templates select="." mode="title"/>
-                    </h2>
+                    <xsl:call-template name="article-section-header">
+                        <xsl:with-param name="title"><xsl:apply-templates select="." mode="title"/></xsl:with-param>
+                    </xsl:call-template>
                     <div class="row">
                         <div class="col ref-list">
                             <ul class="refList articleFootnotes">

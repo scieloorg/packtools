@@ -133,6 +133,12 @@
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/article.css"/>
+        <style>
+        .modal-dialog-scrollable .modal-body {
+            overflow-y:auto;
+            scrollbar-gutter:stable;
+        }
+        </style>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
@@ -186,24 +192,29 @@
                 <xsl:with-param name="text">article_navigation</xsl:with-param>
             </xsl:apply-templates>
         </xsl:variable>
-        <nav role="navigation" aria-label="{$navigation_text}">
-            <ul class="-articleMenu list-group mt-4">
-            <!-- item do menu lateral esquerdo -->
-            </ul>
-        </nav>
-        <xsl:choose>
-            <xsl:when test="$gs_abstract_lang">
-                <xsl:apply-templates select="." mode="div-abstract"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="div-article"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3">
+                <nav role="navigation" aria-label="{$navigation_text}">
+                    <ul class="-articleMenu list-group mt-4">
+                    <!-- item do menu lateral esquerdo -->
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-9">
+                <xsl:choose>
+                    <xsl:when test="$gs_abstract_lang">
+                        <xsl:apply-templates select="." mode="div-abstract"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="div-article"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </div>
+        </div>
     </xsl:template>
 
     <xsl:template match="article" mode="div-article">
-        <article id="articleText"
-            class="col-sm-12 col-lg-10 offset-lg-2">
+        <article id="articleText">
             <xsl:apply-templates select="." mode="article-meta-product"/>
             <xsl:apply-templates select="." mode="article-meta-abstract"/>
             <xsl:apply-templates select="." mode="article-meta-no-abstract-keywords"/>
@@ -229,8 +240,7 @@
     </xsl:template>
 
     <xsl:template match="article" mode="div-abstract">
-        <article id="articleText"
-            class="col-md-10 col-md-offset-2 col-sm-12 col-sm-offset-0">
+        <article id="articleText">
             <xsl:apply-templates select="." mode="article-meta-abstract-gs"/>
         </article>
     </xsl:template>

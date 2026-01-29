@@ -45,9 +45,10 @@
             </xsl:apply-templates>
         </xsl:variable>
         <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
-        <div class="articleSection">
-            <xsl:attribute name="data-anchor"><xsl:value-of select="$title"/></xsl:attribute>
-            <h2 class="h5"><xsl:value-of select="$title"/></h2>
+        <div>
+            <xsl:call-template name="article-section-header">
+                <xsl:with-param name="title" select="$title"/>
+            </xsl:call-template>
         </div>
     </xsl:template>
 
