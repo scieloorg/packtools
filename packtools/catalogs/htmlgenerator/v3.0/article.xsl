@@ -133,6 +133,12 @@
         <link rel="stylesheet" href="https://ds.scielo.org/css/article.css"/-->
         <link rel="stylesheet" href="{$CSS_PATH}/bootstrap.css"/>
         <link rel="stylesheet" href="{$CSS_PATH}/article.css"/>
+        <style>
+        .modal-dialog-scrollable .modal-body {
+            overflow-y:auto;
+            scrollbar-gutter:stable;
+        }
+        </style>
     </xsl:template>
 
     <xsl:template match="/" mode="js">
