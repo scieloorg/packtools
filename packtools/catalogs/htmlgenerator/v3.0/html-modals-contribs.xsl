@@ -45,10 +45,7 @@
             .author-name {
                 font-weight: 600;
             }
-            .material-icons-outlined {
-                vertical-align: middle;
-                margin-right: 4px;
-            }
+            
             .orcid-button {
                 padding-left: 2.5rem;
             }
