@@ -43,14 +43,29 @@ def xml_pmc_aff(xml_tree):
     """
     affs = xml_tree.findall(".//aff")
     for aff in affs:
-        aff_institution = aff.find("./institution[@content-type='original']").text
+        original_institution = aff.find("./institution[@content-type='original']")
+        if original_institution is not None:
+            aff_institution = original_institution.text
+        else:
+            aff_with_address = []
+            aff_with_address.append(aff.find("./institution[@content-type='orgname']").text)
+            
+            addr_line = aff.find("./addr-line")
+            if addr_line is not None:
+                named_contents = addr_line.xpath(".//named-content | .//state | .//city ")
+                aff_with_address.extend([named_content.text for named_content in named_contents])
+            
+            country = aff.find("./country")
+            if country is not None:
+                aff_with_address.append(country.text)
+            aff_institution = ", ".join(aff_with_address)
+
 
         for institution in aff.findall(".//institution"):
             aff.remove(institution)
 
-        aff.remove(aff.find("./addr-line"))
-
-        aff.remove(aff.find("./country"))
+        for element in [aff.find("./addr-line"), aff.find("./country")]:
+            aff.remove(element)
 
         node_label = aff.find("./label")
 
@@ -154,3 +169,4 @@ def xml_pmc_ref(xml_tree):
     refs = xml_tree.findall(".//ref")
     for ref in refs:
         ref.remove(ref.find("./mixed-citation"))
+
