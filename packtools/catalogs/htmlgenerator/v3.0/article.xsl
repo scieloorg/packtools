@@ -181,17 +181,24 @@
     </xsl:template>
 
     <xsl:template match="article" mode="article-or-abstract">
-        <div class="row">
-            <ul class="d-none d-lg-block col-lg-2 articleMenu"> </ul>
-            <xsl:choose>
-                <xsl:when test="$gs_abstract_lang">
-                    <xsl:apply-templates select="." mode="div-abstract"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="." mode="div-article"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </div>
+        <xsl:variable name="navigation_text">
+            <xsl:apply-templates select="." mode="interface">
+                <xsl:with-param name="text">article_navigation</xsl:with-param>
+            </xsl:apply-templates>
+        </xsl:variable>
+        <nav role="navigation" aria-label="{$navigation_text}">
+            <ul class="-articleMenu list-group mt-4">
+            <!-- item do menu lateral esquerdo -->
+            </ul>
+        </nav>
+        <xsl:choose>
+            <xsl:when test="$gs_abstract_lang">
+                <xsl:apply-templates select="." mode="div-abstract"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="div-article"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <xsl:template match="article" mode="div-article">
