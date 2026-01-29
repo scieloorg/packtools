@@ -12,9 +12,9 @@
     </xsl:template>
     
     <xsl:template match="sec/sec/title">
-        <h4>
+        <h3 class="h5">
             <xsl:apply-templates select="*|text()"/>
-        </h4>
+        </h3>
     </xsl:template>
     
     <xsl:template match="sec/sec/sec/title">
