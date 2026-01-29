@@ -15,7 +15,6 @@
                 <xsl:apply-templates select="*"/>
             </xsl:when>
             <xsl:otherwise>
-                <div>
                 <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
                 <div>
                     <xsl:call-template name="article-section-header">
