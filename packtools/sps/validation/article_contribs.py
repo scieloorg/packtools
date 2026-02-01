@@ -65,7 +65,8 @@ class ContribValidation:
 
         # 1. Verifica presença do atributo
         if not contrib_type:
-            advice = f'{self.info} Add @contrib-type attribute to <contrib>. Valid values: {", ".join(valid_values)}'
+            valid_values_str = ", ".join(valid_values)
+            advice = f'{self.info} Add @contrib-type attribute to <contrib>. Valid values: {valid_values_str}'
             advice_text = (
                 '{info} Add @contrib-type attribute to <contrib>. Valid values: {values}'
             )
@@ -95,7 +96,8 @@ class ContribValidation:
         is_valid_value = contrib_type in valid_values
 
         if not is_valid_value:
-            advice = f'{self.info} @contrib-type="{contrib_type}" is invalid. Use: {" or ".join(valid_values)}'
+            valid_values_str = " or ".join(valid_values)
+            advice = f'{self.info} @contrib-type="{contrib_type}" is invalid. Use: {valid_values_str}'
             advice_text = (
                 '{info} @contrib-type="{obtained}" is invalid. Use: {expected}'
             )
@@ -852,6 +854,8 @@ class DocumentCreditConsistencyValidation:
             )
             advice_params = {}
 
+            mixed_contribs_str = ', '.join(str(c) for c in mixed_contribs if c)
+
             yield build_response(
                 title="CRediT taxonomy consistency - mixed roles",
                 parent=parent,
@@ -860,7 +864,7 @@ class DocumentCreditConsistencyValidation:
                 validation_type="consistency",
                 is_valid=False,
                 expected="consistent taxonomy (all CRediT or all non-CRediT)",
-                obtained=f"mixed taxonomy in contributors: {', '.join(str(c) for c in mixed_contribs if c)}",
+                obtained=f"mixed taxonomy in contributors: {mixed_contribs_str}",
                 advice=advice,
                 data={"mixed_contribs": mixed_contribs},
                 error_level=self.params["credit_consistency_error_level"],
@@ -1262,9 +1266,10 @@ class ContribRoleValidation:
         valid = specific_use in expected
 
         if not valid:
-            advice = f'{self.info} replace <role specific-use="{specific_use}"> with {" or ".join(expected)}'
+            expected_str = " or ".join(expected)
+            advice = f'{self.info} replace <role specific-use="{specific_use}"> with {expected_str}'
             advice_text = '{info} replace <role specific-use="{specific_use}"> with {expected}'
-            advice_params = {"info": self.info, "specific_use": specific_use, "expected": " or ".join(expected)}
+            advice_params = {"info": self.info, "specific_use": specific_use, "expected": expected_str}
 
             yield build_response(
                 title="contributor role type value",
