@@ -220,7 +220,7 @@ def validate_doi_format(doi):
     2. Após o "10.", deve ter 4 ou 5 dígitos
     3. Deve ter uma barra (/) após os dígitos
     4. Sufixo pode conter: a-z, A-Z, 0-9, -, ., _, ;, (, ), /
-    5. Não deve conter: espaços, acentos, barra invertida (\)
+    5. Não deve conter: espaços, acentos, barra invertida
 
     Caracteres permitidos no sufixo: a-zA-Z0-9-._; ()/
 
@@ -245,7 +245,7 @@ def validate_doi_format(doi):
     if not re.match(doi_regex, doi):
         return {
             "valido": False,
-            "mensagem": "Formato de DOI inválido. Deve seguir o padrão: 10.XXXX/[a-zA-Z0-9.-_;()/]",
+            "mensagem": "Formato de DOI inválido. Deve seguir o padrão: 10.XXXX(X)/[a-zA-Z0-9._-;()/]",
         }
 
     # Verifica se não há caracteres especiais inválidos após a barra
