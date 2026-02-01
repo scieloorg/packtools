@@ -262,8 +262,8 @@ class TestContribRoleValidation(unittest.TestCase):
         advices = [error['advice'] for error in errors]
         
         expected_responses = ['ERROR']
-        # CORRIGIDO: lista agora só tem 'reviewer' e 'editor'
-        expected_advices = ["""Smith, John : replace invalid-role in <role specific-use="invalid-role"> with ['editor', 'reviewer']"""]
+        # Novo formato após correção da lógica de validação
+        expected_advices = ['Smith, John : replace <role specific-use="invalid-role"> with editor or reviewer']
         
         self.assertEqual(responses, expected_responses)
         self.assertEqual(advices, expected_advices)
@@ -382,9 +382,11 @@ class TestCollabGroupValidation(unittest.TestCase):
         validator = CollabGroupValidation(self.xmltree.find("."), {})
         results = list(validator.validate_collab_members_completeness())
         errors = [r for r in results if r['response'] != 'OK']
-        # Sem afiliações completas no XML, esperamos erros
-        # Este teste precisa de XMLAffiliations mock para passar
-        self.assertGreaterEqual(len(errors), 0)
+
+        # XML tem: nome, ORCID, e afiliação via <xref ref-type="aff">
+        # Após correção do bug de afiliações, não deve haver erros
+        self.assertEqual(len(errors), 0)
+
 
     def test_validate_collab_members_missing_name(self):
         """Test validate_collab_members_completeness with missing name"""
