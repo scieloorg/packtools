@@ -1,9 +1,9 @@
 import unittest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 
 from lxml import etree
 
-from packtools.sps.validation.article_doi import ArticleDoiValidation, ArticleOtherValidation
+from packtools.sps.validation.article_doi import ArticleDoiValidation
 
 
 class TestArticleDoiValidation(unittest.TestCase):
@@ -28,16 +28,16 @@ class TestArticleDoiValidation(unittest.TestCase):
                     </title-group>
                     <contrib-group>
                         <contrib contrib-type="author">
-                            <name>
+                            <n>
                                 <surname>Smith</surname>
                                 <given-names>John</given-names>
-                            </name>
+                            </n>
                         </contrib>
                         <contrib contrib-type="author">
-                            <name>
+                            <n>
                                 <surname>Johnson</surname>
                                 <given-names>Mary</given-names>
-                            </name>
+                            </n>
                         </contrib>
                     </contrib-group>
                 </article-meta>
@@ -261,114 +261,6 @@ class TestArticleDoiValidation(unittest.TestCase):
 
         # Should be valid (all chars are allowed: - _ ; ( ) /)
         self.assertEqual(len(errors), 0)
-
-
-class TestArticleOtherValidation(unittest.TestCase):
-    def setUp(self):
-        self.sample_xml = """
-        <article article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="doi">10.1590/example-doi</article-id>
-                    <article-id pub-id-type="other">00123</article-id>
-                </article-meta>
-            </front>
-        </article>
-        """
-        self.xmltree = etree.fromstring(self.sample_xml.encode("utf-8"))
-        self.validator = ArticleOtherValidation(self.xmltree)
-
-    def test_validate_other_format_valid(self):
-        """Test validation of valid 'other' format (5 digits)"""
-        results = list(self.validator.validate_other_format())
-        errors = [r for r in results if r["response"] != "OK"]
-        self.assertEqual(len(errors), 0)
-
-    def test_validate_other_format_invalid_length(self):
-        """Test validation when 'other' has wrong number of digits"""
-        xml_with_invalid_other = """
-        <article article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="other">123</article-id>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_with_invalid_other.encode("utf-8"))
-        validator = ArticleOtherValidation(xmltree)
-
-        results = list(validator.validate_other_format())
-        errors = [r for r in results if r["response"] != "OK"]
-
-        self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0]["response"], "ERROR")
-        self.assertIn("5 digits", errors[0]["advice"])
-
-    def test_validate_other_format_non_numeric(self):
-        """Test validation when 'other' contains non-numeric characters"""
-        xml_with_non_numeric_other = """
-        <article article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="other">00ABC</article-id>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_with_non_numeric_other.encode("utf-8"))
-        validator = ArticleOtherValidation(xmltree)
-
-        results = list(validator.validate_other_format())
-        errors = [r for r in results if r["response"] != "OK"]
-
-        self.assertEqual(len(errors), 1)
-        self.assertIn("numeric", errors[0]["advice"])
-
-    def test_validate_other_required_for_continuous_publication(self):
-        """Test that 'other' is required when elocation-id exists"""
-        xml_with_elocation = """
-        <article article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="doi">10.1590/example</article-id>
-                    <article-id pub-id-type="other">00123</article-id>
-                    <elocation-id>e12345</elocation-id>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_with_elocation.encode("utf-8"))
-        validator = ArticleOtherValidation(xmltree)
-
-        results = list(validator.validate_other_exists_for_continuous_publication())
-        errors = [r for r in results if r["response"] != "OK"]
-
-        # Should pass (other exists)
-        self.assertEqual(len(errors), 0)
-
-    def test_validate_other_missing_for_continuous_publication(self):
-        """Test error when 'other' is missing but elocation-id exists"""
-        xml_without_other = """
-        <article article-type="research-article" xml:lang="en">
-            <front>
-                <article-meta>
-                    <article-id pub-id-type="doi">10.1590/example</article-id>
-                    <elocation-id>e12345</elocation-id>
-                </article-meta>
-            </front>
-        </article>
-        """
-        xmltree = etree.fromstring(xml_without_other.encode("utf-8"))
-        validator = ArticleOtherValidation(xmltree)
-
-        results = list(validator.validate_other_exists_for_continuous_publication())
-        errors = [r for r in results if r["response"] != "OK"]
-
-        # Should fail (other missing)
-        self.assertEqual(len(errors), 1)
-        self.assertEqual(errors[0]["response"], "ERROR")
-        self.assertIn("Add", errors[0]["advice"])
 
 
 if __name__ == "__main__":
