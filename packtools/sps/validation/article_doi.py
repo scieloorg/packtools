@@ -1,11 +1,9 @@
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
-from packtools.sps.models.article_other import OtherWithLang
 from packtools.sps.validation.utils import (
-    format_response,
     check_doi_is_registered,
     build_response,
-    validate_doi_format,
+    validate_doi_format as validate_doi_format_util,
 )
 
 
@@ -192,6 +190,9 @@ class ArticleDoiValidation:
         callable_get_data = callable_get_data or check_doi_is_registered
 
         for doi_data in self.doi.data:
+            # FIXED: Reset error_level for each iteration to prevent mutation bug
+            current_error_level = error_level
+
             xml_doi = doi_data.get("value")
             if not xml_doi:  # Skip empty DOIs
                 continue
@@ -216,7 +217,7 @@ class ArticleDoiValidation:
                         "registered": str(registered)
                     }
                 else:
-                    error_level = "WARNING"
+                    current_error_level = "WARNING"
                     advice = f"Unable to check if {xml_doi} is registered for {expected}"
                     advice_text = "Unable to check if {xml_doi} is registered for {expected}"
                     advice_params = {
@@ -232,29 +233,44 @@ class ArticleDoiValidation:
             }
 
             yield build_response(
-                title="Registered DOI",
+                title="registered DOI",
                 parent=parent,
                 item="article-id",
                 sub_item='@pub-id-type="doi"',
                 validation_type="registered",
-                is_valid=result.get("valid"),
-                expected=expected,
-                obtained=result.get("registered"),
+                is_valid=result.get("valid", False),
+                expected=f"DOI registered for {expected}",
+                obtained=xml_doi,
                 advice=advice,
-                data=doi_data,
-                error_level=error_level,
+                data=result,
+                error_level=current_error_level,
                 advice_text=advice_text,
                 advice_params=advice_params,
             )
 
     def validate_different_doi_in_translation(self, error_level="WARNING"):
         """
-        Validates that translations have different DOIs from main article.
+        Checks if translation has a different DOI from the main article and other translations.
 
-        Mandatory rule: Multilingual documents MUST have distinct DOIs for each language version.
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "WARNING".
+
+        Returns
+        -------
+        generator of dict
+            Yields validation results for each translation.
         """
-        doi_list = [self.doi.main_doi]
+        doi_list = []
 
+        # First, collect DOIs from main article (non-translation)
+        for item in self.doi.data:
+            doi = item["value"]
+            if doi and item["parent_article_type"] != "translation":
+                doi_list.append(doi)
+
+        # Then validate translation DOIs against the list
         for item in self.doi.data:
             doi = item["value"]
             if item["parent_article_type"] == "translation" and doi:
@@ -316,8 +332,8 @@ class ArticleDoiValidation:
             if not doi_value:
                 continue
 
-            # Use validate_doi_format from utils
-            result = validate_doi_format(doi_value)
+            # Use validate_doi_format_util from utils
+            result = validate_doi_format_util(doi_value)
             is_valid = result["valido"]
 
             advice = None if is_valid else result["mensagem"]
@@ -346,136 +362,3 @@ class ArticleDoiValidation:
                 advice_text=advice_text,
                 advice_params=advice_params,
             )
-
-
-class ArticleOtherValidation:
-    """
-    Validates <article-id pub-id-type="other"> elements.
-
-    The 'other' element is mandatory for:
-    - Continuous publication (PC) mode when elocation-id exists
-    - Regular mode with irregular pagination
-
-    Format: Exactly 5 numeric digits (00001-99999)
-    """
-
-    def __init__(self, xmltree):
-        self.xmltree = xmltree
-        self.other = OtherWithLang(xmltree)
-
-    def validate_other_format(self, error_level="ERROR"):
-        """
-        Validates format of 'other': exactly 5 numeric digits.
-
-        Mandatory rule: Other must be exactly 5 digits (00001-99999).
-
-        Params
-        ------
-        error_level : str, optional
-            The severity level of the validation error, by default "ERROR".
-
-        Returns
-        -------
-        generator of dict
-            Yields validation results for each 'other' element.
-        """
-        for other_data in self.other.data:
-            other_value = other_data.get("value")
-
-            if not other_value:
-                continue  # Existence validation is handled separately
-
-            is_valid = (
-                len(other_value) == 5 and
-                other_value.isdigit()
-            )
-
-            advice = None
-            advice_text = None
-            advice_params = {}
-
-            if not is_valid:
-                if len(other_value) != 5:
-                    advice = f'Other must have exactly 5 digits, got {len(other_value)}'
-                    advice_text = 'Other must have exactly 5 digits, got {length}'
-                    advice_params = {"length": len(other_value)}
-                else:
-                    advice = 'Other must contain only numeric digits (00001-99999)'
-                    advice_text = 'Other must contain only numeric digits (00001-99999)'
-                    advice_params = {}
-
-            parent = {
-                "parent": other_data.get("parent"),
-                "parent_id": other_data.get("parent_id"),
-                "parent_article_type": other_data.get("parent_article_type"),
-                "parent_lang": other_data.get("lang"),
-            }
-
-            yield build_response(
-                title="Other format",
-                parent=parent,
-                item="article-id",
-                sub_item='@pub-id-type="other"',
-                validation_type="format",
-                is_valid=is_valid,
-                expected="5 numeric digits (00001-99999)",
-                obtained=other_value,
-                advice=advice,
-                data=other_data,
-                error_level=error_level,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
-
-    def validate_other_exists_for_continuous_publication(self, error_level="ERROR"):
-        """
-        Validates that 'other' exists when article uses continuous publication (has elocation-id).
-
-        Mandatory rule: Other is REQUIRED for continuous publication mode.
-
-        Params
-        ------
-        error_level : str, optional
-            The severity level of the validation error, by default "ERROR".
-
-        Returns
-        -------
-        generator of dict
-            Yields validation result.
-        """
-        has_elocation = bool(self.xmltree.xpath('//elocation-id'))
-        main_other = self.other.main_other
-
-        is_valid = not has_elocation or bool(main_other)
-
-        advice = None
-        advice_text = None
-        advice_params = {}
-
-        if not is_valid:
-            advice = "Add <article-id pub-id-type='other'>XXXXX</article-id> for continuous publication"
-            advice_text = "Add <article-id pub-id-type='other'>XXXXX</article-id> for continuous publication"
-            advice_params = {}
-
-        parent = {
-            "parent": "article",
-            "parent_id": None,
-            "parent_article_type": self.xmltree.get("article-type"),
-            "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
-        }
-
-        yield build_response(
-            title="Other required for continuous publication",
-            parent=parent,
-            item="article-id",
-            sub_item='@pub-id-type="other"',
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="<article-id pub-id-type='other'> when <elocation-id> exists",
-            obtained="present" if main_other else "absent",
-            advice=advice,
-            data={"has_elocation": has_elocation, "has_other": bool(main_other)},
-            error_level=error_level,
-            advice_text=advice_text,
-            advice_params=advice_params,
-        )
