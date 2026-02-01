@@ -52,6 +52,7 @@ class DoiWithLang:
                 fullname = f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
                 xml_authors.append(fullname)
             except KeyError:
+                # Ignore authors that do not have complete name information
                 pass
 
         try:
@@ -124,6 +125,7 @@ class DoiWithLang:
                 fullname = f'{contrib_name["surname"]}, {contrib_name["given-names"]}'
                 xml_authors.append(fullname)
             except KeyError:
+                # Ignore authors that do not have complete name information
                 pass
 
         try:
