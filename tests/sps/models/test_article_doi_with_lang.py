@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from lxml import etree
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 
@@ -66,8 +66,8 @@ class TestDoiWithLang(unittest.TestCase):
         text = self.doi_with_lang._get_node_text(".//nonexistent")
         self.assertIsNone(text)
 
-    @patch("packtools.sps.models.article_titles.ArticleTitles")
-    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    @patch("packtools.sps.models.article_doi_with_lang.ArticleTitles")
+    @patch("packtools.sps.models.article_doi_with_lang.XMLContribs")
     def test_data_main_article(self, mock_contribs, mock_titles):
         """Test if data property returns correct information for main article"""
         # Mock the ArticleTitles and XMLContribs
@@ -90,8 +90,8 @@ class TestDoiWithLang(unittest.TestCase):
         self.assertEqual(main_article["article_title"], "Sample Article Title")
         self.assertEqual(main_article["authors"], ["Smith, John"])
 
-    @patch("packtools.sps.models.article_titles.ArticleTitles")
-    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    @patch("packtools.sps.models.article_doi_with_lang.ArticleTitles")
+    @patch("packtools.sps.models.article_doi_with_lang.XMLContribs")
     def test_data_translation(self, mock_contribs, mock_titles):
         """Test if data property returns correct information for translation"""
         # Mock the ArticleTitles and XMLContribs
@@ -128,8 +128,8 @@ class TestDoiWithLang(unittest.TestCase):
                 data[0]["authors"], []
             )  # Should handle missing author info gracefully
 
-    @patch("packtools.sps.models.article_titles.ArticleTitles")
-    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    @patch("packtools.sps.models.article_doi_with_lang.ArticleTitles")
+    @patch("packtools.sps.models.article_doi_with_lang.XMLContribs")
     def test_all_data_includes_all_subarticles(self, mock_contribs, mock_titles):
         """Test if all_data property includes ALL sub-article types, not just translations"""
         # Create XML with multiple sub-article types
@@ -182,8 +182,8 @@ class TestDoiWithLang(unittest.TestCase):
             "10.1590/correction-doi"
         ])
 
-    @patch("packtools.sps.models.article_titles.ArticleTitles")
-    @patch("packtools.sps.models.article_contribs.XMLContribs")
+    @patch("packtools.sps.models.article_doi_with_lang.ArticleTitles")
+    @patch("packtools.sps.models.article_doi_with_lang.XMLContribs")
     def test_data_vs_all_data_difference(self, mock_contribs, mock_titles):
         """Test that data only includes translations while all_data includes all types"""
         xml_with_multiple_types = """
