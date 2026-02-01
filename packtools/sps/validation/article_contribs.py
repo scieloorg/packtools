@@ -1,11 +1,7 @@
 import re
-import gettext
 
 from packtools.sps.models.article_contribs import TextContribs, XMLContribs
 from packtools.sps.validation.utils import build_response
-
-# Configuração de internacionalização
-_ = gettext.gettext
 
 
 def _callable_extern_validate_default(orcid, data):
@@ -70,7 +66,7 @@ class ContribValidation:
         # 1. Verifica presença do atributo
         if not contrib_type:
             advice = f'{self.info} Add @contrib-type attribute to <contrib>. Valid values: {", ".join(valid_values)}'
-            advice_text = _(
+            advice_text = (
                 '{info} Add @contrib-type attribute to <contrib>. Valid values: {values}'
             )
             advice_params = {
@@ -100,7 +96,7 @@ class ContribValidation:
 
         if not is_valid_value:
             advice = f'{self.info} @contrib-type="{contrib_type}" is invalid. Use: {" or ".join(valid_values)}'
-            advice_text = _(
+            advice_text = (
                 '{info} @contrib-type="{obtained}" is invalid. Use: {expected}'
             )
             advice_params = {
@@ -130,7 +126,7 @@ class ContribValidation:
             is_author = contrib_type == "author"
             if not is_author:
                 advice = f'{self.info} @contrib-type must be "author" for this document type (except reviewer reports)'
-                advice_text = _(
+                advice_text = (
                     '{info} @contrib-type must be "author" for this document type (except reviewer reports)'
                 )
                 advice_params = {
@@ -162,7 +158,7 @@ class ContribValidation:
             parent_article_type = self.data.get("parent_article_type")
 
             advice = f"{self.info} Mark the contrib role. Consult SPS documentation for detailed instructions"
-            advice_text = _(
+            advice_text = (
                 "{info} Mark the contrib role. Consult SPS documentation for detailed instructions"
             )
             advice_params = {
@@ -223,7 +219,7 @@ class ContribValidation:
         # NOVA VERIFICAÇÃO: Detecta URLs
         if _orcid and ("http://" in _orcid or "https://" in _orcid or "orcid.org" in _orcid):
             advice = f'{self.info} Do not use URLs. Extract only the alphanumeric identifier from {_orcid}'
-            advice_text = _(
+            advice_text = (
                 "{info} Do not use URLs. Extract only the alphanumeric identifier from {orcid}"
             )
             advice_params = {
@@ -254,7 +250,7 @@ class ContribValidation:
 
         if _orcid:
             advice = f'Fix ORCID format <contrib-id contrib-id-type="orcid">{_orcid}</contrib-id>'
-            advice_text = _(
+            advice_text = (
                 'Fix ORCID format <contrib-id contrib-id-type="orcid">{orcid}</contrib-id>'
             )
             advice_params = {
@@ -262,7 +258,7 @@ class ContribValidation:
             }
         else:
             advice = f'{self.info} Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>'
-            advice_text = _(
+            advice_text = (
                 '{info} Add ORCID <contrib-id contrib-id-type="orcid"></contrib-id> in <contrib>'
             )
             advice_params = {
@@ -317,7 +313,7 @@ class ContribValidation:
         result = is_orcid_registered(orcid, self.contrib_name)
 
         advice = f'{self.info} Unable to automatically check the {orcid}. Check it manually'
-        advice_text = _(
+        advice_text = (
             '{info} Unable to automatically check the {orcid}. Check it manually'
         )
         advice_params = {
@@ -356,7 +352,7 @@ class ContribValidation:
         affs = [item["id"] for item in self.contrib.get("affs") or []]
 
         advice = f'{self.info} Add <xref ref-type="aff" rid=""> in <contrib>'
-        advice_text = _(
+        advice_text = (
             '{info} Add <xref ref-type="aff" rid=""> in <contrib>'
         )
         advice_params = {
@@ -385,7 +381,7 @@ class ContribValidation:
         item = self.contrib.get("contrib_name")
 
         advice = f"{self.info} Mark contributor name with <name> in <contrib>"
-        advice_text = _(
+        advice_text = (
             "{info} Mark contributor name with <name> in <contrib>"
         )
         advice_params = {
@@ -414,7 +410,7 @@ class ContribValidation:
         item = self.contrib.get("collab")
 
         advice = f"{self.info} Mark institutional contributor with <collab> in <contrib>"
-        advice_text = _(
+        advice_text = (
             "{info} Mark institutional contributor with <collab> in <contrib>"
         )
         advice_params = {
@@ -450,7 +446,7 @@ class ContribValidation:
             expected = ["name", "anonymous"]
             value = self.contrib.get("contrib_name") or self.contrib.get("anonymous")
             advice = f"{self.info} Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
-            advice_text = _(
+            advice_text = (
                 "{info} Mark contributor with <name> and anonymous contributor with <anonymous/> in <contrib>"
             )
             advice_params = {
@@ -460,7 +456,7 @@ class ContribValidation:
             expected = ["name", "collab"]
             value = self.contrib.get("contrib_name") or self.contrib.get("collab")
             advice = f"{self.info} Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
-            advice_text = _(
+            advice_text = (
                 "{info} Mark contributor with <name> and institutional contributor with <collab> in <contrib>"
             )
             advice_params = {
@@ -524,7 +520,7 @@ class XMLContribsValidation:
         questions = "; ".join(questions)
 
         advice = f"ORCID must be unique. {questions}"
-        advice_text = _("ORCID must be unique. {questions}")
+        advice_text = ("ORCID must be unique. {questions}")
         advice_params = {
             "questions": questions,
         }
@@ -615,7 +611,7 @@ class CollabListValidation:
             advice = ""
             if expected_type == "collab-list":
                 advice = f'Add person authors, members of {self.text_contribs.collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
-                advice_text = _(
+                advice_text = (
                     'Add person authors, members of {collab}, with <contrib><name>...</name></contrib> in <contrib-group content-type="collab-list"></contrib-group>'
                 )
                 advice_params = {
@@ -624,7 +620,7 @@ class CollabListValidation:
             else:
                 type_value = contrib_group_data["type"]
                 advice = f'Remove content-type="{type_value}" from <contrib-group content-type="{type_value}">'
-                advice_text = _(
+                advice_text = (
                     'Remove content-type="{type}" from <contrib-group content-type="{type}">'
                 )
                 advice_params = {
@@ -691,7 +687,7 @@ class CollabGroupValidation:
                 # Valida nome
                 if not contrib_data.get("contrib_name"):
                     advice = "All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>"
-                    advice_text = _(
+                    advice_text = (
                         "All members of collaboration group must have name <name> in <contrib-group content-type='collab-list'>"
                     )
                     advice_params = {}
@@ -714,9 +710,20 @@ class CollabGroupValidation:
 
                 # Valida afiliação
                 affs = contrib_data.get("affs") or []
-                if not affs:
+
+                # Para collab-list, afiliação pode ser indicada via <xref ref-type="aff">
+                contrib_xref = contrib_data.get("contrib_xref") or []
+                has_aff_xref = any(
+                    xref.get("ref_type") == "aff" or xref.get("ref-type") == "aff"
+                    for xref in contrib_xref
+                )
+
+                # Tem afiliação se: affs populado OU xref para aff existe
+                has_affiliation = bool(affs) or has_aff_xref
+
+                if not has_affiliation:
                     advice = "All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)"
-                    advice_text = _(
+                    advice_text = (
                         "All members of collaboration group must have complete affiliation <xref ref-type='aff'> (described in PDF)"
                     )
                     advice_params = {}
@@ -744,7 +751,7 @@ class CollabGroupValidation:
                         "All members of collaboration group MUST have ORCID (described in PDF). "
                         "Without ORCID identification, authors cannot assign DOI as their work in curriculum databases"
                     )
-                    advice_text = _(
+                    advice_text = (
                         "All members of collaboration group MUST have ORCID (described in PDF). "
                         "Without ORCID identification, authors cannot assign DOI as their work in curriculum databases"
                     )
@@ -818,7 +825,9 @@ class DocumentCreditConsistencyValidation:
 
             # Detecta mistura no mesmo contrib
             if has_credit and has_non_credit:
-                mixed_contribs.append(contrib.get("contrib_full_name"))
+                # Use fallback para evitar None em contribuidores institucionais
+                name = contrib.get("contrib_full_name") or contrib.get("collab") or "<unknown contributor>"
+                mixed_contribs.append(name)
 
             if has_credit:
                 contribs_with_credit += 1
@@ -837,7 +846,7 @@ class DocumentCreditConsistencyValidation:
                 "Do not mix CRediT taxonomy with other taxonomies in the same contributor. "
                 "All roles for a contributor must use the same taxonomy."
             )
-            advice_text = _(
+            advice_text = (
                 "Do not mix CRediT taxonomy with other taxonomies in the same contributor. "
                 "All roles for a contributor must use the same taxonomy."
             )
@@ -851,7 +860,7 @@ class DocumentCreditConsistencyValidation:
                 validation_type="consistency",
                 is_valid=False,
                 expected="consistent taxonomy (all CRediT or all non-CRediT)",
-                obtained=f"mixed taxonomy in contributors: {', '.join(mixed_contribs)}",
+                obtained=f"mixed taxonomy in contributors: {', '.join(str(c) for c in mixed_contribs if c)}",
                 advice=advice,
                 data={"mixed_contribs": mixed_contribs},
                 error_level=self.params["credit_consistency_error_level"],
@@ -866,7 +875,7 @@ class DocumentCreditConsistencyValidation:
                 "or NONE use it. Do not mix taxonomies in the document. "
                 "SciELO Rule: 'tudo ou nada' (all or nothing)."
             )
-            advice_text = _(
+            advice_text = (
                 "CRediT taxonomy must be used consistently: either ALL contributors use CRediT "
                 "or NONE use it. Do not mix taxonomies in the document. "
                 "SciELO Rule: 'tudo ou nada' (all or nothing)."
@@ -972,7 +981,7 @@ class SubArticleCollabIDValidation:
                     f"Sub-article {sub_article_id} uses same @id as main article: {list(collisions_id)}. "
                     f"If article uses id='collab', sub-article should use id='collab1'"
                 )
-                advice_text = _(
+                advice_text = (
                     "Sub-article {sub_id} uses same @id as main article: {collisions}. "
                     "If article uses id='collab', sub-article should use id='collab1'"
                 )
@@ -1007,7 +1016,7 @@ class SubArticleCollabIDValidation:
                     f"Sub-article {sub_article_id} uses same @rid as main article: {list(collisions_rid)}. "
                     f"If article uses rid='collab', sub-article should use rid='collab1'"
                 )
-                advice_text = _(
+                advice_text = (
                     "Sub-article {sub_id} uses same @rid as main article: {collisions}. "
                     "If article uses rid='collab', sub-article should use rid='collab1'"
                 )
@@ -1134,21 +1143,21 @@ class ContribRoleValidation:
         if not valid_uri:
             if expected_uri and uri:
                 advice = f'{self.info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">'
-                advice_text = _('{info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">')
+                advice_text = ('{info} replace <role content-type="{uri}"> by <role content-type="{expected_uri}">')
                 advice_params = {"info": self.info, "uri": uri, "expected_uri": expected_uri}
             elif expected_uri:
                 advice = f'{self.info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>'
-                advice_text = _('{info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>')
+                advice_text = ('{info} replace <role>{text}</role> by <role content-type="{expected_uri}">{text}</role>')
                 advice_params = {"info": self.info, "text": text, "expected_uri": expected_uri}
             elif uri:
                 expected_uris = list(credit_taxonomy_by_uri.keys())
                 advice = f'{self.info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI: {expected_uris}'
-                advice_text = _('{info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI')
+                advice_text = ('{info} check if <role content-type="{uri}">{text}</role> has corresponding CRediT URI')
                 advice_params = {"info": self.info, "uri": uri, "text": text}
             elif text:
                 expected_uris = list(credit_taxonomy_by_uri.keys())
                 advice = f'{self.info} check if <role>{text}</role> has corresponding CRediT URI: {expected_uris}'
-                advice_text = _('{info} check if <role>{text}</role> has corresponding CRediT URI')
+                advice_text = ('{info} check if <role>{text}</role> has corresponding CRediT URI')
                 advice_params = {"info": self.info, "text": text}
 
         yield build_response(
@@ -1174,21 +1183,21 @@ class ContribRoleValidation:
                 content_type = ''
             if expected_term and text:
                 advice = f'{self.info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>'
-                advice_text = _('{info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>')
+                advice_text = ('{info} replace <role{content_type}>{text}</role> by <role{content_type}>{expected_term}</role>')
                 advice_params = {"info": self.info, "content_type": content_type, "text": text, "expected_term": expected_term}
             elif expected_term:
                 advice = f'{self.info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>'
-                advice_text = _('{info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>')
+                advice_text = ('{info} replace <role{content_type}></role> by <role{content_type}>{expected_term}</role>')
                 advice_params = {"info": self.info, "content_type": content_type, "expected_term": expected_term}
             elif text:
                 expected_terms = self.params["credit_taxonomy_by_terms"]
                 advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = _('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
+                advice_text = ('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
                 advice_params = {"info": self.info, "content_type": content_type, "text": text}
             else:
                 expected_terms = self.params["credit_taxonomy_by_terms"]
                 advice = f'{self.info} check if <role{content_type}>{text}</role> has corresponding CRediT term: {expected_terms}'
-                advice_text = _('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
+                advice_text = ('{info} check if <role{content_type}>{text}</role> has corresponding CRediT term')
                 advice_params = {"info": self.info, "content_type": content_type, "text": text}
 
         yield build_response(
@@ -1208,32 +1217,68 @@ class ContribRoleValidation:
         )
  
     def validate_role_specific_use(self):
+        """
+        Validates @specific-use attribute in <role>.
+
+        SciELO Rule:
+        - For reviewer reports: @specific-use is MANDATORY
+        - Valid values: "reviewer", "editor"
+        """
         expected = self.params["contrib_role_specific_use_list"]
         error_level = self.params["contrib_role_specific_use_error_level"]
         specific_use = self.contrib_role.get("specific-use")
-        valid = specific_use in expected if specific_use else True
+        parent_article_type = self.contrib.get("parent_article_type")
 
-        if specific_use and not valid:
-            advice = f'{self.info} replace {specific_use} in <role specific-use="{specific_use}"> with {expected}'
-            advice_text = _('{info} replace {specific_use} in <role specific-use="{specific_use}"> with {expected}')
-            advice_params = {"info": self.info, "specific_use": specific_use, "expected": ", ".join(expected)}
-        else:
-            advice = f'{self.info} add contributor role type <contrib><role specific-use=""></role></contrib> with {expected}'
-            advice_text = _('{info} add contributor role type <contrib><role specific-use=""></role></contrib> with {expected}')
-            advice_params = {"info": self.info, "expected": ", ".join(expected)}
+        # Determina se specific-use é obrigatório
+        is_reviewer_report = parent_article_type == "reviewer-report"
 
-        yield build_response(
-            title="contributor role",
-            parent=self.contrib,
-            item="role",
-            sub_item="specific-use",
-            validation_type="value in list",
-            is_valid=valid,
-            expected=expected,
-            obtained=specific_use,
-            advice=advice,
-            data=self.contrib,
-            error_level=error_level,
-            advice_text=advice_text,
-            advice_params=advice_params,
-        )
+        # VALIDAÇÃO 1: Existência (obrigatório para reviewer-report)
+        if not specific_use:
+            if is_reviewer_report:
+                # Para reviewer-report, ausência é ERRO
+                advice = f'{self.info} add <role specific-use="[reviewer|editor]"> for reviewer report'
+                advice_text = '{info} add <role specific-use=""> with {expected}'
+                advice_params = {"info": self.info, "expected": " or ".join(expected)}
+
+                yield build_response(
+                    title="contributor role type (reviewer report)",
+                    parent=self.contrib,
+                    item="role",
+                    sub_item="specific-use",
+                    validation_type="exist",
+                    is_valid=False,
+                    expected="specific-use attribute",
+                    obtained=None,
+                    advice=advice,
+                    data=self.contrib,
+                    error_level=error_level,
+                    advice_text=advice_text,
+                    advice_params=advice_params,
+                )
+            # Para outros tipos, specific-use é opcional - não gera erro
+            return
+
+        # VALIDAÇÃO 2: Valor (se presente, deve ser válido)
+        valid = specific_use in expected
+
+        if not valid:
+            advice = f'{self.info} replace <role specific-use="{specific_use}"> with {" or ".join(expected)}'
+            advice_text = '{info} replace <role specific-use="{specific_use}"> with {expected}'
+            advice_params = {"info": self.info, "specific_use": specific_use, "expected": " or ".join(expected)}
+
+            yield build_response(
+                title="contributor role type value",
+                parent=self.contrib,
+                item="role",
+                sub_item="specific-use",
+                validation_type="value in list",
+                is_valid=False,
+                expected=expected,
+                obtained=specific_use,
+                advice=advice,
+                data=self.contrib,
+                error_level=error_level,
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
