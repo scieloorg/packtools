@@ -12,8 +12,6 @@ class AppValidationTest(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_app_validation_no_app_elements(self):
@@ -66,8 +64,6 @@ class TestAppIdValidation(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_app_with_id_valid(self):
@@ -145,8 +141,6 @@ class TestAppLabelValidation(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_app_with_label_valid(self):
@@ -198,8 +192,6 @@ class TestAppGroupWrapperValidation(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_app_inside_app_group_valid(self):
@@ -270,114 +262,36 @@ class TestAppGroupWrapperValidation(unittest.TestCase):
         self.assertGreater(len(obtained), 0)
         self.assertEqual(obtained[0]["response"], "CRITICAL")
 
-
-class TestMediaAccessibilityValidation(unittest.TestCase):
-    """Testes para validação de acessibilidade em <media>"""
-
-    def setUp(self):
-        self.params = {
-            "app_existence_error_level": "WARNING",
-            "app_id_error_level": "CRITICAL",
-            "app_label_error_level": "CRITICAL",
-            "app_group_wrapper_error_level": "CRITICAL",
-            "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
-        }
-
-    def test_media_with_alt_text_valid(self):
-        """<media> com <alt-text> é válido"""
+    def test_orphan_app_and_multiple_app_groups(self):
+        """Apps órfãos E múltiplos <app-group> devem gerar ambos os erros"""
         xml = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
             "<back>"
+            '<app id="orphan"><label>Orphan App</label></app>'
             "<app-group>"
-            '<app id="app1">'
-            "<label>Appendix 1</label>"
-            '<media mimetype="video" mime-subtype="mp4" xlink:href="video.mp4">'
-            "<alt-text>Video description</alt-text>"
-            '<xref ref-type="sec" rid="TR1"/>'
-            "</media>"
-            "</app>"
+            '<app id="app1"><label>App 1</label></app>'
+            "</app-group>"
+            "<app-group>"
+            '<app id="app2"><label>App 2</label></app>'
             "</app-group>"
             "</back>"
             "</article>"
         )
-        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
 
-        # Deve ter validações de alt-text e transcript
-        alt_text_validations = [r for r in obtained if "alt-text" in r.get("title", "").lower()]
-        self.assertGreater(len(alt_text_validations), 0)
+        obtained = list(AppValidation(xml, self.params).validate_app_group_wrapper())
 
-        # alt-text deve ser OK
-        self.assertEqual(alt_text_validations[0]["response"], "OK")
+        # Deve ter pelo menos 2 erros (órfão + múltiplos app-groups)
+        self.assertGreaterEqual(len(obtained), 2)
 
-    def test_media_without_alt_text_invalid(self):
-        """<media> sem <alt-text> ou <long-desc> deve gerar erro"""
-        xml = etree.fromstring(
-            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
-            "<back>"
-            "<app-group>"
-            '<app id="app1">'
-            "<label>Appendix 1</label>"
-            '<media mimetype="video" xlink:href="video.mp4"/>'
-            "</app>"
-            "</app-group>"
-            "</back>"
-            "</article>"
-        )
-        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
+        # Deve ter erro sobre app órfão
+        orphan_errors = [r for r in obtained if "wrapper required" in r.get("title", "")]
+        self.assertEqual(len(orphan_errors), 1)
+        self.assertEqual(orphan_errors[0]["response"], "CRITICAL")
 
-        # Deve ter erro de alt-text
-        alt_text_errors = [r for r in obtained if "alt-text" in r.get("title", "").lower() and r["response"] == "ERROR"]
-        self.assertGreater(len(alt_text_errors), 0)
-
-    def test_media_with_transcript_reference_valid(self):
-        """<media> com referência a transcrição é válido"""
-        xml = etree.fromstring(
-            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
-            "<back>"
-            "<app-group>"
-            '<app id="app1">'
-            "<label>Appendix 1</label>"
-            '<media mimetype="video" xlink:href="video.mp4">'
-            "<alt-text>Description</alt-text>"
-            '<xref ref-type="sec" rid="TR1"/>'
-            "</media>"
-            "</app>"
-            "</app-group>"
-            "</back>"
-            "</article>"
-        )
-        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
-
-        # Deve ter validação de transcript
-        transcript_validations = [r for r in obtained if "transcript" in r.get("title", "").lower()]
-        self.assertGreater(len(transcript_validations), 0)
-
-        # transcript deve ser OK
-        self.assertEqual(transcript_validations[0]["response"], "OK")
-
-    def test_media_without_transcript_reference_warning(self):
-        """<media> sem referência a transcrição deve gerar warning"""
-        xml = etree.fromstring(
-            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
-            "<back>"
-            "<app-group>"
-            '<app id="app1">'
-            "<label>Appendix 1</label>"
-            '<media mimetype="video" xlink:href="video.mp4">'
-            "<alt-text>Description</alt-text>"
-            "</media>"
-            "</app>"
-            "</app-group>"
-            "</back>"
-            "</article>"
-        )
-        obtained = list(AppValidation(xml, self.params).validate_media_accessibility())
-
-        # Deve ter warning de transcript
-        transcript_warnings = [r for r in obtained if "transcript" in r.get("title", "").lower() and r["response"] == "WARNING"]
-        self.assertGreater(len(transcript_warnings), 0)
+        # Deve ter erro sobre múltiplos app-groups
+        multiple_errors = [r for r in obtained if "Single" in r.get("title", "")]
+        self.assertEqual(len(multiple_errors), 1)
+        self.assertEqual(multiple_errors[0]["response"], "CRITICAL")
 
 
 class TestI18nSupport(unittest.TestCase):
@@ -390,8 +304,6 @@ class TestI18nSupport(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_all_validations_have_advice_text(self):
@@ -449,8 +361,6 @@ class TestCompleteValidation(unittest.TestCase):
             "app_label_error_level": "CRITICAL",
             "app_group_wrapper_error_level": "CRITICAL",
             "app_group_occurrence_error_level": "CRITICAL",
-            "media_alt_text_error_level": "ERROR",
-            "media_transcript_error_level": "WARNING",
         }
 
     def test_perfect_app_group(self):
