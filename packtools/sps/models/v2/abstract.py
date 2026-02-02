@@ -239,7 +239,7 @@ class XMLAbstracts:
         for node in self.xmltree.xpath(xpath):
             abstract = Abstract(
                 node,
-                self.lang,
+                node.get("{http://www.w3.org/XML/1998/namespace}lang") or self.lang,
                 tags_to_keep=self.tags_to_keep,
                 tags_to_keep_with_content=self.tags_to_keep_with_content,
                 tags_to_remove_with_content=self.tags_to_remove_with_content,
