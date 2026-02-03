@@ -59,6 +59,35 @@ class Fig:
             return file_name.split(".")[-1]
         return None
 
+    @property
+    def graphic_alt_text(self):
+        """
+        Extracts alt-text from graphic within alternatives.
+
+        Returns:
+            str or None: The text content of <alt-text> if present, None otherwise.
+        """
+        graphic = self.element.find(".//alternatives/graphic")
+        if graphic is not None:
+            alt_text_elem = graphic.find("alt-text")
+            if alt_text_elem is not None:
+                return alt_text_elem.text
+        return None
+
+    @property
+    def graphic_long_desc(self):
+        """
+        Extracts long-desc from graphic within alternatives.
+
+        Returns:
+            str or None: The text content of <long-desc> if present, None otherwise.
+        """
+        graphic = self.element.find(".//alternatives/graphic")
+        if graphic is not None:
+            long_desc_elem = graphic.find("long-desc")
+            if long_desc_elem is not None:
+                return long_desc_elem.text
+        return None
 
     @property
     def data(self):
@@ -70,8 +99,10 @@ class Fig:
             "graphic": self.graphic_href,
             "caption": self.caption_text,
             "source_attrib": self.source_attrib,
-            "alternatives": self.alternative_elements,
-            "file_extension": self.file_extension
+            "alternative_elements": self.alternative_elements,
+            "file_extension": self.file_extension,
+            "graphic_alt_text": self.graphic_alt_text,
+            "graphic_long_desc": self.graphic_long_desc,
         }
 
 
