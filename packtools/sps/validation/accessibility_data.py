@@ -30,10 +30,10 @@ class AccessibilityDataValidation:
         yield from self.validate_alt_text_not_duplicate_label_caption()
         yield from self.validate_decorative_figure_alt_text()
         yield from self.validate_long_desc()
-        yield from self.validate_long_desc_media_restriction()  # NOVA
-        yield from self.validate_long_desc_not_duplicate_label_caption()  # NOVA
-        yield from self.validate_long_desc_occurrence()  # NOVA
-        yield from self.validate_long_desc_incompatible_with_null_alt()  # NOVA
+        yield from self.validate_long_desc_media_restriction()
+        yield from self.validate_long_desc_not_duplicate_label_caption()
+        yield from self.validate_long_desc_occurrence()
+        yield from self.validate_long_desc_incompatible_with_null_alt()
         yield self.validate_transcript()
         yield self.validate_speaker_and_speech()
         yield self.validate_accessibility_data_structure()
@@ -246,24 +246,27 @@ class AccessibilityDataValidation:
                 "element": duplicated_element,
                 "content": duplicated_content
             }
+        else:
+            advice = None
+            advice_text = None
+            advice_params = None
 
-        # Só reporta se houver problema
-        if not valid:
-            yield build_response(
-                title="<alt-text> content uniqueness",
-                parent=self.data,
-                item="alt-text",
-                sub_item="duplication check",
-                is_valid=valid,
-                validation_type="format",
-                expected="Unique content (not copying label or caption)",
-                obtained=alt_text,
-                advice=advice,
-                error_level=self.params.get("alt_text_duplication_error_level", "WARNING"),
-                data=self.data,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
+        # CORREÇÃO: Sempre retorna resultado (válido ou inválido)
+        yield build_response(
+            title="<alt-text> content uniqueness",
+            parent=self.data,
+            item="alt-text",
+            sub_item="duplication check",
+            is_valid=valid,
+            validation_type="format",
+            expected="Unique content (not copying label or caption)",
+            obtained=alt_text,
+            advice=advice,
+            error_level=self.params.get("alt_text_duplication_error_level", "WARNING"),
+            data=self.data,
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
 
     def validate_decorative_figure_alt_text(self):
         """
@@ -324,23 +327,22 @@ class AccessibilityDataValidation:
             advice_text = None
             advice_params = None
 
-        # Só reporta se houver problema
-        if not valid:
-            yield build_response(
-                title="Decorative figure alt-text",
-                parent=self.data,
-                item="alt-text",
-                sub_item="decorative",
-                is_valid=valid,
-                validation_type="format",
-                expected="null (for decorative figures without label/caption)",
-                obtained=alt_text,
-                advice=advice,
-                error_level=self.params.get("decorative_alt_text_error_level", "WARNING"),
-                data=self.data,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
+        # CORREÇÃO: Sempre retorna resultado (válido ou inválido)
+        yield build_response(
+            title="Decorative figure alt-text",
+            parent=self.data,
+            item="alt-text",
+            sub_item="decorative",
+            is_valid=valid,
+            validation_type="format",
+            expected="null (for decorative figures without label/caption)",
+            obtained=alt_text,
+            advice=advice,
+            error_level=self.params.get("decorative_alt_text_error_level", "WARNING"),
+            data=self.data,
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
 
     def validate_long_desc(self):
         """Validates that <long-desc> is present and has more than 120 characters."""
@@ -385,15 +387,15 @@ class AccessibilityDataValidation:
             advice_params=advice_params,
         )
 
-        # Valida @content-type apenas se presente (mesma lógica do alt-text)
+        # CORREÇÃO: Só valida @content-type se o atributo estiver presente
         long_desc_content_type = self.data.get("long_desc_content_type")
         if long_desc_content_type:
             valid = long_desc_content_type in self.params["content_types"]
 
             if not valid:
-                advice = (f"The value '{long_desc_content_type}' is invalid in {long_desc_xml}. "
-                         f"Replace it with one of the accepted values: {self.params['content_types']}.")
-                advice_text = _("The value {value} is invalid in {xml}. Replace it with one of the accepted values: {accepted_values}.")
+                advice = (f'The value \'{long_desc_content_type}\' is invalid in {long_desc_xml}. '
+                         f'Replace it with one of the accepted values: {self.params["content_types"]}.')
+                advice_text = _('The value {value} is invalid in {xml}. Replace it with one of the accepted values: {accepted_values}.')
                 advice_params = {
                     "value": long_desc_content_type,
                     "xml": long_desc_xml,
@@ -452,7 +454,6 @@ class AccessibilityDataValidation:
         current = (mimetype, mime_subtype)
         valid = current in valid_combinations
 
-        # Só retorna resultado quando há erro (validação inválida)
         if not valid:
             advice = (
                 f"In <{tag}>, <long-desc> should only be used for video (mp4) or audio (mp3) files. "
@@ -471,22 +472,27 @@ class AccessibilityDataValidation:
                 "mimetype": mimetype or "undefined",
                 "mime_subtype": mime_subtype or "undefined"
             }
+        else:
+            advice = None
+            advice_text = None
+            advice_params = None
 
-            yield build_response(
-                title="<long-desc> restriction for media",
-                parent=self.data,
-                item="long-desc",
-                sub_item="media restriction",
-                is_valid=False,
-                validation_type="value in list",
-                expected=f"mime-type/mime-subtype combinations: {valid_combinations}",
-                obtained=f"{mimetype}/{mime_subtype}",
-                advice=advice,
-                error_level=self.params.get("long_desc_media_restriction_error_level", "ERROR"),
-                data=self.data,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
+        # CORREÇÃO: Sempre retorna resultado (válido ou inválido)
+        yield build_response(
+            title="<long-desc> restriction for media",
+            parent=self.data,
+            item="long-desc",
+            sub_item="media restriction",
+            is_valid=valid,
+            validation_type="value in list",
+            expected=f"mime-type/mime-subtype combinations: {valid_combinations}",
+            obtained=f"{mimetype}/{mime_subtype}",
+            advice=advice,
+            error_level=self.params.get("long_desc_media_restriction_error_level", "ERROR"),
+            data=self.data,
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
 
     def validate_long_desc_not_duplicate_label_caption(self):
         """
@@ -527,6 +533,7 @@ class AccessibilityDataValidation:
                 "element": parent_label
             }
 
+            # CORREÇÃO: Sempre retorna resultado
             yield build_response(
                 title="<long-desc> content duplication",
                 parent=self.data,
@@ -541,6 +548,23 @@ class AccessibilityDataValidation:
                 data=self.data,
                 advice_text=advice_text,
                 advice_params=advice_params,
+            )
+        elif parent_label:
+            # NOVO: Retorna sucesso quando há label mas não há duplicação
+            yield build_response(
+                title="<long-desc> content duplication",
+                parent=self.data,
+                item="long-desc",
+                sub_item="label duplication",
+                is_valid=True,
+                validation_type="format",
+                expected="Unique content (not duplicating <label>)",
+                obtained=long_desc,
+                advice=None,
+                error_level=self.params.get("long_desc_duplication_error_level", "WARNING"),
+                data=self.data,
+                advice_text=None,
+                advice_params=None,
             )
 
         # Verifica duplicação com <caption><title>
@@ -560,6 +584,7 @@ class AccessibilityDataValidation:
                 "element": parent_caption_title
             }
 
+            # CORREÇÃO: Sempre retorna resultado
             yield build_response(
                 title="<long-desc> content duplication",
                 parent=self.data,
@@ -574,6 +599,23 @@ class AccessibilityDataValidation:
                 data=self.data,
                 advice_text=advice_text,
                 advice_params=advice_params,
+            )
+        elif parent_caption_title:
+            # NOVO: Retorna sucesso quando há caption mas não há duplicação
+            yield build_response(
+                title="<long-desc> content duplication",
+                parent=self.data,
+                item="long-desc",
+                sub_item="caption duplication",
+                is_valid=True,
+                validation_type="format",
+                expected="Unique content (not duplicating <caption><title>)",
+                obtained=long_desc,
+                advice=None,
+                error_level=self.params.get("long_desc_duplication_error_level", "WARNING"),
+                data=self.data,
+                advice_text=None,
+                advice_params=None,
             )
 
     def validate_long_desc_occurrence(self):
@@ -590,7 +632,6 @@ class AccessibilityDataValidation:
 
         valid = long_desc_count <= 1
 
-        # Só retorna resultado quando há erro (validação inválida)
         if not valid:
             advice = (
                 f"Found {long_desc_count} <long-desc> elements. "
@@ -607,22 +648,27 @@ class AccessibilityDataValidation:
             advice_params = {
                 "count": long_desc_count
             }
+        else:
+            advice = None
+            advice_text = None
+            advice_params = None
 
-            yield build_response(
-                title="<long-desc> occurrence",
-                parent=self.data,
-                item="long-desc",
-                sub_item="occurrence",
-                is_valid=False,
-                validation_type="format",
-                expected="0 or 1 occurrence",
-                obtained=f"{long_desc_count} occurrence(s)",
-                advice=advice,
-                error_level=self.params.get("long_desc_occurrence_error_level", "ERROR"),
-                data=self.data,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
+        # CORREÇÃO: Sempre retorna resultado (válido ou inválido)
+        yield build_response(
+            title="<long-desc> occurrence",
+            parent=self.data,
+            item="long-desc",
+            sub_item="occurrence",
+            is_valid=valid,
+            validation_type="format",
+            expected="0 or 1 occurrence",
+            obtained=f"{long_desc_count} occurrence(s)",
+            advice=advice,
+            error_level=self.params.get("long_desc_occurrence_error_level", "ERROR"),
+            data=self.data,
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
 
     def validate_long_desc_incompatible_with_null_alt(self):
         """
@@ -643,7 +689,6 @@ class AccessibilityDataValidation:
         alt_text_normalized = alt_text.strip().lower()
         valid = alt_text_normalized != "null"
 
-        # Só retorna resultado quando há erro (validação inválida)
         if not valid:
             advice = (
                 f"Found <alt-text>null</alt-text> combined with <long-desc>. "
@@ -658,22 +703,27 @@ class AccessibilityDataValidation:
                 "Refer to SPS 1.10 documentation for combined markup guidance."
             )
             advice_params = {}
+        else:
+            advice = None
+            advice_text = None
+            advice_params = None
 
-            yield build_response(
-                title="<long-desc> incompatibility with null alt-text",
-                parent=self.data,
-                item="long-desc",
-                sub_item="null alt-text incompatibility",
-                is_valid=False,
-                validation_type="format",
-                expected="<alt-text> not 'null' when <long-desc> is present",
-                obtained=f"alt-text='{alt_text}'",
-                advice=advice,
-                error_level=self.params.get("long_desc_null_incompatibility_error_level", "WARNING"),
-                data=self.data,
-                advice_text=advice_text,
-                advice_params=advice_params,
-            )
+        # CORREÇÃO: Sempre retorna resultado (válido ou inválido)
+        yield build_response(
+            title="<long-desc> incompatibility with null alt-text",
+            parent=self.data,
+            item="long-desc",
+            sub_item="null alt-text incompatibility",
+            is_valid=valid,
+            validation_type="format",
+            expected="<alt-text> not 'null' when <long-desc> is present",
+            obtained=f"alt-text='{alt_text}'",
+            advice=advice,
+            error_level=self.params.get("long_desc_null_incompatibility_error_level", "WARNING"),
+            data=self.data,
+            advice_text=advice_text,
+            advice_params=advice_params,
+        )
 
     def validate_transcript(self):
         """Checks for the presence of a transcript (<sec sec-type='transcript'>) for media."""
