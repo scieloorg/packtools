@@ -59,6 +59,7 @@ class DispFormulaTest(unittest.TestCase):
             "label": "(1)",
             "alternative_elements": ["tex-math", "graphic"],
             "mml_math": None,
+            "mml_math_id": None,
             "tex_math": '\\documentclass {article}'
                         '\\usepackage{wasysym}'
                         '\\usepackage[substack]{amsmath}'
@@ -75,6 +76,7 @@ class DispFormulaTest(unittest.TestCase):
                         '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                         '\\]'
                         '\\end{document}',
+            "tex_math_id": "tx1",
             "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.disp_formula_obj.data, expected_data)
@@ -127,7 +129,9 @@ class InLineFormulaTest(unittest.TestCase):
                 "graphic",
             ],
             "mml_math": "σˆ2",
+            "mml_math_id": "e03",
             "tex_math": None,
+            "tex_math_id": None,
             "graphic": ["nomedaimagemdatabela.svg"],
         }
         self.assertDictEqual(self.inline_formula_obj.data, expected_data)
@@ -176,6 +180,7 @@ class ArticleFormulasTest(unittest.TestCase):
                 "id": "e10",
                 "label": "(1)",
                 "mml_math": None,
+                "mml_math_id": None,
                 "alternative_elements": ["tex-math", "graphic"],
                 "parent": "article",
                 "parent_article_type": "research-article",
@@ -197,6 +202,7 @@ class ArticleFormulasTest(unittest.TestCase):
                             '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                             '\\]'
                             '\\end{document}',
+                "tex_math_id": "tx1",
                 "graphic": ["nomedaimagemdatabela.svg"],
             },
         ]
@@ -215,6 +221,7 @@ class ArticleFormulasTest(unittest.TestCase):
                 "id": "e10",
                 "label": "(1)",
                 "mml_math": None,
+                "mml_math_id": None,
                 "alternative_elements": ["tex-math", "graphic"],
                 "parent": "article",
                 "parent_article_type": "research-article",
@@ -236,6 +243,7 @@ class ArticleFormulasTest(unittest.TestCase):
                             '\\[E_it=α_i+Z_it γ+W_it δ+C_it θ+∑_i^n EFind_i+∑_t^n EFtemp_t+ ε_it'
                             '\\]'
                             '\\end{document}',
+                "tex_math_id": "tx1",
                 "graphic": ["nomedaimagemdatabela.svg"],
             },
         }

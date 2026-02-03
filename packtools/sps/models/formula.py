@@ -67,6 +67,18 @@ class Formula:
         if formula is not None:
             return ET.tostring(formula, encoding="unicode", method="text").strip()
 
+    @property
+    def mml_math_id(self):
+        """
+        Returns the ID attribute of the MathML element, if available.
+
+        Returns:
+            str or None: The ID of the mml:math element, or None if not found.
+        """
+        namespace = "{http://www.w3.org/1998/Math/MathML}"
+        formula = self.element.find(f".//{namespace}math")
+        if formula is not None:
+            return formula.get("id")
 
     @property
     def tex_math(self):
@@ -79,6 +91,18 @@ class Formula:
         formula = self.element.find(".//tex-math")
         if formula is not None:
             return ET.tostring(formula, encoding="unicode", method="text").strip()
+
+    @property
+    def tex_math_id(self):
+        """
+        Returns the ID attribute of the TeX math element, if available.
+
+        Returns:
+            str or None: The ID of the tex-math element, or None if not found.
+        """
+        formula = self.element.find(".//tex-math")
+        if formula is not None:
+            return formula.get("id")
 
     @property
     def graphic(self):
@@ -107,7 +131,9 @@ class Formula:
                 - 'label' (str or None): The formula label.
                 - 'alternative_elements' (list): A list of alternative element names.
                 - 'mml_math' (str or None): The MathML content, if available.
+                - 'mml_math_id' (str or None): The MathML ID, if available.
                 - 'tex_math' (str or None): The TeX math content, if available.
+                - 'tex_math_id' (str or None): The TeX math ID, if available.
                 - 'graphic' (list): A list of hrefs from graphic elements.
         """
         alternative_parent = self.element.tag  # 'disp-formula' or 'inline-formula'
@@ -117,7 +143,9 @@ class Formula:
             "label": self.formula_label,
             "alternative_elements": self.alternative_elements,
             "mml_math": self.mml_math,
+            "mml_math_id": self.mml_math_id,
             "tex_math": self.tex_math,
+            "tex_math_id": self.tex_math_id,
             "graphic": self.graphic
         }
 

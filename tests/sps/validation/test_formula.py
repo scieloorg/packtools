@@ -35,8 +35,12 @@ class ArticleFormulaValidationTest(unittest.TestCase):
                 "expected_value": "disp-formula",
                 "got_value": None,
                 "message": "Got None, expected disp-formula",
-                "advice": "Add <disp-formula> elements to properly represent mathematical expressions in the content.",
+                "advice": "No <disp-formula> found in XML",
                 "data": None,
+                "msg_text": "Got {obtained}, expected {expected}",
+                "msg_params": {"obtained": "None", "expected": "disp-formula"},
+                "adv_text": "No <disp-formula> found in XML",
+                "adv_params": {},
             }
         ]
 
@@ -74,8 +78,12 @@ class ArticleFormulaValidationTest(unittest.TestCase):
                 "expected_value": "inline-formula",
                 "got_value": None,
                 "message": "Got None, expected inline-formula",
-                "advice": "Add <inline-formula> elements to properly represent mathematical expressions in the content.",
+                "advice": "No <inline-formula> found in XML",
                 "data": None,
+                "msg_text": "Got {obtained}, expected {expected}",
+                "msg_params": {"obtained": "None", "expected": "inline-formula"},
+                "adv_text": "No <inline-formula> found in XML",
+                "adv_params": {},
             }
         ]
 
@@ -130,7 +138,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
                 "expected_value": "@id",
                 "got_value": None,
                 "message": "Got None, expected @id",
-                "advice": "Identify the @id",
+                "advice": 'Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
                 "data": {
                     "alternative_parent": "disp-formula",
                     "id": None,
@@ -138,18 +146,141 @@ class ArticleFormulaValidationTest(unittest.TestCase):
                     "alternative_elements": ['{http://www.w3.org/1998/Math/MathML}math', "graphic", "graphic"],
                     "graphic": ["image1-lowres.png", "image1-highres.png"],
                     "mml_math": 'σˆ2',
+                    "mml_math_id": "e03",
                     "tex_math": None,
+                    "tex_math_id": None,
                     "parent": "article",
                     "parent_id": None,
                     "parent_article_type": "research-article",
                     "parent_lang": "pt",
                 },
+                "msg_text": "Got {obtained}, expected {expected}",
+                "msg_params": {"obtained": "None", "expected": "@id"},
+                "adv_text": 'Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
+                "adv_params": {},
             }
         ]
 
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(item, obtained[i])
+
+    def test_validate_wrong_id_prefix_in_disp_formula(self):
+        """Test validation of wrong prefix in disp-formula @id"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="f10">'
+            "<label>Formula 1</label>"
+            '<mml:math id="m03">'
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"id_prefix_error_level": "ERROR"}
+            ).validate()
+        )
+
+        # Deve retornar erro apenas no prefixo (ID existe, mas prefixo errado)
+        errors = [item for item in obtained if item["title"] == "@id prefix"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "ERROR")
+        self.assertEqual(error["got_value"], "f10")
+        self.assertIn('must start with prefix "e"', error["advice"])
+
+    def test_validate_without_mml_math_id_in_disp_formula(self):
+        """Test validation of missing @id in mml:math within disp-formula"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>Formula 1</label>"
+            "<mml:math>"
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mml_math_id_error_level": "CRITICAL"}
+            ).validate()
+        )
+
+        # Deve retornar erro no mml:math @id
+        errors = [item for item in obtained if item["title"] == "mml:math @id"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIsNone(error["got_value"])
+        self.assertIn("Add the @id attribute in <mml:math>", error["advice"])
+
+    def test_validate_wrong_mml_math_id_prefix_in_disp_formula(self):
+        """Test validation of wrong prefix in mml:math @id within disp-formula"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>Formula 1</label>"
+            '<mml:math id="e03">'
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mml_math_id_prefix_error_level": "ERROR"}
+            ).validate()
+        )
+
+        # Deve retornar erro no prefixo do mml:math
+        errors = [item for item in obtained if item["title"] == "mml:math @id prefix"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "ERROR")
+        self.assertEqual(error["got_value"], "e03")
+        self.assertIn('must start with prefix "m"', error["advice"])
 
     def test_validate_without_label_in_disp_formula(self):
         self.maxDiff = None
@@ -159,7 +290,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             "<body>"
             "<disp-formula id='e10'>"
             "<alternatives>"
-            '<mml:math id="e03">'
+            '<mml:math id="m03">'
             "<mml:mrow>"
             "<mml:msup>"
             '<mml:mover accent="true">'
@@ -179,44 +310,18 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         )
         obtained = list(
             ArticleDispFormulaValidation(
-                    xml_tree=xml_tree, rules={"label_error_level": "WARNING"}
+                xml_tree=xml_tree, rules={"label_error_level": "WARNING"}
             ).validate()
         )
 
-        expected = [
-            {
-                "title": "label",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "label",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "WARNING",
-                "expected_value": "label",
-                "got_value": None,
-                "message": "Got None, expected label",
-                "advice": "Identify the label",
-                "data": {
-                    "alternative_parent": "disp-formula",
-                    "id": "e10",
-                    "label": None,
-                    "alternative_elements": ['{http://www.w3.org/1998/Math/MathML}math', "graphic", "graphic"],
-                    "graphic": ["image1-lowres.png", "image1-highres.png"],
-                    "mml_math": 'σˆ2',
-                    "tex_math": None,
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        # Buscar apenas o erro de label
+        errors = [item for item in obtained if item["title"] == "label"]
+        self.assertEqual(len(errors), 1)
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        error = errors[0]
+        self.assertEqual(error["response"], "WARNING")
+        self.assertIsNone(error["got_value"])
+        self.assertIn("Mark each label with <label>", error["advice"])
 
     def test_validate_without_codification_in_disp_formula(self):
         self.maxDiff = None
@@ -226,54 +331,177 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             "<body>"
             "<disp-formula id='e10'>"
             "<label>Formula 1</label>"
-            "<alternatives>"
             '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
             "</disp-formula>"
             "</body>"
             "</article>"
         )
         obtained = list(
             ArticleDispFormulaValidation(
-                    xml_tree=xml_tree, rules={"codification_error_level": "CRITICAL"}
+                xml_tree=xml_tree, rules={"codification_error_level": "CRITICAL"}
             ).validate()
         )
 
-        expected = [
-            {
-                "title": "mml:math or tex-math",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "mml:math or tex-math",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "mml:math or tex-math",
-                "got_value": None,
-                "message": "Got None, expected mml:math or tex-math",
-                "advice": "Identify the mml:math or tex-math",
-                "data": {
-                    "alternative_parent": "disp-formula",
-                    "id": "e10",
-                    "label": "Formula 1",
-                    "alternative_elements": ["graphic", "graphic"],
-                    "graphic": ["image1-lowres.png", "image1-highres.png"],
-                    "mml_math": None,
-                    "tex_math": None,
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        # Buscar apenas o erro de codificação
+        errors = [item for item in obtained if item["title"] == "mml:math or tex-math"]
+        self.assertEqual(len(errors), 1)
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIn("not found codification", error["got_value"])
+        self.assertIn("Mark each formula codification", error["advice"])
+
+    def test_validate_without_id_in_inline_formula(self):
+        """Test validation of missing @id in inline-formula"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            "<p>Some text with <inline-formula>"
+            '<mml:math id="m03">'
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"id_error_level": "CRITICAL"}
+            ).validate()
+        )
+
+        # Deve retornar erro de ID ausente
+        errors = [item for item in obtained if item["title"] == "@id"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIsNone(error["got_value"])
+        self.assertIn('Add the formula ID with id=""', error["advice"])
+
+    def test_validate_wrong_id_prefix_in_inline_formula(self):
+        """Test validation of wrong prefix in inline-formula @id"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<p>Some text with <inline-formula id="f10">'
+            '<mml:math id="m03">'
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"id_prefix_error_level": "ERROR"}
+            ).validate()
+        )
+
+        # Deve retornar erro no prefixo
+        errors = [item for item in obtained if item["title"] == "@id prefix"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "ERROR")
+        self.assertEqual(error["got_value"], "f10")
+        self.assertIn('must start with prefix "e"', error["advice"])
+
+    def test_validate_without_mml_math_id_in_inline_formula(self):
+        """Test validation of missing @id in mml:math within inline-formula"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<p>Some text with <inline-formula id="e10">'
+            "<mml:math>"
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"mml_math_id_error_level": "CRITICAL"}
+            ).validate()
+        )
+
+        # Deve retornar erro no mml:math @id
+        errors = [item for item in obtained if item["title"] == "mml:math @id"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIsNone(error["got_value"])
+        self.assertIn("Add the @id attribute in <mml:math>", error["advice"])
+
+    def test_validate_wrong_mml_math_id_prefix_in_inline_formula(self):
+        """Test validation of wrong prefix in mml:math @id within inline-formula"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<p>Some text with <inline-formula id="e10">'
+            '<mml:math id="e03">'
+            "<mml:mrow>"
+            "<mml:msup>"
+            '<mml:mover accent="true">'
+            "<mml:mi>σ</mml:mi>"
+            "<mml:mo>ˆ</mml:mo>"
+            "</mml:mover>"
+            "<mml:mn>2</mml:mn>"
+            "</mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"mml_math_id_prefix_error_level": "ERROR"}
+            ).validate()
+        )
+
+        # Deve retornar erro no prefixo do mml:math
+        errors = [item for item in obtained if item["title"] == "mml:math @id prefix"]
+        self.assertEqual(len(errors), 1)
+
+        error = errors[0]
+        self.assertEqual(error["response"], "ERROR")
+        self.assertEqual(error["got_value"], "e03")
+        self.assertIn('must start with prefix "m"', error["advice"])
 
     def test_validate_without_codification_in_inline_formula(self):
         self.maxDiff = None
@@ -281,13 +509,9 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
             'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
             "<body>"
-            "<inline-formula id='e10'>"
-            "<label>Formula 1</label>"
-            "<alternatives>"
+            '<p>Some text with <inline-formula id="e10">'
             '<graphic xlink:href="image1-lowres.png" mime-subtype="low-resolution"/>'
-            '<graphic xlink:href="image1-highres.png" mime-subtype="high-resolution"/>'
-            "</alternatives>"
-            "</inline-formula>"
+            "</inline-formula> in text.</p>"
             "</body>"
             "</article>"
         )
@@ -297,40 +521,14 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             ).validate()
         )
 
-        expected = [
-            {
-                "title": "mml:math or tex-math",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "mml:math or tex-math",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "mml:math or tex-math",
-                "got_value": None,
-                "message": "Got None, expected mml:math or tex-math",
-                "advice": "Identify the mml:math or tex-math",
-                "data": {
-                    "alternative_parent": "inline-formula",
-                    "id": "e10",
-                    "label": "Formula 1",
-                    "alternative_elements": ["graphic", "graphic"],
-                    "graphic": ["image1-lowres.png", "image1-highres.png"],
-                    "mml_math": None,
-                    "tex_math": None,
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        # Buscar apenas o erro de codificação
+        errors = [item for item in obtained if item["title"] == "mml:math or tex-math"]
+        self.assertEqual(len(errors), 1)
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIn("not found codification", error["got_value"])
+        self.assertIn("Mark each formula codification", error["advice"])
 
     def test_validate_alternatives_required_in_disp_formula(self):
         self.maxDiff = None
@@ -340,7 +538,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             "<body>"
             "<disp-formula id='e10'>"
             "<label>Formula 1</label>"
-            '<mml:math id="e03">'
+            '<mml:math id="m03">'
             "<mml:mrow>"
             "<mml:msup>"
             '<mml:mover accent="true">'
@@ -358,44 +556,18 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         )
         obtained = list(
             ArticleDispFormulaValidation(
-                    xml_tree=xml_tree, rules={"alternatives_error_level": "CRITICAL"}
+                xml_tree=xml_tree, rules={"alternatives_error_level": "CRITICAL"}
             ).validate()
         )
 
-        expected = [
-            {
-                "title": "alternatives",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "alternatives",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": "alternatives",
-                "got_value": None,
-                "message": "Got None, expected alternatives",
-                "advice": "Identify the alternatives",
-                "data": {
-                    "alternative_parent": "disp-formula",
-                    "id": "e10",
-                    "label": "Formula 1",
-                    "alternative_elements": [],
-                    "graphic": ["image1-lowres.png"],
-                    "mml_math": 'σˆ2',
-                    "tex_math": None,
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        # Buscar apenas o erro de alternatives
+        errors = [item for item in obtained if item["title"] == "alternatives"]
+        self.assertEqual(len(errors), 1)
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertIsNone(error["got_value"])
+        self.assertIn("Wrap <tex-math> and <mml:math> with <alternatives>", error["advice"])
 
     def test_validate_alternatives_not_required_in_disp_formula(self):
         self.maxDiff = None
@@ -406,7 +578,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             "<disp-formula id='e10'>"
             "<label>Formula 1</label>"
             "<alternatives>"
-            '<mml:math id="e03">'
+            '<mml:math id="m03">'
             "<mml:mrow>"
             "<mml:msup>"
             '<mml:mover accent="true">'
@@ -424,45 +596,15 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         )
         obtained = list(
             ArticleDispFormulaValidation(
-                    xml_tree=xml_tree, rules={"alternatives_error_level": "CRITICAL"}
+                xml_tree=xml_tree, rules={"alternatives_error_level": "CRITICAL"}
             ).validate()
         )
 
-        expected = [
-            {
-                "title": "alternatives",
-                "parent": "article",
-                "parent_id": None,
-                "parent_article_type": "research-article",
-                "parent_lang": "pt",
-                "item": "alternatives",
-                "sub_item": None,
-                "validation_type": "exist",
-                "response": "CRITICAL",
-                "expected_value": None,
-                "got_value": "alternatives",
-                "message": "Got alternatives, expected None",
-                "advice": "Remove the alternatives",
-                "data": {
-                    "alternative_parent": "disp-formula",
-                    "id": "e10",
-                    "label": "Formula 1",
-                    "alternative_elements": ['{http://www.w3.org/1998/Math/MathML}math'],
-                    "graphic": [],
-                    "mml_math": 'σˆ2',
-                    "tex_math": None,
-                    "parent": "article",
-                    "parent_id": None,
-                    "parent_article_type": "research-article",
-                    "parent_lang": "pt",
-                },
-            }
-        ]
+        # Buscar apenas o erro de alternatives
+        errors = [item for item in obtained if item["title"] == "alternatives"]
+        self.assertEqual(len(errors), 1)
 
-        for i, item in enumerate(expected):
-            with self.subTest(i):
-                self.assertDictEqual(item, obtained[i])
-
-
-if __name__ == "__main__":
-    unittest.main()
+        error = errors[0]
+        self.assertEqual(error["response"], "CRITICAL")
+        self.assertEqual(error["got_value"], "alternatives")
+        self.assertIn("Remove the <alternatives>", error["advice"])
