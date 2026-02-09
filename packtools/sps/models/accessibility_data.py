@@ -16,6 +16,33 @@ class XMLAccessibilityData:
         return self._transcripts
 
     @property
+    def misplaced_alt_texts(self):
+        """
+        Detecta elementos <alt-text> que estão fora dos elementos permitidos.
+        Segundo SPS 1.9/1.10, <alt-text> só pode estar dentro de:
+        <graphic>, <inline-graphic>, <media>, <inline-media>
+        """
+        valid_parents = ("graphic", "inline-graphic", "media", "inline-media")
+        misplaced = []
+
+        # Procura TODOS os <alt-text> no documento
+        for alt_text in self.xmltree.xpath(".//alt-text"):
+            parent = alt_text.getparent()
+            if parent is not None and parent.tag not in valid_parents:
+                # <alt-text> está no lugar errado!
+                misplaced.append({
+                    "tag": "alt-text",
+                    "parent_tag": parent.tag,
+                    "parent_id": parent.get("id"),
+                    "alt_text": alt_text.text,
+                    "alt_text_length": len(alt_text.text or ""),
+                    "expected_location": valid_parents,
+                    "current_location": parent.tag,
+                })
+
+        return misplaced
+
+    @property
     def data(self):
         # CORREÇÃO: XPath simplificado para evitar duplicatas
         # Captura apenas os elementos base que podem conter dados de acessibilidade
@@ -29,6 +56,10 @@ class XMLAccessibilityData:
             model = AccessibilityData(item)
             model.transcript_data = self.transcripts.get(model.xref_sec_rid)
             yield model.data
+
+        # NOVO: Dados dos elementos mal posicionados
+        for misplaced in self.misplaced_alt_texts:
+            yield misplaced
 
 
 class AccessibilityData:
