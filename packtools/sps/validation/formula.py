@@ -1,8 +1,11 @@
+import gettext
 import logging
 
 from packtools.sps.models.formula import ArticleFormulas
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.xml_validator_rules import get_group_rules
+
+_ = gettext.gettext
 
 
 class ArticleDispFormulaValidation:
@@ -35,23 +38,35 @@ class ArticleDispFormulaValidation:
             dict: A dictionary containing the validation results for each <disp-formula> element.
         """
         if not self.elements:
-            yield format_response(
-                title="disp-formula",
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.xml_tree.get("article-type"),
-                parent_lang=self.xml_tree.get(
+            advice = f'({self.article_type}) No <disp-formula> found in XML'
+            advice_text = _('({article_type}) No <disp-formula> found in XML')
+            advice_params = {
+                "article_type": self.article_type
+            }
+            
+            parent_data = {
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.xml_tree.get("article-type"),
+                "parent_lang": self.xml_tree.get(
                     "{http://www.w3.org/XML/1998/namespace}lang"
                 ),
+            }
+            
+            yield build_response(
+                title="disp-formula",
+                parent=parent_data,
                 item="disp-formula",
                 sub_item=None,
                 validation_type="exist",
                 is_valid=False,
                 expected="disp-formula",
                 obtained=None,
-                advice=f'({self.article_type}) No <disp-formula> found in XML',
+                advice=advice,
                 data=None,
                 error_level=self.rules["absent_error_level"],
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
         else:
             for data in self.elements:
@@ -111,21 +126,24 @@ class DispFormulaValidation:
 
         formula_id = self.data.get("id")
         is_valid = bool(formula_id)
-        return format_response(
+        advice = 'Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.'
+        advice_text = _('Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.')
+        advice_params = {}
+        
+        return build_response(
             title="@id",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="@id",
             sub_item=None,
             validation_type="exist",
             is_valid=is_valid,
             expected="@id",
             obtained=formula_id,
-            advice='Add the formula ID with id="" in <disp-formula>: <disp-formula id="">. Consult SPS documentation for more detail.',
+            advice=advice,
             data=self.data,
             error_level=self.rules["id_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_label(self):
@@ -140,21 +158,26 @@ class DispFormulaValidation:
         is_valid = bool(label)
         item_id = self.data.get("id")
 
-        return format_response(
+        advice = f'Mark each label with <label> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.'
+        advice_text = _('Mark each label with <label> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.')
+        advice_params = {
+            "item_id": item_id
+        }
+
+        return build_response(
             title="label",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="label",
             sub_item=None,
             validation_type="exist",
             is_valid=is_valid,
             expected="label",
             obtained=label,
-            advice=f'Mark each label with <label> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
+            advice=advice,
             data=self.data,
             error_level=self.rules["label_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_codification(self):
@@ -177,21 +200,26 @@ class DispFormulaValidation:
 
         is_valid = count == 1
         item_id = self.data.get("id")
-        return format_response(
+        advice = f'Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.'
+        advice_text = _('Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.')
+        advice_params = {
+            "item_id": item_id
+        }
+        
+        return build_response(
             title="mml:math or tex-math",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="mml:math or tex-math",
             sub_item=None,
             validation_type="exist",
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <disp-formula id="{item_id}">. Consult SPS documentation for more detail.',
+            advice=advice,
             data=self.data,
             error_level=self.rules["codification_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_alternatives(self):
@@ -216,29 +244,34 @@ class DispFormulaValidation:
             expected = "alternatives"
             obtained = None
             advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula id="{item_id}">'
+            advice_text = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <disp-formula id="{item_id}">')
+            advice_params = {"item_id": item_id}
             valid = False
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
             advice = f'{item_id}: Remove the <alternatives> from {self.xml} and keep <{found}> inside {self.xml}'
+            advice_text = _('{item_id}: Remove the <alternatives> from {xml} and keep <{found}> inside {xml}')
+            advice_params = {"item_id": item_id, "xml": self.xml, "found": found}
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
             advice = f'{item_id}: Remove the <alternatives> from {self.xml} and keep <{found}> inside {self.xml}'
+            advice_text = _('{item_id}: Remove the <alternatives> from {xml} and keep <{found}> inside {xml}')
+            advice_params = {"item_id": item_id, "xml": self.xml, "found": found}
             valid = False
         else:
             expected = "alternatives"
             obtained = "alternatives"
             advice = None
+            advice_text = None
+            advice_params = None
             valid = True
 
-        return format_response(
+        return build_response(
             title="alternatives",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="alternatives",
             sub_item=None,
             validation_type="exist",
@@ -248,6 +281,8 @@ class DispFormulaValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["alternatives_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
 
@@ -283,23 +318,35 @@ class ArticleInlineFormulaValidation:
         """
 
         if not self.elements:
-            yield format_response(
-                title="inline-formula",
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.xml_tree.get("article-type"),
-                parent_lang=self.xml_tree.get(
+            advice = f"({self.article_type}) No <inline-formula> found in XML"
+            advice_text = _("({article_type}) No <inline-formula> found in XML")
+            advice_params = {
+                "article_type": self.article_type
+            }
+            
+            parent_data = {
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.xml_tree.get("article-type"),
+                "parent_lang": self.xml_tree.get(
                     "{http://www.w3.org/XML/1998/namespace}lang"
                 ),
+            }
+            
+            yield build_response(
+                title="inline-formula",
+                parent=parent_data,
                 item="inline-formula",
                 sub_item=None,
                 validation_type="exist",
                 is_valid=False,
                 expected="inline-formula",
                 obtained=None,
-                advice=f"({self.article_type}) No <inline-formula> found in XML",
+                advice=advice,
                 data=None,
                 error_level=self.rules["absent_error_level"],
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
         else:
             for data in self.elements:
@@ -370,21 +417,24 @@ class InlineFormulaValidation:
 
         is_valid = count == 1
 
-        return format_response(
+        advice = f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.'
+        advice_text = _('Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.')
+        advice_params = {}
+
+        return build_response(
             title="mml:math or tex-math",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="mml:math or tex-math",
             sub_item=None,
             validation_type="exist",
             is_valid=is_valid,
             expected="mml:math or tex-math",
             obtained=obtained,
-            advice=f'Mark each formula codification with <mml:math> or <tex-math> inside <inline-formula>. Consult SPS documentation for more detail.',
+            advice=advice,
             data=self.data,
             error_level=self.rules["codification_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_alternatives(self):
@@ -406,29 +456,34 @@ class InlineFormulaValidation:
             expected = "alternatives"
             obtained = None
             advice = f'Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>'
+            advice_text = _('Wrap <tex-math> and <mml:math> with <alternatives> inside <inline-formula>')
+            advice_params = {}
             valid = False
         elif mml + tex + len(graphic) == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
             advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
+            advice_text = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
+            advice_params = {"found": found}
             valid = False
         elif len(alternatives) == 1:
             expected = None
             obtained = "alternatives"
             advice = f'Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>'
+            advice_text = _('Remove the <alternatives> from <inline-formula> and keep <{found}> inside <inline-formula>')
+            advice_params = {"found": found}
             valid = False
         else:
             expected = "alternatives"
             obtained = "alternatives"
             advice = None
+            advice_text = None
+            advice_params = None
             valid = True
 
-        return format_response(
+        return build_response(
             title="alternatives",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent=self.data,
             item="alternatives",
             sub_item=None,
             validation_type="exist",
@@ -438,4 +493,6 @@ class InlineFormulaValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["alternatives_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
