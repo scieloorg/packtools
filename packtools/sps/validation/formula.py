@@ -266,7 +266,7 @@ class DispFormulaValidation:
             obtained = "alternatives"
             advice = None
             advice_text = None
-            advice_params = None
+            advice_params = {}
             valid = True
 
         return build_response(
@@ -478,7 +478,7 @@ class InlineFormulaValidation:
             obtained = "alternatives"
             advice = None
             advice_text = None
-            advice_params = None
+            advice_params = {}
             valid = True
 
         return build_response(
