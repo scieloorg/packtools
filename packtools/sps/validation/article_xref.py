@@ -1,5 +1,9 @@
+import gettext
+
 from packtools.sps.models.v2.article_xref import XMLCrossReference
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class ArticleXrefValidation:
@@ -69,15 +73,26 @@ class ArticleXrefValidation:
                 advice = (
                     f'Found {xref.get("xml")}, but not found the corresponding {xref.get("elem_xml")}'
                 )
-
-                yield format_response(
-                    title=f'<xref> is linked to {element_name}',
-                    parent="article",
-                    parent_id=None,
-                    parent_article_type=self.xml_tree.get("article-type"),
-                    parent_lang=self.xml_tree.get(
+                advice_text = _(
+                    'Found {xref_xml}, but not found the corresponding {elem_xml}'
+                )
+                advice_params = {
+                    "xref_xml": xref.get("xml"),
+                    "elem_xml": xref.get("elem_xml")
+                }
+                
+                parent_data = {
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": self.xml_tree.get("article-type"),
+                    "parent_lang": self.xml_tree.get(
                         "{http://www.w3.org/XML/1998/namespace}lang"
                     ),
+                }
+
+                yield build_response(
+                    title=f'<xref> is linked to {element_name}',
+                    parent=parent_data,
                     item="xref",
                     sub_item="@rid",
                     validation_type="match",
@@ -87,6 +102,8 @@ class ArticleXrefValidation:
                     advice=advice,
                     data={"xref": xref, "element": element_data, "missing_xrefs": self.missing_xrefs, "missing_elems": self.missing_elems},
                     error_level=self.params["xref_rid_error_level"],
+                    advice_text=advice_text,
+                    advice_params=advice_params,
                 )
 
     def validate_element_id_has_corresponding_xref_rid(self):
@@ -114,22 +131,37 @@ class ArticleXrefValidation:
                     xref_xml = elem_data.get("xref_xml")
 
                     label = elem_data.get("label")
+                    advice_text = None
+                    advice_params = None
                     if label:
                         advice = (
                             f'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
                             f'Mark {label}, mention to {tag_and_attribs}, with {xref_xml}'
                         )
+                        advice_text = _(
+                            'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
+                            'Mark {label}, mention to {tag_and_attribs}, with {xref_xml}'
+                        )
+                        advice_params = {
+                            "tag_and_attribs": tag_and_attribs,
+                            "xref_xml": xref_xml,
+                            "label": label
+                        }
                     else:
                         advice = (
                             f'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
                         )
+                        advice_text = _(
+                            'Found {tag_and_attribs}, but no corresponding {xref_xml} was found. '
+                        )
+                        advice_params = {
+                            "tag_and_attribs": tag_and_attribs,
+                            "xref_xml": xref_xml
+                        }
 
-                    yield format_response(
+                    yield build_response(
                         title=f'{tag_and_attribs} is linked to <xref>',
-                        parent=elem_data.get("parent"),
-                        parent_id=elem_data.get("parent_id"),
-                        parent_article_type=elem_data.get("parent_article_type"),
-                        parent_lang=elem_data.get("parent_lang"),
+                        parent=elem_data,
                         item=elem_data.get("tag"),
                         sub_item="@id",
                         validation_type="match",
@@ -139,6 +171,8 @@ class ArticleXrefValidation:
                         advice=advice,
                         data={"element": elem_data, "xref": xrefs, "missing_xrefs": self.missing_xrefs, "missing_elems": self.missing_elems},
                         error_level=error_level,
+                        advice_text=advice_text,
+                        advice_params=advice_params,
                     )
 
     def validate_attrib_name_and_value_has_corresponding_xref(self):
