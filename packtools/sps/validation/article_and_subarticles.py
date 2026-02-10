@@ -1,3 +1,5 @@
+import gettext
+
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.v2.article_toc_sections import ArticleTocSections
 from packtools.sps.models.article_ids import ArticleIds
@@ -7,7 +9,9 @@ from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesSubjectsException,
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
-from packtools.sps.validation.utils import build_response, format_response
+from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class ArticleLangValidation:
@@ -93,17 +97,34 @@ class ArticleLangValidation:
             if article_lang:
                 xml = f'<{parent}{parent_id} xml:lang="{article_lang}">'
                 advice = f'Replace {article_lang} in {xml} with one of {language_codes_list}'
+                advice_text = _('Replace {article_lang} in {xml} with one of {language_codes_list}')
+                advice_params = {
+                    "article_lang": article_lang,
+                    "xml": xml,
+                    "language_codes_list": str(language_codes_list)
+                }
             else:
                 xml = f'<{parent}{parent_id}>'
                 xml2 = f'<{parent}{parent_id} xml:lang="VALUE">'
 
                 advice = f'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}'
-            yield format_response(
+                advice_text = _('Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}')
+                advice_params = {
+                    "xml": xml,
+                    "xml2": xml2,
+                    "language_codes_list": str(language_codes_list)
+                }
+            
+            parent_data = {
+                "parent": parent,
+                "parent_id": article_id,
+                "parent_article_type": article_type,
+                "parent_lang": article_lang,
+            }
+            
+            yield build_response(
                     title=f"{name} language",
-                    parent=parent,
-                    parent_id=article_id,
-                    parent_article_type=article_type,
-                    parent_lang=article_lang,
+                    parent=parent_data,
                     item=parent,
                     sub_item="@xml:lang",
                     validation_type="value in list",
@@ -113,6 +134,8 @@ class ArticleLangValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["language_error_level"],
+                    advice_text=advice_text,
+                    advice_params=advice_params,
             )
 
 
@@ -163,12 +186,26 @@ class ArticleTypeValidation:
             name = article_id or parent
             xml = f'<{parent} article-type=""/>'
             advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
-            yield format_response(
+            advice_text = None
+            advice_params = None
+            if not valid:
+                advice_text = _('Complete {name} article-type {xml} with valid value {article_type_list}')
+                advice_params = {
+                    "name": name,
+                    "xml": xml,
+                    "article_type_list": str(article_type_list)
+                }
+            
+            parent_data = {
+                "parent": parent,
+                "parent_id": article_id,
+                "parent_article_type": article_type,
+                "parent_lang": article_type,
+            }
+            
+            yield build_response(
                     title=f"{name} article-type",
-                    parent=parent,
-                    parent_id=article_id,
-                    parent_article_type=article_type,
-                    parent_lang=article_type,
+                    parent=parent_data,
                     item=parent,
                     sub_item="article-type",
                     validation_type="value in list",
@@ -178,6 +215,8 @@ class ArticleTypeValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["article_type_error_level"],
+                    advice_text=advice_text,
+                    advice_params=advice_params,
             )
 
     def validate_article_type_vs_subject_similarity(self):
@@ -230,16 +269,31 @@ class ArticleTypeValidation:
             title = f"article type and table of contents section"
             choices = " | ".join(most_similar_article_type)
             advice = None
+            advice_text = None
+            advice_params = None
             if not valid:
                 advice = (
                     f"Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
                 )
-            yield format_response(
+                advice_text = _(
+                    "Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
+                )
+                advice_params = {
+                    "xml_article_type": xml_article_type,
+                    "xml_subject": xml_subject,
+                    "choices": choices
+                }
+            
+            parent_data = {
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.articles.main_article_type,
+                "parent_lang": self.articles.main_lang,
+            }
+            
+            yield build_response(
                 title=title,
-                parent="article",
-                parent_article_type=self.articles.main_article_type,
-                parent_lang=self.articles.main_lang,
-                parent_id=None,
+                parent=parent_data,
                 item="article",
                 sub_item="@article-type",
                 validation_type="similarity",
@@ -249,6 +303,8 @@ class ArticleTypeValidation:
                 advice=advice,
                 data=data,
                 error_level=self.params["article_type_and_subject_expected_similarity_error_level"],
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
 
@@ -345,6 +401,11 @@ class JATSAndDTDVersionValidation:
         elif jats_version not in expected_jats_versions:
             xml = f'<article specific-use="" dtd-version=""/>'
             advice = f'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
+            advice_text = _('Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}')
+            advice_params = {
+                "xml": xml,
+                "versions": str(versions)
+            }
 
         expected = expected_jats_versions or versions
         got = {
@@ -356,12 +417,17 @@ class JATSAndDTDVersionValidation:
             "dtd-version": jats_version,
             "expected values": expected,
         }
-        yield format_response(
+        
+        parent_data = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": self.article_and_sub_articles.main_article_type,
+            "parent_lang": self.article_and_sub_articles.main_lang,
+        }
+        
+        yield build_response(
             title='SPS and JATS versions',
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_and_sub_articles.main_article_type,
-            parent_lang=self.article_and_sub_articles.main_lang,
+            parent=parent_data,
             item="specific-use and dtd-version",
             sub_item=None,
             validation_type="match",
@@ -371,4 +437,6 @@ class JATSAndDTDVersionValidation:
             advice=advice,
             data=data,
             error_level=self.params["jats_and_dtd_version_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
