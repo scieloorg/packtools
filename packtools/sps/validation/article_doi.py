@@ -1,10 +1,13 @@
+import gettext
+
 from packtools.sps.models.article_and_subarticles import ArticleAndSubArticles
 from packtools.sps.models.article_doi_with_lang import DoiWithLang
 from packtools.sps.validation.utils import (
-    format_response,
     check_doi_is_registered,
     build_response,
 )
+
+_ = gettext.gettext
 
 
 def _callable_extern_validate_default(doi):
@@ -90,12 +93,16 @@ class ArticleDoiValidation:
             advice = (
                 f'Mark DOI for {text} with<article-id pub-id-type="doi"></article-id>'
             )
-            yield format_response(
+            advice_text = _(
+                'Mark DOI for {text} with<article-id pub-id-type="doi"></article-id>'
+            )
+            advice_params = {
+                "text": text
+            }
+            
+            yield build_response(
                 title="DOI",
-                parent=doi.get("parent"),
-                parent_id=doi.get("parent_id"),
-                parent_article_type=doi.get("parent_article_type"),
-                parent_lang=doi.get("lang"),
+                parent=doi,
                 item="article-id",
                 sub_item='@pub-id-type="doi"',
                 validation_type="exist",
@@ -105,6 +112,8 @@ class ArticleDoiValidation:
                 advice=advice,
                 data=doi,
                 error_level=error_level,
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
     def validate_all_dois_are_unique(self, error_level="CRITICAL"):
@@ -181,21 +190,33 @@ class ArticleDoiValidation:
 
         diff = [doi for doi, freq in dois.items() if freq > 1]
 
-        yield format_response(
+        advice = f"Fix doi to be unique. Found repetition: {diff}"
+        advice_text = _("Fix doi to be unique. Found repetition: {diff}")
+        advice_params = {
+            "diff": str(diff)
+        }
+        
+        parent_data = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": self.articles.main_article_type,
+            "parent_lang": self.articles.main_lang,
+        }
+        
+        yield build_response(
             title="uniqueness of DOI",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.articles.main_article_type,
-            parent_lang=self.articles.main_lang,
+            parent=parent_data,
             item="article-id",
             sub_item='@pub-id-type="doi"',
             validation_type="unique",
             is_valid=bool(not diff),
             expected="Unique DOI",
             obtained=str(dois),
-            advice=f"Fix doi to be unique. Found repetition: {diff}",
+            advice=advice,
             data=dois,
             error_level=error_level,
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_doi_registered(self, callable_get_data, error_level="CRITICAL"):
@@ -215,21 +236,31 @@ class ArticleDoiValidation:
             }
 
             advice = None
+            advice_text = None
+            advice_params = None
             if not result.get("valid"):
                 if registered := result.get("registered"):
                     advice = f'Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}'
+                    advice_text = _('Check doi (<article-id pub-id-type="doi">{xml_doi}</article-id>) is not registered for {expected}. It is registered for {registered}')
+                    advice_params = {
+                        "xml_doi": xml_doi,
+                        "expected": str(expected),
+                        "registered": str(registered)
+                    }
                 else:
                     error_level = "WARNING"
                     advice = (
                         f"Unable to check if {xml_doi} is registered for {expected}"
                     )
+                    advice_text = _("Unable to check if {xml_doi} is registered for {expected}")
+                    advice_params = {
+                        "xml_doi": xml_doi,
+                        "expected": str(expected)
+                    }
 
-            yield format_response(
+            yield build_response(
                 title="Registered DOI",
-                parent=doi_data.get("parent"),
-                parent_id=doi_data.get("parent_id"),
-                parent_article_type=doi_data.get("parent_article_type"),
-                parent_lang=doi_data.get("lang"),
+                parent=doi_data,
                 item="article-id",
                 sub_item='@pub-id-type="doi"',
                 validation_type="registered",
@@ -239,6 +270,8 @@ class ArticleDoiValidation:
                 advice=advice,
                 data=doi_data,
                 error_level=error_level,
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
     def validate_different_doi_in_translation(self, error_level="WARNING"):
