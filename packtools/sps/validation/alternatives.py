@@ -1,8 +1,11 @@
 from itertools import chain
+import gettext
 
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 from packtools.sps.validation.exceptions import ValidationAlternativesException
 from packtools.sps.models import fig, formula, tablewrap
+
+_ = gettext.gettext
 
 
 class AlternativeValidation:
@@ -46,21 +49,29 @@ class AlternativeValidation:
                 is_valid = False
                 break
 
-        yield format_response(
+        advice = f'Add {self.expected_elements} as sub-elements of {self.parent_element}/alternatives'
+        advice_text = _(
+            'Add {expected_elements} as sub-elements of {parent_element}/alternatives'
+        )
+        advice_params = {
+            "expected_elements": str(self.expected_elements),
+            "parent_element": self.parent_element
+        }
+
+        yield build_response(
             title="Alternatives validation",
-            parent=self.alternative_data.get("parent"),
-            parent_id=self.alternative_data.get("parent_id"),
-            parent_article_type=self.alternative_data.get("parent_article_type"),
-            parent_lang=self.alternative_data.get("parent_lang"),
+            parent=self.alternative_data,
             item=self.parent_element,
             sub_item="alternatives",
             validation_type="value in list",
             is_valid=is_valid,
             expected=self.expected_elements,
             obtained=self.obtained_elements,
-            advice=f'Add {self.expected_elements} as sub-elements of {self.parent_element}/alternatives',
+            advice=advice,
             data=self.alternative_data,
-            error_level=error_level
+            error_level=error_level,
+            advice_text=advice_text,
+            advice_params=advice_params
         )
 
 
