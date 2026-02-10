@@ -1,5 +1,9 @@
+import gettext
+
 from packtools.sps.models.v2.abstract import XMLAbstracts
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class AbstractValidation:
@@ -71,6 +75,8 @@ class AbstractValidation:
         obtained=None,
         advice=None,
         error_level="WARNING",
+        advice_text=None,
+        advice_params=None,
     ):
         """
         Formats the validation response.
@@ -84,6 +90,8 @@ class AbstractValidation:
             obtained (str, optional): The obtained value.
             advice (str, optional): Advice on how to resolve the issue. Default is None.
             error_level (str): The error level. Default is 'WARNING'.
+            advice_text (str, optional): Internationalized advice text template.
+            advice_params (dict, optional): Parameters for the advice text template.
 
         Returns:
             dict: A formatted validation response.
@@ -100,6 +108,8 @@ class AbstractValidation:
             advice=advice,
             data=self.abstract,
             error_level=error_level,
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate(self):
@@ -300,17 +310,23 @@ class StandardAbstractsValidation(AbstractsValidationBase):
         error_level = self.params["default_error_level"]
         is_valid = True
         advice = None
+        advice_text = None
+        advice_params = {}
 
         if self.article_type in self.params["article_type_requires"]:
             expected = f"Abstract is required"
             is_valid = bool(data)
             error_level = self.params["article_type_requires_abstract_error_level"]
             advice = f"Mark abstract which is required for {self.article_type}"
+            advice_text = _("Mark abstract which is required for {article_type}")
+            advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_unexpects"]:
             expected = f"Abstract is unexpected"
             is_valid = not bool(data)
             error_level = self.params["article_type_unexpects_abstract_error_level"]
             advice = f"Abstract is not expected for {self.article_type}"
+            advice_text = _("Abstract is not expected for {article_type}")
+            advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_neutral"]:
             is_valid = True
             expected = f"Abstract is optional"
@@ -319,12 +335,17 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             raise ValueError(
                 f"Unable to identify if abstract is required or unexpected or neutral or acceptable"
             )
-        return format_response(
+        
+        parent_data = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": self.article_type,
+            "parent_lang": self.lang,
+        }
+        
+        return build_response(
             title="abstract",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_type,
-            parent_lang=self.lang,
+            parent=parent_data,
             item="abstract",
             sub_item=None,
             validation_type="exist",
@@ -334,6 +355,8 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             advice=advice,
             data=data,
             error_level=error_level,
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate(self):
