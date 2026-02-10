@@ -1,5 +1,9 @@
+import gettext
+
 from packtools.sps.models.fig import ArticleFigs
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class ArticleFigValidation:
@@ -17,23 +21,35 @@ class ArticleFigValidation:
                 yield from FigValidation(element, self.rules).validate()
 
         else:
-            yield format_response(
-                title="fig presence",
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.xml_tree.get("article-type"),
-                parent_lang=self.xml_tree.get(
+            advice = f'({self.article_type}) No <fig> found in XML'
+            advice_text = _('({article_type}) No <fig> found in XML')
+            advice_params = {
+                "article_type": self.article_type
+            }
+            
+            parent_data = {
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.xml_tree.get("article-type"),
+                "parent_lang": self.xml_tree.get(
                     "{http://www.w3.org/XML/1998/namespace}lang"
                 ),
+            }
+            
+            yield build_response(
+                title="fig presence",
+                parent=parent_data,
                 item="fig",
                 sub_item=None,
                 validation_type="exist",
                 is_valid=False,
                 expected="<fig>",
                 obtained=None,
-                advice=f'({self.article_type}) No <fig> found in XML',
+                advice=advice,
                 data=None,
                 error_level=self.rules["absent_error_level"],
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
 
