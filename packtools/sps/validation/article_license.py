@@ -1,10 +1,14 @@
+import gettext
+
 from packtools.sps.models.article_license import ArticleLicense
 
 from packtools.sps.validation.exceptions import (
     ValidationLicenseException,
     ValidationLicenseCodeException
 )
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class ArticleLicenseValidation:
@@ -123,24 +127,37 @@ class ArticleLicenseValidation:
             is_valid = expected_license_p == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
-            yield format_response(
+            
+            advice = (f'Mark license information with '
+                     f'<license license-type="open-access" xlink:href={expected_license_p["link"]} '
+                     f'xml:lang={expected_license_p["lang"]}>'
+                     f'<license-p>{expected_license_p["license_p"]}</license-p></license>')
+            advice_text = _(
+                'Mark license information with '
+                '<license license-type="open-access" xlink:href={link} '
+                'xml:lang={lang}>'
+                '<license-p>{license_p}</license-p></license>'
+            )
+            advice_params = {
+                "link": expected_license_p["link"],
+                "lang": expected_license_p["lang"],
+                "license_p": expected_license_p["license_p"]
+            }
+            
+            yield build_response(
                 title='Article license validation',
-                parent=data.get("parent"),
-                parent_id=data.get("parent_id"),
-                parent_article_type=data.get("parent_article_type"),
-                parent_lang=data.get("parent_lang"),
+                parent=data,
                 item="permissions",
                 sub_item="license",
                 validation_type="value",
                 is_valid=is_valid,
                 expected=expected_value_msg,
                 obtained=obtained_license_p,
-                advice=f'Mark license information with '
-                       f'<license license-type="open-access" xlink:href={expected_license_p["link"]} '
-                       f'xml:lang={expected_license_p["lang"]}>'
-                       f'<license-p>{expected_license_p["license_p"]}</license-p></license>',
+                advice=advice,
                 data=obtained_license_p,
                 error_level=error_level,
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
     def validate_license_code(self, expected_code, error_level="ERROR"):
@@ -202,21 +219,27 @@ class ArticleLicenseValidation:
             obtained_link = licenses.get('link')
             obtained_code = obtained_link.split('/')[4] if obtained_link else None
             is_valid = expected_code == obtained_code
-            yield format_response(
+            
+            advice = f'add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}'
+            advice_text = _('add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}')
+            advice_params = {
+                "expected_code": expected_code
+            }
+            
+            yield build_response(
                 title='Article license code validation',
-                parent=licenses.get("parent"),
-                parent_id=licenses.get("parent_id"),
-                parent_article_type=licenses.get("parent_article_type"),
-                parent_lang=licenses.get("parent_lang"),
+                parent=licenses,
                 item="permissions",
                 sub_item="license",
                 validation_type="value",
                 is_valid=is_valid,
                 expected=expected_code,
                 obtained=obtained_code,
-                advice=f'add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}',
+                advice=advice,
                 data=licenses,
                 error_level=error_level,
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
     
