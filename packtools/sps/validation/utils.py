@@ -215,13 +215,14 @@ def validate_doi_format(doi):
     """
     Valida o formato de um DOI (Digital Object Identifier)
 
-    Regras de validação:
+    Regras de validação (conforme CrossRef):
     1. Deve começar com "10."
     2. Após o "10.", deve ter 4 ou 5 dígitos
     3. Deve ter uma barra (/) após os dígitos
-    4. Deve ter caracteres alfanuméricos após a barra
-    5. Pode conter hífens e pontos após a barra
-    6. Não deve conter espaços
+    4. Sufixo pode conter: a-z, A-Z, 0-9, -, ., _, ;, (, ), /
+    5. Não deve conter: espaços, acentos, barra invertida
+
+    Caracteres permitidos no sufixo: a-zA-Z0-9-._; ()/
 
     Args:
         doi (str): O DOI a ser validado
@@ -237,21 +238,23 @@ def validate_doi_format(doi):
     doi = doi.strip()
 
     # Regex para validar o formato do DOI
-    doi_regex = r"^10\.\d{4,5}\/[a-zA-Z0-9./-]+$"
+    # CORRIGIDO: Adicionados _, ;, (, ) ao sufixo
+    doi_regex = r"^10\.\d{4,5}\/[a-zA-Z0-9._\-;()/]+$"
 
     # Testa o formato básico
     if not re.match(doi_regex, doi):
         return {
             "valido": False,
-            "mensagem": "Formato de DOI inválido. Deve seguir o padrão: 10.XXXX/string-alfanumérica",
+            "mensagem": "Formato de DOI inválido. Deve seguir o padrão: 10.XXXX(X)/[a-zA-Z0-9._-;()/]",
         }
 
     # Verifica se não há caracteres especiais inválidos após a barra
-    sufixo = doi.split("/")[1]
-    if not re.match(r"^[a-zA-Z0-9./-]+$", sufixo):
+    sufixo = doi.split("/", 1)[1]
+    # CORRIGIDO: Adicionados _, ;, (, ) à validação do sufixo
+    if not re.match(r"^[a-zA-Z0-9._\-;()/]+$", sufixo):
         return {
             "valido": False,
-            "mensagem": "O sufixo do DOI contém caracteres inválidos",
+            "mensagem": "O sufixo do DOI contém caracteres inválidos. Permitidos: a-zA-Z0-9.-_;()/",
         }
 
     return {"valido": True, "mensagem": "DOI válido"}

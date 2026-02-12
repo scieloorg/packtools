@@ -65,10 +65,9 @@
                     </xsl:with-param>
                 </xsl:apply-templates>
             </xsl:variable>
-
-            <div class="articleSection" data-anchor="{$title}">
-                <h2 class="h5"><xsl:value-of select="$title"/></h2>
-            </div>
+            <xsl:call-template name="article-section-header">
+                <xsl:with-param name="title" select="$title"/>
+            </xsl:call-template>
         </xsl:if>
     </xsl:template>
 
@@ -81,19 +80,13 @@
         <xsl:if test="not($gs_abstract_lang)">
             <!-- âncora -->
             <!-- manter pareado class="articleSection" e data-anchor="nome da seção no menu esquerdo" -->
-            <xsl:variable name="title"><xsl:apply-templates select="." mode="title"/></xsl:variable>
-            <xsl:attribute name="class">articleSection articleSection--<xsl:value-of select="translate($title,'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/></xsl:attribute>
-            <xsl:attribute name="data-anchor"><xsl:apply-templates select="." mode="title"/></xsl:attribute>
+            <xsl:call-template name="article-section-header">
+                <xsl:with-param name="title"><xsl:apply-templates select="." mode="title"/></xsl:with-param>
+            </xsl:call-template>
             <xsl:if test="@xml:lang='ar'">
                 <xsl:attribute name="dir">rtl</xsl:attribute>
             </xsl:if>
         </xsl:if>
-
-        <!-- título -->
-        <h2>
-            <xsl:attribute name="class">h5</xsl:attribute>
-            <xsl:apply-templates select="." mode="title"></xsl:apply-templates>
-        </h2>
     </xsl:template>
 
     <xsl:template match="*[contains(name(),'abstract')]" mode="index">

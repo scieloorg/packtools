@@ -37,10 +37,20 @@
                 <img>
                     <xsl:attribute name="style">max-width:100%</xsl:attribute>
                     <xsl:attribute name="src"><xsl:value-of select="$location"/></xsl:attribute>
+                    <xsl:apply-templates select="." mode="long-desc-aria-describedby">
+                        <xsl:with-param name="id"><xsl:value-of select="$id"/></xsl:with-param>
+                    </xsl:apply-templates>
                     <xsl:apply-templates select="." mode="alt"/>
                 </img>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="*" mode="long-desc-aria-describedby">
+        <xsl:param name="id"/>
+        <xsl:if test=".//long-desc">
+            <xsl:attribute name="aria-describedby">desc<xsl:value-of select="$id"/></xsl:attribute>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="*" mode="alt">

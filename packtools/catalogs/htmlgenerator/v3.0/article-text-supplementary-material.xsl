@@ -100,6 +100,7 @@
     <xsl:template match="supplementary-material">
         <xsl:apply-templates select="." mode="supplementary-material-label-and-caption"/>
         <div class="row fig" id="{@id}">
+            <a name="{@id}"></a>
             <div class="col-md-12 col-sm-12">
                 <a target="_blank" download="1">
                     <xsl:apply-templates select="." mode="supplementary-material-link"/>
