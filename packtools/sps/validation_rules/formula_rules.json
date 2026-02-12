@@ -2,13 +2,20 @@
     "disp_formula_rules": {
         "absent_error_level": "WARNING",
         "id_error_level": "CRITICAL",
+        "id_prefix_error_level": "ERROR",
         "label_error_level": "WARNING",
         "codification_error_level": "CRITICAL",
+        "mml_math_id_error_level": "CRITICAL",
+        "mml_math_id_prefix_error_level": "ERROR",
         "alternatives_error_level": "CRITICAL"
     },
     "inline_formula_rules": {
         "absent_error_level": "WARNING",
+        "id_error_level": "CRITICAL",
+        "id_prefix_error_level": "ERROR",
         "codification_error_level": "CRITICAL",
+        "mml_math_id_error_level": "CRITICAL",
+        "mml_math_id_prefix_error_level": "ERROR",
         "alternatives_error_level": "CRITICAL"
     }
 }
