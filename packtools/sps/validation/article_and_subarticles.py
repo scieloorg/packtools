@@ -7,7 +7,7 @@ from packtools.sps.validation.exceptions import (
     ValidationArticleAndSubArticlesSubjectsException,
 )
 from packtools.sps.validation.similarity_utils import most_similar, similarity
-from packtools.sps.validation.utils import build_response, format_response
+from packtools.sps.validation.utils import build_response
 
 
 class ArticleLangValidation:
@@ -98,12 +98,14 @@ class ArticleLangValidation:
                 xml2 = f'<{parent}{parent_id} xml:lang="VALUE">'
 
                 advice = f'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}'
-            yield format_response(
+            yield build_response(
                     title=f"{name} language",
-                    parent=parent,
-                    parent_id=article_id,
-                    parent_article_type=article_type,
-                    parent_lang=article_lang,
+                    parent={
+                        "parent": parent,
+                        "parent_id": article_id,
+                        "parent_article_type": article_type,
+                        "parent_lang": article_lang,
+                    },
                     item=parent,
                     sub_item="@xml:lang",
                     validation_type="value in list",
@@ -113,6 +115,8 @@ class ArticleLangValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["language_error_level"],
+                    advice_text=advice,
+                    advice_params={},
             )
 
 
@@ -163,12 +167,14 @@ class ArticleTypeValidation:
             name = article_id or parent
             xml = f'<{parent} article-type=""/>'
             advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
-            yield format_response(
+            yield build_response(
                     title=f"{name} article-type",
-                    parent=parent,
-                    parent_id=article_id,
-                    parent_article_type=article_type,
-                    parent_lang=article_type,
+                    parent={
+                        "parent": parent,
+                        "parent_id": article_id,
+                        "parent_article_type": article_type,
+                        "parent_lang": article_type,
+                    },
                     item=parent,
                     sub_item="article-type",
                     validation_type="value in list",
@@ -178,6 +184,8 @@ class ArticleTypeValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["article_type_error_level"],
+                    advice_text=advice,
+                    advice_params={},
             )
 
     def validate_article_type_vs_subject_similarity(self):
@@ -234,12 +242,14 @@ class ArticleTypeValidation:
                 advice = (
                     f"Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
                 )
-            yield format_response(
+            yield build_response(
                 title=title,
-                parent="article",
-                parent_article_type=self.articles.main_article_type,
-                parent_lang=self.articles.main_lang,
-                parent_id=None,
+                parent={
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": self.articles.main_article_type,
+                    "parent_lang": self.articles.main_lang,
+                },
                 item="article",
                 sub_item="@article-type",
                 validation_type="similarity",
@@ -249,6 +259,8 @@ class ArticleTypeValidation:
                 advice=advice,
                 data=data,
                 error_level=self.params["article_type_and_subject_expected_similarity_error_level"],
+                advice_text=advice,
+                advice_params={},
             )
 
 
@@ -356,12 +368,14 @@ class JATSAndDTDVersionValidation:
             "dtd-version": jats_version,
             "expected values": expected,
         }
-        yield format_response(
+        yield build_response(
             title='SPS and JATS versions',
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_and_sub_articles.main_article_type,
-            parent_lang=self.article_and_sub_articles.main_lang,
+            parent={
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.article_and_sub_articles.main_article_type,
+                "parent_lang": self.article_and_sub_articles.main_lang,
+            },
             item="specific-use and dtd-version",
             sub_item=None,
             validation_type="match",
@@ -371,4 +385,6 @@ class JATSAndDTDVersionValidation:
             advice=advice,
             data=data,
             error_level=self.params["jats_and_dtd_version_error_level"],
+            advice_text=advice,
+            advice_params={},
         )
