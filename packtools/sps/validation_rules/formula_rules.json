@@ -7,6 +7,7 @@
         "codification_error_level": "CRITICAL",
         "mml_math_id_error_level": "CRITICAL",
         "mml_math_id_prefix_error_level": "ERROR",
+        "mathml_error_level": "WARNING",
         "alternatives_error_level": "CRITICAL"
     },
     "inline_formula_rules": {
@@ -16,6 +17,7 @@
         "codification_error_level": "CRITICAL",
         "mml_math_id_error_level": "CRITICAL",
         "mml_math_id_prefix_error_level": "ERROR",
+        "mathml_error_level": "WARNING",
         "alternatives_error_level": "CRITICAL"
     }
 }
