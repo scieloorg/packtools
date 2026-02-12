@@ -1,5 +1,5 @@
 from packtools.sps.models.v2.abstract import XMLAbstracts
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
 import gettext
 
 # Configuração de internacionalização
@@ -537,12 +537,14 @@ class StandardAbstractsValidation(AbstractsValidationBase):
                 f"Unable to identify if abstract is required or unexpected or neutral for article-type '{self.article_type}'"
             )
 
-        return format_response(
+        return build_response(
             title="abstract",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_type,
-            parent_lang=self.lang,
+            parent={
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.article_type,
+                "parent_lang": self.lang,
+            },
             item="abstract",
             sub_item=None,
             validation_type="exist",
@@ -552,6 +554,8 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             advice=advice,
             data=data,
             error_level=error_level,
+            advice_text=advice,
+            advice_params={},
         )
 
     def validate(self):
