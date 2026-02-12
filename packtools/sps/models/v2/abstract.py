@@ -160,6 +160,75 @@ class Abstract:
                     tags_to_convert_to_html=self.tags_to_convert_to_html,
                 )
                 yield text_node.item
+
+    @property
+    def fig_id(self):
+        """
+        Extracts figure ID from visual abstract.
+        Used for graphical abstracts with <fig> element.
+        """
+        fig_node = self.node.find(".//fig")
+        if fig_node is not None:
+            return fig_node.get("id")
+        return None
+
+    @property
+    def caption(self):
+        """
+        Extracts caption from visual abstract.
+        Returns the text content of <caption> element.
+        """
+        caption_node = self.node.find(".//caption")
+        if caption_node is not None:
+            caption_text = BaseTextNode(
+                caption_node, self.lang,
+                tags_to_keep=self.tags_to_keep,
+                tags_to_keep_with_content=self.tags_to_keep_with_content,
+                tags_to_remove_with_content=self.tags_to_remove_with_content,
+                tags_to_convert_to_html=self.tags_to_convert_to_html,
+            )
+            return caption_text.item
+        return None
+
+    @property
+    def graphic_href(self):
+        """
+        Extracts graphic element from visual abstract.
+        Returns the xlink:href attribute value of <graphic> element.
+
+        In JATS/SPS XML, <graphic> is a JATS element without namespace,
+        but the href attribute uses the xlink namespace.
+
+        Example XML:
+            <abstract abstract-type="graphical">
+                <p>
+                    <fig id="vs1">
+                        <graphic xlink:href="1234-5678-va-01.jpg"/>
+                    </fig>
+                </p>
+            </abstract>
+
+        Returns:
+            str: The xlink:href attribute value (e.g., "1234-5678-va-01.jpg")
+            None: If no <graphic> element is found
+
+        Note:
+            This implementation is consistent with JATS/SPS schema where:
+            - <graphic> element has no namespace (it's a JATS element)
+            - xlink:href attribute DOES have the xlink namespace
+
+            DO NOT use find() with namespaces parameter as it's not officially
+            supported by lxml and will be ignored silently.
+        """
+        # Find <graphic> element (no namespace needed for JATS elements)
+        graphic_node = self.node.find('.//graphic')
+
+        if graphic_node is not None:
+            # Extract xlink:href attribute (namespace IS needed for xlink attributes)
+            return graphic_node.get('{http://www.w3.org/1999/xlink}href')
+
+        return None
+
     @property
     def abstract_type(self):
         return self.node.get("abstract-type")
@@ -205,7 +274,9 @@ class Abstract:
             "sections": list(self.sections),
             "list_items": list(self.list_items),
             "kwds": list(self.kwds),
-            "text": self.text,
+            "graphic_href": self.graphic_href,  # For visual abstracts
+            "fig_id": self.fig_id,    # For visual abstracts
+            "caption": self.caption,  # For visual abstracts
         }
 
 
