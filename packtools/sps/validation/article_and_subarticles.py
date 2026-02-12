@@ -93,11 +93,15 @@ class ArticleLangValidation:
             if article_lang:
                 xml = f'<{parent}{parent_id} xml:lang="{article_lang}">'
                 advice = f'Replace {article_lang} in {xml} with one of {language_codes_list}'
+                advice_text = 'Replace {lang} in {xml} with one of {lang_list}'
+                advice_params = {"lang": article_lang, "xml": xml, "lang_list": str(language_codes_list)}
             else:
                 xml = f'<{parent}{parent_id}>'
                 xml2 = f'<{parent}{parent_id} xml:lang="VALUE">'
 
                 advice = f'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {language_codes_list}'
+                advice_text = 'Add xml:lang="VALUE" in {xml}: {xml2} and replace VALUE with one of {lang_list}'
+                advice_params = {"xml": xml, "xml2": xml2, "lang_list": str(language_codes_list)}
             yield build_response(
                     title=f"{name} language",
                     parent={
@@ -115,8 +119,8 @@ class ArticleLangValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["language_error_level"],
-                    advice_text=advice,
-                    advice_params={},
+                    advice_text=advice_text,
+                    advice_params=advice_params,
             )
 
 
@@ -167,6 +171,8 @@ class ArticleTypeValidation:
             name = article_id or parent
             xml = f'<{parent} article-type=""/>'
             advice = None if valid else f'Complete {name} article-type {xml} with valid value {article_type_list}'
+            advice_text = None if valid else 'Complete {name} article-type {xml} with valid value {type_list}'
+            advice_params = {} if valid else {"name": name, "xml": xml, "type_list": str(article_type_list)}
             yield build_response(
                     title=f"{name} article-type",
                     parent={
@@ -184,8 +190,8 @@ class ArticleTypeValidation:
                     advice=advice,
                     data=article,
                     error_level=self.params["article_type_error_level"],
-                    advice_text=advice,
-                    advice_params={},
+                    advice_text=advice_text,
+                    advice_params=advice_params,
             )
 
     def validate_article_type_vs_subject_similarity(self):
@@ -238,10 +244,20 @@ class ArticleTypeValidation:
             title = f"article type and table of contents section"
             choices = " | ".join(most_similar_article_type)
             advice = None
+            advice_text = None
+            advice_params = {}
             if not valid:
                 advice = (
                     f"Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
                 )
+                advice_text = (
+                    "Check {xml_article_type} and {xml_subject}. Other values for article-type seems to be more suitable: {choices}. "
+                )
+                advice_params = {
+                    "xml_article_type": xml_article_type,
+                    "xml_subject": xml_subject,
+                    "choices": choices
+                }
             yield build_response(
                 title=title,
                 parent={
@@ -259,8 +275,8 @@ class ArticleTypeValidation:
                 advice=advice,
                 data=data,
                 error_level=self.params["article_type_and_subject_expected_similarity_error_level"],
-                advice_text=advice,
-                advice_params={},
+                advice_text=advice_text,
+                advice_params=advice_params,
             )
 
 
@@ -351,12 +367,18 @@ class JATSAndDTDVersionValidation:
         expected_jats_versions = versions.get(sps_version) or []
 
         advice = None
+        advice_text = None
+        advice_params = {}
         if not versions:
             advice = f'Complete SPS version <article specific-use=""/> with valid value: {list(versions.keys())}',
+            advice_text = 'Complete SPS version <article specific-use=""/> with valid value: {versions}'
+            advice_params = {"versions": str(list(versions.keys()))}
 
         elif jats_version not in expected_jats_versions:
             xml = f'<article specific-use="" dtd-version=""/>'
             advice = f'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
+            advice_text = 'Complete SPS (specific-use="") and JATS (dtd-version="") versions in {xml} with compatible values: {versions}'
+            advice_params = {"xml": xml, "versions": str(versions)}
 
         expected = expected_jats_versions or versions
         got = {
@@ -385,6 +407,6 @@ class JATSAndDTDVersionValidation:
             advice=advice,
             data=data,
             error_level=self.params["jats_and_dtd_version_error_level"],
-            advice_text=advice,
-            advice_params={},
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
