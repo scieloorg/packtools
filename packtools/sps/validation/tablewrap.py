@@ -1,5 +1,5 @@
 from packtools.sps.models.tablewrap import ArticleTableWrappers
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 
 
 class ArticleTableWrapValidation:
@@ -30,14 +30,16 @@ class ArticleTableWrapValidation:
         Returns a generator with validation results.
         """
         if not self.elements:
-            yield format_response(
+            yield build_response(
                 title="table-wrap presence",
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.xml_tree.get("article-type"),
-                parent_lang=self.xml_tree.get(
-                    "{http://www.w3.org/XML/1998/namespace}lang"
-                ),
+                parent={
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": self.xml_tree.get("article-type"),
+                    "parent_lang": self.xml_tree.get(
+                        "{http://www.w3.org/XML/1998/namespace}lang"
+                    ),
+                },
                 item="table-wrap",
                 sub_item=None,
                 validation_type="exist",
@@ -47,6 +49,8 @@ class ArticleTableWrapValidation:
                 advice=f'({self.article_type}) No <table-wrap> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
+                advice_text='({article_type}) No <table-wrap> found in XML',
+                advice_params={"article_type": self.article_type},
             )
         else:
             for element in self.elements:
@@ -103,12 +107,14 @@ class TableWrapValidation:
             The validation result in the expected format.
         """
         is_valid = bool(self.table_id)
-        return format_response(
+        return build_response(
             title="id",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent={
+                "parent": self.data.get("parent"),
+                "parent_id": self.data.get("parent_id"),
+                "parent_article_type": self.data.get("parent_article_type"),
+                "parent_lang": self.data.get("parent_lang"),
+            },
             item="table-wrap",
             sub_item="id",
             validation_type="exist",
@@ -118,6 +124,8 @@ class TableWrapValidation:
             advice='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["id_error_level"],
+            advice_text='Add the table ID with id="" in <table-wrap>: <table-wrap id="">. Consult SPS documentation for more detail.',
+            advice_params={},
         )
 
     def validate_label(self):
@@ -132,12 +140,14 @@ class TableWrapValidation:
         table_id = self.data.get("table_wrap_id")
         advice = f'Wrap each label with <label> inside {self.xml}. Consult SPS documentation for more detail.'
 
-        return format_response(
+        return build_response(
             title="label",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent={
+                "parent": self.data.get("parent"),
+                "parent_id": self.data.get("parent_id"),
+                "parent_article_type": self.data.get("parent_article_type"),
+                "parent_lang": self.data.get("parent_lang"),
+            },
             item="table-wrap",
             sub_item="label",
             validation_type="exist",
@@ -147,6 +157,8 @@ class TableWrapValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["label_error_level"],
+            advice_text='Wrap each label with <label> inside {xml}. Consult SPS documentation for more detail.',
+            advice_params={"xml": self.xml},
         )
 
     def validate_caption(self):
@@ -159,12 +171,14 @@ class TableWrapValidation:
         caption = self.data.get("caption")
         is_valid = bool(caption)
         table_id = self.data.get("table_wrap_id")
-        return format_response(
+        return build_response(
             title="caption",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent={
+                "parent": self.data.get("parent"),
+                "parent_id": self.data.get("parent_id"),
+                "parent_article_type": self.data.get("parent_article_type"),
+                "parent_lang": self.data.get("parent_lang"),
+            },
             item="table-wrap",
             sub_item="caption",
             validation_type="exist",
@@ -174,6 +188,8 @@ class TableWrapValidation:
             advice=f'Wrap each caption with <caption> inside {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["caption_error_level"],
+            advice_text='Wrap each caption with <caption> inside {xml}. Consult SPS documentation for more detail.',
+            advice_params={"xml": self.xml},
         )
 
     def validate_table(self):
@@ -186,12 +202,14 @@ class TableWrapValidation:
         table = self.data.get("table")
         is_valid = bool(table)
         table_id = self.data.get("table_wrap_id")
-        return format_response(
+        return build_response(
             title="table",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent={
+                "parent": self.data.get("parent"),
+                "parent_id": self.data.get("parent_id"),
+                "parent_article_type": self.data.get("parent_article_type"),
+                "parent_lang": self.data.get("parent_lang"),
+            },
             item="table-wrap",
             sub_item="table",
             validation_type="exist",
@@ -201,6 +219,8 @@ class TableWrapValidation:
             advice=f'Wrap each table with <table> inside {self.xml}. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["table_error_level"],
+            advice_text='Wrap each table with <table> inside {xml}. Consult SPS documentation for more detail.',
+            advice_params={"xml": self.xml},
         )
 
     def validate_alternatives(self):
@@ -220,24 +240,32 @@ class TableWrapValidation:
             expected = "alternatives"
             obtained = None
             advice = f'Wrap <table> and <graphic> with <alternatives> inside {self.xml} '
+            advice_text = 'Wrap <table> and <graphic> with <alternatives> inside {xml} '
+            advice_params = {"xml": self.xml}
             valid = False
         elif graphic + table == 1 and len(alternatives) > 0:
             expected = None
             obtained = "alternatives"
             advice = f'Remove the <alternatives> from {self.xml}.'
+            advice_text = 'Remove the <alternatives> from {xml}.'
+            advice_params = {"xml": self.xml}
             valid = False
         else:
             expected = "alternatives"
             obtained = "alternatives"
             advice = None
+            advice_text = None
+            advice_params = {}
             valid = True
 
-        return format_response(
+        return build_response(
             title="alternatives",
-            parent=self.data.get("parent"),
-            parent_id=self.data.get("parent_id"),
-            parent_article_type=self.data.get("parent_article_type"),
-            parent_lang=self.data.get("parent_lang"),
+            parent={
+                "parent": self.data.get("parent"),
+                "parent_id": self.data.get("parent_id"),
+                "parent_article_type": self.data.get("parent_article_type"),
+                "parent_lang": self.data.get("parent_lang"),
+            },
             item="table-wrap",
             sub_item="alternatives",
             validation_type="exist",
@@ -247,4 +275,6 @@ class TableWrapValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["alternatives_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
