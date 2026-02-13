@@ -47,7 +47,7 @@ class TestGraphicValidation(unittest.TestCase):
 
     # ========== Tests for @id validation (Rules 1 & 3) ==========
     
-    def test_graphic_with_id_is_valid(self):
+    def test_graphic_with_id_passes(self):
         """Test that <graphic> with @id attribute passes validation."""
         xml_content = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -90,7 +90,7 @@ class TestGraphicValidation(unittest.TestCase):
         self.assertIsNone(result["got_value"])
         self.assertIn("Add id=", result["advice"])
 
-    def test_inline_graphic_with_id_is_valid(self):
+    def test_inline_graphic_with_id_passes(self):
         """Test that <inline-graphic> with @id attribute passes validation."""
         xml_content = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -281,7 +281,7 @@ class TestGraphicValidation(unittest.TestCase):
 
     # ========== Tests for SVG in alternatives validation (Rule 7) ==========
 
-    def test_svg_in_alternatives_is_valid(self):
+    def test_svg_in_alternatives_passes(self):
         """Test that .svg file inside <alternatives> passes validation."""
         xml_content = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -332,7 +332,7 @@ class TestGraphicValidation(unittest.TestCase):
         self.assertEqual(results[0]["response"], "ERROR")
         self.assertIn("alternatives", results[0]["advice"].lower())
 
-    def test_non_svg_not_in_alternatives_is_valid(self):
+    def test_non_svg_not_in_alternatives_passes(self):
         """Test that non-.svg file NOT in <alternatives> passes validation."""
         xml_content = """
         <article xmlns:xlink="http://www.w3.org/1999/xlink">
