@@ -17,7 +17,7 @@ def filter_results(results):
 
 class TestExtLinkValidation(unittest.TestCase):
     """Tests for ext-link element validations."""
-    
+
     # ========== TESTS: @ext-link-type PRESENCE (CRITICAL) ==========
     
     def test_validate_ext_link_type_presence_valid(self):
