@@ -1,14 +1,17 @@
 {
     "fig_rules": {
-        "alternatives_error_level": "CRITICAL",
-        "error_level": "WARNING",
-        "required_error_level": "CRITICAL",
         "absent_error_level": "WARNING",
         "id_error_level": "CRITICAL",
-        "label_error_level": "CRITICAL",
-        "caption_error_level": "CRITICAL",
-        "content_error_level": "CRITICAL",
-        "file_extension_error_level": "CRITICAL",
-        "allowed file extensions": ["tif", "jpg", "png", "svg"]
+        "graphic_error_level": "CRITICAL",
+        "xlink_href_error_level": "CRITICAL",
+        "file_extension_error_level": "ERROR",
+        "fig_type_error_level": "ERROR",
+        "xml_lang_in_fig_group_error_level": "ERROR",
+        "accessibility_error_level": "WARNING",
+        "alt_text_length_error_level": "WARNING",
+        "allowed_file_extensions": ["jpg", "jpeg", "png", "tif", "tiff"],
+        "allowed_fig_types": ["graphic", "chart", "diagram", "drawing", "illustration", "map"],
+        "alt_text_max_length": 120,
+        "article_types_requires": ["research-article"]
     }
 }
