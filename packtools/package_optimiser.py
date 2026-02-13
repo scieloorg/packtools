@@ -1,12 +1,10 @@
 # coding: utf-8
 import os
-import pkg_resources
 import argparse
 import logging
 import sys
 
 import packtools
-
 
 LOGGER = logging.getLogger(__name__)
 
@@ -14,7 +12,7 @@ LOGGER = logging.getLogger(__name__)
 @packtools.utils.config_xml_catalog
 def main():
 
-    packtools_version = pkg_resources.get_distribution("packtools").version
+    packtools_version = packtools.pkg_resources_fixer.get_version("packtools")
 
     parser = argparse.ArgumentParser(description="WEB Images generator CLI utility")
     parser.add_argument("SPPackage", help="SP Package Zip file path.")
