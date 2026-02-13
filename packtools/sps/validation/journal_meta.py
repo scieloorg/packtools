@@ -483,7 +483,7 @@ class JournalMetaPresenceValidation:
             expected='<journal-id journal-id-type="publisher-id"> with non-empty value',
             obtained=publisher_id if is_valid else None,
             advice='Add <journal-id journal-id-type="publisher-id">ACRONYM</journal-id> inside <journal-meta>',
-            data={'publisher_id': publisher_id},
+            data={'publisher_id': publisher_id} if is_valid else None,
             error_level=error_level,
         )
 
@@ -512,7 +512,7 @@ class JournalMetaPresenceValidation:
             expected='<journal-title> with non-empty value',
             obtained=journal_title if is_valid else None,
             advice='Add <journal-title>Title</journal-title> inside <journal-title-group>',
-            data={'journal_title': journal_title},
+            data={'journal_title': journal_title} if is_valid else None,
             error_level=error_level,
         )
 
@@ -541,7 +541,7 @@ class JournalMetaPresenceValidation:
             expected='<abbrev-journal-title abbrev-type="publisher"> with non-empty value',
             obtained=abbrev_title if is_valid else None,
             advice='Add <abbrev-journal-title abbrev-type="publisher">Abbrev. Title</abbrev-journal-title> inside <journal-title-group>',
-            data={'abbrev_title': abbrev_title},
+            data={'abbrev_title': abbrev_title} if is_valid else None,
             error_level=error_level,
         )
 
@@ -601,7 +601,7 @@ class JournalMetaPresenceValidation:
             expected='<publisher-name> with non-empty value',
             obtained=publisher_name if is_valid else None,
             advice='Add <publisher><publisher-name>Publisher Name</publisher-name></publisher> inside <journal-meta>',
-            data={'publisher_name': publisher_name},
+            data={'publisher_name': publisher_name} if is_valid else None,
             error_level=error_level,
         )
 
@@ -619,14 +619,15 @@ class ISSNFormatValidation:
         """
         Rule 8: Validates ISSN format (XXXX-XXXX pattern).
         ISSN must be 4 digits, hyphen, 4 digits (last digit can be X).
+        According to ISO 3297, the check digit X must be uppercase.
         
         Returns
         -------
         generator of dict
             Validation results for each ISSN format.
         """
-        # Regex pattern for ISSN: 4 digits, hyphen, 3 digits + (digit or X)
-        issn_pattern = re.compile(r'^\d{4}-\d{3}[\dXx]$')
+        # Regex pattern for ISSN: 4 digits, hyphen, 3 digits + (digit or uppercase X)
+        issn_pattern = re.compile(r'^\d{4}-\d{3}[\dX]$')
         
         for issn_data in self.journal_issns.data:
             issn_value = issn_data.get('value', '')

@@ -1041,6 +1041,28 @@ class ISSNFormatTest(TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['response'], 'ERROR')
 
+    def test_validate_issn_format_invalid_lowercase_x(self):
+        """Test ISSN format validation rejects lowercase x (must be uppercase X)"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-567x</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+
+
 
 class JournalMetaAttributeTest(TestCase):
     """Tests for JournalMetaAttributeValidation class"""
@@ -1171,3 +1193,6 @@ class JournalMetaAttributeTest(TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['response'], 'WARNING')
         self.assertIn('epub', results[0]['data']['duplicates'])
+
+    def test_validate_issn_format_invalid_lowercase_x(self):
+        """Test ISSN format validation rejects lowercase x (must be uppercase X)"""
