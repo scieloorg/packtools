@@ -154,3 +154,295 @@ class FundingGroupValidation:
                     data=statements,
                     error_level=self.params["funding_statement_error_level"],
                 )
+
+    def validate_funding_group_uniqueness(self, error_level="ERROR"):
+        """
+        Rule 1: Validates that <funding-group> appears at most once in <article-meta>.
+        
+        According to SPS 1.10, only one <funding-group> is allowed per <article-meta>.
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "ERROR".
+        
+        Yields
+        ------
+        dict
+            Validation result for funding-group uniqueness.
+        """
+        funding_groups = self.xml_tree.xpath(".//article-meta/funding-group")
+        count = len(funding_groups)
+        
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        is_valid = count <= 1
+        advice = None
+        if not is_valid:
+            advice = f"Found {count} <funding-group> elements in <article-meta>. Only one is allowed. Merge them into a single <funding-group>."
+        
+        yield build_response(
+            title="funding-group uniqueness",
+            parent=parent,
+            item="funding-group",
+            sub_item=None,
+            validation_type="unique",
+            is_valid=is_valid,
+            expected="At most one <funding-group> in <article-meta>",
+            obtained=f"{count} <funding-group> element(s) found",
+            advice=advice,
+            data={"count": count},
+            error_level=error_level,
+        )
+
+    def validate_funding_statement_presence(self, error_level="CRITICAL"):
+        """
+        Rule 2: Validates that <funding-statement> is present in <funding-group>.
+        
+        According to SPS 1.10, <funding-statement> is mandatory in all cases.
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "CRITICAL".
+        
+        Yields
+        ------
+        dict
+            Validation result for funding-statement presence.
+        """
+        funding_groups = self.xml_tree.xpath(".//article-meta/funding-group")
+        
+        if not funding_groups:
+            # No funding-group means no validation needed
+            return
+        
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        funding_statement = self.funding.funding_statement
+        is_valid = funding_statement is not None
+        
+        advice = None
+        if not is_valid:
+            advice = "Add <funding-statement> element inside <funding-group>. It is mandatory according to SPS 1.10."
+        
+        yield build_response(
+            title="funding-statement presence",
+            parent=parent,
+            item="funding-statement",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=is_valid,
+            expected="<funding-statement> present in <funding-group>",
+            obtained=funding_statement if funding_statement else "None",
+            advice=advice,
+            data={"funding_statement": funding_statement},
+            error_level=error_level,
+        )
+
+    def validate_funding_source_in_award_group(self, error_level="CRITICAL"):
+        """
+        Rule 3: Validates that <funding-source> is present when <award-group> exists.
+        
+        According to SPS 1.10, when there are institutions declared via <award-group>,
+        <funding-source> is mandatory.
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "CRITICAL".
+        
+        Yields
+        ------
+        dict
+            Validation results for each award-group.
+        """
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        for item in self.funding.award_groups:
+            funding_sources = item["funding-source"]
+            
+            is_valid = len(funding_sources) > 0
+            advice = None
+            if not is_valid:
+                advice = "Add at least one <funding-source> element inside this <award-group>. It is mandatory when <award-group> exists."
+            
+            yield build_response(
+                title="funding-source in award-group",
+                parent=parent,
+                item="award-group",
+                sub_item="funding-source",
+                validation_type="exist",
+                is_valid=is_valid,
+                expected="At least one <funding-source> in <award-group>",
+                obtained=f"{len(funding_sources)} <funding-source> element(s) found",
+                advice=advice,
+                data=item,
+                error_level=error_level,
+            )
+
+    def validate_label_absence(self, error_level="ERROR"):
+        """
+        Rule 5: Validates that <label> is not present in <funding-group> or its children.
+        
+        According to SPS 1.10, <label> is not allowed inside <funding-group>.
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "ERROR".
+        
+        Yields
+        ------
+        dict
+            Validation result for label absence.
+        """
+        labels = self.xml_tree.xpath(".//funding-group//label")
+        count = len(labels)
+        
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        is_valid = count == 0
+        advice = None
+        if not is_valid:
+            advice = f"Remove {count} <label> element(s) from <funding-group>. <label> is not allowed according to SPS 1.10."
+        
+        yield build_response(
+            title="label absence in funding-group",
+            parent=parent,
+            item="funding-group",
+            sub_item="label",
+            validation_type="forbidden",
+            is_valid=is_valid,
+            expected="No <label> elements in <funding-group>",
+            obtained=f"{count} <label> element(s) found",
+            advice=advice,
+            data={"count": count, "labels": [label.text for label in labels]},
+            error_level=error_level,
+        )
+
+    def validate_title_absence(self, error_level="ERROR"):
+        """
+        Rule 6: Validates that <title> is not present in <funding-group> or its children.
+        
+        According to SPS 1.10, <title> is not allowed inside <funding-group>.
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "ERROR".
+        
+        Yields
+        ------
+        dict
+            Validation result for title absence.
+        """
+        titles = self.xml_tree.xpath(".//funding-group//title")
+        count = len(titles)
+        
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        is_valid = count == 0
+        advice = None
+        if not is_valid:
+            advice = f"Remove {count} <title> element(s) from <funding-group>. <title> is not allowed according to SPS 1.10."
+        
+        yield build_response(
+            title="title absence in funding-group",
+            parent=parent,
+            item="funding-group",
+            sub_item="title",
+            validation_type="forbidden",
+            is_valid=is_valid,
+            expected="No <title> elements in <funding-group>",
+            obtained=f"{count} <title> element(s) found",
+            advice=advice,
+            data={"count": count, "titles": [title.text for title in titles]},
+            error_level=error_level,
+        )
+
+    def validate_award_id_funding_source_consistency(self, error_level="WARNING"):
+        """
+        Rule 7: Validates consistency of <funding-source> and <award-id> quantities.
+        
+        According to SPS 1.10, in each <award-group>, the quantity of <award-id> should be:
+        - 0: Support without contract
+        - 1: One contract for one or more funding sources
+        - N: Multiple contracts (should match number of funding sources in most cases)
+        
+        Params
+        ------
+        error_level : str, optional
+            The severity level of the validation error, by default "WARNING".
+        
+        Yields
+        ------
+        dict
+            Validation results for each award-group.
+        """
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
+        
+        for item in self.funding.award_groups:
+            funding_sources = item["funding-source"]
+            award_ids = item["award-id"]
+            
+            num_sources = len(funding_sources)
+            num_awards = len(award_ids)
+            
+            # Valid cases: 0 awards (support), 1 award (single contract), or N awards matching N sources
+            is_valid = num_awards == 0 or num_awards == 1 or num_awards == num_sources
+            
+            advice = None
+            if not is_valid:
+                if num_awards > 1 and num_awards != num_sources:
+                    advice = f"Inconsistent quantities: {num_sources} <funding-source>(s) but {num_awards} <award-id>(s). When multiple <award-id> elements exist, they should typically match the number of <funding-source> elements, or use separate <award-group> elements."
+            
+            yield build_response(
+                title="award-id and funding-source consistency",
+                parent=parent,
+                item="award-group",
+                sub_item="award-id",
+                validation_type="consistency",
+                is_valid=is_valid,
+                expected="Consistent quantities: 0 awards (support), 1 award (contract), or N awards matching N sources",
+                obtained=f"{num_sources} funding-source(s), {num_awards} award-id(s)",
+                advice=advice,
+                data=item,
+                error_level=error_level,
+            )
