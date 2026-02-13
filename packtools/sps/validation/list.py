@@ -87,7 +87,7 @@ class ListValidation:
         allowed_list_types = self.rules["allowed_list_types"]
         
         # Only validate value if list_type is present and not empty
-        if list_type and list_type != "":
+        if list_type:
             is_valid = list_type in allowed_list_types
             
             if not is_valid:
