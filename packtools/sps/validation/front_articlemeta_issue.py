@@ -242,6 +242,245 @@ class IssueValidation:
             error_level=self.params["expected_issues_error_level"],
         )
 
+    def validate_issue_element_uniqueness(self):
+        """
+        Validates that <issue> element appears at most once in <article-meta>.
+        According to SPS 1.10, only one <issue> element is allowed.
+
+        Returns:
+            dict: Validation response with results
+        """
+        issue_elements = self.xml_tree.findall(".//front/article-meta/issue")
+        count = len(issue_elements)
+        is_valid = count <= 1
+        
+        return build_response(
+            title="issue element uniqueness",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item=None,
+            validation_type="unique",
+            is_valid=is_valid,
+            expected="at most one <issue> element in <article-meta>",
+            obtained=f"{count} <issue> element(s) found",
+            advice=f"Remove duplicate <issue> elements from <article-meta>. Found {count} elements, expected at most 1.",
+            data={"issue_count": count, "issue_values": [elem.text for elem in issue_elements]},
+            error_level=self.params.get("issue_element_uniqueness_error_level", "ERROR"),
+        )
+
+    def validate_issue_no_punctuation(self):
+        """
+        Validates that <issue> value does not contain punctuation marks.
+        According to SPS 1.10, punctuation like . , - / : ; are not allowed.
+
+        Returns:
+            dict: Validation response with results
+        """
+        if not self.article_issue.issue:
+            return None
+            
+        issue_value = self.article_issue.issue
+        # Check for common punctuation marks
+        punctuation_marks = ['.', ',', '-', '/', ':', ';', '!', '?', '(', ')', '[', ']', '{', '}', '"', "'"]
+        found_punctuation = [p for p in punctuation_marks if p in issue_value]
+        is_valid = len(found_punctuation) == 0
+        
+        return build_response(
+            title="issue value without punctuation",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item=None,
+            validation_type="format",
+            is_valid=is_valid,
+            expected="issue value without punctuation marks",
+            obtained=issue_value,
+            advice=f"Remove punctuation marks {found_punctuation} from <issue> value '{issue_value}'",
+            data={"issue": issue_value, "punctuation_found": found_punctuation},
+            error_level=self.params.get("issue_no_punctuation_error_level", "ERROR"),
+        )
+
+    def validate_issue_no_uppercase(self):
+        """
+        Validates that <issue> value does not contain uppercase letters.
+        According to SPS 1.10, all letters must be lowercase.
+
+        Returns:
+            dict: Validation response with results
+        """
+        if not self.article_issue.issue:
+            return None
+            
+        issue_value = self.article_issue.issue
+        has_uppercase = any(c.isupper() for c in issue_value)
+        is_valid = not has_uppercase
+        
+        return build_response(
+            title="issue value without uppercase",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item=None,
+            validation_type="format",
+            is_valid=is_valid,
+            expected="issue value in lowercase only",
+            obtained=issue_value,
+            advice=f"Convert uppercase letters to lowercase in <issue> value '{issue_value}'. Expected: '{issue_value.lower()}'",
+            data={"issue": issue_value, "expected": issue_value.lower()},
+            error_level=self.params.get("issue_no_uppercase_error_level", "ERROR"),
+        )
+
+    def validate_issue_supplement_nomenclature(self):
+        """
+        Validates that supplement uses correct nomenclature 'suppl'.
+        According to SPS 1.10, must use 'suppl' not 'supl', 's', 'supplement', 'sup'.
+
+        Returns:
+            dict: Validation response with results
+        """
+        if not self.article_issue.issue:
+            return None
+            
+        issue_value = self.article_issue.issue
+        # Check if issue contains supplement-related terms
+        if "sup" not in issue_value.lower():
+            return None
+            
+        # Check for invalid supplement nomenclatures
+        invalid_terms = ['supl', 'supplement', ' sup ', ' s ']
+        # Also check for 'sup' at the end or beginning (but not 'suppl')
+        invalid_patterns = []
+        
+        for term in invalid_terms:
+            if term in issue_value.lower():
+                invalid_patterns.append(term.strip())
+        
+        # Check for 'sup' not followed by 'pl'
+        import re
+        if re.search(r'\bsup\b', issue_value.lower()) and 'suppl' not in issue_value.lower():
+            invalid_patterns.append('sup')
+            
+        is_valid = len(invalid_patterns) == 0 and 'suppl' in issue_value.lower()
+        
+        return build_response(
+            title="issue supplement nomenclature",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item="supplement nomenclature",
+            validation_type="format",
+            is_valid=is_valid,
+            expected="supplement nomenclature as 'suppl'",
+            obtained=issue_value,
+            advice=f"Use 'suppl' for supplement nomenclature in <issue> value '{issue_value}'. Invalid terms found: {invalid_patterns}",
+            data={"issue": issue_value, "invalid_terms": invalid_patterns},
+            error_level=self.params.get("issue_supplement_nomenclature_error_level", "ERROR"),
+        )
+
+    def validate_issue_special_nomenclature(self):
+        """
+        Validates that special issues use correct nomenclature 'spe'.
+        According to SPS 1.10, must use 'spe' not 'esp', 'nesp', 'nspe', 'especial', 'noesp'.
+
+        Returns:
+            dict: Validation response with results
+        """
+        if not self.article_issue.issue:
+            return None
+            
+        issue_value = self.article_issue.issue
+        issue_lower = issue_value.lower()
+        
+        # Check if issue contains special issue indicators
+        special_indicators = ['esp', 'especial', 'nesp', 'nspe', 'noesp']
+        found_invalid = []
+        
+        for indicator in special_indicators:
+            if indicator in issue_lower:
+                found_invalid.append(indicator)
+        
+        # If no special issue indicators found, check if 'spe' is present
+        if not found_invalid and 'spe' not in issue_lower:
+            return None
+            
+        is_valid = len(found_invalid) == 0 and 'spe' in issue_lower
+        
+        return build_response(
+            title="issue special nomenclature",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item="special issue nomenclature",
+            validation_type="format",
+            is_valid=is_valid,
+            expected="special issue nomenclature as 'spe'",
+            obtained=issue_value,
+            advice=f"Use 'spe' for special issue nomenclature in <issue> value '{issue_value}'. Invalid terms found: {found_invalid}",
+            data={"issue": issue_value, "invalid_terms": found_invalid},
+            error_level=self.params.get("issue_special_nomenclature_error_level", "ERROR"),
+        )
+
+    def validate_no_supplement_element(self):
+        """
+        Validates that <supplement> element does not exist in <article-meta>.
+        According to SPS 1.10, <supplement> is not allowed in <article-meta>.
+        Supplements should be identified in <issue> element instead.
+
+        Returns:
+            dict: Validation response with results
+        """
+        supplement_elements = self.xml_tree.findall(".//front/article-meta/supplement")
+        count = len(supplement_elements)
+        is_valid = count == 0
+        
+        return build_response(
+            title="supplement element not allowed",
+            parent={"parent": "article"},
+            item="supplement",
+            sub_item=None,
+            validation_type="unexpected",
+            is_valid=is_valid,
+            expected="no <supplement> element in <article-meta>",
+            obtained=f"{count} <supplement> element(s) found",
+            advice="Remove <supplement> element(s) from <article-meta>. Use <issue> element to indicate supplements (e.g., '4 suppl 1').",
+            data={"supplement_count": count, "supplement_values": [elem.text for elem in supplement_elements]},
+            error_level=self.params.get("no_supplement_element_error_level", "CRITICAL"),
+        )
+
+    def validate_issue_no_leading_zeros(self):
+        """
+        Validates that numeric parts of <issue> do not have leading zeros.
+        According to SPS 1.10, should use '4' not '04'.
+
+        Returns:
+            dict: Validation response with results
+        """
+        if not self.article_issue.issue:
+            return None
+            
+        issue_value = self.article_issue.issue
+        parts = issue_value.split()
+        
+        # Check each numeric part for leading zeros
+        issues_found = []
+        for part in parts:
+            # Check if part is numeric and has leading zero
+            if part.isdigit() and len(part) > 1 and part[0] == '0':
+                issues_found.append(part)
+        
+        is_valid = len(issues_found) == 0
+        expected_value = ' '.join([part.lstrip('0') if part.isdigit() else part for part in parts])
+        
+        return build_response(
+            title="issue value without leading zeros",
+            parent={"parent": "article"},
+            item="issue",
+            sub_item=None,
+            validation_type="format",
+            is_valid=is_valid,
+            expected="numeric values without leading zeros",
+            obtained=issue_value,
+            advice=f"Remove leading zeros from numeric parts in <issue> value '{issue_value}'. Expected: '{expected_value}'",
+            data={"issue": issue_value, "parts_with_leading_zeros": issues_found, "expected": expected_value},
+            error_level=self.params.get("issue_no_leading_zeros_error_level", "WARNING"),
+        )
+
     def validate(self):
         """
         Performs all validation checks for the issue.
@@ -255,7 +494,15 @@ class IssueValidation:
         yield self.validate_number_format()
         yield self.validate_supplement_format()
         yield self.validate_issue_format()
-        yield self.validate_expected_issues()        
+        yield self.validate_expected_issues()
+        # New SPS 1.10 validations for <issue> element
+        yield self.validate_issue_element_uniqueness()
+        yield self.validate_issue_no_punctuation()
+        yield self.validate_issue_no_uppercase()
+        yield self.validate_issue_supplement_nomenclature()
+        yield self.validate_issue_special_nomenclature()
+        yield self.validate_no_supplement_element()
+        yield self.validate_issue_no_leading_zeros()
 
 
 class PaginationValidation:
