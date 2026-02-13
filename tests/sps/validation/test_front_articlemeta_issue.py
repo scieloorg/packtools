@@ -949,8 +949,6 @@ class IssueElementUniquenessTest(TestCase):
     """Tests for Rule 1: Validate uniqueness of <issue> element"""
     
     def setUp(self):
-        self.expected_keys = ["title", "parent", "parent_article_type", "parent_id", "parent_lang", "response", "item", "sub_item",
-                "validation_type", "expected_value", "got_value", "advice", "message", "data"]
         self.params = {
             "issue_element_uniqueness_error_level": "ERROR",
         }
@@ -1019,8 +1017,6 @@ class IssueNoPunctuationTest(TestCase):
     """Tests for Rule 2: Validate no punctuation in <issue> value"""
     
     def setUp(self):
-        self.expected_keys = ["title", "parent", "parent_article_type", "parent_id", "parent_lang", "response", "item", "sub_item",
-                "validation_type", "expected_value", "got_value", "advice", "message", "data"]
         self.params = {
             "issue_no_punctuation_error_level": "ERROR",
         }

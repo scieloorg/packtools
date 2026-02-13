@@ -341,22 +341,24 @@ class IssueValidation:
             return None
             
         issue_value = self.article_issue.issue
+        issue_lower = issue_value.lower()
+        
         # Check if issue contains supplement-related terms
-        if "sup" not in issue_value.lower():
+        if "sup" not in issue_lower:
             return None
             
-        # Check for invalid supplement nomenclatures
-        invalid_terms = ['supl', 'supplement', ' sup ', ' s ']
-        # Also check for 'sup' at the end or beginning (but not 'suppl')
+        # Check for invalid supplement nomenclatures using regex
         invalid_patterns = []
         
-        for term in invalid_terms:
-            if term in issue_value.lower():
-                invalid_patterns.append(term.strip())
-        
-        # Check for 'sup' not followed by 'pl'
-        if re.search(r'\bsup\b', issue_value.lower()) and 'suppl' not in issue_value.lower():
+        # Check for specific invalid patterns
+        if re.search(r'\bsupl\b', issue_lower):
+            invalid_patterns.append('supl')
+        if re.search(r'\bsupplement\b', issue_lower):
+            invalid_patterns.append('supplement')
+        if re.search(r'\bsup\b', issue_lower):
             invalid_patterns.append('sup')
+        if re.search(r'\bs\b', issue_lower):
+            invalid_patterns.append('s')
             
         is_valid = len(invalid_patterns) == 0
         
