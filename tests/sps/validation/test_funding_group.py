@@ -674,7 +674,7 @@ class TestCompleteValidExamples(TestFundingValidationBase):
     """Test complete valid XML examples from the issue"""
 
     def test_example_1_funding_with_contract(self):
-        """Example 1: Financing with contract number"""
+        """Example 1: Funding with contract number"""
         xml = """
             <article article-type="research-article" xml:lang="en">
                 <front>
