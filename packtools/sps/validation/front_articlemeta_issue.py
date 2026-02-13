@@ -1,5 +1,6 @@
 from packtools.sps.models.front_articlemeta_issue import ArticleMetaIssue
 from packtools.sps.validation.utils import build_response
+import re
 
 
 def is_valid_value(value, zero_is_allowed):
@@ -354,11 +355,10 @@ class IssueValidation:
                 invalid_patterns.append(term.strip())
         
         # Check for 'sup' not followed by 'pl'
-        import re
         if re.search(r'\bsup\b', issue_value.lower()) and 'suppl' not in issue_value.lower():
             invalid_patterns.append('sup')
             
-        is_valid = len(invalid_patterns) == 0 and 'suppl' in issue_value.lower()
+        is_valid = len(invalid_patterns) == 0
         
         return build_response(
             title="issue supplement nomenclature",
@@ -400,7 +400,7 @@ class IssueValidation:
         if not found_invalid and 'spe' not in issue_lower:
             return None
             
-        is_valid = len(found_invalid) == 0 and 'spe' in issue_lower
+        is_valid = len(found_invalid) == 0
         
         return build_response(
             title="issue special nomenclature",
@@ -465,7 +465,7 @@ class IssueValidation:
                 issues_found.append(part)
         
         is_valid = len(issues_found) == 0
-        expected_value = ' '.join([part.lstrip('0') if part.isdigit() else part for part in parts])
+        expected_value = ' '.join([(part.lstrip('0') or '0') if part.isdigit() else part for part in parts])
         
         return build_response(
             title="issue value without leading zeros",
