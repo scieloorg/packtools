@@ -72,18 +72,18 @@ class FigValidation:
         # P0 - ERROR: Rule 4 - Validate file extension
         yield self.validate_file_extension()
         
-        # P0 - ERROR: Rule 5 - Validate @fig-type values
-        if self.data.get("type"):  # Only validate if fig-type is present
+        # P0 - ERROR: Rule 5 - Validate @fig-type values (only if present)
+        if self.data.get("type"):
             yield self.validate_fig_type()
         
-        # P1 - ERROR: Rule 6 - Validate @xml:lang in fig-group
+        # P1 - ERROR: Rule 6 - Validate @xml:lang in fig-group (only if in fig-group)
         if self.data.get("parent_name") == "fig-group":
             yield self.validate_xml_lang_in_fig_group()
         
         # P1 - WARNING: Rule 7 - Validate accessibility (alt-text or long-desc)
         yield self.validate_accessibility()
         
-        # P1 - WARNING: Rule 8 - Validate alt-text length
+        # P1 - WARNING: Rule 8 - Validate alt-text length (only if alt-text present)
         if self.data.get("graphic_alt_text"):
             yield self.validate_alt_text_length()
 
@@ -186,7 +186,7 @@ class FigValidation:
         """Rule 5: Validate @fig-type values (ERROR)"""
         fig_type = self.data.get("type")
         allowed_types = self.rules["allowed_fig_types"]
-        is_valid = fig_type in allowed_types if fig_type else True  # If not present, it's valid
+        is_valid = fig_type in allowed_types
         
         return build_response(
             title="@fig-type",
@@ -245,22 +245,6 @@ class FigValidation:
         """Rule 8: Validate alt-text character limit (WARNING)"""
         alt_text = self.data.get("graphic_alt_text")
         max_length = self.rules["alt_text_max_length"]
-        
-        if not alt_text:
-            return build_response(
-                title="alt-text length",
-                parent=self.data,
-                item="fig",
-                sub_item="alt-text length",
-                validation_type="format",
-                is_valid=True,
-                expected=f"≤ {max_length} characters",
-                obtained=None,
-                advice=None,
-                data=self.data,
-                error_level=self.rules["alt_text_length_error_level"],
-            )
-        
         current_length = len(alt_text)
         is_valid = current_length <= max_length
         

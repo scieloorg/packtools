@@ -360,8 +360,10 @@ class FigValidationTest(unittest.TestCase):
 
     def test_fig_validation_alt_text_exceeds_length(self):
         """Test Rule 8: Validate alt-text character limit (WARNING)"""
-        long_alt_text = "This is a very long alt text that exceeds the 120 character limit. " \
-                       "It should trigger a warning because it's too long for accessibility purposes."
+        long_alt_text = (
+            "This is a very long alt text that exceeds the 120 character limit. "
+            "It should trigger a warning because it's too long for accessibility purposes."
+        )
         
         xml_tree = etree.fromstring(
             f'<article xmlns:xlink="http://www.w3.org/1999/xlink" '
