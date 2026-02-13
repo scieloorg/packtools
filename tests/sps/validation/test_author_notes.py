@@ -177,6 +177,10 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         fn_type_errors = [item for item in obtained if item["title"] == "@fn-type value in author-notes"]
         self.assertEqual(len(fn_type_errors), 1)
         self.assertEqual(fn_type_errors[0]["response"], "ERROR")
+        # Verify that the error message mentions the allowed values
+        self.assertIn("abbr", fn_type_errors[0]["advice"])
+        self.assertIn("coi-statement", fn_type_errors[0]["advice"])
+        self.assertIn("corresp", fn_type_errors[0]["advice"])
 
     def test_validate_fn_type_missing_in_author_notes(self):
         """Test Rule 1: @fn-type is mandatory for <fn> in <author-notes>"""

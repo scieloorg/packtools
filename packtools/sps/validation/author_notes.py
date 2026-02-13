@@ -150,7 +150,7 @@ class AuthorNotesFnValidation(BaseFnValidation):
         """
         validations = [
             self.validate_fn_type_presence,
-            self.validate_fn_type_author_notes_values,
+            self.validate_fn_type_author_notes_values,  # Replaces validate_type from BaseFnValidation with author-notes-specific values
             self.validate_corresp_type_recommendation,
             self.validate_label,
             self.validate_title,
