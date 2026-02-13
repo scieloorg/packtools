@@ -332,7 +332,7 @@ class IssueValidation:
     def validate_issue_supplement_nomenclature(self):
         """
         Validates that supplement uses correct nomenclature 'suppl'.
-        According to SPS 1.10, must use 'suppl' not 'supl', 's', 'supplement', 'sup'.
+        According to SPS 1.10, must use 'suppl' not 'supl', 'supplement', 'sup'.
 
         Returns:
             dict: Validation response with results
@@ -357,8 +357,6 @@ class IssueValidation:
             invalid_patterns.append('supplement')
         if re.search(r'\bsup\b', issue_lower):
             invalid_patterns.append('sup')
-        if re.search(r'\bs\b', issue_lower):
-            invalid_patterns.append('s')
             
         is_valid = len(invalid_patterns) == 0
         
