@@ -718,3 +718,456 @@ class JournalMetaValidationTest(TestCase):
         for i, item in enumerate(expected):
             with self.subTest(i):
                 self.assertDictEqual(obtained[i], item)
+
+
+class JournalMetaPresenceTest(TestCase):
+    """Tests for JournalMetaPresenceValidation class"""
+    
+    def test_validate_journal_meta_presence_success(self):
+        """Test journal-meta presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['validation_type'], 'exist')
+
+    def test_validate_journal_meta_presence_failure(self):
+        """Test journal-meta presence validation when element is missing"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+        self.assertIsNotNone(result[0]['advice'])
+
+    def test_validate_journal_meta_uniqueness_success(self):
+        """Test journal-meta uniqueness validation when exactly one exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_uniqueness())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['data']['count'], 1)
+
+    def test_validate_journal_meta_uniqueness_failure_multiple(self):
+        """Test journal-meta uniqueness validation when multiple exist"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test1</journal-id>
+                    </journal-meta>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test2</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_meta_uniqueness())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+        self.assertEqual(result[0]['data']['count'], 2)
+
+    def test_validate_publisher_id_presence_success(self):
+        """Test publisher-id presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_id_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+        self.assertEqual(result[0]['data']['publisher_id'], 'bjmbr')
+
+    def test_validate_publisher_id_presence_failure(self):
+        """Test publisher-id presence validation when element is missing"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="nlm-ta">Test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_id_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+
+    def test_validate_journal_title_presence_success(self):
+        """Test journal-title presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-title-group>
+                            <journal-title>Test Journal</journal-title>
+                        </journal-title-group>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_journal_title_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_abbrev_journal_title_presence_success(self):
+        """Test abbreviated journal title presence validation"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-title-group>
+                            <abbrev-journal-title abbrev-type="publisher">Test J.</abbrev-journal-title>
+                        </journal-title-group>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_abbrev_journal_title_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_issn_presence_success(self):
+        """Test ISSN presence validation when at least one exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_issn_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+    def test_validate_issn_presence_failure(self):
+        """Test ISSN presence validation when none exist"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_issn_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'CRITICAL')
+
+    def test_validate_publisher_name_presence_success(self):
+        """Test publisher-name presence validation when element exists"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <publisher>
+                            <publisher-name>Test Publisher</publisher-name>
+                        </publisher>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaPresenceValidation
+        validation = JournalMetaPresenceValidation(xmltree)
+        result = list(validation.validate_publisher_name_presence())
+        
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]['response'], 'OK')
+
+
+class ISSNFormatTest(TestCase):
+    """Tests for ISSNFormatValidation class"""
+    
+    def test_validate_issn_format_valid_standard(self):
+        """Test ISSN format validation with valid standard format"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+            self.assertEqual(result['validation_type'], 'format')
+
+    def test_validate_issn_format_valid_with_x(self):
+        """Test ISSN format validation with X as check digit"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-567X</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'OK')
+
+    def test_validate_issn_format_invalid_no_hyphen(self):
+        """Test ISSN format validation with missing hyphen"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">12345678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_format_invalid_wrong_length(self):
+        """Test ISSN format validation with wrong length"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">123-456</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import ISSNFormatValidation
+        validation = ISSNFormatValidation(xmltree)
+        results = list(validation.validate_issn_format())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+
+class JournalMetaAttributeTest(TestCase):
+    """Tests for JournalMetaAttributeValidation class"""
+    
+    def test_validate_journal_id_type_valid(self):
+        """Test journal-id-type validation with valid values"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="publisher-id">bjmbr</journal-id>
+                        <journal-id journal-id-type="nlm-ta">Rev Test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_journal_id_type_values())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+
+    def test_validate_journal_id_type_invalid(self):
+        """Test journal-id-type validation with invalid value"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <journal-id journal-id-type="invalid-type">test</journal-id>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_journal_id_type_values())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_pub_type_valid(self):
+        """Test ISSN pub-type validation with valid values"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_pub_type_values())
+        
+        self.assertEqual(len(results), 2)
+        for result in results:
+            self.assertEqual(result['response'], 'OK')
+
+    def test_validate_issn_pub_type_invalid(self):
+        """Test ISSN pub-type validation with invalid value"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="online">1234-5678</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_pub_type_values())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'ERROR')
+
+    def test_validate_issn_type_uniqueness_success(self):
+        """Test ISSN type uniqueness with unique types"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="ppub">0103-5053</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_type_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'OK')
+
+    def test_validate_issn_type_uniqueness_failure(self):
+        """Test ISSN type uniqueness with duplicate types"""
+        xmltree = etree.fromstring(
+            """
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="en">
+                <front>
+                    <journal-meta>
+                        <issn pub-type="epub">1234-5678</issn>
+                        <issn pub-type="epub">8765-4321</issn>
+                    </journal-meta>
+                </front>
+            </article>
+            """
+        )
+        from packtools.sps.validation.journal_meta import JournalMetaAttributeValidation
+        validation = JournalMetaAttributeValidation(xmltree)
+        results = list(validation.validate_issn_type_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['response'], 'WARNING')
+        self.assertIn('epub', results[0]['data']['duplicates'])

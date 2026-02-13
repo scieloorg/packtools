@@ -1,3 +1,4 @@
+import re
 from packtools.sps.models.journal_meta import ISSN, Acronym, Title, Publisher, JournalID
 from packtools.sps.validation.exceptions import (
     ValidationPublisherException,
@@ -381,3 +382,393 @@ class JournalMetaValidation:
                             list(nlm_ta.nlm_ta_id_validation(expected_values['nlm-ta']))
 
         return resp_journal_meta
+
+
+class JournalMetaPresenceValidation:
+    """
+    Validates presence and uniqueness of journal-meta and its required elements.
+    Implements SPS 1.10 rules for structural validation.
+    """
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def validate_journal_meta_presence(self, error_level="CRITICAL"):
+        """
+        Rule 1: Validates that <journal-meta> element exists in <front>.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result indicating presence of journal-meta.
+        """
+        journal_meta = self.xmltree.find('.//front/journal-meta')
+        is_valid = journal_meta is not None
+        
+        yield format_response(
+            title='Journal meta presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-meta',
+            sub_item=None,
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='<journal-meta> element',
+            obtained='<journal-meta>' if is_valid else None,
+            advice='Add <journal-meta> element inside <front>',
+            data=None,
+            error_level=error_level,
+        )
+
+    def validate_journal_meta_uniqueness(self, error_level="CRITICAL"):
+        """
+        Rule 2: Validates that <journal-meta> appears exactly once in <front>.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result indicating uniqueness of journal-meta.
+        """
+        journal_meta_list = self.xmltree.xpath('.//front/journal-meta')
+        count = len(journal_meta_list)
+        is_valid = count == 1
+        
+        if count == 0:
+            obtained = 'No <journal-meta> found'
+        elif count == 1:
+            obtained = 'One <journal-meta> element'
+        else:
+            obtained = f'{count} <journal-meta> elements found'
+        
+        yield format_response(
+            title='Journal meta uniqueness',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-meta',
+            sub_item=None,
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='exactly one <journal-meta> element',
+            obtained=obtained,
+            advice='Ensure exactly one <journal-meta> element exists inside <front>',
+            data={'count': count},
+            error_level=error_level,
+        )
+
+    def validate_publisher_id_presence(self, error_level="CRITICAL"):
+        """
+        Rule 3: Validates presence of <journal-id journal-id-type="publisher-id">.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result for publisher-id presence.
+        """
+        publisher_id = self.xmltree.findtext('.//journal-meta//journal-id[@journal-id-type="publisher-id"]')
+        is_valid = publisher_id is not None and publisher_id.strip() != ''
+        
+        yield format_response(
+            title='Journal publisher ID presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-id',
+            sub_item='@journal-id-type="publisher-id"',
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='<journal-id journal-id-type="publisher-id"> with non-empty value',
+            obtained=publisher_id if is_valid else None,
+            advice='Add <journal-id journal-id-type="publisher-id">ACRONYM</journal-id> inside <journal-meta>',
+            data={'publisher_id': publisher_id},
+            error_level=error_level,
+        )
+
+    def validate_journal_title_presence(self, error_level="CRITICAL"):
+        """
+        Rule 4: Validates presence of <journal-title>.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result for journal-title presence.
+        """
+        journal_title = self.xmltree.findtext('.//journal-meta//journal-title-group//journal-title')
+        is_valid = journal_title is not None and journal_title.strip() != ''
+        
+        yield format_response(
+            title='Journal title presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-title-group',
+            sub_item='journal-title',
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='<journal-title> with non-empty value',
+            obtained=journal_title if is_valid else None,
+            advice='Add <journal-title>Title</journal-title> inside <journal-title-group>',
+            data={'journal_title': journal_title},
+            error_level=error_level,
+        )
+
+    def validate_abbrev_journal_title_presence(self, error_level="CRITICAL"):
+        """
+        Rule 5: Validates presence of <abbrev-journal-title abbrev-type="publisher">.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result for abbreviated journal title presence.
+        """
+        abbrev_title = self.xmltree.findtext('.//journal-meta//journal-title-group//abbrev-journal-title[@abbrev-type="publisher"]')
+        is_valid = abbrev_title is not None and abbrev_title.strip() != ''
+        
+        yield format_response(
+            title='Abbreviated journal title presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='journal-title-group',
+            sub_item='abbrev-journal-title',
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='<abbrev-journal-title abbrev-type="publisher"> with non-empty value',
+            obtained=abbrev_title if is_valid else None,
+            advice='Add <abbrev-journal-title abbrev-type="publisher">Abbrev. Title</abbrev-journal-title> inside <journal-title-group>',
+            data={'abbrev_title': abbrev_title},
+            error_level=error_level,
+        )
+
+    def validate_issn_presence(self, error_level="CRITICAL"):
+        """
+        Rule 6: Validates presence of at least one <issn> (epub or ppub).
+        
+        Returns
+        -------
+        generator of dict
+            Validation result for ISSN presence.
+        """
+        issn_list = self.xmltree.xpath('.//journal-meta//issn')
+        is_valid = len(issn_list) > 0
+        
+        issn_data = [{'type': node.get('pub-type'), 'value': node.text} for node in issn_list]
+        
+        yield format_response(
+            title='ISSN presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='issn',
+            sub_item=None,
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='at least one <issn> element',
+            obtained=f'{len(issn_list)} ISSN(s) found' if is_valid else 'No ISSN found',
+            advice='Add at least one <issn pub-type="epub">XXXX-XXXX</issn> or <issn pub-type="ppub">XXXX-XXXX</issn> inside <journal-meta>',
+            data=issn_data,
+            error_level=error_level,
+        )
+
+    def validate_publisher_name_presence(self, error_level="CRITICAL"):
+        """
+        Rule 7: Validates presence of <publisher-name>.
+        
+        Returns
+        -------
+        generator of dict
+            Validation result for publisher-name presence.
+        """
+        publisher_name = self.xmltree.findtext('.//journal-meta//publisher//publisher-name')
+        is_valid = publisher_name is not None and publisher_name.strip() != ''
+        
+        yield format_response(
+            title='Publisher name presence',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='publisher',
+            sub_item='publisher-name',
+            validation_type='exist',
+            is_valid=is_valid,
+            expected='<publisher-name> with non-empty value',
+            obtained=publisher_name if is_valid else None,
+            advice='Add <publisher><publisher-name>Publisher Name</publisher-name></publisher> inside <journal-meta>',
+            data={'publisher_name': publisher_name},
+            error_level=error_level,
+        )
+
+
+class ISSNFormatValidation:
+    """
+    Validates ISSN format and attributes.
+    Implements SPS 1.10 format validation rules.
+    """
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+        self.journal_issns = ISSN(xmltree)
+
+    def validate_issn_format(self, error_level="ERROR"):
+        """
+        Rule 8: Validates ISSN format (XXXX-XXXX pattern).
+        ISSN must be 4 digits, hyphen, 4 digits (last digit can be X).
+        
+        Returns
+        -------
+        generator of dict
+            Validation results for each ISSN format.
+        """
+        # Regex pattern for ISSN: 4 digits, hyphen, 3 digits + (digit or X)
+        issn_pattern = re.compile(r'^\d{4}-\d{3}[\dXx]$')
+        
+        for issn_data in self.journal_issns.data:
+            issn_value = issn_data.get('value', '')
+            issn_type = issn_data.get('type', '')
+            
+            is_valid = bool(issn_pattern.match(issn_value)) if issn_value else False
+            
+            yield format_response(
+                title='ISSN format',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item='issn',
+                sub_item=f'@pub-type="{issn_type}"' if issn_type else None,
+                validation_type='format',
+                is_valid=is_valid,
+                expected='ISSN with format XXXX-XXXX (where X can be a digit or letter X)',
+                obtained=issn_value,
+                advice=f'Correct ISSN format to XXXX-XXXX pattern. Current value: {issn_value}',
+                data=issn_data,
+                error_level=error_level,
+            )
+
+
+class JournalMetaAttributeValidation:
+    """
+    Validates allowed attribute values in journal-meta elements.
+    Implements SPS 1.10 attribute validation rules.
+    """
+    def __init__(self, xmltree):
+        self.xmltree = xmltree
+
+    def validate_journal_id_type_values(self, error_level="ERROR"):
+        """
+        Rule 9: Validates allowed values for @journal-id-type (publisher-id, nlm-ta).
+        
+        Returns
+        -------
+        generator of dict
+            Validation results for each journal-id type attribute.
+        """
+        allowed_types = ['publisher-id', 'nlm-ta']
+        journal_ids = self.xmltree.xpath('.//journal-meta//journal-id')
+        
+        for journal_id in journal_ids:
+            id_type = journal_id.get('journal-id-type')
+            id_value = journal_id.text
+            
+            is_valid = id_type in allowed_types if id_type else False
+            
+            yield format_response(
+                title='Journal ID type attribute',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item='journal-id',
+                sub_item='@journal-id-type',
+                validation_type='value in list',
+                is_valid=is_valid,
+                expected=f'{allowed_types}',
+                obtained=id_type,
+                advice=f'Set @journal-id-type to one of {allowed_types}. Current value: {id_type}',
+                data={'journal_id_type': id_type, 'value': id_value},
+                error_level=error_level,
+            )
+
+    def validate_issn_pub_type_values(self, error_level="ERROR"):
+        """
+        Rule 10: Validates allowed values for @pub-type in <issn> (epub, ppub).
+        
+        Returns
+        -------
+        generator of dict
+            Validation results for each ISSN pub-type attribute.
+        """
+        allowed_types = ['epub', 'ppub']
+        issns = self.xmltree.xpath('.//journal-meta//issn')
+        
+        for issn in issns:
+            pub_type = issn.get('pub-type')
+            issn_value = issn.text
+            
+            is_valid = pub_type in allowed_types if pub_type else False
+            
+            yield format_response(
+                title='ISSN pub-type attribute',
+                parent='article',
+                parent_id=None,
+                parent_article_type=self.xmltree.get("article-type"),
+                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                item='issn',
+                sub_item='@pub-type',
+                validation_type='value in list',
+                is_valid=is_valid,
+                expected=f'{allowed_types}',
+                obtained=pub_type,
+                advice=f'Set @pub-type to one of {allowed_types}. Current value: {pub_type}',
+                data={'pub_type': pub_type, 'value': issn_value},
+                error_level=error_level,
+            )
+
+    def validate_issn_type_uniqueness(self, error_level="WARNING"):
+        """
+        Rule 11: Validates that there are no duplicate ISSN pub-types.
+        
+        Returns
+        -------
+        generator of dict
+            Validation results for ISSN type uniqueness.
+        """
+        issns = self.xmltree.xpath('.//journal-meta//issn')
+        pub_types = [issn.get('pub-type') for issn in issns if issn.get('pub-type')]
+        
+        # Count occurrences of each type
+        type_counts = {}
+        for pub_type in pub_types:
+            type_counts[pub_type] = type_counts.get(pub_type, 0) + 1
+        
+        # Check for duplicates
+        duplicates = [pt for pt, count in type_counts.items() if count > 1]
+        is_valid = len(duplicates) == 0
+        
+        if duplicates:
+            obtained = f'Duplicate pub-types found: {duplicates}'
+        else:
+            obtained = 'All ISSN pub-types are unique'
+        
+        yield format_response(
+            title='ISSN type uniqueness',
+            parent='article',
+            parent_id=None,
+            parent_article_type=self.xmltree.get("article-type"),
+            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            item='issn',
+            sub_item='@pub-type',
+            validation_type='uniqueness',
+            is_valid=is_valid,
+            expected='unique pub-type values for each ISSN',
+            obtained=obtained,
+            advice=f'Remove duplicate ISSN elements with same pub-type. Duplicates: {duplicates}' if duplicates else None,
+            data={'type_counts': type_counts, 'duplicates': duplicates},
+            error_level=error_level,
+        )
