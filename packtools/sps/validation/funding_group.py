@@ -301,7 +301,7 @@ class FundingGroupValidation:
 
     def validate_label_absence(self, error_level="ERROR"):
         """
-        Rule 5: Validates that <label> is not present in <funding-group> or its children.
+        Rule 5: Validates that <label> is not present in <funding-group> or its descendants.
         
         According to SPS 1.10, <label> is not allowed inside <funding-group>.
         
@@ -347,7 +347,7 @@ class FundingGroupValidation:
 
     def validate_title_absence(self, error_level="ERROR"):
         """
-        Rule 6: Validates that <title> is not present in <funding-group> or its children.
+        Rule 6: Validates that <title> is not present in <funding-group> or its descendants.
         
         According to SPS 1.10, <title> is not allowed inside <funding-group>.
         
