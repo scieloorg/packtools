@@ -274,7 +274,7 @@ class TestFundingGroupUniqueness(TestFundingValidationBase):
         results = list(validator.validate_funding_group_uniqueness())
         
         self.assertEqual(len(results), 1)
-        self.assertTrue(results[0]["response"] == "OK")
+        self.assertEqual(results[0]["response"], "OK")
 
     def test_multiple_funding_groups_invalid(self):
         """Multiple <funding-group> elements should be invalid"""
@@ -315,7 +315,7 @@ class TestFundingGroupUniqueness(TestFundingValidationBase):
         results = list(validator.validate_funding_group_uniqueness())
         
         self.assertEqual(len(results), 1)
-        self.assertTrue(results[0]["response"] == "OK")
+        self.assertEqual(results[0]["response"], "OK")
 
 
 class TestFundingStatementPresence(TestFundingValidationBase):
