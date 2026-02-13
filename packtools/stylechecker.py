@@ -3,7 +3,6 @@ from __future__ import print_function, unicode_literals
 import os
 import argparse
 import sys
-import pkg_resources
 import json
 import logging
 import pathlib
@@ -160,7 +159,7 @@ def validate_zip_package(filepath):
 def _main():
     exit_status = 0
 
-    packtools_version = pkg_resources.get_distribution('packtools').version
+    packtools_version = packtools.pkg_resources_fixer.get_version('packtools')
 
     parser = argparse.ArgumentParser(
             description='SciELO PS stylechecker command line utility.',

@@ -1,12 +1,10 @@
 # coding:utf-8
 import os
-import pkg_resources
+
+from packtools.pkg_resources_fixer import get_version
 
 
-try:
-    PACKTOOLS_VERSION = pkg_resources.get_distribution("packtools").version
-except pkg_resources.DistributionNotFound:
-    PACKTOOLS_VERSION = None
+PACKTOOLS_VERSION = get_version("packtools")
 
 
 class ProductionConfig(object):
