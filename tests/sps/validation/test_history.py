@@ -67,7 +67,6 @@ class TestHistoryUniqueness(TestCase):
         
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "OK")
-        self.assertEqual(results[0]["response"], "OK")
     
     def test_multiple_history_elements(self):
         """Test that multiple <history> elements are invalid."""
@@ -119,7 +118,6 @@ class TestHistoryUniqueness(TestCase):
         
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "OK")
-        self.assertEqual(results[0]["response"], "OK")
 
 
 class TestDateTypePresence(TestCase):
@@ -147,7 +145,6 @@ class TestDateTypePresence(TestCase):
         results = list(validator.validate_date_type_presence())
         
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "OK")
         self.assertEqual(results[0]["response"], "OK")
         self.assertEqual(results[0]["got_value"], "received")
     
@@ -498,7 +495,6 @@ class TestCompleteDateForCriticalTypes(TestCase):
         
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "OK")
-        self.assertEqual(results[0]["response"], "OK")
     
     def test_received_missing_day(self):
         """Test that received date without day is invalid."""
@@ -687,7 +683,6 @@ class TestYearPresence(TestCase):
         results = list(validator.validate_year_presence())
         
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["response"], "OK")
         self.assertEqual(results[0]["response"], "OK")
         self.assertEqual(results[0]["got_value"], "2023")
     
