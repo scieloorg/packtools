@@ -62,12 +62,12 @@ class Fig:
     @property
     def graphic_alt_text(self):
         """
-        Extracts alt-text from graphic within alternatives.
+        Extracts alt-text from graphic (anywhere in fig, not just in alternatives).
 
         Returns:
             str or None: The text content of <alt-text> if present, None otherwise.
         """
-        graphic = self.element.find(".//alternatives/graphic")
+        graphic = self.element.find(".//graphic")
         if graphic is not None:
             alt_text_elem = graphic.find("alt-text")
             if alt_text_elem is not None:
@@ -77,17 +77,38 @@ class Fig:
     @property
     def graphic_long_desc(self):
         """
-        Extracts long-desc from graphic within alternatives.
+        Extracts long-desc from graphic (anywhere in fig, not just in alternatives).
 
         Returns:
             str or None: The text content of <long-desc> if present, None otherwise.
         """
-        graphic = self.element.find(".//alternatives/graphic")
+        graphic = self.element.find(".//graphic")
         if graphic is not None:
             long_desc_elem = graphic.find("long-desc")
             if long_desc_elem is not None:
                 return long_desc_elem.text
         return None
+
+    @property
+    def xml_lang(self):
+        """
+        Extracts xml:lang attribute from fig element.
+
+        Returns:
+            str or None: The xml:lang attribute value if present, None otherwise.
+        """
+        return self.element.get("{http://www.w3.org/XML/1998/namespace}lang")
+
+    @property
+    def parent_name(self):
+        """
+        Gets the tag name of the parent element.
+
+        Returns:
+            str or None: The parent tag name if present, None otherwise.
+        """
+        parent = self.element.getparent()
+        return parent.tag if parent is not None else None
 
     @property
     def data(self):
@@ -103,6 +124,8 @@ class Fig:
             "file_extension": self.file_extension,
             "graphic_alt_text": self.graphic_alt_text,
             "graphic_long_desc": self.graphic_long_desc,
+            "xml_lang": self.xml_lang,
+            "parent_name": self.parent_name,
         }
 
 

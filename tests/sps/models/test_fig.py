@@ -112,13 +112,17 @@ class FigTest(unittest.TestCase):
             "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
             "caption": "Título da figura",
             "source_attrib": "Fonte: IBGE (2018)",
-            "alternatives": [
+            "alternative_elements": [
                 "graphic",
                 "graphic",
                 "textual-alternative",
                 "media",
             ],
             "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
         }
         self.assertDictEqual(self.fig_obj.data, expected_data)
 
@@ -227,7 +231,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
                 "caption": "Título da figura 1 em Português",
                 "source_attrib": "Fonte: IBGE (2018)",
-                "alternatives": [
+                "alternative_elements": [
                     "graphic",
                     "graphic",
                     "textual-alternative",
@@ -238,6 +242,10 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
@@ -247,7 +255,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf03.tif",
                 "caption": "Título da figura 2 em Português",
                 "source_attrib": "Fonte: IBGE (2019)",
-                "alternatives": [
+                "alternative_elements": [
                     "graphic",
                     "graphic",
                     "textual-alternative",
@@ -258,6 +266,10 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
@@ -267,12 +279,16 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf01.tif",
                 "caption": "Title of Map 1",
                 "source_attrib": None,
-                "alternatives": [],
+                "alternative_elements": [],
                 "parent": "sub-article",
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
@@ -282,15 +298,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf04.tif",
                 "caption": "Title of Map 2",
                 "source_attrib": None,
-                "alternatives": [],
+                "alternative_elements": [],
                 "parent": "sub-article",
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
-                'alternatives': [],
+                'alternative_elements': [],
                 'alternative_parent': 'fig',
                 'caption': 'Chart Showing Additional Data',
                 'id': 'sf1',
@@ -303,6 +323,10 @@ class ArticleFigsTest(unittest.TestCase):
                 'parent_lang': 'en',
                 'source_attrib': 'Data Source: Experimental Data 2020',
                 "file_extension": "tif",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "sec",
             }
 
         ]
@@ -325,7 +349,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
                 "caption": "Título da figura 1 em Português",
                 "source_attrib": "Fonte: IBGE (2018)",
-                "alternatives": [
+                "alternative_elements": [
                     "graphic",
                     "graphic",
                     "textual-alternative",
@@ -336,6 +360,10 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
@@ -345,7 +373,7 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf03.tif",
                 "caption": "Título da figura 2 em Português",
                 "source_attrib": "Fonte: IBGE (2019)",
-                "alternatives": [
+                "alternative_elements": [
                     "graphic",
                     "graphic",
                     "textual-alternative",
@@ -356,6 +384,10 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             }
         ]
 
@@ -377,12 +409,16 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf01.tif",
                 "caption": "Title of Map 1",
                 "source_attrib": None,
-                "alternatives": [],
+                "alternative_elements": [],
                 "parent": "sub-article",
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
@@ -392,12 +428,16 @@ class ArticleFigsTest(unittest.TestCase):
                 "graphic": "1234-5678-zwy-12-04-0123-gf04.tif",
                 "caption": "Title of Map 2",
                 "source_attrib": None,
-                "alternatives": [],
+                "alternative_elements": [],
                 "parent": "sub-article",
                 "parent_id": "TRen",
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "xml_lang": None,
+            "parent_name": "p",
             }
         ]
 
@@ -412,7 +452,7 @@ class ArticleFigsTest(unittest.TestCase):
 
         expected = [
             {
-                'alternatives': [],
+                'alternative_elements': [],
                 'alternative_parent': 'fig',
                 'caption': 'Chart Showing Additional Data',
                 'id': 'sf1',
@@ -425,6 +465,10 @@ class ArticleFigsTest(unittest.TestCase):
                 'parent_lang': 'en',
                 'source_attrib': 'Data Source: Experimental Data 2020',
                 "file_extension": "tif",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "sec",
             }
         ]
 
