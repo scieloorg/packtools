@@ -5,6 +5,41 @@ from packtools.sps.validation.utils import build_response
 
 class FnValidation(BaseFnValidation):
 
+    def validate_fn_type_presence_in_fn_group(self):
+        """
+        Validate that @fn-type attribute is mandatory for <fn> in <fn-group>.
+        
+        SPS 1.10 Rule 3: @fn-type is required for all <fn> elements in <fn-group>.
+        """
+        # Check if this fn is in fn-group context
+        fn_parent = self.fn_data.get("fn_parent")
+        if fn_parent != "fn-group":
+            return None
+            
+        fn_type = self.fn_data.get("fn_type")
+        is_valid = fn_type is not None
+        
+        if not is_valid:
+            advice = 'Add mandatory @fn-type attribute to <fn> in <fn-group>'
+            advice_text = 'Add mandatory @fn-type attribute to <fn> in <fn-group>'
+            advice_params = {}
+            
+            return build_response(
+                title="@fn-type attribute presence in fn-group",
+                parent=self.fn_data,
+                item="fn",
+                sub_item="@fn-type",
+                validation_type="exist",
+                is_valid=False,
+                expected="@fn-type attribute",
+                obtained=None,
+                advice=advice,
+                data=self.fn_data,
+                error_level="CRITICAL",
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+
     def validate(self):
         """
         Execute all registered validations for the footnote.
@@ -13,6 +48,7 @@ class FnValidation(BaseFnValidation):
             list[dict]: A list of validation responses (excluding None responses).
         """
         validations = [
+            self.validate_fn_type_presence_in_fn_group,
             self.validate_label,
             self.validate_title,
             self.validate_bold,
@@ -75,6 +111,9 @@ class XMLFnGroupValidation:
         Yields:
             dict: Validation results for each footnote.
         """
+        # Validate uniqueness of <fn-group> elements
+        yield from self.validate_fn_group_uniqueness()
+        
         fn_types = []
         for fn_group in self.article_fn_groups:
             fn_types.append(fn_group["fn_type"])
@@ -85,6 +124,65 @@ class XMLFnGroupValidation:
             yield from self.validate_fn(fn_group)
 
         yield from self.validate_edited_by()
+
+    def validate_fn_group_uniqueness(self):
+        """
+        Validate that <fn-group> appears at most once in the document.
+        
+        SPS 1.10 Rule 6: <fn-group> should appear at most once per article/sub-article.
+        """
+        # Check article level - xml_tree root is already the article element
+        article_fn_group_count = len(self.xml_tree.xpath("./front//fn-group | ./body//fn-group | ./back//fn-group"))
+        
+        if article_fn_group_count > 1:
+            advice = f'<fn-group> element should appear at most once in the article. Found {article_fn_group_count} occurrences.'
+            advice_text = '<fn-group> element should appear at most once in the article. Found {count} occurrences.'
+            advice_params = {"count": str(article_fn_group_count)}
+            
+            yield build_response(
+                title="fn-group uniqueness",
+                parent={},
+                item="fn-group",
+                sub_item=None,
+                validation_type="uniqueness",
+                is_valid=False,
+                expected="at most 1 <fn-group>",
+                obtained=f"{article_fn_group_count} <fn-group> elements",
+                advice=advice,
+                data={"count": article_fn_group_count},
+                error_level="ERROR",
+                advice_text=advice_text,
+                advice_params=advice_params,
+            )
+        
+        # Check sub-article level
+        for sub_article in self.xml_tree.xpath(".//sub-article"):
+            sub_article_id = sub_article.get("id", "unknown")
+            sub_fn_group_count = len(sub_article.xpath(".//fn-group"))
+            
+            if sub_fn_group_count > 1:
+                advice = f'<fn-group> element should appear at most once in sub-article (id={sub_article_id}). Found {sub_fn_group_count} occurrences.'
+                advice_text = '<fn-group> element should appear at most once in sub-article (id={id}). Found {count} occurrences.'
+                advice_params = {
+                    "id": sub_article_id,
+                    "count": str(sub_fn_group_count)
+                }
+                
+                yield build_response(
+                    title="fn-group uniqueness in sub-article",
+                    parent={"parent_id": sub_article_id},
+                    item="fn-group",
+                    sub_item=None,
+                    validation_type="uniqueness",
+                    is_valid=False,
+                    expected="at most 1 <fn-group>",
+                    obtained=f"{sub_fn_group_count} <fn-group> elements",
+                    advice=advice,
+                    data={"count": sub_fn_group_count, "sub_article_id": sub_article_id},
+                    error_level="ERROR",
+                    advice_text=advice_text,
+                    advice_params=advice_params,
+                )
 
     def validate_fn(self, fn):
         """
