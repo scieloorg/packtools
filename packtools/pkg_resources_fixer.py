@@ -55,7 +55,19 @@ def get_iter_entry_points(group, name=None):
     """
     try:
         from importlib.metadata import entry_points
-        return entry_points(group=group)
+        eps = entry_points()
+        # Python 3.9+ stdlib / backport style: EntryPoints object with .select(...)
+        if hasattr(eps, "select"):
+            select_kwargs = {"group": group}
+            if name is not None:
+                select_kwargs["name"] = name
+            return eps.select(**select_kwargs)
+        # Mapping style: {'group': [EntryPoint, ...], ...}
+        group_eps = eps.get(group, [])
+        if name is not None:
+            return [ep for ep in group_eps if getattr(ep, "name", None) == name]
+        return group_eps
+
     except ImportError:
         from pkg_resources import iter_entry_points
         return iter_entry_points(group=group, name=None)

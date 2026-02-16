@@ -95,7 +95,7 @@ class CatalogLoader(object):
     def _load_plugin_if_exists(self, name):
         """Returns the plugged-in Catalog if it exists or None.
         """
-        from pkg_resources_fixer import get_iter_entry_points
+        from packtools.pkg_resources_fixer import get_iter_entry_points
         for entry_point in get_iter_entry_points(group=self.group_name):
             if entry_point.name == name:
                 return entry_point.load()
