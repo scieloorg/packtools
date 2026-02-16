@@ -12,6 +12,8 @@ from lxml import etree
 import packtools
 from packtools import exceptions
 from packtools import catalogs
+from packtools.pkg_resources_fixer import get_version
+
 
 __all__ = ['summarize', 'annotate']
 
@@ -159,7 +161,7 @@ def validate_zip_package(filepath):
 def _main():
     exit_status = 0
 
-    packtools_version = packtools.pkg_resources_fixer.get_version('packtools')
+    packtools_version = get_version('packtools')
 
     parser = argparse.ArgumentParser(
             description='SciELO PS stylechecker command line utility.',
