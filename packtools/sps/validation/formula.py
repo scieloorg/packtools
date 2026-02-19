@@ -211,7 +211,8 @@ class DispFormulaValidation:
 
         obtained = " and ".join(found) if found else _("not found codification formula")
 
-        is_valid = count == 1
+        alternatives = self.data.get("alternative_elements") or []
+        is_valid = (count == 1) or (count == len(alternatives) and count > 1)
         item_id = self.data.get("id")
         return build_response(
             title="mml:math or tex-math",
@@ -602,7 +603,8 @@ class InlineFormulaValidation:
 
         obtained = " and ".join(found) if found else _("not found codification formula")
 
-        is_valid = count == 1
+        alternatives = self.data.get("alternative_elements") or []
+        is_valid = (count == 1) or (count == len(alternatives) and count > 1)
 
         return build_response(
             title="mml:math or tex-math",
