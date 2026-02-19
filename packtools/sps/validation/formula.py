@@ -604,7 +604,7 @@ class InlineFormulaValidation:
         obtained = " and ".join(found) if found else _("not found codification formula")
 
         alternatives = self.data.get("alternative_elements") or []
-        is_valid = (count == 1) or (count == len(alternatives) and count > 1)
+        is_valid = (count == 1) or ((count == len(alternatives)) and (count > 1))
 
         return build_response(
             title="mml:math or tex-math",
