@@ -641,7 +641,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         self.assertIn("mml:math", warning["advice"])
 
     def test_validate_mathml_recommendation_in_disp_formula_with_mml(self):
-        """Test that no warning is issued when disp-formula has mml:math"""
+        """Test that OK response is returned when disp-formula has mml:math"""
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -664,12 +664,13 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             ).validate()
         )
 
-        # Não deve retornar aviso de MathML
-        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
-        self.assertEqual(len(warnings), 0)
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
 
     def test_validate_mathml_recommendation_in_disp_formula_with_both(self):
-        """Test that no warning is issued when disp-formula has both tex-math and mml:math"""
+        """Test that OK response is returned when disp-formula has both tex-math and mml:math"""
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -695,9 +696,10 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             ).validate()
         )
 
-        # Não deve retornar aviso de MathML
-        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
-        self.assertEqual(len(warnings), 0)
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
 
     def test_validate_mathml_recommendation_in_inline_formula_with_only_tex(self):
         """Test MathML recommendation when inline-formula has only tex-math"""
@@ -730,7 +732,7 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         self.assertIn("mml:math", warning["advice"])
 
     def test_validate_mathml_recommendation_in_inline_formula_with_mml(self):
-        """Test that no warning is issued when inline-formula has mml:math"""
+        """Test that OK response is returned when inline-formula has mml:math"""
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -750,12 +752,13 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             ).validate()
         )
 
-        # Não deve retornar aviso de MathML
-        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
-        self.assertEqual(len(warnings), 0)
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
 
-    def test_validate_mathml_recommendation_returns_none_without_codification(self):
-        """Test that mathml recommendation returns None when there's no codification at all"""
+    def test_validate_mathml_recommendation_returns_ok_without_codification(self):
+        """Test that mathml recommendation returns OK when there's no codification at all"""
         self.maxDiff = None
         xml_tree = etree.fromstring(
             '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
@@ -774,6 +777,8 @@ class ArticleFormulaValidationTest(unittest.TestCase):
             ).validate()
         )
 
-        # Não deve retornar aviso de MathML (já retornará erro de codificação)
-        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
-        self.assertEqual(len(warnings), 0)
+        # Deve retornar OK para MathML recommendation quando não há codificação
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
+        self.assertIn("no codification found", mathml_responses[0]["got_value"])

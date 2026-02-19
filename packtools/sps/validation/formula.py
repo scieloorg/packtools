@@ -297,18 +297,32 @@ class DispFormulaValidation:
         Validates and recommends MathML when only TeX math is present for accessibility.
 
         Returns:
-            dict or None: A validation result dictionary if the validation fails; otherwise, None.
+            dict: A validation result dictionary.
         """
         has_mml_math = bool(self.data.get("mml_math"))
         has_tex_math = bool(self.data.get("tex_math"))
+        item_id = self.data.get("id")
         
-        # Return None if there's no codification at all
+        # No codification found - return OK response reflecting this condition
         if not has_mml_math and not has_tex_math:
-            return None
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=True,
+                expected="mml:math or tex-math",
+                obtained=_("no codification found"),
+                advice=None,
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=None,
+                advice_params=None,
+            )
         
         # Only warn if there's tex-math but no mml:math
         if has_tex_math and not has_mml_math:
-            item_id = self.data.get("id")
             is_valid = False
             expected = "mml:math"
             obtained = "tex-math"
@@ -330,7 +344,21 @@ class DispFormulaValidation:
             )
         
         # Otherwise, it's valid (has mml:math or both)
-        return None
+        return build_response(
+            title="MathML recommendation",
+            parent=self.data,
+            item="mml:math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=True,
+            expected="mml:math",
+            obtained="mml:math" if has_mml_math else None,
+            advice=None,
+            data=self.data,
+            error_level=self.rules["mathml_error_level"],
+            advice_text=None,
+            advice_params=None,
+        )
 
     def validate_alternatives(self):
         """
@@ -660,18 +688,32 @@ class InlineFormulaValidation:
         Validates and recommends MathML when only TeX math is present for accessibility.
 
         Returns:
-            dict or None: A validation result dictionary if the validation fails; otherwise, None.
+            dict: A validation result dictionary.
         """
         has_mml_math = bool(self.data.get("mml_math"))
         has_tex_math = bool(self.data.get("tex_math"))
+        item_id = self.data.get("id")
         
-        # Return None if there's no codification at all
+        # No codification found - return OK response reflecting this condition
         if not has_mml_math and not has_tex_math:
-            return None
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=True,
+                expected="mml:math or tex-math",
+                obtained=_("no codification found"),
+                advice=None,
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=None,
+                advice_params=None,
+            )
         
         # Only warn if there's tex-math but no mml:math
         if has_tex_math and not has_mml_math:
-            item_id = self.data.get("id")
             is_valid = False
             expected = "mml:math"
             obtained = "tex-math"
@@ -693,7 +735,21 @@ class InlineFormulaValidation:
             )
         
         # Otherwise, it's valid (has mml:math or both)
-        return None
+        return build_response(
+            title="MathML recommendation",
+            parent=self.data,
+            item="mml:math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=True,
+            expected="mml:math",
+            obtained="mml:math" if has_mml_math else None,
+            advice=None,
+            data=self.data,
+            error_level=self.rules["mathml_error_level"],
+            advice_text=None,
+            advice_params=None,
+        )
 
     def validate_alternatives(self):
         """
