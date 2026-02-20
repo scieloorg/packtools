@@ -1,5 +1,5 @@
 from packtools.sps.models.fig import ArticleFigs
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
 
 
 class ArticleFigValidation:
@@ -180,6 +180,8 @@ class FigValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["file_extension_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate_fig_type(self):
