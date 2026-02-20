@@ -11,8 +11,12 @@ Implements validations for external link elements to ensure:
 Reference: https://docs.google.com/document/d/1GTv4Inc2LS_AXY-ToHT3HmO66UT0VAHWJNOIqzBNSgA/edit?tab=t.0#heading=h.n2z5yrri2aba
 """
 import re
+import gettext
+
 from packtools.sps.models.ext_link import ArticleExtLinks
 from packtools.sps.validation.utils import build_response
+
+_ = gettext.gettext
 
 
 class ExtLinkValidation:
@@ -93,7 +97,7 @@ class ExtLinkValidation:
             
             is_valid = bool(ext_link_type)
             
-            advice_text = 'Add @ext-link-type attribute to <ext-link> with text "{text}". Valid values: {allowed_values}'
+            advice_text = _('Add @ext-link-type attribute to <ext-link> with text "{text}". Valid values: {allowed_values}')
             advice_params = {
                 "text": text,
                 "allowed_values": ", ".join(self.ALLOWED_EXT_LINK_TYPES),
@@ -146,7 +150,7 @@ class ExtLinkValidation:
             
             is_valid = bool(xlink_href)
             
-            advice_text = 'Add @xlink:href attribute to <ext-link> with text "{text}"'
+            advice_text = _('Add @xlink:href attribute to <ext-link> with text "{text}"')
             advice_params = {
                 "text": text,
             }
@@ -202,7 +206,7 @@ class ExtLinkValidation:
             # Check if URL starts with http:// or https://
             is_valid = bool(re.match(r'^https?://', xlink_href, re.IGNORECASE))
             
-            advice_text = 'URL in @xlink:href="{xlink_href}" must start with http:// or https://'
+            advice_text = _('URL in @xlink:href="{xlink_href}" must start with http:// or https://')
             advice_params = {
                 "xlink_href": xlink_href,
             }
@@ -257,7 +261,7 @@ class ExtLinkValidation:
             
             is_valid = ext_link_type in self.ALLOWED_EXT_LINK_TYPES
             
-            advice_text = 'Replace @ext-link-type="{ext_link_type}" with one of: {allowed_values}'
+            advice_text = _('Replace @ext-link-type="{ext_link_type}" with one of: {allowed_values}')
             advice_params = {
                 "ext_link_type": ext_link_type,
                 "allowed_values": ", ".join(self.ALLOWED_EXT_LINK_TYPES),
@@ -319,7 +323,7 @@ class ExtLinkValidation:
             
             # Only yield if text is generic
             if is_generic:
-                advice_text = 'Replace generic text "{text}" in <ext-link> with descriptive text, or add @xlink:title attribute'
+                advice_text = _('Replace generic text "{text}" in <ext-link> with descriptive text, or add @xlink:title attribute')
                 advice_params = {
                     "text": text,
                 }
@@ -391,7 +395,7 @@ class ExtLinkValidation:
             # Only yield if xlink:title is missing
             if not is_valid:
                 reason = "generic" if is_generic else "URL"
-                advice_text = 'Add @xlink:title attribute to <ext-link> with {reason} text "{text}" to describe link destination'
+                advice_text = _('Add @xlink:title attribute to <ext-link> with {reason} text "{text}" to describe link destination')
                 advice_params = {
                     "reason": reason,
                     "text": text,
