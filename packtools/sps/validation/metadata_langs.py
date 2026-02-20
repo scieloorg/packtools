@@ -1,5 +1,5 @@
 from packtools.sps.models import article_and_subarticles, article_titles, article_abstract, kwd_group
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 
 
 def _elements_exist(title, abstract, keyword):
@@ -112,12 +112,14 @@ class MetadataLanguagesValidation:
 
             if not exist and is_required:
                 # Resposta para a verificação de ausência de elementos
-                yield format_response(
+                yield build_response(
                     title=f'{missing_element_name} element lang attribute',
-                    parent=None,
-                    parent_id=None,
-                    parent_article_type=None,
-                    parent_lang=lang,
+                    parent={
+                        "parent": None,
+                        "parent_id": None,
+                        "parent_article_type": None,
+                        "parent_lang": lang,
+                    },
                     item=missing_element_name,
                     sub_item=None,
                     validation_type='match',
@@ -127,4 +129,6 @@ class MetadataLanguagesValidation:
                     advice=f'Mark {missing_element_name} for {lang} language',
                     data=None,
                     error_level=error_level,
+                    advice_text='Mark {element} for {language} language',
+                    advice_params={"element": missing_element_name, "language": lang},
                 )
