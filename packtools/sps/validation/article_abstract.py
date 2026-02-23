@@ -1,5 +1,5 @@
 from packtools.sps.models.v2.abstract import XMLAbstracts
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
 import gettext
 
 # Configuração de internacionalização
@@ -517,32 +517,42 @@ class StandardAbstractsValidation(AbstractsValidationBase):
         error_level = self.params["default_error_level"]
         is_valid = True
         advice = None
+        advice_text = None
+        advice_params = {}
 
         if self.article_type in self.params["article_type_requires"]:
             expected = f"Abstract is required"
             is_valid = bool(data)
             error_level = self.params["article_type_requires_abstract_error_level"]
             advice = f"Mark abstract which is required for {self.article_type}"
+            advice_text = "Mark abstract which is required for {article_type}"
+            advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_unexpects"]:
             expected = f"Abstract is unexpected"
             is_valid = not bool(data)
             error_level = self.params["article_type_unexpects_abstract_error_level"]
             advice = f"Abstract is not expected for {self.article_type}"
+            advice_text = "Abstract is not expected for {article_type}"
+            advice_params = {"article_type": self.article_type}
         elif self.article_type in self.params["article_type_neutral"]:
             is_valid = True
             expected = f"Abstract is optional"
             advice = None
+            advice_text = None
+            advice_params = {}
         else:
             raise ValueError(
                 f"Unable to identify if abstract is required or unexpected or neutral for article-type '{self.article_type}'"
             )
 
-        return format_response(
+        return build_response(
             title="abstract",
-            parent="article",
-            parent_id=None,
-            parent_article_type=self.article_type,
-            parent_lang=self.lang,
+            parent={
+                "parent": "article",
+                "parent_id": None,
+                "parent_article_type": self.article_type,
+                "parent_lang": self.lang,
+            },
             item="abstract",
             sub_item=None,
             validation_type="exist",
@@ -552,6 +562,8 @@ class StandardAbstractsValidation(AbstractsValidationBase):
             advice=advice,
             data=data,
             error_level=error_level,
+            advice_text=advice_text,
+            advice_params=advice_params,
         )
 
     def validate(self):

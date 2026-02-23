@@ -1,5 +1,5 @@
 from packtools.sps.models.fig import ArticleFigs
-from packtools.sps.validation.utils import format_response, build_response
+from packtools.sps.validation.utils import build_response
 
 
 class ArticleFigValidation:
@@ -17,14 +17,16 @@ class ArticleFigValidation:
                 yield from FigValidation(element, self.rules).validate()
 
         else:
-            yield format_response(
+            yield build_response(
                 title="fig presence",
-                parent="article",
-                parent_id=None,
-                parent_article_type=self.xml_tree.get("article-type"),
-                parent_lang=self.xml_tree.get(
-                    "{http://www.w3.org/XML/1998/namespace}lang"
-                ),
+                parent={
+                    "parent": "article",
+                    "parent_id": None,
+                    "parent_article_type": self.xml_tree.get("article-type"),
+                    "parent_lang": self.xml_tree.get(
+                        "{http://www.w3.org/XML/1998/namespace}lang"
+                    ),
+                },
                 item="fig",
                 sub_item=None,
                 validation_type="exist",
@@ -34,6 +36,8 @@ class ArticleFigValidation:
                 advice=f'({self.article_type}) No <fig> found in XML',
                 data=None,
                 error_level=self.rules["absent_error_level"],
+                advice_text='({article_type}) No <fig> found in XML',
+                advice_params={"article_type": self.article_type},
             )
 
 
@@ -81,6 +85,8 @@ class FigValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules[key_error_level],
+            advice_text='Mark each figure {name} inside <body> using <fig><{name}>. Consult SPS documentation for more detail.',
+            advice_params={"name": name},
         )
 
     def validate_content(self):
@@ -98,6 +104,8 @@ class FigValidation:
             advice='Ensure that the figure contains either <graphic> or <alternatives> inside <fig>. Consult SPS documentation for more detail.',
             data=self.data,
             error_level=self.rules["content_error_level"],
+            advice_text='Ensure that the figure contains either <graphic> or <alternatives> inside <fig>. Consult SPS documentation for more detail.',
+            advice_params={},
         )
 
     def validate_file_extension(self):
@@ -107,8 +115,19 @@ class FigValidation:
         is_valid = file_extension in allowed_file_extensions
         if file_extension:
             advice = f'In <fig><graphic xlink:href="{file_path}"/> replace {file_extension} with one of {allowed_file_extensions}'
+            advice_text = 'In <fig><graphic xlink:href="{file_path}"/> replace {file_extension} with one of {allowed_file_extensions}'
+            advice_params = {
+                "file_path": file_path,
+                "file_extension": file_extension,
+                "allowed_file_extensions": str(allowed_file_extensions)
+            }
         else:
             advice = f'In <fig><graphic xlink:href="{file_path}"/> specify a valid file extension from: {allowed_file_extensions}'
+            advice_text = 'In <fig><graphic xlink:href="{file_path}"/> specify a valid file extension from: {allowed_file_extensions}'
+            advice_params = {
+                "file_path": file_path,
+                "allowed_file_extensions": str(allowed_file_extensions)
+            }
         yield build_response(
             title="file extension",
             parent=self.data,
@@ -121,4 +140,6 @@ class FigValidation:
             advice=advice,
             data=self.data,
             error_level=self.rules["file_extension_error_level"],
+            advice_text=advice_text,
+            advice_params=advice_params,
         )

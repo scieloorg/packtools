@@ -4,7 +4,7 @@ from packtools.sps.validation.exceptions import (
     ValidationLicenseException,
     ValidationLicenseCodeException
 )
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 
 
 class ArticleLicenseValidation:
@@ -123,12 +123,14 @@ class ArticleLicenseValidation:
             is_valid = expected_license_p == obtained_license_p
             expected_value_msg = expected_value.get(
                 lang) if is_valid else 'License data that matches the language {}'.format(lang)
-            yield format_response(
+            yield build_response(
                 title='Article license validation',
-                parent=data.get("parent"),
-                parent_id=data.get("parent_id"),
-                parent_article_type=data.get("parent_article_type"),
-                parent_lang=data.get("parent_lang"),
+                parent={
+                    "parent": data.get("parent"),
+                    "parent_id": data.get("parent_id"),
+                    "parent_article_type": data.get("parent_article_type"),
+                    "parent_lang": data.get("parent_lang"),
+                },
                 item="permissions",
                 sub_item="license",
                 validation_type="value",
@@ -141,6 +143,11 @@ class ArticleLicenseValidation:
                        f'<license-p>{expected_license_p["license_p"]}</license-p></license>',
                 data=obtained_license_p,
                 error_level=error_level,
+                advice_text=f'Mark license information with '
+                       f'<license license-type="open-access" xlink:href={{link}} '
+                       f'xml:lang={{lang}}>'
+                       f'<license-p>{{license_p}}</license-p></license>',
+                advice_params=expected_license_p,
             )
 
     def validate_license_code(self, expected_code, error_level="ERROR"):
@@ -202,12 +209,14 @@ class ArticleLicenseValidation:
             obtained_link = licenses.get('link')
             obtained_code = obtained_link.split('/')[4] if obtained_link else None
             is_valid = expected_code == obtained_code
-            yield format_response(
+            yield build_response(
                 title='Article license code validation',
-                parent=licenses.get("parent"),
-                parent_id=licenses.get("parent_id"),
-                parent_article_type=licenses.get("parent_article_type"),
-                parent_lang=licenses.get("parent_lang"),
+                parent={
+                    "parent": licenses.get("parent"),
+                    "parent_id": licenses.get("parent_id"),
+                    "parent_article_type": licenses.get("parent_article_type"),
+                    "parent_lang": licenses.get("parent_lang"),
+                },
                 item="permissions",
                 sub_item="license",
                 validation_type="value",
@@ -217,6 +226,8 @@ class ArticleLicenseValidation:
                 advice=f'add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {expected_code}',
                 data=licenses,
                 error_level=error_level,
+                advice_text='add <permissions><license xlink:href="http://creativecommons.org/licenses/VALUE/4.0/"> and replace VALUE with {code}',
+                advice_params={"code": expected_code},
             )
 
     
