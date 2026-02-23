@@ -62,13 +62,16 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         )
 
         # Filter for relevant validations
+        # "current-aff" is a deprecated value with its own validation;
+        # it should NOT trigger the generic "@fn-type value in author-notes" error
+        # to avoid double firing.
         fn_type_value = [item for item in obtained if item["title"] == "@fn-type value in author-notes"]
         current_aff_deprecation = [item for item in obtained if item["title"] == "unexpected current-aff"]
         
-        self.assertEqual(len(fn_type_value), 1)
-        self.assertEqual(fn_type_value[0]["validation_type"], "value in list")
-        self.assertEqual(fn_type_value[0]["response"], "ERROR")
+        # Generic error should NOT fire for deprecated values
+        self.assertEqual(len(fn_type_value), 0)
 
+        # Only the deprecation-specific error should fire
         self.assertEqual(len(current_aff_deprecation), 1)
         self.assertEqual(current_aff_deprecation[0]["validation_type"], "unexpected")
         self.assertEqual(current_aff_deprecation[0]["response"], "CRITICAL")
@@ -96,13 +99,16 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         )
         
         # Filter for relevant validations
+        # "con" is a deprecated value with its own validation;
+        # it should NOT trigger the generic "@fn-type value in author-notes" error
+        # to avoid double firing.
         fn_type_value = [item for item in obtained if item["title"] == "@fn-type value in author-notes"]
         con_deprecation = [item for item in obtained if item["title"] == "unexpected con"]
         
-        self.assertEqual(len(fn_type_value), 1)
-        self.assertEqual(fn_type_value[0]["validation_type"], "value in list")
-        self.assertEqual(fn_type_value[0]["response"], "ERROR")
+        # Generic error should NOT fire for deprecated values
+        self.assertEqual(len(fn_type_value), 0)
 
+        # Only the deprecation-specific error should fire
         self.assertEqual(len(con_deprecation), 1)
         self.assertEqual(con_deprecation[0]["validation_type"], "unexpected")
         self.assertEqual(con_deprecation[0]["response"], "CRITICAL")
@@ -331,6 +337,33 @@ class TestAuthorNotesFnValidation(unittest.TestCase):
         self.assertEqual(len(uniqueness_errors), 1)
         self.assertEqual(uniqueness_errors[0]["response"], "ERROR")
         self.assertIn("at most once", uniqueness_errors[0]["advice"])
+    def test_no_corresp_validation_when_no_corresp_element(self):
+        """Test that corresp validations don't fire when there's no <corresp> element.
+
+        Verifies Anomaly 3 fix: when author-notes doesn't contain a corresp element,
+        no corresp-related validations (label, title, bold) should fire.
+        """
+        xml_tree = etree.fromstring('''
+            <article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" xml:lang="pt">
+                <front>
+                    <article-meta>
+                        <author-notes>
+                            <fn fn-type="abbr">
+                                <label>*</label>
+                                <p>Author note without corresp element.</p>
+                            </fn>
+                        </author-notes>
+                    </article-meta>
+                </front>
+            </article>
+        ''')
+        obtained = list(XMLAuthorNotesValidation(xml_tree, self.rules).validate())
+        
+        # Filter for corresp validations
+        corresp_validations = [item for item in obtained if item["item"] == "corresp"]
+        
+        # No corresp validations should fire when there's no <corresp> element
+        self.assertEqual(len(corresp_validations), 0)
 
 
 if __name__ == "__main__":

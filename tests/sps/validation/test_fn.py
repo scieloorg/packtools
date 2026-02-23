@@ -103,7 +103,12 @@ class TestFnValidation(unittest.TestCase):
         self.assertEqual(len(edited_by), 1)
 
     def test_validate_fn_type_missing_in_fn_group(self):
-        """Test Rule 3: @fn-type is mandatory for <fn> in <fn-group>"""
+        """Test Rule 3: @fn-type is mandatory for <fn> in <fn-group>
+
+        Also verifies Anomaly 1 fix: when @fn-type is missing in fn-group,
+        only the specific presence validation should fire, not the generic
+        validate_type from basefn.py.
+        """
         xml_tree = etree.fromstring('''
             <article>
                 <front>
@@ -118,12 +123,17 @@ class TestFnValidation(unittest.TestCase):
         ''')
         validator = XMLFnGroupValidation(xml_tree, self.rules)
         results = list(validator.validate())
-        
+
         # Filter for fn-type presence validation
         fn_type_presence = [item for item in results if item["title"] == "@fn-type attribute presence in fn-group"]
         self.assertEqual(len(fn_type_presence), 1)
         self.assertEqual(fn_type_presence[0]["response"], "CRITICAL")
         self.assertIn("Add mandatory @fn-type attribute", fn_type_presence[0]["advice"])
+
+        # Verify no double firing: the generic "fn-type value" error should NOT fire
+        # when fn-type is missing (None) in fn-group context
+        fn_type_value = [item for item in results if item["title"] == "fn-type value"]
+        self.assertEqual(len(fn_type_value), 0)
 
     def test_validate_fn_group_uniqueness_single(self):
         """Test that single <fn-group> passes validation"""

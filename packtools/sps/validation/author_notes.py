@@ -49,6 +49,11 @@ class AuthorNotesFnValidation(BaseFnValidation):
         # Only validate if fn_type exists
         if fn_type is None:
             return None
+        
+        # "current-aff" and "con" are deprecated and have their own validation;
+        # avoid double firing by delegating to the deprecation methods.
+        if fn_type in ("current-aff", "con"):
+            return None
             
         # SPS 1.10 allowed values for author-notes context
         allowed_values = ["abbr", "coi-statement", "corresp"]
@@ -263,6 +268,10 @@ class XMLAuthorNotesValidation:
 
     def validate_fn_group(self, fn_group):
         for corresp_data in fn_group.get("corresp_data"):
+            # Only validate if there's an actual <corresp> element
+            # (corresp_data["corresp"] will be None if no <corresp> element exists)
+            if corresp_data.get("corresp") is None:
+                continue
             corresp_validator = CorrespValidation(corresp_data, self.rules)
             for result in [
                 corresp_validator.validate_title(),
