@@ -512,7 +512,10 @@ class TestExtLinkValidation(unittest.TestCase):
         self.assertIn("Add @xlink:title attribute", results[0]["advice"])
         self.assertIsNotNone(results[0]["adv_text"])
         self.assertIsNotNone(results[0]["adv_params"])
-        self.assertIn("reason", results[0]["adv_params"])
+        # "reason" was removed when the i18n fix replaced the single message
+        # (with a {reason} interpolation) with two separate translatable strings.
+        # Each message now only needs {text} as interpolation parameter.
+        self.assertIn("text", results[0]["adv_params"])
     
     def test_validate_xlink_title_when_url_text_with_title(self):
         """Test URL as text with @xlink:title present (OK)."""
@@ -619,16 +622,25 @@ class TestExtLinkValidation(unittest.TestCase):
         # Second ext-link: missing @ext-link-type, invalid URL format
         # Third ext-link: invalid @ext-link-type value, generic text
         
-        self.assertEqual(len(type_presence_results), 3)  # All checked
-        self.assertEqual(len([r for r in type_presence_results if r["response"] != "OK"]), 1)  # 1 error
-        
-        self.assertEqual(len(href_format_results), 3)  # All 3 have href
-        self.assertEqual(len([r for r in href_format_results if r["response"] != "OK"]), 1)  # 1 error
-        
-        self.assertEqual(len(type_value_results), 2)  # Only 2 have type
-        self.assertEqual(len([r for r in type_value_results if r["response"] != "OK"]), 1)  # 1 error
-        
-        self.assertEqual(len(text_results), 1)  # Only 1 generic text
+        # @ext-link-type presence: all 3 checked, 1 missing (second ext-link)
+        self.assertEqual(len(type_presence_results), 3)
+        self.assertEqual(len([r for r in type_presence_results if r["response"] != "OK"]), 1)
+
+        # @xlink:href presence: all 3 have href, none missing
+        # (previously computed but never asserted — Copilot observation)
+        self.assertEqual(len(href_presence_results), 3)
+        self.assertEqual(len([r for r in href_presence_results if r["response"] != "OK"]), 0)
+
+        # @xlink:href format: all 3 have href so all are checked, 1 invalid (second: no protocol)
+        self.assertEqual(len(href_format_results), 3)
+        self.assertEqual(len([r for r in href_format_results if r["response"] != "OK"]), 1)
+
+        # @ext-link-type value: only 2 have type, 1 invalid (third: "website")
+        self.assertEqual(len(type_value_results), 2)
+        self.assertEqual(len([r for r in type_value_results if r["response"] != "OK"]), 1)
+
+        # descriptive text: only 1 generic (third: "click here")
+        self.assertEqual(len(text_results), 1)
         self.assertEqual(text_results[0]["response"], "WARNING")
 
 
