@@ -45,6 +45,7 @@ from packtools.sps.validation.accessibility_data import XMLAccessibilityDataVali
 from packtools.sps.validation.app_group import AppValidation
 
 from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
+from packtools.sps.validation.ext_link import ExtLinkValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -303,3 +304,24 @@ def validate_supplementary_materials(xmltree, params):
     rules.update(params["supplementary_materials_rules"])
     validator = XmlSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
+
+
+def validate_ext_links(xmltree, params):
+    """
+    Validates ext-link elements according to SPS 1.10 specification.
+    
+    Validates:
+    - Mandatory attributes (@ext-link-type, @xlink:href)
+    - URL format (must start with http:// or https://)
+    - Allowed ext-link-type values
+    - Descriptive text (accessibility)
+    - @xlink:title requirement for generic/URL text
+    """
+    ext_link_rules = params["ext_link_rules"]
+    validator = ExtLinkValidation(xmltree, ext_link_rules)
+    yield from validator.validate_ext_link_type_presence()
+    yield from validator.validate_xlink_href_presence()
+    yield from validator.validate_xlink_href_format()
+    yield from validator.validate_ext_link_type_value()
+    yield from validator.validate_descriptive_text()
+    yield from validator.validate_xlink_title_when_generic()
