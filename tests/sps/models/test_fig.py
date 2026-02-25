@@ -91,6 +91,38 @@ class FigTest(unittest.TestCase):
     def test_graphic_href(self):
         self.assertEqual(self.fig_obj.graphic_href, "1234-5678-zwy-12-04-0123-gf02.tif")
 
+    def test_has_graphic_true(self):
+        self.assertTrue(self.fig_obj.has_graphic)
+
+    def test_has_graphic_false(self):
+        xml = (
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<body><fig id=\"f01\"><label>Figure 1</label></fig></body>"
+            "</article>"
+        )
+        fig_element = etree.fromstring(xml).xpath("//fig")[0]
+        self.assertFalse(Fig(fig_element).has_graphic)
+
+    def test_graphic_is_in_alternatives_false(self):
+        # <graphic> is a direct child of <fig>, not of <alternatives>
+        self.assertFalse(self.fig_obj.graphic_is_in_alternatives)
+
+    def test_graphic_is_in_alternatives_true(self):
+        xml = (
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<body>"
+            '<fig id="f01">'
+            "<alternatives>"
+            '<graphic xlink:href="image.svg"/>'
+            '<graphic xlink:href="image.jpg"/>'
+            "</alternatives>"
+            "</fig>"
+            "</body>"
+            "</article>"
+        )
+        fig_element = etree.fromstring(xml).xpath("//fig")[0]
+        self.assertTrue(Fig(fig_element).graphic_is_in_alternatives)
+
     def test_caption_text(self):
         self.assertEqual(self.fig_obj.caption_text, "Título da figura")
 
@@ -103,13 +135,27 @@ class FigTest(unittest.TestCase):
             ["graphic", "graphic", "textual-alternative", "media"],
         )
 
+    def test_file_extension_lowercase(self):
+        """file_extension must always return lowercase regardless of original case"""
+        xml = (
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink">'
+            "<body>"
+            '<fig id="f01"><graphic xlink:href="image.TIF"/></fig>'
+            "</body>"
+            "</article>"
+        )
+        fig_element = etree.fromstring(xml).xpath("//fig")[0]
+        self.assertEqual(Fig(fig_element).file_extension, "tif")
+
     def test_data(self):
         expected_data = {
             "alternative_parent": "fig",
             "id": "f02",
             "type": "map",
             "label": "FIGURE 2",
+            "has_graphic": True,
             "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
+            "graphic_is_in_alternatives": False,
             "caption": "Título da figura",
             "source_attrib": "Fonte: IBGE (2018)",
             "alternative_elements": [
@@ -228,7 +274,9 @@ class ArticleFigsTest(unittest.TestCase):
                 "id": "f02",
                 "type": "map",
                 "label": "FIGURE 2",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Título da figura 1 em Português",
                 "source_attrib": "Fonte: IBGE (2018)",
                 "alternative_elements": [
@@ -242,17 +290,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
                 "id": "f03",
                 "type": "map",
                 "label": "FIGURE 3",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf03.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Título da figura 2 em Português",
                 "source_attrib": "Fonte: IBGE (2019)",
                 "alternative_elements": [
@@ -266,17 +316,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
                 "id": "f01",
                 "type": "map",
                 "label": "FIGURE 1",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf01.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Title of Map 1",
                 "source_attrib": None,
                 "alternative_elements": [],
@@ -285,17 +337,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
                 "id": "f04",
                 "type": "map",
                 "label": "FIGURE 4",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf04.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Title of Map 2",
                 "source_attrib": None,
                 "alternative_elements": [],
@@ -304,31 +358,32 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
-                'alternative_elements': [],
-                'alternative_parent': 'fig',
-                'caption': 'Chart Showing Additional Data',
-                'id': 'sf1',
-                'type': 'chart',
-                'graphic': '1234-5678-zwy-12-04-0123-sf01.tif',
-                'label': 'SUPPLEMENTARY FIGURE 1',
-                'parent': 'sub-article',
-                'parent_article_type': 'supplementary-material',
-                'parent_id': 'SM1',
-                'parent_lang': 'en',
-                'source_attrib': 'Data Source: Experimental Data 2020',
+                "alternative_parent": "fig",
+                "id": "sf1",
+                "type": "chart",
+                "label": "SUPPLEMENTARY FIGURE 1",
+                "has_graphic": True,
+                "graphic": "1234-5678-zwy-12-04-0123-sf01.tif",
+                "graphic_is_in_alternatives": False,
+                "caption": "Chart Showing Additional Data",
+                "source_attrib": "Data Source: Experimental Data 2020",
+                "alternative_elements": [],
+                "parent": "sub-article",
+                "parent_article_type": "supplementary-material",
+                "parent_id": "SM1",
+                "parent_lang": "en",
                 "file_extension": "tif",
                 "graphic_alt_text": None,
                 "graphic_long_desc": None,
                 "xml_lang": None,
                 "parent_name": "sec",
-            }
-
+            },
         ]
 
         self.assertEqual(len(obtained), 5)
@@ -346,7 +401,9 @@ class ArticleFigsTest(unittest.TestCase):
                 "id": "f02",
                 "type": "map",
                 "label": "FIGURE 2",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf02.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Título da figura 1 em Português",
                 "source_attrib": "Fonte: IBGE (2018)",
                 "alternative_elements": [
@@ -360,17 +417,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
                 "id": "f03",
                 "type": "map",
                 "label": "FIGURE 3",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf03.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Título da figura 2 em Português",
                 "source_attrib": "Fonte: IBGE (2019)",
                 "alternative_elements": [
@@ -384,11 +443,11 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "pt",
                 "parent_article_type": "research-article",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
-            }
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
+            },
         ]
 
         self.assertEqual(len(obtained), 2)
@@ -406,7 +465,9 @@ class ArticleFigsTest(unittest.TestCase):
                 "id": "f01",
                 "type": "map",
                 "label": "FIGURE 1",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf01.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Title of Map 1",
                 "source_attrib": None,
                 "alternative_elements": [],
@@ -415,17 +476,19 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
             },
             {
                 "alternative_parent": "fig",
                 "id": "f04",
                 "type": "map",
                 "label": "FIGURE 4",
+                "has_graphic": True,
                 "graphic": "1234-5678-zwy-12-04-0123-gf04.tif",
+                "graphic_is_in_alternatives": False,
                 "caption": "Title of Map 2",
                 "source_attrib": None,
                 "alternative_elements": [],
@@ -434,11 +497,11 @@ class ArticleFigsTest(unittest.TestCase):
                 "parent_lang": "en",
                 "parent_article_type": "translation",
                 "file_extension": "tif",
-            "graphic_alt_text": None,
-            "graphic_long_desc": None,
-            "xml_lang": None,
-            "parent_name": "p",
-            }
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "xml_lang": None,
+                "parent_name": "p",
+            },
         ]
 
         self.assertEqual(len(obtained), 2)
@@ -452,24 +515,26 @@ class ArticleFigsTest(unittest.TestCase):
 
         expected = [
             {
-                'alternative_elements': [],
-                'alternative_parent': 'fig',
-                'caption': 'Chart Showing Additional Data',
-                'id': 'sf1',
-                'type': 'chart',
-                'graphic': '1234-5678-zwy-12-04-0123-sf01.tif',
-                'label': 'SUPPLEMENTARY FIGURE 1',
-                'parent': 'sub-article',
-                'parent_article_type': 'supplementary-material',
-                'parent_id': 'SM1',
-                'parent_lang': 'en',
-                'source_attrib': 'Data Source: Experimental Data 2020',
+                "alternative_parent": "fig",
+                "id": "sf1",
+                "type": "chart",
+                "label": "SUPPLEMENTARY FIGURE 1",
+                "has_graphic": True,
+                "graphic": "1234-5678-zwy-12-04-0123-sf01.tif",
+                "graphic_is_in_alternatives": False,
+                "caption": "Chart Showing Additional Data",
+                "source_attrib": "Data Source: Experimental Data 2020",
+                "alternative_elements": [],
+                "parent": "sub-article",
+                "parent_article_type": "supplementary-material",
+                "parent_id": "SM1",
+                "parent_lang": "en",
                 "file_extension": "tif",
                 "graphic_alt_text": None,
                 "graphic_long_desc": None,
                 "xml_lang": None,
                 "parent_name": "sec",
-            }
+            },
         ]
 
         self.assertEqual(len(obtained), 1)

@@ -60,27 +60,34 @@ class FigValidation:
     def validate(self):
         # P0 - Critical: Rule 1 - Validate @id presence
         yield self.validate_id()
-        
+
         # P0 - Critical: Rule 2 - Validate <graphic> presence
         yield self.validate_graphic()
-        
+
         # P0 - Critical: Rule 3 - Validate @xlink:href in <graphic>
-        yield self.validate_xlink_href()
-        
+        # Only runs when <graphic> element exists; if it is absent Rule 2 already
+        # reports the issue and running Rule 3 would produce a duplicate CRITICAL error.
+        if self.data.get("has_graphic"):
+            yield self.validate_xlink_href()
+
         # P0 - ERROR: Rule 4 - Validate file extension
-        yield self.validate_file_extension()
-        
+        # Only runs when <graphic> exists and has @xlink:href; if either is
+        # absent the issue is already reported by Rules 2 or 3 and there is
+        # nothing meaningful to validate about the extension.
+        if self.data.get("has_graphic") and self.data.get("graphic"):
+            yield self.validate_file_extension()
+
         # P0 - ERROR: Rule 5 - Validate @fig-type values (only if present)
         if self.data.get("type"):
             yield self.validate_fig_type()
-        
+
         # P1 - ERROR: Rule 6 - Validate @xml:lang in fig-group (only if in fig-group)
         if self.data.get("parent_name") == "fig-group":
             yield self.validate_xml_lang_in_fig_group()
-        
+
         # P1 - WARNING: Rule 7 - Validate accessibility (alt-text or long-desc)
         yield self.validate_accessibility()
-        
+
         # P1 - WARNING: Rule 8 - Validate alt-text length (only if alt-text present)
         if self.data.get("graphic_alt_text"):
             yield self.validate_alt_text_length()
@@ -106,18 +113,17 @@ class FigValidation:
         )
 
     def validate_graphic(self):
-        """Rule 2: Validate presence of <graphic> (CRITICAL)"""
-        obtained = self.data.get("graphic")
-        is_valid = bool(obtained)
+        """Rule 2: Validate presence of <graphic> element (CRITICAL)"""
+        has_graphic = self.data.get("has_graphic", False)
         return build_response(
             title="<graphic>",
             parent=self.data,
             item="fig",
             sub_item="graphic",
             validation_type="exist",
-            is_valid=is_valid,
+            is_valid=has_graphic,
             expected="<graphic> element",
-            obtained=obtained,
+            obtained="<graphic>" if has_graphic else None,
             advice=_('Add <graphic> element inside <fig>. Example: <graphic xlink:href="image.jpg"/>. Every <fig> must contain at least one <graphic> element.'),
             data=self.data,
             error_level=self.rules["graphic_error_level"],
@@ -126,9 +132,14 @@ class FigValidation:
         )
 
     def validate_xlink_href(self):
-        """Rule 3: Validate @xlink:href in <graphic> (CRITICAL)"""
-        graphic = self.data.get("graphic")
-        is_valid = bool(graphic)
+        """Rule 3: Validate @xlink:href in <graphic> (CRITICAL)
+
+        Only called when has_graphic is True (Rule 2 passed). This ensures that
+        a missing <graphic> element and a <graphic> without @xlink:href are
+        reported as distinct issues rather than producing duplicate CRITICAL errors.
+        """
+        href = self.data.get("graphic")
+        is_valid = bool(href)
         return build_response(
             title="@xlink:href",
             parent=self.data,
@@ -137,7 +148,7 @@ class FigValidation:
             validation_type="exist",
             is_valid=is_valid,
             expected="@xlink:href attribute in <graphic>",
-            obtained=graphic,
+            obtained=href,
             advice=_('Add @xlink:href attribute to <graphic>. Example: <graphic xlink:href="image.jpg"/>. The @xlink:href attribute is mandatory in <graphic>.'),
             data=self.data,
             error_level=self.rules["xlink_href_error_level"],
@@ -146,18 +157,32 @@ class FigValidation:
         )
 
     def validate_file_extension(self):
-        """Rule 4: Validate file extension (ERROR)"""
+        """Rule 4: Validate file extension (ERROR)
+
+        SVG validation uses graphic_is_in_alternatives (provided by the model)
+        to check whether the specific <graphic> being validated is a direct child
+        of <alternatives>, rather than merely checking whether any <alternatives>
+        block exists in the <fig>. This prevents false positives in cases such as:
+
+            <fig>
+              <graphic xlink:href="image.svg"/>   ← SVG outside alternatives
+              <alternatives>
+                <graphic xlink:href="other.jpg"/>
+              </alternatives>
+            </fig>
+
+        File extensions are compared in their already-normalised (lowercase) form
+        as returned by the model, so .TIF, .JPG etc. are handled correctly.
+        """
         file_extension = self.data.get("file_extension")
         graphic_href = self.data.get("graphic")
         allowed_extensions = self.rules["allowed_file_extensions"]
-        alternative_elements = self.data.get("alternative_elements", [])
-        
-        # Check if file is SVG and if it's inside alternatives
+        is_in_alternatives = self.data.get("graphic_is_in_alternatives", False)
+
         is_svg = file_extension == "svg"
-        is_in_alternatives = len(alternative_elements) > 0
-        
-        # SVG is only allowed inside alternatives
+
         if is_svg:
+            # SVG is only valid when the <graphic> is a direct child of <alternatives>
             is_valid = is_in_alternatives
             if not is_valid:
                 advice = _('SVG files are only allowed inside <alternatives>. Either use a different format ({allowed_formats}) or wrap the graphic in <alternatives>.').format(allowed_formats=", ".join(allowed_extensions))
@@ -181,7 +206,7 @@ class FigValidation:
                 advice = None
                 advice_text = None
                 advice_params = {}
-        
+
         return build_response(
             title="file extension",
             parent=self.data,
@@ -203,7 +228,7 @@ class FigValidation:
         fig_type = self.data.get("type")
         allowed_types = self.rules["allowed_fig_types"]
         is_valid = fig_type in allowed_types
-        
+
         return build_response(
             title="@fig-type",
             parent=self.data,
@@ -224,7 +249,7 @@ class FigValidation:
         """Rule 6: Validate @xml:lang in <fig> inside <fig-group> (ERROR)"""
         xml_lang = self.data.get("xml_lang")
         is_valid = bool(xml_lang)
-        
+
         return build_response(
             title="@xml:lang in fig-group",
             parent=self.data,
@@ -246,7 +271,7 @@ class FigValidation:
         alt_text = self.data.get("graphic_alt_text")
         long_desc = self.data.get("graphic_long_desc")
         has_accessibility = bool(alt_text or long_desc)
-        
+
         return build_response(
             title="accessibility",
             parent=self.data,
@@ -269,7 +294,7 @@ class FigValidation:
         max_length = self.rules["alt_text_max_length"]
         current_length = len(alt_text)
         is_valid = current_length <= max_length
-        
+
         return build_response(
             title="alt-text length",
             parent=self.data,
@@ -285,4 +310,3 @@ class FigValidation:
             advice_text=_('The <alt-text> content has {current_length} characters, exceeding the recommended maximum of {max_length}. Please shorten the description.'),
             advice_params={"current_length": current_length, "max_length": max_length},
         )
-

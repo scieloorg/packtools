@@ -27,11 +27,41 @@ class Fig:
         return self.element.findtext("label")
 
     @property
+    def has_graphic(self):
+        """
+        Checks whether a <graphic> element exists anywhere inside <fig>.
+
+        Returns:
+            bool: True if at least one <graphic> element is present, False otherwise.
+        """
+        return self.element.find(".//graphic") is not None
+
+    @property
     def graphic_href(self):
         graphic_element = self.element.find(".//graphic")
         if graphic_element is not None:
             return graphic_element.get("{http://www.w3.org/1999/xlink}href")
         return None
+
+    @property
+    def graphic_is_in_alternatives(self):
+        """
+        Checks whether the first <graphic> element is a direct child of <alternatives>.
+
+        This is used to validate SVG usage: SVG files are only allowed inside
+        <alternatives>. Checking the parent of the specific <graphic> element
+        being validated avoids false positives when an <alternatives> block exists
+        elsewhere in the <fig> but the primary <graphic> is outside it.
+
+        Returns:
+            bool: True if the first <graphic> element's parent is <alternatives>,
+                  False otherwise.
+        """
+        graphic = self.element.find(".//graphic")
+        if graphic is not None:
+            parent = graphic.getparent()
+            return parent is not None and parent.tag == "alternatives"
+        return False
 
     @property
     def caption_text(self):
@@ -53,10 +83,18 @@ class Fig:
 
     @property
     def file_extension(self):
-        file_name = self.graphic_href
+        """
+        Returns the file extension of the graphic href in lowercase.
 
+        Normalising to lowercase avoids false negatives when extensions are
+        written in uppercase or mixed case (e.g. .TIF, .JPG).
+
+        Returns:
+            str or None: Lowercase file extension if present, None otherwise.
+        """
+        file_name = self.graphic_href
         if file_name and "." in file_name:
-            return file_name.split(".")[-1]
+            return file_name.split(".")[-1].lower()
         return None
 
     @property
@@ -117,7 +155,9 @@ class Fig:
             "id": self.fig_id,
             "type": self.fig_type,
             "label": self.label,
+            "has_graphic": self.has_graphic,
             "graphic": self.graphic_href,
+            "graphic_is_in_alternatives": self.graphic_is_in_alternatives,
             "caption": self.caption_text,
             "source_attrib": self.source_attrib,
             "alternative_elements": self.alternative_elements,
