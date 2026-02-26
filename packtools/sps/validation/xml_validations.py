@@ -209,8 +209,30 @@ def validate_bibliographic_strip(xmltree, params):
 def validate_funding_data(xmltree, params):
     funding_data_rules = params["funding_data_rules"]
     validator = FundingGroupValidation(xmltree, funding_data_rules)
+    
+    # Existing validations
     yield from validator.validate_required_award_ids()
     yield from validator.validate_funding_statement()
+    
+    # New SPS 1.10 validations
+    yield from validator.validate_funding_group_uniqueness(
+        error_level=funding_data_rules.get("funding_group_uniqueness_error_level", "ERROR")
+    )
+    yield from validator.validate_funding_statement_presence(
+        error_level=funding_data_rules.get("funding_statement_presence_error_level", "CRITICAL")
+    )
+    yield from validator.validate_funding_source_in_award_group(
+        error_level=funding_data_rules.get("funding_source_in_award_group_error_level", "CRITICAL")
+    )
+    yield from validator.validate_label_absence(
+        error_level=funding_data_rules.get("label_absence_error_level", "ERROR")
+    )
+    yield from validator.validate_title_absence(
+        error_level=funding_data_rules.get("title_absence_error_level", "ERROR")
+    )
+    yield from validator.validate_award_id_funding_source_consistency(
+        error_level=funding_data_rules.get("award_id_consistency_error_level", "WARNING")
+    )
 
 
 def validate_journal_meta(xmltree, params):
