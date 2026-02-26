@@ -55,7 +55,8 @@ class TestProperAwardGroup(TestFundingValidationBase):
 
     def test_proper_award_group(self):
         results = list(self.validator.validate_required_award_ids())
-        self.assertEqual(len(results), 0)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
 
 
 class TestAwardInAck(TestFundingValidationBase):
@@ -107,7 +108,7 @@ class TestAwardInFinancialDisclosure(TestFundingValidationBase):
         self.assertEqual(len(results), 1)
         result = results[0]
         self.assertEqual(
-            result["data"]["context"], "fn[@fn-type='financial-disclosure']"
+            result["data"]["context"], "financial-disclosure"
         )
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
@@ -134,7 +135,7 @@ class TestAwardInSupportedBy(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result["data"]["context"], "fn[@fn-type='supported-by']")
+        self.assertEqual(result["data"]["context"], "supported-by")
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
@@ -160,7 +161,7 @@ class TestAwardInFundingStatement(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result["data"]["context"], "funding-group/funding-statement")
+        self.assertEqual(result["data"]["context"], "funding-statement")
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
@@ -206,10 +207,10 @@ class TestAwardInAllLocations(TestFundingValidationBase):
         self.assertEqual(len(contexts), 4)
 
         # Verifica cada contexto específico
-        self.assertIn("funding-group/funding-statement", contexts)
+        self.assertIn("funding-statement", contexts)
         self.assertIn("ack", contexts)
-        self.assertIn("fn[@fn-type='financial-disclosure']", contexts)
-        self.assertIn("fn[@fn-type='supported-by']", contexts)
+        self.assertIn("financial-disclosure", contexts)
+        self.assertIn("supported-by", contexts)
 
         # Verifica os award IDs encontrados
         award_ids = set()
@@ -235,14 +236,14 @@ class TestErrorLevels(TestFundingValidationBase):
 
     def test_warning_level(self):
         params = dict(self.params)
-        params["error_level"] = "WARNING"
+        params["award_id_error_level"] = "WARNING"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
         self.assertEqual(results[0]["response"], "WARNING")
 
     def test_info_level(self):
         params = dict(self.params)
-        params["error_level"] = "INFO"
+        params["award_id_error_level"] = "INFO"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
         self.assertEqual(results[0]["response"], "INFO")
