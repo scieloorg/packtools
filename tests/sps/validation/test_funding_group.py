@@ -382,6 +382,46 @@ class TestFundingStatementPresence(TestFundingValidationBase):
         
         self.assertEqual(len(results), 0)
 
+    def test_multiple_funding_groups_second_missing_statement(self):
+        """
+        Case C1: Multiple funding-groups, second one missing funding-statement.
+        This test validates that each funding-group is checked individually.
+        """
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>First funding statement</funding-statement>
+                        </funding-group>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>CNPq</funding-source>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement_presence())
+        
+        # Should get 2 results: one OK for first funding-group, one CRITICAL for second
+        self.assertEqual(len(results), 2)
+        
+        # First funding-group should be OK
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertIn("First funding statement", results[0]["got_value"])
+        
+        # Second funding-group should be CRITICAL (missing funding-statement)
+        self.assertEqual(results[1]["response"], "CRITICAL")
+        self.assertIn("Add <funding-statement>", results[1]["advice"])
+        self.assertIn("index 2", results[1]["advice"])
+
 
 class TestFundingSourceInAwardGroup(TestFundingValidationBase):
     """Rule 3: Test <funding-source> presence in <award-group> validation"""

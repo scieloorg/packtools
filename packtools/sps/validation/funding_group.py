@@ -203,9 +203,10 @@ class FundingGroupValidation:
 
     def validate_funding_statement_presence(self, error_level="CRITICAL"):
         """
-        Rule 2: Validates that <funding-statement> is present in <funding-group>.
+        Rule 2: Validates that <funding-statement> is present in EACH <funding-group>.
         
         According to SPS 1.10, <funding-statement> is mandatory in all cases.
+        Each <funding-group> must have its own <funding-statement>.
         
         Params
         ------
@@ -215,7 +216,7 @@ class FundingGroupValidation:
         Yields
         ------
         dict
-            Validation result for funding-statement presence.
+            Validation result for funding-statement presence in each funding-group.
         """
         funding_groups = self.xml_tree.xpath(".//article-meta/funding-group")
         
@@ -231,26 +232,39 @@ class FundingGroupValidation:
             "parent_lang": funding_data.get("article_lang"),
         }
         
-        funding_statement = self.funding.funding_statement
-        is_valid = funding_statement is not None
-        
-        advice = None
-        if not is_valid:
-            advice = "Add <funding-statement> element inside <funding-group>. It is mandatory according to SPS 1.10."
-        
-        yield build_response(
-            title="funding-statement presence",
-            parent=parent,
-            item="funding-statement",
-            sub_item=None,
-            validation_type="exist",
-            is_valid=is_valid,
-            expected="<funding-statement> present in <funding-group>",
-            obtained=funding_statement if funding_statement else "None",
-            advice=advice,
-            data={"funding_statement": funding_statement},
-            error_level=error_level,
-        )
+        # Validate each funding-group individually
+        for idx, funding_group_node in enumerate(funding_groups):
+            funding_statements = funding_group_node.xpath("funding-statement")
+            is_valid = len(funding_statements) > 0
+            
+            if is_valid:
+                # Get the text from funding-statement(s)
+                text_parts = []
+                for fs in funding_statements:
+                    raw_text = "".join(fs.itertext())
+                    cleaned = " ".join(raw_text.split())
+                    if cleaned:
+                        text_parts.append(cleaned)
+                funding_statement_text = " ".join(text_parts)
+                obtained = funding_statement_text if funding_statement_text else "Present but empty"
+                advice = None
+            else:
+                obtained = "None"
+                advice = f"Add <funding-statement> element inside <funding-group> (index {idx + 1}). It is mandatory according to SPS 1.10."
+            
+            yield build_response(
+                title="funding-statement presence",
+                parent=parent,
+                item="funding-statement",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=is_valid,
+                expected="<funding-statement> present in <funding-group>",
+                obtained=obtained,
+                advice=advice,
+                data={"funding_group_index": idx + 1, "has_funding_statement": is_valid},
+                error_level=error_level,
+            )
 
     def validate_funding_source_in_award_group(self, error_level="CRITICAL"):
         """
