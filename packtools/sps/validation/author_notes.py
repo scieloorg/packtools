@@ -56,7 +56,22 @@ class AuthorNotesFnValidation(BaseFnValidation):
             return None
             
         # SPS 1.10 allowed values for author-notes context
-        allowed_values = ["abbr", "coi-statement", "corresp"]
+        allowed_values = [
+            "abbr",
+            "coi-statement",
+            "corresp",
+            "deceased",
+            "edited-by",
+            "equal",
+            "on-leave",
+            "participating-researchers",
+            "previously-at",
+            "study-group-members",
+            "present-address",
+            "presented-by",
+            "other",
+        ]
+
         is_valid = fn_type in allowed_values
         
         if not is_valid:
