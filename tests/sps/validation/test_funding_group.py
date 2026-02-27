@@ -55,7 +55,8 @@ class TestProperAwardGroup(TestFundingValidationBase):
 
     def test_proper_award_group(self):
         results = list(self.validator.validate_required_award_ids())
-        self.assertEqual(len(results), 0)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
 
 
 class TestAwardInAck(TestFundingValidationBase):
@@ -107,7 +108,7 @@ class TestAwardInFinancialDisclosure(TestFundingValidationBase):
         self.assertEqual(len(results), 1)
         result = results[0]
         self.assertEqual(
-            result["data"]["context"], "fn[@fn-type='financial-disclosure']"
+            result["data"]["context"], "financial-disclosure"
         )
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
@@ -134,7 +135,7 @@ class TestAwardInSupportedBy(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result["data"]["context"], "fn[@fn-type='supported-by']")
+        self.assertEqual(result["data"]["context"], "supported-by")
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
@@ -160,7 +161,7 @@ class TestAwardInFundingStatement(TestFundingValidationBase):
         results = list(self.validator.validate_required_award_ids())
         self.assertEqual(len(results), 1)
         result = results[0]
-        self.assertEqual(result["data"]["context"], "funding-group/funding-statement")
+        self.assertEqual(result["data"]["context"], "funding-statement")
         self.assertIn("123.456-7", str(result["data"]["look-like-award-id"]))
 
 
@@ -206,10 +207,10 @@ class TestAwardInAllLocations(TestFundingValidationBase):
         self.assertEqual(len(contexts), 4)
 
         # Verifica cada contexto específico
-        self.assertIn("funding-group/funding-statement", contexts)
+        self.assertIn("funding-statement", contexts)
         self.assertIn("ack", contexts)
-        self.assertIn("fn[@fn-type='financial-disclosure']", contexts)
-        self.assertIn("fn[@fn-type='supported-by']", contexts)
+        self.assertIn("financial-disclosure", contexts)
+        self.assertIn("supported-by", contexts)
 
         # Verifica os award IDs encontrados
         award_ids = set()
@@ -235,17 +236,547 @@ class TestErrorLevels(TestFundingValidationBase):
 
     def test_warning_level(self):
         params = dict(self.params)
-        params["error_level"] = "WARNING"
+        params["award_id_error_level"] = "WARNING"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
         self.assertEqual(results[0]["response"], "WARNING")
 
     def test_info_level(self):
         params = dict(self.params)
-        params["error_level"] = "INFO"
+        params["award_id_error_level"] = "INFO"
         validator = FundingGroupValidation(self.xml_tree, params)
         results = list(validator.validate_required_award_ids())
         self.assertEqual(results[0]["response"], "INFO")
+
+
+# ========================================
+# New Tests for SPS 1.10 Validations
+# ========================================
+
+
+class TestFundingGroupUniqueness(TestFundingValidationBase):
+    """Rule 1: Test <funding-group> uniqueness validation"""
+
+    def test_single_funding_group_valid(self):
+        """Single <funding-group> should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>No funding</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_group_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_multiple_funding_groups_invalid(self):
+        """Multiple <funding-group> elements should be invalid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>Funding 1</funding-statement>
+                        </funding-group>
+                        <funding-group>
+                            <funding-statement>Funding 2</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_group_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("2 <funding-group>", results[0]["advice"])
+
+    def test_no_funding_group_valid(self):
+        """No <funding-group> should be valid (0 <= 1)"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_group_uniqueness())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+
+class TestFundingStatementPresence(TestFundingValidationBase):
+    """Rule 2: Test <funding-statement> presence validation"""
+
+    def test_funding_statement_present_valid(self):
+        """<funding-statement> present should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>This study was supported by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement_presence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_funding_statement_missing_invalid(self):
+        """Missing <funding-statement> should be invalid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement_presence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertIn("Add <funding-statement>", results[0]["advice"])
+
+    def test_no_funding_group_no_validation(self):
+        """No <funding-group> means no validation needed"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement_presence())
+        
+        self.assertEqual(len(results), 0)
+
+    def test_multiple_funding_groups_second_missing_statement(self):
+        """
+        Case C1: Multiple funding-groups, second one missing funding-statement.
+        This test validates that each funding-group is checked individually.
+        """
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>First funding statement</funding-statement>
+                        </funding-group>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>CNPq</funding-source>
+                            </award-group>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_statement_presence())
+        
+        # Should get 2 results: one OK for first funding-group, one CRITICAL for second
+        self.assertEqual(len(results), 2)
+        
+        # First funding-group should be OK
+        self.assertEqual(results[0]["response"], "OK")
+        self.assertIn("First funding statement", results[0]["got_value"])
+        
+        # Second funding-group should be CRITICAL (missing funding-statement)
+        self.assertEqual(results[1]["response"], "CRITICAL")
+        self.assertIn("Add <funding-statement>", results[1]["advice"])
+        self.assertIn("index 2", results[1]["advice"])
+
+
+class TestFundingSourceInAwardGroup(TestFundingValidationBase):
+    """Rule 3: Test <funding-source> presence in <award-group> validation"""
+
+    def test_funding_source_present_valid(self):
+        """<funding-source> present in <award-group> should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_source_in_award_group())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_funding_source_missing_invalid(self):
+        """Missing <funding-source> in <award-group> should be invalid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>Funded</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_source_in_award_group())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "CRITICAL")
+        self.assertIn("Add at least one <funding-source>", results[0]["advice"])
+
+    def test_multiple_funding_sources_valid(self):
+        """Multiple <funding-source> elements should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <funding-source>CAPES</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP and CAPES</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_funding_source_in_award_group())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+
+class TestLabelAbsence(TestFundingValidationBase):
+    """Rule 5: Test <label> absence validation"""
+
+    def test_no_label_valid(self):
+        """No <label> in <funding-group> should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_label_absence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_label_present_invalid(self):
+        """<label> in <funding-group> should be invalid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <label>Funding</label>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_label_absence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("Remove", results[0]["advice"])
+        self.assertIn("<label>", results[0]["advice"])
+
+
+class TestTitleAbsence(TestFundingValidationBase):
+    """Rule 6: Test <title> absence validation"""
+
+    def test_no_title_valid(self):
+        """No <title> in <funding-group> should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_title_absence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_title_present_invalid(self):
+        """<title> in <funding-group> should be invalid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <title>Funding Information</title>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_title_absence())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertIn("Remove", results[0]["advice"])
+        self.assertIn("<title>", results[0]["advice"])
+
+
+class TestAwardIdFundingSourceConsistency(TestFundingValidationBase):
+    """Rule 7: Test <award-id> and <funding-source> consistency validation"""
+
+    def test_support_without_contract_valid(self):
+        """Support without contract (0 award-ids) should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_award_id_funding_source_consistency())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_single_contract_valid(self):
+        """Single contract (1 award-id) for multiple sources should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <funding-source>CAPES</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP and CAPES</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_award_id_funding_source_consistency())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_matching_quantities_valid(self):
+        """Matching quantities (N sources, N awards) should be valid"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <funding-source>CAPES</funding-source>
+                                <award-id>04/08142-0</award-id>
+                                <award-id>05/09876-5</award-id>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP and CAPES</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_award_id_funding_source_consistency())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "OK")
+
+    def test_inconsistent_quantities_warning(self):
+        """Inconsistent quantities should trigger warning"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>FAPESP</funding-source>
+                                <award-id>04/08142-0</award-id>
+                                <award-id>05/09876-5</award-id>
+                                <award-id>06/12345-6</award-id>
+                            </award-group>
+                            <funding-statement>Funded by FAPESP</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        results = list(validator.validate_award_id_funding_source_consistency())
+        
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["response"], "WARNING")
+        self.assertIn("Inconsistent quantities", results[0]["advice"])
+
+
+class TestCompleteValidExamples(TestFundingValidationBase):
+    """Test complete valid XML examples from the issue"""
+
+    def test_example_1_funding_with_contract(self):
+        """Example 1: Funding with contract number"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <award-group>
+                                <funding-source>Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP)</funding-source>
+                                <award-id>04/08142-0</award-id>
+                            </award-group>
+                            <funding-statement>This study was supported by Fundação de Amparo à Pesquisa do Estado de São Paulo (FAPESP - Grant no. 04/08142-0; São Paulo, Brazil)</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        
+        # All validations should pass
+        uniqueness = list(validator.validate_funding_group_uniqueness())
+        statement = list(validator.validate_funding_statement_presence())
+        source = list(validator.validate_funding_source_in_award_group())
+        label = list(validator.validate_label_absence())
+        title = list(validator.validate_title_absence())
+        consistency = list(validator.validate_award_id_funding_source_consistency())
+        
+        self.assertEqual(uniqueness[0]["response"], "OK")
+        self.assertEqual(statement[0]["response"], "OK")
+        self.assertEqual(source[0]["response"], "OK")
+        self.assertEqual(label[0]["response"], "OK")
+        self.assertEqual(title[0]["response"], "OK")
+        self.assertEqual(consistency[0]["response"], "OK")
+
+    def test_example_6_negative_funding_declaration(self):
+        """Example 6: Negative funding declaration"""
+        xml = """
+            <article article-type="research-article" xml:lang="en">
+                <front>
+                    <article-meta>
+                        <funding-group>
+                            <funding-statement>Não houve financiamento para esta publicação</funding-statement>
+                        </funding-group>
+                    </article-meta>
+                </front>
+            </article>
+        """
+        xml_tree = etree.fromstring(xml)
+        validator = FundingGroupValidation(xml_tree, self.params)
+        
+        # Should pass all checks (no award-group means no source validation)
+        uniqueness = list(validator.validate_funding_group_uniqueness())
+        statement = list(validator.validate_funding_statement_presence())
+        source = list(validator.validate_funding_source_in_award_group())
+        label = list(validator.validate_label_absence())
+        title = list(validator.validate_title_absence())
+        
+        self.assertEqual(uniqueness[0]["response"], "OK")
+        self.assertEqual(statement[0]["response"], "OK")
+        self.assertEqual(len(source), 0)  # No award-group, so no validation
+        self.assertEqual(label[0]["response"], "OK")
+        self.assertEqual(title[0]["response"], "OK")
 
 
 if __name__ == "__main__":
