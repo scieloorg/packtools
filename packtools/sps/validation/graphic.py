@@ -1,6 +1,7 @@
 import os
 from packtools.sps.validation.visual_resource_base import VisualResourceBaseValidation
 from packtools.sps.validation.utils import build_response
+from packtools.sps.models.graphic import XmlGraphic
 
 
 class GraphicValidation(VisualResourceBaseValidation):
@@ -94,3 +95,26 @@ class GraphicValidation(VisualResourceBaseValidation):
                 error_level=self.params.get("svg_error_level", "ERROR"),
                 data=self.data,
             )
+
+
+class XMLGraphicValidation:
+    """
+    Validates all <graphic> and <inline-graphic> elements in an XML document.
+    
+    This class follows the same pattern as XMLMediaValidation and XMLAccessibilityDataValidation.
+    It iterates through all graphic elements found in the document and validates each one.
+    """
+    
+    def __init__(self, xmltree, params):
+        self.params = params
+        self.xml_graphic = XmlGraphic(xmltree)
+
+    def validate(self):
+        """
+        Validate all graphic and inline-graphic elements in the document.
+        
+        Yields validation results for each graphic element found.
+        """
+        for data in self.xml_graphic.data:
+            validator = GraphicValidation(data, self.params)
+            yield from validator.validate()
