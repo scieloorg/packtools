@@ -2,7 +2,6 @@
 from __future__ import print_function, unicode_literals
 import argparse
 import sys
-import pkg_resources
 import logging
 import os
 
@@ -10,6 +9,7 @@ from lxml import etree
 
 import packtools
 from packtools import catalogs
+from packtools.pkg_resources_fixer import get_version
 
 LOGGER = logging.getLogger(__name__)
 
@@ -76,7 +76,7 @@ def get_htmlgenerator(
 @packtools.utils.config_xml_catalog
 def main():
 
-    packtools_version = pkg_resources.get_distribution('packtools').version
+    packtools_version = get_version('packtools')
 
     parser = argparse.ArgumentParser(description='HTML generator cli utility')
     parser.add_argument('--nonetwork', action='store_true',

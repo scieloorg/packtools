@@ -145,3 +145,7 @@ def validate_xml_content(xmltree, rules):
         "group": "supplementary-material",
         "items": xml_validations.validate_supplementary_materials(xmltree, params),
     }
+    yield {
+        "group": "ext-link",
+        "items": xml_validations.validate_ext_links(xmltree, params),
+    }
