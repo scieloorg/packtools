@@ -42,4 +42,6 @@ nosetests.xml
 .venv
 
 .idea
-src/scielo-scholarly-data
+
+# Source packages
+src/
