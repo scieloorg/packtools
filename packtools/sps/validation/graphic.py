@@ -13,7 +13,9 @@ class GraphicValidation(VisualResourceBaseValidation):
     - @xlink:href attribute (required)
     - File extensions (.jpg, .jpeg, .png, .tif, .tiff, .svg)
     - .svg only allowed inside <alternatives>
-    - Accessibility elements (<alt-text>, <long-desc>)
+    
+    Note: Accessibility validation (<alt-text>, <long-desc>) is handled separately
+    by XMLAccessibilityDataValidation in the validation pipeline to avoid duplicates.
     """
     
     def validate(self):
@@ -21,7 +23,8 @@ class GraphicValidation(VisualResourceBaseValidation):
         yield self.validate_id()
         yield self.validate_xlink_href()
         yield from self.validate_svg_in_alternatives()
-        yield from self.accessibility_validation.validate()
+        # Note: Accessibility validation is handled by the dedicated XMLAccessibilityDataValidation
+        # in the pipeline to avoid duplicate validation entries in reports
     
     def validate_id(self):
         """
