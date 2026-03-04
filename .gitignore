@@ -42,4 +42,4 @@ nosetests.xml
 .venv
 
 .idea
-src/
+src/scielo-scholarly-data
