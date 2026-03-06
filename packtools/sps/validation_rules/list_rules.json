@@ -1,0 +1,20 @@
+{
+    "list_rules": {
+        "list_type_presence_error_level": "CRITICAL",
+        "list_type_value_error_level": "ERROR",
+        "min_list_items_error_level": "ERROR",
+        "label_in_list_item_error_level": "WARNING",
+        "empty_list_item_error_level": "WARNING",
+        "missing_title_error_level": "INFO",
+        "allowed_list_types": [
+            "order",
+            "bullet",
+            "alpha-lower",
+            "alpha-upper",
+            "roman-lower",
+            "roman-upper",
+            "simple"
+        ],
+        "min_list_items": 2
+    }
+}
