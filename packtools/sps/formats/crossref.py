@@ -1845,7 +1845,7 @@ def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data=None):
     data : dict, optional
         Dicionário com dados suplementares. Aceita a chave:
         - "crossmark_policy": URL ou DOI da política de Crossmark do publicador.
-          Padrão: "https://www.scielo.br/crossmark-policy"
+          Obrigatório: se ausente, a função retorna sem gerar o elemento crossmark.
 
     Returns
     -------
@@ -1875,9 +1875,9 @@ def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data=None):
     """
     if data is None:
         data = {}
-    crossmark_policy = data.get(
-        "crossmark_policy", "https://www.scielo.br/crossmark-policy"
-    )
+    crossmark_policy = data.get("crossmark_policy")
+    if not crossmark_policy:
+        return
 
     # Collect related-articles with mappable types from the main article
     updates_data = []

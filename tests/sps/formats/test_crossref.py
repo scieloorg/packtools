@@ -2154,8 +2154,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2192,8 +2193,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2228,8 +2230,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2247,6 +2250,27 @@ class CrossmarkPipeTest(TestCase):
             '<pub-date date-type="pub" publication-format="electronic">'
             '<month>01</month><year>2024</year>'
             '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertNotIn('<crossmark>', obtained)
+
+    def test_crossmark_pipe_no_policy_returns_early(self):
+        """Test crossmark pipe returns without generating crossmark when crossmark_policy is absent."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="corrected-article" '
+            'xlink:href="10.1590/correction-doi" ext-link-type="doi"/>'
             '</article-meta>'
             '</front>'
             '</article>'
@@ -2274,8 +2298,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2322,8 +2347,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2355,8 +2381,9 @@ class CrossmarkPipeTest(TestCase):
             '</body>'
             '</doi_batch>'
         )
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         journal_articles = xml_crossref.findall(
             "./body/journal//journal_article"
@@ -2380,8 +2407,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2401,8 +2429,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2422,8 +2451,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
@@ -2446,8 +2476,9 @@ class CrossmarkPipeTest(TestCase):
             '</article>'
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://www.scielo.br/crossmark-policy"}
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
