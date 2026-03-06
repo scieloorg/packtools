@@ -88,8 +88,12 @@ class BaseFnValidation:
         """
         Validate the presence of 'type' in the footnote.
         """
-        expected = self.rules["fn_type_expected_values"]
         fn_type = self.fn_data.get("fn_type")
+        # Absence of @fn-type in fn-group is already reported by
+        # validate_fn_type_presence_in_fn_group; avoid double firing.
+        if fn_type is None and self.fn_data.get("fn_parent") == "fn-group":
+            return None
+        expected = self.rules["fn_type_expected_values"]
         is_valid = fn_type in expected
         return build_response(
             title="fn-type value",

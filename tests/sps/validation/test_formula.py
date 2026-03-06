@@ -608,3 +608,177 @@ class ArticleFormulaValidationTest(unittest.TestCase):
         self.assertEqual(error["response"], "CRITICAL")
         self.assertEqual(error["got_value"], "alternatives")
         self.assertIn("Remove the <alternatives>", error["advice"])
+
+    def test_validate_mathml_recommendation_in_disp_formula_with_only_tex(self):
+        """Test MathML recommendation when disp-formula has only tex-math"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>(1)</label>"
+            '<tex-math id="tx1">\\[ E = mc^2 \\]</tex-math>'
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar aviso recomendando MathML
+        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(warnings), 1)
+
+        warning = warnings[0]
+        self.assertEqual(warning["response"], "WARNING")
+        self.assertEqual(warning["expected_value"], "mml:math")
+        self.assertEqual(warning["got_value"], "tex-math")
+        self.assertIn("accessibility", warning["advice"])
+        self.assertIn("mml:math", warning["advice"])
+
+    def test_validate_mathml_recommendation_in_disp_formula_with_mml(self):
+        """Test that OK response is returned when disp-formula has mml:math"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>(1)</label>"
+            '<mml:math id="m1">'
+            "<mml:mrow>"
+            "<mml:mi>E</mml:mi><mml:mo>=</mml:mo><mml:mi>m</mml:mi><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
+
+    def test_validate_mathml_recommendation_in_disp_formula_with_both(self):
+        """Test that OK response is returned when disp-formula has both tex-math and mml:math"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>(1)</label>"
+            "<alternatives>"
+            '<mml:math id="m1">'
+            "<mml:mrow>"
+            "<mml:mi>E</mml:mi><mml:mo>=</mml:mo><mml:mi>m</mml:mi><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup>"
+            "</mml:mrow>"
+            "</mml:math>"
+            '<tex-math id="tx1">\\[ E = mc^2 \\]</tex-math>'
+            "</alternatives>"
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
+
+    def test_validate_mathml_recommendation_in_inline_formula_with_only_tex(self):
+        """Test MathML recommendation when inline-formula has only tex-math"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<p>Some text with <inline-formula id="e10">'
+            '<tex-math id="tx1">x^2</tex-math>'
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar aviso recomendando MathML
+        warnings = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(warnings), 1)
+
+        warning = warnings[0]
+        self.assertEqual(warning["response"], "WARNING")
+        self.assertEqual(warning["expected_value"], "mml:math")
+        self.assertEqual(warning["got_value"], "tex-math")
+        self.assertIn("accessibility", warning["advice"])
+        self.assertIn("mml:math", warning["advice"])
+
+    def test_validate_mathml_recommendation_in_inline_formula_with_mml(self):
+        """Test that OK response is returned when inline-formula has mml:math"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<p>Some text with <inline-formula id="e10">'
+            '<mml:math id="m1">'
+            "<mml:msup><mml:mi>x</mml:mi><mml:mn>2</mml:mn></mml:msup>"
+            "</mml:math>"
+            "</inline-formula> in text.</p>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleInlineFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar OK para MathML recommendation
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
+
+    def test_validate_mathml_recommendation_returns_ok_without_codification(self):
+        """Test that mathml recommendation returns OK when there's no codification at all"""
+        self.maxDiff = None
+        xml_tree = etree.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" '
+            'dtd-version="1.0" article-type="research-article" xml:lang="pt">'
+            "<body>"
+            '<disp-formula id="e10">'
+            "<label>(1)</label>"
+            '<graphic xlink:href="formula.png"/>'
+            "</disp-formula>"
+            "</body>"
+            "</article>"
+        )
+        obtained = list(
+            ArticleDispFormulaValidation(
+                xml_tree=xml_tree, rules={"mathml_error_level": "WARNING"}
+            ).validate()
+        )
+
+        # Deve retornar OK para MathML recommendation quando não há codificação
+        mathml_responses = [item for item in obtained if item["title"] == "MathML recommendation"]
+        self.assertEqual(len(mathml_responses), 1)
+        self.assertEqual(mathml_responses[0]["response"], "OK")
+        self.assertIn("no codification found", mathml_responses[0]["got_value"])

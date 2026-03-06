@@ -4,7 +4,7 @@ from packtools.sps.validation.exceptions import (
     ValidationIssnsException,
     ValidationJournalMetaException
 )
-from packtools.sps.validation.utils import format_response
+from packtools.sps.validation.utils import build_response
 
 
 class ISSNValidation:
@@ -70,12 +70,14 @@ class ISSNValidation:
             issn_obtained = self.journal_issns.epub if tp == "epub" else self.journal_issns.ppub
             name = "electronic" if tp == "epub" else "print"
             is_valid = issn_expected == issn_obtained
-            yield format_response(
+            yield build_response(
                 title='Journal ISSN',
-                parent='article',
-                parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                parent={
+                    "parent": 'article',
+                    "parent_id": None,
+                    "parent_article_type": self.xmltree.get("article-type"),
+                    "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                },
                 item='issn',
                 sub_item='pub-type',
                 validation_type='value',
@@ -85,6 +87,8 @@ class ISSNValidation:
                 advice='Mark {} ISSN with <issn pub-type="{}">{}</issn> inside <journal-meta>'.format(name, tp, issn_expected),
                 data=self.journal_issns.data,
                 error_level=error_level,
+                advice_text='Mark {name} ISSN with <issn pub-type="{tp}">{issn}</issn> inside <journal-meta>',
+                advice_params={"name": name, "tp": tp, "issn": issn_expected},
             )
 
 
@@ -97,12 +101,14 @@ class AcronymValidation:
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to acronym')
         is_valid = self.journal_acronym.text == expected_value
-        yield format_response(
+        yield build_response(
             title='Journal acronym',
-            parent='article',
-            parent_id=None,
-            parent_article_type=self.xmltree.get("article-type"),
-            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            parent={
+                "parent": 'article',
+                "parent_id": None,
+                "parent_article_type": self.xmltree.get("article-type"),
+                "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            },
             item='journal-id',
             sub_item='@journal-id-type="publisher-id"',
             validation_type='value',
@@ -112,6 +118,8 @@ class AcronymValidation:
             advice='Mark journal acronym with <journal-id journal-id-type="publisher-id">{}</journal-id> inside <journal-meta>'.format(expected_value),
             data={'acronym': self.journal_acronym.text},
             error_level=error_level,
+            advice_text='Mark journal acronym with <journal-id journal-id-type="publisher-id">{acronym}</journal-id> inside <journal-meta>',
+            advice_params={"acronym": expected_value},
         )
 
 
@@ -124,12 +132,14 @@ class TitleValidation:
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to journal title')
         is_valid = self.journal_titles.journal_title == expected_value
-        yield format_response(
+        yield build_response(
             title='Journal title',
-            parent='article',
-            parent_id=None,
-            parent_article_type=self.xmltree.get("article-type"),
-            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            parent={
+                "parent": 'article',
+                "parent_id": None,
+                "parent_article_type": self.xmltree.get("article-type"),
+                "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            },
             item='journal-title-group',
             sub_item='journal-title',
             validation_type='value',
@@ -142,18 +152,22 @@ class TitleValidation:
                 for item in self.journal_titles.data
             },
             error_level=error_level,
+            advice_text='Mark journal title with <journal-title> inside <journal-title-group>',
+            advice_params={},
         )
 
     def abbreviated_journal_title_validation(self, expected_value, error_level="CRITICAL"):
         if not expected_value:
             raise ValidationJournalMetaException('Function requires a value to abbreviated journal title')
         is_valid = self.journal_titles.abbreviated_journal_title == expected_value
-        yield format_response(
+        yield build_response(
             title='Abbreviated journal title element validation',
-            parent='article',
-            parent_id=None,
-            parent_article_type=self.xmltree.get("article-type"),
-            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            parent={
+                "parent": 'article',
+                "parent_id": None,
+                "parent_article_type": self.xmltree.get("article-type"),
+                "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            },
             item="journal-title-group",
             sub_item="abbrev-journal-title",
             validation_type="value",
@@ -166,6 +180,8 @@ class TitleValidation:
                 for item in self.journal_titles.data
             },
             error_level=error_level,
+            advice_text='Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+            advice_params={},
         )
 
 
@@ -229,12 +245,14 @@ class PublisherNameValidation:
 
         for expected, obtained in zip(expected_list, obtained_list):
             is_valid = expected == obtained
-            yield format_response(
+            yield build_response(
                 title='Publisher name',
-                parent='article',
-                parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                parent={
+                    "parent": 'article',
+                    "parent_id": None,
+                    "parent_article_type": self.xmltree.get("article-type"),
+                    "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                },
                 item="publisher",
                 sub_item="publisher-name",
                 validation_type="value",
@@ -244,6 +262,8 @@ class PublisherNameValidation:
                 advice=f'Mark publisher name with <publisher><publisher-name>{expected}</publisher-name></publisher> inside <journal-meta>',
                 data=None,
                 error_level=error_level,
+                advice_text='Mark publisher name with <publisher><publisher-name>{name}</publisher-name></publisher> inside <journal-meta>',
+                advice_params={"name": expected},
             )
 
         if len(obtained_list) != len(expected_list):
@@ -260,12 +280,14 @@ class PublisherNameValidation:
             message = f'The following items is / are {item_description} in the XML: {diff_str}'
             advice = f'{action[0]} the following items {action[1]} the XML: {diff_str}'
 
-            yield format_response(
+            yield build_response(
                 title='Publisher name',
-                parent='article',
-                parent_id=None,
-                parent_article_type=self.xmltree.get("article-type"),
-                parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                parent={
+                    "parent": 'article',
+                    "parent_id": None,
+                    "parent_article_type": self.xmltree.get("article-type"),
+                    "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+                },
                 item="publisher",
                 sub_item="publisher-name",
                 validation_type="value",
@@ -275,6 +297,8 @@ class PublisherNameValidation:
                 advice=advice,
                 data=None,
                 error_level=error_level,
+                advice_text='{action} the following items {in_from} the XML: {items}',
+                advice_params={"action": action[0], "in_from": action[1], "items": diff_str},
             )
 
 
@@ -329,12 +353,14 @@ class JournalIdValidation:
             ]
         """
         is_valid = self.nlm_ta == expected_value
-        yield format_response(
+        yield build_response(
             title='Journal ID',
-            parent='article',
-            parent_id=None,
-            parent_article_type=self.xmltree.get("article-type"),
-            parent_lang=self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            parent={
+                "parent": 'article',
+                "parent_id": None,
+                "parent_article_type": self.xmltree.get("article-type"),
+                "parent_lang": self.xmltree.get("{http://www.w3.org/XML/1998/namespace}lang"),
+            },
             item="journal-meta",
             sub_item="journal-id",
             validation_type="value",
@@ -344,6 +370,8 @@ class JournalIdValidation:
             advice=f'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{expected_value}</journal-id> inside <journal-meta>',
             data=None,
             error_level=error_level,
+            advice_text='Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">{nlm_ta}</journal-id> inside <journal-meta>',
+            advice_params={"nlm_ta": expected_value},
         )
 
 
