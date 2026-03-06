@@ -1825,7 +1825,7 @@ def xml_crossref_collection_pipe(xml_crossref, xml_tree):
         ).append(collection)
 
 
-def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data=None):
+def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data):
     """
     Adiciona o elemento 'crossmark' ao xml_crossref para cada journal_article.
 
@@ -1842,10 +1842,10 @@ def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data=None):
     xml_tree : lxml.etree._Element
         Elemento XML no padrão SciELO com os dados de origem
 
-    data : dict, optional
+    data : dict
         Dicionário com dados suplementares. Aceita a chave:
         - "crossmark_policy": URL ou DOI da política de Crossmark do publicador.
-          Obrigatório: se ausente, a função retorna sem gerar o elemento crossmark.
+          Se ausente ou vazio, a função retorna sem gerar o elemento crossmark.
 
     Returns
     -------
@@ -1873,9 +1873,7 @@ def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data=None):
        </body>
     </doi_batch>
     """
-    if data is None:
-        data = {}
-    crossmark_policy = data.get("crossmark_policy")
+    crossmark_policy = data.get("crossmark_policy") if data else None
     if not crossmark_policy:
         return
 

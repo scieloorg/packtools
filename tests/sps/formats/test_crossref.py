@@ -2277,7 +2277,7 @@ class CrossmarkPipeTest(TestCase):
         )
         xml_crossref = self._setup_xml_crossref_with_journal_article()
 
-        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, None)
 
         obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
 
