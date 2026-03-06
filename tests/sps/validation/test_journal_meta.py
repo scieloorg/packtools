@@ -1193,6 +1193,3 @@ class JournalMetaAttributeTest(TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]['response'], 'WARNING')
         self.assertIn('epub', results[0]['data']['duplicates'])
-
-    def test_validate_issn_format_invalid_lowercase_x(self):
-        """Test ISSN format validation rejects lowercase x (must be uppercase X)"""
