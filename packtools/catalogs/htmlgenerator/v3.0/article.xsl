@@ -161,6 +161,9 @@
               src="{$MATHJAX}">
             </script>
         </xsl:if>
+        <xsl:if test="$CROSSMARK_POLICY_PAGE!=''">
+            <script src="https://crossmark-cdn.crossref.org/widget/v2.0/widget.js"/>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="article" mode="article">
@@ -261,6 +264,11 @@
             <span class="group-doi">
                 <xsl:apply-templates select="." mode="article-meta-doi"/>
             </span>
+            <xsl:if test="$CROSSMARK_POLICY_PAGE!=''">
+                <a data-target="crossmark">
+                    <img src="https://crossmark-cdn.crossref.org/widget/v2.0/logos/CROSSMARK_Color_horizontal.svg" width="150"/>
+                </a>
+            </xsl:if>
         </div>
     </xsl:template>
 
