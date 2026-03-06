@@ -38,6 +38,7 @@ from packtools.sps.formats.crossref import (
     xml_crossref_resource_pipe,
     xml_crossref_collection_pipe,
     xml_crossref_article_citations_pipe,
+    xml_crossref_crossmark_pipe,
 )
 
 
@@ -2115,3 +2116,341 @@ class PipelineCrossref(TestCase):
     #     expected = ET.tostring(xml_crossref_expected, encoding="utf-8").decode("utf-8")
     #
     #     self.assertEqual(expected, obtained)
+
+
+class CrossmarkPipeTest(TestCase):
+
+    def _setup_xml_crossref_with_journal_article(self, lang="pt"):
+        xml_crossref = ET.fromstring(
+            f'<doi_batch>'
+            f'<body>'
+            f'<journal>'
+            f'<journal_article language="{lang}" publication_type="research-article">'
+            f'</journal_article>'
+            f'</journal>'
+            f'</body>'
+            f'</doi_batch>'
+        )
+        return xml_crossref
+
+    def test_crossmark_pipe_correction_forward(self):
+        """Test crossmark pipe with correction-forward related-article type."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<month>07</month><year>2025</year>'
+            '</pub-date>'
+            '<history>'
+            '<date date-type="corrected">'
+            '<month>07</month><year>2025</year>'
+            '</date>'
+            '</history>'
+            '<related-article related-article-type="correction-forward" '
+            'xlink:href="10.1590/erratum-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<crossmark>', obtained)
+        self.assertIn('<crossmark_version>1</crossmark_version>', obtained)
+        self.assertIn(
+            '<crossmark_policy>https://www.scielo.br/crossmark-policy</crossmark_policy>',
+            obtained,
+        )
+        self.assertIn('<update type="correction">', obtained)
+        self.assertIn('<doi>10.1590/erratum-doi</doi>', obtained)
+        self.assertIn('<date media_type="online">', obtained)
+        self.assertIn('<month>07</month>', obtained)
+        self.assertIn('<year>2025</year>', obtained)
+
+    def test_crossmark_pipe_retraction(self):
+        """Test crossmark pipe with retracted-article related-article type."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<month>01</month><year>2026</year>'
+            '</pub-date>'
+            '<history>'
+            '<date date-type="retracted">'
+            '<month>01</month><year>2026</year>'
+            '</date>'
+            '</history>'
+            '<related-article related-article-type="retracted-article" '
+            'xlink:href="10.1590/retraction-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="retraction">', obtained)
+        self.assertIn('<doi>10.1590/retraction-doi</doi>', obtained)
+        self.assertIn('<month>01</month>', obtained)
+        self.assertIn('<year>2026</year>', obtained)
+
+    def test_crossmark_pipe_multiple_updates(self):
+        """Test crossmark pipe with multiple related-article updates."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<month>06</month><year>2024</year>'
+            '</pub-date>'
+            '<history>'
+            '<date date-type="corrected">'
+            '<month>06</month><year>2024</year>'
+            '</date>'
+            '<date date-type="retracted">'
+            '<month>03</month><year>2025</year>'
+            '</date>'
+            '</history>'
+            '<related-article related-article-type="correction-forward" '
+            'xlink:href="10.1590/erratum-2024" ext-link-type="doi"/>'
+            '<related-article related-article-type="retraction-forward" '
+            'xlink:href="10.1590/retraction-2025" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="correction">', obtained)
+        self.assertIn('<doi>10.1590/erratum-2024</doi>', obtained)
+        self.assertIn('<update type="retraction">', obtained)
+        self.assertIn('<doi>10.1590/retraction-2025</doi>', obtained)
+
+    def test_crossmark_pipe_no_related_articles(self):
+        """Test crossmark pipe when there are no mappable related-articles."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<month>01</month><year>2024</year>'
+            '</pub-date>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertNotIn('<crossmark>', obtained)
+
+    def test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test crossmark pipe ignores related-articles with non-mappable types."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="commentary-article" '
+            'xlink:href="10.1590/commentary-doi" ext-link-type="doi"/>'
+            '<related-article related-article-type="letter" '
+            'xlink:href="10.1590/letter-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertNotIn('<crossmark>', obtained)
+
+    def test_crossmark_pipe_custom_policy(self):
+        """Test crossmark pipe uses custom crossmark_policy from data dict."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="addendum" '
+            'xlink:href="10.1590/addendum-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+        data = {"crossmark_policy": "https://custom-journal.org/crossmark-policy"}
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn(
+            '<crossmark_policy>https://custom-journal.org/crossmark-policy</crossmark_policy>',
+            obtained,
+        )
+        self.assertIn('<update type="addendum">', obtained)
+
+    def test_crossmark_pipe_date_fallback_to_pub_date(self):
+        """Test crossmark pipe uses pub date when no matching history date."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date date-type="pub" publication-format="electronic">'
+            '<month>04</month><year>2025</year>'
+            '</pub-date>'
+            '<related-article related-article-type="addendum" '
+            'xlink:href="10.1590/addendum-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="addendum">', obtained)
+        self.assertIn('<year>2025</year>', obtained)
+        self.assertIn('<month>04</month>', obtained)
+
+    def test_crossmark_pipe_applied_to_all_journal_articles(self):
+        """Test crossmark pipe adds crossmark to all journal_article elements."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="corrected-article" '
+            'xlink:href="10.1590/correction-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = ET.fromstring(
+            '<doi_batch>'
+            '<body>'
+            '<journal>'
+            '<journal_article language="pt" publication_type="research-article">'
+            '</journal_article>'
+            '<journal_article language="en" publication_type="translation">'
+            '</journal_article>'
+            '</journal>'
+            '</body>'
+            '</doi_batch>'
+        )
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        journal_articles = xml_crossref.findall(
+            "./body/journal//journal_article"
+        )
+        for ja in journal_articles:
+            self.assertIsNotNone(
+                ja.find("crossmark"),
+                msg=f"crossmark missing in journal_article[@language='{ja.get('language')}']",
+            )
+
+    def test_crossmark_pipe_expression_of_concern(self):
+        """Test crossmark pipe with expression-of-concern related-article type."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="expression-of-concern" '
+            'xlink:href="10.1590/eoc-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="expression_of_concern">', obtained)
+        self.assertIn('<doi>10.1590/eoc-doi</doi>', obtained)
+
+    def test_crossmark_pipe_withdrawal(self):
+        """Test crossmark pipe with withdrawn-article related-article type."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="withdrawn-article" '
+            'xlink:href="10.1590/withdrawal-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="withdrawal">', obtained)
+        self.assertIn('<doi>10.1590/withdrawal-doi</doi>', obtained)
+
+    def test_crossmark_pipe_partial_retraction(self):
+        """Test crossmark pipe with partial-retraction related-article type."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<related-article related-article-type="partial-retraction" '
+            'xlink:href="10.1590/partial-retraction-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="partial_retraction">', obtained)
+        self.assertIn('<doi>10.1590/partial-retraction-doi</doi>', obtained)
+
+    def test_crossmark_pipe_date_fallback_epub_pub_type(self):
+        """Test crossmark pipe uses pub-type='epub' date when date-type='pub' is absent."""
+        xml_tree = ET.fromstring(
+            '<article xmlns:xlink="http://www.w3.org/1999/xlink" xml:lang="pt">'
+            '<front>'
+            '<article-meta>'
+            '<pub-date pub-type="epub" publication-format="electronic">'
+            '<month>09</month><year>2023</year>'
+            '</pub-date>'
+            '<related-article related-article-type="corrected-article" '
+            'xlink:href="10.1590/correction-doi" ext-link-type="doi"/>'
+            '</article-meta>'
+            '</front>'
+            '</article>'
+        )
+        xml_crossref = self._setup_xml_crossref_with_journal_article()
+
+        xml_crossref_crossmark_pipe(xml_crossref, xml_tree)
+
+        obtained = ET.tostring(xml_crossref, encoding="utf-8").decode("utf-8")
+
+        self.assertIn('<update type="correction">', obtained)
+        self.assertIn('<year>2023</year>', obtained)
+        self.assertIn('<month>09</month>', obtained)
