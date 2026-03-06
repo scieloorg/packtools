@@ -46,6 +46,7 @@ from packtools.sps.validation.app_group import AppValidation
 
 from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
+from packtools.sps.validation.list import ArticleListValidation
 
 
 def validate_affiliations(xmltree, params):
@@ -325,3 +326,9 @@ def validate_ext_links(xmltree, params):
     yield from validator.validate_ext_link_type_value()
     yield from validator.validate_descriptive_text()
     yield from validator.validate_xlink_title_when_generic()
+
+
+def validate_lists(xmltree, params):
+    rules = params["list_rules"]
+    validator = ArticleListValidation(xmltree, rules)
+    yield from validator.validate()
