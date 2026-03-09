@@ -219,7 +219,7 @@ def validate_funding_data(xmltree, params):
         error_level=funding_data_rules.get("funding_group_uniqueness_error_level", "ERROR")
     )
     yield from validator.validate_funding_statement_presence(
-        error_level=funding_data_rules.get("funding_statement_presence_error_level", "CRITICAL")
+        error_level=funding_data_rules.get("funding_statement_error_level", "CRITICAL")
     )
     yield from validator.validate_funding_source_in_award_group(
         error_level=funding_data_rules.get("funding_source_in_award_group_error_level", "CRITICAL")
