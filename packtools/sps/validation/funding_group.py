@@ -107,53 +107,93 @@ class FundingGroupValidation:
 
     def validate_funding_statement(self):
         """
-        Validates the existence of funding sources and award IDs.
+        Validates that each <funding-group> has a <funding-statement> consistent
+        with the reference texts found in the document (fn elements, ack, etc.).
+
+        Each <funding-group> is evaluated individually so that a second group
+        without <funding-statement> is not silently skipped (bug C6). Reference
+        texts are whitespace-normalised before use in advice strings to avoid
+        raw concatenated whitespace from multiple <fn> elements (bug C7).
 
         Yields
         ------
         dict
-            Validation results for each funding source and award ID.
+            Validation result per <funding-group> node.
         """
-        if self.funding.award_groups:
-            for lang, statements in self.funding.statements_by_lang.items():
-                parent_id = statements.get("parent_id")
-                xml = f'<sub-article id="{parent_id}">' if parent_id else "<article>"
-                advice = None
-                funding_statement = statements["funding_statement"]
-                items = {k: v for k, v in statements["texts"].items() if v}
-                texts = []
-                valid = False
-                if items:
-                    texts = list(items.values())
+        if not self.funding.award_groups:
+            return
 
-                if funding_statement and texts:
-                    best_score, best_matches = most_similar(similarity(texts, funding_statement, 0.8))
+        funding_groups = self.xml_tree.xpath(".//article-meta/funding-group")
+        if not funding_groups:
+            return
 
-                    if best_matches:
-                        valid = True
-                    else:
-                        valid = False
-                        advice = f'Replace <funding-statement>{funding_statement}</funding-statement> by <funding-statement>{texts[0]}</funding-statement> for {xml}'
-                elif texts:
-                    valid = False
-                    advice = f'Add <funding-statement>{texts[0]}</funding-statement> in <funding-group> for {xml}. Consult SPS documentation for more detail'
-                else:
-                    valid = False
-                    advice = f'Add funding statement with <funding-statement> inside <funding-group> for {xml}. Consult SPS documentation for more detail'
+        funding_data = self.funding.data
+        parent = {
+            "parent": "article",
+            "parent_id": None,
+            "parent_article_type": funding_data.get("article_type"),
+            "parent_lang": funding_data.get("article_lang"),
+        }
 
-                yield build_response(
-                    title="funding-statement",
-                    parent=statements,
-                    item="funding-statement",
-                    sub_item=None,
-                    validation_type="match",
-                    is_valid=valid,
-                    expected="funding-statement",
-                    obtained=statements,
-                    advice=advice,
-                    data=statements,
-                    error_level=self.params["funding_statement_error_level"],
+        # Collect document-level reference texts (fn elements, ack, etc.)
+        # and normalise whitespace to prevent C7 (raw concatenated whitespace
+        # from multiple <fn> nodes appearing in advice strings).
+        all_texts = []
+        for lang, statements in self.funding.statements_by_lang.items():
+            items = {k: v for k, v in statements["texts"].items() if v}
+            for v in items.values():
+                normalized = " ".join(v.split())
+                if normalized:
+                    all_texts.append(normalized)
+
+        # Iterate each <funding-group> individually (C6 fix: each node is
+        # evaluated; the second group is no longer silently skipped).
+        for fg_node in funding_groups:
+            fs_nodes = fg_node.xpath("funding-statement")
+            funding_statement = None
+            if fs_nodes:
+                raw = "".join(fs_nodes[0].itertext())
+                funding_statement = " ".join(raw.split()) or None
+
+            texts = all_texts
+            valid = False
+            advice = None
+
+            if funding_statement and texts:
+                best_score, best_matches = most_similar(
+                    similarity(texts, funding_statement, 0.8)
                 )
+                if best_matches:
+                    valid = True
+                else:
+                    advice = (
+                        f"Replace <funding-statement>{funding_statement}</funding-statement>"
+                        f" by <funding-statement>{texts[0]}</funding-statement>"
+                    )
+            elif texts:
+                advice = (
+                    f"Add <funding-statement>{texts[0]}</funding-statement>"
+                    " in <funding-group>. Consult SPS documentation for more detail"
+                )
+            else:
+                advice = (
+                    "Add funding statement with <funding-statement> inside"
+                    " <funding-group>. Consult SPS documentation for more detail"
+                )
+
+            yield build_response(
+                title="funding-statement",
+                parent=parent,
+                item="funding-statement",
+                sub_item=None,
+                validation_type="match",
+                is_valid=valid,
+                expected="funding-statement",
+                obtained=funding_statement or "None",
+                advice=advice,
+                data={"funding_statement": funding_statement, "texts": texts},
+                error_level=self.params["funding_statement_error_level"],
+            )
 
     def validate_funding_group_uniqueness(self, error_level="ERROR"):
         """
@@ -171,35 +211,51 @@ class FundingGroupValidation:
         dict
             Validation result for funding-group uniqueness.
         """
-        funding_groups = self.xml_tree.xpath(".//article-meta/funding-group")
-        count = len(funding_groups)
-        
+        article_metas = self.xml_tree.xpath(".//article-meta")
         funding_data = self.funding.data
-        parent = {
-            "parent": "article",
-            "parent_id": None,
-            "parent_article_type": funding_data.get("article_type"),
-            "parent_lang": funding_data.get("article_lang"),
-        }
-        
-        is_valid = count <= 1
-        advice = None
-        if not is_valid:
-            advice = f"Found {count} <funding-group> elements in <article-meta>. Only one is allowed. Merge them into a single <funding-group>."
-        
-        yield build_response(
-            title="funding-group uniqueness",
-            parent=parent,
-            item="funding-group",
-            sub_item=None,
-            validation_type="unique",
-            is_valid=is_valid,
-            expected="At most one <funding-group> in <article-meta>",
-            obtained=f"{count} <funding-group> element(s) found",
-            advice=advice,
-            data={"count": count},
-            error_level=error_level,
-        )
+
+        for article_meta in article_metas:
+            funding_groups = article_meta.xpath("./funding-group")
+            count = len(funding_groups)
+
+            parent_elem = article_meta.getparent()
+            if parent_elem is not None:
+                parent_tag = parent_elem.tag
+                if "}" in parent_tag:
+                    parent_tag = parent_tag.split("}", 1)[1]
+                parent_id = parent_elem.get("id")
+            else:
+                parent_tag = "article"
+                parent_id = None
+
+            parent = {
+                "parent": parent_tag,
+                "parent_id": parent_id,
+                "parent_article_type": funding_data.get("article_type"),
+                "parent_lang": funding_data.get("article_lang"),
+            }
+
+            is_valid = count <= 1
+            advice = None
+            if not is_valid:
+                advice = (
+                    f"Found {count} <funding-group> elements in <article-meta>. "
+                    "Only one is allowed. Merge them into a single <funding-group>."
+                )
+
+            yield build_response(
+                title="funding-group uniqueness",
+                parent=parent,
+                item="funding-group",
+                sub_item=None,
+                validation_type="unique",
+                is_valid=is_valid,
+                expected="At most one <funding-group> in <article-meta>",
+                obtained=f"{count} <funding-group> element(s) found",
+                advice=advice,
+                data={"count": count},
+                error_level=error_level,
+            )
 
     def validate_funding_statement_presence(self, error_level="CRITICAL"):
         """
@@ -355,7 +411,7 @@ class FundingGroupValidation:
             expected="No <label> elements in <funding-group>",
             obtained=f"{count} <label> element(s) found",
             advice=advice,
-            data={"count": count, "labels": [label.text for label in labels]},
+            data={"count": count, "labels": [t for label in labels if (t := " ".join(label.itertext()).strip())]},
             error_level=error_level,
         )
 
@@ -401,7 +457,7 @@ class FundingGroupValidation:
             expected="No <title> elements in <funding-group>",
             obtained=f"{count} <title> element(s) found",
             advice=advice,
-            data={"count": count, "titles": [title.text for title in titles]},
+            data={"count": count, "titles": [t for title in titles if (t := " ".join(title.itertext()).strip())]},
             error_level=error_level,
         )
 
