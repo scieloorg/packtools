@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title></title>
-<link rel="stylesheet" href="https://ds.scielo.org/css/bootstrap.css">
-<link rel="stylesheet" href="https://ds.scielo.org/css/article.css">
+<link rel="stylesheet" href="/home/runner/work/packtools/packtools/packtools/catalogs/htmlgenerator/static/bootstrap.css">
+<link rel="stylesheet" href="/home/runner/work/packtools/packtools/packtools/catalogs/htmlgenerator/static/article.css">
+<style>
+        .modal-dialog-scrollable .modal-body {
+            overflow-y:auto;
+            scrollbar-gutter:stable;
+        }
+        </style>
 <link rel="alternate" type="application/rss+xml" title="SciELO" href="">
 </head>
 <body class="journal article">
@@ -23,9 +29,9 @@
 <a href="" class="btn btn-secondary btn-sm outlineFadeLink" data-bs-toggle="modal" data-bs-target="#ModalTutors">Authorship</a><a href="" class="btn btn-secondary btn-sm outlineFadeLink" data-bs-toggle="modal" data-bs-target="#ModalScimago">SCIMAGO INSTITUTIONS RANKINGS</a>
 </div>
 <div class="row">
-<ul class="d-none d-lg-block col-lg-2 articleMenu"></ul>
-<article id="articleText" class="col-sm-12 col-lg-10 offset-lg-2"><div class="articleSection articleSection--abstract" data-anchor="ABSTRACT">
-<h3 class="h5">ABSTRACT</h3>
+<div class="col-12 col-md-4 col-lg-3"><nav role="navigation" aria-label="Article navigation"><ul class="articleMenu list-group mt-4"></ul></nav></div>
+<div class="col-sm-12 col-md-8 col-lg-9"><article id="articleText"><div class="articleSection articleSection--abstract" data-anchor="ABSTRACT">
+<a name="articleSection0"></a><h2 class="h5">ABSTRACT</h2>
 <p><strong>Objective:</strong> To develop and validate predictive models to estimate the number of COVID-19 patients hospitalized in the intensive care units and general wards of a private not-for-profit hospital in São Paulo, Brazil.</p>
 <p><strong>Methods:</strong> Two main models were developed. The first model calculated hospital occupation as the difference between predicted COVID-19 patient admissions, transfers between departments, and discharges, estimating admissions based on their weekly moving averages, segmented by general wards and intensive care units. Patient discharge predictions were based on a length of stay predictive model, assessing the clinical characteristics of patients hospitalized with COVID-19, including age group and usage of mechanical ventilation devices. The second model estimated hospital occupation based on the correlation with the number of telemedicine visits by patients diagnosed with COVID-19, utilizing correlational analysis to define the lag that maximized the correlation between the studied series. Both models were monitored for 365 days, from May 20<sup>th</sup>, 2021, to May 20<sup>th</sup>, 2022.</p>
 <p><strong>Results:</strong> The first model predicted the number of hospitalized patients by department within an interval of up to 14 days. The second model estimated the total number of hospitalized patients for the following 8 days, considering calls attended by <i>Hospital Israelita Albert Einstein’s</i> telemedicine department. Considering the average daily predicted values for the intensive care unit and general ward across a forecast horizon of 8 days, as limited by the second model, the first and second models obtained R² values of 0.900 and 0.996, respectively and mean absolute errors of 8.885 and 2.524 beds, respectively. The performances of both models were monitored using the mean error, mean absolute error, and root mean squared error as a function of the forecast horizon in days.</p>
@@ -33,28 +39,28 @@
 <p><strong>Keywords:</strong><br>COVID-19; Coronavirus infections; Pandemics; Forecasting; Telemedicine; Resource allocation; Decision support systems, clinical; Big Data</p>
 </div>
 <div class="articleSection articleSection--highlights" data-anchor="Highlights">
-<h3 class="h5">Highlights</h3>
+<a name="articleSection0"></a><h2 class="h5">Highlights</h2>
 <p>▪Developed models to forecast bed occupancy for up to 14 days and monitored errors for 365 days.</p>
 <p>▪Telemedicine calls from COVID-19 patients correlated with the number of patients hospitalized in the next 8 days.</p>
 </div>
-<div class="articleSection articleSection--graphical abstract" data-anchor="GRAPHICAL ABSTRACT">
-<h3 class="h5">GRAPHICAL ABSTRACT</h3>
+<div class="articleSection articleSection--graphical-abstract" data-anchor="GRAPHICAL ABSTRACT">
+<a name="articleSection0"></a><h2 class="h5">GRAPHICAL ABSTRACT</h2>
 <p>
           <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf1"><span class="sci-ico-fileFigure"></span></a>
           <div class="row fig" id="f1">
 <a name="f1"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf1"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/814798aee2d79fb28454f8fb05c7a3f9a724868b.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/814798aee2d79fb28454f8fb05c7a3f9a724868b.jpg" aria-describedby="descFigf1" alt="thumbnail of "><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8"><br></div>
 </div>
         </p>
 </div>
-<div class="articleSection articleSection--in brief" data-anchor="In Brief">
-<h3 class="h5">In Brief</h3>
+<div class="articleSection articleSection--in-brief" data-anchor="In Brief">
+<a name="articleSection0"></a><h2 class="h5">In Brief</h2>
 <p>Gabaldi et al. utilized telemedicine data, web search trends, hospitalized patient characteristics, and resource usage data to estimate bed occupancy during the COVID-19 pandemic. The results showcase the potential of data-driven strategies to enhance resource allocation decisions for an effective pandemic response.</p>
 </div>
 <div class="articleSection" data-anchor="Text">
-<h3 class="articleSectionTitle">INTRODUCTION</h3>
+<h2 class="h5">INTRODUCTION</h2>
 <p>COVID-19 transmission rates in Brazil sustain a scenario that can be classified as a pandemic state, and the country faces waves of variable demands for physical and human resources to treat patients with COVID-19.(<span class="ref"><sup class="xref xrefblue"><a href="#B1_ref" data-ref="1 
     1 de Oliveira Andrade R. Covid-19 is causing the collapse of Brazil’s national health service. BMJ. 2020;370:m3032.">1</a></sup></span>,<span class="ref"><sup class="xref xrefblue"><a href="#B2_ref" data-ref="2 
     2 Lemos DR, D’Angelo SM, Farias LA, Almeida MM, Gomes RG, Pinto GP, et al. Health system collapse 45 days after the detection of COVID-19 in Ceará, Northeast Brazil: a preliminary analysis. Rev Soc Bras Med Trop. 2020;53:e20200354.">2</a></sup></span>) Meanwhile, the priority of health service managers and the government(<span class="ref"><sup class="xref xrefblue"><a href="#B3_ref" data-ref="3 
@@ -68,9 +74,9 @@
     10 Kumar A, Hung N, Wu Y, Baek R, Gupta A. Predictive Modeling for Telemedicine Service Demand. Telehealth Med Today. 2020;5(2):1-14.">10</a></sup></span>) or interest in terms related to pathology symptoms in web search engines (<i>e.g.</i>, Google Trends).(<span class="ref"><sup class="xref xrefblue"><a href="#B11_ref" data-ref="11 
     11 Mavragani A, Gkillas K. COVID-19 predictability in the United States using Google Trends time series. Sci Rep. 2020;10(1):20693.">11</a></sup></span>)</p>
 <p>This context highlights the opportunity to develop statistical models to predict the number of patients hospitalized due to COVID-19 and help hospital managers plan for beds, human resources, and other input sizing and availabilities.</p>
-<h3 class="articleSectionTitle">OBJECTIVE</h3>
+<h2 class="h5">OBJECTIVE</h2>
 <p>To develop, implement, and monitor a predictive model to estimate the number of patients hospitalized due to COVID-19, segmenting patients by department-intensive care units and general wards-whenever possible.</p>
-<h3 class="articleSectionTitle">METHODS</h3>
+<h2 class="h5">METHODS</h2>
 <p>This retrospective study was conducted at <i>Hospital Israelita Albert Einstein</i> (HIAE), a private not-for-profit 624-bed hospital in São Paulo, Brazil, which earmarked 300 beds for COVID-19 patients in March 2021, at the peak of the pandemic.</p>
 <p>Two separate models were developed to achieve the study objectives:</p>
 <p>Model 1: Hospital occupancy was estimated by projecting the hospital admissions and discharges of COVID-19 patients separately.</p>
@@ -91,9 +97,9 @@
     15 Hswen Y, Zhang A, Ventelou B. Estimation of Asthma Symptom Onset Using Internet Search Queries: Lag-Time Series Analysis. JMIR Public Health Surveill. 2021;7(5):e18593.">15</a></sup></span>)</p>
 <p>Performance metrics: performance monitoring of the proposed models employed accuracy metrics of point forecasts-mean error (ME), mean absolute error (MAE), and root mean squared error (RMSE) as a function of the forecast horizon in days. Considering the average daily predicted values for the ICU and general ward across a forecast horizon, R² was also calculated to demonstrate the adherence of the projected values to the observed values.(<span class="ref"><sup class="xref xrefblue"><a href="#B16_ref" data-ref="16 
     16 García-Cremades S, Morales-García J, Hernández-Sanjaime R, Martínez-España R, Bueno-Crespo A, Hernández-Orallo E, et al. Improving prediction of COVID-19 evolution by fusing epidemiological and mobility data. Sci Rep. 2021;11(1):15173.">16</a></sup></span>)</p>
-<h4>Confidentiality and ethical approval</h4>
+<h3 class="h5">Confidentiality and ethical approval</h3>
 <p>This study was approved by the Ethics Committee of <i>Hospital Israelita Albert Einstein</i> (HIAE), CAAE: 51937121.6.0000.0071; # 5.136.309. Patient confidentiality was preserved by anonymizing the medical records. The requirement for informed consent was waived by the institutional review board prior to data collection and analysis.</p>
-<h3 class="articleSectionTitle">RESULTS</h3>
+<h2 class="h5">RESULTS</h2>
 <p>Model 1: between March 2020 and July 2021, 5,414 patients were admitted to HIAE due to COVID-19, considering all types of discharges (home care, external transfers, and deaths, which were excluded from LOS modeling) and patients who were hospitalized for more than 45 days.</p>
 <p>Admissions: by analyzing the behavior of the overall number of new hospitalizations during the specified period, segmentation of the number of new admissions by department (general ward and ICU) was proposed to minimize the error of the expected flow for each projected day, attempting to extract seasonal factors and decrease the order of magnitude of the residues.</p>
 <p>During the analyzed period, the average (± standard deviation) number of daily patient admissions in the general ward was 7.74 (± 4.66), while new hospitalizations in the ICU was 2.85 (± 2.08).</p>
@@ -139,7 +145,7 @@
 <p>The three time series were plotted: i) Telemedicine: number of callers diagnosed with COVID-19 specific coding (ICD-10-CM U07.1); number of callers with COVID-19-related ICD-10-CM codes (specific coding, symptoms and chapters related to respiratory diseases); and ii) Google Trends: daily interest scores for the search term "sintomas COVID-19" in São Paulo. The time series of hospitalized patients lagged by 1–14 days, and for each combination of series, the Pearson Correlation Index was calculated iteratively. The results are presented in <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf2"><span class="sci-ico-fileFigure"></span>figure 1</a>.</p>
 <div class="row fig" id="f2">
 <a name="f2"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf2"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/57516afb6ba03871530ccd4a14d2d319c22cb198.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/57516afb6ba03871530ccd4a14d2d319c22cb198.jpg" aria-describedby="descFigf2" alt="thumbnail of Figure 1"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 1</strong></strong><br>Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients<br>
@@ -148,13 +154,13 @@
 <p>The number of telemedicine visits by patients coded with a COVID-19 diagnosis (ICD-10-CM U07.1) was highlighted as the best predictor of hospitalized patients. Once peak values differed by &gt;0.001 for delays of seven and eight days, the delay that had the greatest anticipation power for the proposed model (8 days) was chosen.</p>
 <p>In a scenario in which telemedicine data were unavailable, Google Trends interest scores for the terms related to symptoms appeared as a predictor, resulting in a Pearson Correlation Index of 0.895 when lagging the hospitalized patients’ series by 9 days. The final model consisted of a time series linear regression comprising the predictors to estimate the number of hospitalized patients based on the telemedicine series.(<span class="ref"><sup class="xref xrefblue"><a href="#B17_ref" data-ref="17 
     17 Withanage GP, Viswakula SD, Nilmini Silva Gunawardena YI, Hapugoda MD. A forecasting model for dengue incidence in the District of Gampaha, Sri Lanka. Parasit Vectors. 2018;11(1):262.">17</a></sup></span>)</p>
-<h4>Performance monitoring</h4>
+<h3 class="h5">Performance monitoring</h3>
 <p>The results of the two models were followed for 365 days (between May 20, 2021, and May 20, 2022), considering that the first model has predictions for hospitalized patients segmented by department (general ward and ICU) over a 14-day interval and that the second model using the number of telemedicine visits predicts the overall number of hospitalized patients over an 8-day interval.</p>
 <p>When comparing models, the evaluation of their performance indicators is limited by the lowest forecast horizon of 8 days. Computing the average error values, including different time windows, could benefit the model with the smallest forecast horizon, as larger residuals tend to be observed as we move away from the projection date.</p>
 <p>A comparison between the averages of the predicted and observed values by department is illustrated in <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf3"><span class="sci-ico-fileFigure"></span>figures 2</a>, <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf4"><span class="sci-ico-fileFigure"></span>3</a>, and <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf5"><span class="sci-ico-fileFigure"></span>4</a>.</p>
 <div class="row fig" id="f3">
 <a name="f3"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf3"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/2037bd8c6a1a8bc66436d415403150dd4761a8ee.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/2037bd8c6a1a8bc66436d415403150dd4761a8ee.jpg" aria-describedby="descFigf3" alt="thumbnail of Figure 2"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 2</strong></strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models<br>
@@ -162,7 +168,7 @@
 </div>
 <div class="row fig" id="f4">
 <a name="f4"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf4"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a8fe41421dca909e9b06d6fc4d8fff78b0e22c28.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a8fe41421dca909e9b06d6fc4d8fff78b0e22c28.jpg" aria-describedby="descFigf4" alt="thumbnail of Figure 3"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 3</strong></strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1<br>
@@ -170,16 +176,16 @@
 </div>
 <div class="row fig" id="f5">
 <a name="f5"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf5"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/d835e852d20133171ee84b42e7a6d401deba38a1.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/d835e852d20133171ee84b42e7a6d401deba38a1.jpg" aria-describedby="descFigf5" alt="thumbnail of Figure 4"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 4</strong></strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1<br>
 </div>
 </div>
-<p>The adherence of the values predicted by the proposed models to the numbers observed during these 365 days can be reinforced by the performance indicators detailed in the Methods section, which also allowed the identification of the strengths and opportunities in both models. <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf6"><span class="sci-ico-fileFigure"></span>Figures 5</a>, <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf7"><span class="sci-ico-fileFigure"></span>6</a>, and <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf8"><span class="sci-ico-fileFigure"></span>7</a> present the ME, MAE, and RMSE values as the forecast horizon increases (the illustrated indicators are accessible in <span class="ref footnote"><sup class="xref">table 1S</sup><span class="refCtt closed"><span class="refCttPadding">Table 1SPerformance metrics as a function of the forecast horizonMean ErrorMean absolute errorRoot mean squared errorForecast horizon (in days)Model 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall predictionModel 1: General ward predictionModel 1: Intensive care unit predictionModel 1: Overall predictionModel 2: Overall prediction10,7190,8651,584-0,3433,7582,7924,9613,8081,9391,6712,2271,95122,0781,9063,9840,1175,6054,0527,2884,7252,3682,0132,7002,17432,3843,3615,7450,5877,6425,7309,3875,7922,7642,3943,0642,40742,0394,9927,0310,9799,5197,35611,2866,6943,0852,7123,3592,58750,7716,8787,6491,39711,3849,22612,7877,2363,3743,0373,5762,6906-0,6528,5647,9121,77712,96910,92714,1258,0263,6013,3063,7582,8337-1,42610,3568,9302,18214,78712,93815,9018,5663,8453,5973,9882,92780,0609,6399,6992,56616,49113,12517,9849,6734,0613,6234,2413,11091,0609,61610,67518,58713,68320,1304,3113,6994,487102,0889,08811,17720,26513,84721,9514,5023,7214,685113,0837,89910,98221,75813,56123,7714,6653,6834,876123,9696,60810,57723,11713,66825,4964,8083,6975,049134,6575,2739,93024,41813,89127,2964,9413,7275,225145,1774,0629,23925,76914,10929,4105,0763,7565,423The results are expressed as the mean error, mean absolute error, and root mean squared error calculated for the predictions.</span></span></span> form in Supplementary Material).</p>
+<p>The adherence of the values predicted by the proposed models to the numbers observed during these 365 days can be reinforced by the performance indicators detailed in the Methods section, which also allowed the identification of the strengths and opportunities in both models. <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf6"><span class="sci-ico-fileFigure"></span>Figures 5</a>, <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf7"><span class="sci-ico-fileFigure"></span>6</a>, and <a href="" class="open-asset-modal" data-bs-toggle="modal" data-bs-target="#ModalFigf8"><span class="sci-ico-fileFigure"></span>7</a> present the ME, MAE, and RMSE values as the forecast horizon increases (the illustrated indicators are accessible in <a href="#app1">table 1S</a> form in Supplementary Material).</p>
 <div class="row fig" id="f6">
 <a name="f6"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf6"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a43d5b4ea75a4c56a5f606c2e26501e3ab786011.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/a43d5b4ea75a4c56a5f606c2e26501e3ab786011.jpg" aria-describedby="descFigf6" alt="thumbnail of Figure 5"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 5</strong></strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)<br>
@@ -187,7 +193,7 @@
 </div>
 <div class="row fig" id="f7">
 <a name="f7"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf7"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1758aba25e24a623e92974ae9bbffdbb5b729757.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/1758aba25e24a623e92974ae9bbffdbb5b729757.jpg" aria-describedby="descFigf7" alt="thumbnail of Figure 6"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 6</strong></strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)<br>
@@ -195,7 +201,7 @@
 </div>
 <div class="row fig" id="f8">
 <a name="f8"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf8"><div class="thumbImg">
-<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/c5df6e32bba5c0f3048078c071b73d3a059b3e3d.jpg"><div class="zoom"><span class="sci-ico-zoom"></span></div>
+<img src="https://minio.scielo.br/documentstore/2317-6385/gVmgvzLBMfZQnX78cnTxRBz/c5df6e32bba5c0f3048078c071b73d3a059b3e3d.jpg" aria-describedby="descFigf8" alt="thumbnail of Figure 7"><div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
 <div class="col-md-8 col-sm-8">
 <strong><strong>Figure 7</strong></strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)<br>
@@ -205,7 +211,7 @@
 <p>The MAE accuracy measure, which is a measure minimized by the median, allows the identification of the models that can most accurately estimate the daily number of hospitalized patients. Despite the ME values tending to zero for the predictions of hospitalizations in the general ward for the first model in 10-day forecast horizons, rejecting the presence of bias in the set of estimations, the result is obtained through predictions with greater residues. As a complementary approach, the RMSE highlights the model that provides the best estimates for the average number of cases in a given period.</p>
 <p>The analysis of all three statistics showed that the model built with telemedicine data outperformed the first model when considering the predictions made for the total number of hospitalized patients, also highlighting its capability of maintaining errors below 10 beds for the integrity of its forecast horizon, as evidenced by the MAE.</p>
 <p>The first model shows significant deterioration over a period &gt;3 days; however, its ability to distinguish between the classifications of occupied beds sets a gain for resource planning, even though higher reliability indices are limited to short-term predictions.</p>
-<h3 class="articleSectionTitle">DISCUSSION</h3>
+<h2 class="h5">DISCUSSION</h2>
 <p>The developed models resulted in reliable estimations of the expected number of COVID-19 hospitalizations at HIAE, which were updated daily and used by HIAE managers to define the allocation of beds to COVID-19 and non-COVID-19 patients, mainly by adjusting the volume of elective surgeries that the hospital would be able to perform in the subsequent 7 days, the hiring of qualified professionals to meet the expected demand, and the proper sizing of its supplies.</p>
 <p>Daily capacity adjustments were performed at HIAE during the worst days of the pandemic based on the proposed telemedicine model and were also used by the hospital to prepare for the Delta and Omicron phases of increase in the observed number of hospitalized patients.</p>
 <p>The development and implementation of a data-driven tool to support the decision-making process in a hospital management environment showed that at an atypical moment of great concern with the evolution of the COVID-19 pandemic, maturity in data management, quality, security, and analysis allows a health institution to benefit from the information generated during day-to-day operations.</p>
@@ -214,15 +220,15 @@
     19 Rostami-Tabar B, Rendon-Sanchez JF. Forecasting COVID-19 daily cases using phone call data. Appl Soft Comput. 2021;100:106932.">19</a></sup></span>) and Convolutional Neural Networks.</p>
 <p>The isolation of the hospital context and its variables implies a trade-off, given that the variables that can explain the remaining variance of the studied phenomenon may be unavailable as the pandemic context evolves dynamically. Among these caveats are the emergence of new variants, vaccines and vaccine coverage, effective medications, mask usage, isolation rates, and the guidelines adopted in care.</p>
 <p>The validation of predictions of this nature encourages the creation of new models for other pathologies, exploring correlations of events before hospitalizations, and studying patterns of care involving a diagnosed patient and their clinical evolution. It also highlights the importance of joining forces, between different areas of the same institution and between various institutions, sharing complementary data, and improving the use of data for decision-making.</p>
-<h3 class="articleSectionTitle">CONCLUSION</h3>
+<h2 class="h5">CONCLUSION</h2>
 <p>The model that estimates the number of COVID-19 hospitalizations in a private not-for-profit hospital based on telemedicine could accurately anticipate the increase and decrease in the volume of patients with a lag of 8 days, demonstrating its usefulness for the effectivemanagement of beds and general resources for caring for patients with COVID-19. The readiness to provide data regarding the volume of care, hospitalizations, patient characteristics, and clinical interventions can help identify patterns to understand the pathology better and provide more accurate decisions regarding the allocation of resources.</p>
 </div>
 <div class="articleSection" data-anchor="ACKNOWLEDGEMENTS">
-<h3 class="articleSectionTitle">ACKNOWLEDGEMENTS</h3>
+<h2 class="h5">ACKNOWLEDGEMENTS</h2>
 <p>We state that the only sponsor of the study in question was the <i>Hospital Israelita Albert Einstein</i>, where all authors are employed. Because the coordination and preparation of studies and articles was established as a core activity for the positions occupied by the participants in this study, prospecting for new sponsors and requesting additional funding was not necessary. The publication of this study was not contingent upon sponsor approval.</p>
 </div>
-<div class="articleSection" data-anchor="REFERENCES">
-<h3 class="articleSectionTitle">REFERENCES</h3>
+<div class="articleSection articleSection--references" data-anchor="REFERENCES">
+<a name="articleSection0"></a><h2 class="h5">REFERENCES</h2>
 <div class="row"><div class="col ref-list"><ul class="refList articleFootnotes">
 <li>
 <a class="" name="B1_ref"></a><sup class="xref">1</sup> de Oliveira Andrade R. Covid-19 is causing the collapse of Brazil’s national health service. BMJ. 2020;370:m3032.</li>
@@ -264,9 +270,9 @@
 <a class="" name="B19_ref"></a><sup class="xref">19</sup> Rostami-Tabar B, Rendon-Sanchez JF. Forecasting COVID-19 daily cases using phone call data. Appl Soft Comput. 2021;100:106932.</li>
 </ul></div></div>
 </div>
-<div class="articleSection" data-anchor="Table 1S Performance metrics as a function of the forecast horizon">
-<h3 class="articleSectionTitle">
-<strong>Table 1S</strong> Performance metrics as a function of the forecast horizon</h3>
+<span id="app1"></span><div class="articleSection" data-anchor="Table 1S Performance metrics as a function of the forecast horizon">
+<h2 class="h5">
+<strong>Table 1S</strong> Performance metrics as a function of the forecast horizon</h2>
 <div class="row table" id="t4">
 <a name="t4"></a><div class="col-md-4 col-sm-4"><a data-bs-toggle="modal" data-bs-target="#ModalTablet4"><div class="thumbOff">
                         Thumbnail
@@ -276,8 +282,8 @@
 </div>
 </div>
 </div>
-<div class="articleSection" data-anchor="Publication Dates">
-<h3 class="articleSectionTitle">Publication Dates</h3>
+<div class="articleSection articleSection--publication-dates" data-anchor="Publication Dates">
+<a name="articleSection0"></a><h2 class="h5">Publication Dates</h2>
 <div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
 <li>
 <strong>Publication in this collection</strong><br>08 Mar 2024</li>
@@ -285,8 +291,8 @@
 <strong>Date of issue</strong><br>2024</li>
 </ul></div></div>
 </div>
-<div class="articleSection" data-anchor="History">
-<h3 class="articleSectionTitle">History</h3>
+<div class="articleSection articleSection--history" data-anchor="History">
+<a name="articleSection0"></a><h2 class="h5">History</h2>
 <div class="row"><div class="col-md-12 col-sm-12"><ul class="articleTimeline">
 <li>
 <strong>Received</strong><br>23 Sept 2022</li>
@@ -295,105 +301,121 @@
 </ul></div></div>
 </div>
 <section class="documentLicense"><div class="container-license"><div class="row">
-<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title=""><img src="https://licensebuttons.net/l/by/4.0//88x31.png" alt="Creative Common - by 4.0 "></a></div>
-<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" title="">This content is licensed under a Creative Commons Attribution 4.0 International License.</a></div>
-</div></div></section></article>
+<div class="col-sm-3 col-md-2"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" aria-label="Access license information Creative Common - by 4.0 . Opens in new tab. External resource."><img src="https://licensebuttons.net/l/by/4.0//88x31.png" alt="Creative Common - by 4.0 "></a></div>
+<div class="col-sm-9 col-md-10"><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" aria-label="Access license information Creative Common - by 4.0 . Opens in new tab. External resource.">This content is licensed under a Creative Commons Attribution 4.0 International License.</a></div>
+</div></div></section></article></div>
 </div>
 </div></div></section><div class="modal fade ModalDefault ModalTutors" id="ModalTutors" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content">
 <div class="modal-header">
 <h5 class="modal-title">Authorship</h5>
 <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
+<style>
+            .author-card {
+                border-bottom: 1px solid #ccc;
+                padding: 1rem 0;
+            }
+            .author-card:last-child {
+                border-bottom: 0px;
+            }
+            .author-name {
+                font-weight: 600;
+            }
+            
+            .orcid-button {
+                padding-left: 2.5rem;
+            }
+            .modal-body {
+                padding-bottom: 3rem;
+            }
+            .orcid-button::before {
+                content: "";
+                position: absolute;
+                background-image: url(https://ds.scielo.org/img/logo-orcid.svg);
+                background-repeat: no-repeat;
+                background-size: 1.5em auto;
+                background-position: .5em center;
+                display: block;
+                width: 60px;
+                height: 60px;
+                top: -10px;
+                left: 0;
+            }
+        </style>
 <div class="modal-body">
-<div class="info">
-<div class="tutors">
-<strong> Caio Querino Gabaldi </strong><span class="ref footnote"><sup class="xref"></sup><span class="refCtt closed"><span class="refCttPadding">Associate Editor: Helder Takasgi Imoto Nakaya Hospital Israelita Albert Einstein, São Paulo, SP, Brazil ORCID: https://orcid.org/0000-0001-5297-9108</span></span></span><br><div>conceptualization</div>
-<div>data curation</div>
-<div>formal analysis</div>
-<div>investigation</div>
-<div>methodology</div>
-<div>resources</div>
-<div>software</div>
-<div>validation</div>
-<div>visualization</div>
-<div>writing – original draft</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Caio Querino Gabaldi <a href="#c1"></a>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8751-4340" class="btnContribLinks orcid">https://orcid.org/0000-0002-8751-4340</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">conceptualization · data curation · formal analysis · investigation · methodology · resources · software · validation · visualization · writing – original draft</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Adriana Serra Cypriano </strong><br><div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0002-8751-4340" aria-label="Access contributor profile 0000-0002-8751-4340. Opens in new tab. External resource.">0000-0002-8751-4340</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0003-0396-211X" class="btnContribLinks orcid">https://orcid.org/0000-0003-0396-211X</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Adriana Serra Cypriano </div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Carlos Henrique Sartorato Pedrotti </strong><br><div>data curation</div>
-<div>investigation</div>
-<div>software</div>
-<div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0003-0396-211X" aria-label="Access contributor profile 0000-0003-0396-211X. Opens in new tab. External resource.">0000-0003-0396-211X</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-0634-7086" class="btnContribLinks orcid">https://orcid.org/0000-0002-0634-7086</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Carlos Henrique Sartorato Pedrotti </div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">data curation · investigation · software · writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Daniel Tavares Malheiro </strong><br><div>conceptualization</div>
-<div>data curation</div>
-<div>formal analysis</div>
-<div>investigation</div>
-<div>methodology</div>
-<div>software</div>
-<div>validation</div>
-<div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0002-0634-7086" aria-label="Access contributor profile 0000-0002-0634-7086. Opens in new tab. External resource.">0000-0002-0634-7086</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0003-4321-647X" class="btnContribLinks orcid">https://orcid.org/0000-0003-4321-647X</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Daniel Tavares Malheiro </div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">conceptualization · data curation · formal analysis · investigation · methodology · software · validation · writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Claudia Regina Laselva </strong><br><div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0003-4321-647X" aria-label="Access contributor profile 0000-0003-4321-647X. Opens in new tab. External resource.">0000-0003-4321-647X</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0001-8285-9633" class="btnContribLinks orcid">https://orcid.org/0000-0001-8285-9633</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Claudia Regina Laselva </div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Miguel Cendoroglo Neto</strong><br><div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0001-8285-9633" aria-label="Access contributor profile 0000-0001-8285-9633. Opens in new tab. External resource.">0000-0001-8285-9633</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8163-4392" class="btnContribLinks orcid">https://orcid.org/0000-0002-8163-4392</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Miguel Cendoroglo Neto</div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
-<div class="tutors">
-<strong> Vanessa Damazio Teich </strong><br><div>project administration</div>
-<div>supervision</div>
-<div>writing – review &amp; editing</div>
-<div>
-<span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0002-8163-4392" aria-label="Access contributor profile 0000-0002-8163-4392. Opens in new tab. External resource.">0000-0002-8163-4392</a></div>
 </div>
-<ul class="md-list inline"><li><a href="https://orcid.org/0000-0002-8539-6037" class="btnContribLinks orcid">https://orcid.org/0000-0002-8539-6037</a></li></ul>
-<div class="clearfix"></div>
+<div class="author-card">
+<div class="author-name">
+<span class="material-icons-outlined">person</span> Vanessa Damazio Teich </div>
+<div class="author-roles ms-4 mb-2 scielo__text-color__subtle--light">project administration · supervision · writing – review &amp; editing</div>
+<div class="author-institution ms-4 mb-2 scielo__text-color__subtle--light">
+<span class="material-icons-outlined">school</span><span data-aff-display="aff1">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><span data-aff-orgname="aff1" hidden="">Hospital Israelita Albert Einstein</span><span data-aff-country="aff1" hidden="">Brazil</span><span data-aff-country-code="aff1" hidden="" country="BR"></span><span data-aff-location="aff1" hidden="">São Paulo, SP, Brazil</span><span data-aff-full="aff1" hidden="">Hospital Israelita Albert Einstein, São Paulo, SP, Brazil.</span><a href="" class="scimago-link" data-scimago-link="aff1"></a>
 </div>
+<div class="ms-4"><a target="_blank" class="btn btn-secondary  orcid-button" href="https://orcid.org/0000-0002-8539-6037" aria-label="Access contributor profile 0000-0002-8539-6037. Opens in new tab. External resource.">0000-0002-8539-6037</a></div>
 </div>
-<div class="corresp">
-<a class="" name="c1_ref"></a><b>Associate Editor:</b> Helder Takasgi Imoto Nakaya Hospital Israelita Albert Einstein, São Paulo, SP, Brazil ORCID: https://orcid.org/0000-0001-5297-9108</div>
-<div class="corresp">
-<a class="" name="c2_ref"></a><b>Corresponding author:</b> Caio Querino Gabaldi Avenida Albert Einstein, 627/701 Zip code: 05652-900 – Morumbi Phone: (55 11) 98876-1784 E-mail: <a href="mailto:caio.gabaldi@einstein.br">caio.gabaldi@einstein.br</a>
+<a class="" name="c1_ref"></a><div class="correspondence mt-3 mb-4">Associate Editor:<span class="scielo__text-color__subtle--light"> Helder Takasgi Imoto Nakaya Hospital Israelita Albert Einstein, São Paulo, SP, Brazil ORCID: https://orcid.org/0000-0001-5297-9108</span><br>
 </div>
-<div class="info">
-<div>
+<a class="" name="c2_ref"></a><div class="correspondence mt-3 mb-4">Corresponding author:<span class="scielo__text-color__subtle--light"> Caio Querino Gabaldi Avenida Albert Einstein, 627/701 Zip code: </span><br>05652-900<span class="scielo__text-color__subtle--light"> – Morumbi Phone: </span><br>(55 11) 98876-1784<span class="scielo__text-color__subtle--light"> E-mail: </span><br><a href="mailto:caio.gabaldi@einstein.br">caio.gabaldi@einstein.br</a>
+</div>
+<div class="mb-3">
+<p class="scielo__text-color__subtle--light mb-0"><div>
             <b>Conflict of interest:</b>
-          </div>
-<div>none.</div>
+          </div></p>
+<p class="scielo__text-color__subtle--light mb-0"><div>none.</div></p>
 </div>
 </div>
 </div></div></div>
@@ -436,8 +458,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 1</strong></strong><br>Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 1</strong></strong>Pearson Correlation Index calculated between all available time series and the lagged series of daily hospitalized patients</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf3"><div class="thumbImg">
@@ -445,8 +467,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 2</strong></strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 2</strong></strong>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf4"><div class="thumbImg">
@@ -454,8 +476,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 3</strong></strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 3</strong></strong>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf5"><div class="thumbImg">
@@ -463,8 +485,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 4</strong></strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 4</strong></strong>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf6"><div class="thumbImg">
@@ -472,8 +494,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 5</strong></strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 5</strong></strong>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf7"><div class="thumbImg">
@@ -481,8 +503,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 6</strong></strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 6</strong></strong>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf8"><div class="thumbImg">
@@ -490,8 +512,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 7</strong></strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 7</strong></strong>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf3"><div class="thumbImg">
@@ -499,8 +521,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 2</strong></strong><br>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 2</strong></strong>Comparison between the daily number of hospitalized patients and the mean values predicted by the described models</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf4"><div class="thumbImg">
@@ -508,8 +530,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 3</strong></strong><br>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 3</strong></strong>Comparison between the daily number of hospitalized patients in the general ward and the mean values predicted by Model 1</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf5"><div class="thumbImg">
@@ -517,8 +539,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 4</strong></strong><br>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 4</strong></strong>Comparison between the daily number of hospitalized patients in the intensive care unit and the mean values predicted by Model 1</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf6"><div class="thumbImg">
@@ -526,8 +548,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 5</strong></strong><br>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 5</strong></strong>Prediction performance monitoring. Calculated mean error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf7"><div class="thumbImg">
@@ -535,8 +557,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 6</strong></strong><br>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 6</strong></strong>Prediction performance monitoring. Calculated mean absolute error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 <div class="row fig">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalFigf8"><div class="thumbImg">
@@ -544,8 +566,8 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Figure 7</strong></strong><br>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Figure 7</strong></strong>Prediction performance monitoring. Calculated root mean squared error for the proposed models by forecast horizon (days)</caption></div>
 </div>
 </div>
 <div class="tab-pane fade show" id="tables" role="tabpanel" aria-labelledby="tables">
@@ -554,24 +576,24 @@
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Table 1</strong></strong><br>Seasonal factors calculated after analyzing the behavior of admissions to general wards per day of the week</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Table 1</strong></strong>Seasonal factors calculated after analyzing the behavior of admissions to general wards per day of the week</caption></div>
 </div>
 <div class="row table">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalTablet2"><div class="thumbOff">
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Table 2</strong></strong><br>Descriptive analysis of COVID-19 patients’ length of stay segmented by epidemiological characteristics, resource use, and predictors of severity</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Table 2</strong></strong>Descriptive analysis of COVID-19 patients’ length of stay segmented by epidemiological characteristics, resource use, and predictors of severity</caption></div>
 </div>
 <div class="row table">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalTablet3"><div class="thumbOff">
                         Thumbnail
                         <div class="zoom"><span class="sci-ico-zoom"></span></div>
 </div></a></div>
-<div class="col-12">
-<strong><strong>Table 3</strong></strong><br>List of variables tested in the development of the random forest algorithm, along with their respective Gini importance indices</div>
+<div class="col-12"><caption class="sr-only">
+<strong><strong>Table 3</strong></strong>List of variables tested in the development of the random forest algorithm, along with their respective Gini importance indices</caption></div>
 </div>
 <div class="row table">
 <div class="col-4"><a data-bs-toggle="modal" data-bs-target="#ModalTablet4"><div class="thumbOff">
@@ -1456,14 +1478,20 @@
             document.getElementById('citationCut').value = citation.replace('&lt;', '<').replace('&gt;', ">");
         </script>
 </div>
-<div class="scielo__floatingMenuCtt"><ul class="scielo__floatingMenu fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
-<a href="javascript:;" class="fm-button-main"><span class="material-icons-outlined material-icons-outlined-menu-default">more_horiz</span><span class="material-icons-outlined material-icons-outlined-menu-close">close</span></a><ul class="fm-list d-none d-sm-block">
-<li><a class="fm-button-child" data-bs-toggle="modal" title="" data-mobile-tooltip="Figures | Tables" data-bs-target="#ModalTablesFigures" data-bs-original-title="Figures | Tables"><span class="material-icons-outlined"> image </span></a></li>
-<li><a class="fm-button-child" title="" data-mobile-tooltip="How to
-                                          cite" data-bs-toggle="modal" data-bs-target="#ModalArticles" data-bs-original-title="How to
-                                          cite"><span class="material-icons-outlined"> link </span></a></li>
-</ul>
-</li></ul></div>
+<div class="container"><div class="row"><div class="col"><div class="scielo__floatingMenuCttJs3">
+<a class="scielo__floatingMenuItem fm-button-child item-goto d-none d-lg-inline-block" data-bs-toggle="tooltip" href="#top" title="Go to top"><span class="material-icons-outlined">
+          vertical_align_top
+        </span></a><a href="javascript:;" class="scielo__floatingMenuItem fm-button-child item-metrics d-none d-lg-inline-block" data-bs-toggle="tooltip" target="_blank" data-bs-target="#metric_modal_id" tabindex="0" title="Metrics"><span class="material-icons-outlined">
+          show_chart
+        </span></a><ul class="scielo__floatingMenuJs3 fm-slidein" data-fm-toogle="hover"><li class="fm-wrap">
+<a href="javascript:;" class="fm-button-main" data-bs-toggle="tooltip" tabindex="0" title="Open menu"><span class="material-icons-outlined material-icons-outlined-menu-default">more_horiz</span></a><a href="javascript:;" class="fm-button-close" data-bs-toggle="tooltip" tabindex="0" title="Close menu"><span class="material-icons-outlined material-icons-outlined-menu-close">close</span></a><ul class="fm-list-desktop d-none d-lg-block"><li><a class="fm-button-child" id="lnkFigsTables" data-bs-toggle="tooltip" data-bs-target="#ModalTablesFigures" tabindex="0" title="Figures | Tables"><span class="material-icons-outlined">
+              image
+            </span></a></li></ul>
+<ul class="fm-list-desktop d-none d-lg-block"><li><a class="fm-button-child" id="lnkFigsTables" data-bs-toggle="tooltip" title="Figures | Tables" data-bs-target="#ModalTablesFigures" tabindex="0"><span class="material-icons-outlined">
+              image
+            </span></a></li></ul>
+</li></ul>
+</div></div></div></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><script src="https://ds.scielo.org/js/bootstrap.bundle.min.js"></script><script src="https://ds.scielo.org/js/scielo/scielo-ds-min.js"></script>
 </body>
 </html>
