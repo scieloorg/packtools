@@ -197,11 +197,11 @@
         </xsl:variable>
         <div class="row">
             <div class="col-12 col-md-4 col-lg-3">
-                <nav role="navigation" aria-label="{$navigation_text}">
-                    <ul class="-articleMenu list-group mt-4">
-                    <!-- item do menu lateral esquerdo -->
-                    </ul>
-                </nav>
+                <!-- 
+                menu lateral esquerdo - seções do texto
+                -->
+                <ul class="articleMenu list-group mt-4">
+                </ul>
             </div>
             <div class="col-sm-12 col-md-8 col-lg-9">
                 <xsl:choose>
