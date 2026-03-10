@@ -9,6 +9,9 @@ to make sure it is installed correctly.
 Pip + GitHub (recommended)
 --------------------------
 
+Check the latest version available at `GitHub releases <https://github.com/scieloorg/packtools/releases>`_ 
+and replace the version in the URL below accordingly:
+
 .. code-block:: bash
 
     $ pip install https://github.com/scieloorg/packtools/archive/refs/tags/4.16.0.zip
