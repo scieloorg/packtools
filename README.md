@@ -16,23 +16,17 @@ runs on python > 3.9.
 ``packtools`` depends on [lxml](http://lxml.de/installation.html).
 
 
-Python Package Index (recommended):
+Pip + GitHub (recommended):
 
 ```bash
-$ pip install packtools
-```
-
-or just:
-
-```bash
-pip install -r requirements.txt
+$ pip install https://github.com/scieloorg/packtools/archive/refs/tags/4.16.0.zip
 ```
 
 
-Pip + git (versão de desenvolvimento):
+Pip + git (development version):
 
 ```bash
-$ pip install -e git+git://github.com/scieloorg/packtools.git#egg=packtools
+$ pip install git+https://github.com/scieloorg/packtools.git
 ```
 
 
@@ -48,7 +42,7 @@ Installation as a web application, where a graphical interface for `stylechecker
 and an HTML previewer is provided:
 
 ```bash
-$ pip install packtools[webapp]
+$ pip install "packtools[webapp] @ https://github.com/scieloorg/packtools/archive/refs/tags/4.16.0.zip"
 ```
 
 or
