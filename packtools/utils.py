@@ -418,6 +418,11 @@ class WebImageGenerator:
                 % self.filename
             )
 
+        if self._image_object.mode in ("LA", "PA"):
+            self._image_object = self._image_object.convert("RGBA")
+        elif self._image_object.mode not in ("RGB", "RGBA", "L"):
+            self._image_object = self._image_object.convert("RGB")
+
         self._image_object.thumbnail(self.thumbnail_size)
         return self._get_bytes("JPEG")
 

@@ -463,6 +463,46 @@ class TestWebImageGenerator(unittest.TestCase):
         image_copy.save(image_expected, "JPEG")
         self.assertEqual(result, image_expected.getvalue())
 
+    def test_get_thumbnail_bytes_with_palette_mode(self):
+        mocked_image = Image.new("P", (10, 10))
+        web_image_generator = utils.WebImageGenerator(
+            "image.png", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        self.assertIsNotNone(result)
+
+    def test_get_thumbnail_bytes_with_cmyk_mode(self):
+        mocked_image = Image.new("CMYK", (10, 10))
+        web_image_generator = utils.WebImageGenerator(
+            "image.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        self.assertIsNotNone(result)
+
+    def test_get_thumbnail_bytes_with_la_mode(self):
+        mocked_image = Image.new("LA", (10, 10))
+        web_image_generator = utils.WebImageGenerator(
+            "image.png", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        self.assertIsNotNone(result)
+
+    def test_get_thumbnail_bytes_with_1_mode(self):
+        mocked_image = Image.new("1", (10, 10))
+        web_image_generator = utils.WebImageGenerator(
+            "image.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        self.assertIsNotNone(result)
+
 
 class TestXMLWebOptimiser(unittest.TestCase):
     def setUp(self):
