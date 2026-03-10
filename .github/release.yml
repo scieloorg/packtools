@@ -16,6 +16,6 @@ changelog:
       labels:
         - bug
         - fix
-    - title: Sem labels, classificar em: Mudanças que quebram compatibilidades | Novas funcionalidades | Melhorias | Correções | Outras mudanças
+    - title: Quebram compatibilidade, Novas funcionalidades, Melhorias, Correções, Outras mudanças
       labels:
         - "*"
