@@ -369,7 +369,7 @@ class WebImageGenerator:
                 'Error opening image file "%s": %s' % (self.image_file_path, str(exc))
             )
         else:
-            thumbnail_file = image_file.copy()
+            thumbnail_file = self._normalize_mode(image_file.copy())
             new_filename = os.path.splitext(self.image_file_path)[0] + ".thumbnail.jpg"
             if destination_path is not None and len(destination_path) > 0:
                 new_filename = os.path.join(
@@ -385,6 +385,19 @@ class WebImageGenerator:
                 )
             finally:
                 image_file.close()
+
+    @staticmethod
+    def _normalize_mode(image):
+        """Convert image to a mode compatible with Pillow's LANCZOS resampling.
+
+        Modes like P, CMYK, I, F, 1, LA, PA are not supported by
+        ``Image.thumbnail()`` and raise ``ValueError``. This helper converts
+        to RGB so that both ``create_thumbnail()`` and ``get_thumbnail_bytes()``
+        share the same normalization logic.
+        """
+        if image.mode not in ("RGB", "RGBA", "L"):
+            return image.convert("RGB")
+        return image
 
     def _get_bytes(self, format):
         image_file = io.BytesIO()
@@ -418,12 +431,7 @@ class WebImageGenerator:
                 % self.filename
             )
 
-        # Pillow's thumbnail() requires a mode compatible with LANCZOS
-        # resampling. Modes like P, CMYK, I, F, 1, LA, PA are not supported
-        # and raise ValueError. Convert to RGB since _get_bytes() always
-        # saves as RGB anyway.
-        if self._image_object.mode not in ("RGB", "RGBA", "L"):
-            self._image_object = self._image_object.convert("RGB")
+        self._image_object = self._normalize_mode(self._image_object)
 
         self._image_object.thumbnail(self.thumbnail_size)
         return self._get_bytes("JPEG")
