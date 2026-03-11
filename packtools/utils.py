@@ -388,15 +388,27 @@ class WebImageGenerator:
 
     @staticmethod
     def _normalize_mode(image):
-        """Normalize the image mode so it is compatible with ``Image.thumbnail()``.
+        """Normalize the image mode so it is compatible with ``Image.thumbnail()``
+        and with saving as JPEG.
 
         Some modes such as P, CMYK, I, F, 1, LA, and PA are not accepted by
-        ``Image.thumbnail()`` and may raise ``ValueError``. This helper converts
-        images in unsupported modes to RGB, while leaving RGB, RGBA, and L
-        images unchanged, so that both ``create_thumbnail()`` and
-        ``get_thumbnail_bytes()`` share the same normalization logic.
+        ``Image.thumbnail()`` and may raise ``ValueError``. Additionally, Pillow
+        cannot save JPEGs from images with an alpha channel (e.g. RGBA). This
+        helper converts images in unsupported modes to RGB, and composites RGBA
+        images onto an RGB background, while leaving RGB and L images unchanged,
+        so that both ``create_thumbnail()`` and ``get_thumbnail_bytes()`` share
+        the same normalization logic and can be safely saved as JPEG.
         """
-        if image.mode not in ("RGB", "RGBA", "L"):
+        # Handle images with alpha channel explicitly so they can be saved as JPEG.
+        if image.mode == "RGBA":
+            # Composite onto a white background to remove transparency safely.
+            background = Image.new("RGB", image.size, (255, 255, 255))
+            alpha = image.split()[3]
+            background.paste(image, mask=alpha)
+            return background
+
+        # Convert any other unsupported mode to RGB.
+        if image.mode not in ("RGB", "L"):
             return image.convert("RGB")
         return image
 
