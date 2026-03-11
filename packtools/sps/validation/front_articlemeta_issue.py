@@ -185,7 +185,7 @@ class IssueValidation:
                 expected=expected,
                 obtained=parsed_issue,
                 advice=(
-                    f"""Replace {self.article_issue} in <article-meta><issue>{self.article_issue}</issue> by with one of {expected}"""
+                    f"Replace {self.article_issue.issue} in <article-meta><issue> with one of {expected}"
                     if not got_valid_format
                     else None
                 ),
