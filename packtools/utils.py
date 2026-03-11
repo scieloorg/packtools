@@ -388,12 +388,13 @@ class WebImageGenerator:
 
     @staticmethod
     def _normalize_mode(image):
-        """Convert image to a mode compatible with Pillow's LANCZOS resampling.
+        """Normalize the image mode so it is compatible with ``Image.thumbnail()``.
 
-        Modes like P, CMYK, I, F, 1, LA, PA are not supported by
-        ``Image.thumbnail()`` and raise ``ValueError``. This helper converts
-        to RGB so that both ``create_thumbnail()`` and ``get_thumbnail_bytes()``
-        share the same normalization logic.
+        Some modes such as P, CMYK, I, F, 1, LA, and PA are not accepted by
+        ``Image.thumbnail()`` and may raise ``ValueError``. This helper converts
+        images in unsupported modes to RGB, while leaving RGB, RGBA, and L
+        images unchanged, so that both ``create_thumbnail()`` and
+        ``get_thumbnail_bytes()`` share the same normalization logic.
         """
         if image.mode not in ("RGB", "RGBA", "L"):
             return image.convert("RGB")
