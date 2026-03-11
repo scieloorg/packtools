@@ -463,6 +463,58 @@ class TestWebImageGenerator(unittest.TestCase):
         image_copy.save(image_expected, "JPEG")
         self.assertEqual(result, image_expected.getvalue())
 
+    def test_get_thumbnail_bytes_with_palette_mode(self):
+        mocked_image = Image.new("P", (300, 300))
+        web_image_generator = utils.WebImageGenerator(
+            "image.png", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        result_image = Image.open(io.BytesIO(result))
+        self.assertEqual(result_image.format, "JPEG")
+        self.assertLessEqual(result_image.size[0], web_image_generator.thumbnail_size[0])
+        self.assertLessEqual(result_image.size[1], web_image_generator.thumbnail_size[1])
+
+    def test_get_thumbnail_bytes_with_cmyk_mode(self):
+        mocked_image = Image.new("CMYK", (300, 300))
+        web_image_generator = utils.WebImageGenerator(
+            "image.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        result_image = Image.open(io.BytesIO(result))
+        self.assertEqual(result_image.format, "JPEG")
+        self.assertLessEqual(result_image.size[0], web_image_generator.thumbnail_size[0])
+        self.assertLessEqual(result_image.size[1], web_image_generator.thumbnail_size[1])
+
+    def test_get_thumbnail_bytes_with_la_mode(self):
+        mocked_image = Image.new("LA", (300, 300))
+        web_image_generator = utils.WebImageGenerator(
+            "image.png", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        result_image = Image.open(io.BytesIO(result))
+        self.assertEqual(result_image.format, "JPEG")
+        self.assertLessEqual(result_image.size[0], web_image_generator.thumbnail_size[0])
+        self.assertLessEqual(result_image.size[1], web_image_generator.thumbnail_size[1])
+
+    def test_get_thumbnail_bytes_with_1_mode(self):
+        mocked_image = Image.new("1", (300, 300))
+        web_image_generator = utils.WebImageGenerator(
+            "image.tiff", self.extracted_package
+        )
+        web_image_generator._image_object = mocked_image
+
+        result = web_image_generator.get_thumbnail_bytes()
+        result_image = Image.open(io.BytesIO(result))
+        self.assertEqual(result_image.format, "JPEG")
+        self.assertLessEqual(result_image.size[0], web_image_generator.thumbnail_size[0])
+        self.assertLessEqual(result_image.size[1], web_image_generator.thumbnail_size[1])
+
 
 class TestXMLWebOptimiser(unittest.TestCase):
     def setUp(self):
