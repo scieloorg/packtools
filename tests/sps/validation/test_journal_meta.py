@@ -32,24 +32,56 @@ class ISSNTest(TestCase):
 
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5053</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5053</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="epub">1678-4790</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4790</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4790</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             }
         ]
         for i, item in enumerate(obtained):
@@ -67,24 +99,56 @@ class ISSNTest(TestCase):
 
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': '<issn pub-type="ppub">0103-5054</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5054</issn>',
-                'advice': 'Provide an ISSN value as expected: <issn pub-type="ppub">0103-5054</issn>'
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5054</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5054</issn>',
+                },
+                'advice': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
+                'adv_text': 'Mark print ISSN with <issn pub-type="ppub">0103-5054</issn> inside <journal-meta>',
+                'adv_params': {},
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': '<issn pub-type="epub">1678-4791</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4791</issn>',
-                'advice': 'Provide an ISSN value as expected: <issn pub-type="epub">1678-4791</issn>'
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4791</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4791</issn>',
+                },
+                'advice': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
+                'adv_text': 'Mark electronic ISSN with <issn pub-type="epub">1678-4791</issn> inside <journal-meta>',
+                'adv_params': {},
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             }
         ]
         for i, item in enumerate(obtained):
@@ -113,14 +177,24 @@ class AcronymTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcsm'},
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {'acronym': 'hcsm'},
             }
         ]
         obtained = self.acronym.acronym_validation('hcsm')
@@ -132,14 +206,24 @@ class AcronymTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'hcs',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcs',
-                'advice': 'Provide an acronym value as expected: hcs'
+                'message': 'Got hcsm, expected hcs',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcs'},
+                'advice': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
+                'adv_text': 'Mark journal acronym with <journal-id journal-id-type="publisher-id">hcs</journal-id> inside <journal-meta>',
+                'adv_params': {},
+                'data': {'acronym': 'hcsm'},
             }
         ]
         obtained = self.acronym.acronym_validation('hcs')
@@ -173,14 +257,30 @@ class TitleTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'História, Ciências, Saúde-Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
-                'advice': None
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde-Manguinhos',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             }
         ]
         obtained = self.title.journal_title_validation('História, Ciências, Saúde-Manguinhos')
@@ -192,14 +292,30 @@ class TitleTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'pt',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
-                'response': 'ERROR',
+                'response': 'CRITICAL',
                 'expected_value': 'História, Ciências, Saúde Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde Manguinhos',
-                'advice': 'Provide a journal title value as expected: História, Ciências, Saúde Manguinhos'
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde Manguinhos',
+                },
+                'advice': 'Mark journal title with <journal-title> inside <journal-title-group>',
+                'adv_text': 'Mark journal title with <journal-title> inside <journal-title-group>',
+                'adv_params': {},
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             }
         ]
         obtained = self.title.journal_title_validation('História, Ciências, Saúde Manguinhos')
@@ -223,7 +339,14 @@ class TitleTest(TestCase):
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude-Manguinhos',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
@@ -251,7 +374,14 @@ class TitleTest(TestCase):
                 'expected_value': 'Hist. cienc. saude Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude Manguinhos',
-                'advice': 'Provide a journal title value as expected: Hist. cienc. saude Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude Manguinhos',
+                },
+                'advice': 'Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+                'adv_text': 'Mark abbreviated journal title with <abbrev-journal-title> inside <journal-title-group>',
+                'adv_params': {},
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
@@ -306,7 +436,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -318,7 +448,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -331,7 +468,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -343,7 +480,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fund. Oswaldo Cruz',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -356,7 +500,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -368,11 +512,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -384,7 +535,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'UNESP',
                 'got_value': 'UNESP',
                 'message': 'Got UNESP, expected UNESP',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'UNESP',
+                    'expected': 'UNESP',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -397,7 +555,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -409,11 +567,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fund. Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fund. Oswaldo Cruz',
-                'advice': 'Provide the expected publisher name: Fund. Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fund. Oswaldo Cruz',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>Fund. Oswaldo Cruz</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -425,7 +590,14 @@ class PublisherTest(TestCase):
                 'expected_value': 'UNIFESP',
                 'got_value': 'UNESP',
                 'message': 'Got UNESP, expected UNIFESP',
-                'advice': 'Provide the expected publisher name: UNIFESP',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'UNESP',
+                    'expected': 'UNIFESP',
+                },
+                'advice': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
+                'adv_text': 'Mark publisher name with <publisher><publisher-name>UNIFESP</publisher-name></publisher> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -438,7 +610,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -450,11 +622,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -466,7 +645,14 @@ class PublisherTest(TestCase):
                 'expected_value': ['Fundação Oswaldo Cruz'],
                 'got_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'message': "Got ['Fundação Oswaldo Cruz', 'UNESP'], expected ['Fundação Oswaldo Cruz']",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': ['Fundação Oswaldo Cruz', 'UNESP'],
+                    'expected': ['Fundação Oswaldo Cruz'],
+                },
                 'advice': 'Remove the following items from the XML: UNESP',
+                'adv_text': 'Remove the following items from the XML: UNESP',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -479,7 +665,7 @@ class PublisherTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -491,11 +677,18 @@ class PublisherTest(TestCase):
                 'expected_value': 'Fundação Oswaldo Cruz',
                 'got_value': 'Fundação Oswaldo Cruz',
                 'message': 'Got Fundação Oswaldo Cruz, expected Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Fundação Oswaldo Cruz',
+                    'expected': 'Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -507,7 +700,14 @@ class PublisherTest(TestCase):
                 'expected_value': ['Fundação Oswaldo Cruz', 'UNESP'],
                 'got_value': ['Fundação Oswaldo Cruz'],
                 'message': "Got ['Fundação Oswaldo Cruz'], expected ['Fundação Oswaldo Cruz', 'UNESP']",
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': ['Fundação Oswaldo Cruz'],
+                    'expected': ['Fundação Oswaldo Cruz', 'UNESP'],
+                },
                 'advice': 'Complete the following items in the XML: UNESP',
+                'adv_text': 'Complete the following items in the XML: UNESP',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -536,7 +736,7 @@ class JournalIdValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': "research-article",
                 'parent_id': None,
@@ -548,7 +748,14 @@ class JournalIdValidationTest(TestCase):
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev Saude Publica',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
@@ -561,7 +768,7 @@ class JournalIdValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': "research-article",
                 'parent_id': None,
@@ -573,7 +780,14 @@ class JournalIdValidationTest(TestCase):
                 'expected_value': 'Rev de Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev de Saude Publica',
-                'advice': 'Provide an nlm-ta value as expected: Rev de Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev de Saude Publica',
+                },
+                'advice': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
+                'adv_text': 'Mark an nlm-ta value with <journal-id journal-id-type="nlm-ta">Rev de Saude Publica</journal-id> inside <journal-meta>',
+                'adv_params': {},
                 'data': None,
             }
         ]
@@ -612,44 +826,102 @@ class JournalMetaValidationTest(TestCase):
         self.maxDiff = None
         expected = [
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="ppub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="ppub">0103-5053</issn>',
                 'got_value': '<issn pub-type="ppub">0103-5053</issn>',
-                'message': 'Got <issn pub-type="ppub">0103-5053</issn> expected <issn pub-type="ppub">0103-5053</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="ppub">0103-5053</issn>, expected <issn pub-type="ppub">0103-5053</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="ppub">0103-5053</issn>',
+                    'expected': '<issn pub-type="ppub">0103-5053</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal ISSN element validation',
-                'xpath': './/journal-meta//issn[@pub-type="epub"]',
+                'title': 'Journal ISSN',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'issn',
+                'sub_item': 'pub-type',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': '<issn pub-type="epub">1678-4790</issn>',
                 'got_value': '<issn pub-type="epub">1678-4790</issn>',
-                'message': 'Got <issn pub-type="epub">1678-4790</issn> expected <issn pub-type="epub">1678-4790</issn>',
-                'advice': None
+                'message': 'Got <issn pub-type="epub">1678-4790</issn>, expected <issn pub-type="epub">1678-4790</issn>',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': '<issn pub-type="epub">1678-4790</issn>',
+                    'expected': '<issn pub-type="epub">1678-4790</issn>',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': [
+                    {'type': 'ppub', 'value': '0103-5053'},
+                    {'type': 'epub', 'value': '1678-4790'},
+                ],
             },
             {
-                'title': 'Journal acronym element validation',
-                'xpath': './/journal-meta//journal-id[@journal-id-type="publisher-id"]',
+                'title': 'Journal acronym',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'journal-id',
+                'sub_item': '@journal-id-type="publisher-id"',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'hcsm',
                 'got_value': 'hcsm',
-                'message': 'Got hcsm expected hcsm',
-                'advice': None
+                'message': 'Got hcsm, expected hcsm',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {'obtained': 'hcsm', 'expected': 'hcsm'},
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {'acronym': 'hcsm'},
             },
             {
-                'title': 'Journal title element validation',
-                'xpath': './journal-meta/journal-title-group/journal-title',
+                'title': 'Journal title',
+                'parent': 'article',
+                'parent_id': None,
+                'parent_article_type': 'research-article',
+                'parent_lang': 'en',
+                'item': 'journal-title-group',
+                'sub_item': 'journal-title',
                 'validation_type': 'value',
                 'response': 'OK',
                 'expected_value': 'História, Ciências, Saúde-Manguinhos',
                 'got_value': 'História, Ciências, Saúde-Manguinhos',
-                'message': 'Got História, Ciências, Saúde-Manguinhos expected História, Ciências, Saúde-Manguinhos',
-                'advice': None
+                'message': 'Got História, Ciências, Saúde-Manguinhos, expected História, Ciências, Saúde-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'História, Ciências, Saúde-Manguinhos',
+                    'expected': 'História, Ciências, Saúde-Manguinhos',
+                },
+                'advice': None,
+                'adv_text': None,
+                'adv_params': None,
+                'data': {
+                    'main': 'História, Ciências, Saúde-Manguinhos',
+                    'abbreviated': 'Hist. cienc. saude-Manguinhos',
+                },
             },
             {
                 'title': 'Abbreviated journal title element validation',
@@ -664,14 +936,21 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Hist. cienc. saude-Manguinhos',
                 'got_value': 'Hist. cienc. saude-Manguinhos',
                 'message': 'Got Hist. cienc. saude-Manguinhos, expected Hist. cienc. saude-Manguinhos',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Hist. cienc. saude-Manguinhos',
+                    'expected': 'Hist. cienc. saude-Manguinhos',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': {
                     'main': 'História, Ciências, Saúde-Manguinhos',
                     'abbreviated': 'Hist. cienc. saude-Manguinhos'
                 },
             },
             {
-                'title': 'Publisher name element validation',
+                'title': 'Publisher name',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -683,11 +962,18 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'got_value': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
                 'message': 'Got Casa de Oswaldo Cruz, Fundação Oswaldo Cruz, expected Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                    'expected': 'Casa de Oswaldo Cruz, Fundação Oswaldo Cruz',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             },
             {
-                'title': 'Journal ID element validation',
+                'title': 'Journal ID',
                 'parent': 'article',
                 'parent_article_type': 'research-article',
                 'parent_id': None,
@@ -699,7 +985,14 @@ class JournalMetaValidationTest(TestCase):
                 'expected_value': 'Rev Saude Publica',
                 'got_value': 'Rev Saude Publica',
                 'message': 'Got Rev Saude Publica, expected Rev Saude Publica',
+                'msg_text': 'Got {obtained}, expected {expected}',
+                'msg_params': {
+                    'obtained': 'Rev Saude Publica',
+                    'expected': 'Rev Saude Publica',
+                },
                 'advice': None,
+                'adv_text': None,
+                'adv_params': None,
                 'data': None,
             }
         ]
