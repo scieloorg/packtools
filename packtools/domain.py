@@ -475,6 +475,7 @@ class HTMLGenerator(object):
                  gs_abstract=None, output_style=None,
                  bootstrap_css=None, article_css=None,
                  design_system_static_img_path=None,
+                 crossmark_policy_page=None,
                  ):
         assert isinstance(file, etree._ElementTree)
         self.lxml = file
@@ -497,6 +498,8 @@ class HTMLGenerator(object):
         self.bootstrap_css = bootstrap_css
         self.article_css = article_css
         self.design_system_static_img_path = design_system_static_img_path
+
+        self.crossmark_policy_page = crossmark_policy_page
 
     @classmethod
     def parse(cls, file, valid_only=True, **kwargs):
@@ -628,4 +631,5 @@ class HTMLGenerator(object):
                 math_elem_preference=etree.XSLT.strparam(self.math_elem_preference or ''),
                 math_js=etree.XSLT.strparam(self.math_js or ''),
                 design_system_static_img_path=etree.XSLT.strparam(self.design_system_static_img_path or ''),
+                crossmark_policy_page=etree.XSLT.strparam(self.crossmark_policy_page or ''),
         )

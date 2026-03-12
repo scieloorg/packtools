@@ -83,6 +83,7 @@ class DispFormulaValidation:
             "codification_error_level": "CRITICAL",
             "mml_math_id_error_level": "CRITICAL",
             "mml_math_id_prefix_error_level": "ERROR",
+            "mathml_error_level": "WARNING",
             "alternatives_error_level": "CRITICAL"
         }
 
@@ -101,6 +102,7 @@ class DispFormulaValidation:
             self.validate_codification,
             self.validate_mml_math_id,
             self.validate_mml_math_id_prefix,
+            self.validate_mathml_recommendation,
             self.validate_alternatives
         ]
         return [response for validate in validations if (response := validate())]
@@ -209,7 +211,8 @@ class DispFormulaValidation:
 
         obtained = " and ".join(found) if found else _("not found codification formula")
 
-        is_valid = count == 1
+        alternatives = self.data.get("alternative_elements") or []
+        is_valid = (count == 1) or (count == len(alternatives) and count > 1)
         item_id = self.data.get("id")
         return build_response(
             title="mml:math or tex-math",
@@ -288,6 +291,74 @@ class DispFormulaValidation:
             error_level=self.rules["mml_math_id_prefix_error_level"],
             advice_text=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <disp-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
             advice_params={"mml_id": mml_math_id, "formula_id": item_id},
+        )
+
+    def validate_mathml_recommendation(self):
+        """
+        Validates and recommends MathML when only TeX math is present for accessibility.
+
+        Returns:
+            dict: A validation result dictionary.
+        """
+        has_mml_math = bool(self.data.get("mml_math"))
+        has_tex_math = bool(self.data.get("tex_math"))
+        item_id = self.data.get("id")
+        
+        # No codification found - return OK response reflecting this condition
+        if not has_mml_math and not has_tex_math:
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=True,
+                expected="mml:math or tex-math",
+                obtained=_("no codification found"),
+                advice=None,
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=None,
+                advice_params=None,
+            )
+        
+        # Only warn if there's tex-math but no mml:math
+        if has_tex_math and not has_mml_math:
+            is_valid = False
+            expected = "mml:math"
+            obtained = "tex-math"
+            
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=obtained,
+                advice=_('For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.').format(formula_id=item_id),
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=_('For accessibility, consider adding <mml:math> in <disp-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
+                advice_params={"formula_id": item_id},
+            )
+        
+        # Otherwise, it's valid (has mml:math or both)
+        return build_response(
+            title="MathML recommendation",
+            parent=self.data,
+            item="mml:math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=True,
+            expected="mml:math",
+            obtained="mml:math",
+            advice=None,
+            data=self.data,
+            error_level=self.rules["mathml_error_level"],
+            advice_text=None,
+            advice_params=None,
         )
 
     def validate_alternatives(self):
@@ -432,6 +503,7 @@ class InlineFormulaValidation:
                 "codification_error_level": "CRITICAL",
                 "mml_math_id_error_level": "CRITICAL",
                 "mml_math_id_prefix_error_level": "ERROR",
+                "mathml_error_level": "WARNING",
                 "alternatives_error_level": "CRITICAL"
             }
 
@@ -449,6 +521,7 @@ class InlineFormulaValidation:
             self.validate_codification,
             self.validate_mml_math_id,
             self.validate_mml_math_id_prefix,
+            self.validate_mathml_recommendation,
             self.validate_alternatives
         ]
         return [response for validate in validations if (response := validate())]
@@ -530,7 +603,8 @@ class InlineFormulaValidation:
 
         obtained = " and ".join(found) if found else _("not found codification formula")
 
-        is_valid = count == 1
+        alternatives = self.data.get("alternative_elements") or []
+        is_valid = (count == 1) or ((count == len(alternatives)) and (count > 1))
 
         return build_response(
             title="mml:math or tex-math",
@@ -609,6 +683,74 @@ class InlineFormulaValidation:
             error_level=self.rules["mml_math_id_prefix_error_level"],
             advice_text=_('The @id of <mml:math> must start with prefix "m". Change {mml_id} to m{mml_id} in <mml:math id="{mml_id}"> inside <inline-formula id="{formula_id}">. Consult SPS documentation for more detail.'),
             advice_params={"mml_id": mml_math_id, "formula_id": item_id},
+        )
+
+    def validate_mathml_recommendation(self):
+        """
+        Validates and recommends MathML when only TeX math is present for accessibility.
+
+        Returns:
+            dict: A validation result dictionary.
+        """
+        has_mml_math = bool(self.data.get("mml_math"))
+        has_tex_math = bool(self.data.get("tex_math"))
+        item_id = self.data.get("id")
+        
+        # No codification found - return OK response reflecting this condition
+        if not has_mml_math and not has_tex_math:
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=True,
+                expected="mml:math or tex-math",
+                obtained=_("no codification found"),
+                advice=None,
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=None,
+                advice_params=None,
+            )
+        
+        # Only warn if there's tex-math but no mml:math
+        if has_tex_math and not has_mml_math:
+            is_valid = False
+            expected = "mml:math"
+            obtained = "tex-math"
+            
+            return build_response(
+                title="MathML recommendation",
+                parent=self.data,
+                item="mml:math",
+                sub_item=None,
+                validation_type="exist",
+                is_valid=is_valid,
+                expected=expected,
+                obtained=obtained,
+                advice=_('For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.').format(formula_id=item_id),
+                data=self.data,
+                error_level=self.rules["mathml_error_level"],
+                advice_text=_('For accessibility, consider adding <mml:math> in <inline-formula id="{formula_id}">. MathML improves accessibility for screen readers. Consult SPS documentation for more detail.'),
+                advice_params={"formula_id": item_id},
+            )
+        
+        # Otherwise, it's valid (has mml:math or both)
+        return build_response(
+            title="MathML recommendation",
+            parent=self.data,
+            item="mml:math",
+            sub_item=None,
+            validation_type="exist",
+            is_valid=True,
+            expected="mml:math",
+            obtained="mml:math",
+            advice=None,
+            data=self.data,
+            error_level=self.rules["mathml_error_level"],
+            advice_text=None,
+            advice_params=None,
         )
 
     def validate_alternatives(self):

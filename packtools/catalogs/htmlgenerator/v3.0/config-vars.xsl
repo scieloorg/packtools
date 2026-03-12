@@ -23,7 +23,10 @@
     <xsl:param name="math_js" select="''"/>
 
     <xsl:param name="output_style"/>
-    
+    <xsl:param name="crossmark_policy_page" />
+
+    <xsl:variable name="CROSSMARK_POLICY_PAGE"><xsl:value-of select="$crossmark_policy_page"/></xsl:variable>
+
     <xsl:variable name="MATH_ELEM_PREFERENCE">
         <xsl:choose>
             <xsl:when test="$math_elem_preference='tex-math'">tex-math</xsl:when>

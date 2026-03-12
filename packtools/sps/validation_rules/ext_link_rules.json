@@ -1,0 +1,10 @@
+{
+    "ext_link_rules": {
+        "ext_link_type_error_level": "CRITICAL",
+        "xlink_href_error_level": "CRITICAL",
+        "xlink_href_format_error_level": "ERROR",
+        "ext_link_type_value_error_level": "ERROR",
+        "descriptive_text_error_level": "WARNING",
+        "xlink_title_error_level": "WARNING"
+    }
+}

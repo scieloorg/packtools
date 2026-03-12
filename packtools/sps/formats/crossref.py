@@ -23,6 +23,33 @@ from packtools.sps.models import (
 SUPPLBEG_REGEX = re.compile(r"^0 ")
 SUPPLEND_REGEX = re.compile(r" 0$")
 
+# Mapping from JATS related-article-type to Crossref Crossmark update type
+RELATED_ARTICLE_TYPE_TO_CROSSMARK_UPDATE_TYPE = {
+    "addendum": "addendum",
+    "corrected-article": "correction",
+    "correction-forward": "correction",
+    "expression-of-concern": "expression_of_concern",
+    "expression-of-concern-forward": "expression_of_concern",
+    "partial-retraction": "partial_retraction",
+    "partial-retraction-forward": "partial_retraction",
+    "retracted-article": "retraction",
+    "retraction-forward": "retraction",
+    "updated-article": "new_version",
+    "withdrawn-article": "withdrawal",
+    "withdrawal-forward": "withdrawal",
+}
+
+# Mapping from Crossmark update type to the history date-type used in <history>
+CROSSMARK_UPDATE_TYPE_TO_HISTORY_DATE_TYPE = {
+    "addendum": "addendum",
+    "correction": "corrected",
+    "expression_of_concern": "expression-of-concern",
+    "new_version": "corrected",
+    "partial_retraction": "retracted",
+    "retraction": "retracted",
+    "withdrawal": "withdrawn",
+}
+
 
 def get_timestamp():
     return datetime.now().strftime("%Y%m%d%H%M%S")
@@ -529,6 +556,7 @@ def pipeline_crossref(xml_tree, data, pretty_print=True):
     xml_crossref_doi_pipe(xml_crossref, xml_tree)
     xml_crossref_resource_pipe(xml_crossref, xml_tree)
     xml_crossref_collection_pipe(xml_crossref, xml_tree)
+    xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data)
     xml_crossref_article_citations_pipe(xml_crossref, xml_tree)
     xml_crossref_close_pipe(xml_crossref)
 
@@ -1795,6 +1823,146 @@ def xml_crossref_collection_pipe(xml_crossref, xml_tree):
         xml_crossref.find(
             f"./body/journal/journal_article[@language='{lang}']/doi_data"
         ).append(collection)
+
+
+def xml_crossref_crossmark_pipe(xml_crossref, xml_tree, data):
+    """
+    Adiciona o elemento 'crossmark' ao xml_crossref para cada journal_article.
+
+    O crossmark é gerado a partir dos elementos <related-article> do XML SciELO/JATS
+    cujos tipos podem ser mapeados para tipos de atualização do Crossref.  As datas
+    das atualizações são obtidas a partir dos elementos <history> do artigo (quando
+    disponíveis) ou da data de publicação como fallback.
+
+    Parameters
+    ----------
+    xml_crossref : lxml.etree._Element
+        Elemento XML no padrão CrossRef em construção
+
+    xml_tree : lxml.etree._Element
+        Elemento XML no padrão SciELO com os dados de origem
+
+    data : dict
+        Dicionário com dados suplementares. Aceita a chave:
+        - "crossmark_policy": URL ou DOI da política de Crossmark do publicador.
+          Se ausente ou vazio, a função retorna sem gerar o elemento crossmark.
+
+    Returns
+    -------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <doi_batch ...>
+       <body>
+          <journal>
+             <journal_article language="pt" publication_type="research-article" reference_distribution_opts="any">
+                <doi_data>...</doi_data>
+                <crossmark>
+                   <crossmark_version>1</crossmark_version>
+                   <crossmark_policy>https://www.scielo.br/crossmark-policy</crossmark_policy>
+                   <updates>
+                      <update type="correction">
+                         <doi>10.1590/erratum-doi</doi>
+                         <date media_type="online">
+                            <month>07</month>
+                            <year>2025</year>
+                         </date>
+                      </update>
+                   </updates>
+                </crossmark>
+             </journal_article>
+          </journal>
+       </body>
+    </doi_batch>
+    """
+    crossmark_policy = data.get("crossmark_policy") if data else None
+    if not crossmark_policy:
+        return
+
+    # Collect related-articles with mappable types from the main article
+    updates_data = []
+    xlink_ns = "http://www.w3.org/1999/xlink"
+    for ra in xml_tree.xpath(".//article-meta//related-article"):
+        ra_type = ra.get("related-article-type")
+        update_type = RELATED_ARTICLE_TYPE_TO_CROSSMARK_UPDATE_TYPE.get(ra_type)
+        if update_type is None:
+            continue
+        href = ra.get(f"{{{xlink_ns}}}href")
+        if not href:
+            continue
+        updates_data.append({"type": update_type, "doi": href})
+
+    if not updates_data:
+        return
+
+    # Collect history dates indexed by date-type
+    history_dates = {}
+    for date_node in xml_tree.xpath(".//history//date"):
+        date_type = date_node.get("date-type")
+        if date_type:
+            history_dates[date_type] = {
+                "year": date_node.findtext("year"),
+                "month": date_node.findtext("month"),
+            }
+
+    # Collect publication date as fallback for the update date
+    pub_date = None
+    for pub_node in xml_tree.xpath(
+        ".//pub-date[@date-type='pub' or @pub-type='epub']"
+    ):
+        pub_date = {
+            "year": pub_node.findtext("year"),
+            "month": pub_node.findtext("month"),
+        }
+        break
+
+    # Build the crossmark element
+    crossmark = ET.Element("crossmark")
+
+    crossmark_version = ET.Element("crossmark_version")
+    crossmark_version.text = "1"
+    crossmark.append(crossmark_version)
+
+    policy_el = ET.Element("crossmark_policy")
+    policy_el.text = crossmark_policy
+    crossmark.append(policy_el)
+
+    updates_el = ET.Element("updates")
+    for update_data in updates_data:
+        update = ET.Element("update")
+        update.set("type", update_data["type"])
+
+        doi_el = ET.Element("doi")
+        doi_el.text = update_data["doi"]
+        update.append(doi_el)
+
+        # Determine date: prefer matching history date, fall back to pub_date
+        history_date_type = CROSSMARK_UPDATE_TYPE_TO_HISTORY_DATE_TYPE.get(
+            update_data["type"]
+        )
+        date_info = None
+        if history_date_type and history_date_type in history_dates:
+            date_info = history_dates[history_date_type]
+        elif pub_date:
+            date_info = pub_date
+
+        if date_info and date_info.get("year"):
+            date_el = ET.Element("date")
+            date_el.set("media_type", "online")
+            if date_info.get("month"):
+                month_el = ET.Element("month")
+                month_el.text = date_info["month"]
+                date_el.append(month_el)
+            year_el = ET.Element("year")
+            year_el.text = date_info["year"]
+            date_el.append(year_el)
+            update.append(date_el)
+
+        updates_el.append(update)
+
+    crossmark.append(updates_el)
+
+    # Append crossmark as a sibling of doi_data within each journal_article
+    for journal_article in xml_crossref.findall("./body/journal//journal_article"):
+        journal_article.append(deepcopy(crossmark))
 
 
 def xml_crossref_close_pipe(xml_crossref):

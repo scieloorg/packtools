@@ -661,6 +661,57 @@ class HTMLGeneratorTests(unittest.TestCase):
       self.assertEqual(len(article_header_dois), 1)
 
 
+class HTMLGeneratorCrossmarkTests(unittest.TestCase):
+    def _get_sample(self):
+        return u"""<article article-type="research-article" dtd-version="1.1"
+        specific-use="sps-1.8" xml:lang="en"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <front>
+          <article-meta>
+            <article-id pub-id-type="doi">10.1590/test</article-id>
+          </article-meta>
+        </front>
+      </article>"""
+
+    def test_crossmark_not_present_when_no_policy_page(self):
+        et = get_xml_tree_from_string(self._get_sample())
+        html = domain.HTMLGenerator.parse(et, valid_only=False).generate('en')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+        self.assertNotIn('crossmark', html_string)
+
+    def test_crossmark_script_present_when_policy_page_is_set(self):
+        et = get_xml_tree_from_string(self._get_sample())
+        html = domain.HTMLGenerator.parse(
+            et, valid_only=False,
+            crossmark_policy_page='https://example.org/crossmark-policy'
+        ).generate('en')
+        html_string = etree.tostring(html, encoding='unicode', method='html')
+        self.assertIn(
+            'https://crossmark-cdn.crossref.org/widget/v2.0/widget.js',
+            html_string
+        )
+
+    def test_crossmark_link_present_when_policy_page_is_set(self):
+        et = get_xml_tree_from_string(self._get_sample())
+        html = domain.HTMLGenerator.parse(
+            et, valid_only=False,
+            crossmark_policy_page='https://example.org/crossmark-policy'
+        ).generate('en')
+        crossmark_links = html.xpath('//*[@data-target="crossmark"]')
+        self.assertEqual(len(crossmark_links), 1)
+
+    def test_crossmark_image_present_when_policy_page_is_set(self):
+        et = get_xml_tree_from_string(self._get_sample())
+        html = domain.HTMLGenerator.parse(
+            et, valid_only=False,
+            crossmark_policy_page='https://example.org/crossmark-policy'
+        ).generate('en')
+        crossmark_imgs = html.xpath(
+            '//a[@data-target="crossmark"]//img[contains(@src, "CROSSMARK_Color_horizontal.svg")]'
+        )
+        self.assertEqual(len(crossmark_imgs), 1)
+
+
 class HTMLGeneratorDispFormulaTests(unittest.TestCase):
     def setUp(self):
         self.sample = u"""<article article-type="research-article" dtd-version="1.1"
