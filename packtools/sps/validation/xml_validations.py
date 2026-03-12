@@ -45,6 +45,7 @@ from packtools.sps.validation.accessibility_data import XMLAccessibilityDataVali
 from packtools.sps.validation.app_group import AppValidation
 
 from packtools.sps.validation.supplementary_material import XmlSupplementaryMaterialValidation
+from packtools.sps.validation.history import HistoryValidation
 from packtools.sps.validation.ext_link import ExtLinkValidation
 
 
@@ -305,6 +306,13 @@ def validate_supplementary_materials(xmltree, params):
     validator = XmlSupplementaryMaterialValidation(xmltree, rules)
     yield from validator.validate()
 
+
+def validate_history(xmltree, params):
+    """Validate the <history> element according to SPS 1.10 rules."""
+    rules = {}
+    rules.update(params.get("history_dates_rules", {}))
+    validator = HistoryValidation(xmltree, rules)
+    yield from validator.validate()
 
 def validate_ext_links(xmltree, params):
     """

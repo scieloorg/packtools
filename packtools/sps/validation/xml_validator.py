@@ -57,6 +57,10 @@ def validate_xml_content(xmltree, rules):
         "items": xml_validations.validate_article_dates(xmltree, params),
     }
     yield {
+        "group": "history",
+        "items": xml_validations.validate_history(xmltree, params),
+    }
+    yield {
         "group": "article languages",
         "items": xml_validations.validate_article_languages(xmltree, params),
     }
