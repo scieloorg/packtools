@@ -4,7 +4,11 @@
         "position_error_level": "CRITICAL",
         "label_error_level": "CRITICAL",
         "app_group_error_level": "CRITICAL",
-        "inline_error_level": "CRITICAL",
+        "inline_error_level": "ERROR",
+        "id_error_level": "CRITICAL",
+        "sec_title_error_level": "CRITICAL",
+        "content_error_level": "WARNING",
+        "id_uniqueness_error_level": "ERROR",
         "mime_correspondence": {
             "pdf": "application",
             "zip": "application",
