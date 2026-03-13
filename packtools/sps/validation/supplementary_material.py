@@ -248,7 +248,7 @@ class XmlSupplementaryMaterialValidation:
                     sub_item="@id",
                     is_valid=False,
                     validation_type="unique",
-                    expected=f"Unique @id for each <supplementary-material>",
+                    expected="Unique @id for each <supplementary-material>",
                     obtained=f'Duplicate @id="{suppl_id}"',
                     advice=f'Replace duplicate @id="{suppl_id}" with a unique value in <supplementary-material>.',
                     error_level=self.params["id_uniqueness_error_level"],
