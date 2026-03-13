@@ -135,6 +135,12 @@ class TableWrapTest(unittest.TestCase):
                      '</thead>'
                      '</table>',
             "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+            "graphic_alt_text": None,
+            "graphic_long_desc": None,
+            "has_tr_in_table": False,
+            "has_th_outside_thead": False,
+            "has_td_outside_tbody": False,
+            "has_tbody": False,
         }
         self.assertDictEqual(self.table_wrap_obj.data, expected_data)
 
@@ -252,6 +258,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
@@ -277,6 +289,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 
@@ -318,6 +336,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
@@ -343,6 +367,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 
@@ -388,6 +418,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt02.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
@@ -413,6 +449,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt03.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
@@ -438,6 +480,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt04.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
             {
                 "alternative_elements": ["graphic", "table"],
@@ -463,6 +511,12 @@ class ArticleTableWrappersTest(unittest.TestCase):
                          'table codification'
                          '</table>',
                 "graphic": "1980-5381-neco-28-02-579-gt05.svg",
+                "graphic_alt_text": None,
+                "graphic_long_desc": None,
+                "has_tr_in_table": False,
+                "has_th_outside_thead": False,
+                "has_td_outside_tbody": False,
+                "has_tbody": False,
             },
         ]
 
