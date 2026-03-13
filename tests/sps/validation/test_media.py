@@ -1,105 +1,167 @@
 import unittest
-from lxml import etree
+from unittest.mock import MagicMock
+
 from packtools.sps.validation.media import MediaValidation
-from packtools.sps.models.media import (
-    Media,
-)  # Importando a classe correta para obter media_data
 
 
 class MediaValidationTest(unittest.TestCase):
 
-    def test_validate_id_failure(self):
-        """Fails when @id attribute is missing."""
-        xml_content = """
-        <media mimetype="video" mime-subtype="mp4" xlink:href="video.mp4" 
-               xmlns:xlink="http://www.w3.org/1999/xlink">
-        </media>
-        """
-        media_node = etree.fromstring(xml_content)
-        media_data = Media(media_node).data  # Criando media_data a partir de media_node
-        params = {"media_attributes_error_level": "CRITICAL"}
-
-        validator = MediaValidation(media_node, media_data, params)
-        results = validator.validate_id()
-        self.assertEqual(results["response"], "CRITICAL")
-        self.assertEqual(results["advice"], "Ensure @id is included.")
-
-    def test_validate_mime_type_failure(self):
-        """Fails when @mime-type is invalid."""
-        xml_content = """
-        <media id="m1" mimetype="invalid" mime-subtype="mp4" xlink:href="video.mp4" 
-               xmlns:xlink="http://www.w3.org/1999/xlink">
-        </media>
-        """
-        media_node = etree.fromstring(xml_content)
-        media_data = Media(media_node).data
-        params = {"mime_type_error_level": "CRITICAL"}
-
-        validator = MediaValidation(media_node, media_data, params)
-        results = validator.validate_mime_type()
-        self.assertEqual(results["response"], "CRITICAL")
-        self.assertEqual(
-            results["advice"], "Use a valid @mime-type (application, video, audio)."
-        )
-
-    def test_validate_mime_subtype_failure(self):
-        """Fails when @mime-subtype does not match the expected format."""
-        xml_content = """
-        <media id="m1" mimetype="video" mime-subtype="avi" xlink:href="video.avi" 
-               xmlns:xlink="http://www.w3.org/1999/xlink">
-        </media>
-        """
-        media_node = etree.fromstring(xml_content)
-        media_data = Media(media_node).data
-        params = {"mime_subtype_error_level": "CRITICAL"}
-
-        validator = MediaValidation(media_node, media_data, params)
-        results = validator.validate_mime_subtype()
-        self.assertEqual(results["response"], "CRITICAL")
-        self.assertEqual(results["advice"], "For video, use mp4 as @mime-subtype.")
-
-    def test_validate_xlink_href_failure(self):
-        """Fails when @xlink:href is not in a valid format."""
-        xml_content = """
-        <media id="m1" mimetype="video" mime-subtype="mp4" xlink:href="invalid_file" 
-               xmlns:xlink="http://www.w3.org/1999/xlink">
-        </media>
-        """
-        media_node = etree.fromstring(xml_content)
-        media_data = Media(media_node).data
-        params = {"xlink_href_error_level": "CRITICAL"}
-
-        validator = MediaValidation(media_node, media_data, params)
-        results = validator.validate_xlink_href()
-        self.assertEqual(results["response"], "CRITICAL")
-        self.assertEqual(
-            results["advice"],
-            "Provide a valid file name with its extension in @xlink:href.",
-        )
-
-    def test_validate_accessibility_failure(self):
-        """Fails when no accessibility elements are provided."""
-        xml_content = """
-        <media id="m1" mimetype="video" mime-subtype="mp4" xlink:href="video.mp4" 
-               xmlns:xlink="http://www.w3.org/1999/xlink">
-        </media>
-        """
-        media_node = etree.fromstring(xml_content)
-        media_data = Media(media_node).data
-        params = {
-            "accessibility_error_level": "CRITICAL",
+    def setUp(self):
+        self.params = {
+            "media_attributes_error_level": "CRITICAL",
+            "xlink_href_error_level": "CRITICAL",
+            "valid_extension": ["mp3", "mp4", "zip", "pdf", "xlsx", "docx", "pptx"],
+            "mime_types_and_subtypes": [
+                {"mimetype": "video", "mime-subtype": "mp4"},
+                {"mimetype": "audio", "mime-subtype": "mp3"},
+                {"mimetype": "application", "mime-subtype": "zip"},
+                {"mimetype": "application", "mime-subtype": "pdf"},
+                {"mimetype": "application", "mime-subtype": "xlsx"},
+                {"mimetype": "application", "mime-subtype": "docx"},
+                {"mimetype": "application", "mime-subtype": "pptx"},
+            ],
             "mime_type_error_level": "CRITICAL",
-            "mime_subtype_error_level": "CRITICAL",
-            "alt_text_error_level": "CRITICAL",
-            "long_desc_error_level": "CRITICAL",
-            "transcript_error_level": "CRITICAL",
-            "content_type_error_level": "CRITICAL",
-            "speaker_speech_error_level": "CRITICAL",
         }
 
-        validator = MediaValidation(media_node, media_data, params)
-        results = list(validator.validate())
-        self.assertEqual(len(results), 9)
+    def test_validate_id_failure(self):
+        """Fails when @id attribute is missing."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": None,
+            "xlink_href": "video.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_id()
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIsNone(result["got_value"])
+
+    def test_validate_id_success(self):
+        """Passes when @id attribute is present."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "video.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_id()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_mime_type_and_subtype_failure(self):
+        """Fails when mime-type/mime-subtype combination is invalid."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "video.mp4",
+            "mimetype": "invalid",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_mime_type_and_subtype()
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIsNotNone(result["advice"])
+
+    def test_validate_mime_type_and_subtype_success(self):
+        """Passes when mime-type/mime-subtype combination is valid."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "video.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_mime_type_and_subtype()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_mime_type_and_subtype_audio_failure(self):
+        """Fails when audio has wrong mime-subtype."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "audio.wav",
+            "mimetype": "audio",
+            "mime_subtype": "wav",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_mime_type_and_subtype()
+        self.assertEqual(result["response"], "CRITICAL")
+
+    def test_validate_xlink_href_failure(self):
+        """Fails when @xlink:href has invalid extension."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "invalid_file",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_xlink_href()
+        self.assertEqual(result["response"], "CRITICAL")
+        self.assertIsNotNone(result["advice"])
+
+    def test_validate_xlink_href_success(self):
+        """Passes when @xlink:href has valid extension."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "video.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_xlink_href()
+        self.assertEqual(result["response"], "OK")
+
+    def test_validate_integration_with_mocked_accessibility(self):
+        """Tests full validate() flow with mocked accessibility."""
+        data = {
+            "tag": "media",
+            "xml": "<media></media>",
+            "id": "m1",
+            "xlink_href": "video.mp4",
+            "mimetype": "video",
+            "mime_subtype": "mp4",
+        }
+
+        from packtools.sps.validation import visual_resource_base
+        original = visual_resource_base.AccessibilityDataValidation
+        visual_resource_base.AccessibilityDataValidation = lambda data, params: MagicMock(
+            validate=lambda: iter([{"mocked": True}])
+        )
+
+        try:
+            validator = MediaValidation(data, self.params)
+            results = list(validator.validate())
+            # 1 (mime_type_and_subtype) + 1 (id) + 1 (xlink_href) + 1 (mocked accessibility)
+            self.assertEqual(len(results), 4)
+        finally:
+            visual_resource_base.AccessibilityDataValidation = original
+
+    def test_validate_inline_media_id_not_required(self):
+        """For inline-media, @id is not required."""
+        data = {
+            "tag": "inline-media",
+            "xml": "<inline-media></inline-media>",
+            "id": None,
+            "xlink_href": "document.pdf",
+            "mimetype": "application",
+            "mime_subtype": "pdf",
+        }
+        validator = MediaValidation(data, self.params)
+        result = validator.validate_id()
+        self.assertEqual(result["response"], "OK")
 
 
 if __name__ == "__main__":
