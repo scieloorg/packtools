@@ -3,10 +3,9 @@ Tests for GraphicValidation class according to SPS 1.10 specification.
 
 Tests validation of <graphic> and <inline-graphic> elements including:
 - @id attribute (required for both)
-- @xlink:href attribute (required)
+- @xlink:href attribute (required, with valid file extension)
 - File extensions
 - SVG only in <alternatives>
-- Accessibility elements
 """
 
 import unittest
@@ -17,7 +16,7 @@ from packtools.sps.validation.graphic import GraphicValidation
 
 class TestGraphicValidation(unittest.TestCase):
     """Test validations for <graphic> and <inline-graphic> elements per SPS 1.10."""
-    
+
     def setUp(self):
         """Set up validation parameters for each test."""
         self.params = {
@@ -25,28 +24,10 @@ class TestGraphicValidation(unittest.TestCase):
             "xlink_href_error_level": "ERROR",
             "valid_extension": ["jpg", "png", "tif", "tiff", "jpeg", "svg"],
             "svg_error_level": "ERROR",
-            "alt_text_exist_error_level": "WARNING",
-            "alt_text_content_error_level": "CRITICAL",
-            "alt_text_media_restriction_error_level": "ERROR",
-            "alt_text_duplication_error_level": "WARNING",
-            "decorative_alt_text_error_level": "INFO",
-            "long_desc_exist_error_level": "WARNING",
-            "long_desc_content_error_level": "CRITICAL",
-            "long_desc_minimum_length_error_level": "ERROR",
-            "long_desc_media_restriction_error_level": "ERROR",
-            "long_desc_duplication_error_level": "WARNING",
-            "long_desc_occurrence_error_level": "ERROR",
-            "long_desc_null_incompatibility_error_level": "WARNING",
-            "xref_transcript_error_level": "WARNING",
-            "transcript_error_level": "WARNING",
-            "content_type_error_level": "CRITICAL",
-            "speaker_speech_error_level": "WARNING",
-            "structure_error_level": "CRITICAL",
-            "content_types": ["machine-generated"],
         }
 
     # ========== Tests for @id validation (Rules 1 & 3) ==========
-    
+
     def test_graphic_with_id_passes(self):
         """Test that <graphic> with @id attribute passes validation."""
         xml_content = """
@@ -62,12 +43,13 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_id()
-        
+
         self.assertEqual(result["response"], "OK")
         self.assertEqual(result["got_value"], "g1")
+        self.assertEqual(result["expected_value"], "@id attribute")
 
     def test_graphic_without_id_fails(self):
         """Test that <graphic> without @id attribute fails with CRITICAL error."""
@@ -82,13 +64,14 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_id()
-        
+
         self.assertEqual(result["response"], "CRITICAL")
         self.assertIsNone(result["got_value"])
         self.assertIn("Add id=", result["advice"])
+        self.assertEqual(result["expected_value"], "@id attribute")
 
     def test_inline_graphic_with_id_passes(self):
         """Test that <inline-graphic> with @id attribute passes validation."""
@@ -103,10 +86,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_id()
-        
+
         self.assertEqual(result["response"], "OK")
         self.assertEqual(result["got_value"], "ig1")
 
@@ -123,14 +106,61 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_id()
-        
+
         self.assertEqual(result["response"], "CRITICAL")
         self.assertIsNone(result["got_value"])
 
     # ========== Tests for @xlink:href validation (Rules 2 & 4) ==========
+
+    def test_graphic_missing_xlink_href_fails(self):
+        """
+        Test that <graphic> without @xlink:href returns ERROR without raising TypeError.
+
+        Regression test for the bug where the inherited validate_xlink_href() called
+        os.path.splitext(None) when the attribute was absent, crashing the pipeline.
+        """
+        xml_content = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <body>
+                <fig id="f1">
+                    <graphic id="g1"/>
+                </fig>
+            </body>
+        </article>
+        """
+        tree = etree.fromstring(xml_content.encode())
+        graphics_data = list(XmlGraphic(tree).data)
+
+        validator = GraphicValidation(graphics_data[0], self.params)
+        # Must not raise TypeError
+        result = validator.validate_xlink_href()
+
+        self.assertEqual(result["response"], "ERROR")
+        self.assertIsNone(result["got_value"])
+        self.assertIsNotNone(result["advice"])
+
+    def test_inline_graphic_missing_xlink_href_fails(self):
+        """Test that <inline-graphic> without @xlink:href returns ERROR gracefully."""
+        xml_content = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <body>
+                <p>
+                    <inline-graphic id="ig1"/>
+                </p>
+            </body>
+        </article>
+        """
+        tree = etree.fromstring(xml_content.encode())
+        graphics_data = list(XmlGraphic(tree).data)
+
+        validator = GraphicValidation(graphics_data[0], self.params)
+        result = validator.validate_xlink_href()
+
+        self.assertEqual(result["response"], "ERROR")
+        self.assertIsNone(result["got_value"])
 
     def test_graphic_with_valid_extension_jpg(self):
         """Test that <graphic> with .jpg extension passes validation."""
@@ -147,10 +177,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
         self.assertEqual(result["got_value"], "image.jpg")
 
@@ -169,10 +199,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
 
     def test_graphic_with_valid_extension_png(self):
@@ -190,10 +220,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
 
     def test_graphic_with_valid_extension_tif(self):
@@ -211,10 +241,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
 
     def test_graphic_with_valid_extension_tiff(self):
@@ -232,10 +262,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
 
     def test_inline_graphic_with_valid_extension(self):
@@ -251,10 +281,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "OK")
 
     def test_graphic_with_invalid_extension_fails(self):
@@ -272,10 +302,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         result = validator.validate_xlink_href()
-        
+
         self.assertEqual(result["response"], "ERROR")
         self.assertEqual(result["got_value"], "document.pdf")
 
@@ -301,12 +331,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
-        # Test first graphic (svg)
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = list(validator.validate_svg_in_alternatives())
-        
-        # Should have one result for svg check
+
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "OK")
 
@@ -323,11 +351,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = list(validator.validate_svg_in_alternatives())
-        
-        # Should fail validation
+
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "ERROR")
         self.assertIn("alternatives", results[0]["advice"].lower())
@@ -347,11 +374,10 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = list(validator.validate_svg_in_alternatives())
-        
-        # Should not generate any results (no svg to check)
+
         self.assertEqual(len(results), 0)
 
     def test_svg_case_insensitive(self):
@@ -367,13 +393,35 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = list(validator.validate_svg_in_alternatives())
-        
-        # Should fail even with uppercase .SVG
+
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["response"], "ERROR")
+
+    def test_svg_missing_xlink_href_yields_no_result(self):
+        """
+        Test that validate_svg_in_alternatives yields nothing when @xlink:href is absent.
+
+        Guards the early-return path: no xlink_href → no svg check attempted.
+        """
+        xml_content = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <body>
+                <fig id="f1">
+                    <graphic id="g1"/>
+                </fig>
+            </body>
+        </article>
+        """
+        tree = etree.fromstring(xml_content.encode())
+        graphics_data = list(XmlGraphic(tree).data)
+
+        validator = GraphicValidation(graphics_data[0], self.params)
+        results = list(validator.validate_svg_in_alternatives())
+
+        self.assertEqual(len(results), 0)
 
     # ========== Integration tests ==========
 
@@ -392,12 +440,11 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = [r for r in validator.validate() if r is not None]
-        
-        # All critical checks should pass
-        critical_checks = [r for r in results if r.get("title") in ["@id", "@xlink:href validation"]]
+
+        critical_checks = [r for r in results if r.get("title") in ["@id", "@xlink:href"]]
         for check in critical_checks:
             self.assertEqual(check["response"], "OK")
 
@@ -414,17 +461,41 @@ class TestGraphicValidation(unittest.TestCase):
         """
         tree = etree.fromstring(xml_content.encode())
         graphics_data = list(XmlGraphic(tree).data)
-        
+
         validator = GraphicValidation(graphics_data[0], self.params)
         results = [r for r in validator.validate() if r is not None]
-        
-        # Should have multiple failures
+
         failures = [r for r in results if r.get("response") not in ["OK", None]]
-        
-        # At minimum: missing @id and svg not in alternatives
         failure_titles = [r.get("title") for r in failures]
         self.assertIn("@id", failure_titles)
         self.assertIn("SVG in alternatives", failure_titles)
+
+    def test_complete_validation_no_xlink_href(self):
+        """
+        Integration test: validate() on element with no @xlink:href must not crash.
+
+        Ensures the pipeline receives proper ERROR responses for both missing @id
+        and missing @xlink:href rather than a TypeError propagating up.
+        """
+        xml_content = """
+        <article xmlns:xlink="http://www.w3.org/1999/xlink">
+            <body>
+                <fig id="f1">
+                    <graphic/>
+                </fig>
+            </body>
+        </article>
+        """
+        tree = etree.fromstring(xml_content.encode())
+        graphics_data = list(XmlGraphic(tree).data)
+
+        validator = GraphicValidation(graphics_data[0], self.params)
+        # Must not raise any exception
+        results = [r for r in validator.validate() if r is not None]
+
+        failure_titles = [r.get("title") for r in results if r.get("response") not in ["OK"]]
+        self.assertIn("@id", failure_titles)
+        self.assertIn("@xlink:href", failure_titles)
 
 
 if __name__ == "__main__":

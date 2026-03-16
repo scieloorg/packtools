@@ -310,7 +310,7 @@ def validate_supplementary_materials(xmltree, params):
 def validate_ext_links(xmltree, params):
     """
     Validates ext-link elements according to SPS 1.10 specification.
-    
+
     Validates:
     - Mandatory attributes (@ext-link-type, @xlink:href)
     - URL format (must start with http:// or https://)
@@ -331,13 +331,15 @@ def validate_ext_links(xmltree, params):
 def validate_graphics(xmltree, params):
     """
     Validates <graphic> and <inline-graphic> elements according to SPS 1.10 specification.
-    
+
     Validates:
     - @id attribute (required for both <graphic> and <inline-graphic>)
-    - @xlink:href attribute (required)
+    - @xlink:href attribute (required, with valid file extension)
     - File extensions (.jpg, .jpeg, .png, .tif, .tiff, .svg)
     - .svg only allowed inside <alternatives>
-    - Accessibility elements (<alt-text>, <long-desc>)
+
+    Note: Accessibility validation (<alt-text>, <long-desc>) is handled separately
+    by validate_accessibility_data() via XMLAccessibilityDataValidation.
     """
     graphic_rules = params["graphic_rules"]
     validator = XMLGraphicValidation(xmltree, graphic_rules)
