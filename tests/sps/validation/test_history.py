@@ -354,7 +354,6 @@ class TestRequiredDates(TestCase):
         self.assertEqual(len(results), 2)
         # Both should be valid
         self.assertTrue(all(r["response"] == "OK" for r in results))
-        self.assertTrue(all(r["response"] == "OK" for r in results))
     
     def test_regular_article_missing_received(self):
         """Test that regular articles without received date are invalid."""
@@ -870,3 +869,128 @@ class TestFullValidation(TestCase):
         # All results should be valid (retraction is exempt)
         errors = [r for r in results if r["response"] != "OK"]
         self.assertEqual(len(errors), 0, f"Found errors: {errors}")
+
+
+class TestHistoryDateRulesJsonSchema(TestCase):
+    """Tests for consumption of history_dates_rules JSON configuration schema."""
+
+    RULES = {
+        "error_level": "CRITICAL",
+        "date_list": [
+            {"type": "preprint",    "required": False},
+            {"type": "received",    "required": True},
+            {"type": "resubmitted", "required": False},
+            {"type": "rev-request", "required": True},
+            {"type": "rev-recd",    "required": True},
+            {"type": "accepted",    "required": True},
+            {"type": "pub",         "required": True},
+            {"type": "corrected",   "required": False},
+            {"type": "retracted",   "required": False},
+        ],
+    }
+
+    def test_error_level_propagates_to_all_rules(self):
+        """error_level from JSON is used as default for every rule."""
+        xml = "<article><front><article-meta/></front></article>"
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree, dict(self.RULES))
+
+        for key in (
+            "date_type_presence_error_level",
+            "date_type_value_error_level",
+            "required_date_error_level",
+            "complete_date_error_level",
+            "year_presence_error_level",
+        ):
+            self.assertEqual(validator.params[key], "CRITICAL", f"Expected CRITICAL for {key}")
+
+    def test_required_date_types_built_from_date_list(self):
+        """required_date_types is derived from date_list entries with required=True."""
+        xml = "<article><front><article-meta/></front></article>"
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree, dict(self.RULES))
+
+        expected = {"received", "rev-request", "rev-recd", "accepted", "pub"}
+        self.assertEqual(set(validator.required_date_types), expected)
+
+    def test_non_required_types_not_checked(self):
+        """date_list entries with required=False do not trigger required-date errors."""
+        xml = "<article><front><article-meta/></front></article>"
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree, dict(self.RULES))
+
+        self.assertNotIn("preprint",    validator.required_date_types)
+        self.assertNotIn("resubmitted", validator.required_date_types)
+        self.assertNotIn("corrected",   validator.required_date_types)
+        self.assertNotIn("retracted",   validator.required_date_types)
+
+    def test_validate_required_dates_uses_date_list(self):
+        """validate_required_dates yields one result per required type from date_list."""
+        xml = """
+        <article article-type="research-article">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <day>10</day><month>01</month><year>2024</year>
+                        </date>
+                        <date date-type="accepted">
+                            <day>20</day><month>03</month><year>2024</year>
+                        </date>
+                        <date date-type="rev-request">
+                            <day>01</day><month>02</month><year>2024</year>
+                        </date>
+                        <date date-type="rev-recd">
+                            <day>15</day><month>02</month><year>2024</year>
+                        </date>
+                        <date date-type="pub">
+                            <year>2024</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree, dict(self.RULES))
+        results = list(validator.validate_required_dates())
+
+        # Five required types → five results, all valid
+        self.assertEqual(len(results), 5)
+        self.assertTrue(all(r["response"] == "OK" for r in results))
+
+    def test_missing_required_date_from_date_list(self):
+        """Missing a date type flagged as required in date_list raises an error."""
+        xml = """
+        <article article-type="research-article">
+            <front>
+                <article-meta>
+                    <history>
+                        <date date-type="received">
+                            <day>10</day><month>01</month><year>2024</year>
+                        </date>
+                    </history>
+                </article-meta>
+            </front>
+        </article>
+        """
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree, dict(self.RULES))
+        results = list(validator.validate_required_dates())
+
+        errors = [r for r in results if r["response"] != "OK"]
+        error_titles = [e["title"] for e in errors]
+
+        self.assertIn("required date: accepted",    error_titles)
+        self.assertIn("required date: rev-request", error_titles)
+        self.assertIn("required date: rev-recd",    error_titles)
+        self.assertIn("required date: pub",         error_titles)
+        self.assertNotIn("required date: received", error_titles)
+
+    def test_fallback_when_no_date_list(self):
+        """Without date_list, validator falls back to requiring received and accepted."""
+        xml = "<article><front><article-meta/></front></article>"
+        tree = etree.fromstring(xml)
+        validator = HistoryValidation(tree)
+
+        self.assertEqual(set(validator.required_date_types), {"received", "accepted"})
