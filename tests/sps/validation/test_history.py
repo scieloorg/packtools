@@ -286,7 +286,7 @@ class TestDateTypeValues(TestCase):
         
         self.assertEqual(len(results), 1)
         self.assertNotEqual(results[0]["response"], "OK")
-        self.assertEqual(results[0]["response"], "ERROR")
+        self.assertEqual(results[0]["response"], "CRITICAL")
         self.assertEqual(results[0]["got_value"], "invalid-type")
         self.assertIn("allowed values", results[0]["advice"])
     

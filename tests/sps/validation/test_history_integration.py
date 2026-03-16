@@ -49,7 +49,11 @@ class TestHistoryIntegration(TestCase):
                      f"History group not found. Available groups: {groups}")
     
     def test_history_validation_with_valid_xml(self):
-        """Test that valid history XML passes validation."""
+        """Test that valid history XML passes validation.
+
+        The XML must include all date types marked as required=true in
+        history_dates_rules.json: received, rev-request, rev-recd, accepted, pub.
+        """
         xml = """
         <article article-type="research-article">
             <front>
@@ -57,12 +61,25 @@ class TestHistoryIntegration(TestCase):
                     <history>
                         <date date-type="received">
                             <day>15</day>
-                            <month>03</month>
+                            <month>01</month>
+                            <year>2024</year>
+                        </date>
+                        <date date-type="rev-request">
+                            <day>01</day>
+                            <month>02</month>
+                            <year>2024</year>
+                        </date>
+                        <date date-type="rev-recd">
+                            <day>20</day>
+                            <month>02</month>
                             <year>2024</year>
                         </date>
                         <date date-type="accepted">
                             <day>12</day>
-                            <month>05</month>
+                            <month>03</month>
+                            <year>2024</year>
+                        </date>
+                        <date date-type="pub">
                             <year>2024</year>
                         </date>
                     </history>
