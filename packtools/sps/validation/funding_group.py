@@ -128,12 +128,6 @@ class FundingGroupValidation:
             return
 
         funding_data = self.funding.data
-        parent = {
-            "parent": "article",
-            "parent_id": None,
-            "parent_article_type": funding_data.get("article_type"),
-            "parent_lang": funding_data.get("article_lang"),
-        }
 
         # Collect document-level reference texts (fn elements, ack, etc.)
         # and normalise whitespace to prevent C7 (raw concatenated whitespace
@@ -149,10 +143,32 @@ class FundingGroupValidation:
         # Iterate each <funding-group> individually (C6 fix: each node is
         # evaluated; the second group is no longer silently skipped).
         for fg_node in funding_groups:
+            # Infer parent context from the node itself so that sub-article
+            # scopes are correctly reported (mirrors validate_funding_group_uniqueness).
+            article_meta = fg_node.getparent()
+            parent_elem = article_meta.getparent() if article_meta is not None else None
+            if parent_elem is not None:
+                parent_tag = parent_elem.tag
+                if "}" in parent_tag:
+                    parent_tag = parent_tag.split("}", 1)[1]
+                parent_id = parent_elem.get("id")
+            else:
+                parent_tag = "article"
+                parent_id = None
+            parent = {
+                "parent": parent_tag,
+                "parent_id": parent_id,
+                "parent_article_type": funding_data.get("article_type"),
+                "parent_lang": funding_data.get("article_lang"),
+            }
+
             fs_nodes = fg_node.xpath("funding-statement")
             funding_statement = None
             if fs_nodes:
-                raw = "".join(fs_nodes[0].itertext())
+                # Concatenate text from ALL <funding-statement> nodes in this group
+                # (not just the first) to avoid false-negatives when multiple nodes
+                # are present — mirrors the approach in validate_funding_statement_presence().
+                raw = "".join("".join(node.itertext()) for node in fs_nodes)
                 funding_statement = " ".join(raw.split()) or None
 
             texts = all_texts
@@ -160,6 +176,7 @@ class FundingGroupValidation:
             advice = None
 
             if funding_statement and texts:
+                # Both a <funding-statement> and reference texts exist: compare them.
                 best_score, best_matches = most_similar(
                     similarity(texts, funding_statement, 0.8)
                 )
@@ -170,12 +187,23 @@ class FundingGroupValidation:
                         f"Replace <funding-statement>{funding_statement}</funding-statement>"
                         f" by <funding-statement>{texts[0]}</funding-statement>"
                     )
+            elif funding_statement and not texts:
+                # <funding-statement> is present but no reference texts (fn/ack) were
+                # found to compare against.  We cannot invalidate the statement, so
+                # treat as valid and emit an informational advice only.
+                valid = True
+                advice = (
+                    "No reference texts (fn/ack elements) were found to compare with"
+                    " <funding-statement>. Verify manually that the statement is correct."
+                )
             elif texts:
+                # Reference texts exist but <funding-statement> is absent.
                 advice = (
                     f"Add <funding-statement>{texts[0]}</funding-statement>"
                     " in <funding-group>. Consult SPS documentation for more detail"
                 )
             else:
+                # Neither <funding-statement> nor reference texts are present.
                 advice = (
                     "Add funding statement with <funding-statement> inside"
                     " <funding-group>. Consult SPS documentation for more detail"
@@ -411,7 +439,15 @@ class FundingGroupValidation:
             expected="No <label> elements in <funding-group>",
             obtained=f"{count} <label> element(s) found",
             advice=advice,
-            data={"count": count, "labels": [t for label in labels if (t := " ".join(label.itertext()).strip())]},
+            data={
+                "count": count,
+                "labels": [
+                    text
+                    for label in labels
+                    for text in [" ".join(label.itertext()).strip()]
+                    if text
+                ],
+            },
             error_level=error_level,
         )
 
@@ -457,7 +493,15 @@ class FundingGroupValidation:
             expected="No <title> elements in <funding-group>",
             obtained=f"{count} <title> element(s) found",
             advice=advice,
-            data={"count": count, "titles": [t for title in titles if (t := " ".join(title.itertext()).strip())]},
+            data={
+                "count": count,
+                "titles": [
+                    text
+                    for title in titles
+                    for text in [" ".join(title.itertext()).strip()]
+                    if text
+                ],
+            },
             error_level=error_level,
         )
 

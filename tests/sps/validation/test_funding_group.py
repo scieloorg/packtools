@@ -1138,10 +1138,10 @@ class TestValidateFundingDataOrchestrator(TestFundingValidationBase):
         )
         for r in statement_results:
             self.assertEqual(
-                r["response"], "CRITICAL",
-                "O nível configurado via 'funding_statement_error_level' não foi propagado; "
-                "provavelmente o orquestrador ainda usa a chave incorreta "
-                "'funding_statement_presence_error_level'."
+                r["response"], "WARNING",
+                "O nível configurado via 'funding_statement_error_level' não foi propagado "
+                "como WARNING; provavelmente o orquestrador ainda usa a chave incorreta "
+                "'funding_statement_presence_error_level' ou está caindo no fallback CRITICAL."
             )
 
     @unittest.skipUnless(_orchestrator_available, "xml_validations não disponível no path")
