@@ -1,0 +1,8 @@
+{
+    "graphic_rules": {
+        "media_attributes_error_level": "CRITICAL",
+        "xlink_href_error_level": "ERROR",
+        "valid_extension": ["jpg", "jpeg", "png", "tif", "tiff", "svg"],
+        "svg_error_level": "ERROR"
+    }
+}
